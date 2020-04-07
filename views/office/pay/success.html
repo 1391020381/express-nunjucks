@@ -1,0 +1,37 @@
+<input type="hidden" id="ip-page-id" value="PC-O-PAY-SUC">
+<input type="hidden" id="ip-page-name" value="支付成功页">
+<div class="pw">
+    <!--购买 模块 start -->
+    <div class="carding-vip-main">
+        <!--购买购买vip购买&特权 成功 start -->
+        <div class="carding-info-con">
+            <div class="carding-success-item data-pay-success">
+                <!--详情页流量购买vip成功-->
+                {% if results.list.type == 0 and results.list.fid %}
+                <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>购买成功！欢迎加入爱问共享资料VIP</h2>
+                <p class="pay-bottom-text">相关的VIP专享权益与下载特权已发放至您的账户，您可以在<a style="text-decoration: underline;"
+                        href="/ucenter/mydownloads?u={{results.uid}}" target="_blank">个人中心</a>查看</p>
+                <a class="btn-carding-back pc_click" bilogContent="paySuccessBacDown" href="/f/{{results.list.fid}}.html">返回详细页</a>
+                <!--其他页流量购买vip成功-->
+                {% elif results.list.type == 0 %}
+                <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，成功开通爱问共享VIP</h2>
+                <p class="pay-bottom-text">相关的VIP专享权益与下载特权已发放至您的账户，您可以在<a style="text-decoration: underline;"
+                        href="/ucenter/mydownloads?u={{results.uid}}" target="_blank">个人中心</a>查看</p>
+                <!--详情页流量购买下载特权成功-->
+                {% elif results.list.type == 1 and results.list.fid %}
+                <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，购买成功！</h2>
+                <a class="btn-carding-back pc_click" bilogContent="paySuccessBacDown" href="/f/{{results.list.fid}}.html">返回下载</a>
+                <!--其他页流量购买下载特权成功-->
+                {% elif results.list.type == 1 %}
+                <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，购买成功！</h2>
+                <!--详情页流量购买文档成功-->
+                {% elif results.list.type == 2 %}
+                <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，成功购买该文档，您可以</h2>
+                <a class="btn-carding-back pc_click" bilogContent="paySuccessBacDown" href="/f/{{results.list.fid}}.html">返回下载</a>
+                {% endif %}
+            </div>
+            {% include "common/card.html" %}
+        </div>
+        <!--购买购买vip购买&特权 成功 end -->
+    </div>
+</div>

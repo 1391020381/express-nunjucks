@@ -1,0 +1,45 @@
+var express = require('express');
+var router = express.Router();
+var detailController = require('../controllers/detail');
+var queryOrderController = require("../controllers/queryOrder");
+var error = require('../common/error');
+
+router.get('/node/f/downsucc.html',function(req , res , next){
+    try{
+        console.log("详情页下载成功页面.......",+new Date());
+        detailController.success(req , res);
+    }catch(e){
+        error(req , res , next);
+    }
+});
+
+router.get('/node/f/downfail.html',function(req , res , next){
+    try{
+        console.log("详情页失败页面.......",+new Date());
+        detailController.fail(req , res);
+    }catch(e){
+        error(req , res , next);
+    }
+});
+//资料详情页
+router.get('/f/:id*.html*',function(req , res , next){
+    try{
+        console.log("页面请求开始.......");
+        console.time();
+        detailController.render(req , res);
+        console.timeEnd();
+    }catch(e){
+        error(req , res , next);
+    }
+});
+// 订单查询页
+router.get('/node/queryOrder',function(req , res , next){
+    try{
+        queryOrderController.render(req , res );
+    }catch(e){
+        error(req , res , next);
+        return;
+    }
+});
+
+module.exports = router;

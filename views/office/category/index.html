@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/office/office_category.css">
+</head>
+<script type="text/javascript">
+    var _speedMark = +new Date(),
+        _version = "{{version}}",
+        _head = "{{cdnUrl}}";
+    var _dpData = [];//广告测试
+</script>
+
+<body class="office-body screen-body">
+
+    {% if results.reqParams.flag == 'true' %}
+    <input type="hidden" id="ip-page-id" value="PC-O-FC">
+    <input type="hidden" id="ip-page-name" value="资料分类页">
+    {% else %}
+    <input type="hidden" id="ip-page-id" value="PC-O-SR">
+    <input type="hidden" id="ip-page-name" value="搜索结果页">
+    {% endif %}
+
+    {% include "common/js.html" %}
+    {% include "office/common/office-header.html" %}
+    <div class="pw pw-v cf">
+        <div class="office-crumb search-crumb">
+            {% set len = results.categoryTitle.data.head.length%}
+            {%if len %}
+                {% for item in results.categoryTitle.data.head%}
+                    <a href='/c/{{item.categoryId}}.html' class="crumb-link"
+                        data-categoryId="{{item.categoryId}}">{%if loop.index0===0 %} 首页 {%else%} {{item.categoryName}} {%endif%}</a>
+                    {%if loop.index !== len %}<i class="arrow-crumb"></i>{%endif%}
+                {% endfor %}
+            {%else%}
+                {%if results.reqParams.cond%}
+                    <a href='/c/1818.html' class="crumb-link">首页</a><i class="arrow-crumb"></i>
+                    <a class="crumb-link cursor-no-hand">搜索</a><i class="arrow-crumb"></i>
+                    <a class="crumb-link cursor-no-hand">{{results.reqParams.cond}}</a>
+                {%endif%}
+            {%endif%}
+        </div>
+        <div class="office-screen-con">
+            <div class="screen-nav-wrap">
+                <div class="screen-classify-nav">
+                    {%if results.reqParams.cond%}
+                    <a href="/c/1818.html" class="nav-group active">全部</a>
+                    {%for item in results.navCategorys.data%}
+                    <a href="/c/{{item.categoryId}}.html" data-categoryId="{{item.categoryId}}"
+                        data-parentId="{{item.parentId}}" data-ck="{{item.checked}}" data-index="{{loop.index0}}"
+                        class="nav-group ">{{item.categoryName}}</a>
+                    {%endfor%}
+
+                    {%else%}
+                    {%for item in results.categoryTitle.data.navCategorys%}
+                    {%if loop.index ==1 %}
+                    <a href="/c/{{item.parentId}}.html"
+                        class="nav-group {%if item.parentId== results.reqParams.cid%} active {elif item.checked} active {%else%} {%endif%} ">全部</a>
+                    {%endif%}
+                    <a href="/c/{{item.categoryId}}.html" data-categoryId="{{item.categoryId}}"
+                        data-parentId="{{item.parentId}}" data-ck="{{item.checked}}" data-index="{{loop.index0}}"
+                        class="nav-group {%if item.categoryId== results.reqParams.cid%} active  {%elif item.checked%} active  {%else%}  {%endif%}">{{item.categoryName}}</a>
+                    {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+            <div class="screen-item">
+                {%if results.reqParams.cond%}
+                <span class="screen-title">格式：</span>
+                <div class="screen-list cf screen-list-search">
+                    <span class="screen-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}"
+                        data-type="all">全部</span>
+                    <span class="screen-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}"
+                        data-type="doc">Word</span>
+                    <span class="screen-ele {%if 'excel'== results.reqParams.fileType%} active {%endif%}"
+                        data-type="excel">Excel</span>
+                    <span class="screen-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}"
+                        data-type="ppt">PPT</span>
+                </div>
+                {%else%}
+                {%if results.categoryTitle.data.subCategorys.length%}
+                <span class="screen-title">分类：</span>
+                <div class="screen-list cf">
+                    {%for item in results.categoryTitle.data.subCategorys%}
+                    {%if loop.index ==1 %}
+                    <a href="/c/{{item.parentId}}.html"
+                        class="screen-ele {%if item.parentId== results.reqParams.cid%} active {%endif%} ">全部</a>
+                    {%endif%}
+                    <a href="/c/{{item.categoryId}}.html" class="screen-ele  {{ 'active' if item.checked }}">{{item.categoryName}}</a>
+                    {%endfor%}
+                </div>
+                {%endif%}
+                {%endif%}
+            </div>
+
+            {%if results.reqParams.cond==''%}
+            {%for item in results.categoryTitle.data.specificsInfos%}
+            <div class="screen-item list-attribute">
+                <span class="screen-title">{{item.specificsName}}：</span>
+                <div class="screen-list cf">
+                    {%for v in item.subSpecificsList%}
+                    <a href="/c/{{v.uri}}.html" data-uri="{{v.uri}}"
+                        class="screen-ele {{ 'active' if v.checked}}">{{v.subName}}</a>
+                    {%endfor%}
+                </div>
+            </div>
+            {%endfor%}
+            {%endif%}
+
+            {% if results.reqParams.cond%}
+                {% if results.hotWords.data.length%}
+                    <div class="office-association">
+                        <div class="association-title">你要找的是不是：</div>
+                        <div class="association-item">
+                            <ul class="association-list">
+                                {%for item in results.hotWords.data%}
+                                <li><a>{{item}}</a></li>
+                                {%endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                {%endif%}
+            {%endif%}
+        </div>
+        <div class="office-classify-item">
+            <div class="office-list-nav cf">
+                <a class="nav-ele  {{'current' if results.reqParams.order==='all'  }}" data-order="all">综合排序</a>
+                <span class="nav-line"></span>
+                <a class="nav-ele  {%if results.reqParams.order==='download'%} current {%endif%}"
+                    data-order="download">热门下载</a>
+                <span class="nav-line"></span>
+                <a class="nav-ele {%if results.reqParams.order==='date'%} current {%endif%}" data-order="date">最新上传</a>
+            </div>
+            {%if results.contents.data.officeCategory.officeFileDetails.length>0%}
+            <ul class="office-list cf">
+                {%for item in results.contents.data.officeCategory.officeFileDetails%}
+                <li>
+                    <a href="/f/{{item.file.id}}.html" target="_blank">
+                        <div class="data-pic first-collect">
+                            {% if item.file.fileSmallPic%}
+                            <img src="//pic.iask.com.cn/{{item.file.fileSmallPic}}">
+                            {%else%}
+                            <img src="{{cdnUrl}}/images/upload/pic_office_data_277x384.jpg">
+                            {%endif%}
+                            <div class="data-pic-more">
+                                <div class="pic-mask"></div>
+                                <span class="btn-pic-xx" data-id="{{item.file.id}}">
+                                    <div class="mask-xx"></div>
+                                    <i class="icon-xx"></i>
+                                </span>
+                                <div class="office-collect-info">
+                                    <div class="bg-mask"></div>
+                                    <p></p>
+                                </div>
+                                <span class="btn-data-download">立即下载</span>
+                            </div>
+                        </div>
+                        <div class="data-text-con second-collect">
+                            <span class="data-name">{{item.file.title}}</span>
+                            <div class="op-bar cf">
+                                <div class="op-con">
+                                    <span class="btn-op btn-goods"><i class="icon-op"></i><span id="num">{{item.likeNum}}</span></span>
+                                    <span class="btn-op btn-xx btn-collect" data-id="{{item.file.id}}"><i
+                                            class="icon-op"></i><span id="enshrineNum">{{item.enshrineNum}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {%endfor%}
+            </ul>
+            <div class="office-page-paging mt40">
+                <a class="btn-page-long" style="display: none;">首页</a>
+                <a class="btn-page" style="display: none;">上一页</a>
+                {%if  results.reqParams.pageIndexArr.length>1%}
+
+                {%for item in results.reqParams.pageIndexArr%}
+                <a class="page-ele {%if loop.index == results.reqParams.page%} active {%endif%}" value="{{loop.index}}"
+                    style="display: none">
+                    {{loop.index}}
+                </a>
+                {%endfor%}
+                <a class="btn-page-long">下一页</a>
+                <a class="btn-page">尾页</a>
+                {%endif%}
+            </div>
+            {%else%}
+            <div class="office-list-none">
+                <div class="office-list-none-container">
+                    <div class="none-img"><img src="{{cdnUrl}}/images/office/icon_office_list_none.png"></div>
+                    <div class="none-text">
+                        <p>很遗憾，没有搜到"<span>{{results.reqParams.cond}}</span>"相关的资料</p>
+                        <p>别灰心，可以在爱问共享资料搜索看</p>
+                    </div>
+                    <a class="none-btn" data-cond="{{results.reqParams.cond}}">去搜索</a>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+    {% include "office/common/office-footer.html" %}
+    {% include "office/common/office-right.html" %}
+    <script>
+        window.pageConfig = {
+            page:{
+                ptype : document.location.href.indexOf('/c')?'officeCate':'officeSearch'
+            },
+            reqParams: {
+                index: '{{results.reqParams.index}}',
+                cid: '{{results.reqParams.cid}}',
+                page: '{{results.reqParams.page}}',
+                specifics: '{{results.reqParams.specifics}}',
+                fileType: '{{results.reqParams.fileType}}',
+                cond: '{{results.reqParams.cond}}',
+                order: '{{results.reqParams.order}}',
+                totalPage: '{{results.contents.data.officeCategory.page}}',
+                subUrl: '{{results.reqParams.subUrl}}'
+            },
+            classIds: '{{results.classIds}}',
+            report: {},
+            params:{
+                isVip:0,
+            }
+        }
+    </script>
+    <script>
+        seajs.use(["dist/application/app.js", "dist/office/search/init.js"])
+    </script>
+    <!-- 百度统计代码 -->
+    <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+    <script src="{{staticUrl}}/baidu-office.js"> </script>
+</body>
+
+</html>

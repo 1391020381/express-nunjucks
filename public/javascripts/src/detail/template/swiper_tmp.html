@@ -1,0 +1,13 @@
+{{each data as value i}}
+<div class="swiper-slide">
+    <img class="swiper-lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="{{data[i].imgSrc}}" alt="" style="width: 100%;height:auto;">
+    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+</div>
+{{/each}}
+<div class="swiper-slide">
+    <div class="full-info">
+        <div class="full-info-con">
+            <p class="page-over-title">【全文完】</p>
+        </div>
+    </div>
+</div>

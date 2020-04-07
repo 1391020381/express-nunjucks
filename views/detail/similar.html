@@ -1,0 +1,142 @@
+<div class="w300 fr">
+    <div id="fix-right">
+        <div class="related-data pc_click" pcTrackContent="relateFiles-new">
+            <h2 class="related-data-title">
+                相关资料
+                <span class="slider-control">
+                    {% if results.RelevantInformationList.data.length >16 and results.list.data.perMin == '3' %}
+                    <a class="btn-c btn-prev btn-disable"></a>
+                    <a class="btn-c btn-next"></a>
+                    {% endif %}
+                    {% if results.RelevantInformationList.data.length >12 and results.list.data.perMin != '3' %}
+                    <a class="btn-c btn-prev btn-disable"></a>
+                    <a class="btn-c btn-next"></a>
+                    {% endif %}
+
+                </span>
+            </h2>
+            <ul class="related-data-list">
+                {% for item in results.RelevantInformationList.data%}
+                {% if results.list.data.perMin != '3' %}
+                {% if loop.index0 === 1 %}
+                <li class="r_a_li">
+                    <i class="ico-data icon-link"></i>
+                    <div class="tui-link">
+                        <!--  广告位：PC端-ishare-详细页-右侧文字链1-298*28-0620  -->
+                        <script>
+                            (function () {
+                                var s = "_" + Math.random().toString(36).slice(2);
+                                document.write('<div  id="' + s + '"></div>');
+                                (window.slotbydup = window.slotbydup || []).push({
+                                    id: '6307749',
+                                    container: s,
+                                    size: '298,28',
+                                    display: 'inlay-fix'
+                                });
+                                _dpData[5] = 1;
+                            })();
+                        </script>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% if loop.index0 === 3 %}
+                <li class="r_a_li">
+                    <i class="ico-data icon-link"></i>
+                    <div class="tui-link">
+                        <!--  广告位：PC端-ishare-详细页-右侧文字链2-298*28-0620  -->
+                        <script>
+                            (function () {
+                                var s = "_" + Math.random().toString(36).slice(2);
+                                document.write('<div  id="' + s + '"></div>');
+                                (window.slotbydup = window.slotbydup || []).push({
+                                    id: '6307752',
+                                    container: s,
+                                    size: '298,28',
+                                    display: 'inlay-fix'
+                                });
+                                _dpData[6] = 1;
+                            })();
+                        </script>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% if loop.index0 === 9 %}
+                <li class="r_a_li hide">
+                    <i class="ico-data icon-link"></i>
+                    <div class="tui-link">
+                        <!--  广告位：PC端-ishare-详细页-右侧文字链3-298*28-0620  -->
+                        <script>
+                            (function () {
+                                var s = "_" + Math.random().toString(36).slice(2);
+                                document.write('<div  id="' + s + '"></div>');
+                                (window.slotbydup = window.slotbydup || []).push({
+                                    id: '6307754',
+                                    container: s,
+                                    size: '298,28',
+                                    display: 'inlay-fix'
+                                });
+                                _dpData[7] = 1;
+                            })();
+                        </script>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% if loop.index0 === 11 %}
+                <li class="r_a_li hide">
+                    <i class="ico-data icon-link"></i>
+                    <div class="tui-link">
+                        <!--  广告位：PC端-ishare-详细页-右侧文字链4-298*28-0620  -->
+                        <script>
+                            (function () {
+                                var s = "_" + Math.random().toString(36).slice(2);
+                                document.write('<div  id="' + s + '"></div>');
+                                (window.slotbydup = window.slotbydup || []).push({
+                                    id: '6307757',
+                                    container: s,
+                                    size: '298,28',
+                                    display: 'inlay-fix'
+                                });
+                                _dpData[8] = 1;
+                            })();
+                        </script>
+                    </div>
+                </li>
+                {% endif %}
+                {% endif %}
+
+                <li
+                    class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} ">
+                    <i class="ico-data ico-{{item.format}}"></i>
+                    <a href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
+                        <div class="cf">
+                            <p class="data-name fl">{{item.name}}</p>
+                            <i class="icon-detail {% if results.list.data.isExcellent == 0 %} icon-y {% endif %} "></i>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if results.list.data.perMin != 3%}
+        <div class="tui-box-shadow" id="ag-rh-04">
+            <!--  广告位：PC端-ishare-详细页-右边第一个方块300*350-0620  -->
+            <script>
+                (function () {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup = window.slotbydup || []).push({
+                        id: '6307759',
+                        container: s,
+                        size: '300,350',
+                        display: 'inlay-fix'
+                    });
+                    _dpData[9] = 1;
+                })();
+            </script>
+        </div>
+        {% endif %}
+    </div>
+</div>

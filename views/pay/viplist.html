@@ -1,0 +1,511 @@
+<input type="hidden" id="ip-page-id" value="PC-M-PAY-VIP-L">
+<input type="hidden" id="ip-page-name" value="支付页-VIP-套餐列表页">
+<div class="pw">
+    <div class="data-info-wrap">
+        <p style="padding-left: 12px;" class="vip-title  {{ 'show' if query.showTips==1 else 'hide' }}" ><i class="ico-data ico-{{results.format}}"></i><span>《{{results.title|cutStr(len=20)}}》</span>为VIP专享资料，开通VIP，您可以获取此资料以及更多其他同类资料！</p>
+        <p style="padding-left: 12px;" class="vip-title {{ 'show' if query.showTips==2 else 'hide' }}"><i class="ico-data ico-{{results.format}}"></i><span>《{{results.title|cutStr(len=20)}}》</span>为下载券资料，你的下载券不足，开通VIP，你可以获取此资料以及更多其他同类资料！</p>
+        <p class="vip-title isVip-show hide">您的VIP将于<span id="vip_exp_time"></span>到期，续费VIP权益将于当前权益结束后生效</p>
+    </div>
+    <div class="carding-vip-main">
+        <div class="carding-vip-con">
+            <div class="js-tab">
+                <ul class="pay-screen-list pay-vip-list carding-vip-list cf">
+                    {% for item in results.list.data %}
+                    <li class="ui-tab-nav-item {% if loop.index==1 %}active{% endif %}" data-month="{{item.name}}" data-price="{{item.sellPrice/100}}" data-activeprice="{{item.sellPrice/100}}" data-discountprice="{{item.discountPrice}}"  data-actids="{{item.activityId}}" data-index="{{loop.index0}}" data-vid="{{item.id}}">
+                        <div class="pay-vip-item pay-carding-item">
+                            <p class="vip-time">{{item.title}}</p>
+                            <p class="vip-price">&yen; <strong>{{item.sellPrice/100}}</strong></p>
+                             <p>{{item.subtitle}}</p>
+                            <i class="icon-active"></i>
+                            {% if item.tag %}
+                                <i class="icon-activity" style="display: block;">{{item.tag}}</i>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+                    <div class="ui-tab-content">
+                    <div class="carding-rewords">
+                        <ul class="carding-rewords-icon  cf" data-index="0">
+                            {% for member in results.list.data[0].members %}
+                                {% if 'privilegeNum' == member.code%}
+                                 <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/1.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        {{member.desc}}
+                                    </div>
+                                    <div class="vip-txt">
+                                        {%if member.type==1%}
+                                             {{member.value}}个/天
+                                        {%elif member.type==2%}
+                                             {{member.value}}个/月
+                                        {%elif member.type==3%}
+                                             {{member.value}}次
+                                        {%endif%}
+                                        <div class="item-wrap-img">
+                                            <img src="{{cdnUrl}}/images/tip.png">
+                                            <div class="item-wrap-dialog">
+                                                <div class="drop">&nbsp;</div>
+                                                <div class="item-wrap-des">
+                                                    <div class="item-text">
+                                                        <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </li>
+                                {% elif 'freeDownloadNum' == member.code %}
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/2.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        {{member.desc}}
+                                    </div>
+                                    <div class="vip-txt">
+                                        {%if member.type==1%}
+                                            {{member.value}}篇/天
+                                        {%elif member.type==2%}
+                                            {{member.value}}篇/月
+                                        {%elif member.type==3%}
+                                            {{member.value}}篇
+                                        {%endif%}
+                                    </div>
+                                 </li>
+                            {% elif 'payDiscount' == member.code %}
+                                 <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/3.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        {{member.desc}}
+                                    </div>
+                                    <div class="vip-txt">
+                                        {{member.value/10}}折
+                                    </div>
+                                 </li>
+                                {%endif%}
+                            {% endfor %}
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/13.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        身份标识
+                                    </div>
+                                    <div class="vip-txt">
+                                        会员身份
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/14.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        会员活动
+                                    </div>
+                                    <div class="vip-txt">
+                                        入场资格
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/9.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        推荐内容
+                                    </div>
+                                    <div class="vip-txt">
+                                        每月精选
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/4.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        文本资料
+                                    </div>
+                                    <div class="vip-txt">
+                                        可复制
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="picture">
+                                        <img src="{{cdnUrl}}/images/rights/8.png">
+                                    </div>
+                                    <div class="vip-des">
+                                        多终端互通
+                                    </div>
+                                    <div class="vip-txt"> </div>
+                                </li>
+                        </ul>
+                        <ul class="carding-rewords-icon hide cf" data-index="1">
+                            {% for member in results.list.data[1].members %}
+                            {% if 'privilegeNum' == member.code%}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/1.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}个/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}个/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}次
+                                    {%endif%}
+                                    <div class="item-wrap-img">
+                                        <img src="{{cdnUrl}}/images/tip.png">
+                                        <div class="item-wrap-dialog">
+                                            <div class="drop">&nbsp;</div>
+                                            <div class="item-wrap-des">
+                                                <div class="item-text">
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% elif 'freeDownloadNum' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/2.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}篇/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}篇/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}篇
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {% elif 'payDiscount' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/3.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {{member.value/10}}折
+                                </div>
+                            </li>
+                            {%endif%}
+                            {% endfor %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/13.png">
+                                </div>
+                                <div class="vip-des">
+                                    身份标识
+                                </div>
+                                <div class="vip-txt">
+                                    会员身份
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/14.png">
+                                </div>
+                                <div class="vip-des">
+                                    会员活动
+                                </div>
+                                <div class="vip-txt">
+                                    入场资格
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/9.png">
+                                </div>
+                                <div class="vip-des">
+                                    推荐内容
+                                </div>
+                                <div class="vip-txt">
+                                    每月精选
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/4.png">
+                                </div>
+                                <div class="vip-des">
+                                    文本资料
+                                </div>
+                                <div class="vip-txt">
+                                    可复制
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/8.png">
+                                </div>
+                                <div class="vip-des">
+                                    多终端互通
+                                </div>
+                                <div class="vip-txt"> </div>
+                            </li>
+                        </ul>
+                        <ul class="carding-rewords-icon hide cf" data-index="2">
+                            {% for member in results.list.data[2].members %}
+                            {% if 'privilegeNum' == member.code%}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/1.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}个/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}个/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}次
+                                    {%endif%}
+                                    <div class="item-wrap-img">
+                                        <img src="{{cdnUrl}}/images/tip.png">
+                                        <div class="item-wrap-dialog">
+                                            <div class="drop">&nbsp;</div>
+                                            <div class="item-wrap-des">
+                                                <div class="item-text">
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% elif 'freeDownloadNum' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/2.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}篇/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}篇/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}篇
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {% elif 'payDiscount' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/3.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {{member.value/10}}折
+                                </div>
+                            </li>
+                            {%endif%}
+                            {% endfor %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/13.png">
+                                </div>
+                                <div class="vip-des">
+                                    身份标识
+                                </div>
+                                <div class="vip-txt">
+                                    会员身份
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/14.png">
+                                </div>
+                                <div class="vip-des">
+                                    会员活动
+                                </div>
+                                <div class="vip-txt">
+                                    入场资格
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/9.png">
+                                </div>
+                                <div class="vip-des">
+                                    推荐内容
+                                </div>
+                                <div class="vip-txt">
+                                    每月精选
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/4.png">
+                                </div>
+                                <div class="vip-des">
+                                    文本资料
+                                </div>
+                                <div class="vip-txt">
+                                    可复制
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/8.png">
+                                </div>
+                                <div class="vip-des">
+                                    多终端互通
+                                </div>
+                                <div class="vip-txt"> </div>
+                            </li>
+                        </ul>
+                        <ul class="carding-rewords-icon hide cf" data-index="3">
+                            {% for member in results.list.data[3].members %}
+                            {% if 'privilegeNum' == member.code%}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/1.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}个/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}个/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}次
+                                    {%endif%}
+                                    <div class="item-wrap-img">
+                                        <img src="{{cdnUrl}}/images/tip.png">
+                                        <div class="item-wrap-dialog">
+                                            <div class="drop">&nbsp;</div>
+                                            <div class="item-wrap-des">
+                                                <div class="item-text">
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% elif 'freeDownloadNum' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/2.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {%if member.type==1%}
+                                    {{member.value}}篇/天
+                                    {%elif member.type==2%}
+                                    {{member.value}}篇/月
+                                    {%elif member.type==3%}
+                                    {{member.value}}篇
+                                    {%endif%}
+                                </div>
+                            </li>
+                            {% elif 'payDiscount' == member.code %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/3.png">
+                                </div>
+                                <div class="vip-des">
+                                    {{member.desc}}
+                                </div>
+                                <div class="vip-txt">
+                                    {{member.value/10}}折
+                                </div>
+                            </li>
+                            {%endif%}
+                            {% endfor %}
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/13.png">
+                                </div>
+                                <div class="vip-des">
+                                    身份标识
+                                </div>
+                                <div class="vip-txt">
+                                    会员身份
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/14.png">
+                                </div>
+                                <div class="vip-des">
+                                    会员活动
+                                </div>
+                                <div class="vip-txt">
+                                    入场资格
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/9.png">
+                                </div>
+                                <div class="vip-des">
+                                    推荐内容
+                                </div>
+                                <div class="vip-txt">
+                                    每月精选
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/4.png">
+                                </div>
+                                <div class="vip-des">
+                                    文本资料
+                                </div>
+                                <div class="vip-txt">
+                                    可复制
+                                </div>
+                            </li>
+                            <li>
+                                <div class="picture">
+                                    <img src="{{cdnUrl}}/images/rights/8.png">
+                                </div>
+                                <div class="vip-des">
+                                    多终端互通
+                                </div>
+                                <div class="vip-txt"> </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% include "common/couponOperate.html" %}
+            </div>
+            
+            <p class="price-text-con">应付金额：<strong id="activePrice" class="price">{{results.list.data[0].sellPrice/100}}</strong>元</p>
+            <a href="javascript:;" data-page="vip" class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payVip">立即支付</a>
+            <a class="btn-vip-order-done hide pc_click" pcTrackContent="orderDone">下单成功</a>
+            <a class="btn-vip-order-fail hide pc_click" pcTrackContent="orderFail">下单失败</a>
+            <a class="btn-vip-item-selected hide pc_click">选中套餐</a>
+            <a  class="vip-protocol clearfix" href="//iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《爱问共享会员服务协议》</a>
+        </div>
+    </div>
+</div>

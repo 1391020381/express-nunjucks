@@ -1,0 +1,306 @@
+<div class="doc-main-br w890 mr10 fl">
+    <div class="doc-main">
+        <div class="detail-box">
+            <div class="detail-top-box">
+                {% if results.list.data.owner.perMin !== '3' %}
+                <a class="tui-open-vip js-buy-open pc_click" pcTrackContent="joinVip-0" data-type="vip"><img
+                        src="{{cdnUrl}}/images/tui_open.gif"></a>
+                {% endif %}
+                <h2 class="data-title">
+                    <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>
+                    {{results.list.data.title.substr(0,30)}}
+                </h2>
+                <div class="detail-user-bar cf">
+                    <a class="user-name" href="/u/{{results.list.data.owner.id}}.html">
+                        <div class="user-pic">
+                            {%if results.list.data.owner.photoPicURL%}
+                            <img src="{{results.list.data.owner.photoPicURL}}">
+                            {%else%}
+                            <img src="{{cdnUrl}}/images/new_detail/pic_detail_no_login.jpg" />
+                            {%endif%}
+                        </div>
+                        <span class="user-text">{{results.list.data.owner.nickName}}</span>
+                        <i class="icon-q-v"></i>
+                    </a>
+                    <span class="line"></span>
+                    <span>{{results.list.data.time}}</span>
+                    <span class="line"></span>
+                    <span><em>{{results.fileExternal.data.starScore}}</em>分</span>
+                    <span class="line"></span>
+                    <span><em>{{results.fileExternal.data.readNum}}</em>人阅读</span>
+                    <a class="report-link"><i class="icon-report"></i>侵权/举报</a>
+                    <span class="line"></span>
+
+                </div>
+            </div>
+            {% if results.list.data.perMin != 3 %}
+            <!--左侧标题下方广告位-->
+            <!--  广告位：PC端-ishare-详细页-左侧标题下870*95-0620  -->
+            <div class="tui-detail-02">
+                <script>
+                    (function () {
+                        var s = "_" + Math.random().toString(36).slice(2);
+                        document.write('<div  id="' + s + '"></div>');
+                        (window.slotbydup = window.slotbydup || []).push({
+                            id: '6307538',
+                            container: s,
+                            size: '870,95',
+                            display: 'inlay-fix'
+                        });
+                        _dpData[0] = 1;
+                    })();
+                </script>
+            </div>
+            {% endif %}
+            <!--文章内容模块 start-->
+            <div class="detail-main">
+                <div class="detail-reader">
+                    <span class="reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></span>
+                    <div class="detail-reader-con detail-pro-con">
+                        <!--付费文档图标 -->
+                        {% if results.list.data.perMin == 3%}
+                        <div class="icon-detail-wrap">
+                            <p class="icon-text">付费资料</p>
+                            <div class="icon-detail-more">
+                                <div class="icon-detail-inter">
+                                    <i class="before"></i>
+                                    <i class="after"></i>
+                                    <p>付费资料是一类需要单独购买的资料。非VIP用户原价购买，VIP用户可以享受8折的优惠价格。</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% elif results.list.data.vipFreeFlag == 1 %}
+                        <!-- vip专享图标 -->
+                        <div class="icon-detail-wrap icon-vip-share-wrap">
+                            <p class="icon-text">VIP专享资料</p>
+                            <div class="icon-detail-more">
+                                <div class="icon-detail-inter">
+                                    <i class="before"></i>
+                                    <i class="after"></i>
+                                    <p>VIP专享资料仅供VIP用户下载，需要消耗下载特权。非VIP用户无法下载此类资料</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif%}
+
+                        {% if results.list.data.isConvert !== 0 %}
+                        <div class="{{ 'font-detail-con' if results.list.data.format === 'txt' else 'ppt-pic-con'}}">
+                            {% for item in results.list.data.fileContentList.slice(0,results.filePreview.data.initReadPage) %}
+                            {%if results.list.data.format === 'txt' %}
+                            <div class="detail-con first-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if loop.index === 1 %} other-format-style-first {%else%} other-format-style {%endif%}">
+                                        {{item | safe}}
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            {%if results.list.data.svgFlag%}
+                            {%if results.list.data.supportSvg%}
+                            <div class="detail-con third-style  article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <embed src="{{results.list.data.svgPathList[loop.index0]}}" width="100%"
+                                            height="100%" type="image/svg+xml"
+                                            pluginspage="//www.adobe.com/svg/viewer/install/" />
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div
+                                class="detail-con second-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <img class="img-png lazy" src="{{item}}" style="width: 100%;height: 100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            {%else%}
+                            <div class="detail-con second-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <img class="img-png lazy" src="{{item}}" style="width: 100%;height: 100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            {%endif%}
+
+
+                            <!-- 广告开始 -->
+                            {% if results.list.data.perMin != '3'%}
+                            {% if loop.index0 === 0  %}
+                            <div class="tui-detail">
+                                <!--  广告位：PC端-ishare-详细页-翻页处1-890*100-0620  -->
+                                <script>
+                                    (function () {
+                                        var s = "_" + Math.random().toString(36).slice(2);
+                                        document.write('<div  id="' + s + '"></div>');
+                                        (window.slotbydup = window.slotbydup || []).push({
+                                            id: '6307742',
+                                            container: s,
+                                            size: '890,100',
+                                            display: 'inlay-fix'
+                                        });
+                                        _dpData[1] = 1;
+                                    })();
+                                </script>
+                            </div>
+                            {% elif loop.index0 === 1  %}
+                            <div class="tui-detail">
+                                <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
+                                <script>
+                                    (function () {
+                                        var s = "_" + Math.random().toString(36).slice(2);
+                                        document.write('<div  id="' + s + '"></div>');
+                                        (window.slotbydup = window.slotbydup || []).push({
+                                            id: '6307745',
+                                            container: s,
+                                            size: '886,100',
+                                            display: 'inlay-fix'
+                                        });
+                                        _dpData[2] = 1;
+                                    })();
+                                </script>
+                            </div>
+                            {% elif loop.index0 === 2 %}
+                            <div class="tui-detail hide-ad" style="display: none">
+                                <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
+                                <script>
+                                    (function () {
+                                        var s = "_" + Math.random().toString(36).slice(2);
+                                        document.write('<div  id="' + s + '"></div>');
+                                        (window.slotbydup = window.slotbydup || []).push({
+                                            id: '6307747',
+                                            container: s,
+                                            size: '886,100',
+                                            display: 'inlay-fix'
+                                        });
+                                    })();
+                                </script>
+                            </div>
+                            {%endif%}
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--文章内容模块 end-->
+        </div>
+    </div>
+    <!--底部购买信息 start -->
+    <div class="detail-footer" id="littleApp">
+
+        <div class="detail-state">
+            {% if results.list.data.isConvert == 0  %}
+            <div class="detail-footer-info">转码失败，如需要继续阅读，敬请下载！</div>
+            {%endif%}
+            {% include "detail/middleBtn.html" %}
+        </div>
+
+        <div class="state-bottom">
+            {% if results.list.data.isConvert !== 0 %}
+            <a class="data-page show-more-text btn-read-more pc_click" pcTrackContent="pageTurning-1"
+                data-toggle="btnReadMore">
+                <p class="page-text">还剩<em class="page-num">{%if results.filePreview.data.is360page %}
+                        {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
+                        {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，点击可<span class="red-color">继续阅读</span></p>
+                <i class="icon-detail"></i>
+            </a>
+            {%if results.list.data.isDownload ==='y' %}
+            <p class="detail-footer-info show-over-text" style="display:none;">试读结束，下载后阅读全文</p>
+            <p class="detail-footer-info show-over-text" style="display:none;">阅读结束，下载到本地随时阅读</p>
+            {%endif%}
+            {%endif%}
+            {% if results.list.data.perMin != 3%}
+            <div class="state-tui">
+                <!-- 广告位：PC端-ishare-详细页-继续阅读下-400*40-0620 -->
+                <script>
+                    (function () {
+                        var s = "_" + Math.random().toString(36).slice(2);
+                        document.write('<div id="' + s + '"></div>');
+                        (window.slotbydup = window.slotbydup || []).push({
+                            id: '6315250',
+                            container: s,
+                            size: '400,40',
+                            display: 'inlay-fix'
+                        });
+                        _dpData[3] = 1;
+                    })();
+                </script>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if results.list.data.perMin != 3%}
+    <div class="tui-detail">
+        <!-- 广告位：PC端-ishare-详细页-下载处-870*250-0620 -->
+        <script>
+            (function () {
+                var s = "_" + Math.random().toString(36).slice(2);
+                document.write('<div id="' + s + '"></div>');
+                (window.slotbydup = window.slotbydup || []).push({
+                    id: '6307765',
+                    container: s,
+                    size: '870,250',
+                    display: 'inlay-fix'
+                });
+                _dpData[4] = 1;
+            })();
+        </script>
+    </div>
+    {% endif %}
+    <div class="evaluate-con">
+        <h2 class="evaluate-title">
+            {%if results.commentList and results.commentList.length > 0 %}
+            用户评价<span class="commentNum">({{results.commentList.length}})</span>
+            {%else%}
+            <span class="commentNum">（暂无评论）</span>
+            {%endif%}
+        </h2>
+        <div class="evaluate-textarea">
+            <textarea id="commentTxt" placeholder="来说两句吧"></textarea>
+        </div>
+        <div class="evaluate-footer cf">
+            <div class="evaluate-right fl">
+                <div class="check-box fl" id="commentCheckbox">
+                    <div class="check-con"></div> 匿名
+                </div>
+                <span class="error-info"></span>
+            </div>
+            <a class="btn-evaluate fr pc_click" bilogContent="fileDetailComment" id="comment">评论</a>
+        </div>
+        <ul class="evaluate-list">
+            {% for item in results.commentList %}
+            <li class="cf">
+                <div class="user-img fl">
+                    <img src="{{item.pic}}" alt="头像">
+                </div>
+                <div class="user-evaluate cf">
+                    <p class="evaluate-txt">
+                        <a href="/n/{{item.uid}}.html" class="user-name-con">{{item.userNick}}</a>{{item.content}}
+                    </p>
+                </div>
+            </li>
+            {%endfor%}
+        </ul>
+        <!--        <a class="evaluate-more">点击加载更多<i class="icon-detail"></i></a>-->
+    </div>
+    <!-- 第四范式 猜你喜欢 -->
+    {%if results.paradigm4GuessData.length>0 %}
+    {% include "detail/guessYouLike.html" %}
+    {%endif%}
+</div>

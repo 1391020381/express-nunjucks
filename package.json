@@ -1,0 +1,48 @@
+{
+    "name": "pc_ishare_project",
+    "version": "1.0.0",
+    "author": "Jersey",
+    "license": "MIT",
+    "scripts": {
+        "start": "cross-env NODE_ENV=prod  pm2 start pm2.json",
+        "stop": "pm2 stop pm2.json",
+        "restart": "cross-env NODE_ENV=prod  pm2 restart pm2.json",
+        "test": "cross-env NODE_ENV=test  pm2 restart pm2.json",
+        "dev": "cross-env NODE_ENV=development  nodemon ./bin/www",
+        "buildPage": "node ./build/build-page.js"
+    },
+    "dependencies": {
+        "async": "^2.6.2",
+        "bluebird": "2.10.2",
+        "body-parser": "^1.18.3",
+        "connect-redis": "*",
+        "cookie-parser": "~1.3.5",
+        "crypto": "^1.0.1",
+        "debug": "~2.2.0",
+        "eventproxy": "*",
+        "express": "^4.16.3",
+        "express-session": "*",
+        "express-useragent": "^1.0.7",
+        "ipware": "*",
+        "jssha": "^1.6.0",
+        "lodash": "^4.17.11",
+        "log4js": "^1.1.1",
+        "memory-cache": "^0.2.0",
+        "mongodb": "^3.2.3",
+        "mongoose": "^5.5.0",
+        "mongoose-auto-increment": "^5.0.1",
+        "mongoose-paginate": "^5.0.3",
+        "morgan": "^1.9.1",
+        "nunjucks": "^2.2.0",
+        "pm2": "^3.5.0",
+        "redis": "^2.8.0",
+        "request": "*",
+        "serve-favicon": "^2.5.0",
+        "urlencode": "^1.1.0"
+    },
+    "devDependencies": {
+        "cross-env": "^6.0.3",
+        "http-proxy-middleware": "^0.19.1",
+        "nodemon": "^1.19.1"
+    }
+}

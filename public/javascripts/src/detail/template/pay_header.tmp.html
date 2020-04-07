@@ -1,0 +1,46 @@
+{{ if data.isDownload != 'n' }}
+    {{if data.vipFreeFlag == 1}}
+           <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+    {{else}}
+          {{ if data.perMin == "3"}}
+                {{if data.isVip == 1 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag == 1}}
+                            {{if data.status!=2}}
+                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>
+                                <div class="header-price-warp header-price-more">
+                                    <p class="price vip-price">&yen; {{(data.moneyPrice*1000/1250).toFixed(2)}}</p>
+                                    <p class="origin-price">原价&yen;{{data.moneyPrice}}</p>
+                                </div>
+                            {{else}}
+                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                            {{/if}}
+                {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}
+                            {{if data.status!=2}}
+                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>
+                                <div class="header-price-warp header-price-more">
+                                    <p class="price">&yen;{{data.moneyPrice}}</p>
+                                    <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>
+                                </div>
+                            {{else}}
+                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                            {{/if}}
+                {{else}}
+                            {{if data.status!=2}}
+                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>
+                                <div class="header-price-warp">
+                                    <p class="price">&yen;{{data.moneyPrice}}</p>
+                                </div>
+                            {{else}}
+                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                            {{/if}}
+
+                {{/if}}
+          {{else}}
+                {{ if data.volume >0 }}
+                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                                <p class="btn-text"><span>{{data.volume}}</span>下载券</p>
+                {{else}}
+                        <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                {{/if}}
+          {{/if}}
+    {{/if}}
+{{/if}}

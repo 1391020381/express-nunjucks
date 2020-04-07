@@ -1,0 +1,23 @@
+<input type="hidden" id="ip-page-id" value="PC-O-PAY-F-L">
+<input type="hidden" id="ip-page-name" value="支付页-付费资料-列表页">
+<div class="pw">
+    <div class="carding-vip-main">
+        <div class="carding-pay-main carding-buy-main">
+            <div class="carding-pay-item pay-coupon-item">
+                <a class="btn-back"><i class="icon-back"></i>返回</a>
+                <div class="pay-data-info">
+                    <p class="data-info">
+                        <span class="data-name">
+                            <i class="ico-data ico-{{results.fileDetails.format}}"></i>
+                            <a href="javascript:;">{{results.fileDetails.title}}</a>
+                        </span>
+                    </p>
+                    <span class="data-size">大小: {{results.fileDetails.fileSize}}</span>
+                    <p class="vip-share-text" style="display: none">VIP特权：VIP会员专享8折购买特权，立省<span id = "vipDiscountFreeAmount"></span>元 <a class="pc_click js-buy-open" style="cursor: pointer" data-type="vip" pcTrackContent="joinVip-4">&nbsp;&nbsp;你还不是VIP，立即开通></a></p>
+                    <p class="price-text-con">支付金额：<strong class="price"></strong>元<span class="original-text" style="text-decoration:none"></span></p>
+                    <a class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payFile" data-page="file">立即支付</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

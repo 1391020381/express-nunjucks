@@ -1,0 +1,20 @@
+<!-- 第四范式 猜你喜欢 -->
+<div class="guessyoulike  doc-main-br w890 mr10 fl">
+    <div class="content">
+        <h2 class="title"> 猜你喜欢</h2>
+        <div class="list">
+            {%for item in  results.paradigm4GuessData %}
+            <div class="item {{'nomargin' if loop.index0==0 }} {{'nomargin' if loop.index0==4 }}" data-id="{{item.id}}">
+                <a href="/f/{{item.id}}.html" target="_blank">
+                    {% if item.cover_url %}
+                    <img src="{{item.cover_url}}" alt="{{item.name}}">
+                    {%else%}
+                    <img src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt="{{item.name}}">
+                    {%endif%}
+                    <span>{{item.name}}</span>
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>

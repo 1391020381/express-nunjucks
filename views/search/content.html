@@ -1,0 +1,271 @@
+<div class="search-all-main">
+
+    <!--左边主体-->
+    <div class="search-all-left fl">
+
+        <!-- 搜索条件 -->
+        <div class="search-condition">
+            {% for item in results.condition%}
+            <!-- <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}"> -->
+            <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}">
+
+                <span class="search-title" value="{{item.code}}">{{item.title}}: </span>
+                {% for value in item.content%}
+                <span class="search-ele {{'vip' if value.code==='vipExclusive'}} {{'active' if value.active  }}  "
+                    value="{{value.code}}">
+                    {{value.des}}
+                </span>
+                {% endfor %}
+
+            </div>
+            {% endfor %}
+
+            <!-- 筛选内容切换 -->
+            <div class="search-screen">
+                <span>更多筛选</span>
+                <span class="screen-more"></span>
+
+            </div>
+
+        </div>
+
+        <!-- 搜索统计结果 -->
+        <div class="search-result">
+            <span class="screen-ele {{'current' if  query.sequence==='' or query.sequence==undefined }} "
+                value="">综合</span>
+            <i class="screen-line"></i>
+            <span class="screen-ele {{'current' if query.sequence==='downNum' }}" value="downNum">下载量</span>
+            <i class="screen-line"></i>
+            <span class="screen-ele {{'current' if query.sequence==='createtime' }}" value="createtime">上传时间</span>
+
+            <p class="result-text">找到相关资料约<span>{{results.list.data.totalSize}}</span>个</p>
+        </div>
+
+        <!-- 搜索列表内容-->
+        <div class="search-list-con">
+            <ul class="landing-txt-list">
+                {% for item in results.list.data.rows or []  %}
+                <li class="li-file  permin-1">
+                    <h4 class="data-name cf">
+                        <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
+                            {% if results.formatText.word[item.format]  %}
+                            <i class="ico-data ico-doc"></i>
+                            {%elif results.formatText.pdf[item.format]  %}
+                            <i class="ico-data ico-pdf"></i>
+                            {%elif results.formatText.ppt[item.format] %}
+                            <i class="ico-data ico-ppt"></i>
+                            {%elif  results.formatText.txt[item.format]  %}
+                            <i class="ico-data ico-txt"></i>
+                            {%elif results.formatText.excel[item.format]  %}
+                            <i class="ico-data ico-xls"></i>
+                            {%endif%}
+
+                            {% if item.title.slice(30) %}
+                            <span class="desc fl">
+                                {{ item.title | replace(item.title.slice(30),'...') | replace(query.cond,'<em class="red-color">'+query.cond+'</em>') }}
+                            </span>
+                            {%else%}
+                            <span class="desc fl">
+                                {{ item.title and item.title | replace(query.cond,'<em class="red-color">'+query.cond+'</em>') }}
+                            </span>
+                            {%endif%}
+
+                            {% if item.highQuality %}
+                            <span class="icon-selected"></span>
+                            {%endif%}
+
+                            {% if item.vipExclusive %}
+                            <span class="icon-vip"></span>
+                            {%endif%}
+                        </a>
+                    </h4>
+                    <p class="data-text">
+                        {{ item.description and item.description | replace(query.cond,'<em class="red-color">'+query.cond+'</em>')}}
+                    </p>
+                    <div class="info-bar cf" style="height: auto;">
+                        <span class="bar-txt"><em>{{item.readNum}}</em>次浏览</span>
+                        <i class="bar-line"></i>
+                        <span class="bar-txt">共<em>{{item.totalPage}}</em>页</span>
+                        <i class="bar-line"></i>
+                        <span class="bar-txt">{{item.createTime}}</span>
+                    </div>
+                </li>
+                {%endfor%}
+
+            </ul>
+
+        </div>
+
+        {% if results.pageIndexArr.length===0 %}
+        <div class="search-nocontent">
+            <div class="nocontent">
+
+            </div>
+            <div class="nocontent-text">
+                <p class="nocontent-tip">抱歉,没有找到与 "{{query.cond}}" 相关的文档。</p>
+                <div>建议您:</div>
+                <p>1、判断输入的文字是否有误;</p>
+                <p>2、根据语意,尝试一下其他相关词语;</p>
+                <p>3、拆分要搜索的关键词,分成几个词语再次搜索;</p>
+            </div>
+
+        </div>
+        {% endif %}
+
+        <!-- 建议去买vip -->
+        <div class="tui-search-vip" style="display: none;">
+            <h2 class="search-tui-title"><i class="icon-tui-vip"></i>VIP会员享专属特权</h2>
+            <ul class="search-tq-list cf">
+                <li class="li-01"><i class="icon-tui-vip"></i>赠专享资料下载特权</li>
+                <li class="li-02"><i class="icon-tui-vip"></i>付费资料8折起</li>
+                <li class="li-03"><i class="icon-tui-vip"></i>海量资料免费下载</li>
+                <li class="li-04"><i class="icon-tui-vip"></i>专属身份标识</li>
+            </ul>
+            <a class="btn-search-tui" href="/pay/vip.html" target="_blank">开通VIP</a>
+        </div>
+
+        <!--相关搜索 -->
+        <div class="related-search mt10">
+            <h2 class="related-title">相关搜索</h2>
+            <ul class="related-search-list cf">
+                {% for item in results.words.data.bottomSearch %}
+                <li><a style="cursor: pointer;">{{item}}</a></li>
+                {%endfor%}
+            </ul>
+        </div>
+
+        <!--分页-->
+        <div class="office-page mt40">
+
+            <a class="btn-page-long" style="display: none;">
+                首页
+            </a>
+            <a class="btn-page" style="display: none;">
+                上一页
+            </a>
+
+            <span>
+                {%for item in results.pageIndexArr  %}
+                <a class="page-ele   {{'active' if  loop.index0===0}}" value="{{loop.index0}}" style="display: none">
+                    {{loop.index}}
+                </a>
+                {%endfor%}
+            </span>
+
+
+            {%if  results.pageIndexArr.length>1 %}
+            <a class="btn-page-long">
+                下一页
+            </a>
+            <a class="btn-page">
+                尾页
+            </a>
+            {%endif%}
+        </div>
+
+        <!--底部广告-->
+        <div class="search-advertisement mt40">
+            <script>
+                (function () {
+                    var s = "_" + Math.random().toString(36).slice(2);
+                    document.write('<div id="' + s + '"></div>');
+                    (window.slotbydup = window.slotbydup || []).push({
+                        id: '6336188',
+                        container: s,
+                        size: '860,200',
+                        display: 'inlay-fix'
+                    });
+                })();
+            </script>
+        </div>
+    </div>
+
+
+    <!--右边内容-->
+    <div class="landing-right fr">
+        <div class="landing-search-hot">
+            <div class="hot-key-word">
+                <h2 class="hot-title">相关搜索词</h2>
+                <ul class="landing-hot-list sts_5">
+                    {% for item in results.words.data.rightSearch %}
+                    <li class="{{'li-top' if loop.index ===1 or loop.index ===2 or loop.index ===3 }}">
+                        <span class="unit">{{loop.index}}</span>
+                        <a style="cursor: pointer;">
+                            {{item}}
+                        </a>
+                    </li>
+                    {%if loop.index===1 %}
+                    <li class="li-top">
+                        <i class="ico-data icon-link"></i>
+                        <div style="padding-bottom: 6px;">
+                            <script>
+                                (function () {
+                                    var s = "_" + Math.random().toString(36).slice(2);
+                                    document.write('<div id="' + s + '"></div>');
+                                    (window.slotbydup = window.slotbydup || []).push({
+                                        id: '6336116',
+                                        container: s,
+                                        size: '298,28',
+                                        display: 'inlay-fix'
+                                    });
+                                })();
+                            </script>
+                        </div>
+                    </li>
+                    {%endif%}
+                    {%if loop.index===3%}
+                    <li class="li-top">
+                        <i class="ico-data icon-link"></i>
+                        <div style="padding-bottom: 6px;">
+                            <script>
+                                (function () {
+                                    var s = "_" + Math.random().toString(36).slice(2);
+                                    document.write('<div id="' + s + '"></div>');
+                                    (window.slotbydup = window.slotbydup || []).push({
+                                        id: '6336120',
+                                        container: s,
+                                        size: '298,28',
+                                        display: 'inlay-fix'
+                                    });
+                                })();
+                            </script>
+                        </div>
+                    </li>
+                    {%endif%}
+                    {%endfor%}
+
+
+                </ul>
+            </div>
+            <div class="banner">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- <div class="swiper-slide"> 
+                                Slide2
+                        </div>
+                        <div class="swiper-slide"> Slide2</div>
+                        <div class="swiper-slide"> Slide3</div> -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div>
+                <script>
+                    (function () {
+                        var s = "_" + Math.random().toString(36).slice(2);
+                        document.write('<div id="' + s + '"></div>');
+                        (window.slotbydup = window.slotbydup || []).push({
+                            id: '6336123',
+                            container: s,
+                            size: '300,350',
+                            display: 'inlay-fix'
+                        });
+                    })();
+                </script>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

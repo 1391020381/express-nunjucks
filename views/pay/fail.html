@@ -1,0 +1,33 @@
+<input type="hidden" id="ip-page-id" value="PC-M-PAY-FAIL">
+<input type="hidden" id="ip-page-name" value="支付失败页">
+<div class="pw">
+    <!--购买 模块 start -->
+    <div class="carding-vip-main">
+        <!--购买vip购买&特权失败 start -->
+        <div class="carding-info-con" >
+            <div class="carding-fail-item">
+                <h2 class="pay-fail-text"><i class="icon-fail"></i>对不起，您本次购买失败</h2>
+                <!--详情页入口新增  返回详细页 按钮-->
+                <div class="btn-carding-more">
+                    {% if results.list.type == 2 or results.list.fid %}
+                    <a class="btn-back-detail" href="/f/{{results.list.fid}}.html">返回详细页</a>
+                    {% endif %}
+                    <a class="btn-carding-info js-buy-open pc_click" pcTrackContent="joinVip-10" data-type="vip">重新购买</a>
+                </div>
+            </div>
+            <!--联系客服 start -->
+            <div class="carding-contact-con">
+                <div class="carding-contact-item">
+                    <i class="icon-contact"></i>
+                    <div class="contact-text">
+                        <h2 class="contact-title">如果还存在问题，请联系我们</h2>
+                        <p><span class="gray-color">Q Q：</span>51211212</p>
+                        <p><span class="gray-color">微信：</span>9925234790</p>
+                    </div>
+                </div>
+            </div>
+            <!--联系客服 end -->
+        </div>
+        <!--购买vip购买&特权失败 end -->
+    </div>
+</div>

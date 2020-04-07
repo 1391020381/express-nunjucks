@@ -1,0 +1,52 @@
+{% if results.list.data.type == 0%}
+<input type="hidden" id="ip-page-id" value="PC-M-PAY-VIP-QR">
+<input type="hidden" id="ip-page-name" value="支付页-VIP-支付页">
+{% elif results.list.data.type == 1 %}
+<input type="hidden" id="ip-page-id" value="PC-M-PAY-PRI-QR">
+<input type="hidden" id="ip-page-name" value="支付页-下载特权-支付页">
+{% elif results.list.data.type == 2 %}
+<input type="hidden" id="ip-page-id" value="PC-M-PAY-F-QR">
+<input type="hidden" id="ip-page-name" value="支付页-付费资料-支付页">
+{% endif %}
+<div class="pw">
+    <div class="carding-vip-main">
+        <div class="carding-pay-main">
+            <div class="carding-pay-item">
+                <a class="btn-back"><i class="icon-back"></i>返回</a>
+                {% if results.list.data.type == 0 or results.list.data.type == 1 %}
+                <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.price}}</strong>元</p>
+                <div class="pay-data-info">
+<!--                    <p class="order-num">订单号：<span class="oid">{{results.list.data.oid}}</span></p>-->
+                    <p class="order-name">购买商品：<span class="gname">{{results.list.data.name}}</span></p>
+                </div>
+                {% elif results.list.data.type == 2 %}
+                    <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.price}}</strong>元
+                        {% if results.list.data.price and results.list.data.diffPrice%}
+                        <span class="price-other price-discount">
+                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.price|number + results.list.data.diffPrice|number)|toFixed }}</strong>元</em>
+                            (您已是会员, 享受会员折扣价, 立省{{results.list.data.diffPrice}}元)</span>
+                        {% endif%}
+                    </p>
+                    <div class="pay-data-info">
+                        <p class="data-info">购买文档：<span class="data-name"><i class="ico-data ico-{{results.list.data.fileType}}"></i>{{results.list.data.fileName}}</span></p>
+                        <p class="data-size">大小：<span>{{results.list.data.size}}</span></p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="pay-code-con">
+                <div  class="pic-pay-code">
+                    <div id="pay-qr-code"></div>
+                    <!--<img src="../upload/pic_code_150x150.jpg">-->
+                    <a class="btn-qr-show-success hide pc_click" pcTrackContent="qrCodeSuccess">二维码显示成功</a>
+                    <a class="btn-qr-show-fail hide pc_click" pcTrackContent="qrCodeFail">二维码显示失败</a>
+                </div>
+                <p class="pay-code-text">请使用微信或支付宝扫码支付</p>
+                <i class="icon-pay-style"></i>
+                <p class="pay-info-text hide">无法扫描？<a class="link web-alipay" style="cursor:pointer;">打开网页支付宝支付</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn-vip-login-arrive hide pc_click" pcTrackContent="pcLoginSuccessArriveVipPage">vip购买页面登录到达</a>
+<a class="btn-file-login-arrive hide pc_click" pcTrackContent="pcLoginSuccessArriveFilePage">现金文档购买登录到达</a>
