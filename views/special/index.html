@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>spelical</title>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/search/ishare_search.css" />
 </head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
 <body>
-    专题页
+ {% include "common/js.html" %}
+   
+    <!-- 顶部标签 -->
+    {% include "special/topbar.html" %}
+       <!-- 专题页头部 -->
+    {% include "special/specialHead.html" %}
+
+     <!-- 专题内容主体 -->
+    {% include "special/content.html" %}
+     <!-- 底部声明 -->
+    {% include "special/footer.html" %}
+
+    <!-- 右边固定提示导航 -->
+
+    {% include "common/suspension.html" %}
 </body>
 </html>
