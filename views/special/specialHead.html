@@ -5,7 +5,7 @@
             </div>
             <div class="icon-dragon-boat"></div>
         </a>
-        <p class="logo-text fl"><span class="logo-line">/</span>搜索</p>
+        {# <p class="logo-text fl"><span class="logo-line">/</span>搜索</p> #}
         <div class="search-con fl">
             <div class="search-input-con">
                 <input id="scondition" autocomplete="off" type="text" class="search-input fl" value="{{query.cond}}" />
@@ -20,5 +20,15 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="select-type">
+        <div class="select-items">
+            <label class="select-item"><input name="select" type="radio" value="all" />全部</label> 
+            <label class="select-item"><input name="select" type="radio" value="doc" />DOC</label> 
+             <label class="select-item"><input name="select" type="radio" value="ppt" />PPT</label>
+             <label class="select-item"><input name="select" type="radio" value="txt" />TXT</label> 
+             <label class="select-item"><input name="select" type="radio" value="pdf" />PDF</label> 
+             <label class="select-item"><input name="select" type="radio" value="xls" />XLS</label>   
+        </div>      
     </div>
 </div>
