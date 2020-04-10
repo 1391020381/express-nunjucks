@@ -115,6 +115,9 @@ body {
   height: 315px;
   cursor: pointer;
 }
+.special-bottom-bar .open-vip img {
+  width: 100%;
+}
 .special-bottom-bar .hot-spot-search {
   width: 1256px;
   margin: 30px auto;
@@ -145,10 +148,10 @@ body {
 }
 .special-bottom-bar .hot-spot-search .hot-list .hot-items {
   float: left;
-  margin: 0 28px;
+  width: 223px;
   margin-top: 16px;
-  width: 194px;
-  font-size: 12px;
+  margin-left: 28px;
+  font-size: 14px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
