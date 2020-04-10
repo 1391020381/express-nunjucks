@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/search/ishare_search.css" />
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css" />
 </head>
 <script type="text/javascript">
     var _speedMark = + new Date();
@@ -25,5 +25,9 @@
     <!-- 右边固定提示导航 -->
 
     {% include "common/suspension.html" %}
+    <script type="text/javascript">
+        window.pageConfig = {}
+        seajs.use(["dist/application/app.js", "dist/special/init.js"]);
+    </script>
 </body>
 </html>

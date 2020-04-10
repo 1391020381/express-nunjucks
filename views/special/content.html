@@ -1,3 +1,157 @@
-<div>
-专题内容
+<div class="search-all-main">   
+    <!-- 广告位 -->
+    <div class="search-adv-warper">
+        <img src="" alt="">
+    </div>
+    <!-- 面包屑 -->
+    <div class="search-crumb-warper">
+         <span>首页</span>
+         <span>职业岗位</span>
+    </div>
+    <!-- 筛选条件 -->
+    <div class="search-all-container">
+        <div class="search-all-nav">
+            <div class="search-nav-box">
+                <span class="active">全部</span>
+                <span>分类1</span>
+                <span>分类2</span>
+                <span>分类3</span>
+                <span>分类ssss4</span>
+            </div>
+        </div>
+        <div class="search-condition">
+            {% for item in results.condition%}
+            <div class="search-item {{'hide' if loop.index>2}}">
+    
+                <span class="search-title" value="{{item.code}}">{{item.title}}: </span>
+                {% for value in item.content%}
+                <span class="search-ele {{'vip' if value.code==='vipExclusive'}} {{'active' if value.active  }}"
+                    value="{{value.code}}">
+                    {{value.des}}
+                </span>
+                {% endfor %}
+    
+            </div>
+            {% endfor %}
+    
+            <!-- 筛选内容切换 -->
+            <div class="search-screen">
+                <span>更多筛选</span>
+                <span class="screen-more"></span>
+            </div>
+    
+        </div>  
+        <!-- 无维度显示 其他搜索 -->
+        <div class="search-other-container">
+            <div class="search-other-item">
+                <em>你要找的是不是：</em>
+                <span>新员工安全培训内容</span>
+                <span>新员工安全培训内容</span>
+                <span>新员工安全培训内容</span>
+            </div>
+        </div>
+    </div>     
+    <!--筛选列表  -->
+    <div class="search-list-section">
+        <div class="search-list-tab">
+             <span>综合排序</span>
+             <span>热门下载</span>
+             <span>最新上传</span>
+        </div>
+        <div class="search-list-container">
+            <ul>
+                <li>
+                    <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="" width="276" height="387">
+                    <div class="search-list-info">
+                       <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
+                       <div class="search-info-state">
+                           <div class="search-info-state-item">
+                               <i class="ic-scan"></i>
+                               <span>168</span>
+                           </div> 
+                           <div class="search-info-state-item">
+                               <i class="ic-download"></i>
+                               <span>1254</span>
+                           </div> 
+                       </div>
+                    </div>
+                </li>
+                <li>
+                   <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="" width="276" height="387">
+                   <div class="search-list-info">
+                      <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
+                      <div class="search-info-state">
+                          <div class="search-info-state-item">
+                              <i class="ic-scan"></i>
+                              <span>168</span>
+                          </div> 
+                          <div class="search-info-state-item">
+                              <i class="ic-download"></i>
+                              <span>1254</span>
+                          </div> 
+                      </div>
+                   </div>
+               </li>
+               <li>
+                   <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="" width="276" height="387">
+                   <div class="search-list-info">
+                      <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
+                      <div class="search-info-state">
+                          <div class="search-info-state-item">
+                              <i class="ic-scan"></i>
+                              <span>168</span>
+                          </div> 
+                          <div class="search-info-state-item">
+                              <i class="ic-download"></i>
+                              <span>1254</span>
+                          </div> 
+                      </div>
+                   </div>
+               </li>
+               <li>
+                   <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="" width="276" height="387">
+                   <div class="search-list-info">
+                      <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
+                      <div class="search-info-state">
+                          <div class="search-info-state-item">
+                              <i class="ic-scan"></i>
+                              <span>168</span>
+                          </div> 
+                          <div class="search-info-state-item">
+                              <i class="ic-download"></i>
+                              <span>1254</span>
+                          </div> 
+                      </div>
+                   </div>
+               </li>
+            </ul>
+            <!-- 分页 -->
+            <div class="office-page-paging">
+               <a class="btn-page-long" style="display: none;">首页</a>
+               <a class="btn-page" style="display: none;">上一页</a>
+               {%if results.pageIndexArr.length>1 %}
+   
+               {%for item in results.pageIndexArr%}
+               <a class="page-ele {%if loop.index == 1%} active {%endif%}" value="{{loop.index}}"
+                   style="display: inline-block">
+                   {{loop.index}}
+               </a>
+               {%endfor%}
+               <span>...</span>
+               <a class="btn-page-long">下一页</a>
+               <a class="btn-page">尾页</a>
+               {%endif%}
+           </div>
+        </div>
+        <!-- 搜索空的页面 -->
+        <div class="search-empty-container" style="display: none;">
+            <div class="search-empty-item">
+                <img src="../../images/special/search_empty.png" alt="" width="89" height="89">
+                <p>暂时没有您想要的内容，试试刷新页面</p>
+                <div class="btn-fresh">立即刷新</div>
+            </div>
+        </div>
+
+    </div>
+        
 </div>
