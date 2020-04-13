@@ -5,6 +5,7 @@ module.exports = {
 
         var opt = this.getPaymentType(req, url, '', append);
         request(opt, (error, response, body) => {
+            console.log(body,'body')
             if (body) {
                 try {
                     var data = body;
