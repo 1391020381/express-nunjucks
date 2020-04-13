@@ -66,6 +66,9 @@ module.exports = {
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         allCategory:'/channel/categorys',
         listTopicContents:'/special/specialTopicContent/listTopicContents'  //分页查询接口
+    },
+    comment:{
+        fileSaveOrupdate:'/comment/collect/fileSaveOrupdate'
     }
 };
 
