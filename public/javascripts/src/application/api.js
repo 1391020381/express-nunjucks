@@ -53,6 +53,9 @@ define(function (require, exports, module) {
         pay: {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow'
+        },
+        special:{
+            fileSaveOrupdate:'/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }
     }
 });
