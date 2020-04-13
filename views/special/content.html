@@ -1,47 +1,52 @@
 <div class="search-all-main">   
     <!-- 广告位 -->
-    <div class="search-adv-warper">
+    <!-- <div class="search-adv-warper">
         <img src="" alt="">
-    </div>
+    </div> -->
     <!-- 面包屑 -->
     <div class="search-crumb-warper">
          <span>首页</span>
-         <span>职业岗位</span>
+         <span>{{results.data.topicName}}</span>
     </div>
     <!-- 筛选条件 -->
     <div class="search-all-container">
+        <!--dimensionStatus=0 开启维度 -->
+        {% if results.data.dimensionStatus===0 %}  
         <div class="search-all-nav">
             <div class="search-nav-box">
-                <span class="active">全部</span>
-                <span>分类1</span>
-                <span>分类2</span>
-                <span>分类3</span>
-                <span>分类ssss4</span>
+                {% for navItem in results.data.specialTopicDimensionDOList %}
+                <a href="" class="active">{{navItem.dimensionName}}</a>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
         <div class="search-condition">
-            {% for item in results.condition%}
-            <div class="search-item {{'hide' if loop.index>2}}">
+            {% for firstItem in results.data.specialTopicDimensionDOList %}
+            {% for secondItem in firstItem.specialTopicPropertyGroupDOList %}
+            <div class="search-item {{'hide' if loop.index>2  }}">
     
-                <span class="search-title" value="{{item.code}}">{{item.title}}: </span>
-                {% for value in item.content%}
-                <span class="search-ele {{'vip' if value.code==='vipExclusive'}} {{'active' if value.active  }}"
-                    value="{{value.code}}">
-                    {{value.des}}
+                <span class="search-title" value="{{secondItem.propertyGroupId}}">{{secondItem.propertyGroupName}}: </span>
+                {% for thirdItem in secondItem.specialTopicPropertyDOList %}
+                <span class="search-ele {{'active' if thirdItem.active  }}"
+                    value="{{thirdItem.propertyId}}">
+                    {{thirdItem.propertyName}}
                 </span>
                 {% endfor %}
     
             </div>
             {% endfor %}
+            {% endfor %}
     
             <!-- 筛选内容切换 -->
+            {% if results.data.specialLength>2%}
             <div class="search-screen">
                 <span>更多筛选</span>
                 <span class="screen-more"></span>
             </div>
-    
+            {% endif %}
         </div>  
         <!-- 无维度显示 其他搜索 -->
+        {% if results.data.dimensionStatus===1 %}
         <div class="search-other-container">
             <div class="search-other-item">
                 <em>你要找的是不是：</em>
@@ -50,19 +55,21 @@
                 <span>新员工安全培训内容</span>
             </div>
         </div>
+        {% endif %}
     </div>     
     <!--筛选列表  -->
     <div class="search-list-section">
         <div class="search-list-tab">
-             <span>综合排序</span>
-             <span>热门下载</span>
-             <span>最新上传</span>
+             <a href="" class="active">综合排序</a>
+             <a href="">热门下载</a>
+             <a href="">最新上传</a>
         </div>
         <div class="search-list-container">
             <ul>
+                {% for item in results.list.rows %}
                <li>
                    <div class="search-img-box">
-                        <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="">
+                        <img src="{{item.fileSmallPic}}" alt="">
                         <div class="mask-container">
                             <div class="bg-mask"></div>
                             <i class="ic-collect active"></i>
@@ -73,92 +80,20 @@
                    </div>
                   
                    <div class="search-list-info">
-                      <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
+                      <a href="/f/1RibacEs90Yb.html" target="_blank">{{item.contentName}}</a>
                       <div class="search-info-state">
                           <div class="search-info-state-item">
                               <i class="ic-scan"></i>
-                              <span>168</span>
+                              <span>{{item.readNum}}</span>
                           </div> 
                           <div class="search-info-state-item">
                               <i class="ic-download"></i>
-                              <span>1254</span>
+                              <span>{{item.downNum}}</span>
                           </div> 
                       </div>
                    </div>
                </li>
-               <li>
-                <div class="search-img-box">
-                     <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="">
-                     <div class="mask-container">
-                         <div class="bg-mask"></div>
-                         <i class="ic-collect active"></i>
-                         <div class="to-download">立即下载</div>
-                     </div>
-                </div>
-               
-                <div class="search-list-info">
-                   <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
-                   <div class="search-info-state">
-                       <div class="search-info-state-item">
-                           <i class="ic-scan"></i>
-                           <span>168</span>
-                       </div> 
-                       <div class="search-info-state-item">
-                           <i class="ic-download"></i>
-                           <span>1254</span>
-                       </div> 
-                   </div>
-                </div>
-            </li>
-            <li>
-                <div class="search-img-box">
-                     <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="">
-                     <div class="mask-container">
-                         <div class="bg-mask"></div>
-                         <i class="ic-collect active"></i>
-                         <div class="to-download">立即下载</div>
-                     </div>
-                </div>
-               
-                <div class="search-list-info">
-                   <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
-                   <div class="search-info-state">
-                       <div class="search-info-state-item">
-                           <i class="ic-scan"></i>
-                           <span>168</span>
-                       </div> 
-                       <div class="search-info-state-item">
-                           <i class="ic-download"></i>
-                           <span>1254</span>
-                       </div> 
-                   </div>
-                </div>
-            </li>
-            <li>
-                <div class="search-img-box">
-                     <img src="https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg" alt="">
-                     <div class="mask-container">
-                         <div class="bg-mask"></div>
-                         <i class="ic-collect active"></i>
-                         <div class="to-download">立即下载</div>
-                     </div>
-                </div>
-               
-                <div class="search-list-info">
-                   <a href="/f/1RibacEs90Yb.html" target="_blank">2019年考研数学真题(数二)梵蒂冈的</a>
-                   <div class="search-info-state">
-                       <div class="search-info-state-item">
-                           <i class="ic-scan"></i>
-                           <span>168</span>
-                       </div> 
-                       <div class="search-info-state-item">
-                           <i class="ic-download"></i>
-                           <span>1254</span>
-                       </div> 
-                   </div>
-                </div>
-            </li>
-              
+               {% endfor %}
             </ul>
             <!-- 分页 -->
             <div class="office-page-paging">
@@ -172,7 +107,7 @@
                    {{loop.index}}
                </a>
                {%endfor%}
-               <span>...</span>
+               <a class="page-more">...</a>
                <a class="btn-page-long">下一页</a>
                <a class="btn-page">尾页</a>
                {%endif%}

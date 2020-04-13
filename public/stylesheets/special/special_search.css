@@ -76,17 +76,15 @@ body {
 }
 .landing-header .search-input-con .search-input {
   width: 418px;
-  height: 23px;
-  line-height: 23px;
-  padding: 8px 20px;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   border-right: 0 none;
+  text-indent: 10px;
 }
 .landing-header .search-input-con .btn-search {
   width: 134px;
-  height: 41px;
-  line-height: 41px;
+  height: 36px;
+  line-height: 36px;
   text-indent: 68px;
 }
 .header-box-fix {
@@ -146,7 +144,7 @@ body {
   padding-left: 19px;
   border-bottom: 1px solid #ececec;
 }
-.search-all-main .search-all-container .search-all-nav .search-nav-box span {
+.search-all-main .search-all-container .search-all-nav .search-nav-box a {
   display: inline-block;
   text-align: center;
   font-size: 16px;
@@ -154,6 +152,7 @@ body {
   font-weight: 400;
   color: #666666;
   line-height: 20px;
+  margin-right: 20px;
   padding: 0 20px 10px 20px;
   cursor: pointer;
 }
@@ -181,10 +180,10 @@ body {
 .search-all-main .search-all-container .search-condition .search-item .search-ele {
   display: inline-block;
   vertical-align: top;
-  margin-left: 12px;
+  margin-left: 26px;
   border-radius: 2px;
   overflow: hidden;
-  padding: 0 6px;
+  padding: 0 10px;
   white-space: nowrap;
   color: #333333;
   cursor: pointer;
@@ -442,13 +441,13 @@ body {
 .search-all-main .search-list-section {
   margin-top: 34px;
 }
-.search-all-main .search-list-section .search-list-tab span {
+.search-all-main .search-list-section .search-list-tab a {
   font-size: 16px;
   font-family: Microsoft YaHei;
   font-weight: 400;
   color: #666666;
 }
-.search-all-main .search-list-section .search-list-tab span::after {
+.search-all-main .search-list-section .search-list-tab a::after {
   content: '';
   display: inline-block;
   width: 1px;
@@ -457,8 +456,14 @@ body {
   vertical-align: middle;
   margin: 0 30px;
 }
-.search-all-main .search-list-section .search-list-tab span:last-child::after {
+.search-all-main .search-list-section .search-list-tab a:last-child::after {
   display: none;
+}
+.search-all-main .search-list-section .search-list-tab a:hover {
+  color: #F25125;
+}
+.search-all-main .search-list-section .search-list-tab .active {
+  color: #F25125;
 }
 .search-all-main .search-list-section ul {
   margin-top: 26px;
@@ -656,6 +661,19 @@ body {
 .search-all-main .search-list-section .office-page-paging .page-point:hover {
   border-color: #e6e6e6;
   color: #555555;
+}
+.search-all-main .search-list-section .office-page-paging .page-more {
+  width: 34px;
+  height: 34px;
+  font-size: 14px;
+  color: #555555;
+  background-color: #fff;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  border: 1px solid #e6e6e6;
+  margin: 0 3px;
 }
 .search-all-main .search-list-section .office-page-paging .btn-page {
   width: 68px;
