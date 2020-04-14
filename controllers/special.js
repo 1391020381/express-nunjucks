@@ -9,34 +9,32 @@ var urlencode = require('urlencode');
 //测试
 module.exports = {
     render: function(req, res) {
-            var list=function(res){
+            var list=function(req){
                 return{
                     findSpecialTopic:function(callback){
                      
                         //console.log(appConfig.apiBasePath + api.special.findSpecialTopic.replace(/\$id/, 'xx'),'url--------')
                         // server.get(appConfig.apiBasePath + api.special.allCategory.replace(/\$id/, 'xx'), callback, req, true);
-                        //console.log(appConfig.apiBasePath + api.special.allCategory,'url')
                         //server.get(appConfig.apiBasePath + api.special.allCategory, callback, req);
                         //req.dimensionId=123;
                         callback()
                     },
                     listTopicContents:function(callback){
-                        var paramObj = util.getSpecialParams(req.url);
-                        var params=paramObj.item;
-                        req.body = {
-                            specialTopicId: params.specialTopicId,//专题id
-                            dimensionId: params.dimensionId || req.dimensionId,//维度id
-                            topicPropertyQueryDTOList: [{
-                                propertyGroupId:"xx",
-                                propertyGroupName:"xx",
-                                propertyType:1,
-                                propertyId:"xx",
-                                propertyName:"xx"
-                            }],
-                            sortFlag: params.sortFlag,//排序,0-综合排序,1-最新上传
-                            currentPage: params.currentPage,
-                            pageSize: 10
-                        };
+                        //console.log(util.getQueryParams('dd'),'util.getQueryParams')
+                        // req.body = {
+                        //     specialTopicId: util.getQueryParams('spid'),//专题id
+                        //     dimensionId: util.getQueryParams('dsid'),//维度id
+                        //     topicPropertyQueryDTOList: [{
+                        //         propertyGroupId:"xx",
+                        //         propertyGroupName:"xx",
+                        //         propertyType:1,
+                        //         propertyId:"xx",
+                        //         propertyName:"xx"
+                        //     }],
+                        //     sortFlag: util.getQueryParams('sortFlag'),//排序,0-综合排序,1-最新上传
+                        //     currentPage: util.getQueryParams('cur'),
+                        //     pageSize: 10
+                        // };
                         console.log(req.body,'req.body--------------------------------------')
                         //server.post(appConfig.apiBasePath + api.special.listTopicContents, callback, req);
                         callback()
@@ -45,7 +43,6 @@ module.exports = {
             }
             return async.series(list(req), function (err, results) {
                 console.log(results,'results****************')
-                
                 var results = results || {};
                 results={
                     code: 0,
@@ -125,7 +122,7 @@ module.exports = {
                     })
                 })
                 results.data.specialLength=results.data.specialTopicDimensionDOList[0].specialTopicPropertyGroupDOList.length;//分类的长度
-                
+                //results.urlParams=paramObj.url;
                 // 列表内容
                 results.list= {
                     "currentPage": 1,

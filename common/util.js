@@ -123,31 +123,17 @@ module.exports = {
     getSpecialParams:function(pathname){
         var item = null;
         var regExp=new RegExp("\/([^/]+)+.html$","g");
-
         var matchResult = pathname.match(regExp)[0].split('.')[0].replace('\/','');
-        if(matchResult){
-            var paramsArr=matchResult.split('-');
-            console.log(paramsArr,'paramsArr')
-            if(paramsArr.length>1){
-                item={
-                    specialTopicId:paramsArr[0],
-                    currentPage:paramsArr[1] || 1,
-                    dimensionId:paramsArr[2],
-                    sortFlag:paramsArr[3] || 0,                  
-                    pageSize:10,
-                    topicPropertyQueryDTOList:[]
-                }
-            }else{
-                item={
-                    specialTopicId:paramsArr[0],
-                    dimensionId:'',
-                    sortFlag:0,
-                    currentPage :1,
-                    pageSize  :10,
-                    topicPropertyQueryDTOList:[]
-                }
-            }
+ 
+    },
+    getQueryParams:function(queryName){
+        var reg = new RegExp("(^|&)"+ queryName +"=([^&]*)(&|$)");
+        if(reg){
+            var data = this.substr(1).match(reg);
+            return data!=null?decodeURIComponent(data[2]):null;
+        }else{
+            return null
         }
-        return {item:item,url:matchResult}
+      
     }
 };
