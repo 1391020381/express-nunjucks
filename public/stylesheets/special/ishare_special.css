@@ -58,28 +58,6 @@ body {
   height: 140px;
   margin: 0 auto;
   margin-top: 37px;
-  background: #ffffff;
-  opacity: 0.8;
-  border-radius: 3px;
-}
-.special-bottom-bar .adv-position .adv-item {
-  float: left;
-  margin-top: 19px;
-  margin-left: 33px;
-}
-.special-bottom-bar .adv-position .adv-item .adv-a {
-  width: 100%;
-}
-.special-bottom-bar .adv-position .adv-item .adv-img {
-  width: 143px;
-  height: 80px;
-}
-.special-bottom-bar .adv-position .adv-item .adv-item-desc {
-  margin-top: 10px;
-  text-align: center;
-}
-.special-bottom-bar .adv-position .adv-item:first-child {
-  margin-left: 28px;
 }
 .office-footer {
   background-color: #3c3c3c;

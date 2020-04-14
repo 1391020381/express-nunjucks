@@ -3,6 +3,9 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var method = require("../application/method");
     var login = require("../application/checkLogin");
+    
+   
+
    // 收藏与取消收藏功能
    $('.search-img-box .ic-collect').click(function(){
        console.log('专题收藏')
@@ -12,7 +15,6 @@ define(function(require , exports , module){
            console.log('-------------------',data)
            refreshTopBar(data);
            fileSaveOrupdate()
-          
         })
        }else{
         fileSaveOrupdate()
@@ -39,6 +41,15 @@ define(function(require , exports , module){
         }
     })
 }
+// 顶部header登录逻辑
+$('#a-login-link').click(function(){
+    login.notifyLoginInterface(function (data) {
+        console.log('-------------------',data)
+        refreshTopBar(data);
+
+     })
+})
+
     //刷新topbar
     var refreshTopBar = function (data) {
         var $unLogin = $('#unLogin');
@@ -72,6 +83,10 @@ define(function(require , exports , module){
             // 新用户
         } else if (data.isVip == 0) {
             $hasLogin.removeClass("user-con-vip");
+
+            // 用户不是vip,但是登录啦,隐藏 登录后开通 显示 开通
+            $('.btn-join-vip').eq(0).hide()
+            $('.btn-join-vip').eq(1).show()
             // 续费vip
         } else if (data.isVip == 2) {
             $('.vip-title').hide();
@@ -97,4 +112,13 @@ define(function(require , exports , module){
         $("#ip-mobile").val(data.mobile);
     };
 
+    loginStatusQuery()
+    // 当用户登录啦,刷新页面,重新刷新topbar
+    function loginStatusQuery() {
+        if (method.getCookie('cuk')) {
+            login.getLoginData(function (data) {
+                refreshTopBar(data);
+            });
+        }
+    }
 });
