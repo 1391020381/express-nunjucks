@@ -190,11 +190,17 @@ body {
   margin-top: 5px;
   font-size: 14px;
 }
+.search-all-main .search-all-container .search-condition .search-item .search-ele:hover {
+  color: #f25125;
+}
 .search-all-main .search-all-container .search-condition .search-item .vip {
   color: #f25125;
 }
 .search-all-main .search-all-container .search-condition .search-item .active {
   background-color: #f25125;
+  color: #fff;
+}
+.search-all-main .search-all-container .search-condition .search-item .active:hover {
   color: #fff;
 }
 .search-all-main .search-all-container .search-condition .search-screen {

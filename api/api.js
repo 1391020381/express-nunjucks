@@ -64,7 +64,6 @@ module.exports = {
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     special:{
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
-        allCategory:'/channel/categorys',
         listTopicContents:'/special/specialTopicContent/listTopicContents'  //分页查询接口
     },
     comment:{

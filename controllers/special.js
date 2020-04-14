@@ -4,26 +4,48 @@ var render = require("../common/render");
 var server = require("../models/index");
 var appConfig = require("../config/app-config");
 var api = require("../api/api");
+var util = require("../common/util");
 var urlencode = require('urlencode');
 //测试
 module.exports = {
-    render: function(res, req) {
-            var list=function(req){
+    render: function(req, res) {
+            var list=function(res){
                 return{
                     findSpecialTopic:function(callback){
-                        callback()
+                     
                         //console.log(appConfig.apiBasePath + api.special.findSpecialTopic.replace(/\$id/, 'xx'),'url--------')
                         // server.get(appConfig.apiBasePath + api.special.allCategory.replace(/\$id/, 'xx'), callback, req, true);
-                        console.log(appConfig.apiBasePath + api.special.allCategory,'url')
+                        //console.log(appConfig.apiBasePath + api.special.allCategory,'url')
                         //server.get(appConfig.apiBasePath + api.special.allCategory, callback, req);
+                        //req.dimensionId=123;
+                        callback()
                     },
                     listTopicContents:function(callback){
-                        
+                        var paramObj = util.getSpecialParams(req.url);
+                        var params=paramObj.item;
+                        req.body = {
+                            specialTopicId: params.specialTopicId,//专题id
+                            dimensionId: params.dimensionId || req.dimensionId,//维度id
+                            topicPropertyQueryDTOList: [{
+                                propertyGroupId:"xx",
+                                propertyGroupName:"xx",
+                                propertyType:1,
+                                propertyId:"xx",
+                                propertyName:"xx"
+                            }],
+                            sortFlag: params.sortFlag,//排序,0-综合排序,1-最新上传
+                            currentPage: params.currentPage,
+                            pageSize: 10
+                        };
+                        console.log(req.body,'req.body--------------------------------------')
+                        //server.post(appConfig.apiBasePath + api.special.listTopicContents, callback, req);
+                        callback()
                     }
                 }
             }
             return async.series(list(req), function (err, results) {
                 console.log(results,'results****************')
+                
                 var results = results || {};
                 results={
                     code: 0,
@@ -133,7 +155,7 @@ module.exports = {
                 }
                 results.pageIndexArr=pageIndexArr;
 
-                render("special/index", results, res, req);
+                render("special/index", results, req, res);
             })
     }
 }

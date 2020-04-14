@@ -15,7 +15,7 @@
         <div class="search-all-nav">
             <div class="search-nav-box">
                 {% for navItem in results.data.specialTopicDimensionDOList %}
-                <a href="" class="active">{{navItem.dimensionName}}</a>
+                <a href="./node/s/{{results.data.id}}-{{navItem.dimensionId}}.html" class="active">{{navItem.dimensionName}}</a>
                 {% endfor %}
             </div>
         </div>
@@ -27,10 +27,10 @@
     
                 <span class="search-title" value="{{secondItem.propertyGroupId}}">{{secondItem.propertyGroupName}}: </span>
                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                <span class="search-ele {{'active' if thirdItem.active  }}"
+                <a class="search-ele {{'active' if thirdItem.active  }}" href="./node/s/{{results.data.id}}-{{firstItem.dimensionId}}.html"
                     value="{{thirdItem.propertyId}}">
                     {{thirdItem.propertyName}}
-                </span>
+                </a>
                 {% endfor %}
     
             </div>
@@ -61,8 +61,7 @@
     <div class="search-list-section">
         <div class="search-list-tab">
              <a href="" class="active">综合排序</a>
-             <a href="">热门下载</a>
-             <a href="">最新上传</a>
+             <a href="./node/s/">最新上传</a>
         </div>
         <div class="search-list-container">
             <ul>
