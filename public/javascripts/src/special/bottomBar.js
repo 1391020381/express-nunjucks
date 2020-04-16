@@ -46,7 +46,6 @@ $('#a-login-link').click(function(){
     login.notifyLoginInterface(function (data) {
         console.log('-------------------',data)
         refreshTopBar(data);
-
      })
 })
 
@@ -121,4 +120,29 @@ $('#a-login-link').click(function(){
             });
         }
     }
+
+    // 热点搜索切换逻辑,一次性请求30条数据,然后在点击的时候切换
+    var hotItems = $('.hot-list .hot-items')
+    var currentPage = 1
+    var opt = {
+        1:function(){
+            hotItems.hide()
+            hotItems.slice(0,9).show()
+        },
+        2:function(){
+            hotItems.hide()
+            hotItems.slice(10,19).show()
+        },
+        3:function(){
+            hotItems.hide()
+            hotItems.slice(20,29).show()
+        }
+    }
+    $('.hot-spot-search .title-right').click(function(){
+        currentPage = currentPage + 1
+        opt[currentPage]()
+        if(currentPage === 3){
+            currentPage = 1
+        }
+    })
 });

@@ -8,10 +8,13 @@
             <p class="title-right"><img src="{{cdnUrl}}/images/special/switch.png" class="icon"><span>换一换</span></p>
         </div>
         <ul class="hot-list">
+            {% for item in results.specialTopic %}
             <li class="hot-items">
-                <a>会计造假案例分析</a>
+                <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
             </li>
-             <li class="hot-items">
+            {% endfor %}
+           
+             {# <li class="hot-items">
                 <a>会计造假案例分析</a>
             </li>
              <li class="hot-items">
@@ -38,7 +41,7 @@
             </li>
              <li class="hot-items">
                 <a>标准化法实施细则</a>
-            </li>
+            </li> #}
         </ul>
     </div>
      {# <ul class="adv-position">
