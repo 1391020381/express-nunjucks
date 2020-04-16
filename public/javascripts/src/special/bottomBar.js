@@ -7,17 +7,20 @@ define(function(require , exports , module){
    
 
    // 收藏与取消收藏功能
+   var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
        console.log('专题收藏')
+       var contentId = $('.search-img-box .ic-collect').attr("data-contentid")
        if(!method.getCookie('cuk')){
            console.log('用户未登录')
            login.notifyLoginInterface(function (data) {
            console.log('-------------------',data)
            refreshTopBar(data);
-           fileSaveOrupdate()
+           var userId = data.userId
+           fileSaveOrupdate(contentId,userId)
         })
        }else{
-        fileSaveOrupdate()
+        fileSaveOrupdate(contentId,userId)
        }
    })
    // 收藏或取消收藏接口
@@ -116,6 +119,7 @@ $('#a-login-link').click(function(){
     function loginStatusQuery() {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
+                userId = data.userId
                 refreshTopBar(data);
             });
         }
