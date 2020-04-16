@@ -32,11 +32,13 @@ module.exports = {
                             currentPage: paramsObj.currentPage || 1,
                             pageSize: 10
                         };
+                        console.log(req.body,'req.body--------------------------------------')
+                        console.log(appConfig.apiSpecialPath + api.special.listTopicContents,'')
                         server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req).then(res=>{
                             console.log('列表请求成功',res)
                             callback(null,res)
                         });
-                        callback()
+                       
                     },
                     specialTopic:function(callback){
                         req.body = {
@@ -45,7 +47,6 @@ module.exports = {
                             name: 131231   // 需要依赖 专题的名称
                         }
                         server.post(appConfig.apiBasePath + api.special.specialTopic, callback, req);
-                        callback()
                     }
                 }
             }
@@ -187,6 +188,7 @@ module.exports = {
                 }
               
                 console.log(dimlist,'dimlist')
+
                 //添加全部
                 dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
                     firstItem.specialTopicPropertyDOList.unshift({
