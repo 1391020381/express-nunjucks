@@ -120,20 +120,31 @@ module.exports = {
         }
         return res;
     },
-    getSpecialParams:function(pathname){
+    getSpecialParams:function(pathname){ //专题id_页码_排序-维度-xx_xx-xx_xx    格式
         var item = null;
         var regExp=new RegExp("\/([^/]+)+.html$","g");
         var matchResult = pathname.match(regExp)[0].split('.')[0].replace('\/','');
- 
-    },
-    getQueryParams:function(queryName){
-        var reg = new RegExp("(^|&)"+ queryName +"=([^&]*)(&|$)");
-        if(reg){
-            var data = this.substr(1).match(reg);
-            return data!=null?decodeURIComponent(data[2]):null;
-        }else{
-            return null
+        console.log(matchResult,'matchResult')
+        var paramsArr=matchResult.split('-');
+        var firstSpilt=paramsArr[0].split('_');
+        console.log(firstSpilt,'firstSpilt')
+        item={
+            specialTopicId: firstSpilt[0],//专题id
+            dimensionId: paramsArr[1],//维度id
+            topicPropertyQueryDTOList: [],
+            sortFlag: firstSpilt[2] || 0,//排序,0-综合排序,1-最新上传
+            currentPage: firstSpilt[1] || 1,
         }
-      
+        console.log(paramsArr.length,'paramsArr.length')
+        if(paramsArr.length>2){ //是否有属性分类筛选
+            var arr=[];
+            for (var i = 2; i < paramsArr.length; i++) {
+                arr.push(paramsArr[i]);
+            }
+            item.topicPropertyQueryDTOList=arr;
+        }
+        console.log(item,'item')
+        return item
     }
+   
 };

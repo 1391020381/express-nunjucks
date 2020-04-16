@@ -5,6 +5,7 @@ module.exports = {
     //环境配置
     env: process.env.NODE_ENV,
     apiBasePath: 'http://ishare.zuul.api:8769/pc',
+    apiSpecialPath:'http://ishare.zuul.api:6769/gateway',
     // 日志输入路径
     logPath: '/data/logs/ishare/node-pc/',
     newBasePath: 'http://ishare.zuul.api:8769',

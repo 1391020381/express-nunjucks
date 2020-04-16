@@ -33,7 +33,15 @@
         window.pageConfig = {
              params: {
                 isVip: 0
-            }
+            },
+            urlParams:{
+                specialTopicId:"{{results.urlParams.specialTopicId}}",//专题id
+                dimensionId:"{{results.urlParams.dimensionId}}",//维度id
+                sortFlag:"{{results.urlParams.sortFlag}}",
+                currentPage:"{{results.urlParams.currentPage}}",
+                topicPropertyQueryDTOList:'{{results.urlParams.topicPropertyQueryDTOList}}'
+            },
+            categoryArr:'{{results.categoryArr}}'
         }
         seajs.use(["dist/application/app.js", "dist/special/init.js"]);
     </script>
