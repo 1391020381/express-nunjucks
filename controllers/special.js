@@ -4,7 +4,6 @@ var render = require("../common/render");
 var server = require("../models/index");
 var appConfig = require("../config/app-config");
 var api = require("../api/api");
-var _=require("lodash")
 var util = require("../common/util");
 //测试
 module.exports = {
@@ -17,6 +16,7 @@ module.exports = {
                         var url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                         server.$http(url,'get', req, true).then(item=>{
                             //paramsObj.dimensionId ? '' : paramsObj.dimensionId=item.data.specialTopicDimensionDOList[0].dimensionId //默认维度id   
+                            req.topicName = item.data&&item.data.topicName //   specialTopic 需要topicName
                             callback(null,item)
                         })
                         
@@ -41,12 +41,16 @@ module.exports = {
                        
                     },
                     specialTopic:function(callback){
+                        console.log('specialTopic:',req.topicName)
                         req.body = {
                             currentPage:1,
                             pageSize:30,
-                            name: 131231   // 需要依赖 专题的名称
+                            name: req.topicName   // 需要依赖 专题的名称
                         }
-                        server.post(appConfig.apiBasePath + api.special.specialTopic, callback, req);
+                        server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req).then(res=>{
+                            console.log('热点搜索请求成功')
+                            callback(null,res)
+                        });
                     }
                 }
             }
@@ -54,130 +58,38 @@ module.exports = {
                 console.log(results,'results****************')
                 var data=results.findSpecialTopic.data;
                 var list=results.listTopicContents.data;
-              
-                // results={
-                //     code: 0,
-                //     msg: "请求成功",
-                //     data: {
-                //         "id": "11",
-                //         "topicName": "专题案例",
-                //         "templateCode":"xx",
-                //         "dimensionStatus":0,
-                //         "specialTopicDimensionDOList":[
-                //             {
-                //                 "dimensionId"  :"123",
-                //                 "dimensionName" :"维度1",
-                //                 "sort":1,
-                //                 "specialTopicPropertyGroupDOList" :[
-                //                     {
-                //                         "propertyGroupId" : "1234",
-                //                         "propertyGroupName" :"分类1",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12341",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12342",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     },
-                //                     {
-                //                         "propertyGroupId" : "1235",
-                //                         "propertyGroupName" :"分类2",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12351",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12352",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     },
-                //                     {
-                //                         "propertyGroupId" : "1236",
-                //                         "propertyGroupName" :"分类3",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12361",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12362",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     }
-                //                 ]
-                //             },
-                //             {
-                //                 "dimensionId"  :"124",
-                //                 "dimensionName" :"维度2",
-                //                 "sort":1,
-                //                 "specialTopicPropertyGroupDOList" :[
-                //                     {
-                //                         "propertyGroupId" : "1234",
-                //                         "propertyGroupName" :"风格",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12341",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12342",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     },
-                //                     {
-                //                         "propertyGroupId" : "1235",
-                //                         "propertyGroupName" :"发型",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12351",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12352",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     },
-                //                     {
-                //                         "propertyGroupId" : "1236",
-                //                         "propertyGroupName" :"身材",
-                //                         "sort":1,
-                //                         "propertyType" :1,
-                //                         "specialTopicPropertyDOList":[
-                //                             {
-                //                                 "propertyId":"12361",
-                //                                 "propertyName":"属性1"
-                //                             },
-                //                             {
-                //                                 "propertyId":"12362",
-                //                                 "propertyName":"属性2"
-                //                             },
-                //                         ]
-                //                     }
-                //                 ]
-                //             }
-                //         ]
-                //     }
-                // }
-
+                var specialTopic = results.specialTopic.code=== 1?  results.specialTopic.data:  [
+                    {"id": "1001","topicName": "1"},
+                    {"id": "1002","topicName": "2"},
+                    {"id": "1000","topicName": "3"},
+                    {"id": "1001","topicName": "4"},
+                    {"id": "1002","topicName": "5"},
+                    {"id": "1000","topicName": "6"},
+                    {"id": "1001","topicName": "7"},
+                    {"id": "1002","topicName": "8"},
+                    {"id": "1000","topicName": "9"},
+                    {"id": "1001","topicName": "10"},
+                    {"id": "1002","topicName": "11"},
+                    {"id": "1000","topicName": "12"},
+                    {"id": "1000","topicName": "13"},
+                    {"id": "1000","topicName": "14"},
+                    {"id": "1000","topicName": "15"},
+                    {"id": "1000","topicName": "16"},
+                    {"id": "1000","topicName": "17"},
+                    {"id": "1000","topicName": "18"},
+                    {"id": "1000","topicName": "19"},
+                    {"id": "1000","topicName": "20"},
+                    {"id": "1000","topicName": "21"},
+                    {"id": "1000","topicName": "22"},
+                    {"id": "1000","topicName": "23"},
+                    {"id": "1000","topicName": "24"},
+                    {"id": "1000","topicName": "25"},
+                    {"id": "1000","topicName": "26"},
+                    {"id": "1000","topicName": "27"},
+                    {"id": "1000","topicName": "28"},
+                    {"id": "1000","topicName": "29"},
+                    {"id": "1000","topicName": "30"},
+                ]
                 // 处理tag标签选中
                 console.log(paramsObj.dimensionId,'paramsObj.dimensionId')
                 if(paramsObj.dimensionId){
@@ -228,7 +140,8 @@ module.exports = {
    
               
                 //最大20页
-                var results={ data:data,list:list };
+                var results={ data:data,list:list ,specialTopic:specialTopic};
+                console.log('最终返回结果:',results)
                 var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
                 if (results.list.totalPages < 20) {
