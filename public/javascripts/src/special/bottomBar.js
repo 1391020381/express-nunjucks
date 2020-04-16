@@ -127,22 +127,32 @@ $('#a-login-link').click(function(){
     var opt = {
         1:function(){
             hotItems.hide()
-            hotItems.slice(0,9).show()
+            hotItems.slice(0,10).show()
         },
         2:function(){
             hotItems.hide()
-            hotItems.slice(10,19).show()
+            hotItems.slice(10,20).show()
         },
         3:function(){
             hotItems.hide()
-            hotItems.slice(20,29).show()
+            hotItems.slice(20,30).show()
+            currentPage = 0
         }
     }
+    opt[currentPage]()
     $('.hot-spot-search .title-right').click(function(){
         currentPage = currentPage + 1
         opt[currentPage]()
-        if(currentPage === 3){
-            currentPage = 1
-        }
     })
+   // 专题页面搜索框的逻辑
+   search()
+   function search(){
+        var topicName = $('body > div.search-all-main > div.search-crumb-warper > span:nth-child(2)').text()  // topicName
+        $('#scondition').val(topicName)
+        $('#searchBtn').click(function(){
+            
+            let fd = $('.search-choose input[name="radio"]:checked ').val()
+            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ fd + '&cond='+ topicName )
+        })
+   }
 });

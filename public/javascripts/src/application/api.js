@@ -3,6 +3,7 @@
  **/
 define(function (require, exports, module) {
     var router = "/pc";
+    var gateway = '/gateway'
     module.exports = {
         // 用户相关
         user: {
@@ -55,7 +56,7 @@ define(function (require, exports, module) {
             successBuyDownLoad: router + '/action/downloadNow'
         },
         special:{
-            fileSaveOrupdate:'/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
+            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }
     }
 });
