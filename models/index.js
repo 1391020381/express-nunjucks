@@ -2,7 +2,6 @@ var request = require('request');
 
 module.exports = {
     get: function (url, callback, req, append) {
-
         var opt = this.getPaymentType(req, url, '', append);
         request(opt, (error, response, body) => {
             console.log(body,'body')
@@ -83,5 +82,38 @@ module.exports = {
             },
             body: req.body
         };
+    },
+    testEs6:function(){
+        return new Promise((resolve,reject)=>{
+            resolve({
+                test:'123'
+            })
+        })
+    },
+    $http: function (url,method, req, append) {
+        return new Promise((resolve,reject)=>{
+            var opt = '';
+            method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
+            request(opt, (error, response, body) => {
+                console.log(body,'body')
+                if (body) {
+                    try {
+                        var data = body;
+                        if (typeof body == 'string') {
+                            data = JSON.parse(body);
+                        }
+                        if (data) {
+                            resolve(data)
+                        } 
+                    } catch (err) {
+                        console.error(err);
+                        reject(err)
+                        // callback(null , null);
+                    }
+                } else {
+                    reject(err);
+                }
+            })
+        })
     },
 };

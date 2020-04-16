@@ -15,25 +15,27 @@
         <div class="search-all-nav">
             <div class="search-nav-box">
                 {% for navItem in results.data.specialTopicDimensionDOList %}
-                <a href="./node/s/{{results.data.id}}-{{navItem.dimensionId}}.html" class="active">{{navItem.dimensionName}}</a>
+                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
         <div class="search-condition">
+
             {% for firstItem in results.data.specialTopicDimensionDOList %}
             {% for secondItem in firstItem.specialTopicPropertyGroupDOList %}
+            {% if results.urlParams.dimensionId==firstItem.dimensionId %}
             <div class="search-item {{'hide' if loop.index>2  }}">
     
-                <span class="search-title" value="{{secondItem.propertyGroupId}}">{{secondItem.propertyGroupName}}: </span>
+                <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                <a class="search-ele {{'active' if thirdItem.active  }}" href="./node/s/{{results.data.id}}-{{firstItem.dimensionId}}.html"
-                    value="{{thirdItem.propertyId}}">
+                <a data-ids="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
                     {{thirdItem.propertyName}}
                 </a>
                 {% endfor %}
     
             </div>
+            {% endif %}
             {% endfor %}
             {% endfor %}
     
@@ -60,8 +62,8 @@
     <!--筛选列表  -->
     <div class="search-list-section">
         <div class="search-list-tab">
-             <a href="" class="active">综合排序</a>
-             <a href="./node/s/{{results.urlParams}}">最新上传</a>
+             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_0.html" class="{{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_1.html" class="{{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
         </div>
         <div class="search-list-container">
             <ul>
