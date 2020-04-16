@@ -17,6 +17,7 @@ module.exports = {
                         var url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                         server.$http(url,'get', req, true).then(item=>{
                             //paramsObj.dimensionId ? '' : paramsObj.dimensionId=item.data.specialTopicDimensionDOList[0].dimensionId //默认维度id   
+                            req.topicName = item.data.topicName //   specialTopic 需要topicName
                             callback(null,item)
                         })
                         
@@ -41,12 +42,16 @@ module.exports = {
                        
                     },
                     specialTopic:function(callback){
+                        console.log('specialTopic:',req.topicName)
                         req.body = {
                             currentPage:1,
                             pageSize:30,
-                            name: 131231   // 需要依赖 专题的名称
+                            name: req.topicName   // 需要依赖 专题的名称
                         }
-                        server.post(appConfig.apiBasePath + api.special.specialTopic, callback, req);
+                        server.$http(appConfig.apiBasePath + api.special.specialTopic, 'post', req).then(res=>{
+                            console.log('热点搜索请求成功')
+                            callback(null,res)
+                        });
                     }
                 }
             }
@@ -54,6 +59,26 @@ module.exports = {
                 console.log(req.query,'results****************')
                 var results = data.findSpecialTopic || {};
                 results.list=data.listTopicContents.data;
+                results.specialTopic = data.specialTopic.data  ||  {
+                    "currentPage": 1,
+                    "pageSize": 2,
+                    "rows": [
+                    {
+                        "id": "1000",
+                        "topicName": "一级分类"
+                    },
+                    {
+                        "id": "1001",
+                        "topicName": "二级分类"
+                    },
+                    {
+                        "id": "1003",
+                        "topicName": "三级分类"
+                    }
+                ],
+                    "totalPages": 1,
+                    "totalSize": 1
+                }
                 console.log(data.listTopicContents,'data.listTopicContents')
                
                 // results={
