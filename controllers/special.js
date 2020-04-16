@@ -4,7 +4,6 @@ var render = require("../common/render");
 var server = require("../models/index");
 var appConfig = require("../config/app-config");
 var api = require("../api/api");
-var _=require("lodash")
 var util = require("../common/util");
 //测试
 module.exports = {
@@ -55,31 +54,10 @@ module.exports = {
                     }
                 }
             }
-            return async.series(list(req), function (err, data) {
+            return async.series(list(req), function (err, results) {
                 console.log(req.query,'results****************')
-                var results = data.findSpecialTopic || {};
-                results.list=data.listTopicContents.data;
-                results.specialTopic = data.specialTopic.data  ||  {
-                    "currentPage": 1,
-                    "pageSize": 2,
-                    "rows": [
-                    {
-                        "id": "1000",
-                        "topicName": "一级分类"
-                    },
-                    {
-                        "id": "1001",
-                        "topicName": "二级分类"
-                    },
-                    {
-                        "id": "1003",
-                        "topicName": "三级分类"
-                    }
-                ],
-                    "totalPages": 1,
-                    "totalSize": 1
-                }
-                console.log(data.listTopicContents,'data.listTopicContents')
+                var data=results.findSpecialTopic.data;
+                var list=results.listTopicContents.data;
                
                 // results={
                 //     code: 0,
@@ -206,10 +184,10 @@ module.exports = {
 
                 // 处理tag标签选中
                 if(paramsObj.dimensionId){
-                    var index=_.findIndex(results.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
-                    var dimlist=results.data.specialTopicDimensionDOList[index]; //当前的维度列表
+                    var index=_.findIndex(data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
+                    var dimlist=data.specialTopicDimensionDOList[index]; //当前的维度列表
                 }else{
-                    var dimlist=results.data.specialTopicDimensionDOList[0]; //当前的维度列表
+                    var dimlist=data.specialTopicDimensionDOList[0]; //当前的维度列表
                 }
               
                 console.log(dimlist,'dimlist')
@@ -245,39 +223,19 @@ module.exports = {
                     })
                     dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active=true;
                 })
-               
-              
 
+                data.specialLength=data.specialTopicDimensionDOList[0].specialTopicPropertyGroupDOList.length;//分类的长度
 
-                results.data.specialLength=results.data.specialTopicDimensionDOList[0].specialTopicPropertyGroupDOList.length;//分类的长度
-                // 列表内容
-                // results.list= {
-                //     "currentPage": 1,
-                //     "pageSize": 10,
-                //     "rows": [
-                //         {
-                //             "contentId":"xx",
-                //             "contentName":"2019年考研数学真题(数二)梵蒂冈的",
-                //             "fileSmallPic":"https://pic.iask.com.cn/yO6qCK8vTcO_small1.jpg",
-                //             "readNum":2,
-                //             "downNum":1,
-                //             "collectNum":1,
-                //             "praiseNum":1
-                //         }
-                //     ],
-                //     "totalPages": 10,
-                //     "totalSize": 100
-                // }
-                
-                
                 
                 //最大20页
+                var results={ data:data,list:list };
                 var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
                 if (results.list.totalPages < 20) {
                     pageIndexArr.length = results.list.totalPages;
                 }
                 results.pageIndexArr=pageIndexArr;
+
                 paramsObj.topicPropertyQueryDTOList=JSON.stringify(paramsObj.topicPropertyQueryDTOList)
                 results.urlParams=paramsObj;
                 console.log(results.urlParams,'results.urlParams')

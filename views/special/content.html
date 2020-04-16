@@ -14,6 +14,7 @@
         {% if results.data.dimensionStatus===0 %}  
         <div class="search-all-nav">
             <div class="search-nav-box">
+                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}.html" class="active">全部</a>
                 {% for navItem in results.data.specialTopicDimensionDOList %}
                 <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
                 {% endfor %}
@@ -73,7 +74,7 @@
                         <img src="{{item.fileSmallPic}}" alt="">
                         <div class="mask-container">
                             <div class="bg-mask"></div>
-                            <i class="ic-collect active"></i>
+                            <i class="ic-collect {{'active' if item.hasCollect}}"></i>
                             <div class="to-download">
                             <a href="http://ishare.iask.sina.com.cn/f/10000233.html" target="_blank" style="width:100%;height:100%;">立即下载</a>
                             </div>
