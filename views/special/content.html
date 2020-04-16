@@ -14,7 +14,7 @@
         {% if results.data.dimensionStatus===0 %}  
         <div class="search-all-nav">
             <div class="search-nav-box">
-                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}.html" class="active">全部</a>
+                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId===null}}">全部</a>
                 {% for navItem in results.data.specialTopicDimensionDOList %}
                 <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
                 {% endfor %}
@@ -97,33 +97,43 @@
                </li>
                {% endfor %}
             </ul>
-            <!-- 分页 -->
+              <!-- 搜索空的页面 -->
+            {% if results.list.rows.length===0 %}
+            <div class="search-empty-container">
+                <div class="search-empty-item">
+                    <img src="../../images/special/search_empty.png" alt="" width="89" height="89">
+                    <p>暂时没有您想要的内容，试试刷新页面</p>
+                    <div class="btn-fresh">立即刷新</div>
+                </div>
+            </div>
+            <!-- 分页 -->  
+            {% else %}
             <div class="office-page-paging">
-               <a class="btn-page-long" style="display: none;">首页</a>
-               <a class="btn-page" style="display: none;">上一页</a>
+               <a class="btn-page-long" href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html">首页</a>
+               {% if results.urlParams.currentPage>1 %}
+               <a class="btn-page" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}.html">上一页</a>
+               {% endif %}
+
+
                {%if results.pageIndexArr.length>1 %}
-   
                {%for item in results.pageIndexArr%}
-               <a class="page-ele {%if loop.index == 1%} active {%endif%}" value="{{loop.index}}"
-                   style="display: inline-block">
+               {% if (loop.index<+results.urlParams.currentPage+3 and loop.index>=results.urlParams.currentPage-3) %}
+               <a class="page-ele {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
+                   style="display: inline-block" href="/node/s/{{results.data.id}}_{{loop.index}}_{{results.urlParams.sortFlag}}.html">
                    {{loop.index}}
                </a>
+               {% endif %}
                {%endfor%}
+               {% if results.urlParams.currentPage <= results.pageIndexArr.length-3 %}
                <a class="page-more">...</a>
-               <a class="btn-page-long">下一页</a>
-               <a class="btn-page">尾页</a>
+               {% endif %}
+               <a class="btn-page-long" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}.html">下一页</a>
+               <a class="btn-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.data.id}}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html">尾页</a>
                {%endif%}
            </div>
+           {% endif %}
         </div>
-        <!-- 搜索空的页面 -->
-        <div class="search-empty-container" style="display: none;">
-            <div class="search-empty-item">
-                <img src="../../images/special/search_empty.png" alt="" width="89" height="89">
-                <p>暂时没有您想要的内容，试试刷新页面</p>
-                <div class="btn-fresh">立即刷新</div>
-            </div>
-        </div>
-
+      
     </div>
         
 </div>

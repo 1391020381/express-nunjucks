@@ -30,7 +30,7 @@ module.exports = {
                             topicPropertyQueryDTOList: paramsObj.topicPropertyQueryDTOList || [],
                             sortFlag: paramsObj.sortFlag || 0,//排序,0-综合排序,1-最新上传
                             currentPage: paramsObj.currentPage || 1,
-                            pageSize: 10
+                            pageSize: 12
                         };
                         console.log(req.body,'req.body--------------------------------------')
                         console.log(appConfig.apiSpecialPath + api.special.listTopicContents,'')
@@ -51,10 +51,10 @@ module.exports = {
                 }
             }
             return async.series(list(req), function (err, results) {
-                console.log(req.query,'results****************')
+                console.log(results,'results****************')
                 var data=results.findSpecialTopic.data;
                 var list=results.listTopicContents.data;
-               
+              
                 // results={
                 //     code: 0,
                 //     msg: "请求成功",
@@ -179,50 +179,54 @@ module.exports = {
                 // }
 
                 // 处理tag标签选中
+                console.log(paramsObj.dimensionId,'paramsObj.dimensionId')
                 if(paramsObj.dimensionId){
                     var index=_.findIndex(data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     var dimlist=data.specialTopicDimensionDOList[index]; //当前的维度列表
                 }else{
-                    var dimlist=data.specialTopicDimensionDOList[0]; //当前的维度列表
+                    var dimlist=data.specialTopicDimensionDOList && data.specialTopicDimensionDOList[0]; //当前的维度列表
                 }
               
-                console.log(dimlist,'dimlist')
+              
 
                 //添加全部
-                dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
-                    firstItem.specialTopicPropertyDOList.unshift({
-                        propertyId:'all',
-                        propertyName:"全部",
-                        active:true,
-                        ids:firstItem.propertyGroupId+"_all"
+                if(dimlist){
+                    dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
+                        firstItem.specialTopicPropertyDOList.unshift({
+                            propertyId:'all',
+                            propertyName:"全部",
+                            active:true,
+                            ids:firstItem.propertyGroupId+"_all"
+                        })
+                        firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
+                            secondItem.ids=firstItem.propertyGroupId+'_'+secondItem.propertyId;
+                          
+                        })                   
                     })
-                    firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
-                        secondItem.ids=firstItem.propertyGroupId+'_'+secondItem.propertyId;
-                      
-                    })                   
-                })
-                //查找到当前分类  及选中的tag
-                var currentArr=[];
-                dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
-                    firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
-                        if(paramsObj.topicPropertyQueryDTOList.includes(secondItem.ids)){
-                            currentArr.push({
-                                firstIndex:firstIndex,
-                                secondIndex:secondIndex,
-                            })
-                        }                
-                    })    
-                })
-                currentArr.map(item=>{
-                    dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList.map(res=>{
-                        res.active=false;
+                    //查找到当前分类  及选中的tag
+                    var currentArr=[];
+                    dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
+                        firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
+                            if(paramsObj.topicPropertyQueryDTOList.includes(secondItem.ids)){
+                                currentArr.push({
+                                    firstIndex:firstIndex,
+                                    secondIndex:secondIndex,
+                                })
+                            }                
+                        })    
                     })
-                    dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active=true;
-                })
-
-                data.specialLength=data.specialTopicDimensionDOList[0].specialTopicPropertyGroupDOList.length;//分类的长度
-
-                
+                    currentArr.map(item=>{
+                        dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList.map(res=>{
+                            res.active=false;
+                        })
+                        dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active=true;
+                    })
+    
+                    data.specialLength=data.specialTopicDimensionDOList[0].specialTopicPropertyGroupDOList.length;//分类的长度
+    
+                }
+   
+              
                 //最大20页
                 var results={ data:data,list:list };
                 var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
