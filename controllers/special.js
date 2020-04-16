@@ -38,6 +38,15 @@ module.exports = {
                         console.log(req.body,'req.body--------------------------------------')
                         //server.post(appConfig.apiBasePath + api.special.listTopicContents, callback, req);
                         callback()
+                    },
+                    specialTopic:function(callback){
+                        req.body = {
+                            currentPage:1,
+                            pageSize:30,
+                            name: 131231   // 需要依赖 专题的名称
+                        }
+                        server.post(appConfig.apiBasePath + api.special.specialTopic, callback, req);
+                        callback()
                     }
                 }
             }

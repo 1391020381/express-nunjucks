@@ -11,7 +11,7 @@
             <div class="js-tab">
                 <ul class="pay-screen-list pay-vip-list carding-vip-list cf">
                     {% for item in results.list.data %}
-                    <li class="ui-tab-nav-item {% if loop.index==1 %}active{% endif %}" data-month="{{item.name}}" data-price="{{item.sellPrice/100}}" data-activeprice="{{item.sellPrice/100}}" data-discountprice="{{item.discountPrice}}"  data-actids="{{item.activityId}}" data-index="{{loop.index0}}" data-vid="{{item.id}}">
+                    <li class="ui-tab-nav-item {% if loop.index==1 %}active{% endif %}" data-givedesc="{{121231232}}" data-month="{{item.name}}" data-price="{{item.sellPrice/100}}" data-activeprice="{{item.sellPrice/100}}" data-discountprice="{{item.discountPrice}}"  data-actids="{{item.activityId}}" data-index="{{loop.index0}}" data-vid="{{item.id}}">
                         <div class="pay-vip-item pay-carding-item">
                             <p class="vip-time">{{item.title}}</p>
                             <p class="vip-price">&yen; <strong>{{item.sellPrice/100}}</strong></p>
@@ -497,6 +497,9 @@
                         </ul>
                     </div>
                 </div>
+                {# <div class="gift-copy">{{results.list.data[0].giveDesc}}<div> #}
+                 <div class="gift-copy">使用范围：仅限爱问共享资料站，不适用于其他垂直频道</div>
+                 
                 {% include "common/couponOperate.html" %}
             </div>
             
