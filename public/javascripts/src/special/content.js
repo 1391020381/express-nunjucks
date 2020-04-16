@@ -23,13 +23,11 @@ define(function(require , exports , module){
         $(document).on('click','.search-ele',function(){
             var ids = $(this).attr('data-ids');
             var idsArr=ids.split('-'),subArr=[];
-            console.log(idsArr,'idsArr')
             if(idsArr.length>1){
                 var currentTag={
                     propertyGroupId:idsArr[2] && idsArr[2].split('_')[0],
                     propertyId:idsArr[2] && idsArr[2].split('_')[1],
                 }
-                console.log(currentTag,'currentTag')
                 var originArr=pageConfig.urlParams.topicPropertyQueryDTOList ? JSON.parse(pageConfig.urlParams.topicPropertyQueryDTOList): [];
                 
                 if(originArr.length>0){ //之前是否有选中tag
@@ -39,14 +37,10 @@ define(function(require , exports , module){
                             propertyId:res.split('_')[1]
                         })
                     })
-                    subArr.map(function(res,index){ //解决同一级的切换 并替换
-                        
-                        if(currentTag.propertyGroupId==res.propertyGroupId){ 
-                            res.propertyId=currentTag.propertyId
-                        }else{
-                            subArr.push(currentTag);
-                        }   
+                    subArr=subArr.filter(function(res,index){  //过滤相同分类的tag
+                        return currentTag.propertyGroupId!=res.propertyGroupId
                     })
+                    subArr.push(currentTag);
                 }else{
                     subArr.push(currentTag);
                 }

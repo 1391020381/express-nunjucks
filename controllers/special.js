@@ -5,6 +5,7 @@ var server = require("../models/index");
 var appConfig = require("../config/app-config");
 var api = require("../api/api");
 var util = require("../common/util");
+var querystring =require('querystring')
 //测试
 module.exports = {
     render: function(req, res) {
@@ -15,47 +16,55 @@ module.exports = {
                     findSpecialTopic:function(callback){
                         var url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                         server.$http(url,'get', req, true).then(item=>{
-                            //paramsObj.dimensionId ? '' : paramsObj.dimensionId=item.data.specialTopicDimensionDOList[0].dimensionId //默认维度id   
                             req.topicName = item.data&&item.data.topicName //   specialTopic 需要topicName
+                            console.log(item,'itemitem') 
+                            if(paramsObj.dimensionId){ //获取当前当前的维度列表
+                                var index=_.findIndex(item.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
+                                req.specialList=item.data.specialTopicDimensionDOList[index]; //
+                            }
                             callback(null,item)
                         })
                         
                       
                     },
                     listTopicContents:function(callback){
-                       
+                        var arr=[];
+                        if((paramsObj.topicPropertyQueryDTOList.length>0)){
+                            arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,req.specialList.specialTopicPropertyGroupDOList);
+                        }
+                      
                         req.body = {
                             specialTopicId: paramsObj.specialTopicId,//专题id
                             dimensionId: paramsObj.dimensionId || '',//维度id
-                            topicPropertyQueryDTOList: paramsObj.topicPropertyQueryDTOList || [],
+                            topicPropertyQueryDTOList: arr || [],
                             sortFlag: paramsObj.sortFlag || 0,//排序,0-综合排序,1-最新上传
                             currentPage: paramsObj.currentPage || 1,
                             pageSize: 12
                         };
                         console.log(req.body,'req.body--------------------------------------')
-                        console.log(appConfig.apiSpecialPath + api.special.listTopicContents,'')
                         server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req).then(res=>{
-                            console.log('列表请求成功',res)
                             callback(null,res)
                         });
                        
                     },
                     specialTopic:function(callback){
-                        console.log('specialTopic:',req.topicName)
                         req.body = {
                             currentPage:1,
                             pageSize:30,
                             name: req.topicName   // 需要依赖 专题的名称
                         }
                         server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req).then(res=>{
-                            console.log('热点搜索请求成功')
                             callback(null,res)
                         });
                     }
                 }
             }
             return async.series(list(req), function (err, results) {
-                console.log(results,'results****************')
+
+                if(results.findSpecialTopic.code=='G-500'){
+                    res.redirect('/html/404.html')
+                    return
+                }    
                 var data=results.findSpecialTopic.data;
                 var list=results.listTopicContents.data;
                 var specialTopic = results.specialTopic.code=== 1?  results.specialTopic.data:  [
@@ -90,8 +99,8 @@ module.exports = {
                     {"id": "1000","topicName": "29"},
                     {"id": "1000","topicName": "30"},
                 ]
+
                 // 处理tag标签选中
-                console.log(paramsObj.dimensionId,'paramsObj.dimensionId')
                 if(paramsObj.dimensionId){
                     var index=_.findIndex(data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     var dimlist=data.specialTopicDimensionDOList[index]; //当前的维度列表
@@ -141,7 +150,6 @@ module.exports = {
               
                 //最大20页
                 var results={ data:data,list:list ,specialTopic:specialTopic};
-                console.log('最终返回结果:',results)
                 var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
                 if (results.list.totalPages < 20) {
@@ -151,7 +159,6 @@ module.exports = {
 
                 paramsObj.topicPropertyQueryDTOList=JSON.stringify(paramsObj.topicPropertyQueryDTOList)
                 results.urlParams=paramsObj;
-                console.log(results.urlParams,'results.urlParams')
                 console.log(results,'results')
                 render("special/index", results, req, res);
             })
