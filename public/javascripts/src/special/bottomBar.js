@@ -1,5 +1,4 @@
 define(function(require , exports , module){
-    console.log('专题的bottomBar')
     var api = require('../application/api');
     var method = require("../application/method");
     var login = require("../application/checkLogin");
@@ -9,22 +8,25 @@ define(function(require , exports , module){
    // 收藏与取消收藏功能
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
-       console.log('专题收藏')
-       var contentId = $('.search-img-box .ic-collect').attr("data-contentid")
+       var _this = $(this)
+       var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
+       function addActiveClass(collectionIsSuccessful){   
+        collectionIsSuccessful?_this.addClass('active'):_this.removeClass('active')
+       }        
        if(!method.getCookie('cuk')){
-           console.log('用户未登录')
            login.notifyLoginInterface(function (data) {
            console.log('-------------------',data)
            refreshTopBar(data);
            var userId = data.userId
-           fileSaveOrupdate(contentId,userId)
+           fileSaveOrupdate(contentId,userId,addActiveClass)
         })
        }else{
-        fileSaveOrupdate(contentId,userId)
+        fileSaveOrupdate(contentId,userId,addActiveClass)
        }
    })
    // 收藏或取消收藏接口
-   function fileSaveOrupdate(fid,uid,source,channel) {
+   function fileSaveOrupdate(fid,uid,addActiveClass) {
+    var fn = addActiveClass
     $.ajax({
         url: api.special.fileSaveOrupdate,
         type: "POST",
@@ -32,11 +34,14 @@ define(function(require , exports , module){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            if(res.code === 0){
+            console.log(this)
+            if(res.code === '0'){
+                fn(true)
                 $.toast({
                     text: "收藏成功"
                 })
             }else{
+                fn(false)
                 $.toast({
                     text: "收藏失败"
                 })
@@ -128,6 +133,7 @@ $('#a-login-link').click(function(){
     // 热点搜索切换逻辑,一次性请求30条数据,然后在点击的时候切换
     var hotItems = $('.hot-list .hot-items')
     var currentPage = 1
+    var hotItemsLength =  $('.hot-spot-search .hot-list .hot-items').length
     var opt = {
         1:function(){
             hotItems.hide()
@@ -136,6 +142,9 @@ $('#a-login-link').click(function(){
         2:function(){
             hotItems.hide()
             hotItems.slice(10,20).show()
+            if(hotItemsLength>10&&hotItemsLength<=20){
+                currentPage = 0
+            }
         },
         3:function(){
             hotItems.hide()
@@ -145,6 +154,9 @@ $('#a-login-link').click(function(){
     }
     opt[currentPage]()
     $('.hot-spot-search .title-right').click(function(){
+        if(hotItemsLength<=10){
+            return
+        }
         currentPage = currentPage + 1
         opt[currentPage]()
     })

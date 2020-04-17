@@ -224,14 +224,18 @@ module.exports = {
                        
                     },
                     specialTopic:function(callback){
+                        console.log('specialTopic-topicName:',req.topicName)
                         req.body = {
                             currentPage:1,
                             pageSize:30,
-                            name: req.topicName   // 需要依赖 专题的名称
+                            topicName: `${req.topicName}` // 需要依赖 专题的名称
                         }
-                        server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req,res).then(res=>{
+                        server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req).then(res=>{
+                            console.log('热点搜索接口:',res)
                             callback(null,res)
                         });
+                      
+                        //server.post(appConfig.apiSpecialPath + api.special.specialTopic, callback, req);
                     }
                 }
             }
@@ -258,8 +262,6 @@ module.exports = {
             dimlist.specialTopicPropertyGroupDOList=data.specialTopicPropertyGroupDOList;
         }
      
-    
-    
 
     //添加全部
         if(dimlist){
@@ -298,39 +300,7 @@ module.exports = {
             data.specialTopicPropertyGroupDOList=dimlist.specialTopicPropertyGroupDOList;
 
 
-            var specialTopic = results.specialTopic.code=== 1?  results.specialTopic.data:  [
-                {"id": "1001","topicName": "1"},
-                {"id": "1002","topicName": "2"},
-                {"id": "1000","topicName": "3"},
-                {"id": "1001","topicName": "4"},
-                {"id": "1002","topicName": "5"},
-                {"id": "1000","topicName": "6"},
-                {"id": "1001","topicName": "7"},
-                {"id": "1002","topicName": "8"},
-                {"id": "1000","topicName": "9"},
-                {"id": "1001","topicName": "10"},
-                {"id": "1002","topicName": "11"},
-                {"id": "1000","topicName": "12"},
-                {"id": "1000","topicName": "13"},
-                {"id": "1000","topicName": "14"},
-                {"id": "1000","topicName": "15"},
-                {"id": "1000","topicName": "16"},
-                {"id": "1000","topicName": "17"},
-                {"id": "1000","topicName": "18"},
-                {"id": "1000","topicName": "19"},
-                {"id": "1000","topicName": "20"},
-                {"id": "1000","topicName": "21"},
-                {"id": "1000","topicName": "22"},
-                {"id": "1000","topicName": "23"},
-                {"id": "1000","topicName": "24"},
-                {"id": "1000","topicName": "25"},
-                {"id": "1000","topicName": "26"},
-                {"id": "1000","topicName": "27"},
-                {"id": "1000","topicName": "28"},
-                {"id": "1000","topicName": "29"},
-                {"id": "1000","topicName": "30"},
-            ]
-
+            var specialTopic = results.specialTopic.code == 0 ?  results.specialTopic.data:  []
 
             //最大20页
             var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
