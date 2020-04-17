@@ -77,7 +77,7 @@ module.exports = {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Content-Length': body.length,
+                // 'Content-Length': body.length,
                 'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
             },
             body: req.body

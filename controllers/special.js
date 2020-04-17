@@ -48,14 +48,18 @@ module.exports = {
                        
                     },
                     specialTopic:function(callback){
+                        console.log('specialTopic-topicName:',req.topicName)
                         req.body = {
                             currentPage:1,
                             pageSize:30,
-                            name: req.topicName   // 需要依赖 专题的名称
+                            topicName: `${req.topicName}` // 需要依赖 专题的名称
                         }
                         server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req).then(res=>{
+                            console.log('热点搜索接口:',res)
                             callback(null,res)
                         });
+                      
+                        //server.post(appConfig.apiSpecialPath + api.special.specialTopic, callback, req);
                     }
                 }
             }
