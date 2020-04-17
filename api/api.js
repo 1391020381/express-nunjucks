@@ -23,7 +23,7 @@ module.exports = {
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
-        getVipList:'/order/mumberPackage',          //获取VIP套餐列表(new)
+        getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
         getPrivilege: '/order/privilegePackage',    //获取下载特权列表
         order: '/order/create',                     //下单
         orderUnlogin: '/order/nolandcreate',        //免登陆下单
