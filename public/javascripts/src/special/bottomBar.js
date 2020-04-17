@@ -8,9 +8,10 @@ define(function(require , exports , module){
    // 收藏与取消收藏功能
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
+       var _this = $(this)
        var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
        function addActiveClass(collectionIsSuccessful){   
-        collectionIsSuccessful?$(this).addClass('active'):$(this).removeClass('active')
+        collectionIsSuccessful?_this.addClass('active'):_this.removeClass('active')
        }        
        if(!method.getCookie('cuk')){
            login.notifyLoginInterface(function (data) {
@@ -34,7 +35,7 @@ define(function(require , exports , module){
         dataType: "json",
         success: function (res) {
             console.log(this)
-            if(res.code === 0){
+            if(res.code === '0'){
                 fn(true)
                 $.toast({
                     text: "收藏成功"
@@ -132,6 +133,7 @@ $('#a-login-link').click(function(){
     // 热点搜索切换逻辑,一次性请求30条数据,然后在点击的时候切换
     var hotItems = $('.hot-list .hot-items')
     var currentPage = 1
+    var hotItemsLength =  $('.hot-spot-search .hot-list .hot-items').length
     var opt = {
         1:function(){
             hotItems.hide()
@@ -140,6 +142,9 @@ $('#a-login-link').click(function(){
         2:function(){
             hotItems.hide()
             hotItems.slice(10,20).show()
+            if(hotItemsLength>10&&hotItemsLength<=20){
+                currentPage = 0
+            }
         },
         3:function(){
             hotItems.hide()
@@ -149,6 +154,9 @@ $('#a-login-link').click(function(){
     }
     opt[currentPage]()
     $('.hot-spot-search .title-right').click(function(){
+        if(hotItemsLength<=10){
+            return
+        }
         currentPage = currentPage + 1
         opt[currentPage]()
     })

@@ -71,38 +71,7 @@ module.exports = {
                 }    
                 var data=results.findSpecialTopic.data;
                 var list=results.listTopicContents.data;
-                var specialTopic = results.specialTopic.code=== 1?  results.specialTopic.data:  [
-                    {"id": "1001","topicName": "1"},
-                    {"id": "1002","topicName": "2"},
-                    {"id": "1000","topicName": "3"},
-                    {"id": "1001","topicName": "4"},
-                    {"id": "1002","topicName": "5"},
-                    {"id": "1000","topicName": "6"},
-                    {"id": "1001","topicName": "7"},
-                    {"id": "1002","topicName": "8"},
-                    {"id": "1000","topicName": "9"},
-                    {"id": "1001","topicName": "10"},
-                    {"id": "1002","topicName": "11"},
-                    {"id": "1000","topicName": "12"},
-                    {"id": "1000","topicName": "13"},
-                    {"id": "1000","topicName": "14"},
-                    {"id": "1000","topicName": "15"},
-                    {"id": "1000","topicName": "16"},
-                    {"id": "1000","topicName": "17"},
-                    {"id": "1000","topicName": "18"},
-                    {"id": "1000","topicName": "19"},
-                    {"id": "1000","topicName": "20"},
-                    {"id": "1000","topicName": "21"},
-                    {"id": "1000","topicName": "22"},
-                    {"id": "1000","topicName": "23"},
-                    {"id": "1000","topicName": "24"},
-                    {"id": "1000","topicName": "25"},
-                    {"id": "1000","topicName": "26"},
-                    {"id": "1000","topicName": "27"},
-                    {"id": "1000","topicName": "28"},
-                    {"id": "1000","topicName": "29"},
-                    {"id": "1000","topicName": "30"},
-                ]
+                var specialTopic = results.specialTopic.code=== '0'?  results.specialTopic.data&&results.specialTopic.data.rows:  []
 
                 // 处理tag标签选中
                 if(paramsObj.dimensionId){
