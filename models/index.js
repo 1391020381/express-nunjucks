@@ -68,50 +68,43 @@ module.exports = {
         };
     },
     postPaymentType: function (req, url, id) {
-        var body = JSON.stringify(req.body);
         return {
             url: id ? url.replace(/\$id/, id) : url,
             method: "POST",
             json: true,
             headers: {
-                'Content-Type': 'application/json',
+                "content-type": "application/json",
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Content-Length': body.length,
                 'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
             },
             body: req.body
         };
     },
-    testEs6:function(){
-        return new Promise((resolve,reject)=>{
-            resolve({
-                test:'123'
-            })
-        })
-    },
-    $http: function (url,method, req, append) {
+    $http: function (url,method, req,res,append) {
         return new Promise((resolve,reject)=>{
             var opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
-                console.log(body,'body')
                 if (body) {
                     try {
                         var data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if (data) {
+                        if(data.code==='G-500'){
+                            console.error(data);
+                            res.redirect('/html/404.html')
+                            return
+                        }else{
                             resolve(data)
-                        } 
+                        }
                     } catch (err) {
                         console.error(err);
                         reject(err)
-                        // callback(null , null);
                     }
                 } else {
-                    reject(err);
+                    reject();
                 }
             })
         })

@@ -14,40 +14,37 @@
         {% if results.data.dimensionStatus===0 %}  
         <div class="search-all-nav">
             <div class="search-nav-box">
-                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId===null}}">全部</a>
+                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId===null}}">全部</a>
                 {% for navItem in results.data.specialTopicDimensionDOList %}
-                <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
+                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
+        <!-- 有维度的全部不展示分类 -->
+        {% if results.urlParams.dimensionId or results.data.dimensionStatus==1 %}    
         <div class="search-condition">
-
-            {% for firstItem in results.data.specialTopicDimensionDOList %}
-            {% for secondItem in firstItem.specialTopicPropertyGroupDOList %}
-            {% if results.urlParams.dimensionId==firstItem.dimensionId %}
+            {% for secondItem in results.data.specialTopicPropertyGroupDOList %}
             <div class="search-item {{'hide' if loop.index>2  }}">
-    
                 <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
                 <a data-ids="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
                     {{thirdItem.propertyName}}
                 </a>
                 {% endfor %}
-    
             </div>
-            {% endif %}
             {% endfor %}
-            {% endfor %}
+         
     
             <!-- 筛选内容切换 -->
-            {% if results.data.specialLength>2%}
+            {% if results.data.specialLength>2 and results.urlParams.dimensionId%}
             <div class="search-screen">
                 <span>更多筛选</span>
                 <span class="screen-more"></span>
             </div>
             {% endif %}
         </div>  
+        {% endif %}
         <!-- 无维度显示 其他搜索 -->
         {% if results.data.dimensionStatus===1 %}
         <div class="search-other-container">
@@ -67,9 +64,14 @@
     <!--筛选列表  -->
     <div class="search-list-section">
         <div class="search-list-tab">
+            {% if results.urlParams.dimensionId %}
+             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_0-{{results.urlParams.dimensionId}}.html" class="{{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_1-{{results.urlParams.dimensionId}}.html" class="{{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+             {% else %} 
              <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_0.html" class="{{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
              <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_1.html" class="{{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
-        </div>
+             {% endif %}
+            </div>
         <div class="search-list-container">
             <ul>
                 {% for item in results.list.rows %}
@@ -110,8 +112,9 @@
                     <div class="btn-fresh">立即刷新</div>
                 </div>
             </div>
+            {% endif %}
             <!-- 分页 -->  
-            {% else %}
+            {% if results.list.totalPages>1 %}
             <div class="office-page-paging">
                <a class="btn-page-long" href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html">首页</a>
                {% if results.urlParams.currentPage>1 %}
@@ -135,7 +138,7 @@
                <a class="btn-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.data.id}}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html">尾页</a>
                {%endif%}
            </div>
-           {% endif %}
+           {%endif%}
         </div>
       
     </div>
