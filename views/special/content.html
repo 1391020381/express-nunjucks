@@ -50,7 +50,7 @@
         <div class="search-other-container">
             <div class="search-other-item">
                 <em>你要找的是不是：</em>
-                {% for item in results.specialTopic.slice(0,10)  %}
+                {% for item in results.specialTopic.slice(0,10) %}
                 <span>
                 <a href="/node/s/{{item.id}}.html" target="_blank">
                 {{item.topicName}}
