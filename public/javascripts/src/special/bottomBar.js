@@ -1,5 +1,4 @@
 define(function(require , exports , module){
-    console.log('专题的bottomBar')
     var api = require('../application/api');
     var method = require("../application/method");
     var login = require("../application/checkLogin");
@@ -9,22 +8,24 @@ define(function(require , exports , module){
    // 收藏与取消收藏功能
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
-       console.log('专题收藏')
-       var contentId = $('.search-img-box .ic-collect').attr("data-contentid")
+       var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
+       function addActiveClass(collectionIsSuccessful){   
+        collectionIsSuccessful?$(this).addClass('active'):$(this).removeClass('active')
+       }        
        if(!method.getCookie('cuk')){
-           console.log('用户未登录')
            login.notifyLoginInterface(function (data) {
            console.log('-------------------',data)
            refreshTopBar(data);
            var userId = data.userId
-           fileSaveOrupdate(contentId,userId)
+           fileSaveOrupdate(contentId,userId,addActiveClass)
         })
        }else{
-        fileSaveOrupdate(contentId,userId)
+        fileSaveOrupdate(contentId,userId,addActiveClass)
        }
    })
    // 收藏或取消收藏接口
-   function fileSaveOrupdate(fid,uid,source,channel) {
+   function fileSaveOrupdate(fid,uid,addActiveClass) {
+    var fn = addActiveClass
     $.ajax({
         url: api.special.fileSaveOrupdate,
         type: "POST",
@@ -32,11 +33,14 @@ define(function(require , exports , module){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
+            console.log(this)
             if(res.code === 0){
+                fn(true)
                 $.toast({
                     text: "收藏成功"
                 })
             }else{
+                fn(false)
                 $.toast({
                     text: "收藏失败"
                 })

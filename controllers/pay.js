@@ -36,7 +36,7 @@ module.exports = {
             results.title = urlencode.decode(req.query.name);
             console.log("vip list------------");
             console.log('后台返回的套餐列表:'+JSON.stringify(results.list.data));
-            req.query.remark = 'office'
+            // req.query.remark = 'office'
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);
             } else {
