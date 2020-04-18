@@ -4,6 +4,7 @@ let routes = [
     'pay',
     'search',
     'rights',
+    'special',
     '404',
 ];
 

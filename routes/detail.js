@@ -23,6 +23,7 @@ router.get('/node/f/downfail.html',function(req , res , next){
 });
 //资料详情页
 router.get('/f/:id*.html*',function(req , res , next){
+    console.log('资料详情----------------------')
     try{
         console.log("页面请求开始.......");
         console.time();
