@@ -299,9 +299,7 @@ define(function (require, exports, module) {
             $(".common-bgMask").hide();
             $(".detail-bg-mask").hide();
             $('#dialog-box').hide();
-        }
-
-        $('body').on("click", ".js-buy-open", function (e) {
+        }        $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
                 //上报数据相关

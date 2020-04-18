@@ -119,5 +119,54 @@ module.exports = {
             }
         }
         return res;
+    },
+    getSpecialParams:function(pathname){ //专题id_页码_排序-维度-xx_xx-xx_xx    格式
+        var item = null;
+        var regExp=new RegExp("\/([^/]+)+.html$","g");
+        var matchResult = pathname.match(regExp)[0].split('.')[0].replace('\/','');
+        var paramsArr=matchResult.split('-');
+        var firstSpilt=paramsArr[0].split('_');
+        item={
+            specialTopicId: firstSpilt[0],//专题id
+            dimensionId: paramsArr[1],//维度id
+            topicPropertyQueryDTOList: [],
+            sortFlag: firstSpilt[2] || 0,//排序,0-综合排序,1-最新上传
+            currentPage: firstSpilt[1] || 1,
+        }
+
+        if(paramsArr.length>2){ //是否有属性分类筛选
+            var arr=[];
+            for (var i = 2; i < paramsArr.length; i++) {
+                arr.push(paramsArr[i]);
+            }
+            item.topicPropertyQueryDTOList=arr;
+        }
+        return item
+    },
+    getPropertyParams:function(list,properList){
+
+        var arr=[],result=[];
+        properList.map(item=>{
+           item.specialTopicPropertyDOList.map(res=>{
+               res.ids=item.propertyGroupId+"_"+res.propertyId;
+               res.propertyGroupName=item.propertyGroupName;
+               res.propertyGroupId=item.propertyGroupId;
+               res.propertyType=item.propertyType;
+               arr.push(res)
+           })
+        })
+        arr.map(res=>{
+            if(list.includes(res.ids)){
+                result.push({
+                    propertyGroupName:res.propertyGroupName,
+                    propertyGroupId:res.propertyGroupId,
+                    propertyType:res.propertyType,
+                    propertyId:res.propertyId,
+                    propertyName:res.propertyName
+                })
+            }
+        })
+        return result
     }
+   
 };

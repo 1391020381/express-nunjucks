@@ -2,7 +2,8 @@
  * 前端交互性API
  **/
 define(function (require, exports, module) {
-    var router = "/pc";
+    var router = "/gateway/pc";
+    var gateway = '/gateway'
     module.exports = {
         // 用户相关
         user: {
@@ -53,6 +54,9 @@ define(function (require, exports, module) {
         pay: {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow'
+        },
+        special:{
+            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }
     }
 });
