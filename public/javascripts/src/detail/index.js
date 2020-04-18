@@ -272,6 +272,10 @@ define(function (require, exports, module) {
             }).open();
         });
 
+         $("#dialog-box").dialog({
+            html: $('#reward-mission-pop').html(),
+        }).open();
+
         // 绑定关闭悬赏任务弹窗pop
         $('.m-reward-pop .close-btn').on('click',function(){
             closeRewardPop();
@@ -279,19 +283,53 @@ define(function (require, exports, module) {
 
         // submit提交
         $('.m-reward-pop .submit-btn').on('click',function(){
+            var userId = window.pageConfig.userId;
+            if(!userId){
+                closeRewardPop();
+                $.toast({
+                    text:'该功能仅对VIP用户开放',
+                    delay : 3000,
+                })
+                return
+            }
             var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
             var mailVal = $('.m-reward-pop .form-ipt').val();
             var tips = $('.m-reward-pop .form-verify-tips');
             tips.hide();
             if (!reg.test(mailVal)) {
                 tips.show();
+                return
             }
-            closeRewardPop();
-            $.toast({
-                text:'发送成功',
-                delay : 3000,
+
+            var params = {
+                userId:userId,
+                fid:window.pageConfig.params.g_fileId,
+                email:mailVal,
+                channelSource:4,
+                ip:"127.0.0.1"
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/sendmail/findFile',
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: params,
+                success: function (res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text:'发送成功',
+                            delay : 2000,
+                        })
+                    } else {
+                        $.toast({
+                            text:'发送成功',
+                            delay : 2000,
+                        })
+                    }
+                },
             })
-            // todo ajax
         })
 
         // 关闭任务pop
@@ -299,7 +337,9 @@ define(function (require, exports, module) {
             $(".common-bgMask").hide();
             $(".detail-bg-mask").hide();
             $('#dialog-box').hide();
-        }        $('body').on("click", ".js-buy-open", function (e) {
+        }        
+        
+        $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
                 //上报数据相关
