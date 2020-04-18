@@ -271,6 +271,36 @@ define(function (require, exports, module) {
                 html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
             }).open();
         });
+
+        // 绑定关闭悬赏任务弹窗pop
+        $('.m-reward-pop .close-btn').on('click',function(){
+            closeRewardPop();
+        })
+
+        // submit提交
+        $('.m-reward-pop .submit-btn').on('click',function(){
+            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+            var mailVal = $('.m-reward-pop .form-ipt').val();
+            var tips = $('.m-reward-pop .form-verify-tips');
+            tips.hide();
+            if (!reg.test(mailVal)) {
+                tips.show();
+            }
+            closeRewardPop();
+            $.toast({
+                text:'发送成功',
+                delay : 3000,
+            })
+            // todo ajax
+        })
+
+        // 关闭任务pop
+        function closeRewardPop(){
+            $(".common-bgMask").hide();
+            $(".detail-bg-mask").hide();
+            $('#dialog-box').hide();
+        }
+
         $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
