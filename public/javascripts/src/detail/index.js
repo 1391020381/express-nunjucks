@@ -301,7 +301,7 @@ define(function (require, exports, module) {
             }
 
             var params = {
-                userId:'132',
+                userId:userId,
                 fid:window.pageConfig.params.g_fileId,
                 email:mailVal,
                 channelSource:4,
