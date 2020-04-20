@@ -273,80 +273,87 @@ define(function (require, exports, module) {
             $("#dialog-box").dialog({
                 html: $('#reward-mission-pop').html(),
             }).open();
+
+            setTimeout(bindEventPop,500)
         });
         //  $("#dialog-box").dialog({
         //     html: $('#reward-mission-pop').html(),
         // }).open();
 
-        // 绑定关闭悬赏任务弹窗pop
-        $('.m-reward-pop .close-btn').on('click',function(){
-            closeRewardPop();
-        })
-
-        // submit提交
-        $('.m-reward-pop .submit-btn').on('click',function(){
-            var userId = window.pageConfig.userId;
-            if(!userId){
+        function bindEventPop(){
+            console.log(6666)
+            // 绑定关闭悬赏任务弹窗pop
+            $('.m-reward-pop .close-btn').on('click',function(){
                 closeRewardPop();
-                $.toast({
-                    text:'该功能仅对VIP用户开放',
-                    delay : 3000,
-                })
-                return
-            }
-            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
-            var mailVal = $('.m-reward-pop .form-ipt').val();
-            var tips = $('.m-reward-pop .form-verify-tips');
-            tips.hide();
-            if (!reg.test(mailVal)) {
-                tips.show();
-                return
-            }
+            })
 
-            var params = {
-                userId:userId,
-                fid:window.pageConfig.params.g_fileId,
-                email:mailVal,
-                channelSource:4,
-            }
-
-            $.ajax('/content/sendmail/findFile', {
-                type: "POST",
-                data: JSON.stringify(params),
-                dataType: "json",
-                contentType: 'application/json'
-            }).done(function (res) {
-                if (res.code == 0) {
+            // submit提交
+            $('.m-reward-pop .submit-btn').on('click',function(){
+                var userId = window.pageConfig.userId;
+                if(!userId){
                     closeRewardPop();
                     $.toast({
-                        text:'发送成功',
-                        delay : 2000,
-                    })
-                } else if(res.code == 401100){
-                    $.toast({
                         text:'该功能仅对VIP用户开放',
-                        delay : 2000,
+                        delay : 3000,
                     })
-                }else {
+                    return
+                }
+                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+                var mailVal = $('.m-reward-pop .form-ipt').val();
+                var tips = $('.m-reward-pop .form-verify-tips');
+                tips.hide();
+                if (!reg.test(mailVal)) {
+                    tips.show();
+                    return
+                }
+
+                var params = {
+                    userId:userId,
+                    fid:window.pageConfig.params.g_fileId,
+                    email:mailVal,
+                    channelSource:4,
+                }
+
+                $.ajax('/content/sendmail/findFile', {
+                    type: "POST",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    contentType: 'application/json'
+                }).done(function (res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text:'发送成功',
+                            delay : 2000,
+                        })
+                    } else if(res.code == 401100){
+                        $.toast({
+                            text:'该功能仅对VIP用户开放',
+                            delay : 2000,
+                        })
+                    }else {
+                        $.toast({
+                            text: '发送失败，请重试',
+                            delay: 2000
+                        });
+                    }
+                }).fail(function (e) {
                     $.toast({
                         text: '发送失败，请重试',
                         delay: 2000
                     });
-                }
-            }).fail(function (e) {
-                $.toast({
-                    text: '发送失败，请重试',
-                    delay: 2000
-                });
+                })
             })
-        })
 
-        // 关闭任务pop
-        function closeRewardPop(){
-            $(".common-bgMask").hide();
-            $(".detail-bg-mask").hide();
-            $('#dialog-box').hide();
-        }        
+            // 关闭任务pop
+            function closeRewardPop(){
+                $(".common-bgMask").hide();
+                $(".detail-bg-mask").hide();
+                $('#dialog-box').hide();
+            }        
+
+        }
+
         
         $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
