@@ -265,10 +265,13 @@ define(function (require, exports, module) {
             }
         });
         // 查找相关资料
-        $('#searchRes').on('click', function () {
+        $('.detail-fixed').on('click','#searchRes', function () {
             $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+            // $("#dialog-box").dialog({
+            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+            // }).open();
             $("#dialog-box").dialog({
-                html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+                html: $('#reward-mission-pop').html(),
             }).open();
         });
         //  $("#dialog-box").dialog({
