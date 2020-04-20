@@ -70,7 +70,7 @@ define(function(require , exports , module){
     }
     function getUrl(data) {
         var str='';
-        for (const key in data) {
+        for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 data[key] || data[key]===0 ? str+="&"+key+"="+encodeURIComponent(data[key]):''
             }

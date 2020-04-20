@@ -167,7 +167,7 @@ $('#a-login-link').click(function(){
         $('#scondition').val(topicName)
         $('#searchBtn').click(function(){
             
-            let fd = $('.search-choose input[name="radio"]:checked ').val()
+            var fd = $('.search-choose input[name="radio"]:checked ').val()
             window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ fd + '&cond='+ topicName )
         })
    }
