@@ -271,10 +271,9 @@ define(function (require, exports, module) {
                 html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
             }).open();
         });
-
-         $("#dialog-box").dialog({
-            html: $('#reward-mission-pop').html(),
-        }).open();
+        //  $("#dialog-box").dialog({
+        //     html: $('#reward-mission-pop').html(),
+        // }).open();
 
         // 绑定关闭悬赏任务弹窗pop
         $('.m-reward-pop .close-btn').on('click',function(){
@@ -302,33 +301,40 @@ define(function (require, exports, module) {
             }
 
             var params = {
-                userId:userId,
+                userId:'132',
                 fid:window.pageConfig.params.g_fileId,
                 email:mailVal,
                 channelSource:4,
-                ip:"127.0.0.1"
             }
 
-            $.ajax({
-                type: 'POST',
-                url: '/sendmail/findFile',
-                contentType: "application/json;charset=utf-8",
+            $.ajax('/content/sendmail/findFile', {
+                type: "POST",
+                data: JSON.stringify(params),
                 dataType: "json",
-                data: params,
-                success: function (res) {
-                    if (res.code == 0) {
-                        closeRewardPop();
-                        $.toast({
-                            text:'发送成功',
-                            delay : 2000,
-                        })
-                    } else {
-                        $.toast({
-                            text:'发送成功',
-                            delay : 2000,
-                        })
-                    }
-                },
+                contentType: 'application/json'
+            }).done(function (res) {
+                if (res.code == 0) {
+                    closeRewardPop();
+                    $.toast({
+                        text:'发送成功',
+                        delay : 2000,
+                    })
+                } else if(res.code == 401100){
+                    $.toast({
+                        text:'该功能仅对VIP用户开放',
+                        delay : 2000,
+                    })
+                }else {
+                    $.toast({
+                        text: '发送失败，请重试',
+                        delay: 2000
+                    });
+                }
+            }).fail(function (e) {
+                $.toast({
+                    text: '发送失败，请重试',
+                    delay: 2000
+                });
             })
         })
 

@@ -111,7 +111,7 @@ define(function (require, exports, module) {
         getUserData: function (callback) {
             if (method.getCookie('cuk')) {
                 method.get(api.sale.querySeniority, function (res) {
-                    if (res.code == 0) {
+                    if (res && res.code == 0) {
                         callback(res.data)
                     }
                 }, '');
@@ -124,7 +124,7 @@ define(function (require, exports, module) {
         getLoginData: function (callback) {
             var _self = this;
             method.get(api.user.login, function (res) {
-                if (res.code == 0 && res.data) {
+                if (res && res.code == 0 && res.data) {
                     if (callback && typeof callback == "function") {
                         callback(res.data);
                         try {
@@ -145,7 +145,7 @@ define(function (require, exports, module) {
                     } catch (e) {
                     }
                     //授权未登录删除本地cuk
-                } else if (res.code == 40001) {
+                } else if (res && res.code == 40001) {
                     _self.ishareLogout();
                 }
             });

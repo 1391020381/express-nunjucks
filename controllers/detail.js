@@ -41,7 +41,6 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-
                 request(opt, function (err, res, body) {
                     if (body) {
                         try {
