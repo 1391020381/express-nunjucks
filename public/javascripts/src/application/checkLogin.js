@@ -123,32 +123,37 @@ define(function (require, exports, module) {
          */
         getLoginData: function (callback) {
             var _self = this;
-            method.get(api.user.login, function (res) {
-                if (res.code == 0 && res.data) {
-                    if (callback && typeof callback == "function") {
-                        callback(res.data);
-                        try {
-                            window.pageConfig.params.isVip = res.data.isVip;
-                            window.pageConfig.page.uid = res.data.userId;
-                            // console.log(res.data);
-                            // method.setCookieWithExpPath("uid", res.data.userId, 30 * 60 * 1000, "/");
-                        } catch (err) { }
-                    }
-
-                    try {
-                        var userInfo = {
-                            uid: res.data.userId,
-                            isVip: res.data.isVip,
-                            tel: res.data.mobile
+            try{
+                method.get(api.user.login, function (res) {
+                    if (res.code == 0 && res.data) {
+                        if (callback && typeof callback == "function") {
+                            callback(res.data);
+                            try {
+                                window.pageConfig.params.isVip = res.data.isVip;
+                                window.pageConfig.page.uid = res.data.userId;
+                                // console.log(res.data);
+                                // method.setCookieWithExpPath("uid", res.data.userId, 30 * 60 * 1000, "/");
+                            } catch (err) { }
                         }
-                        method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
-                    } catch (e) {
+    
+                        try {
+                            var userInfo = {
+                                uid: res.data.userId,
+                                isVip: res.data.isVip,
+                                tel: res.data.mobile
+                            }
+                            method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
+                        } catch (e) {
+                        }
+                        //授权未登录删除本地cuk
+                    } else if (res.code == 40001) {
+                        _self.ishareLogout();
                     }
-                    //授权未登录删除本地cuk
-                } else if (res.code == 40001) {
-                    _self.ishareLogout();
-                }
-            });
+                });
+            }catch(e){
+
+            }
+  
         },
         /**
          * 退出

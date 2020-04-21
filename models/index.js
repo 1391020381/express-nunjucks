@@ -97,7 +97,7 @@ module.exports = {
                             res.redirect('/html/404.html')
                             return
                         }else{
-                            resolve(data)
+                            resolve(data)   
                         }
                     } catch (err) {
                         console.error(err);

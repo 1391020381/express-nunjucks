@@ -1,7 +1,13 @@
 define(function(require , exports , module){ 
+    var method = require("../application/method");
     toggleMore();
     toggleTag();
+    searchTab();
     console.log(window.pageConfig)
+
+    $('.btn-fresh').on('click',function(){
+        window.location.reload()
+    })
          //更多筛选  切换函数
     function toggleMore() {
         var searchScreen = $('.search-screen');
@@ -10,10 +16,13 @@ define(function(require , exports , module){
             if (searchScreen.children().eq(0).text() === '更多筛选') {
                 searchScreen.children().eq(0).text('收起筛选');
                 searchItem.removeClass('hide');
+                method.setCookieWithExpPath('isOpen',1)
+
             } else {
                 searchScreen.children().eq(0).text('更多筛选');
                 searchItem.eq(2).addClass('hide');
                 searchItem.eq(3).addClass('hide');
+                method.setCookieWithExpPath('isOpen',0)
             }
             searchScreen.children().eq(1).toggleClass('screen-less');
         })
@@ -45,15 +54,27 @@ define(function(require , exports , module){
                     subArr.push(currentTag);
                 }
             }
-           console.log(subArr,'subArr')
+           //console.log(subArr,'subArr')
             //重新拼装url
-            var url='';
+            var url='',s='';
             subArr.map(function(res,index){
                 url+=res.propertyGroupId+"_"+res.propertyId+'-'
             })
-            url=url.substring(0, url.length - 1)
-            location.href="/node/s/"+idsArr[0] + "-"+idsArr[1]+"-"+url+".html";
+            url=url.substring(0, url.length - 1);
+            location.href="/node/s/"+idsArr[0] + '-'+idsArr[1] +"-"+url+".html";
 
+        })
+    }
+
+    function searchTab(){
+        $(".search-tab").on('click',function(){
+            var url=$(this).attr('data-url');
+            var originArr=pageConfig.urlParams.topicPropertyQueryDTOList ? JSON.parse(pageConfig.urlParams.topicPropertyQueryDTOList): [];
+            if(originArr.length>0){
+                location.href=url+'-'+originArr.join('-')+'.html';
+            }else{
+                location.href=url+'.html';
+            }
         })
     }
 
