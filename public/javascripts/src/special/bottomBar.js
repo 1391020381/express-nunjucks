@@ -10,8 +10,9 @@ define(function(require , exports , module){
    $('.search-img-box .ic-collect').click(function(){
        var _this = $(this)
        var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
+       var hasActiveClass = $('.search-img-box .ic-collect').hasClass("active") 
        function addActiveClass(collectionIsSuccessful){   
-        collectionIsSuccessful?_this.addClass('active'):_this.removeClass('active')
+        collectionIsSuccessful&&!hasActiveClass?_this.addClass('active'):_this.removeClass('active')
        }        
        if(!method.getCookie('cuk')){
            login.notifyLoginInterface(function (data) {
@@ -36,14 +37,14 @@ define(function(require , exports , module){
         success: function (res) {
             console.log(this)
             if(res.code === '0'){
-                fn(true)
                 $.toast({
-                    text: "收藏成功"
+                    text: $('.search-img-box .ic-collect').hasClass("active")?"取消收藏成功":"收藏成功"
                 })
+                fn(true)
             }else{
                 fn(false)
                 $.toast({
-                    text: "收藏失败"
+                    text: $('.search-img-box .ic-collect').hasClass("active")?"取消收藏失败":"收藏失败"
                 })
             }
         }
