@@ -25,7 +25,7 @@
         {% if results.urlParams.dimensionId or results.data.dimensionStatus==1 %}    
         <div class="search-condition">
             {% for secondItem in results.data.specialTopicPropertyGroupDOList %}
-            <div class="search-item {{'hide' if loop.index>2  }}">
+            <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
                 <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
                 <a data-ids="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
@@ -39,8 +39,13 @@
             <!-- 筛选内容切换 -->
             {% if results.data.specialLength>2 and results.urlParams.dimensionId%}
             <div class="search-screen">
+                {% if results.isOpen==1 %}
+                <span>收起筛选</span>
+                <span class="screen-more screen-less"></span>
+                {% else %}
                 <span>更多筛选</span>
                 <span class="screen-more"></span>
+                {% endif %}
             </div>
             {% endif %}
         </div>  
@@ -64,14 +69,9 @@
     <!--筛选列表  -->
     <div class="search-list-section">
         <div class="search-list-tab">
-            {% if results.urlParams.dimensionId %}
-             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_0-{{results.urlParams.dimensionId}}.html" class="{{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
-             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_1-{{results.urlParams.dimensionId}}.html" class="{{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
-             {% else %} 
-             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_0.html" class="{{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
-             <a href="/node/s/{{results.data.id}}_{{results.urlParams.currentPage}}_1.html" class="{{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
-             {% endif %}
-            </div>
+             <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+             <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+        </div>
         <div class="search-list-container">
             <ul>
                 {% for item in results.list.rows %}
@@ -104,7 +104,7 @@
                {% endfor %}
             </ul>
               <!-- 搜索空的页面 -->
-            {% if results.list.rows.length===0 %}
+            {% if results.list.rows.length===0 or results.list.rows==null%}
             <div class="search-empty-container">
                 <div class="search-empty-item">
                     <img src="../../images/special/search_empty.png" alt="" width="89" height="89">

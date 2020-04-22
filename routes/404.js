@@ -5,7 +5,7 @@ var render = require('../common/render');
 router.get('/node/404.html', function(req, res) {
     render("404", {
         title: 'No Found'
-    }, res, req);
+    }, req, res);
 });
 
 module.exports = router;
