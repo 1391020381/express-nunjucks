@@ -162,16 +162,18 @@ module.exports = {
                     findSpecialTopic:function(callback){
                         var url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                         server.$http(url,'get', req, true).then(item=>{
-                            req.topicName = item.data&&item.data.topicName //   specialTopic 需要topicName
-                            if(paramsObj.dimensionId && item.data.dimensionStatus==0){ //获取当前当前的维度列表
-                                var index=_.findIndex(item.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
-                                req.specialList=item.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //
-                            }else{  // 无维度的情况
-                                req.specialList=item.data.specialTopicPropertyGroupDOList; //
+                            if(item.data){
+                                req.topicName = item.data&&item.data.topicName //   specialTopic 需要topicName
+                                if(paramsObj.dimensionId && item.data.dimensionStatus==0){ //获取当前当前的维度列表
+                                    var index=_.findIndex(item.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
+                                    req.specialList=item.data.specialTopicDimensionDOList && item.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //
+                                }else{  // 无维度的情况
+                                    req.specialList=item.data.specialTopicPropertyGroupDOList; //
+                                }
+                                console.log(item,'item--------------------')
+                              
                             }
-                            console.log(item,'item--------------------')
                             callback(null,item)
-                            
                         })
                         
                       
