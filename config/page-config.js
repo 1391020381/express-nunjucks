@@ -12,6 +12,7 @@ var surl = "";
 if (process.env.NODE_ENV === 'development') {
     return;
 } else if (data) {
+    console.log('-----------data',data)
     version = data.split("=")[1].replace(/^\s*/, "").replace(/\s*$/, "");
     url = '//static3.iask.cn/' + version;
     surl = '//static3.iask.cn/stat_pc';

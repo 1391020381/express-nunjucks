@@ -63,6 +63,7 @@ module.exports = function (grunt) {
                     'dist/queryOrder/init.js': ['.build/queryOrder/init.js'],
                     'dist/office/search/init.js': ['.build/office/search/init.js'],
                     'dist/rights/index.js': ['.build/rights/index.js'],
+                    'dist/special/init.js': ['.build/special/init.js'],
                 }
             }
         },
@@ -99,6 +100,7 @@ module.exports = function (grunt) {
                     "../stylesheets/ishare_coupon_ad.css": "../stylesheets/ishare_coupon_ad.less",
                     "../stylesheets/office/office_pay.css": "../stylesheets/office/office_pay.less",
                     "../stylesheets/rights/ishare_rights.css": "../stylesheets/rights/ishare_rights.less",
+                    "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                 }
             }
         },

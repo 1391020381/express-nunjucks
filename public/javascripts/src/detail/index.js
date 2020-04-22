@@ -265,46 +265,96 @@ define(function (require, exports, module) {
             }
         });
         // 查找相关资料
-        $('#searchRes').on('click', function () {
+        $('.detail-fixed').on('click','#searchRes', function () {
             $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+            // $("#dialog-box").dialog({
+            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+            // }).open();
             $("#dialog-box").dialog({
-                html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+                html: $('#reward-mission-pop').html(),
             }).open();
-        });
 
-        // $("#dialog-box").dialog({
+            setTimeout(bindEventPop,500)
+        });
+        //  $("#dialog-box").dialog({
         //     html: $('#reward-mission-pop').html(),
         // }).open();
 
-        // 绑定关闭悬赏任务弹窗pop
-        $('.m-reward-pop .close-btn').on('click',function(){
-            closeRewardPop();
-        })
-
-        // submit提交
-        $('.m-reward-pop .submit-btn').on('click',function(){
-            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
-            var mailVal = $('.m-reward-pop .form-ipt').val();
-            var tips = $('.m-reward-pop .form-verify-tips');
-            tips.hide();
-            if (!reg.test(mailVal)) {
-                tips.show();
-            }
-            closeRewardPop();
-            $.toast({
-                text:'发送成功',
-                delay : 3000,
+        function bindEventPop(){
+            console.log(6666)
+            // 绑定关闭悬赏任务弹窗pop
+            $('.m-reward-pop .close-btn').on('click',function(){
+                closeRewardPop();
             })
-            // todo ajax
-        })
 
-        // 关闭任务pop
-        function closeRewardPop(){
-            $(".common-bgMask").hide();
-            $(".detail-bg-mask").hide();
-            $('#dialog-box').hide();
+            // submit提交
+            $('.m-reward-pop .submit-btn').on('click',function(){
+                var userId = window.pageConfig.userId;
+                if(!userId){
+                    closeRewardPop();
+                    $.toast({
+                        text:'该功能仅对VIP用户开放',
+                        delay : 3000,
+                    })
+                    return
+                }
+                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+                var mailVal = $('.m-reward-pop .form-ipt').val();
+                var tips = $('.m-reward-pop .form-verify-tips');
+                tips.hide();
+                if (!reg.test(mailVal)) {
+                    tips.show();
+                    return
+                }
+
+                var params = {
+                    userId:userId,
+                    fid:window.pageConfig.params.g_fileId,
+                    email:mailVal,
+                    channelSource:4,
+                }
+
+                $.ajax('/content/sendmail/findFile', {
+                    type: "POST",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    contentType: 'application/json'
+                }).done(function (res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text:'发送成功',
+                            delay : 2000,
+                        })
+                    } else if(res.code == 401100){
+                        $.toast({
+                            text:'该功能仅对VIP用户开放',
+                            delay : 2000,
+                        })
+                    }else {
+                        $.toast({
+                            text: '发送失败，请重试',
+                            delay: 2000
+                        });
+                    }
+                }).fail(function (e) {
+                    $.toast({
+                        text: '发送失败，请重试',
+                        delay: 2000
+                    });
+                })
+            })
+
+            // 关闭任务pop
+            function closeRewardPop(){
+                $(".common-bgMask").hide();
+                $(".detail-bg-mask").hide();
+                $('#dialog-box').hide();
+            }        
+
         }
 
+        
         $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
