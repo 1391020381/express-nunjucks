@@ -9,8 +9,8 @@ define(function(require , exports , module){
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
        var _this = $(this)
-       var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
-       var hasActiveClass = $('.search-img-box .ic-collect').hasClass("active") 
+       var contentId = $(this).attr("data-contentid") 
+       var hasActiveClass = $(this).hasClass("active") 
        function addActiveClass(collectionIsSuccessful){   
         collectionIsSuccessful&&!hasActiveClass?_this.addClass('active'):_this.removeClass('active')
        }        
@@ -38,13 +38,13 @@ define(function(require , exports , module){
             console.log(this)
             if(res.code === '0'){
                 $.toast({
-                    text: $('.search-img-box .ic-collect').hasClass("active")?"取消收藏成功":"收藏成功"
+                    text: $(this).hasClass("active")?"取消收藏成功":"收藏成功"
                 })
                 fn(true)
             }else{
                 fn(false)
                 $.toast({
-                    text: $('.search-img-box .ic-collect').hasClass("active")?"取消收藏失败":"收藏失败"
+                    text: $(this).hasClass("active")?"取消收藏失败":"收藏失败"
                 })
             }
         }
