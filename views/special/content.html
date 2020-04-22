@@ -14,7 +14,7 @@
         {% if results.data.dimensionStatus===0 %}  
         <div class="search-all-nav">
             <div class="search-nav-box">
-                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId==false}}">全部</a>
+                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId=='' or results.urlParams.dimensionId==null}}">全部</a>
                 {% for navItem in results.data.specialTopicDimensionDOList %}
                 <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
                 {% endfor %}
