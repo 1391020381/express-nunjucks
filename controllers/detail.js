@@ -30,7 +30,6 @@ var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 
 module.exports = {
     render: function (req, res) {
-
         var _index = {
             list: function (callback) {
                 console.log('详情页start===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
@@ -42,22 +41,18 @@ module.exports = {
                     },
                 };
 
-                request(opt, function (err, res, body) {
+                request(opt, function (err, res1, body) {
 
                     if (body) {
                         try {
-                            console.log(body,'body************************')
                             var data = JSON.parse(body);
                             console.warn('data----------------',data)
                             // fileAttr ==  1普通文件 2办公频道
-
-                             // if(fileAttr == 2){
-                            //     res.writeHead(302,{
-                            //         'Location': 'http://office.iask.com/f/:id.html?form='ishare''
-                            //     })
-                            //     res.end();
-                            //     return
-                            // }
+                            console.warn(data.data.fileAttr,'data.data.fileAttr')
+                             if(data.data.fileAttr == 2){
+                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
+                                return
+                            }
        
 
                             if (data.code == 0) {
