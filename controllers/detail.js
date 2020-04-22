@@ -43,10 +43,23 @@ module.exports = {
                 };
 
                 request(opt, function (err, res, body) {
+
                     if (body) {
                         try {
                             console.log(body,'body************************')
                             var data = JSON.parse(body);
+                            console.warn('data----------------',data)
+                            // fileAttr ==  1普通文件 2办公频道
+
+                             // if(fileAttr == 2){
+                            //     res.writeHead(302,{
+                            //         'Location': 'http://office.iask.com/f/:id.html?form='ishare''
+                            //     })
+                            //     res.end();
+                            //     return
+                            // }
+       
+
                             if (data.code == 0) {
                                 fid = data.data.fileId;
                                 classId = data.data.classId || "";
