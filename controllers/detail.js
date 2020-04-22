@@ -45,6 +45,7 @@ module.exports = {
                 request(opt, function (err, res, body) {
                     if (body) {
                         try {
+                            console.log(body,'body************************')
                             var data = JSON.parse(body);
                             if (data.code == 0) {
                                 fid = data.data.fileId;
