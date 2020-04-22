@@ -45,6 +45,7 @@ module.exports = {
 
                     if (body) {
                         try {
+                            console.log(body,'body************************')
                             var data = JSON.parse(body);
                             console.warn('data----------------',data)
                             // fileAttr ==  1普通文件 2办公频道
