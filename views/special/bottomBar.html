@@ -2,6 +2,7 @@
     <a href="https://ishare.iask.sina.com.cn/node/rights/vip.html" class="open-vip" target="_blank">
         <img src="{{cdnUrl}}/images/special/open-vip.png">
     </a>
+    {% if results.specialTopic&&results.specialTopic.length %}
     <div class="hot-spot-search">
         <div class="title">
             <span class="title-left">热点搜索</span>
@@ -44,6 +45,7 @@
             </li> #}
         </ul>
     </div>
+   {% endif %}
      {# <ul class="adv-position">
         <li class="adv-item">
             <a class="adv-a">

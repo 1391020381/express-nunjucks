@@ -2,7 +2,7 @@
  * 前端交互性API
  **/
 define(function (require, exports, module) {
-    var router = "/pc";
+    var router = "/gateway/pc";
     var gateway = '/gateway'
     module.exports = {
         // 用户相关
