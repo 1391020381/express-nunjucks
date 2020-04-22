@@ -183,7 +183,7 @@ module.exports = {
                         if((paramsObj.topicPropertyQueryDTOList.length>0)){
                             arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,req.specialList);
                         }
-                        req.cookies.userInfo ?  uid=JSON.parse(req.cookies.userInfo).uid : ''
+                        req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
                         req.body = {
                             uid: uid,
                             specialTopicId: paramsObj.specialTopicId,//专题id
