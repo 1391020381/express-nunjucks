@@ -584,6 +584,9 @@ body {
   text-align: justify;
   border-bottom: 1px solid #F0F0F0;
 }
+.search-all-main .search-list-section ul li .search-list-info a:hover {
+  color: #F25125;
+}
 .search-all-main .search-list-section ul li .search-list-info .search-info-state {
   position: relative;
   overflow: hidden;
