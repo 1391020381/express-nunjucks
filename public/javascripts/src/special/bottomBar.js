@@ -9,9 +9,10 @@ define(function(require , exports , module){
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(){
        var _this = $(this)
-       var contentId = $('.search-img-box .ic-collect').attr("data-contentid") 
+       var contentId = $(this).attr("data-contentid") 
+       var hasActiveClass = $(this).hasClass("active") 
        function addActiveClass(collectionIsSuccessful){   
-        collectionIsSuccessful?_this.addClass('active'):_this.removeClass('active')
+        collectionIsSuccessful&&!hasActiveClass?_this.addClass('active'):_this.removeClass('active')
        }        
        if(!method.getCookie('cuk')){
            login.notifyLoginInterface(function (data) {
@@ -36,14 +37,14 @@ define(function(require , exports , module){
         success: function (res) {
             console.log(this)
             if(res.code === '0'){
-                fn(true)
                 $.toast({
-                    text: "收藏成功"
+                    text: $(this).hasClass("active")?"取消收藏成功":"收藏成功"
                 })
+                fn(true)
             }else{
                 fn(false)
                 $.toast({
-                    text: "收藏失败"
+                    text: $(this).hasClass("active")?"取消收藏失败":"收藏失败"
                 })
             }
         }
