@@ -75,7 +75,7 @@ class specialModule{
         var data=detail.data;
         // 处理tag标签选中
         var dimlist={};
-        if(data.dimensionStatus==0){ //开启了维度
+        if(data && data.dimensionStatus==0){ //开启了维度
            
             if(paramsObj.dimensionId){
                 var index=_.findIndex(data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
