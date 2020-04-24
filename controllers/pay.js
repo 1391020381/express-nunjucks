@@ -27,7 +27,7 @@ module.exports = {
                     platform: 0,
                     scope: 4
                 };
-                server.post(appConfig.apiBasePath + api.pay.getVipList, callback, req);
+                server.post(appConfig.apiSpecialPath + api.pay.getVipList, callback, req);
             }
         }, function (err, results) {
             results.type = 0;
