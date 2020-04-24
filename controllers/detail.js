@@ -141,7 +141,7 @@ module.exports = {
                         default:
                     }
 
-                    let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/recommend/config/info' : 'http://192.168.1.50:8769/recommend/config/info';
+                    let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
                     let option = {
                         url: url,
                         method: 'POST',
