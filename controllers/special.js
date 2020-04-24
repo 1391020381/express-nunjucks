@@ -29,8 +29,10 @@ class specialModule{
         return{
             findSpecialTopic:async ()=> { //获取专题详情
                 let { paramsObj,req,res }=this.state;
+                console.log(appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId),'url')
                 const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
+                console.warn(this.state.detail,'this.state.detail')
                 if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index]; //当前维度下的分类
@@ -47,7 +49,6 @@ class specialModule{
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
                     arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList.specialTopicPropertyGroupDOList);
                 }
-                console.log(arr,'arr------------')
                 req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
                 this.state.req.body = {
                     uid:uid,
@@ -60,6 +61,7 @@ class specialModule{
                 };
                 console.warn(req.body,'req.body****************') 
                 this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
+                _.set(this.state.listData,'data.tdk.title',`${this.state.detail.data.topicName}第${paramsObj.currentPage}页爱问共享资料_在线资料分享平台`)
                 console.warn(this.state.listData,'列表数据')
             },
             specialTopic:async ()=> {
@@ -76,7 +78,6 @@ class specialModule{
         }
     }
     finishResults(){
-        console.log('finishResults')
         let { paramsObj,req,res,detail,listData,specialTopic }=this.state;
         var data=detail.data;
         // 处理tag标签选中
@@ -139,14 +140,15 @@ class specialModule{
          if (listData.data && listData.data.totalPages < 20) {
              pageIndexArr.length = listData.data.totalPages;
          }
+
       
         let results={
                 data:data,
-                list:listData.data,
+                list:listData,
                 specialTopic:specialTopic,
                 pageIndexArr:pageIndexArr,
                 urlParams:paramsObj,
-                isOpen:req.cookies.isOpen
+                isOpen:req.cookies.isOpen,
             };
             console.warn(results,'results')
         render("special/index", results, this.state.req, this.state.res);  

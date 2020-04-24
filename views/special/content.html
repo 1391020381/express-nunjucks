@@ -76,7 +76,7 @@
         </div>
         <div class="search-list-container">
             <ul>
-                {% for item in results.list.rows %}
+                {% for item in results.list.data.rows %}
                <li>
                    <div class="search-img-box" contentId="{{item.contentId}}">
                         <img src="{{item.fileSmallPic}}" alt="">
@@ -106,7 +106,7 @@
                {% endfor %}
             </ul>
               <!-- 搜索空的页面 -->
-            {% if results.list.rows.length===0 or results.list.rows==null%}
+            {% if results.list.data.rows.length===0 or results.list.data.rows==null%}
             <div class="search-empty-container">
                 <div class="search-empty-item">
                     <img src="../../images/special/search_empty.png" alt="" width="89" height="89">
@@ -116,7 +116,7 @@
             </div>
             {% endif %}
             <!-- 分页 -->  
-            {% if results.list.totalPages>1 %}
+            {% if results.list.data.totalPages>1 %}
             <div class="office-page-paging">
                <a class="btn-page-long" href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html">首页</a>
                {% if results.urlParams.currentPage>1 %}
