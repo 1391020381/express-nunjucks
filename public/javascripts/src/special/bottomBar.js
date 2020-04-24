@@ -4,10 +4,14 @@ define(function(require , exports , module){
     var login = require("../application/checkLogin");
     
    
-
+   $('.search-img-box').click(function(){
+       var contentId=$(this).attr('contentId')
+       window.open('/f/'+contentId+'.html', "_blank");
+   }) 
    // 收藏与取消收藏功能
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
-   $('.search-img-box .ic-collect').click(function(){
+   $('.search-img-box .ic-collect').click(function(event){
+       event.stopPropagation(); 
        var _this = $(this)
        var contentId = $(this).attr("data-contentid") 
        var hasActiveClass = $(this).hasClass("active") 

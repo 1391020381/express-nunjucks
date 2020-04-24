@@ -78,17 +78,15 @@
             <ul>
                 {% for item in results.list.rows %}
                <li>
-                   <div class="search-img-box">
-                        <a href="/f/{{item.contentId}}.html" target="_blank">
-                            <img src="{{item.fileSmallPic}}" alt="">
-                            <div class="mask-container">
-                                <div class="bg-mask"></div>
-                                <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i>
-                                <div class="to-download">
-                                <a href="http://ishare.iask.sina.com.cn/f/{{item.contentId}}.html" target="_blank" style="width:100%;height:100%;">立即下载</a>
-                                </div>
+                   <div class="search-img-box" contentId="{{item.contentId}}">
+                        <img src="{{item.fileSmallPic}}" alt="">
+                        <div class="mask-container">
+                            <div class="bg-mask"></div>
+                            <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i>
+                            <div class="to-download">
+                            <a style="width:100%;height:100%;">立即下载</a>
                             </div>
-                        </a>
+                        </div>
                    </div>
                   
                    <div class="search-list-info">
