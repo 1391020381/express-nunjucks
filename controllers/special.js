@@ -31,17 +31,20 @@ class specialModule{
                 let { paramsObj,req,res }=this.state;
                 const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
-                if(paramsObj.dimensionId){ //获取当前当前的维度列表
+                if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index]; //当前维度下的分类
+                }else{// 无维度的情况
+                    this.state.specialList=this.state.detail.data.specialTopicPropertyGroupDOList; //
                 }
-                console.warn(this.state.detail,'详情数据')
+                console.warn(this.state,'详情数据')
             },
             listTopicContents:async ()=> { //获取专题列表
-                let { paramsObj,req,res }=this.state;
+                let { paramsObj,req,res,specialList }=this.state;
                 let arr=[],uid='';
+                console.log(paramsObj,'paramsObj------------')
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
-                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,req.specialList.specialTopicPropertyGroupDOList);
+                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList);
                 }
                 req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
                 req.body = {
@@ -51,7 +54,7 @@ class specialModule{
                     topicPropertyQueryDTOList: arr  || [],
                     sortFlag: +paramsObj.sortFlag || 0,//排序,0-综合排序,1-最新上传
                     currentPage: +paramsObj.currentPage || 1,
-                    pageSize: 12
+                    pageSize: 40
                 };
                 console.log(req.body,'req.body****************') 
                 this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
@@ -71,6 +74,7 @@ class specialModule{
         }
     }
     finishResults(){
+        console.log('finishResults')
         let { paramsObj,req,res,detail,listData,specialTopic }=this.state;
         var data=detail.data;
         // 处理tag标签选中
@@ -146,5 +150,4 @@ class specialModule{
         render("special/index", results, this.state.req, this.state.res);  
     }
 }
-
 module.exports=specialModule

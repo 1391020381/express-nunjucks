@@ -498,6 +498,7 @@ body {
   transform: scale(1.04);
 }
 .search-all-main .search-list-section ul li .search-img-box {
+  display: block;
   position: relative;
   height: 387px;
   width: 268px;
