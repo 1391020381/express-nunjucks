@@ -115,19 +115,19 @@ body {
   line-height: 17px;
   cursor: pointer;
 }
-.search-all-main .search-crumb-warper span::after {
+.search-all-main .search-crumb-warper a::after {
   display: inline-block;
   content: '>';
   margin: 0 4px;
 }
-.search-all-main .search-crumb-warper span:nth-last-child(2)::after {
+.search-all-main .search-crumb-warper a:nth-last-child(2)::after {
   color: #999;
 }
-.search-all-main .search-crumb-warper span:last-child {
+.search-all-main .search-crumb-warper a:last-child {
   cursor: not-allowed;
   color: #999;
 }
-.search-all-main .search-crumb-warper span:last-child::after {
+.search-all-main .search-crumb-warper a:last-child::after {
   display: none;
 }
 .search-all-main .search-all-container {

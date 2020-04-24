@@ -39,6 +39,7 @@ module.exports = {
 
         }, function (err, results) {
             console.log(req.query, 'req.query');
+            console.warn(results, 'results');
             var results = results || {};
             results.condition = [
                 {
