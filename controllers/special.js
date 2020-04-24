@@ -43,11 +43,13 @@ class specialModule{
                 let { paramsObj,req,res,specialList }=this.state;
                 let arr=[],uid='';
                 console.log(paramsObj,'paramsObj------------')
+                
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
-                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList);
+                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList.specialTopicPropertyGroupDOList);
                 }
+                console.log(arr,'arr------------')
                 req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
-                req.body = {
+                this.state.req.body = {
                     uid:uid,
                     specialTopicId: paramsObj.specialTopicId,//专题id
                     dimensionId: paramsObj.dimensionId || "",//维度id
@@ -56,7 +58,7 @@ class specialModule{
                     currentPage: +paramsObj.currentPage || 1,
                     pageSize: 40
                 };
-                console.log(req.body,'req.body****************') 
+                console.warn(req.body,'req.body****************') 
                 this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
                 console.warn(this.state.listData,'列表数据')
             },
