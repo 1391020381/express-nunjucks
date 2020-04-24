@@ -260,7 +260,7 @@ module.exports = {
         return async.series(_index, function (err, results) {
 
 
-            if (!results.list || results.list.code == 40004) {
+            if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/html/404.html');
                 console.log("404==========");
                 return;
