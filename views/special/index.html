@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% if results.tdk.canonicalUrl %}
+    <link rel="canonical" href="{{results.tdk.canonicalUrl}}" />
+    {% endif%}
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css" />
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/ishare_special.css" />
@@ -32,7 +35,8 @@
     <script type="text/javascript">
         window.pageConfig = {
              params: {
-                isVip: 0
+                isVip: 0,
+                uid:'{{results.uid}}'
             },
             urlParams:{
                 specialTopicId:"{{results.urlParams.specialTopicId}}",//专题id

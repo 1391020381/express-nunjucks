@@ -118,6 +118,7 @@ define(function (require, exports, module) {
         method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
             if (res.code == 0) {
                 var $btn_collect = $('#btn-collect');
+                debugger
                 if (res.data === 1) {
                     $btn_collect.addClass('btn-collect-success');
                 } else {
@@ -178,7 +179,7 @@ define(function (require, exports, module) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
             reloadHeader(data);
-            queryStoreFlag();
+            // queryStoreFlag();
             filePreview();
         }
     }

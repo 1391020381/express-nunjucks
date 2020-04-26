@@ -18,7 +18,6 @@ var fileAttr = 1; //1 普通文件 2 办公频道文件
 var format = '';
 var classid1 = '';
 var perMin = '';
-
 var userID = Math.random().toString().slice(-15); //标注用户的ID，
 var sceneIDRelevant = ''; //场景的ID
 var sceneIDGuess = ''; //场景的ID
@@ -65,6 +64,7 @@ module.exports = {
                                 format = data.data.format || '';
                                 classid1 = data.data.classid1 || '';
                                 perMin = data.data.perMin || '';
+                                uid=data.data.uid || ''
                                 // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                                 callback(null, data);
                             } else {
@@ -78,6 +78,13 @@ module.exports = {
                         callback(null, null);
                     }
                 })
+            },
+            getUserFileZcState:function(callback){
+                var uid=JSON.parse(req.cookies.ui).uid;
+                server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                    callback(null,item)
+                })
+                
             },
             // 面包屑导航
             crumbList: function (callback) {
@@ -259,7 +266,7 @@ module.exports = {
         };
         return async.series(_index, function (err, results) {
 
-
+            console.log(results,'results---------')
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/html/404.html');
                 console.log("404==========");

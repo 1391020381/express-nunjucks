@@ -19,7 +19,8 @@ module.exports = {
         // 限制预读页数
         preReadPageLimit: '/fileSync/prePageInfo?fid=$fid&validateIE9=$validateIE9',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
-        getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId'
+        getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
+        getUserFileZcState:'/comment/zc/getUserFileZcState'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)

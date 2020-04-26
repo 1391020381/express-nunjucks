@@ -23,14 +23,15 @@ define(function(require , exports , module){
            console.log('-------------------',data)
            refreshTopBar(data);
            var userId = data.userId
-           fileSaveOrupdate(contentId,userId,addActiveClass)
+           fileSaveOrupdate(contentId,userId,addActiveClass,_this)
         })
        }else{
-        fileSaveOrupdate(contentId,userId,addActiveClass)
+        userId = window.pageConfig.params.uid;
+        fileSaveOrupdate(contentId,userId,addActiveClass,_this)
        }
    })
    // 收藏或取消收藏接口
-   function fileSaveOrupdate(fid,uid,addActiveClass) {
+   function fileSaveOrupdate(fid,uid,addActiveClass,_this) {
     var fn = addActiveClass
     $.ajax({
         url: api.special.fileSaveOrupdate,
@@ -39,16 +40,15 @@ define(function(require , exports , module){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            console.log(this)
             if(res.code === '0'){
                 $.toast({
-                    text: $(this).hasClass("active")?"取消收藏成功":"收藏成功"
+                    text: _this.hasClass("active")?"取消收藏成功":"收藏成功"
                 })
                 fn(true)
             }else{
                 fn(false)
                 $.toast({
-                    text: $(this).hasClass("active")?"取消收藏失败":"收藏失败"
+                    text:_this.hasClass("active")?"取消收藏失败":"收藏失败"
                 })
             }
         }

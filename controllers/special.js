@@ -13,6 +13,7 @@ class specialModule{
            paramsObj:util.getSpecialParams(req.url),
            req:req,
            res:res,
+           uid:'',
            detail:'',//详情数据
            listData:'',  //列表数据
            specialTopic:'',
@@ -31,6 +32,11 @@ class specialModule{
                 let { paramsObj,req,res }=this.state;
                 const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
+                if(this.state.detail.data.templateCode!=='ishare_zt_model1'){
+                    res.redirect('/html/404.html')
+                    return
+                }
+
                 if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //当前维度下的分类
@@ -41,13 +47,13 @@ class specialModule{
             },
             listTopicContents:async ()=> { //获取专题列表
                 let { paramsObj,req,res,specialList }=this.state;
-                let arr=[],uid='';        
+                let arr=[];        
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
                     arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList);
                 }
-                req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
+                req.cookies.ui ?  this.state.uid=JSON.parse(req.cookies.ui).uid : ''
                 this.state.req.body = {
-                    uid:uid,
+                    uid:this.state.uid,
                     specialTopicId: paramsObj.specialTopicId,//专题id
                     dimensionId: paramsObj.dimensionId || "",//维度id
                     topicPropertyQueryDTOList: arr  || [],
@@ -137,7 +143,7 @@ class specialModule{
              pageIndexArr.length = listData.data.totalPages;
          }
 
-      
+        let canonicalUrl=paramsObj.currentPage>1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
         let results={
                 data:data,
                 list:listData,
@@ -145,6 +151,10 @@ class specialModule{
                 pageIndexArr:pageIndexArr,
                 urlParams:paramsObj,
                 isOpen:req.cookies.isOpen,
+                uid:this.state.uid,
+                tdk:{
+                    canonicalUrl:canonicalUrl
+                }
             };
             console.warn(results,'results')
         render("special/index", results, this.state.req, this.state.res);  
