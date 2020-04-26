@@ -29,25 +29,21 @@ class specialModule{
         return{
             findSpecialTopic:async ()=> { //获取专题详情
                 let { paramsObj,req,res }=this.state;
-                console.log(appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId),'url')
                 const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
-                console.warn(this.state.detail,'this.state.detail')
                 if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
-                    this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index]; //当前维度下的分类
+                    this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //当前维度下的分类
                 }else{// 无维度的情况
                     this.state.specialList=this.state.detail.data.specialTopicPropertyGroupDOList; //
                 }
-                console.warn(this.state,'详情数据')
+                console.warn(this.state.detail,'详情数据')
             },
             listTopicContents:async ()=> { //获取专题列表
                 let { paramsObj,req,res,specialList }=this.state;
-                let arr=[],uid='';
-                console.log(paramsObj,'paramsObj------------')
-                
+                let arr=[],uid='';        
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
-                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList.specialTopicPropertyGroupDOList);
+                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList);
                 }
                 req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
                 this.state.req.body = {
