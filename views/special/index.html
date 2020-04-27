@@ -25,7 +25,10 @@
     {% include "special/content.html" %}
 
      {# 底部的广告位 #}
-     {% include "special/bottomBar.html" %}
+     {% if results.list.data.rows.length ===0 %}
+         {% include "special/bottomBar.html" %}
+    {% endif %}
+    
      <!-- 底部声明 -->
     {% include "special/footer.html" %}
 
