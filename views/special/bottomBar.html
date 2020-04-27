@@ -9,7 +9,7 @@
             <p class="title-right"><img src="{{cdnUrl}}/images/special/switch.png" class="icon"><span>换一换</span></p>
         </div>
         <ul class="hot-list">
-            {% for item in results.specialTopic %}
+            {% for item in results.specialTopic.slice(10) %}
             <li class="hot-items">
                 <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
             </li>
