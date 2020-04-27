@@ -67,6 +67,9 @@ module.exports = {
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         listTopicContents:'/special/specialTopicContent/listTopicContents',  //分页查询接口
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
+    },
+    tdk:{
+        getTdkByUrl:'/content/tdkmanage/findByUrl?url=$url',
     }
 };
 

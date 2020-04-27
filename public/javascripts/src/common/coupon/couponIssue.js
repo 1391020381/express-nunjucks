@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     require("../../cmd-lib/loading");
     var login = require("../../application/checkLogin");
     var couponOptions = require("./template/couponCard.html");
+    var api=require('../../application/api')
 
     var couponObj = {
         _index: 0,
@@ -177,7 +178,7 @@ define(function (require, exports, module) {
             $('body').loading({ name: 'download', title: '请求中' });
             $.ajax({
                 type: 'POST',
-                url: '/pc/sale/vouchers',
+                url: api.vouchers,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: data,

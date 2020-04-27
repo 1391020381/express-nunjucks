@@ -12,7 +12,7 @@ define(function (require, exports, module) {
             // 登出
             loginOut: '',
             // 我的收藏
-            collect: router + '/usermanage/collect',
+             collect: router + '/usermanage/collect',
             // 透传老系统web登录信息接口
             getJessionId: router + '/usermanage/getJessionId',
             //优惠券提醒
@@ -55,6 +55,7 @@ define(function (require, exports, module) {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow'
         },
+        vouchers:router+'/sale/vouchers',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }
