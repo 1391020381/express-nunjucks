@@ -232,12 +232,11 @@ define(function (require, exports, module) {
                     common.afterLogin(data);
                 });
                 return;
+            }else{
+                var fid=$(this).attr('data-fid');
+                fileSaveOrupdate(fid,window.pageConfig.page.uid,$(this))
             }
-            if ($(this).hasClass('btn-collect-success')) {
-                collectFile(4)
-            } else {
-                collectFile(3)
-            }
+           
         });
         // 文件评分
         $('.star-list').on('click', function (e) {
@@ -383,7 +382,7 @@ define(function (require, exports, module) {
         $('body').loading({ name: 'download', title: '请求中' });
         $.ajax({
             type: 'POST',
-            url: '/pc/sale/vouchers',
+            url: api.vouchers,
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             data: data,
@@ -547,6 +546,30 @@ define(function (require, exports, module) {
             flag: 'y'
         });
     }
+
+       // 收藏或取消收藏接口
+   function fileSaveOrupdate(fid,uid,_this) {
+    $.ajax({
+        url: api.special.fileSaveOrupdate,
+        type: "POST",
+        data: JSON.stringify({ fid:fid,uid:uid,source:0,channel:0 }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log(this)
+            if(res.code === '0'){
+                $.toast({
+                    text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
+                })
+                _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
+            }else{
+                $.toast({
+                    text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
+                })
+            }
+        }
+    })
+}
 
     // 搜集访问记录
     function storeAccessRecord() {

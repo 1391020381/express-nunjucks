@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% if results.tdk.canonicalUrl %}
+    <link rel="canonical" href="{{results.tdk.canonicalUrl}}" />
+    {% endif%}
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css" />
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/ishare_special.css" />
@@ -22,7 +25,10 @@
     {% include "special/content.html" %}
 
      {# 底部的广告位 #}
-     {% include "special/bottomBar.html" %}
+     {% if results.list.data.rows.length !==0 %}
+         {% include "special/bottomBar.html" %}
+    {% endif %}
+    
      <!-- 底部声明 -->
     {% include "special/footer.html" %}
 
@@ -32,7 +38,8 @@
     <script type="text/javascript">
         window.pageConfig = {
              params: {
-                isVip: 0
+                isVip: 0,
+                uid:'{{results.uid}}'
             },
             urlParams:{
                 specialTopicId:"{{results.urlParams.specialTopicId}}",//专题id

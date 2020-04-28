@@ -19,7 +19,8 @@ module.exports = {
         // 限制预读页数
         preReadPageLimit: '/fileSync/prePageInfo?fid=$fid&validateIE9=$validateIE9',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
-        getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId'
+        getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
+        getUserFileZcState:'/comment/zc/getUserFileZcState'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
@@ -66,6 +67,9 @@ module.exports = {
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         listTopicContents:'/special/specialTopicContent/listTopicContents',  //分页查询接口
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
+    },
+    tdk:{
+        getTdkByUrl:'/content/tdkmanage/findByUrl?url=$url',
     }
 };
 

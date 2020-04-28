@@ -1,96 +1,23 @@
 <div class="special-bottom-bar">
-    <a href="https://ishare.iask.sina.com.cn/node/rights/vip.html" class="open-vip" target="_blank">
-        <img src="{{cdnUrl}}/images/special/open-vip.png">
+    <a href="/node/rights/vip.html" class="open-vip" target="_blank">
+        <img src="{{cdnUrl}}/images/special/open-vip.jpg">
     </a>
-    {% if results.specialTopic&&results.specialTopic.length %}
+    {% if results.specialTopic.length>0 %}
     <div class="hot-spot-search">
         <div class="title">
             <span class="title-left">热点搜索</span>
             <p class="title-right"><img src="{{cdnUrl}}/images/special/switch.png" class="icon"><span>换一换</span></p>
         </div>
         <ul class="hot-list">
-            {% for item in results.specialTopic %}
+            {% for item in results.specialTopic.slice(10) %}
             <li class="hot-items">
                 <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
             </li>
             {% endfor %}
            
-             {# <li class="hot-items">
-                <a>会计造假案例分析</a>
-            </li>
-             <li class="hot-items">
-                <a>预备党员季度鉴定</a>
-            </li>
-             <li class="hot-items">
-                <a>临时用电施工规范</a>
-            </li>
-             <li class="hot-items">
-                <a>标准化法实施细则</a>
-            </li>
-
-            <li class="hot-items">
-                <a>标准化法实施细则</a>
-            </li>
-             <li class="hot-items">
-                <a>现代汉语语法知识</a>
-            </li>
-             <li class="hot-items">
-                <a>标准化法实施细则</a>
-            </li>
-             <li class="hot-items">
-                <a>标准化法实施细则</a>
-            </li>
-             <li class="hot-items">
-                <a>标准化法实施细则</a>
-            </li> #}
         </ul>
     </div>
    {% endif %}
-     {# <ul class="adv-position">
-        <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-         <li class="adv-item">
-            <a class="adv-a">
-               <img src="{{cdnUrl}}/images/special/open-vip.png" class="adv-img">
-               <p class="adv-item-desc">产品经理培训</p>
-            </a>
-        </li>
-    </ul> #}
-
     <div class="adv-position">
             <!-- 广告位：PC端-ishare-专题页-底部信息流-1024*140-0413 -->
 <script>

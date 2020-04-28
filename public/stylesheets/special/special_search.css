@@ -485,11 +485,11 @@ body {
 .search-all-main .search-list-section ul li {
   float: left;
   *display: inline;
-  width: 276px;
+  width: 281px;
   box-sizing: border-box;
   box-shadow: 0px 4px 7px 0px rgba(57, 0, 0, 0.09);
   border-radius: 3px;
-  margin-right: 32px;
+  margin-right: 25px;
   margin-bottom: 25px;
   background-color: #fff;
   transition: all 0.2s ease-out;
@@ -498,6 +498,7 @@ body {
   transform: scale(1.04);
 }
 .search-all-main .search-list-section ul li .search-img-box {
+  display: block;
   position: relative;
   height: 387px;
   width: 268px;

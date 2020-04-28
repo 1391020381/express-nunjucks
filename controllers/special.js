@@ -13,15 +13,18 @@ class specialModule{
            paramsObj:util.getSpecialParams(req.url),
            req:req,
            res:res,
+           uid:'',
            detail:'',//详情数据
            listData:'',  //列表数据
            specialTopic:'',
+           tdkData:'',
            specialList:[] //分类及属性  
        }
        this.render();
     }
     render(){
         return async.series(this.init(), (err, results)=>{
+            console.warn(66666666666666)
             this.finishResults()
         })
     }
@@ -31,29 +34,36 @@ class specialModule{
                 let { paramsObj,req,res }=this.state;
                 const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
-                if(paramsObj.dimensionId){ //获取当前当前的维度列表
+                if(this.state.detail.data.templateCode!=='ishare_zt_model1'){
+                    res.redirect('/html/404.html')
+                    return
+                }
+
+                if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
-                    this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index]; //当前维度下的分类
+                    this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //当前维度下的分类
+                }else{// 无维度的情况
+                    this.state.specialList=this.state.detail.data.specialTopicPropertyGroupDOList; //
                 }
                 console.warn(this.state.detail,'详情数据')
             },
             listTopicContents:async ()=> { //获取专题列表
-                let { paramsObj,req,res }=this.state;
-                let arr=[],uid='';
+                let { paramsObj,req,res,specialList }=this.state;
+                let arr=[];        
                 if((paramsObj.topicPropertyQueryDTOList.length>0)){
-                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,req.specialList.specialTopicPropertyGroupDOList);
+                    arr=util.getPropertyParams(paramsObj.topicPropertyQueryDTOList,specialList);
                 }
-                req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
-                req.body = {
-                    uid:uid,
+                req.cookies.ui ?  this.state.uid=JSON.parse(req.cookies.ui).uid : ''
+                this.state.req.body = {
+                    uid:this.state.uid,
                     specialTopicId: paramsObj.specialTopicId,//专题id
                     dimensionId: paramsObj.dimensionId || "",//维度id
                     topicPropertyQueryDTOList: arr  || [],
                     sortFlag: +paramsObj.sortFlag || 0,//排序,0-综合排序,1-最新上传
                     currentPage: +paramsObj.currentPage || 1,
-                    pageSize: 12
+                    pageSize: 40
                 };
-                console.log(req.body,'req.body****************') 
+                console.warn(req.body,'req.body****************') 
                 this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
                 console.warn(this.state.listData,'列表数据')
             },
@@ -67,7 +77,23 @@ class specialModule{
                 let specialData=await server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req,res);
                 this.state.specialTopic = specialData.data && specialData.data.rows || [];
                 console.warn(this.state.specialTopic,'热点数据')
-            }
+            },
+            getTdkByUrl:async()=>{ //tdk
+                let { paramsObj,req,res }=this.state;
+                let data=await server.$http(appConfig.apiSpecialPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
+                var topicName = this.state.detail.data.topicName;
+                this.state.tdkData = {
+                    pageTable: '专题页',
+                    url: '/node/s/'+ paramsObj.specialTopicId +'.html',
+                    title: topicName + '资料下载_爱问办公',
+                    description: '爱问办公提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'，快来爱问办公下载!',
+                    keywords: topicName + '资料下载',
+                }
+                if(data.code == '0' && data.data){
+                    data.data.title = data.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
+                    this.state.tdkData=data.data
+                }
+            },
         }
     }
     finishResults(){
@@ -133,18 +159,23 @@ class specialModule{
          if (listData.data && listData.data.totalPages < 20) {
              pageIndexArr.length = listData.data.totalPages;
          }
-      
+
+        let canonicalUrl=paramsObj.currentPage>1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
+        _.set(this.state.listData,'data.tdk',this.state.tdkData)
         let results={
                 data:data,
-                list:listData.data,
+                list:this.state.listData,
                 specialTopic:specialTopic,
                 pageIndexArr:pageIndexArr,
                 urlParams:paramsObj,
-                isOpen:req.cookies.isOpen
+                isOpen:req.cookies.isOpen,
+                uid:this.state.uid,
+                tdk:{
+                    canonicalUrl:canonicalUrl
+                }
             };
             console.warn(results,'results')
         render("special/index", results, this.state.req, this.state.res);  
     }
 }
-
 module.exports=specialModule
