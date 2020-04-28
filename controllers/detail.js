@@ -76,15 +76,14 @@ module.exports = {
                         // }
                         var data = JSON.parse(body);
                         console.warn('data----------------',data)
-                        // fileAttr ==  1普通文件 2办公频道
-                        console.warn(data.data.fileAttr,'data.data.fileAttr')
-                         if(data.data.fileAttr == 2){
-                            res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
-                            return
-                        }
-   
 
-                        if (data.code == 0) {
+                        if (data.code == 0 && data.data) {
+                            // fileAttr ==  1普通文件 2办公频道
+                            if(data.data.fileAttr == 2){
+                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
+                                return
+                            }
+
                             fid = data.data.fileId;
                             classId = data.data.classId || "";
                             title = data.data.title || "";
@@ -106,11 +105,14 @@ module.exports = {
                 })
             },
             getUserFileZcState:function(callback){
-                var uid=JSON.parse(req.cookies.ui).uid;
-                server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
-                    callback(null,item)
-                })
-                
+                if(req.cookies.ui){
+                    var uid=JSON.parse(req.cookies.ui).uid;
+                    server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                        callback(null,item)
+                    })
+                }else{
+                    callback(null,null)
+                }
             },
             // 面包屑导航
             crumbList: function (callback) {
