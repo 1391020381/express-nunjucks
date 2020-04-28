@@ -43,36 +43,62 @@ module.exports = {
                 request(opt, function (err, res1, body) {
 
                     if (body) {
-                        try {
-                            var data = JSON.parse(body);
-                            console.warn('data----------------',data)
-                            // fileAttr ==  1普通文件 2办公频道
-                            console.warn(data.data.fileAttr,'data.data.fileAttr')
-                             if(data.data.fileAttr == 2){
-                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
-                                return
-                            }
+                        // try {
+                        //     var data = JSON.parse(body);
+                        //     console.warn('data----------------',data)
+                        //     // fileAttr ==  1普通文件 2办公频道
+                        //     console.warn(data.data.fileAttr,'data.data.fileAttr')
+                        //      if(data.data.fileAttr == 2){
+                        //         res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
+                        //         return
+                        //     }
        
 
-                            if (data.code == 0) {
-                                fid = data.data.fileId;
-                                classId = data.data.classId || "";
-                                title = data.data.title || "";
-                                isGetClassType = data.data.isGetClassType || '';
-                                spcClassId = data.data.spcClassId || "";
-                                fileAttr = data.data.fileAttr || 1;
-                                format = data.data.format || '';
-                                classid1 = data.data.classid1 || '';
-                                perMin = data.data.perMin || '';
-                                uid=data.data.uid || ''
-                                // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
-                                callback(null, data);
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
+                        //     if (data.code == 0) {
+                        //         fid = data.data.fileId;
+                        //         classId = data.data.classId || "";
+                        //         title = data.data.title || "";
+                        //         isGetClassType = data.data.isGetClassType || '';
+                        //         spcClassId = data.data.spcClassId || "";
+                        //         fileAttr = data.data.fileAttr || 1;
+                        //         format = data.data.format || '';
+                        //         classid1 = data.data.classid1 || '';
+                        //         perMin = data.data.perMin || '';
+                        //         uid=data.data.uid || ''
+                        //         // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
+                        //         callback(null, data);
+                        //     } else {
+                        //         callback(null, null);
+                        //     }
+                        // } catch (err) {
+                        //     callback(null, null);
+                        //     console.log("err=============", err)
+                        // }
+                        var data = JSON.parse(body);
+                        console.warn('data----------------',data)
+                        // fileAttr ==  1普通文件 2办公频道
+                        console.warn(data.data.fileAttr,'data.data.fileAttr')
+                         if(data.data.fileAttr == 2){
+                            res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
+                            return
+                        }
+   
+
+                        if (data.code == 0) {
+                            fid = data.data.fileId;
+                            classId = data.data.classId || "";
+                            title = data.data.title || "";
+                            isGetClassType = data.data.isGetClassType || '';
+                            spcClassId = data.data.spcClassId || "";
+                            fileAttr = data.data.fileAttr || 1;
+                            format = data.data.format || '';
+                            classid1 = data.data.classid1 || '';
+                            perMin = data.data.perMin || '';
+                            uid=data.data.uid || ''
+                            // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
+                            callback(null, data);
+                        } else {
                             callback(null, null);
-                            console.log("err=============", err)
                         }
                     } else {
                         callback(null, null);
