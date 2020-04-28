@@ -233,7 +233,7 @@ define(function (require, exports, module) {
                 });
                 return;
             }else{
-                //var fid=$(this).attr('data-fid');
+                var fid=$(this).attr('data-fid');
                 if ($(this).hasClass('btn-collect-success')) {
                     collectFile(4)
                 } else {
