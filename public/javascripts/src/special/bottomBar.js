@@ -168,7 +168,7 @@ $('#a-login-link').click(function(){
    // 专题页面搜索框的逻辑
    search()
    function search(){
-        var topicName = $('body > div.search-all-main > div.search-crumb-warper > a:nth-child(2)').text()  // topicName
+        var topicName = window.pageConfig.topicName // topicName
         $('#scondition').val(topicName)
         $('#searchBtn').click(function(){
             topicName =  $('#scondition').val()
