@@ -171,9 +171,9 @@ $('#a-login-link').click(function(){
         var topicName = $('body > div.search-all-main > div.search-crumb-warper > a:nth-child(2)').text()  // topicName
         $('#scondition').val(topicName)
         $('#searchBtn').click(function(){
-            
-            var fd = $('.search-choose input[name="radio"]:checked ').val()
-            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ fd + '&cond='+ topicName )
+            topicName =  $('#scondition').val()
+            var ft = $('.search-choose input[name="radio"]:checked ').val()
+            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ ft + '&cond='+ encodeURIComponent(encodeURIComponent(topicName)) )
         })
    }
 });
