@@ -1,0 +1,156 @@
+<div class="search-all-main">   
+    <!-- 广告位 -->
+    <!-- <div class="search-adv-warper">
+        <img src="" alt="">
+    </div> -->
+    <!-- 面包屑 -->
+    {% if results.data.dimensionStatus===0 %}  
+    <div class="search-crumb-warper">
+         <a href="/">首页</a>
+         <a>{{results.data.topicName}}</a>
+    </div>
+    {% else %}
+    <div class="search-crumb-warper">
+        <h1>{{results.data.topicName}}</h1>
+   </div>
+   {% endif %}
+    <!-- 筛选条件 -->
+    <div class="search-all-container">
+        <!--dimensionStatus=0 开启维度 -->
+        {% if results.data.dimensionStatus===0 %}  
+        <div class="search-all-nav">
+            <div class="search-nav-box">
+                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId=='' or results.urlParams.dimensionId==null}}">全部</a>
+                {% for navItem in results.data.specialTopicDimensionDOList %}
+                <a href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+      
+        <div class="search-condition">
+              <!-- 有维度的全部不展示分类 -->
+            {% if results.urlParams.dimensionId or results.data.dimensionStatus==1 %}    
+            {% for secondItem in results.data.specialTopicPropertyGroupDOList %}
+            <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
+                <span class="search-title">{{secondItem.propertyGroupName}}: </span>
+                {% for thirdItem in secondItem.specialTopicPropertyDOList %}
+                <a data-ids="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
+                    {{thirdItem.propertyName}}
+                </a>
+                {% endfor %}
+            </div>
+            {% endfor %}
+         
+    
+            <!-- 筛选内容切换 -->
+            {% if results.data.specialLength>2 and results.urlParams.dimensionId%}
+            <div class="search-screen">
+                {% if results.isOpen==1 %}
+                <span>收起筛选</span>
+                <span class="screen-more screen-less"></span>
+                {% else %}
+                <span>更多筛选</span>
+                <span class="screen-more"></span>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>  
+      
+        <!-- 无维度显示 其他搜索 -->
+        {% if results.data.dimensionStatus===1 and results.specialTopic.length>0 %}
+        <div class="search-other-container">
+            <div class="search-other-item">
+                <em>你要找的是不是：</em>
+                {% for item in results.specialTopic and results.specialTopic.slice(0,10) %}
+                <span>
+                <a href="/node/s/{{item.id}}.html" target="_blank">
+                {{item.topicName}}
+                </a>
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>     
+    <!--筛选列表  -->
+    <div class="search-list-section">
+        <div class="search-list-tab">
+             <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+             <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+        </div>
+        <div class="search-list-container">
+            <ul>
+                {% for item in results.list.data.rows %}
+               <li>
+                   <div class="search-img-box" contentId="{{item.contentId}}">
+                        <img src="{{item.fileSmallPic}}" alt="">
+                        <div class="mask-container">
+                            <div class="bg-mask"></div>
+                            <!-- <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i> -->
+                            <div class="to-download">
+                            <a style="width:100%;height:100%;">立即下载</a>
+                            </div>
+                        </div>
+                        <div class="title-hover"><span>{{item.contentName}}</span></div>
+                   </div>
+                 
+                   <div class="search-list-info">
+                       
+                        <a href="/f/{{item.contentId}}.html" target="_blank">{{item.contentName}}</a>
+                        <div class="search-info-state">
+                            <div class="search-info-state-item">
+                                <i class="ic-scan"></i>
+                                <span>{{item.readNum}}</span>
+                            </div> 
+                            <div class="search-info-state-item">
+                                <i class="ic-download"></i>
+                                <span>{{item.downNum}}</span>
+                            </div> 
+                        </div>
+                   </div>
+               </li>
+               {% endfor %}
+            </ul>
+              <!-- 搜索空的页面 -->
+            {% if results.list.data.rows.length===0 or results.list.data.rows==null%}
+            <div class="search-empty-container">
+                <div class="search-empty-item">
+                    <img src="../../images/special/search_empty.png" alt="" width="89" height="89">
+                    <p>暂时没有您想要的内容，试试刷新页面</p>
+                    <div class="btn-fresh">立即刷新</div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- 分页 -->  
+            {% if results.list.data.totalPages>1 %}
+            <div class="office-page-paging">
+               <a class="btn-page-long" href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html">首页</a>
+               {% if results.urlParams.currentPage>1 %}
+               <a class="btn-page" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}.html">上一页</a>
+               {% endif %}
+
+
+               {%if results.pageIndexArr.length>1 %}
+               {%for item in results.pageIndexArr%}
+               {% if (loop.index<+results.urlParams.currentPage+3 and loop.index>=results.urlParams.currentPage-3) %}
+               <a class="page-ele {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
+                   style="display: inline-block" href="/node/s/{{results.data.id}}_{{loop.index}}_{{results.urlParams.sortFlag}}.html">
+                   {{loop.index}}
+               </a>
+               {% endif %}
+               {%endfor%}
+               {% if results.urlParams.currentPage <= results.pageIndexArr.length-3 %}
+               <a class="page-more">...</a>
+               {% endif %}
+               <a class="btn-page-long" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}.html">下一页</a>
+               <a class="btn-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.data.id}}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html">尾页</a>
+               {%endif%}
+           </div>
+           {%endif%}
+        </div>
+      
+    </div>
+        
+</div>
