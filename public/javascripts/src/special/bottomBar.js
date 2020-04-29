@@ -168,12 +168,12 @@ $('#a-login-link').click(function(){
    // 专题页面搜索框的逻辑
    search()
    function search(){
-        var topicName = $('body > div.search-all-main > div.search-crumb-warper > span:nth-child(2)').text()  // topicName
+        var topicName = window.pageConfig.topicName // topicName
         $('#scondition').val(topicName)
         $('#searchBtn').click(function(){
-            
-            var fd = $('.search-choose input[name="radio"]:checked ').val()
-            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ fd + '&cond='+ topicName )
+            topicName =  $('#scondition').val()
+            var ft = $('.search-choose input[name="radio"]:checked ').val()
+            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ ft + '&cond='+ encodeURIComponent(encodeURIComponent(topicName)) )
         })
    }
 });
