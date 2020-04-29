@@ -43,36 +43,29 @@ module.exports = {
                 request(opt, function (err, res1, body) {
 
                     if (body) {
-                        try {
-                            var data = JSON.parse(body);
-                            console.warn('data----------------',data)
+                        var data = JSON.parse(body);
+                        console.warn('data----------------',data)
+                        if (data.code == 0 && data.data) {
                             // fileAttr ==  1普通文件 2办公频道
-                            console.warn(data.data.fileAttr,'data.data.fileAttr')
-                             if(data.data.fileAttr == 2){
+                            if(data.data.fileAttr == 2){
                                 res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
                                 return
                             }
-       
 
-                            if (data.code == 0) {
-                                fid = data.data.fileId;
-                                classId = data.data.classId || "";
-                                title = data.data.title || "";
-                                isGetClassType = data.data.isGetClassType || '';
-                                spcClassId = data.data.spcClassId || "";
-                                fileAttr = data.data.fileAttr || 1;
-                                format = data.data.format || '';
-                                classid1 = data.data.classid1 || '';
-                                perMin = data.data.perMin || '';
-                                uid=data.data.uid || ''
-                                // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
-                                callback(null, data);
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
+                            fid = data.data.fileId;
+                            classId = data.data.classId || "";
+                            title = data.data.title || "";
+                            isGetClassType = data.data.isGetClassType || '';
+                            spcClassId = data.data.spcClassId || "";
+                            fileAttr = data.data.fileAttr || 1;
+                            format = data.data.format || '';
+                            classid1 = data.data.classid1 || '';
+                            perMin = data.data.perMin || '';
+                            uid=data.data.uid || ''
+                            // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
+                            callback(null, data);
+                        } else {
                             callback(null, null);
-                            console.log("err=============", err)
                         }
                     } else {
                         callback(null, null);
@@ -80,11 +73,14 @@ module.exports = {
                 })
             },
             getUserFileZcState:function(callback){
-                var uid=JSON.parse(req.cookies.ui).uid;
-                server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
-                    callback(null,item)
-                })
-                
+                if(req.cookies.ui){
+                    var uid=JSON.parse(req.cookies.ui).uid;
+                    server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                        callback(null,item)
+                    })
+                }else{
+                    callback(null,null)
+                }
             },
             // 面包屑导航
             crumbList: function (callback) {
