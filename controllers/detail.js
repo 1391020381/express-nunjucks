@@ -53,7 +53,7 @@ module.exports = {
                             }
 
                             fid = data.data.fileId;
-                            classId = data.data.classId || "";
+                            classId = data.data.classId;
                             title = data.data.title || "";
                             isGetClassType = data.data.isGetClassType;
                             spcClassId = data.data.spcClassId;
