@@ -153,7 +153,8 @@ define(function (require, exports, moudle) {
                 var price = $this.data('price');
                 var activePrice = $this.data('activeprice');
                 var discountPrice = $this.data('discountprice');
-                var giveDesc = $this.data('givedesc')  // 权益赠送文案
+               // class give-desc
+               var giveDesc =  $this.find('.give-desc').html() || ''
                 $(".js-tab .gift-copy").html(giveDesc)
                 if (activePrice > 0) {
                     $("#activePrice").html(activePrice);
