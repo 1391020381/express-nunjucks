@@ -56,11 +56,6 @@ define(function (require, exports, module) {
             successBuyDownLoad: router + '/action/downloadNow'
         },
         vouchers:router+'/sale/vouchers',
-        order:{
-            bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
-            unloginOrderDown:router+'/order/unloginOrderDown'
-        },
-        getHotSearch:router+'/search/getHotSearch',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }

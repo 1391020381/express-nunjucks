@@ -110,7 +110,7 @@ class specialModule{
                  dimlist=data.specialTopicDimensionDOList && data.specialTopicDimensionDOList[0]; //当前的维度列表
             }
         }else{ //没有开启维度
-            data ? dimlist.specialTopicPropertyGroupDOList=data.specialTopicPropertyGroupDOList : '';
+            dimlist.specialTopicPropertyGroupDOList=data.specialTopicPropertyGroupDOList;
         }
      
 
@@ -163,21 +163,19 @@ class specialModule{
         let canonicalUrl=paramsObj.currentPage>1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
         _.set(this.state.listData,'data.tdk',this.state.tdkData)
         let results={
-            data:data,
-            list:this.state.listData,
-            specialTopic:specialTopic,
-            pageIndexArr:pageIndexArr,
-            urlParams:paramsObj,
-            isOpen:req.cookies.isOpen,
-            uid:this.state.uid,
-            tdk:{
-                canonicalUrl:canonicalUrl
-            }
-        };
-        console.warn(results,'results')
-    render("special/index", results, this.state.req, this.state.res);  
-       
+                data:data,
+                list:this.state.listData,
+                specialTopic:specialTopic,
+                pageIndexArr:pageIndexArr,
+                urlParams:paramsObj,
+                isOpen:req.cookies.isOpen,
+                uid:this.state.uid,
+                tdk:{
+                    canonicalUrl:canonicalUrl
+                }
+            };
+            console.warn(results,'results')
+        render("special/index", results, this.state.req, this.state.res);  
     }
-    
 }
 module.exports=specialModule

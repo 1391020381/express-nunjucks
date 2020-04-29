@@ -60,7 +60,6 @@ define(function (require, exports, module) {
             bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown'
         },
-        getHotSearch:router+'/search/getHotSearch',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         }

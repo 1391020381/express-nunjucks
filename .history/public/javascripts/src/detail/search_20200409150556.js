@@ -114,7 +114,7 @@ define(function (require, exports, module) {
 
     //获取热门搜索数据
     var getHotSearch = function () {
-        $.ajax(api.getHotSearch, {
+        $.ajax("/pc/search/getHotSearch", {
             type: "get",
             async: false,
             dataType: "json"

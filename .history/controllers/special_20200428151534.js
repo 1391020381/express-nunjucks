@@ -110,7 +110,7 @@ class specialModule{
                  dimlist=data.specialTopicDimensionDOList && data.specialTopicDimensionDOList[0]; //当前的维度列表
             }
         }else{ //没有开启维度
-            data ? dimlist.specialTopicPropertyGroupDOList=data.specialTopicPropertyGroupDOList : '';
+            dimlist.specialTopicPropertyGroupDOList=data.specialTopicPropertyGroupDOList;
         }
      
 

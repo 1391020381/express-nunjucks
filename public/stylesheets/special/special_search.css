@@ -130,6 +130,11 @@ body {
 .search-all-main .search-crumb-warper a:last-child::after {
   display: none;
 }
+.search-all-main .search-crumb-warper h1 {
+  font-size: 22px;
+  color: #222222;
+  font-weight: 400;
+}
 .search-all-main .search-all-container {
   width: 1200px;
   background: rgba(255, 255, 255, 0.8);

@@ -182,7 +182,7 @@ define(function (require, exports, module) {
             fid: fileInfo.fid
         }
         $.ajax({
-            url: api.order.unloginOrderDown,
+            url: '/pc/order/unloginOrderDown',
             type: "POST",
             data: JSON.stringify(params),
             contentType: "application/json; charset=utf-8",
