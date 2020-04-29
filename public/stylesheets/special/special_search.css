@@ -573,6 +573,39 @@ body {
 .search-all-main .search-list-section ul li .search-img-box .mask-container .to-download a {
   color: #fff;
 }
+.search-all-main .search-list-section ul li .search-img-box .title-hover {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  margin-left: -50%;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  background-color: #f7f7f7;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: #222;
+  padding: 0 14px;
+  width: 100%;
+  display: none;
+}
+.search-all-main .search-list-section ul li .search-img-box .title-hover span {
+  width: 100%;
+  text-align: justify;
+  display: inline-block;
+  white-space: pre-wrap;
+  /* CSS3 */
+  white-space: -moz-pre-wrap;
+  /* Firefox */
+  white-space: -pre-wrap;
+  /* Opera <7 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* IE */
+}
+.search-all-main .search-list-section ul li .search-img-box .active {
+  display: block;
+}
 .search-all-main .search-list-section ul li .search-list-info {
   height: 101px;
   padding: 0 20px;
@@ -590,7 +623,7 @@ body {
   text-align: justify;
   border-bottom: 1px solid #F0F0F0;
 }
-.search-all-main .search-list-section ul li .search-list-info a:hover {
+.search-all-main .search-list-section ul li .search-list-info .active {
   color: #F25125;
 }
 .search-all-main .search-list-section ul li .search-list-info .search-info-state {
