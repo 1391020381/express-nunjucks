@@ -262,12 +262,95 @@ module.exports = {
         };
         return async.series(_index, function (err, results) {
 
-            console.log(results,'results---------')
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/html/404.html');
                 console.log("404==========");
                 return;
             }
+
+            // results.list = {
+            //     cntUrl: null,
+            //     title: '八年级物理下册知识点',
+            //     name: '八年级物理下册知识点.docx',
+            //     format: 'doc',
+            //     state: 3,
+            //     preRead: 6,
+            //     moneyPrice: '12.0',
+            //     isDownload: 'y',
+            //     totalPage: 11,
+            //     fileName: '八年级物理下册知识点',
+            //     className: '初中其他',
+            //     ranking: null,
+            //     showEffectList: null,
+            //     volume: null,
+            //     isZan: 0,
+            //     praiseNum: null,
+            //     isEnshrine: 0,
+            //     collectNum: null,
+            //     fileSize: '88KB',
+            //     software: 'Word',
+            //     createTime: '2020-02-12T09:32:56.496+0000',
+            //     fileContentList: ['https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=0-335889',
+            //         'https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=335891-648078',
+            //         'https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=648080-1030911',
+            //         'https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=1030913-1367950',
+            //         'https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=1367952-1677782',
+            //         'https://swf.ishare.down.sina.com.cn/1QZyRA9WNlzX.jpg?ssig=butAcBCdQl&Expires=1593945143&KID=sina,ishare&range=1677784-2003132'
+            //     ],
+            //     svgPathList: [],
+            //     tdk: {
+            //         title: '八年级物理下册知识点_八年级物理下册知识点.docx(可编辑)doc下载_爱问共享资料',
+            //         keywords: '八年级物理下册知识点',
+            //         description: 'doc格式-11页-文件0.09M-八年级物理下册知识点.docx'
+            //     },
+            //     isConvert: 1,
+            //     specificsId: null,
+            //     vipFreeFlag: 0,
+            //     vipDiscountFlag: 1,
+            //     fileType: null,
+            //     fileAttr: 1,
+            //     version: '3f450b536b66f4f5a640b082e611c56e',
+            //     spcClassId: null,
+            //     isGetClassType: 0,
+            //     advertBatchId: null,
+            //     uid: '5da688f8e4b08c14b3385675',
+            //     old: 0,
+            //     taskId: null,
+            //     fileSourceChannel: 'user',
+            //     classid1: '1816',
+            //     classid2: '6658',
+            //     classid3: '2814',
+            //     classidName1: '教育资料',
+            //     classidName2: '初中教育',
+            //     classidName3: '初中其他',
+            //     payType: 'cash',
+            //     payTypeName: '现金',
+            //     tortMap: {
+            //         '0': '意见反馈',
+            //         '1': '侵权或盗版',
+            //         '2': '政治类',
+            //         '3': '色情类',
+            //         '4': '赌博犯罪类',
+            //         '5': '诽谤类',
+            //         '6': '谣言类',
+            //         '7': '广告类',
+            //         '8': '其他类'
+            //     },
+            //     is360: false,
+            //     owner: {
+            //         id: '5da688f8e4b08c14b3385675',
+            //         photoPicURL: 'http://pic.iask.com.cn/23.jpg',
+            //         nickName: '真诚文档交流',
+            //         userTypeId: 2,
+            //         vipDiscountFlag: null
+            //     },
+            //     ownVipDiscountFlag: 1,
+            //     fileDiscount: null,
+            //     fileId: '1QSQ5eU886FX',
+            //     perMin: '3',
+            //     classId: '2814',
+            //     time: '2020-02-12'
+            // }
 
 
             var svgPathList = results.list.data.svgPathList;
@@ -343,6 +426,7 @@ function getInitPage(req, results) {
                 var page = bytes[key];
                 var param = page[0] + '-' + page[1];
                 var newUrl = changeURLPar(content, 'range', param);
+                console.log(newUrl,'newUrl-------------------')
                 newImgUrl.push(newUrl);
             }
             results.list.data.fileContentList = newImgUrl;

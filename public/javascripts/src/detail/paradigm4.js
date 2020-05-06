@@ -34,32 +34,37 @@ define(function (require, exports, module) {
 
         // 相关推荐
         var actionsRelevant = [];
-        paradigm4Relevant.forEach(function (item) {
-            actionsRelevant.push({
-                "itemId": item.item_id,
-                "actionTime": date.getTime(),
-                "action": "show",
-                "itemSetId": recommendInfoData_rele.materialId || '',
-                "sceneId": sceneIDRelevant,
-                "userId": userId,
-                "context": item.context,
-                "requestId": requestID_rele,
-            })
-        });
+        if(paradigm4Relevant!='null' && paradigm4Relevant){
+            paradigm4Relevant.forEach(function (item) {
+                actionsRelevant.push({
+                    "itemId": item.item_id,
+                    "actionTime": date.getTime(),
+                    "action": "show",
+                    "itemSetId": recommendInfoData_rele.materialId || '',
+                    "sceneId": sceneIDRelevant,
+                    "userId": userId,
+                    "context": item.context,
+                    "requestId": requestID_rele,
+                })
+            });
+        }    
+
         // 猜你喜欢
         var actionsGuess = [];
-        paradigm4Guess.forEach(function (item) {
-            actionsGuess.push({
-                "itemId": item.item_id,
-                "actionTime": date.getTime(),
-                "action": "show",
-                "itemSetId": recommendInfoData_guess.materialId || '',
-                "sceneId": sceneIDGuess,
-                "userId": userId,
-                "context": item.context,
-                "requestId": requestID_guess,
-            })
-        });
+        if(paradigm4Guess!='null' && paradigm4Guess){
+            paradigm4Guess.forEach(function (item) {
+                actionsGuess.push({
+                    "itemId": item.item_id,
+                    "actionTime": date.getTime(),
+                    "action": "show",
+                    "itemSetId": recommendInfoData_guess.materialId || '',
+                    "sceneId": sceneIDGuess,
+                    "userId": userId,
+                    "context": item.context,
+                    "requestId": requestID_guess,
+                })
+            });
+        }
 
         var data = JSON.stringify({
             "date": dateParams,

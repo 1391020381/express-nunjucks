@@ -10,3 +10,4 @@ build-debugger.js
 yarn.lock
 package-lock.json
 logs/
+.history/

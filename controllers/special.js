@@ -167,7 +167,7 @@ class specialModule{
             list:this.state.listData,
             // list:{
             //     data:{
-            //         rows:[{contentName:'sfdfdgfdfffdfddddddddddddddddddddfffffffffffffdfddfdfffdfgfggggg'}]
+            //         rows:[{contentName:'发嘀咕嘀咕郭德纲灌灌风格个复活复活海关海关监管和股份辉煌过后'}]
             //     }
             // },
             specialTopic:specialTopic,
