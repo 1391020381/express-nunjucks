@@ -47,14 +47,14 @@ define(function (require, exports, module) {
             // }
             var supportSvg = window.pageConfig.supportSvg;
             var svgFlag = window.pageConfig.svgFlag;
-            if (supportSvg && svgFlag) {
+            if (supportSvg === 'true' && svgFlag === 'true') {
                 ptype = 'svg';
             }
             //每次从当前页面加一 到 最大限度页码数
             for (var i = pageNum + 1; i <= Math.min(imgTotalPage, 50, currentPage); i++) {
                 cPage = i;
                 var item = {
-                    imgSrc: window.pageConfig.imgUrl[i - 1],
+                    imgSrc: JSON.parse(window.pageConfig.imgUrl)[i - 1],
                     noPage: i,
                     imgTotalPage: imgTotalPage,
                     totalPage: totalPage,
@@ -62,11 +62,10 @@ define(function (require, exports, module) {
                     ptype: ptype
                 };
                 if (supportSvg && svgFlag) {
-                    item.svgSrc = window.pageConfig.svgUrl[i - 1];
+                    item.svgSrc = JSON.parse(window.pageConfig.svgUrl)[i - 1];
                 }
                 arr.push(item);
             }
-
             //拿到数据进行渲染
             var _html = template.compile(img_tmp)({ data: arr, ptype: ptype });
             if (ptype === 'txt') {

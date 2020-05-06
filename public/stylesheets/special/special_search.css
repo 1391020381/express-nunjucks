@@ -75,17 +75,21 @@ body {
   line-height: 41px;
 }
 .landing-header .search-input-con .search-input {
-  width: 418px;
+  width: 444px;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   border-right: 0 none;
   text-indent: 10px;
 }
 .landing-header .search-input-con .btn-search {
-  width: 134px;
+  /* width: 134px;
   height: 36px;
   line-height: 36px;
-  text-indent: 68px;
+  text-indent: 68px; */
+  width: 100px;
+    height: 36px;
+    line-height: 36px;
+    text-indent: 44px;
 }
 .header-box-fix {
   position: fixed;

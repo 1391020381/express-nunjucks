@@ -53,13 +53,13 @@ module.exports = {
                             }
 
                             fid = data.data.fileId;
-                            classId = data.data.classId || "";
+                            classId = data.data.classId;
                             title = data.data.title || "";
-                            isGetClassType = data.data.isGetClassType || '';
-                            spcClassId = data.data.spcClassId || "";
+                            isGetClassType = data.data.isGetClassType;
+                            spcClassId = data.data.spcClassId;
                             fileAttr = data.data.fileAttr || 1;
                             format = data.data.format || '';
-                            classid1 = data.data.classid1 || '';
+                            classid1 = data.data.classid1;
                             perMin = data.data.perMin || '';
                             uid=data.data.uid || ''
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
@@ -84,6 +84,7 @@ module.exports = {
             },
             // 面包屑导航
             crumbList: function (callback) {
+                console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
                 server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req)
             },
             //相关资料
