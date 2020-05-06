@@ -149,6 +149,7 @@ define(function (require, exports, module) {
                     loadMore();
                     var $font_detail_con = $('.font-detail-con');
                     var $target = $font_detail_con.length ? $font_detail_con : $('.ppt-pic-con');
+                    console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl')
                     var src = window.pageConfig.imgUrl[hashPage - 1];
                     var supportSvg = window.pageConfig.supportSvg;
                     var svgFlag = window.pageConfig.svgFlag;
