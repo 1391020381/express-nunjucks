@@ -54,7 +54,8 @@ define(function (require, exports, module) {
             for (var i = pageNum + 1; i <= Math.min(imgTotalPage, 50, currentPage); i++) {
                 cPage = i;
                 var item = {
-                    imgSrc: JSON.parse(window.pageConfig.imgUrl)[i - 1],
+                    // imgSrc: JSON.parse(window.pageConfig.imgUrl)[i - 1],
+                    imgSrc: window.pageConfig.imgUrl[i - 1],
                     noPage: i,
                     imgTotalPage: imgTotalPage,
                     totalPage: totalPage,
@@ -62,7 +63,8 @@ define(function (require, exports, module) {
                     ptype: ptype
                 };
                 if (supportSvg && svgFlag) {
-                    item.svgSrc = JSON.parse(window.pageConfig.svgUrl)[i - 1];
+                    // item.svgSrc = JSON.parse(window.pageConfig.svgUrl)[i - 1];
+                    item.svgSrc = window.pageConfig.svgUrl[i - 1];
                 }
                 arr.push(item);
             }
