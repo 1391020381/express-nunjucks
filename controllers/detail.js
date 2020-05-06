@@ -344,7 +344,7 @@ function getInitPage(req, results) {
                 console.log(newUrl,'newUrl-------------------')
                 newImgUrl.push(newUrl);
             }
-            results.list.data.fileContentList = newImgUrl;
+            results.list.data.fileContentList =JSON.stringify(newImgUrl);
         }
         // 接口限制可预览页数
         let preRead = results.filePreview.data.preRead;
