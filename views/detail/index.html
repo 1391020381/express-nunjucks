@@ -236,7 +236,7 @@
         },
         svgFlag: '{{results.list.data.svgFlag}}',
         supportSvg: '{{ results.list.data.supportSvg}}',
-        imgUrl: '{{results.list.data.fileContentList}}',
+        imgUrl: '{{results.list.data.fileContentList | dump | safe}}',
         svgUrl: '{{ results.list.data.svgPathList | dump | safe}}'
     };
 
