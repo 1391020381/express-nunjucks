@@ -60,7 +60,7 @@ module.exports = {
         //搜索服务--API接口--搜索页搜索关联词数据--同步
         associatedWords: '/search/associatedWords'
     },
-    userInfo: '/webapi/usermanage/checkLogin',      //获取用户信息
+    userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     special:{
@@ -69,7 +69,7 @@ module.exports = {
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
     },
     tdk:{
-        getTdkByUrl:'/content/tdkmanage/findByUrl?url=$url',
+        getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
     }
 };
 

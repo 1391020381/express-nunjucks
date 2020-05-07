@@ -39,7 +39,7 @@ define(function (require, exports, module) {
         if (!method.getCookie('cuk')) {
             return;
         }
-        method.get('/pc/usermanage/checkLogin', function (res) {
+        method.get('/gateway/pc/usermanage/checkLogin', function (res) {
             console.log(res, '用户信息')
             if (res.code == 0 && res.data) {
                 userInfo = res.data;

@@ -319,7 +319,7 @@ define(function (require, exports, module) {
                     channelSource:4,
                 }
 
-                $.ajax('/content/sendmail/findFile', {
+                $.ajax('/gateway/content/sendmail/findFile', {
                     type: "POST",
                     data: JSON.stringify(params),
                     dataType: "json",
