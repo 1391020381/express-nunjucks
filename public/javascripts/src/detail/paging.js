@@ -50,6 +50,7 @@ define(function (require, exports, module) {
             if (supportSvg === 'true' && svgFlag === 'true') {
                 ptype = 'svg';
             }
+            console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl------------')
             //每次从当前页面加一 到 最大限度页码数
             for (var i = pageNum + 1; i <= Math.min(imgTotalPage, 50, currentPage); i++) {
                 cPage = i;
