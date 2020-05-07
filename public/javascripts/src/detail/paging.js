@@ -50,7 +50,7 @@ define(function (require, exports, module) {
             if (supportSvg === 'true' && svgFlag === 'true') {
                 ptype = 'svg';
             }
-            console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl------------')
+            //console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl------------')
             //每次从当前页面加一 到 最大限度页码数
             for (var i = pageNum + 1; i <= Math.min(imgTotalPage, 50, currentPage); i++) {
                 cPage = i;
@@ -151,7 +151,7 @@ define(function (require, exports, module) {
                     loadMore();
                     var $font_detail_con = $('.font-detail-con');
                     var $target = $font_detail_con.length ? $font_detail_con : $('.ppt-pic-con');
-                    console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl')
+                    // console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl')
                     var src = window.pageConfig.imgUrl[hashPage - 1];
                     var supportSvg = window.pageConfig.supportSvg;
                     var svgFlag = window.pageConfig.svgFlag;
