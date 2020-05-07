@@ -31,7 +31,7 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {
-                console.log('详情页start===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
+                //console.log('详情页start===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
                 var opt = {
                     url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
                     headers: {
@@ -44,7 +44,7 @@ module.exports = {
 
                     if (body) {
                         var data = JSON.parse(body);
-                        console.warn('data----------------',data)
+                        //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  1普通文件 2办公频道
                             if(data.data.fileAttr == 2){
@@ -84,7 +84,7 @@ module.exports = {
             },
             // 面包屑导航
             crumbList: function (callback) {
-                console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
+                //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
                 server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req)
             },
             //相关资料
@@ -268,7 +268,7 @@ module.exports = {
                 console.log("404==========");
                 return;
             }
-            console.log(results,'pc-node results----------');
+         //   console.log(results,'pc-node results----------');
             var svgPathList = results.list.data.svgPathList;
             results.list.data.supportSvg = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1;
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
@@ -305,7 +305,7 @@ module.exports = {
                 results.userID = userID;
 
             }
-            console.log('results.paradigm4GuessData',results.paradigm4GuessData)
+           // console.log('results.paradigm4GuessData',results.paradigm4GuessData)
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
@@ -342,7 +342,7 @@ function getInitPage(req, results) {
                 var page = bytes[key];
                 var param = page[0] + '-' + page[1];
                 var newUrl = changeURLPar(content, 'range', param);
-                console.log(newUrl,'newUrl-------------------')
+                //console.log(newUrl,'newUrl-------------------')
                 newImgUrl.push(newUrl);
             }
             results.list.data.fileContentList =newImgUrl;
