@@ -87,7 +87,7 @@ define(function (require, exports, moudle) {
     };
 
     //从详情页进入vip所需要来源
-    if (method.getParam("remark") === "office") {
+    if (method.getParam("remark") === "office") { // 暂时不用考虑
         params.remark = "office";
         window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
         window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";

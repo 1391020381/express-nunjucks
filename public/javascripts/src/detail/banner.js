@@ -1,7 +1,7 @@
 define(function (require, exports, module){
     //  顶部banner位 右侧的banner位 右侧的热点搜索  相关资料  底部猜你喜欢
     require('swiper');
-    var topBnnerTemplate = require("./template/swiper_tmp.html");
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var  hotSpotSearchListTemplate = require('./template/HotSpotSearch.html')
     // 在 index.html中 引入的 dist/application/app.js 引入了  window.template = require("./template");
 
@@ -86,7 +86,8 @@ define(function (require, exports, module){
     ]
     var _html = template.compile(hotSpotSearchListTemplate)({ hotSpotSearchList: hotSpotSearchList});
     $('.hot-spot-search-warper').html(_html)
-    $('.guess-youlike-it-wrapper').html(_guessYouLikeIthtml)
+
+    // $('.guess-youlike-it-wrapper').html(_guessYouLikeIthtml)
       //获取运营位广告数据
       function gebyPosition() {
         $.ajax({

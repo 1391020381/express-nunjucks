@@ -3,7 +3,7 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     //页面级埋点
     var gioPageSet = require('../common/gioPageSet');
 
@@ -300,6 +300,27 @@ define(function (require, exports, moudle) {
 
         })
     }
-
+    
+    // 顶部 banner
+    var arr = [
+        {
+        key:1,
+        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+       },
+       {
+        key:2,
+        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+       },
+       {
+        key:3,
+        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+       },
+       {
+        key:4,
+        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+       }
+     ]
+     var _html = template.compile(topBnnerTemplate)({ topBanner: arr ,className:'swiper-top-container' });
+       $(".search-all-main-topbanner").html(_html);
 
 });

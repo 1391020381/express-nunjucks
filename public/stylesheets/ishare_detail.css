@@ -22,6 +22,7 @@ body {
 .detail-topbanner .swiper-container {
   width: 100%;
   height: 100%;
+  z-index: 1000;
 }
 .detail-topbanner .swiper-slide-img {
   width: 100%;
