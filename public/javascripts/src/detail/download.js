@@ -9,14 +9,14 @@ define(function (require, exports, module) {
     var common = require('./common');
     var login = require('../application/checkLogin');
     var api = require('../application/api');
-    var downLoadReport = $.extend({}, gioData);
+    var downLoadReport = $.extend({}, gioData);   // init.js 中引入的 report中在 window上挂载了 gioData 
     var ref = utils.getPageRef(window.pageConfig.params.g_fileId);      //用户来源
     var expendScoreNum_var = '';    //用户下载文档成功后消耗的积分数量
     var expendNum_var = '';         //用户下载文档成功后消耗下载券、下载特权或现金的数量
     var fid = window.pageConfig.params.g_fileId;
-    var tpl_android = $("#tpl-down-android").html();    //下载app
+    var tpl_android = $("#tpl-down-android").html();    //下载app  项目全局 没有 这个 classId
     //详情页异常信息提示弹框
-    var $tpl_down_text = $("#tpl-down-text");
+    var $tpl_down_text = $("#tpl-down-text");    // 在 详情index.html中引入的 dialog.html 用有  一些弹框模板
     // 文档已下载
     var $tpl_down_finished = $('#tpl-down-finished');
     // 是vip
@@ -53,6 +53,8 @@ define(function (require, exports, module) {
         if (window.pageConfig.page.isDownload === 'n') {
             return;
         }
+         // 文件预下载
+        // filePreDownLoad: router + '/action/downloadCheck',
         method.get(api.normalFileDetail.filePreDownLoad + '?fid=' + fid, function (res) {
             if (res.code == 0) {
                 //阻塞下载gio上报
@@ -326,6 +328,7 @@ define(function (require, exports, module) {
     };
 
     var downLoad = function (code) {
+        // 文件下载 /action/downloadUrl?fid=文件id&code=验证码,预下载返回需要验证码
         var url = api.normalFileDetail.fileDownLoad + '?fid=' + window.pageConfig.params.g_fileId + "&code=" + (code ? code : '');
         $.ajax({
             async: false,

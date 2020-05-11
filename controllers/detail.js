@@ -31,7 +31,7 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {
-                //console.log('详情页start===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
+                console.log('详情页start===============', appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id));
                 var opt = {
                     url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
                     headers: {
@@ -39,29 +39,28 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-
                 request(opt, function (err, res1, body) {
 
                     if (body) {
                         var data = JSON.parse(body);
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  1普通文件 2办公频道
+                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
                             if(data.data.fileAttr == 2){
                                 res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
                                 return
                             }
 
-                            fid = data.data.fileId;
-                            classId = data.data.classId;
-                            title = data.data.title || "";
-                            isGetClassType = data.data.isGetClassType;
-                            spcClassId = data.data.spcClassId;
-                            fileAttr = data.data.fileAttr || 1;
-                            format = data.data.format || '';
-                            classid1 = data.data.classid1;
-                            perMin = data.data.perMin || '';
-                            uid=data.data.uid || ''
+                            fid = data.data.fileId;  // 文件id
+                            classId = data.data.classId;  // 分类id
+                            title = data.data.title || "";   // 文件标题 (没有后缀格式)
+                            isGetClassType = data.data.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
+                            spcClassId = data.data.spcClassId;   // 专题分类ID(最后一级)
+                            fileAttr = data.data.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                            format = data.data.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
+                            classid1 = data.data.classid1;    // 文档暂无说明
+                            perMin = data.data.perMin || '';  // 1:公开、2:私人 3:付费
+                            uid=data.data.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
                         } else {
@@ -261,7 +260,7 @@ module.exports = {
                 server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
             }
         };
-        return async.series(_index, function (err, results) {
+        return async.series(_index, function (err, results) { // async.series 串行无关联
 
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/html/404.html');
@@ -334,9 +333,9 @@ module.exports = {
 function getInitPage(req, results) {
     let filePreview = results.filePreview;
     if (filePreview) {
-        if (results.list.data.state === 3) {
-            let content = results.list.data.url || results.list.data.fileContentList[0];
-            let bytes = filePreview.data.pinfo.bytes || {};
+        if (results.list.data.state === 3) {   // 1:免费文档 2:下载券文档 3:付费文档 4:仅供在线阅读 5:VIP免费文档 6:VIP特权文档
+            let content = results.list.data.url || results.list.data.fileContentList[0];  //  fileContentList 存储文件所有内容（不超过50页）；Array的每个值代表一个结果
+            let bytes = filePreview.data.pinfo.bytes || {}; // bytes 转码预览html文本md5
             let newImgUrl = [];
             for (var key in bytes) {
                 var page = bytes[key];

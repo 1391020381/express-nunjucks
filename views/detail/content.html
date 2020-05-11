@@ -1,4 +1,4 @@
-<div class="doc-main-br w890 mr10 fl">
+<div class="doc-main-br w890 deatil-mr10 fl">
     <div class="doc-main">
         <div class="detail-box">
             <div class="detail-top-box">
@@ -263,7 +263,7 @@
         </script>
     </div>
     {% endif %}
-    <div class="evaluate-con">
+    {# <div class="evaluate-con">
         <h2 class="evaluate-title">
             {%if results.commentList and results.commentList.length > 0 %}
             用户评价<span class="commentNum">({{results.commentList.length}})</span>
@@ -298,7 +298,7 @@
             {%endfor%}
         </ul>
         <!--        <a class="evaluate-more">点击加载更多<i class="icon-detail"></i></a>-->
-    </div>
+    </div> #}
     <!-- 第四范式 猜你喜欢 -->
     {%if results.paradigm4GuessData.length>0 %}
     {% include "detail/guessYouLike.html" %}
