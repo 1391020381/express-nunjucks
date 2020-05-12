@@ -2837,63 +2837,122 @@ body {
 }
 
 
-.guessyoulike {
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(44, 21, 24, 0.08);
-    margin-top: 10px;
-    width: 890px;
+// .guessyoulike {
+//     background-color: #fff;
+//     border-radius: 2px;
+//     box-shadow: 0 0 5px rgba(44, 21, 24, 0.08);
+//     margin-top: 10px;
+//     width: 890px;
 
-    .content {
-        padding: 0 20px;
+//     .content {
+//         padding: 0 20px;
+//         width: 890px;
+
+//         .title {
+//             font-size: 18px;
+//             color: #333333;
+//             margin-top: 24px
+//         }
+
+//         .list {
+//             width: 890px;
+//             height: 700px;
+
+
+//             .item {
+//                 height: 316px;
+//                 width: 194px;
+//                 float: left;
+//                 margin-left: 24px;
+//                 margin-top: 20px;
+
+
+//                 img {
+//                     display: inline-block;
+//                     width: 194px;
+//                     height: 273px;
+//                     border: 1px solid #e2e2e2;
+//                     border-radius: 2px;
+//                 }
+
+//                 span {
+//                     display: inline-block;
+//                     font-size: 14px;
+//                     width: 194px;
+//                     text-overflow: ellipsis;
+//                     white-space: nowrap;
+//                     overflow: hidden;
+//                     margin-top: 12px;
+//                 }
+//             }
+
+//             .nomargin {
+//                 margin-left: 0;
+//             }
+//         }
+
+//     }
+
+
+// }
+.guess-you-like-warpper{
+    .guess-you-like{
         width: 890px;
-
-        .title {
-            font-size: 18px;
+        background:rgba(255,255,255,1);
+        border-radius:4px;
+        .guess-you-like-title{
+            height: 60px;
+            line-height: 60px;
             color: #333333;
-            margin-top: 24px
+            margin:0 44px 0 48px;
+            border-bottom: 1px solid #f2f2f2;
+            text-align: left;
         }
-
-        .list {
-            width: 890px;
-            height: 700px;
-
-
-            .item {
-                height: 316px;
-                width: 194px;
-                float: left;
-                margin-left: 24px;
-                margin-top: 20px;
-
-
-                img {
-                    display: inline-block;
-                    width: 194px;
-                    height: 273px;
-                    border: 1px solid #e2e2e2;
-                    border-radius: 2px;
-                }
-
-                span {
-                    display: inline-block;
-                    font-size: 14px;
-                    width: 194px;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    margin-top: 12px;
+        .guess-you-like-itmes{
+            padding-top: 23px;
+            padding-bottom: 20px;
+            .cf();
+            .item{
+               float: left;
+               margin-bottom: 28px;
+                margin-left:38px;
+                .item-link{
+                    .cf();
+                    .item-link-left{
+                        float:left;
+                        margin-right:20px;
+                        position: relative;
+                        .item-link-left-img{
+                            width:47px;
+                            height:66px;
+                            border-radius:2px;
+                        }
+                        .item-link-left-icon{
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                            width: 16px;
+                            height: 16px;
+                            background: #eeeeee;
+                        }
+                    }
+                    .item-link-right{
+                       float: right;  
+                       width: 178px;
+                       text-align: left;  
+                       .item-link-right-desc{
+                            font-size: 14px;
+                            line-height:22px;
+                       }   
+                       .item-link-right-other{
+                           // margin-top:14px;
+                           color: #A8A8A8;
+                       }             
+                     }
                 }
             }
-
-            .nomargin {
-                margin-left: 0;
-            }
         }
-
     }
-
-
 }
 
 .m-reward-pop{
