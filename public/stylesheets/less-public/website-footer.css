@@ -37,7 +37,10 @@
 .website-footer .footer-content .footer-link .copy-link .footer-nav {
   padding: 0 12px;
 }
-.website-footer .footer-content .footer-link .copy-link .footer-nav a span {
+.website-footer .footer-content .footer-link .copy-link .footer-nav .footer-nav-link {
+  margin: 0;
+}
+.website-footer .footer-content .footer-link .copy-link .footer-nav .footer-nav-link span {
   padding: 0 0px 0 12px;
 }
 .website-footer .footer-content .footer-link .copy-link .footer-nav:first-child {

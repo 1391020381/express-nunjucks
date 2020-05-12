@@ -1,6 +1,7 @@
 define(function (require, exports, moudle) {
     //所有支付引用办公频道支付js
     // var $ = require("$");
+    require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
@@ -10,11 +11,11 @@ define(function (require, exports, moudle) {
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     //生成二维码
-    $(function () {
-        var flag = $("#ip-flag").val();
-        var uid = $("#ip-uid").val();
-        var type = $("#ip-type").val();
-        var isVip = $("#ip-isVip").val();
+    $(function () {  
+        var flag = $("#ip-flag").val();  // result.flag
+        var uid = $("#ip-uid").val();    //  results.data.uid
+        var type = $("#ip-type").val();  // results.type
+        var isVip = $("#ip-isVip").val();  //   results.data.isVip  获取保存在input的数据
         if (flag == 3 && uid) {//二维码页面
             if (type == 0) {//vip购买
                 if (method.getCookie('cuk')) {
@@ -87,7 +88,7 @@ define(function (require, exports, moudle) {
     };
 
     //从详情页进入vip所需要来源
-    if (method.getParam("remark") === "office") { // 暂时不用考虑
+    if (method.getParam("remark") === "office") { 
         params.remark = "office";
         window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
         window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";
@@ -541,4 +542,33 @@ define(function (require, exports, moudle) {
             }
         })
     }
+
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
+    var arr = [
+       {
+       key:1,
+       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+      },
+      {
+       key:2,
+       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+      },
+      {
+       key:3,
+       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+      },
+      {
+       key:4,
+       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
+      }
+    ]
+    var _html = template.compile(topBnnerTemplate)({ topBanner: arr ,className:'pay-success-swiper-container' });
+      $(".pay-success-banner").html(_html);
+      if (arr.length > 1) {
+       var mySwiper = new Swiper('.pay-success-swiper-container', {
+           direction: 'horizontal',
+           loop: true,
+           autoplay: 3000,
+       })
+   }
 });

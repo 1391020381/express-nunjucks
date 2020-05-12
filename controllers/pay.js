@@ -215,6 +215,11 @@ module.exports = {
         }, function (err, results) {
             results.flag = 'true';
             results.type = results.list.type;
+
+            
+            // 详情页流量购买vip成功
+            results.list.type = 0
+            results.isVip = true
             console.log(results);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

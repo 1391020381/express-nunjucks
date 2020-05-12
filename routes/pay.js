@@ -60,6 +60,7 @@ router.get('/notm/scanQr',function(req , res , next){
 
 //支付成功页面
 router.get('/pay/success.html',function(req , res , next){
+    console.log('支付成功页面:',req.useragent.source)
     try{
         console.log("支付成功页面===============");
         payController.success(req , res);
