@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     // var $ = require('$');
+    require("../cmd-lib/myDialog");
     var method = require("../application/method");
     var login = require('../application/checkLogin');
     var utils = require("../cmd-lib/util");
@@ -11,10 +12,12 @@ define(function (require, exports, module) {
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     // require("../common/baidu-statistics");
-
+    var guessYouLikeTemplate = require('./template/guessYouLike.html')
     var userData = null, initData = {};
     eventBinding();
-
+    // $("#dialog-box").dialog({
+    //     html: $('#send-email').html(),
+    // }).open();
     // url上带有这个参数unloginFlag，说明是游客模式过来的
     var unloginFlag = method.getQueryString('unloginFlag');
     if (unloginFlag) {
@@ -63,6 +66,9 @@ define(function (require, exports, module) {
         }
 
         if (!method.getCookie('cuk') && !userData) {
+            $('.down-success-other').hide()
+            $('.qrcode-warpper').hide()
+
             login.notifyLoginInterface(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
@@ -152,7 +158,9 @@ define(function (require, exports, module) {
 
     function successReload(data) {
         if (data.mobile) {
-            $('.carding-info-bottom').addClass('carding-binding-ok')
+            // 登录的情况下不适用 car.html中的二维码
+            // $('.carding-info-bottom').addClass('carding-binding-ok')
+            $('.carding-info-bottom').hide()
         } else {
             $('.carding-binding').show()
         }
@@ -333,12 +341,14 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     refreshDomTree(data);
+                    $('.down-success-other').show()
+                    $('.qrcode-warpper').show()
                 });
             }
         });
         // 登出
         $('.btn-exit').on('click', function () {
-            login.ishareLogout();
+            login.ishareLogout();  // 在登出的接口成功后,会刷新页面
         });
     }
 
@@ -371,4 +381,8 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
+
+    // 猜你喜欢
+    var _html = template.compile(guessYouLikeTemplate)({});
+    $(".guess-you-like-warpper").html(_html);
 });

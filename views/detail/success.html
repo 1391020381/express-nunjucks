@@ -3,7 +3,7 @@
 <head>
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
-        
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/down-success.css">  
     <!-- 添加360统计代码1、PC端统计代码： -->
 <script>
     (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
@@ -24,12 +24,15 @@
 
 {% include "common/js.html" %}
 {% include "detail/header.html" %}
+<!--遮罩层-->
+<div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 {% include "common/dialog.html" %}
+{% include "./dialog.html" %}
 <div class="pw">
-    <div class="down-carding-main">
+    <div class="down-carding-main down-success">
         <div class="carding-info-con">
             <!-- <a class="btn-back" onclick="history.go(-1)"><i class="icon-back"></i>返回</a> -->
-            <div class="carding-share">
+            {# <div class="carding-share">
                 <span class="share-text fl">分享到</span>
                 <div class="bshare-custom cf">
                     <div class="bsPromo bsPromo2"></div>
@@ -43,22 +46,25 @@
                         <a title="分享到QQ空间" class="bshare-qzone"></a>
                     </div>
                 </div>
-            </div> 
+            </div>  #}
             <div class="carding-success-item new-success-item">
-                <h2 class="pay-ok-text">
+                <h2 class="pay-ok-text ">
                     <a class="new-icon">
                         <img src="{{cdnUrl}}/images/detail/pay_ok.png"/>
-                        <span class="gx">恭喜你已成功获取该资料！ </span>
-                        <span class="no-find-text"> 找不到文档？使用 <strong>CTRL+J 快速查看</strong></span>
+                        <span class="gx">下载成功</span>
+                        <span class="no-find-text"> 找不到资料？</span>
                     </a>
                 </h2>
-                <div class="unloginStatus unloginTop" style="display: none;">
+                <p class="pay-ok-subtext">
+                    如果下载没有开始，请<span class="quick-down-a">点击此处</span>
+                </p>
+                {# <div class="unloginStatus unloginTop" style="display: none;">
                     <div class="pay-success"><i class="icon-success"><img src="{{cdnUrl}}/images/detail/pay_ok.png"/></i>支付成功</div>
                     <div class="quick-icon">你已成功获取：<span class="xbsd"><i></i><span id="filename"></span></span></div>
                     <div class="quick-down">你的下载很快开始，如果没有<!--downloadBtn-->，请 <a class="quick-down-a">点击此处</a></div>
                     <div class="not-found-res">找不到资料下载到哪里了？试试Ctrl+J </div>
-                </div>
-                <div class="carding-data-pay-con">
+                </div> #}
+                {# <div class="carding-data-pay-con">
                     <!-- vip & 特权用完提示文字 -->
                     <p class="vip-state-text down-succ-title" style="display: none;"></p>
                     <a data-type="default" style="display: none;" class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">开通VIP,千万文档免费下载</a>
@@ -84,6 +90,17 @@
                             专属身份标识
                         </div>
                         <a style="display:none" data-type="vip" class="join-vip-link pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">立即开通VIP&gt;</a>
+                    </div>
+                </div> #}
+                <div class="qrcode-warpper">
+                    <img class="qrcode">
+                    <p class="qrcode-desc">下载APP查看该资料</p>
+                </div>
+                <div  class="down-success-other">
+                    <div class="down-success-banner">
+                
+                    </div>
+                    <div class="guess-you-like-warpper">
                     </div>
                 </div>
             </div>
