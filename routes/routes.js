@@ -5,7 +5,8 @@ let routes = [
     'search',
     'rights',
     'special',
-    '404'
+    '404',
+    'upload'
 ];
 
 module.exports = routes;
