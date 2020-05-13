@@ -79,6 +79,7 @@ define(function (require, exports, module) {
         $("#ip-mobile").val(data.mobile);
     };
     //是否登录
+    debugger
     if (!method.getCookie('cuk')) {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
