@@ -32,7 +32,7 @@ class specialModule{
         return{
             findSpecialTopic:async ()=> { //获取专题详情
                 let { paramsObj,req,res }=this.state;
-                const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
+                const url=appConfig.apiNewBaselPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
                 if(this.state.detail.data.templateCode!=='ishare_zt_model1' || !this.state.detail.data){
                     res.redirect('/html/404.html')
@@ -64,7 +64,7 @@ class specialModule{
                     pageSize: 40
                 };
                 console.warn(req.body,'req.body****************') 
-                this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
+                this.state.listData=await server.$http(appConfig.apiNewBaselPath + api.special.listTopicContents,'post', req,res,true);
                 console.warn(this.state.listData,'列表数据')
             },
             specialTopic:async ()=> {
@@ -74,13 +74,13 @@ class specialModule{
                     pageSize:30,
                     name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
                 }
-                let specialData=await server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req,res);
+                let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
                 this.state.specialTopic = specialData.data && specialData.data.rows || [];
                 console.warn(this.state.specialTopic,'热点数据')
             },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
-                let data=await server.$http(appConfig.apiSpecialPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
+                let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
                 var topicName = this.state.detail.data.topicName;
                 this.state.tdkData = {
                     pageTable: '专题页',

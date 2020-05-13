@@ -31,18 +31,29 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {
-                console.log('详情页start===============', appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id));
+               console.log('详情页start===============', appConfig.apiNewBaselPath + Api.file.fileDetail.replace(/\$id/, req.params.id));
                 var opt = {
-                    url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
+                    // url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.file.fileDetail,
+                    body:JSON.stringify({
+                        clientType: 0,
+                        fid: req.params.id,  
+                        sourceType: 1,
+                        isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                      }),
                     headers: {
                         'Content-Type': 'application/json',
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
+                console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-
+                    console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
                         var data = JSON.parse(body);
+                        var fileInfo = data.data.fileInfo
+                        var tdk = data.data.tdk
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
@@ -51,16 +62,16 @@ module.exports = {
                                 return
                             }
 
-                            fid = data.data.fileId;  // 文件id
-                            classId = data.data.classId;  // 分类id
-                            title = data.data.title || "";   // 文件标题 (没有后缀格式)
-                            isGetClassType = data.data.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
-                            spcClassId = data.data.spcClassId;   // 专题分类ID(最后一级)
-                            fileAttr = data.data.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
-                            format = data.data.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
-                            classid1 = data.data.classid1;    // 文档暂无说明
-                            perMin = data.data.perMin || '';  // 1:公开、2:私人 3:付费
-                            uid=data.data.uid || ''           // 上传者id
+                            fid = fileInfo.id;  // 文件id
+                            classId = fileInfo.classid;  // 分类id
+                            title = fileInfo.title || "";   // 文件标题 (没有后缀格式)
+                            isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
+                            spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
+                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                            format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
+                            classid1 = fileInfo.classid1;    // 文档暂无说明
+                            perMin = fileInfo.perMin || '';  // 1:公开、2:私人 3:付费
+                            uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
                         } else {
@@ -74,7 +85,7 @@ module.exports = {
             getUserFileZcState:function(callback){
                 if(req.cookies.ui){
                     var uid=JSON.parse(req.cookies.ui).uid;
-                    server.$http(appConfig.apiSpecialPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                    server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
                         callback(null,item)
                     })
                 }else{
@@ -268,6 +279,10 @@ module.exports = {
                 return;
             }
          //   console.log(results,'pc-node results----------');
+         
+         // 转换新对象
+             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo)})
+             var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
             results.list.data.supportSvg = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1;
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
