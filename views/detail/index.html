@@ -71,8 +71,8 @@
         <div class="detail-fixed-con cf fl">
             <div class="operation fl">
                 <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a>
+                {# <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
+                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a> #}
                 <div class="collect-con fl">
                     <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
                     <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
@@ -108,7 +108,7 @@
                     <a class="operation-item btn-share" title="分享"><i class="icon-detail"></i></a>
                 </div>
                 <!--评分 -->
-                <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
+                {# <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
                     <span class="fl">评分：</span>
                     <ul class="star-list fl">
                         <li><a>1</a></li>
@@ -122,7 +122,7 @@
                         <i class="after"></i>
                         <p><i class="icon-success"></i>评分成功</p>
                     </div>
-                </div>
+                </div> #}
                 {%if results.list.data.fileContentList and results.list.data.totalPage %}
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>

@@ -15,6 +15,14 @@ body {
 }
 .detail-w300 {
   width: 310px;
+  *zoom: 1;
+}
+.detail-w300:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
 }
 .detail-topbanner {
   height: 76px;
@@ -49,17 +57,17 @@ body {
 }
 .hot-spot-search {
   margin-top: 10px;
-  width: 260px;
-  padding: 0 25px;
+  width: 310px;
   background: #fff;
 }
 .hot-spot-search .hot-spot-search-title {
   padding: 22px 0 13px 0;
+  margin: 0 25px;
   border-bottom: 1px solid #f2f2f2;
 }
 .hot-spot-search .hot-items {
   position: relative;
-  padding: 16px 0 22px 0;
+  padding: 16px 15px 22px 15px;
   *zoom: 1;
 }
 .hot-spot-search .hot-items:after {

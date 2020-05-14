@@ -97,14 +97,14 @@ module.exports = {
                 //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
                 server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req)
             },
-            //相关资料
-            RelevantInformationList: function (callback) {
-                if (fileAttr == 1) {
-                    server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
-                } else {
-                    callback(null, null);
-                }
-            },
+            //相关资料   在最后被 第四范式 相关推荐 覆盖
+            // RelevantInformationList: function (callback) {
+            //     if (fileAttr == 1) {
+            //         server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
+            //     } else {
+            //         callback(null, null);
+            //     }
+            // },
 
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
@@ -200,7 +200,7 @@ module.exports = {
                 console.log(recommendInfoData_rele.useId, 'recommendInfoData_rele.useId=======')
 
 
-                if (recommendInfoData_rele.useId) {
+                if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDRelevant = recommendInfoData_rele.useId || '';
 
                     var opt = {
@@ -232,7 +232,7 @@ module.exports = {
                 requestID_guess = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
                 console.log(recommendInfoData_guess.useId, 'recommendInfoData_guess.useId=========')
 
-                if (recommendInfoData_guess.useId) {
+                if (recommendInfoData_guess.useId) { // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDGuess = recommendInfoData_guess.useId || '';
                     var opt = {
                         url: `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_guess}&sceneID=${sceneIDGuess}&userID=${userID}`,
@@ -262,10 +262,10 @@ module.exports = {
             fileExternal: function (callback) {
                 server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
             },
-            // 用户评论
-            commentList: function (callback) {
-                server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
-            },
+            // 用户评论   用户评论被删除
+            // commentList: function (callback) {
+            //     server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
+            // },
             filePreview: function (callback) {
                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
                 server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
@@ -298,6 +298,7 @@ module.exports = {
                         name: item.title || ''
                     }
                 })
+                results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
                 results.RelevantInformationList.data = paradigm4RelevantMap || [];
                 results.requestID_rele = requestID_rele;
                 results.userID = userID;
