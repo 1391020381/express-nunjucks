@@ -20,20 +20,20 @@
                 </div>
             {{/if}}
         {{else}}
-            <!--VIP免费被取消-->
-            {# {{if data.vipFreeFlag == 1}}
+            <!--VIP免费-->
+            {{if data.vipFreeFlag == 1}}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                 </div>
                 <div class="integral-con fr">
                     <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
-            {{else}} #}
-                {{if data.productType == "1" || data.productType == "4" || data.productType == "5" || data.productType == "6"}}
+            {{else}}
+                {{if data.perMin == "3"}}
                     <!--现金文档 -->
                     <!--专享8折 加入vip8折购买 立即下载 立即购买-->
                       {{if data.isVip == 1 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag == 1}}
-                        {# <div class="data-item fl">
+                        <div class="data-item fl">
                             <h2 class="data-title fl">
                                 <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}
                             </h2>
@@ -48,9 +48,9 @@
                             {{else}}
                                  <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}
-                        </div> #}
+                        </div>
                       {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}
-                        {# <div class="data-item fl">
+                        <div class="data-item fl">
                             <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                         </div>
                         <div class="integral-con fr">
@@ -76,7 +76,7 @@
                             {{else}}
                                  <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}
-                        </div> #}
+                        </div>
                       {{else}}
                         <div class="data-item fl">
                             <h2 class="data-title fl">
@@ -87,8 +87,8 @@
                         <div class="integral-con fr">
                             {{if data.status!=2}}
                                 <div class="price-con fl">
-                                    <!--现金文档价格 --> 
-                                    <p class="price" style="">¥{{(data.productPrice*1000/1250).toFixed(2)}}</p>
+                                    <!--现金文档价格 -->
+                                    <p class="price" style="">¥{{data.moneyPrice}}</p>
                                 </div>
                                 <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
                             {{else}}
@@ -99,7 +99,7 @@
                 {{else}}
                     <!--vip-->
                     {{if data.isVip == 1}}
-                            {# <div class="data-item fl">
+                            <div class="data-item fl">
                                 <h2 class="data-title fl">
                                     <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}
                                 </h2>
@@ -111,11 +111,11 @@
                                     </div>
                                 {{/if}}
                                 <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
-                            </div> #}
+                            </div>
                     {{else}}
                         {{if data.volume > 0}}
 
-                            {# <div class="data-item fl">
+                            <div class="data-item fl">
                                 <h2 class="data-title fl">
                                     <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}
                                 </h2>
@@ -126,9 +126,9 @@
                                     <p class="price" style="">{{data.volume}}下载券</p>
                                 </div>
                                 <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>
-                            </div> #}
+                            </div>
                         {{else}}
-                            {# <div class="data-item fl">
+                            <div class="data-item fl">
                                 <h2 class="data-title fl">
                                     <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}
                                 </h2>
@@ -136,7 +136,7 @@
 
                             <div class="integral-con fr">
                                 <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>
-                            </div> #}
+                            </div>
                         {{/if}}
                     {{/if}}
                 {{/if}}

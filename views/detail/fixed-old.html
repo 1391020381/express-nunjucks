@@ -1,5 +1,6 @@
+<!--仅供在线阅读提示 -->
 <div id="footer-btn">
-    {% if results.list.data.isDownload == "n"  %}
+    {% if results.list.data.isDownload == "n" %}
         <div class="data-item fl">
             <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
             <span class="online-read">仅供在线阅读</span>
@@ -7,20 +8,20 @@
         <div class="integral-con fr">
             <a class="btn-fix-vip js-buy-open fl pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" loginOffer="joinVip-2" data-type="vip">开通VIP，享更多特权</a>
         </div>
-    {%endif%}
+    {%else%}
             <!-- VIP文档.-->
-            {# {% if results.list.data.vipFreeFlag === 1%} <!--vip免费文档被删除-->
+            {% if results.list.data.vipFreeFlag === 1%}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
                 </div>
                 <div class="integral-con fr">
                    <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
-            {%else%} #}
-                <!-- 免费 vip专享文档 付费 私有-->
-                {% if results.list.data.productType == 1 or results.list.data.productType == 4 or results.list.data.productType == 5 or  results.list.data.productType == 6  %}
+            {%else%}
+                <!--现金文档-->
+                {% if results.list.data.perMin == "3" %}
                         <!-- 现金打折文档-->
-                        {# {% if results.list.data.vipDiscountFlag == 1 and results.list.data.ownVipDiscountFlag == 1%}
+                        {% if results.list.data.vipDiscountFlag == 1 and results.list.data.ownVipDiscountFlag == 1%}
                             <div class="data-item fl">
                                 <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
                             </div>
@@ -46,7 +47,7 @@
                                     </div>
                                 </a>
                             </div>
-                        {%else%} #}
+                        {%else%}
 
                             <div class="data-item fl">
                                 <h2 class="data-title fl">
@@ -57,14 +58,14 @@
                             <div class="integral-con fr">
                                     <div class="price-con fl">
                                         <!--现金文档价格 -->
-                                        <p class="price" style="">¥ {{results.list.data.productPrice}}</p>
+                                        <p class="price" style="">¥ {{results.list.data.moneyPrice}}</p>
                                     </div>
-                                    <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即下载</a>
+                                    <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即购买</a>
                              </div>
                         {%endif%}
-                {# {%else%} #}
+                {%else%}
                         <!--下载券文档-->
-                        {# {% if results.list.data.volume>0 %}
+                        {% if results.list.data.volume>0 %}
                                 <div class="data-item fl">
                                     <h2 class="data-title fl">
                                         <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}
@@ -87,8 +88,8 @@
                                 <div class="integral-con fr">
                                     <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download"   loginOffer="downloadBtn-3">立即下载</a>
                                 </div>
-                        {%endif%} #}
-                {# {%endif%} #}
-            {# {%endif%}
-    {%endif%} #}
+                        {%endif%}
+                {%endif%}
+            {%endif%}
+    {%endif%}
 </div>

@@ -52,8 +52,8 @@ module.exports = {
                     console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
                         var data = JSON.parse(body);
-                        var fileInfo = data.data.fileInfo
-                        var tdk = data.data.tdk
+                        var fileInfo = data.data&&data.data.fileInfo
+                        var tdk = data.data&&data.data.tdk
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道

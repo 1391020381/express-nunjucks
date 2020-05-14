@@ -224,34 +224,34 @@ define(function (require, exports, module) {
         //执行所有触发事件：全屏、退出全屏、放大、缩小
         zoom(".reader-fullScreen,.reader-fullScreen-no", ".detail-main", ".detail-inner", ".bd-wrap", ".doc-main", ".detail-profile");
 
-        fileArgument();
+        // fileArgument();
         // 星星评分
-        function fileArgument (){
-            var oStar = document.getElementById("star");
-            var aLi = oStar.getElementsByTagName("li");
-            //var oSpan = oStar.getElementsByTagName("span")[1];
-            //var oP = oStar.getElementsByTagName("p")[0];
-            var i = iScore = iStar = 0;
-            for (i = 1; i <= aLi.length; i++) {
-                aLi[i - 1].index = i;
-                //鼠标移过显示分数
-                aLi[i - 1].onmouseover = function () {
-                    fnPoint(this.index);
-                };
-                //鼠标离开后恢复上次评分
-                aLi[i - 1].onmouseout = function () {
-                    fnPoint();
-                };
-                //点击后进行评分处理
-                aLi[i - 1].onclick = function () {
-                    iStar = this.index;
-                }
-            }
+        // function fileArgument (){
+        //     var oStar = document.getElementById("star");
+        //     var aLi = oStar.getElementsByTagName("li");
+        //     //var oSpan = oStar.getElementsByTagName("span")[1];
+        //     //var oP = oStar.getElementsByTagName("p")[0];
+        //     var i = iScore = iStar = 0;
+        //     for (i = 1; i <= aLi.length; i++) {
+        //         aLi[i - 1].index = i;
+        //         //鼠标移过显示分数
+        //         aLi[i - 1].onmouseover = function () {
+        //             fnPoint(this.index);
+        //         };
+        //         //鼠标离开后恢复上次评分
+        //         aLi[i - 1].onmouseout = function () {
+        //             fnPoint();
+        //         };
+        //         //点击后进行评分处理
+        //         aLi[i - 1].onclick = function () {
+        //             iStar = this.index;
+        //         }
+        //     }
 
-            function fnPoint(iArg) {
-                iScore = iArg || iStar;
-                for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
-            }
-        }
+        //     function fnPoint(iArg) {
+        //         iScore = iArg || iStar;
+        //         for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
+        //     }
+        // }
     });
 });
