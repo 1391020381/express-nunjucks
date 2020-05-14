@@ -2897,6 +2897,12 @@ select {
   margin: 24px 0;
   background-color: #e1ddd4;
 }
+.new-detail-header-fix {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
 .pc-dialog {
   width: 580px;
   height: 312px;
