@@ -5,8 +5,9 @@ define(function (require, exports, module) {
     var login = require('../application/checkLogin');
     var utils = require("../cmd-lib/util");
     var fid = method.getParam('fid');
-    var fileName = method.getParam('name');
+    var fileName = method.getParam('title');
     var format = method.getParam('format');
+    var api = require('../application/api');
     var userId;
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
@@ -15,9 +16,7 @@ define(function (require, exports, module) {
     var guessYouLikeTemplate = require('./template/guessYouLike.html')
     var userData = null, initData = {};
     eventBinding();
-    // $("#dialog-box").dialog({
-    //     html: $('#send-email').html(),
-    // }).open();
+   
     // url上带有这个参数unloginFlag，说明是游客模式过来的
     var unloginFlag = method.getQueryString('unloginFlag');
     if (unloginFlag) {
@@ -48,7 +47,8 @@ define(function (require, exports, module) {
 
             });
             setTimeout(function () {
-                getDownUrl()
+              //  getDownUrl()
+              autoDownUrl()
             }, 1000)
         }
     } else {
@@ -107,31 +107,38 @@ define(function (require, exports, module) {
             createdLoginQr()
         }, 200)
     }
-
+    
+    // 下载页面自动下载
+    autoDownUrl()
     // 点击下载
-    $('.unloginStatus .quick-down-a').click(function () {
-        getDownUrl()
+    $('.quick-down-a').click(function () {
+        // getDownUrl()
+        autoDownUrl()
     })
-
+     
+    function autoDownUrl(){
+        var fileDownUrl = method.getQueryString('url');
+        method.compatibleIESkip(fileDownUrl,false);
+    }
     function getDownUrl() {
         var vuk = method.getCookie('visitorId');
         if (userId) {
             vuk = userId;
         }
         var fid = method.getQueryString('fid');
-        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
-            if (data.code == 0) {
-                location.href = data.data.dowUrl
-            } else if (data.code == 41003) {
-                $.toast({
-                    text: data.msg,
-                })
-            } else {
-                $.toast({
-                    text: data.msg,
-                })
-            }
-        });
+        // $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
+        //     if (data.code == 0) {
+        //         location.href = data.data.dowUrl
+        //     } else if (data.code == 41003) {
+        //         $.toast({
+        //             text: data.msg,
+        //         })
+        //     } else {
+        //         $.toast({
+        //             text: data.msg,
+        //         })
+        //     }
+        // });
 
     }
 
@@ -385,4 +392,50 @@ define(function (require, exports, module) {
     // 猜你喜欢
     var _html = template.compile(guessYouLikeTemplate)({});
     $(".guess-you-like-warpper").html(_html);
+
+
+    // 发送邮箱
+    $('.js-sent-email').click(function(){
+             $("#dialog-box").dialog({
+        html: $('#send-email').html(),
+    }).open();
+    })
+    $('#dialog-box').on('click','.form-btn',function(e){
+        debugger
+        if (method.getCookie("cuk")){
+            console.log(method.getCookie('ui'))
+            var email = $('#dialog-box .form-email').val()
+            $.ajax({
+                url: api.sms.sendCorpusDownloadMail,
+                type: "POST",
+                data: JSON.stringify({
+                    "email": email,
+                    "fid": fid,
+                    "title": fileName,
+                    "uid": JSON.parse(method.getCookie('ui')).uid
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code === '0'){
+                            $.toast({
+                                text: '发送邮箱成功!',
+                                })
+                          var $dialogBox = $('#dialog-box');
+                            $dialogBox.dialog({}).close();
+                        }else{
+                            $.toast({
+                                text: '发送邮箱失败!',
+                                })
+                        }
+                }
+            })
+        }else{
+            login.notifyLoginInterface(function (data) {
+               // common.afterLogin(data);
+               refreshDomTree(data)
+            }); 
+        }
+    })
 });

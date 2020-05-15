@@ -13,8 +13,9 @@ define(function (require, exports, module) {
     var ref = utils.getPageRef(window.pageConfig.params.g_fileId);      //用户来源
     var expendScoreNum_var = '';    //用户下载文档成功后消耗的积分数量
     var expendNum_var = '';         //用户下载文档成功后消耗下载券、下载特权或现金的数量
-    var fid = window.pageConfig.params.g_fileId;
+    var fid = window.pageConfig.params.g_fileId; // 文件id
     var tpl_android = $("#tpl-down-android").html();    //下载app  项目全局 没有 这个 classId
+    var  file_title = window.pageConfig.params.file_title
     //详情页异常信息提示弹框
     var $tpl_down_text = $("#tpl-down-text");    // 在 详情index.html中引入的 dialog.html 用有  一些弹框模板
     // 文档已下载
@@ -107,13 +108,15 @@ define(function (require, exports, module) {
             __pc__.gioTrack("docDLFail", downLoadReport);
         }
     };
-
+   
     var bouncedType = function (res) {
+        // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
         var $dialogBox = $("#dialog-box");
         fid = window.pageConfig.params.g_fileId;
-        switch (res.data.status) {
+        switch (res.data.checkStatus) {
             // 下载
-            case 100:
+            case 0:   // 原来 status 100
                 var browserEnv = method.browserType();
                 method.delCookie("event_data_down", "/");
                 if (res.data.score > 0) {
@@ -126,32 +129,34 @@ define(function (require, exports, module) {
                 docDLSuccess(res.data.consume, true);
                 if (browserEnv === 'IE' || browserEnv === 'Edge') {
                     // window.location.href = res.data.downloadURL;
-                    method.compatibleIESkip(res.data.downloadURL,false);
+                    method.compatibleIESkip(res.data.fileDownUrl,false);
                 } else if (browserEnv === 'Firefox') {
                     // window.location.href = decodeURIComponent(res.data.downloadURL);
-                    var downLoadURL = res.data.downloadURL;
-                    var sub = downLoadURL.lastIndexOf('&fn=');
-                    var sub_url1 = downLoadURL.substr(0, sub + 4);
-                    var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+                    var fileDownUrl = res.data.fileDownUrl;
+                    var sub = fileDownUrl.lastIndexOf('&fn=');
+                    var sub_url1 = fileDownUrl.substr(0, sub + 4);
+                    var sub_ur2 = decodeURIComponent(fileDownUrl.substr(sub + 4, fileDownUrl.length));
                     var fid = window.pageConfig.params.g_fileId;
                     // window.location.href = sub_url1 + sub_ur2;
                     method.compatibleIESkip(sub_url1 + sub_ur2,false);
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.downloadURL);
+                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 } else {
                     // window.location.href = res.data.downloadURL;
-                    method.compatibleIESkip(res.data.downloadURL,false);
+                    // method.compatibleIESkip(res.data.fileDownUrl,false);
                     var fid = window.pageConfig.params.g_fileId;
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.downloadURL);
+                    var url = '/node/f/downsucc.html?fid=' + fid + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 }
                 break;
-            case 7:
-                downLoad(res.data.status);
-                break;
-            case 0:
-                downLoad();
-                break;
+            // 已下载过    
+            // case 7:
+            //     downLoad(res.data.status);
+            //     break;
+            // 原来判断通过    
+            // case 0:
+            //     downLoad();
+            //     break;
             // 超过了当日下载阈值,
             case 1:
                 $dialogBox.dialog({
@@ -165,84 +170,84 @@ define(function (require, exports, module) {
                 }).open();
                 break;
             // 下载券不足并且积分也不足
-            case 3:
-                var fid = window.pageConfig.params.g_fileId;
-                var state = window.pageConfig.params.file_state;
-                var isVip = window.pageConfig.params.isVip;
-                var showTips = 0;
-                if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
-                    showTips = 1;
-                } else if (state == 2 && isVip == 0) {//下载券资料 非vip用户
-                    showTips = 2;
-                }
-                var format = window.pageConfig.params.file_format;
-                var title = window.pageConfig.params.file_title;
-                method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-                var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
-                var url = '/pay/vip.html' + params;
-                if (userData.isVip === '1') {
-                    url = '/pay/privilege.html?fid=' + fid + '&ref=' + ref;
-                }
-                goLocalTab(url);
-                break;
+            // case 3:
+            //     var fid = window.pageConfig.params.g_fileId;
+            //     var state = window.pageConfig.params.file_state;
+            //     var isVip = window.pageConfig.params.isVip;
+            //     var showTips = 0;
+            //     if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
+            //         showTips = 1;
+            //     } else if (state == 2 && isVip == 0) {//下载券资料 非vip用户
+            //         showTips = 2;
+            //     }
+            //     var format = window.pageConfig.params.file_format;
+            //     var title = window.pageConfig.params.file_title;
+            //     method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+            //     var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+            //     var url = '/pay/vip.html' + params;
+            //     if (userData.isVip === '1') {
+            //         url = '/pay/privilege.html?fid=' + fid + '&ref=' + ref;
+            //     }
+            //     goLocalTab(url);
+            //     break;
             // 下载券不足并且积分充足  积分兑换下载
-            case 4:
-                if (userData.isVip === '1') {
-                    $dialogBox.dialog({
-                        html: $integral_download_vip.html().replace(/\$volume/, res.data.volume)
-                            .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                            .replace(/\$fileSize/, pageConfig.params.file_size)
-                            .replace(/\$code/, res.data.status)
-                    }).open();
-                } else {
-                    $dialogBox.dialog({
-                        html: $integral_download_normal.html()
-                            .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                            .replace(/\$fileSize/, pageConfig.params.file_size)
-                            .replace(/\$ovolume/, res.data.ovolume)
-                            .replace(/\$evolume/, res.data.nvolume)
-                            .replace(/\$code/, res.data.status)
-                    }).open();
-                }
-                break;
+            // case 4:
+            //     if (userData.isVip === '1') {
+            //         $dialogBox.dialog({
+            //             html: $integral_download_vip.html().replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     } else {
+            //         $dialogBox.dialog({
+            //             html: $integral_download_normal.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$evolume/, res.data.nvolume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     }
+            //     break;
             // 下载券足够   使用下载券下载
-            case 5:
-                if (userData.isVip === '1') {
-                    $dialogBox.dialog({
-                        html: $volume_download_vip.html()
-                            .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                            .replace(/\$fileSize/, pageConfig.params.file_size)
-                            .replace(/\$ovolume/, res.data.ovolume)
-                            .replace(/\$volume/, res.data.volume)
-                            .replace(/\$code/, res.data.status)
-                    }).open();
-                } else {
-                    $dialogBox.dialog({
-                        html: $volume_download_normal.html()
-                            .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                            .replace(/\$fileSize/, pageConfig.params.file_size)
-                            .replace(/\$ovolume/, res.data.ovolume)
-                            .replace(/\$volume/, res.data.volume)
-                            .replace(/\$code/, res.data.status)
-                    }).open();
-                }
-                break;
+            // case 5:
+            //     if (userData.isVip === '1') {
+            //         $dialogBox.dialog({
+            //             html: $volume_download_vip.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     } else {
+            //         $dialogBox.dialog({
+            //             html: $volume_download_normal.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     }
+            //     break;
             // 下载特权足够
-            case 9:
-                $dialogBox.dialog({
-                    html: $have_privilege.html()
-                        .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                        .replace(/\$fileSize/, pageConfig.params.file_size)
-                        .replace(/\$privilege/, res.data.privilege)
-                        .replace(/\$code/, res.data.status)
-                }).open();
-                break;
+            // case 9:
+            //     $dialogBox.dialog({
+            //         html: $have_privilege.html()
+            //             .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //             .replace(/\$fileSize/, pageConfig.params.file_size)
+            //             .replace(/\$privilege/, res.data.privilege)
+            //             .replace(/\$code/, res.data.status)
+            //     }).open();
+            //     break;
             // 下载限制黑名单
-            case -1:
-                $dialogBox.dialog({
-                    html: $tpl_down_text.html().replace(/\$msg/, '您的账号已被禁止下载，如有疑问联系平台！')
-                }).open();
-                break;
+            // case -1:
+            //     $dialogBox.dialog({
+            //         html: $tpl_down_text.html().replace(/\$msg/, '您的账号已被禁止下载，如有疑问联系平台！')
+            //     }).open();
+            //     break;
             // 用户不是vip不能下
             case 10:
                 var fid = window.pageConfig.params.g_fileId;
@@ -258,15 +263,17 @@ define(function (require, exports, module) {
                 var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
                 goLocalTab('/pay/vip.html' + params);
                 break;
-            case 12:
-                $dialogBox.dialog({
-                    html: $permanent_privilege.html()
-                        .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                        .replace(/\$fileSize/, pageConfig.params.file_size)
-                        .replace(/\$privilege/, res.data.privilege)
-                        .replace(/\$code/, res.data.status)
-                }).open();
-                break;
+          // vip专享下载--扣除下载特权    
+            // case 12:
+            //     $dialogBox.dialog({
+            //         html: $permanent_privilege.html()
+            //             .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //             .replace(/\$fileSize/, pageConfig.params.file_size)
+            //             .replace(/\$privilege/, res.data.privilege)
+            //             .replace(/\$code/, res.data.status)
+            //     }).open();
+            //     break;
+            // vip专享下载--扣除下载特权但不够扣    
             case 13:
                 $dialogBox.dialog({
                     html: $permanent_privilege_not.html()
@@ -275,17 +282,18 @@ define(function (require, exports, module) {
                         .replace(/\$code/, res.data.status)
                 }).open();
                 break;
-            case 15:
-                if (userData.isVip === '1') {
-                    $("#dialog-box").dialog({
-                        html: $vipFreeDownCounts.html(),
-                    }).open();
-                }else {
-                    $("#dialog-box").dialog({
-                        html: $freeDownCounts.html(),
-                    }).open();
-                }
-                break;
+            // 免费下载次数不足    
+            // case 15:
+            //     if (userData.isVip === '1') {
+            //         $("#dialog-box").dialog({
+            //             html: $vipFreeDownCounts.html(),
+            //         }).open();
+            //     }else {
+            //         $("#dialog-box").dialog({
+            //             html: $freeDownCounts.html(),
+            //         }).open();
+            //     }
+            //     break;
             // 验证码不正确
             case 99:
                 break;
@@ -340,6 +348,37 @@ define(function (require, exports, module) {
             }
         });
     };
+    
+   /**
+    * 
+    * 获取下载获取地址接口
+    */
+    var getFileDownUrl = function(){
+        if (method.getCookie("cuk")){
+            $.ajax({
+                url: api.normalFileDetail.getFileDownLoadUrl,
+                type: "POST",
+                data: JSON.stringify({
+                    "clientType": 0,
+                    "fid": fid,  
+                    "sourceType": 1
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code === '0'){
+                            bouncedType(res);
+                        }
+                }
+            })
+            
+        }else{
+            login.notifyLoginInterface(function (data) {
+                common.afterLogin(data);
+            }); 
+        }
+    }
 
     /**
      * 跳转到新的tab
@@ -383,7 +422,8 @@ define(function (require, exports, module) {
     $dialogBox.on('click', '.btn-dialog-download', function () {
         var code = $(this).attr('data-code');
         if (code) {
-            downLoad(code);
+            // downLoad(code);
+            getFileDownUrl()
         }
     });
     // 跳转VIP,或者特权页面
@@ -398,9 +438,9 @@ define(function (require, exports, module) {
 
     //点击预下载按钮
     $(document).on("click", '[data-toggle="download"]', function (e) {
-        preDownLoad();
-    });
-
+      //  preDownLoad();
+      getFileDownUrl()
+    })
     //用app保存
     $(document).on("click", ".sava-app", function (e) {
         $("#dialog-box").dialog({

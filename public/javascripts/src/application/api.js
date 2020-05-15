@@ -34,7 +34,9 @@ define(function (require, exports, module) {
             // 文件预下载
             filePreDownLoad: router + '/action/downloadCheck',
             // 文件下载
-            fileDownLoad: router + '/action/downloadUrl',
+            fileDownLoad: router + '/action/downloadUrl',  
+            // 下载获取地址接口
+            getFileDownLoadUrl: gateway + '/content/getFileDownUrl',
             // 文件打分
             appraise: router + '/fileSync/appraise',
             // 文件预览判断接口
@@ -50,6 +52,7 @@ define(function (require, exports, module) {
         sms: {
             // 获取短信验证码
             getCaptcha: router + '/usermanage/getSmsYzCode',
+            sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail'
         },
         pay: {
             // 购买成功后,在页面自动下载文档

@@ -18,7 +18,7 @@ define(function (require, exports, module) {
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
-        isHideMore: function (pageNum) {
+        isHideMore: function (pageNum) {   // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
             if (pageNum >= limitPage && limitPage < totalPage) {
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {

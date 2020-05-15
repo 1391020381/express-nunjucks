@@ -52,7 +52,7 @@ define(function (require, exports, module) {
         var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
-        var $iconDetailWrap = $('.icon-detail-wrap');
+        var $iconDetailWrap = $('.icon-detail-wrap'); //  付费文档图标
         if ($iconDetailWrap.length) {
             $(window).on('scroll', function () {
                 var $this = $(this);
@@ -359,28 +359,28 @@ define(function (require, exports, module) {
 
         }
 
-        
-        $('body').on("click", ".js-buy-open", function (e) {
-            var type = $(this).data('type');
-            if (!method.getCookie("cuk")) {
-                //上报数据相关
-                if ($(this).attr("loginOffer")) {
-                    method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
-                }
-                method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
-                if (pageConfig.params.g_permin == 3 && type == "file") {
-                    //相关逻辑未登陆购买逻辑移到buyUnlogin.js
+        // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
+        // $('body').on("click", ".js-buy-open", function (e) {  
+        //     var type = $(this).data('type');
+        //     if (!method.getCookie("cuk")) {
+        //         //上报数据相关
+        //         if ($(this).attr("loginOffer")) {
+        //             method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
+        //         }
+        //         method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
+        //         if (pageConfig.params.g_permin == 3 && type == "file") {
+        //             //相关逻辑未登陆购买逻辑移到buyUnlogin.js
 
-                } else {
-                    login.notifyLoginInterface(function (data) {
-                        common.afterLogin(data);
-                        goPage(type);
-                    });
-                }
-            } else {
-                goPage(type);
-            }
-        });
+        //         } else {
+        //             login.notifyLoginInterface(function (data) {
+        //                 common.afterLogin(data);
+        //                 goPage(type);
+        //             });
+        //         }
+        //     } else {
+        //         goPage(type);
+        //     }
+        // });
     }
     function receiveCoupon(type, source, userId) {
         var data = { source: source, type: type };

@@ -127,7 +127,9 @@
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
                     <div class="page-input-con">
-                        <input type="number" min="0" class="page-input"
+                        {# <input type="number" min="0" class="page-input"
+                               value="1">/<span>{{results.list.data.totalPage}}</span> #}
+                               <input type="number" min="0" class="page-input"
                                value="1">/<span>{{results.list.data.totalPage}}</span>
                     </div>
                     <span class="btn-page page-next" data-type="add" title="下一页"></span>
@@ -173,7 +175,8 @@
         },
         params: {
             g_fileExtension: '{{results.list.data.format}}',
-            g_fileId: '{{results.list.data.fileId}}',
+            {# g_fileId: '{{results.list.data.fileId}}', #}
+            g_fileId: '{{results.list.data.id}}',
             g_permin: '{{results.list.data.perMin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
             file_size: '{{results.list.data.fileSize}}',
