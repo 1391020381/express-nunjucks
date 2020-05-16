@@ -2068,7 +2068,7 @@ body {
 
     .integral-con {
         height: 58px;
-        line-height: 21px;
+        line-height: 58px;
         font-size: 15px;
 
         .price-con {
@@ -2313,123 +2313,123 @@ body {
 }
 
 //右侧相关资料模块
-.related-data {
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    padding: 10px 0;
-}
+// .related-data {
+//     background-color: #fff;
+//     border-radius: 2px;
+//     box-shadow: 0 0 5px rgba(44, 21, 24, .08);
+//     padding: 10px 0;
+// }
 
-.related-data-title {
-    height: 38px;
-    line-height: 38px;
-    border-bottom: 0 none;
-    font-size: 18px;
-    position: relative;
-    padding: 0 20px;
-    color: @gray-dark;
-    font-weight: bold;
-}
+// .related-data-title {
+//     height: 38px;
+//     line-height: 38px;
+//     border-bottom: 0 none;
+//     font-size: 18px;
+//     position: relative;
+//     padding: 0 20px;
+//     color: @gray-dark;
+//     font-weight: bold;
+// }
 
-.slider-control {
-    width: 38px;
-    display: block;
-    .center(known-y, 15px);
-    right: 20px;
-    overflow: hidden;
+// .slider-control {
+//     width: 38px;
+//     display: block;
+//     .center(known-y, 15px);
+//     right: 20px;
+//     overflow: hidden;
 
-    .btn-c {
-        .icon-ishare();
-        width: 16px;
-        height: 15px;
-        cursor: pointer;
-        .opacity(70);
+//     .btn-c {
+//         .icon-ishare();
+//         width: 16px;
+//         height: 15px;
+//         cursor: pointer;
+//         .opacity(70);
 
-        &:hover {
-            .opacity(100);
-        }
-    }
+//         &:hover {
+//             .opacity(100);
+//         }
+//     }
 
-    .btn-disable {
-        .opacity(30);
-        cursor: default;
+//     .btn-disable {
+//         .opacity(30);
+//         cursor: default;
 
-        &:hover {
-            .opacity(30);
-        }
-    }
+//         &:hover {
+//             .opacity(30);
+//         }
+//     }
 
-    .btn-prev {
-        background-position: -290px 0;
-        float: left;
-    }
+//     .btn-prev {
+//         background-position: -290px 0;
+//         float: left;
+//     }
 
-    .btn-next {
-        background-position: -290px -20px;
-        float: right;
-    }
-}
+//     .btn-next {
+//         background-position: -290px -20px;
+//         float: right;
+//     }
+// }
 
-.related-data-list {
-    line-height: 22px;
-    overflow: hidden;
-    *position: relative;
-    *zoom: 1;
+// .related-data-list {
+//     line-height: 22px;
+//     overflow: hidden;
+//     *position: relative;
+//     *zoom: 1;
 
-    li {
+//     li {
 
-        position: relative;
-        vertical-align: top;
-        overflow: hidden;
-        font-size: 15px;
+//         position: relative;
+//         vertical-align: top;
+//         overflow: hidden;
+//         font-size: 15px;
 
-        .data-name {
-            height: 22px;
-            line-height: 22px;
-            color: @gray-dark;
-            .text-ellipsis();
-            width: 238px;
-        }
+//         .data-name {
+//             height: 22px;
+//             line-height: 22px;
+//             color: @gray-dark;
+//             .text-ellipsis();
+//             width: 238px;
+//         }
 
-        .ico-data {
-            left: 20px;
-        }
+//         .ico-data {
+//             left: 20px;
+//         }
 
-        a {
-            padding: 6px 10px 6px 41px;
-            display: block;
+//         a {
+//             padding: 6px 10px 6px 41px;
+//             display: block;
 
-            &:hover {
-                background-color: #f3f2ef;
+//             &:hover {
+//                 background-color: #f3f2ef;
 
-                .data-name {
-                    color: @primary-color;
-                }
-            }
-        }
+//                 .data-name {
+//                     color: @primary-color;
+//                 }
+//             }
+//         }
 
-        .tui-link {
-            padding: 6px 0 6px 41px;
-            overflow: hidden;
-            width: 239px;
-        }
+//         .tui-link {
+//             padding: 6px 0 6px 41px;
+//             overflow: hidden;
+//             width: 239px;
+//         }
 
-        &.li-you {
-            .data-name {
-                width: 210px
-            }
-        }
+//         &.li-you {
+//             .data-name {
+//                 width: 210px
+//             }
+//         }
 
-        .icon-y {
-            width: 20px;
-            height: 20px;
-            float: left;
-            margin: 2px 0 0 10px;
-            background-position: -60px -70px;
-        }
-    }
+//         .icon-y {
+//             width: 20px;
+//             height: 20px;
+//             float: left;
+//             margin: 2px 0 0 10px;
+//             background-position: -60px -70px;
+//         }
+//     }
 
-}
+// }
 
 //面包屑重定义
 .crumb {
@@ -2954,6 +2954,67 @@ body {
             }
         }
     }
+}
+.related-data{
+       background-color: #fff;
+        border-radius: 2px;
+        box-shadow: 0 0 5px rgba(44, 21, 24, .08);
+        margin-top: 10px;
+        .guess-you-like-title{
+            height: 60px;
+            line-height: 60px;
+            color: #333333;
+            margin: 0 25px;
+            border-bottom: 1px solid #f2f2f2;
+            text-align: left;
+        }
+        .guess-you-like-itmes{
+            padding-top: 23px;
+            padding-bottom: 20px;
+            .cf();
+            .item{
+            padding: 0 24px;
+            margin-bottom: 30px;
+                .item-link{
+                    .cf();
+                    .item-link-left{
+                        float: right;;
+                        // margin-right:20px;
+                        position: relative;
+                        .item-link-left-img{
+                            width:47px;
+                            height:66px;
+                            border-radius:2px;
+                        }
+                        .item-link-left-icon{
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                            width: 16px;
+                            height: 16px;
+                            background: #eeeeee;
+                        }
+                    }
+                    .item-link-right{
+                       float: left;  
+                       width: 178px;
+                       text-align: left;  
+                       .item-link-right-desc{
+                            font-size: 14px;
+                            line-height:22px;
+                            color: #333;
+                       }   
+                       .item-link-right-other{
+                           margin-top:14px;
+                           color: #A8A8A8;
+                       }             
+                     }
+                }
+            }
+            .item:last-child{
+                margin-bottom: 0;
+            }
+        }
 }
 
 .m-reward-pop{

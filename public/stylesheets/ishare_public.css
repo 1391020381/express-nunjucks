@@ -3915,3 +3915,6 @@ a:hover {
 .cursor-no-hand {
   cursor: default!important;
 }
+.op-tel-ele .icon-op-fixed {
+  background-position: -60px 0;
+}
