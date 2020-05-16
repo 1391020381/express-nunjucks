@@ -61,7 +61,8 @@ define(function (require, exports, module) {
         vouchers:router+'/sale/vouchers',
         order:{
             bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
-            unloginOrderDown:router+'/order/unloginOrderDown'
+            unloginOrderDown:router+'/order/unloginOrderDown',
+            createOrderInfo: gateway + '/order/create/orderInfo'
         },
         getHotSearch:router+'/search/getHotSearch',
         special:{

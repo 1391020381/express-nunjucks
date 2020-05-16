@@ -71,6 +71,9 @@ define(function (require, exports, moudle) {
         fid = method.getParam('fid');
         window.pageConfig.params.g_fileId = fid;
     }
+   
+    // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买
+
     //支付相关参数
     var params = {
         fid: window.pageConfig.params.g_fileId || '',                            //文件id
@@ -78,7 +81,7 @@ define(function (require, exports, moudle) {
         vid: '',                                                                 //vip套餐id
         pid: '',                                                                 //特权id
         oid: "",                                                                 //订单ID 获取旧订单
-        type: '2',                                                               //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
+        type: window.pageConfig.params.checkStatus||'2',                                                               //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
         referrer: document.referrer || document.URL,                             //来源网址
         remark: '',                                                              //页面来源 其他-办公频道           
@@ -185,16 +188,17 @@ define(function (require, exports, moudle) {
     });
 
     //支付 生成二维码
-    $(document).on("click", ".btn-buy-bar", function (e) {
+    $(document).on("click", ".btn-buy-bar", function (e) {  
         e && e.preventDefault();
         //是否登录
         if (!method.getCookie('cuk')) {
             $(".js-login").click();
             return;
         }
-        var ptype = $(this).data("page");
-        if (ptype == 'vip') {
-            params.type = '3';
+        // var ptype = $(this).data("page");  
+        var checkStatus = params.type
+        if (checkStatus == '10') {   // ptype == 'vip'
+            params.type = '10';
             if ($(".js-tab ul.pay-vip-list").find("li.active").data("vid")) {
                 params.vipMemberId = params.vid = $(".js-tab ul.pay-vip-list").find("li.active").data("vid");
             }
@@ -207,17 +211,17 @@ define(function (require, exports, moudle) {
             $(".btn-vip-item-selected").attr("pcTrackContent", 'payVip-' + params.vid);
             $(".btn-vip-item-selected").click();
             // __pc__.push(['pcTrackEvent','payVip-'+params.vid]);
-        } else if (ptype == 'privilege') {
-            params.type = '1';
+        } else if (checkStatus == '13') {  //  ptype == 'privilege' 
+            params.type = '13';
             if ($("ul.pay-pri-list").find("li.active").data("pid")) {
                 params.pid = $("ul.pay-pri-list").find("li.active").data("pid");
             }
             params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             report.price = $("ul.pay-pri-list").find("li.active").data("price");
-        } else if (ptype === 'file') {
+        } else if (checkStatus == '8') {  // ptype === 'file'
             params = {
                 fid: pageConfig.params.g_fileId,
-                type: 2,
+                type: 8,
                 ref: utils.getPageRef(window.pageConfig.params.g_fileId),
                 referrer: pageConfig.params.referrer,
                 vouchersId: $('.pay-coupon-wrap').attr('vid'),
@@ -225,7 +229,7 @@ define(function (require, exports, moudle) {
                 remark: params.remark
             }
         }
-        clickPay(ptype);
+        clickPay(checkStatus);
     });
 
     try {//引入美洽客服
@@ -254,9 +258,9 @@ define(function (require, exports, moudle) {
         _MEIQIA('init');
     });
 
-    var clickPay = function (ptype) {
+    var clickPay = function (checkStatus) {
         params.isVip = window.pageConfig.params.isVip;
-        if (ptype == 'vip' || ptype == 'privilege') {
+        if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
             if (params.isVip == '2') {//判断vip状态
                 utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
                 return;
@@ -272,17 +276,64 @@ define(function (require, exports, moudle) {
      * 下单处理
      */
     function handleOrderResultInfo() {
-        $.post('/pay/order?ts=' + new Date().getTime(), params, function (data, status) {
-            if (data && data.code == '0') {
+        var type = params.type  // 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
+        var goodsType = ''
+        if(type == '8'){
+            goodsType = '1'
+        }else if(type == '10'){
+            // params.type = '0'
+            goodsType =  '2'
+        }else if(params.type =='13'){
+            // params.type = '1'
+            goodsType = '8'
+        }
+        // 组装创建订单的参数
+
+        var temp = {
+            goodsId:params.fid,  // 文件id  vip套餐id
+            goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
+            remark:params.remark,
+            sourceMode:0 ,  // 0PC 1M 2android 3ios 4快应用 5百度小程序 6微信浏览器
+            channelSource:4, // 订单频道来源 0办公 1教育 2建筑 3超级会员 4主站
+            host:window.location.origin,
+            channel:method.getCookie('channel'), // 渠道 message-短信 other-其他
+            isVisitor:method.getCookie('cuk')?0:1,
+            isVouchers:1, // 是否使用优惠券，1未使用，2使用
+            returnPayment:false,
+            ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
+            referrer: document.referrer || document.URL,
+        }
+        $.ajax({
+            url: api.order.createOrderInfo,
+            type: "POST",
+            data: JSON.stringify(temp),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data && data.code == '0') {
                 console.log("下单返回的数据：" + data);
-                data['remark'] = params.remark;
+                data['remark'] = temp.remark;
                 openWin(data);
             } else {
                 // __pc__.push(['pcTrackEvent','orderFail']);
                 $(".btn-vip-order-fail").click();
                 utils.showAlertDialog("温馨提示", '下单失败');
             }
-        });
+            }
+        })
+
+
+        // $.post('/pay/order?ts=' + new Date().getTime(), params, function (data, status) {
+        //     if (data && data.code == '0') {
+        //         console.log("下单返回的数据：" + data);
+        //         data['remark'] = params.remark;
+        //         openWin(data);
+        //     } else {
+        //         // __pc__.push(['pcTrackEvent','orderFail']);
+        //         $(".btn-vip-order-fail").click();
+        //         utils.showAlertDialog("温馨提示", '下单失败');
+        //     }
+        // });
     }
 
     /**

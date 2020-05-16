@@ -74,31 +74,39 @@ module.exports = {
     payConfirm: function (req, res) {
         return async.series({
             fileDetails: function (callback) {
-                console.log(appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.orderNo))
-                var opt = {
-                    url: appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.orderNo),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
-                    },
-                };
-                request(opt, function (err, res, body) {
+                 var opt = {
+                     method: 'POST',
+                     url: appConfig.apiNewBaselPath + api.file.fileDetail,
+                     body:JSON.stringify({
+                         clientType: 0,
+                         fid: req.query.orderNo,  
+                         sourceType: 1,
+                         isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                       }),
+                     headers: {
+                         'Content-Type': 'application/json',
+                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                     },
+                 };
+                 console.log('opt:',opt)
+                 request(opt, function (err, res1, body) {
                     if (body) {
                         try {
                             var data = JSON.parse(body);
                             if (data.code == 0) {
                                 var backData = {};
+                                backData.checkStatus = req.query.checkStatus
                                 backData.fileId = req.query.orderNo;
                                 backData.referrer = req.query.referrer;
-                                backData.moneyPrice = data.data.moneyPrice;
-                                backData.discountPrice = data.data.discountPrice || "";
-                                backData.vipDiscountFlag = data.data.vipDiscountFlag || "";
-                                backData.ownVipDiscountFlag = data.data.ownVipDiscountFlag || "";
-                                backData.payType = data.data.payType || "";
-                                backData.format = data.data.format || "";
-                                backData.title = data.data.title || "";
-                                backData.fileSize = data.data.fileSize || "";
-                                backData.g_permin = data.data.perMin || "";
+                                backData.moneyPrice = data.data.fileInfo.productPrice; //productPrice
+                                backData.discountPrice = data.data.fileInfo.discountPrice || "";  // 新接口无折扣价格
+                                backData.vipDiscountFlag = data.data.fileInfo.vipDiscountFlag || "";
+                                backData.ownVipDiscountFlag = data.data.fileInfo.ownVipDiscountFlag || "";
+                                backData.payType = data.data.fileInfo.payType || "";
+                                backData.format = data.data.fileInfo.format || "";
+                                backData.title = data.data.fileInfo.title || "";
+                                backData.fileSize = data.data.fileInfo.fileSize || "";
+                                backData.g_permin = data.data.fileInfo.permin || "";
                                 callback(null, backData);
                             } else {
                                 callback(null, null);
@@ -109,9 +117,10 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
-                })
-            }
-        }, function (err, results) {
+                     
+                 })
+             },
+        }, function (err, results) {  // results 是fileDetails组装后的数据
             results.flag = 4;
             render("pay/index", results, req, res);
         })

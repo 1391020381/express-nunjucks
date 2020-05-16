@@ -109,7 +109,7 @@ define(function (require, exports, module) {
         }
     };
    
-    var bouncedType = function (res) {
+    var bouncedType = function (res) { //屏蔽下载的 后台返回 文件不存在需要怎么提示
         // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
         // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
         var $dialogBox = $("#dialog-box");
@@ -158,6 +158,21 @@ define(function (require, exports, module) {
             //     downLoad();
             //     break;
             // 超过了当日下载阈值,
+            // 资料是付费，用户未购买
+            case 8:
+                // goPage(res)
+                var fid = window.pageConfig.params.g_fileId;
+                var format = window.pageConfig.params.file_format;
+                var title = window.pageConfig.params.file_title;
+                var params = '';
+                var ref = utils.getPageRef(fid);
+                //文件信息存入cookie方便gio上报
+                method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+                method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+                params = '?orderNo=' + fid + '&checkStatus='+ res.data.checkStatus + '&referrer=' + document.referrer;
+                // window.location.href = "/pay/payConfirm.html" + params;
+                method.compatibleIESkip("/pay/payConfirm.html" + params,false);
+                break;
             case 1:
                 $dialogBox.dialog({
                     html: $tpl_down_text.html().replace(/\$msg/, '您已经超过了当日下载量')
@@ -260,7 +275,7 @@ define(function (require, exports, module) {
                 var format = window.pageConfig.params.file_format;
                 var title = window.pageConfig.params.file_title;
                 method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-                var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + res.data.checkStatus +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
                 goLocalTab('/pay/vip.html' + params);
                 break;
           // vip专享下载--扣除下载特权    
@@ -282,6 +297,12 @@ define(function (require, exports, module) {
                         .replace(/\$code/, res.data.status)
                 }).open();
                 break;
+             // 在线文档不支持下载       
+            case 17:
+                $dialogBox.dialog({
+                    html: $tpl_down_text.html().replace(/\$msg/, '在线文档不支持下载')
+                }).open();
+            break;
             // 免费下载次数不足    
             // case 15:
             //     if (userData.isVip === '1') {
@@ -304,6 +325,39 @@ define(function (require, exports, module) {
             default:
         }
     };
+
+
+
+    // function goPage(checkStatus) {
+    //     var fid = window.pageConfig.params.g_fileId;
+    //     var format = window.pageConfig.params.file_format;
+    //     var title = window.pageConfig.params.file_title;
+    //     var params = '';
+    //     var ref = utils.getPageRef(fid);
+    //     //文件信息存入cookie方便gio上报
+    //     method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+    //     method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+    //     if (checkStatus == 8) { // 资料是付费，用户未购买
+    //         params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+    //         // window.location.href = "/pay/payConfirm.html" + params;
+    //         method.compatibleIESkip("/pay/payConfirm.html" + params,false);
+    //         break;
+    //     } else if (checkStatus == 10) {
+    //         // __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+    //         // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+    //         // // window.open("/pay/vip.html" + params);
+    //         // method.compatibleIESkip('/pay/vip.html' + params,true);
+    //         // break;
+    //     } else if (checkStatus === 'privilege') {
+    //         var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+    //         // window.open("/pay/privilege.html" + params);
+    //         method.compatibleIESkip('/pay/privilege.html' + params,true);
+    //         break;
+    //     }
+    // }
+
+
+
     /**
      * 预下载
      */
