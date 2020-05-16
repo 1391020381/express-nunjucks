@@ -67,6 +67,9 @@ define(function (require, exports, module) {
         getHotSearch:router+'/search/getHotSearch',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
+        },
+        recommend:{
+            recommendConfigRuleInfo:gateway + '/recommend/config/ruleInfo'
         }
     }
 });

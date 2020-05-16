@@ -9,6 +9,7 @@ define(function (require, exports, module) {
     var format = method.getParam('format');
     var api = require('../application/api');
     var userId;
+    var swiperTemplate = require("../common/template/swiper_tmp.html");
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -388,6 +389,32 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
+
+    gebyPosition()
+    function gebyPosition() {  // 获取banner位数据
+        $.ajax({
+            url: api.recommend.recommendConfigRuleInfo,
+            type: "POST",
+            data: JSON.stringify(['PC_M_DOWN_SUC_banner']),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.data.code == '0'){
+                    var _html = template.compile(swiperTemplate)({ topBanner: arr ,className:'swiper-top-container' });
+                    $(".down-success-banner").html(_html);
+                    if (arr.length > 1) {
+                     var mySwiper = new Swiper('.swiper-top-container', {
+                         direction: 'horizontal',
+                         loop: true,
+                         autoplay: 3000,
+                     })
+                 }
+                }
+            }
+        })
+    }
+
+
 
     // 猜你喜欢
     var _html = template.compile(guessYouLikeTemplate)({});

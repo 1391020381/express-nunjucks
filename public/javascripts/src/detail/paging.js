@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     // var $ = require("$");
     var img_tmp = require("./template/img_box.html");
-
+    var changeText = require('./changeShowOverText.js')
 
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
@@ -19,10 +19,11 @@ define(function (require, exports, module) {
         goSwiper: null,
         //判断是否已经是最后一页
         isHideMore: function (pageNum) {   // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
-            if (pageNum >= limitPage && limitPage < totalPage) {
+            if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
+                changeText()
             } else if (pageNum >= imgTotalPage) {
-                $(".show-over-text").eq(1).show();
+               // $(".show-over-text").eq(1).show();
             }
             $(".show-more-text").hide();
             $(".btn-read-more").hide();
