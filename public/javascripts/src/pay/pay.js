@@ -110,14 +110,15 @@ define(function (require, exports, moudle) {
         buySuccessDownLoad()
     });
 
-    $(".js-buy-open").click(function () {
+    $(".js-buy-open").click(function () {  // 支付页面 fail.html payConfirm.html
         var ref = utils.getPageRef(fid);      //用户来源
         var params = '?fid=' + fid + '&ref=' + ref;
         var mark = $(this).data('type');
-        if (mark == 'vip') {
+        var type = params.type
+        if (type == 10) { // mark == 'vip'
             // window.open('/pay/vip.html' + params);
             method.compatibleIESkip('/pay/vip.html' + params, true);
-        } else if (mark == 'privilege') {
+        } else if (type == '13') { // mark == 'privilege'
             // window.open('/pay/privilege.html' + params);
             method.compatibleIESkip('/pay/privilege.html' + params, true);
         }
@@ -260,12 +261,13 @@ define(function (require, exports, moudle) {
     });
 
     var clickPay = function (checkStatus) {
-        params.isVip = window.pageConfig.params.isVip;
+        // params.isVip = window.pageConfig.params.isVip;
+        params.isVip = userInfo.isVip    // 在用户信息里面获取
         if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
             if (params.isVip == '2') {//判断vip状态
                 utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
                 return;
-            } else if (ptype == 'privilege' && params.isVip != '1') {//用户非vip
+            } else if (checkStatus =='13') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
                 utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
                 return;
             }
@@ -289,9 +291,8 @@ define(function (require, exports, moudle) {
             goodsType = '8'
         }
         // 组装创建订单的参数
-        debugger
         var temp = {
-            goodsId:params.fid,  // 文件id  vip套餐id
+            goodsId:type == '8'?params.fid:params.vid,  // 文件id  vip套餐id
             goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
             remark:params.remark,
             sourceMode:0 ,  // 0PC 1M 2android 3ios 4快应用 5百度小程序 6微信浏览器

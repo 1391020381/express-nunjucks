@@ -34,6 +34,10 @@ module.exports = {
             results.flag = 0;
             results.format = req.query.ft;
             results.title = urlencode.decode(req.query.name);
+            
+            results.fileDetails = {
+                checkStatus : req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
+            }  
             console.log("vip list------------");
             console.log('后台返回的套餐列表:'+JSON.stringify(results));
             // req.query.remark = 'office'
@@ -62,6 +66,9 @@ module.exports = {
         }, function (err, results) {
             results.type = 1;
             results.flag = 1;
+            results.fileDetails = {
+                checkStatus : req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
+            }  
             // render("pay/index", results, req, res);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

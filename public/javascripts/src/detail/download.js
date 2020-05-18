@@ -268,10 +268,10 @@ define(function (require, exports, module) {
                 var fid = window.pageConfig.params.g_fileId;
                 var state = window.pageConfig.params.file_state;
                 var isVip = window.pageConfig.params.isVip;
-                var showTips = 0;
-                if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
-                    showTips = 1;
-                }
+                var showTips = 1;
+                // if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
+                //     showTips = 1;
+                // }
                 var format = window.pageConfig.params.file_format;
                 var title = window.pageConfig.params.file_title;
                 method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
