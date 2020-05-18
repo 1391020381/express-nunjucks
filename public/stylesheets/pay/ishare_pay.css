@@ -1373,3 +1373,27 @@ body {
 .website-footer .footer-content .footer-qrcode-items .qrcode-item:nth-child(2) {
   margin: 0 52px;
 }
+.carding-info-bottom {
+  padding: 0;
+  height: 228px;
+  position: relative;
+}
+.carding-info-bottom .carding-binding {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.carding-info-bottom .btn-binging {
+  display: inline-block !important;
+  width: 48% !important;
+}
+.carding-info-bottom .btn-binging:nth-child(1) {
+  color: #F25125;
+  background: #ffffff;
+  border: 1px solid #f25125;
+  border-radius: 4px;
+}
+.carding-info-bottom .btn-binging:nth-child(3) {
+  display: none !important;
+}

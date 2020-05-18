@@ -3,8 +3,8 @@
     <div class="carding-binding fl">
         <!--绑定信息 start -->
         <div class="binging-main">
-            <p class="carding-error hide"><i class="icon-error"></i><span>错误提示</span></p>
-            <h3 class="bottom-title">绑定手机号<span class="bottom-zs">送1下载券</span></h3>
+            {# <p class="carding-error hide"><i class="icon-error"></i><span>错误提示</span></p>
+            <h3 class="bottom-title">绑定手机号<span class="bottom-zs">送1下载券</span></h3> #}
             <div class="binding-item binding-number-item">
                 {% include "./phonechoice.html" %}
             </div>
@@ -18,8 +18,11 @@
                 <p class="btn-binding-code btn-code-no fr yz-time" style="display: none;">60秒后重发</p>
             </div>
             <!--不可点击增加样式 btn-binging-no -->
-            <a class="btn-binging btn-none-bind btn-binging-no">立即绑定</a>
-            <a class="btn-binging btn-bind pc_click" bilogContent="downSuccessBindPhone" style="display: none;">立即绑定</a>
+            <div class="binding-item">
+            <a class="btn-binging btn-none-bind f1">返回下载</a>
+            <a class="btn-binging btn-none-bind btn-binging-no fr">立即绑定</a>
+            <a class="btn-binging btn-bind pc_click fr" bilogContent="downSuccessBindPhone" style="display: none;">立即绑定</a>
+            </div>
         </div>
         <!--绑定信息 end-->
         <!--绑定成功 start -->
@@ -30,14 +33,14 @@
         <!--绑定成功 end -->
     </div>
     <!--关注二维码 start -->
-    <div class="carding-er-code fr">
+    {# <div class="carding-er-code fr">
         <div class="er-line"></div>
         <h3 class="bottom-title">扫码关注微信服务号</h3>
         <p class="bottom-zs">更多福利优先领取</p>
         <div class="er-pic">
             <img src="{{cdnUrl}}/images/pic_code_150x150.jpg">
         </div>
-    </div>
+    </div> #}
     <!--关注二维码 end -->
 </div>
 <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script>

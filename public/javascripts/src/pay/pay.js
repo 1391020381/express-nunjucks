@@ -54,6 +54,7 @@ define(function (require, exports, moudle) {
             }
         } else if (flag == "true" && uid) {//成功页面
             var mobile = $("#ip-mobile").val();
+            mobile = false
             if (mobile) {//隐藏绑定手机号模块 公众号模块居中
                 $(".carding-info-bottom").addClass('carding-binding-ok');
             }

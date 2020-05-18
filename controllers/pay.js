@@ -228,7 +228,7 @@ module.exports = {
                 console.log(req.query);
                 callback(null, req.query);
             }
-        }, function (err, results) {
+        }, function (err, results) {    // type=2 购买文件成功  type=0  购买vip成功  type=1   购买下载特权成功
             results.flag = 'true';
             results.type = results.list.type;
 
