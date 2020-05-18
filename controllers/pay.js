@@ -234,10 +234,10 @@ module.exports = {
 
             
             // 详情页流量购买vip成功
-            results.list = {   // 需要根据 pay.js  中 payStatus 跳转参数来判断
-                type : 0 ,
-                fid:'222'
-            }
+            // results.list = {   // 需要根据 pay.js  中 payStatus 跳转参数来判断
+            //     type : 0 ,
+            //     fid:'222'
+            // }
             console.log(results);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

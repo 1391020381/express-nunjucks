@@ -19,6 +19,26 @@ define(function (require, exports, module) {
                 }
             ],
             pageIds:['PC_M_SR_ub','PC_M_SR_rb','PC_M_SR_downb'] ,
+        },
+        paySuccess:{
+            descs:[
+                {
+                    desc:'支付成功页面banner',
+                    pageId:'PC_M_SR_ub',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_SR_ub'] 
+        },
+        downSuccess:{
+            descs:[
+                {
+                    desc:'下载成功页面banner',
+                    pageId:'PC_M_DOWN_SUC_banner',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_DOWN_SUC_banner'] 
         }
     }
 });

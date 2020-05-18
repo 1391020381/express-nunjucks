@@ -604,33 +604,4 @@ define(function (require, exports, moudle) {
             }
         })
     }
-
-    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
-    var arr = [
-       {
-       key:1,
-       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-      },
-      {
-       key:2,
-       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-      },
-      {
-       key:3,
-       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-      },
-      {
-       key:4,
-       value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-      }
-    ]
-    var _html = template.compile(topBnnerTemplate)({ topBanner: arr ,className:'pay-success-swiper-container' });
-      $(".pay-success-banner").html(_html);
-      if (arr.length > 1) {
-       var mySwiper = new Swiper('.pay-success-swiper-container', {
-           direction: 'horizontal',
-           loop: true,
-           autoplay: 3000,
-       })
-   }
 });

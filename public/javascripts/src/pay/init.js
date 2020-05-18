@@ -6,6 +6,7 @@ define(function(require , exports , module){
     require("./effect");  // 登录和刷新topbar
     require("./report");  
     require("./pay");
+    require('./banner')
     require("../common/bindphone");
     require("../common/bilog");
     // require("../common/baidu-statistics");

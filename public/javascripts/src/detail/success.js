@@ -396,12 +396,12 @@ define(function (require, exports, module) {
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
 
-    // gebyPosition()
+    gebyPosition()
     function gebyPosition() {  // 获取banner位数据
         $.ajax({
-            url: api.recommend.recommendConfigRuleInfo,
+            url: api.recommend.recommendConfigInfo,
             type: "POST",
-            data: JSON.stringify(['PC_M_DOWN_SUC_banner']),
+            data: JSON.stringify(recommendConfigInfo.downSuccess.pageIds),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
