@@ -11,13 +11,18 @@ define(function(require , exports , module){
         addFiles:[],
         Allcategory:[],
         init:function(){
+            console.log(this.uploadFiles)
             uploadObj.checkHook();
             uploadObj.tabSwitch();
             uploadObj.upload();
             uploadObj.getAllcategory();
             uploadObj.categoryOption();
-            // uploadObj.createFolder('的哥文件夹');
-            uploadObj.saveUploadFile()
+            uploadObj.getFolder();
+            uploadObj.saveUploadFile();
+            uploadObj.typeSelect();
+            uploadObj. priceSelect();
+            uploadObj.saveFolderOption()
+           $('#bgMask').show()
         },
         getDom:function(){
 
@@ -138,6 +143,7 @@ define(function(require , exports , module){
                 }
             })
         },
+        // 分类选择
         categoryOption:function(){
             $('.doc-list').on('click','.js-fenlei',function(){
                 $(this).siblings('.fenlei').toggle()
@@ -171,12 +177,73 @@ define(function(require , exports , module){
                             text += '>'+$('.date-con-third>li.active a').attr('name')
                         }
                     }
-                    $('.choose-text.fenleiTtile').text(text)
-                    $('.doc-list').find('.fenlei').hide()
+                    $(event.target).parents('.data-must').find('.choose-text.fenleiTtile').text(text)
+                    $(event.target).parents('.data-must').find('.fenlei').hide()
                }
             })
            
         },
+        // 类型选择
+        typeSelect: function(){
+            $('.doc-list').on('click','.js-type',function(){
+                $(this).siblings('.permin').toggle()
+            })
+            $('.doc-list').on('hover','.permin a',function(){
+                $(this).addClass('selected').siblings('a').removeClass('selected');
+            })
+            $('.doc-list').on('click','.permin a',function(e){
+               var text = $(this).attr('permin')==1?'免费资料':'付费资料';
+                $(this).parents('.data-must').find('.typeTitle').text(text);
+                $(event.target).parents('.data-must').find('.permin').hide();
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                // uploadObj.uploadFiles[itemIndex].userFileType = $(this).attr('permin');
+                if ($(this).attr('permin')==1) {
+                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').hide()
+                } else {
+                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').show()
+                }
+            })
+
+        },
+        // 价钱选择
+        priceSelect: function(){
+            $('.doc-list').on('click','.js-price',function(){
+                $(this).siblings('.money').toggle()
+            })
+            $('.doc-list').on('hover','.money a',function(){
+                $(this).addClass('selected').siblings('a').removeClass('selected');
+            })
+            $('.doc-list').on('click','.money a',function(e){
+                var text = $(this).attr('aval') =='0'?'自定义':'¥'+$(this).attr('aval');
+                $(this).parents('.data-must').find('.moneyTitle').text(text);
+                $(event.target).parents('.data-must').find('.money').hide();
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                if ($(this).attr('aval') =='0') {
+                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').show()
+                } else {
+                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').hide()
+                }     
+            })
+
+        },
+        //  输入金额
+        inputPrice:function(){
+           console.log( $('.js-file-item').find('input[name="moneyPrice"]'))
+        },
+        // 试读
+        inputPreRead:function(){
+            console.log( $('.js-file-item').find('input[name="preRead"]'))
+         },
+         // 选择保存
+         saveFolderOption:function(){
+            $('.doc-list').on('click','.js-folder-hook',function(){
+                $(this).siblings('.folder').toggle()
+            })
+            $('.doc-list').on('click','.new-built',function(){
+                uploadObj.createFolder()
+            })
+         },
+        // 新建文件夹
         createFolder:function(name){
             var params = {
                 name: name
@@ -199,7 +266,7 @@ define(function(require , exports , module){
                 }
             })
         },
-        getFolder:function(){
+        getFolder:function() {
             var params = {
                 deeplevel: 3,
                     id:"0"
@@ -226,6 +293,7 @@ define(function(require , exports , module){
             var _html = template.compile(tmpList)(uploadObj);
             $('.doc-list').html(_html)
         },
+        // 保存
         saveUploadFile:function(){
             var params = {
                 classid: "9055",

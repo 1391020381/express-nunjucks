@@ -5,9 +5,11 @@ define(function (require, exports, module) {
     var login = require('../application/checkLogin');
     var utils = require("../cmd-lib/util");
     var fid = method.getParam('fid');
-    var fileName = method.getParam('name');
+    var fileName = method.getParam('title');
     var format = method.getParam('format');
+    var api = require('../application/api');
     var userId;
+    var swiperTemplate = require("../common/template/swiper_tmp.html");
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -15,17 +17,19 @@ define(function (require, exports, module) {
     var guessYouLikeTemplate = require('./template/guessYouLike.html')
     var userData = null, initData = {};
     eventBinding();
-    // $("#dialog-box").dialog({
-    //     html: $('#send-email').html(),
-    // }).open();
+   
     // url上带有这个参数unloginFlag，说明是游客模式过来的
+    
+    // buyUnlogin.js 中跳转过来
     var unloginFlag = method.getQueryString('unloginFlag');
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
             $('.xbsd i').addClass('ico-data ico-' + format);
         }
-        $('.pay-ok-text').hide();
+       // $('.pay-ok-text').hide();
+         $('.qrcode-warpper').hide()
+         $('.down-success-other').hide()
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
 
@@ -48,7 +52,8 @@ define(function (require, exports, module) {
 
             });
             setTimeout(function () {
-                getDownUrl()
+              //  getDownUrl()
+              autoDownUrl()
             }, 1000)
         }
     } else {
@@ -107,31 +112,40 @@ define(function (require, exports, module) {
             createdLoginQr()
         }, 200)
     }
-
+    
+    // 下载页面自动下载
+    autoDownUrl()
     // 点击下载
-    $('.unloginStatus .quick-down-a').click(function () {
-        getDownUrl()
+    $('.quick-down-a').click(function () {
+        // getDownUrl()
+        autoDownUrl()
     })
-
+     
+    function autoDownUrl(){
+        var fileDownUrl = method.getQueryString('url');
+        if(fileDownUrl){
+            method.compatibleIESkip(fileDownUrl,false);
+        }
+    }
     function getDownUrl() {
         var vuk = method.getCookie('visitorId');
         if (userId) {
             vuk = userId;
         }
         var fid = method.getQueryString('fid');
-        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
-            if (data.code == 0) {
-                location.href = data.data.dowUrl
-            } else if (data.code == 41003) {
-                $.toast({
-                    text: data.msg,
-                })
-            } else {
-                $.toast({
-                    text: data.msg,
-                })
-            }
-        });
+        // $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
+        //     if (data.code == 0) {
+        //         location.href = data.data.dowUrl
+        //     } else if (data.code == 41003) {
+        //         $.toast({
+        //             text: data.msg,
+        //         })
+        //     } else {
+        //         $.toast({
+        //             text: data.msg,
+        //         })
+        //     }
+        // });
 
     }
 
@@ -382,7 +396,78 @@ define(function (require, exports, module) {
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
 
+    // gebyPosition()
+    function gebyPosition() {  // 获取banner位数据
+        $.ajax({
+            url: api.recommend.recommendConfigRuleInfo,
+            type: "POST",
+            data: JSON.stringify(['PC_M_DOWN_SUC_banner']),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.data.code == '0'){
+                    var _html = template.compile(swiperTemplate)({ topBanner: arr ,className:'swiper-top-container' });
+                    $(".down-success-banner").html(_html);
+                    if (arr.length > 1) {
+                     var mySwiper = new Swiper('.swiper-top-container', {
+                         direction: 'horizontal',
+                         loop: true,
+                         autoplay: 3000,
+                     })
+                 }
+                }
+            }
+        })
+    }
+
+
+
     // 猜你喜欢
     var _html = template.compile(guessYouLikeTemplate)({});
     $(".guess-you-like-warpper").html(_html);
+
+
+    // 发送邮箱
+    $('.js-sent-email').click(function(){
+             $("#dialog-box").dialog({
+        html: $('#send-email').html(),
+    }).open();
+    })
+    $('#dialog-box').on('click','.form-btn',function(e){
+        if (method.getCookie("cuk")){
+            console.log(method.getCookie('ui'))
+            var email = $('#dialog-box .form-email').val()
+            $.ajax({
+                url: api.sms.sendCorpusDownloadMail,
+                type: "POST",
+                data: JSON.stringify({
+                    "email": email,
+                    "fid": fid,
+                    "title": fileName,
+                    "uid": JSON.parse(method.getCookie('ui')).uid
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code === '0'){
+                            $.toast({
+                                text: '发送邮箱成功!',
+                                })
+                          var $dialogBox = $('#dialog-box');
+                            $dialogBox.dialog({}).close();
+                        }else{
+                            $.toast({
+                                text: '发送邮箱失败!',
+                                })
+                        }
+                }
+            })
+        }else{
+            login.notifyLoginInterface(function (data) {
+               // common.afterLogin(data);
+               refreshDomTree(data)
+            }); 
+        }
+    })
 });

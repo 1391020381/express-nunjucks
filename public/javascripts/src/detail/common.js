@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
     var userData = null;
     // 页面信息
+   // productType  1  4  5 
     var initData = {
         isDownload: window.pageConfig.page.isDownload,                   //仅在线阅读
         vipFreeFlag: window.pageConfig.params.vipFreeFlag,               //是否VIP免费
@@ -19,7 +20,9 @@ define(function (require, exports, module) {
         fid: window.pageConfig.params.g_fileId,
         title: window.pageConfig.page.fileName,
         format: window.pageConfig.params.file_format,
-        cdnUrl: _head
+        cdnUrl: _head,
+        productType:window.pageConfig.page.productType,  // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        productPrice:window.pageConfig.page.productPrice  // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
     };
 
     /**
@@ -85,9 +88,9 @@ define(function (require, exports, module) {
      * 登录后,要刷新顶部.中间,底部内容
      */
     var reloadingPartOfPage = function () {
-        $("#footer-btn").html(template.compile(pay_btn_tmp)({data: initData}));
-        $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData}));
-        $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));
+        $("#footer-btn").html(template.compile(pay_btn_tmp)({data: initData})); // footer-btn 详情底部固定栏  /views/detail/fixed.html
+      //  $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData})); // middle-btn 详情正文部分按钮 /views/detail/middleBtn.html
+      //  $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));  // headerBtn  详情头部立即下载按钮  产品暂时注释掉 header的立即下载按钮
     };
 
     /**
@@ -118,7 +121,6 @@ define(function (require, exports, module) {
         method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
             if (res.code == 0) {
                 var $btn_collect = $('#btn-collect');
-                debugger
                 if (res.data === 1) {
                     $btn_collect.addClass('btn-collect-success');
                 } else {
@@ -148,7 +150,7 @@ define(function (require, exports, module) {
                     pageConfig.page.is360page = 'true';
                     pageConfig.page.initReadPage = Math.min(num, 50);
                 }
-                pageConfig.page.status = initData.status = res.data.status;
+                pageConfig.page.status = initData.status = res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
                 if (pageConfig.params.file_state === '3') {
                     var content = res.data.url || pageConfig.imgUrl[0];
                     var bytes = res.data.pinfo.bytes || {};

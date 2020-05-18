@@ -1,81 +1,4 @@
 @charset "utf-8";
-.website-footer {
-  margin-top: 34px;
-  width: 100%;
-  background: #ffffff;
-}
-.website-footer .footer-content {
-  width: 1360px;
-  margin: 0 auto;
-  padding-left: 274px;
-  padding-top: 48px;
-  padding-bottom: 57px;
-  *zoom: 1;
-}
-.website-footer .footer-content:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.website-footer .footer-content .footer-link {
-  float: left;
-  padding-right: 144px;
-  border-right: 1px solid #b5b5b5;
-}
-.website-footer .footer-content .footer-link .website-home-link {
-  display: inline-block;
-}
-.website-footer .footer-content .footer-link .website-home-link .website-icon {
-  width: 209px;
-  height: 58px;
-}
-.website-footer .footer-content .footer-link .copy-link {
-  margin-top: 28px;
-}
-.website-footer .footer-content .footer-link .copy-link .footer-nav {
-  padding: 0 12px;
-}
-.website-footer .footer-content .footer-link .copy-link .footer-nav a span {
-  padding: 0 0px 0 12px;
-}
-.website-footer .footer-content .footer-link .copy-link .footer-nav:first-child {
-  padding-left: 0;
-}
-.website-footer .footer-content .footer-link .copy-link .copy-txt {
-  padding-left: 0;
-  margin-bottom: 0;
-}
-.website-footer .footer-content .footer-qrcode-items {
-  float: left;
-  padding-left: 120px;
-  *zoom: 1;
-}
-.website-footer .footer-content .footer-qrcode-items:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.website-footer .footer-content .footer-qrcode-items .qrcode-item {
-  float: left;
-  text-align: center;
-}
-.website-footer .footer-content .footer-qrcode-items .qrcode-item .qrcode-item-img {
-  margin: 0 auto;
-  width: 94px;
-  height: 94px;
-}
-.website-footer .footer-content .footer-qrcode-items .qrcode-item .qrcode-item-desc {
-  width: 160px;
-  margin-top: 13px;
-  color: #666666;
-}
-.website-footer .footer-content .footer-qrcode-items .qrcode-item:nth-child(2) {
-  margin: 0 52px;
-}
 .down-success {
   margin-top: 30px;
   width: 1200px;
@@ -96,6 +19,62 @@
 .down-success .carding-success-item .pay-ok-text .new-icon .gx {
   font-size: 26px;
   vertical-align: middle;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text {
+  cursor: pointer;
+  position: relative;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-find-text-warpper {
+  display: none;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper {
+  display: block;
+  position: absolute;
+  right: -253px;
+  top: -84px;
+  z-index: 8;
+  width: 250px;
+  height: 168px;
+  background: #ffffff;
+  box-shadow: 2px 3.464px 10px 0px rgba(44, 21, 24, 0.1);
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: normal;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .no-find-text-arrow {
+  width: 0;
+  height: 0;
+  display: block;
+  overflow: hidden;
+  border-width: 6px;
+  border-style: dashed dashed solid dashed;
+  border-color: transparent transparent #f9f6f0 transparent;
+  position: absolute;
+  right: 26px;
+  top: -12px;
+  z-index: 5;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item {
+  padding: 0 14px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(1) {
+  padding-top: 24px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(2) {
+  padding: 14px 0 12px 0 ;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:last-child {
+  padding-bottom: 26px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:last-child .sent-email {
+  color: #333333;
+  font-weight: bold;
+  cursor: pointer;
+}
+.down-success .carding-success-item .pay-ok-subtext .quick-down-a {
+  color: #176094;
+  font-size: 16px;
+  cursor: pointer;
 }
 .down-success .qrcode-warpper {
   margin-top: 30px;

@@ -65,6 +65,7 @@ module.exports = function (grunt) {
                     'dist/rights/index.js': ['.build/rights/index.js'],
                     'dist/special/init.js': ['.build/special/init.js'],
                     'dist/upload/init.js': ['.build/upload/init.js'],
+                    'dist/feedback/init.js': ['.build/feedback/init.js'],
                 }
             }
         },
@@ -102,6 +103,7 @@ module.exports = function (grunt) {
                     "../stylesheets/office/office_pay.css": "../stylesheets/office/office_pay.less",
                     "../stylesheets/rights/ishare_rights.css": "../stylesheets/rights/ishare_rights.less",
                     "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
+                    "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
                 }
             }
         },

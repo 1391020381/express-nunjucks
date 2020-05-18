@@ -29,27 +29,8 @@
 {% include "common/360.html" %}
 {% include "common/dialog.html" %}
 <div class="detail-topbanner"></div>
-<div class="top-bar cf">
-    <div class="top-bar-left fl">
-        <a href="//iask.sina.com.cn" target="_blank">爱问</a>
-        <i class="line"></i>
-        <a href="/" class="current">爱问共享资料</a>
-        <i class="line"></i>
-        <a href="//yyk.iask.sina.com.cn" target="_blank">医院库</a>
-    </div>
-    <div class="fr cf" style="margin-right: 90px;">
-        <div class="news fl hide">
-            <a href="/user/message/index?u=">
-                <i class="icon icon-news"></i>
-                <span id="user-msg"></span>
-            </a>
-        </div>
-        <span class="top-service fl">
-                <a class="user-feedback" target="_blank">意见反馈</a>
-            </span>
-    </div>
-</div>
-</div>
+
+{# </div> #}
 {% include "detail/header.html" %}
 
 <div class="pw-detail bd-wrap cf">
@@ -62,7 +43,7 @@
 </div>
 
 <!--底部-->
-<div class="footer-con">
+{# <div class="footer-con">
     <div class="pw footer">
         <div class="copy-con">
             <p class="footer-nav">
@@ -81,15 +62,17 @@
             <p class="copy-txt">Copyright &copy; 1996-2020 IASK Corporation, All Right Reserved</p>
         </div>
     </div>
-</div>
+</div> #}
+
+{% include "common/footer.html" %}
 <!--底部悬浮工具栏-->
 <div class="detail-fixed">
     <div class="pw pw-v cf">
         <div class="detail-fixed-con cf fl">
             <div class="operation fl">
                 <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a>
+                {# <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
+                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a> #}
                 <div class="collect-con fl">
                     <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
                     <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
@@ -125,7 +108,7 @@
                     <a class="operation-item btn-share" title="分享"><i class="icon-detail"></i></a>
                 </div>
                 <!--评分 -->
-                <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
+                {# <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
                     <span class="fl">评分：</span>
                     <ul class="star-list fl">
                         <li><a>1</a></li>
@@ -139,12 +122,14 @@
                         <i class="after"></i>
                         <p><i class="icon-success"></i>评分成功</p>
                     </div>
-                </div>
+                </div> #}
                 {%if results.list.data.fileContentList and results.list.data.totalPage %}
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
                     <div class="page-input-con">
-                        <input type="number" min="0" class="page-input"
+                        {# <input type="number" min="0" class="page-input"
+                               value="1">/<span>{{results.list.data.totalPage}}</span> #}
+                               <input type="number" min="0" class="page-input"
                                value="1">/<span>{{results.list.data.totalPage}}</span>
                     </div>
                     <span class="btn-page page-next" data-type="add" title="下一页"></span>
@@ -185,10 +170,13 @@
             fileName: "{{results.list.data.title}}",
             uid: "{{results.userInfo.data.userId}}",//每个页面必须存在
             ptype: 'pindex',
+            productType:"{{results.list.data.productType}}",
+            productPrice:"{{results.list.data.productPrice}}"
         },
         params: {
             g_fileExtension: '{{results.list.data.format}}',
-            g_fileId: '{{results.list.data.fileId}}',
+            {# g_fileId: '{{results.list.data.fileId}}', #}
+            g_fileId: '{{results.list.data.id}}',
             g_permin: '{{results.list.data.perMin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
             file_size: '{{results.list.data.fileSize}}',
