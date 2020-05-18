@@ -19,13 +19,17 @@ define(function (require, exports, module) {
     eventBinding();
    
     // url上带有这个参数unloginFlag，说明是游客模式过来的
+    
+    // buyUnlogin.js 中跳转过来
     var unloginFlag = method.getQueryString('unloginFlag');
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
             $('.xbsd i').addClass('ico-data ico-' + format);
         }
-        $('.pay-ok-text').hide();
+       // $('.pay-ok-text').hide();
+         $('.qrcode-warpper').hide()
+         $('.down-success-other').hide()
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
 
@@ -119,7 +123,9 @@ define(function (require, exports, module) {
      
     function autoDownUrl(){
         var fileDownUrl = method.getQueryString('url');
-        method.compatibleIESkip(fileDownUrl,false);
+        if(fileDownUrl){
+            method.compatibleIESkip(fileDownUrl,false);
+        }
     }
     function getDownUrl() {
         var vuk = method.getCookie('visitorId');
@@ -390,7 +396,7 @@ define(function (require, exports, module) {
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
 
-    gebyPosition()
+    // gebyPosition()
     function gebyPosition() {  // 获取banner位数据
         $.ajax({
             url: api.recommend.recommendConfigRuleInfo,
@@ -428,7 +434,6 @@ define(function (require, exports, module) {
     }).open();
     })
     $('#dialog-box').on('click','.form-btn',function(e){
-        debugger
         if (method.getCookie("cuk")){
             console.log(method.getCookie('ui'))
             var email = $('#dialog-box .form-email').val()
