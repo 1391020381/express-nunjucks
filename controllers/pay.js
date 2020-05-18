@@ -216,7 +216,7 @@ module.exports = {
                     callback(null, null);
                 }
             },
-            list: function (callback) {
+            list: function (callback) {  // 从query上获取参数
                 console.log(req.url);
                 console.log(req.query);
                 callback(null, req.query);
@@ -227,8 +227,10 @@ module.exports = {
 
             
             // 详情页流量购买vip成功
-            results.list.type = 0
-            results.isVip = true
+            results.list = {   // 需要根据 pay.js  中 payStatus 跳转参数来判断
+                type : 0 ,
+                fid:'222'
+            }
             console.log(results);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

@@ -3254,17 +3254,22 @@ a:hover {
 .carding-success-item .icon-pay-ok {
   display: block;
   overflow: hidden;
-  background: url(../images/pay/icon_pay_vip.png) no-repeat;
-  width: 27px;
-  height: 24px;
+ /* background: url(../images/pay/icon_pay_vip.png) no-repeat; */
+  /* width: 27px;
+  height: 24px; */
   position: absolute;
   top: 50%;
-  margin-top: -12px;
-  left: 0;
-  background-position: -130px -130px;
+  margin-top: -15px;
+  left: -16px;
+  /* background-position: -130px -130px; */
+  width: 42px;
+  height: 42px;
+  background: url('../images/detail/pay_ok.png') no-repeat center;
+  background-size: 100%;
 }
 .carding-success-item .pay-bottom-text {
   padding-bottom: 30px;
+  text-indent: 40px;
 }
 .carding-success-item .btn-carding-back {
   text-align: center;

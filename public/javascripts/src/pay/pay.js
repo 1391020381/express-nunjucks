@@ -10,6 +10,7 @@ define(function (require, exports, moudle) {
     require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
+    var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     //生成二维码
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
@@ -288,7 +289,7 @@ define(function (require, exports, moudle) {
             goodsType = '8'
         }
         // 组装创建订单的参数
-
+        debugger
         var temp = {
             goodsId:params.fid,  // 文件id  vip套餐id
             goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
@@ -299,6 +300,8 @@ define(function (require, exports, moudle) {
             channel:method.getCookie('channel'), // 渠道 message-短信 other-其他
             isVisitor:method.getCookie('cuk')?0:1,
             isVouchers:1, // 是否使用优惠券，1未使用，2使用
+            buyerUserId:userInfo.uid,
+            buyerUserName:userInfo.nickName,
             returnPayment:false,
             ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
@@ -341,26 +344,29 @@ define(function (require, exports, moudle) {
      */
     function openWin(data) {
         var orderNo = data.data.orderNo;
-        var price = data.data.price;
+        var price = data.data.payPrice;
         var name = data.data.name;
-        var type = data.data.type;
+        var type = data.data.type || params.type; // 都以获取下载url接口  checkStatus为准
         var fileId = data.data.fileId;
         if (!fileId) {
             fileId = fid;
         }
 
         fillReportData(orderNo, name, price * 100, '二维码合一', type);
-        var target = "/pay/payQr.html?";
-        if (type == 0) {
-            target = target + "type=0&";
+        var target = "/pay/payQr.html?";          //   0: VIP套餐， 1:特权套餐 ， 2: 文件下载
+        if (type == 10) {                 // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买             
+            // target = target + "type=0&";
+            target = target + "type=10&";
             report.vipPayClick(window.pageConfig.gio.reportVipData);
             $(".btn-vip-order-done").click();
             // __pc__.push(['pcTrackEvent','orderDone']);
-        } else if (type == 1) {
-            target = target + "type=1&";
+        } else if (type == 13) {
+            // target = target + "type=1&";
+            target = target + "type=13&";
             report.privilegePayClick(window.pageConfig.gio.reportPrivilegeData);
-        } else if (type == 2) {
-            target = target + "type=2&";
+        } else if (type == 8) {
+            // target = target + "type=2&";
+            target = target + "type=8&";
             var rf = method.getCookie('rf');
             if (rf) {
                 rf = JSON.parse(rf);
