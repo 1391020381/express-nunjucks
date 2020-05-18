@@ -132,7 +132,7 @@ router.post('/pay/paperDown',function(req , res , next){
     }
 });
 //免登陆支付订单状态
-router.get('/pay/orderStatusUlogin',function(req , res , next){
+router.post('/pay/orderStatusUlogin',function(req , res , next){
     try{
         console.log("免登陆查询订单状态===============");
         payController.orderStatusUlogin(req , res);

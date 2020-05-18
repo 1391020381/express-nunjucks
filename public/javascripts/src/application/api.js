@@ -63,6 +63,12 @@ define(function (require, exports, module) {
         getHotSearch:router+'/search/getHotSearch',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
+        },
+        upload:{
+            getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类
+            createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
+            getFolder:gateway + '/content/getUserFolders', // 获取所有分类
+            saveUploadFile:gateway + '/content/webUploadFile'
         }
     }
 });
