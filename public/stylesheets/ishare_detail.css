@@ -1141,6 +1141,7 @@ body {
   box-shadow: 0 0 5px rgba(44, 21, 24, 0.1);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  position: relative;
 }
 .detail-fixed-con .operation {
   height: 58px;
@@ -1372,13 +1373,13 @@ body {
   text-indent: -999px;
 }
 .detail-fixed-con .fix-page-con {
-  float: left;
-  *display: inline;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-size: 14px;
   height: 24px;
   line-height: 22px;
-  position: relative;
-  margin: 20px 0 0 5px;
 }
 .detail-fixed-con .fix-page-con .btn-page {
   display: block;

@@ -1734,7 +1734,7 @@ body {
     box-shadow: 0 0 5px rgba(44, 21, 24, .1);
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-
+    position: relative;
     .operation {
         height: 58px;
         line-height: 58px;
@@ -2009,12 +2009,16 @@ body {
     }
 
     .fix-page-con {
-        .fl();
+        // .fl();
+        position: absolute;
+        left: 50%;
+        top:50%;
+        transform: translate(-50%,-50%);
         font-size: 14px;
         height: 24px;
         line-height: 22px;
-        position: relative;
-        margin: 20px 0 0 5px;
+        // position: relative;
+        // margin: 20px 0 0 5px;
 
         .btn-page {
             .icon-score();
