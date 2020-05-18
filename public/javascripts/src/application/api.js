@@ -68,6 +68,12 @@ define(function (require, exports, module) {
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         },
+        upload:{
+            getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类
+            createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
+            getFolder:gateway + '/content/getUserFolders', // 获取所有分类
+            saveUploadFile:gateway + '/content/webUploadFile'
+        },
         recommend:{
             recommendConfigInfo:gateway + '/recommend/config/info',
             recommendConfigRuleInfo:gateway + '/recommend/config/ruleInfo'

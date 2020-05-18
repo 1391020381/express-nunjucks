@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+    <meta http-equiv="expires" content="0"> 
+    <meta name=renderer  content=webkit>
+    <title>{{ results.list.data.tdk.title if results.list.data.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
+    <meta name="description" content="{{ results.list.data.tdk.description if results.list.data.tdk.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
+    <meta name="keywords" content="{{ results.list.data.tdk.keywords if results.list.data.tdk.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/upload/upload.css"/>
+    <style>
+    </style>
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+<script type='text/javascript'>
+    try {
+        !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+        gio('init','9f367e704cdcd7bc', {});
+        //custom page code begin here
+        //custom page code end here
+        gio('send');
+    }catch (e) {}
+</script>
+<body>
+    {% include "common/js.html" %}
+    <!-- 顶部标签 -->
+    {% include "upload/topbar.html" %}
+    <!-- 头部 -->
+    {% include "upload/head.html" %}
+
+    {% include "upload/uploadIndex.html" %}
+    {% include "upload/uploadSecond.html" %}
+
+    <!-- 底部声明 -->
+    {% include "upload/footer.html" %}
+
+    <!-- 右边固定提示导航 -->
+
+    {% include "common/suspension.html" %}
+    <script>
+         window.pageConfig = {
+            page: {
+                type: 'pay',
+                uid: '',
+                ptype: 'pay',
+            },
+            params: {
+                isVip: 0
+            },
+            report: {
+                uid: "{{results.userInfo.data.userId}}",
+                ptype: "pay",
+                fsource: "{{results.list.data.fileSourceChannel}}",
+                ftype: '{{results.list.data.payType}}',
+                format: "{{results.list.data.format}}",
+                cate: "{{results.list.data.classid1}}",
+                cateName: "{{results.list.data.className}}",
+                cate1: "{{results.list.data.classid2}}",
+                cate2: "{{results.list.data.classid3}}",
+                clickName: '',
+                time: "",
+                timestamp: +new Date()
+            },
+            gio: {
+                reportVipData: {
+                    "orderId_var": "",//订单id
+                    "vipName_var": "",//vip套餐名称
+                    "vipPayPrice_var": "",//支付金额
+                    "orderPayType_var": "",//支付方式
+                    "channelName_var": ""//是否垂直频道 办公频道 其他
+                },
+                reportPrivilegeData: {
+                    "orderId_var": "",//订单id
+                    "privilegeName_var": "",//特权套餐名称
+                    "privilegePayPrice_var": "",//支付金额
+                    "orderPayType_var": "",//支付方式
+                    "channelName_var": ""//是否垂直频道 办公频道 其他
+                },
+                reportFileData: {
+                    "orderId_var": "",//订单id
+                    "docTypeLevel1_var": "",//一级分类
+                    "docTypeLevel2_var": "",//二级分类
+                    "docTypeLevel3_var": "",//三级分类
+                    "docId_var": "",//文档id
+                    "docTitle_var": "",//文档名称
+                    "docPayType_var": "",//文档类型
+                    "docFormType_var": "",//文档格式
+                    "docSourceType_var": "",//文档来源
+                    "sourceName_var": "",//合作渠道类型
+                    "docPayPrice_var": "",//文档金额
+                    "docDiscount_var": "",//文档折扣
+                    "orderBuyType_var": "",//购买方式
+                    "orderPayType_var": "",//支付方式
+                    "channelName_var": ""//是否垂直频道
+                }
+            }
+        };
+         seajs.use(["dist/application/app.js","dist/upload/init.js"]);
+    </script>
+</body>
+</html>

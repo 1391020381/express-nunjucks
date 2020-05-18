@@ -290,7 +290,7 @@ module.exports = {
     orderUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.post(appConfig.apiBasePath + api.pay.orderUnlogin, callback, req);
+                server.post(appConfig.apiSpecialPath + api.pay.orderUnlogin, callback, req);
             }
         }, function (err, results) {
             console.log("免登陆下单操作=================");
@@ -302,9 +302,10 @@ module.exports = {
     orderStatusUlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.get(appConfig.apiBasePath + api.pay.orderStatusUlogin, callback, req);
+                server.post(appConfig.apiSpecialPath + api.pay.orderStatusUlogin, callback, req);
             }
         }, function (err, results) {
+            console.log(appConfig.apiSpecialPath + api.pay.orderStatusUlogin);
             console.log("下单操作=================");
             console.log(results);
             res.send(results.list).end();
@@ -312,6 +313,7 @@ module.exports = {
     },
     //免登下载接口
     visitorDownload: function (req, res) {
+        console.log(req.body)
         return async.series({
             list: function (callback) {
                 server.post(appConfig.apiBasePath + api.pay.visitorDownload, callback, req);
@@ -390,7 +392,7 @@ module.exports = {
     bindUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.get(appConfig.apiBasePath + api.pay.bindUnlogin, callback, req);
+                server.get(appConfig.apiSpecialPath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
             res.send(results.list).end();

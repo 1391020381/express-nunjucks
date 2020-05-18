@@ -5,6 +5,7 @@ let routes = [
     'search',
     'rights',
     'special',
+    'upload',
     'feedback',
     '404'
 ];

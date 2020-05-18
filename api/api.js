@@ -28,15 +28,15 @@ module.exports = {
         getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
         getPrivilege: '/order/privilegePackage',    //获取下载特权列表
         order: '/order/create',                     //下单
-        orderUnlogin: '/order/nolandcreate',        //免登陆下单
+        orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
         status: '/order/status/$orderNo',           //订单状态
-        orderStatusUlogin: '/order/nolandstatus', //订单状态
+        orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
         sms: '/usermanage/getSmsYzCode',            //发送验证码
         bind: '/usermanage/bindMobile',              //绑定手机号
-        bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
+        bindUnlogin: '/order/bind/loginUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
     },

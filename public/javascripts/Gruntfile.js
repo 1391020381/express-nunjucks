@@ -64,6 +64,7 @@ module.exports = function (grunt) {
                     'dist/office/search/init.js': ['.build/office/search/init.js'],
                     'dist/rights/index.js': ['.build/rights/index.js'],
                     'dist/special/init.js': ['.build/special/init.js'],
+                    'dist/upload/init.js': ['.build/upload/init.js'],
                     'dist/feedback/init.js': ['.build/feedback/init.js'],
                 }
             }

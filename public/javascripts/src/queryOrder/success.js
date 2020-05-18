@@ -73,19 +73,36 @@ define(function (require, exports, module) {
 
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
-        var visitorId = method.getCookie('visitorId');
-        $.get('/pay/bindUnlogin?ts=' + new Date().getTime(), {
-            'visitorId': visitorId,
-            'userId': userId,
-            'nickName': nickName
-        }, function (data) {
-            $.toast({
-                text: data.msg,
-                callback: function () {
-                    location.reload()
+        var visitorId = method.getCookie('visitorId')||method.getParam('visitorId');
+        var params = {
+            visitorId: visitorId,
+            userId: userId,
+            nickName: nickName
+        }
+        params = JSON.stringify(params);
+        $.ajax({
+            type: 'post',
+            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),
+            contentType: "application/json;charset=utf-8",
+            data: params,
+            success: function (data) {
+                if (data && data.code == 0) {
+                    $.toast({
+                        text: data.msg,
+                        callback: function () {
+                            location.reload()
+                        }
+                    })
+                } else {
+                    $.toast({
+                        text: data.msg,
+                    })
                 }
-            })
-        });
+            },
+            complete: function () {
+                
+            }
+        })
     }
 
     // 游客登陆下载成功
@@ -107,7 +124,7 @@ define(function (require, exports, module) {
     })
 
     function getDownUrl() {
-        var vuk = method.getCookie('visitorId');
+        var vuk = method.getCookie('visitorId')||method.getParam('visitorId');
         if (userId) {
             vuk = userId;
         }
