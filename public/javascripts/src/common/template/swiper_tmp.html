@@ -2,8 +2,10 @@
     <div class="swiper-container {{className}}">
          <div class="swiper-wrapper">
          {{each topBanner}}
-            <div class="swiper-slide">
-                <img class="swiper-slide-img" src={{ topBanner[$index].value}}>
+            <div class="swiper-slide" >
+               <a href={{ topBanner[$index].linkUrl}}>
+                 <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>
+               </a>
             </div>
               {{/each}}  
          </div>

@@ -3,7 +3,7 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
+   
     //页面级埋点
     var gioPageSet = require('../common/gioPageSet');
 
@@ -11,7 +11,7 @@ define(function (require, exports, moudle) {
 
     setInputValue();
 
-    gebyPosition();
+   // gebyPosition();
 
     conditionChange();
 
@@ -40,36 +40,36 @@ define(function (require, exports, moudle) {
     }
 
     //获取运营位广告数据
-    function gebyPosition() {
-        $.ajax({
-            url: api.search.byPosition,
-            type: "POST",
-            data: JSON.stringify({ position: 'SOLR_BANNER', count: 6, client: 'pc' }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                var swiperWrapper = $('.banner').find('.swiper-wrapper');
-                var k = document.createDocumentFragment();
-                res.data = res.data || [];
-                res.data.forEach(function (item, index) {
-                    var a = document.createElement('a');
-                    a.href = item.url;
-                    a.className = "swiper-slide";
-                    a.style.backgroundImage = "url(" + item.img + ")";
-                    k.appendChild(a);
-                })
-                swiperWrapper.html(k);
+    // function gebyPosition() {
+    //     $.ajax({
+    //         url: api.search.byPosition,
+    //         type: "POST",
+    //         data: JSON.stringify({ position: 'SOLR_BANNER', count: 6, client: 'pc' }),
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json",
+    //         success: function (res) {
+    //             var swiperWrapper = $('.banner').find('.swiper-wrapper');
+    //             var k = document.createDocumentFragment();
+    //             res.data = res.data || [];
+    //             res.data.forEach(function (item, index) {
+    //                 var a = document.createElement('a');
+    //                 a.href = item.url;
+    //                 a.className = "swiper-slide";
+    //                 a.style.backgroundImage = "url(" + item.img + ")";
+    //                 k.appendChild(a);
+    //             })
+    //             swiperWrapper.html(k);
 
-                if (res.data.length > 1) {
-                    var mySwiper = new Swiper('.swiper-container', {
-                        direction: 'horizontal',
-                        loop: true,
-                        autoplay: 3000,
-                    })
-                }
-            }
-        })
-    }
+    //             if (res.data.length > 1) {
+    //                 var mySwiper = new Swiper('.swiper-container', {
+    //                     direction: 'horizontal',
+    //                     loop: true,
+    //                     autoplay: 3000,
+    //                 })
+    //             }
+    //         }
+    //     })
+    // }
 
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
@@ -301,26 +301,6 @@ define(function (require, exports, moudle) {
         })
     }
     
-    // 顶部 banner
-    var arr = [
-        {
-        key:1,
-        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-       },
-       {
-        key:2,
-        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-       },
-       {
-        key:3,
-        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-       },
-       {
-        key:4,
-        value:'http://imgcps.jd.com/ling/7306951/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa22/29eceb26/590x470.jpg'
-       }
-     ]
-     var _html = template.compile(topBnnerTemplate)({ topBanner: arr ,className:'swiper-top-container' });
-       $(".search-all-main-topbanner").html(_html);
+    
 
 });

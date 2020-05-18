@@ -69,6 +69,7 @@ define(function (require, exports, module) {
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
         },
         recommend:{
+            recommendConfigInfo:gateway + '/recommend/config/info',
             recommendConfigRuleInfo:gateway + '/recommend/config/ruleInfo'
         }
     }

@@ -8,5 +8,6 @@ define(function(require , exports , module){
     // require("./pay");
     require("./login");
     require('./search');
+    require('./banner')
     // require("../common/baidu-statistics");
 });
