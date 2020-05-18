@@ -281,18 +281,22 @@ define(function (require, exports, moudle) {
     function handleOrderResultInfo() {
         var type = params.type  // 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         var goodsType = ''
-        if(type == '8'){
+        var goodsId = ''
+        if(type == '8'){ // 付费
             goodsType = '1'
-        }else if(type == '10'){
+            goodsId = params.fid
+        }else if(type == '10'){ // 资料vip 用户不是vip
             // params.type = '0'
             goodsType =  '2'
-        }else if(params.type =='13'){
+            goodsId = params.vid
+        }else if(params.type =='13'){ // 特权
             // params.type = '1'
             goodsType = '8'
+            goodsId = params.pid
         }
         // 组装创建订单的参数
         var temp = {
-            goodsId:type == '8'?params.fid:params.vid,  // 文件id  vip套餐id
+            goodsId:goodsId,  // 文件id  vip套餐id
             goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
             remark:params.remark,
             sourceMode:0 ,  // 0PC 1M 2android 3ios 4快应用 5百度小程序 6微信浏览器
