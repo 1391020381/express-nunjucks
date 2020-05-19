@@ -37,6 +37,19 @@
             <!--左侧标题下方广告位-->
             <!--  广告位：PC端-ishare-详细页-左侧标题下870*95-0620  -->
             <div class="tui-detail-02">
+             {% if results.getBannerList.titleBottomBanner.list.length>0 %}
+                     <div class="swiper-container swiper-titlebottom-container ">
+                       <div class="swiper-wrapper">
+                      {%for item in  results.getBannerList.titleBottomBanner.list %}
+                        <div class="swiper-slide" >
+                            <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                              <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                           </a>
+                       </div>
+                    {%endfor%}
+                    </div>    
+                  </div>   
+             {% else %}
                 <script>
                     (function () {
                         var s = "_" + Math.random().toString(36).slice(2);
@@ -50,6 +63,8 @@
                         _dpData[0] = 1;
                     })();
                 </script>
+
+             {% endif %}
             </div>
             {% endif %}
             <!--文章内容模块 start-->
@@ -143,7 +158,20 @@
                             {% if loop.index0 === 0  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处1-890*100-0620  -->
-                                <script>
+                                {% if results.getBannerList.turnPageOneBanner.list.length>0 %}
+                                 <div class="swiper-container swiper-turnPageOneBanner-container ">
+                                    <div class="swiper-wrapper">
+                               {%for item in  results.getBannerList.turnPageOneBanner.list %}
+                                    <div class="swiper-slide" >
+                                      <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                                       <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                                      </a>
+                                  </div>
+                               {%endfor%}
+                              </div>    
+                             </div> 
+                            {% else%}
+                                     <script>
                                     (function () {
                                         var s = "_" + Math.random().toString(36).slice(2);
                                         document.write('<div  id="' + s + '"></div>');
@@ -156,10 +184,26 @@
                                         _dpData[1] = 1;
                                     })();
                                 </script>
+
+                                {% endif %} 
+                               
                             </div>
                             {% elif loop.index0 === 1  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
+                                   {% if results.getBannerList.turnPageTwoBanner.list.length>0 %}
+                                 <div class="swiper-container swiper-turnPageTwoBanner-container ">
+                                    <div class="swiper-wrapper">
+                               {%for item in  results.getBannerList.turnPageTwoBanner.list %}
+                                    <div class="swiper-slide" >
+                                      <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                                       <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                                      </a>
+                                  </div>
+                               {%endfor%}
+                              </div>    
+                             </div> 
+                            {% else%}
                                 <script>
                                     (function () {
                                         var s = "_" + Math.random().toString(36).slice(2);
@@ -173,6 +217,7 @@
                                         _dpData[2] = 1;
                                     })();
                                 </script>
+                                {% endif %}
                             </div>
                             {% elif loop.index0 === 2 %}
                             <div class="tui-detail hide-ad" style="display: none">

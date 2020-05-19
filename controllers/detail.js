@@ -17,6 +17,7 @@ var isGetClassType = null;
 var fileAttr = 1; //1 普通文件 2 办公频道文件
 var format = '';
 var classid1 = '';
+var classid2 = ''
 var perMin = '';
 var userID = Math.random().toString().slice(-15); //标注用户的ID，
 var sceneIDRelevant = ''; //场景的ID
@@ -25,6 +26,7 @@ var recommendInfoData_rele = {}; //相关推荐数据 (相关资料)
 var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
+
 
 
 module.exports = {
@@ -69,7 +71,8 @@ module.exports = {
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
                             fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
-                            classid1 = fileInfo.classid1;    // 文档暂无说明
+                            classid1 = fileInfo.classid1;    
+                            classid2 = fileInfo.classid2
                             perMin = fileInfo.perMin || '';  // 1:公开、2:私人 3:付费
                             uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
@@ -81,6 +84,41 @@ module.exports = {
                         callback(null, null);
                     }
                 })
+            },
+            getBannerList:function(callback){
+                var params = dealParam(format,classid1,classid2)
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo,
+                    body:JSON.stringify(params),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        var bannerList = {
+                            'rightTopBanner':{},
+                            'rightBottomBanner':{},
+                            'titleBottomBanner':{},
+                            'turnPageOneBanner':{},
+                            'turnPageTwoBanner':{}
+                        }
+                        if (data.code == 0 ){
+                            data.data.forEach(item=>{
+                               bannerList[item.id] = item.fileRecommend
+                            })
+                            callback(null, bannerList);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+                
             },
             getUserFileZcState:function(callback){
                 if(req.cookies.ui){
@@ -193,7 +231,34 @@ module.exports = {
                     callback(null, null);
                 }
             },
-
+            specialTopic:function(callback) {
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.special.specialTopic,
+                    body:JSON.stringify({
+                        currentPage:1,
+                        pageSize:10,
+                        name: title  
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('specialTopic:',JSON.stringify(data))
+                            callback(null, data.data.rows);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
             //第四范式 相关推荐
             paradigm4Relevant: function (callback) {
                 requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
@@ -329,7 +394,7 @@ module.exports = {
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
-            console.log('results:',results)
+            console.log('results:',JSON.stringify(results))
             if (parseInt(fileAttr, 10) === 1) {
                 render("detail/index", results, req, res);
             } else {
@@ -406,4 +471,57 @@ function changeURLPar(url, arg, arg_val) {
         }
     }
     // return url+'\n'+arg+'\n'+arg_val;
+}
+
+// 组装getBannerList参数
+function dealParam(format,classid1,classid2){//处理详情推荐位参数
+    var defaultType = 'all'
+    var  params = [
+        {
+            id:'rightTopBanner',
+            pageIds:[
+                `PC-M-FD_${format}_${classid2}_ru`,
+                `PC-M-FD_${format}_${classid1}_ru`,
+                `PC-M-FD_${defaultType}_${classid2}_ru`,
+                `PC-M-FD_${defaultType}_${classid1}_ru`,
+            ]
+        },
+        {
+            id:'rightBottomBanner',
+            pageIds:[ //
+                `PC-M-FD_${format}_${classid2}_rd`,
+                `PC-M-FD_${format}_${classid1}_rd`,
+                `PC-M-FD_${defaultType}_${classid2}_rd`,
+                `PC-M-FD_${defaultType}_${classid1}_rd`,
+            ]
+        },
+        {
+            id:'titleBottomBanner',
+            pageIds:[
+                `PC-M-FD_${format}_${classid2}_ub`,
+                `PC-M-FD_${format}_${classid1}_ub`,
+                `PC-M-FD_${defaultType}_${classid2}_ub`,
+                `PC-M-FD_${defaultType}_${classid1}_ub`,
+            ]  
+        },
+        {
+            id:'turnPageOneBanner',
+            pageIds:[
+                `PC-M-FD_${format}_${classid2}_fy1b`,
+                `PC-M-FD_${format}_${classid1}_fy1b`,
+                `PC-M-FD_${defaultType}_${classid2}_fy1b`,
+                `PC-M-FD_${defaultType}_${classid1}_fy1b`,
+            ]  
+        },
+        {
+            id:'turnPageTwoBanner',
+            pageIds:[
+                `PC-M-FD_${format}_${classid2}_fy2b`,
+                `PC-M-FD_${format}_${classid1}_fy2b`,
+                `PC-M-FD_${defaultType}_${classid2}_fy2b`,
+                `PC-M-FD_${defaultType}_${classid1}_fy2b`,
+            ]  
+        }
+    ]
+    return params    
 }

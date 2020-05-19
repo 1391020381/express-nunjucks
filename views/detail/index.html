@@ -175,7 +175,7 @@
         },
         params: {
             g_fileExtension: '{{results.list.data.format}}',
-            {# g_fileId: '{{results.list.data.fileId}}', #}
+            {# g_fileId: '{{results.list.data.fileId}}',  #}
             g_fileId: '{{results.list.data.id}}',
             g_permin: '{{results.list.data.perMin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
@@ -239,8 +239,9 @@
         requestID_rele: "{{results.requestID_rele}}",
         requestID_guess: "{{results.requestID_guess}}",
         userId: "{{results.userID}}",
-        paradigm4GuessData:{{results.paradigm4GuessData| dump | safe}},
-        RelevantInformationList:{{results.RelevantInformationList| dump | safe}},   
+        paradigm4GuessData:'{{results.paradigm4GuessData| dump | safe}}',
+        RelevantInformationList:'{{results.RelevantInformationList| dump | safe}}',
+        getBannerList:'{{results.getBannerList| dump | safe}}'   
     };
     var paradigm4GuessData = window.paradigm4.paradigm4GuessData  //下载成功页面需要
     if(paradigm4GuessData){

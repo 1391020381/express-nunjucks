@@ -64,6 +64,7 @@ module.exports = {
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
+    recommendConfigRuleInfo:'/recommend/config/ruleInfo',
     special:{
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         listTopicContents:'/special/specialTopicContent/listTopicContents',  //分页查询接口
