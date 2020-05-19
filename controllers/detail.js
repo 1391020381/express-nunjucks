@@ -108,7 +108,8 @@ module.exports = {
 
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
-                // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件                           
+                // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
+                classid1 =  '1820'                       
                 if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
@@ -312,7 +313,8 @@ module.exports = {
                         format: item.extra1 || format || '',
                         name: item.title || '',
                         cover_url: item.cover_url || '',
-                        url: item.url || ''
+                        url: item.url || '',
+                        item_read_cnt:item.item_read_cnt
                     }
                 })
                 results.paradigm4GuessData = paradigm4Guess || [];
@@ -324,7 +326,7 @@ module.exports = {
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
-
+            console.log('results:',results)
             if (parseInt(fileAttr, 10) === 1) {
                 render("detail/index", results, req, res);
             } else {

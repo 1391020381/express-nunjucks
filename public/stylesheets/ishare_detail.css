@@ -2109,9 +2109,14 @@ body {
 }
 .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-right .item-link-right-desc {
   font-size: 14px;
+  height: 36px;
   line-height: 22px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-right .item-link-right-other {
+  margin-top: 14px;
   color: #A8A8A8;
 }
 .related-data {

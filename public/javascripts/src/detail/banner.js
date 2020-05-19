@@ -3,7 +3,7 @@ define(function (require, exports, module){
     require('swiper');
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var  hotSpotSearchListTemplate = require('./template/HotSpotSearch.html')
-    var guessYouLikeTemplate = require('./template/guessYouLike.html')
+    // var guessYouLikeTemplate = require('./template/guessYouLike.html')
     // 在 index.html中 引入的 dist/application/app.js 引入了  window.template = require("./template");
 
     var arr = [
@@ -88,19 +88,19 @@ define(function (require, exports, module){
     var _html = template.compile(hotSpotSearchListTemplate)({ hotSpotSearchList: hotSpotSearchList});
     $('.hot-spot-search-warper').html(_html)
     
-    // 底部猜你喜欢
-    var _html = template.compile(guessYouLikeTemplate)({});
-    $('.guess-you-like-warpper').html(_html)
-      //获取运营位广告数据
-      function gebyPosition() {
-        $.ajax({
-            url: '',
-            type: "POST",
-            data: '',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-            }
-        })
-    }
+    // // 底部猜你喜欢
+    // var _html = template.compile(guessYouLikeTemplate)({});
+    // $('.guess-you-like-warpper').html(_html)
+    //   //获取运营位广告数据
+    //   function gebyPosition() {
+    //     $.ajax({
+    //         url: '',
+    //         type: "POST",
+    //         data: '',
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json",
+    //         success: function (res) {
+    //         }
+    //     })
+    // }
 })
