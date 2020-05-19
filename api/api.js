@@ -65,6 +65,7 @@ module.exports = {
     queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     recommendConfigRuleInfo:'/recommend/config/ruleInfo',
+    recommendConfigInfo:'/recommend/config/info',
     special:{
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         listTopicContents:'/special/specialTopicContent/listTopicContents',  //分页查询接口
