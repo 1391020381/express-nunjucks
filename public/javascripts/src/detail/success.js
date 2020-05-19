@@ -9,12 +9,14 @@ define(function (require, exports, module) {
     var format = method.getParam('format');
     var api = require('../application/api');
     var userId;
+    var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     // require("../common/baidu-statistics");
     var guessYouLikeTemplate = require('./template/guessYouLike.html')
+    var  paradigm4GuessData = sessionStorage.getItem('paradigm4GuessData')?JSON.parse(sessionStorage.getItem('paradigm4GuessData')):''
     var userData = null, initData = {};
     eventBinding();
    
@@ -395,7 +397,6 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
-
     gebyPosition()
     function gebyPosition() {  // 获取banner位数据
         $.ajax({
@@ -423,8 +424,10 @@ define(function (require, exports, module) {
 
 
     // 猜你喜欢
-    var _html = template.compile(guessYouLikeTemplate)({});
-    $(".guess-you-like-warpper").html(_html);
+    if(paradigm4GuessData){
+        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData});
+        $(".guess-you-like-warpper").html(_html);
+    }
 
 
     // 发送邮箱

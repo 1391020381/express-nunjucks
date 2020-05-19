@@ -242,6 +242,10 @@
         paradigm4GuessData:{{results.paradigm4GuessData| dump | safe}},
         RelevantInformationList:{{results.RelevantInformationList| dump | safe}},   
     };
+    var paradigm4GuessData = window.paradigm4.paradigm4GuessData  //下载成功页面需要
+    if(paradigm4GuessData){
+        sessionStorage.setItem('paradigm4GuessData',JSON.stringify(paradigm4GuessData))
+    }
 </script>
 <script>
     seajs.use(["dist/application/app.js", "dist/detail/init.js"])
