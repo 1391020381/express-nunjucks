@@ -28,9 +28,19 @@
 {% include "common/outside-fn.html" %}
 {% include "common/360.html" %}
 {% include "common/dialog.html" %}
-<div class="detail-topbanner"></div>
-
-{# </div> #}
+<div class="detail-topbanner">
+        <div class="swiper-container swiper-top-container ">
+               <div class="swiper-wrapper">
+                {%for item in results.getTopBannerList.list %}
+                  <div class="swiper-slide" >
+                    <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                    </a>
+                </div>
+               {%endfor%}
+               </div>    
+        </div> 
+</div>
 {% include "detail/header.html" %}
 
 <div class="pw-detail bd-wrap cf">
@@ -241,7 +251,8 @@
         userId: "{{results.userID}}",
         paradigm4GuessData:'{{results.paradigm4GuessData| dump | safe}}',
         RelevantInformationList:'{{results.RelevantInformationList| dump | safe}}',
-        getBannerList:'{{results.getBannerList| dump | safe}}'   
+        getBannerList:{{results.getBannerList| dump | safe}} ,
+        getTopBannerList:{{results.getTopBannerList |dump|safe}}  
     };
     var paradigm4GuessData = window.paradigm4.paradigm4GuessData  //下载成功页面需要
     if(paradigm4GuessData){

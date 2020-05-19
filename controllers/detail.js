@@ -5,7 +5,7 @@ var async = require("async");
 var render = require("../common/render");
 var server = require("../models/index");
 var util = require('../common/util');
-
+var recommendConfigInfo = require('../common/recommendConfigInfo')
 var Api = require("../api/api");
 var request = require('request');
 var appConfig = require("../config/app-config");
@@ -82,6 +82,52 @@ module.exports = {
                         }
                     } else {
                         callback(null, null);
+                    }
+                })
+            },
+            getTopBannerList:function(callback){ // 页面顶部banner
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.topBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, data.data[0]);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
+            geSearchBannerList:function(callback){
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, data.data[0]);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
                     }
                 })
             },
