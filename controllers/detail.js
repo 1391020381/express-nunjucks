@@ -5,7 +5,7 @@ var async = require("async");
 var render = require("../common/render");
 var server = require("../models/index");
 var util = require('../common/util');
-
+var recommendConfigInfo = require('../common/recommendConfigInfo')
 var Api = require("../api/api");
 var request = require('request');
 var appConfig = require("../config/app-config");
@@ -85,6 +85,52 @@ module.exports = {
                     }
                 })
             },
+            getTopBannerList:function(callback){ // 页面顶部banner
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.topBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, data.data[0]);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
+            geSearchBannerList:function(callback){
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, data.data[0]);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
             getBannerList:function(callback){
                 var params = dealParam(format,classid1,classid2)
                 var opt = {
@@ -147,7 +193,7 @@ module.exports = {
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
-                // classid1 =  '1820'                       
+                //  classid1 =  '1820'                       
                 if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
@@ -408,7 +454,8 @@ module.exports = {
         })
     },
     success: function (req, res) {
-        render("detail/success", null, req, res);
+       var  unloginFlag = req.query.unloginFlag
+        render("detail/success", {unloginFlag}, req, res);
     },
     fail: function (req, res) {
         render("detail/fail", null, req, res);

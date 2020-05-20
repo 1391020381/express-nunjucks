@@ -112,12 +112,20 @@ define(function (require, exports, module) {
         } else if (new RegExp('/pay/fail').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-FAIL';
             initData.prePageName = '支付失败页';
-        } else if (new RegExp('/node/f/downsucc.html').test(referrer)) {
-            initData.prePageID = 'PC-M-DOWN-SUC';
-            initData.prePageName = '下载成功页';
+        }else if (new RegExp('/node/f/downsucc.html').test(referrer)) {
+            if(/unloginFlag=1/.test(referrer)){
+                initData.prePageID = 'PC-M-FDPAY-SUC';
+                initData.prePageName = '免登购买成功页';
+            }else{
+                initData.prePageID = 'PC-M-DOWN-SUC';
+                initData.prePageName = '下载成功页';
+            }
         } else if (new RegExp('/node/f/downfail.html').test(referrer)) {
             initData.prePageID = 'PC-M-DOWN-FAIL';
             initData.prePageName = '下载失败页';
+        }else if (new RegExp('/search/home.html').test(referrer)) {
+            initData.prePageID = 'M-M-SR';
+            initData.prePageName = '搜索结果页';
         }
     }
 
@@ -180,6 +188,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
+            console.log('埋点参数:',resultData)
             push(resultData);
         }
     }
@@ -421,8 +430,10 @@ define(function (require, exports, module) {
     }
     //点击事件
     $(document).delegate('.' + config.EVENT_NAME, 'click', function (event) {//动态绑定点击事件
+        // debugger
         var that = $(this);
         var cnt = that.attr(config.BILOG_CONTENT_NAME);//上报事件类型
+        console.log('cnt:',cnt)
         if (cnt) {
             setTimeout(function () {
                 clickEvent(cnt, that);
@@ -446,7 +457,7 @@ define(function (require, exports, module) {
         handle(commonData, customData);
     }
     //点击事件
-    function clickEvent(cnt, that) {
+    function clickEvent(cnt, that,moduleID) {
         var ptype = $("#ip-page-type").val();
         if (ptype == 'pindex') {//详情页
             var customData = {
@@ -557,6 +568,39 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBacDetail', '下载成功页-返回详情页', customData);
         } else if (cnt == 'downSuccessBindPhone') {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
+        }else if(cnt =='searchresult'){
+            clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
+        }else if(cnt =='viewExposure'){
+            customData.moduleID = moduleID
+            clickCenter('SE006', 'modelView', '', '', customData);
+        }else if(cnt == 'similarFileClick'){
+            clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
+        }else if(cnt =='underSimilarFileClick'){
+            clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
+        }else if(cnt == 'downSucSimilarFileClick'){
+            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
+        }else if(cnt == 'markFileClick'){
+            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData); 
+        }
+    }
+    
+    module.exports = {
+        clickEvent:function($this){
+            var cnt = $this.attr(config.BILOG_CONTENT_NAME)
+            console.log('cnt-导出的:',cnt)
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,$this)
+                })
+            }
+        },
+        viewExposure:function(moduleID){
+            var cnt = 'viewExposure'
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,$this,moduleID)
+                })
+            } 
         }
     }
 });

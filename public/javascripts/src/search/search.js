@@ -3,7 +3,7 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-   
+   var clickEvent = require('../common/bilog').clickEvent
     //页面级埋点
     var gioPageSet = require('../common/gioPageSet');
 
@@ -81,7 +81,8 @@ define(function (require, exports, moudle) {
             var inputValue = sconditionInput.val().trim() || '';
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
-                btnHrefChange('cond', inputValue);
+                clickEvent($(this))
+              //  btnHrefChange('cond', inputValue);
             }
         })
         //搜索输入框按下enter键

@@ -34,16 +34,13 @@ body {
 }
 .detail-topbanner .swiper-slide-img {
   width: 100%;
-  height: 100%;
 }
 .fix-right-bannertop {
   width: 310px;
-  /* height: 134px; */
 }
 .fix-right-bannertop .swiper-slide-img {
   display: block;
   width: 310px;
-  height: 134px;
 }
 .fix-right-bannerbottom {
   margin-top: 10px;
@@ -125,6 +122,13 @@ body {
   padding: 0 5px;
   border-radius: 2px;
   background-color: #fce8b2;
+}
+.vip-join-con .swiper-search-container {
+  height: 42px;
+}
+.vip-join-con .swiper-search-container .swiper-wrapper {
+  width: 100%;
+  height: 100%;
 }
 .new-detail-header-fix {
   position: fixed;
@@ -1815,6 +1819,16 @@ body {
 }
 .related-data-list .item a {
   padding: 0;
+}
+.related-data-list .item .item-link {
+  *zoom: 1;
+}
+.related-data-list .item .item-link:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
 }
 .related-data-list .item .item-link-left .item-link-left-img {
   margin-right: 26px;

@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var report = require("../pay/report");
     var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
-
+    var viewExposure = require('../common/bilog').viewExposure
     downLoadReport.docPageType_var = pageConfig.page.ptype;
     downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
@@ -52,6 +52,7 @@ define(function (require, exports, module) {
                         downLoadReport.expendType_var = "现金"
                         // 如果现金文档，弹出面登陆购买
                         $('body').append(unloginBuyHtml);
+                        viewExposure('noLgFPayCon')
                         var loginUrl = '';
                         var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
                         var classid1 = params && params.classid1 ? params.classid1 + '' : '';

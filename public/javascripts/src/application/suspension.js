@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     // 右侧滚动
     var app = require("../application/app");
     var api = require("./api");
+    var clickEvent = require('../common/bilog').clickEvent
     scrollMenu();
 
     function scrollMenu() {
@@ -13,7 +14,7 @@ define(function (require, exports, module) {
         var $fixFull = $(".fixed-right-full");
         var $anWrap = $fixFull.find(".fixed-detail-wrap");
 
-        function fixAn(start, index) {
+        function fixAn(start, index,$this) {
             index = index || 0;
             if (start && (index === 1 || index === 2)) {
                 if (method.getCookie('cuk')) {
@@ -50,14 +51,18 @@ define(function (require, exports, module) {
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }
+            if($this.attr('bilogContent')){  // 侧边栏数据上报
+                clickEvent($(this)) 
+            }
         }
 
         $(".btn-detail-back").on("click", function () {
-            fixAn(false);
+            fixAn(false,$this);
             $fixBtn.removeClass("active");
         });
         $(document).on("click", function () {
-            fixAn(false);
+            
+            fixAn(false,$this);
             $fixBtn.removeClass("active");
 
         });
@@ -74,10 +79,10 @@ define(function (require, exports, module) {
             var index = $(this).index();
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
-                fixAn(false);
+                fixAn(false,$this);
             } else {
                 $(this).addClass("active").siblings().removeClass("active");
-                fixAn(true, index);
+                fixAn(true, index,$this);
             }
 
         });

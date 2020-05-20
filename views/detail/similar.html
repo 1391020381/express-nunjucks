@@ -15,7 +15,7 @@
              {%endif%}     
              </div>
         </div>
-        <div class="related-data pc_click" pcTrackContent="relateFiles-new">
+        <div class="related-data pc_click" pcTrackContent="relateFiles-new" bilogContent="similarFileClick">
             <h2 class="related-data-title">
                 相关资料
                 <span class="slider-control">
@@ -133,7 +133,7 @@
                     </a>
                 </li> #}
                
-            <li  class="item" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} ">
+            <li  class="item" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
                 <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
                 <div class="item-link-left fr">
                     <img class="item-link-left-img" src="{{item.cover_url}}" alt="{{item.name}}"/>

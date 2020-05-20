@@ -21,9 +21,9 @@ define(function (require, exports, module) {
             getFeedbackType:gateway + '/feedback/getFeedbackType' //获取反馈问题类型
         },
         // 查询用户发券资格接口
-        sale: {
-            querySeniority: router + '/sale/querySeniority',
-        },
+        // sale: {
+        //     querySeniority: router + '/sale/querySeniority',
+        // },
         normalFileDetail: {
             // 添加评论
             addComment: router + '/fileSync/addComment',
@@ -59,6 +59,11 @@ define(function (require, exports, module) {
         pay: {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow'
+        },
+        coupon:{
+            rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
+            rightsSaleQueryPersonal:gateway + '/rights/sale/queryPersonal',
+            querySeniority: gateway + '/rights/sale/querySeniority',
         },
         vouchers:router+'/sale/vouchers',
         order:{

@@ -503,5 +503,7 @@ define(function (require, exports, module) {
         }).open();
     });
     
-    return downLoad
+   module.exports = {
+    downLoad:downLoad
+   }
 });

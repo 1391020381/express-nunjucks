@@ -99,7 +99,20 @@
                     {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
                         <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
                     </a> #}
-                    <div class="join-vip-more">
+                    <a class="join-vip-ele  pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                         <div class="swiper-container swiper-search-container ">
+                          <div class="swiper-wrapper">
+                         {%for item in results.geSearchBannerList.list %}
+                          <div class="swiper-slide" >
+                           <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                    </a>
+                      </div>
+               {%endfor%}
+               </div>    
+                </div> 
+                    </a>
+                    {# <div class="join-vip-more">
                         <i class="before"></i>
                         <i class="after"></i>
                         <ul class="vip-more-list">
@@ -113,7 +126,7 @@
                             style="display: none;" data-type="vip">开通</a>
                         <a class="btn-join-vip xf-open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
                             style="display: none;" data-type="vip">续费</a>
-                    </div>
+                    </div> #}
                 </div>
                 {# <a href="/upload/index?ts=n" target="_blank" class="btn-new-upload">
                     <i class="icon-iShare"></i>
