@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var login = require("../application/checkLogin");
     var common = require('./common');
-
+    var clickEvent = require('../common/bilog').clickEvent
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
@@ -234,6 +234,7 @@ define(function (require, exports, module) {
                 return;
             }else{
                 //var fid=$(this).attr('data-fid');
+                clickEvent($(this))
                 if ($(this).hasClass('btn-collect-success')) {
                     collectFile(4)
                 } else {

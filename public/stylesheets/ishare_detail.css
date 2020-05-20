@@ -1820,6 +1820,16 @@ body {
 .related-data-list .item a {
   padding: 0;
 }
+.related-data-list .item .item-link {
+  *zoom: 1;
+}
+.related-data-list .item .item-link:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
 .related-data-list .item .item-link-left .item-link-left-img {
   margin-right: 26px;
   width: 47px;

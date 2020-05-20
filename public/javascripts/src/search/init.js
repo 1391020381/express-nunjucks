@@ -9,5 +9,6 @@ define(function(require , exports , module){
     require("./login");
     require('./search');
     require('./banner')
+    require('../common/bilog')
     // require("../common/baidu-statistics");
 });

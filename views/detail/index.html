@@ -83,10 +83,10 @@
                 <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
                 {# <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
                 <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a> #}
-                <div class="collect-con fl">
+                <div class="collect-con fl pc" >
                     <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
                     <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
-                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect" title="点击收藏">
+                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect" title="点击收藏" bilogContent="markFileClick">
                         <em class="btn-line"></em>
                         <i class="icon-detail"></i>
                     </a>

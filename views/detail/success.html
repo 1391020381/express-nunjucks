@@ -19,8 +19,13 @@
         _head = "{{cdnUrl}}";
 </script>
 <body>
+{% if results.unloginFlag %}
+<input type="hidden" id="ip-page-id" value="PC-M-DOWN-SUC">
+<input type="hidden" id="ip-page-name" value="免登购买成功页">
+{% else %}
 <input type="hidden" id="ip-page-id" value="PC-M-DOWN-SUC">
 <input type="hidden" id="ip-page-name" value="下载成功页">
+{% endif%}
 
 {% include "common/js.html" %}
 {% include "detail/header.html" %}
@@ -109,7 +114,7 @@
                     <div class="down-success-banner">
                 
                     </div>
-                    <div class="guess-you-like-warpper">
+                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
                     </div>
                 </div>
             </div>
