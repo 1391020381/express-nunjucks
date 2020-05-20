@@ -2,10 +2,8 @@
 /// <reference path="Q.md5File.js" />
 /*
 * Q.Uploader.js 文件上传管理器 1.0
-* https://github.com/devin87/web-uploader
-* author:devin87@qq.com  
-* update:2018/11/07 12:27
 */
+define(function(require, exports, module) {
 (function (window, undefined) {
     "use strict";
 
@@ -953,3 +951,4 @@
     Q.Uploader = Uploader;
 
 })(window);
+})
