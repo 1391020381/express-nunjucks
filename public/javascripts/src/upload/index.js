@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     require('../application/suspension');
     var method = require("../application/method");
     var login = require("../application/checkLogin");
-    var common = require('./common');
+    // var common = require('./common');
 
        // 登录
        $('.user-login,.login-open-vip').on('click', function () {

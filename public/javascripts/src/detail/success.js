@@ -425,7 +425,7 @@ define(function (require, exports, module) {
 
     // 猜你喜欢
     if(paradigm4GuessData){
-        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData});
+        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData:paradigm4GuessData});
         $(".guess-you-like-warpper").html(_html);
     }
 

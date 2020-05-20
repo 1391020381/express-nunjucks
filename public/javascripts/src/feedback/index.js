@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var api = require('../application/api');
-    var common = require('./common');
+    // var common = require('./common');
     $(function(){
         var type=''
         //获取意见类型
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
                 })
                 return
             } 
-            let obj={
+            var obj={
                 type:type,
                 content:$('.form-textarea').val(),
                 pageUrl:$('.material-link-input').val(),
