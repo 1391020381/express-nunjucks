@@ -31,7 +31,8 @@ define(function(require , exports , module){
             uploadObj.typeSelect();
             uploadObj. priceSelect();
             uploadObj.saveFolderOption();
-            uploadObj.delete()
+            uploadObj.delete();
+           
             setTimeout(function(){
                 uploadObj.upload();
             },500)
@@ -347,10 +348,8 @@ define(function(require , exports , module){
                     uploadObj.uploadFiles[itemIndex].userFilePrice = aval;
                     if (aval =='0') {
                         uploadObj.uploadFiles[itemIndex].definePrice = true;
-                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').show()
                     } else {
                         uploadObj.uploadFiles[itemIndex].definePrice = false;
-                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').hide()
                     }
                 }else{
                     if (aval =='0') {
@@ -534,6 +533,11 @@ define(function(require , exports , module){
             uploadObj.inputPreRead();
             uploadObj.verifyRequire();
             uploadObj.briefIntroduce();
+            if(uploadObj.uploadFiles.length>19) {
+                $('#upload-target2').hide()
+            }else {
+                $('#upload-target2').show()
+            }
         },
         // 渲染底部分类&文件夹
         bottomCategory:function() {
@@ -563,12 +567,54 @@ define(function(require , exports , module){
                 }
             })
         },
+        dataVerify:function(item,index){
+            if (!item.fileName) {
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
+            }
+            if(!item.classid) {
+                $('.js-file-item').find('.doc-li').eq(index).find('.must-error').show()
+            }
+            if(!item.folderId) {
+                $('.js-file-item').find('.doc-li').eq(index).find('.folder-error').show()
+            }
+            if(item.userFileType==5) {
+               if(!item.definePrice && !item.userFilePrice) {
+                $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
+                $('.js-file-item').find('.doc-li').eq(index).find('.pay-item-info').hide()
+                $('.js-file-item').find('.doc-li').eq(index).find('.price-error').show()
+               }else if (!item.userFilePrice){
+                    $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
+                    $('.js-file-item').find('.doc-li').eq(index).find('.select-item-info').show()
+                   
+               }
+            }
+           
+        },
         // 保存
         saveUploadFile:function(){
+            var stop = false;
             $('.js-submitbtn').click(function(){
                 var params = [];
-                uploadObj.uploadFiles.forEach(function(item){
+                uploadObj.uploadFiles.forEach(function(item,index) {
                     if(item.checked) {
+                        if(uploadObj.permin==1) {
+                            if(!item.fileName || !item.folderId|| !item.classid ){
+                                stop = true;
+                                console.log(item)
+                            }
+                            if (item.userFileType==5) {
+                                if (item.userFilePrice<0.001) {
+                                    stop = true;
+                                   
+                                }
+                            }
+                        }else {
+                            if(!item.fileName ||!item.folderId) {
+                                stop = true;
+                                
+                            }
+                        }
+                        uploadObj.dataVerify(item,index)
                         var obj = JSON.parse(JSON.stringify(item))
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
@@ -576,7 +622,10 @@ define(function(require , exports , module){
                         params.push(obj);
                     }
                 })
-                if (params.length<1) {
+                if (stop) {
+                    return false;
+                }
+                if(params.length<1) {
                     $.toast({
                         text: "请勾选上传资料"
                     })
