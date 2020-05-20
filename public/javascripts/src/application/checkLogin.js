@@ -110,7 +110,7 @@ define(function (require, exports, module) {
         */
         getUserData: function (callback) {
             if (method.getCookie('cuk')) {
-                method.get(api.sale.querySeniority, function (res) {
+                method.get(api.coupon.querySeniority, function (res) {
                     if (res && res.code == 0) {
                         callback(res.data)
                     }

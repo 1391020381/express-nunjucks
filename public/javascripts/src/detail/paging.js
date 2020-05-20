@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     // var $ = require("$");
     var img_tmp = require("./template/img_box.html");
-    var changeText = require('./changeShowOverText.js')
+    var changeText = require('./changeShowOverText.js').changeText
 
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
@@ -196,6 +196,7 @@ define(function (require, exports, module) {
             restPage = totalPage - cPage;
             $articlePages.eq(2).hide();
             $articlePages.eq(3).hide();
+            loadMore()
         }
     });
     //给页面绑定滑轮滚动事件

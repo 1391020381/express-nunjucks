@@ -1,7 +1,7 @@
-define(function (require, exports, module) {
+define(function (require, exports, module) { // 需要判断时候是否要登录 是否点击
     // 试读完毕后, 修改 继续阅读 按钮的文字 而且修改后 事件的逻辑 走下载逻辑
-    return function changeText(){
-      var  downLoad =  require("../download");
+     function changeText(){
+      var  downLoad =  require("./download").downLoad;
       var method = require("../application/method");
       var common = require('./common');
        var  readMore =  $('.red-color')
@@ -15,6 +15,7 @@ define(function (require, exports, module) {
        var productPrice = window.pageConfig.page.productPrice
        var cuk = method.getCookie('cuk')
        var isDownload = window.pageConfig.page.isDownload
+       var ui = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
        if(method.getCookie('cuk')){
             downLoad(changeReadMoreText)
        }else{
@@ -24,16 +25,26 @@ define(function (require, exports, module) {
        }
     }
     function changeReadMoreText(data){ // 文件下载接口的返回数据
-        switch(data.checkStatus){  // 在线资料 寻找资料有点疑惑 
+        switch(data.checkStatus){  //  
             case 8:
                 textContent = '¥'+ data.productPrice +'获取该资料'
                 break
             case  0:
                 textContent = '下载到本地阅读'
                 break
+            case 17:
+                  if(ui.isVip){
+                     textContent = '寻找资料' 
+                  }else{
+                      textContent = '开通VIP,享受更多特权'
+                  }  
             case 13:
                 textContent = '开通VIP下载资料'    
         }
         readMore.text(textContent)
+    }
+
+    module.exports = {
+        changeText:changeText
     }
 });
