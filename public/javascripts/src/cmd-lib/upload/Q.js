@@ -1,8 +1,7 @@
 ﻿/*
 * Q.js for Uploader
-* author:devin87@qq.com
-* update:2017/09/22 14:50
 */
+define(function(require, exports, module) {
 (function (window, undefined) {
     "use strict";
 
@@ -378,3 +377,4 @@
     window.Q = Q;
 
 })(window);
+})
