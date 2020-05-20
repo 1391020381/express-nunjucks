@@ -61,7 +61,7 @@ define(function (require, exports, module) {
             $fixBtn.removeClass("active");
         });
         $(document).on("click", function () {
-            
+            var $this = $(this);
             fixAn(false,$this);
             $fixBtn.removeClass("active");
 

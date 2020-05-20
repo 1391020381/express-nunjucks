@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     // var $ = require("$");
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
-
+    var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
     var cPage = 2;
@@ -210,6 +210,7 @@ define(function (require, exports, module) {
     //点击加载更多
     $(document).on('click', '[data-toggle="btnReadMore"]', function () {
         loadMore();
+        readMoreTextEvent()
     });
 
     //点击下一页 >
