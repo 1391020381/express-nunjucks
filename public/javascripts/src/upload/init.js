@@ -14,7 +14,7 @@ define(function(require , exports , module){
         permin:1, //1:公开、2:私密
         addFiles:[],
         Allcategory:[],
-        folders:[{id: "5ec3c68e1fc06b6643c0aed4", name: "omg"}],
+        folders:[],
         allChecked:{
             classId:'',
             className:'',
@@ -32,7 +32,6 @@ define(function(require , exports , module){
             uploadObj. priceSelect();
             uploadObj.saveFolderOption();
             uploadObj.delete();
-           
             setTimeout(function(){
                 uploadObj.upload();
             },500)
@@ -145,7 +144,6 @@ define(function(require , exports , module){
                     },
                     //上传完成后触发
                     complete: function (task) {
-                        console.log('%%%%%%%%%%%%%%')
                         var res = JSON.parse(task.response);
                         uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail,res.data.success);
                         //this.list  为上传任务列表
@@ -167,7 +165,6 @@ define(function(require , exports , module){
                             })
                         }
                         uploadObj.publicFileRener()
-                        console.log(uploadObj.uploadFiles)
                         if (this.index >= this.list.length - 1) {
                             //所有任务上传完成
                             // console.log(uploadObj.uploadFiles)
@@ -239,9 +236,6 @@ define(function(require , exports , module){
                 $(this).parents('.date-con-in').css({width:'423px',overflow: 'hidden scroll'})
                
             })
-            // $('.doc-list').on('click','.doc-li',function(event){
-            //     $('.doc-list').find('.fenlei').hide()
-            //  },false)
             $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
                 var text = '';
@@ -269,7 +263,6 @@ define(function(require , exports , module){
                         uploadObj.uploadFiles[_index].classid= classid;
                         uploadObj.uploadFiles[_index].classname = classname;
                         uploadObj.uploadFiles[_index].fenlei = text;
-                        console.log(uploadObj.uploadFiles)
                     } else {
                         // 底部操作
                         $(event.target).parents('.op-choose').find('.js-fenlei .fenleiTtile').text(text);
@@ -282,7 +275,6 @@ define(function(require , exports , module){
                         })
                     } 
                }
-               console.log(uploadObj.uploadFiles)
                uploadObj.publicFileRener()
             })
            
@@ -323,7 +315,6 @@ define(function(require , exports , module){
                         }
                     })
                 }
-                console.log(uploadObj.uploadFiles)
                 uploadObj.publicFileRener()
             })
 
@@ -600,12 +591,10 @@ define(function(require , exports , module){
                         if(uploadObj.permin==1) {
                             if(!item.fileName || !item.folderId|| !item.classid ){
                                 stop = true;
-                                console.log(item)
                             }
                             if (item.userFileType==5) {
                                 if (item.userFilePrice<0.001) {
                                     stop = true;
-                                   
                                 }
                             }
                         }else {
@@ -643,7 +632,9 @@ define(function(require , exports , module){
                            $('.successWrap').show();
 
                         } else {
-                            
+                            $.toast({
+                                text: res.msg
+                            })
                         }
                     },
                     complete: function () {
