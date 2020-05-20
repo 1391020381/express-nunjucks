@@ -1,28 +1,46 @@
 define(function(require , exports , module){
+    require('./fixedTopBar')
+    require('./index')
     require("./login");
     require('../cmd-lib/toast');
     require("../cmd-lib/upload/Q");
     require("../cmd-lib/upload/Q.Uploader");
     var utils = require("../cmd-lib/util");
     var api = require('../application/api');
-    var tmpList = require('./template/list.html')
+    var tmpList = require('./template/list.html')  //公开资料模板
+    var tmpList2 =require('./template/list_pravite.html') //私密资料模板
     var uploadObj = {
         uploadFiles:[],
+        permin:1, //1:公开、2:私密
         addFiles:[],
         Allcategory:[],
+        folders:[{id: "5ec3c68e1fc06b6643c0aed4", name: "omg"}],
+        allChecked:{
+            classId:'',
+            className:'',
+            userFileType:'',
+            userFilePrice:''
+        },
         init:function(){
-            console.log(this.uploadFiles)
             uploadObj.checkHook();
             uploadObj.tabSwitch();
-            uploadObj.upload();
             uploadObj.getAllcategory();
             uploadObj.categoryOption();
             uploadObj.getFolder();
             uploadObj.saveUploadFile();
             uploadObj.typeSelect();
             uploadObj. priceSelect();
-            uploadObj.saveFolderOption()
-           $('#bgMask').show()
+            uploadObj.saveFolderOption();
+            uploadObj.delete()
+            setTimeout(function(){
+                uploadObj.upload();
+            },500)
+            $('.js-file-item').click(function(){
+                $('.fenlei').hide();
+                $('.folder').hide();
+                $('.permin').hide();
+                $('.money').hide();
+            })
         },
         getDom:function(){
 
@@ -30,7 +48,27 @@ define(function(require , exports , module){
         checkHook:function(){
             // 勾选上传编辑文件
             $(document).on('click','.data-checked',function(){
-                $(this).toggleClass('checked-active')
+                $(this).toggleClass('checked-active');
+                var itemIndex = $(this).parents('.doc-li').attr('index');
+                if(itemIndex>-1) {
+                    if ($(this).hasClass('checked-active')) {
+                        uploadObj.uploadFiles[itemIndex].checked = true;
+                    }else {
+                        uploadObj.uploadFiles[itemIndex].checked = false;
+                    }
+                   
+                }else{
+                    if ($(this).hasClass('checked-active')) {
+                        uploadObj.uploadFiles.forEach(function(item){
+                            item.checked = true;
+                        })
+                    }else {
+                        uploadObj.uploadFiles.forEach(function(item){
+                            item.checked = false;
+                        })
+                    }
+                }
+                uploadObj.publicFileRener()
             })
         },
         tabSwitch:function(){
@@ -41,13 +79,15 @@ define(function(require , exports , module){
                 index = $(this).index();
                 $('.imgUpload').find('img').hide();
                 $('.imgUpload').find('img').eq(index).show();
+                uploadObj.permin = Number(index)+1;
             })
         },
         upload:function(){
-            var Uploader = Q.Uploader;
+            var E = Q.event,
+            Uploader = Q.Uploader;
             var uploader = new Uploader({
                 url:"/ishare-upload/fileUpload",
-                target: document.getElementById("upload-target"),
+                target: [document.getElementById("upload-target"), document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
                 multiple: true,
@@ -77,13 +117,19 @@ define(function(require , exports , module){
                                 text: "不支持此格式上传",
                             });
                             case 'size': return $.toast({
-                                text: "允许上传的最大文件大小为：" + Q.formatSize(this.ops.maxSize)+','+task.name+'上传失败',
+                                text: "文件大小不能超过" + Q.formatSize(this.ops.maxSize),
                             }); 
                         }
                         //自定义判断，返回false时该文件不会添加到上传队列
-                        //return false;
-                        uploadObj.uploadFiles = uploadObj.uploadFiles.concat(task)
-                        console.log(uploadObj.uploadFiles);
+                        //userFileType 1 免费 5 付费 6 私有
+                        var obj = {fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
+                        // console.log(task)
+                        uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
+                        $('.secondStep').show();
+                        $('.firstStep').hide();
+                        // console.log(uploadObj.uploadFiles);
+                        // console.log(task)
+                        // console.log('&&&&&&&&&&&&&&&&&&&')
                         uploadObj.publicFileRener()
                     },
                     //任务移除后触发
@@ -94,31 +140,58 @@ define(function(require , exports , module){
                     upload: function (task) {
                         //exe文件可以添加，但不会上传
                         if (task.ext == ".exe") return false;
-                        //可针对单独的任务配置参数(POST方式)
-                        // console.log(task)
+                       
                     },
                     //上传完成后触发
                     complete: function (task) {
                         console.log('%%%%%%%%%%%%%%')
                         var res = JSON.parse(task.response);
-                        // console.log(res.data.fail)
-                        // console.log(res.data.success)
-                        uploadObj.uploadFiles = uploadObj.uploadFiles.concat(res.data.fail,res.data.success);
-                        $('.secondStep').show();
-                        $('.firstStep').hide();
+                        uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail,res.data.success);
                         //this.list  为上传任务列表
                         //this.index 为当前上传任务索引
+                        if (res.data.fail.length>0) {
+                            uploadObj.uploadFiles.forEach(function(item){
+                                if (item.fileName ==res.data.fail[0].fileName) {
+                                    item.uploadStatus = 2;
+                                }
+                            })
+                        }
+                        if (res.data.success.length>0) {
+                            uploadObj.uploadFiles.forEach(function(item){
+                                if (item.fileName ==res.data.success[0].fileName) {
+                                    item.uploadStatus = 1;
+                                    item.path = res.data.success[0].path;
+                                    item.extension = res.data.success[0].extension;
+                                }
+                            })
+                        }
+                        uploadObj.publicFileRener()
+                        console.log(uploadObj.uploadFiles)
                         if (this.index >= this.list.length - 1) {
                             //所有任务上传完成
-                            console.log(uploadObj.uploadFiles)
+                            // console.log(uploadObj.uploadFiles)
                             console.log("所有任务上传完成：" + new Date());
                         }
                     }
                 }
             });
-        },
-        drop_upload:function(){
+            var boxDropArea = document.getElementById("drop-area");
+            if (!Uploader.support.html5) {
+                $('.dratTip').text("您的浏览器不支持拖拽文件上传！")
+                return;
+            }
 
+            //阻止浏览器默认拖放行为
+            E.add(boxDropArea, "dragleave", E.stop);
+            E.add(boxDropArea, "dragenter", E.stop);
+            E.add(boxDropArea, "dragover", E.stop);
+
+            E.add(boxDropArea, "drop", function (e) {
+                E.stop(e);
+                //获取文件对象
+                var files = e.dataTransfer.files;
+                uploader.addList(files);
+            });
         },
         getAllcategory:function(){
             var params = {
@@ -145,12 +218,14 @@ define(function(require , exports , module){
         },
         // 分类选择
         categoryOption:function(){
-            $('.doc-list').on('click','.js-fenlei',function(){
+            $('.doc-list').on('click','.js-fenlei',function(e){
+                e.stopPropagation()
                 $(this).siblings('.fenlei').toggle()
+                $(this).siblings('.fenlei').find('.date-con-in').css({width:'140px',overflow: 'hidden scroll'})
             })
             $('.doc-list').on('hover','li',function(){
                 $(this).addClass('active').siblings('li').removeClass('active');
-                $(this).find('ul li').removeClass('active');
+                // $(this).find('ul li').removeClass('active');
                 $(this).parents('.date-con-in').css({overflowY:'auto'})
                
             })
@@ -163,84 +238,232 @@ define(function(require , exports , module){
                 $(this).parents('.date-con-in').css({width:'423px',overflow: 'hidden scroll'})
                
             })
-            $('.doc-list').on('click','.doc-li',function(event){
-                $('.doc-list').find('.fenlei').hide()
-             },false)
-            $('.doc-list').on('click','.date-con-in li',function(event){
+            // $('.doc-list').on('click','.doc-li',function(event){
+            //     $('.doc-list').find('.fenlei').hide()
+            //  },false)
+            $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
                 var text = '';
+                var classid = '';
+                var classname = '';
+                var _index = $(event.target).parents('.doc-li').attr('index');
                if ($('.date-con-first>li.active a').attr('cid')) {
-                    text += $('.date-con-first>li.active a').attr('name')
+                    text += $('.date-con-first>li.active a').attr('name');
+                    classname = $('.date-con-first>li.active a').attr('name')
+                    classid = $('.date-con-first>li.active a').attr('cid')
                     if ($('.date-con-sec>li.active a').attr('cid')) {
                         text += '>'+$('.date-con-sec>li.active a').attr('name')
+                        classname = $('.date-con-sec>li.active a').attr('name')
+                        classid = $('.date-con-sec>li.active a').attr('cid')
                         if ($('.date-con-third>li.active a').attr('cid')) {
                             text += '>'+$('.date-con-third>li.active a').attr('name')
+                            classname = $('.date-con-third>li.active a').attr('name')
+                            classid = $('.date-con-third>li.active a').attr('cid')
                         }
                     }
-                    $(event.target).parents('.data-must').find('.choose-text.fenleiTtile').text(text)
-                    $(event.target).parents('.data-must').find('.fenlei').hide()
+                    $('.fenlei').hide()
+                    if (_index>-1) {
+                        $(event.target).parents('.data-must').find('.choose-text.fenleiTtile').text(text)
+                        var _index = $(event.target).parents('.doc-li').attr('index')
+                        uploadObj.uploadFiles[_index].classid= classid;
+                        uploadObj.uploadFiles[_index].classname = classname;
+                        uploadObj.uploadFiles[_index].fenlei = text;
+                        console.log(uploadObj.uploadFiles)
+                    } else {
+                        // 底部操作
+                        $(event.target).parents('.op-choose').find('.js-fenlei .fenleiTtile').text(text);
+                        uploadObj.uploadFiles.forEach(function(item){
+                            if(item.checked) {
+                                item.classId = classid;
+                                item.className = classname;
+                                item.fenlei = text;
+                            }
+                        })
+                    } 
                }
+               console.log(uploadObj.uploadFiles)
+               uploadObj.publicFileRener()
             })
            
         },
         // 类型选择
         typeSelect: function(){
-            $('.doc-list').on('click','.js-type',function(){
+            $('.doc-list').on('click','.js-type',function(e){
+                e.stopPropagation()
                 $(this).siblings('.permin').toggle()
             })
             $('.doc-list').on('hover','.permin a',function(){
                 $(this).addClass('selected').siblings('a').removeClass('selected');
             })
             $('.doc-list').on('click','.permin a',function(e){
-               var text = $(this).attr('permin')==1?'免费资料':'付费资料';
-                $(this).parents('.data-must').find('.typeTitle').text(text);
-                $(event.target).parents('.data-must').find('.permin').hide();
+                var permin = $(this).attr('permin')
+               var text = permin ==1?'免费资料':'付费资料';
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
-                // uploadObj.uploadFiles[itemIndex].userFileType = $(this).attr('permin');
-                if ($(this).attr('permin')==1) {
-                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').hide()
-                } else {
-                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').show()
+                if(itemIndex>-1) {
+                    $(this).parents('.data-must').find('.typeTitle').text(text);
+                    $(event.target).parents('.data-must').find('.permin').hide();
+                    if ($(this).attr('permin')==1) {
+                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').hide()
+                    } else {
+                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-need-money').show()
+                    }
+                    uploadObj.uploadFiles[itemIndex].userFileType = permin;
+                }else {
+                    $(this).parents('.batch-op').find('.typeTitle').text(text);
+                    $(event.target).parents('.batch-op').find('.permin').hide();
+                    if ($(this).attr('permin')==1) {
+                        $('.batch-op').find('.js-need-money').hide()
+                    } else {
+                        $('.batch-op').find('.js-need-money').show()
+                    }
+                    uploadObj.uploadFiles.forEach(function(item){
+                        if(item.checked) {
+                            item.userFileType = permin;
+                        }
+                    })
                 }
+                console.log(uploadObj.uploadFiles)
+                uploadObj.publicFileRener()
             })
 
         },
         // 价钱选择
-        priceSelect: function(){
-            $('.doc-list').on('click','.js-price',function(){
+        priceSelect: function() {
+            $('.doc-list').on('click','.js-price',function(e){
+                e.stopPropagation()
                 $(this).siblings('.money').toggle()
             })
             $('.doc-list').on('hover','.money a',function(){
                 $(this).addClass('selected').siblings('a').removeClass('selected');
             })
             $('.doc-list').on('click','.money a',function(e){
-                var text = $(this).attr('aval') =='0'?'自定义':'¥'+$(this).attr('aval');
-                $(this).parents('.data-must').find('.moneyTitle').text(text);
-                $(event.target).parents('.data-must').find('.money').hide();
+                var aval = $(this).attr('aval')
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
-                if ($(this).attr('aval') =='0') {
-                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').show()
-                } else {
-                    $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').hide()
-                }     
+                var text = aval =='0'?'自定义':'¥'+aval;
+                $(this).parents('.doc-li').find('.moneyTitle').text(text);
+                $(event.target).parents('.doc-li').find('.money').hide();
+                
+                if (itemIndex>-1){
+                    uploadObj.uploadFiles[itemIndex].userFilePrice = aval;
+                    if (aval =='0') {
+                        uploadObj.uploadFiles[itemIndex].definePrice = true;
+                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').show()
+                    } else {
+                        uploadObj.uploadFiles[itemIndex].definePrice = false;
+                        $('.js-file-item').find('.doc-li').eq(itemIndex).find('.js-input-money').hide()
+                    }
+                }else{
+                    if (aval =='0') {
+                       $(this).parents('.batch-op').find('.js-input-money').show()
+                    } else {
+                        $(this).parents('.batch-op').find('.js-input-money').hide()
+                       
+                    }
+                    uploadObj.uploadFiles.forEach(function(item){
+                        if(item.checked) {
+                            item.userFilePrice = aval;
+                            if(aval =='0'){
+                                item.definePrice = true;
+                            }
+                        }
+                    })
+                }
+                uploadObj.publicFileRener()  
             })
 
         },
         //  输入金额
         inputPrice:function(){
-           console.log( $('.js-file-item').find('input[name="moneyPrice"]'))
+            $('.js-file-item').on('keyup',".doc-pay-input input[name='moneyPrice']",function(){
+                var priceVal = $(this).val();
+                if(!priceVal){
+                    $(this).siblings('.select-item-info').show().text('请输入金额')
+                    return false;
+                }else if (priceVal<1) {
+                    $(this).siblings('.select-item-info').show().text('金额必须大于0')
+                    return false;
+                }
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                if (itemIndex>-1) {
+                    uploadObj.uploadFiles[itemIndex].userFilePrice = priceVal;
+                }else {
+                    uploadObj.uploadFiles.forEach(function(item){
+                        if(item.checked) {
+                            item.userFilePrice =  priceVal;
+                        }
+                    })
+                }
+                
+
+            })
         },
         // 试读
         inputPreRead:function(){
-            console.log( $('.js-file-item').find('input[name="preRead"]'))
+            $('.js-file-item').on('keyup',"input[name='preRead']",function(){
+                var preRead = $(this).val();
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                if (itemIndex>-1) {
+                    uploadObj.uploadFiles[itemIndex].preRead = preRead;
+                }else {
+                    uploadObj.uploadFiles.forEach(function(item){
+                        if(item.checked) {
+                            item.preRead =  preRead;
+                        }
+                    })
+                }
+               
+            })
+         },
+         // 简介
+         briefIntroduce:function(){
+            $('.js-file-item').on('keyup','.js-text-area',function(){
+                if($(this).val().length<201) {
+                    $(this).siblings('.num-con').find('em').text($(this).val().length)
+                }else {
+                    var val = $(this).val().substr(0,200);
+                    $(this).val(val) 
+                }
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                uploadObj.uploadFiles[itemIndex].description = $(this).val();
+            })
          },
          // 选择保存
          saveFolderOption:function(){
-            $('.doc-list').on('click','.js-folder-hook',function(){
+            $('.doc-list').on('click','.js-folder-hook',function(e){
+                e.stopPropagation()
                 $(this).siblings('.folder').toggle()
             })
-            $('.doc-list').on('click','.new-built',function(){
-                uploadObj.createFolder()
+            $('.doc-list').on('click','.js-folder-new',function(){
+                $('.dialog-new-built').show();
+                $('#bgMask').show();
+                $(this).parent().parent().hide()
+            })
+            $('.doc-list').on('click','.js-folder-item',function(){
+                var text = $(this).attr('name')||'';
+                var id = $(this).attr('id')||'';
+               
+                $(this).parent().parent().hide()
+                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                if(itemIndex>-1) {
+                    $(this).parent().parent().siblings('.js-folder-hook').find('p').text(text)
+                    uploadObj.uploadFiles[itemIndex].folderId = id;
+                    uploadObj.uploadFiles[itemIndex].folderName = text;
+                }else {
+                    $(this).parent().parent().siblings('.js-folder-hook').find('em').text(text)
+                    uploadObj.uploadFiles.forEach(function(item){
+                        if (item.checked) {
+                            item.folderId = id
+                            item.folderName = text;
+                        }
+                        
+                    })
+                }
+                uploadObj.publicFileRener()  
+            })
+            
+            $('.js-newbuild-confirm').click(function(){
+                var name = $('input[name="folderName"]').val().trim()
+                uploadObj.createFolder(name)
             })
          },
         // 新建文件夹
@@ -256,9 +479,13 @@ define(function(require , exports , module){
                 data: params,
                 success: function (res) {
                     if (res.code == 0) {
-                        uploadObj.getFolder()
+                        uploadObj.getFolder();
+                        $('.dialog-new-built').hide();
+                        $('#bgMask').hide()
                     } else {
-                        
+                        $.toast({
+                            text: res.msg
+                        })
                     }
                 },
                 complete: function () {
@@ -279,9 +506,10 @@ define(function(require , exports , module){
                 data: params,
                 success: function (res) {
                     if (res.code == 0) {
-                       
+                        uploadObj.folders = res.data;
+                        uploadObj.publicFileRener()
                     } else {
-                        
+                        uploadObj.folders =[]
                     }
                 },
                 complete: function () {
@@ -290,48 +518,91 @@ define(function(require , exports , module){
             })
         },
         publicFileRener:function(){
-            var _html = template.compile(tmpList)(uploadObj);
-            $('.doc-list').html(_html)
+            var _html = '';
+            if (uploadObj.permin==1) {
+                _html = template.compile(tmpList)(uploadObj); 
+            } else {
+                _html = template.compile(tmpList2)(uploadObj);
+                // 隐藏底部操作
+                $('.private_status').hide()
+            }
+            var uploadAmount = uploadObj.uploadFiles.length
+            $('.uploadAmount').text(uploadAmount)
+            $('.js-file-item').html(_html);
+            uploadObj.bottomCategory()
+            uploadObj.inputPrice();
+            uploadObj.inputPreRead();
+            uploadObj.verifyRequire();
+            uploadObj.briefIntroduce();
+        },
+        // 渲染底部分类&文件夹
+        bottomCategory:function() {
+            var _html = $('.fenlei .date-con-in').html();
+            var foldhtml = $('.folder').html()
+            $('.js-bottom-category').html(_html);
+            $('.js-folder-con').html(foldhtml)
+        },
+        // 删除
+        delete:function(){
+            $('.js-file-item').on('click','.js-delete',function(){
+                var index = $(this).parents('.doc-list').attr('index');
+                uploadObj.uploadFiles.splice(index,1);
+                uploadObj.publicFileRener()
+            })
+        },
+        verifyRequire:function() {
+            $('.js-file-item').on('keyup',".data-name input[name='fileName']",function(){
+                if($(this).val()){
+                    if($(this).val().length>64) {
+                        $(this).parent().siblings('.warn-tip').show().text('标题字数不能超过64个字');
+                    }else {
+                        $(this).parent().siblings('.warn-tip').hide()
+                    }
+                }else {
+                    $(this).parent().siblings('.warn-tip').show().text('标题不能为空');
+                }
+            })
         },
         // 保存
         saveUploadFile:function(){
-            var params = {
-                classid: "9055",
-                classname: "简历模板",
-                description: "这个文件很牛",
-                files: [
-                  {
-                    extension: "xls",
-                    fileName: "链接导入模板111.xls",
-                    path: "X6g6wDTyb.xls",
-                    size: 20992
-                  }
-                ],
-                folderId: "5ebf9a531fc06b73f4b87b11",
-                folderName: "的哥文件夹",
-                permin: "1",
-                preRead: 5,
-                uid: "string",
-                userFilePrice: 100,
-                userFileType: 5
-              }
-            params = JSON.stringify(params)
-            $.ajax({
-                type: 'post',
-                url: api.upload.saveUploadFile,
-                contentType: "application/json;charset=utf-8",
-                data: params,
-                success: function (res) {
-                    if (res.code == 0) {
-                       
-                    } else {
+            $('.js-submitbtn').click(function(){
+                var params = [];
+                uploadObj.uploadFiles.forEach(function(item){
+                    if(item.checked) {
+                        var obj = JSON.parse(JSON.stringify(item))
+                        if(item.userFileType==5) {
+                            obj.userFilePrice = item.userFilePrice*100
+                        }
+                        params.push(obj);
+                    }
+                })
+                if (params.length<1) {
+                    $.toast({
+                        text: "请勾选上传资料"
+                    })
+                    return false;
+                }
+                params = JSON.stringify(params);
+                $.ajax({
+                    type: 'post',
+                    url: api.upload.saveUploadFile,
+                    contentType: "application/json;charset=utf-8",
+                    data: params,
+                    success: function (res) {
+                        if (res.code == 0) {
+                            $('.secondStep').hide();
+                           $('.successWrap').show();
+
+                        } else {
+                            
+                        }
+                    },
+                    complete: function () {
                         
                     }
-                },
-                complete: function () {
-                    
-                }
+                })
             })
+           
         }
     }
     uploadObj.init();

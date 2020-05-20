@@ -1,40 +1,45 @@
-<div class="wrapCenter firstStep pw">
-    <div class="contentWrap">
-        <div class="tab">
-            <div class="tabItem active">公开资料</div>
-            <div class="tabItem">私有资料</div>
+<div class="firstStep">
+    <div class="wrapCenter">
+        <div class="contentWrap">
+            <div class="tab">
+                <div class="tabItem active">公开资料</div>
+                <div class="tabItem">私有资料</div>
+            </div>
+            <div class="uploadContainer">
+                <div class="imgUpload" class="uploadHook" id ="drop-area">
+                    <img src="{{cdnUrl}}/images/upload/uploadIcon.png" alt="">
+                    <img style="display: none;" src="{{cdnUrl}}/images/upload/uploadIcona.png" alt="">
+                </div>
+                <div class="dratTip">拖拽资料到此处上传</div>
+                <div class="data-upload-con">
+                    <a class="btn-upload" href="JavaScript:;" id="upload-target">
+                        <i class="icon-iShare"></i>上传我的资料
+                        <!-- <input type="file" class="my-upload-file upload-file1" name="file" title="上传我的资料" multiple=""> -->
+                    </a>
+                </div>
+                <div class="format-con">
+                    <span class="fl">支持格式：</span>
+                    <ul class="format-list fl">
+                        <li><i class="ico-data ico-doc"></i></li>
+                        <li><i class="ico-data ico-ppt"></i></li>
+                        <li><i class="ico-data ico-pdf"></i></li>
+                        <li><i class="ico-data ico-xls"></i></li>
+                        <li><i class="ico-data ico-txt"></i></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="uploadContainer">
-            <div class="imgUpload">
-                <img src="{{cdnUrl}}/images/upload/uploadIcon.png" alt="">
-                <img style="display: none;" src="{{cdnUrl}}/images/upload/uploadIcona.png" alt="">
-            </div>
-            <div class="dratTip">拖拽资料到此处上传</div>
-            <div class="data-upload-con">
-                <a class="btn-upload" href="JavaScript:;" id="upload-target">
-                    <i class="icon-iShare"></i>上传我的资料
-                    <!-- <input type="file" class="my-upload-file upload-file1" name="file" title="上传我的资料" multiple=""> -->
-                </a>
-            </div>
-            <div class="format-con">
-                <span class="fl">支持格式：</span>
-                <ul class="format-list fl">
-                    <li><i class="ico-data ico-doc"></i></li>
-                    <li><i class="ico-data ico-ppt"></i></li>
-                    <li><i class="ico-data ico-pdf"></i></li>
-                    <li><i class="ico-data ico-xls"></i></li>
-                    <li><i class="ico-data ico-txt"></i></li>
-                </ul>
-            </div>
+        <div class="notice">
+            <p class="subTitle">注意事项 :</p>
+            <p>
+                1.每次最多上传20份资料，每份最大50MB <br>
+                2.禁止上传违反爱问共享资料相关规定的内容。<a class="checkRule" href="">查看上传规范</a><br>
+                3.严禁上传含有淫秽、色情、政治、低俗信息等文档，一切风险均由本人承担！<br>
+                4.如果您还有其他问题或者建议，可以点击右侧【联系客服】与我们联系
+            </p>
         </div>
+        
     </div>
-    <div class="notice">
-        <p class="subTitle">注意事项 :</p>
-        <p>
-            1.每次最多上传20份资料，每份最大50MB <br>
-            2.禁止上传违反爱问共享资料相关规定的内容。<a class="checkRule" href="">查看上传规范</a><br>
-            3.严禁上传含有淫秽、色情、政治、低俗信息等文档，一切风险均由本人承担！<br>
-            4.如果您还有其他问题或者建议，可以点击右侧【联系客服】与我们联系
-        </p>
-    </div>
+     <!-- 底部声明 -->
+ {% include "common/footer.html" %}
 </div>
