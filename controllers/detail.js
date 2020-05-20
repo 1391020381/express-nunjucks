@@ -193,7 +193,7 @@ module.exports = {
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
-                 classid1 =  '1820'                       
+                //  classid1 =  '1820'                       
                 if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
