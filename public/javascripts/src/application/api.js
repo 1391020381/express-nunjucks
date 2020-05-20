@@ -17,6 +17,8 @@ define(function (require, exports, module) {
             getJessionId: router + '/usermanage/getJessionId',
             //优惠券提醒
             getSessionInfo: router + '/usermanage/getSessionInfo',
+            addFeedback:gateway+'/feedback/addFeedback', //新增反馈
+            getFeedbackType:gateway + '/feedback/getFeedbackType' //获取反馈问题类型
         },
         // 查询用户发券资格接口
         sale: {

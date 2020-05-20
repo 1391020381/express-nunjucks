@@ -1,11 +1,93 @@
 define(function (require, exports, module) {
     require('../application/suspension');
+    require("../cmd-lib/toast");
     var method = require("../application/method");
     var login = require("../application/checkLogin");
+    var api = require('../application/api');
     var common = require('./common');
+    $(function(){
+        var type=''
+        //获取意见类型
+        $.ajax({
+            url: api.user.getFeedbackType,
+            type: "get",
+            data: {},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == 0){
+                    var str=''
+                    res.data.forEach(function(item,index){
+                        index == 0 ? type=item.code : ''
+                        str +='<option value="'+item.code +'">'+item.value +'</option>'
+                    })
+                    $('.form-select').html(str);
+                }else{
+                    $.toast({
+                        text:res.message,
+                        delay : 3000,
+                    })
+                }
+            }
+        })
+        // 
+        $('.form-select').on('change',function(){
+            type=$(this).val();
+        })
+        //提交反馈
+        $('.form-btn').on('click',function(){
 
-       // 登录
-       $('.user-login,.login-open-vip').on('click', function () {
+            if (!method.getCookie('cuk')) {
+                login.notifyLoginInterface(function (data) {
+                    refreshTopBar(data);
+                });
+            }
+
+            //校验
+            if(!method.testEmail($('.email-input').val())){
+                $.toast({
+                    text:'请输入正确的邮箱',
+                    delay : 3000,
+                })
+                return
+            }else if(!method.testPhone($('.tel-input').val())){
+                $.toast({
+                    text:'请输入正确的手机号',
+                    delay : 3000,
+                })
+                return
+            } 
+            let obj={
+                type:type,
+                content:$('.form-textarea').val(),
+                pageUrl:$('.material-link-input').val(),
+                email:$('.email-input').val(),
+                tell:$('.tel-input').val(),
+                sourceMode:0
+            }
+            $.ajax({
+                url: api.user.addFeedback,
+                type: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    if(res.code == 0){
+                        $.toast({
+                            text:'提交成功',
+                            delay : 3000,
+                        })
+                    }else{
+                        $.toast({
+                            text:res.message,
+                            delay : 3000,
+                        })
+                    }
+                }
+            })
+    })
+        // 登录
+        $('.user-login,.login-open-vip').on('click', function () {
         if (!method.getCookie('cuk')) {
             login.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
@@ -13,6 +95,9 @@ define(function (require, exports, module) {
         }
     });
 
+})
+
+   
 
 //     // 顶部header登录逻辑
 // $('#a-login-link').click(function(){

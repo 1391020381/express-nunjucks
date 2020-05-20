@@ -214,6 +214,21 @@ define(function (require, exports, module) {
             }
             document.body.appendChild(referLink);
             referLink.click();
+        },
+        testEmail:function(val){
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if(reg.test(val)){
+               return true    //正确
+            }else{
+               return false
+            }
+        },
+        testPhone:function(val){
+            if(/^1(3|4|5|7|8)\d{9}$/.test(val)){ 
+                return true; 
+            }else{
+                return false
+            } 
         }
     }
 });
