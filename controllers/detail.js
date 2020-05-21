@@ -179,7 +179,7 @@ module.exports = {
             // 面包屑导航
             crumbList: function (callback) {
                 //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
-                server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req)
+                server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
             },
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             // RelevantInformationList: function (callback) {
