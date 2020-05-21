@@ -243,28 +243,28 @@ define(function(require , exports , module){
             $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
                 var text = '';
-                var classid = '';
+                var classId = '';
                 var classname = '';
                 var _index = $(event.target).parents('.doc-li').attr('index');
                if ($('.date-con-first>li.active a').attr('cid')) {
                     text += $('.date-con-first>li.active a').attr('name');
                     classname = $('.date-con-first>li.active a').attr('name')
-                    classid = $('.date-con-first>li.active a').attr('cid')
+                    classId = $('.date-con-first>li.active a').attr('cid')
                     if ($('.date-con-sec>li.active a').attr('cid')) {
                         text += '>'+$('.date-con-sec>li.active a').attr('name')
                         classname = $('.date-con-sec>li.active a').attr('name')
-                        classid = $('.date-con-sec>li.active a').attr('cid')
+                        classId = $('.date-con-sec>li.active a').attr('cid')
                         if ($('.date-con-third>li.active a').attr('cid')) {
                             text += '>'+$('.date-con-third>li.active a').attr('name')
                             classname = $('.date-con-third>li.active a').attr('name')
-                            classid = $('.date-con-third>li.active a').attr('cid')
+                            classId = $('.date-con-third>li.active a').attr('cid')
                         }
                     }
                     $('.fenlei').hide()
                     if (_index>-1) {
                         $(event.target).parents('.data-must').find('.choose-text.fenleiTtile').text(text)
                         var _index = $(event.target).parents('.doc-li').attr('index')
-                        uploadObj.uploadFiles[_index].classid= classid;
+                        uploadObj.uploadFiles[_index].classId= classId;
                         uploadObj.uploadFiles[_index].classname = classname;
                         uploadObj.uploadFiles[_index].fenlei = text;
                     } else {
@@ -272,7 +272,7 @@ define(function(require , exports , module){
                         $(event.target).parents('.op-choose').find('.js-fenlei .fenleiTtile').text(text);
                         uploadObj.uploadFiles.forEach(function(item){
                             if(item.checked) {
-                                item.classId = classid;
+                                item.classId = classId;
                                 item.className = classname;
                                 item.fenlei = text;
                             }
@@ -387,9 +387,18 @@ define(function(require , exports , module){
                         }
                     })
                 }
-                
-
+                uploadObj.publicFileRener() 
             })
+            $('.doc-batch-fixed').on('keyup',".doc-pay-input input[name='moneyPrice']",function(){
+                var priceVal = $(this).val();
+                uploadObj.uploadFiles.forEach(function(item){
+                    if(item.checked) {
+                        item.userFilePrice =  priceVal;
+                    }
+                })
+                uploadObj.publicFileRener() 
+            })
+            
         },
         // 试读
         inputPreRead:function(){
@@ -405,7 +414,15 @@ define(function(require , exports , module){
                         }
                     })
                 }
-               
+            })
+            $('.doc-batch-fixed').on('keyup',"input[name='preRead']",function(){
+                var preRead = $(this).val();
+                uploadObj.uploadFiles.forEach(function(item){
+                    if(item.checked) {
+                        item.preRead =  preRead;
+                    }
+                })
+                uploadObj.publicFileRener() 
             })
          },
          // 简介
@@ -560,24 +577,24 @@ define(function(require , exports , module){
                 }else {
                     $(this).parent().siblings('.warn-tip').show().text('标题不能为空');
                 }
-            })
+            }) 
         },
         dataVerify:function(item,index){
             if (!item.fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
             }
-            if(!item.classid) {
+            if(!item.classId) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.must-error').show()
             }
             if(!item.folderId) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.folder-error').show()
             }
             if(item.userFileType==5) {
-               if(!item.definePrice && !item.userFilePrice) {
+               if(!item.definePrice && item.userFilePrice =='0') {
                 $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.pay-item-info').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.price-error').show()
-               }else if (!item.userFilePrice){
+               }else if (item.userFilePrice =='0'){
                     $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                     $('.js-file-item').find('.doc-li').eq(index).find('.select-item-info').show()
                    
@@ -593,18 +610,20 @@ define(function(require , exports , module){
                 uploadObj.uploadFiles.forEach(function(item,index) {
                     if(item.checked) {
                         if(uploadObj.permin==1) {
-                            if(!item.fileName || !item.folderId|| !item.classid ){
+                            if(!item.fileName || !item.folderId|| !item.classId ){
                                 stop = true;
+                                
                             }
                             if (item.userFileType==5) {
                                 if (item.userFilePrice<0.001) {
                                     stop = true;
+                                   
                                 }
                             }
                         }else {
                             if(!item.fileName ||!item.folderId) {
                                 stop = true;
-                                
+                              
                             }
                         }
                         uploadObj.dataVerify(item,index)
@@ -617,6 +636,7 @@ define(function(require , exports , module){
                 })
                 if (stop) {
                     return false;
+                 
                 }
                 if(params.length<1) {
                     $.toast({
