@@ -634,14 +634,17 @@ define(function(require , exports , module){
                     if(item.checked) {
                         if(item.uploadStatus==2) {
                             isUnfinishUpload= true;
+                           
                         }
                         if(uploadObj.permin==1) {
                             if(!item.fileName || !item.folderId|| !item.classId ){
                                 stop = true;
+                              
                             }
                             if (item.userFileType==5) {
-                                if (item.userFilePrice<0.001) {
+                                if (item.userFilePrice=='0') {
                                     stop = true;
+                                 
                                 }
                             }
                         }else {
