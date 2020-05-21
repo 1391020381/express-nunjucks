@@ -99,7 +99,7 @@ app.use(function (req, res, next) {
     // var err = new Error('Not Found');
     // err.status = 404;
     // next(err);
-    res.redirect('/html/404.html');
+    res.redirect('/node/404.html');
 });
 
 // development error handler

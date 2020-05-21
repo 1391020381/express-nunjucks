@@ -35,7 +35,7 @@ class specialModule{
                 const url=appConfig.apiNewBaselPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
                 if(this.state.detail.data.templateCode!=='ishare_zt_model1' || !this.state.detail.data){
-                    res.redirect('/html/404.html')
+                    res.redirect('/node/404.html')
                     return
                 }
 

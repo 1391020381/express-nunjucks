@@ -51,9 +51,9 @@ define(function (require, exports, module) {
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }
-            if($this.attr('bilogContent')){  // 侧边栏数据上报
-                clickEvent($(this)) 
-            }
+            // if($this.attr('bilogContent')){  // 侧边栏数据上报
+            //     clickEvent($(this)) 
+            // }
         }
 
         $(".btn-detail-back").on("click", function () {
