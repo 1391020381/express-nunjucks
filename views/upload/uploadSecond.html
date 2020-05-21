@@ -176,14 +176,14 @@
         <p>已达到本次提交的上限<strong>(20篇)</strong>，无法再添加资料</p>
         <a class="btn-limit" href="javascript:;" onclick="$(this).siblings('.btn-close').trigger('click');">知道了</a>
     </div>
-    <!--删除提示 -->
-    <div class="dialog-limit dialog-doc-delete">
-        <span class="btn-close" title="关闭"></span>
+    <!--未完成上传提醒提示 -->
+    <div class="dialog-limit dialog-doc-delete js-upload-tip">
+        <span class="btn-close" title="关闭" onclick="$(this).parent().hide();$('#bgMask').hide();"></span>
         <div class="dialog-con">
-            <p class="doc-delete-text"><i class="icon-info"></i>您确定删除该文件？</p>
+            <p class="doc-delete-text"><i class="icon-info"></i>你有未上传成功的资料，确定要提交审核吗？</p>
             <div class="btn-con">
-                <a class="btn btn-normal">取消</a>
-                <a class="btn btn-color">确定</a>
+                <a class="btn btn-normal" href="javascript:;" onclick="$(this).parents('.dialog-con').siblings('.btn-close').trigger('click');">取消</a>
+                <a class="btn btn-color js-continue-upload" href="javascript:;" >确定</a>
             </div>
         </div>
     </div>

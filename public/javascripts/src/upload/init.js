@@ -151,6 +151,7 @@ define(function(require , exports , module){
                         uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail,res.data.success);
                         //this.list  为上传任务列表
                         //this.index 为当前上传任务索引
+                        //uploadStatus 1成功 2失败
                         if (res.data.fail.length>0) {
                             uploadObj.uploadFiles.forEach(function(item){
                                 if (item.fileName ==res.data.fail[0].fileName) {
@@ -452,10 +453,10 @@ define(function(require , exports , module){
                 $('#bgMask').show();
                 $(this).parent().parent().hide()
             })
+            
             $('.doc-list').on('click','.js-folder-item',function(){
                 var text = $(this).attr('name')||'';
                 var id = $(this).attr('id')||'';
-               
                 $(this).parent().parent().hide()
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
                 if(itemIndex>-1) {
@@ -608,10 +609,14 @@ define(function(require , exports , module){
         // 保存
         saveUploadFile:function(){
             var stop = false;
+            var isUnfinishUpload = false;
             $('.js-submitbtn').click(function(){
                 var params = [];
                 uploadObj.uploadFiles.forEach(function(item,index) {
                     if(item.checked) {
+                        if(item.uploadStatus==2) {
+                            isUnfinishUpload= true;
+                        }
                         if(uploadObj.permin==1) {
                             if(!item.fileName || !item.folderId|| !item.classId ){
                                 stop = true;
@@ -636,7 +641,6 @@ define(function(require , exports , module){
                 })
                 if (stop) {
                     return false;
-                 
                 }
                 if(params.length<1) {
                     $.toast({
@@ -645,26 +649,39 @@ define(function(require , exports , module){
                     return false;
                 }
                 params = JSON.stringify(params);
-                $.ajax({
-                    type: 'post',
-                    url: api.upload.saveUploadFile,
-                    contentType: "application/json;charset=utf-8",
-                    data: params,
-                    success: function (res) {
-                        if (res.code == 0) {
-                            $('.secondStep').hide();
-                           $('.successWrap').show();
+                if(isUnfinishUpload) {
+                    $('.js-upload-tip').show();
+                    $('#bgMask').show();
+                    $('.js-continue-upload').click(function(){
+                        upload();
+                        $('#bgMask').hide();
+                        $('.js-upload-tip').hide()
+                    })
+                } else {
+                    upload()
+                }
+               function upload(){
+                    $.ajax({
+                        type: 'post',
+                        url: api.upload.saveUploadFile,
+                        contentType: "application/json;charset=utf-8",
+                        data: params,
+                        success: function (res) {
+                            if (res.code == 0) {
+                                $('.secondStep').hide();
+                            $('.successWrap').show();
 
-                        } else {
-                            $.toast({
-                                text: res.msg
-                            })
+                            } else {
+                                $.toast({
+                                    text: res.msg
+                                })
+                            }
+                        },
+                        complete: function () {
+                            
                         }
-                    },
-                    complete: function () {
-                        
-                    }
-                })
+                    })
+               }
             })
            
         }
