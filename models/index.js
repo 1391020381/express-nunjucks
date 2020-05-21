@@ -94,7 +94,7 @@ module.exports = {
                         }
                         if(data.code==='G-500'){
                             console.error(data);
-                            res.redirect('/html/404.html')
+                            res.redirect('/node/404.html')
                             return
                         }else{
                             resolve(data)   
