@@ -122,9 +122,12 @@ define(function(require , exports , module){
                         }
                         //自定义判断，返回false时该文件不会添加到上传队列
                         //userFileType 1 免费 5 付费 6 私有
+                        if (uploadObj.uploadFiles.length>19) {
+                            return false;
+                        }
                         var obj = {fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
-                        // console.log(task)
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
+                       
                         $('.secondStep').show();
                         $('.firstStep').hide();
                         // console.log(uploadObj.uploadFiles);
@@ -164,6 +167,7 @@ define(function(require , exports , module){
                                 }
                             })
                         }
+                        
                         uploadObj.publicFileRener()
                         if (this.index >= this.list.length - 1) {
                             //所有任务上传完成
