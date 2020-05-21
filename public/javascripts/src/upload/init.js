@@ -387,8 +387,11 @@ define(function(require , exports , module){
                         }
                     })
                 }
+            })
+            $('.js-file-item').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
                 uploadObj.publicFileRener() 
             })
+           
             $('.doc-batch-fixed').on('keyup',".doc-pay-input input[name='moneyPrice']",function(){
                 var priceVal = $(this).val();
                 uploadObj.uploadFiles.forEach(function(item){
@@ -612,18 +615,15 @@ define(function(require , exports , module){
                         if(uploadObj.permin==1) {
                             if(!item.fileName || !item.folderId|| !item.classId ){
                                 stop = true;
-                                
                             }
                             if (item.userFileType==5) {
                                 if (item.userFilePrice<0.001) {
                                     stop = true;
-                                   
                                 }
                             }
                         }else {
                             if(!item.fileName ||!item.folderId) {
                                 stop = true;
-                              
                             }
                         }
                         uploadObj.dataVerify(item,index)
