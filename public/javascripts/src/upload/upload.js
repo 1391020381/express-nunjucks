@@ -104,7 +104,7 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:"/ishare-upload/fileUpload",
+                url:"http://192.168.1.56:9004/ishare-upload/fileUpload",
                 target: [document.getElementById("upload-target"), document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
