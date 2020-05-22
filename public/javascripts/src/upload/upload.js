@@ -51,6 +51,7 @@ define(function(require , exports , module){
                     });
                 }
             });
+            // 头部搜索跳转
         },
         beforeInit:function(){
             if (!utils.getCookie('cuk')) {
@@ -111,7 +112,7 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:"http://192.168.1.56:9004/ishare-upload/fileUpload",
+                url:location.protocol+"//upload.ishare.iask.com/ishare-upload/fileUpload",
                 target: [document.getElementById("upload-target"), document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
