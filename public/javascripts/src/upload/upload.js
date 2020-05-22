@@ -714,7 +714,7 @@ define(function(require , exports , module){
            
         }
     }
-    uploadObj.init();
+   
 
      // 登录
      $('.user-login,.login-open-vip').on('click', function () {
@@ -785,5 +785,5 @@ var refreshTopBar = function (data) {
     $("#ip-isVip").val(data.isVip);
     $("#ip-mobile").val(data.mobile);
 };
-
+uploadObj.init();
 });
