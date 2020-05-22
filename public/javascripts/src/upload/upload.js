@@ -1,4 +1,5 @@
 define(function(require , exports , module){
+    require('../application/suspension');
     require('./fixedTopBar')
     require('./index')
     require("./login");
@@ -108,7 +109,7 @@ define(function(require , exports , module){
                 upName:'file',
                 dataType: "application/json",
                 multiple: true,
-                workerThread:20,
+                // workerThread:20,
                 // view: document.getElementById("upload-view"),
                 allows: ".word,.pdf,.ppt,.txt,.xls,.xlsx", //允许上传的文件格式
                 maxSize: 50 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
@@ -630,23 +631,23 @@ define(function(require , exports , module){
         saveUploadFile:function(){
             var stop = false;
             var isUnfinishUpload = false;
+            var isAvaliableFile = false;
             $('.js-submitbtn').click(function(){
                 var params = [];
                 uploadObj.uploadFiles.forEach(function(item,index) {
                     if(item.checked) {
-                        if(item.uploadStatus==2) {
+                        if(item.uploadStatus!=1) {
                             isUnfinishUpload= true;
-                           
+                        } else if(item.uploadStatus==1) {
+                            isAvaliableFile = true;
                         }
                         if(uploadObj.permin==1) {
                             if(!item.fileName || !item.folderId|| !item.classId ){
                                 stop = true;
-                              
                             }
                             if (item.userFileType==5) {
                                 if (item.userFilePrice=='0') {
                                     stop = true;
-                                 
                                 }
                             }
                         }else {
@@ -673,6 +674,12 @@ define(function(require , exports , module){
                 }
                 params = JSON.stringify(params);
                 if(isUnfinishUpload) {
+                    if(!isAvaliableFile) {
+                        $.toast({
+                            text: '暂无有效上传资料'
+                        });
+                        return false;
+                    }
                     $('.js-upload-tip').show();
                     $('#bgMask').show();
                     $('.js-continue-upload').click(function(){
@@ -713,7 +720,7 @@ define(function(require , exports , module){
 
      // 登录
      $('.user-login,.login-open-vip').on('click', function () {
-        if (!method.getCookie('cuk')) {
+        if (!utils.getCookie('cuk')) {
             login.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
             });
