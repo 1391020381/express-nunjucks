@@ -1,8 +1,6 @@
 define(function(require , exports , module){
     require('../application/suspension');
     require('./fixedTopBar')
-    require('./index')
-    require("./login");
     require('../cmd-lib/toast');
     require("../cmd-lib/upload/Q");
     require("../cmd-lib/upload/Q.Uploader");
