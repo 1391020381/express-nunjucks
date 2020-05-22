@@ -47,6 +47,7 @@ define(function(require , exports , module){
         beforeInit:function(){
             if (!utils.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
+                    alert(1111111)
                    if (data) {
                         uploadObj.isAuth = data.isAuth =="0" ? false: true;
                         refreshTopBar(data);
@@ -54,6 +55,7 @@ define(function(require , exports , module){
                 });
             }else {
                 login.syncUserInfoInterface(function (data) {
+                    lert(22222)
                     if (data) {
                          uploadObj.isAuth = data.isAuth =="0" ? false: true;
                          refreshTopBar(data);
