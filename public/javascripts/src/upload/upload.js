@@ -9,6 +9,7 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var tmpList = require('./template/list.html')  //公开资料模板
     var tmpList2 =require('./template/list_pravite.html') //私密资料模板
+    $(function(){
     var uploadObj = {
         uploadFiles:[],
         permin:1, //1:公开、2:私密
@@ -784,6 +785,6 @@ define(function(require , exports , module){
             $("#ip-mobile").val(data.mobile);
         }
     }
-   
 uploadObj.init();
+})
 });
