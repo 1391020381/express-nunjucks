@@ -731,7 +731,9 @@ define(function(require , exports , module){
             var $vip_status = $('.vip-status');
             var $icon_iShare = $(".icon-iShare");
             var $top_user_more = $(".top-user-more");
-
+            alert(11111)
+            console.log($hasLogin)
+            console.log('console.log($hasLogin)')
             $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
             var $target = null;
 
@@ -785,6 +787,6 @@ define(function(require , exports , module){
             $("#ip-mobile").val(data.mobile);
         }
     }
-uploadObj.init();
+    uploadObj.init();
 })
 });
