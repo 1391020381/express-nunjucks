@@ -2,6 +2,12 @@
  @import "less-public/_ishare_setting";
 @import "less-public/_less_mixin";
 // @import "less-public/website-footer";
+.pw{
+    // width: 100%;
+    // height: 100%;
+    // margin: 0 auto;
+    // overflow: auto;
+}
 .down-success{
     margin-top:30px;
     width:1200px;
@@ -32,27 +38,26 @@
                         display: block;
                         position: absolute;
                         right: -253px;
-                        top: -84px;
+                        top: -20px;
                         z-index: 8;
                         width:250px;
-                       height:168px;
+                    //    height:168px;
                        background:rgba(255,255,255,1);
                        box-shadow: 2px 3.464px 10px 0px rgba(44, 21, 24, 0.1);
                       border-radius:4px;
                       font-size: 13px;
-                      line-height: normal;
+                      line-height: 20px;
+                      text-align: left;
                       .no-find-text-arrow{
                         width: 0;
                         height: 0;
                         display: block;
                         overflow: hidden;
-                        border-width: 6px;
-                        border-style: dashed dashed solid dashed;
-                        border-color: transparent transparent #f9f6f0 transparent;
-                        position: absolute;
-                        right: 26px;
-                        top: -12px;
-                        z-index: 5;
+                        left: -10px;
+                        top: 17px;
+                        border-top: 10px solid transparent;
+                        border-bottom: 10px solid transparent;
+                        border-right: 10px solid #ffffff;
                       }
                       .sent-email-item{
                         .item{
@@ -62,10 +67,10 @@
                             padding-top:24px;   
                         }
                         .item:nth-child(2){
-                            padding:14px 0 12px 0 ;   
+                            padding: 10px 14px 10px 14px;  
                         }
                         .item:last-child{
-                            padding-bottom:26px;
+                            margin-bottom:20px;
                             .sent-email{
                                 color: #333333;
                                 font-weight: bold;

@@ -73,8 +73,8 @@ define(function (require, exports, module) {
         }
 
         if (!method.getCookie('cuk') && !userData) {
-            $('.down-success-other').hide()
-            $('.qrcode-warpper').hide()
+            // $('.down-success-other').hide()
+            // $('.qrcode-warpper').hide()
 
             login.notifyLoginInterface(function (data) {
                 userData = data;
@@ -407,15 +407,14 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 if(res.data.code == '0'){
-                    var _html = template.compile(swiperTemplate)({ topBanner: arr ,className:'swiper-top-container' });
+                    var _html = template.compile(swiperTemplate)({ topBanner: res.data.data.list ,className:'swiper-top-container' });
                     $(".down-success-banner").html(_html);
-                    if (arr.length > 1) {
                      var mySwiper = new Swiper('.swiper-top-container', {
                          direction: 'horizontal',
                          loop: true,
                          autoplay: 3000,
                      })
-                 }
+                 
                 }
             }
         })
@@ -453,7 +452,7 @@ define(function (require, exports, module) {
                 dataType: "json",
                 success: function (res) {
                         console.log(res)
-                        if(res.code === '0'){
+                        if(res.code == '0'){
                             $.toast({
                                 text: '发送邮箱成功!',
                                 })

@@ -147,7 +147,7 @@ define(function (require, exports, moudle) {
 
         if ($(this).data('pid')) {
             params.pid = $(this).data('pid');
-            params.type = "1";
+            params.type = "13";
         }
     });
 
@@ -177,7 +177,7 @@ define(function (require, exports, moudle) {
                 }
                 if ($this.data('vid')) {
                     params.vid = $this.data('vid');
-                    params.type = "0";
+                    params.type = "10";
                     params.vipMemberId = $this.data('vid');
                 }
                 if ($this.data('index')!=='') {
@@ -352,7 +352,7 @@ define(function (require, exports, moudle) {
         var orderNo = data.data.orderNo;
         var price = data.data.payPrice;
         var name = data.data.name;
-        var type = data.data.type || params.type; // 都以获取下载url接口  checkStatus为准
+        var type =  params.type; // 都以获取下载url接口  checkStatus为准  data.data.type ||
         var fileId = data.data.fileId;
         if (!fileId) {
             fileId = fid;

@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 $(".before-search-words").css("display","none");
-                if (res.code === '0') {
+                if (res.code == '0') {
                     fileInfo = res.data;
                     handleShowInfos();
                     handleFileTypeIcon(fileInfo);
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if (res.code === '0') {
+                if (res.code == '0') {
                     var url = res.data.downUrl;
                     window.location = url
                 }else {

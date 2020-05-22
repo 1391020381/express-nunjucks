@@ -21,13 +21,12 @@ define(function (require, exports, module) {
         isHideMore: function (pageNum) {   // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
             if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
-                changeText()
             } else if (pageNum >= imgTotalPage) {
-               // $(".show-over-text").eq(1).show();
+               $(".show-over-text").eq(1).show();
             }
-            $(".show-more-text").hide();
-            $(".btn-read-more").hide();
-            $(".article-mask").hide();
+            // $(".show-more-text").hide();
+            // $(".btn-read-more").hide();
+            // $(".article-mask").hide();
         },
         //加载渲染
         drawing: function (currentPage) {
@@ -196,7 +195,7 @@ define(function (require, exports, module) {
             restPage = totalPage - cPage;
             $articlePages.eq(2).hide();
             $articlePages.eq(3).hide();
-            loadMore()
+            // loadMore()
         }
     });
     //给页面绑定滑轮滚动事件
@@ -210,7 +209,6 @@ define(function (require, exports, module) {
     //点击加载更多
     $(document).on('click', '[data-toggle="btnReadMore"]', function () {
         loadMore();
-        readMoreTextEvent()
     });
 
     //点击下一页 >
@@ -431,9 +429,17 @@ define(function (require, exports, module) {
         //如果已经到最后了
         if (loadedPage - limitPage >= 0) {
             action.isHideMore(loadedPage);
+            if($('.red-color').text()!=='点击可继续阅读'){
+                readMoreTextEvent()
+            }
+            changeText()  
         }
         if (loadedPage == totalPage) {
             action.isHideMore(loadedPage);
+             if($('.red-color').text()!=='点击可继续阅读'){
+                readMoreTextEvent()
+            }
+            changeText()
         }
     }
 

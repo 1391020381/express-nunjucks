@@ -389,7 +389,7 @@ define(function (require, exports, module) {
 
     };
 
-    var downLoad = function (callback) {
+    var downLoad = function () {
         // 文件下载 /action/downloadUrl?fid=文件id&code=验证码,预下载返回需要验证码
         var url = api.normalFileDetail.fileDownLoad + '?fid=' + window.pageConfig.params.g_fileId + "&code=" + (code ? code : '');
         $.ajax({
@@ -398,7 +398,6 @@ define(function (require, exports, module) {
             url: url,
             dataType: "json",
             success: function (data) {
-                callback(data)
                 bouncedType(data);
             }
         });
@@ -422,7 +421,7 @@ define(function (require, exports, module) {
                 dataType: "json",
                 success: function (res) {
                         console.log(res)
-                        if(res.code === '0'){
+                        if(res.code == '0'){
                             bouncedType(res);
                         }
                 }
@@ -504,6 +503,6 @@ define(function (require, exports, module) {
     });
     
    module.exports = {
-    downLoad:downLoad
+    downLoad:getFileDownUrl
    }
 });

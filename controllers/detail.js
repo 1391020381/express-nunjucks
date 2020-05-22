@@ -394,6 +394,9 @@ module.exports = {
          
          // 转换新对象
              var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo)})
+            if(!list.data.fileContentList){
+                list.data.fileContentList = []
+            }
              var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
             results.list.data.supportSvg = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1;

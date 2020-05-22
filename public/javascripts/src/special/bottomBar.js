@@ -40,7 +40,7 @@ define(function(require , exports , module){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            if(res.code === '0'){
+            if(res.code == '0'){
                 $.toast({
                     text: _this.hasClass("active")?"取消收藏成功":"收藏成功"
                 })

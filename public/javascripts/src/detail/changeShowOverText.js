@@ -2,6 +2,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     // 试读完毕后, 修改 继续阅读 按钮的文字 而且修改后 事件的逻辑 走下载逻辑
     var  downLoad =  require("./download").downLoad;
     var method = require("../application/method");
+    var login = require("../application/checkLogin");
     var common = require('./common');
      var  readMore =  $('.red-color')
      // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
@@ -15,7 +16,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var ui = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     function readMoreTextEvent(){ // 文件下载接口的返回数据
         if(method.getCookie('cuk')){
-            downLoad(changeReadMoreText)
+            downLoad()
        }else{
         login.notifyLoginInterface(function (data) {
             common.afterLogin(data);
@@ -33,24 +34,24 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     function changeReadMoreText(){
      var    textContent = ''
         switch (productType) {
-           case 5 : // 付费
+           case '5' : // 付费
            if(isDownload == 'n'){
-            textContent =  '¥'+ (productPrice/100).toFixed(2) +'获取该资料'
+            textContent =  '¥'+ (productPrice) +'获取该资料'
            }else{
-            textContent =  '下载到本地阅读'
+            textContent =  '¥'+ productPrice +'获取该资料'
            }
            break
-           case 1 :
+           case '1' :
            textContent = '下载到本地阅读'
            break
-           case 3:
+           case '3':
              if(isDownload=='n'){
                 textContent = '开通VIP寻找资料'
              }else{
                 textContent = '寻找资料'
              }  
              break
-             case 4:
+             case '4':
                if(isDownload=='n'){
                 textContent = '开通VIP 下载资料'
                }else{

@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         vipDiscountFlag: window.pageConfig.params.vipDiscountFlag,
         ownVipDiscountFlag: window.pageConfig.params.ownVipDiscountFlag,
         volume: window.pageConfig.params.file_volume,                    //下载券数量
-        moneyPrice: window.pageConfig.params.moneyPrice,
+        moneyPrice: window.pageConfig.params.moneyPrice||window.pageConfig.params.productPrice,
         fid: window.pageConfig.params.g_fileId,
         title: window.pageConfig.page.fileName,
         format: window.pageConfig.params.file_format,

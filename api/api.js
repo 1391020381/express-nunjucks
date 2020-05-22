@@ -23,6 +23,11 @@ module.exports = {
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
         getUserFileZcState:'/comment/zc/getUserFileZcState'
     },
+    coupon:{
+        rightsSaleVouchers:   "/rights/sale/vouchers",
+        rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
+        querySeniority:  '/rights/sale/querySeniority',
+    },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
         getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
