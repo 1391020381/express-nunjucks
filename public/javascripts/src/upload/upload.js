@@ -50,12 +50,14 @@ define(function(require , exports , module){
                 login.notifyLoginInterface(function (data) {
                    if (data) {
                         uploadObj.isAuth = data.isAuth =="0" ? false: true;
+                        refreshTopBar(data);
                    }
                 });
             }else {
                 login.syncUserInfoInterface(function (data) {
                     if (data) {
                          uploadObj.isAuth = data.isAuth =="0" ? false: true;
+                         refreshTopBar(data);
                     }
                  });
             }
