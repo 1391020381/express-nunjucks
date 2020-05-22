@@ -54,7 +54,7 @@ define(function (require, exports, moudle) {
             }
         } else if (flag == "true" && uid) {//成功页面
             var mobile = $("#ip-mobile").val();
-            mobile = false
+            // mobile = false
             if (mobile) {//隐藏绑定手机号模块 公众号模块居中
                 $(".carding-info-bottom").addClass('carding-binding-ok');
             }
@@ -83,7 +83,7 @@ define(function (require, exports, moudle) {
         vid: '',                                                                 //vip套餐id
         pid: '',                                                                 //特权id
         oid: "",                                                                 //订单ID 获取旧订单
-        type: window.pageConfig.params.checkStatus||'2',                                                               //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
+        type: window.pageConfig.params.checkStatus||'10',  // 用户search 续费vip进入                                                              //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
         referrer: document.referrer || document.URL,                             //来源网址
         remark: '',                                                              //页面来源 其他-办公频道           

@@ -35,11 +35,12 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
-           if(isDownload == 'n'){
-            textContent =  '¥'+ (productPrice) +'获取该资料'
+           if(ui.isVip =='1'){
+            textContent =  '下载到本地阅读'
            }else{
-            textContent =  '¥'+ productPrice +'获取该资料'
+            textContent =  '¥'+ (productPrice) +'获取该资料'
            }
+          
            break
            case '1' :
            textContent = '下载到本地阅读'

@@ -51,7 +51,8 @@
                                  <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}
                         </div>
-                      {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}
+                        <!--&& data.ownVipDiscountFlag== 1-->
+                      {{else if data.isVip == 0 && data.vipDiscountFlag == 1 }}
                         <div class="data-item fl">
                             <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                         </div>

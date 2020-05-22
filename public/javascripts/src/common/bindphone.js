@@ -182,7 +182,7 @@ define(function (require, exports, moudle) {
     }
 
     $(function () {
-
+        // debugger
         //手机区号选择
         var $choiceCon = $(".phone-choice");
         var pageType = $('#ip-page-type').val();//页面类型

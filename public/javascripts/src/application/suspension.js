@@ -209,7 +209,7 @@ define(function (require, exports, module) {
     $('.op-feedback').on('click', function () {
         var curr = window.location.href;
         // window.open('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr));
-        method.compatibleIESkip('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr),true);
+        // method.compatibleIESkip('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr),true);
         // window.location.href = '/feedAndComp/userFeedback?url='+encodeURIComponent(curr);
         method.compatibleIESkip('/node/feedback/feedback.html?url=' + encodeURIComponent(curr),true);
     });

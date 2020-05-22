@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         vipDiscountFlag: window.pageConfig.params.vipDiscountFlag,
         ownVipDiscountFlag: window.pageConfig.params.ownVipDiscountFlag,
         volume: window.pageConfig.params.file_volume,                    //下载券数量
-        moneyPrice: window.pageConfig.params.moneyPrice||window.pageConfig.params.productPrice,
+        moneyPrice:window.pageConfig.params.productPrice,
         fid: window.pageConfig.params.g_fileId,
         title: window.pageConfig.page.fileName,
         format: window.pageConfig.params.file_format,
@@ -88,6 +88,7 @@ define(function (require, exports, module) {
      * 登录后,要刷新顶部.中间,底部内容
      */
     var reloadingPartOfPage = function () {
+        debugger
         $("#footer-btn").html(template.compile(pay_btn_tmp)({data: initData})); // footer-btn 详情底部固定栏  /views/detail/fixed.html
       //  $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData})); // middle-btn 详情正文部分按钮 /views/detail/middleBtn.html
       //  $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));  // headerBtn  详情头部立即下载按钮  产品暂时注释掉 header的立即下载按钮
@@ -98,16 +99,18 @@ define(function (require, exports, module) {
      */
     var reSetOriginalPrice = function () {
         var originalPrice = 0;
-        if (initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag) {
-            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
+        if (initData.isVip == 1 && initData.vipDiscountFlag) { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
+            originalPrice = initData.moneyPrice ;
             $(".js-original-price").html(originalPrice);
             var fileDiscount = userData.fileDiscount;
             if (fileDiscount && fileDiscount !== 80) {
                 $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
             }
         }
-        if (initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag) {
-            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
+        if (initData.perMin === '3' && initData.vipDiscountFlag) { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
+            originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
             var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
             $('#vip-save-money').html(savePrice);
