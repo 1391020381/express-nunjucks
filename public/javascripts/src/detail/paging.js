@@ -83,13 +83,14 @@ define(function (require, exports, module) {
             $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
 
             //滚动到指定位置
-            // if (currentPage <= imgTotalPage) {
-            //     var index = $('.page-input').val();
-            //     var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
-            //     if (position) {
-            //         $('body,html').animate({scrollTop: position.top}, 200);
-            //     }
-            // }
+            if (currentPage <= imgTotalPage) {
+                // var index = $('.page-input').val();
+                var index = $('.page-input').text();
+                var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
+                if (position) {
+                    $('body,html').animate({scrollTop: position.top}, 200);
+                }
+            }
         },
 
         //判断地址是否有效
@@ -214,8 +215,8 @@ define(function (require, exports, module) {
     //点击下一页 >
     $('.page-next').on('click', function () {
 
-        var index = $('.page-input').val() - 0;
-
+        // var index = $('.page-input').val() - 0;
+        var index = $('.page-input').text() - 0;
         if (limitPage === 2 && index === 2) return;
 
         var dataDetail = $('.data-detail');
@@ -252,7 +253,8 @@ define(function (require, exports, module) {
                 $('body,html').animate({ scrollTop: position }, 200);
 
                 setTimeout(function () {
-                    $('.page-input').val(index + 1);
+                    // $('.page-input').val(index + 1);
+                    $('.page-input').text(index + 1);
                 }, 100)
             }
         }
@@ -277,7 +279,8 @@ define(function (require, exports, module) {
     // 点击上一页 <
     $('.page-prev').on('click', function () {
 
-        var index = $('.page-input').val() - 0;
+        // var index = $('.page-input').val() - 0;
+        var index = $('.page-input').text() - 0;
         if (index === 1) {
             return
         }
@@ -287,7 +290,8 @@ define(function (require, exports, module) {
             $('body,html').animate({ scrollTop: position }, 200);
 
             setTimeout(function () {
-                $('.page-input').val(index - 1);
+                // $('.page-input').val(index - 1);
+                $('.page-input').text(index - 1);
             }, 100)
         }
     });
@@ -295,7 +299,8 @@ define(function (require, exports, module) {
     //enter键盘 按下事件
     $(".page-input").keydown(function (event) {
         if (event.keyCode === 13) {
-            var index = $('.page-input').val() - 0;
+            // var index = $('.page-input').val() - 0;
+            var index = $('.page-input').text() - 0;
             if (index > limitPage) {
                 var $d_page_wrap = $('.d-page-wrap');
                 $d_page_wrap.removeClass('hide');
@@ -388,7 +393,8 @@ define(function (require, exports, module) {
         for (var i = 0; i < dataDetail.length; i++) {
             var elTop = dataDetail[i].getBoundingClientRect().top;
             if (clientHeight > elTop && elTop > 0) {
-                $('.page-input').val(i + 1);
+                // $('.page-input').val(i + 1);
+                $('.page-input').text(i + 1);
                 break;
             }
         }
@@ -458,7 +464,8 @@ define(function (require, exports, module) {
                         displayLoading(num);
                     }
                 }
-                $('.page-input').val(i + 1);
+                // $('.page-input').val(i + 1);
+                $('.page-input').text(i + 1);
                 break;
             }
         }

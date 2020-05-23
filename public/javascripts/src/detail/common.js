@@ -88,7 +88,6 @@ define(function (require, exports, module) {
      * 登录后,要刷新顶部.中间,底部内容
      */
     var reloadingPartOfPage = function () {
-        debugger
         $("#footer-btn").html(template.compile(pay_btn_tmp)({data: initData})); // footer-btn 详情底部固定栏  /views/detail/fixed.html
       //  $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData})); // middle-btn 详情正文部分按钮 /views/detail/middleBtn.html
       //  $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));  // headerBtn  详情头部立即下载按钮  产品暂时注释掉 header的立即下载按钮

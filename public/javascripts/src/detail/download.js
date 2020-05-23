@@ -493,6 +493,7 @@ define(function (require, exports, module) {
     //点击预下载按钮
     $(document).on("click", '[data-toggle="download"]', function (e) {
       //  preDownLoad();
+    //   debugger
       getFileDownUrl()
     })
     //用app保存
