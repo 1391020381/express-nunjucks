@@ -61,7 +61,36 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
+              //  server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.getPrivilege,
+                    body:JSON.stringify({
+                        platform:0,
+                        scope:4
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    },
+                };
+                request(opt, function (err, res, body) {
+                    if (body) {
+                        try {
+                            var data = JSON.parse(body);
+                            if (data.code == 0) {
+                                
+                                callback(null, data);
+                            } else {
+                                callback(null, null);
+                            }
+                        } catch (err) {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
             }
         }, function (err, results) {
             results.type = 1;

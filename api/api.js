@@ -31,7 +31,8 @@ module.exports = {
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
         getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
-        getPrivilege: '/order/privilegePackage',    //获取下载特权列表
+        // getPrivilege: '/order/privilegePackage',    //获取下载特权列表
+        getPrivilege: '/rights/vip/getPrivilegePacks',    //获取下载特权列表
         order: '/order/create',                     //下单
         orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
