@@ -679,6 +679,7 @@ define(function(require , exports , module){
         },
         // 保存
         saveUploadFile:function(){
+            var locker = false;
             $('.js-submitbtn').click(function(){
                 var stop = false;
                 var isUnfinishUpload = false;
@@ -748,15 +749,25 @@ define(function(require , exports , module){
                     upload()
                 }
                function upload(){
+                    $.toast({
+                        text: '上传中......',
+                        delay:1000000
+                    });
+                    if(locker){
+                        return false;
+                    }
+                    locker = true;
                     $.ajax({
                         type: 'post',
                         url: api.upload.saveUploadFile,
                         contentType: "application/json;charset=utf-8",
                         data: params,
                         success: function (res) {
+                            locker = false;
+                            $('body').find('.ui-toast').hide()
                             if (res.code == 0) {
                                 $('.secondStep').hide();
-                            $('.successWrap').show();
+                                $('.successWrap').show();
 
                             } else {
                                 $.toast({
@@ -765,7 +776,8 @@ define(function(require , exports , module){
                             }
                         },
                         complete: function () {
-                            
+                            locker = false;
+                            $('body').find('.ui-toast').hide()
                         }
                     })
                }
