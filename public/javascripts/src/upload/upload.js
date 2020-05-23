@@ -712,6 +712,9 @@ define(function(require , exports , module){
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
                         }
+                        if(!item.userFilePrice) {
+                            obj.userFilePrice = '0';
+                        }
                         if (item.uploadStatus==1) {
                             params.push(obj);
                         }
