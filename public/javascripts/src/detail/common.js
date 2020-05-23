@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         vipDiscountFlag: window.pageConfig.params.vipDiscountFlag,
         ownVipDiscountFlag: window.pageConfig.params.ownVipDiscountFlag,
         volume: window.pageConfig.params.file_volume,                    //下载券数量
-        moneyPrice:window.pageConfig.params.productPrice,
+        moneyPrice:window.pageConfig.params.moneyPrice,
         fid: window.pageConfig.params.g_fileId,
         title: window.pageConfig.page.fileName,
         format: window.pageConfig.params.file_format,
@@ -98,16 +98,17 @@ define(function (require, exports, module) {
      */
     var reSetOriginalPrice = function () {
         var originalPrice = 0;
-        if (initData.isVip == 1 && initData.vipDiscountFlag) { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+        if (initData.isVip == 1 && initData.vipDiscountFlag == '1') { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
             // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
             originalPrice = initData.moneyPrice ;
             $(".js-original-price").html(originalPrice);
-            var fileDiscount = userData.fileDiscount;
-            if (fileDiscount && fileDiscount !== 80) {
-                $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
-            }
+            // var fileDiscount = userData.fileDiscount;
+            // if (fileDiscount && fileDiscount !== 80) {
+            //     $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
+            // }
+            $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
         }
-        if (initData.perMin === '3' && initData.vipDiscountFlag) { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+        if (initData.perMin === '3' && initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
             // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
             originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);

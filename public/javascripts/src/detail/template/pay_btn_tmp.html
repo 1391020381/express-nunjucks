@@ -1,5 +1,5 @@
 <div class="bottom-fix qwe">
-        {{if data.isDownload === "n"}}
+        {{if data.productType == "3"}}
             <!--仅在线阅读-->
             {{if data.isVip == 1}}
                 <div class="data-item fl">
@@ -21,7 +21,7 @@
             {{/if}}
         {{else}}
             <!--VIP免费-->
-            {{if data.vipFreeFlag == 1}}
+            {{if data.productType == 4}}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                 </div>
@@ -29,7 +29,7 @@
                     <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
             {{else}}
-                {{if data.perMin == "3"}}
+                {{if data.productType == "5" }}
                     <!--现金文档 -->
                     <!--专享8折 加入vip8折购买 立即下载 立即购买-->
                       {{if data.isVip == 1 && data.vipDiscountFlag == 1 }}
