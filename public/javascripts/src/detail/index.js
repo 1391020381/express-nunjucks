@@ -43,11 +43,13 @@ define(function (require, exports, module) {
             if (params.productType == '5' && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+                debugger
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
                 // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
                 var savePrice = (params.moneyPrice *0.8).toFixed(2);
-                $('#vip-save-money').html(savePrice);
+                $('.vip-save-money').html(savePrice)
+                $('.js-original-price').html(savePrice);
             }
         }
         // 意见反馈的url

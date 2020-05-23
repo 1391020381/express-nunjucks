@@ -147,6 +147,7 @@ define(function (require, exports, moudle) {
 
         if ($(this).data('pid')) {
             params.pid = $(this).data('pid');
+            params.aid = $(this).data('actids');
             params.type = "13";
         }
     });
@@ -218,6 +219,7 @@ define(function (require, exports, moudle) {
             params.type = '13';
             if ($("ul.pay-pri-list").find("li.active").data("pid")) {
                 params.pid = $("ul.pay-pri-list").find("li.active").data("pid");
+                params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             }
             params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             report.price = $("ul.pay-pri-list").find("li.active").data("price");
@@ -268,7 +270,7 @@ define(function (require, exports, moudle) {
             if (params.isVip == '2') {//判断vip状态
                 utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
                 return;
-            } else if (checkStatus =='13') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
+            } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
                 utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
                 return;
             }
@@ -297,6 +299,7 @@ define(function (require, exports, moudle) {
         }
         // 组装创建订单的参数
         var temp = {
+            aid:params.aid,
             goodsId:goodsId,  // 文件id  vip套餐id
             goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
             remark:params.remark,
