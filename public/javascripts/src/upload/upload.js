@@ -157,6 +157,7 @@ define(function(require , exports , module){
                                     uploadObj.refreshTopBar(data);
                                }
                             });
+                            return false;
                         }
                         //自定义判断，返回false时该文件不会添加到上传队列
                         //userFileType 1 免费 5 付费 6 私有
