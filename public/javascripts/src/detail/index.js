@@ -40,11 +40,13 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if (params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag) {
+            if (params.productType == '5' && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
-                var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+                // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+                var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
-                var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
+                // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
+                var savePrice = (params.moneyPrice *0.8).toFixed(2);
                 $('#vip-save-money').html(savePrice);
             }
         }
@@ -369,7 +371,7 @@ define(function (require, exports, module) {
                     method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
                 }
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
-                if (pageConfig.params.g_permin == 3 && type == "file") {
+                if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
 
                 } else {
@@ -703,6 +705,7 @@ define(function (require, exports, module) {
     };
 
     function goPage(type) {
+        debugger
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -713,16 +716,19 @@ define(function (require, exports, module) {
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
 
         if (type === 'file') {
-            params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+            // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+            params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
             __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
-            var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+            var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             // window.open("/pay/vip.html" + params);
             method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (type === 'privilege') {
-            var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+            var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // window.open("/pay/privilege.html" + params);
             method.compatibleIESkip('/pay/privilege.html' + params,true);
         }

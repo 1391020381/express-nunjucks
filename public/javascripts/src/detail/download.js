@@ -326,38 +326,6 @@ define(function (require, exports, module) {
         }
     };
 
-
-
-    // function goPage(checkStatus) {
-    //     var fid = window.pageConfig.params.g_fileId;
-    //     var format = window.pageConfig.params.file_format;
-    //     var title = window.pageConfig.params.file_title;
-    //     var params = '';
-    //     var ref = utils.getPageRef(fid);
-    //     //文件信息存入cookie方便gio上报
-    //     method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
-    //     method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-    //     if (checkStatus == 8) { // 资料是付费，用户未购买
-    //         params = '?orderNo=' + fid + '&referrer=' + document.referrer;
-    //         // window.location.href = "/pay/payConfirm.html" + params;
-    //         method.compatibleIESkip("/pay/payConfirm.html" + params,false);
-    //         break;
-    //     } else if (checkStatus == 10) {
-    //         // __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
-    //         // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-    //         // // window.open("/pay/vip.html" + params);
-    //         // method.compatibleIESkip('/pay/vip.html' + params,true);
-    //         // break;
-    //     } else if (checkStatus === 'privilege') {
-    //         var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-    //         // window.open("/pay/privilege.html" + params);
-    //         method.compatibleIESkip('/pay/privilege.html' + params,true);
-    //         break;
-    //     }
-    // }
-
-
-
     /**
      * 预下载
      */
