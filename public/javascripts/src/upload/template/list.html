@@ -68,12 +68,12 @@
                         <a class="pay-item-info {{value.definePrice?'displayNone':''}}"  target="_blank" href="https://static3.iask.cn/help/%E7%88%B1%E9%97%AE%E4%BB%B7%E6%A0%BC%E8%A7%84%E8%8C%83%E5%8F%82%E8%80%83.pdf" ><i class="icon-wen"></i>定价参考</a>
                     </div>
                     <div class="doc-pay-input fl ml18  js-input-money {{value.userFileType==1?'displayNone':value.definePrice?'':'displayNone'}}" style="">
-                        <input type="text" class="data-input "  autocomplete="off" placeholder="输入金额" name="moneyPrice" maxlength="4" value="{{value.userFilePrice=='0'?'':value.userFilePrice}}">
+                        <input type="number" class="data-input "  autocomplete="off" placeholder="输入金额" name="moneyPrice"  value="{{value.userFilePrice=='0'?'':value.userFilePrice}}">
                         <div class="select-item-info" class="moneyPriceTips">请输入售价</div>
                     </div>
 
                     <div class="trial-input fl js-need-money {{value.userFileType==1?'displayNone':''}} ml18" style="">
-                        <input type="text" class="data-input" placeholder="试读页数" maxlength="4" name="preRead" value="{{value.preRead}}">
+                        <input type="number" class="data-input" placeholder="试读页数" maxlength="4" name="preRead" value="{{value.preRead}}">
                     </div>
                 </div>
             </div>
