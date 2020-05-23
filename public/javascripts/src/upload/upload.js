@@ -61,7 +61,6 @@ define(function(require , exports , module){
         beforeInit:function(){
             if (!utils.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
-                   console.log(data)
                    if (data) {
                         uploadObj.isAuth = data.isAuth =="0" ? false: true;
                         uploadObj.refreshTopBar(data);
@@ -150,6 +149,14 @@ define(function(require , exports , module){
                             case 'size': return $.toast({
                                 text: "资料过大，请压缩后重新上传",
                             }); 
+                        }
+                        if (!utils.getCookie('cuk')) {
+                            login.notifyLoginInterface(function (data) {
+                               if (data) {
+                                    uploadObj.isAuth = data.isAuth =="0" ? false: true;
+                                    uploadObj.refreshTopBar(data);
+                               }
+                            });
                         }
                         //自定义判断，返回false时该文件不会添加到上传队列
                         //userFileType 1 免费 5 付费 6 私有
