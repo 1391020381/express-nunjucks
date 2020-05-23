@@ -4,7 +4,7 @@ var specialController = require('../controllers/special');
 var error = require('../common/error');
 
 //专题展示页面.
-router.get('/node/s/*.html',function(req , res , next){
+router.get('/node/s/*.html*',function(req , res , next){
     try{
         new specialController(req,res)
         //specialController.render(req, res);
