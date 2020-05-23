@@ -295,6 +295,8 @@ define(function (require, exports, module) {
                         .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
                         .replace(/\$fileSize/, pageConfig.params.file_size)
                         .replace(/\$code/, res.data.status)
+                        .replace(/\$privilege/, res.data.privilege)
+                        .replace(/\$productPrice/, res.data.productPrice)
                 }).open();
                 break;
              // 在线文档不支持下载       

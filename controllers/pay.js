@@ -102,7 +102,7 @@ module.exports = {
                             var data = JSON.parse(body);
                             if (data.code == 0) {
                                 var backData = {};
-                                backData.checkStatus = req.query.checkStatus
+                                backData.checkStatus = req.query.checkStatus[0]
                                 backData.fileId = req.query.orderNo;
                                 backData.referrer = req.query.referrer;
                                 backData.moneyPrice = data.data.fileInfo.productPrice; //productPrice
