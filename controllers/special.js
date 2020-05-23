@@ -24,7 +24,6 @@ class specialModule{
     }
     render(){
         return async.series(this.init(), (err, results)=>{
-            console.warn(66666666666666)
             this.finishResults()
         })
     }
@@ -38,7 +37,7 @@ class specialModule{
                     res.redirect('/node/404.html')
                     return
                 }
-
+              
                 if(paramsObj.dimensionId && this.state.detail.data.dimensionStatus==0){ //获取当前当前的维度列表
                     let index=_.findIndex(this.state.detail.data.specialTopicDimensionDOList,['dimensionId',paramsObj.dimensionId])
                     this.state.specialList=this.state.detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; //当前维度下的分类

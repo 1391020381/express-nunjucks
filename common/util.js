@@ -122,8 +122,9 @@ module.exports = {
     },
     getSpecialParams:function(pathname){ //专题id_页码_排序-维度-xx_xx-xx_xx    格式
         var item = null;
-        var regExp=new RegExp("\/([^/]+)+.html$","g");
-        var matchResult = pathname.match(regExp)[0].split('.')[0].replace('\/','');
+        var url=pathname.split('.')[0];
+        var index=url.lastIndexOf("\/");
+        var matchResult=url.substring(index + 1,url.length);
         var paramsArr=matchResult.split('-');
         var firstSpilt=paramsArr[0].split('_');
         item={
