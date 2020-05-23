@@ -37,7 +37,7 @@ define(function(require , exports , module){
             setTimeout(function(){
                 uploadObj.upload();
             },500)
-            $('.js-file-item').click(function(){
+            $('body').click(function(){
                 $('.fenlei').hide();
                 $('.folder').hide();
                 $('.permin').hide();
@@ -235,7 +235,23 @@ define(function(require , exports , module){
                 data: params,
                 success: function (res) {
                     if (res.code == 0) {
+                        res.data.categoryList.forEach(function(layer1){
+                            if(layer1.categoryList) {
+                                layer1.categoryList.forEach(function(layer2){
+                                    if(layer2.categoryList) {
+                                        layer2.categoryList.forEach(function(layer3){
+                                            layer3.last = 1
+                                        })
+                                    }else {
+                                        layer2.last = 1
+                                    }
+                                })
+                            }else {
+                                layer1.last = 1
+                            }
+                        })
                         uploadObj.Allcategory = res.data.categoryList;
+                        // console.log(uploadObj.Allcategory)
                     } else {
                         utils.showAlertDialog("温馨提示", res.msg);
                     }
@@ -264,11 +280,22 @@ define(function(require , exports , module){
             })
           
             $('.doc-list').on('hover','.date-con-sec li',function(){
+                var itemWidth = '282px';
+               if($(this).find('a').attr('last')){
+                    itemWidth = '282px';
+               }else{
+                    itemWidth = '423px';
+               }
+                $(this).parents('.date-con-in').css({width:itemWidth,overflow: 'hidden scroll'})
+            })
+            $('.doc-list').on('hover','.date-con-third li',function(){
                 $(this).parents('.date-con-in').css({width:'423px',overflow: 'hidden scroll'})
-               
             })
             $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
+                if(!$(this).find('a').attr('last')){
+                    return false;
+                }
                 var text = '';
                 var classid = '';
                 var classname = '';
@@ -637,13 +664,15 @@ define(function(require , exports , module){
         },
         // 保存
         saveUploadFile:function(){
-            var stop = false;
-            var isUnfinishUpload = false;
-            var isAvaliableFile = false;
             $('.js-submitbtn').click(function(){
+                var stop = false;
+                var isUnfinishUpload = false;
+                var isAvaliableFile = false;
+                var isChecked = false;
                 var params = [];
                 uploadObj.uploadFiles.forEach(function(item,index) {
                     if(item.checked) {
+                        isChecked = true;
                         if(item.uploadStatus!=1) {
                             isUnfinishUpload= true;
                         } else if(item.uploadStatus==1) {
@@ -668,13 +697,15 @@ define(function(require , exports , module){
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
                         }
-                        params.push(obj);
+                        if (item.uploadStatus==1) {
+                            params.push(obj);
+                        }
                     }
                 })
                 if (stop) {
                     return false;
                 }
-                if(params.length<1) {
+                if(!isChecked) {
                     $.toast({
                         text: "请勾选上传资料"
                     })
