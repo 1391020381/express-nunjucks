@@ -73,7 +73,7 @@ module.exports = {
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
-                            perMin = fileInfo.perMin || '';  // 1:公开、2:私人 3:付费
+                            perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);

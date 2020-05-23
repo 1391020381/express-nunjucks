@@ -138,10 +138,8 @@
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
                     <div class="page-input-con">
-                        {# <input type="number" min="0" class="page-input"
-                               value="1">/<span>{{results.list.data.totalPage}}</span> #}
-                               <input type="number" min="0" class="page-input"
-                               value="1">/<span>{{results.list.data.totalPage}}</span>
+                               {# <input type="number" min="0" class="page-input"value="1">/<span>{{results.list.data.totalPage}}</span> #}
+                               <span class="page-input">1</span>/<span>{{results.list.data.totalPage}}</span>
                     </div>
                     <span class="btn-page page-next" data-type="add" title="下一页"></span>
                     <div class="d-page-wrap hide">
@@ -188,7 +186,7 @@
             g_fileExtension: '{{results.list.data.format}}',
             {# g_fileId: '{{results.list.data.fileId}}',  #}
             g_fileId: '{{results.list.data.id}}',
-            g_permin: '{{results.list.data.perMin}}',
+            g_permin: '{{results.list.data.permin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
             file_size: '{{results.list.data.fileSize}}',
             file_volume: '{{results.list.data.volume}}',
@@ -252,8 +250,8 @@
         userId: "{{results.userID}}",
         paradigm4GuessData:'{{results.paradigm4GuessData| dump | safe}}',
         RelevantInformationList:'{{results.RelevantInformationList| dump | safe}}',
-        getBannerList:{{results.getBannerList| dump | safe}} ,
-        getTopBannerList:{{results.getTopBannerList |dump|safe}}  
+        getBannerList:'{{results.getBannerList| dump | safe}}' ,
+        getTopBannerList:'{{results.getTopBannerList |dump|safe}}'  
     };
     var paradigm4GuessData = window.paradigm4.paradigm4GuessData  //下载成功页面需要
     if(paradigm4GuessData){

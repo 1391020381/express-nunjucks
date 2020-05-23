@@ -31,7 +31,7 @@
             {{else}}
                 {{if data.perMin == "3"}}
                     <!--现金文档 -->
-                    <!--专享8折 加入vip8折购买 立即下载 立即购买  && data.ownVipDiscountFlag == 1-->
+                    <!--专享8折 加入vip8折购买 立即下载 立即购买-->
                       {{if data.isVip == 1 && data.vipDiscountFlag == 1 }}
                         <div class="data-item fl">
                             <h2 class="data-title fl">
@@ -41,8 +41,6 @@
                         <div class="integral-con fr">
                             {{if data.status!=2}}
                                 <div class="price-con price-more fl">
-                                    {# <p class="price vip-price">¥{{(data.moneyPrice*1000/1250).toFixed(2)}}</p>
-                                    <p class="origin-price">原价&yen; {{data.moneyPrice}}</p> #}
                                      <p class="price vip-price">¥{{data.productPrice}}</p>
                                     <p class="origin-price">原价&yen; {{data.productPrice}}</p>
                                 </div>
@@ -62,7 +60,7 @@
                                     <!--现金文档价格 -->
                                     <p class="price" style="">&yen;{{data.productPrice}}</p>
                                     <!--现金文档 有折扣 非vip会员 -->
-                                    {# <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{(data.productPrice*1000/1250).toFixed(2)}}</span>起</p> #}
+                                  
                                       <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{data.productPrice}}</span>起</p>
                                 </div>
                                 <a class="btn-fix-bottom btn-fix-border js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>
@@ -92,7 +90,6 @@
                             {{if data.status!=2}}
                                 <div class="price-con fl">
                                     <!--现金文档价格 -->
-                                    {# <p class="price" style="">¥{{data.moneyPrice}}</p> #}
                                      <p class="price" style="">¥{{data.productPrice}}</p>
                                 </div>
                                 <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
