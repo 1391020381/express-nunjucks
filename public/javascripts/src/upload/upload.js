@@ -51,12 +51,16 @@ define(function(require , exports , module){
                     });
                 }
             });
+            // 退出登录
+            $('.btn-exit').click(function(){
+                login.ishareLogout()
+            })
+           
             // 头部搜索跳转
         },
         beforeInit:function(){
             if (!utils.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
-                   console.log(data)
                    if (data) {
                         uploadObj.isAuth = data.isAuth =="0" ? false: true;
                         uploadObj.refreshTopBar(data);
@@ -145,6 +149,15 @@ define(function(require , exports , module){
                             case 'size': return $.toast({
                                 text: "资料过大，请压缩后重新上传",
                             }); 
+                        }
+                        if (!utils.getCookie('cuk')) {
+                            login.notifyLoginInterface(function (data) {
+                               if (data) {
+                                    uploadObj.isAuth = data.isAuth =="0" ? false: true;
+                                    uploadObj.refreshTopBar(data);
+                               }
+                            });
+                            return false;
                         }
                         //自定义判断，返回false时该文件不会添加到上传队列
                         //userFileType 1 免费 5 付费 6 私有
@@ -429,27 +442,29 @@ define(function(require , exports , module){
                 var priceVal = $(this).val();
                 if(!priceVal){
                     $(this).siblings('.select-item-info').show().text('请输入金额')
-                    return false;
                 }else if (priceVal<1) {
                     $(this).siblings('.select-item-info').show().text('金额必须大于0')
-                    return false;
                 }
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
                 if (itemIndex>-1) {
-                    uploadObj.uploadFiles[itemIndex].userFilePrice = priceVal;
+                    if(priceVal>0) {
+                        uploadObj.uploadFiles[itemIndex].userFilePrice = priceVal;
+                    }
                 }else {
-                    uploadObj.uploadFiles.forEach(function(item){
-                        if(item.checked) {
-                            item.userFilePrice =  priceVal;
-                        }
-                    })
+                    if(priceVal>0) {
+                        uploadObj.uploadFiles.forEach(function(item){
+                            if(item.checked) {
+                                item.userFilePrice =  priceVal;
+                            }
+                        })
+                    }
                 }
             })
             $('.js-file-item').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
                 uploadObj.publicFileRener() 
             })
            
-            $('.doc-batch-fixed').on('keyup',".doc-pay-input input[name='moneyPrice']",function(){
+            $('.doc-batch-fixed').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
                 var priceVal = $(this).val();
                 uploadObj.uploadFiles.forEach(function(item){
                     if(item.checked) {
@@ -462,7 +477,7 @@ define(function(require , exports , module){
         },
         // 试读
         inputPreRead:function(){
-            $('.js-file-item').on('keyup',"input[name='preRead']",function(){
+            $('.js-file-item').on('blur',"input[name='preRead']",function(){
                 var preRead = $(this).val();
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
                 if (itemIndex>-1) {
@@ -475,7 +490,7 @@ define(function(require , exports , module){
                     })
                 }
             })
-            $('.doc-batch-fixed').on('keyup',"input[name='preRead']",function(){
+            $('.doc-batch-fixed').on('blur',"input[name='preRead']",function(){
                 var preRead = $(this).val();
                 uploadObj.uploadFiles.forEach(function(item){
                     if(item.checked) {
