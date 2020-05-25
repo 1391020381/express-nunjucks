@@ -193,9 +193,10 @@ define(function (require, exports, module) {
         });
         // 显示举报窗口
         $('.report-link').on('click', function () {
-            $("#dialog-box").dialog({
-                html: $('#report-file-box').html(),
-            }).open();
+            method.compatibleIESkip('/node/feedback/feedback.html',true);
+            // $("#dialog-box").dialog({
+            //     html: $('#report-file-box').html(),
+            // }).open();
         });
         // 提交举报内容
         $('#dialog-box').on('click', '.report-as', function () {

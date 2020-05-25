@@ -99,7 +99,7 @@
   border: none;
 }
 .down-success .guess-you-like-warpper .guess-you-like {
-  width: 1200px;
+  width: 890px;
   background: #ffffff;
   border-radius: 4px;
 }
@@ -126,7 +126,7 @@
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item {
   float: left;
   margin-bottom: 28px;
-  margin-left: 48px;
+  margin-left: 38px;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link {
   *zoom: 1;
@@ -152,20 +152,24 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 16px;
-  height: 16px;
-  background: #eeeeee;
+  top: inherit;
+  left: inherit;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-right {
   float: right;
-  width: 272px;
+  width: 178px;
   text-align: left;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-right .item-link-right-desc {
   font-size: 14px;
+  height: 36px;
   line-height: 22px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-right .item-link-right-other {
+  margin-top: 14px;
   color: #A8A8A8;
 }
 .send-email-wrapper {
