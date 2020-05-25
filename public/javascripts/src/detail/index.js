@@ -274,7 +274,7 @@ define(function (require, exports, module) {
             }
         });
         // 查找相关资料
-        $('.detail-fixed').on('click','#searchRes', function () {
+        $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
             $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
             // $("#dialog-box").dialog({
             //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
@@ -706,7 +706,6 @@ define(function (require, exports, module) {
     };
 
     function goPage(type) {
-        debugger
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
