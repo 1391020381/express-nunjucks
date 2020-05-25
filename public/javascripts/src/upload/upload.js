@@ -123,7 +123,7 @@ define(function(require , exports , module){
                 multiple: true,
                 // workerThread:20,
                 // view: document.getElementById("upload-view"),
-                allows: ".word,.pdf,.ppt,.txt,.xls,.xlsx", //允许上传的文件格式
+                allows: ".pdf,.ppt,.pptx,.txt,.xls,.xlsx,.doc,.docx", //允许上传的文件格式
                 maxSize: 50 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
                 //每次上传都会发送的参数(POST方式)
                 /*
@@ -166,7 +166,8 @@ define(function(require , exports , module){
                         if (uploadObj.uploadFiles.length>19) {
                             return false;
                         }
-                        var obj = {id:task.id,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
+                        var ext = task.ext.split('.')[1];
+                        var obj = {ext:ext,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
                        
                         $('.secondStep').show();
