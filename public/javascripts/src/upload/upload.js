@@ -139,6 +139,8 @@ define(function(require , exports , module){
                     complete       //上传完成后触发
                 */
                 on: {
+                    init: function(){
+                    },
                     //添加之前触发
                     add: function (task) {
                         //task.limited存在值的任务不会上传，此处无需返回false
@@ -164,7 +166,7 @@ define(function(require , exports , module){
                         if (uploadObj.uploadFiles.length>19) {
                             return false;
                         }
-                        var obj = {fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
+                        var obj = {id:task.id,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
                        
                         $('.secondStep').show();
@@ -184,6 +186,13 @@ define(function(require , exports , module){
                         if (task.ext == ".exe") return false;
                        
                     },
+                    // 上传进度
+                    progress:function(task){
+                        //total  ： 总上传数据(byte)
+                        //loaded ： 已上传数据(byte)
+                        // console.log('上传中。。。。')
+                        // console.log(loaded/total)
+                    },
                     //上传完成后触发
                     complete: function (task) {
                         var res = JSON.parse(task.response);
@@ -193,14 +202,14 @@ define(function(require , exports , module){
                         //uploadStatus 1成功 2失败
                         if (res.data.fail.length>0) {
                             uploadObj.uploadFiles.forEach(function(item){
-                                if (item.fileName ==res.data.fail[0].fileName) {
+                                if (item.fileName ==res.data.fail[0].fileName && item.size == res.data.success[0].size) {
                                     item.uploadStatus = 2;
                                 }
                             })
                         }
                         if (res.data.success.length>0) {
                             uploadObj.uploadFiles.forEach(function(item){
-                                if (item.fileName ==res.data.success[0].fileName) {
+                                if (item.fileName ==res.data.success[0].fileName && item.size == res.data.success[0].size ) {
                                     item.uploadStatus = 1;
                                     item.path = res.data.success[0].path;
                                     item.extension = res.data.success[0].extension;
@@ -212,11 +221,12 @@ define(function(require , exports , module){
                         if (this.index >= this.list.length - 1) {
                             //所有任务上传完成
                             // console.log(uploadObj.uploadFiles)
-                            console.log("所有任务上传完成：" + new Date());
+                            // console.log("所有任务上传完成：" + new Date());
                         }
                     }
                 }
             });
+            uploader
             var boxDropArea = document.getElementById("drop-area");
             if (!Uploader.support.html5) {
                 $('.dratTip').text("您的浏览器不支持拖拽文件上传！")
@@ -792,7 +802,6 @@ define(function(require , exports , module){
             var $vip_status = $('.vip-status');
             var $icon_iShare = $(".icon-iShare");
             var $top_user_more = $(".top-user-more");
-            console.log('console.log($hasLogin)')
             $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
             var $target = null;
 
