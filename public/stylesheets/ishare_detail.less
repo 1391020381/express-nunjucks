@@ -34,6 +34,16 @@ body {
         width: 100%;
         //height: 100%;
     }
+    .close-swiper{
+        position: absolute;
+        top:10px;
+        right: 20px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: url("../images/close.png") no-repeat center;
+        background-size: 100%;
+    }
 }
 .fix-right-bannertop{
     width:310px;
@@ -57,7 +67,7 @@ body {
 .swiper-titlebottom-container{
     margin-top:10px;
     width:100%;
-    height: 100%;
+    height: 95px;
     .swiper-slide-img{
         display: block;
         width:100%;
@@ -2394,60 +2404,8 @@ body {
     overflow: hidden;
     *position: relative;
     *zoom: 1;
-
-    li {
-
-        position: relative;
-        vertical-align: top;
-        overflow: hidden;
-        font-size: 15px;
-
-        .data-name {
-            height: 22px;
-            line-height: 22px;
-            color: @gray-dark;
-            .text-ellipsis();
-            width: 238px;
-        }
-
-        .ico-data {
-            left: 20px;
-        }
-
-        a {
-            padding: 6px 10px 6px 41px;
-            display: block;
-
-            &:hover {
-                background-color: #f3f2ef;
-
-                .data-name {
-                    color: @primary-color;
-                }
-            }
-        }
-
-        .tui-link {
-            padding: 6px 0 6px 41px;
-            overflow: hidden;
-            width: 239px;
-        }
-
-        &.li-you {
-            .data-name {
-                width: 210px
-            }
-        }
-
-        .icon-y {
-            width: 20px;
-            height: 20px;
-            float: left;
-            margin: 2px 0 0 10px;
-            background-position: -60px -70px;
-        }
-    }
     .item{
+        padding-top: 20px;
         display: block;
         .cf();
         a{
@@ -2458,7 +2416,7 @@ body {
         }
         .item-link-left{
             .item-link-left-img{
-                margin-right: 26px;
+                // margin-right: 26px;
                 width:47px;
                 height: 66px;
             }
@@ -2474,7 +2432,7 @@ body {
                 text-overflow: ellipsis
             }
             .item-link-right-other{
-                padding-bottom: 30px;
+                // padding-bottom: 30px;
                 margin-top:14px;
                 color: #A8A8A8;
             }
@@ -2983,9 +2941,11 @@ body {
                             position: absolute;
                             right: 0;
                             bottom: 0;
-                            width: 16px;
-                            height: 16px;
-                            background: #eeeeee;
+                            top: inherit;
+                            left: inherit;
+                            // width: 26px;
+                            // height: 26px;
+                            // background: url(../images/new_detail/icon_new_data.png) no-repeat;
                         }
                     }
                     .item-link-right{
@@ -3043,11 +3003,10 @@ body {
                         }
                         .item-link-left-icon{
                             position: absolute;
-                            right: 0;
+                            right: 0px;
                             bottom: 0;
-                            width: 16px;
-                            height: 16px;
-                            background: #eeeeee;
+                            top: inherit;
+                            left: inherit;
                         }
                     }
                     .item-link-right{
@@ -3071,7 +3030,6 @@ body {
             }
         }
 }
-
 .m-reward-pop{
     width: 468px;
     position: fixed;

@@ -30,7 +30,8 @@
 {% include "common/360.html" %}
 {% include "common/dialog.html" %}
 <div class="detail-topbanner">
-        <div class="swiper-container swiper-top-container ">
+        {% if results.getTopBannerList.list.length>0 %}
+            <div class="swiper-container swiper-top-container ">
                <div class="swiper-wrapper">
                 {%for item in results.getTopBannerList.list %}
                   <div class="swiper-slide" >
@@ -38,9 +39,11 @@
                       <img class="swiper-slide-img" src="{{item.imagUrl}}">
                     </a>
                 </div>
-               {%endfor%}
-               </div>    
+                {%endfor%}
+               </div>  
+            <span class="close-swiper"></span>  
         </div> 
+        {% endif %}
 </div>
 {% include "detail/header.html" %}
 

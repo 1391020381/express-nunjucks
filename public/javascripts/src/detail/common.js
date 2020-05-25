@@ -108,7 +108,7 @@ define(function (require, exports, module) {
             // }
             $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
         }
-        if (initData.perMin === '3' && initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+        if (initData.productType === '5' && initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
             // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
             originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
