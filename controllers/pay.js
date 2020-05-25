@@ -260,13 +260,6 @@ module.exports = {
         }, function (err, results) {    // type=2 购买文件成功  type=0  购买vip成功  type=1   购买下载特权成功
             results.flag = 'true';
             results.type = results.list.type;
-
-            
-            // 详情页流量购买vip成功
-            // results.list = {   // 需要根据 pay.js  中 payStatus 跳转参数来判断
-            //     type : 0 ,
-            //     fid:'222'
-            // }
             console.log(results);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

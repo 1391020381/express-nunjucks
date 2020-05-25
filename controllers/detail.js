@@ -146,11 +146,11 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         var bannerList = {
-                            'rightTopBanner':{},
-                            'rightBottomBanner':{},
-                            'titleBottomBanner':{},
-                            'turnPageOneBanner':{},
-                            'turnPageTwoBanner':{}
+                            'rightTopBanner':[],
+                            'rightBottomBanner':[],
+                            'titleBottomBanner':[],
+                            'turnPageOneBanner':[],
+                            'turnPageTwoBanner':[]
                         }
                         if (data.code == 0 ){
                             data.data.forEach(item=>{
@@ -457,8 +457,9 @@ module.exports = {
         })
     },
     success: function (req, res) {
-       var  unloginFlag = req.query.unloginFlag
-        render("detail/success", {unloginFlag}, req, res);
+    //    var  unloginFlag = req.query.unloginFlag
+        // render("detail/success", {unloginFlag}, req, res);
+        render("detail/success", null, req, res);
     },
     fail: function (req, res) {
         render("detail/fail", null, req, res);
@@ -530,46 +531,46 @@ function dealParam(format,classid1,classid2){//处理详情推荐位参数
         {
             id:'rightTopBanner',
             pageIds:[
-                `PC-M-FD_${format}_${classid2}_ru`,
-                `PC-M-FD_${format}_${classid1}_ru`,
-                `PC-M-FD_${defaultType}_${classid2}_ru`,
-                `PC-M-FD_${defaultType}_${classid1}_ru`,
+                `PC_M_FD_${format}_${classid2}_ru`,
+                `PC_M_FD_${format}_${classid1}_ru`,
+                `PC_M_FD_${defaultType}_${classid2}_ru`,
+                `PC_M_FD_${defaultType}_${classid1}_ru`,
             ]
         },
         {
             id:'rightBottomBanner',
             pageIds:[ //
-                `PC-M-FD_${format}_${classid2}_rd`,
-                `PC-M-FD_${format}_${classid1}_rd`,
-                `PC-M-FD_${defaultType}_${classid2}_rd`,
-                `PC-M-FD_${defaultType}_${classid1}_rd`,
+                `PC_M_FD_${format}_${classid2}_rd`,
+                `PC_M_FD_${format}_${classid1}_rd`,
+                `PC_M_FD_${defaultType}_${classid2}_rd`,
+                `PC_M_FD_${defaultType}_${classid1}_rd`,
             ]
         },
         {
             id:'titleBottomBanner',
             pageIds:[
-                `PC-M-FD_${format}_${classid2}_ub`,
-                `PC-M-FD_${format}_${classid1}_ub`,
-                `PC-M-FD_${defaultType}_${classid2}_ub`,
-                `PC-M-FD_${defaultType}_${classid1}_ub`,
+                `PC_M_FD_${format}_${classid2}_ub`,
+                `PC_M_FD_${format}_${classid1}_ub`,
+                `PC_M_FD_${defaultType}_${classid2}_ub`,
+                `PC_M_FD_${defaultType}_${classid1}_ub`,
             ]  
         },
         {
             id:'turnPageOneBanner',
             pageIds:[
-                `PC-M-FD_${format}_${classid2}_fy1b`,
-                `PC-M-FD_${format}_${classid1}_fy1b`,
-                `PC-M-FD_${defaultType}_${classid2}_fy1b`,
-                `PC-M-FD_${defaultType}_${classid1}_fy1b`,
+                `PC_M_FD_${format}_${classid2}_fy1b`,
+                `PC_M_FD_${format}_${classid1}_fy1b`,
+                `PC_M_FD_${defaultType}_${classid2}_fy1b`,
+                `PC_M_FD_${defaultType}_${classid1}_fy1b`,
             ]  
         },
         {
             id:'turnPageTwoBanner',
             pageIds:[
-                `PC-M-FD_${format}_${classid2}_fy2b`,
-                `PC-M-FD_${format}_${classid1}_fy2b`,
-                `PC-M-FD_${defaultType}_${classid2}_fy2b`,
-                `PC-M-FD_${defaultType}_${classid1}_fy2b`,
+                `PC_M_FD_${format}_${classid2}_fy2b`,
+                `PC_M_FD_${format}_${classid1}_fy2b`,
+                `PC_M_FD_${defaultType}_${classid2}_fy2b`,
+                `PC_M_FD_${defaultType}_${classid1}_fy2b`,
             ]  
         }
     ]

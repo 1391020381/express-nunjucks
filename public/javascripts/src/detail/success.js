@@ -116,7 +116,9 @@ define(function (require, exports, module) {
     }
     
     // 下载页面自动下载
-    autoDownUrl()
+    if (method.getCookie('cuk')){
+        autoDownUrl()
+    }
     // 点击下载
     $('.quick-down-a').click(function () {
         // getDownUrl()
@@ -127,6 +129,10 @@ define(function (require, exports, module) {
         var fileDownUrl = method.getQueryString('url');
         if(fileDownUrl){
             method.compatibleIESkip(fileDownUrl,false);
+        }else {
+            if(unloginFlag){ // 游客
+                getDownUrl()
+            }
         }
     }
     function getDownUrl() {
@@ -135,19 +141,19 @@ define(function (require, exports, module) {
             vuk = userId;
         }
         var fid = method.getQueryString('fid');
-        // $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
-        //     if (data.code == 0) {
-        //         location.href = data.data.dowUrl
-        //     } else if (data.code == 41003) {
-        //         $.toast({
-        //             text: data.msg,
-        //         })
-        //     } else {
-        //         $.toast({
-        //             text: data.msg,
-        //         })
-        //     }
-        // });
+        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
+            if (data.code == 0) {
+                location.href = data.data.dowUrl
+            } else if (data.code == 41003) {
+                $.toast({
+                    text: data.msg,
+                })
+            } else {
+                $.toast({
+                    text: data.msg,
+                })
+            }
+        });
 
     }
 
@@ -406,7 +412,7 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if(res.data.code == '0'){
+                if(res.code == '0'){
                     var _html = template.compile(swiperTemplate)({ topBanner: res.data.data.list ,className:'swiper-top-container' });
                     $(".down-success-banner").html(_html);
                      var mySwiper = new Swiper('.swiper-top-container', {
@@ -424,7 +430,7 @@ define(function (require, exports, module) {
 
     // 猜你喜欢
     if(paradigm4GuessData){
-        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData:paradigm4GuessData});
+        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData:JSON.parse(paradigm4GuessData)});
         $(".guess-you-like-warpper").html(_html);
     }
 

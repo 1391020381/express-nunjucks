@@ -57,4 +57,7 @@ define(function(require , exports , module){
             }
         })
     }
+    $('.search-all-main-topbanner-container .close-swiper').on('click',function(e){
+           $('.search-all-main-topbanner-container').hide() 
+    })
 });

@@ -48,11 +48,11 @@ define(function (require, exports, module) {
             $('body').on("click", ".js-buy-open", function (e) {
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
-                    if (pageConfig.params.g_permin == 3 && $(this).data('type') == "file") {
+                    if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         downLoadReport.expendType_var = "现金"
                         // 如果现金文档，弹出面登陆购买
                         $('body').append(unloginBuyHtml);
-                        viewExposure('noLgFPayCon')
+                        viewExposure($(this),'noLgFPayCon')
                         var loginUrl = '';
                         var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
                         var classid1 = params && params.classid1 ? params.classid1 + '' : '';

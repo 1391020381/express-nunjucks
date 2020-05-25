@@ -172,9 +172,9 @@
        </div>
        {% endif %}
     </div>
-        <div  class="fix-right-bannerbottom">
+        {# <div  class="fix-right-bannerbottom">
           {%for item in  results.getBannerList.rightBottomBanner.list %}
-             <div class="swiper-container  fix-right-bannerbottom">
+             <div class="swiper-container fix-right-bannerbottom">
                <div class="swiper-wrapper">
                   <div class="swiper-slide" >
                     <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
@@ -185,6 +185,23 @@
                </div>    
              </div>  
              {%endfor%}   
+        </div> #}
+
+
+         <div class="fix-right-bannerbottom">
+            {% if results.getBannerList.rightBottomBanner.list.length>0 %}
+             <div class="swiper-container  fix-right-bannerbottom">
+               <div class="swiper-wrapper">
+           {%for item in  results.getBannerList.rightBottomBanner.list %}
+            <div class="swiper-slide" >
+               <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                 <img class="swiper-slide-img" src="{{item.imagUrl}}">
+               </a>
+            </div>
+           {%endfor%}
+               </div> 
+             {%endif%}     
+             </div>
         </div>
     </div>
 </div>
