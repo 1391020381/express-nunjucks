@@ -414,7 +414,7 @@ define(function (require, exports, module) {
                 res.data.forEach(function(item){  // 匹配 组装数据
                     recommendConfigInfo.downSuccess.descs.forEach(function(desc){
                         if(item.pageId == desc.pageId){
-                            desc.list = item.list
+                            desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })

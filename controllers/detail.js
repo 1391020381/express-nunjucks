@@ -99,7 +99,7 @@ module.exports = {
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
                             console.log('getTopBannerList:',data)
-                            callback(null, data.data[0]);
+                            callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list));
                         }else{
                             callback(null,null)
                         }
@@ -122,7 +122,7 @@ module.exports = {
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
                             console.log('getTopBannerList:',data)
-                            callback(null, data.data[0]);
+                            callback(null, util.handleRecommendData(data.data[0].list));
                         }else{
                             callback(null,null)
                         }
@@ -154,7 +154,7 @@ module.exports = {
                         }
                         if (data.code == 0 ){
                             data.data.forEach(item=>{
-                               bannerList[item.id] = item.fileRecommend
+                               bannerList[item.id] = util.handleRecommendData(item.fileRecommend.list)
                             })
                             callback(null, bannerList);
                         }else{
