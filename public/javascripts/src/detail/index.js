@@ -40,7 +40,7 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if (params.productType == '5' && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4'||params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
                 var originalPrice = params.moneyPrice
