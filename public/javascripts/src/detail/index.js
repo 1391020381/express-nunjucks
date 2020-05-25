@@ -43,7 +43,6 @@ define(function (require, exports, module) {
             if (params.productType == '5' && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
-                debugger
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
                 // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
@@ -725,7 +724,8 @@ define(function (require, exports, module) {
         } else if (type === 'vip') {
             __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+            // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+            var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             // window.open("/pay/vip.html" + params);
             method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (type === 'privilege') {

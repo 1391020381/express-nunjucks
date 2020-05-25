@@ -298,7 +298,7 @@ define(function (require, exports, moudle) {
             goodsId = params.pid
         }
         // 组装创建订单的参数
-        var temp = {
+        var temp = { //  params.vouchersId = $('.pay-coupon-wrap').attr('vid')params.suvid = $('.pay-coupon-wrap').attr('svuid')
             aid:params.aid,
             goodsId:goodsId,  // 文件id  vip套餐id
             goodsType:goodsType,   // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
@@ -308,7 +308,9 @@ define(function (require, exports, moudle) {
             host:window.location.origin,
             channel:method.getCookie('channel'), // 渠道 message-短信 other-其他
             isVisitor:method.getCookie('cuk')?0:1,
-            isVouchers:1, // 是否使用优惠券，1未使用，2使用
+            isVouchers:params.vouchersId?2:1, // 是否使用优惠券，1未使用，2使用
+            vouchersId:params.vouchersId,
+            svuId:params.suvid,
             buyerUserId:userInfo.uid,
             buyerUserName:userInfo.nickName,
             returnPayment:false,

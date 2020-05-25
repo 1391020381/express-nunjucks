@@ -112,8 +112,10 @@ define(function (require, exports, module) {
             // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
             originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
-            var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
+          //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
+            var savePrice = (params.moneyPrice *0.8).toFixed(2);
             $('#vip-save-money').html(savePrice);
+            $('.js-original-price').html(savePrice);
         }
     };
 
