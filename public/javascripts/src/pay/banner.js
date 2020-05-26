@@ -22,10 +22,10 @@ define(function(require , exports , module){
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.paySuccess.descs.forEach(function(item){
-                    if(item.list.length){
-                        if(item.pageId == 'PC_M_SR_ub'){ // search-all-main-bottombanner
-                            var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'pay-success-swiper-container' });
+                recommendConfigInfo.paySuccess.descs.forEach(function(k){
+                    if(k.list.length){
+                        if(k.pageId == 'PC_M_SR_ub'){ // search-all-main-bottombanner
+                            var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: k.list ,className:'pay-success-swiper-container' });
                             $(".pay-success-banner").html(_bottomBannerHtml);
                             var mySwiper = new Swiper('.pay-success-swiper-container', {
                                 direction: 'horizontal',
