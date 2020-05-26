@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var ptype = window.pageConfig.params.g_fileExtension || '';
     var preRead = window.pageConfig.page.preRead || 50;
     var limitPage = Math.min(preRead, 50); //最大限制阅读页数
+    var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
     var hash = window.location.hash;
 
@@ -113,17 +114,22 @@ define(function (require, exports, module) {
     //滚动监听页数
     $(window).on('scroll', getPage);
     //总页面
-    if (totalPage <= 2) {
-        $(".show-more-text").hide();
-        $(".show-over-text").eq(1).show();
-        $(".btn-read-more").hide();
-        $(".article-mask").hide();
-    } else if (limitPage <= 2) {
-        $(".show-more-text").hide();
-        $(".show-over-text").eq(0).show();
-        $(".btn-read-more").hide();
-        $(".article-mask").hide();
+    // if (totalPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(1).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // } else if (limitPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(0).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // }
+    
+    if(initReadPage>imgTotalPage){
+        changeText()
     }
+
     $(function () {
         //默认隐藏
         var $articlePages = $(".detail-pro-con div.article-page");

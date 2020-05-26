@@ -260,7 +260,7 @@
             {% if results.list.data.isConvert !== 0 %}
             <a class="data-page show-more-text btn-read-more pc_click" pcTrackContent="pageTurning-1"
                 data-toggle="btnReadMore">
-                <p class="page-text">还剩<em class="page-num">{%if results.filePreview.data.is360page %}
+                <p class="page-text"><em class="endof-trial-reading" style="display: none;">试读结束 </em>还剩<em class="page-num">{%if results.filePreview.data.is360page %}
                         {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
                         {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读</span></p>
                 <i class="icon-detail"></i>
@@ -270,81 +270,8 @@
             <p class="detail-footer-info show-over-text" style="display:none;">阅读结束，下载到本地随时阅读</p>
             {%endif%}
             {%endif%}
-            {# {% if results.list.data.perMin != 3%}
-            <div class="state-tui">
-                <!-- 广告位：PC端-ishare-详细页-继续阅读下-400*40-0620 -->
-                <script>
-                    (function () {
-                        var s = "_" + Math.random().toString(36).slice(2);
-                        document.write('<div id="' + s + '"></div>');
-                        (window.slotbydup = window.slotbydup || []).push({
-                            id: '6315250',
-                            container: s,
-                            size: '400,40',
-                            display: 'inlay-fix'
-                        });
-                        _dpData[3] = 1;
-                    })();
-                </script>
-            </div>
-            {% endif %} #}
         </div>
     </div>
-    {# {% if results.list.data.perMin != 3%}
-    <div class="tui-detail">
-        <!-- 广告位：PC端-ishare-详细页-下载处-870*250-0620 -->
-        <script>
-            (function () {
-                var s = "_" + Math.random().toString(36).slice(2);
-                document.write('<div id="' + s + '"></div>');
-                (window.slotbydup = window.slotbydup || []).push({
-                    id: '6307765',
-                    container: s,
-                    size: '870,250',
-                    display: 'inlay-fix'
-                });
-                _dpData[4] = 1;
-            })();
-        </script>
-    </div>
-    {% endif %} #}
-    {# <div class="evaluate-con">
-        <h2 class="evaluate-title">
-            {%if results.commentList and results.commentList.length > 0 %}
-            用户评价<span class="commentNum">({{results.commentList.length}})</span>
-            {%else%}
-            <span class="commentNum">（暂无评论）</span>
-            {%endif%}
-        </h2>
-        <div class="evaluate-textarea">
-            <textarea id="commentTxt" placeholder="来说两句吧"></textarea>
-        </div>
-        <div class="evaluate-footer cf">
-            <div class="evaluate-right fl">
-                <div class="check-box fl" id="commentCheckbox">
-                    <div class="check-con"></div> 匿名
-                </div>
-                <span class="error-info"></span>
-            </div>
-            <a class="btn-evaluate fr pc_click" bilogContent="fileDetailComment" id="comment">评论</a>
-        </div>
-        <ul class="evaluate-list">
-            {% for item in results.commentList %}
-            <li class="cf">
-                <div class="user-img fl">
-                    <img src="{{item.pic}}" alt="头像">
-                </div>
-                <div class="user-evaluate cf">
-                    <p class="evaluate-txt">
-                        <a href="/n/{{item.uid}}.html" class="user-name-con">{{item.userNick}}</a>{{item.content}}
-                    </p>
-                </div>
-            </li>
-            {%endfor%}
-        </ul>
-        <!--        <a class="evaluate-more">点击加载更多<i class="icon-detail"></i></a>-->
-    </div> #}
-
     <!-- 第四范式 猜你喜欢 -->
     {%if results.paradigm4GuessData.length>0 %}
     {% include "detail/guessYouLike.html" %}

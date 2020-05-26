@@ -5,6 +5,8 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     var login = require("../application/checkLogin");
     var common = require('./common');
      var  readMore =  $('.red-color')
+     var pageText = $('.page-text .endof-trial-reading')
+     var pageNum = $('.page-num')
      // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
      // 是否登录  method.getCookie('cuk')
      // 是否可以下载  window.pageConfig.page.isDownload
@@ -35,10 +37,10 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
-           if(ui.isVip =='1'){
+           if(isDownload!='n'){
             textContent =  '下载到本地阅读'
            }else{
-            textContent =  '¥'+ (productPrice) +'获取该资料'
+            textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
            }
           
            break
@@ -46,7 +48,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            textContent = '下载到本地阅读'
            break
            case '3':
-             if(isDownload=='n'){
+             if(ui.isVip !='1'){
                 textContent = '开通VIP寻找资料'
              }else{
                 textContent = '寻找资料'
@@ -63,5 +65,9 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            
         }
         readMore.text(textContent)
+        pageText.show()
+        if(pageNum.text() == -1){
+            pageNum.text(0)
+        }
     }
 });
