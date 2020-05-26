@@ -745,7 +745,7 @@ define(function(require , exports , module){
                 if(isUnfinishUpload) {
                     if(!isAvaliableFile) {
                         $.toast({
-                            text: '暂无有效上传资料'
+                            text: '资料未上传完成，无法保存！'
                         });
                         return false;
                     }
