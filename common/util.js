@@ -171,7 +171,7 @@ module.exports = {
         })
         return result
     },
-    handleRecommendData:function(list){
+    handleRecommendData:function(list=[]){
         let arr = []
         list.forEach(item=>{
             let temp = {}

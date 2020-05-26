@@ -15,6 +15,7 @@
              {%endif%}     
              </div>
         </div>
+        {% if results.RelevantInformationList.data.length>0 %}
         <div class="related-data pc_click" pcTrackContent="relateFiles-new" bilogContent="similarFileClick">
             <h2 class="related-data-title  guess-you-like-title">
                 相关资料
@@ -32,97 +33,7 @@
             </h2>
             <ul class="related-data-list guess-you-like-itmes">
                 {% for item in results.RelevantInformationList.data%}
-                {# {% if results.list.data.perMin != '3' %} #}
-                {# {% if loop.index0 === 1 %}
-                <li class="r_a_li">
-                    <i class="ico-data icon-link"></i>
-                    <div class="tui-link">
-                        <!--  广告位：PC端-ishare-详细页-右侧文字链1-298*28-0620  -->
-                        <script>
-                            (function () {
-                                var s = "_" + Math.random().toString(36).slice(2);
-                                document.write('<div  id="' + s + '"></div>');
-                                (window.slotbydup = window.slotbydup || []).push({
-                                    id: '6307749',
-                                    container: s,
-                                    size: '298,28',
-                                    display: 'inlay-fix'
-                                });
-                                _dpData[5] = 1;
-                            })();
-                        </script>
-                    </div>
-                </li>
-                {% endif %} #}
-
-                {# {% if loop.index0 === 3 %}
-                <li class="r_a_li">
-                    <i class="ico-data icon-link"></i>
-                    <div class="tui-link">
-                        <!--  广告位：PC端-ishare-详细页-右侧文字链2-298*28-0620  -->
-                        <script>
-                            (function () {
-                                var s = "_" + Math.random().toString(36).slice(2);
-                                document.write('<div  id="' + s + '"></div>');
-                                (window.slotbydup = window.slotbydup || []).push({
-                                    id: '6307752',
-                                    container: s,
-                                    size: '298,28',
-                                    display: 'inlay-fix'
-                                });
-                                _dpData[6] = 1;
-                            })();
-                        </script>
-                    </div>
-                </li>
-                {% endif %} #}
-
-                {# {% if loop.index0 === 9 %}
-                <li class="r_a_li hide">
-                    <i class="ico-data icon-link"></i>
-                    <div class="tui-link">
-                        <!--  广告位：PC端-ishare-详细页-右侧文字链3-298*28-0620  -->
-                        <script>
-                            (function () {
-                                var s = "_" + Math.random().toString(36).slice(2);
-                                document.write('<div  id="' + s + '"></div>');
-                                (window.slotbydup = window.slotbydup || []).push({
-                                    id: '6307754',
-                                    container: s,
-                                    size: '298,28',
-                                    display: 'inlay-fix'
-                                });
-                                _dpData[7] = 1;
-                            })();
-                        </script>
-                    </div>
-                </li>
-                {% endif %} #}
-
-                {# {% if loop.index0 === 11 %}
-                <li class="r_a_li hide">
-                    <i class="ico-data icon-link"></i>
-                    <div class="tui-link">
-                        <!--  广告位：PC端-ishare-详细页-右侧文字链4-298*28-0620  -->
-                        <script>
-                            (function () {
-                                var s = "_" + Math.random().toString(36).slice(2);
-                                document.write('<div  id="' + s + '"></div>');
-                                (window.slotbydup = window.slotbydup || []).push({
-                                    id: '6307757',
-                                    container: s,
-                                    size: '298,28',
-                                    display: 'inlay-fix'
-                                });
-                                _dpData[8] = 1;
-                            })();
-                        </script>
-                    </div>
-                </li>
-                {% endif %} #}
-                {# {% endif %} #}
-   
-            <li  class="item" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
+                 <li  class="item" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
                 <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
                 <div class="item-link-left fr">
                     <img class="item-link-left-img" src="{{item.cover_url}}" alt="{{item.name}}"/>
@@ -136,28 +47,11 @@
                     </p>
                 </div>
             </a>
-        </li>
+             </li>
                 {% endfor %}
             </ul>
-    </div>
-        {# {% if results.list.data.perMin != 3%}
-        <div class="tui-box-shadow" id="ag-rh-04">
-            <!--  广告位：PC端-ishare-详细页-右边第一个方块300*350-0620  -->
-            <script>
-                (function () {
-                    var s = "_" + Math.random().toString(36).slice(2);
-                    document.write('<div id="' + s + '"></div>');
-                    (window.slotbydup = window.slotbydup || []).push({
-                        id: '6307759',
-                        container: s,
-                        size: '300,350',
-                        display: 'inlay-fix'
-                    });
-                    _dpData[9] = 1;
-                })();
-            </script>
         </div>
-        {% endif %} #}
+        {% endif %}
         <div class="hot-spot-search-warper">
         {% if results.specialTopic.length>0%}
          <div class="hot-spot-search">

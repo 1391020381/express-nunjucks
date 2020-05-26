@@ -33,9 +33,7 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {
-               console.log('详情页start===============', appConfig.apiNewBaselPath + Api.file.fileDetail.replace(/\$id/, req.params.id));
                 var opt = {
-                    // url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.fileDetail,
                     body:JSON.stringify({
@@ -56,7 +54,6 @@ module.exports = {
                         var data = JSON.parse(body);
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
-                        //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
                             if(data.data.fileAttr == 2){
@@ -393,7 +390,7 @@ module.exports = {
          //   console.log(results,'pc-node results----------');
          
          // 转换新对象
-             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
+             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo&&results.list.data.fileInfo.title,tdkTitle:results.list.tdk&&results.list.tdk.title})})
             if(!list.data.fileContentList){
                 list.data.fileContentList = []
             }
