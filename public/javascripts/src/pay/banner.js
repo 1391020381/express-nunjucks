@@ -24,7 +24,7 @@ define(function(require , exports , module){
                 console.log(recommendConfigInfo)
                 recommendConfigInfo.paySuccess.descs.forEach(function(k){
                     if(k.list.length){
-                        if(k.pageId == 'PC_M_SR_ub'){ // search-all-main-bottombanner
+                        if(k.pageId == 'PC_M_PAY_SUC_banner'){ // search-all-main-bottombanner
                             var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: k.list ,className:'pay-success-swiper-container' });
                             $(".pay-success-banner").html(_bottomBannerHtml);
                             var mySwiper = new Swiper('.pay-success-swiper-container', {

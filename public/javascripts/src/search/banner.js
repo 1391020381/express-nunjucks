@@ -19,6 +19,7 @@ define(function(require , exports , module){
                     recommendConfigInfo.search.descs.forEach(function(desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
+                            console.log(method.handleRecommendData(item.list))
                         }
                     })
                 })

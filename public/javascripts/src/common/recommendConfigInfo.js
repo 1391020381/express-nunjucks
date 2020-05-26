@@ -24,11 +24,11 @@ define(function (require, exports, module) {
             descs:[
                 {
                     desc:'支付成功页面banner',
-                    pageId:'PC_M_SR_ub',
+                    pageId:'PC_M_PAY_SUC_banner',
                     list:[] 
                 }
             ],
-            pageIds:['PC_M_SR_ub'] 
+            pageIds:['PC_M_PAY_SUC_banner'] 
         },
         downSuccess:{
             descs:[
