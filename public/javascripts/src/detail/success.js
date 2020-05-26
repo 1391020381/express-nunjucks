@@ -9,8 +9,10 @@ define(function (require, exports, module) {
     var format = method.getParam('format');
     var api = require('../application/api');
     var userId;
+    require('swiper');
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -438,11 +440,23 @@ define(function (require, exports, module) {
     }
     // 发送邮箱
     $('.js-sent-email').click(function(){
-             $("#dialog-box").dialog({
+    //          $("#dialog-box").dialog({
+    //     html: $('#send-email').html(),
+    // }).open();
+    $("#dialog-box").dialog({
         html: $('#send-email').html(),
     }).open();
     })
-    $('#dialog-box').on('click','.form-btn',function(e){
+   
+    $('#dialog-box').on('click','.submit-btn',function(e){
+        // debugger
+        if(!method.testEmail($('.form-ipt').val())){
+            $.toast({
+                text:'请输入正确的邮箱',
+                delay : 3000,
+            })
+            return
+        }
         if (method.getCookie("cuk")){
             console.log(method.getCookie('ui'))
             var email = $('#dialog-box .form-email').val()
@@ -479,4 +493,13 @@ define(function (require, exports, module) {
             }); 
         }
     })
+    
+    $('#dialog-box').on('click','.close-btn',function(e){
+        closeRewardPop();
+    })
+    function closeRewardPop(){
+        $(".common-bgMask").hide();
+        $(".detail-bg-mask").hide();
+        $('#dialog-box').hide();
+    }  
 });

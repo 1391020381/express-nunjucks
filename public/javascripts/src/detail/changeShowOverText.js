@@ -13,6 +13,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
      var productType = window.pageConfig.page.productType
      var productPrice = window.pageConfig.page.productPrice
+     var vipDiscountFlag = window.pageConfig.params.vipDiscountFlag
      var cuk = method.getCookie('cuk')
      var isDownload = window.pageConfig.page.isDownload  // 'n' 屏蔽下载
      var ui = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
@@ -37,12 +38,13 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
-           if(isDownload!='n'){
-            textContent =  '下载到本地阅读'
-           }else{
+           if(ui.isVip =='1' && vipDiscountFlag =='1'){
             textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
+           }else{
+            
+            textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
            }
-          
+            
            break
            case '1' :
            textContent = '下载到本地阅读'
