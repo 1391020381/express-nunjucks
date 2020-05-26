@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var api = require('../application/api');
     // var common = require('./common');
+    var feedbackTypeList = []
     $(function(){
         var type=''
         //获取意见类型
@@ -17,11 +18,19 @@ define(function (require, exports, module) {
             success: function (res) {
                 if(res.code == 0){
                     var str=''
+                    feedbackTypeList = res.data
                     res.data.forEach(function(item,index){
-                        index == 0 ? type=item.code : ''
-                        str +='<option value="'+item.code +'">'+item.value +'</option>'
+                        if(index ==0){
+                            type=item.code
+                            $('.form-textarea').attr('placeholder',item.desc)
+                        }else{
+                            str +='<option value="'+item.code +'">'+item.value +'</option>' 
+                        }
+                        // index == 0 ? type=item.code : ''
+                        // str +='<option value="'+item.code +'">'+item.value +'</option>'
                     })
                     $('.form-select').html(str);
+                   
                 }else{
                     $.toast({
                         text:res.message,
@@ -33,6 +42,11 @@ define(function (require, exports, module) {
         // 
         $('.form-select').on('change',function(){
             type=$(this).val();
+            feedbackTypeList.forEach(function(item){
+                if(item.code == type){
+                    $('.form-textarea').attr('placeholder',item.desc)
+                }
+            })
         })
         //提交反馈
         $('.form-btn').on('click',function(){
@@ -74,9 +88,13 @@ define(function (require, exports, module) {
                 success: function (res) {
                     if(res.code == 0){
                         $.toast({
-                            text:'提交成功',
+                            text:'提交成功，感谢你的反馈',
                             delay : 3000,
                         })
+                        $('.form-textarea').val('')
+                        $('.material-link-input').val('')
+                        $('.email-input').val('')
+                        $('.tel-input').val('')
                     }else{
                         $.toast({
                             text:res.message,
