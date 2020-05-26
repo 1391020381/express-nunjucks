@@ -55,8 +55,11 @@ define(function(require , exports , module){
             $('.btn-exit').click(function(){
                 login.ishareLogout()
             })
-           
             // 头部搜索跳转
+            $('.btn-new-search').click(function(){
+                var searVal = $('#search-detail-input').val()
+                window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+            }) 
         },
         beforeInit:function(){
             if (!utils.getCookie('cuk')) {
