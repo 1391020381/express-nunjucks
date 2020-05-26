@@ -3,13 +3,11 @@ define(function (require, exports, module){
     var method = require("../application/method");
 require('swiper');
 window.onload = function(){
-    if(!method.getCookie('isHideDetailTopbanner')){
         new Swiper('.swiper-top-container', {
             direction: 'horizontal',
             loop: true,
             autoplay: 3000,
         })
-    }
     $('.close-swiper').on("click", function (e) {
         e.stopPropagation(); 
         $('.detail-topbanner').hide()

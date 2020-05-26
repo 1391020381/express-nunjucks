@@ -83,6 +83,11 @@ module.exports = {
                 })
             },
             getTopBannerList:function(callback){ // 页面顶部banner
+                console.log(req.cookies.isHideDetailTopbanner)
+                if(req.cookies.isHideDetailTopbanner){
+                    callback(null,null)
+                    return
+                }
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,

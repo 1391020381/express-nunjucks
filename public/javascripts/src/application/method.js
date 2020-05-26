@@ -250,7 +250,7 @@ define(function (require, exports, module) {
                 arr.push(temp)
             })
             console.log(arr)
-            return {list:arr}
+            return arr
         }
     }
 });
