@@ -258,10 +258,6 @@
         getBannerList:'{{results.getBannerList| dump | safe}}' ,
         getTopBannerList:'{{results.getTopBannerList |dump|safe}}'  
     };
-    var paradigm4GuessData = window.paradigm4.paradigm4GuessData  //下载成功页面需要
-    if(paradigm4GuessData){
-        sessionStorage.setItem('paradigm4GuessData',JSON.stringify(paradigm4GuessData))
-    }
 </script>
 <script>
     seajs.use(["dist/application/app.js", "dist/detail/init.js"])

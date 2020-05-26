@@ -1,7 +1,8 @@
 define(function(require , exports , module){
     var api = require('../application/api');
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
-    var recommendConfigInfo = require('../common/recommendConfigInfo')    
+    var recommendConfigInfo = require('../common/recommendConfigInfo')   
+    var method = require("../application/method"); 
     // 顶部 banner
     gebyPosition()
     function gebyPosition() {
@@ -16,7 +17,7 @@ define(function(require , exports , module){
                 res.data.forEach(function(item){  // 匹配 组装数据
                     recommendConfigInfo.paySuccess.descs.forEach(function(desc){
                         if(item.pageId == desc.pageId){
-                            desc.list = item.list
+                            desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })

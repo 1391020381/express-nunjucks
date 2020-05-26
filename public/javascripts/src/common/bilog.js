@@ -594,7 +594,7 @@ define(function (require, exports, module) {
                 })
             }
         },
-        viewExposure:function(moduleID){
+        viewExposure:function($this,moduleID){
             var cnt = 'viewExposure'
             if(cnt){
                 setTimeout(function(){

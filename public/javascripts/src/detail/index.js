@@ -40,7 +40,7 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if (params.productType == '5' && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4'||params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
                 var originalPrice = params.moneyPrice
@@ -52,7 +52,8 @@ define(function (require, exports, module) {
             }
         }
         // 意见反馈的url
-        var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+        // var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+        var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
         var $iconDetailWrap = $('.icon-detail-wrap'); //  付费文档图标
@@ -193,9 +194,10 @@ define(function (require, exports, module) {
         });
         // 显示举报窗口
         $('.report-link').on('click', function () {
-            $("#dialog-box").dialog({
-                html: $('#report-file-box').html(),
-            }).open();
+            method.compatibleIESkip('/node/feedback/feedback.html',true);
+            // $("#dialog-box").dialog({
+            //     html: $('#report-file-box').html(),
+            // }).open();
         });
         // 提交举报内容
         $('#dialog-box').on('click', '.report-as', function () {
@@ -469,9 +471,9 @@ define(function (require, exports, module) {
         var $fixBar = $(".detail-fixed-con");
         var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
-        if (fixEle.length) {
-            var fixTop = fixEle.offset().top - headerHeight;
-        }
+        // if (fixEle.length) {
+        //     var fixTop = fixEle.offset().top - headerHeight;
+        // }
         $(window).scroll(function () {
             var detailTop = $(this).scrollTop();
             var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
@@ -487,11 +489,11 @@ define(function (require, exports, module) {
 
             }
             //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop > fixTop) {
-                fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-            } else {
-                fixEle.removeAttr("style");
-            }
+            // if (detailTop > fixTop) {
+            //     fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+            // } else {
+            //     fixEle.removeAttr("style");
+            // }
             //底部悬浮展示文档
             if (detailTop > fixStart) {
                 $fixBar.find(".operation").hide();

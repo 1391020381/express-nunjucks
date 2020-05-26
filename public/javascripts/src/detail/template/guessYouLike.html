@@ -2,12 +2,12 @@
 <div class="guess-you-like">
     <h2 class="guess-you-like-title">你可能喜欢</h2>
     <ul class="guess-you-like-itmes">
-        {{each paradigm4GuessData}}
+        {{each paradigm4GuessData as item}}
              {# <li class="item">
                 <a href={{hotSpotSearchList[$index].url}}>{{hotSpotSearchList[$index].value}}</a>
              </li> #}
         <li class="item">
-            <a class="item-link" href="/f/{{item.id}}.html" target="_blank">
+            <a class="item-link" href="/f/{{item.id}}.html"    target="_blank">
                 <div class="item-link-left">
                  {% if item.cover_url %}
                     <img class="item-link-left-img"  src={{item.cover_url}} alt={{item.name}}/>

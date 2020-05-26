@@ -15,8 +15,6 @@ define(function (require, exports, module) {
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     // require("../common/baidu-statistics");
-    var guessYouLikeTemplate = require('./template/guessYouLike.html')
-    var  paradigm4GuessData = sessionStorage.getItem('paradigm4GuessData')?JSON.parse(sessionStorage.getItem('paradigm4GuessData')):''
     var userData = null, initData = {};
     eventBinding();
    
@@ -116,7 +114,9 @@ define(function (require, exports, module) {
     }
     
     // 下载页面自动下载
-    autoDownUrl()
+    if (method.getCookie('cuk')){
+        autoDownUrl()
+    }
     // 点击下载
     $('.quick-down-a').click(function () {
         // getDownUrl()
@@ -127,6 +127,10 @@ define(function (require, exports, module) {
         var fileDownUrl = method.getQueryString('url');
         if(fileDownUrl){
             method.compatibleIESkip(fileDownUrl,false);
+        }else {
+            if(unloginFlag){ // 游客
+                getDownUrl()
+            }
         }
     }
     function getDownUrl() {
@@ -135,19 +139,19 @@ define(function (require, exports, module) {
             vuk = userId;
         }
         var fid = method.getQueryString('fid');
-        // $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
-        //     if (data.code == 0) {
-        //         location.href = data.data.dowUrl
-        //     } else if (data.code == 41003) {
-        //         $.toast({
-        //             text: data.msg,
-        //         })
-        //     } else {
-        //         $.toast({
-        //             text: data.msg,
-        //         })
-        //     }
-        // });
+        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
+            if (data.code == 0) {
+                location.href = data.data.dowUrl
+            } else if (data.code == 41003) {
+                $.toast({
+                    text: data.msg,
+                })
+            } else {
+                $.toast({
+                    text: data.msg,
+                })
+            }
+        });
 
     }
 
@@ -398,7 +402,7 @@ define(function (require, exports, module) {
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
     gebyPosition()
-    function gebyPosition() {  // 获取banner位数据
+    function gebyPosition() {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: "POST",
@@ -406,29 +410,32 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if(res.data.code == '0'){
-                    var _html = template.compile(swiperTemplate)({ topBanner: res.data.data.list ,className:'swiper-top-container' });
-                    $(".down-success-banner").html(_html);
-                     var mySwiper = new Swiper('.swiper-top-container', {
-                         direction: 'horizontal',
-                         loop: true,
-                         autoplay: 3000,
-                     })
-                 
-                }
+               if(res.code == '0'){
+                res.data.forEach(function(item){  // 匹配 组装数据
+                    recommendConfigInfo.downSuccess.descs.forEach(function(desc){
+                        if(item.pageId == desc.pageId){
+                            desc.list = method.handleRecommendData(item.list)
+                        }
+                    })
+                })
+                console.log(recommendConfigInfo)
+                recommendConfigInfo.downSuccess.descs.forEach(function(item){
+                    if(item.list.length){
+                        if(item.pageId == 'PC_M_DOWN_SUC_banner'){ // search-all-main-bottombanner
+                            var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container' });
+                            $(".down-success-banner").html(_bottomBannerHtml);
+                            var mySwiper = new Swiper('.swiper-top-container', {
+                                direction: 'horizontal',
+                                loop: true,
+                                autoplay: 3000,
+                            })
+                        }
+                    }
+                })
+               }
             }
         })
     }
-
-
-
-    // 猜你喜欢
-    if(paradigm4GuessData){
-        var _html = template.compile(guessYouLikeTemplate)({paradigm4GuessData:paradigm4GuessData});
-        $(".guess-you-like-warpper").html(_html);
-    }
-
-
     // 发送邮箱
     $('.js-sent-email').click(function(){
              $("#dialog-box").dialog({

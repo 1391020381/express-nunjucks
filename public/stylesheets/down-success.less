@@ -102,16 +102,23 @@
     }
     .down-success-banner{
         width: 1200px;
-        height: 141px;
+        // height: 141px;
         margin: 0 auto;
-        background: #eeeeee;
+        .swiper-container{
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+    .swiper-slide-img{
+        width: 100%;
+    }
     }
     .carding-success-item{
         border: none;
     }
     .guess-you-like-warpper{
         .guess-you-like{
-            width: 1200px;
+            width:1200px;
             background:rgba(255,255,255,1);
             border-radius:4px;
             .guess-you-like-title{
@@ -129,7 +136,7 @@
                 .item{
                    float: left;
                    margin-bottom: 28px;
-                    margin-left:48px;
+                    margin-left:38px;
                     .item-link{
                         .cf();
                         .item-link-left{
@@ -145,21 +152,24 @@
                                 position: absolute;
                                 right: 0;
                                 bottom: 0;
-                                width: 16px;
-                                height: 16px;
-                                background: #eeeeee;
+                                top: inherit;
+                                left: inherit;
                             }
                         }
                         .item-link-right{
                            float: right;  
-                           width: 272px;
+                           width: 290px;
                            text-align: left;  
                            .item-link-right-desc{
                                 font-size: 14px;
+                                height: 36px;
                                 line-height:22px;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
                            }   
                            .item-link-right-other{
-                               // margin-top:14px;
+                               margin-top:14px;
                                color: #A8A8A8;
                            }             
                          }

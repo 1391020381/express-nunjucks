@@ -229,6 +229,28 @@ define(function (require, exports, module) {
             }else{
                 return false
             } 
+        },
+        handleRecommendData:function(list){
+            var arr = []
+            list.forEach(function(item){
+                var temp = {}
+                if(item.type == 1){ // 资料 
+                    // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
+                    item.linkUrl = '/f/'+ item.tprId+'.html'
+                    temp = item
+                }
+                if(item.type == 2){ // 链接
+                    temp = item
+                }
+                if(item.type == 3){ // 专题页
+                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
+                    item.linkUrl = '/node/s/'+ item.tprId + '.html'
+                    temp = item
+                }
+                arr.push(temp)
+            })
+            console.log(arr)
+            return {list:arr}
         }
     }
 });
