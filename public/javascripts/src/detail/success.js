@@ -85,7 +85,7 @@ define(function (require, exports, module) {
 
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
-        var visitorId = method.getCookie('visitorId');
+        var visitorId = method.getCookie('visitorId')||method.getParam('visitorId');
         $.get('/pay/bindUnlogin?ts=' + new Date().getTime(), {
             'visitorId': visitorId,
             'userId': userId,
@@ -134,7 +134,7 @@ define(function (require, exports, module) {
         }
     }
     function getDownUrl() {
-        var vuk = method.getCookie('visitorId');
+        var vuk = method.getCookie('visitorId')||method.getParam('visitorId');
         if (userId) {
             vuk = userId;
         }

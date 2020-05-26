@@ -449,12 +449,14 @@ define(function(require , exports , module){
         },
         //  输入金额
         inputPrice:function(){
-            $('.js-file-item').on('keyup',".doc-pay-input input[name='moneyPrice']",function(){
+            $('.js-file-item').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
                 var priceVal = $(this).val();
                 if(!priceVal){
                     $(this).siblings('.select-item-info').show().text('请输入金额')
-                }else if (priceVal<1) {
+                }else if (priceVal <0 ||priceVal==0) {
                     $(this).siblings('.select-item-info').show().text('金额必须大于0')
+                }else {
+                    $(this).siblings('.select-item-info').hide()
                 }
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
                 if (itemIndex>-1) {
@@ -472,7 +474,7 @@ define(function(require , exports , module){
                 }
             })
             $('.js-file-item').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
-                uploadObj.publicFileRener() 
+                // uploadObj.publicFileRener()
             })
            
             $('.doc-batch-fixed').on('blur',".doc-pay-input input[name='moneyPrice']",function(){
