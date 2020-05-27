@@ -16,7 +16,7 @@
              </div>
         </div>
         {% if results.RelevantInformationList.data.length>0 %}
-        <div class="related-data pc_click" pcTrackContent="relateFiles-new" bilogContent="similarFileClick">
+        <div class="related-data " pcTrackContent="relateFiles-new" >
             <h2 class="related-data-title  guess-you-like-title">
                 相关资料
                 <span class="slider-control">
@@ -33,7 +33,7 @@
             </h2>
             <ul class="related-data-list guess-you-like-itmes">
                 {% for item in results.RelevantInformationList.data%}
-                 <li  class="item" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
+                 <li  class="item" data-id="{{item.id}}" bilogContent="similarFileClick" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
                 <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
                 <div class="item-link-left fr">
                     <img class="item-link-left-img" src="{{item.cover_url}}" alt="{{item.name}}"/>

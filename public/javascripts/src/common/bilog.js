@@ -124,8 +124,8 @@ define(function (require, exports, module) {
             initData.prePageID = 'PC-M-DOWN-FAIL';
             initData.prePageName = '下载失败页';
         }else if (new RegExp('/search/home.html').test(referrer)) {
-            initData.prePageID = 'M-M-SR';
-            initData.prePageName = '搜索结果页';
+            initData.prePageID = 'PC-M-SR';
+            initData.prePageName = '搜索关键词';
         }
     }
 

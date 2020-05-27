@@ -615,7 +615,7 @@ define(function (require, exports, moudle) {
     // 续费vip成功
     console.log(method.getParam("orderNo"))
     var pathName = location.pathname   // 
-   if(method.getParam("renewalVIP") && pathName == "/pay/success.html"){
+   if(method.getParam("renewalVIP")=='1' && pathName == "/pay/success.html"){
      var orderNo = method.getParam("orderNo")
      rightsVipGetUserMember()
      function rightsVipGetUserMember() {
