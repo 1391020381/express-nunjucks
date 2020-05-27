@@ -42,7 +42,7 @@
                        <div class="swiper-wrapper">
                       {%for item in  results.getBannerList.titleBottomBanner.list %}
                         <div class="swiper-slide" >
-                            <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                            <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
                               <img class="swiper-slide-img" src="{{item.imagUrl}}">
                            </a>
                        </div>
@@ -163,7 +163,7 @@
                                     <div class="swiper-wrapper">
                                {%for item in  results.getBannerList.turnPageOneBanner.list %}
                                     <div class="swiper-slide" >
-                                      <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                                      <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
                                        <img class="swiper-slide-img" src="{{item.imagUrl}}">
                                       </a>
                                   </div>
@@ -196,7 +196,7 @@
                                     <div class="swiper-wrapper">
                                {%for item in  results.getBannerList.turnPageTwoBanner.list %}
                                     <div class="swiper-slide" >
-                                      <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
+                                      <a  href="/f/{{item.linkUrl}}.html" target="_blank" data-id="{{item.id}}">
                                        <img class="swiper-slide-img" src="{{item.imagUrl}}">
                                       </a>
                                   </div>
