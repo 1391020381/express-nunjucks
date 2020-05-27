@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                     'dist/special/init.js': ['.build/special/init.js'],
                     'dist/upload/init.js': ['.build/upload/init.js'],
                     'dist/feedback/init.js': ['.build/feedback/init.js'],
-                    'dist/feedback/init.js': ['.build/404/init.js'],
+                    'dist/404/init.js': ['.build/404/init.js'],
                 }
             }
         },
