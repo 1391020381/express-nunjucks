@@ -286,7 +286,7 @@ module.exports = {
                     body:JSON.stringify({
                         currentPage:1,
                         pageSize:10,
-                        name: title  
+                        topicName: title  
                     }),
                     headers: {
                         'Content-Type': 'application/json',
@@ -446,11 +446,12 @@ module.exports = {
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
             console.log('results:',JSON.stringify(results))
-            if (parseInt(fileAttr, 10) === 1) {
-                render("detail/index", results, req, res);
-            } else {
-                render("officeDetail/index", results, req, res);
-            }
+            // if (parseInt(fileAttr, 10) === 1) {
+            //     render("detail/index", results, req, res);
+            // } else {
+            //     render("officeDetail/index", results, req, res);
+            // }
+            render("detail/index", results, req, res);
 
             //释放 不然 会一直存在
             recommendInfoData_rele = {};

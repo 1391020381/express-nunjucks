@@ -151,7 +151,7 @@ define(function (require, exports, module) {
                 }
                 break;
             }
-            if(res.data.productType == 4){
+            if(res.data.productType == 4 && res.data.consumeStatus!==7){
                 $dialogBox.dialog({
                             html: $permanent_privilege.html()
                                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))

@@ -14,13 +14,13 @@ window.onload = function(){
         method.setCookieWithExpPath('isHideDetailTopbanner',1)
     })
     // 左侧顶部的 banner 
- new Swiper('.fix-right-bannertop', {
+ new Swiper('.fix-right-swiperbannertop', {
     direction: 'horizontal',
     loop: true,
     autoplay: 3000,
 })
   // 左侧底部banner
- new Swiper('.fix-right-bannerbottom', {
+ new Swiper('.fix-right-swiperbannerbottom', {
        direction: 'horizontal',
        loop: true,
        autoplay: 3000,
