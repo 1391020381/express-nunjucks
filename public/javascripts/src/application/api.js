@@ -69,7 +69,8 @@ define(function (require, exports, module) {
         order:{
             bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
-            createOrderInfo: gateway + '/order/create/orderInfo'
+            createOrderInfo: gateway + '/order/create/orderInfo',
+            rightsVipGetUserMember:gateway + "/rights/vip/getUserMember"
         },
         getHotSearch:router+'/search/getHotSearch',
         special:{
