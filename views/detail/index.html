@@ -35,7 +35,7 @@
                <div class="swiper-wrapper">
                 {%for item in results.getTopBannerList.list %}
                   <div class="swiper-slide" >
-                    <a  href="{{item.linkUrl}}.html" target="_blank" data-id="{{item.id}}">
+                    <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
                       <img class="swiper-slide-img" src="{{item.imagUrl}}">
                     </a>
                 </div>
@@ -194,7 +194,7 @@
             file_size: '{{results.list.data.fileSize}}',
             file_volume: '{{results.list.data.volume}}',
             file_format: '{{results.list.data.format}}',
-            file_state: '{{results.list.data.state}}',
+            file_state: '{{results.list.data.productType}}',
             moneyPrice: '{{results.list.data.productPrice}}',
             discountPrice: "{{results.list.data.discountPrice}}",
             totalPage: '{{results.list.data.totalPage}}',

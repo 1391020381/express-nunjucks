@@ -105,7 +105,9 @@
                 }
             }
         };
-        seajs.use(["dist/application/app.js", "dist/search/init.js"]);
+        seajs.use(["dist/application/app.js", "dist/search/init.js"],function(app){
+            app.bilog.searchResult({keyWords:$('#scondition').val()})
+        });
     </script>
      <!-- 百度统计代码 -->
      <script src="{{staticUrl}}/baidu-statistics.js"> </script>

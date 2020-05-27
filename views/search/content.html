@@ -49,7 +49,7 @@
         <div class="search-list-con">
             <ul class="landing-txt-list">
                 {% for item in results.list.data.rows or []  %}
-                <li class="li-file  permin-1">
+                <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult'>
                     <h4 class="data-name cf">
                         <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
                             {% if results.formatText.word[item.format]  %}

@@ -19,14 +19,103 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var ui = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     function readMoreTextEvent(){ // 文件下载接口的返回数据
         if(method.getCookie('cuk')){
-            downLoad()
+            if(ui.isVip == '1'&&productType==3){ // 发送邮箱
+                sentEmail()
+            }else{
+                downLoad()
+            }
        }else{
         login.notifyLoginInterface(function (data) {
             common.afterLogin(data);
          }) 
        }
     }
+    
+    function sentEmail(){
+         // 寻找相关资料  
+            $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+            // $("#dialog-box").dialog({
+            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+            // }).open();
+            $("#dialog-box").dialog({
+                html: $('#reward-mission-pop').html(),
+            }).open();
 
+            setTimeout(bindEventPop,500)
+        function bindEventPop(){
+            console.log(6666)
+            // 绑定关闭悬赏任务弹窗pop
+            $('.m-reward-pop .close-btn').on('click',function(){
+                closeRewardPop();
+            })
+
+            // submit提交
+            $('.m-reward-pop .submit-btn').on('click',function(){
+                var userId = window.pageConfig.userId;
+                if(!userId){
+                    closeRewardPop();
+                    $.toast({
+                        text:'该功能仅对VIP用户开放',
+                        delay : 3000,
+                    })
+                    return
+                }
+                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+                var mailVal = $('.m-reward-pop .form-ipt').val();
+                var tips = $('.m-reward-pop .form-verify-tips');
+                tips.hide();
+                if (!reg.test(mailVal)) {
+                    tips.show();
+                    return
+                }
+
+                var params = {
+                    userId:userId,
+                    fid:window.pageConfig.params.g_fileId,
+                    email:mailVal,
+                    channelSource:4,
+                }
+
+                $.ajax('/gateway/content/sendmail/findFile', {
+                    type: "POST",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    contentType: 'application/json'
+                }).done(function (res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text:'发送成功',
+                            delay : 2000,
+                        })
+                    } else if(res.code == 401100){
+                        $.toast({
+                            text:'该功能仅对VIP用户开放',
+                            delay : 2000,
+                        })
+                    }else {
+                        $.toast({
+                            text: '发送失败，请重试',
+                            delay: 2000
+                        });
+                    }
+                }).fail(function (e) {
+                    $.toast({
+                        text: '发送失败，请重试',
+                        delay: 2000
+                    });
+                })
+            })
+
+            // 关闭任务pop
+            function closeRewardPop(){
+                $(".common-bgMask").hide();
+                $(".detail-bg-mask").hide();
+                $('#dialog-box').hide();
+            }        
+
+        }
+    }
     module.exports = {
         changeText:changeReadMoreText,
         readMoreTextEvent:readMoreTextEvent
