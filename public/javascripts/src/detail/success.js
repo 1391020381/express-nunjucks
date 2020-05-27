@@ -424,11 +424,12 @@ define(function (require, exports, module) {
                 recommendConfigInfo.downSuccess.descs.forEach(function(item){
                     if(item.list.length){
                         if(item.pageId == 'PC_M_DOWN_SUC_banner'){ // search-all-main-bottombanner
+                            console.log(item.list,'item.list-------------------')
                             var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container' });
                             $(".down-success-banner").html(_bottomBannerHtml);
                             var mySwiper = new Swiper('.swiper-top-container', {
                                 direction: 'horizontal',
-                                loop: true,
+                                loop: item.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
                         }

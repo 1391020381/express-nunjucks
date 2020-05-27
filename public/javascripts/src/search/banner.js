@@ -31,7 +31,7 @@ define(function(require , exports , module){
                             $(".search-all-main-topbanner").html(_topBannerHtml);
                             var mySwiper = new Swiper('.swiper-top-container', {
                                 direction: 'horizontal',
-                                loop: true,
+                                loop: item.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
                         }
@@ -40,7 +40,7 @@ define(function(require , exports , module){
                             $(".banner").html(_rightBannerHtml);
                             var mySwiper = new Swiper('.swiper-right-container', {
                                 direction: 'horizontal',
-                                loop: true,
+                                loop: item.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
                         }
@@ -49,7 +49,7 @@ define(function(require , exports , module){
                             $(".search-all-main-bottombanner").html(_bottomBannerHtml);
                             var mySwiper = new Swiper('.swiper-bottom-container', {
                                 direction: 'horizontal',
-                                loop: true,
+                                loop: item.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
                         }
