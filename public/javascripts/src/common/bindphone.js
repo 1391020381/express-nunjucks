@@ -283,7 +283,7 @@ define(function (require, exports, moudle) {
                 data: param,
                 success: function (data) {
                     if (data) {
-                        if (data.code == '0') {
+                        if (data.code == '209') {
                             $checkCode.removeAttr("smsId");
                             $checkCode.attr("smsId", data.data.smsId);
                             var yzTime$ = $(_this).siblings(".yz-time");

@@ -65,11 +65,6 @@ define(function (require, exports, moudle) {
 
         } else if (flag == "0") {
             // $(".carding-vip-con .vip-title").show();
-        }else if(flag == 4){ // /pay/payConfirm.html
-              var fileDiscount  =  window.pageConfig.params.fileDiscount 
-            var moneyPrice = window.pageConfig.params.moneyPrice
-            var price = (moneyPrice * fileDiscount).toFixed(2)
-            $('.price-text-con .price').text(price)
         }
     });
 
