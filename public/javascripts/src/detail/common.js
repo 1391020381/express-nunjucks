@@ -98,9 +98,9 @@ define(function (require, exports, module) {
      */
     var reSetOriginalPrice = function () {
         var originalPrice = 0;
-        if (initData.isVip == 1 && initData.vipDiscountFlag == '1') { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
-            // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
-            originalPrice = initData.moneyPrice ;
+        if (initData.vipDiscountFlag == '1') { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2); // 8折
+           // originalPrice = initData.moneyPrice ;
             $(".js-original-price").html(originalPrice);
             // var fileDiscount = userData.fileDiscount;
             // if (fileDiscount && fileDiscount !== 80) {
@@ -108,9 +108,9 @@ define(function (require, exports, module) {
             // }
             $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
         }
-        if ((initData.productType === '4'||initData.productType === '5') && initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
-            // originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
-            originalPrice = initData.moneyPrice 
+        if (initData.productType === '5'&& initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
+           // originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
           //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
             var savePrice = (params.moneyPrice *0.8).toFixed(2);
