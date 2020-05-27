@@ -70,9 +70,10 @@ define(function (require, exports, module) {
                 }
             });
         }
-        setTimeout(function () {
-            $('.detail-search-info').show();
-        }, 30000)
+        // setTimeout(function () {
+        //     $('.detail-search-info').show();
+        // }, 30000)
+        $('.detail-search-info').show();
     }
 
     // 事件绑定
@@ -767,5 +768,8 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         // window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
         method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),false);
+    }
+    module.exports = {
+        goPage:goPage
     }
 });
