@@ -810,7 +810,10 @@ define(function(require , exports , module){
             var $top_user_more = $(".top-user-more");
             $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
             var $target = null;
-
+           
+            if(data.msgCount) {
+                $('.top-bar .news').removeClass('hide').find('#user-msg').text(data.msgCount);
+            }
             //VIP专享资料
             if (utils.getCookie('file_state') === '6') {
                 $('.vip-title').eq(0).show();

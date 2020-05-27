@@ -1,3 +1,5 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
 .landing-header {
     .ishare-logo {
         background: url(../../images/iShare_logo.png) no-repeat;
@@ -1233,5 +1235,56 @@ i {
                 color: #fff;
             }
         }
+    }
+}
+.detail-search-info {
+    width: 248px;
+    height: 36px;
+    line-height: 36px;
+    position: absolute;
+    right: -83px;
+    top: 43px;
+    background-color: #fffdf7;
+    border: 1px solid #ebddcc;
+    font-size: 13px;
+    color: #92685c;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 2px 3.464px 8px 0px rgba(49, 49, 49, .08);
+    display: none;
+
+    .before,
+    .after {
+        .arrow-bottom(4px, #fffdf7);
+        position: absolute;
+        top: -8px;
+        right: 120px;
+        z-index: 2;
+    }
+
+    .after {
+        border-bottom-color: #ebddcc;
+        top: -9px;
+        z-index: 1;
+    }
+
+    .icon-search-hand {
+        width: 28px;
+        height: 29px;
+        position: absolute;
+        right: 71px;
+        top: -20px;
+        background: url(../../images/icon_deatil_hand.png) no-repeat;
+    }
+
+    .icon-an-circular {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        background: url(../../images/icon_deatil_circular.png) no-repeat;
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        animation: an-circular 1s infinite;
+        -webkit-animation: an-circular 1s infinite;
     }
 }

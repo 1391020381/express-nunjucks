@@ -1,0 +1,202 @@
+<div class="top-bar cf">
+    <div class="top-bar-left fl">
+        <a href="//iask.sina.com.cn" target="_blank">爱问</a>
+        <i class="line"></i>
+        <a href="/" class="current">爱问共享资料</a>
+        <i class="line"></i>
+        <a href="//yyk.iask.sina.com.cn" target="_blank">医院库</a>
+    </div>
+    <div class="fr cf" style="margin-right: 90px;">
+        <div class="news fl hide">
+            <a href="/user/message/index?u=">
+                <i class="icon icon-news"></i>
+                <span id="user-msg"></span>
+            </a>
+        </div>
+        {# <span class="top-service fl">
+                <a class="user-feedback" target="_blank">意见反馈</a>
+            </span> #}
+    </div>
+</div>
+
+<div class="new-detail-header">
+    <div class="pw">
+        <div class="new-header-inter">
+            <a class="logo fl" href="/"><img src="{{cdnUrl}}/images/new_detail_logo.jpg"></a>
+            {# <ul class="new-nav fl">
+                <li class="more-nav">
+                    <span class="icon-white-arrow"></span>
+                    <a class="nav-a more-nav-link">分类<i class="icon-detail"></i></a>
+                    <div class="more-list-inter cf">
+                        <a href="/c/1819.html">生活休闲</a>
+                        <span class="line"></span>
+                        <a href="/c/1818.html">实用文档</a>
+                        <span class="line"></span>
+                        <a href="/c/1821.html">经济管理</a>
+                        <span class="line"></span>
+                        <a href="/c/1816.html">教育资料</a>
+                        <span class="line"></span>
+                        <a href="/c/1820.html">专业资料</a>
+                    </div>
+                </li>
+                <li class="nav-office-a">
+                    <a href="/c/1818.html" class="nav-a">爱问办公</a>
+                </li>
+            </ul> #}
+            <div class="header-right fl">
+                <div class="new-search fl cf">
+                    <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
+                        placeholder="与人沟通的十大绝招">
+                    <a class="btn-new-search"><i class="icon-detail"></i>搜索资料</a>
+                    <div class="detail-lately">
+                        <ul class="lately-list">
+                        </ul>
+                    </div>
+                    <!--搜索小提示 -->
+                    <div class="detail-search-info">
+                        <i class="before"></i>
+                        <i class="after"></i>
+                        <p>没找到想要的资料？ 试一下搜索吧~</p>
+                        <div class="icon-search-hand">
+                            <div class="icon-an-circular"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# <div class="header-btn-con" id="headerBtn">
+                {% if results.list.data.isDownload != 'n' %}
+                {% if results.list.data.vipFreeFlag == 1%}
+                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
+                    data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                {%else%}
+                {% if results.list.data.perMin == "3" %}
+                {% if results.list.data.vipDiscountFlag and results.list.data.ownVipDiscountFlag%}
+                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
+                    data-type="file">立即购买</a>
+                <div class="header-price-warp header-price-more">
+                    <p class="price">&yen;{{results.list.data.moneyPrice}}</p>
+                    <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span>起</p>
+                </div>
+                {%else%}
+                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
+                    data-type="file">立即购买</a>
+                <div class="header-price-warp">
+                    <p class="price">&yen;{{results.list.data.moneyPrice}}</p>
+                </div>
+                {%endif%}
+                {%else%}
+                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
+                    data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
+                {% if results.list.data.volume >0 %}
+                <p class="btn-text"><span>{{results.list.data.volume}}</span>下载券</p>
+                {%endif%}
+                {%endif%}
+                {%endif%}
+                {%endif%}
+            </div> #}
+            <div class="new-header-right fl">
+                <div class="vip-join-con">
+                    {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                        <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
+                    </a> #}
+                 {% if results.geSearchBannerList.list[0] %}   
+                   <a  href="/f/{{results.geSearchBannerList.list[0].id}}.html" target="_blank" data-id="{{results.geSearchBannerList.list[0].id}}">
+                    <img class="img" src="{{results.geSearchBannerList.list[0].imagUrl}}">
+                  </a>
+                {% endif %}
+               </div>    
+            </div> 
+                    {# </a> #}
+                    {# <div class="join-vip-more">
+                        <i class="before"></i>
+                        <i class="after"></i>
+                        <ul class="vip-more-list">
+                            <li class="li-01"><i class="icon-p"></i>赠专享资料下载特权</li>
+                            <li class="li-02"><i class="icon-p"></i>付费资料8折起</li>
+                            <li class="li-03"><i class="icon-p"></i>海量资料免费下</li>
+                            <li class="li-04"><i class="icon-p"></i>专属身份标识</li>
+                        </ul>
+                        <a class="btn-join-vip login-open-vip">登录后开通</a>
+                        <a class="btn-join-vip open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
+                            style="display: none;" data-type="vip">开通</a>
+                        <a class="btn-join-vip xf-open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
+                            style="display: none;" data-type="vip">续费</a>
+                    </div> #}
+                {# </div> #}
+                {# <a href="/upload/index?ts=n" target="_blank" class="btn-new-upload">
+                    <i class="icon-iShare"></i>
+                    <p>上传资料</p>
+                </a> #}
+                <div class="user-info fl">
+                    <!--未登录 -->
+                    <div class="user-con" id="unLogin">
+                        <a class="user-link user-login">
+                            <div class="user-img"></div>
+                            <span class="login-text pc_click" pcTrackContent="detailTopLogin">登录</span>
+                        </a>
+                    </div>
+                    <!--已登录 -->
+                    <div class="user-con" id="haveLogin" style="display: none;">
+                        <a class="user-link" href="/ucenter/vips" target="_blank">
+                            <i class="icon-detail"></i>
+                            <div class="user-img">
+                                <img src="" alt="头像">
+                            </div>
+                        </a>
+                        <!-- vip 用户新增 top-vip-more -->
+                        <div class="top-user-more">
+                            <div class="user-bar">
+                                <i class="before"></i>
+                                <i class="after"></i>
+                                <a><img class="user-img" alt="头像"></a>
+                                <div class="user-info">
+                                    <div class="user-con cf">
+                                        <p class="name fl"><a id="userName"></a></p>
+                                        <i class="icon-iShare icon-vip"></i>
+                                    </div>
+                                    <div class="user-auth">
+                                        <div class="vip-status">
+                                            <!--普通用户-->
+                                            <p data-type="1" class="vip-text">开通VIP，会员享专属特权</p>
+                                            <!--是VIP,续费-->
+                                            <p data-type="2" style="display: none;" class="vip-text">您的VIP将于<span
+                                                    class="expire_time">2020-3-12</span>到期</p>
+                                            <!--非vip,且过期-->
+                                            <p data-type="3" style="display: none;" class="vip-text">
+                                                您的VIP权益已过期，再次开通</p>
+                                        </div>
+                                        <a class="btn-user-more js-buy-open pc_click" pcTrackContent="joinVip-9"
+                                            data-type="vip">开通</a>
+                                    </div>
+                                </div>
+                                <ul class="privilege-list">
+                                    <li class="li-01"><i class="icon-privilege"></i>赠专享资料下载特权</li>
+                                    <li class="li-02"><i class="icon-privilege"></i>付费资料8折起</li>
+                                    <li class="li-03"><i class="icon-privilege"></i>海量资料免费下</li>
+                                    <li class="li-04"><i class="icon-privilege"></i>专属身份标识</li>
+                                </ul>
+                            </div>
+                            <div class="top-entry">
+                                <a href="/ucenter/vips?u=" class="entry-ele center-ele">
+                                    <i class="icon-entry"></i>个人中心
+                                </a>
+                                <a href="/ucenter/mycollect?u=" class="entry-ele my-collect-ele">
+                                    <i class="icon-entry"></i>我的收藏
+                                </a>
+                                <a href="/ucenter/myuploads?u=" class="entry-ele my-upload-ele">
+                                    <i class="icon-entry"></i>我的上传
+                                </a>
+                                <a href="/ucenter/sign?u=" class="entry-ele my-task">
+                                    <i class="icon-entry"></i> 我的任务
+                                </a>
+                                <a class="btn-exit">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 优惠券提示 -->
+                <div class="coupon-info-top"></div>
+            </div>
+        </div>
+    </div>
+</div>

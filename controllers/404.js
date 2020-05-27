@@ -1,5 +1,5 @@
 /**
- * @Description: 上传页
+ * @Description: 404
  */
 var async = require("async");
 var render = require("../common/render");
@@ -8,7 +8,6 @@ var Api = require("../api/api");
 var appConfig = require("../config/app-config");
 var recommendConfigInfo = require('../common/recommendConfigInfo')
 var util = require('../common/util');
-
 
 module.exports = {
     index: function (req, res) {
@@ -38,7 +37,7 @@ module.exports = {
             },
         } , function(err, results){
             // console.log(results)
-            render("upload/index", results, req, res);
+            render("404", results, req, res);
         })
     }
 };
