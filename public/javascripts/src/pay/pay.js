@@ -11,6 +11,7 @@ define(function (require, exports, moudle) {
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
+    var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
     //生成二维码
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
@@ -476,7 +477,7 @@ define(function (require, exports, moudle) {
                             };
                             method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
                         } else if (res.goodsType == 2) {//购买vip成功
-                            params += "fid=" + fid + "&type=0";
+                            params += "fid=" + fid + "&type=0"+"&renewalVIP="+renewalVIP;
                             var rv = method.getCookie('rv');
                             if (rv) {
                                 report.vipPaySuccess(JSON.parse(rv));
@@ -610,4 +611,41 @@ define(function (require, exports, moudle) {
             }
         })
     }
+
+    // 续费vip成功
+    console.log(method.getParam("orderNo"))
+    var pathName = location.pathname   // 
+   if(method.getParam("renewalVIP")=='1' && pathName == "/pay/success.html"){
+     var orderNo = method.getParam("orderNo")
+     rightsVipGetUserMember()
+     function rightsVipGetUserMember() {
+        $.ajax({
+            url: api.order.rightsVipGetUserMember,
+            type: "POST",
+            data: JSON.stringify({orderId:orderNo}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                   var formatDate = method.formatDate
+                   Date.prototype.format = formatDate
+                    console.log(res)
+                    var beginDate = new Date(res.data.beginDate).format("yyyy-MM-dd")
+                    var endDate = new Date(res.data.endDate).format("yyyy-MM-dd")
+                    var title = '你已经成功续费爱问共享资料VIP'
+                    var subtitle = '你的下载权益将于'+   beginDate + '日发放至账户'+ endDate+ '日即当前VIP失效时间后一天'
+                    var type =  method.getParam("type")
+                    var fid =  method.getParam("fid")
+                    if(type == '0'&&fid){
+                        $('.pay-ok-text span').text(title)
+                        $('.pay-bottom-text').text(subtitle)
+                    }else if(type == 0){
+                        $('.pay-ok-text span').text(title)
+                        $('.pay-bottom-text').text(subtitle)
+                    }
+               }
+            }
+        })
+    }
+   }
 });

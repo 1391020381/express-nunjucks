@@ -79,19 +79,22 @@ class specialModule{
             },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
-                let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
-                var topicName = this.state.detail.data.topicName;
-                this.state.tdkData = {
-                    pageTable: '专题页',
-                    url: '/node/s/'+ paramsObj.specialTopicId +'.html',
-                    title: topicName + '资料下载_爱问办公',
-                    description: '爱问办公提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'，快来爱问办公下载!',
-                    keywords: topicName + '资料下载',
-                }
+                let data=await server.$http(appConfig.apiSpecialPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
+                let topicName = this.state.detail.data.topicName;
+                let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
                 if(data.code == '0' && data.data){
                     data.data.title = data.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
                     this.state.tdkData=data.data
+                }else{
+                    this.state.tdkData = {
+                        pageTable: '专题页',
+                        url: '/node/s/'+ paramsObj.specialTopicId +'.html',
+                        title: str + '下载 - 爱问共享资料',
+                        description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'资料，快来爱问共享资料下载!',
+                        keywords:  (topicName + "," +topicName) + '下载',
+                    }
                 }
+
             },
         }
     }
