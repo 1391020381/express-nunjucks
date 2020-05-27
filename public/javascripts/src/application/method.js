@@ -200,6 +200,15 @@ define(function (require, exports, module) {
             }
             return theRequest;
         },
+        //获取 url 参数值
+        getQueryString: function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
         /**
          * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
          * @param url

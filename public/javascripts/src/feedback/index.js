@@ -7,8 +7,12 @@ define(function (require, exports, module) {
     // var common = require('./common');
     var feedbackTypeList = []
     $(function(){
-        var type=''
+        var type='';
         //获取意见类型
+        var urlLink=method.getQueryString('url');
+        if(urlLink){
+            $('.material-link-input').val(urlLink);
+        }
         $.ajax({
             url: api.user.getFeedbackType,
             type: "get",
@@ -23,9 +27,8 @@ define(function (require, exports, module) {
                         if(index ==0){
                             type=item.code
                             $('.form-textarea').attr('placeholder',item.desc)
-                        }else{
-                            str +='<option value="'+item.code +'">'+item.value +'</option>' 
                         }
+                        str +='<option value="'+item.code +'">'+item.value +'</option>' 
                         // index == 0 ? type=item.code : ''
                         // str +='<option value="'+item.code +'">'+item.value +'</option>'
                     })
