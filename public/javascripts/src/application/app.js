@@ -2,6 +2,7 @@ define(function (require, exports, module) {
     var method = require("./method");
     require("./element");
     require("./extend");
+    var bilog=require("../common/bilog");
     require('../report/init');
     window.template = require("./template");
     require("./helper");
@@ -12,6 +13,7 @@ define(function (require, exports, module) {
     window.getCookie = method.getCookie;
     return {
         method: method,
-        v: "1.0.1"
+        v: "1.0.1",
+        bilog:bilog
     }
 });
