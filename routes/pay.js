@@ -173,7 +173,7 @@ router.post('/pay/bindMobile',function(req , res , next){
     }
 });
 //扫码绑定手机号
-router.get('/pay/bindUnlogin',function(req , res , next){
+router.post('/pay/bindUnlogin',function(req , res , next){
     try{
         console.log("绑定手机号===============");
         payController.bindUnlogin(req , res);

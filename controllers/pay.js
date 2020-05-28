@@ -414,7 +414,7 @@ module.exports = {
     bindUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.get(appConfig.apiNewBaselPath + api.pay.bindUnlogin, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
             res.send(results.list).end();
