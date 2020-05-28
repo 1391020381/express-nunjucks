@@ -42,7 +42,7 @@ module.exports = {
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
         sms: '/usermanage/getSmsYzCode',            //发送验证码
         bind: '/usermanage/bindMobile',              //绑定手机号
-        bindUnlogin: '/order/bindOrderByOrderNo',               //免登陆绑定手机号
+        bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
     },
