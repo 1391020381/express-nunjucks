@@ -32,6 +32,7 @@ define(function (require, exports, module) {
                         // index == 0 ? type=item.code : ''
                         // str +='<option value="'+item.code +'">'+item.value +'</option>'
                     })
+                     str = "<option style='display: none'></option>" + str
                     $('.form-select').html(str);
                    
                 }else{

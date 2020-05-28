@@ -5,7 +5,7 @@ require('swiper');
 window.onload = function(){
         new Swiper('.swiper-top-container', {
             direction: 'horizontal',
-            loop: true,
+            loop: $('.swiper-top-container .swiper-slide').length>1?true:false,
             autoplay: 3000,
         })
     $('.close-swiper').on("click", function (e) {
@@ -16,38 +16,38 @@ window.onload = function(){
     // 左侧顶部的 banner 
  new Swiper('.fix-right-swiperbannertop', {
     direction: 'horizontal',
-    loop: true,
+    loop: $('.fix-right-swiperbannertop .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
   // 左侧底部banner
  new Swiper('.fix-right-swiperbannerbottom', {
        direction: 'horizontal',
-       loop: true,
+       loop: $('.fix-right-swiperbannerbottom .swiper-slide').length>1?true:false,
        autoplay: 3000,
    })
 
 // title底部banner
    new Swiper('.swiper-titlebottom-container',{
     direction: 'horizontal',
-    loop: true,
+    loop: $('.swiper-titlebottom-container .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
 
 
 new Swiper('.swiper-titlebottom-container',{
     direction: 'horizontal',
-    loop: true,
+    loop: $('.swiper-titlebottom-container .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
 new Swiper('.swiper-turnPageOneBanner-container',{
     direction: 'horizontal',
-    loop: true,
+    loop: $('.swiper-turnPageOneBanner-container .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
 
 new Swiper('.swiper-turnPageTwoBanner-container',{
     direction: 'horizontal',
-    loop: true,
+    loop: $('.swiper-turnPageTwoBanner-container .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
 }

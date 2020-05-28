@@ -96,8 +96,8 @@ define(function (require, exports, module) {
                 //如果当前对象含退出全屏样式名，执行退出全屏事件，fullscreen=0 标记非全屏状态
 
                 fullscreen=0;
-                $('.deatil-mr10').css('position','relative')
-                $('.detail-footer').show()
+                // $('.deatil-mr10').css('position','relative')
+                // $('.detail-footer').show()
                 $(enlarge).removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 // $(".reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 //$(".operation .reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
@@ -118,8 +118,8 @@ define(function (require, exports, module) {
                 if ($(this).hasClass("reader-fullScreen")) {
                     //如果当前对象含全屏样式名，执行全屏事件，fullscreen=1 标记全屏状态
                     fullscreen = 1;
-                    $('.deatil-mr10').css('position','static')
-                    $('.detail-footer').hide()
+                    // $('.deatil-mr10').css('position','static')
+                    // $('.detail-footer').hide()
                     $(this).removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     $(".reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     //$(".operation .reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");

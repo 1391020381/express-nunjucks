@@ -453,7 +453,7 @@ define(function (require, exports, module) {
             }
             changeText()
         }
-        $('.detail-footer').addClass('detail-newfooter')
+        // $('.detail-footer').addClass('detail-newfooter')
     }
 
     function mouseScroll() {

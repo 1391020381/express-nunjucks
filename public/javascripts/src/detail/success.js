@@ -460,7 +460,7 @@ define(function (require, exports, module) {
         }
         if (method.getCookie("cuk")){
             console.log(method.getCookie('ui'))
-            var email = $('#dialog-box .form-email').val()
+            var email = $('#dialog-box .form-ipt').val()
             $.ajax({
                 url: api.sms.sendCorpusDownloadMail,
                 type: "POST",
