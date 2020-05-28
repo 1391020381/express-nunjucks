@@ -88,7 +88,7 @@ define(function (require, exports, module) {
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
         var visitorId = method.getCookie('visitorId')||method.getParam('visitorId');
-        $.post('/gateway/order/bind/loginUser?ts=' + new Date().getTime(), {
+        $.get('/gateway/order/bind/loginUser?ts=' + new Date().getTime(), {
             'visitorId': visitorId,
             'userId': userId,
             'nickName': nickName
