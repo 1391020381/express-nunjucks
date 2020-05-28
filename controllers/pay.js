@@ -419,6 +419,8 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
+            console.log('绑定结果**********************************')
+            console.log(results)
             res.send(results.list).end();
         })
     },
