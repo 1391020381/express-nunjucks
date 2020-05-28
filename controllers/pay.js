@@ -416,7 +416,7 @@ module.exports = {
             list: function (callback) {
                 console.log('绑定**********************************')
                 console.log(appConfig.apiBasePath + api.pay.bindUnlogin)
-                server.post(appConfig.apiNewBaselPath + api.pay.bindUnlogin, callback, req);
+                server.post('http://192.168.1.50:8769/gateway/pc' + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
             console.log('绑定结果**********************************')
