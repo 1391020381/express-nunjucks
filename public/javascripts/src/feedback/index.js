@@ -32,7 +32,7 @@ define(function (require, exports, module) {
                         // index == 0 ? type=item.code : ''
                         // str +='<option value="'+item.code +'">'+item.value +'</option>'
                     })
-                     str = "<option style='display: none'></option>" + str
+                     str = '<option value="">'+ '请选择投诉类型' +'</option>' + str
                     $('.form-select').html(str);
                    
                 }else{
@@ -62,6 +62,14 @@ define(function (require, exports, module) {
             }else{
 
                 //校验
+                console.log($('.form-select').val())
+                if(!$('.form-select').val()){
+                    $.toast({
+                        text:'请选择投诉类型',
+                        delay : 3000,
+                    })
+                    return
+                }
                 if(!method.testEmail($('.email-input').val())){
                     $.toast({
                         text:'请输入正确的邮箱',
@@ -123,12 +131,12 @@ define(function (require, exports, module) {
    
 
 //     // 顶部header登录逻辑
-// $('#a-login-link').click(function(){
-//     login.notifyLoginInterface(function (data) {
-//         console.log('-------------------',data)
-//         refreshTopBar(data);
-//      })
-// })
+$('#a-login-link').click(function(){
+    login.notifyLoginInterface(function (data) {
+        console.log('-------------------',data)
+        refreshTopBar(data);
+     })
+})
 
 
 //刷新topbar
