@@ -79,7 +79,7 @@ class specialModule{
             },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
-                let data=await server.$http(appConfig.apiSpecialPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
+                let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
                 let topicName = this.state.detail.data.topicName;
                 let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
                 if(data.code == '0' && data.data){
@@ -94,6 +94,7 @@ class specialModule{
                         keywords:  (topicName + "," +topicName) + '下载',
                     }
                 }
+               
 
             },
         }

@@ -55,7 +55,7 @@ module.exports = {
         } else if (req.url.indexOf('?') > 0 && !append) {
             url = url + req.url.substring(req.url.indexOf('?'));
         }
-        // console.log(url,'urlurlurlurlurlurlurlurl=======')
+        console.log(url,'urlurlurlurlurlurlurlurl=======')
         return {
             url: url,
             method: "GET",
@@ -104,7 +104,7 @@ module.exports = {
                         reject(err)
                     }
                 } else {
-                    reject();
+                    reject()
                 }
             })
         })
