@@ -414,6 +414,8 @@ module.exports = {
     bindUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
+                console.log('绑定**********************************')
+                console.log(appConfig.apiBasePath + api.pay.bindUnlogin)
                 server.post(appConfig.apiNewBaselPath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
