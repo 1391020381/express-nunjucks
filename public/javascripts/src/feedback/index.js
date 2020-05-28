@@ -58,54 +58,55 @@ define(function (require, exports, module) {
                 login.notifyLoginInterface(function (data) {
                     refreshTopBar(data);
                 });
-            }
+            }else{
 
-            //校验
-            if(!method.testEmail($('.email-input').val())){
-                $.toast({
-                    text:'请输入正确的邮箱',
-                    delay : 3000,
-                })
-                return
-            }else if(!method.testPhone($('.tel-input').val())){
-                $.toast({
-                    text:'请输入正确的手机号',
-                    delay : 3000,
-                })
-                return
-            } 
-            var obj={
-                type:type,
-                content:$('.form-textarea').val(),
-                pageUrl:$('.material-link-input').val(),
-                email:$('.email-input').val(),
-                tell:$('.tel-input').val(),
-                sourceMode:0
-            }
-            $.ajax({
-                url: api.user.addFeedback,
-                type: "POST",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    if(res.code == 0){
-                        $.toast({
-                            text:'提交成功，感谢你的反馈',
-                            delay : 3000,
-                        })
-                        $('.form-textarea').val('')
-                        $('.material-link-input').val('')
-                        $('.email-input').val('')
-                        $('.tel-input').val('')
-                    }else{
-                        $.toast({
-                            text:res.message,
-                            delay : 3000,
-                        })
-                    }
+                //校验
+                if(!method.testEmail($('.email-input').val())){
+                    $.toast({
+                        text:'请输入正确的邮箱',
+                        delay : 3000,
+                    })
+                    return
+                }else if(!method.testPhone($('.tel-input').val())){
+                    $.toast({
+                        text:'请输入正确的手机号',
+                        delay : 3000,
+                    })
+                    return
+                } 
+                var obj={
+                    type:type,
+                    content:$('.form-textarea').val(),
+                    pageUrl:$('.material-link-input').val(),
+                    email:$('.email-input').val(),
+                    tell:$('.tel-input').val(),
+                    sourceMode:0
                 }
-            })
+                $.ajax({
+                    url: api.user.addFeedback,
+                    type: "POST",
+                    data: JSON.stringify(obj),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                        if(res.code == 0){
+                            $.toast({
+                                text:'提交成功，感谢你的反馈',
+                                delay : 3000,
+                            })
+                            $('.form-textarea').val('')
+                            $('.material-link-input').val('')
+                            $('.email-input').val('')
+                            $('.tel-input').val('')
+                        }else{
+                            $.toast({
+                                text:res.message,
+                                delay : 3000,
+                            })
+                        }
+                    }
+                })
+            }
     })
         // 登录
         $('.user-login,.login-open-vip').on('click', function () {
