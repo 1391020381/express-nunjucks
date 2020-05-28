@@ -162,6 +162,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            
         }
         readMore.text(textContent)
+       
         pageText.show()
         if(pageNum.text() == -1){
             pageNum.text(0)

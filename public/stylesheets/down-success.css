@@ -40,6 +40,7 @@
   font-size: 13px;
   line-height: 20px;
   text-align: left;
+  border: solid 1px #fff;
 }
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .no-find-text-arrow {
   width: 0;
@@ -55,9 +56,6 @@
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item {
   padding: 0 14px;
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(1) {
-  padding-top: 24px;
-}
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(2) {
   padding: 10px 14px 10px 14px;
 }
@@ -69,10 +67,14 @@
   font-weight: bold;
   cursor: pointer;
 }
+.down-success .carding-success-item .pay-ok-subtext {
+  color: #333333;
+}
 .down-success .carding-success-item .pay-ok-subtext .quick-down-a {
   color: #176094;
   font-size: 16px;
   cursor: pointer;
+  text-decoration: underline;
 }
 .down-success .qrcode-warpper {
   margin-top: 30px;
@@ -82,6 +84,20 @@
   display: inline-block;
   width: 168px;
   height: 168px;
+}
+.down-success .qrcode-warpper .qrcode-desc {
+  margin: 0 auto;
+  margin-bottom: 80px;
+  width: 168px;
+  font-size: 16px;
+}
+.down-success .qrcode-warpper .qrcode-desc .scan-icon {
+  margin-right: 8px;
+  display: inline-block;
+  width: 17px;
+  height: 15px;
+  background: url('../images/scan.png') no-repeat center;
+  background-size: 100%;
 }
 .down-success .down-success-banner {
   width: 1200px;
@@ -97,6 +113,11 @@
 }
 .down-success .carding-success-item {
   border: none;
+}
+.down-success .guess-you-like-warpper {
+  margin-top: 10px;
+  background: #ffffff;
+  border-radius: 4px;
 }
 .down-success .guess-you-like-warpper .guess-you-like {
   width: 1200px;
@@ -147,6 +168,7 @@
   width: 47px;
   height: 66px;
   border-radius: 2px;
+  border: solid 1px #eeee e;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-left .item-link-left-icon {
   position: absolute;

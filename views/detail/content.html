@@ -10,8 +10,14 @@
                     <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>
                     {{results.list.data.title.substr(0,30)}}
                 </h2>
-                <div class="detail-user-bar cf">
-                    <a class="user-name" href="/u/{{results.list.data.owner.id}}.html">
+                  <div class="detail-user-bar cf">
+                    <span><em>{{results.fileExternal.data.readNum}}</em>人阅读</span>
+                    <span class="line"></span>
+                    <span><em>{{results.list.data.totalPage}}</em>页</span>
+                    <span class="line"></span>
+                     <span><em>{{results.list.data.fileSize}}</em>KB</span>
+                     <span class="line"></span>
+                    <a class="user-name" href="/u/{{results.list.data.uid}}.html">
                         <div class="user-pic">
                             {%if results.list.data.owner.photoPicURL%}
                             <img src="{{results.list.data.owner.photoPicURL}}">
@@ -23,13 +29,12 @@
                         <i class="icon-q-v"></i>
                     </a>
                     <span class="line"></span>
-                    <span>{{results.list.data.time}}</span>
+                    <span>{{results.list.data.createtime}}上传</span>
                     <span class="line"></span>
-                    <span><em>{{results.fileExternal.data.starScore}}</em>分</span>
-                    <span class="line"></span>
-                    <span><em>{{results.fileExternal.data.readNum}}</em>人阅读</span>
+                    {# <span><em>{{results.fileExternal.data.starScore}}</em>分</span>
+                    <span class="line"></span> #}
                     <a class="report-link"><i class="icon-report"></i>侵权/举报</a>
-                    <span class="line"></span>
+                    {# <span class="line"></span> #}
 
                 </div>
             </div>
@@ -86,7 +91,7 @@
                         </div>
                         {% elif results.list.data.vipFreeFlag == 1 %}
                         <!-- vip专享图标 -->
-                        <div class="icon-detail-wrap icon-vip-share-wrap">
+                        {# <div class="icon-detail-wrap icon-vip-share-wrap">
                             <p class="icon-text">VIP专享资料</p>
                             <div class="icon-detail-more">
                                 <div class="icon-detail-inter">
@@ -95,7 +100,7 @@
                                     <p>VIP专享资料仅供VIP用户下载，需要消耗下载特权。非VIP用户无法下载此类资料</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> #}
                         {% endif%}
 
                         {% if results.list.data.isConvert !== 0 %}
@@ -263,7 +268,7 @@
                 <p class="page-text"><em class="endof-trial-reading" style="display: none;">试读结束 </em>还剩<em class="page-num">{%if results.filePreview.data.is360page %}
                         {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
                         {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读</span></p>
-                <i class="icon-detail"></i>
+                {# <i class="icon-newdetail"></i> #}
             </a>
             {%if results.list.data.isDownload ==='y' %}
             <p class="detail-footer-info show-over-text" style="display:none;">试读结束，下载后阅读全文</p>

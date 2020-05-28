@@ -48,6 +48,7 @@
                       font-size: 13px;
                       line-height: 20px;
                       text-align: left;
+                      border: solid 1px #fff;
                       .no-find-text-arrow{
                         width: 0;
                         height: 0;
@@ -64,7 +65,7 @@
                             padding:0 14px;
                         }
                         .item:nth-child(1){
-                            padding-top:24px;   
+                            // padding-top:24px;   
                         }
                         .item:nth-child(2){
                             padding: 10px 14px 10px 14px;  
@@ -84,10 +85,12 @@
             }
         }
         .pay-ok-subtext{
+            color: #333333;
             .quick-down-a{
                color:  #176094;
                font-size: 16px;
                cursor: pointer;
+               text-decoration: underline
             }
         }
     }
@@ -98,6 +101,20 @@
             display: inline-block;
             width: 168px;
             height: 168px;
+        }
+        .qrcode-desc{
+            margin:0 auto;
+            margin-bottom:80px;
+            width: 168px;
+            font-size: 16px;
+            .scan-icon{
+                margin-right: 8px;
+                display: inline-block;
+                width: 17px;
+                height: 15px;
+                background: url('../images/scan.png') no-repeat center;
+                background-size: 100%;
+            }
         }
     }
     .down-success-banner{
@@ -117,6 +134,9 @@
         border: none;
     }
     .guess-you-like-warpper{
+        margin-top: 10px;
+        background: rgba(255,255,255,1);
+        border-radius: 4px;
         .guess-you-like{
             width:1200px;
             background:rgba(255,255,255,1);
@@ -147,6 +167,7 @@
                                 width:47px;
                                 height:66px;
                                 border-radius:2px;
+                                border:solid 1px #eeeee;
                             }
                             .item-link-left-icon{
                                 position: absolute;
