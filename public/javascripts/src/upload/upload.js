@@ -230,7 +230,6 @@ define(function(require , exports , module){
                     }
                 }
             });
-            uploader
             var boxDropArea = document.getElementById("drop-area");
             if (!Uploader.support.html5) {
                 $('.dratTip').text("您的浏览器不支持拖拽文件上传！")
