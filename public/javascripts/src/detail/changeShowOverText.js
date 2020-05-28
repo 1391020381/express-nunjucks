@@ -4,6 +4,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var common = require('./common');
+    var goPage = require('./index').goPage
      var  readMore =  $('.red-color')
      var pageText = $('.page-text .endof-trial-reading')
      var pageNum = $('.page-num')
@@ -19,8 +20,13 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var ui = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     function readMoreTextEvent(){ // 文件下载接口的返回数据
         if(method.getCookie('cuk')){
-            if(ui.isVip == '1'&&productType==3){ // 发送邮箱
-                sentEmail()
+            if(productType==3){ // 发送邮箱
+                if(ui.isVip == '1'){
+                    sentEmail()
+                }else{
+                    goPage('vip')
+                }
+              
             }else{
                 downLoad()
             }
