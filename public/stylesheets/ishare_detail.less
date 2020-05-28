@@ -18,6 +18,7 @@ body {
 }
 .deatil-mr10{
     margin-right:13px;
+    position: relative;
 }
 .detail-w300{
     width:310px;
@@ -119,10 +120,35 @@ body {
 }
 
 //详情页图标
-.icon-detail {
-    .icon-detail();
+// .icon-detail {
+//     .icon-detail();
+// }
+.icon-newdetail{
+    display: inline-block;
+    width: 30px;
+    height: 28px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -15px;
+    margin-top: -14px;
+    background: url("../images/hasnotCollect.png") no-repeat center;
+    background-size: 100%;
 }
-
+.btn-collect-success{
+    .icon-newdetail{
+        background: url("../images/hasCollect.png") no-repeat center;
+        background-size: 100%; 
+    }
+}
+.collect-con{
+    &:hover{
+        .icon-newdetail{
+            background: url("../images/hasColectHover.png") no-repeat center;
+            background-size: 100%; 
+        }
+    }
+}
 //原价样式
 .origin-price {
     font-size: 13px;
@@ -1276,7 +1302,7 @@ body {
 }
 
 .data-detail {
-    padding: 59px 100px 88px;
+    // padding: 59px 100px 88px;
     font-size: 18px;
     line-height: 36px;
     color: @gray-dark;
@@ -1297,11 +1323,11 @@ body {
 }
 
 .other-format-style {
-    padding: 50px 40px;
+    // padding: 50px 40px;
 }
 
 .other-format-style-first {
-    padding: 46px 40px 50px;
+    // padding: 46px 40px 50px;
 }
 
 .tui-detail-02,
@@ -1323,15 +1349,26 @@ body {
 }
 
 //详情页底部购买信息
-.detail-footer {
-    margin-top: 10px;
+.detail-footer { // margin-top: -120px;
+    // margin-top: 10px;
+    margin-top:-250px;
     padding-top: 34px;
     padding-bottom: 40px;
     border: 0 none;
     box-shadow: 0 0 5px rgba(44, 21, 24, .08);
     border-radius: 4px;
     color: @gray-dark;
-    background-color: #fff;
+    // background-color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    position: absolute;
+    /* bottom: 0; */
+    z-index: 200;
+    width: 100%;
+    background-image: linear-gradient(to top,#fff,rgba(255,255,255,.99),rgba(255,255,255,.95),rgba(255,255,255,0));
+}
+.detail-newfooter{
+    margin-top: -120px;
 }
 
 .detail-footer-info {
@@ -2424,6 +2461,7 @@ body {
                 // margin-right: 26px;
                 width:47px;
                 height: 66px;
+                border:solid 1px #eee;
             }
         }
         .item-link-right {
@@ -2913,6 +2951,9 @@ body {
 
 // }
 .guess-you-like-warpper{
+    margin-top: 10px;
+    background: rgba(255,255,255,1);
+    border-radius: 4px;
     .guess-you-like{
         width: 890px;
         background:rgba(255,255,255,1);
@@ -2943,6 +2984,7 @@ body {
                             width:47px;
                             height:66px;
                             border-radius:2px;
+                            border:solid 1px #eee;
                         }
                         .item-link-left-icon{
                             position: absolute;
@@ -2950,9 +2992,6 @@ body {
                             bottom: 0;
                             top: inherit;
                             left: inherit;
-                            // width: 26px;
-                            // height: 26px;
-                            // background: url(../images/new_detail/icon_new_data.png) no-repeat;
                         }
                     }
                     .item-link-right{
@@ -3007,6 +3046,7 @@ body {
                             width:47px;
                             height:66px;
                             border-radius:2px;
+                            border:solid 1px #eee;
                         }
                         .item-link-left-icon{
                             position: absolute;

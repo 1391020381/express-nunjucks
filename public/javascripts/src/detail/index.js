@@ -195,7 +195,7 @@ define(function (require, exports, module) {
         });
         // 显示举报窗口
         $('.report-link').on('click', function () {
-            method.compatibleIESkip('/node/feedback/feedback.html',true);
+            method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
             // $("#dialog-box").dialog({
             //     html: $('#report-file-box').html(),
             // }).open();
