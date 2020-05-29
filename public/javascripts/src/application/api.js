@@ -58,7 +58,9 @@ define(function (require, exports, module) {
         },
         pay: {
             // 购买成功后,在页面自动下载文档
-            successBuyDownLoad: router + '/action/downloadNow'
+            successBuyDownLoad: router + '/action/downloadNow',
+            // 绑定订单
+            bindUser: router + '/order/bindUser'
         },
         coupon:{
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
