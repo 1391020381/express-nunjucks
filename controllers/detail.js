@@ -408,7 +408,9 @@ module.exports = {
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
             results.crumbList.data.isGetClassType = isGetClassType || 0;
             getInitPage(req, results);
-
+            if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
+                results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
+            }
             // 如果有第四范式 相关
             if (results.paradigm4Relevant) {
                 var paradigm4RelevantMap = results.paradigm4Relevant.map(item => {

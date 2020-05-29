@@ -20,7 +20,11 @@
 </div> #}
 <div class="guess-you-like-warpper guessyoulike"  >
     <div class="guess-you-like">
+    {% if results.list.data.isConvert %}
+    <h2 class="guess-you-like-title">猜你喜欢</h2>
+    {% else %}
     <h2 class="guess-you-like-title">你可能还喜欢</h2>
+    {% endif %}
     <ul class="guess-you-like-itmes">
       {%for item in  results.paradigm4GuessData.slice(0,6) %}
           <li class="item" bilogContent="underSimilarFileClick">

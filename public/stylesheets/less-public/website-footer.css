@@ -22,7 +22,7 @@
 .website-footer .footer-content .footer-link {
   float: left;
   padding-right: 120px;
-  border-right: 1px solid #b5b5b5;
+  border-right: 1px solid #eee;
 }
 .website-footer .footer-content .footer-link .website-home-link {
   display: inline-block;
@@ -42,6 +42,7 @@
 }
 .website-footer .footer-content .footer-link .copy-link .footer-nav .footer-nav-link span {
   padding: 0 0px 0 12px;
+  color: #eee;
 }
 .website-footer .footer-content .footer-link .copy-link .footer-nav:first-child {
   padding-left: 0;
