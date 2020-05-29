@@ -484,7 +484,8 @@ define(function (require, exports, module) {
         var code = $(this).attr('data-code');
         if (code) {
             // downLoad(code);
-            handleFileDownUrl()
+          //  handleFileDownUrl()
+          getFileDownLoadUrl()
 
         }
     });
