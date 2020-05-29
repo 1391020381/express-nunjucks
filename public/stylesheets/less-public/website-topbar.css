@@ -195,9 +195,9 @@
 .new-detail-header .vip-join-con {
   float: left;
   *display: inline;
-  width: 129px;
+  width: 120px;
   height: 42px;
-  margin-left: 100px;
+  margin-left: 90px;
   margin-top: 8px;
   line-height: 18px;
   font-size: 12px;
@@ -266,7 +266,7 @@
 }
 .new-detail-header .user-link {
   display: block;
-  padding: 6px 22px 0 0;
+  padding: 6px 72px 0 0;
   height: 30px;
   min-width: 30px;
   max-width: none;
@@ -280,7 +280,7 @@
 }
 .new-detail-header .user-link i {
   width: 13px;
-  height: 8px;
+  /* height: 8px; */
   position: absolute;
   margin-top: 0;
   right: 0;
