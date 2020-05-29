@@ -26,7 +26,7 @@ define(function (require, exports, module) {
                     res.data.forEach(function(item,index){
                         if(index ==0){
                             type=item.code
-                            $('.form-textarea').attr('placeholder',item.desc)
+                            // $('.form-textarea').attr('placeholder',item.desc)
                         }
                         str +='<option value="'+item.code +'">'+item.value +'</option>' 
                         // index == 0 ? type=item.code : ''
