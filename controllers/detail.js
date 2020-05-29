@@ -19,6 +19,7 @@ var format = '';
 var classid1 = '';
 var classid2 = ''
 var perMin = '';
+var productType = ''
 var userID = Math.random().toString().slice(-15); //标注用户的ID，
 var sceneIDRelevant = ''; //场景的ID
 var sceneIDGuess = ''; //场景的ID
@@ -71,6 +72,7 @@ module.exports = {
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
+                            productType = fileInfo.productType
                             uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
@@ -183,20 +185,21 @@ module.exports = {
                 //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
                 server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
             },
+            
             //相关资料   在最后被 第四范式 相关推荐 覆盖
-            // RelevantInformationList: function (callback) {
-            //     if (fileAttr == 1) {
-            //         server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
-            //     } else {
-            //         callback(null, null);
-            //     }
-            // },
+            RelevantInformationList: function (callback) {
+                if (fileAttr == 1) {
+                    server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
+                } else {
+                    callback(null, null);
+                }
+            },
 
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if (fileAttr == 1 && productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
@@ -418,7 +421,7 @@ module.exports = {
                         item_read_cnt:item.item_read_cnt
                     }
                 })
-                results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
+             //   results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
                 results.RelevantInformationList.data = paradigm4RelevantMap.slice(0,4) || [];
                 results.requestID_rele = requestID_rele;
                 results.userID = userID;

@@ -109,15 +109,14 @@ define(function (require, exports, module) {
         }
     };
    
-    var bouncedType = function (res,isDialogDownload) { //屏蔽下载的 后台返回 文件不存在需要怎么提示
+    var bouncedType = function (res) { //屏蔽下载的 后台返回 文件不存在需要怎么提示
         // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-        // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
+        // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位元
         var $dialogBox = $("#dialog-box");
         fid = window.pageConfig.params.g_fileId;
         switch (res.data.checkStatus) {
             // 下载
             case 0:   // 原来 status 100
-            if(isDialogDownload  == 'dialogDownload'){
                 var browserEnv = method.browserType();
                 method.delCookie("event_data_down", "/");
                 if (res.data.score > 0) {
@@ -150,52 +149,8 @@ define(function (require, exports, module) {
                     goNewTab(url);
                 }
                 break;
-            }
-            if(res.data.productType == 4 && res.data.consumeStatus!==7){
-                $dialogBox.dialog({
-                            html: $permanent_privilege.html()
-                                .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
-                                .replace(/\$fileSize/, pageConfig.params.file_size)
-                                .replace(/\$privilege/, res.data.privilege||0)
-                                .replace(/\$productPrice/, res.data.productPrice||0)
-                                .replace(/\$code/, res.data.status)
-                        }).open();
-                        break;
-                break
-            }else{
-                var browserEnv = method.browserType();
-                method.delCookie("event_data_down", "/");
-                if (res.data.score > 0) {
-                    expendScoreNum_var = res.data.score * 1;
-                } else if (res.data.volume > 0) {
-                    expendNum_var = res.data.volume * 1;
-                } else if (window.pageConfig.params.file_volume > 0 && res.data.privilege > 0) {//消耗下载特权数量
-                    expendNum_var = 1;
-                }
-                docDLSuccess(res.data.consume, true);
-                if (browserEnv === 'IE' || browserEnv === 'Edge') {
-                    // window.location.href = res.data.downloadURL;
-                    method.compatibleIESkip(res.data.fileDownUrl,false);
-                } else if (browserEnv === 'Firefox') {
-                    // window.location.href = decodeURIComponent(res.data.downloadURL);
-                    var fileDownUrl = res.data.fileDownUrl;
-                    var sub = fileDownUrl.lastIndexOf('&fn=');
-                    var sub_url1 = fileDownUrl.substr(0, sub + 4);
-                    var sub_ur2 = decodeURIComponent(fileDownUrl.substr(sub + 4, fileDownUrl.length));
-                    var fid = window.pageConfig.params.g_fileId;
-                    // window.location.href = sub_url1 + sub_ur2;
-                    method.compatibleIESkip(sub_url1 + sub_ur2,false);
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.fileDownUrl);
-                    goNewTab(url);
-                } else {
-                    // window.location.href = res.data.downloadURL;
-                    // method.compatibleIESkip(res.data.fileDownUrl,false);
-                    var fid = window.pageConfig.params.g_fileId;
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
-                    goNewTab(url);
-                }
-                break;
-            }
+            
+           
                 
             // 已下载过    
             // case 7:
@@ -425,10 +380,12 @@ define(function (require, exports, module) {
     * 
     * 获取下载获取地址接口
     */
-    var getFileDownUrl = function(dialogDownload){
+    var handleFileDownUrl = function(){
         if (method.getCookie("cuk")){
+            // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
+           if(window.pageConfig.page.productType == 4){
             $.ajax({
-                url: api.normalFileDetail.getFileDownLoadUrl,
+                url: api.normalFileDetail.filePreDownLoad,
                 type: "POST",
                 data: JSON.stringify({
                     "clientType": 0,
@@ -440,11 +397,24 @@ define(function (require, exports, module) {
                 success: function (res) {
                         console.log(res)
                         if(res.code == '0'){
-                            bouncedType(res,dialogDownload);
+                          if(res.data.checkStatus == 0 && res.data.consumeStatus ==2){ // consumeStatus == 2 用下载特权消费的
+                            $dialogBox.dialog({
+                                html: $permanent_privilege.html()
+                                    .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+                                    .replace(/\$fileSize/, pageConfig.params.file_size)
+                                    .replace(/\$privilege/, res.data.privilege||0)
+                                    .replace(/\$productPrice/, res.data.productPrice||0)
+                                    .replace(/\$code/, res.data.status)
+                            }).open();
+                          }else{
+                            getFileDownLoadUrl()
+                          }
                         }
                 }
             })
-            
+           }else{
+            getFileDownLoadUrl()
+           }  
         }else{
             login.notifyLoginInterface(function (data) {
                 common.afterLogin(data);
@@ -452,6 +422,25 @@ define(function (require, exports, module) {
         }
     }
 
+    var getFileDownLoadUrl  = function (){
+        $.ajax({
+            url: api.normalFileDetail.getFileDownLoadUrl,
+            type: "POST",
+            data: JSON.stringify({
+                "clientType": 0,
+                "fid": fid,  
+                "sourceType": 1
+              }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                    console.log(res)
+                    if(res.code == '0'){
+                        bouncedType(res);
+                    }
+            }
+        })
+    }
     /**
      * 跳转到新的tab
      * @param href
@@ -495,7 +484,7 @@ define(function (require, exports, module) {
         var code = $(this).attr('data-code');
         if (code) {
             // downLoad(code);
-          getFileDownUrl('dialogDownload')
+            handleFileDownUrl()
 
         }
     });
@@ -513,7 +502,7 @@ define(function (require, exports, module) {
     $(document).on("click", '[data-toggle="download"]', function (e) {
       //  preDownLoad();
     //   debugger
-      getFileDownUrl()
+    handleFileDownUrl()
     })
     //用app保存
     $(document).on("click", ".sava-app", function (e) {
@@ -523,6 +512,6 @@ define(function (require, exports, module) {
     });
     
    module.exports = {
-    downLoad:getFileDownUrl
+    downLoad:handleFileDownUrl
    }
 });

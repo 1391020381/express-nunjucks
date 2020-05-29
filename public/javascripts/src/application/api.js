@@ -34,7 +34,7 @@ define(function (require, exports, module) {
             // 取消或者关注
             collect: router + '/fileSync/collect',
             // 文件预下载
-            filePreDownLoad: router + '/action/downloadCheck',
+            filePreDownLoad: gateway + '/content/getPreFileDownUrl',
             // 文件下载
             fileDownLoad: router + '/action/downloadUrl',  
             // 下载获取地址接口
