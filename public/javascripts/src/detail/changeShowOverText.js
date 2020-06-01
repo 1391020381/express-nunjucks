@@ -138,9 +138,9 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            }else{
             textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
            }
-           if(status == 2){ 
-            textContent =  '下载到本地阅读'
-           } 
+        //    if(status == 2){ 
+        //     textContent =  '下载到本地阅读'
+        //    } 
            break
            case '1' :
            textContent = '下载到本地阅读'
