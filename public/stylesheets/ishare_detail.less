@@ -18,7 +18,7 @@ body {
 }
 .deatil-mr10{
     margin-right:13px;
-    // position: relative;
+    position: relative;
 }
 .detail-w300{
     width:310px;
@@ -1138,6 +1138,11 @@ body {
 
         }
     }
+    .reader-fullScreen-no{
+        position: fixed;
+        top:24px;
+        right: 24px;
+    }
 }
 
 .detail-con {
@@ -1302,6 +1307,7 @@ body {
 
 .detail-inner {
     width: 890px;
+    margin:0 auto;
     overflow: hidden;
 }
 
@@ -1310,20 +1316,23 @@ body {
     font-size: 18px;
     line-height: 36px;
     color: @gray-dark;
-
+     margin: 0 auto;
     .loading {
         width: 100%;
         height: 800px;
         background: url(../images/loading.gif) no-repeat center center;
     }
+    .img-png {
+        width: 890px;
+    }
 }
 
 .ppt-format-style {
-    padding: 20px;
+    // padding: 20px;
 }
 
 .ppt-format-style-first {
-    padding: 30px 20px 20px;
+    // padding: 30px 20px 20px;
 }
 
 .other-format-style {
@@ -1333,11 +1342,15 @@ body {
 .other-format-style-first {
     // padding: 46px 40px 50px;
 }
-
+.ppt-pic-con{
+    background: #333333;
+}
 .tui-detail-02,
 .tui-detail {
+    width: 890px;
     border-radius: 2px;
-    margin: 10px 0;
+    margin:0 auto;
+    // margin: 10px 0;
     background-color: #fff;
     overflow: hidden;
     box-shadow: 0 0 5px rgba(44, 21, 24, .08);
@@ -1356,6 +1369,8 @@ body {
 .detail-footer { // margin-top: -120px;
     // margin-top: 10px;
     // margin-top:-250px;
+    width: 890px;
+    margin:0 auto;
     padding-top: 34px;
     padding-bottom: 40px;
     border: 0 none;
@@ -1363,13 +1378,13 @@ body {
     border-radius: 4px;
     color: @gray-dark;
     background-color: #fff;
-    // text-align: center;
-    // box-sizing: border-box;
-    // position: absolute;
-    // /* bottom: 0; */
-    // z-index: 200;
-    // width: 100%;
-    // background-image: linear-gradient(to top,#fff,rgba(255,255,255,.99),rgba(255,255,255,.95),rgba(255,255,255,0));
+    text-align: center;
+    box-sizing: border-box;
+    position: absolute;
+    /* bottom: 0; */
+    z-index: 200;
+    width: 100%;
+    background-image: linear-gradient(to top,#fff,rgba(255,255,255,.99),rgba(255,255,255,.95),rgba(255,255,255,0));
 }
 .detail-newfooter{
     margin-top: -120px;
@@ -2472,11 +2487,14 @@ body {
             margin-left:2px;
             .item-link-right-desc{
                 width: 178px;
+               // height: 36px;
+                // line-height: 22px;
+                // overflow: hidden;
+                // white-space: nowrap;
+                // text-overflow: ellipsis
                 height: 36px;
-                line-height: 22px;
+                line-height: 20px;
                 overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis
             }
             .item-link-right-other{
                 // padding-bottom: 30px;
@@ -3005,11 +3023,14 @@ body {
                        text-align: left;  
                        .item-link-right-desc{
                             font-size: 14px;
+                            // height: 36px;
+                            // line-height:22px;
+                            // overflow: hidden;
+                            // white-space: nowrap;
+                            // text-overflow: ellipsis;
                             height: 36px;
-                            line-height:22px;
+                            line-height: 20px;
                             overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
                        }   
                        .item-link-right-other{
                            margin-top:14px;
@@ -3070,6 +3091,9 @@ body {
                             font-size: 14px;
                             line-height:22px;
                             color: #333;
+                            height: 36px;
+                            line-height: 20px;
+                            overflow: hidden;
                        }   
                        .item-link-right-other{
                            margin-top:14px;

@@ -96,8 +96,11 @@ define(function (require, exports, module) {
                 //如果当前对象含退出全屏样式名，执行退出全屏事件，fullscreen=0 标记非全屏状态
 
                 fullscreen=0;
-                // $('.deatil-mr10').css('position','relative')
-                // $('.detail-footer').show()
+                $('.detail-con').css('background-color','#fff')
+                $('.detail-footer').show()
+                $('.deatil-mr10').css('position','relative')
+                $('.detail-topbanner').show()
+                $('.fixed-right-full').show()
                 $(enlarge).removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 // $(".reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 //$(".operation .reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
@@ -118,8 +121,7 @@ define(function (require, exports, module) {
                 if ($(this).hasClass("reader-fullScreen")) {
                     //如果当前对象含全屏样式名，执行全屏事件，fullscreen=1 标记全屏状态
                     fullscreen = 1;
-                    // $('.deatil-mr10').css('position','static')
-                    // $('.detail-footer').hide()
+                    
                     $(this).removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     $(".reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     //$(".operation .reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
@@ -127,7 +129,14 @@ define(function (require, exports, module) {
                     $(".zoom-add").addClass("zoom-add-no");
                     $(".detail-main").addClass("detail-main-full");
                     var fwidth = $(".detail-main").width();
-                    var scale = (fwidth / window.orighWidth).toFixed(3);
+                    // var scale = (fwidth / window.orighWidth).toFixed(3);
+
+                    var scale = 1
+                    $('.detail-con').css('background-color','#333')
+                    $('.detail-footer').hide()
+                    $('.deatil-mr10').css('position','static')
+                    $('.detail-topbanner').hide()
+
                     $(".detail-inner").css({
                         "-webkit-transform": "scale(" + scale + ")",
                         "-webkit-transform-origin": "0 0",

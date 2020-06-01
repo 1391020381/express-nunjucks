@@ -3,6 +3,8 @@ define(function (require, exports, module) {
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
     var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
+    var initStyle = require('./changeDetailFooter').initStyle
+    var loadMoreStyle = require('./changeDetailFooter').loadMoreStyle
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
     var cPage = 2;
@@ -129,7 +131,6 @@ define(function (require, exports, module) {
     if(initReadPage>imgTotalPage){
         changeText()
     }
-
     $(function () {
         //默认隐藏
         var $articlePages = $(".detail-pro-con div.article-page");
@@ -202,9 +203,10 @@ define(function (require, exports, module) {
             restPage = totalPage - cPage;
             $articlePages.eq(2).hide();
             $articlePages.eq(3).hide();
-            // loadMore()
+            initStyle()
         }
     });
+
     //给页面绑定滑轮滚动事件
     if (document.addEventListener) {//firefox
         document.addEventListener('DOMMouseScroll', scrollFunc, false);
@@ -453,7 +455,7 @@ define(function (require, exports, module) {
             }
             changeText()
         }
-        // $('.detail-footer').addClass('detail-newfooter')
+        loadMoreStyle()
     }
 
     function mouseScroll() {
