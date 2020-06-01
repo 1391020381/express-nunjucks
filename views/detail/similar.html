@@ -65,7 +65,10 @@
               <ul class="hot-items">
                {% for item in results.specialTopic %}
                   <li class="item">
-                   <a href="/f/{{item.id}}.html" target="_blank" >{{item.topicName}}</a>
+                   {# <a href="/f/{{item.id}}.html" target="_blank" >{{item.topicName}}</a> #}
+                    <a href="/node/s/{{item.id}}.html" target="_blank">
+                {{item.topicName}}
+                </a>
                </li>
                {% endfor %}  
           </ul>
