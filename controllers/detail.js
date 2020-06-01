@@ -398,7 +398,7 @@ module.exports = {
          //   console.log(results,'pc-node results----------');
          
          // 转换新对象
-             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo&&results.list.data.fileInfo.title,tdkTitle:results.list.tdk&&results.list.tdk.title})})
+             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.transcodeInfo,{tdk:results.list.data.tdk})})
             if(!list.data.fileContentList){
                 list.data.fileContentList = []
             }
