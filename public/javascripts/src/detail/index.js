@@ -472,9 +472,9 @@ define(function (require, exports, module) {
         var $fixBar = $(".detail-fixed-con");
         var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
-        // if (fixEle.length) {
-        //     var fixTop = fixEle.offset().top - headerHeight;
-        // }
+        if (fixEle.length) {
+            var fixTop = fixEle.offset().top - headerHeight;
+        }
         $(window).scroll(function () {
             var detailTop = $(this).scrollTop();
             var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
@@ -490,11 +490,15 @@ define(function (require, exports, module) {
 
             }
             //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            // if (detailTop > fixTop) {
-            //     fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-            // } else {
-            //     fixEle.removeAttr("style");
-            // }
+            if (detailTop > fixTop + fixEle.height()) {
+                $('.fix-right-bannertop').hide()
+                $('.fix-right-bannerbottom').hide()
+                fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+            } else {
+                $('.fix-right-bannertop').show()
+                $('.fix-right-bannerbottom').show()
+                fixEle.removeAttr("style");
+            }
             //底部悬浮展示文档
             if (detailTop > fixStart) {
                 $fixBar.find(".operation").hide();

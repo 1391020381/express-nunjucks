@@ -129,17 +129,18 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
 
     // 1. 预览完成 修改文案 登录的后也要更新
     // 2 点击事件
-    function changeReadMoreText(){
+    function changeReadMoreText(status){
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
            if(ui.isVip =='1' && vipDiscountFlag =='1'){
             textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
            }else{
-            
             textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
            }
-            
+           if(status == 2){ 
+            textContent =  '下载到本地阅读'
+           } 
            break
            case '1' :
            textContent = '下载到本地阅读'

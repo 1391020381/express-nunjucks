@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var pay_btn_tmp = require("./template/pay_btn_tmp.html");
     var pay_middle_tmp = require("./template/pay_middle_tmp.html");
     var pay_header_tmp = require("./template/pay_header.tmp.html");
+    var changeText = require('./changeShowOverText.js').changeText
     var userData = null;
     // 页面信息
    // productType  1  4  5 
@@ -156,6 +157,10 @@ define(function (require, exports, module) {
                     pageConfig.page.initReadPage = Math.min(num, 50);
                 }
                 pageConfig.page.status = initData.status = res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+
+
+                // 修改继续阅读文案要判断是否购买过
+                changeText(res.data.status)
                 if (pageConfig.params.file_state === '3') {
                     var content = res.data.url || pageConfig.imgUrl[0];
                     var bytes = res.data.pinfo.bytes || {};
