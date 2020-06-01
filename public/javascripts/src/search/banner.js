@@ -27,7 +27,7 @@ define(function(require , exports , module){
                 recommendConfigInfo.search.descs.forEach(function(item){
                     if(item.list.length){
                         if(item.pageId == 'PC_M_SR_ub'){
-                            var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container' });
+                            var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container',hasDeleteIcon:true});
                             $(".search-all-main-topbanner").html(_topBannerHtml);
                             var mySwiper = new Swiper('.swiper-top-container', {
                                 direction: 'horizontal',
