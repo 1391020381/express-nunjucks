@@ -288,7 +288,7 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + Api.special.specialTopic,
                     body:JSON.stringify({
                         currentPage:1,
-                        pageSize:10,
+                        pageSize:5,
                         topicName: title  
                     }),
                     headers: {
