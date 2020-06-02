@@ -77,7 +77,10 @@ module.exports = {
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
                         } else {
-                            callback(null, null);
+                            res.redirect(`/node/503.html?fid=${req.params.id}`);
+                            console.log("503==========");
+                            return;
+                            // callback(null, null);
                         }
                     } else {
                         callback(null, null);
@@ -467,7 +470,6 @@ module.exports = {
     success: function (req, res) {
         var _index = {
             list: function (callback) {
-               console.log('详情页start===============', appConfig.apiNewBaselPath + Api.file.fileDetail.replace(/\$id/, req.query.fid));
                 var opt = {
                     // url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
                     method: 'POST',
@@ -493,10 +495,10 @@ module.exports = {
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            // if(data.data.fileAttr == 2){
-                            //     res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
-                            //     return
-                            // }
+                            if(data.data.fileAttr == 2){
+                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
+                                return
+                            }
 
                             fid = fileInfo.id;  // 文件id
                             classId = fileInfo.classid;  // 分类id

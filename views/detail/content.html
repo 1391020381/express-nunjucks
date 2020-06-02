@@ -41,7 +41,7 @@
             {% if results.list.data.perMin != 3 %}
             <!--左侧标题下方广告位-->
             <!--  广告位：PC端-ishare-详细页-左侧标题下870*95-0620  -->
-            <div class="tui-detail-02">
+            <div class="tui-detail-02 tui-detail02-first">
              {% if results.getBannerList.titleBottomBanner.list.length>0 %}
                      <div class="swiper-container swiper-titlebottom-container ">
                        <div class="swiper-wrapper">
@@ -267,7 +267,7 @@
                 data-toggle="btnReadMore">
                 <p class="page-text"><em class="endof-trial-reading" style="display: none;">试读结束 </em>还剩<em class="page-num">{%if results.filePreview.data.is360page %}
                         {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
-                        {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读</span></p>
+                        {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读 ></span></p>
                 {# <i class="icon-newdetail"></i> #}
             </a>
             {# {%if results.list.data.isDownload ==='y' %}

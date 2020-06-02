@@ -42,7 +42,6 @@
   width: 250px;
   padding-top: 24px;
   background: #ffffff;
-  box-shadow: 2px 3.464px 10px 0px rgba(44, 21, 24, 0.1);
   border-radius: 4px;
   font-size: 13px;
   line-height: 20px;
@@ -52,20 +51,23 @@
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .no-find-text-arrow {
   display: block;
   overflow: hidden;
-  left: -9px;
+  left: -6px;
   top: 10px;
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-right: 9px solid #ffffff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #eee;
 }
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item {
   padding: 0 14px;
-  list-style: disc inside;
+  text-align: left;
 }
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(2) {
+  padding: 10px 14px 10px 14px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(3) {
   padding: 10px 14px 10px 14px;
 }
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:last-child {
@@ -78,10 +80,10 @@
 }
 .down-success .carding-success-item .pay-ok-subtext {
   color: #333333;
+  font-size: 16px;
 }
 .down-success .carding-success-item .pay-ok-subtext .quick-down-a {
   color: #176094;
-  font-size: 16px;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -137,7 +139,7 @@
   height: 60px;
   line-height: 60px;
   color: #333333;
-  margin: 0 44px 0 48px;
+  margin: 0 44px 0 38px;
   border-bottom: 1px solid #f2f2f2;
   text-align: left;
 }

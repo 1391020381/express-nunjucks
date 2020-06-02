@@ -97,6 +97,7 @@ define(function (require, exports, module) {
 
                 fullscreen=0;
                 $('.detail-con').css('background-color','#fff')
+                $('.ppt-pic-con').css('background','#fff')
                 $('.detail-footer').show()
                 $('.deatil-mr10').css('position','relative')
                 $('.detail-topbanner').show()
@@ -133,6 +134,7 @@ define(function (require, exports, module) {
 
                     var scale = 1
                     $('.detail-con').css('background-color','#333')
+                    $('.ppt-pic-con').css('background','#333')
                     $('.detail-footer').hide()
                     $('.deatil-mr10').css('position','static')
                     $('.detail-topbanner').hide()

@@ -1346,14 +1346,13 @@ body {
     // padding: 46px 40px 50px;
 }
 .ppt-pic-con{
-    background: #333333;
+    // background: #333333;
 }
 .tui-detail-02,
 .tui-detail {
     width: 890px;
     border-radius: 2px;
-    margin:0 auto;
-    // margin: 10px 0;
+    margin: 10px auto;
     background-color: #fff;
     overflow: hidden;
     box-shadow: 0 0 5px rgba(44, 21, 24, .08);
@@ -1364,14 +1363,12 @@ body {
     }
 }
 
-.tui-detail-02 {
-    margin: 0;
+.tui-detail02-first{
+    margin-top:0px;
 }
 
 //详情页底部购买信息
 .detail-footer { // margin-top: -120px;
-    // margin-top: 10px;
-    // margin-top:-250px;
     width: 890px;
     margin:0 auto;
     padding-top: 34px;
@@ -1381,18 +1378,20 @@ body {
     border-radius: 4px;
     color: @gray-dark;
     background-color: #fff;
-    text-align: center;
-    box-sizing: border-box;
-    position: absolute;
-    /* bottom: 0; */
-    z-index: 200;
-    width: 100%;
-    background-image: linear-gradient(to top,#fff,rgba(255,255,255,.99),rgba(255,255,255,.95),rgba(255,255,255,0));
+    position: relative;
 }
 .detail-newfooter{
     margin-top: -120px;
 }
-
+.state-bottom{
+    position: absolute;
+    width:890px;
+    height: 229px;
+    left:0;
+    bottom: 0;
+    background: url("../images/stateBottomBg.png")no-repeat center;
+    background-size: 100%;
+}
 .detail-footer-info {
     font-size: 18px;
     line-height: 30px;
@@ -1564,22 +1563,22 @@ body {
 }
 
 .data-page {
-    // width: 250px;
+    position: absolute;
+    left:50%;
+    top:50%;
     width: 400px;
     height: 45px;
     line-height: 45px;
-    margin: 0 auto;
+    margin-top:-23px;
+    margin-left:-200px;
     text-align: center;
     font-size: 0;
-    background-color: #fff;
     display: block;
     cursor: pointer;
-  //  border-bottom: 1px dashed #e5e5e5;
-
     .page-text {
         .inline-block();
         vertical-align: middle;
-        font-size: 15px;
+        font-size: 18px;
         color: @gray;
     }
 
@@ -2193,6 +2192,8 @@ body {
         margin-top: -1px;
         border-top: 1px solid #d2441d;
         position: relative;
+        // color: #fff!important;
+        background:rgba(242,81,37,1);
     }
 
     .btn-fix-border {
@@ -2410,7 +2411,7 @@ body {
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    padding: 10px 0;
+    // padding: 10px 0;
 }
 
 .related-data-title {
@@ -2991,6 +2992,7 @@ body {
             border-bottom: 1px solid #f2f2f2;
             text-align: left;
             font-size: 16px;
+            font-weight: bold;
         }
         .guess-you-like-itmes{
             padding-top: 23px;
@@ -2999,7 +3001,7 @@ body {
             .item{
                float: left;
                margin-bottom: 28px;
-                margin-left:38px;
+                margin-left:35px;
                 .item-link{
                     .cf();
                     .item-link-left{
@@ -3018,6 +3020,7 @@ body {
                             bottom: 0;
                             top: inherit;
                             left: inherit;
+                            background-color: #fff
                         }
                     }
                     .item-link-right{
@@ -3051,13 +3054,14 @@ body {
         box-shadow: 0 0 5px rgba(44, 21, 24, .08);
         // margin-top: 10px;
         .guess-you-like-title{
-            height: 60px;
-            line-height: 60px;
+            height: 52px;
+            line-height: 52px;
             color: #333333;
             margin: 0 25px;
             border-bottom: 1px solid #f2f2f2;
             text-align: left;
             font-size: 16px;
+            font-weight: bold;
         }
         .guess-you-like-itmes{
             padding-top: 23px;
@@ -3084,6 +3088,7 @@ body {
                             bottom: 0;
                             top: inherit;
                             left: inherit;
+                            background-color: #fff
                         }
                     }
                     .item-link-right{
