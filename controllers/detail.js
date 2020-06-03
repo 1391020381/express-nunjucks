@@ -40,7 +40,7 @@ module.exports = {
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
-                        sourceType: 'xxxxxx',
+                        sourceType: 0,
                         isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
                       }),
                     headers: {
@@ -65,7 +65,7 @@ module.exports = {
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
                             if(fileInfo.fileAttr == 2){
-                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
+                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
                                 return
                             }
 
