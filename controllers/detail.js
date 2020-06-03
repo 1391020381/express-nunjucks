@@ -82,8 +82,9 @@ module.exports = {
                             productType = fileInfo.productType
                             uid= fileInfo.uid || ''           // 上传者id
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
-                            if(fileInfo.showflag !=='y'){
-                                var results = {showFlag:false}
+                            if(fileInfo.showflag !=='y'){ // 文件删除
+                                var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+                                var results = {showFlag:false,searchQuery}
                                 render("detail/index", results, req, res);
                                 return
                             }
@@ -91,7 +92,8 @@ module.exports = {
                                  if(cuk&&fileInfo.uid == uid){
                                     callback(null, data);
                                  }else{
-                                var results = {showFlag:false}
+                                var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+                                var results = {showFlag:false,searchQuery}
                                 render("detail/index", results, req, res);
                                 return   
                                  }
@@ -99,7 +101,7 @@ module.exports = {
                                 callback(null, data); 
                              }
                         } else {
-                            if(data.code == 'G-404'){
+                            if(data.code == 'G-404'){ // 文件不存在
                                 var results = {showFlag:false}
                                 render("detail/index", results, req, res);
                                 return
