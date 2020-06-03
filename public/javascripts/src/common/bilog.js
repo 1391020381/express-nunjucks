@@ -213,8 +213,7 @@ define(function (require, exports, module) {
         var utm_source = method.getParam('utm_source');
         var utm_medium = method.getParam('utm_campaign');
         var utm_term = method.getParam('utm_campaign');
-        var channel = utm_source + utm_medium + utm_term
-        $.extend(commonData.var, {channel:channel});
+        $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
         handle(commonData, customData);
     }
     //详情页
