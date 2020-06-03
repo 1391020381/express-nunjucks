@@ -77,10 +77,10 @@ module.exports = {
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
                         } else {
-                            res.redirect(`/node/503.html?fid=${req.params.id}`);
-                            console.log("503==========");
-                            return;
-                            // callback(null, null);
+                            // res.redirect(`/node/503.html?fid=${req.params.id}`);
+                            // console.log("503==========");
+                            // return;
+                            callback(null, null);
                         }
                     } else {
                         callback(null, null);
