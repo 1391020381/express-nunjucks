@@ -82,11 +82,11 @@ module.exports = {
                             productType = fileInfo.productType
                             uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
-                            if(fileInfo.showflag !=='y'){
-                                var results = {showFlag:false}
-                                render("detail/index", results, req, res);
-                                return
-                            }
+                            // if(fileInfo.showflag !=='y'){
+                            //     var results = {showFlag:false}
+                            //     render("detail/index", results, req, res);
+                            //     return
+                            // }
                              if(productType == 6){
                                  if(cuk&&fileInfo.uid == uid){
                                     callback(null, data);
