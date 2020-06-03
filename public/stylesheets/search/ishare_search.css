@@ -83,10 +83,10 @@ body {
   border-right: 0 none;
 }
 .landing-header .search-input-con .btn-search {
-  width: 134px;
+  width: 100px;
   height: 41px;
   line-height: 41px;
-  text-indent: 60px;
+  text-indent: 45px;
 }
 .header-box-fix {
   position: fixed;

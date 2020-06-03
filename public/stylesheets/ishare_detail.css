@@ -1458,11 +1458,10 @@ body {
 .data-page {
   position: absolute;
   left: 50%;
-  top: 50%;
+  bottom: 60px;
   width: 400px;
   height: 45px;
   line-height: 45px;
-  margin-top: -23px;
   margin-left: -200px;
   text-align: center;
   font-size: 0;
@@ -2027,9 +2026,9 @@ body {
 }
 .detail-fixed-con .btn-fix-border {
   width: 132px;
-  background-color: #fcdcd3;
+  background: #f25125;
   border-top: 1px solid #eabdb0;
-  color: #f25125;
+  color: #fff;
 }
 .detail-fixed-con .btn-fix-border:hover {
   background-color: #f7cec3;
@@ -2260,7 +2259,6 @@ body {
 .related-data {
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 0 5px rgba(44, 21, 24, 0.08);
 }
 .related-data-title {
   height: 38px;

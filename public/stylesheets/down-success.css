@@ -30,52 +30,68 @@
   cursor: pointer;
   position: relative;
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-find-text-warpper {
-  display: none;
-}
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper {
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-found-tip {
   display: block;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip {
+  display: none;
+  font-size: 14px;
+  color: #777;
   position: absolute;
-  right: -260px;
-  top: -10px;
-  z-index: 8;
-  width: 250px;
-  padding-top: 24px;
+  right: -270px;
+  bottom: -120px;
+  width: 261px;
+  text-align: left;
   background: #ffffff;
   border-radius: 4px;
-  font-size: 13px;
-  line-height: 20px;
-  text-align: left;
-  border: solid 1px #eee;
+  border: 1px solid #f5f4ec;
+  padding: 24px 23px;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .no-find-text-arrow {
-  display: block;
-  overflow: hidden;
-  left: -6px;
-  top: 10px;
-  position: absolute;
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip span:nth-child(1) {
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 6px solid #eee;
+  border-top: 8px solid transparent;
+  border-right: 6px solid rgba(204, 204, 204, 0.5);
+  border-bottom: 8px solid transparent;
+  position: absolute;
+  top: 10%;
+  left: -16px;
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item {
-  padding: 0 14px;
-  text-align: left;
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip span:nth-child(2) {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-right: 6px solid #ffffff;
+  border-bottom: 8px solid transparent;
+  position: absolute;
+  top: 10%;
+  left: -15px;
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(2) {
-  padding: 10px 14px 10px 14px;
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip p {
+  line-height: 28px;
 }
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:nth-child(3) {
-  padding: 10px 14px 10px 14px;
-}
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:last-child {
-  margin-bottom: 20px;
-}
-.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text:hover .no-find-text-warpper .sent-email-item .item:last-child .sent-email {
-  color: #333333;
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip p em {
   font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip .win {
+  margin-top: 14px;
+  margin-bottom: 12px;
+  text-indent: 9px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip .mac {
+  margin-bottom: 12px;
+  text-indent: 9px;
+}
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text span {
+  font-size: 14px;
+  color: #666;
+  margin-left: 10px;
   cursor: pointer;
 }
 .down-success .carding-success-item .pay-ok-subtext {
@@ -85,6 +101,7 @@
 .down-success .carding-success-item .pay-ok-subtext .quick-down-a {
   color: #176094;
   cursor: pointer;
+  font-weight: bold;
   text-decoration: underline;
 }
 .down-success .qrcode-warpper {
