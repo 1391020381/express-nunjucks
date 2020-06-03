@@ -209,6 +209,12 @@ define(function (require, exports, module) {
         commonData.pageID = $("#ip-page-id").val() || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
+        
+        var utm_source = method.getParam('utm_source');
+        var utm_medium = method.getParam('utm_campaign');
+        var utm_term = method.getParam('utm_campaign');
+        var channel = utm_source + utm_medium + utm_term
+        $.extend(commonData.var, {channel:channel});
         handle(commonData, customData);
     }
     //详情页

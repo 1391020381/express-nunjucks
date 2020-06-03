@@ -47,7 +47,8 @@
 </div>
 {% include "detail/header.html" %}
 
-<div class="pw-detail bd-wrap cf">
+{% if results.showFlag %}
+  <div class="pw-detail bd-wrap cf">
     <!--面包屑导航-->
     {% include "detail/crumb.html" %}
     <div class="cf">
@@ -55,30 +56,6 @@
         {% include "detail/similar.html" %}
     </div>
 </div>
-
-<!--底部-->
-{# <div class="footer-con">
-    <div class="pw footer">
-        <div class="copy-con">
-            <p class="footer-nav">
-                <a href="/agreement.html" rel="nofollow" target="_blank">网站声明</a>
-                <span class="line"></span>
-                <a href="/infringement.html" rel="nofollow" target="_blank">侵权处理</a>
-                <span class="line"></span>
-                <a href="//iask.sina.com.cn/helpCenter/ishare.html" rel="nofollow" target="_blank">帮助中心</a>
-                <span class="line"></span>
-                <a href="//iask.sina.com.cn" rel="nofollow" target="_blank">爱问首页</a>
-                <span class="line"></span>
-                <a href="/sitemap.html" rel="nofollow" target="_blank">网站地图</a>
-                <span class="line"></span>
-                <a href="/feedAndComp/userFeedback" rel="nofollow" target="_blank">意见反馈</a>
-            </p>
-            <p class="copy-txt">Copyright &copy; 1996-2020 IASK Corporation, All Right Reserved</p>
-        </div>
-    </div>
-</div> #}
-
-{% include "common/footer.html" %}
 <!--底部悬浮工具栏-->
 <div class="detail-fixed">
     <div class="pw-detail pw-v cf">
@@ -158,6 +135,10 @@
         </div>
     </div>
 </div>
+{% else %}
+{% include "detail/error.html" %}
+{% endif %}
+{% include "common/footer.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 <!--  弹出层 -->

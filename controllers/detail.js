@@ -33,14 +33,14 @@ var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 module.exports = {
     render: function (req, res) {
         var _index = {
-            list: function (callback) {
+            list: function (callback) {  // cookies.ui
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.fileDetail,
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
-                        sourceType: 1,
+                        sourceType: 'xxxxxx',
                         isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
                       }),
                     headers: {
@@ -51,14 +51,21 @@ module.exports = {
                 console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
                     console.log('detail-list-------------------:',JSON.parse(body))
+                    if(res1.statusCode == 503){ // http请求503
+                            res.redirect(`/node/503.html?fid=${req.params.id}`);
+                            console.log("503==========");
+                            return;     
+                    }
                     if (body) {
+                        var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
+                        var cuk = req.cookies.cuk
                         var data = JSON.parse(body);
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            if(data.data.fileAttr == 2){
-                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html?form=ishare`);
+                            if(fileInfo.fileAttr == 2){
+                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
                                 return
                             }
 
@@ -75,11 +82,28 @@ module.exports = {
                             productType = fileInfo.productType
                             uid= fileInfo.uid || ''           // 上传者id
                             // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
-                            callback(null, data);
+                            if(fileInfo.showflag !=='y'){
+                                var results = {showFlag:false}
+                                render("detail/index", results, req, res);
+                                return
+                            }
+                             if(productType == 6){
+                                 if(cuk&&fileInfo.uid == uid){
+                                    callback(null, data);
+                                 }else{
+                                var results = {showFlag:false}
+                                render("detail/index", results, req, res);
+                                return   
+                                 }
+                             }else{
+                                callback(null, data); 
+                             }
                         } else {
-                            // res.redirect(`/node/503.html?fid=${req.params.id}`);
-                            // console.log("503==========");
-                            // return;
+                            if(data.code == 'G-404'){
+                                var results = {showFlag:false}
+                                render("detail/index", results, req, res);
+                                return
+                            }
                             callback(null, null);
                         }
                     } else {
@@ -453,6 +477,7 @@ module.exports = {
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
+            results.showFlag = true
             console.log('results:',JSON.stringify(results))
             // if (parseInt(fileAttr, 10) === 1) {
             //     render("detail/index", results, req, res);

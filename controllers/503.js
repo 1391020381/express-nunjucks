@@ -37,6 +37,7 @@ module.exports = {
             },
         } , function(err, results){
             // console.log(results)
+            results.fid =req.query.fid
             render("503", results, req, res);
         })
     }

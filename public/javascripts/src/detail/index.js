@@ -490,14 +490,14 @@ define(function (require, exports, module) {
 
             }
             //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop > fixTop + fixEle.height()) {
+            if (detailTop > fixHeight + fixEle.height()) {
                 $('.fix-right-bannertop').hide()
                 $('.fix-right-bannerbottom').hide()
                 fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
             } else {
+                fixEle.removeAttr("style");
                 $('.fix-right-bannertop').show()
                 $('.fix-right-bannerbottom').show()
-                fixEle.removeAttr("style");
             }
             //底部悬浮展示文档
             if (detailTop > fixStart) {
