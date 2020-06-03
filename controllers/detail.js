@@ -81,7 +81,7 @@ module.exports = {
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             productType = fileInfo.productType
                             uid= fileInfo.uid || ''           // 上传者id
-                            userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
+                            userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){
                                 var results = {showFlag:false}
                                 render("detail/index", results, req, res);
@@ -536,7 +536,7 @@ module.exports = {
                             classid2 = fileInfo.classid2
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             uid= fileInfo.uid || ''           // 上传者id
-                            // userID = data.data.uid.slice(0, 10) || ''; //来标注用户的ID，
+                            userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             callback(null, data);
                         } else {
                             callback(null, null);
