@@ -85,6 +85,7 @@ module.exports = {
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
                                 var results = {showFlag:false,searchQuery}
+                                res.status(404)
                                 render("detail/index", results, req, res);
                                 return
                             }
@@ -94,6 +95,7 @@ module.exports = {
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
                                 var results = {showFlag:false,searchQuery}
+                                res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
                                  }
@@ -103,6 +105,7 @@ module.exports = {
                         } else {
                             if(data.code == 'G-404'){ // 文件不存在
                                 var results = {showFlag:false}
+                                res.status(404)
                                 render("detail/index", results, req, res);
                                 return
                             }
