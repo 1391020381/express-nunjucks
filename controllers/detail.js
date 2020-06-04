@@ -94,7 +94,7 @@ module.exports = {
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery}
+                                var results = {showFlag:false,searchQuery,isPrivate:true}
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
