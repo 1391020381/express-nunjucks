@@ -14,12 +14,16 @@ define(function (require, exports, module) {
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
-
+    var fileName = window.pageConfig.page&&window.pageConfig.page.fileName
     // 初始化显示
     initShow();
     // 初始化绑定
     eventBinding();
     function initShow() {
+        if(fileName){
+            fileName = fileName.length>12?fileName.slice(0,12) + '...':fileName
+        }
+        $('#search-detail-input').attr('placeholder',fileName||'与人沟通的十大绝招')
         // 初始化显示
         pageInitShow();
         // 访问记录
@@ -73,7 +77,7 @@ define(function (require, exports, module) {
         // setTimeout(function () {
         //     $('.detail-search-info').show();
         // }, 30000)
-        $('.detail-search-info').show();
+        // $('.detail-search-info').show();
     }
 
     // 事件绑定
@@ -119,12 +123,19 @@ define(function (require, exports, module) {
             return true;
         });
         $('.btn-new-search').on('click', function () {
-            var _val = $search_detail_input.val();
-            if (!_val) {
-                return
-            }
+            var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
+            // if (!_val) {
+            //     return
+            // }
             searchFn(_val);
         });
+        $('.detail-search-info').on('click',function(){
+            var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
+            // if (!_val) {
+            //     return
+            // }
+            searchFn(_val);
+        })
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
