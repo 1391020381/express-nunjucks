@@ -314,34 +314,6 @@ module.exports = {
                     callback(null, null);
                 }
             },
-            // specialTopic:function(callback) {
-            //     var opt = {
-            //         method: 'POST',
-            //         url: appConfig.apiNewBaselPath + Api.special.specialTopic,
-            //         body:JSON.stringify({
-            //             currentPage:1,
-            //             pageSize:5,
-            //             topicName: title  
-            //         }),
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
-            //         }
-            //     };
-            //     request(opt,function(err,res1,body){
-            //         if(body){
-            //             var data = JSON.parse(body);
-            //             if (data.code == 0 ){
-            //                 console.log('specialTopic:',JSON.stringify(data))
-            //                 callback(null, data.data.rows);
-            //             }else{
-            //                 callback(null,null)
-            //             }
-            //         }else{
-            //           callback(null,null)
-            //         }
-            //     })
-            // },
             //第四范式 相关推荐
             paradigm4Relevant: function (callback) {
                 requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串

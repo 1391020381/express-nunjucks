@@ -4,7 +4,7 @@
     <ul class="hot-items">
          {{each hotSpotSearchList}}
              <li class="item">
-                <a href={{hotSpotSearchList[$index].url}}>{{hotSpotSearchList[$index].value}}</a>
+                <a  href="/node/s/{{hotSpotSearchList[$index].id}}.html"  target="_blank">{{hotSpotSearchList[$index].topicName}}</a>
              </li>
         {{/each}}  
     </ul>

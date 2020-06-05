@@ -59,22 +59,8 @@
         </div>
         {% endif %}
         <div class="hot-spot-search-warper">
-        {% if results.specialTopic.length>0%}
-         <div class="hot-spot-search">
-            <h2 class="hot-spot-search-title">热点搜索<h2>
-              <ul class="hot-items">
-               {% for item in results.specialTopic %}
-                  <li class="item">
-                   {# <a href="/f/{{item.id}}.html" target="_blank" >{{item.topicName}}</a> #}
-                    <a href="/node/s/{{item.id}}.html" target="_blank">
-                {{item.topicName}}
-                </a>
-               </li>
-               {% endfor %}  
-          </ul>
+       
        </div>
-       {% endif %}
-    </div>
         {# <div  class="fix-right-bannerbottom">
           {%for item in  results.getBannerList.rightBottomBanner.list %}
              <div class="swiper-container fix-right-bannerbottom">

@@ -50,6 +50,7 @@ define(function (require, exports, module) {
         search: {
             //搜索服务--API接口--运营位数据--异步
             byPosition: router + '/operating/byPosition',
+            specialTopic: gateway + '/search/specialTopic/lisPage'   // 专题热点查询
         },
         sms: {
             // 获取短信验证码

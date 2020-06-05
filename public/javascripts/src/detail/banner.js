@@ -1,9 +1,9 @@
 define(function (require, exports, module){
-    //  顶部banner位 右侧的banner位 右侧的热点搜索  相关资料  底部猜你喜欢
+    require('swiper');
     var method = require("../application/method");
-require('swiper');
-window.onload = function(){
-        new Swiper('.swiper-top-container', {
+    var api = require('../application/api');
+     var HotSpotSearch = require("./template/HotSpotSearch.html")
+ new Swiper('.swiper-top-container', {
             direction: 'horizontal',
             loop: $('.swiper-top-container .swiper-slide').length>1?true:false,
             autoplay: 3000,
@@ -50,5 +50,27 @@ new Swiper('.swiper-turnPageTwoBanner-container',{
     loop: $('.swiper-turnPageTwoBanner-container .swiper-slide').length>1?true:false,
     autoplay: 3000,
 })
+var topicName = window.pageConfig.page&&window.pageConfig.page.fileName
+getSpecialTopic()
+function getSpecialTopic() {
+    $.ajax({
+        url: api.search.specialTopic,
+        type: "POST",
+        data: JSON.stringify({
+                        currentPage:1,
+                        pageSize:5,
+                        topicName: topicName  
+                    }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+           if(res.code == '0'){
+            if(res.data.rows&&res.data.rows.length){
+              var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+              $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+            }
+           }
+        }
+    })
 }
 })
