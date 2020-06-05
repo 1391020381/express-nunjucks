@@ -116,57 +116,57 @@ module.exports = {
                     }
                 })
             },
-            // getTopBannerList:function(callback){ // 页面顶部banner
-            //     console.log(req.cookies.isHideDetailTopbanner)
-            //     if(req.cookies.isHideDetailTopbanner){
-            //         callback(null,null)
-            //         return
-            //     }
-            //     var opt = {
-            //         method: 'POST',
-            //         url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
-            //         body:JSON.stringify(recommendConfigInfo.details.topBanner.pageId),
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         }
-            //     };
-            //     request(opt,function(err,res1,body){
-            //         if(body){
-            //             var data = JSON.parse(body);
-            //             if (data.code == 0 ){
-            //                 console.log('getTopBannerList:',data)
-            //                 callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
-            //             }else{
-            //                 callback(null,null)
-            //             }
-            //         }else{
-            //           callback(null,null)
-            //         }
-            //     })
-            // },
-            // geSearchBannerList:function(callback){
-            //     var opt = {
-            //         method: 'POST',
-            //         url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
-            //         body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         }
-            //     };
-            //     request(opt,function(err,res1,body){
-            //         if(body){
-            //             var data = JSON.parse(body);
-            //             if (data.code == 0 ){
-            //                 console.log('getTopBannerList:',data)
-            //                 callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
-            //             }else{
-            //                 callback(null,null)
-            //             }
-            //         }else{
-            //           callback(null,null)
-            //         }
-            //     })
-            // },
+            getTopBannerList:function(callback){ // 页面顶部banner
+                console.log(req.cookies.isHideDetailTopbanner)
+                if(req.cookies.isHideDetailTopbanner){
+                    callback(null,null)
+                    return
+                }
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.topBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
+            geSearchBannerList:function(callback){
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            console.log('getTopBannerList:',data)
+                            callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
             getBannerList:function(callback){
                 var params = dealParam(format,classid1,classid2)
                 var opt = {
