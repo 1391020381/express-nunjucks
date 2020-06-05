@@ -12,7 +12,6 @@ define(function (require, exports, module){
             'left':'0px',
             'right':'0px',
             'bottom':(113 + guessYouLikeHeight) + 'px',
-            'z-index':'200',
             'width': '890px'
         })
       }else{
@@ -29,7 +28,6 @@ define(function (require, exports, module){
         'left':'0px',
         'right':'0px',
         'bottom':(0 + guessYouLikeHeight) + 'px',
-        'z-index':'200',
         'width': '890px'
     })
    }
