@@ -19,7 +19,8 @@ define(function (require, exports, module){
       }
    }
    function loadMoreStyle (){
-    commStyle()
+   // commStyle()
+   initStyle()
    }
    function commStyle(){
     $('.deatil-mr10').css('position','relative')
