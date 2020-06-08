@@ -30,6 +30,7 @@ define(function(require , exports , module){
                             var mySwiper = new Swiper('.pay-success-swiper-container', {
                                 direction: 'horizontal',
                                 loop: true,
+                                loop: k.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
                         }
