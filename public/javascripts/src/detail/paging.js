@@ -443,14 +443,14 @@ define(function (require, exports, module) {
         //如果已经到最后了
         if (loadedPage - limitPage >= 0) {
             action.isHideMore(loadedPage);
-            if($('.red-color').text()!=='点击可继续阅读'){
+            if($('.red-color').text()!=='点击可继续阅读 >'){ 
                 readMoreTextEvent()
             }
             changeText()  
         }
         if (loadedPage == totalPage) {
             action.isHideMore(loadedPage);
-             if($('.red-color').text()!=='点击可继续阅读'){
+             if($('.red-color').text()!=='点击可继续阅读 >'){
                 readMoreTextEvent()
             }
             changeText()

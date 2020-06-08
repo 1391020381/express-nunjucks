@@ -88,6 +88,9 @@
   margin-bottom: 12px;
   text-indent: 9px;
 }
+.down-success .carding-success-item .pay-ok-text .new-icon .no-find-text .no-found-tip:hover {
+  display: block;
+}
 .down-success .carding-success-item .pay-ok-text .new-icon .no-find-text span {
   font-size: 14px;
   color: #666;
