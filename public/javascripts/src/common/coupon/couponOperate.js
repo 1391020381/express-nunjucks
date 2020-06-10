@@ -50,6 +50,7 @@ define(function (require, exports, module) {
                 //     $('.vip-share-text').show();
                 //     couponObj.vipDiscountFreeAmount();
                 // }
+                
                 if (pageConfig.params.vipDiscountFlag == 1  && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
                     $('.vip-share-text').show();
                     couponObj.vipDiscountFreeAmount();

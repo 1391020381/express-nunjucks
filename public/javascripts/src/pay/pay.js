@@ -114,16 +114,19 @@ define(function (require, exports, moudle) {
 
     $(".js-buy-open").click(function () {  // 支付页面 fail.html payConfirm.html
         var ref = utils.getPageRef(fid);      //用户来源
-        var params = '?fid=' + fid + '&ref=' + ref;
+        var urlQuery = '?fid=' + fid + '&ref=' + ref;
         var mark = $(this).data('type');
         var type = params.type
         if (type == 10) { // mark == 'vip'
             // window.open('/pay/vip.html' + params);
-            method.compatibleIESkip('/pay/vip.html' + params, true);
+            method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
         } else if (type == '13') { // mark == 'privilege'
             // window.open('/pay/privilege.html' + params);
-            method.compatibleIESkip('/pay/privilege.html' + params, true);
+            method.compatibleIESkip('/pay/privilege.html' + urlQuery, true);
+        }else if(type == '8'){
+            method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
         }
+        
     });
 
     //特权套餐切换
