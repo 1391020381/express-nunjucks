@@ -82,7 +82,7 @@ define(function (require, exports, moudle) {
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
                 clickEvent($(this))
-              //  btnHrefChange('cond', inputValue);
+              btnHrefChange('cond', inputValue);
             }
         })
         //搜索输入框按下enter键
