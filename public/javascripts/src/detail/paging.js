@@ -83,8 +83,9 @@ define(function (require, exports, module) {
 
             //剩余页数
             var remainPage = restPage -= 5;
-            $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
-
+            if($('.page-text .endof-trial-reading').css('display') == 'none'){
+                $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
+            }
             //滚动到指定位置
             if (currentPage <= imgTotalPage) {
                 // var index = $('.page-input').val();

@@ -13,7 +13,8 @@
                         </span>
                     </p>
                     <span class="data-size">大小: {{results.fileDetails.fileSize}}</span>
-                   <p class="vip-share-text" style="display: none">VIP特权：VIP会员专享8折购买特权，立省<span id = "vipDiscountFreeAmount"></span>元 <a class="pc_click js-buy-open" style="cursor: pointer" data-type="vip" pcTrackContent="joinVip-4">&nbsp;&nbsp;你还不是VIP，立即开通></a></p>
+                   {# <p class="vip-share-text" style="display: none">VIP特权：VIP会员专享8折购买特权，立省<span id = "vipDiscountFreeAmount"></span>元 <a class="pc_click js-buy-open" style="cursor: pointer" data-type="vip" pcTrackContent="joinVip-4">&nbsp;&nbsp;你还不是VIP，立即开通></a></p> #}
+                         <p class="vip-share-text" style="display: none">VIP特权：VIP会员专享8折购买特权 <a class="pc_click js-buy-open" style="cursor: pointer" data-type="vip" pcTrackContent="joinVip-4">&nbsp;&nbsp;你还不是VIP，立即开通></a></p>
                     {% include "common/couponOperate.html" %}
                     <p class="price-text-con">支付金额：<strong class="price"></strong>元<span class="original-text" style="text-decoration:none"></span></p>
                     <a class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payFile" data-page="file">立即支付</a>

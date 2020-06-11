@@ -177,10 +177,21 @@ define(function (require, exports, module) {
                 method.compatibleIESkip("/pay/payConfirm.html" + params,false);
                 break;
             case 1:
-                $dialogBox.dialog({
-                    html: $tpl_down_text.html().replace(/\$msg/, '您已经超过了当日下载量')
-                }).open();
-                break;
+                // $dialogBox.dialog({
+                //     html: $tpl_down_text.html().replace(/\$msg/, '您已经超过了当日下载量')
+                // }).open();
+                // break;
+                var ui = method.getCookie('ui')?JSON.parse(decodeURIComponent(method.getCookie('ui'))):{isVip:''}
+                if (ui.isVip === '1') {
+                            $("#dialog-box").dialog({
+                                html: $vipFreeDownCounts.html(),
+                            }).open();
+                        }else {
+                            $("#dialog-box").dialog({
+                                html: $freeDownCounts.html(),
+                            }).open();
+                        }
+                        break;
             // 下载过于频繁
             case 2:
                 $dialogBox.dialog({
@@ -418,6 +429,8 @@ define(function (require, exports, module) {
         }else{
             login.notifyLoginInterface(function (data) {
                 common.afterLogin(data);
+                userData = data
+                handleFileDownUrl()
             }); 
         }
     }
