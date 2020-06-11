@@ -124,17 +124,17 @@
             <!-- 分页 -->  
             {% if results.list.data.totalPages>1 %}
             <div class="office-page-paging">
-               <a class="btn-page-long" href="/node/s/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html">首页</a>
+               <a class="btn-page-long js-tab-page" href="javascript:;" value='1'>首页</a>
                {% if results.urlParams.currentPage>1 %}
-               <a class="btn-page" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}.html">上一页</a>
+               <a class="btn-page js-tab-page" href="javascript:;" value='{{results.urlParams.currentPage-1}}'>上一页</a>
                {% endif %}
 
 
                {%if results.pageIndexArr.length>1 %}
                {%for item in results.pageIndexArr%}
                {% if (loop.index<+results.urlParams.currentPage+3 and loop.index>=results.urlParams.currentPage-3) %}
-               <a class="page-ele {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
-                   style="display: inline-block" href="/node/s/{{results.data.id}}_{{loop.index}}_{{results.urlParams.sortFlag}}.html">
+               <a class="page-ele js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
+                   style="display: inline-block" href="javascript:;">
                    {{loop.index}}
                </a>
                {% endif %}
@@ -142,8 +142,8 @@
                {% if results.urlParams.currentPage <= results.pageIndexArr.length-3 %}
                <a class="page-more">...</a>
                {% endif %}
-               <a class="btn-page-long" href="/node/s/{{results.data.id}}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}.html">下一页</a>
-               <a class="btn-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.data.id}}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html">尾页</a>
+               <a class="btn-page-long js-tab-page" href="javascript:;" value='{{results.urlParams.currentPage+1}}'>下一页</a>
+               <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="javascript:;" value='{{results.pageIndexArr.length}}'>尾页</a>
                {%endif%}
            </div>
            {%endif%}
