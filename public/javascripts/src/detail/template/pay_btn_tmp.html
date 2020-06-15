@@ -1,5 +1,5 @@
 <div class="bottom-fix qwe">
-        {{if data.isDownload === "n"}}
+        {{if data.productType == "3"}}
             <!--仅在线阅读-->
             {{if data.isVip == 1}}
                 <div class="data-item fl">
@@ -21,7 +21,7 @@
             {{/if}}
         {{else}}
             <!--VIP免费-->
-            {{if data.vipFreeFlag == 1}}
+            {{if data.productType == 4}}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                 </div>
@@ -29,10 +29,10 @@
                     <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
             {{else}}
-                {{if data.perMin == "3"}}
+                {{if data.productType == "5" }}
                     <!--现金文档 -->
                     <!--专享8折 加入vip8折购买 立即下载 立即购买-->
-                      {{if data.isVip == 1 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag == 1}}
+                      {{if data.isVip == 1 && data.vipDiscountFlag == 1 }}
                         <div class="data-item fl">
                             <h2 class="data-title fl">
                                 <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}
@@ -41,15 +41,16 @@
                         <div class="integral-con fr">
                             {{if data.status!=2}}
                                 <div class="price-con price-more fl">
-                                    <p class="price vip-price">¥{{(data.moneyPrice*1000/1250).toFixed(2)}}</p>
-                                    <p class="origin-price">原价&yen; {{data.moneyPrice}}</p>
+                                     <p class="price vip-price">¥{{data.productPrice}}</p>
+                                    <p class="origin-price">原价&yen; {{data.productPrice}}</p>
                                 </div>
-                                 <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即购买</a>
+                                 <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>
                             {{else}}
                                  <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}
                         </div>
-                      {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}
+                        <!--&& data.ownVipDiscountFlag== 1-->
+                      {{else if data.isVip == 0 && data.vipDiscountFlag == 1 }}
                         <div class="data-item fl">
                             <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                         </div>
@@ -57,22 +58,12 @@
                             {{if data.status!=2}}
                                 <div class="price-con price-more fl">
                                     <!--现金文档价格 -->
-                                    <p class="price" style="">&yen;{{data.moneyPrice}}</p>
+                                    <p class="price" style="">&yen;{{data.productPrice}}</p>
                                     <!--现金文档 有折扣 非vip会员 -->
-                                    <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{(data.moneyPrice*1000/1250).toFixed(2)}}</span>起</p>
+                                  
+                                      <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{data.productPrice}}</span></p>
                                 </div>
-                                <a class="btn-fix-bottom btn-fix-border js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即购买</a>
-                                <a class="btn-vip-more js-buy-open fl pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" data-type="vip">
-                                    <p class="text">开通VIP</p>
-                                    <p class="sale-text">8折起</p>
-                                    <div class="vip-d-share">
-                                        <div class="vip-d-inter">
-                                            <i class="before"></i>
-                                            <i class="after"></i>
-                                            <p>开通VIP，本资料可享8折购买，立省<span id="vip-save-money"></span>元</p>
-                                        </div>
-                                    </div>
-                                </a>
+                                <a class="btn-fix-bottom btn-fix-border js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>
                             {{else}}
                                  <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}
@@ -88,9 +79,9 @@
                             {{if data.status!=2}}
                                 <div class="price-con fl">
                                     <!--现金文档价格 -->
-                                    <p class="price" style="">¥{{data.moneyPrice}}</p>
+                                     <p class="price" style="">¥{{data.productPrice}}</p>
                                 </div>
-                                <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
+                                <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即下载</a>
                             {{else}}
                                 <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                             {{/if}}

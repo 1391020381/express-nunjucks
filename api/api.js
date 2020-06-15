@@ -7,7 +7,8 @@ console.log(process.env.NODE_ENV, 'process.env.NODE_ENV');
 module.exports = {
     file: {
         // 文件详情 (正文)
-        fileDetail: '/file/$id',
+        // fileDetail: '/file/$id',
+        fileDetail: '/content/getFileDetail',
         // 文档详情扩展的信息（统计）
         fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
@@ -22,16 +23,22 @@ module.exports = {
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
         getUserFileZcState:'/comment/zc/getUserFileZcState'
     },
+    coupon:{
+        rightsSaleVouchers:   "/rights/sale/vouchers",
+        rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
+        querySeniority:  '/rights/sale/querySeniority',
+    },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
         getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
-        getPrivilege: '/order/privilegePackage',    //获取下载特权列表
+        // getPrivilege: '/order/privilegePackage',    //获取下载特权列表
+        getPrivilege: '/rights/vip/getPrivilegePacks',    //获取下载特权列表
         order: '/order/create',                     //下单
-        orderUnlogin: '/order/nolandcreate',        //免登陆下单
+        orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
         status: '/order/status/$orderNo',           //订单状态
-        orderStatusUlogin: '/order/nolandstatus', //订单状态
+        orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
         sms: '/usermanage/getSmsYzCode',            //发送验证码
         bind: '/usermanage/bindMobile',              //绑定手机号
@@ -63,6 +70,8 @@ module.exports = {
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
+    recommendConfigRuleInfo:'/recommend/config/ruleInfo',
+    recommendConfigInfo:'/recommend/config/info',
     special:{
         findSpecialTopic:'/special/specialTopic/findSpecialTopic/$id',  //查询专题信息接口
         listTopicContents:'/special/specialTopicContent/listTopicContents',  //分页查询接口

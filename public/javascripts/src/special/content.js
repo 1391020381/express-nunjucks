@@ -20,6 +20,7 @@ define(function(require , exports , module){
         text.addClass('hide');
     });
 
+
          //更多筛选  切换函数
     function toggleMore() {
         var searchScreen = $('.search-screen');
@@ -76,6 +77,22 @@ define(function(require , exports , module){
             location.href="/node/s/"+idsArr[0] + '-'+idsArr[1] +"-"+url+".html";
 
         })
+
+         $(document).on('click','.js-tab-page',function(){  //直接替换页数
+              var page=$(this).attr('value')  
+              var url=window.location.pathname;
+              var i= url.indexOf('_');
+              if(i>-1){
+                url=changeStr(url,i+1,page);
+              }else{  //默认情况下
+                  url='/node/s/'+pageConfig.urlParams.specialTopicId+'_'+ page + '_' + pageConfig.urlParams.sortFlag + '.html'
+              }
+              location.href=url;
+         })
+    }
+
+    function changeStr(str,index,changeStr){
+        return str.substr(0, index) + changeStr+ str.substr(index + changeStr.length);
     }
 
     function searchTab(){

@@ -45,7 +45,10 @@ var helper = require('./helper/helper')(env);
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+
+
 // create application/x-www-form-urlencoded parser
 app.use(
     bodyParser.urlencoded({
@@ -96,7 +99,7 @@ app.use(function (req, res, next) {
     // var err = new Error('Not Found');
     // err.status = 404;
     // next(err);
-    res.redirect('/html/404.html');
+    res.redirect('/node/404.html');
 });
 
 // development error handler

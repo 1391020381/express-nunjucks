@@ -1,5 +1,7 @@
 <!--弹框-->
-<div class="dialog" id="dialog-box"></div>
+<div class="dialog" id="dialog-box">
+<!--遮罩层 start-->
+<div id="bgMask" class="common-bgMask"></div></div>
 <!--举报弹窗-->
 <script type="text/template" id="report-file-box">
     <div class="pc-dialog report-dialog-main report-dialogue">
@@ -236,10 +238,10 @@
                 <span class="data-size">($fileSize)</span>
             </div>
             <div class="dialog-text-wrap">
-                <p>您的下载特权剩余数量为：<strong class="num">$privilege</strong>次，本次下载消耗1次特权</p>
+                <p>您的下载特权剩余数量为：<strong class="num">$privilege</strong>个，本次下载消耗$productPrice个特权</p>
             </div>
             <div class="btn-dialog-wrap">
-                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-4" data-code="$code">立即下载</a>
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click"  style="background-color: #f25125;" pcTrackContent="downloadBtn-4" data-code="$code">立即下载</a>
             </div>
         </div>
     </div>
@@ -254,7 +256,7 @@
                 <span class="data-size">($fileSize)</span>
             </div>
             <div class="dialog-text-wrap">
-                <p>您的下载特权剩余数量为：<strong class="num">0</strong>次，本次下载消耗1次特权</p>
+                <p>您的下载特权剩余数量为：<strong class="num">$privilege</strong>个，本次下载消耗$productPrice个特权</p>
             </div>
             <div class="btn-dialog-wrap">
                 <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinPrivilege" data-type="privilege">补充下载特权</a>
@@ -320,3 +322,29 @@
         </div>
     </div>
 </script>
+
+<!-- 下载页面发送邮箱 -->
+<script type="text/template" id="send-email">
+     <div class="m-reward-pop">
+        <i class="close-btn"></i>
+
+        <div class="container">
+            <div class="title">
+                将资料发送到邮箱
+            </div>
+
+            <div class="form-list">
+                <div class="form-verify-tips">
+                    <span class="text">
+                        *请检查邮箱地址
+                    </span>
+                </div>
+                <input type="text" class="form-ipt" placeholder="请填写邮箱地址...">
+            </div>
+        </div>
+        <div class="submit-btn">
+            确认发送
+        </div>
+    </div>
+</script>
+

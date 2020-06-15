@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/feedback/feedback.css" />
+    {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css"> #}
+   <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
+<!-- 添加360统计代码1、PC端统计代码： -->
+<script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",335601,false);
+</script>  
+
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+
+<body>
+    {% include "common/js.html" %}
+
+
+    <!-- 顶部标签 -->
+    {% include "common/websiteHeaderbar.html" %}
+
+    <!-- 搜索头部 -->
+    {# {% include "feedback/searchHead.html" %} #}
+
+    <!-- 搜索内容主体 -->
+    {% include "feedback/content.html" %}
+
+    <!-- 底部声明 -->
+    {% include "../common/footer.html" %}
+
+    <!-- 右边固定提示导航 -->
+
+    {% include "common/suspension.html" %}
+
+
+
+
+
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{},
+            params:{
+                g_permin:''  // 登录后开通vip 需要
+            }
+        };
+        seajs.use(["dist/application/app.js", "dist/feedback/init.js"]);
+    </script>
+     <!-- 百度统计代码 -->
+     <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+
+</body>
+
+</html>

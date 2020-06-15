@@ -1,0 +1,15 @@
+<!--资料不存在或者私有-->
+
+<div class="detail-error-container">
+<div class="detail-error">
+    <img class="img" src="{{cdnUrl}}/images/detail/detail-error.png">
+    <div class="detail-error-desc">
+        {% if results.isPrivate %}
+       <p class="error-desc">私密资料暂无权限查看</p>
+        {% else %}
+       <p class="error-desc">资料已删除，无法查看</p>
+        {% endif %}
+         <a class="error-btn" href="/search/home.html{{results.searchQuery}}">搜索资料</a>
+    </div>
+</div>
+</div>

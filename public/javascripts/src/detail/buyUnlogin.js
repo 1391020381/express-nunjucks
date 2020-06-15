@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var report = require("../pay/report");
     var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
-
+    var viewExposure = require('../common/bilog').viewExposure
     downLoadReport.docPageType_var = pageConfig.page.ptype;
     downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
@@ -48,10 +48,11 @@ define(function (require, exports, module) {
             $('body').on("click", ".js-buy-open", function (e) {
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
-                    if (pageConfig.params.g_permin == 3 && $(this).data('type') == "file") {
+                    if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         downLoadReport.expendType_var = "现金"
                         // 如果现金文档，弹出面登陆购买
                         $('body').append(unloginBuyHtml);
+                        viewExposure($(this),'noLgFPayCon')
                         var loginUrl = '';
                         var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
                         var classid1 = params && params.classid1 ? params.classid1 + '' : '';
@@ -90,19 +91,26 @@ define(function (require, exports, module) {
 
             var params = {
                 fid: pageConfig.params.g_fileId,
-                type: 2,
+                goodsId:pageConfig.params.g_fileId,
+                goodsType: 1,
                 ref: utils.getPageRef(window.pageConfig.params.g_fileId),
                 referrer: pageConfig.params.referrer,
+                remark:'other',
+                sourceMode:0,
+                channelSource:4,
+                host:location.origin,
+                channel:'other',
                 isVisitor: 1,
                 visitorId: visitorId,
-                uid: visitorId
+                isVouchers:1,
+                returnPayment:false
             }
             $.post('/pay/orderUnlogin?ts=' + new Date().getTime(), params, function (data, status) {
                 if (data && data.code == '0') {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
                     // 订单详情赋值
-                    $('.shouldPayWrap span').text(data.data.price);
+                    $('.shouldPayWrap span').text(data.data.payPrice/100);
                     gioPayDocReport.orderId_var = data.data.orderNo;
                     gioPayDocReport.buyer_uid = visitorId;
                     gioPayDocReport.login_flag = '游客';
@@ -118,6 +126,7 @@ define(function (require, exports, module) {
         },
         createdQrCode: function (oid) {
             var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
+            console.log(url)
             try {
                 qr.createQrCode(url, 'payQrCode', 162, 162);
             } catch (e) {
@@ -143,43 +152,52 @@ define(function (require, exports, module) {
         * isClear 是否停止
         */
         payStatus: function (orderNo, visitorId) {
-            $.get("/pay/orderStatusUlogin?ts=" + new Date().getTime(), { 'orderNo': orderNo, 'userId': visitorId }, function (data) {
-                if (data && data.code == 0) {
-                    unloginObj.count++;
-                    var res = data.data;
-                    var orderStatus = res.orderStatus;
-                    var fid = res.fid;
-                    if (!fid) {
-                        fid = method.getParam('fid');
-                    }
+            var params = { orderNo: orderNo};
+            params = JSON.stringify(params);
+            $.ajax({
+                type: 'post',
+                url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
+                contentType: "application/json;charset=utf-8",
+                data: params,
+                success: function (data) {
+                    if (data && data.code == 0) {
+                        unloginObj.count++;
+                        var orderStatus = data.data;
+                        var fid = pageConfig.params.g_fileId;
+                       
+                        if (orderStatus == 0) {//待支付 
+                            if (unloginObj.count <= 30 && !unloginObj.isClear) {
+                                window.setTimeout(function () { unloginObj.payStatus(orderNo, visitorId) }, 3000);
+                            }
+                            if (unloginObj.count > 28) {
+                                $('.qrShadow').show();
+                                $('.failTip').show()
+                            }
 
-                    if (orderStatus == 0) {//待支付 
-                        if (unloginObj.count <= 30 && !unloginObj.isClear) {
-                            window.setTimeout(function () { unloginObj.payStatus(orderNo, visitorId) }, 3000);
-                        }
-                        if (unloginObj.count > 28) {
-                            $('.qrShadow').show();
-                            $('.failTip').show()
-                        }
-
-                    } else if (orderStatus == 2) {//成功
-                        try {
-                            if (res.goodsType == 1) {//购买文件成功
+                        } else if (orderStatus == 2) {//成功
+                            try {
                                 report.docPaySuccess(gioPayDocReport);//GIO购买上报
                                 __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
                                 unloginObj.closeLoginWindon();
-                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format;
+                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format+'&visitorId='+visitorId;
                                 method.compatibleIESkip(url, false);
-                                // location.href =
+                            } catch (e) {
                             }
-                        } catch (e) {
-                        }
 
+                        }else {
+
+                        }
+                    } else {
+                        $.toast({
+                            text: data.msg,
+                        })
+                        unloginObj.closeLoginWindon();
                     }
-                } else {//error
-                    console.log(data);
+                },
+                complete: function () {
+                    
                 }
-            });
+            })
         },
         /**
         * 关闭弹窗

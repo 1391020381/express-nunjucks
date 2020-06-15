@@ -5,7 +5,8 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var config = require('./../report/config');//参数配置
     // var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP特权'];
-    var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
+    // var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
+    var payTypeMapping = ['', 'free', '', 'online', 'vipOnly', 'cost']; //productType=1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
     // var fsourceEnum = {
     //     user: '用户上传', editor: '编辑上传', history: '历史资料1', history2: '历史资料2',
     //     other_collection_site: '外包采集站点', ishare_collection_site: '自行采集站点',
@@ -112,12 +113,20 @@ define(function (require, exports, module) {
         } else if (new RegExp('/pay/fail').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-FAIL';
             initData.prePageName = '支付失败页';
-        } else if (new RegExp('/node/f/downsucc.html').test(referrer)) {
-            initData.prePageID = 'PC-M-DOWN-SUC';
-            initData.prePageName = '下载成功页';
+        }else if (new RegExp('/node/f/downsucc.html').test(referrer)) {
+            if(/unloginFlag=1/.test(referrer)){
+                initData.prePageID = 'PC-M-FDPAY-SUC';
+                initData.prePageName = '免登购买成功页';
+            }else{
+                initData.prePageID = 'PC-M-DOWN-SUC';
+                initData.prePageName = '下载成功页';
+            }
         } else if (new RegExp('/node/f/downfail.html').test(referrer)) {
             initData.prePageID = 'PC-M-DOWN-FAIL';
             initData.prePageName = '下载失败页';
+        }else if (new RegExp('/search/home.html').test(referrer)) {
+            initData.prePageID = 'PC-M-SR';
+            initData.prePageName = '搜索关键词';
         }
     }
 
@@ -180,6 +189,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
+            console.log('埋点参数:',resultData)
             push(resultData);
         }
     }
@@ -199,6 +209,11 @@ define(function (require, exports, module) {
         commonData.pageID = $("#ip-page-id").val() || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
+        
+        var utm_source = method.getParam('utm_source');
+        var utm_medium = method.getParam('utm_campaign');
+        var utm_term = method.getParam('utm_campaign');
+        $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
         handle(commonData, customData);
     }
     //详情页
@@ -294,6 +309,18 @@ define(function (require, exports, module) {
         commonData.eventID = 'SE014';
         commonData.eventName = 'downResult';
         commonData.pageID = $("#ip-page-id").val() || '';
+        commonData.pageName = $("#ip-page-name").val() || '';
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+
+    function searchResult(customData){ //导出页面使用
+        var commonData = JSON.parse(JSON.stringify(initData));
+        commonData.eventType = 'page';
+        commonData.eventID = 'SE015';
+        commonData.eventName = 'searchPageView';
+        setPreInfo(document.referrer, commonData);
+        commonData.pageID = 'PC-M-SR' || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
         handle(commonData, customData);
@@ -421,8 +448,10 @@ define(function (require, exports, module) {
     }
     //点击事件
     $(document).delegate('.' + config.EVENT_NAME, 'click', function (event) {//动态绑定点击事件
+        // debugger
         var that = $(this);
         var cnt = that.attr(config.BILOG_CONTENT_NAME);//上报事件类型
+        console.log('cnt:',cnt)
         if (cnt) {
             setTimeout(function () {
                 clickEvent(cnt, that);
@@ -446,7 +475,7 @@ define(function (require, exports, module) {
         handle(commonData, customData);
     }
     //点击事件
-    function clickEvent(cnt, that) {
+    function clickEvent(cnt, that,moduleID) {
         var ptype = $("#ip-page-type").val();
         if (ptype == 'pindex') {//详情页
             var customData = {
@@ -529,6 +558,13 @@ define(function (require, exports, module) {
                 trans(JSON.parse(bf), customData);
             }
             clickCenter('SE012', 'payPrivilegeClick', 'payPrivilege', '支付页-下载特权-立即支付', customData);
+        }else if(cnt == 'searchResult'){
+            customData = {
+                fileID: that.attr('data-fileId'),
+                fileName: that.attr('data-fileName'),
+                keyWords:$('#scondition').val()
+            };
+            clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
         }
 
         var customData = {
@@ -557,6 +593,65 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBacDetail', '下载成功页-返回详情页', customData);
         } else if (cnt == 'downSuccessBindPhone') {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
+        }else if(cnt =='viewExposure'){
+            customData.moduleID = moduleID
+            clickCenter('SE006', 'modelView', '', '', customData);
+        }else if(cnt == 'similarFileClick'){
+            customData={
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            }
+            clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
+        }else if(cnt =='underSimilarFileClick'){
+            clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
+        }else if(cnt == 'downSucSimilarFileClick'){
+            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
+        }else if(cnt == 'markFileClick'){
+            customData={
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state],
+                markRusult: 1
+            }
+            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData); 
+        }else if(cnt == 'vipRights'){
+            clickCenter('NE002', 'normalClick', 'vipRights', '侧边栏-vip权益', customData); 
+        }else if(cnt == 'seen'){
+            clickCenter('NE002', 'normalClick', 'seen', '侧边栏-我看过的', customData); 
+        }else if(cnt == 'mark'){
+            clickCenter('NE002', 'normalClick', 'mark', '侧边栏-我的收藏', customData); 
+        }else if(cnt == 'customerService'){
+            clickCenter('NE002', 'normalClick', 'customerService', '侧边栏-联系客服', customData); 
+        }else if(cnt == 'downApp'){
+            clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData); 
+        }else if(cnt == 'follow'){
+            clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData); 
         }
+    }
+    
+    module.exports = {
+        clickEvent:function($this){
+            var cnt = $this.attr(config.BILOG_CONTENT_NAME)
+            console.log('cnt-导出的:',cnt)
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,$this)
+                })
+            }
+        },
+        viewExposure:function($this,moduleID){
+            var cnt = 'viewExposure'
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,$this,moduleID)
+                })
+            } 
+        },
+        searchResult:searchResult
     }
 });

@@ -96,6 +96,13 @@ define(function (require, exports, module) {
                 //如果当前对象含退出全屏样式名，执行退出全屏事件，fullscreen=0 标记非全屏状态
 
                 fullscreen=0;
+                $('.detail-con').css('background-color','#fff')
+                $('.ppt-pic-con').css('background','#fff')
+                $('.pw-detail').css('width','1213px')
+                $('.detail-footer').show()
+                $('.deatil-mr10').css('position','relative')
+                $('.detail-topbanner').show()
+                $('.fixed-right-full').show()
                 $(enlarge).removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 // $(".reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
                 //$(".operation .reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
@@ -116,7 +123,7 @@ define(function (require, exports, module) {
                 if ($(this).hasClass("reader-fullScreen")) {
                     //如果当前对象含全屏样式名，执行全屏事件，fullscreen=1 标记全屏状态
                     fullscreen = 1;
-
+                    
                     $(this).removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     $(".reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
                     //$(".operation .reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
@@ -124,7 +131,15 @@ define(function (require, exports, module) {
                     $(".zoom-add").addClass("zoom-add-no");
                     $(".detail-main").addClass("detail-main-full");
                     var fwidth = $(".detail-main").width();
-                    var scale = (fwidth / window.orighWidth).toFixed(3);
+                    // var scale = (fwidth / window.orighWidth).toFixed(3);
+
+                    var scale = 1
+                    $('.detail-con').css('background-color','#333')
+                    $('.ppt-pic-con').css('background','#333')
+                    $('.detail-footer').hide()
+                    $('.deatil-mr10').css('position','static')
+                    $('.detail-topbanner').hide()
+                    $('.pw-detail').css('width','890px')
                     $(".detail-inner").css({
                         "-webkit-transform": "scale(" + scale + ")",
                         "-webkit-transform-origin": "0 0",
@@ -224,34 +239,34 @@ define(function (require, exports, module) {
         //执行所有触发事件：全屏、退出全屏、放大、缩小
         zoom(".reader-fullScreen,.reader-fullScreen-no", ".detail-main", ".detail-inner", ".bd-wrap", ".doc-main", ".detail-profile");
 
-        fileArgument();
+        // fileArgument();
         // 星星评分
-        function fileArgument (){
-            var oStar = document.getElementById("star");
-            var aLi = oStar.getElementsByTagName("li");
-            //var oSpan = oStar.getElementsByTagName("span")[1];
-            //var oP = oStar.getElementsByTagName("p")[0];
-            var i = iScore = iStar = 0;
-            for (i = 1; i <= aLi.length; i++) {
-                aLi[i - 1].index = i;
-                //鼠标移过显示分数
-                aLi[i - 1].onmouseover = function () {
-                    fnPoint(this.index);
-                };
-                //鼠标离开后恢复上次评分
-                aLi[i - 1].onmouseout = function () {
-                    fnPoint();
-                };
-                //点击后进行评分处理
-                aLi[i - 1].onclick = function () {
-                    iStar = this.index;
-                }
-            }
+        // function fileArgument (){
+        //     var oStar = document.getElementById("star");
+        //     var aLi = oStar.getElementsByTagName("li");
+        //     //var oSpan = oStar.getElementsByTagName("span")[1];
+        //     //var oP = oStar.getElementsByTagName("p")[0];
+        //     var i = iScore = iStar = 0;
+        //     for (i = 1; i <= aLi.length; i++) {
+        //         aLi[i - 1].index = i;
+        //         //鼠标移过显示分数
+        //         aLi[i - 1].onmouseover = function () {
+        //             fnPoint(this.index);
+        //         };
+        //         //鼠标离开后恢复上次评分
+        //         aLi[i - 1].onmouseout = function () {
+        //             fnPoint();
+        //         };
+        //         //点击后进行评分处理
+        //         aLi[i - 1].onclick = function () {
+        //             iStar = this.index;
+        //         }
+        //     }
 
-            function fnPoint(iArg) {
-                iScore = iArg || iStar;
-                for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
-            }
-        }
+        //     function fnPoint(iArg) {
+        //         iScore = iArg || iStar;
+        //         for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
+        //     }
+        // }
     });
 });

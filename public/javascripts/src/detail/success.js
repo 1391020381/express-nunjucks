@@ -1,28 +1,37 @@
 define(function (require, exports, module) {
     // var $ = require('$');
+    require("../cmd-lib/myDialog");
     var method = require("../application/method");
     var login = require('../application/checkLogin');
     var utils = require("../cmd-lib/util");
     var fid = method.getParam('fid');
-    var fileName = method.getParam('name');
+    var fileName = method.getParam('title');
     var format = method.getParam('format');
+    var api = require('../application/api');
     var userId;
+    require('swiper');
+    var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
+    var swiperTemplate = require("../common/template/swiper_tmp.html");
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
     // require("../common/baidu-statistics");
-
     var userData = null, initData = {};
     eventBinding();
-
+   
     // url上带有这个参数unloginFlag，说明是游客模式过来的
+    
+    // buyUnlogin.js 中跳转过来
     var unloginFlag = method.getQueryString('unloginFlag');
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
             $('.xbsd i').addClass('ico-data ico-' + format);
         }
-        $('.pay-ok-text').hide();
+       // $('.pay-ok-text').hide();
+         $('.qrcode-warpper').hide()
+         $('.down-success-other').hide()
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
 
@@ -45,7 +54,8 @@ define(function (require, exports, module) {
 
             });
             setTimeout(function () {
-                getDownUrl()
+              //  getDownUrl()
+              autoDownUrl()
             }, 1000)
         }
     } else {
@@ -63,6 +73,9 @@ define(function (require, exports, module) {
         }
 
         if (!method.getCookie('cuk') && !userData) {
+            // $('.down-success-other').hide()
+            // $('.qrcode-warpper').hide()
+
             login.notifyLoginInterface(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
@@ -74,8 +87,8 @@ define(function (require, exports, module) {
 
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
-        var visitorId = method.getCookie('visitorId');
-        $.get('/pay/bindUnlogin?ts=' + new Date().getTime(), {
+        var visitorId = method.getCookie('visitorId')||method.getParam('visitorId');
+        $.get(api.pay.bindUser, {
             'visitorId': visitorId,
             'userId': userId,
             'nickName': nickName
@@ -101,14 +114,29 @@ define(function (require, exports, module) {
             createdLoginQr()
         }, 200)
     }
-
+    
+    // 下载页面自动下载
+    if (method.getCookie('cuk')){
+        autoDownUrl()
+    }
     // 点击下载
-    $('.unloginStatus .quick-down-a').click(function () {
-        getDownUrl()
+    $('.quick-down-a').click(function () {
+        // getDownUrl()
+        autoDownUrl()
     })
-
+     
+    function autoDownUrl(){
+        var fileDownUrl = method.getQueryString('url');
+        if(fileDownUrl){
+            method.compatibleIESkip(fileDownUrl,false);
+        }else {
+            if(unloginFlag){ // 游客
+                getDownUrl()
+            }
+        }
+    }
     function getDownUrl() {
-        var vuk = method.getCookie('visitorId');
+        var vuk = method.getCookie('visitorId')||method.getParam('visitorId');
         if (userId) {
             vuk = userId;
         }
@@ -152,7 +180,9 @@ define(function (require, exports, module) {
 
     function successReload(data) {
         if (data.mobile) {
-            $('.carding-info-bottom').addClass('carding-binding-ok')
+            // 登录的情况下不适用 car.html中的二维码
+            // $('.carding-info-bottom').addClass('carding-binding-ok')
+            $('.carding-info-bottom').hide()
         } else {
             $('.carding-binding').show()
         }
@@ -333,12 +363,14 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     refreshDomTree(data);
+                    $('.down-success-other').show()
+                    $('.qrcode-warpper').show()
                 });
             }
         });
         // 登出
         $('.btn-exit').on('click', function () {
-            login.ishareLogout();
+            login.ishareLogout();  // 在登出的接口成功后,会刷新页面
         });
     }
 
@@ -371,4 +403,104 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
     }
+    gebyPosition()
+    function gebyPosition() {
+        $.ajax({
+            url: api.recommend.recommendConfigInfo,
+            type: "POST",
+            data: JSON.stringify(recommendConfigInfo.downSuccess.pageIds),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                res.data.forEach(function(item){  // 匹配 组装数据
+                    recommendConfigInfo.downSuccess.descs.forEach(function(desc){
+                        if(item.pageId == desc.pageId){
+                            desc.list = method.handleRecommendData(item.list)
+                        }
+                    })
+                })
+                console.log(recommendConfigInfo)
+                recommendConfigInfo.downSuccess.descs.forEach(function(item){
+                    if(item.list.length){
+                        if(item.pageId == 'PC_M_DOWN_SUC_banner'){ // search-all-main-bottombanner
+                            console.log(item.list,'item.list-------------------')
+                            var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container' });
+                            $(".down-success-banner").html(_bottomBannerHtml);
+                            var mySwiper = new Swiper('.swiper-top-container', {
+                                direction: 'horizontal',
+                                loop: item.list.length>1 ? true : false,
+                                autoplay: 3000,
+                            })
+                        }
+                    }
+                })
+               }
+            }
+        })
+    }
+    // 发送邮箱
+    $('.js-sent-email').click(function(){
+    //          $("#dialog-box").dialog({
+    //     html: $('#send-email').html(),
+    // }).open();
+    $("#dialog-box").dialog({
+        html: $('#send-email').html(),
+    }).open();
+    })
+   
+    $('#dialog-box').on('click','.submit-btn',function(e){
+        // debugger
+        if(!method.testEmail($('.form-ipt').val())){
+            $.toast({
+                text:'请输入正确的邮箱',
+                delay : 3000,
+            })
+            return
+        }
+        if (method.getCookie("cuk")){
+            console.log(method.getCookie('ui'))
+            var email = $('#dialog-box .form-ipt').val()
+            $.ajax({
+                url: api.sms.sendCorpusDownloadMail,
+                type: "POST",
+                data: JSON.stringify({
+                    "email": email,
+                    "fid": fid,
+                    "title": fileName,
+                    "uid": JSON.parse(method.getCookie('ui')).uid
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code == '0'){
+                            $.toast({
+                                text: '发送邮箱成功!',
+                                })
+                          var $dialogBox = $('#dialog-box');
+                            $dialogBox.dialog({}).close();
+                        }else{
+                            $.toast({
+                                text: '发送邮箱失败!',
+                                })
+                        }
+                }
+            })
+        }else{
+            login.notifyLoginInterface(function (data) {
+               // common.afterLogin(data);
+               refreshDomTree(data)
+            }); 
+        }
+    })
+    
+    $('#dialog-box').on('click','.close-btn',function(e){
+        closeRewardPop();
+    })
+    function closeRewardPop(){
+        $(".common-bgMask").hide();
+        $(".detail-bg-mask").hide();
+        $('#dialog-box').hide();
+    }  
 });

@@ -1,6 +1,6 @@
 <!--仅供在线阅读提示 -->
 <div id="footer-btn">
-    {% if results.list.data.isDownload == "n" %}
+    {% if results.list.data.productType == "3" %}
         <div class="data-item fl">
             <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
             <span class="online-read">仅供在线阅读</span>
@@ -9,8 +9,8 @@
             <a class="btn-fix-vip js-buy-open fl pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" loginOffer="joinVip-2" data-type="vip">开通VIP，享更多特权</a>
         </div>
     {%else%}
-            <!-- VIP文档.-->
-            {% if results.list.data.vipFreeFlag === 1%}
+            <!-- VIP文档.results.list.data.productType-->
+            {% if results.list.data.productType == 4%}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
                 </div>
@@ -19,9 +19,9 @@
                 </div>
             {%else%}
                 <!--现金文档-->
-                {% if results.list.data.perMin == "3" %}
+                {% if results.list.data.productType == "5" %}
                         <!-- 现金打折文档-->
-                        {% if results.list.data.vipDiscountFlag == 1 and results.list.data.ownVipDiscountFlag == 1%}
+                        {% if results.list.data.vipDiscountFlag == 1 %}
                             <div class="data-item fl">
                                 <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
                             </div>
@@ -29,13 +29,13 @@
                             <div class="integral-con fr">
                                 <div class="price-con price-more fl">
                                     <!--现金文档价格 -->
-                                    <p class="price" style="">¥ {{results.list.data.moneyPrice}}</p>
+                                    <p class="price" style="">¥ {{results.list.data.productPrice}}</p>
                                     <!--现金文档 有折扣 非vip会员 -->
-                                    <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span>起</p>
+                                    <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span></p>
                                 </div>
 
-                                <a class="btn-fix-bottom  js-buy-open btn-fix-border fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即购买</a>
-                                <a class="btn-vip-more fl  js-buy-open pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" loginOffer="joinVip-2" data-type="vip">
+                                <a class="btn-fix-bottom  js-buy-open btn-fix-border fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即下载</a>
+                                {# <a class="btn-vip-more fl  js-buy-open pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" loginOffer="joinVip-2" data-type="vip">
                                     <p class="text">开通VIP</p>
                                     <p class="sale-text">8折起</p>
                                     <div class="vip-d-share">
@@ -45,7 +45,7 @@
                                             <p>开通VIP，本资料可享8折购买，立省<span id="vip-save-money"></span>元</p>
                                         </div>
                                     </div>
-                                </a>
+                                </a> #}
                             </div>
                         {%else%}
 
@@ -58,9 +58,9 @@
                             <div class="integral-con fr">
                                     <div class="price-con fl">
                                         <!--现金文档价格 -->
-                                        <p class="price" style="">¥ {{results.list.data.moneyPrice}}</p>
+                                        <p class="price" style="">¥ {{results.list.data.productPrice}}</p>
                                     </div>
-                                    <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即购买</a>
+                                    <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-3" data-type="file">立即下载</a>
                              </div>
                         {%endif%}
                 {%else%}

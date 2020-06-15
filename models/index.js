@@ -55,7 +55,7 @@ module.exports = {
         } else if (req.url.indexOf('?') > 0 && !append) {
             url = url + req.url.substring(req.url.indexOf('?'));
         }
-        // console.log(url,'urlurlurlurlurlurlurlurl=======')
+        console.log(url,'urlurlurlurlurlurlurlurl=======')
         return {
             url: url,
             method: "GET",
@@ -94,7 +94,7 @@ module.exports = {
                         }
                         if(data.code==='G-500'){
                             console.error(data);
-                            res.redirect('/html/404.html')
+                            res.redirect('/node/404.html')
                             return
                         }else{
                             resolve(data)   
@@ -104,7 +104,7 @@ module.exports = {
                         reject(err)
                     }
                 } else {
-                    reject();
+                    reject()
                 }
             })
         })

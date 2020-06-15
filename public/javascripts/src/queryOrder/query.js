@@ -39,7 +39,7 @@ define(function (require, exports, module) {
         if (!method.getCookie('cuk')) {
             return;
         }
-        method.get('/gateway/pc/usermanage/checkLogin', function (res) {
+        method.get('/gateway/pc/usermanage/checkLogin?channelSource=4', function (res) {
             console.log(res, '用户信息')
             if (res.code == 0 && res.data) {
                 userInfo = res.data;
@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 $(".before-search-words").css("display","none");
-                if (res.code === '0') {
+                if (res.code == '0') {
                     fileInfo = res.data;
                     handleShowInfos();
                     handleFileTypeIcon(fileInfo);
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if (res.code === '0') {
+                if (res.code == '0') {
                     var url = res.data.downUrl;
                     window.location = url
                 }else {

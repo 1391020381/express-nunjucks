@@ -26,6 +26,4 @@ define(function(require , exports , module){
             __pc__.gioTrack("docPaySuccess",reportFileData);
         }
     };
-
-
 });

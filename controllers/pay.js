@@ -27,13 +27,17 @@ module.exports = {
                     platform: 0,
                     scope: 4
                 };
-                server.post(appConfig.apiSpecialPath + api.pay.getVipList, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.pay.getVipList, callback, req);
             }
         }, function (err, results) {
             results.type = 0;
             results.flag = 0;
             results.format = req.query.ft;
             results.title = urlencode.decode(req.query.name);
+            
+            results.fileDetails = {
+                checkStatus : req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
+            }  
             console.log("vip list------------");
             console.log('后台返回的套餐列表:'+JSON.stringify(results));
             // req.query.remark = 'office'
@@ -57,26 +61,14 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
-            }
-        }, function (err, results) {
-            results.type = 1;
-            results.flag = 1;
-            // render("pay/index", results, req, res);
-            if ('office' == req.query.remark) {
-                render("office/pay/index", results, req, res);
-            } else {
-                render("pay/index", results, req, res);
-            }
-        })
-    },
-    //支付确认
-    payConfirm: function (req, res) {
-        return async.series({
-            fileDetails: function (callback) {
-                console.log(appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.orderNo))
+              //  server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
                 var opt = {
-                    url: appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.orderNo),
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.getPrivilege,
+                    body:JSON.stringify({
+                        platform:0,
+                        scope:4
+                      }),
                     headers: {
                         'Content-Type': 'application/json',
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
@@ -87,19 +79,8 @@ module.exports = {
                         try {
                             var data = JSON.parse(body);
                             if (data.code == 0) {
-                                var backData = {};
-                                backData.fileId = req.query.orderNo;
-                                backData.referrer = req.query.referrer;
-                                backData.moneyPrice = data.data.moneyPrice;
-                                backData.discountPrice = data.data.discountPrice || "";
-                                backData.vipDiscountFlag = data.data.vipDiscountFlag || "";
-                                backData.ownVipDiscountFlag = data.data.ownVipDiscountFlag || "";
-                                backData.payType = data.data.payType || "";
-                                backData.format = data.data.format || "";
-                                backData.title = data.data.title || "";
-                                backData.fileSize = data.data.fileSize || "";
-                                backData.g_permin = data.data.perMin || "";
-                                callback(null, backData);
+                                
+                                callback(null, data);
                             } else {
                                 callback(null, null);
                             }
@@ -112,6 +93,70 @@ module.exports = {
                 })
             }
         }, function (err, results) {
+            results.type = 1;
+            results.flag = 1;
+            results.fileDetails = {
+                checkStatus : req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
+            }  
+            // render("pay/index", results, req, res);
+            if ('office' == req.query.remark) {
+                render("office/pay/index", results, req, res);
+            } else {
+                render("pay/index", results, req, res);
+            }
+        })
+    },
+    //支付确认
+    payConfirm: function (req, res) {
+        return async.series({
+            fileDetails: function (callback) {
+                 var opt = {
+                     method: 'POST',
+                     url: appConfig.apiNewBaselPath + api.file.fileDetail,
+                     body:JSON.stringify({
+                         clientType: 0,
+                         fid: req.query.orderNo,  
+                         sourceType: 1,
+                         isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                       }),
+                     headers: {
+                         'Content-Type': 'application/json',
+                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                     },
+                 };
+                 console.log('opt:',opt)
+                 request(opt, function (err, res1, body) {
+                    if (body) {
+                        try {
+                            var data = JSON.parse(body);
+                            if (data.code == 0) {
+                                var backData = {};
+                                backData.checkStatus = req.query.checkStatus[0]
+                                backData.fileId = req.query.orderNo;
+                                backData.referrer = req.query.referrer;
+                                backData.moneyPrice = data.data.fileInfo.productPrice; //productPrice
+                                backData.discountPrice = data.data.fileInfo.discountPrice || "";  // 新接口无折扣价格
+                                backData.vipDiscountFlag = data.data.fileInfo.vipDiscountFlag || "";
+                                backData.ownVipDiscountFlag = data.data.fileInfo.ownVipDiscountFlag || "";
+                                backData.payType = data.data.fileInfo.payType || "";
+                                backData.format = data.data.fileInfo.format || "";
+                                backData.title = data.data.fileInfo.title || "";
+                                backData.fileSize = data.data.fileInfo.fileSize || "";
+                                backData.g_permin = data.data.fileInfo.permin || "";
+                                callback(null, backData);
+                            } else {
+                                callback(null, null);
+                            }
+                        } catch (err) {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                     
+                 })
+             },
+        }, function (err, results) {  // results 是fileDetails组装后的数据
             results.flag = 4;
             render("pay/index", results, req, res);
         })
@@ -207,12 +252,12 @@ module.exports = {
                     callback(null, null);
                 }
             },
-            list: function (callback) {
+            list: function (callback) {  // 从query上获取参数
                 console.log(req.url);
                 console.log(req.query);
                 callback(null, req.query);
             }
-        }, function (err, results) {
+        }, function (err, results) {    // type=2 购买文件成功  type=0  购买vip成功  type=1   购买下载特权成功
             results.flag = 'true';
             results.type = results.list.type;
             console.log(results);
@@ -267,7 +312,7 @@ module.exports = {
     orderUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.post(appConfig.apiBasePath + api.pay.orderUnlogin, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.pay.orderUnlogin, callback, req);
             }
         }, function (err, results) {
             console.log("免登陆下单操作=================");
@@ -279,9 +324,10 @@ module.exports = {
     orderStatusUlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.get(appConfig.apiBasePath + api.pay.orderStatusUlogin, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.pay.orderStatusUlogin, callback, req);
             }
         }, function (err, results) {
+            console.log(appConfig.apiNewBaselPath + api.pay.orderStatusUlogin);
             console.log("下单操作=================");
             console.log(results);
             res.send(results.list).end();
@@ -289,6 +335,7 @@ module.exports = {
     },
     //免登下载接口
     visitorDownload: function (req, res) {
+        console.log(req.body)
         return async.series({
             list: function (callback) {
                 server.post(appConfig.apiBasePath + api.pay.visitorDownload, callback, req);
@@ -367,9 +414,13 @@ module.exports = {
     bindUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
+                console.log('绑定**********************************')
+                console.log(appConfig.apiBasePath + api.pay.bindUnlogin)
                 server.get(appConfig.apiBasePath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
+            console.log('绑定结果**********************************')
+            console.log(results)
             res.send(results.list).end();
         })
     },

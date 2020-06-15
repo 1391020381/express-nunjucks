@@ -1,8 +1,29 @@
+<div class="top-bar cf">
+    <div class="top-bar-left fl">
+        <a href="//iask.sina.com.cn" target="_blank">爱问</a>
+        <i class="line"></i>
+        <a href="/" class="current">爱问共享资料</a>
+        <i class="line"></i>
+        <a href="//yyk.iask.sina.com.cn" target="_blank">医院库</a>
+    </div>
+    <div class="fr cf" style="margin-right: 90px;">
+        <div class="news fl hide">
+            <a href="/user/message/index?u=">
+                <i class="icon icon-news"></i>
+                <span id="user-msg"></span>
+            </a>
+        </div>
+        {# <span class="top-service fl">
+                <a class="user-feedback" target="_blank">意见反馈</a>
+            </span> #}
+    </div>
+</div>
+
 <div class="new-detail-header">
-    <div class="pw">
+    <div class="pw-detail">
         <div class="new-header-inter">
             <a class="logo fl" href="/"><img src="{{cdnUrl}}/images/new_detail_logo.jpg"></a>
-            <ul class="new-nav fl">
+            {# <ul class="new-nav fl">
                 <li class="more-nav">
                     <span class="icon-white-arrow"></span>
                     <a class="nav-a more-nav-link">分类<i class="icon-detail"></i></a>
@@ -21,12 +42,12 @@
                 <li class="nav-office-a">
                     <a href="/c/1818.html" class="nav-a">爱问办公</a>
                 </li>
-            </ul>
+            </ul> #}
             <div class="header-right fl">
                 <div class="new-search fl cf">
                     <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
                         placeholder="与人沟通的十大绝招">
-                    <a class="btn-new-search"><i class="icon-detail"></i>搜索</a>
+                    <a class="btn-new-search"><i class="icon-detail"></i>搜索资料</a>
                     <div class="detail-lately">
                         <ul class="lately-list">
                         </ul>
@@ -42,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header-btn-con" id="headerBtn">
+            {# <div class="header-btn-con" id="headerBtn">
                 {% if results.list.data.isDownload != 'n' %}
                 {% if results.list.data.vipFreeFlag == 1%}
                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
@@ -72,13 +93,21 @@
                 {%endif%}
                 {%endif%}
                 {%endif%}
-            </div>
-            <div class="new-header-right fr">
+            </div> #}
+            <div class="new-header-right fl">
                 <div class="vip-join-con">
-                    <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                    {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
                         <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
-                    </a>
-                    <div class="join-vip-more">
+                    </a> #}
+                 {% if results.geSearchBannerList.list[0] %}   
+                   <a  href="{{results.geSearchBannerList.list[0].linkUrl}}" target="_blank" data-id="{{results.geSearchBannerList.list[0].id}}">
+                    <img class="img" src="{{results.geSearchBannerList.list[0].imagUrl}}">
+                  </a>
+                {% endif %}
+               </div>    
+            </div> 
+                    {# </a> #}
+                    {# <div class="join-vip-more">
                         <i class="before"></i>
                         <i class="after"></i>
                         <ul class="vip-more-list">
@@ -92,13 +121,13 @@
                             style="display: none;" data-type="vip">开通</a>
                         <a class="btn-join-vip xf-open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
                             style="display: none;" data-type="vip">续费</a>
-                    </div>
-                </div>
-                <a href="/upload/index?ts=n" target="_blank" class="btn-new-upload">
+                    </div> #}
+                {# </div> #}
+                {# <a href="/upload/index?ts=n" target="_blank" class="btn-new-upload">
                     <i class="icon-iShare"></i>
                     <p>上传资料</p>
-                </a>
-                <div class="user-info fl">
+                </a> #}
+                <div class="user-info fr">
                     <!--未登录 -->
                     <div class="user-con" id="unLogin">
                         <a class="user-link user-login">
@@ -168,7 +197,6 @@
                 <!-- 优惠券提示 -->
                 <div class="coupon-info-top"></div>
             </div>
-
         </div>
     </div>
 </div>

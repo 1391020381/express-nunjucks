@@ -46,7 +46,12 @@ define(function (require, exports, module) {
                 // 切换vip套餐
                 couponObj.switchVipSeries();
                 //如果支持vip打折
-                if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.ownVipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
+                // if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.ownVipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
+                //     $('.vip-share-text').show();
+                //     couponObj.vipDiscountFreeAmount();
+                // }
+                
+                if (pageConfig.params.vipDiscountFlag == 1  && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
                     $('.vip-share-text').show();
                     couponObj.vipDiscountFreeAmount();
                 }
@@ -220,7 +225,13 @@ define(function (require, exports, module) {
                 // 现金文档 
                 var vipDiscountTip = "";
                 var isVipDiscount = false;
-                if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.ownVipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
+                // if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.ownVipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
+                //     var afterCouponPrice = ((oprice * 100 - couponAmount * 100) / 100).toFixed(2);
+                //     var vipDiscount = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
+                //     vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元;'
+                //     isVipDiscount = true;
+                // }
+                if (pageConfig.params.vipDiscountFlag == 1  && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - couponAmount * 100) / 100).toFixed(2);
                     var vipDiscount = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                     vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元;'
@@ -260,7 +271,8 @@ define(function (require, exports, module) {
         /**
          * 更新支付价钱
          */
-        updatePrice: function () {
+        updatePrice: function () { // couponType: 2,//0是现金文档，1是vip
+            // debugger
             var discountNum;
             if (couponObj.useCouponFlag == 0) {
                 // 如果flag = 0，表示不使用优惠券或者没有优惠券//
@@ -269,7 +281,7 @@ define(function (require, exports, module) {
                 discountNum = couponObj.getDiscountPrice();
             }
             var lastedPrice = 0;
-            if (couponObj.couponType == 1) {
+            if (couponObj.couponType == 1) { // vip
                 var activePrice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice');
                 var oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price');
                 var activeDiscout = 0;
@@ -278,10 +290,14 @@ define(function (require, exports, module) {
                     activeDiscout = $('.js-tab').find('.ui-tab-nav-item.active').data('discountprice');
                 }
                 lastedPrice = ((oprice * 100 - discountNum * 100 - activeDiscout * 100) / 100).toFixed(2);
-            } else if (couponObj.couponType == 0) {
+            } else if (couponObj.couponType == 0) {  //现金
                 var vipDiscountPrice = 0, oprice = pageConfig.params.moneyPrice;
                 var params = pageConfig.params;
-                if (params.vipDiscountFlag == 1 && params.ownVipDiscountFlag == 1 && params.g_permin == 3 && couponObj.isVip == 1) {
+                // if (params.vipDiscountFlag == 1 && params.ownVipDiscountFlag == 1 && params.g_permin == 3 && couponObj.isVip == 1) {
+                //     var afterCouponPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
+                //     var vipDiscountPrice = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
+                // }
+                if (params.vipDiscountFlag == 1  && params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
                     var vipDiscountPrice = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                 }

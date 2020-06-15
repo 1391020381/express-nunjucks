@@ -1,122 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/404/index.css" />
+<!-- 添加360统计代码1、PC端统计代码： -->
+<script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",335601,false);
+</script>  
+
 </head>
-<body class="body-white">
-    <!--top-bar start -->
-    <div class="top-bar cf">
-        <div class="top-bar-left fl">
-            <a href="//iask.sina.com.cn" target="_blank">爱问</a>
-            <i class="line"></i>
-            <a href="/" class="current">爱问共享资料</a>
-            <i class="line"></i>
-            <a href="fenlei.iask.sina.com.cn" target="_blank">爱问分类</a>
-        </div>
-        <div class="fr cf">
-            <div class="vip-join-con fl">
-                <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-11"><i class="icon-iShare"></i>加入VIP</a>
-                <div class="join-vip-more">
-                    <i class="before"></i>
-                    <i class="after"></i>
-                    <ul class="vip-more-list">
-                        <li class="li-01"><i class="icon-p"></i>专属下载特权</li>
-                        <li class="li-02"><i class="icon-p"></i>现金文档折扣购买</li>
-                        <li class="li-03"><i class="icon-p"></i>VIP免费专区</li>
-                        <li class="li-04"><i class="icon-p"></i>千万文档免费下载</li>
-                    </ul>
-                    <a class="btn-join-vip js-buy-open pc_click" pcTrackContent="joinVip-11">登录后开通</a>
-                </div>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+
+<body>
+    {% include "common/js.html" %}
+
+
+    <!-- 顶部标签 -->
+    {#{% include "common/websiteHeaderbar.html" %}#}
+
+    <!-- 搜索头部 -->
+   {% include "common/new/header.html" %} 
+
+    <!-- 搜索内容主体 -->
+    <div class="wrapper">
+        <div class="pw content">
+            <div class="img-frame">
+                <img src="{{cdnUrl}}/images/404.png" alt="">
             </div>
-            <!--未登录状态 -->
-            <div class="user-info fl" style="display: none;">
-                <a class="login-link"><em>您好！</em>请登录</a>
-            </div>
-            <!--登录状态 -->
-            <div class="user-info fl">
-                <div class="user-name fl">
-                    <a class="user-link" href="#">
-                        <div class="user-img">
-                            <img src="upload/pic_use_01.jpg">
-                        </div>
-                        <p class="name">username</p>
-                        <i class="icon icon-arrow"></i>
-                    </a>
-                    <!-- vip 用户新增 top-vip-more -->
-                    <div class="top-user-more ">
-                        <div class="user-bar">
-                            <i class="before"></i>
-                            <i class="after"></i>
-                            <a href="#"><img class="user-img" src="upload/pic_use_01.jpg"></a>
-                            <div class="user-info">
-                                <div class="user-con cf">
-                                    <p class="name fl"><a href="#">username</a></p>
-                                    <i class="icon-iShare icon-vip"></i>
-                                </div>
-                                <p class="vip-text">开通VIP，会员享专属特权</p>
-                                <a class="btn-user-more">开通</a>
-                            </div>
-                            <ul class="privilege-list">
-                                <li class="li-01"><i class="icon-privilege"></i>赠专享资料下载特权</li>
-                                <li class="li-02"><i class="icon-privilege"></i>付费资料8折起</li>
-                                <li class="li-03"><i class="icon-privilege"></i>海量资料免费下</li>
-                                <li class="li-04"><i class="icon-privilege"></i>专属身份标识</li>
-                            </ul>
-                        </div>
-                        <div class="top-entry">
-                            <a class="entry-ele center-ele">
-                                <i class="icon-entry"></i>
-                                个人中心
-                            </a>
-                            <a class="entry-ele my-collect-ele">
-                                <i class="icon-entry"></i>
-                                我的收藏
-                            </a>
-                            <a class="entry-ele my-upload-ele">
-                                <i class="icon-entry"></i>
-                                我的上传
-                            </a>
-                            <a class="entry-ele my-task">
-                                <i class="icon-entry"></i>
-                                我的任务
-                            </a>
-                            <a class="btn-exit">退出</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <span class="top-service fl">
-                    <a class="user-feedback">意见反馈</a>
-                </span>
-        </div>
-    </div>
-    <!--top-bar end -->
-    <!-- header start -->
-    <div class="header">
-        <div class="pw pw-v cf">
-            <a href="#" class="logo fl"><img src="images/iShare_logo.png"></a>
-        </div>
-    </div>
-    <!-- header end -->
-    <div class="not-found-con">
-        <div class="pw">
-            <div class="pic-not-found">
-                <img src="images/bg_nofound.jpg" alt="404"/>
-            </div>
-            <div class="not-found-footer">
-                <p>您也可以通过点击以下按钮获得您需要的信息</p>
-                <div class="btn-con mt30">
-                    <a class="btn-not-found btn-back" href="#"><i class="arrow-back"></i>返回之前页面</a>
-                    <a class="btn-not-found" href="#">共享资料首页</a>
-                    <a class="btn-not-found" href="#">查看资源分享</a>
-                </div>
+            <div class="btn-group">
+                <a href="/search/home.html">搜索资料</a>
             </div>
         </div>
     </div>
-    <!-- 统计代码 -->
-    <div style="display: none;">
-        <script src="s11.cnzz.com/stat.php?id=1261477808&web_id=1261477808" language="JavaScript"></script>
-    </div>
+
+    <!-- 底部声明 -->
+    {% include "common/footer.html" %}
+
+    <!-- 右边固定提示导航 -->
+
+    {% include "common/suspension.html" %}
+
+
+
+
+
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{},
+            params:{
+                g_permin:''  // 登录后开通vip 需要
+            }
+        };
+        seajs.use(["dist/application/app.js", "dist/404/init.js"]);
+    </script>
+     <!-- 百度统计代码 -->
+     <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+
 </body>
+
 </html>

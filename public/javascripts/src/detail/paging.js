@@ -1,8 +1,10 @@
 define(function (require, exports, module) {
     // var $ = require("$");
     var img_tmp = require("./template/img_box.html");
-
-
+    var changeText = require('./changeShowOverText.js').changeText
+    var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
+    var initStyle = require('./changeDetailFooter').initStyle
+    var loadMoreStyle = require('./changeDetailFooter').loadMoreStyle
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
     var cPage = 2;
@@ -12,21 +14,22 @@ define(function (require, exports, module) {
     var ptype = window.pageConfig.params.g_fileExtension || '';
     var preRead = window.pageConfig.page.preRead || 50;
     var limitPage = Math.min(preRead, 50); //最大限制阅读页数
+    var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
     var hash = window.location.hash;
 
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
-        isHideMore: function (pageNum) {
-            if (pageNum >= limitPage && limitPage < totalPage) {
+        isHideMore: function (pageNum) {   // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
+            if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {
-                $(".show-over-text").eq(1).show();
+               $(".show-over-text").eq(1).show();
             }
-            $(".show-more-text").hide();
-            $(".btn-read-more").hide();
-            $(".article-mask").hide();
+            // $(".show-more-text").hide();
+            // $(".btn-read-more").hide();
+            // $(".article-mask").hide();
         },
         //加载渲染
         drawing: function (currentPage) {
@@ -80,16 +83,18 @@ define(function (require, exports, module) {
 
             //剩余页数
             var remainPage = restPage -= 5;
-            $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
-
+            if($('.page-text .endof-trial-reading').css('display') == 'none'){
+                $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
+            }
             //滚动到指定位置
-            // if (currentPage <= imgTotalPage) {
-            //     var index = $('.page-input').val();
-            //     var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
-            //     if (position) {
-            //         $('body,html').animate({scrollTop: position.top}, 200);
-            //     }
-            // }
+            if (currentPage <= imgTotalPage) {
+                // var index = $('.page-input').val();
+                var index = $('.page-input').text();
+                var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
+                if (position) {
+                    $('body,html').animate({scrollTop: position.top}, 200);
+                }
+            }
         },
 
         //判断地址是否有效
@@ -112,16 +117,20 @@ define(function (require, exports, module) {
     //滚动监听页数
     $(window).on('scroll', getPage);
     //总页面
-    if (totalPage <= 2) {
-        $(".show-more-text").hide();
-        $(".show-over-text").eq(1).show();
-        $(".btn-read-more").hide();
-        $(".article-mask").hide();
-    } else if (limitPage <= 2) {
-        $(".show-more-text").hide();
-        $(".show-over-text").eq(0).show();
-        $(".btn-read-more").hide();
-        $(".article-mask").hide();
+    // if (totalPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(1).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // } else if (limitPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(0).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // }
+    
+    if(initReadPage>imgTotalPage){
+        changeText()
     }
     $(function () {
         //默认隐藏
@@ -195,8 +204,10 @@ define(function (require, exports, module) {
             restPage = totalPage - cPage;
             $articlePages.eq(2).hide();
             $articlePages.eq(3).hide();
+            initStyle()
         }
     });
+
     //给页面绑定滑轮滚动事件
     if (document.addEventListener) {//firefox
         document.addEventListener('DOMMouseScroll', scrollFunc, false);
@@ -213,8 +224,8 @@ define(function (require, exports, module) {
     //点击下一页 >
     $('.page-next').on('click', function () {
 
-        var index = $('.page-input').val() - 0;
-
+        // var index = $('.page-input').val() - 0;
+        var index = $('.page-input').text() - 0;
         if (limitPage === 2 && index === 2) return;
 
         var dataDetail = $('.data-detail');
@@ -251,7 +262,8 @@ define(function (require, exports, module) {
                 $('body,html').animate({ scrollTop: position }, 200);
 
                 setTimeout(function () {
-                    $('.page-input').val(index + 1);
+                    // $('.page-input').val(index + 1);
+                    $('.page-input').text(index + 1);
                 }, 100)
             }
         }
@@ -276,7 +288,8 @@ define(function (require, exports, module) {
     // 点击上一页 <
     $('.page-prev').on('click', function () {
 
-        var index = $('.page-input').val() - 0;
+        // var index = $('.page-input').val() - 0;
+        var index = $('.page-input').text() - 0;
         if (index === 1) {
             return
         }
@@ -286,7 +299,8 @@ define(function (require, exports, module) {
             $('body,html').animate({ scrollTop: position }, 200);
 
             setTimeout(function () {
-                $('.page-input').val(index - 1);
+                // $('.page-input').val(index - 1);
+                $('.page-input').text(index - 1);
             }, 100)
         }
     });
@@ -294,7 +308,8 @@ define(function (require, exports, module) {
     //enter键盘 按下事件
     $(".page-input").keydown(function (event) {
         if (event.keyCode === 13) {
-            var index = $('.page-input').val() - 0;
+            // var index = $('.page-input').val() - 0;
+            var index = $('.page-input').text() - 0;
             if (index > limitPage) {
                 var $d_page_wrap = $('.d-page-wrap');
                 $d_page_wrap.removeClass('hide');
@@ -387,7 +402,8 @@ define(function (require, exports, module) {
         for (var i = 0; i < dataDetail.length; i++) {
             var elTop = dataDetail[i].getBoundingClientRect().top;
             if (clientHeight > elTop && elTop > 0) {
-                $('.page-input').val(i + 1);
+                // $('.page-input').val(i + 1);
+                $('.page-input').text(i + 1);
                 break;
             }
         }
@@ -428,10 +444,19 @@ define(function (require, exports, module) {
         //如果已经到最后了
         if (loadedPage - limitPage >= 0) {
             action.isHideMore(loadedPage);
+            if($('.red-color').text()!=='点击可继续阅读 >'){ 
+                readMoreTextEvent()
+            }
+            changeText()  
         }
         if (loadedPage == totalPage) {
             action.isHideMore(loadedPage);
+             if($('.red-color').text()!=='点击可继续阅读 >'){
+                readMoreTextEvent()
+            }
+            changeText()
         }
+        loadMoreStyle()
     }
 
     function mouseScroll() {
@@ -449,7 +474,8 @@ define(function (require, exports, module) {
                         displayLoading(num);
                     }
                 }
-                $('.page-input').val(i + 1);
+                // $('.page-input').val(i + 1);
+                $('.page-input').text(i + 1);
                 break;
             }
         }

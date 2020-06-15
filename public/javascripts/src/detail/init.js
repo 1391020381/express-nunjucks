@@ -12,5 +12,6 @@ define(function (require, exports, module) {
     require("../detail/buyUnlogin");
     require("../common/bilog");
     require('../detail/paradigm4');
+    require('../detail/banner.js')
 }
 );

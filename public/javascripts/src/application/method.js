@@ -200,6 +200,15 @@ define(function (require, exports, module) {
             }
             return theRequest;
         },
+        //获取 url 参数值
+        getQueryString: function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
         /**
          * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
          * @param url
@@ -214,6 +223,58 @@ define(function (require, exports, module) {
             }
             document.body.appendChild(referLink);
             referLink.click();
+        },
+        testEmail:function(val){
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if(reg.test(val)){
+               return true    //正确
+            }else{
+               return false
+            }
+        },
+        testPhone:function(val){
+            if(/^1(3|4|5|7|8)\d{9}$/.test(val)){ 
+                return true; 
+            }else{
+                return false
+            } 
+        },
+        handleRecommendData:function(list){
+            var arr = []
+            list.forEach(function(item){
+                var temp = {}
+                if(item.type == 1){ // 资料 
+                    // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
+                    item.linkUrl = '/f/'+ item.tprId+'.html'
+                    temp = item
+                }
+                if(item.type == 2){ // 链接
+                    temp = item
+                }
+                if(item.type == 3){ // 专题页
+                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
+                    item.linkUrl = '/node/s/'+ item.tprId + '.html'
+                    temp = item
+                }
+                arr.push(temp)
+            })
+            console.log(arr)
+            return arr
+        },
+        formatDate:function(fmt){
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
         }
     }
 });

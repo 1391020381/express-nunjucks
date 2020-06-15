@@ -31,10 +31,10 @@ class specialModule{
         return{
             findSpecialTopic:async ()=> { //获取专题详情
                 let { paramsObj,req,res }=this.state;
-                const url=appConfig.apiSpecialPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
+                const url=appConfig.apiNewBaselPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
                 if(this.state.detail.data.templateCode!=='ishare_zt_model1' || !this.state.detail.data){
-                    res.redirect('/html/404.html')
+                    res.redirect('/node/404.html')
                     return
                 }
               
@@ -63,7 +63,7 @@ class specialModule{
                     pageSize: 40
                 };
                 console.warn(req.body,'req.body****************') 
-                this.state.listData=await server.$http(appConfig.apiSpecialPath + api.special.listTopicContents,'post', req,res,true);
+                this.state.listData=await server.$http(appConfig.apiNewBaselPath + api.special.listTopicContents,'post', req,res,true);
                 console.warn(this.state.listData,'列表数据')
             },
             specialTopic:async ()=> {
@@ -73,25 +73,29 @@ class specialModule{
                     pageSize:30,
                     name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
                 }
-                let specialData=await server.$http(appConfig.apiSpecialPath + api.special.specialTopic, 'post', req,res);
+                let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
                 this.state.specialTopic = specialData.data && specialData.data.rows || [];
                 console.warn(this.state.specialTopic,'热点数据')
             },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
-                let data=await server.$http(appConfig.apiSpecialPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
-                var topicName = this.state.detail.data.topicName;
-                this.state.tdkData = {
-                    pageTable: '专题页',
-                    url: '/node/s/'+ paramsObj.specialTopicId +'.html',
-                    title: topicName + '资料下载_爱问办公',
-                    description: '爱问办公提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'，快来爱问办公下载!',
-                    keywords: topicName + '资料下载',
-                }
+                let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
+                let topicName = this.state.detail.data.topicName;
+                let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
                 if(data.code == '0' && data.data){
                     data.data.title = data.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
                     this.state.tdkData=data.data
+                }else{
+                    this.state.tdkData = {
+                        pageTable: '专题页',
+                        url: '/node/s/'+ paramsObj.specialTopicId +'.html',
+                        title: str + '下载 - 爱问共享资料',
+                        description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'资料，快来爱问共享资料下载!',
+                        keywords:  (topicName + "," +topicName) + '下载',
+                    }
                 }
+               
+
             },
         }
     }

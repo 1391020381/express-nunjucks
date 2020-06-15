@@ -3,7 +3,8 @@
 <head>
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
-
+    {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css"> #}
+     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
 <!-- 添加360统计代码1、PC端统计代码： -->
 <script>
     (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
@@ -28,30 +29,26 @@
 {% include "common/outside-fn.html" %}
 {% include "common/360.html" %}
 {% include "common/dialog.html" %}
-<div class="top-bar cf">
-    <div class="top-bar-left fl">
-        <a href="//iask.sina.com.cn" target="_blank">爱问</a>
-        <i class="line"></i>
-        <a href="/" class="current">爱问共享资料</a>
-        <i class="line"></i>
-        <a href="//yyk.iask.sina.com.cn" target="_blank">医院库</a>
-    </div>
-    <div class="fr cf" style="margin-right: 90px;">
-        <div class="news fl hide">
-            <a href="/user/message/index?u=">
-                <i class="icon icon-news"></i>
-                <span id="user-msg"></span>
-            </a>
-        </div>
-        <span class="top-service fl">
-                <a class="user-feedback" target="_blank">意见反馈</a>
-            </span>
-    </div>
-</div>
+<div class="detail-topbanner">
+        {% if results.getTopBannerList.list.length>0 %}
+            <div class="swiper-container swiper-top-container ">
+               <div class="swiper-wrapper">
+                {%for item in results.getTopBannerList.list %}
+                  <div class="swiper-slide" >
+                    <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
+                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                    </a>
+                </div>
+                {%endfor%}
+               </div>  
+            <span class="close-swiper"></span>  
+        </div> 
+        {% endif %}
 </div>
 {% include "detail/header.html" %}
 
-<div class="pw bd-wrap cf">
+{% if results.showFlag %}
+  <div class="pw-detail bd-wrap cf">
     <!--面包屑导航-->
     {% include "detail/crumb.html" %}
     <div class="cf">
@@ -59,42 +56,21 @@
         {% include "detail/similar.html" %}
     </div>
 </div>
-
-<!--底部-->
-<div class="footer-con">
-    <div class="pw footer">
-        <div class="copy-con">
-            <p class="footer-nav">
-                <a href="/agreement.html" rel="nofollow" target="_blank">网站声明</a>
-                <span class="line"></span>
-                <a href="/infringement.html" rel="nofollow" target="_blank">侵权处理</a>
-                <span class="line"></span>
-                <a href="//iask.sina.com.cn/helpCenter/ishare.html" rel="nofollow" target="_blank">帮助中心</a>
-                <span class="line"></span>
-                <a href="//iask.sina.com.cn" rel="nofollow" target="_blank">爱问首页</a>
-                <span class="line"></span>
-                <a href="/sitemap.html" rel="nofollow" target="_blank">网站地图</a>
-                <span class="line"></span>
-                <a href="/feedAndComp/userFeedback" rel="nofollow" target="_blank">意见反馈</a>
-            </p>
-            <p class="copy-txt">Copyright &copy; 1996-2020 IASK Corporation, All Right Reserved</p>
-        </div>
-    </div>
-</div>
 <!--底部悬浮工具栏-->
 <div class="detail-fixed">
-    <div class="pw pw-v cf">
+    <div class="pw-detail pw-v cf">
         <div class="detail-fixed-con cf fl">
             <div class="operation fl">
                 <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a>
-                <div class="collect-con fl">
+                {# <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
+                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a> #}
+                <div class="collect-con fl pc" >
                     <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
                     <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
-                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect" title="点击收藏">
+                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect" title="点击收藏" bilogContent="markFileClick">
                         <em class="btn-line"></em>
-                        <i class="icon-detail"></i>
+                        {# <i class="icon-detail"></i> #}
+                        <i class="icon-newdetail"></i>
                     </a>
                     <div class="d-collect hide">
                         <i class="before"></i>
@@ -124,7 +100,7 @@
                     <a class="operation-item btn-share" title="分享"><i class="icon-detail"></i></a>
                 </div>
                 <!--评分 -->
-                <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
+                {# <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
                     <span class="fl">评分：</span>
                     <ul class="star-list fl">
                         <li><a>1</a></li>
@@ -138,13 +114,13 @@
                         <i class="after"></i>
                         <p><i class="icon-success"></i>评分成功</p>
                     </div>
-                </div>
+                </div> #}
                 {%if results.list.data.fileContentList and results.list.data.totalPage %}
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
                     <div class="page-input-con">
-                        <input type="number" min="0" class="page-input"
-                               value="1">/<span>{{results.list.data.totalPage}}</span>
+                               {# <input type="number" min="0" class="page-input"value="1">/<span>{{results.list.data.totalPage}}</span> #}
+                               <span class="page-input">1</span>/<span>{{results.list.data.totalPage}}</span>
                     </div>
                     <span class="btn-page page-next" data-type="add" title="下一页"></span>
                     <div class="d-page-wrap hide">
@@ -159,6 +135,10 @@
         </div>
     </div>
 </div>
+{% else %}
+{% include "detail/error.html" %}
+{% endif %}
+{% include "common/footer.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 <!--  弹出层 -->
@@ -184,17 +164,20 @@
             fileName: "{{results.list.data.title}}",
             uid: "{{results.userInfo.data.userId}}",//每个页面必须存在
             ptype: 'pindex',
+            productType:"{{results.list.data.productType}}",
+            productPrice:"{{results.list.data.productPrice}}"
         },
         params: {
             g_fileExtension: '{{results.list.data.format}}',
-            g_fileId: '{{results.list.data.fileId}}',
-            g_permin: '{{results.list.data.perMin}}',
+            {# g_fileId: '{{results.list.data.fileId}}',  #}
+            g_fileId: '{{results.list.data.id}}',
+            g_permin: '{{results.list.data.permin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
             file_size: '{{results.list.data.fileSize}}',
             file_volume: '{{results.list.data.volume}}',
             file_format: '{{results.list.data.format}}',
-            file_state: '{{results.list.data.state}}',
-            moneyPrice: '{{results.list.data.moneyPrice}}',
+            file_state: '{{results.list.data.productType}}',
+            moneyPrice: '{{results.list.data.productPrice}}',
             discountPrice: "{{results.list.data.discountPrice}}",
             totalPage: '{{results.list.data.totalPage}}',
             vipFreeFlag: "{{results.list.data.vipFreeFlag}}",
@@ -213,6 +196,8 @@
             is360: '{{results.list.data.is360}}',
             fileAttr: '{{results.list.data.fileAttr}}',
             isVip:0,
+            productType:"{{results.list.data.productType}}",
+            productPrice:"{{results.list.data.productPrice}}"
         },
         report: {
             uid: "{{results.userInfo.data.userId}}",
@@ -250,7 +235,10 @@
         requestID_rele: "{{results.requestID_rele}}",
         requestID_guess: "{{results.requestID_guess}}",
         userId: "{{results.userID}}",
-        
+        paradigm4GuessData:'{{results.paradigm4GuessData| dump | safe}}',
+        RelevantInformationList:'{{results.RelevantInformationList}}',
+        getBannerList:'{{results.getBannerList| dump | safe}}' ,
+        getTopBannerList:'{{results.getTopBannerList |dump|safe}}'  
     };
 </script>
 <script>

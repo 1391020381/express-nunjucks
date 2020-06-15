@@ -1,0 +1,95 @@
+@import "./_ishare_setting";
+@import "./_less_mixin";
+.website-footer{
+    margin-top:34px;
+    width: 100%;
+    background: #ffffff;
+    .footer-content{
+      width: 1200px;
+      margin: 0 auto;
+      padding-left:40px;
+      padding-top: 48px;
+      padding-bottom: 57px;
+      .cf();
+      .footer-link{
+        float:left;
+        padding-right: 120px;
+        border-right: 1px solid #eee;
+        .website-home-link{
+            display: inline-block;
+           
+            .website-icon{
+                width: 209px;
+                height: 58px;
+            }
+        }
+        .copy-link{
+            margin-top:28px;
+            .footer-nav{
+                padding:0 12px;
+                .footer-nav-link{
+                    margin:0;
+                    span{
+                        padding: 0 0px 0 12px;
+                        color: #eee;
+                    }
+                }
+            }
+            .footer-nav:first-child{
+                padding-left: 0;
+            }
+            .copy-txt{
+               padding-left: 0; 
+               margin-bottom: 0;
+            }
+        }
+      }
+      .footer-qrcode-items{
+        float: left;
+        padding-left: 100px;
+        .cf();
+        .qrcode-item{
+            float:left;
+            text-align: center;
+            .qrcode-item-img{
+                width: 94px;
+                height: 94px;
+                margin:0 auto;
+                border:1px solid rgba(221, 221, 221, 1);
+                border-radius:3px;
+                position: relative;
+                img{
+                    width: 84px;
+                    height: 80px;
+                    position: absolute;
+                   left: 50%;
+                   top: 50%;
+                  margin-top: -40px;
+                 margin-left: -42px;
+                }
+            }
+            .qrcode-item-desc{
+                // width: 160px;
+                margin-top:13px;
+                color: #666666;
+            }
+        }
+        .qrcode-item:nth-child(1){
+            .qrcode-item-desc{
+                width:112px;
+            }
+        }
+        .qrcode-item:nth-child(2){
+            margin:0 36px;
+            .qrcode-item-desc{
+                width:132px;
+            }
+        }
+        .qrcode-item:nth-child(3){
+            .qrcode-item-desc{
+                width:114px;
+            }
+        }
+      }
+    }
+  }
