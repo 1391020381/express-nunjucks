@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/personalCenter.css"/>
+    <!-- 添加360统计代码1、PC端统计代码： -->
+<script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",335601,false);
+</script>  
+
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+<body>
+    
+   {% include "common/websiteHeaderbar.html" %}
+   <div class="personal-center-content pw">
+        {% include "./menu.html" %}
+        <div class="content-main">
+             {% if results.type =='home' %}
+               {% include "personalCenter/home.html" %}
+             {% endif %}
+              
+             {% if results.type =='mydownloads' %}
+               {% include "personalCenter/mydownloads.html" %}
+             {% endif %}
+            
+             {% if results.type =='mycollection' %}
+               {% include "personalCenter/mycollection.html" %}
+             {% endif %}
+
+              {% if results.type =='myuploads' %}
+               {% include "personalCenter/myuploads.html" %}
+             {% endif %}
+
+              {% if results.type =='vip' %}
+               {% include "personalCenter/vip.html" %}
+             {% endif %}
+
+              {% if results.type =='myorder' %}
+               {% include "personalCenter/myorder.html" %}
+             {% endif %}
+
+                {% if results.type =='mycoupon' %}
+                 {% include "personalCenter/mycoupon.html" %}
+               {% endif %}
+
+                {% if results.type =='accountsecurity' %}
+                 {% include "personalCenter/accountsecurity.html" %}
+               {% endif %}
+
+                {% if results.type =='personalinformation' %}
+                 {% include "personalCenter/personalinformation.html" %}
+               {% endif %}
+
+                {% if results.type =='mywallet' %}
+                 {% include "personalCenter/mywallet.html" %}
+               {% endif %}
+        </div>  
+   </div>
+    {% include "../common/footer.html" %}
+    {% include "common/js.html" %}
+
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{
+               
+            },
+            params:{
+                
+            },
+            report: {
+              
+            },
+            gio:{
+             
+            }
+        };
+        seajs.use(["dist/application/app.js","dist/personCenter/init.js"]);
+    </script>
+    <!-- 百度统计代码 -->
+    <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+</body>
+
+</html>

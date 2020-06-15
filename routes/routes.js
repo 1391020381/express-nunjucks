@@ -7,6 +7,7 @@ let routes = [
     'special',
     'upload',
     'feedback',
+    'personalCenter',
     '503',
     '404'
 ];

@@ -1,0 +1,20 @@
+.personal-center-content {
+  margin-top: 20px;
+}
+.personal-center-content .personal-center-menu {
+  float: left;
+  margin-right: 20px;
+  width: 240px;
+}
+.personal-center-content .personal-center-menu .personal-profile {
+  text-align: center;
+}
+.personal-center-content .personal-center-menu .personal-profile .personal-img {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.personal-center-content .content-main {
+  float: right;
+  width: 940px;
+}

@@ -67,6 +67,7 @@ module.exports = function (grunt) {
                     'dist/upload/init.js': ['.build/upload/init.js'],
                     'dist/feedback/init.js': ['.build/feedback/init.js'],
                     'dist/404/init.js': ['.build/404/init.js'],
+                    'dist/personalCenter/init.js': ['.build/personalCenter/init.js'],
                 }
             }
         },
@@ -105,6 +106,7 @@ module.exports = function (grunt) {
                     "../stylesheets/rights/ishare_rights.css": "../stylesheets/rights/ishare_rights.less",
                     "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                     "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
+                    "../stylesheets/personalCenter/personalCenter.css": "../stylesheets/personalCenter/personalCenter.less",
                 }
             }
         },
