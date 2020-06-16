@@ -34,7 +34,6 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {  // cookies.ui
-                req.useragent = ''
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.fileDetail,
