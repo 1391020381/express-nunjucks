@@ -204,9 +204,11 @@
 .personal-center-content .content-main .personal-cneter-home .go2vip .open-vip {
   margin-top: 17px;
   font-size: 14px;
+  text-decoration: underline;
   color: #AA8436;
 }
 .personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items {
+  margin-top: 46px;
   *zoom: 1;
 }
 .personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items:after {
@@ -218,4 +220,20 @@
 }
 .personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item {
   float: left;
+  text-align: center;
+  margin-right: 50px;
+  font-size: 12px;
+}
+.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item .item-img {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+}
+.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item .item-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #A17E4A;
+}
+.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item:last-child {
+  margin-right: 0;
 }
