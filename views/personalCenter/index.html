@@ -22,6 +22,8 @@
    {% include "common/websiteHeaderbar.html" %}
    <div class="personal-center-content pw">
         {% include "./menu.html" %}
+        <!--布局占位-->
+        <div class="content-main-left"></div>
         <div class="content-main">
              {% if results.type =='home' %}
                {% include "personalCenter/home.html" %}
@@ -82,7 +84,7 @@
              
             }
         };
-        seajs.use(["dist/application/app.js","dist/personCenter/init.js"]);
+        seajs.use(["dist/application/app.js","dist/personalCenter/init.js"]);
     </script>
     <!-- 百度统计代码 -->
     <script src="{{staticUrl}}/baidu-statistics.js"> </script>
