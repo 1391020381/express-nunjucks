@@ -478,8 +478,7 @@ module.exports = {
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.query.fid,  
-                        sourceType: 1,
-                        isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                        sourceType: 1
                       }),
                     headers: {
                         'Content-Type': 'application/json',
