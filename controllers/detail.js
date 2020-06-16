@@ -34,14 +34,14 @@ module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {  // cookies.ui
+                req.useragent = ''
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.fileDetail,
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
-                        sourceType: 0,
-                        isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                        sourceType: 0
                       }),
                     headers: {
                         'Content-Type': 'application/json',
