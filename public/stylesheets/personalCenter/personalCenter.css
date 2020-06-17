@@ -237,6 +237,72 @@
 .personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item:last-child {
   margin-right: 0;
 }
+.personal-center-content .content-main .mycollection-anddownLoad {
+  padding: 40px 60px 0 40px;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .title {
+  margin-bottom: 40px;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .title .title-desc {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  vertical-align: top;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .title .file-num {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list {
+  width: 100%;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title {
+  padding-bottom: 35px;
+  border-bottom: solid 1px #F4F4F4;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title .file-title {
+  padding-bottom: 35px;
+  text-align: left;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title .action-time {
+  text-align: right;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item {
+  *zoom: 1;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content {
+  padding-top: 40px;
+  text-align: left;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content .file-type {
+  float: left;
+  margin: 0 14px;
+  width: 16px;
+  height: 16px;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content .file-name {
+  float: left;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .operation-time {
+  padding-top: 40px;
+  text-align: right;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
+  padding-top: 20px;
+  text-align: left;
+}
+.personal-center-content .content-main .mycollection-anddownLoad .table-list tr:nth-child(2) .operation-time {
+  padding-top: 20px;
+  text-align: right;
+}
 .personal-center-content .content-main-mycollection {
   background: #ffffff;
 }
