@@ -24,7 +24,7 @@
         {% include "./menu.html" %}
         <!--布局占位-->
         <div class="content-main-left"></div>
-        <div class="content-main">
+        <div class="{{ 'content-main' if results.type === 'home' else 'content-main content-main-mycollection'}}">
              {% if results.type =='home' %}
                {% include "personalCenter/home.html" %}
              {% endif %}
@@ -72,7 +72,7 @@
     <script type="text/javascript">
         window.pageConfig = {
             page:{
-               
+               type: '{{results.type}}',
             },
             params:{
                 

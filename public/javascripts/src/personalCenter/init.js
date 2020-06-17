@@ -6,5 +6,6 @@ define(function(require , exports , module){
     // require("./report");  
     require("./menu.js")
     require("./home.js")
+    require("./mycollectionAndDownLoad.js")
     // require("../common/baidu-statistics");
 });
