@@ -76,165 +76,166 @@
   display: table-cell;
   width: 940px;
   vertical-align: top;
+  position: relative;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys {
+.personal-center-content .content-main .personal-center-home .personal-summarys {
   padding: 56px 0;
   background: #ffffff;
   *zoom: 1;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys:after {
+.personal-center-content .content-main .personal-center-home .personal-summarys:after {
   display: block;
   clear: both;
   content: '';
   visibility: hidden;
   height: 0;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary {
   float: left;
   text-align: center;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary .summary-count {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary .summary-count {
   font-size: 24px;
   color: #222222;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary .summary-desc {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary .summary-desc {
   margin-top: 16px;
   font-size: 12px;
   color: #666666;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary:nth-child(1) {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary:nth-child(1) {
   margin-left: 63px;
   margin-right: 96px;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary:nth-child(3) {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary:nth-child(3) {
   margin-left: 95px;
   margin-right: 212px;
 }
-.personal-center-content .content-main .personal-cneter-home .personal-summarys .summary:last-child .go2vip {
+.personal-center-content .content-main .personal-center-home .personal-summarys .summary:last-child .go2vip {
   display: block;
   width: 260px;
   height: 56px;
 }
-.personal-center-content .content-main .personal-cneter-home .advertisement {
+.personal-center-content .content-main .personal-center-home .advertisement {
   margin-top: 10px;
   width: 100%;
   height: 142px;
 }
-.personal-center-content .content-main .personal-cneter-home .recently {
+.personal-center-content .content-main .personal-center-home .recently {
   background: #ffffff;
   padding: 40px 55px 40px 40px;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-title {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-title {
   font-size: 16px;
   color: #222222;
   font-weight: bold;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items {
   margin-top: 26px;
   *zoom: 1;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items:after {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items:after {
   display: block;
   clear: both;
   content: '';
   visibility: hidden;
   height: 0;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item {
   float: left;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link {
   width: 100%;
   height: 100%;
   *zoom: 1;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link:after {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link:after {
   display: block;
   clear: both;
   content: '';
   visibility: hidden;
   height: 0;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-left {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left {
   float: left;
   margin-right: 20px;
   position: relative;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
   width: 47px;
   height: 66px;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
   position: absolute;
   right: 0;
   bottom: 0;
   width: 16px;
   height: 16px;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-right {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right {
   float: right;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-desc {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-desc {
   width: 168px;
   height: 36px;
   line-height: 20px;
   overflow: hidden;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-other {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-other {
   margin-top: 14px;
   color: #A8A8A8;
 }
-.personal-center-content .content-main .personal-cneter-home .recently .recently-see-items .item:nth-child(2) {
+.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item:nth-child(2) {
   margin: 0 66px;
 }
-.personal-center-content .content-main .personal-cneter-home .recently-downloads {
+.personal-center-content .content-main .personal-center-home .recently-downloads {
   margin-top: 10px;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip {
+.personal-center-content .content-main .personal-center-home .opentvip {
   margin-top: 10px;
   text-align: center;
   padding: 45px 100px 50px 100px;
   background: #ffffff;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .go2vip-title {
+.personal-center-content .content-main .personal-center-home .opentvip .opentvip-title {
   font-size: 16px;
   color: #222222;
   font-weight: bold;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .open-vip {
+.personal-center-content .content-main .personal-center-home .opentvip .open-vip {
   margin-top: 17px;
   font-size: 14px;
   text-decoration: underline;
   color: #AA8436;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items {
   margin-top: 46px;
   *zoom: 1;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items:after {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items:after {
   display: block;
   clear: both;
   content: '';
   visibility: hidden;
   height: 0;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item {
   float: left;
   text-align: center;
   margin-right: 50px;
   font-size: 12px;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item .item-img {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item .item-img {
   display: inline-block;
   width: 34px;
   height: 34px;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item .item-desc {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item .item-desc {
   margin-top: 10px;
   font-size: 13px;
   color: #A17E4A;
 }
-.personal-center-content .content-main .personal-cneter-home .go2vip .vip-privilege-items .item:last-child {
+.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item:last-child {
   margin-right: 0;
 }
 .personal-center-content .content-main .mycollection-anddownLoad {
@@ -302,6 +303,23 @@
 .personal-center-content .content-main .mycollection-anddownLoad .table-list tr:nth-child(2) .operation-time {
   padding-top: 20px;
   text-align: right;
+}
+.personal-center-content .content-main .empty-data {
+  position: absolute;
+  left: 50%;
+  top: 226px;
+  margin-left: -45px;
+  text-align: center;
+}
+.personal-center-content .content-main .empty-data .empty-img {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+}
+.personal-center-content .content-main .empty-data .empty-desc {
+  margin-top: 30px;
+  font-size: 16px;
+  color: #444444;
 }
 .personal-center-content .content-main-mycollection {
   background: #ffffff;

@@ -25,7 +25,7 @@
        <span>2018-08-08</span> 
     </td>
   </tr>
-
+    {{if list.length}}
     <tr class="table-item">
     <td class="file-content">
       <div>
@@ -49,5 +49,11 @@
        <span>2018-08-08</span> 
     </td>
   </tr>
+    {{ else}}
+     <div class="empty-data">
+          <img class="empty-img"/>
+          <p class="empty-desc">空空如也~</p>
+     </div>
+    {{/if}}
 </table> 
 </div>
