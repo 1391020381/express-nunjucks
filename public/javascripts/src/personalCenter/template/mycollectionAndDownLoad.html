@@ -1,7 +1,12 @@
 <div class="mycollection-anddownLoad">
    <p class="title">
+       {{ if type == 'mycollection' }}
         <span class="title-desc">我的收藏</span>
         <span class="file-num">25609篇</span>
+        {{else if type =='mydownloads'}}
+             <span class="title-desc">我的下载</span>
+             <span class="file-num">25609篇</span>
+        {{/if}}
    </p>
    <table class="table-list">
   <tr class="table-title">
@@ -29,7 +34,7 @@
     <tr class="table-item">
     <td class="file-content">
       <div>
-          <span class="file-type"></span>
+          <span class="file-type  ico-data ico-{{results.list.data.format}} ico-doc"></span>
           <p class="file-name">关编版一年级语文下册第四单元《静夜思》新版...</p>
       </div>
     </td>
