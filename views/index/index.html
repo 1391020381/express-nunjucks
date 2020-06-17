@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+    <meta http-equiv="expires" content="0"> 
+    <meta name=renderer  content=webkit>
+    <title>{{results.tdk.title if results.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
+    <meta name="description" content="{{results.tdk.description if results.tdk.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
+    <meta name="keywords" content="{{results.tdk.keywords if results.tdk.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
+    {%if results.og%}
+    <meta property="og:type" content="{{results.og.type}}"/>
+    <meta property="og:release_date" content="{{results.og.release_date}}"/>
+    <meta property="og:title" content="{{results.og.title}}"/>
+    <meta property="og:description" content="{{results.og.description}}"/>
+    <meta property="og:document:type" content="{{results.og.documentType}}"/>
+    <meta property="og:image" content="{{results.og.image}}"/>
+    <meta property="og:document:page" content="{{results.og.documentPage}}"/>
+    {%endif%}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
+    <script type='text/javascript'>
+        try {
+            !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+            gio('init','9f367e704cdcd7bc', {});
+            //custom page code begin here
+            //custom page code end here
+            gio('send');
+        }catch (e) {}
+    </script>
+    <script>
+    /*ie9兼容*/
+    window.console = window.console || (function() {
+        var c = {};
+        c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
+        return c;
+    })();
+</script>
+
+    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/index/index.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css">-->
+    <script type="text/javascript">
+        var _speedMark = +new Date(),
+            _version = "{{version}}",
+            _head = "{{cdnUrl}}";
+        var _dpData = [];//广告测试
+    </script>
+</head>
+<body class="office-body screen-body">
+<input type="hidden" id="ip-page-id" value="PC-O-H">
+<input type="hidden" id="ip-page-name" value="首页">
+{% include "common/js.html" %}
+<!--爱问办公首页头部 start-->
+<div class="index-header">
+    <div class="index-banner">
+        {% if results.bannerList.length>0 %}
+        <ul class="banner-list" id="J_office_banner">
+            {%for item in results.bannerList  %}
+            <li><a href="{{item.linkUrl}}" target="_blank"><img src="{{item.imagUrl}}"></a></li>
+            {%endfor%} 
+        </ul>
+        {% endif %}
+        <div class="office-focus" id="J_office_focus">
+            {%for item in results.bannerList  %}
+            <a href="javascript:;" data-index="{{loop.index0}}"></a>
+            {%endfor%}
+        </div>
+        <!-- 左右切换banner -->
+        {% if results.bannerList.length>1 %}
+        <a class="btn-banner btn-banner-prev" id="J_office_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        <a class="btn-banner btn-banner-next" id="J_office_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        {% endif %}
+        <div class="banner-bg"></div>
+        <!-- banner内容部分 -->
+        <div class="banner-container">
+            <div class="pw pw-v banner-wraper cf">
+                <div class="logo-office fl">
+                    <a href="/" alt="爱问共享资料_在线资料分享平台">
+                        <img src="{{cdnUrl}}/images/iShare_logo.png" alt="爱问共享资料_在线资料分享平台">
+                        <!-- <img class="logo-drag-tips" src="{{cdnUrl}}/images/office/logo-drag-tips.png" alt="爱问共享资料_在线资料分享平台"> -->
+                    </a>
+                </div>
+                <!-- 首页分类模块 -->
+                <div class="office-category fl">
+                    <div class="category-inter cf">
+                        {%for item in results.officeIndex.data.categoryList  %}
+                        <div class="category-item fl">
+                            <div class="category-item-inter">
+                                <div class="item-title">
+                                    <h4 class="title-text"><a href="/c/{{item.id}}.html" target="_blank">{{item.name}}</a></h4>
+                                    {% if item.categoryList.length>0 %}
+                                    <i class="icon-ele-arrow"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if item.categoryList.length>0 %}
+                            <div class="category-more">
+                                <span></span>
+                                <span></span>
+                                <div class="more-inter">
+                                    <ul class="more-list cf">
+                                        {%for label in item.categoryList  %}
+                                        <li><a href="/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        {%endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+
+                <!-- 登录信息模块展示 -->
+                <div class="top-bar-right">
+                    <!--已登录 -->
+                    <div class="user-info hasLogin hide">
+                        <a class="user-link">
+                            <img class="user-pic">
+                            <span class="user-name"></span>
+                        </a>
+                        <i class="arrow"></i>
+                        <div class="user-more">
+                            <i class="before"></i>
+                            <i class="after"></i>
+                            <a href="/ucenter/collect" target="_blank">个人中心</a>
+                            <!--<a href="/ucenter/mydownloads" target="_blank">我的下载</a>-->
+                            <!--<a href="/ucenter/mycollect" target="_blank">我的收藏</a>-->
+                            <a class="loginOut">退出</a>
+                        </div>
+                    </div>
+                    <!--未登录 -->
+                    <div class="user-info notLogin  pc_click" pcTrackContent="officeTopLogin">
+                        <a class="user-link">
+                            <div class="pic-no-login"></div>
+                            <span class="no-login-text">请登录</span>
+                            <span class="js-sync hide">透传</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <!-- 搜索栏模块 -->
+        <div class="search-container">
+            <div class="header-search">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="搜索优质办公资料">
+                    <!-- <a class="btn-office-search btn-search"><i class="icon-search"></i>搜索</a> -->
+                    <a class="btn-office-search btn-search"><i class="icon-search"></i></a>
+                    <div class="detail-lately">
+                        <ul class="lately-list">
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-label cf">
+                    {%for keywordItem in results.officeIndex.data.keywordList  %}
+                    <div class="label-ele">
+                        <a href = "{{keywordItem.url}}" target="_blank" class="ele-text">{{keywordItem.title}}</a>
+                        <!-- <a href = "{{keywordItem.url}}" target="_blank" class="ele-text">{{keywordItem.title}}{% if keywordItem.subKeywordList.length>0 %}<i class="icon-ele-arrow"></i>{%endif%}</a>
+                        {% if keywordItem.subKeywordList.length>0 %}
+                        <div class="label-more">
+                            {%for subkeyword in keywordItem.subKeywordList  %}
+                            <a href="{{subkeyword.url}}" target="_blank" >{{subkeyword.title}}</a>
+                            {%endfor%}
+                        </div>
+                        {%endif%} -->
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--精选专题 start -->
+<div class="recommend-section">
+    <div class="pw office-recommend mt20 swiper-container">
+        <h3 class="subtitle">精选专题<span>优质专题资料任意挑选</span></h3>
+        <div class="swiper-wrapper" style="width:{{results.specialList.length*312}}px">
+            {%for item in results.specialList  %}
+            <div class="recommend-item swiper-slide">
+                <a href="{{item.linkUrl}}" target="_blank">
+                    <img src="{{item.imagUrl}}">
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    {% if results.specialList.length>4 %}
+    <div class="swiper-button-prev preArrow"></div>
+    <div class="swiper-button-next nextArrow"></div>
+    {%endif%}
+</div>
+
+<!-- vip专区 -->
+<div class="specail-area mt20">
+   <div class="pw">
+        <div class="vip-con fl">
+            <div class="content-con">
+                <div class="content-title">
+                    VIP畅享下载海量资料,  <a  href="">立即开通 ></a>       
+                </div>
+                <div class="content-list">
+                    <div class="list-item">
+                        <div class="banner-frame fl">
+                            <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                            <i class="ico-type ico-xls"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                关于口腔健康的十大常识您知道健康小学问
+                            </div>
+                            <div class="word-btm">
+                                <span>2045阅读</span>
+                                <span>25页</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="banner-frame fl">
+                            <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                            <i class="ico-type ico-xls"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                关于口腔健康的十大常识您知道健康小学问
+                            </div>
+                            <div class="word-btm">
+                                <span>2045阅读</span>
+                                <span>25页</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="banner-frame fl">
+                            <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                            <i class="ico-type ico-xls"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                关于口腔健康的十大常识您知道健康小学问
+                            </div>
+                            <div class="word-btm">
+                                <span>2045阅读</span>
+                                <span>25页</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="banner-frame fl">
+                            <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                            <i class="ico-type ico-xls"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                关于口腔健康的十大常识您知道健康小学问
+                            </div>
+                            <div class="word-btm">
+                                <span>2045阅读</span>
+                                <span>25页</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="banner-frame fl">
+                            <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                            <i class="ico-type ico-xls"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                关于口腔健康的十大常识您知道健康小学问
+                            </div>
+                            <div class="word-btm">
+                                <span>2045阅读</span>
+                                <span>25页</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-box fl">
+            <div class="login-con">
+                <div class="bg-login-box"></div>
+                <div id="unlogin-div" style="/* display: none; */">
+                    <div class="login-tui" id="login-tui">
+                        <div class="login-tui-inter">
+                            <img src="https://static3.iask.cn/v2020052202/images/pic_login_index.png">
+                        </div>
+                    </div>
+                    <div class="no-login-con">
+                        <p class="data-num">113,285,089+</p>
+                        <p>当前已有文档数</p>
+                        <div class="login-btn-con">
+                            <a href="javascript:void(0);" class="btn-login ishareTrackEventCls" isharetrackcontent="bannerRight">登 录<span class="login-gif"></span></a>
+                            <div class="other-login-con">
+                                <h3 class="other-login-title">其他登录方式</h3>
+                                <div class="other-login-list">
+                                    <a class="btn-other-login btn-other-qq ishareTrackEventCls" isharetrackcontent="index-qqLogin" title="QQ登录" data-type="qq"><i class="icon-other"></i></a>
+                                    <a class="btn-other-login btn-other-weixin ishareTrackEventCls" isharetrackcontent="index-weixinLogin" title="微信登录" data-type="weixin"><i class="icon-other"></i></a>
+                                    <a class="btn-other-login btn-other-sina ishareTrackEventCls" isharetrackcontent="index-weiboLogin" title="新浪微博登录" data-type="weibo"><i class="icon-other"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="login-div" style="">
+                    <div class="user-info cf">
+                        <div class="user-img fl" id="level-div">
+                            <a href="/u/5d268edde4b0c9acdd2f08b1.html" target="_blank">
+                                <img src="https://pic.iask.com.cn/14.jpg" width="64" height="64">
+                                <span class="live-num" id="level-p">LV1</span>
+                            </a>
+                        </div>
+                        <div class="user-text">
+                            <p class="user-name" id="userName-p"><a href="/u/5d268edde4b0c9acdd2f08b1.html" target="_blank">is_106407</a><i class="icon-vip"></i></p>
+                            <i class="icon-login-rz" style="display:none;">认证用户</i>
+                            <a class="btn-vip-task">
+                                <div class="bg-vip-task"></div>
+                                <i class="arrow-vip-task"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="user-data cf">
+                        <li>
+                            <p class="num" id="score-p">3</p>
+                            <p>积分</p>
+                        </li>
+                        <li>
+                            <p class="num" id="expVal-p">270</p>
+                            <p>经验值</p>
+                        </li>
+                        <li>
+                            <p class="num" id="fileCount-p">0</p>
+                            <p>资料总量</p>
+                        </li>
+                    </ul>
+                    <div class="view-con">
+                        <h2 class="view-title">最近浏览：</h2>
+                        <ul class="view-list" id="file-view-li">
+                            <li><i class="ico-data ico-word"></i><a href="#">二级建造师低处于更深层弹凝弹凝</a> </li>
+                            <li><i class="ico-data ico-word"></i><a href="#">刺梨果实主要抗氧化械的主进主进</a> </li>
+                            <li><i class="ico-data ico-pdf"></i><a href="#">二级建造师低处于更深层弹凝</a> </li>
+                        </ul>
+                    </div>
+                    <a href="/node/upload.html?ts=n" class="btn-upload"><i class="icon-iShare"></i>上传我的资料</a>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>
+<!-- 精选资料 -->
+<div class="recmond-area">
+    <div class="pw ">
+        <div class="recmond-con">
+            <div class="recmond-top">
+                <div class="recmond-title fl">精选资料</div>
+                <ul class="recmond-tab fl">
+                    <li>爱问办公</li>
+                    <li>教育资料</li>
+                    <li>专业资料</li>
+                    <li>专业资料</li>
+                    <li>经济管理</li>
+                    <li>生活休闲</li>
+                </ul>
+            </div>
+            <div class="content-list">
+                <div class="list-item">
+                    <div class="banner-frame fl">
+                        <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                        <i class="ico-type ico-xls"></i>
+                    </div>
+                    <div class="words-des fl">
+                        <div class="item-title">
+                            关于口腔健康的十大常识您知道健康小学问
+                        </div>
+                        <div class="word-btm">
+                            <span>2045阅读</span>
+                            <span>25页</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="banner-frame fl">
+                        <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                        <i class="ico-type ico-xls"></i>
+                    </div>
+                    <div class="words-des fl">
+                        <div class="item-title">
+                            关于口腔健康的十大常识您知道健康小学问
+                        </div>
+                        <div class="word-btm">
+                            <span>2045阅读</span>
+                            <span>25页</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="banner-frame fl">
+                        <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                        <i class="ico-type ico-xls"></i>
+                    </div>
+                    <div class="words-des fl">
+                        <div class="item-title">
+                            关于口腔健康的十大常识您知道健康小学问
+                        </div>
+                        <div class="word-btm">
+                            <span>2045阅读</span>
+                            <span>25页</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="banner-frame fl">
+                        <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                        <i class="ico-type ico-xls"></i>
+                    </div>
+                    <div class="words-des fl">
+                        <div class="item-title">
+                            关于口腔健康的十大常识您知道健康小学问
+                        </div>
+                        <div class="word-btm">
+                            <span>2045阅读</span>
+                            <span>25页</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="banner-frame fl">
+                        <img src="http://pic.iask.com.cn/1aTH4KS1zV.png" alt="">
+                        <i class="ico-type ico-xls"></i>
+                    </div>
+                    <div class="words-des fl">
+                        <div class="item-title">
+                            关于口腔健康的十大常识您知道健康小学问
+                        </div>
+                        <div class="word-btm">
+                            <span>2045阅读</span>
+                            <span>25页</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 权威机构 -->
+<div class="institude-area">
+    <div class="pw">
+        <div class="institude-title">
+           <span>精选资料</span> <span>认证后将获得更多关注 , <a  href="">立即认证 ></a></span>       
+        </div>
+    </div>
+</div>
+<!--办公频道内容 start-->
+<div class="pw office-main">
+    <!--办公频道推荐信息 end -->
+    {%for item in results.contentList  %}
+    <div class="office-index-item mt20">
+        <div class="index-item-header cf">
+            <h2 class="title-text">{{item.name}}</h2>
+            <!-- <div class="item-nav">
+                {%for subItem in item.subCategory%}
+                <a href="javascript:;" class="nav-ele {% if loop.index0==0%}current{%endif%}">{{subItem.title}}<i class="line"></i></a>
+                {%endfor%}
+            </div> -->
+            <a href="/c/1818.html" class="look-more">查看更多<i class="icon-ele-arrow"></i></a>
+        </div>
+      
+        <ul class="office-list cf current">
+            {%for subItem in item.list  %}
+            <li>
+                <div class="data-pic">
+                    <a  alt="">
+                        <img src="{{subItem.imagUrl}}">
+                    </a>
+                    <div class="data-pic-more">
+                        <a href="/f/{{subItem.tprId}}.html" target="_blank">
+                        <div class="pic-mask"></div>
+                        </a>
+                        <a  class="btn-pic-xx">
+                        <!--<div class="mask-xx"></div>-->
+                        <!--<i class="icon-xx"></i>-->
+                        </a>
+                        <a class="btn-data-download" href="/f/{{subItem.tprId}}.html" target="_blank">立即下载</a>
+                    </div>
+                </div>
+                <div class="data-text-con">
+                    <a href="/f/{{subItem.tprId}}.html" target="_blank" class="data-name">{{subItem.title}}</a>
+                    <!-- <div class="op-bar cf">
+                        <div class="op-con">
+                            <a href="/f/{{subItem.id}}.html" target="_blank" data-id="bsaOtnDqSN3" class="btn-op btn-goods "><i class="icon-op"></i>{{subItem.likeNum}}</a>
+                            <a href="/f/{{subItem.id}}.html" target="_blank" data-id="bsaOtnDqSN3" class="btn-op btn-xx "><i class="icon-op"></i>{{subItem.enshrineNum}}</a>
+                        </div>
+                    </div> -->
+                </div>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+    {%endfor%}
+    <!--热门搜索 start -->
+    <div class="seo-upload-new" style="margin-top: 20px">
+        <h2 class="upload-title">热门搜索</h2>
+        <ul class="upload-list cf" >
+            <li><a href="/c/9070.html" target="_blank">财务管理</a></li><li><a href="/c/9069.html">表格模板</a></li><li><a href="/c/9009.html">党团工作范文</a></li><li><a href="/c/9006.html">求职范文</a></li><li><a href="//ishare.iask.sina.com.cn/c/9009.html">党团工作范文</a></li><li><a href="//ishare.iask.sina.com.cn/c/9006.html">求职范文</a></li><li><a href="/c/9068.html">仓储管理</a></li><li><a href="/c/1853.html">人事管理制度</a></li><li><a href="/c/9011.html">职业岗位资料</a></li><li><a href="/c/8023.html">活动策划方案</a></li><li><a href="/c/8029.html">生日聚会策划</a></li><li style="cursor: pointer"><a class="show-more">更多<i class="icon-arrow"></i></a></li><li><a href="/c/8028.html">晚会策划</a></li><li><a href="/c/8027.html">婚庆策划</a></li><li><a href="/c/8026.html">节日庆典策划</a></li><li><a href="/c/8025.html">企业宣传语</a></li><li><a href="/c/8024.html">产品策划书</a></li><li><a href="/c/9063.html">工作总结书</a></li><li><a href="/c/9062.html">实习总结书</a></li><li><a href="/c/1858.html">合同协议书</a></li><li><a href="/c/9057.html">职业规划范文</a></li><li><a href="/c/9066.html">党团建设资料</a></li><li><a href="/c/9065.html">思想汇报范文</a></li><li><a href="/c/9064.html">入党申请书</a></li><li><a href="/c/8030.html">ppt图表</a></li><li><a href="/c/9007.html">学习计划</a></li><li><a href="/c/9008.html">工作总结书</a></li><li><a href="/c/9056.html">面试技巧</a></li><li><a href="/c/9055.html">个人简历模板</a></li><li><a href="/c/9070_1-all-1014_2096.html">理财规划财务管理</a></li><li><a href="/c/9070_1-all-1014_2095.html">税务财务管理</a></li></ul>
+    </div>
+    <!--热门搜索 end -->
+</div>
+<!--办公频道内容 end-->
+<!-- 办公频道 底部 start-->
+
+<!-- 办公频道 底部 end-->
+<!--悬浮工具栏 start-->
+
+<!--悬浮工具栏 end-->
+<script>
+    pageConfig = {};
+    seajs.use(["dist/index/init.js"])
+</script>
+<!-- 百度统计代码 -->
+
+</body>
+</html>

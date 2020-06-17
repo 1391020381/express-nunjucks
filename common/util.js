@@ -1,4 +1,92 @@
 module.exports = {
+    pageIds:{  //推荐位id
+        index:{ //首页
+            ub:'PC_O_H_all_all_ub', //顶部banner
+            zt:'PC_O_H_zt', //专题列表
+            pptrelevant:'PC_O_pptrelevant',//编辑推荐PPT
+            docrelevant:'PC_O_docrelevant',//编辑推荐doc
+            xlsrelevant:'PC_O_xlsrelevant'//编辑推荐excel
+        },
+        specialPage:{//专题页
+            topbanner:'PC_O_ZT_topbanner', //顶部banner
+            xfbanner:'PC_O_ZT_xfbanner' //悬浮banner
+        },
+        searchPage:{//搜索页
+            topbanner:'PC_O_SR_topbanner',//顶部banner
+            xfbanner:'PC_O_SR_xfbanner',//悬浮banner
+        },
+        vipListPage:{  //套餐列表页
+            topbanner:'PC_O_PAY_VIP_L_banner' //顶部banner
+        },
+        categoryPage:{ //分类页
+            topbanner:'PC_O_FC_topbanner',//顶部banner图
+            xfbanner:'PC_O_FC_xfbanner'//悬浮banner
+        },
+        downloadSuccessPage:{ //下载成功也
+            suc_banner:'PC_O_DOWN_SUC_banner',//下载成功页Banner
+            suc_like:'all_office_20200220_001'//猜你喜欢
+        },
+        paySuccessPage:{ //支付成功页
+            suc_banner:'PC_O_PAY_SUC_banner' //支付成功页Banner
+        },
+        detailPage:{ //详情页 调用另一个接口
+            // ub:'PC_O_H_all_1818_ub', //办公全站详情页可看
+            // rb:'PC_O_H_all_1818_rb',//右边banner
+            // xfb:'PC_O_H_all_1818_xfb',//悬浮banner
+            like:'all_office_20200220_001',//右侧和底部猜你喜欢
+        }
+    },
+    paradigm4Relevant:function(fid,uid,title,sceneID,callback){  //第四范式
+        var requestID = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+        // 办公频道 非私密
+        let userID = uid.slice(0, 10) || ''; //来标注用户的ID，
+        var opt = {
+            url: `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID}&sceneID=${sceneID}&userID=${userID}`,
+            method: 'POST',
+            body: JSON.stringify({ "itemID": fid, "itemTitle": title })
+        }
+        request(opt, function (err, res, body) {
+            if (body) {
+                try {
+                    var data = JSON.parse(body);
+                    data.requestId = requestID;
+                    data.userId = userID;
+                    callback(null, data);
+                } catch (err) {
+                    callback(null, null);
+                    console.log("err=---------------", err)
+                }
+            } else {
+                callback(null, null);
+            }
+        })
+    },
+    dealParam:function(format,firstCage,secondCage){//处理详情推荐位参数
+        let obj={
+            ub:['PC_O_H_'+format+'_'+secondCage+'_ub','PC_O_H_'+format+'_'+firstCage+'_ub','PC_O_H_all_'+secondCage+'_ub','PC_O_H_all_'+firstCage+'_ub'],
+            rb:['PC_O_H_'+format+'_'+secondCage+'_rb','PC_O_H_'+format+'_'+firstCage+'_rb','PC_O_H_all_'+secondCage+'_rb','PC_O_H_all_'+firstCage+'_rb'],
+            xfb:['PC_O_H_'+format+'_'+secondCage+'_xfb','PC_O_H_'+format+'_'+firstCage+'_xfb','PC_O_H_all_'+secondCage+'_xfb','PC_O_H_all_'+firstCage+'_xfb'],
+        }
+        return obj    
+    },
+    dealHref:function(item){  //处理推荐位的链接
+        item.list.map(res=>{
+            if(res.type==1){  //资料
+                res.linkUrl='/f/'+res.tprId + '.html';
+            }else if(res.type==2){ //链接
+            }else if(res.type==3){ //专题
+                res.linkUrl='/node/s/'+res.tprId +'.html';
+            }
+        })
+        return item
+    },
+    isIe9:function(useragent){
+        if(parseInt(useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9){
+            return true
+        }else{
+            return false 
+        }
+    },
     browserVersion: function (userAgent) {
         var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
         var isIE = userAgent.indexOf("compatible") > -1
