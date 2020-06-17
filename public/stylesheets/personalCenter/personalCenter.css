@@ -559,6 +559,114 @@
 .personal-center-content .content-main .personal-center-vip .vip-table {
   width: 100%;
 }
+.personal-center-content .content-main .personal-center-mycoupon {
+  padding: 26px 45px 0 40px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs .tab {
+  float: left;
+  font-size: 14px;
+  color: #222222;
+  margin-right: 60px;
+  padding-bottom: 7px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs .tab-active {
+  border-bottom: solid 1px #F25126;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list {
+  *zoom: 1;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item {
+  float: left;
+  margin-top: 22px;
+  margin-right: 20px;
+  width: 265px;
+  height: 136px;
+  background: #eee;
+  text-align: center;
+  position: relative;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-price {
+  margin-top: 24px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-price span {
+  font-size: 30px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-desc {
+  margin-top: 12px;
+  font-size: 13px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-time {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain {
+  text-align: left;
+  background: #fbf1e7;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
+  margin-top: 40px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-desc {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse {
+  background: #fbf1e7;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-title {
+  color: #816747;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-price {
+  color: #F15125;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-desc {
+  color: #816746;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-time {
+  color: #A58863;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-icon {
+  background: #F17559;
+}
 .personal-center-content .content-main .empty-data {
   position: absolute;
   left: 50%;

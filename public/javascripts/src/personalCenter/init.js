@@ -9,5 +9,6 @@ define(function(require , exports , module){
     require("./mycollectionAndDownLoad.js")
     require("./myuploads.js")
     require("./myvip.js")
+    require("./mycoupon.js")
     // require("../common/baidu-statistics");
 });
