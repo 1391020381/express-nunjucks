@@ -8,5 +8,6 @@ define(function(require , exports , module){
     require("./home.js")
     require("./mycollectionAndDownLoad.js")
     require("./myuploads.js")
+    require("./myvip.js")
     // require("../common/baidu-statistics");
 });

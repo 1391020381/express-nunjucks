@@ -30,7 +30,7 @@ module.exports = {
     },
     vip: function (req, res) {
         var results = {
-            type:'vip'
+            type:'myvip',
         }
         render("personalCenter/index", results, req, res);
     },
