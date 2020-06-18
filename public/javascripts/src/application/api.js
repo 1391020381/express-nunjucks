@@ -68,7 +68,7 @@ define(function (require, exports, module) {
             rightsSaleQueryPersonal:gateway + '/rights/sale/queryPersonal',
             querySeniority: gateway + '/rights/sale/querySeniority',
         },
-        vouchers:router+'/sale/vouchers',
+        // vouchers:router+'/sale/vouchers',
         order:{
             bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
