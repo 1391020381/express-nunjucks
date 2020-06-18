@@ -11,5 +11,6 @@ define(function(require , exports , module){
     require("./myvip.js")
     require("./mycoupon.js")
     require("./myorder.js")
+    require("./accountsecurity.js")
     // require("../common/baidu-statistics");
 });
