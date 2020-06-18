@@ -1,4 +1,842 @@
 @charset "utf-8";
+.personal-center-home .personal-summarys {
+  padding: 56px 0;
+  background: #ffffff;
+  *zoom: 1;
+}
+.personal-center-home .personal-summarys:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .personal-summarys .summary {
+  float: left;
+  text-align: center;
+}
+.personal-center-home .personal-summarys .summary .summary-count {
+  font-size: 24px;
+  color: #222222;
+}
+.personal-center-home .personal-summarys .summary .summary-desc {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #666666;
+}
+.personal-center-home .personal-summarys .summary:nth-child(1) {
+  margin-left: 63px;
+  margin-right: 96px;
+}
+.personal-center-home .personal-summarys .summary:nth-child(3) {
+  margin-left: 95px;
+  margin-right: 212px;
+}
+.personal-center-home .personal-summarys .summary:last-child .go2vip {
+  display: block;
+  width: 260px;
+  height: 56px;
+}
+.personal-center-home .advertisement {
+  margin-top: 10px;
+  width: 100%;
+  height: 142px;
+}
+.personal-center-home .recently {
+  background: #ffffff;
+  padding: 40px 55px 40px 40px;
+}
+.personal-center-home .recently .recently-see-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-home .recently .recently-see-items {
+  margin-top: 26px;
+  *zoom: 1;
+}
+.personal-center-home .recently .recently-see-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .recently .recently-see-items .item {
+  float: left;
+}
+.personal-center-home .recently .recently-see-items .item .item-link {
+  width: 100%;
+  height: 100%;
+  *zoom: 1;
+}
+.personal-center-home .recently .recently-see-items .item .item-link:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left {
+  float: left;
+  margin-right: 20px;
+  position: relative;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
+  width: 47px;
+  height: 66px;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right {
+  float: right;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-desc {
+  width: 168px;
+  height: 36px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-other {
+  margin-top: 14px;
+  color: #A8A8A8;
+}
+.personal-center-home .recently .recently-see-items .item:nth-child(2) {
+  margin: 0 66px;
+}
+.personal-center-home .recently-downloads {
+  margin-top: 10px;
+}
+.personal-center-home .opentvip {
+  margin-top: 10px;
+  text-align: center;
+  padding: 45px 100px 50px 100px;
+  background: #ffffff;
+}
+.personal-center-home .opentvip .opentvip-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-home .opentvip .open-vip {
+  margin-top: 17px;
+  font-size: 14px;
+  text-decoration: underline;
+  color: #AA8436;
+}
+.personal-center-home .opentvip .vip-privilege-items {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-home .opentvip .vip-privilege-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .opentvip .vip-privilege-items .item {
+  float: left;
+  text-align: center;
+  margin-right: 50px;
+  font-size: 12px;
+}
+.personal-center-home .opentvip .vip-privilege-items .item .item-img {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+}
+.personal-center-home .opentvip .vip-privilege-items .item .item-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #A17E4A;
+}
+.personal-center-home .opentvip .vip-privilege-items .item:last-child {
+  margin-right: 0;
+}
+.mycollection-anddownLoad {
+  padding: 40px 60px 0 40px;
+}
+.mycollection-anddownLoad .title {
+  margin-bottom: 40px;
+}
+.mycollection-anddownLoad .title .title-desc {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  vertical-align: top;
+}
+.mycollection-anddownLoad .title .file-num {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.mycollection-anddownLoad .table-list {
+  width: 100%;
+}
+.mycollection-anddownLoad .table-list .table-title {
+  padding-bottom: 35px;
+  border-bottom: solid 1px #F4F4F4;
+}
+.mycollection-anddownLoad .table-list .table-title .file-title {
+  padding-bottom: 35px;
+  text-align: left;
+}
+.mycollection-anddownLoad .table-list .table-title .action-time {
+  text-align: right;
+}
+.mycollection-anddownLoad .table-list .table-item {
+  *zoom: 1;
+}
+.mycollection-anddownLoad .table-list .table-item:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content {
+  padding-top: 40px;
+  text-align: left;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content .file-type {
+  float: left;
+  margin: 0 14px;
+  width: 16px;
+  height: 16px;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content .file-name {
+  float: left;
+}
+.mycollection-anddownLoad .table-list .table-item .operation-time {
+  padding-top: 40px;
+  text-align: right;
+}
+.mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
+  padding-top: 20px;
+  text-align: left;
+}
+.mycollection-anddownLoad .table-list tr:nth-child(2) .operation-time {
+  padding-top: 20px;
+  text-align: right;
+}
+.myuploads {
+  padding: 40px 60px 0 40px;
+}
+.myuploads .myuploads-title {
+  margin-bottom: 46px;
+}
+.myuploads .myuploads-title .title-desc {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  vertical-align: top;
+}
+.myuploads .myuploads-title .file-num {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.myuploads .myuploads-tabs {
+  *zoom: 1;
+}
+.myuploads .myuploads-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .myuploads-tabs .tab {
+  float: left;
+  margin-right: 30px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.myuploads .myuploads-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.myuploads .table-title {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  height: 40px;
+  line-height: 40px;
+  background: #F5F5F5;
+  *zoom: 1;
+}
+.myuploads .table-title:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .table-title .table-title-input {
+  display: none;
+}
+.myuploads .table-title .delete-icon {
+  margin-left: 17px;
+  display: inline-block;
+  width: 13px;
+  height: 14px;
+}
+.myuploads .table-title .delete-desc {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #9A9A9A;
+}
+.myuploads .table-title .myuploads-nums {
+  float: right;
+  margin-right: 22px;
+}
+.myuploads .myuploads-table-list {
+  width: 100%;
+}
+.myuploads .myuploads-table-list .myuploads-table-head th {
+  padding: 23px 0 14px 0;
+  border-bottom: solid 1px #F4F4F4;
+}
+.myuploads .myuploads-table-list .table-item {
+  height: 40px;
+  line-height: 40px;
+  *zoom: 1;
+}
+.myuploads .myuploads-table-list .table-item:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .myuploads-table-list .table-item td {
+  margin-top: 18px;
+}
+.myuploads .myuploads-table-list .table-item td .file-title {
+  font-size: 14px;
+  color: #222222;
+}
+.myuploads .myuploads-table-list .table-item-active {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+.myuploads .myuploads-table-list tr:nth-child(2) td {
+  margin-top: 0px;
+}
+.myuploads .myuploads-table-list input {
+  display: none;
+}
+.myuploads .myuploads-table-list input + span {
+  margin-left: 17px;
+  margin-right: 12px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+}
+.myuploads .myuploads-table-list input:checked + span {
+  background: url("../../images/personalCenter/checkbox-selected.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-vip {
+  padding: 40px 60px 0 40px;
+}
+.personal-center-vip .myvip-title {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+}
+.personal-center-vip .not-vip {
+  width: 858px;
+  background: #fcfaf4;
+  border: 1px solid #fae5a6;
+  border-radius: 4px;
+  *zoom: 1;
+}
+.personal-center-vip .not-vip:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .not-vip .not-vip-left {
+  margin-left: 34px;
+  margin-top: 34px;
+  margin-bottom: 32px;
+  float: left;
+}
+.personal-center-vip .not-vip .not-vip-left .not-vip-left-title {
+  font-size: 22px;
+  color: #D2A649;
+}
+.personal-center-vip .not-vip .not-vip-left .not-vip-top-left-subtitle {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #BAAD91;
+}
+.personal-center-vip .not-vip .not-vip-right {
+  margin-right: 40px;
+  margin-top: 34px;
+  margin-bottom: 32px;
+  float: right;
+  width: 173px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #F4592D;
+  border-radius: 50px;
+}
+.personal-center-vip .vip-summary {
+  width: 858px;
+  background: #fcfaf4;
+  border: 1px solid #fae5a6;
+  border-radius: 4px;
+}
+.personal-center-vip .vip-summary .vip-summary-title {
+  margin-left: 40px;
+  padding-top: 38px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.personal-center-vip .vip-summary .vip-summary-subtitle {
+  margin-left: 40px;
+  padding-bottom: 43px;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+.personal-center-vip .vip-privilege-items {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-vip .vip-privilege-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .vip-privilege-items .item {
+  float: left;
+  text-align: center;
+  margin-right: 60px;
+  font-size: 12px;
+}
+.personal-center-vip .vip-privilege-items .item .item-img {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+}
+.personal-center-vip .vip-privilege-items .item .item-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #A17E4A;
+}
+.personal-center-vip .vip-privilege-items .item:first-child {
+  margin-left: 30px;
+}
+.personal-center-vip .vip-privilege-items .item:last-child {
+  margin-right: 0;
+}
+.personal-center-vip .advertisement {
+  margin-top: 10px;
+  height: 141px;
+  background: #eee;
+}
+.personal-center-vip .myvip-tabs {
+  margin-top: 10px;
+  *zoom: 1;
+}
+.personal-center-vip .myvip-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .myvip-tabs .tab {
+  float: left;
+}
+.personal-center-vip .myvip-tabs .tab {
+  margin-left: 35px;
+  padding-top: 27px;
+  padding-bottom: 7px;
+}
+.personal-center-vip .myvip-tabs .tab:first-child {
+  margin-left: 40px;
+}
+.personal-center-vip .privilege-table {
+  width: 100%;
+}
+.personal-center-vip .vip-table {
+  width: 100%;
+}
+.personal-center-myorder {
+  padding: 40px 60px 0 40px;
+}
+.personal-center-myorder .myorder-title {
+  margin-bottom: 46px;
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-myorder .myorder-tabs {
+  *zoom: 1;
+}
+.personal-center-myorder .myorder-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-myorder .myorder-tabs .tab {
+  float: left;
+  margin-right: 30px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.personal-center-myorder .myorder-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.personal-center-myorder .myorder-table-list {
+  width: 100%;
+  margin-top: 28px;
+}
+.personal-center-myorder .myorder-table-list .table-list-title th {
+  padding-bottom: 12px;
+  border-bottom: solid 1px #F3F3F3;
+}
+.personal-center-myorder .myorder-table-list .table-list-title th:first-child {
+  padding-left: 26px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item {
+  background: #ffffff;
+  border: 1px solid #ededed;
+  border-radius: 3px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-order {
+  padding-left: 26px;
+  height: 44px;
+  line-height: 44px;
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-order span {
+  margin-left: 12px;
+  font-size: 12px;
+  padding: 3px 10px;
+  color: #656565;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-desc {
+  height: 58px;
+  line-height: 58px;
+  font-size: 14px;
+  color: #333333;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-desc .icon {
+  display: inline-block;
+  margin-right: 10px;
+  width: 16px;
+  height: 14px;
+  background: #eee;
+  vertical-align: middle;
+}
+.personal-center-myorder .myorder-table-list .table-list-item td:first-child .item-desc {
+  padding-left: 26px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-price {
+  color: #333333;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-time {
+  color: #878787;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-status {
+  color: #878787;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-operation span {
+  padding: 4px 10px;
+  border: 1px solid #f15125;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #f15125;
+}
+.personal-center-mycoupon {
+  padding: 26px 45px 0 40px;
+}
+.personal-center-mycoupon .mycoupon-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-mycoupon .mycoupon-tabs {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-mycoupon .mycoupon-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-mycoupon .mycoupon-tabs .tab {
+  float: left;
+  font-size: 14px;
+  color: #222222;
+  margin-right: 60px;
+  padding-bottom: 7px;
+}
+.personal-center-mycoupon .mycoupon-tabs .tab-active {
+  border-bottom: solid 1px #F25126;
+}
+.personal-center-mycoupon .mycoupon-list {
+  *zoom: 1;
+}
+.personal-center-mycoupon .mycoupon-list:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-mycoupon .mycoupon-list .item {
+  float: left;
+  margin-top: 22px;
+  margin-right: 20px;
+  width: 265px;
+  height: 136px;
+  background: #eee;
+  text-align: center;
+  position: relative;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-price {
+  margin-top: 24px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-price span {
+  font-size: 30px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-desc {
+  margin-top: 12px;
+  font-size: 13px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-time {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain {
+  text-align: left;
+  background: #fbf1e7;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
+  margin-top: 40px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain .item-explain-desc {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse {
+  background: #fbf1e7;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-title {
+  color: #816747;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-price {
+  color: #F15125;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-desc {
+  color: #816746;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-time {
+  color: #A58863;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-icon {
+  background: #F17559;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon {
+  background: #fbf1e7 url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-title {
+  color: #816747;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-price {
+  color: #F15125;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-desc {
+  color: #816746;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-time {
+  color: #A58863;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-icon {
+  background: #F17559;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used {
+  background: #EBEBEB url("../../images/personalCenter/coupon-used.png") no-repeat right top;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-price {
+  color: #999999;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-desc {
+  color: #777777;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
+  color: #CCCCCC;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-icon {
+  background: #EAE9E9;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiring {
+  background: #EBEBEB url("../../images/personalCenter/coupon-expiring.png") no-repeat right top;
+}
+.personal-center-accountsecurity {
+  padding: 26px 131px 0px 40px;
+}
+.personal-center-accountsecurity .account-security-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+}
+.personal-center-accountsecurity .account-security-list {
+  margin-top: 80px;
+  margin-left: 41px;
+}
+.personal-center-accountsecurity .account-security-list .item {
+  height: 77px;
+  line-height: 77px;
+  margin-left: 90px;
+  border-bottom: solid 1px #DEDEDE;
+}
+.personal-center-accountsecurity .account-security-list .item .item-icon {
+  margin-top: 30px;
+  margin-left: -44px;
+}
+.personal-center-accountsecurity .account-security-list .item:nth-child(1) .item-icon {
+  margin-right: 22px;
+  width: 21px;
+  height: 29px;
+  background: url("../../images/personalCenter/phone.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-accountsecurity .account-security-list .item:nth-child(2) .item-icon {
+  margin-right: 18px;
+  width: 29px;
+  height: 25px;
+  background: url("../../images/personalCenter/wechat.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-accountsecurity .account-security-list .item:nth-child(3) .item-icon {
+  margin-right: 18px;
+  width: 30px;
+  height: 23px;
+  background: url("../../images/personalCenter/weibo.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-accountsecurity .account-security-list .item:nth-child(4) .item-icon {
+  margin-right: 18px;
+  width: 26px;
+  height: 27px;
+  background: url("../../images/personalCenter/qq.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-accountsecurity .account-security-list .item:nth-child(5) .item-icon {
+  margin-right: 18px;
+  width: 26px;
+  height: 26px;
+  background: url("../../images/personalCenter/setting.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-accountsecurity .account-security-list .item-status {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #222222;
+}
+.personal-center-accountsecurity .account-security-list .item-btn {
+  margin-top: 26px;
+  width: 100px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  background: #eeeeee;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.personal-center-accountsecurity .account-security-list .item-btn-active {
+  color: #ffffff;
+  background: #f25226;
+  border-radius: 3px;
+}
+.personal-center-personalinformation {
+  padding: 26px 0 0 40px;
+}
+.personal-center-personalinformation .personalinformation-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+}
+.personal-center-personalinformation .form-list {
+  margin-top: 60px;
+  margin-left: 92px;
+  font-size: 14px;
+  color: #666666;
+}
+.personal-center-personalinformation .form-list .item {
+  margin-top: 16px;
+  height: 34px;
+  line-height: 34px;
+}
+.personal-center-personalinformation .form-list .item .item-title {
+  display: inline-block;
+  margin-right: 10px;
+  width: 65px;
+  text-align: right;
+}
+.personal-center-personalinformation .form-list .item:nth-child(1) .item-desc {
+  font-size: 14px;
+  color: #343434;
+}
+.personal-center-personalinformation .form-list .item:nth-child(1) .item-btn {
+  display: inline-block;
+  width: 43px;
+  height: 21px;
+  line-height: 21px;
+  text-align: center;
+  font-size: 12px;
+  color: #444444;
+  background: #ebebeb;
+  border-radius: 10px;
+}
 .personal-center-content {
   display: table;
   margin-top: 20px;
@@ -77,804 +915,6 @@
   width: 940px;
   vertical-align: top;
   position: relative;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys {
-  padding: 56px 0;
-  background: #ffffff;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary {
-  float: left;
-  text-align: center;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary .summary-count {
-  font-size: 24px;
-  color: #222222;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary .summary-desc {
-  margin-top: 16px;
-  font-size: 12px;
-  color: #666666;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary:nth-child(1) {
-  margin-left: 63px;
-  margin-right: 96px;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary:nth-child(3) {
-  margin-left: 95px;
-  margin-right: 212px;
-}
-.personal-center-content .content-main .personal-center-home .personal-summarys .summary:last-child .go2vip {
-  display: block;
-  width: 260px;
-  height: 56px;
-}
-.personal-center-content .content-main .personal-center-home .advertisement {
-  margin-top: 10px;
-  width: 100%;
-  height: 142px;
-}
-.personal-center-content .content-main .personal-center-home .recently {
-  background: #ffffff;
-  padding: 40px 55px 40px 40px;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-title {
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items {
-  margin-top: 26px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item {
-  float: left;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link {
-  width: 100%;
-  height: 100%;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left {
-  float: left;
-  margin-right: 20px;
-  position: relative;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
-  width: 47px;
-  height: 66px;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 16px;
-  height: 16px;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right {
-  float: right;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-desc {
-  width: 168px;
-  height: 36px;
-  line-height: 20px;
-  overflow: hidden;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-other {
-  margin-top: 14px;
-  color: #A8A8A8;
-}
-.personal-center-content .content-main .personal-center-home .recently .recently-see-items .item:nth-child(2) {
-  margin: 0 66px;
-}
-.personal-center-content .content-main .personal-center-home .recently-downloads {
-  margin-top: 10px;
-}
-.personal-center-content .content-main .personal-center-home .opentvip {
-  margin-top: 10px;
-  text-align: center;
-  padding: 45px 100px 50px 100px;
-  background: #ffffff;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .opentvip-title {
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .open-vip {
-  margin-top: 17px;
-  font-size: 14px;
-  text-decoration: underline;
-  color: #AA8436;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items {
-  margin-top: 46px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item {
-  float: left;
-  text-align: center;
-  margin-right: 50px;
-  font-size: 12px;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item .item-img {
-  display: inline-block;
-  width: 34px;
-  height: 34px;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item .item-desc {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #A17E4A;
-}
-.personal-center-content .content-main .personal-center-home .opentvip .vip-privilege-items .item:last-child {
-  margin-right: 0;
-}
-.personal-center-content .content-main .mycollection-anddownLoad {
-  padding: 40px 60px 0 40px;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .title {
-  margin-bottom: 40px;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .title .title-desc {
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-  vertical-align: top;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .title .file-num {
-  margin-left: 5px;
-  font-size: 12px;
-  color: #9A9A9A;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list {
-  width: 100%;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title {
-  padding-bottom: 35px;
-  border-bottom: solid 1px #F4F4F4;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title .file-title {
-  padding-bottom: 35px;
-  text-align: left;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-title .action-time {
-  text-align: right;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item {
-  *zoom: 1;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content {
-  padding-top: 40px;
-  text-align: left;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content .file-type {
-  float: left;
-  margin: 0 14px;
-  width: 16px;
-  height: 16px;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .file-content .file-name {
-  float: left;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list .table-item .operation-time {
-  padding-top: 40px;
-  text-align: right;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
-  padding-top: 20px;
-  text-align: left;
-}
-.personal-center-content .content-main .mycollection-anddownLoad .table-list tr:nth-child(2) .operation-time {
-  padding-top: 20px;
-  text-align: right;
-}
-.personal-center-content .content-main .myuploads {
-  padding: 40px 60px 0 40px;
-}
-.personal-center-content .content-main .myuploads .myuploads-title {
-  margin-bottom: 46px;
-}
-.personal-center-content .content-main .myuploads .myuploads-title .title-desc {
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-  vertical-align: top;
-}
-.personal-center-content .content-main .myuploads .myuploads-title .file-num {
-  margin-left: 5px;
-  font-size: 12px;
-  color: #9A9A9A;
-}
-.personal-center-content .content-main .myuploads .myuploads-tabs {
-  *zoom: 1;
-}
-.personal-center-content .content-main .myuploads .myuploads-tabs:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .myuploads .myuploads-tabs .tab {
-  float: left;
-  margin-right: 30px;
-  padding-bottom: 7px;
-  cursor: pointer;
-}
-.personal-center-content .content-main .myuploads .myuploads-tabs .tab-active {
-  border-bottom: solid 2px #F25226;
-}
-.personal-center-content .content-main .myuploads .table-title {
-  margin-top: 10px;
-  margin-bottom: 0px;
-  height: 40px;
-  line-height: 40px;
-  background: #F5F5F5;
-  *zoom: 1;
-}
-.personal-center-content .content-main .myuploads .table-title:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .myuploads .table-title .table-title-input {
-  display: none;
-}
-.personal-center-content .content-main .myuploads .table-title .delete-icon {
-  margin-left: 17px;
-  display: inline-block;
-  width: 13px;
-  height: 14px;
-}
-.personal-center-content .content-main .myuploads .table-title .delete-desc {
-  margin-left: 6px;
-  font-size: 14px;
-  color: #9A9A9A;
-}
-.personal-center-content .content-main .myuploads .table-title .myuploads-nums {
-  float: right;
-  margin-right: 22px;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list {
-  width: 100%;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .myuploads-table-head th {
-  padding: 23px 0 14px 0;
-  border-bottom: solid 1px #F4F4F4;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .table-item {
-  height: 40px;
-  line-height: 40px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .table-item:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .table-item td {
-  margin-top: 18px;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .table-item td .file-title {
-  font-size: 14px;
-  color: #222222;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list .table-item-active {
-  background: #f5f5f5;
-  border-radius: 3px;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list tr:nth-child(2) td {
-  margin-top: 0px;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list input {
-  display: none;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list input + span {
-  margin-left: 17px;
-  margin-right: 12px;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  border: 1px solid #cccccc;
-  border-radius: 2px;
-}
-.personal-center-content .content-main .myuploads .myuploads-table-list input:checked + span {
-  background: url("../../images/personalCenter/checkbox-selected.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-vip {
-  padding: 40px 60px 0 40px;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-title {
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #222222;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip {
-  width: 858px;
-  background: #fcfaf4;
-  border: 1px solid #fae5a6;
-  border-radius: 4px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip .not-vip-left {
-  margin-left: 34px;
-  margin-top: 34px;
-  margin-bottom: 32px;
-  float: left;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip .not-vip-left .not-vip-left-title {
-  font-size: 22px;
-  color: #D2A649;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip .not-vip-left .not-vip-top-left-subtitle {
-  margin-top: 14px;
-  font-size: 14px;
-  color: #BAAD91;
-}
-.personal-center-content .content-main .personal-center-vip .not-vip .not-vip-right {
-  margin-right: 40px;
-  margin-top: 34px;
-  margin-bottom: 32px;
-  float: right;
-  width: 173px;
-  height: 45px;
-  line-height: 45px;
-  text-align: center;
-  font-size: 14px;
-  color: #FFFFFF;
-  background: #F4592D;
-  border-radius: 50px;
-}
-.personal-center-content .content-main .personal-center-vip .vip-summary {
-  width: 858px;
-  background: #fcfaf4;
-  border: 1px solid #fae5a6;
-  border-radius: 4px;
-}
-.personal-center-content .content-main .personal-center-vip .vip-summary .vip-summary-title {
-  margin-left: 40px;
-  padding-top: 38px;
-  font-size: 22px;
-  font-weight: bold;
-}
-.personal-center-content .content-main .personal-center-vip .vip-summary .vip-summary-subtitle {
-  margin-left: 40px;
-  padding-bottom: 43px;
-  font-size: 14px;
-  color: #FFFFFF;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items {
-  margin-top: 46px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items .item {
-  float: left;
-  text-align: center;
-  margin-right: 60px;
-  font-size: 12px;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items .item .item-img {
-  display: inline-block;
-  width: 34px;
-  height: 34px;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items .item .item-desc {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #A17E4A;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items .item:first-child {
-  margin-left: 30px;
-}
-.personal-center-content .content-main .personal-center-vip .vip-privilege-items .item:last-child {
-  margin-right: 0;
-}
-.personal-center-content .content-main .personal-center-vip .advertisement {
-  margin-top: 10px;
-  height: 141px;
-  background: #eee;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-tabs {
-  margin-top: 10px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-tabs:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-tabs .tab {
-  float: left;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-tabs .tab {
-  margin-left: 35px;
-  padding-top: 27px;
-  padding-bottom: 7px;
-}
-.personal-center-content .content-main .personal-center-vip .myvip-tabs .tab:first-child {
-  margin-left: 40px;
-}
-.personal-center-content .content-main .personal-center-vip .privilege-table {
-  width: 100%;
-}
-.personal-center-content .content-main .personal-center-vip .vip-table {
-  width: 100%;
-}
-.personal-center-content .content-main .personal-center-mycoupon {
-  padding: 26px 45px 0 40px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-title {
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs {
-  margin-top: 46px;
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs .tab {
-  float: left;
-  font-size: 14px;
-  color: #222222;
-  margin-right: 60px;
-  padding-bottom: 7px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-tabs .tab-active {
-  border-bottom: solid 1px #F25126;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list {
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item {
-  float: left;
-  margin-top: 22px;
-  margin-right: 20px;
-  width: 265px;
-  height: 136px;
-  background: #eee;
-  text-align: center;
-  position: relative;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-price {
-  margin-top: 24px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-price span {
-  font-size: 30px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-desc {
-  margin-top: 12px;
-  font-size: 13px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-time {
-  margin-top: 8px;
-  font-size: 12px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item .item-icon {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  width: 14px;
-  height: 14px;
-  border-radius: 7px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain {
-  text-align: left;
-  background: #fbf1e7;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
-  margin-top: 40px;
-  margin-left: 20px;
-  font-size: 15px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-desc {
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
-  font-size: 12px;
-  line-height: 20px;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse {
-  background: #fbf1e7;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-title {
-  color: #816747;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-desc {
-  color: #A58763;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-price {
-  color: #F15125;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-desc {
-  color: #816746;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-time {
-  color: #A58863;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-icon {
-  background: #F17559;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon {
-  background: #fbf1e7 url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-title {
-  color: #816747;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-desc {
-  color: #A58763;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-price {
-  color: #F15125;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-desc {
-  color: #816746;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-time {
-  color: #A58863;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-icon {
-  background: #F17559;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used {
-  background: #EBEBEB url("../../images/personalCenter/coupon-used.png") no-repeat right top;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-price {
-  color: #999999;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-desc {
-  color: #777777;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
-  color: #CCCCCC;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-icon {
-  background: #EAE9E9;
-}
-.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiring {
-  background: #EBEBEB url("../../images/personalCenter/coupon-expiring.png") no-repeat right top;
-}
-.personal-center-content .content-main .personal-center-myorder {
-  padding: 40px 60px 0 40px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-title {
-  margin-bottom: 46px;
-  font-size: 16px;
-  color: #222222;
-  font-weight: bold;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-tabs {
-  *zoom: 1;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-tabs:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-tabs .tab {
-  float: left;
-  margin-right: 30px;
-  padding-bottom: 7px;
-  cursor: pointer;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-tabs .tab-active {
-  border-bottom: solid 2px #F25226;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list {
-  width: 100%;
-  margin-top: 28px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-title th {
-  padding-bottom: 12px;
-  border-bottom: solid 1px #F3F3F3;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-title th:first-child {
-  padding-left: 26px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item {
-  background: #ffffff;
-  border: 1px solid #ededed;
-  border-radius: 3px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-order {
-  padding-left: 26px;
-  height: 44px;
-  line-height: 44px;
-  background: #f5f5f5;
-  border-radius: 3px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-order span {
-  margin-left: 12px;
-  font-size: 12px;
-  padding: 3px 10px;
-  color: #656565;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-desc {
-  height: 58px;
-  line-height: 58px;
-  font-size: 14px;
-  color: #333333;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-desc .icon {
-  display: inline-block;
-  margin-right: 10px;
-  width: 16px;
-  height: 14px;
-  background: #eee;
-  vertical-align: middle;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item td:first-child .item-desc {
-  padding-left: 26px;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-price {
-  color: #333333;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-time {
-  color: #878787;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-status {
-  color: #878787;
-}
-.personal-center-content .content-main .personal-center-myorder .myorder-table-list .table-list-item .item-operation span {
-  padding: 4px 10px;
-  border: 1px solid #f15125;
-  border-radius: 12px;
-  font-size: 12px;
-  color: #f15125;
-}
-.personal-center-content .content-main .personal-center-accountsecurity {
-  padding: 26px 131px 0px 40px;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #222222;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list {
-  margin-top: 80px;
-  margin-left: 41px;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item {
-  height: 77px;
-  line-height: 77px;
-  margin-left: 90px;
-  border-bottom: solid 1px #DEDEDE;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item .item-icon {
-  margin-top: 30px;
-  margin-left: -44px;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item:nth-child(1) .item-icon {
-  margin-right: 22px;
-  width: 21px;
-  height: 29px;
-  background: url("../../images/personalCenter/phone.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item:nth-child(2) .item-icon {
-  margin-right: 18px;
-  width: 29px;
-  height: 25px;
-  background: url("../../images/personalCenter/wechat.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item:nth-child(3) .item-icon {
-  margin-right: 18px;
-  width: 30px;
-  height: 23px;
-  background: url("../../images/personalCenter/weibo.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item:nth-child(4) .item-icon {
-  margin-right: 18px;
-  width: 26px;
-  height: 27px;
-  background: url("../../images/personalCenter/qq.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item:nth-child(5) .item-icon {
-  margin-right: 18px;
-  width: 26px;
-  height: 26px;
-  background: url("../../images/personalCenter/setting.png") no-repeat center;
-  background-size: 100%;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item-status {
-  margin-right: 10px;
-  font-size: 16px;
-  color: #222222;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item-btn {
-  margin-top: 26px;
-  width: 100px;
-  height: 36px;
-  line-height: 36px;
-  text-align: center;
-  background: #eeeeee;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.personal-center-content .content-main .personal-center-accountsecurity .account-security-list .item-btn-active {
-  color: #ffffff;
-  background: #f25226;
-  border-radius: 3px;
 }
 .personal-center-content .content-main .empty-data {
   position: absolute;

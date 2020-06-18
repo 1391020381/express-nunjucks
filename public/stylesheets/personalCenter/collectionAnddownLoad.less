@@ -1,0 +1,63 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+.mycollection-anddownLoad{
+    padding:40px 60px 0 40px;
+    .title{
+        margin-bottom: 40px;
+       .title-desc{
+           font-size: 16px;
+           color: #222222;
+           font-weight: bold;
+           vertical-align: top
+       } 
+       .file-num{
+           margin-left:5px;
+           font-size: 12px;
+           color: #9A9A9A;
+       }
+    }
+    .table-list{
+        width: 100%;
+        .table-title{
+            padding-bottom: 35px;
+            border-bottom: solid 1px #F4F4F4;
+         .file-title{
+             padding-bottom: 35px;
+             text-align:left
+            }
+            .action-time{
+             text-align:right
+            }
+        }
+        .table-item{ 
+            .cf();
+         .file-content{
+             padding-top:40px;
+             text-align: left;
+             .file-type{
+                 float: left;
+                 margin:0 14px;
+                 width: 16px;
+                 height: 16px;
+             }
+             .file-name{
+                 float: left;
+             }
+         }
+         .operation-time{
+             padding-top:40px;
+             text-align: right;
+         }
+        }
+        tr:nth-child(2){
+            .file-content{
+               padding-top:20px;
+               text-align: left;
+            }
+            .operation-time{
+             padding-top:20px;
+             text-align: right;
+         }
+        }
+    }
+ }
