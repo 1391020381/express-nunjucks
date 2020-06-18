@@ -667,6 +667,45 @@
 .personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-icon {
   background: #F17559;
 }
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon {
+  background: #fbf1e7 url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-title {
+  color: #816747;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-price {
+  color: #F15125;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-desc {
+  color: #816746;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-time {
+  color: #A58863;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-icon {
+  background: #F17559;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used {
+  background: #EBEBEB url("../../images/personalCenter/coupon-used.png") no-repeat right top;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-price {
+  color: #999999;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-desc {
+  color: #777777;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
+  color: #CCCCCC;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-used .item-icon {
+  background: #EAE9E9;
+}
+.personal-center-content .content-main .personal-center-mycoupon .mycoupon-list .coupon-expiring {
+  background: #EBEBEB url("../../images/personalCenter/coupon-expiring.png") no-repeat right top;
+}
 .personal-center-content .content-main .empty-data {
   position: absolute;
   left: 50%;
