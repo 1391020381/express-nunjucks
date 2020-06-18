@@ -490,6 +490,8 @@
 }
 .personal-center-vip .my-vip-bottom .table tr:nth-child(2) td {
   padding-top: 15px;
+  font-size: 14px;
+  color: #222222;
 }
 .personal-center-vip .my-vip-bottom .vip-table {
   margin-top: 50px;
