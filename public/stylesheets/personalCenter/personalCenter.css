@@ -669,10 +669,14 @@
   width: 14px;
   height: 14px;
   border-radius: 7px;
+  background: url("../../images/personalCenter/attention.png") no-repeat center;
+  background-size: 100%;
+  cursor: pointer;
 }
 .personal-center-mycoupon .mycoupon-list .item-explain {
   text-align: left;
-  background: #fbf1e7;
+  background: url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
+  background-size: 100%;
 }
 .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
   margin-top: 40px;
@@ -687,7 +691,8 @@
   line-height: 20px;
 }
 .personal-center-mycoupon .mycoupon-list .coupon-unuse {
-  background: #fbf1e7;
+  background: url("../../images/personalCenter/coupon-unuse-bg.png") no-repeat center;
+  background-size: 100%;
 }
 .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-title {
   color: #816747;
@@ -704,11 +709,8 @@
 .personal-center-mycoupon .mycoupon-list .coupon-unuse .item-time {
   color: #A58863;
 }
-.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-icon {
-  background: #F17559;
-}
 .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon {
-  background: #fbf1e7 url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top;
+  background: url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top, url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
 }
 .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-title {
   color: #816747;
@@ -725,11 +727,8 @@
 .personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-time {
   color: #A58863;
 }
-.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-icon {
-  background: #F17559;
-}
 .personal-center-mycoupon .mycoupon-list .coupon-used {
-  background: #EBEBEB url("../../images/personalCenter/coupon-used.png") no-repeat right top;
+  background: url("../../images/personalCenter/coupon-used.png") no-repeat right top, url("../../images/personalCenter/coupon-used-bg.png") no-repeat center;
 }
 .personal-center-mycoupon .mycoupon-list .coupon-used .item-price {
   color: #999999;
@@ -739,12 +738,6 @@
 }
 .personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
   color: #CCCCCC;
-}
-.personal-center-mycoupon .mycoupon-list .coupon-used .item-icon {
-  background: #EAE9E9;
-}
-.personal-center-mycoupon .mycoupon-list .coupon-expiring {
-  background: #EBEBEB url("../../images/personalCenter/coupon-expiring.png") no-repeat right top;
 }
 .personal-center-accountsecurity {
   padding: 26px 131px 0px 40px;

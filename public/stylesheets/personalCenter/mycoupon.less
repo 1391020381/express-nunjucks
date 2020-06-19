@@ -53,11 +53,15 @@
                 width: 14px;
                 height: 14px;
                 border-radius: 7px;
+                background: url("../../images/personalCenter/attention.png") no-repeat center;
+                background-size: 100%;
+                cursor: pointer;
             }
         }
         .item-explain{
             text-align: left;
-            background:rgba(251,241,231,1);
+            background: url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
+            background-size: 100%;
             .item-explain-title{
                 margin-top:40px;
                 margin-left: 20px;
@@ -71,8 +75,9 @@
                 line-height: 20px;
             }
         }
-        .coupon-unuse{
-            background:rgba(251,241,231,1);
+        .coupon-unuse{ 
+            background: url("../../images/personalCenter/coupon-unuse-bg.png") no-repeat center;
+            background-size: 100%;
             .item-explain-title{
               color: #816747;   
             }
@@ -87,9 +92,6 @@
             }
             .item-time{
                 color: #A58863;
-            }
-            .item-icon{
-                background: #F17559;
             }
         }
         .coupon-expiringsoon{
@@ -108,10 +110,8 @@
             .item-time{
                 color: #A58863;
             }
-            .item-icon{
-                background: #F17559;
-            }
-            background: rgba(251,241,231,1) url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top;
+            background:  url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top,
+                         url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
         }
         .coupon-used{
             .item-price{
@@ -123,13 +123,8 @@
               .item-time{
                   color: #CCCCCC;
               }
-              .item-icon{
-                  background: #EAE9E9;
-              }
-              background: #EBEBEB url("../../images/personalCenter/coupon-used.png") no-repeat right top;
-        }
-        .coupon-expiring{
-            background: #EBEBEB url("../../images/personalCenter/coupon-expiring.png") no-repeat right top;
+              background: url("../../images/personalCenter/coupon-used.png") no-repeat right top,
+                          url("../../images/personalCenter/coupon-used-bg.png") no-repeat center;
         }
     }
 }
