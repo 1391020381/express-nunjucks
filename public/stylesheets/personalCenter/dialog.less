@@ -1,0 +1,263 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+.personal-center-dialog{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    background-color: #fff;
+    z-index: 1000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+
+    .close-btn{
+        display: block;
+        overflow: hidden;
+        background: url(../../images/icon_iShare.png) no-repeat;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 15px;
+        right: -32px;
+        background-position: -220px -20px;
+        cursor: pointer;
+    }
+    
+    .delete-tip-dialog{
+        width:448px;
+        height:234px;
+        background:rgba(255,255,255,1);
+        border-radius:4px;
+        text-align: center;
+        .title{
+            padding-top:53px;
+            font-size: 18px;
+            color: #000000;
+        }
+        .subtitle{
+            margin-top:20px;
+            font-size: 14px;
+            color: #666666;
+        }
+        .dialog-btn{
+            padding-top:45px;
+            .confirm-btn{
+                display: inline-block;
+                margin-right: 10px;
+                width:120px;
+                height:40px;
+                line-height: 40px;
+                font-size: 15px;
+                color: #FFFFFF;
+                text-align: center;
+                background:rgba(242,82,38,1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .cancel-btn{
+                display: inline-block;
+                width:120px;
+                height:40px;
+                line-height: 40px;
+                font-size: 15px;
+                color: #F25226;
+                text-align: center;
+                border:1px solid rgba(242,82,38,1);
+               border-radius:2px;
+               cursor: pointer;
+            }
+        }
+    }
+    .identity-authentication-dialog{
+        width: 430px;
+        height: 308px;
+        text-align: center;
+        .title{
+            padding-top:40px;
+            font-size: 22px;
+            color: #222222;
+        }
+        .authentication-phone{
+            margin-top: 53px;
+            font-size: 15px;
+            text-align: left;
+            color: #222222;
+            text-indent: 38px
+        }
+        .authentication-form{
+            margin-top:16px;
+            height: 40px;
+            line-height: 40px;
+            .authentication-input{
+                display: inline-block;
+                width: 215px;
+                height: 30px;
+            }
+            .authentication-code{
+                display: inline-block;
+                margin-left: 10px;
+                width: 108px;
+                height: 36px;
+                line-height: 36px;
+                font-size: 15px;
+                color: #F25226;
+                border: 1px solid #f25226;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        }
+        .dialog-btn{
+            .authentication-btn{
+                display: inline-block;
+                margin-top:18px;
+                width:350px;
+                height:42px;
+                line-height: 42px;
+                font-size: 15px;
+                color: #fff;
+                text-align: center;
+                background:rgba(242,82,38,1);
+                border-radius:3px;
+                cursor: pointer;
+            }
+        }
+    }
+    .set-change-password-dialog{
+        width: 430px;
+        height: 358px;
+        text-align: center;
+        .title{
+            padding-top: 22px;
+            font-size: 22px;
+            color: #222222;
+        }
+        .form-list{
+            .form-item{
+                margin-top:14px;
+                .item-label{
+                    margin-right: 13px;
+                }
+                input{
+                    display: inline-block;
+                    width:293px;
+                    height:40px;
+                    text-indent: 15px;
+                    border:1px solid rgba(225,225,225,1);
+                    box-sizing: border-box;
+                     border-radius:3px;
+                     padding: 0;
+                }
+            }
+            .form-item:first-child{
+                margin-top:32px;
+            }
+            .form-item:nth-child(2){
+                .item-verificationcode{
+                    width:174px;
+                    height:40px;
+                    line-height: 40px;
+                    border:1px solid rgba(225,225,225,1);
+                    border-radius:3px;
+                }
+                .item-getverificationcode{
+                      margin-left:10px;
+                      display: inline-block;
+                      width:110px;
+                      height:40px;
+                      line-height: 40px;
+                      text-align: center;
+                      color: #F25226;
+                      border:1px solid rgba(242,82,38,1);
+                      box-sizing: border-box;
+                      border-radius:3px;
+                      cursor: pointer;
+                }
+            }
+        }
+        .dialog-btn{
+            .submit-btn{
+                display: inline-block;
+                margin-top:18px;
+                width:350px;
+                height:42px;
+                line-height: 42px;
+                text-align: center;
+                font-size: 15px;
+                color: #fff;
+               background:rgba(242,82,38,1);
+               border-radius:3px;
+               cursor: pointer;
+            }
+        }
+    }
+    .unbind-account-dialog{
+        width: 447px;
+        // height: 288px;
+        text-align: center;
+        .title{
+           padding-top:50px;
+           font-size: 22px;
+           color: #222222; 
+        }
+        .subtitle{
+            margin-top: 16px;
+            font-size: 15px;
+            color: #666666;
+        }
+        .dialog-btn{
+            margin:46px 0;
+            .confirm-btn{
+                display: inline-block;
+                margin-right: 10px;
+                width:160px;
+                height:40px;
+                line-height: 40px;
+                font-size: 15px;
+                color: #FFFFFF;
+                text-align: center;
+                background:rgba(242,82,38,1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .cancel-btn{
+                display: inline-block;
+                width:160px;
+                height:40px;
+                line-height: 40px;
+                font-size: 15px;
+                color: #F25226;
+                text-align: center;
+                border:1px solid rgba(242,82,38,1);
+               border-radius:2px;
+               cursor: pointer;
+            }
+        }
+        .dialog-tip{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 13px;
+            color: #767270;
+            border-top:solid 1px #EFEEE9;
+            span{
+                color: #2B739F;
+                cursor: pointer;
+            }
+        }
+    }
+    .mywallet-tip-dialog{
+        width: 430px;
+        text-align: center;
+        .title{
+            padding-top: 43px;
+            font-size: 22px;
+            color: #222; 
+        }
+        .mywallet-tip{
+            padding: 20px;
+        }
+        .mywallet-contact-information{
+            padding-bottom: 40px;
+        }
+    }
+}

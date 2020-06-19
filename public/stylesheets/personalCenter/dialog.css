@@ -1,0 +1,251 @@
+@charset "utf-8";
+.personal-center-dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: #fff;
+  z-index: 1000;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+.personal-center-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  background: url(../../images/icon_iShare.png) no-repeat;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  background-position: -220px -20px;
+  cursor: pointer;
+}
+.personal-center-dialog .delete-tip-dialog {
+  width: 448px;
+  height: 234px;
+  background: #ffffff;
+  border-radius: 4px;
+  text-align: center;
+}
+.personal-center-dialog .delete-tip-dialog .title {
+  padding-top: 53px;
+  font-size: 18px;
+  color: #000000;
+}
+.personal-center-dialog .delete-tip-dialog .subtitle {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666666;
+}
+.personal-center-dialog .delete-tip-dialog .dialog-btn {
+  padding-top: 45px;
+}
+.personal-center-dialog .delete-tip-dialog .dialog-btn .confirm-btn {
+  display: inline-block;
+  margin-right: 10px;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #FFFFFF;
+  text-align: center;
+  background: #f25226;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.personal-center-dialog .delete-tip-dialog .dialog-btn .cancel-btn {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #F25226;
+  text-align: center;
+  border: 1px solid #f25226;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.personal-center-dialog .identity-authentication-dialog {
+  width: 430px;
+  height: 308px;
+  text-align: center;
+}
+.personal-center-dialog .identity-authentication-dialog .title {
+  padding-top: 40px;
+  font-size: 22px;
+  color: #222222;
+}
+.personal-center-dialog .identity-authentication-dialog .authentication-phone {
+  margin-top: 53px;
+  font-size: 15px;
+  text-align: left;
+  color: #222222;
+  text-indent: 38px;
+}
+.personal-center-dialog .identity-authentication-dialog .authentication-form {
+  margin-top: 16px;
+  height: 40px;
+  line-height: 40px;
+}
+.personal-center-dialog .identity-authentication-dialog .authentication-form .authentication-input {
+  display: inline-block;
+  width: 215px;
+  height: 30px;
+}
+.personal-center-dialog .identity-authentication-dialog .authentication-form .authentication-code {
+  display: inline-block;
+  margin-left: 10px;
+  width: 108px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 15px;
+  color: #F25226;
+  border: 1px solid #f25226;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.personal-center-dialog .identity-authentication-dialog .dialog-btn .authentication-btn {
+  display: inline-block;
+  margin-top: 18px;
+  width: 350px;
+  height: 42px;
+  line-height: 42px;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  background: #f25226;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.personal-center-dialog .set-change-password-dialog {
+  width: 430px;
+  height: 358px;
+  text-align: center;
+}
+.personal-center-dialog .set-change-password-dialog .title {
+  padding-top: 22px;
+  font-size: 22px;
+  color: #222222;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item {
+  margin-top: 14px;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item .item-label {
+  margin-right: 13px;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item input {
+  display: inline-block;
+  width: 293px;
+  height: 40px;
+  text-indent: 15px;
+  border: 1px solid #e1e1e1;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 0;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item:first-child {
+  margin-top: 32px;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item:nth-child(2) .item-verificationcode {
+  width: 174px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
+}
+.personal-center-dialog .set-change-password-dialog .form-list .form-item:nth-child(2) .item-getverificationcode {
+  margin-left: 10px;
+  display: inline-block;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #F25226;
+  border: 1px solid #f25226;
+  box-sizing: border-box;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.personal-center-dialog .set-change-password-dialog .dialog-btn .submit-btn {
+  display: inline-block;
+  margin-top: 18px;
+  width: 350px;
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  background: #f25226;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.personal-center-dialog .unbind-account-dialog {
+  width: 447px;
+  text-align: center;
+}
+.personal-center-dialog .unbind-account-dialog .title {
+  padding-top: 50px;
+  font-size: 22px;
+  color: #222222;
+}
+.personal-center-dialog .unbind-account-dialog .subtitle {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #666666;
+}
+.personal-center-dialog .unbind-account-dialog .dialog-btn {
+  margin: 46px 0;
+}
+.personal-center-dialog .unbind-account-dialog .dialog-btn .confirm-btn {
+  display: inline-block;
+  margin-right: 10px;
+  width: 160px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #FFFFFF;
+  text-align: center;
+  background: #f25226;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.personal-center-dialog .unbind-account-dialog .dialog-btn .cancel-btn {
+  display: inline-block;
+  width: 160px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #F25226;
+  text-align: center;
+  border: 1px solid #f25226;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.personal-center-dialog .unbind-account-dialog .dialog-tip {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 13px;
+  color: #767270;
+  border-top: solid 1px #EFEEE9;
+}
+.personal-center-dialog .unbind-account-dialog .dialog-tip span {
+  color: #2B739F;
+  cursor: pointer;
+}
+.personal-center-dialog .mywallet-tip-dialog {
+  width: 430px;
+  text-align: center;
+}
+.personal-center-dialog .mywallet-tip-dialog .title {
+  padding-top: 43px;
+  font-size: 22px;
+  color: #222;
+}
+.personal-center-dialog .mywallet-tip-dialog .mywallet-tip {
+  padding: 20px;
+}
+.personal-center-dialog .mywallet-tip-dialog .mywallet-contact-information {
+  padding-bottom: 40px;
+}

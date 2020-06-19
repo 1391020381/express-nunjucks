@@ -5,6 +5,7 @@ define(function(require , exports , module){
     // require("./effect");  // 登录和刷新topbar
     // require("./report");  
     require("./menu.js")
+    require("./dialog.js")
     require("./home.js")
     require("./mycollectionAndDownLoad.js")
     require("./myuploads.js")
