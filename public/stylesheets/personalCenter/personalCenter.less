@@ -81,6 +81,7 @@
                     height: 40px;
                     line-height: 40px; 
                     padding-left:60px;
+                    box-sizing: border-box;
                 }
                 .menu-link{
                     display: block;
@@ -120,8 +121,16 @@
                 
             }
             .active-menus{
-                border-left: solid 2px #F15125;
-                background: #F5F5F5;
+                position: relative;
+                &::after{
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    content: '';
+                    width:2px;
+                    height:40px;
+                    background:rgba(242,81,37,1);
+                }
             }
         }
     }

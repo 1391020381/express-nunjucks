@@ -1233,6 +1233,7 @@
   height: 40px;
   line-height: 40px;
   padding-left: 60px;
+  box-sizing: border-box;
 }
 .personal-center-content .personal-center-menu .personal-menu .menus .menu-link {
   display: block;
@@ -1270,8 +1271,16 @@
   background-size: 100%;
 }
 .personal-center-content .personal-center-menu .personal-menu .active-menus {
-  border-left: solid 2px #F15125;
-  background: #F5F5F5;
+  position: relative;
+}
+.personal-center-content .personal-center-menu .personal-menu .active-menus::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 2px;
+  height: 40px;
+  background: #f25125;
 }
 .personal-center-content .content-main-left {
   width: 20px;
