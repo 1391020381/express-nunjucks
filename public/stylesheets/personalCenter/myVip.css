@@ -54,7 +54,8 @@
 }
 .personal-center-vip .myvip-top .vip-summary {
   width: 858px;
-  background: #fcfaf4;
+  background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
+  background-size: cover;
   border: 1px solid #fae5a6;
   border-radius: 4px;
 }
@@ -63,8 +64,17 @@
   padding-top: 38px;
   font-size: 22px;
   font-weight: bold;
+  color: #fff;
+}
+.personal-center-vip .myvip-top .vip-summary .vip-summary-title .vip-summary-icon {
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+  background: url('../../images/personalCenter/diamond.png') no-repeat center;
+  background-size: 100%;
 }
 .personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle {
+  margin-top: 15px;
   margin-left: 40px;
   padding-bottom: 43px;
   font-size: 14px;
