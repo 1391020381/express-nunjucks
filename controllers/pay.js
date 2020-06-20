@@ -457,5 +457,15 @@ module.exports = {
             res.send(results.list).end();
         })
 
+    },
+    // 聚合支付二维码
+    payment:function(req,res){
+        return async.series({
+            getPayment: function (callback) {
+                callback(null, null);
+             },
+        }, function (err, results) {  // results 是fileDetails组装后的数据
+            render("pay/payment", results, req, res);
+        })
     }
 };

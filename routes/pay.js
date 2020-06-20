@@ -223,5 +223,16 @@ router.get('/node/confirmType',function(req , res , next){
     }
 });
 
+// 聚合支付二维码
+
+router.get('/node/pay/payment',function(req , res , next){
+    try{
+        payController.payment(req , res);
+    }catch(e){
+        error(req , res , next);
+        return;
+    }
+});
+
 
 module.exports = router;
