@@ -169,6 +169,35 @@
     .content-main-mycollection{
         background: #ffffff;
     }
+    .pagination-wrapper{
+        margin-top:50px;
+        .pagination{
+            margin-left: 155px;
+            .cf();
+            .page-item{
+                float: left;
+                margin-right: 8px;
+                height: 30px;
+                line-height: 30px;
+                padding:0 11px;
+                color: #555555;
+                background:rgba(255,255,255,1);
+                border:1px solid rgba(230, 230, 230, 1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .first,.prev,.next,.last{
+                padding: 0 17px;
+            }
+            .active{
+                background: #F25125;
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
+            }
+        }
+    }
 }
 
 

@@ -1,6 +1,6 @@
 @charset "utf-8";
 .personal-center-vip .myvip-top {
-  padding: 40px 60px 0 40px;
+  padding: 30px 60px 0 40px;
   background: #fff;
 }
 .personal-center-vip .myvip-top .myvip-title {
@@ -10,7 +10,6 @@
   color: #222222;
 }
 .personal-center-vip .myvip-top .not-vip {
-  width: 858px;
   background: #fcfaf4;
   border: 1px solid #fae5a6;
   border-radius: 4px;
@@ -53,7 +52,6 @@
   border-radius: 50px;
 }
 .personal-center-vip .myvip-top .vip-summary {
-  width: 858px;
   background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
   background-size: cover;
   border: 1px solid #fae5a6;

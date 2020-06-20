@@ -1,23 +1,18 @@
 define(function(require , exports , module){
-    require("../cmd-lib/pagination");
+    require("./simplePagination.js")
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type == 'myuploads'){
         var myuploads = require("./template/myuploads.html")
+        var simplePagination = require("./template/simplePagination.html")
         var _myuploadsTemplate = template.compile(myuploads)({});
         $(".personal-center-myuploads").html(_myuploadsTemplate)
-        $(".pagination").pagination({
-            pageCount: 10,
-            totalData:100,
-            current:1,
-            jump: true,
-            coping: true,
-            homePage: '首页',
-            endPage: '末页',
-            prevContent: '上页',
-            nextContent: '下页',
-            callback: function (api) {
-                console.log(api.getCurrent())
-            }
+        var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(100),currentPage:1});
+        $(".pagination-wrapper").html(_simplePaginationTemplate)
+        $('.pagination-wrapper').on('click','.page-item',function(e){
+            console.log($(this).attr("data-currentPage"))
+            var currentPage = $(this).attr("data-currentPage")
+            var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(100),currentPage:currentPage});
+          $(".pagination-wrapper").html(_simplePaginationTemplate)
         })
     } 
 });

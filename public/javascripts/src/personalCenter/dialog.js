@@ -1,9 +1,9 @@
 define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type == 'myuploads'){
-        $("#dialog-box").dialog({
-            html: $('#myuploads-delete-dialog').html(),
-        }).open();
+        // $("#dialog-box").dialog({
+        //     html: $('#myuploads-delete-dialog').html(),
+        // }).open();
     }
     if(type == 'accountsecurity'){
         // $("#dialog-box").dialog({
