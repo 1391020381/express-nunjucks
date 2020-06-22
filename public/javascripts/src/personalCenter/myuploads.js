@@ -1,5 +1,4 @@
 define(function(require , exports , module){
-    require("./simplePagination.js")
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type == 'myuploads'){
         var myuploads = require("./template/myuploads.html")

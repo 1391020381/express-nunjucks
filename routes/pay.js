@@ -225,7 +225,7 @@ router.get('/node/confirmType',function(req , res , next){
 
 // 聚合支付二维码
 
-router.get('/node/pay/payment',function(req , res , next){
+router.get('/pay/payment',function(req , res , next){ // 微信公众号配置了支付目录
     try{
         payController.payment(req , res);
     }catch(e){
