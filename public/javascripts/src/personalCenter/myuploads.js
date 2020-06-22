@@ -9,8 +9,11 @@ define(function(require , exports , module){
         var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(100),currentPage:1});
         $(".pagination-wrapper").html(_simplePaginationTemplate)
         $('.pagination-wrapper').on('click','.page-item',function(e){
-            console.log($(this).attr("data-currentPage"))
+            console.log($(this).attr("data-currentPage"),new Array(100))
             var currentPage = $(this).attr("data-currentPage")
+            if(!currentPage){
+                return
+            }
             var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(100),currentPage:currentPage});
           $(".pagination-wrapper").html(_simplePaginationTemplate)
         })
