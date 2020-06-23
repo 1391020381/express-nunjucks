@@ -6,6 +6,7 @@ define(function(require , exports , module){
         var accountsecurity = require("./template/accountsecurity.html")
         var _accountsecurityTemplate = template.compile(accountsecurity)({});
         $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
+        queryUserBindInfo()
     }
 
     function queryUserBindInfo() {  // 查询用户绑定信息

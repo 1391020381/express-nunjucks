@@ -14,9 +14,9 @@ define(function(require , exports , module){
         //     html: $('#set-change-password-dialog').html(),
         // }).open();
 
-        $("#dialog-box").dialog({
-            html: $('#unbind-account-dialog').html(),
-        }).open();
+        // $("#dialog-box").dialog({
+        //     html: $('#unbind-account-dialog').html(),
+        // }).open();
         
     }
     

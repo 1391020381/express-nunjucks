@@ -45,19 +45,40 @@ fun(document, window)
 </script>
 <body>
 <div class="payment">
+    <div class="payment-title">
+        <span class="payment-title-icon success"></span>
+        <span class="payment-title-desc">支付成功</span>
+    </div>
     <ul class="order-list">
+        <li class="list-item">
+            <span class="item-title">支付方式:</span>
+            <span class="item-desc">微信支付</span>
+        </li>
+        <li class="list-item">
+            <span class="item-title">订单金额:</span>
+            <span class="item-desc">¥ 2.00</span>
+        </li>
+        <li class="list-item">
+            <span class="item-title">创建时间:</span>
+            <span class="item-desc">2020-05-20</span>
+        </li>
+         <li class="list-item">
+            <span class="item-title">交易订单号:</span>
+            <span class="item-desc">6845 5698 5895 4548 9632</span>
+        </li>
+          <li class="list-item">
+            <span class="item-title">商户订单号:</span>
+            <span class="item-desc">96874512327</span>
+        </li>
          <li class="list-item">
             <span class="item-title">商品名称:</span>
             <span class="item-desc">爱问共享资料会员</span>
         </li>
     </ul>
-    <div class="pay-confirm">继续支付</div>
+    {# <div class="pay-confirm">继续支付</div> #}
 
       {% include "common/js.html" %}
 </div>
-{% if results.isWeChat %}
-   <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-{% endif %}
     <script type="text/javascript">
         window.pageConfig = {
             page:{

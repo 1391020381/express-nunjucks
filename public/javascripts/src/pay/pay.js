@@ -35,10 +35,11 @@ define(function (require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
                 }
             }
-            var oid = $("#ip-oid").val();
+            var oid = $("#ip-oid").val(); // 订单号 orderNo
             if (oid) {
                 $(".carding-pay-item .oid").text(oid);
-                var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
+                // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
+                var url = location.origin + "/pay/payment?orderNo=" + oid;
                 try {
                     qr.createQrCode(url, 'pay-qr-code', 180, 180);
                     $(".btn-qr-show-success").click();

@@ -79,6 +79,9 @@ module.exports = {
     },
     tdk:{
         getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
+    },
+    order:{
+      getOrderInfo: "/gateway/order/get/orderInfo"
     }
 };
 
