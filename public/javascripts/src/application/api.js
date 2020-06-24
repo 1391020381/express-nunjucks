@@ -25,6 +25,10 @@ define(function (require, exports, module) {
             thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode
             userBindMobile:gateway + '/cas/user/bindMobile',   // 绑定手机号接口
             checkIdentity:gateway + '/cas/sms/checkIdentity', // 身份验证账号
+            getUserCentreInfo:gateway + '/user/getUserCentreInfo',
+            getFileBrowsePage: gateway + '/content/fileBrowse/getFileBrowsePage', //分页获取用户的历史浏览记录
+            getDownloadRecordList:gateway + '/content/getDownloadRecordList', //用户下载记录接口
+            getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
         },
         // 查询用户发券资格接口
         // sale: {

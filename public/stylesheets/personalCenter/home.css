@@ -1,0 +1,189 @@
+@charset "utf-8";
+.personal-center-home .personal-summarys {
+  padding: 56px 0;
+  background: #ffffff;
+  *zoom: 1;
+}
+.personal-center-home .personal-summarys:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .personal-summarys .summary {
+  float: left;
+  text-align: center;
+}
+.personal-center-home .personal-summarys .summary .summary-count {
+  font-size: 24px;
+  color: #222222;
+}
+.personal-center-home .personal-summarys .summary .summary-desc {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #666666;
+  position: relative;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .summary-aibeans-desc {
+  vertical-align: middle;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .summary-desc-icon {
+  margin-left: 2px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: url(../../images/personalCenter/attention.png) no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .aibeans-tip {
+  display: none;
+}
+.personal-center-home .personal-summarys .summary .summary-desc:hover .aibeans-tip {
+  display: block;
+}
+.personal-center-home .personal-summarys .summary:nth-child(1) {
+  margin-left: 63px;
+  margin-right: 96px;
+}
+.personal-center-home .personal-summarys .summary:nth-child(3) {
+  margin-left: 95px;
+  margin-right: 212px;
+}
+.personal-center-home .personal-summarys .summary:last-child .go2vip {
+  display: block;
+  width: 260px;
+  height: 56px;
+  cursor: pointer;
+}
+.personal-center-home .advertisement {
+  margin-top: 10px;
+  width: 100%;
+  height: 142px;
+}
+.personal-center-home .recently {
+  background: #ffffff;
+  padding: 40px 55px 40px 40px;
+}
+.personal-center-home .recently .recently-see-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-home .recently .recently-see-items {
+  margin-top: 26px;
+  *zoom: 1;
+}
+.personal-center-home .recently .recently-see-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .recently .recently-see-items .item {
+  float: left;
+}
+.personal-center-home .recently .recently-see-items .item .item-link {
+  width: 100%;
+  height: 100%;
+  *zoom: 1;
+}
+.personal-center-home .recently .recently-see-items .item .item-link:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left {
+  float: left;
+  margin-right: 20px;
+  position: relative;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
+  width: 47px;
+  height: 66px;
+  border-radius: 2px;
+  border: solid 1px #eee;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  top: inherit;
+  left: inherit;
+  background-color: #fff;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right {
+  float: right;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-desc {
+  width: 168px;
+  height: 36px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.personal-center-home .recently .recently-see-items .item .item-link .item-link-right .item-link-right-other {
+  margin-top: 14px;
+  color: #A8A8A8;
+}
+.personal-center-home .recently .recently-see-items .item:nth-child(2) {
+  margin: 0 66px;
+}
+.personal-center-home .recently-downloads {
+  margin-top: 10px;
+}
+.personal-center-home .opentvip {
+  margin-top: 10px;
+  text-align: center;
+  padding: 45px 100px 50px 100px;
+  background: #ffffff;
+}
+.personal-center-home .opentvip .opentvip-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-home .opentvip .open-vip {
+  margin-top: 17px;
+  font-size: 14px;
+  text-decoration: underline;
+  color: #AA8436;
+  cursor: pointer;
+}
+.personal-center-home .opentvip .vip-privilege-items {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-home .opentvip .vip-privilege-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-home .opentvip .vip-privilege-items .item {
+  float: left;
+  text-align: center;
+  margin-right: 50px;
+  font-size: 12px;
+}
+.personal-center-home .opentvip .vip-privilege-items .item .item-img {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+}
+.personal-center-home .opentvip .vip-privilege-items .item .item-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #A17E4A;
+}
+.personal-center-home .opentvip .vip-privilege-items .item:last-child {
+  margin-right: 0;
+}

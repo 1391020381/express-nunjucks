@@ -89,7 +89,7 @@ module.exports = {
                                 return
                             }
                              if(productType == 6){
-                                 if(cuk&&fileInfo.uid == uid){
+                                 if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ // 当有cuk,但是 fileInfo.ui  和 uid都是空
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 

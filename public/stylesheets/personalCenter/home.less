@@ -16,6 +16,29 @@
             margin-top: 16px;
             font-size: 12px;
             color: #666666;
+            position: relative;
+            .summary-aibeans-desc{
+                vertical-align: middle;
+            }
+            .summary-desc-icon{
+                margin-left: 2px;
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                border-radius: 7px;
+                background: url(../../images/personalCenter/attention.png) no-repeat center;
+                background-size: 100%;
+                vertical-align: middle;
+                cursor: pointer;
+            }
+            .aibeans-tip{
+                display: none;
+            }
+            &:hover{
+              .aibeans-tip{
+                  display: block;
+              }
+            }
           }
         } 
         .summary:nth-child(1){
@@ -31,6 +54,7 @@
                display: block;
                width: 260px;
                height: 56px;
+               cursor: pointer;
             }
         }
     }
@@ -63,6 +87,8 @@
                        .item-link-left-img{
                           width: 47px;
                           height: 66px; 
+                          border-radius:2px;
+                          border:solid 1px #eee;
                        }
                        .item-link-left-icon{
                            position: absolute;
@@ -70,6 +96,9 @@
                            bottom: 0;
                            width: 16px;
                            height: 16px;
+                           top: inherit;
+                           left: inherit;
+                           background-color: #fff
                        }
                    }
                    .item-link-right{
@@ -113,6 +142,7 @@
             font-size: 14px;
             text-decoration: underline;
             color: #AA8436;
+            cursor: pointer;
         }
         .vip-privilege-items{
             margin-top:46px;

@@ -23,6 +23,27 @@
   margin-top: 16px;
   font-size: 12px;
   color: #666666;
+  position: relative;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .summary-aibeans-desc {
+  vertical-align: middle;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .summary-desc-icon {
+  margin-left: 2px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: url(../../images/personalCenter/attention.png) no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.personal-center-home .personal-summarys .summary .summary-desc .aibeans-tip {
+  display: none;
+}
+.personal-center-home .personal-summarys .summary .summary-desc:hover .aibeans-tip {
+  display: block;
 }
 .personal-center-home .personal-summarys .summary:nth-child(1) {
   margin-left: 63px;
@@ -36,6 +57,7 @@
   display: block;
   width: 260px;
   height: 56px;
+  cursor: pointer;
 }
 .personal-center-home .advertisement {
   margin-top: 10px;
@@ -85,6 +107,8 @@
 .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-img {
   width: 47px;
   height: 66px;
+  border-radius: 2px;
+  border: solid 1px #eee;
 }
 .personal-center-home .recently .recently-see-items .item .item-link .item-link-left .item-link-left-icon {
   position: absolute;
@@ -92,6 +116,9 @@
   bottom: 0;
   width: 16px;
   height: 16px;
+  top: inherit;
+  left: inherit;
+  background-color: #fff;
 }
 .personal-center-home .recently .recently-see-items .item .item-link .item-link-right {
   float: right;
@@ -128,6 +155,7 @@
   font-size: 14px;
   text-decoration: underline;
   color: #AA8436;
+  cursor: pointer;
 }
 .personal-center-home .opentvip .vip-privilege-items {
   margin-top: 46px;
@@ -203,12 +231,22 @@
 .mycollection-anddownLoad .table-list .table-item .file-content {
   padding-top: 40px;
   text-align: left;
+  *zoom: 1;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
 }
 .mycollection-anddownLoad .table-list .table-item .file-content .file-type {
   float: left;
   margin: 0 14px;
   width: 16px;
   height: 16px;
+  top: inherit;
+  position: static;
 }
 .mycollection-anddownLoad .table-list .table-item .file-content .file-name {
   float: left;
@@ -1182,6 +1220,13 @@
   color: #222222;
   font-weight: bold;
 }
+.personal-center-content .personal-center-menu .personal-profile .personal-nickname .level-icon {
+  display: inline-block;
+  width: 19px;
+  height: 17px;
+  background: url("../../images/personalCenter/vip-icon.png") no-repeat center;
+  background-size: 100%;
+}
 .personal-center-content .personal-center-menu .personal-profile .personal-id {
   margin-top: 16px;
   margin-bottom: 52px;
@@ -1189,6 +1234,8 @@
   color: #000033;
 }
 .personal-center-content .personal-center-menu .personal-profile .personal-id .id {
+  width: 130px;
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1198,6 +1245,7 @@
   padding: 4px 10px;
   background: #ebebeb;
   border-radius: 6px;
+  cursor: pointer;
 }
 .personal-center-content .personal-center-menu .personal-menu {
   width: 240px;

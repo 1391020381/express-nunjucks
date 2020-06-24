@@ -20,40 +20,22 @@
   </tr>
 
   <tr class="table-item">
-    <td class="file-content">
-      <div>
-          <span class="file-type"></span>
-          <p class="file-name">关编版一年级语文下册第四单元《静夜思》新版...</p>
-      </div>
-    </td>
+     
+    {{if list.length>0}}
+    
+    {{ each list}}
+          <tr class="table-item">
+             <td class="file-content">
+                <span class="file-type ico-data {{'ico-'+ list[$index].format}}"></span>
+                  <p class="file-name">{{list[$index].title}}</p>
+             </td>
     <td class="operation-time">
-       <span>2018-08-08</span> 
-    </td>
-  </tr>
-    {{if list.length}}
-    <tr class="table-item">
-    <td class="file-content">
-      <div>
-          <span class="file-type  ico-data ico-{{results.list.data.format}} ico-doc"></span>
-          <p class="file-name">关编版一年级语文下册第四单元《静夜思》新版...</p>
-      </div>
-    </td>
-    <td class="operation-time">
-       <span>2018-08-08</span> 
+       <span>{{list[$index].downloadTime}}</span> 
     </td>
   </tr>
 
-    <tr class="table-item">
-    <td class="file-content">
-      <div>
-          <span class="file-type"></span>
-          <p class="file-name">关编版一年级语文下册第四单元《静夜思》新版...</p>
-      </div>
-    </td>
-    <td class="operation-time">
-       <span>2018-08-08</span> 
-    </td>
-  </tr>
+    {{/each}}
+
     {{ else}}
      <div class="empty-data">
           <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
@@ -61,4 +43,8 @@
      </div>
     {{/if}}
 </table> 
+
+<div class="pagination-wrapper">
+        
+    </div>
 </div>
