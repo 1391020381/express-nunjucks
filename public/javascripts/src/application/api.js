@@ -29,6 +29,7 @@ define(function (require, exports, module) {
             getFileBrowsePage: gateway + '/content/fileBrowse/getFileBrowsePage', //分页获取用户的历史浏览记录
             getDownloadRecordList:gateway + '/content/getDownloadRecordList', //用户下载记录接口
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
+            getMyUploadPage:gateway + '/content/getMyUploadPage',   // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
         },
         // 查询用户发券资格接口
         // sale: {

@@ -1,0 +1,127 @@
+@charset "utf-8";
+.myuploads {
+  padding: 40px 60px 0 40px;
+}
+.myuploads .myuploads-title {
+  margin-bottom: 46px;
+}
+.myuploads .myuploads-title .title-desc {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  vertical-align: top;
+}
+.myuploads .myuploads-title .file-num {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.myuploads .myuploads-tabs {
+  *zoom: 1;
+}
+.myuploads .myuploads-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .myuploads-tabs .tab {
+  float: left;
+  margin-right: 30px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.myuploads .myuploads-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.myuploads .table-title {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  height: 40px;
+  line-height: 40px;
+  background: #F5F5F5;
+  *zoom: 1;
+}
+.myuploads .table-title:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .table-title .table-title-input {
+  display: none;
+}
+.myuploads .table-title .delete-icon {
+  margin-left: 17px;
+  display: inline-block;
+  width: 13px;
+  height: 14px;
+}
+.myuploads .table-title .delete-desc {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #9A9A9A;
+}
+.myuploads .table-title .myuploads-nums {
+  float: right;
+  margin-right: 22px;
+}
+.myuploads .myuploads-table-list {
+  width: 100%;
+}
+.myuploads .myuploads-table-list .myuploads-table-head th {
+  padding: 23px 0 14px 0;
+  border-bottom: solid 1px #F4F4F4;
+}
+.myuploads .myuploads-table-list .table-item {
+  height: 40px;
+  line-height: 40px;
+  *zoom: 1;
+}
+.myuploads .myuploads-table-list .table-item:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.myuploads .myuploads-table-list .table-item td {
+  margin-top: 18px;
+}
+.myuploads .myuploads-table-list .table-item td .file-icon {
+  margin: 0 8px;
+  display: inline-block;
+  top: inherit;
+  position: static;
+  vertical-align: sub;
+}
+.myuploads .myuploads-table-list .table-item td .file-title {
+  font-size: 14px;
+  color: #222222;
+  vertical-align: middle;
+}
+.myuploads .myuploads-table-list .table-item-active {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+.myuploads .myuploads-table-list tr:nth-child(2) td {
+  margin-top: 0px;
+}
+.myuploads .myuploads-table-list input {
+  display: none;
+}
+.myuploads .myuploads-table-list input + span {
+  margin-left: 17px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+}
+.myuploads .myuploads-table-list input:checked + span {
+  background: url("../../images/personalCenter/checkbox-selected.png") no-repeat center;
+  background-size: 100%;
+}
