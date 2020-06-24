@@ -26,8 +26,10 @@
     {{ each list}}
           <tr class="table-item">
              <td class="file-content">
+                <a  target="_blank" href={{'/f/'+ list[$index].fileId+'.html'}}>
                 <span class="file-type ico-data {{'ico-'+ list[$index].format}}"></span>
-                  <p class="file-name">{{list[$index].title}}</p>
+                <p class="file-name">{{list[$index].title}}</p>
+                </a>
              </td>
     <td class="operation-time">
        <span>{{list[$index].downloadTime}}</span> 

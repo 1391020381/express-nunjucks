@@ -9,8 +9,6 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type =='mycollection'){
        getUserFileList()
-       var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mycollection',list:[]});
-       $(".personal-center-mycollection").html(_mycollectionAndDownLoadTemplate);
     }else{
        getDownloadRecordList()
     }
@@ -35,12 +33,13 @@ define(function(require , exports , module){
                   res.data.rows.forEach(item=>{
                     var downloadTime = new Date(item.downloadTime).format("yyyy-MM-dd")
                      item.downloadTime = downloadTime
+                     item.fileId = item.id
                      list.push(item)
                   })
                    
                   var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mydownloads',list:list||[]});
                   $(".personal-center-mydownloads").html(_mycollectionAndDownLoadTemplate);
-                  handlePagination(res.data.totalPages,res.data.currentPage)
+                  handlePagination(res.data.totalPages,res.data.currentPage,'mycollection')
              }else{
               $.toast({
                   text:res.msg,
@@ -71,7 +70,21 @@ define(function(require , exports , module){
       success: function (res) {
          if(res.code == '0'){
               console.log('getUserFileList:',res)
-              
+              // 复用我的下载模板,需要处理接口的字段
+             var list = []
+              res.data.rows.forEach(item=>{
+                var collectTime = new Date(item.collectTime).format("yyyy-MM-dd")
+                  var temp = {
+                    format:item.format,
+                    title:item.title,
+                    fileId:item.fileId,
+                    downloadTime:collectTime
+                  }
+                  list.push(temp)
+              })
+              var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mycollection',list:list||[]});
+              $(".personal-center-mycollection").html(_mycollectionAndDownLoadTemplate);   
+              handlePagination(res.data.totalPages,res.data.currentPage,'mydownloads') 
          }else{
           $.toast({
               text:res.msg,
@@ -89,7 +102,7 @@ define(function(require , exports , module){
 
 
   // 分页
-  function handlePagination(totalPages,currentPage){
+  function handlePagination(totalPages,currentPage,flag){
     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:currentPage});
     $(".pagination-wrapper").html(_simplePaginationTemplate)
     $('.pagination-wrapper').on('click','.page-item',function(e){
@@ -97,7 +110,13 @@ define(function(require , exports , module){
         if(!paginationCurrentPage){
             return
         }
-        getDownloadRecordList(paginationCurrentPage)
+        if(flag == 'mydownloads'){  // 点击分页后重新请求数据
+            getUserFileList(paginationCurrentPage)
+        }
+        if(flag == 'mycollection'){
+            getDownloadRecordList(paginationCurrentPage)
+        }
+       
     //     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:paginationCurrentPage});
     //   $(".pagination-wrapper").html(_simplePaginationTemplate)
     })
