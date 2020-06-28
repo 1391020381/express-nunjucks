@@ -6,7 +6,13 @@ define(function (require, exports, module) {
 
 
     //登录
-    $(".js-login").on("click", function () {
+    // $(".js-login").on("click", function () {
+    //     checkLogin.notifyLoginInterface(function (data) {
+    //         refreshTopBar(data);
+    //     });
+    // });
+
+    $(".unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
@@ -18,7 +24,10 @@ define(function (require, exports, module) {
         });
     });
     //退出登录
-    $(".js-logout").on("click", function () {
+    // $(".js-logout").on("click", function () {
+    //     checkLogin.ishareLogout();
+    // });
+    $(".btn-exit").on("click", function () {
         checkLogin.ishareLogout();
     });
     //刷新topbar
@@ -84,6 +93,7 @@ define(function (require, exports, module) {
         if (!method.getCookie('cuk')) {
             checkLogin.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
+                callback()
             });
         } else {
             checkLogin.getLoginData(function (data) {

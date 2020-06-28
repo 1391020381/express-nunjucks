@@ -667,6 +667,7 @@
   color: #222222;
   margin-right: 60px;
   padding-bottom: 7px;
+  cursor: pointer;
 }
 .personal-center-mycoupon .mycoupon-tabs .tab-active {
   font-weight: bold;
@@ -708,9 +709,8 @@
   font-size: 12px;
 }
 .personal-center-mycoupon .mycoupon-list .item .item-icon {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   width: 14px;
   height: 14px;
   border-radius: 7px;
@@ -718,10 +718,19 @@
   background-size: 100%;
   cursor: pointer;
 }
+.personal-center-mycoupon .mycoupon-list .item .item-icon:hover .item-explain {
+  display: block;
+}
 .personal-center-mycoupon .mycoupon-list .item-explain {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 265px;
+  height: 136px;
   text-align: left;
   background: url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
   background-size: 100%;
+  display: none;
 }
 .personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
   margin-top: 40px;
@@ -900,6 +909,7 @@
   color: #444444;
   background: #ebebeb;
   border-radius: 10px;
+  cursor: pointer;
 }
 .personal-center-personalinformation .form-list .item:nth-child(2) .item-input {
   display: inline-block;

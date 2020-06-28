@@ -6,40 +6,35 @@
         <li class="{{mycouponType == 2?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=2">已过期</a></li>
     </ul>
 
-    <ul class="mycoupon-list">
-     <li class="item item-explain">
-            <p class="item-explain-title">使用说明</p>
-            <p class="item-explain-desc">优惠券的使用仅限该账户使用, 最高50元 优惠。不可重复使用。 </p>
+    <ul class="mycoupon-list">   
+        {{each list}}
+                  <li  class="{{mycouponType == 0 ?'item coupon-unuse':mycouponType == 1?'item coupon-expiringsoon':mycouponType ==2?'item coupon-used':'item'}}">
+                     {{if list[$index].type ==1}}
+                          <p class="item-price">¥ <span>{{list[$index].couponAmount}}</span></p>
+                     {{/if}}
+                     {{ if list[$index].type == 2}}
+                           <p class="item-price"><span>{{list[$index].discount}}</p>
+                     {{/if}}
+                     <p class="item-desc">{{list[$index].content}}</p>
+                     <p class="item-time">{{list[$index].beginDate}}-{{list[$index].endDate}}</p>
+                     <span class="item-icon fr">
+                         <div class="item-explain">
+                            <p class="item-explain-title">使用说明</p>
+                            <p class="item-explain-desc">{{list[$index].describe}} </p>
+                           </div>
+                  </span>
         </li>
-        <li class="item coupon-unuse ">
-            <p class="item-price">¥ <span>10</span></p>
-            <p class="item-desc">适用部分付费资料; 满30元可用</p>
-            <p class="item-time">2019.08.20-2020-09.20</p>
-            <span class="item-icon"></span>
-        </li>
-          <li class="item coupon-expiringsoon">
-            <p class="item-price">¥ <span>10</span></p>
-            <p class="item-desc">适用部分付费资料; 满30元可用</p>
-            <p class="item-time">2019.08.20-2020-09.20</p>
-            <span class="item-icon"></span>
-        </li>
-          <li class="item coupon-used">
-            <p class="item-price">¥ <span>10</span></p>
-            <p class="item-desc">适用部分付费资料; 满30元可用</p>
-            <p class="item-time">2019.08.20-2020-09.20</p>
-            <span class="item-icon"></span>
-        </li>
-          <li class="item coupon-used">
-            <p class="item-price">¥ <span>10</span></p>
-            <p class="item-desc">适用部分付费资料; 满30元可用</p>
-            <p class="item-time">2019.08.20-2020-09.20</p>
-            <span class="item-icon"></span>
-        </li>
+        {{/each}}
     </ul>
 
 
-    <div class="empty-data">
-          <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/coupon-empty-data.png"/>
-          <p class="empty-desc">你还没有优惠券哦~</p>
-     </div>
+    {{if list.length<=0}}
+          <div class="empty-data">
+            <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/coupon-empty-data.png"/>
+            <p class="empty-desc">你还没有优惠券哦~</p>
+          </div>
+    {{/if}}
+      <div class="pagination-wrapper">
+        
+    </div>
 </div>

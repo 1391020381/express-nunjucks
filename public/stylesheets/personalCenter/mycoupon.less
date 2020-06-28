@@ -50,21 +50,34 @@
                 font-size: 12px;
             }
             .item-icon{
-                position: absolute;
-                right: 10px;
-                bottom: 10px;
+                // position: absolute;
+                // right: 10px;
+                // bottom: 10px;
+                margin-right: 10px;
+                margin-bottom: 10px;
                 width: 14px;
                 height: 14px;
                 border-radius: 7px;
                 background: url("../../images/personalCenter/attention.png") no-repeat center;
                 background-size: 100%;
                 cursor: pointer;
+                &:hover{
+                    .item-explain{
+                        display: block;
+                    }
+                }
             }
         }
         .item-explain{
+            position: absolute;
+            left:0;
+            top:0;
+            width: 265px;
+            height: 136px;
             text-align: left;
             background: url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
             background-size: 100%;
+            display: none;
             .item-explain-title{
                 margin-top:40px;
                 margin-left: 20px;
