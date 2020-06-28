@@ -3,8 +3,8 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var homeRecentlySee = require("./template/homeRecentlySee.html")
     var type = window.pageConfig&&window.pageConfig.page.type
- 
-    initData()
+    var isLogin = require('./effect.js').isLogin
+    isLogin(initData)
     function initData(){
         if(type == 'home'){
             getUserCentreInfo()

@@ -3,8 +3,8 @@ define(function(require , exports , module){
    var api = require('../application/api');
    var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html')
    var simplePagination = require("./template/simplePagination.html")
-   
-   initData()
+   var isLogin = require('./effect.js').isLogin
+   isLogin(initData)
   function initData(){
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type =='mycollection'){

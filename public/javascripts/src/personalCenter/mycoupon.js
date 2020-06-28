@@ -2,7 +2,8 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var method = require("../application/method");
     var type = window.pageConfig&&window.pageConfig.page.type
-    initData()
+    var isLogin = require('./effect.js').isLogin
+    isLogin(initData)
     function initData(){
         if(type == 'mycoupon'){
             rightsSaleQueryUsing()

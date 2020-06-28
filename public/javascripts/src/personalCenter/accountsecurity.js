@@ -2,12 +2,18 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var method = require("../application/method");
     var api = require('../application/api');
-    if(type == 'accountsecurity'){
-        var accountsecurity = require("./template/accountsecurity.html")
-        var _accountsecurityTemplate = template.compile(accountsecurity)({});
-        $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
-        queryUserBindInfo()
+    var isLogin = require('./effect.js').isLogin
+      
+    isLogin(initData)
+    function initData(){
+        if(type == 'accountsecurity'){
+            var accountsecurity = require("./template/accountsecurity.html")
+            var _accountsecurityTemplate = template.compile(accountsecurity)({});
+            $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
+            queryUserBindInfo()
+        }
     }
+    
 
     function queryUserBindInfo() {  // 查询用户绑定信息
         $.ajax({

@@ -79,13 +79,21 @@ define(function (require, exports, module) {
         $("#ip-mobile").val(data.mobile);
     };
     //是否登录
-    if (!method.getCookie('cuk')) {
-        checkLogin.notifyLoginInterface(function (data) {
-            refreshTopBar(data);
-        });
-    } else {
-        checkLogin.getLoginData(function (data) {
-            refreshTopBar(data);
-        });
+    isLogin()
+    function isLogin(callback){
+        if (!method.getCookie('cuk')) {
+            checkLogin.notifyLoginInterface(function (data) {
+                refreshTopBar(data);
+            });
+        } else {
+            checkLogin.getLoginData(function (data) {
+                refreshTopBar(data);
+                callback()
+            });
+        }
+    }
+    return {
+        refreshTopBar:refreshTopBar,
+        isLogin:isLogin
     }
 });

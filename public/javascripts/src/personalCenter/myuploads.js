@@ -5,7 +5,9 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var myuploads = require("./template/myuploads.html")
     var simplePagination = require("./template/simplePagination.html")
-    initData()
+    var isLogin = require('./effect.js').isLogin
+    isLogin(initData)
+    
     function initData(){
         if(type == 'myuploads'){
             getMyUploadPage()

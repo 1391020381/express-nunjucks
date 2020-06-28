@@ -38,6 +38,7 @@
   color: #444444;
   background: #ebebeb;
   border-radius: 10px;
+  cursor: pointer;
 }
 .personal-center-personalinformation .form-list .item:nth-child(2) .item-input {
   display: inline-block;

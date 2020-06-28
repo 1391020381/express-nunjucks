@@ -1,8 +1,7 @@
 define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
-   
-    initData()
-    
+    var isLogin = require('./effect.js').isLogin
+    isLogin(initData) 
     function initData(){
         if(type == 'myorder'){
             queryOrderlistByCondition()
