@@ -37,13 +37,15 @@ module.exports = {
     },
     myorder:function(req,res){
         var results = {
-            type:'myorder'
+            type:'myorder',
+            myorderType:req.query.myorderType
         }
         render("personalCenter/index", results, req, res);
     },
     mycoupon:function(req,res){
         var results = {
-            type:'mycoupon'
+            type:'mycoupon',
+            mycouponType:req.query.mycouponType
         }
         render("personalCenter/index", results, req, res);
     },

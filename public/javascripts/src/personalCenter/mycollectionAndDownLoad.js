@@ -9,7 +9,7 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type =='mycollection'){
        getUserFileList()
-    }else{
+    }else if(type == 'mydownloads'){
        getDownloadRecordList()
     }
   }
@@ -55,16 +55,10 @@ define(function(require , exports , module){
    
 
 
-  function getUserFileList(){  // 查询个人收藏列表
+  function getUserFileList(pageNumber){  // 查询个人收藏列表
    $.ajax({
-      url: api.user.getUserFileList,
-      type: "POST",
-      data: JSON.stringify({
-          pageNumber:1,
-          pageSize:10,
-          sidx:0, // 排序字段：0=收藏时间；1=资料格式 默认值 0
-          order:'-1'  // 排序顺序，1=升序, -1=降序 默认值 -1
-      }),
+      url: api.user.getUserFileList + '?pageNumber=' + pageNumber?pageNumber:1 + '&pageSize=10&sidx=0&order=-1',
+      type: "GET",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function (res) {

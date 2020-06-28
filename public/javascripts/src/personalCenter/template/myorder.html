@@ -1,9 +1,15 @@
 <div class="myorder">
     <p class="myorder-title">我的订单</p>
      <ul class="myorder-tabs" >
-        <li class="tab tab-active">全部订单</li>
-        <li class="tab">未支付订单</li>
-        <li class="tab">已支付</li>
+        <li class="{{ myorderType == '' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myorder.html?myorderType=''">全部订单</a></li>
+        <li class="{{ myorderType == '0' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='0'">待支付订单</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">取消订单</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">交易成功</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">订单已失效</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">退款申请中</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">退款审核中</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">退款成功</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a hre="/node/personalCenter/myorder.html?myorderType='2'">退款失败</a></li>
     </ul>
     <table class="myorder-table-list">
         <tr class="table-list-title">

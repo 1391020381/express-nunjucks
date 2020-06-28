@@ -1,9 +1,9 @@
 <div>
     <p class="mycoupon-title">我的优惠券</p>
     <ul class="mycoupon-tabs">
-        <li class="tab tab-active">未使用</li>
-        <li class="tab">已使用</li>
-         <li class="tab">已过期</li>
+        <li class="{{mycouponType == 0?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=0">未使用</a></li>
+        <li class="{{mycouponType == 1?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=1">已使用</a></li>
+        <li class="{{mycouponType == 2?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=2">已过期</a></li>
     </ul>
 
     <ul class="mycoupon-list">

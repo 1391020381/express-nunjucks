@@ -24,6 +24,7 @@
   color: #222222;
   margin-right: 60px;
   padding-bottom: 7px;
+  cursor: pointer;
 }
 .personal-center-mycoupon .mycoupon-tabs .tab-active {
   font-weight: bold;

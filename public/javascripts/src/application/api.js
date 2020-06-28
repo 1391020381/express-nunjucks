@@ -79,6 +79,7 @@ define(function (require, exports, module) {
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
             rightsSaleQueryPersonal:gateway + '/rights/sale/queryPersonal',
             querySeniority: gateway + '/rights/sale/querySeniority',
+            queryUsing:gateway + '/rights/sale/queryUsing'
         },
         vouchers:router+'/sale/vouchers',
         order:{
@@ -86,7 +87,8 @@ define(function (require, exports, module) {
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',
             rightsVipGetUserMember:gateway + "/rights/vip/getUserMember",
-            getOrderStatus:gateway + "/order/get/orderStatus"
+            getOrderStatus:gateway + "/order/get/orderStatus",
+            queryOrderlistByCondition:gateway  + '/order/query/listByCondition'
         },
         getHotSearch:router+'/search/getHotSearch',
         special:{
