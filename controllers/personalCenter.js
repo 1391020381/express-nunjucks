@@ -24,7 +24,8 @@ module.exports = {
     },
     myuploads: function (req, res) {
         var results = {
-            type:'myuploads'
+            type:'myuploads',
+            myuploadType:req.query.myuploadType || 1
         }
         render("personalCenter/index", results, req, res);
     },

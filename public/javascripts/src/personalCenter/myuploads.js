@@ -17,14 +17,14 @@ define(function(require , exports , module){
     }
 
        function getMyUploadPage(currentPage){  // 分页查询我的上传
-        var status = method.getParam('status') || 1
+        var status = method.getParam('myuploadType') || 1
         $.ajax({
            url: api.user.getMyUploadPage,
            type: "POST",
            data: JSON.stringify({
                currentPage:currentPage||1,
                pageSize:20,
-               status:status   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
+               status:+status   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
            }),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
@@ -79,7 +79,8 @@ define(function(require , exports , module){
                      item.createtime = createtime
                      list.push(item)
                   })
-                   var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalPages});
+                  var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
+                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalPages,myuploadType:myuploadType});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
                    handlePagination(res.data.totalPages,res.data.currentPage) 
               }else{
