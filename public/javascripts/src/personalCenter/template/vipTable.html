@@ -2,9 +2,11 @@
           <ul class="myvip-tabs" >
            <li class="{{vipTableType == '0'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=0">我的下载特权</a></li>
            <li  class="{{vipTableType == '1'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=1">会员充值记录</a></li>
-        </ul>     
-</div>
-{{ if  isVip == '1'}}
+        </ul>  
+
+
+
+        {{ if  isVip == '1'}}
         {{if vipTableType == '0'}}
          <table class="privilege-table table">
                  <tr class="privilege-table-title table-head">
@@ -123,4 +125,5 @@
               </table>
          {{/if}}
          
-{{/if}}
+{{/if}}   
+</div>
