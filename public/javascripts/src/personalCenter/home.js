@@ -7,7 +7,7 @@ define(function(require , exports , module){
     isLogin(initData)
     function initData(){
         if(type == 'home'){
-            getUserCentreInfo()
+            getUserCentreInfo()  
             getFileBrowsePage()
             getDownloadRecordList()
         }
@@ -163,5 +163,8 @@ define(function(require , exports , module){
                 console.log('getFileBrowsePage:',error)
             }
         })
+    }
+    return {
+        getUserCentreInfo:getUserCentreInfo
     }
 });

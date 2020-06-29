@@ -3,10 +3,11 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var api = require('../application/api');
     var isLogin = require('./effect.js').isLogin
-      
+    var getUserCentreInfo = require('./home.js').getUserCentreInfo 
     isLogin(initData)
     function initData(){
         if(type == 'accountsecurity'){
+            getUserCentreInfo()
             var accountsecurity = require("./template/accountsecurity.html")
             var _accountsecurityTemplate = template.compile(accountsecurity)({});
             $(".personal-center-accountsecurity").html(_accountsecurityTemplate);

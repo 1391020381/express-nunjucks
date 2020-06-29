@@ -4,9 +4,11 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var simplePagination = require("./template/simplePagination.html")
     var isLogin = require('./effect.js').isLogin
+    var getUserCentreInfo = require('./home.js').getUserCentreInfo
     isLogin(initData)
     function initData(){
         if(type == 'mycoupon'){
+            getUserCentreInfo()
             rightsSaleQueryUsing()
         }
     }

@@ -1,9 +1,11 @@
 define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var isLogin = require('./effect.js').isLogin
+    var getUserCentreInfo = require('./home.js').getUserCentreInfo
     isLogin(initData) 
     function initData(){
         if(type == 'myorder'){
+            getUserCentreInfo()
             queryOrderlistByCondition()
         }  
     }

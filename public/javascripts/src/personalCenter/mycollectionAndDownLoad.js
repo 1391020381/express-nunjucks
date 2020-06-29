@@ -4,12 +4,15 @@ define(function(require , exports , module){
    var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html')
    var simplePagination = require("./template/simplePagination.html")
    var isLogin = require('./effect.js').isLogin
+   var getUserCentreInfo = require('./home.js').getUserCentreInfo
    isLogin(initData)
   function initData(){
     var type = window.pageConfig&&window.pageConfig.page.type
     if(type =='mycollection'){
+        getUserCentreInfo() 
        getUserFileList()
     }else if(type == 'mydownloads'){
+        getUserCentreInfo()
        getDownloadRecordList()
     }
   }
@@ -66,6 +69,8 @@ define(function(require , exports , module){
          if(res.code == '0'){
               console.log('getUserFileList:',res)
               // 复用我的下载模板,需要处理接口的字段
+              var formatDate = method.formatDate
+              Date.prototype.format = formatDate
              var list = []
               res.data.rows.forEach(item=>{
                 var collectTime = new Date(item.collectTime).format("yyyy-MM-dd")

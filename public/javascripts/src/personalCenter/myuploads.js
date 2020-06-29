@@ -6,10 +6,12 @@ define(function(require , exports , module){
     var myuploads = require("./template/myuploads.html")
     var simplePagination = require("./template/simplePagination.html")
     var isLogin = require('./effect.js').isLogin
+    var getUserCentreInfo = require('./home.js').getUserCentreInfo
     isLogin(initData)
     
     function initData(){
         if(type == 'myuploads'){
+            getUserCentreInfo()
             getMyUploadPage()
             $(document).on('click','.tab',function(e){
                 console.log($(this).attr('data-status'))
