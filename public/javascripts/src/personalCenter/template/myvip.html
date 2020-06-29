@@ -1,126 +1,31 @@
 <div class="myvip">
     <div class="myvip-top">
             <p class="myvip-title">我的VIP</p>
-            <div class="not-vip">
+            {{ if userInfo.isVip == '0'}}
+                    <div class="not-vip">
                 <div class="not-vip-left">
                    <p class="not-vip-left-title">你还不是VIP</p>
                    <p class="not-vip-top-left-subtitle">开通VIP，享专属特权，下海量资料 </p>
                 </div>
             <div class="not-vip-right">开通VIP>></div>
            </div>
-             <div class="vip-summary">
+
+            {{else}}
+
+            <div class="vip-summary">
                 <p class="vip-summary-title">
-                <span class="vip-summary-icon"></span>
-                <span>爱问共享资料VIP </span>
+                   <span class="vip-summary-icon"></span>
+                   <span>爱问共享资料VIP </span>
                 </p>
-           <p class="vip-summary-subtitle">
-              <span>剩余276个特权 </span>
-              <span>2020-07-20到期</span>
-           </p>
+               <p class="vip-summary-subtitle">
+                   <span>剩余{{userInfo.privilege}}个特权 </span>
+                   <span>{{userInfo.expireTime}}到期</span>
+              </p>
            </div>
-            <ul class="vip-privilege-items">
-                    <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">全品类下载</p>
-                </li>
-            <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">每日更新</p>
-            </li>
-            <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">专属客服</p>
-            </li>
-            <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">身份标识</p>
-            </li>
-             <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">无广告浏览</p>
-            </li>
-            <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">专属内容推荐</p>
-            </li>
-            <li class="item">
-                <img class="item-img"/>
-                <p class="item-desc">专属内容推荐</p>
-            </li>
-         </ul>
+            {{/if}}
+        <div class="vip-privilege-wrapper"></div>    
     </div>
 <div class="my-vip-middle advertisement"></div> 
-<div class="my-vip-bottom">
-          <ul class="myvip-tabs" >
-           <li class="tab tab-active">我的下载特权</li>
-           <li class="tab">会员充值记录</li>
-        </ul>
-
- <table class="privilege-table table">
-    <tr class="privilege-table-title table-head">
-        <th>获取渠道</th>
-         <th>状态</th>
-         <th>未使用</th>
-         <th>已使用</th>
-         <th>有效期</th>
-         <th>使用范围</th>
-    </tr>
-    <tr>
-        <td>直接购买</td>
-        <td>可使用</td>
-        <td>9</td>
-        <td>0</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-    </tr>
-     <tr>
-        <td>直接购买</td>
-        <td>可使用</td>
-        <td>9</td>
-        <td>0</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-    </tr>
-     <tr>
-        <td>直接购买</td>
-        <td>可使用</td>
-        <td>9</td>
-        <td>0</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-    </tr>
-</table>
-
-<table class="vip-table table">
-    <tr class="vip-table-head table-head">
-        <th>会员名称</th>
-        <th>状态</th>
-        <th>有效期</th>
-        <th>使用范围</th>
-        <th>权益</th>
-    </tr>
-    <tr>
-        <td>1个月会员</td>
-        <td>可使用</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-        <td>8个特权；付费资料8折优惠...</td>
-    </tr>
-    <tr>
-        <td>1个月会员</td>
-        <td>可使用</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-        <td>8个特权；付费资料8折优惠...</td>
-    </tr>
-    <tr>
-        <td>1个月会员</td>
-        <td>可使用</td>
-        <td>2020-03-21至2020-09-23</td>
-        <td>爱问共享资料</td>
-        <td>8个特权；付费资料8折优惠...</td>
-    </tr>
-</table>
-
-</div>
+ <div class="vip-table-wrapper"></div>
+            <div class="pagination-wrapper"></div>
 </div>

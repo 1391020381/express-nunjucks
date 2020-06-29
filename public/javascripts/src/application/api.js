@@ -79,7 +79,9 @@ define(function (require, exports, module) {
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
             rightsSaleQueryPersonal:gateway + '/rights/sale/queryPersonal',
             querySeniority: gateway + '/rights/sale/querySeniority',
-            queryUsing:gateway + '/rights/sale/queryUsing'
+            queryUsing:gateway + '/rights/sale/queryUsing',
+            getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
+            getBuyRecord:gateway + '/rights/vip/getBuyRecord'
         },
         vouchers:router+'/sale/vouchers',
         order:{

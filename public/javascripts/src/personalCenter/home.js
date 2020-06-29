@@ -12,7 +12,7 @@ define(function(require , exports , module){
             getDownloadRecordList()
         }
     }
-    function getUserCentreInfo() {  
+    function getUserCentreInfo(callback) {  
         $.ajax({
             url: api.user.getUserCentreInfo+"?scope=4",
             type: "GET",
@@ -37,6 +37,7 @@ define(function(require , exports , module){
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?aibeans:0)
                     }
+                    callback&&callback(res.data)
                }else{
                 $.toast({
                     text:res.msg||'查询用户信息失败',

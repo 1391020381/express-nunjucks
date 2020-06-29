@@ -13,10 +13,10 @@ define(function(require , exports , module){
         if(type == 'myuploads'){
             getUserCentreInfo()
             getMyUploadPage()
-            $(document).on('click','.tab',function(e){
-                console.log($(this).attr('data-status'))
-                changeTabStyle($(this))
-            })
+            // $(document).on('click','.tab',function(e){
+            //     console.log($(this).attr('data-status'))
+            //     changeTabStyle($(this))
+            // })
         } 
     }
 
@@ -111,10 +111,10 @@ define(function(require , exports , module){
         })
        }
 
-       function changeTabStyle($this){
-         var status = $this.attr('data-status')
-         $this.siblings().removeClass('tab-active')
-         $this.addClass('tab-active')
-       }
+    //    function changeTabStyle($this){
+    //      var status = $this.attr('data-status')
+    //      $this.siblings().removeClass('tab-active')
+    //      $this.addClass('tab-active')
+    //    }
 
 });

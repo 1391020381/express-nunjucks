@@ -32,6 +32,7 @@ module.exports = {
     vip: function (req, res) {
         var results = {
             type:'myvip',
+            vipTableType:req.query.vipTableType 
         }
         render("personalCenter/index", results, req, res);
     },

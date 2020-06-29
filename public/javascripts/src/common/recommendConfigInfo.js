@@ -39,6 +39,36 @@ define(function (require, exports, module) {
                 }
             ],
             pageIds:['PC_M_DOWN_SUC_banner'] 
+        },
+        vipPrivilegeList:{
+            descs:[
+                {
+                    desc:'个人中心我的vip,vip权益列表',
+                    pageId:'PC_M_USER_vip',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_USER_vip'] 
+        },
+        personalCenterHome:{
+            descs:[
+                {
+                    desc:'个人中心首页,bannber',
+                    pageId:'PC_M_USER_banner',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_USER_banner'] 
+        },
+        myVip:{
+            descs:[
+                {
+                    desc:'个人中心我的vip,bannber',
+                    pageId:'PC_M_USER_VIP_banner',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_USER_VIP_banner'] 
         }
     }
 });

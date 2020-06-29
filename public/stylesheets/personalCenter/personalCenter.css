@@ -524,11 +524,13 @@
 }
 .personal-center-vip .my-vip-bottom .myvip-tabs .tab {
   float: left;
-}
-.personal-center-vip .my-vip-bottom .myvip-tabs .tab {
   margin-right: 35px;
   padding-top: 27px;
   padding-bottom: 7px;
+  cursor: pointer;
+}
+.personal-center-vip .my-vip-bottom .myvip-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
 }
 .personal-center-vip .my-vip-bottom .table {
   margin-top: 30px;
@@ -547,6 +549,7 @@
   color: #222222;
 }
 .personal-center-vip .my-vip-bottom .vip-table {
+  width: 100%;
   margin-top: 50px;
 }
 .personal-center-myorder {
