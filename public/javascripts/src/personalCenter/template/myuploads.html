@@ -10,9 +10,7 @@
         <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=4">审核中</a></li>
         <li class="{{ myuploadType == '5' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=5">未通过</a></li>
     </ul>
-    <label class="table-title" for="all">
-      <input class="table-title-input" value="all" type="checkbox"/>
-      <span class="input-staus"></span>
+    <label class="table-title" >
       <img class="delete-icon" src="{{cdnUrl}}/images/personalCenter/delete-icon.png">
       <span class="delete-desc">删除</span>
       <span class="myuploads-nums">{{totalPages}}篇</span>
@@ -26,6 +24,7 @@
                    <span>资料标题</span>
                 </label>
             </th>
+              <th style="width:100px;"></th>
             <th style="width:100px;">价格</th>
             <th style="width:100px;">浏览量</th>
             <th style="width:100px;">下载量</th>
@@ -34,14 +33,14 @@
           {{each list}}
                 <tr class="table-item">
             <td>
-                <label for={{list[$index].id}}>
-                    <input id={{list[$index].id}} type="checkbox"/>
+                <label for={{list[$index].id}} class="label">
+                    <input id={{list[$index].id}} type="checkbox" class="label-input"/>
                     <span></span>
                     <span  class="file-icon ico-data {{'ico-'+ list[$index].format}}"></span>
                     <span class="file-title">{{list[$index].title}}</span>
-                    <span class="delete-icon"></span>
                 </label>
             </td>
+             <td><img class="delete-icon" data-id={{list[$index].id}} src="{{cdnUrl}}/images/personalCenter/delete-icon.png"></td>
             <td>{{list[$index].userFilePrice}}</td>
             <td>{{list[$index].readNum}}</td>
             <td>{{list[$index].downNum}}</td>

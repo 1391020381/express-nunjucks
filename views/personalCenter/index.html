@@ -74,6 +74,11 @@
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 {# {% include "common/dialog.html" %} #}
+
+  {% if results.type == 'accountsecurity' %}
+    <!--天御图形验证码 -->
+<script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script>
+  {% endif %}
 {% include "./dialog.html" %}
     <script type="text/javascript">
         window.pageConfig = {

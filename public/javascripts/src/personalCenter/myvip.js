@@ -1,8 +1,11 @@
+
+
 define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
     var method = require("../application/method"); 
     var bnnerTemplate = require("../common/template/swiper_tmp.html");
+    var vipPrivilegeList = require("./template/vipPrivilegeList.html")
     var simplePagination = require("./template/simplePagination.html")
     var recommendConfigInfo = require('../common/recommendConfigInfo')    
     var api = require('../application/api');
@@ -22,6 +25,7 @@ define(function(require , exports , module){
         var myvip = require("./template/myvip.html")
         var _myvipTemplate = template.compile(myvip)({userInfo:userInfo,vipTableType:vipTableType});
         $(".personal-center-vip").html(_myvipTemplate);
+        getVipPrivilegeList()
         if(vipTableType == '0'){
             getMemberPointRecord()
         }else{
@@ -119,6 +123,8 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
+                var vipPrivilegeListTeamplate = template.compile(vipPrivilegeList,{})
+                $('.vip-privilege-wrapper').html(vipPrivilegeListTeamplate)
                 res.data.forEach(function(item){  // 匹配 组装数据
                     recommendConfigInfo.search.descs.forEach(function(desc){
                         if(item.pageId == desc.pageId){

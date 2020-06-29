@@ -4,13 +4,11 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo 
+    var userBindInfo = {}  // 保存用户的绑定信息
     isLogin(initData)
     function initData(){
         if(type == 'accountsecurity'){
             getUserCentreInfo()
-            var accountsecurity = require("./template/accountsecurity.html")
-            var _accountsecurityTemplate = template.compile(accountsecurity)({});
-            $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
             queryUserBindInfo()
         }
     }
@@ -25,6 +23,15 @@ define(function(require , exports , module){
             success: function (res) {
                if(res.code == '0'){
                     console.log('queryUserBindInfo:',res)
+                    userBindInfo = res.data || {}
+                    var accountsecurity = require("./template/accountsecurity.html")
+                    var _accountsecurityTemplate = template.compile(accountsecurity)({userBindInfo:res.data});
+                    $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                }) 
                }
             },
             error:function(error){
@@ -121,4 +128,23 @@ define(function(require , exports , module){
             }
         })
     }
+
+    $(document).on('click', '.account-security-list .item-btn', function (event) {
+       var  btnOperation =  $(this).attr("data-btnOperation")
+       console.log('userBindInfo:',userBindInfo)
+       if(btnOperation == 'modifyMobile'){
+             $("#dialog-box").dialog({
+            html: $('#identity-authentication-dialog').html().replace(/\$phoneNumber/, userBindInfo.mobile),
+        }).open();
+       }
+        
+
+        // $("#dialog-box").dialog({
+        //     html: $('#set-change-password-dialog').html(),
+        // }).open();
+
+        // $("#dialog-box").dialog({
+        //     html: $('#unbind-account-dialog').html(),
+        // }).open();
+    });
 });

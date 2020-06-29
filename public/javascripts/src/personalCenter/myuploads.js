@@ -7,6 +7,7 @@ define(function(require , exports , module){
     var simplePagination = require("./template/simplePagination.html")
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
+    var idList = []  // 保存 要删除的文件id
     isLogin(initData)
     
     function initData(){
@@ -35,36 +36,6 @@ define(function(require , exports , module){
            success: function (res) {
               if(res.code == '0'){
                    console.log('getMyUploadPage:',res)   
-                   res.data =    {
-                    "currentPage": 0,
-                    "pageSize": 0,
-                    "rows": [
-                      {
-                        "createtime": 1592990877659,
-                        "format": "doc",
-                        "id": "EN6sFTSAvh",
-                        "readNum":0,
-                        "downNum":12,
-                        "size": "50kb",
-                        "title": "关编版一年级语文下册第四单元《静夜思》课件",
-                        "userFileType":4,
-                        "userFilePrice":20
-                      },
-                      {
-                        "createtime": 1592990877659,
-                        "format": "doc",
-                        "id": "qr6K41vLNr",
-                        "readNum":0,
-                        "downNum":12,
-                        "size": "50kb",
-                        "title": "关编版一年级语文下册第四单元《静夜思》课件",
-                        "userFileType":3,
-                        "userFilePrice":20
-                      }
-                    ],
-                    "totalPages": 0,
-                    "totalSize": 0
-                  }
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
@@ -84,9 +55,9 @@ define(function(require , exports , module){
                      list.push(item)
                   })
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
-                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalPages,myuploadType:myuploadType});
+                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
-                   handlePagination(res.data.totalPages,res.data.currentPage) 
+                   handlePagination(res.data.totalSize,res.data.currentPage) 
               }else{
                $.toast({
                    text:res.msg,
@@ -110,11 +81,87 @@ define(function(require , exports , module){
             getMyUploadPage(paginationCurrentPage)
         })
        }
+    // 
+    $(document).on('click','.myuploads-table-list .label-input',function(event){ // 切换checkbox选中的状态样式
+        console.log($(this).attr('checked'))
+        if($(this).attr('checked')){ // checked
+            $(this).parent().parent().parent().addClass('table-item-active')
+        }else{
+            $(this).parent().parent().parent().removeClass('table-item-active')
+            $('.myuploads-table-list #all').attr("checked", false)
+        }
+    })
+    $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
+        var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
+        var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
+        idList.push($(this).attr('data-id'))
+        if(isCheckedAll){
+            console.log('全部删除')
+            $("#dialog-box").dialog({
+                html: $('#myuploads-delete-dialog').html()
+            }).open();
+            return
+        }
+        console.log('isChecked:',isChecked)
+        if(isChecked){
+             $("#dialog-box").dialog({
+            html: $('#myuploads-delete-dialog').html()
+        }).open();
+        }
+    })
 
-    //    function changeTabStyle($this){
-    //      var status = $this.attr('data-status')
-    //      $this.siblings().removeClass('tab-active')
-    //      $this.addClass('tab-active')
-    //    }
+    $('#dialog-box').on('click','.confirm-btn',function(e){
+        batchDeleteUserFile()
+    })
 
+    $(document).on('click','.myuploads-table-list #all',function(event){ // 全选
+        console.log($(this).attr('checked'))
+        // .attr("checked", 'checked')
+        if($(this).attr('checked')){
+            $('.myuploads-table-list .label-input').attr("checked", 'checked')
+        }else{
+            $('.myuploads-table-list .label-input').attr("checked", false)
+        }
+       
+        
+    })
+
+
+    function batchDeleteUserFile(){
+        $.ajax({
+            url: api.upload.batchDeleteUserFile,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify({
+               id:idList
+            }),
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    console.log('batchDeleteUserFile:',res)
+                    $.toast({
+                        text:'删除成功!',
+                        delay : 3000,
+                    }) 
+                    closeRewardPop()
+                    getMyUploadPage()
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                }) 
+               }
+            },
+            error:function(error){
+                console.log('batchDeleteUserFile:',error)
+            }
+        })
+    }
+
+
+    function closeRewardPop(){
+        $(".common-bgMask").hide();
+        $(".detail-bg-mask").hide();
+        $('#dialog-box').hide();
+    } 
 });

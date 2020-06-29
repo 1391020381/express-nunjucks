@@ -100,7 +100,8 @@ define(function (require, exports, module) {
             getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类
             createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
             getFolder:gateway + '/content/getUserFolders', // 获取所有分类
-            saveUploadFile:gateway + '/content/webUploadFile'
+            saveUploadFile:gateway + '/content/webUploadFile',
+            batchDeleteUserFile:gateway + '/content/batchDeleteUserFile',//用户批量删除自己文件接口
         },
         recommend:{
             recommendConfigInfo:gateway + '/recommend/config/info',

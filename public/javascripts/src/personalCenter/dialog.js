@@ -5,20 +5,7 @@ define(function(require , exports , module){
         //     html: $('#myuploads-delete-dialog').html(),
         // }).open();
     }
-    if(type == 'accountsecurity'){
-        // $("#dialog-box").dialog({
-        //     html: $('#identity-authentication-dialog').html(),
-        // }).open();
-
-        // $("#dialog-box").dialog({
-        //     html: $('#set-change-password-dialog').html(),
-        // }).open();
-
-        // $("#dialog-box").dialog({
-        //     html: $('#unbind-account-dialog').html(),
-        // }).open();
-        
-    }
+ 
     
     if(type=='mywallet'){
         $("#dialog-box").dialog({
@@ -30,6 +17,9 @@ define(function(require , exports , module){
     })
         
     $('#dialog-box').on('click','.close-btn',function(e){
+        closeRewardPop();
+    })
+    $('#dialog-box').on('click','.cancel-btn',function(e){
         closeRewardPop();
     })
     function closeRewardPop(){
