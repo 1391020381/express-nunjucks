@@ -118,7 +118,7 @@ define(function(require , exports , module){
         }
     })
 
-    $('#dialog-box').on('click','.confirm-btn',function(e){
+    $('#dialog-box').on('click','.delete-tip-dialog .confirm-btn',function(e){
         batchDeleteUserFile()
     })
 

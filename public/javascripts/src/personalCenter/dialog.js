@@ -27,4 +27,7 @@ define(function(require , exports , module){
         $(".detail-bg-mask").hide();
         $('#dialog-box').hide();
     } 
+    return {
+        closeRewardPop:closeRewardPop
+    }
 });

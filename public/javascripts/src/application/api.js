@@ -20,7 +20,6 @@ define(function (require, exports, module) {
             addFeedback:gateway+'/feedback/addFeedback', //新增反馈
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
-            checkSmsCode:gateway + '/cas/sms/checkSmsCode', // 检测短信验证码是否正确
             queryBindInfo: gateway + '/cas/user/queryBindInfo',  // 查询用户绑定信息
             thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode
             userBindMobile:gateway + '/cas/user/bindMobile',   // 绑定手机号接口
