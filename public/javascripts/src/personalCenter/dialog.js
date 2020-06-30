@@ -12,9 +12,9 @@ define(function(require , exports , module){
             html: $('#mywallet-tip-dialog').html(),
         }).open();
     }
-    $('#dialog-box').on('click','.submit-btn',function(e){
+    // $('#dialog-box').on('click','.submit-btn',function(e){
         
-    })
+    // })
         
     $('#dialog-box').on('click','.close-btn',function(e){
         closeRewardPop();

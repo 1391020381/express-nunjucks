@@ -93,20 +93,28 @@ define(function(require , exports , module){
     })
     $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
         var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
-        var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
+        // var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
+        var deleteType = $(this).attr('data-deleteType')
+        console.log('isChecked:',isChecked)
+        if(isChecked && !deleteType){  // 单个删除   $(this).attr('data-id') 有值
         idList.push($(this).attr('data-id'))
-        if(isCheckedAll){
+             $("#dialog-box").dialog({
+            html: $('#myuploads-delete-dialog').html()
+        }).open();
+        return 
+        }
+
+
+        if(deleteType == 'deleteSome' && $(".myuploads-table-list input:checked").length > 0){  // 不一定是全部删除,是删除选中的
+            $(".myuploads-table-list input:checked").each(function(i){
+                idList.push($(this).attr('id'))
+            })
+            console.log('idList:',idList)
             console.log('全部删除')
             $("#dialog-box").dialog({
                 html: $('#myuploads-delete-dialog').html()
             }).open();
             return
-        }
-        console.log('isChecked:',isChecked)
-        if(isChecked){
-             $("#dialog-box").dialog({
-            html: $('#myuploads-delete-dialog').html()
-        }).open();
         }
     })
 
@@ -132,9 +140,7 @@ define(function(require , exports , module){
             url: api.upload.batchDeleteUserFile,
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            data:JSON.stringify({
-               id:idList
-            }),
+            data:JSON.stringify(idList),
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
@@ -144,6 +150,7 @@ define(function(require , exports , module){
                         delay : 3000,
                     }) 
                     closeRewardPop()
+                    idList = []
                     getMyUploadPage()
                }else{
                 $.toast({

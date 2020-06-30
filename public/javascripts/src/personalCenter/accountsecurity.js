@@ -132,9 +132,15 @@ define(function(require , exports , module){
     $(document).on('click', '.account-security-list .item-btn', function (event) {
        var  btnOperation =  $(this).attr("data-btnOperation")
        console.log('userBindInfo:',userBindInfo)
-       if(btnOperation == 'modifyMobile'){
+       if(btnOperation == 'modifyPhoneNumber'){
              $("#dialog-box").dialog({
             html: $('#identity-authentication-dialog').html().replace(/\$phoneNumber/, userBindInfo.mobile),
+        }).open();
+       }
+
+       if(btnOperation == 'bindPhoneNumber'){
+           $("#dialog-box").dialog({
+            html: $('#bind-phonenumber-dialog').html(),
         }).open();
        }
         
