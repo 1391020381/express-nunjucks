@@ -24,7 +24,7 @@
           {{else}}
                 <span class="item-icon fl"></span>
                 <span class="item-status fl">微信</span>
-                <span class="item-btn fr" data-btnOperation='bindWechatAuthorization'>立即绑定</span>
+                <span class="item-btn item-btn-active fr" data-btnOperation='bindWechatAuthorization'>立即绑定</span>
 
           {{/if}}
            
@@ -55,7 +55,7 @@
            {{else}}
                     <span class="item-icon fl"></span>
                     <span class="item-status fl">QQ</span>
-                    <span class="item-btn fr" data-btnOperation='bindQQAuthorization'>立即绑定</span>
+                    <span class="item-btn fr item-btn-active" data-btnOperation='bindQQAuthorization'>立即绑定</span>
            {{/if}}
             
         </li>
@@ -63,7 +63,7 @@
             {{ if userBindInfo.isSetPassword == 1}}
                     <span class="item-icon fl"></span>
                     <span class="item-status fl">账号密码</span>
-                   <span class="item-btn fr item-btn-active"  data-btnOperation='changePassword'>修改密码</span>
+                   <span class="item-btn fr"  data-btnOperation='changePassword'>修改密码</span>
             {{else}}
                     <span class="item-icon fl"></span>
                     <span class="item-status fl">账号密码</span>

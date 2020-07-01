@@ -1,4 +1,5 @@
 define(function(require , exports , module){
+    require("../cmd-lib/jqueryMd5.js")
     var type = window.pageConfig&&window.pageConfig.page.type
     var method = require("../application/method");
     var api = require('../application/api');
@@ -8,6 +9,7 @@ define(function(require , exports , module){
     var closeRewardPop = require("./dialog.js").closeRewardPop
     var userBindInfo = {}  // 保存用户的绑定信息
     var smsId = ''  // 验证码
+    var myWindow = ''  // 保存 openWindow打开的对象
     isLogin(initData)
     function initData(){
         if(type == 'accountsecurity'){
@@ -42,6 +44,31 @@ define(function(require , exports , module){
             }
         })
     }
+    function untyingThird(thirdType){
+        $.ajax({
+            url: api.user.untyingThird,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify({
+                terminal:'pc',
+                thirdType:thirdType
+            }),
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                $.toast({
+                    text:'解绑成功!',
+                    delay : 3000,
+                }) 
+                  closeRewardPop()
+                  queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
+               }
+            },
+            error:function(error){
+                console.log('userBindMobile:',error)
+            }
+        })
+    }
     function userBindMobile(mobile,smsId,checkCode){ // 绑定手机号接口
         $.ajax({
             url: api.user.userBindMobile,
@@ -61,8 +88,13 @@ define(function(require , exports , module){
                     text:'绑定手机号成功!',
                     delay : 3000,
                 }) 
-                closeRewardPop()
-                queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
+                var isTHirdAuthorization = $('#dialog-box .bind-phonenumber-dialog .title').attr('data-isTHirdAuthorization')
+                if(isTHirdAuthorization){  // 绑定第三方的时候，需要先绑定手机号。绑定完手机号需要 拉起绑定第三方的弹框
+                    handleThirdCodelogin(isTHirdAuthorization)
+                }else{
+                  closeRewardPop()
+                  queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
+                }
                }else{
                 $.toast({
                     text:res.msg,
@@ -85,9 +117,14 @@ define(function(require , exports , module){
                if(res.code == '0'){
                 console.log('checkIdentity:',res)
                 smsId  = ''   // 清空保存的  短信id
-                // 只有解绑的时候 需要身份验证
-                closeRewardPop()
-                bindPhoneNumber()
+                //  换绑手机号和解绑第三方 需要身份验证
+                var isTHirdAuthorization = $('#dialog-box .identity-authentication-dialog .title').attr('data-isTHirdAuthorization')
+                if(isTHirdAuthorization){  // 第三方授权解绑 身份认证
+                    unbindTHirdAuthorization(isTHirdAuthorization)
+                }else{
+                    closeRewardPop()
+                    bindPhoneNumber()
+                }
                }
             },
             error:function(error){
@@ -157,49 +194,177 @@ define(function(require , exports , module){
             }
         })
     }
-
-    function thirdCodelogin(clientCode,channel,location){
+    function setUpPassword(smsId,checkCode,password){
         $.ajax({
-            url: api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ location,
-            type: "GET",
+            url: api.user.setUpPassword,
+            type: "POST",
             contentType: "application/json; charset=utf-8",
+            data:JSON.stringify({
+                terminal:'pc',
+                smsId:smsId,
+                checkCode:checkCode,
+                password:$.md5(password)
+            }),
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                console.log('checkIdentity:',res)
-                smsId  = ''   // 清空保存的  短信id
-                // 只有解绑的时候 需要身份验证
-                closeRewardPop()
-                bindPhoneNumber()
+                    console.log('setUpPassword:',res)
+
+                    $.toast({
+                        text:'设置密码成功',
+                        delay : 3000,
+                    }) 
+                 closeRewardPop()
+                  queryUserBindInfo()  
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                }) 
                }
             },
             error:function(error){
-                console.log('checkIdentity:',error)
+                console.log('setUpPassword:',error)
             }
         })
     }
+    function bindPhoneNumber(isTHirdAuthorization){  // 绑定手机号/ 换绑手机号 dialog
+        $("#dialog-box").dialog({
+            html: $('#bind-phonenumber-dialog').html().replace(/\$isTHirdAuthorization/, isTHirdAuthorization),
+        }).open();
+    }
+    function handleThirdCodelogin(isTHirdAuthorization) {
+          var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
+          var channel = 2
+          var location = window.location.origin + '/node/redirectionURL.html' + '?clientCode=' + clientCode
+         var url = window.location.origin + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
+        openWindow(url)
+    }
+    function identityAuthentication(isTHirdAuthorization){ // 换绑手机号(后续拉起绑定手机号)   和 解绑第三方需要验证
+        if(isTHirdAuthorization){ // 是否是第三方身份校验 ,给一个标识 在身份认证完后 弹不同的dialog
+            $("#dialog-box").dialog({
+                html: $('#identity-authentication-dialog').html()
+                .replace(/\$phoneNumber/, userBindInfo.mobile)
+                .replace(/\$isTHirdAuthorization/, isTHirdAuthorization)
+            }).open();
+        }else{
+            $("#dialog-box").dialog({
+                html: $('#identity-authentication-dialog').html()
+                .replace(/\$phoneNumber/, userBindInfo.mobile)
+            }).open();
+        }
+    }
+
+    function unbindTHirdAuthorization(isTHirdAuthorization){  // isTHirdAuthorization 解绑哪个第三方
+        $("#dialog-box").dialog({
+            html: $('#unbind-account-dialog').html().replace(/\$isTHirdAuthorization/, isTHirdAuthorization),
+        }).open();
+    }
+    function handleBindThird(code,channel,clientCode){
+         $.ajax({
+            url: api.user.userBindThird,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify({
+                terminal:'pc',
+                thirdType:clientCode,
+                code:code
+            }),
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                $.toast({
+                    text:'绑定成功',
+                    delay : 3000,
+                })
+                myWindow.close()
+                queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+                myWindow.close()
+               }
+            },
+            error:function(error){
+                myWindow.close()
+                console.log('userBindThird:',error)
+                $.toast({
+                    text:error.msg,
+                    delay : 3000,
+                }) 
+            }
+        })
+    }
+    window.handleBindThird = handleBindThird
+
+    function openWindow(url){
+            var iWidth = 585;
+            var iHeight = 525;
+            var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+            var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+            var param = 'height=' + iHeight + ',width=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes';
+            myWindow =  window.open(url, '', param);
+    }
+  
+
 
     $(document).on('click', '.account-security-list .item-btn', function (event) {
        var  btnOperation =  $(this).attr("data-btnOperation")
        console.log('userBindInfo:',userBindInfo)
        if(btnOperation == 'modifyPhoneNumber'){
-             $("#dialog-box").dialog({
-            html: $('#identity-authentication-dialog').html().replace(/\$phoneNumber/, userBindInfo.mobile),
-        }).open();
+           identityAuthentication()
        }
 
        if(btnOperation == 'bindPhoneNumber'){
             bindPhoneNumber()
        }
+
+       if(btnOperation == 'unbindWechatAuthorization'){
+            identityAuthentication('unbindWechatAuthorization')
+       }
+       if(btnOperation == 'bindWechatAuthorization'){
+               if(userBindInfo.mobile){
+                handleThirdCodelogin('bindWechatAuthorization') 
+               }else{
+                bindPhoneNumber('bindWechatAuthorization')
+               }
+       }
+       if(btnOperation == 'unbindWeiboAuthorization'){
+             identityAuthentication('unbindWeiboAuthorization')
+       }
+       if(btnOperation == 'bindWeiboAuthorization'){
+            if(userBindInfo.mobile){
+                handleThirdCodelogin('bindWeiboAuthorization') 
+            }else{
+                bindPhoneNumber('bindWeiboAuthorization')
+            }
+       }
+
+       if(btnOperation == 'unbindQQAuthorization'){
+              identityAuthentication('unbindQQAuthorization')
+       }
         
+       if(btnOperation == 'bindQQAuthorization'){
+        if(userBindInfo.mobile){
+            handleThirdCodelogin('bindQQAuthorization') 
+        }else{
+            bindPhoneNumber('bindQQAuthorization')
+        }
+       }
 
-        // $("#dialog-box").dialog({
-        //     html: $('#set-change-password-dialog').html(),
-        // }).open();
+       if(btnOperation == 'changePassword'){
+             $("#dialog-box").dialog({
+            html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
+        }).open();
+       }
 
-        // $("#dialog-box").dialog({
-        //     html: $('#unbind-account-dialog').html(),
-        // }).open();
+       if(btnOperation == 'setPassword'){
+             $("#dialog-box").dialog({
+            html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
+        }).open();
+       }
     });
 
      $('#dialog-box').on('click','.authentication-btn',function(e){  // 身份验证
@@ -256,9 +421,34 @@ define(function(require , exports , module){
         userBindMobile(phonenumber,smsId,verificationcode) // mobile,smsId,checkCode
     })
 
-    function bindPhoneNumber(){  // 绑定手机号/ 换绑手机号 dialog
-        $("#dialog-box").dialog({
-            html: $('#bind-phonenumber-dialog').html(),
-        }).open();
-    }
+    $('#dialog-box').on('click','.set-change-password-dialog .set-change-password',function(e){
+        // var phonenumber = $('#dialog-box .item-phonenumber').val()
+        var verificationcode = $('#dialog-box .item-verificationcode').val()
+        var newPassword = $('#dialog-box .item-newpassword').val()
+        if(!verificationcode){
+            $.toast({
+                text:'验证码不能为空!',
+                delay : 3000,
+            })
+            return 
+        }
+        if(!newPassword){
+            $.toast({
+                text:'新密码不能为空!',
+                delay : 3000,
+            })
+            return 
+        }
+        setUpPassword(smsId,verificationcode,newPassword)
+        // setUpPassword(smsId,checkCode,password)
+    })
+    $('#dialog-box').on('click','.unbind-account-dialog .unbind-btn',function(e){
+        var isTHirdAuthorization = $('#dialog-box .unbind-account-dialog .title').attr('data-isTHirdAuthorization')
+        var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
+        untyingThird(clientCode)
+    })
+    $('#dialog-box').on('click','.unbind-account-dialog .unbind-account-btn',function(e){
+        closeRewardPop()
+        bindPhoneNumber()
+    })
 });

@@ -67,5 +67,8 @@ module.exports = {
             type:'mywallet'
         }
         render("personalCenter/index", results, req, res);
+    },
+    redirectionURL:function(req,res){
+        render("personalCenter/redirectionURL", {}, req, res);
     }
 };

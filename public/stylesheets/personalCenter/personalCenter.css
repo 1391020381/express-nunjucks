@@ -1157,7 +1157,7 @@
 }
 .personal-center-dialog .bind-phonenumber-dialog {
   width: 430px;
-  height: 358px;
+  height: 323px;
   text-align: center;
 }
 .personal-center-dialog .bind-phonenumber-dialog .title {
@@ -1205,7 +1205,7 @@
   cursor: pointer;
 }
 .personal-center-dialog .bind-phonenumber-dialog .dialog-btn {
-  padding-top: 45px;
+  padding-top: 47px;
   padding-left: 54px;
 }
 .personal-center-dialog .bind-phonenumber-dialog .dialog-btn .confirm-btn {
@@ -1301,6 +1301,15 @@
 }
 .personal-center-dialog .mywallet-tip-dialog .mywallet-contact-information {
   padding-bottom: 40px;
+}
+.personal-center-dialog .thirdparty-authorization-dialog {
+  width: 430px;
+  height: 430px;
+}
+.personal-center-dialog .thirdparty-authorization-dialog iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 .personal-center-content {
   display: table;
