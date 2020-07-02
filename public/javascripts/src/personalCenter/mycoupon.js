@@ -5,12 +5,12 @@ define(function(require , exports , module){
     var simplePagination = require("./template/simplePagination.html")
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
-    isLogin(initData)
+    if(type == 'mycoupon'){
+        isLogin(initData)
+    }
     function initData(){
-        if(type == 'mycoupon'){
             getUserCentreInfo()
             rightsSaleQueryUsing()
-        }
     }
 
     function rightsSaleQueryUsing(pageNumber){

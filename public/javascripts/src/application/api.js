@@ -28,6 +28,7 @@ define(function (require, exports, module) {
             untyingThird:gateway + '/cas/user/untyingThird', // 解绑第三方
             setUpPassword:gateway + '/cas/user/setUpPassword',  // 设置密码
             getUserCentreInfo:gateway + '/user/getUserCentreInfo',
+            editUser:gateway + '/user/editUser', // 编辑用户信息
             getFileBrowsePage: gateway + '/content/fileBrowse/getFileBrowsePage', //分页获取用户的历史浏览记录
             getDownloadRecordList:gateway + '/content/getDownloadRecordList', //用户下载记录接口
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表

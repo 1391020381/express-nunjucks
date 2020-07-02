@@ -3,6 +3,7 @@
 <head>
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/personalCenter.css"/>
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/jquery.datepicker.css"/>
     <!-- 添加360统计代码1、PC端统计代码： -->
 <script>
     (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
@@ -74,7 +75,6 @@
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 {# {% include "common/dialog.html" %} #}
-
   {% if results.type == 'accountsecurity' %}
     <!--天御图形验证码 -->
 <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script>

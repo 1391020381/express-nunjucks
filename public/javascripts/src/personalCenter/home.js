@@ -4,13 +4,13 @@ define(function(require , exports , module){
     var homeRecentlySee = require("./template/homeRecentlySee.html")
     var type = window.pageConfig&&window.pageConfig.page.type
     var isLogin = require('./effect.js').isLogin
-    isLogin(initData)
+    if(type == 'home'){
+        isLogin(initData)
+    }
     function initData(){
-        if(type == 'home'){
             getUserCentreInfo()  
             getFileBrowsePage()
             getDownloadRecordList()
-        }
     }
     function getUserCentreInfo(callback) {  
         $.ajax({

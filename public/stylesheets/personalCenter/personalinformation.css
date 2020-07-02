@@ -69,7 +69,7 @@
   display: inline-block;
   padding-left: 10px;
   width: 149px;
-  height: 34px;
+  height: 26px;
 }
 .personal-center-personalinformation .form-list .item:nth-child(6) .item-email-input {
   display: inline-block;
@@ -91,4 +91,13 @@
   font-size: 15px;
   color: #ffffff;
   cursor: pointer;
+}
+.personal-center-personalinformation .form-list .item-cancel-btn {
+  margin-right: 15px;
+  background: #eee !important;
+  color: #333 !important;
+}
+.personal-center-personalinformation .active-input {
+  border-radius: 3px;
+  border: 1px solid #D5D5D5;
 }

@@ -62,6 +62,11 @@ define(function(require , exports , module){
                 }) 
                   closeRewardPop()
                   queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
                }
             },
             error:function(error){
@@ -125,6 +130,11 @@ define(function(require , exports , module){
                     closeRewardPop()
                     bindPhoneNumber()
                 }
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
                }
             },
             error:function(error){
@@ -444,7 +454,7 @@ define(function(require , exports , module){
     })
     $('#dialog-box').on('click','.unbind-account-dialog .unbind-btn',function(e){
         var isTHirdAuthorization = $('#dialog-box .unbind-account-dialog .title').attr('data-isTHirdAuthorization')
-        var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
+        var clientCode = isTHirdAuthorization == 'unbindWechatAuthorization'?'wechat':isTHirdAuthorization == 'unbindWeiboAuthorization'?'weibo':'qq'
         untyingThird(clientCode)
     })
     $('#dialog-box').on('click','.unbind-account-dialog .unbind-account-btn',function(e){

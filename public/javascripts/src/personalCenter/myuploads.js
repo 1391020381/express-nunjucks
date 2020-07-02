@@ -8,17 +8,12 @@ define(function(require , exports , module){
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var idList = []  // 保存 要删除的文件id
-    isLogin(initData)
-    
+    if(type == 'myuploads'){
+        isLogin(initData)
+    }
     function initData(){
-        if(type == 'myuploads'){
             getUserCentreInfo()
-            getMyUploadPage()
-            // $(document).on('click','.tab',function(e){
-            //     console.log($(this).attr('data-status'))
-            //     changeTabStyle($(this))
-            // })
-        } 
+            getMyUploadPage()   
     }
 
        function getMyUploadPage(currentPage){  // 分页查询我的上传

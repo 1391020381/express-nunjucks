@@ -5,9 +5,11 @@ define(function(require , exports , module){
    var simplePagination = require("./template/simplePagination.html")
    var isLogin = require('./effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
-   isLogin(initData)
+   var type = window.pageConfig&&window.pageConfig.page.type
+   if(type =='mycollection'||type =='mydownloads'){
+      isLogin(initData)
+   }
   function initData(){
-    var type = window.pageConfig&&window.pageConfig.page.type
     if(type =='mycollection'){
         getUserCentreInfo() 
        getUserFileList()
