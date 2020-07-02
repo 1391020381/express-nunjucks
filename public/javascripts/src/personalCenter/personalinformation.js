@@ -9,6 +9,7 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
+    var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
     if(type == 'personalinformation'){
         isLogin(initData)
     }
@@ -23,28 +24,34 @@ define(function(require , exports , module){
         // userInfo.city ='西城区'
             var _personalinformationTemplate = template.compile(personalinformation)({userInfo:userInfo,provinceList:provinceList,cityList:cityList,editUser:editUser});
             $(".personal-center-personalinformation").html(_personalinformationTemplate);
-            if(birthday){  // $('#date-input').val() 获取日志
+            $('.item-province-select').val(userInfo.prov)
+            $('.item-city-select').val(userInfo.city)
+            if(userInfo.birthday){  // $('#date-input').val() 获取日志
                 var formatDate = method.formatDate
                 Date.prototype.dateFormatting = formatDate
                 var birthday = userInfo.birthday? new Date( userInfo.birthday).format("yyyy-MM-dd"):''
-                $('.item-date-input').datePicker(birthday);
+                $('.item-date-input').datePicker({currentDate:birthday});
             }else{
                 $('.item-date-input').datePicker();
             } 
     }
     function getProvinceAndCityList(userInfo){
         userInfoInfomation = userInfo
-        areaData.forEach(function(item){
-            provinceList.push(item.name)
-            if(item.name == userInfo.city){
-                if(item.city){
-                    item.city.forEach(function(itemCity){
-                         cityList.push(itemCity.name)
+        areaData.forEach(function(itemCity){
+            provinceList.push(itemCity.name)
+            if(itemCity.name == userInfo.prov&& specialCity.indexOf(userInfo.prov)>-1){
+                itemCity.city.forEach(function(itemArea){
+                    itemArea.area.forEach(function(area){
+                        cityList.push(area)
                     })
-                }
-            }else{
-                areaData[0].city[0].area.forEach(function(itemCity){
-                    cityList.push(itemCity)
+                })
+            }else if(itemCity.name == userInfo.prov&& specialCity.indexOf(userInfo.prov)==-1){
+                itemCity.city.forEach(function(city){
+                    cityList.push(city.name)
+                })
+            } else  if(!userInfo.city){
+                areaData[0].city[0].area.forEach(function(area){
+                    cityList.push(area)
                 })
             }
         })
@@ -109,7 +116,6 @@ define(function(require , exports , module){
           var provinceName = $(this).val()
           var  str = ''
           var cityList = []  
-          var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
          areaData.forEach(function(itemCity){
             if(provinceName == itemCity.name && specialCity.indexOf(provinceName)>-1){
                 itemCity.city.forEach(function(itemArea){
