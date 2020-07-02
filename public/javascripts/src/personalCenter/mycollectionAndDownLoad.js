@@ -25,7 +25,7 @@ define(function(require , exports , module){
           type: "POST",
           data: JSON.stringify({
               currentPage:currentPage||1,
-              pageSize:10
+              pageSize:20
           }),
           contentType: "application/json; charset=utf-8",
           dataType: "json",
@@ -63,7 +63,7 @@ define(function(require , exports , module){
   function getUserFileList(pageNumber){  // 查询个人收藏列表
     pageNumber = 1
    $.ajax({
-      url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=10&sidx=0&order=-1',
+      url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=20&sidx=0&order=-1',
       type: "GET",
       contentType: "application/json; charset=utf-8",
       dataType: "json",

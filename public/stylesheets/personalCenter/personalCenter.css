@@ -631,7 +631,6 @@
   margin-right: 10px;
   width: 16px;
   height: 14px;
-  background: #eee;
   vertical-align: middle;
 }
 .personal-center-myorder .myorder-table-list .table-list-item td:first-child .item-desc {
@@ -652,6 +651,13 @@
   border-radius: 12px;
   font-size: 12px;
   color: #f15125;
+}
+.personal-center-myorder .myorder-table-list .copy {
+  cursor: pointer;
+}
+.personal-center-myorder .myorder-table-list .icon-vip {
+  background: #fff url("../../images/personalCenter/vip-icon.png") no-repeat center;
+  background-size: 100%;
 }
 .personal-center-mycoupon {
   padding: 26px 45px 0 40px;

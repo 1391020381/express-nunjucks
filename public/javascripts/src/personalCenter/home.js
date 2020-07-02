@@ -56,7 +56,7 @@ define(function(require , exports , module){
             type: "POST",
             data: JSON.stringify({
                 currentPage:1,
-                pageSize:3
+                pageSize:20
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -107,7 +107,7 @@ define(function(require , exports , module){
             type: "POST",
             data: JSON.stringify({
                 currentPage:1,
-                pageSize:3
+                pageSize:20
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
