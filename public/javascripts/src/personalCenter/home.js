@@ -117,7 +117,7 @@ define(function(require , exports , module){
                     // 复用模板,需要转换接口返回的key
                     var data = []
                     if(res.data&&res.data.rows.length){
-                        res.data.rows.forEach(item=>{
+                        res.data.rows.forEach(function(item){
                            data.push({
                             id:1,
                             fileid:item.fid,
