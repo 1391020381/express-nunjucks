@@ -8,6 +8,8 @@ define(function(require , exports , module){
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
+    $('.pay-price .price').text(payPrice)
+    $('.goodsName').text(goodsName)
     console.log('支付中间页')
     scanOrderInfo()
     function scanOrderInfo() {
@@ -97,7 +99,7 @@ define(function(require , exports , module){
                 console.log('getOrderStatus:',res)
                if(res.code == 0){
                 if(res.data == '2'){ // 支付成功
-                    location.href  = location.host + '/pay/paymentresult?orderNo=' + orderNo
+                    location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
                }else if(res.data =='3'||res.data =='5'){  // 支付失败页面
                     getOrderStatus()
                }
