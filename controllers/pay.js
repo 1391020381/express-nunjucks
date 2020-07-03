@@ -484,34 +484,7 @@ module.exports = {
       paymentresult:function(req,res){  
         return async.series({
             getPaymentResult: function (callback) {
-                var opt = {
-                    method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.order.getOrderInfo,
-                    body:JSON.stringify({
-                        orderNo: req.query.orderNo
-                      }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
-                    },
-                }
-                request(opt, function (err, res, body) {
-                    if (body) {
-                        try {
-                            var data = JSON.parse(body);
-                            if (data.code == 0) {
-                                callback(null, data);
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
-                            callback(null, null);
-                            console.log("err=============", err)
-                        }
-                    } else {
-                        callback(null, null);
-                    }
-                })
+                callback(null, null);
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
             render("pay/paymentresult", results, req, res); 

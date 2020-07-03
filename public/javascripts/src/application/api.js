@@ -93,7 +93,8 @@ define(function (require, exports, module) {
             createOrderInfo: gateway + '/order/create/orderInfo',
             rightsVipGetUserMember:gateway + "/rights/vip/getUserMember",
             getOrderStatus:gateway + "/order/get/orderStatus",
-            queryOrderlistByCondition:gateway  + '/order/query/listByCondition'
+            queryOrderlistByCondition:gateway  + '/order/query/listByCondition',
+            getOrderInfo:gateway + '/order/get/orderInfo'
         },
         getHotSearch:router+'/search/getHotSearch',
         special:{

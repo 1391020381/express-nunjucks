@@ -1,17 +1,12 @@
 define(function(require , exports , module){
-    console.log('聚合支付码')
+    require("../cmd-lib/toast");
+    var api = require('../application/api');
     var method = require("../application/method");
     var orderNo = method.getParam('orderNo');
     var code = method.getParam('code')
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
-    if(isWeChat){
-        scanOrderInfo()
-    }
-    if(isAliPay){
-        
-    }
-
+    scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
             url: api.pay.scanOrderInfo,
@@ -29,7 +24,11 @@ define(function(require , exports , module){
                   if(res.data.returnUrl){
                       location.href = res.data.returnUrl
                   } 
-                  wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                  if(isWeChat){
+                    wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                }else if(isAliPay){
+                    aliPay(res.data.aliPayUrl)
+                }
                }else{
                 $.toast({
                     text:res.msg||'scanOrderInfo错误',
@@ -89,10 +88,12 @@ define(function(require , exports , module){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-               if(res.code == '2'){ // 支付成功
+               if(res.code == 0){
+                if(res.data == '2'){ // 支付成功
                     location.href  = location.host + '/pay/paymentresult?orderNo=' + orderNo
-               }else if(res.code =='3'||res.code =='5'){  // 支付失败页面
+               }else if(res.data =='3'||res.data =='5'){  // 支付失败页面
                     getOrderStatus()
+               }
                }
             },
             error:function(error){
@@ -100,4 +101,8 @@ define(function(require , exports , module){
             }
         })
     }
+
+    $('.pay-confirm').click(function(e){
+        scanOrderInfo()
+    })
 });

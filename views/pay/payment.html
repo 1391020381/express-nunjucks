@@ -16,6 +16,12 @@
     }catch (e) {}
 </script>
 
+<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<script>
+  // 初始化
+  var vConsole = new VConsole();
+</script>
+
 
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/pay/payment.css"/>
@@ -58,6 +64,8 @@ fun(document, window)
 {% if results.isWeChat %}
    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 {% endif %}
+
+
     <script type="text/javascript">
         window.pageConfig = {
             page:{
