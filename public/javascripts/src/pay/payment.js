@@ -25,6 +25,7 @@ define(function(require , exports , module){
                if(res.code == '0'){
                   if(res.data.returnUrl){
                       location.href = res.data.returnUrl
+                      return
                   } 
                   if(isWeChat){
                     wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
