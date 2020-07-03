@@ -12,7 +12,7 @@ define(function(require , exports , module){
     alert(JSON.stringify({
         orderNo:orderNo,
         code:code,
-        payType:!!isWeChat?'wechat':'alipay',
+        payType:isWeChat?'wechat':'alipay',
         host:location.origin
     }))
     $('.pay-price .price').text(payPrice)
