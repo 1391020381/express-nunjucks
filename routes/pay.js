@@ -243,4 +243,14 @@ router.get('/pay/paymentresult',function(req , res , next){ // 微信公众号�
         return;
     }
 });
+
+
+router.get('/pay/aliPayMidPage',function(req , res , next){ 
+    try{
+        payController.aliPayMidPage(req , res);
+    }catch(e){
+        error(req , res , next);
+        return;
+    }
+});
 module.exports = router;

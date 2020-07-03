@@ -82,8 +82,10 @@ define(function(require , exports , module){
          }
     }
     function aliPay(aliString){
-        $('.payment').html(aliString)
-        $('form').attr("target","_blank")
+        sessionStorage.setItem("aliString", aliString);
+        location.href = location.origin + '/pay/aliPayMidPage'
+        // $('.payment').html(aliString)
+        // $('form').attr("target","_blank")
     }
     function getOrderStatus(){
         $.ajax({

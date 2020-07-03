@@ -489,5 +489,14 @@ module.exports = {
         }, function (err, results) {  // results 是fileDetails组装后的数据 
             render("pay/paymentresult", results, req, res); 
         })
+    },
+    aliPayMidPage:function(req,res){  
+        return async.series({
+            getPaymentResult: function (callback) {
+                callback(null, null);
+            },
+        }, function (err, results) {  // results 是fileDetails组装后的数据 
+            render("pay/aliPayMidPage", results, req, res); 
+        })
     }
 };
