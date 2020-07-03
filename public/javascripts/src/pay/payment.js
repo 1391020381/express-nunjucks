@@ -8,13 +8,7 @@ define(function(require , exports , module){
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
-    alert(isWeChat,isAliPay)
-    alert(JSON.stringify({
-        orderNo:orderNo,
-        code:code,
-        payType:isWeChat?'wechat':'alipay',
-        host:location.origin
-    }))
+    alert(typeof isWeChat)
     $('.pay-price .price').text(payPrice)
     $('.goodsName').text(goodsName)
     scanOrderInfo()
@@ -25,7 +19,7 @@ define(function(require , exports , module){
             data: JSON.stringify({
                 orderNo:orderNo,
                 code:code,
-                payType:!!isWeChat?'wechat':'alipay',
+                payType:isWeChat== 'true'?'wechat':'alipay',
                 host:location.origin
             }),
             contentType: "application/json; charset=utf-8",
