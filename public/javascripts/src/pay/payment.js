@@ -16,7 +16,7 @@ define(function(require , exports , module){
                 orderNo:orderNo,
                 code:code,
                 payType:isWeChat?'wechat':'alipay',
-                host:location.host
+                host:location.origin
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
