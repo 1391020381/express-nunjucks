@@ -8,7 +8,6 @@ define(function(require , exports , module){
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
-    alert(typeof isWeChat)
     $('.pay-price .price').text(payPrice)
     $('.goodsName').text(goodsName)
     scanOrderInfo()
@@ -83,7 +82,7 @@ define(function(require , exports , module){
          }
     }
     function aliPay(aliString){
-        $('body').append(aliString)
+        $('.payment').html(aliString)
         $('form').attr("target","_blank")
     }
     function getOrderStatus(){
