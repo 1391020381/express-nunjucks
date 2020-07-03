@@ -60,7 +60,7 @@ define(function (require, exports, module) {
             ],
             pageIds:['PC_M_USER_banner'] 
         },
-        myVip:{
+        myVipRightsList:{
             descs:[
                 {
                     desc:'个人中心我的vip,bannber',
@@ -69,6 +69,16 @@ define(function (require, exports, module) {
                 }
             ],
             pageIds:['PC_M_USER_VIP_banner'] 
+        },
+        myVipRightsList:{
+            descs:[
+                {
+                    desc:'个人中心首页/我的VIP页的VIP权益缩略图',
+                    pageId:'PC_M_USER_vip',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_USER_vip'] 
         }
     }
 });

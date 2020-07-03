@@ -23,7 +23,7 @@ define(function(require , exports , module){
             success: function (res) {
                 console.log('scanOrderInfo:',res)
                if(res.code == '0'){
-                  if(res.data.returnUrl){
+                  if(res.data.needRedirect){
                       location.href = res.data.returnUrl
                       return
                   } 
