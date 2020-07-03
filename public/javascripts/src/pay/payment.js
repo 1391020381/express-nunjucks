@@ -8,7 +8,14 @@ define(function(require , exports , module){
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
-    console.log('支付中间页','isWeChat:',isWeChat,'isAliPay:',isAliPay)
+    alert('支付中间页','isWeChat:',isWeChat,'isAliPay:',isAliPay)
+
+    alert(JSON.stringify({
+        orderNo:orderNo,
+        code:code,
+        payType:!!isWeChat?'wechat':'alipay',
+        host:location.origin
+    }))
     $('.pay-price .price').text(payPrice)
     $('.goodsName').text(goodsName)
     scanOrderInfo()
