@@ -16,6 +16,7 @@ define(function(require , exports , module){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                console.log('getOrderInfo:',res)
                 var formatDate = method.formatDate
                 Date.prototype.format = formatDate
                if(res.code == '0'){ // 支付成功

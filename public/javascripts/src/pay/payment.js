@@ -20,6 +20,7 @@ define(function(require , exports , module){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                console.log('scanOrderInfo:',res)
                if(res.code == '0'){
                   if(res.data.returnUrl){
                       location.href = res.data.returnUrl
@@ -37,7 +38,7 @@ define(function(require , exports , module){
                }
             },
             error:function(error){
-                console.log('queryUserBindInfo:',error)
+                console.log('scanOrderInfo:',error)
             }
         })
     }
@@ -53,6 +54,7 @@ define(function(require , exports , module){
                   "paySign":paySign //微信签名 
                },
                function(res){
+                   console.log('wechatPay:',res)
                if(res.err_msg == "get_brand_wcpay_request:ok"){ // 支付成功
                  getOrderStatus()
                }else if(res.err_msg == "get_brand_wcpay_request:fail"){ // 支付失败
@@ -88,6 +90,7 @@ define(function(require , exports , module){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                console.log('getOrderStatus:',res)
                if(res.code == 0){
                 if(res.data == '2'){ // 支付成功
                     location.href  = location.host + '/pay/paymentresult?orderNo=' + orderNo
@@ -103,6 +106,7 @@ define(function(require , exports , module){
     }
 
     $('.pay-confirm').click(function(e){
+        console.log('pay-confirm')
         scanOrderInfo()
     })
 });
