@@ -30,9 +30,9 @@ define(function(require , exports , module){
                       location.href = res.data.returnUrl
                       return
                   } 
-                  if(isWeChat){
+                  if(isWeChat == 'true'){
                     wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
-                }else if(isAliPay){
+                }else if(isAliPay == 'true'){
                     aliPay(res.data.aliPayUrl)
                 }
                }else{
