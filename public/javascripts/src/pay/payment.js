@@ -8,9 +8,9 @@ define(function(require , exports , module){
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
+    console.log('支付中间页','isWeChat:',isWeChat,'isAliPay:',isAliPay)
     $('.pay-price .price').text(payPrice)
     $('.goodsName').text(goodsName)
-    console.log('支付中间页')
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -19,7 +19,7 @@ define(function(require , exports , module){
             data: JSON.stringify({
                 orderNo:orderNo,
                 code:code,
-                payType:isWeChat?'wechat':'alipay',
+                payType:!!isWeChat?'wechat':'alipay',
                 host:location.origin
             }),
             contentType: "application/json; charset=utf-8",
@@ -98,10 +98,11 @@ define(function(require , exports , module){
             success: function (res) {
                 console.log('getOrderStatus:',res)
                if(res.code == 0){
-                if(res.data == '2'){ // 支付成功
+                
+                if(res.data == '0'){ // 支付成功
+                   getOrderStatus(orderNo)
+               }else if(res.data =='2'||res.data =='3'||res.data =='5'){  // 支付失败页面
                     location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
-               }else if(res.data =='3'||res.data =='5'){  // 支付失败页面
-                    getOrderStatus()
                }
                }
             },

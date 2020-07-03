@@ -468,8 +468,8 @@ module.exports = {
             // console.log('useragent:',JSON.stringify(req.useragent))
             var isWeChat = source.indexOf("MicroMessenger") !== -1
             var isAliPay = source.indexOf("AlipayClient") !== -1
-            // var isOther = !isWeChat && !isAliPay
-            var isOther = ''
+            var isOther = !isWeChat && !isAliPay
+            // var isOther = false 
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
             if(isOther){
