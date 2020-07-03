@@ -6,6 +6,7 @@ define(function(require , exports , module){
     var code = method.getParam('code')
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
+    console.log('支付中间页')
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -104,8 +105,8 @@ define(function(require , exports , module){
             }
         })
     }
-
-    $('.pay-confirm').click(function(e){
+  
+    $(document).on('click','.pay-confirm',function(e){
         console.log('pay-confirm')
         scanOrderInfo()
     })
