@@ -22,8 +22,8 @@ define(function(require , exports , module){
                if(res.code == '0'){ // 支付成功
                 res.data.payPrice = (res.data.payPrice/100).toFixed(2) 
                 res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
-                var _myuploadsTemplate = template.compile(paymentRestult)({orderInfo:res.data});
-                $(".personal-center-myuploads").html(_myuploadsTemplate) 
+                var _paymentRestultTemplate = template.compile(paymentRestult)({orderInfo:res.data});
+                $(".personal-center-myuploads").html(_paymentRestultTemplate) 
                }else{
                 $.toast({
                     text:res.msg,

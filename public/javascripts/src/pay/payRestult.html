@@ -5,7 +5,7 @@
         {{/if}}
         {{ if orderInfo.orderStatus == 3}}
         <span class="payment-title-icon error"></span>
-        <span class="payment-title-desc">支付成功</span>
+        <span class="payment-title-desc">支付失败</span>
         {{/if}}
     </div>
     <ul class="order-list">
@@ -28,7 +28,7 @@
         </li>
          <li class="list-item">
             <span class="item-title">交易订单号:</span>
-            <span class="item-desc">{{orderInfo.orderNo}}</span>
+            <span class="item-desc">{{orderInfo.payNo}}</span>
         </li>
           <li class="list-item">
             <span class="item-title">商户订单号:</span>

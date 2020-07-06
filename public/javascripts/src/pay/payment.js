@@ -61,12 +61,14 @@ define(function(require , exports , module){
                function(res){
                    console.log('wechatPay:',res)
                if(res.err_msg == "get_brand_wcpay_request:ok"){ // 支付成功
-                 getOrderStatus()
+                getOrderStatus(orderNo)
                }else if(res.err_msg == "get_brand_wcpay_request:fail"){ // 支付失败
+               
                 $.toast({
                     text:"支付失败",
                     delay : 3000,
                 }) 
+                getOrderStatus(orderNo)
                }
             }); 
          }
@@ -82,35 +84,13 @@ define(function(require , exports , module){
          }
     }
     function aliPay(aliString){
-        sessionStorage.setItem("aliString", aliString);
-        location.href = location.origin + '/pay/aliPayMidPage'
-        // $('.payment').html(aliString)
-        // $('form').attr("target","_blank")
+        // sessionStorage.setItem("aliString", aliString);
+        // location.href = location.origin + '/pay/aliPayMidPage'
+        $('.payment').html(aliString)
+        $('form').attr("target","_blank")
     }
-    function getOrderStatus(){
-        $.ajax({
-            url: api.order.getOrderStatus,
-            type: "POST",
-            data: JSON.stringify({
-                orderNo:orderNo
-            }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                console.log('getOrderStatus:',res)
-               if(res.code == 0){
-                
-                if(res.data == '0'){ // 支付成功
-                   getOrderStatus(orderNo)
-               }else if(res.data =='2'||res.data =='3'||res.data =='5'){  // 支付失败页面
-                    location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
-               }
-               }
-            },
-            error:function(error){
-                console.log('getOrderStatus:',error)
-            }
-        })
+    function getOrderStatus(orderNo){
+        location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
     }
   
     $(document).on('click','.pay-confirm',function(e){
