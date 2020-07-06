@@ -94,4 +94,12 @@ router.get('/node/redirectionURL.html', function(req, res) {
     }
 });
 
+router.get('/node/userPage.html', function(req, res) {  
+    try{
+        personalCenter.userPage(req , res );
+    }catch(e){
+        error(req , res , next);
+    }
+});
+
 module.exports = router;

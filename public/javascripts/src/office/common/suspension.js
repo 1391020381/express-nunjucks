@@ -182,7 +182,7 @@ define(function (require, exports, module) {
     }
 
     /**
-     * 我的收藏
+     * 老的我的收藏
      */
     function myCollect() {
         var params = {
@@ -202,6 +202,7 @@ define(function (require, exports, module) {
             console.log("error===" + e);
         })
     }
+  
 
     function collectRender(list) {
         var $myCollect = $('#myCollect'), arr = [];

@@ -1,0 +1,16 @@
+{{ each rightList as item i }}
+<li>
+    <a href="/f/{{item.item_id}}.html">
+        <div class="info">
+            <p>{{item.title}}</p>
+            <p></p>
+        </div>
+        <div class="pic">
+            <img src="{{item.cover_url}}" alt="">
+            <span class="ico-data pos ico-{{item.extra1}}"></span>
+        </div>
+        
+    </a>
+   
+</li>
+{{/each}}

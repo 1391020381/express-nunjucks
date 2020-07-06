@@ -12,7 +12,8 @@ define(function (require, exports, module) {
             // 登出
             loginOut: '',
             // 我的收藏
-             collect: router + '/usermanage/collect',
+            collect: router + '/usermanage/collect',
+            newCollect:gateway+'/content/collect/getUserFileList',
             // 透传老系统web登录信息接口
             getJessionId: router + '/usermanage/getJessionId',
             //优惠券提醒
@@ -33,6 +34,8 @@ define(function (require, exports, module) {
             getDownloadRecordList:gateway + '/content/getDownloadRecordList', //用户下载记录接口
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
             getMyUploadPage:gateway + '/content/getMyUploadPage',   // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
+            getOtherUser:gateway+'/user/getOthersCentreInfo',//他人信息主页 
+            getSearchList:gateway+'/search/content/byCondition' //他人信息主页 热门与最新
         },
         // 查询用户发券资格接口
         // sale: {
@@ -97,7 +100,9 @@ define(function (require, exports, module) {
         },
         getHotSearch:router+'/search/getHotSearch',
         special:{
-            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate' // 收藏与取消收藏
+            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 收藏与取消收藏
+            getCollectState:gateway+'/comment/zc/getUserFileZcState',  //获取收藏状态
+            setCollect:gateway+'/content/collect/file'  //新的收藏接口
         },
         upload:{
             getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类

@@ -1,0 +1,290 @@
+@charset "utf-8";
+.personal-center-content {
+  margin-top: 28px;
+}
+.personal-center-content .personal-header {
+  height: 180px;
+  background: no-repeat center url('../../images/personalCenter/person-bg.png');
+  background-size: 100%;
+}
+.personal-center-content .personal-header .person-info {
+  text-align: center;
+  padding-top: 28px;
+  box-sizing: border-box;
+}
+.personal-center-content .personal-header .person-info img {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.personal-center-content .personal-header .person-info .person-info-left {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+.personal-center-content .personal-header .person-info .person-info-left p:nth-of-type(1) {
+  color: #212121;
+  font-size: 16px;
+  line-height: 24px;
+}
+.personal-center-content .personal-header .person-info .person-info-left p:nth-of-type(1) i {
+  display: inline-block;
+  width: 19px;
+  height: 17px;
+  background: no-repeat center url('../../images/personalCenter/vip-icon.png');
+  background-size: 100%;
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
+}
+.personal-center-content .personal-header .person-info .person-info-left p:nth-of-type(2) {
+  width: 61px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9b7638;
+  line-height: 17px;
+  border: 1px solid #af8f5b;
+  border-radius: 7px;
+  margin-top: 12px;
+}
+.personal-center-content .personal-header .decrition {
+  text-align: center;
+  font-size: 14px;
+  color: #999999;
+  width: 450px;
+  margin: 12px auto 0 auto;
+  line-height: 24px;
+}
+.personal-center-content .personal-container {
+  margin-top: 11px;
+}
+.personal-center-content .personal-container .left {
+  width: 876px;
+  background-color: #fff;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+.personal-center-content .personal-container .left .title {
+  font-size: 18px;
+  color: #212121;
+  font-weight: bold;
+}
+.personal-center-content .personal-container .left .tab {
+  border-bottom: 1px solid #ececec;
+  margin-top: 20px;
+  position: relative;
+}
+.personal-center-content .personal-container .left .tab .tab-item {
+  font-size: 16px;
+  width: 63px;
+  color: #656565;
+  display: inline-block;
+  margin-right: 20px;
+  text-align: center;
+  line-height: 36px;
+}
+.personal-center-content .personal-container .left .tab .active {
+  border-bottom: 2px solid #F15125;
+}
+.personal-center-content .personal-container .left .tab .active a {
+  color: #F15125;
+  font-weight: bold;
+}
+.personal-center-content .personal-container .left .tab .format {
+  position: absolute;
+  right: 0;
+  top: 8px;
+}
+.personal-center-content .personal-container .left .tab .format .format-title {
+  text-align: center;
+  color: #656565;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+}
+.personal-center-content .personal-container .left .tab .format .format-title i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: no-repeat center url('../../images/rights/vip_title.png');
+  background-size: 100%;
+  margin-left: 10px;
+  transition: all 0.5s;
+}
+.personal-center-content .personal-container .left .tab .format .format-title .rotate {
+  transform: rotate(180deg);
+}
+.personal-center-content .personal-container .left .tab .format .format-list {
+  background: #ffffff;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+.personal-center-content .personal-container .left .tab .format .format-list .format-list-item {
+  width: 100px;
+  height: 34px;
+  line-height: 34px;
+  cursor: pointer;
+}
+.personal-center-content .personal-container .left .tab .format .format-list .format-list-item:hover {
+  background-color: #F1F1F1;
+}
+.personal-center-content .personal-container .left ul li {
+  padding: 20px 0;
+}
+.personal-center-content .personal-container .left ul li .pic {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.personal-center-content .personal-container .left ul li .pic img {
+  display: inline-block;
+  width: 47px;
+  height: 66px;
+}
+.personal-center-content .personal-container .left ul li .pic .pos {
+  right: 0;
+  bottom: 0;
+  left: unset;
+  top: unset;
+}
+.personal-center-content .personal-container .left ul li .info {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.personal-center-content .personal-container .left ul li .info p:nth-of-type(1) {
+  color: #333333;
+  font-size: 14px;
+}
+.personal-center-content .personal-container .left ul li .info p:nth-of-type(2) {
+  font-size: 12px;
+  font-weight: 400;
+  color: #a8a8a8;
+  line-height: 22px;
+  margin-top: 25px;
+}
+.personal-center-content .personal-container .left .no-record {
+  text-align: center;
+  line-height: 300px;
+  min-height: 300px;
+}
+.personal-center-content .personal-container .left .pagination-wrapper {
+  width: 100%;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination {
+  display: table;
+  margin: 0 auto;
+  *zoom: 1;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .page-item {
+  float: left;
+  margin-right: 8px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 11px;
+  color: #555555;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .first,
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .prev,
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .next,
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .last {
+  padding: 0 17px;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .active {
+  background: #F25125;
+  color: #ffffff;
+}
+.personal-center-content .personal-container .left .pagination-wrapper .pagination .active a {
+  color: #ffffff;
+}
+.personal-center-content .personal-container .right {
+  width: 309px;
+  margin-left: 15px;
+}
+.personal-center-content .personal-container .right .right-top {
+  height: 133px;
+  width: 309px;
+  background: linear-gradient(0deg, #ffffff, #fff4f2);
+  border-radius: 4px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.personal-center-content .personal-container .right .right-top .right-top-item {
+  display: inline-block;
+  width: 30%;
+}
+.personal-center-content .personal-container .right .right-top .right-top-item p:nth-of-type(1) {
+  color: #212121;
+  font-size: 20px;
+  font-weight: bold;
+}
+.personal-center-content .personal-container .right .right-top .right-top-item p:nth-of-type(2) {
+  font-size: 16px;
+  font-weight: 400;
+  color: #656565;
+  line-height: 22px;
+  margin-top: 10px;
+}
+.personal-center-content .personal-container .right .hot-file {
+  background-color: #fff;
+  padding: 25px;
+  margin-top: 15px;
+}
+.personal-center-content .personal-container .right .hot-file .title {
+  font-size: 16px;
+  color: #212121;
+  font-weight: bold;
+}
+.personal-center-content .personal-container .right .hot-file ul li {
+  padding: 20px 0;
+}
+.personal-center-content .personal-container .right .hot-file ul li .pic {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.personal-center-content .personal-container .right .hot-file ul li .pic img {
+  display: inline-block;
+  width: 47px;
+  height: 66px;
+  margin-left: 30px;
+  vertical-align: middle;
+}
+.personal-center-content .personal-container .right .hot-file ul li .pic .pos {
+  right: 0;
+  bottom: 0;
+  left: unset;
+  top: unset;
+}
+.personal-center-content .personal-container .right .hot-file ul li .info {
+  display: inline-block;
+  width: 65%;
+  vertical-align: middle;
+}
+.personal-center-content .personal-container .right .hot-file ul li .info p:nth-of-type(1) {
+  color: #333333;
+  font-size: 14px;
+}
+.personal-center-content .personal-container .right .hot-file ul li .info p:nth-of-type(2) {
+  font-size: 12px;
+  font-weight: 400;
+  color: #a8a8a8;
+  line-height: 22px;
+  margin-top: 25px;
+}

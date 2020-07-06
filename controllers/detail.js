@@ -49,7 +49,7 @@ module.exports = {
                 };
                 console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list-------------------:',JSON.parse(body))
+                    console.log('detail-list fileInfo-------------------:',JSON.parse(body).data.fileInfo)
                     if(res1.statusCode == 503){ // http请求503
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
                             console.log("503==========");
