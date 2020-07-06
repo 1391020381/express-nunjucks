@@ -25,7 +25,7 @@ define(function(require , exports , module){
           type: "POST",
           data: JSON.stringify({
               currentPage:currentPage||1,
-              pageSize:10
+              pageSize:20
           }),
           contentType: "application/json; charset=utf-8",
           dataType: "json",
@@ -35,7 +35,7 @@ define(function(require , exports , module){
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  res.data.rows.forEach(item=>{
+                  res.data.rows.forEach(function(item){
                     var downloadTime = new Date(item.downloadTime).format("yyyy-MM-dd")
                      item.downloadTime = downloadTime
                      item.fileId = item.id
@@ -63,7 +63,7 @@ define(function(require , exports , module){
   function getUserFileList(pageNumber){  // 查询个人收藏列表
     pageNumber = 1
    $.ajax({
-      url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=10&sidx=0&order=-1',
+      url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=20&sidx=0&order=-1',
       type: "GET",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
@@ -74,7 +74,7 @@ define(function(require , exports , module){
               var formatDate = method.formatDate
               Date.prototype.format = formatDate
              var list = []
-              res.data.rows.forEach(item=>{
+              res.data.rows.forEach(function(item){
                 var collectTime = new Date(item.collectTime).format("yyyy-MM-dd")
                   var temp = {
                     format:item.format,

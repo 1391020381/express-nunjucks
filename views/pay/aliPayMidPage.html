@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/head.html" %}
+<script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",335601,false);
+</script>  
+
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+<body>
+    {% include "common/js.html" %}
+     <script>
+       var aliString = sessionStorage.getItem("aliString");
+       $('body').html(aliString)
+        $('form').attr("target","_blank")
+     </script>
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{
+               
+            },
+            params:{
+               
+            },
+            report: {
+              
+            },
+            gio:{
+            }
+        };
+    </script>
+    <!-- 百度统计代码 -->
+    <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+</body>
+
+</html>

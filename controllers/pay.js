@@ -468,8 +468,8 @@ module.exports = {
             // console.log('useragent:',JSON.stringify(req.useragent))
             var isWeChat = source.indexOf("MicroMessenger") !== -1
             var isAliPay = source.indexOf("AlipayClient") !== -1
-            // var isOther = !isWeChat && !isAliPay
-            var isOther = ''
+            var isOther = !isWeChat && !isAliPay
+            // var isOther = false 
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
             if(isOther){
@@ -484,37 +484,19 @@ module.exports = {
       paymentresult:function(req,res){  
         return async.series({
             getPaymentResult: function (callback) {
-                var opt = {
-                    method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.order.getOrderInfo,
-                    body:JSON.stringify({
-                        orderNo: req.query.orderNo
-                      }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
-                    },
-                }
-                request(opt, function (err, res, body) {
-                    if (body) {
-                        try {
-                            var data = JSON.parse(body);
-                            if (data.code == 0) {
-                                callback(null, data);
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
-                            callback(null, null);
-                            console.log("err=============", err)
-                        }
-                    } else {
-                        callback(null, null);
-                    }
-                })
+                callback(null, null);
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
             render("pay/paymentresult", results, req, res); 
+        })
+    },
+    aliPayMidPage:function(req,res){  
+        return async.series({
+            getPaymentResult: function (callback) {
+                callback(null, null);
+            },
+        }, function (err, results) {  // results 是fileDetails组装后的数据 
+            render("pay/aliPayMidPage", results, req, res); 
         })
     }
 };

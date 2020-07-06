@@ -34,7 +34,7 @@ define(function(require , exports , module){
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  res.data.rows.forEach(item=>{
+                  res.data.rows.forEach(function(item){
                      var userFilePrice  = ''
                      if(item.userFileType == 1){
                          userFilePrice = '免费'

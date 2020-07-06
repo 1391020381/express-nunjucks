@@ -1,17 +1,16 @@
 define(function(require , exports , module){
-    console.log('聚合支付码')
+    require("../cmd-lib/toast");
+    var api = require('../application/api');
     var method = require("../application/method");
     var orderNo = method.getParam('orderNo');
     var code = method.getParam('code')
+    var goodsName = method.getParam('goodsName')
+    var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
-    if(isWeChat){
-        scanOrderInfo()
-    }
-    if(isAliPay){
-        
-    }
-
+    $('.pay-price .price').text(payPrice)
+    $('.goodsName').text(goodsName)
+    scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
             url: api.pay.scanOrderInfo,
@@ -19,17 +18,23 @@ define(function(require , exports , module){
             data: JSON.stringify({
                 orderNo:orderNo,
                 code:code,
-                payType:isWeChat?'wechat':'alipay',
-                host:location.host
+                payType:isWeChat== 'true'?'wechat':'alipay',
+                host:location.origin
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                console.log('scanOrderInfo:',res)
                if(res.code == '0'){
-                  if(res.data.returnUrl){
+                  if(res.data.needRedirect){
                       location.href = res.data.returnUrl
+                      return
                   } 
-                  wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                  if(isWeChat == 'true'){
+                    wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                }else if(isAliPay == 'true'){
+                    aliPay(res.data.aliPayUrl)
+                }
                }else{
                 $.toast({
                     text:res.msg||'scanOrderInfo错误',
@@ -38,7 +43,7 @@ define(function(require , exports , module){
                }
             },
             error:function(error){
-                console.log('queryUserBindInfo:',error)
+                console.log('scanOrderInfo:',error)
             }
         })
     }
@@ -49,11 +54,12 @@ define(function(require , exports , module){
                   "appId":appId,     //公众号名称，由商户传入     
                   "timeStamp":timeStamp,         //时间戳，自1970年以来的秒数     
                   "nonceStr":nonceStr, //随机串     
-                  "package":package,     
+                  "package":"prepay_id=" +package,     
                   "signType":"MD5",         //微信签名方式：     
                   "paySign":paySign //微信签名 
                },
                function(res){
+                   console.log('wechatPay:',res)
                if(res.err_msg == "get_brand_wcpay_request:ok"){ // 支付成功
                  getOrderStatus()
                }else if(res.err_msg == "get_brand_wcpay_request:fail"){ // 支付失败
@@ -76,8 +82,10 @@ define(function(require , exports , module){
          }
     }
     function aliPay(aliString){
-        $('body').append(aliString)
-        $('form').attr("target","_blank")
+        sessionStorage.setItem("aliString", aliString);
+        location.href = location.origin + '/pay/aliPayMidPage'
+        // $('.payment').html(aliString)
+        // $('form').attr("target","_blank")
     }
     function getOrderStatus(){
         $.ajax({
@@ -89,10 +97,14 @@ define(function(require , exports , module){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-               if(res.code == '2'){ // 支付成功
-                    location.href  = location.host + '/pay/paymentresult?orderNo=' + orderNo
-               }else if(res.code =='3'||res.code =='5'){  // 支付失败页面
-                    getOrderStatus()
+                console.log('getOrderStatus:',res)
+               if(res.code == 0){
+                
+                if(res.data == '0'){ // 支付成功
+                   getOrderStatus(orderNo)
+               }else if(res.data =='2'||res.data =='3'||res.data =='5'){  // 支付失败页面
+                    location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
+               }
                }
             },
             error:function(error){
@@ -100,4 +112,9 @@ define(function(require , exports , module){
             }
         })
     }
+  
+    $(document).on('click','.pay-confirm',function(e){
+        console.log('pay-confirm')
+        scanOrderInfo()
+    })
 });

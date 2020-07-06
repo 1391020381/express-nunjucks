@@ -39,7 +39,7 @@ module.exports = {
     myorder:function(req,res){
         var results = {
             type:'myorder',
-            myorderType:req.query.myorderType
+            myorderType:req.query.myorderType || '1'
         }
         render("personalCenter/index", results, req, res);
     },
