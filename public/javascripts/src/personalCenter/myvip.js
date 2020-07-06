@@ -4,7 +4,7 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
     var method = require("../application/method"); 
-    var bnnerTemplate = require("../common/template/swiper_tmp.html");
+    var bannerTemplate = require("../common/template/swiper_tmp.html");
     var vipPrivilegeList = require("./template/vipPrivilegeList.html")
     var simplePagination = require("./template/simplePagination.html")
     var recommendConfigInfo = require('../common/recommendConfigInfo')    
@@ -25,7 +25,8 @@ define(function(require , exports , module){
         var myvip = require("./template/myvip.html")
         var _myvipTemplate = template.compile(myvip)({userInfo:userInfo,vipTableType:vipTableType});
         $(".personal-center-vip").html(_myvipTemplate);
-        getVipPrivilegeList()
+        getBannerbyPosition()
+        getMyVipRightsList()
         if(vipTableType == '0'){
             getMemberPointRecord()
         }else{
@@ -114,40 +115,67 @@ define(function(require , exports , module){
         })
     }
 
-    function getVipPrivilegeList() {  // 获取vip权益列表 (通过推荐位来配置)
+    function getBannerbyPosition() { // PC_M_USER_banner
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: "POST",
-            data: JSON.stringify(recommendConfigInfo.vipPrivilegeList.pageIds),
+            data: JSON.stringify(recommendConfigInfo.myVipRightsBanner.pageIds),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                var vipPrivilegeListTeamplate = template.compile(vipPrivilegeList,{})
-                $('.vip-privilege-wrapper').html(vipPrivilegeListTeamplate)
                 res.data.forEach(function(item){  // 匹配 组装数据
-                    recommendConfigInfo.search.descs.forEach(function(desc){
+                    recommendConfigInfo.myVipRightsBanner.descs.forEach(function(desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
-                            console.log(method.handleRecommendData(item.list))
                         }
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.search.descs.forEach(function(item){
-                    if(item.list.length){
-                        if(item.pageId == 'PC_M_USER_vip'){
-                            // var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container',hasDeleteIcon:true});
-                            // $(".search-all-main-topbanner").html(_topBannerHtml);
-                            // var mySwiper = new Swiper('.swiper-top-container', {
-                            //     direction: 'horizontal',
-                            //     loop: item.list.length>1 ? true : false,
-                            //     autoplay: 3000,
-                            // })
+                recommendConfigInfo.myVipRightsBanner.descs.forEach(function(k){
+                    if(k.list.length){
+                        if(k.pageId == 'PC_M_USER_VIP_banner'){ // search-all-main-bottombanner
+                            console.log('PC_M_USER_VIP_banner:',k.list)
+                            var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list ,className:'personalCenter-myvip-swiper-container'});
+                            $(".myvip .advertisement").html(_bannerTemplate);
+                            var mySwiper = new Swiper('.personalCenter-myvip-swiper-container', {
+                                direction: 'horizontal',
+                                loop: true,
+                                loop: k.list.length>1 ? true : false,
+                                autoplay: 3000,
+                            })
                         }
-                        
-                    }else{
-                     $('.close-swiper').hide()   
+                    }
+                })
+               }
+            }
+        })
+    }
+    function getMyVipRightsList(){
+        $.ajax({
+            url: api.recommend.recommendConfigInfo,
+            type: "POST",
+            data: JSON.stringify(recommendConfigInfo.myVipRightsList.pageIds),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                res.data.forEach(function(item){  // 匹配 组装数据
+                    recommendConfigInfo.myVipRightsList.descs.forEach(function(desc){
+                        if(item.pageId == desc.pageId){
+                            desc.list = method.handleRecommendData(item.list)
+                        }
+                    })
+                })
+                console.log(recommendConfigInfo)
+                recommendConfigInfo.myVipRightsList.descs.forEach(function(k){
+                    if(k.list.length){
+                        if(k.pageId == 'PC_M_USER_vip'){ // search-all-main-bottombanner
+                            console.log('PC_M_USER_vip:',k.list)
+                            var _vipPrivilegeListHtml = template.compile(vipPrivilegeList)({ list: k.list});
+                            $('.myvip .vip-privilege-wrapper').html(_vipPrivilegeListHtml);
+                          
+                        }
                     }
                 })
                }

@@ -113,10 +113,26 @@
   margin-right: 0;
 }
 .personal-center-vip .my-vip-middle {
+  width: 940px;
   border-top: solid 10px #F2F3F3;
   border-bottom: solid 10px #F2F3F3;
   height: 141px;
   background: #fff;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100%;
+  height: 141px;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .swiper-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .swiper-slide-img {
+  width: 100%;
+  height: 141px;
 }
 .personal-center-vip .my-vip-bottom {
   padding: 0px 60px 0 40px;

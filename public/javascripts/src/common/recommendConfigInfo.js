@@ -40,16 +40,6 @@ define(function (require, exports, module) {
             ],
             pageIds:['PC_M_DOWN_SUC_banner'] 
         },
-        vipPrivilegeList:{
-            descs:[
-                {
-                    desc:'个人中心我的vip,vip权益列表',
-                    pageId:'PC_M_USER_vip',
-                    list:[] 
-                }
-            ],
-            pageIds:['PC_M_USER_vip'] 
-        },
         personalCenterHome:{
             descs:[
                 {
@@ -60,7 +50,7 @@ define(function (require, exports, module) {
             ],
             pageIds:['PC_M_USER_banner'] 
         },
-        myVipRightsList:{
+        myVipRightsBanner:{
             descs:[
                 {
                     desc:'个人中心我的vip,bannber',

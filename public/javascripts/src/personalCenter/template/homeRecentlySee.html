@@ -18,7 +18,9 @@
                                 {{data[$index].name}}
                             </p>
                     <p class="item-link-right-other">
-                        <span class="other-read">{{data[$index].totalPage}}页</span>
+                        {{ if data[$index].totalPage }}
+                             <span class="other-read">{{data[$index].totalPage}}页</span>
+                        {{/if}}
                     </p>
                 </div>
               </a> 

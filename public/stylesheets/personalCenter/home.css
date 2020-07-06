@@ -61,6 +61,21 @@
 }
 .personal-center-home .advertisement {
   margin-top: 10px;
+  width: 940px;
+  height: 142px;
+}
+.personal-center-home .advertisement .personalCenter-home-swiper-container {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100%;
+  height: 142px;
+}
+.personal-center-home .advertisement .personalCenter-home-swiper-container .swiper-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.personal-center-home .advertisement .personalCenter-home-swiper-container .swiper-slide-img {
   width: 100%;
   height: 142px;
 }
