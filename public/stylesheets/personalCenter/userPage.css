@@ -1,4 +1,9 @@
 @charset "utf-8";
+.icon-detail {
+  display: block;
+  overflow: hidden;
+  background: url(../images/new_detail/icon_detail_v_1_6.png) no-repeat;
+}
 .personal-center-content {
   margin-top: 28px;
 }

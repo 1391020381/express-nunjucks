@@ -2,9 +2,11 @@
 define(function(require , exports , module){
     var method = require("../application/method"); 
     var api = require("../application/api");
-    var app = require("../application/app");
+    var login = require("../application/checkLogin");
+    require('./effect.js')
+
     require("../cmd-lib/toast");
-    require("../application/checkLogin");
+    
     var userData='',currentPage=1,sortField='downNum',format='';
     init()
 
@@ -39,6 +41,8 @@ define(function(require , exports , module){
             hotList()
         })
     }
+
+
 
     function getOtherUser(){
         $.ajax({

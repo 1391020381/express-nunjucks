@@ -18,8 +18,8 @@ define(function (require, exports, module) {
 
     //刷新topbar
     function refreshTopBar(data) {
-        // $('.user-info-div').show();
-        // var $unLogin = $('#unLogin');
+        //$('.user-info-div').show();
+        //var $unLogin = $('#unLogin');
         var $hasLogin = $('#haveLogin');
         var $btn_user_more = $('.btn-user-more');
         var $vip_status = $('.vip-status');
@@ -52,13 +52,13 @@ define(function (require, exports, module) {
         }
 
 
-        // $unLogin.hide();
+         //$unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
         $hasLogin.find('.user-link img').attr('src', data.weiboImage);
         $hasLogin.find('.top-user-more .user-name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.weiboImage);
-        // $hasLogin.show();
-
+        //$hasLogin.show();
+        
 
     };
 });

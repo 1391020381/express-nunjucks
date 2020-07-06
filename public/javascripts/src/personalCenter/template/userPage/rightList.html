@@ -3,7 +3,7 @@
     <a href="/f/{{item.item_id}}.html">
         <div class="info">
             <p>{{item.title}}</p>
-            <p></p>
+            <p>{{item.item_read_cnt ? item.item_read_cnt + '阅读' : ''}}</p>
         </div>
         <div class="pic">
             <img src="{{item.cover_url}}" alt="">
