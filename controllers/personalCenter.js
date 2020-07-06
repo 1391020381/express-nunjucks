@@ -70,5 +70,8 @@ module.exports = {
     },
     redirectionURL:function(req,res){
         render("personalCenter/redirectionURL", {}, req, res);
-    }
+    },
+    userPage:function(req,res){
+        render("personalCenter/userPage", {}, req, res);
+    },
 };
