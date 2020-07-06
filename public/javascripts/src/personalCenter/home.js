@@ -64,32 +64,14 @@ define(function(require , exports , module){
                if(res.code == '0'){
                     console.log('getFileBrowsePage:',res)
                     // data.rows
-                    var data = [
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'doc',
-                            totalPage:50,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        },
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'pdf',
-                            totalPage:55,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        },
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'doc',
-                            totalPage:56,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        }
-                    ]
-                    var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlySee',data:data});
-                    $(".recently-see").html(_homeRecentlySeeTemplate);
+                    if(res.data.rows&&res.data.rows.length){
+                        var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlySee',data:res.data.rows});
+                        $(".recently-see").html(_homeRecentlySeeTemplate);
+                    }else{
+                        $(".recently-see").hide()
+                    }
                }else{
+                $(".recently-see").hide()
                 $.toast({
                     text:res.msg,
                     delay : 3000,
@@ -97,6 +79,7 @@ define(function(require , exports , module){
                }
             },
             error:function(error){
+                $(".recently-see").hide()
                 console.log('getFileBrowsePage:',error)
             }
         })
@@ -126,34 +109,13 @@ define(function(require , exports , module){
                             name:item.title
                            }) 
                         })
-                    }
-                   
-                    var data = [
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'doc',
-                            totalPage:50,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        },
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'pdf',
-                            totalPage:55,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        },
-                        {
-                            id:1,
-                            fileid:'EN6sFTSAvh',
-                            format:'doc',
-                            totalPage:56,
-                            name:'关于口腔健康的十大常识您 大常识您康小学问'
-                        }
-                    ]
-                    var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlydownloads',data:data});
+                        var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlydownloads',data:res.data.rows});
                     $(".recently-downloads").html(_homeRecentlySeeTemplate)
+                    }else{
+                        $(".recently-downloads").hide()
+                    }
                }else{
+                $(".recently-downloads").hide()
                 $.toast({
                     text:res.msg,
                     delay : 3000,
@@ -161,6 +123,7 @@ define(function(require , exports , module){
                }
             },
             error:function(error){
+                $(".recently-downloads").hide()
                 console.log('getFileBrowsePage:',error)
             }
         })
