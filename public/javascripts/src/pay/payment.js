@@ -5,9 +5,11 @@ define(function(require , exports , module){
     var orderNo = method.getParam('orderNo');
     var code = method.getParam('code')
     var goodsName = method.getParam('goodsName')
+    var checkStatus =  method.getParam('checkStatus')
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
+   var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     $('.pay-price .price').text(payPrice)
     $('.goodsName').text(goodsName)
     scanOrderInfo()
@@ -61,9 +63,20 @@ define(function(require , exports , module){
                function(res){
                    console.log('wechatPay:',res)
                if(res.err_msg == "get_brand_wcpay_request:ok"){ // 支付成功
+                if(checkStatus == 8){
+                    handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:'wechat'})
+                }
+                if(checkStatus == 10 || checkStatus == 13){
+                    handleBaiduStatisticsPush('payVipResult',{payresult:1,orderid:orderNo,orderpaytype:'wechat'})
+                }
                 getOrderStatus(orderNo)
                }else if(res.err_msg == "get_brand_wcpay_request:fail"){ // 支付失败
-               
+               if(checkStatus == 8){
+                handleBaiduStatisticsPush('payFileResult',{payresult:0,orderid:orderNo,orderpaytype:'wechat'})
+               }
+               if(checkStatus ==10 || checkStatus==13){
+                handleBaiduStatisticsPush('payVipResult',{payresult:0,orderid:orderNo,orderpaytype:'wechat'})
+               }
                 $.toast({
                     text:"支付失败",
                     delay : 3000,

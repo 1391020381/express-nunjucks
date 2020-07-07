@@ -12,6 +12,7 @@ define(function (require, exports, moudle) {
     require("../common/bilog");
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
+    var checkStatus =   window.pageConfig.params.checkStatus||'10'
     //生成二维码
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
@@ -41,7 +42,8 @@ define(function (require, exports, moudle) {
 
 
                 // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
-                var url = location.origin + "/pay/payment?orderNo=" + oid;
+          
+                var url = location.origin + "/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
 
                 
                 try {

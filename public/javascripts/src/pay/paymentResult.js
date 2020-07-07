@@ -5,6 +5,7 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var orderNo = method.getParam('orderNo');
     var paymentRestult = require('./payRestult.html')
+    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     getOrderInfo()
     function getOrderInfo(){
         $.ajax({
@@ -24,6 +25,12 @@ define(function(require , exports , module){
                 res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
                 var _paymentRestultTemplate = template.compile(paymentRestult)({orderInfo:res.data});
                 $(".personal-center-myuploads").html(_paymentRestultTemplate) 
+                  if(res.goodsType == 1){
+                    handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:'alipay'})
+                }
+                if(res.goodsType == 2){
+                    handleBaiduStatisticsPush('payVipResult',{payresult:1,orderid:orderNo,orderpaytype:'alipay'})
+                }
                }else{
                 $.toast({
                     text:res.msg,
