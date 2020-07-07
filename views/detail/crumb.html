@@ -5,9 +5,9 @@
     {% for item in results.crumbList.data %}
     <div class="crumb-more">
 
-        <a href="/{%if results.crumbList.data.isGetClassType==0%}c{%else%}p{%endif%}/{{item.category.id}}.html"><i
+        <a href="/{%if results.crumbList.data.isGetClassType==0%}c{%else%}p{%endif%}/{{item.id}}.html"><i
                 class="crumb-arrow">
-            </i>{{item.category.name}}
+            </i>{{item.name}}
         </a>
         <div class="crumb-more-con">
             <ul class="cf">

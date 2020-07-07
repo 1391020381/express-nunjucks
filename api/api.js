@@ -14,6 +14,7 @@ module.exports = {
         fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
+        navCategory:'/content/category/navCategory',
         // 相关资料 (右侧)
         fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表

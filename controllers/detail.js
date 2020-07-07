@@ -214,9 +214,32 @@ module.exports = {
             // 面包屑导航
             crumbList: function (callback) {
                 //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
-                server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               // server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               var opt = {
+                method: 'POST',
+                url: appConfig.apiNewBaselPath + Api.file.navCategory,
+                body:JSON.stringify({
+                    classId: classId,
+                    spcClassId: spcClassId,  
+                    isGetClassType: isGetClassType
+                  }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            request(opt, function (err, res1, body) {
+              if(body){
+                var data = JSON.parse(body);
+                if (data.code == 0){
+                    callback(null, data);
+                }else{
+                    callback(null,null)
+                }
+              }else {
+                callback(null, null);
+            }        
+            })
             },
-            
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
                 if (fileAttr == 1) {
