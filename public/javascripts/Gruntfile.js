@@ -74,7 +74,7 @@ module.exports = function (grunt) {
                     'dist/spider/init.js': ['.build/spider/init.js'],
                     'dist/earth/init.js': ['.build/earth/init.js'],
                     'dist/pay/payment.js': ['.build/pay/payment.js'],
-                    'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js']
+                    
                 }
             }
         },
