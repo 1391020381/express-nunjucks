@@ -83,7 +83,7 @@ module.exports = {
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery}
+                                var results = {showFlag:false,searchQuery,statusCode:'404'}
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
@@ -93,7 +93,7 @@ module.exports = {
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,isPrivate:true}
+                                var results = {showFlag:false,searchQuery,isPrivate:true,statusCode:'302'}
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   

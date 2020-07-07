@@ -16,5 +16,6 @@ define(function(require , exports , module){
     require("./myorder.js")
     require("./accountsecurity.js")
     require("./personalinformation.js")
+    require("../common/bilog");
     // require("../common/baidu-statistics");
 });

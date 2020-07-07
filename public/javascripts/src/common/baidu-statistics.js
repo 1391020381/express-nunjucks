@@ -38,7 +38,7 @@ define(function (require, exports, moudle) {
         pageid:'PC-M-FD',
         pagename:'',
         payresult:'',
-        orderid:params.orderNo,
+        orderid:'',
         orderpaytype:'',
         orderpayprice:'',
         fileid:'',
