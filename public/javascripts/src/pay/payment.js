@@ -1,5 +1,6 @@
 define(function(require , exports , module){
     require("../cmd-lib/toast");
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var api = require('../application/api');
     var method = require("../application/method");
     var orderNo = method.getParam('orderNo');
