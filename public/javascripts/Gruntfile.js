@@ -73,10 +73,6 @@ module.exports = function (grunt) {
                     'dist/index/init.js': ['.build/index/init.js'],
                     'dist/spider/init.js': ['.build/spider/init.js'],
                     'dist/earth/init.js': ['.build/earth/init.js'],
-                    'dist/category/index.js': ['.build/category/index.js'],
-                    'dist/authentication/organise.js': ['.build/authentication/organise.js'],
-                    'dist/authentication/index.js': ['.build/authentication/index.js'],
-                    'dist/authentication/user.js': ['.build/authentication/user.js'],
                     'dist/pay/payment.js': ['.build/pay/payment.js'],
                     'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js']
                 }
