@@ -28,8 +28,6 @@ var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 
-
-
 module.exports = {
     render: function (req, res) {
         var _index = {
@@ -412,14 +410,28 @@ module.exports = {
             filePreview: function (callback) {
                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
                 server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+            },
+            // 查询是否重定向
+            redirectUrl:function(callback) {
+                req.body = {
+                    sourceLink:req.protocol+'://'+req.host+req.url
+                }
+                server.post(appConfig.apiNewBaselPath + Api.file.redirectUrl, callback, req, true);
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-
+            console.log(results.redirectUrl,'redirectUrl')
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 console.log("404==========");
                 return;
+            }
+            if (results.redirectUrl && results.redirectUrl.data) {
+                if(results.redirectUrl.data.targetLink) {
+                    var  url =results.redirectUrl.data.type ==1? req.protocol+'://'+results.redirectUrl.data.targetLink:req.protocol+'://'+req.host+'/f/'+results.redirectUrl.data.targetLink+'.html';
+                    res.redirect(url);
+                    return;
+                }
             }
          //   console.log(results,'pc-node results----------');
          

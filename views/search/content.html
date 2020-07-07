@@ -142,14 +142,12 @@
 
         <!--分页-->
         <div class="office-page mt40">
-
             <a class="btn-page-long" style="display: none;">
                 首页
             </a>
             <a class="btn-page" style="display: none;">
                 上一页
             </a>
-
             <span>
                 {%for item in results.pageIndexArr  %}
                 <a class="page-ele   {{'active' if  loop.index0===0}}" value="{{loop.index0}}" style="display: none">
@@ -157,8 +155,6 @@
                 </a>
                 {%endfor%}
             </span>
-
-
             {%if  results.pageIndexArr.length>1 %}
             <a class="btn-page-long">
                 下一页
@@ -170,7 +166,7 @@
         </div>
 
         <!--底部广告-->
-        <div class="search-advertisement mt40">
+        <!-- <div class="search-advertisement mt40">
             <script>
                 (function () {
                     var s = "_" + Math.random().toString(36).slice(2);
@@ -183,7 +179,7 @@
                     });
                 })();
             </script>
-        </div>
+        </div> -->
     </div>
 
 

@@ -9,7 +9,11 @@ let routes = [
     'feedback',
     'personalCenter',
     '503',
-    '404'
+    '404',
+    'start',
+    'category',
+    'authentication',
+    'earth'
 ];
 
 module.exports = routes;

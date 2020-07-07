@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/head.html" %}
+    <script type='text/javascript'>
+        try {
+            !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+            gio('init','9f367e704cdcd7bc', {});
+            //custom page code begin here
+            //custom page code end here
+            gio('send');
+        }catch (e) {}
+    </script>
+    <script>
+    /*ie9兼容*/
+    window.console = window.console || (function() {
+        var c = {};
+        c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
+        return c;
+    })();
+</script>
+    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/index/index.css">
+    <script type="text/javascript">
+        var _speedMark = +new Date(),
+            _version = "{{version}}",
+            _head = "{{cdnUrl}}";
+        var _dpData = [];//广告测试
+    </script>
+</head>
+<body class="office-body screen-body">
+<input type="hidden" id="ip-page-id" value="PC-O-H">
+<input type="hidden" id="ip-page-name" value="首页">
+{% include "common/js.html" %}
+<!--爱问办公首页头部 start-->
+<div class="index-header">
+    <div class="index-banner">
+        {% if results.bannerList.length>0 %}
+        <ul class="banner-list" id="J_office_banner">
+            {%for item in results.bannerList  %}
+            <li><a href="{{item.linkUrl}}" target="_blank"><img src="{{item.imagUrl}}"></a></li>
+            {%endfor%} 
+        </ul>
+        {% endif %}
+        <div class="office-focus" id="J_office_focus">
+            {%for item in results.bannerList  %}
+            <a href="javascript:;" data-index="{{loop.index0}}"></a>
+            {%endfor%}
+        </div>
+        <!-- 左右切换banner -->
+        {% if results.bannerList.length>1 %}
+        <a class="btn-banner btn-banner-prev" id="J_office_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        <a class="btn-banner btn-banner-next" id="J_office_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        {% endif %}
+        <div class="banner-bg"></div>
+        <!-- banner内容部分 -->
+        <div class="banner-container">
+            <div class="pw pw-v banner-wraper cf">
+                <div class="logo-office fl">
+                    <a href="/" alt="爱问共享资料_在线资料分享平台">
+                        <img src="{{cdnUrl}}/images/iShare_logo.png" alt="爱问共享资料_在线资料分享平台">
+                        <!-- <img class="logo-drag-tips" src="{{cdnUrl}}/images/office/logo-drag-tips.png" alt="爱问共享资料_在线资料分享平台"> -->
+                    </a>
+                </div>
+                <!-- 首页分类模块 -->
+                <div class="office-category fl">
+                    <div class="category-inter cf">
+                        {%for item in results.categoryList.data.categoryList  %}
+                        <div class="category-item fl">
+                            <div class="category-item-inter">
+                                <div class="item-title">
+                                    <h4 class="title-text"><a href="/c/{{item.id}}.html" target="_blank">{{item.name}}</a></h4>
+                                    {% if item.categoryList.length>0 %}
+                                    <i class="icon-ele-arrow"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if item.categoryList.length>0 %}
+                            <div class="category-more">
+                                <span></span>
+                                <span></span>
+                                <div class="more-inter">
+                                    <ul class="more-list cf">
+                                        {%for label in item.categoryList  %}
+                                        <li><a href="/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        {%endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+
+                <!-- 登录信息模块展示 -->
+                <div class="top-bar-right">
+                    <!--已登录 -->
+                    <div class="user-info hasLogin hide">
+                        <a class="user-link">
+                            <img class="user-pic">
+                            <span class="user-name"></span>
+                        </a>
+                        <i class="arrow"></i>
+                        <div class="user-more">
+                            <i class="before"></i>
+                            <i class="after"></i>
+                            <a href="/ucenter/collect" target="_blank">个人中心</a>
+                            <!--<a href="/ucenter/mydownloads" target="_blank">我的下载</a>-->
+                            <!--<a href="/ucenter/mycollect" target="_blank">我的收藏</a>-->
+                            <a class="loginOut">退出</a>
+                        </div>
+                    </div>
+                    <!--未登录 -->
+                    <div class="user-info notLogin  pc_click" pcTrackContent="officeTopLogin">
+                        <a class="user-link">
+                            <div class="pic-no-login"></div>
+                            <span class="no-login-text">请登录</span>
+                            <span class="js-sync hide">透传</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <!-- 搜索栏模块 -->
+        <div class="search-container">
+            <div class="header-search">
+                <div class="search-bar">
+                    <input type="text" class="search-input" value="{{results.hotSearchWord[0].copywriting1 if results.hotSearchWord[0]}}">
+                    <!-- <a class="btn-office-search btn-search"><i class="icon-search"></i>搜索</a> -->
+                    <a class="btn-office-search btn-search"><i class="icon-search"></i></a>
+                    <div class="detail-lately">
+                        <ul class="lately-list">
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                            <li><a href="#">联想内容</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-label cf">
+                    {%for keywordItem in results.hotSearchWord  %}
+                    <div class="label-ele">
+                        <a href = "{{keywordItem.linkUrl}}" target="_blank" class="ele-text">{{keywordItem.copywriting1}}</a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--精选专题 start -->
+<div class="recommend-section">
+    <div class="pw office-recommend mt20 swiper-container">
+        <h3 class="subtitle">精选专题<span>优质专题资料任意挑选</span></h3>
+        <div class="swiper-wrapper" style="width:{{results.specialList.length*312}}px">
+            {%for item in results.specialList  %}
+            <div class="recommend-item swiper-slide">
+                <a href="{{item.linkUrl}}" target="_blank">
+                    <img src="{{item.imagUrl}}">
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    {% if results.specialList.length>4 %}
+    <div class="swiper-button-prev preArrow"></div>
+    <div class="swiper-button-next nextArrow"></div>
+    {%endif%}
+</div>
+
+<!-- vip专区 -->
+<div class="specail-area mt20">
+   <div class="pw">
+        <div class="vip-con fl">
+            <div class="content-con">
+                <div class="content-title">
+                    VIP畅享下载海量资料,  <a  href="">立即开通 ></a>       
+                </div>
+                <div class="content-list current">
+                    {%for item in results.vipList  %}
+                    <div class="list-item">
+                        <a href="{{item.linkUrl}}">
+                            <div class="banner-frame fl">
+                                <img src="{%if item.imagUrl%}{{item.imagUrl}} {% else %}{{cdnUrl}}/images/default-picture.png{%endif%} " alt="">
+                                <i class="ico-type ico-{{item.expand.format}}"></i>
+                            </div>
+                            <div class="words-des fl">
+                                <div class="item-title">
+                                    {{item.title}}
+                                </div>
+                                <div class="word-btm">
+                                    <span>{{item.expand.readNum}}阅读</span>
+                                   
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+       <div class="user-state fr">
+            <div class="inner-wrap">
+                <div class="user-top">
+                    <div class="avatar-frame fl">
+                        <img src="{{cdnUrl}}/images/index/default_avatar.png" alt="">
+                    </div>
+                    <div class="user-info fl">
+                        <div class="info-top">
+                            <div class="user-name">登录获取优质资料</div>
+                            <i class="vip-icon"></i>
+                        </div>
+                        <div class="info-des">你还不是VIP</div>
+                    </div>
+                </div>
+                <div class="special-des">
+                    <ul>
+                        <li class="special">专享下载特权</li>
+                        <li class="discount">付费资料折扣</li>
+                        <li class="free">海量资料免费下</li>
+                        <li class="identical">专属身份标识</li>
+                    </ul>
+                </div>
+                <a class="userOperateBtn hide gocenter" href="/node/personalCenter/home.html">会员中心</a>
+                <a class="userOperateBtn hide goVip" href="/pay/vip.html">开通VIP</a>
+                <a class="userOperateBtn  notLogin" href="javascript:;">立即登录</a>
+            </div>
+       </div>
+   </div>
+</div>
+<!-- 精选资料 -->
+<div class="recmond-area">
+    <div class="pw ">
+        <div class="recmond-con">
+            <div class="recmond-top">
+                <div class="recmond-title fl">精选资料</div>
+                <ul class="recmond-tab fl">
+                    {%for item in results.recfileArr  %}
+                    <li class="{% if loop.index0==0 %}current{% endif %}">{{item[0].copywriting1}}</li>
+                    {%endfor%}
+                </ul>
+            </div>
+            {%for item in results.recfileArr  %}
+            <div class="content-list {% if loop.index0==0 %}current{% endif %}">
+                {%for subitem in item  %}
+                <div class="list-item">
+                    <a target="_blank" href="{{subitem.linkUrl}}">
+                        <div class="banner-frame fl">
+                            <img src="{{subitem.imagUrl}}" alt="">
+                            <i class="ico-type ico-{{subitem.expand.format}}"></i>
+                        </div>
+                        <div class="words-des fl">
+                            <div class="item-title">
+                                {{subitem.title}}
+                            </div>
+                            <div class="word-btm">
+                                <span>{{subitem.expand.readNum}}阅读</span>
+                                <span>{{subitem.expand.totalPage}}页</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {%endfor%}
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+<!-- 权威机构 -->
+<div class="institude-area">
+    <div class="pw">
+        <div class="institude-top">
+           <span class="institude-title">权威机构</span> <span class="institude-title-des">认证后将获得更多关注 , <a  href="/node/auth/index.html">立即认证 ></a></span>       
+        </div>
+        <div class="institude-list">
+            {%for item in results.organize  %}
+            <div class="list-item {{'last-child' if loop.index ==4}}">
+                <div class="list-content">
+                    <div class="avatar-frame">
+                        <a href="{{item.linkUrl}}" target="_blank">
+                            <img src="{{item.imagUrl}}" alt="">
+                        </a>
+                    </div>
+                    <div class="institude-name">{{item.copywriting1}}</div>
+                    <div class="page-num">{{item.copywriting2}}</div>
+                    <div class="file-rec">
+                        {%for subItem in item.fileList  %}
+                        <div class="file-item">
+                            <i class="ico-type ico-{{subItem.expand.format}}"></i> 
+                            <div class="file-title">
+                                <a target="_blank" href="{{subItem.linkUrl}}">{{subItem.title}}</a>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+<div class="pw">
+    <!--热门搜索 start -->
+    <div class="seo-upload-new" style="margin-top: 20px">
+        <div class="title-tab">
+            <div class="tab-left">
+                <div class="upload-title active" type ="new">最新资料</div>
+                <div class="upload-title" type ="rectopic">推荐信息</div>
+                <div class="upload-title" type ="topic">热门专题</div>
+            </div>
+            <div class="fresh-con fr js-fresh">
+                换一换
+            </div>
+        </div>
+        <ul class="upload-list current cf" >
+            {%for item in  results.newsRec.data %}
+            <li><a href="/f/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            {%endfor%}
+        </ul>
+        <ul class="upload-list cf" >
+            {%for item in  results.hotRecData.data %}
+            <li><a href="{{item.contentUrl}}" target="_blank">{{item.contentName}}</a></li>
+            {%endfor%}
+        </ul>
+        <ul class="upload-list cf" >
+            {%for item in  results.hotTopicSeo.data %}
+            <li><a href="/node/s/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            {%endfor%}
+        </ul>
+       
+    </div>
+    <!--热门搜索 end -->
+</div>
+
+<!-- 底部 start-->
+{% include "common/new/footer.html" %}
+<!-- 底部 end-->
+<!--悬浮工具栏 start-->
+
+<!--悬浮工具栏 end-->
+<script>
+    var pageConfig = {
+        report:{
+
+        }
+    };
+    seajs.use(["dist/application/app.js","dist/index/init.js"])
+</script>
+<!-- 百度统计代码 -->
+
+</body>
+</html>

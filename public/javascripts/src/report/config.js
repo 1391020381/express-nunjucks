@@ -4,7 +4,8 @@ define(function(require , exports , module){
         COOKIE_CIDE: '_dpcid',                      //客户端id cookie地址存储
         COOKIE_CUK : 'cuk',
         COOKIE_TIMEOUT: 1000*60*50,                 //过期时间
-        SERVER_URL: '/dataReport',                  //接口地址
+        // SERVER_URL: '/dataReport',                  //接口地址
+        SERVER_URL: '/',  
         UACTION_URL: '/uAction',                     //用户阅读文档数据上传url
         EVENT_NAME:'pc_click',                      //绑定事件名称
         CONTENT_NAME :'pcTrackContent',             //上报事件内容名称

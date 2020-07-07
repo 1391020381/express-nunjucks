@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         // 头部搜索跳转
         $('.btn-new-search').click(function(){
             var searVal = $('#search-detail-input').val()
-            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+            window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
         }) 
 
 })

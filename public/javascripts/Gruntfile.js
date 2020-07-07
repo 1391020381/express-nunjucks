@@ -69,7 +69,14 @@ module.exports = function (grunt) {
                     'dist/404/init.js': ['.build/404/init.js'],
                     'dist/personalCenter/init.js': ['.build/personalCenter/init.js'],
                     'dist/pay/payment.js': ['.build/pay/payment.js'],
-                    'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js']
+                    'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js'],
+                    'dist/index/init.js': ['.build/index/init.js'],
+                    'dist/spider/init.js': ['.build/spider/init.js'],
+                    'dist/earth/init.js': ['.build/earth/init.js'],
+                    'dist/authentication/index.js': ['.build/authentication/index.js'],
+                    'dist/authentication/org.js': ['.build/authentication/org.js'],
+                    'dist/authentication/user.js': ['.build/authentication/user.js'],
+                    
                 }
             }
         },
@@ -109,6 +116,12 @@ module.exports = function (grunt) {
                     "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                     "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
                     "../stylesheets/personalCenter/personalCenter.css": "../stylesheets/personalCenter/personalCenter.less",
+                    "../stylesheets/authentication/index.css": "../stylesheets/authentication/index.less",
+                    "../stylesheets/authentication/user.css": "../stylesheets/authentication/user.less",
+                    "../stylesheets/authentication/org.css": "../stylesheets/authentication/org.less",
+                    "../stylesheets/category/category.css": "../stylesheets/category/category.less",
+                    "../stylesheets/earth/index.css": "../stylesheets/earth/index.less",
+                    "../stylesheets/spider/spider.css": "../stylesheets/spider/spider.less",
                 }
             }
         },

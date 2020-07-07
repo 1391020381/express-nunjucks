@@ -23,7 +23,9 @@ module.exports = {
         preReadPageLimit: '/fileSync/prePageInfo?fid=$fid&validateIE9=$validateIE9',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
-        getUserFileZcState:'/comment/zc/getUserFileZcState'
+        getUserFileZcState:'/comment/zc/getUserFileZcState',
+        // 是否重定向
+        redirectUrl:'/seo/link/getLinkByUrl'
     },
     coupon:{
         rightsSaleVouchers:   "/rights/sale/vouchers",
@@ -81,6 +83,33 @@ module.exports = {
     },
     tdk:{
         getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
+    },
+    category:{//分类页
+        list:'/search/content/byCondition', //查询列表
+        words:'/search/specialTopic/lisPage', //热点搜索
+        recommendList:'/recommend/config/info', //推荐位
+        navForCpage:'/content/category/navForCpage', //分类导航
+    },
+    map:{//地图
+        list:'/search/content/setmap',
+        topic:'/search/specialTopic/lisPage'
+    },
+    spider:{
+        details:'/content/getFileDetailNoTdk',
+        crumbList:'/content/category/navCategory',
+        editorInfo:'/user/getOthersCentreInfo?uid=$uid',
+        fileDetailTxt:'/content/file/getFileBody',
+        hotpotSearch:'/search/content/byCondition',
+        hotTopicSearch:'/search/specialTopic/lisPage',
+        newRecData:'/search/content/randomRecommend',
+        hotRecData:'/seo/exposeContent/contentInfo/listContentInfos',
+        
+    },
+    index:{
+        recommendList:'/recommend/config/info', //推荐位
+        navList:'/content/category/getSimplenessInfo',
+        randomRecommend:'/search/content/randomRecommend',
+        listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
     },
     order:{
       getOrderInfo: "/gateway/order/get/orderInfo"
