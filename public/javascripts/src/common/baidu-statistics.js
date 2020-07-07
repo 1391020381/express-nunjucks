@@ -78,6 +78,7 @@ define(function (require, exports, moudle) {
     }
     
     _hmt.push(['_trackCustomEvent',eventName,params]);
+    console.log('百度统计:',eventName,params)
 
   }
   return {
