@@ -1,9 +1,12 @@
 define(function (require,exports,moudle) {
     var slider = require('../common/slider');//轮播插件
-    var right = require('../common/right');
+    var login = require("../application/checkLogin");
+    var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var api = require("../application/api");
+    var headTip = require("./template/saiTemplate.html");
+                            
     // require('../common/bilog');
     /**
      * 推荐多图点击轮播
@@ -25,7 +28,6 @@ define(function (require,exports,moudle) {
                     recomandSlide.domRend();
                 }
             })
-
         },
         slideRight:function () {
             $('.preArrow').click(function () {
@@ -36,96 +38,162 @@ define(function (require,exports,moudle) {
             })
         },
         domRend:function () {
-            var num = -1*recomandSlide.index*312+'px';
-           $('.swiper-wrapper') .animate({'margin-left':num})
-        }
-
-
-    }
-    setTimeout(function () {
-        recomandSlide.init();
-    },1000)
-
-    //判断页面是否大于屏幕高度
-    function pageHeight(){
-        var winH = $(window).height();
-        var pageH = $("body").height();
-        if(winH > pageH){
-            $(".office-footer").addClass("office-footer-fix");
-        }else{
-            $(".office-footer").removeClass("office-footer-fix");
+            var num = -1*recomandSlide.index*302+'px';
+           $('.swiper-wrapper').animate({'margin-left':num})
         }
     }
-
-    /**
-     * tabs
-     * @param tabNav
-     * @param tabItem
-     * @param tabCon
-     * @param tabEvent
-     */
-    function tabs(tabNav,tabItem,tabCon,tabEvent){
-        var index = 0;
-        if(tabEvent === true){
-            $(tabNav).find(tabItem).mouseover(function(){
-                index = $(tabNav).index(this);
-                tabsFun(index,tabNav,tabCon);
-
+    var indexObject = {
+        initial:function(){
+            // 精选专题多图轮播
+            setTimeout(function () {
+                recomandSlide.init();
+            },1000)
+            //banner轮播图
+            new slider("J_office_banner","J_office_focus","J_office_prev","J_office_next");
+            this.tabswitchFiles();
+            this.tabswitchSeo();
+            this.beforeInit();
+            this.freshSeoData();
+            this.searchWordHook();
+             // 登录
+             $('.notLogin').on('click', function () {
+                if (!utils.getCookie('cuk')) {
+                    login.notifyLoginInterface(function (data) {
+                        indexObject.refreshTopBar(data);
+                    });
+                }
+            });
+            // 退出登录
+            $('.loginOut').click(function(){
+                login.ishareLogout()
             })
-        }else{
-            $(tabNav).find(tabItem).click(function(){
-                index = $(this).index()
-                tabsFun(index,tabItem,tabCon,this);
-            })
-        }
-    }
-
-    function tabsFun(index,tabItem,tabCon,that){
-        $(that).parent().parent().parent().find(tabItem).removeClass("current").eq(index).addClass("current");
-        $(that).parent().parent().parent().find(tabCon).removeClass("current").eq(index).addClass("current");
-    }
-
-    tabs('.item-nav','.nav-ele','.office-list',false);
-
-    //hover
-    /**
-     *
-     * @param ele
-     * @param eleShow
-     * @param hover
-     */
-    function elementHover(ele,eleShow,hover){
-        $(ele).hover(
-            function(){
-                $(this).addClass(hover);
-                $(eleShow).fadeIn("slow");
-            },
-            function(){
-                $(this).removeClass(hover);
-                $(eleShow).fadeOut("slow");
+        },
+        beforeInit:function(){
+            if (utils.getCookie('cuk')) {
+                login.getLoginData(function (data) {
+                    if (data) {
+                        indexObject.refreshTopBar(data);
+                   }
+                });
             }
-        );
-    }
-    //办公分类展开
-    elementHover(".category-item",null,"category-on");
-    //办公轮播图
-    new slider("J_office_banner","J_office_focus","J_office_prev","J_office_next");
-
-    //首页列表图片触及
-    elementHover(".office-list li .data-pic",null,"data-pic-hover");
-    //办公返回顶部
-    // backToTop(".office-back-top");
-    //榜单分段控件
-    elementHover(".control-nav-con .more-ele",null,"more-ele-hover");
-
-    $('.none-btn').on('click', function () {
-        var cond = encodeURIComponent(encodeURIComponent($(this).attr('data-cond')));
-        window.location.href = '/search/home.html?ft=all&cond=' + cond;
-    });
-
-     // 展示更多
-    $('.seo-upload-new .show-more').click(function () {
-        $(this).parent().parent().css({'height':'auto'});
-        $(this).parent().hide()
-    })
+            // 自动轮播热词
+            indexObject.hotWordAuto()
+        },
+        // 自动轮播热词
+        hotWordAuto:function(){
+            var i =0;
+            var length = $('.search-container .label-ele').length;
+            setInterval(function(){
+               i++;
+               if(i == length) {
+                   i = 0
+               }
+               var val = $('.search-container .label-ele').eq(i).find('a').text();
+               $('.search-container .search-input').val(val)
+            },2500)
+        },
+        // 点击搜索
+        searchWordHook:function(){
+            $('.search-container .icon-search').click(function(){
+                var searVal = $('.search-container .search-input').val();
+                var url = ''
+                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+            })
+           
+        },
+        tabswitchFiles:function(){
+            // 精选资料切换
+            $('.recmond-tab').find('li').on('click',function(){
+                $(this).addClass('current').siblings().removeClass('current');
+                var _index = $(this).index();
+               $(this).parents('.recmond-con').find('.content-list').eq(_index).addClass('current').siblings().removeClass('current');
+            })
+        },
+        tabswitchSeo:function(){
+            // 晒内容专区切换
+            $('.seo-upload-new').find('.upload-title').on('click',function(){
+                $(this).addClass('active').siblings().removeClass('active');
+                var _index = $(this).index();
+               $(this).parents('.seo-upload-new').find('.upload-list').eq(_index).addClass('current').siblings().removeClass('current');
+            })
+        },
+        //换一换
+        freshSeoData:function(){
+            var url = '';
+                var data = {
+                    type: 'new',
+                    currentPage:1,
+                    pageSize:12
+                };
+                var dataType = 1;
+            $('.js-fresh').click(function(){
+                var type = $('.seo-upload-new .active').attr('type');
+                var $list = $('.seo-upload-new .upload-list')
+                if( type!='rectopic') {
+                    url = '/gateway/search/content/randomRecommend';
+                    if(type =='new') {
+                        data.type = 'new';
+                        $list = $list[0];
+                        dataType =1;
+                    }else{
+                        data.type = 'topic';
+                        $list = $list[2]
+                        dataType =3;
+                    }
+                }else {
+                    dataType =2;
+                    $list = $list[1]
+                    data = {
+                        contentType: 100,
+                        clientType:1,
+                        pageSize:12
+                    }
+                    url = '/gateway/seo/exposeContent/contentInfo/listContentInfos'
+                }
+                getData(url,data,dataType,$list)
+            })
+            
+            function getData(url,data,dataType,$list){
+                data = JSON.stringify(data);
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    url: url,
+                    data:data,
+                    dataType: "json",
+                    contentType:'application/json',
+                    success: function (data) {
+                       if(data.code =="0") {
+                        data.data.type = dataType;
+                        var _html = template.compile(headTip)({ data: data.data });
+                        $($list).html(_html)
+                        
+                       }
+                    }
+                });
+            }
+        },
+        //刷新topbar
+        refreshTopBar:function (data) {
+            var $unLogin = $('.notLogin');
+            var $hasLogin = $('.hasLogin');
+            var $btn_user_more = $('.btn-user-more');
+            $unLogin.hide();
+            $hasLogin.find('.user-link .user-name').html(data.nickName);
+            $hasLogin.find('.user-link img').attr('src', data.weiboImage);
+            $('.user-top .avatar-frame img').attr('src', data.weiboImage);
+            $hasLogin.find('.top-user-more .name').html(data.nickName);
+            $('.user-state .user-name').text(data.nickName)
+            $hasLogin.show();
+            if(data.isVip == 1) {
+                $('.user-state .vip-icon').addClass('vip-avaliable')
+                $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
+                var expireStr = data.expireTime+'到期'
+                $('.user-state .info-des').text(expireStr)
+            }else{
+                $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide')
+            }
+        }
+     }
+     indexObject.initial()
 })

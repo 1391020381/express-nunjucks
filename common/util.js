@@ -1,39 +1,35 @@
 module.exports = {
     pageIds:{  //推荐位id
         index:{ //首页
-            ub:'PC_O_H_all_all_ub', //顶部banner
-            zt:'PC_O_H_zt', //专题列表
-            pptrelevant:'PC_O_pptrelevant',//编辑推荐PPT
-            docrelevant:'PC_O_docrelevant',//编辑推荐doc
-            xlsrelevant:'PC_O_xlsrelevant'//编辑推荐excel
-        },
-        specialPage:{//专题页
-            topbanner:'PC_O_ZT_topbanner', //顶部banner
-            xfbanner:'PC_O_ZT_xfbanner' //悬浮banner
-        },
-        searchPage:{//搜索页
-            topbanner:'PC_O_SR_topbanner',//顶部banner
-            xfbanner:'PC_O_SR_xfbanner',//悬浮banner
-        },
-        vipListPage:{  //套餐列表页
-            topbanner:'PC_O_PAY_VIP_L_banner' //顶部banner
+            ub:'PC_M_H_banner', //顶部banner
+            zt:'PC_M_H_zhuanti', //专题推荐
+            viprelevant:'PC_M_H_vipzhuanqu',//首页VIP专区
+            recfile1:'PC_M_H_bjtj1',//首页精选资料-编辑推荐1
+            recfile2:'PC_M_H_bjtj2',//首页精选资料-编辑推荐2
+            recfile3:'PC_M_H_bjtj3',//首页精选资料-编辑推荐3
+            recfile4:'PC_M_H_bjtj4',//首页精选资料-编辑推荐4
+            recfile5:'PC_M_H_bjtj5',//首页精选资料-编辑推荐5
+            organize:'PC_M_H_qwjg', // 首页权威机构
+            hotSearchWord:'PC_M_H_rmss', //热门搜索词
+            friendLink:'PC_M_H_yqlj' //友情链接
         },
         categoryPage:{ //分类页
-            topbanner:'PC_O_FC_topbanner',//顶部banner图
-            xfbanner:'PC_O_FC_xfbanner'//悬浮banner
-        },
-        downloadSuccessPage:{ //下载成功也
-            suc_banner:'PC_O_DOWN_SUC_banner',//下载成功页Banner
-            suc_like:'all_office_20200220_001'//猜你喜欢
-        },
-        paySuccessPage:{ //支付成功页
-            suc_banner:'PC_O_PAY_SUC_banner' //支付成功页Banner
-        },
-        detailPage:{ //详情页 调用另一个接口
-            // ub:'PC_O_H_all_1818_ub', //办公全站详情页可看
-            // rb:'PC_O_H_all_1818_rb',//右边banner
-            // xfb:'PC_O_H_all_1818_xfb',//悬浮banner
-            like:'all_office_20200220_001',//右侧和底部猜你喜欢
+            topbanner_1816:'PC_M_FC_all_1816_topbanner',//顶部banner图
+            topbanner_1820:'PC_M_FC_all_1820_topbanner',//顶部banner图
+            topbanner_1821:'PC_M_FC_all_1821_topbanner',//顶部banner图
+            topbanner_1818:'PC_M_FC_all_1818_topbanner',//顶部banner图
+            topbanner_1819:'PC_M_FC_all_1819_topbanner',//顶部banner图
+            rightbanner_1816:'PC_M_FC_all_1816_rightbanner',//分类页-右侧banner
+            rightbanner_1820:'PC_M_FC_all_1820_rightbanner',//分类页-右侧banner
+            rightbanner_1821:'PC_M_FC_all_1821_rightbanner',//分类页-右侧banner
+            rightbanner_1818:'PC_M_FC_all_1818_rightbanner',//分类页-右侧banner
+            rightbanner_1819:'PC_M_FC_all_1819_rightbanner',//分类页-右侧banner
+            zhuanti_1816:'PC_M_FC_all_1816_zhuanti',//分类页-右侧banner
+            zhuanti_1820:'PC_M_FC_all_1820_zhuanti',//分类页-右侧banner
+            zhuanti_1821:'PC_M_FC_all_1821_zhuanti',//分类页-右侧banner
+            zhuanti_1818:'PC_M_FC_all_1818_zhuanti',//分类页-右侧banner
+            zhuanti_1819:'PC_M_FC_all_1819_zhuanti',//分类页-右侧banner
+            friendLink:'PC_M_FC_yqlj' //友情链接
         }
     },
     paradigm4Relevant:function(fid,uid,title,sceneID,callback){  //第四范式

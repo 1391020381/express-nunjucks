@@ -344,7 +344,6 @@
           padding-right: 30px;
           padding-bottom: 10px;
           z-index: 10;
-
           .arrow {
             .icon-office();
             width: 10px;
@@ -655,409 +654,9 @@
   }
 }
 
-//   内容
-.office-index-item {
-  .index-item-header {
-    font-size: 0;
-    height: 62px;
-    position: relative;
-    .title-text {
-      .inline-block();
-      vertical-align: top;
-      height: 62px;
-      line-height: 62px;
-      font-size: 22px;
-      color: @gray-dark;
-    }
-    .item-nav {
-      .inline-block();
-      vertical-align: top;
-      height: 35px;
-      line-height: 35px;
-      padding-top: 14px;
-      margin-left: 6px;
-      font-size: 0;
-      .nav-ele {
-        .inline-block();
-        position: relative;
-        margin-left: 35px;
-        font-size: 15px;
-        color: @gray-dark;
-        cursor: pointer;
-        &:hover {
-          color: @blue;
-        }
-        &.current {
-          color: @blue;
-          .line {
-            display: block;
-          }
-        }
-        .line {
-          height: 2px;
-          .center(known-x, 26px);
-          bottom: 0;
-          background-color: @blue;
-          display: none;
-        }
-      }
-    }
-    .look-more {
-      position: absolute;
-      color: rgba(102, 102, 102, 1);
-      right: 0;
-      display: block;
-      font-size: 14px;
-      top: (63-19)/2px;
-      padding-right: 10px;
-      .icon-ele-arrow {
-        .icon-office();
-        width: 6px;
-        .center(known-y, 9px);
-        right: 0;
-        background-position: -30px -90px;
-      }
-    }
-    .nav-view-more {
-      display: block;
-      .center(known-y, 25px);
-      right: 24px;
-      line-height: 25px;
-      padding-right: 10px;
-      font-size: 13px;
-      color: #888;
-      cursor: pointer;
-      .arrow {
-        .icon-office();
-        width: 6px;
-        .center(known-y, 9px);
-        right: 0;
-        background-position: -30px -90px;
-      }
-      &:hover {
-        color: darken(#888, 10%);
-      }
-    }
-  }
-}
-//列表
-.office-list {
-  margin-top: -20px;
-  margin-left: -20px;
-  *position: relative;
-  *zoom: 1;
-  display: none;
-
-  &.current {
-    display: block;
-  }
-
-  li {
-    padding: 4px 4px 0;
-    width: 277px;
-    float: left;
-    *display: inline;
-    background-color: #fff;
-    margin-top: 20px;
-    margin-left: 20px;
-    border-radius: 2px;
-    box-shadow: 0px 4px 7px 0px rgba(57, 0, 0, 0.09);
-    position: relative;
-
-    .office-collect-info {
-      top: 50%;
-      margin-top: -25px;
-    }
-    .icon-recommend {
-      display: block;
-      overflow: hidden;
-      background: url(../images/icon_office.png) no-repeat;
-      width: 82px;
-      height: 29px;
-      line-height: 29px;
-      position: absolute;
-      top: -4px;
-      left: 16px;
-      z-index: 15;
-      background-position: -120px 0;
-      color: #fff;
-      text-indent: 7px;
-      font-size: 14px;
-      font-style: normal;
-    }
-
-    .data-pic {
-      height: 384px;
-      overflow: hidden;
-      position: relative;
-      *zoom: 1;
-
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    .pic-excel-item {
-      height: 190px;
-      margin-bottom: 2px;
-      background-color: #eee;
-
-      img {
-        display: block;
-      }
-    }
-
-    .pic-ppt-big {
-      height: 156px;
-      background-color: #eee;
-      margin-bottom: 2px;
-
-      img {
-        display: block;
-      }
-    }
-
-    .pic-ppt-two {
-      overflow: hidden;
-      margin-left: -2px;
-
-      .pic-two-item {
-        margin-left: 2px;
-        width: 137.5px;
-        overflow: hidden;
-        background-color: #eee;
-        height: 80px;
-        float: left;
-        *display: inline;
-        margin-bottom: 2px;
-      }
-
-      img {
-        display: block;
-      }
-    }
-
-    .data-pic-hover {
-      .data-pic-more {
-        display: block;
-      }
-    }
-
-    .data-pic-more {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 10;
-      display: none;
-
-      .btn-pic-xx {
-        width: 34px;
-        height: 34px;
-        border-radius: 4px;
-        position: absolute;
-        top: 26px;
-        right: 18px;
-        display: block;
-        overflow: hidden;
-        z-index: 5;
-        cursor: pointer;
-
-        .icon-xx {
-          display: block;
-          overflow: hidden;
-          background: url(../../../images/icon_office.png) no-repeat;
-          width: 22px;
-          height: 22px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          margin-top: -11px;
-          margin-left: -11px;
-          background-position: -20px -30px;
-          z-index: 4;
-        }
-      }
-
-      .btn-pic-xx-ok {
-        .icon-xx {
-          background-position: -20px -60px;
-        }
-      }
-
-      .mask-xx {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        z-index: 1;
-        background-color: #fff;
-        opacity: 0.95;
-        filter: alpha(opacity=95);
-      }
-    }
-
-    .btn-data-download {
-      display: block;
-      text-align: center;
-      width: 204px;
-      height: 50px;
-      line-height: 50px;
-      background-color: #2d79e2;
-      color: #ffffff;
-      font-size: 16px;
-      cursor: pointer;
-      position: absolute;
-      left: 50%;
-      margin-left: -102px;
-      bottom: 66px;
-      z-index: 5;
-      border-radius: 4px;
-
-      // &:hover {
-      //   color: #ffffff;
-      //   background-color: #5E99FF;
-      // }
-    }
-
-    .pic-mask {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 1;
-      background-color: #000;
-      opacity: 0.35;
-      filter: alpha(opacity=35);
-    }
-
-    .data-text-con {
-      padding: 0 20px 12px;
-    }
-
-    .data-name {
-      height: 46px;
-      line-height: 46px;
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      font-size: 16px;
-      color: #333333;
-
-      &:hover {
-        color: #5E99FF;
-      }
-    }
-
-    .op-bar {
-      height: 40px;
-      line-height: 40px;
-      position: relative;
-      border-top: 1px solid #f0f0f0;
-    }
-
-    .price-text {
-      color: #5E99FF;
-    }
-
-    .op-con {
-      position: absolute;
-      right: 0;
-      top: 0;
-      left: 0;
-    }
-
-    .btn-op {
-      float: left;
-      *display: inline;
-      display: block;
-      padding-left: 18px;
-      position: relative;
-      font-size: 13px;
-      color: #888;
-
-      //cursor: pointer;
-      .icon-op {
-        display: block;
-        overflow: hidden;
-        background: url(../../images/office/icon_office.png) no-repeat;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 50%;
-        margin-top: -8px;
-        left: 0;
-      }
-    }
-
-    .btn-goods {
-      margin-left: 10px;
-
-      .icon-op {
-        background-position: -50px 0;
-      }
-    }
-
-    .btn-goods-ok {
-      color: #5E99FF;
-
-      .icon-op {
-        background-position: -50px -40px;
-      }
-
-      &:hover {
-        .icon-op {
-          background-position: -50px -40px;
-        }
-      }
-    }
-
-    .btn-xx {
-      margin-left: 15px;
-      float: right;
-
-      .icon-op {
-        background-position: -70px 0;
-
-        &:hover {
-          .icon-op {
-            background-position: -70px -20px;
-          }
-        }
-      }
-    }
-
-    .btn-xx-ok {
-      color: #5E99FF;
-
-      .icon-op {
-        background-position: -70px -40px;
-
-        &:hover {
-          .icon-op {
-            background-position: -70px -40px;
-          }
-        }
-      }
-    }
-  }
-}
-
 .recommend-section {
   position: relative;
   width: 1236px;
-  height: 140px;
   margin: 0 auto;
   .preArrow {
     width: 36px;
@@ -1065,7 +664,7 @@
     position: absolute;
     left: 0px;
     top: 50%;
-    margin-top: -18px;
+    margin-top: 0px;
     background-image: url("../../images/index/left_arrow.png");
     background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
@@ -1078,15 +677,18 @@
     position: absolute;
     right: 0px;
     top: 50%;
-    margin-top: -18px;
+    margin-top: 0px;
     display: block;
-    background-image: url("../../images/office/right_arrow.png");
+    background-image: url("../../images/index/right_arrow.png");
     background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     cursor: pointer;
   }
   //推荐
   .office-recommend {
+	.swiper-wrapper {
+		height: 140px;
+	  }
     .subtitle {
       font-size: 20px;
       color: #222222;
@@ -1098,7 +700,7 @@
         margin-left: 10px;
       }
     }
-    height: 140px;
+
     overflow: hidden;
     .recommend-item {
       .fl();
@@ -1197,6 +799,10 @@
 .content-list() {
 	.content-list {
 		overflow: hidden;
+		display: none;
+		&.current {
+			display: block;
+		}
 		.list-item {
 			padding: 0px 25px 2px;
 			margin-bottom: 22px;
@@ -1286,6 +892,110 @@
 			}
 			.content-list()
 		}
+  }
+	.user-state {
+		width:290px;
+		height:310px;
+		background:#FFFFFF;
+		border-radius:6px;
+		.inner-wrap {
+			padding:34px 30px 43px;
+			.user-top{
+				overflow: hidden;
+				padding-bottom: 24px;
+				border-bottom: 1px solid #F4F4F4;
+				.avatar-frame {
+					width: 56px;
+					height: 56px;
+					border-radius: 50%;
+					overflow: hidden;
+				}
+				.user-info{
+					margin-left: 10px;
+					overflow: hidden;
+					padding-top: 9px;
+					.info-top{
+						overflow: hidden;
+						.user-name{
+							font-size: 15px;
+							color: #222222;
+							font-weight: bold;
+							width: 120px;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							float: left;
+							
+						}
+						.vip-icon {
+							float: left;
+							overflow: hidden;
+							background: url(../../images/icon_iShare.png) no-repeat;
+							width: 18px;
+							height: 15px;
+							float: left;
+							margin: 2px 0 0 12px;
+							background-position: -190px -170px;
+							&.vip-avaliable{
+								background-position: -210px -170px;
+							}
+						}
+					}
+					.info-des{
+						font-size: 12px;
+						color: #888;
+						margin-top: 5px;
+					}
+				}
+			}
+			.special-des{
+				ul{
+					overflow: hidden;
+					margin-top: 5px;
+					li{
+						float: left;
+						color: #987C49;
+						font-size: 12px;
+						padding-left: 30px;
+						height: 21px;
+						line-height: 21px;
+						width: 82px;
+						margin-top: 18px;
+						&.special{
+							background: url(../../images/index/vip_down.png) left center no-repeat;
+						}
+						&.discount{
+							background: url(../../images/index/discount_icon.png) left center no-repeat;
+						}
+						&.free{
+							background: url(../../images/index/free_icon.png) left 4px center no-repeat;
+						}
+						&.identical{
+							background: url(../../images/index/identical_icon.png) left center no-repeat;
+						}
+						&:nth-child(2n) {
+							margin-left: 6px;
+						}
+					}
+				
+				}
+			}
+			.userOperateBtn{
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				font-size: 16px;
+				color: #fff;
+				display: block;
+				margin: 0 auto;
+				background-color: #D7AF61;
+				border-radius: 22px;
+        margin-top: 30px;
+        &.hide{
+          display: none;
+        }
+			}
+		}
 	}
 }
 // 精选资料
@@ -1324,7 +1034,7 @@
 						background: #F25125;
 						color: #fff;
 					}
-					&.actived{
+					&.current{
 						background: #F25125;
 						color: #fff;
 					}
@@ -1333,34 +1043,165 @@
 		}
 		.content-list()
 	}
+}// 权威机构
+.institude-area {
+    margin-top: 14px;
+    .institude-top {
+		padding-left: 24px;
+		height: 53px;
+		line-height: 53px;
+		.institude-title {
+			font-size: 20px;
+			color: #222222;
+		}
+		.institude-title-des {
+			font-size: 14px;
+			color: #666666;
+			a {
+				color: #F25125;
+			}
+		}
+	}
+	.institude-list{
+		overflow: hidden;
+		.list-item {
+			float: left;
+			background: #fff;
+			margin-right: 18px;
+			&:last-child {
+				margin-right: 0;
+			}
+			.list-content {
+				width:286px;
+				height:305px;
+				border-radius:6px;
+				.avatar-frame {
+					width: 80px;
+					height: 80px;
+					border-radius: 50%;
+					border: 2px solid #f4f4f4;
+					overflow: hidden;
+					margin:0 auto;
+					margin-top: 24px;
+					img {
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.institude-name {
+					text-align: center;
+					font-size: 16px;
+					color: #222222;
+					margin-top: 10px;
+				}
+				.page-num{
+					text-align: center;
+					color: #999999;
+					font-size: 12px;
+					margin-top: 5px;
+				}
+				.file-rec{
+					font-size: 14px;
+					color: #333333;
+					margin-top: 30px;
+					padding:0 22px;
+					.file-item {
+						position: relative;
+						padding-left: 24px;
+						margin-top: 18px;
+						.file-title {
+							white-space:nowrap;
+							overflow:hidden;
+							text-overflow:ellipsis;
+						}
+						.ico-type {
+							position: absolute;
+							width: 16px;
+							height: 16px;
+							top: 0;
+							left: 0;
+							background-image: url(../../images/new_detail/icon_new_data.png);
+							&.ico-xlsx {
+								background-position: 0 -100px;
+							}
+							&.ico-xls {
+								background-position: 0 -100px;
+							}
+							&.ico-doc{
+								background-position: 0 -20px;
+							}
+							&.ico-docx{
+								background-position: 0 -20px;
+							}
+							&.ico-ppt {
+								background-position: 0 -60px;
+							}
+							&.ico-pptx {
+								background-position: 0 -60px;
+							}
+							&.ico-pdf {
+								background-position: 0 -40px;
+							}
+							&.ico-txt {
+								background-position: 0 -80px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 //热门搜索
 .seo-upload-new {
-  .upload-title {
-    height: 34px;
-    line-height: 34px;
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #333333;
-  }
-
+	.title-tab {
+    overflow: hidden;
+      .tab-left{
+        .upload-title {
+          height: 34px;
+          line-height: 34px;
+          font-size: 20px;
+          margin-bottom: 8px;
+          color: #222222;
+          border-bottom: 2px solid #f4f4f4;
+          float: left;
+          margin-right: 36px;
+          cursor: pointer;
+          &.active{
+              border-bottom: 2px solid #F25125;
+              color: #F25125;
+            }
+          }
+      }
+      .fresh-con {
+        font-size: 13px;
+        color: #B8B8B8;
+        padding: 0 14px 0 22px;
+        background: url(../../images/index/freash.png) no-repeat;
+        cursor: pointer;
+        margin-top: 13px;
+      }
+	}
+  
   .upload-list {
     overflow: hidden;
     margin-left: -24px;
-    height: 60px;
-
+    display: none;
+    &.current {
+      display: block;
+    }
     li {
-      width: 180px;
+      width: 260px;
       float: left;
       *display: inline;
       margin-left: 24px;
-      line-height: 30px;
+      line-height: 37px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
 
       a {
-        color: #888;
+        color: #555;
       }
     }
   }

@@ -10,7 +10,10 @@ let routes = [
     'personalCenter',
     '503',
     '404',
-    'start'
+    'start',
+    'category',
+    'authentication',
+    'earth'
 ];
 
 module.exports = routes;

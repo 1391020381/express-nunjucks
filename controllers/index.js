@@ -5,55 +5,186 @@
 var async = require("async");
 var server = require("../models/index");
 var render = require("../common/render");
+var api = require("../api/api");
 var util = require("../common/util");
+var appConfig = require("../config/app-config");
+var request = require('request');
 
 module.exports = {
     render:function(res , req){
         return async.parallel({
-            //获取首页数据
-            officeIndex : function(callback){
-                console.log('http://192.168.1.50:8770/gateway/pc/office/getIndexDatas')
-                server.get('http://192.168.1.50:8770/gateway/pc/office/getIndexDatas', callback ,req);
-                // let data = {"code":"0","message":"请求成功","msg":"请求成功","data":{"keywordList":[{"title":"简历模板啦啦模板啦啦","url":"http://www.sina.com","subKeywordList":[{"title":"PPT","url":"http://www.sina.com"},{"title":"TXTssssssss","url":"http://www.sina.com"},{"title":"DOC","url":"http://www.sina.com"},{"title":"PDF","url":"http://www.sina.com"}]},{"title":"PPT模板啦啦啦啦啦啦","url":"http://www.sina.com","subKeywordList":null},{"title":"图表模式","url":"http://www.baidu.com","subKeywordList":null},{"title":"办公二期","url":"http://www.baidu.com","subKeywordList":[{"title":"二期","url":null}]}],"bannerList":null,"recommendList":[{"title":"办公精选啦啦啦啦啦啦","pic":"http://pic.iask.com.cn/xP9B5VAPqR.jpg","url":"办公精选啦啦啦啦啦啦"},{"title":"限时特价啦啦啦啦啦啦","pic":"http://pic.iask.com.cn/xhG6R5uvER.png","url":"http://www.baidu.com"},{"title":"最受欢迎简历啦啦啦啦啦啦","pic":"http://pic.iask.com.cn/xmfXpU1ujT.png","url":""}],"columnList":[{"title":"点赞最多","subCategory":[{"title":"简历模板啦啦啦啦啦啦啦啦啦啦啦","files":[{"id":"135VX0rNoPR","title":"企业承包合同范本","pic":"http://pic.iask.com.cn/VCYxYHmQgSZ_small1.jpg","likeNum":15292,"enshrineNum":18192},{"id":"135eOxpwPTO","title":"测试测试测试测试测试测试测试测试测试测试测试测试测","pic":"http://pic.iask.com.cn/NPTQegDQx.jpg","likeNum":4107,"enshrineNum":1110},{"id":"1QLAxkbOk8","title":"大于50页","pic":"http://pic.iask.com.cn/IYKxN2btgQj_small1.jpg","likeNum":2,"enshrineNum":4},{"id":"1TBDw8D6CC","title":"11111111111111","pic":"http://pic.iask.com.cn/pic_data_normal.jpg","likeNum":1,"enshrineNum":6},{"id":"EFG1h1qobt","title":"4-用户上传-doc","pic":"http://pic.iask.com.cn/uB3a8aShlj3_small1.jpg","likeNum":26425,"enshrineNum":7904},{"id":"eZvkJf1gje","title":"工作总结汇报通用PPT模板","pic":"http://pic.iask.com.cn/eFyBJI76Sp.jpg","likeNum":4081,"enshrineNum":1145},{"id":"qpJFdtqKgP","title":"Eric1565069585591_privilege","pic":"http://pic.iask.com.cn/zIsyMUdV98P_small1.jpg","likeNum":47279,"enshrineNum":11372},{"id":"qyu97uqeTF","title":"Eric1565171432615_volumn","pic":"http://pic.iask.com.cn/uf27UDxOilt_small1.jpg","likeNum":47381,"enshrineNum":7038}]},{"title":"PPT模板11","files":[{"id":"pWNhmpm9jN","title":"公司企业文化建设方案(经典)","pic":"http://pic.iask.com.cn/pVRxhyRg6cO_small1.jpg","likeNum":0,"enshrineNum":1},{"id":"qaxgmUcpLF","title":"公文写作培训PPT","pic":"http://pic.iask.com.cn/haLP4QgMb2B_small1.jpg","likeNum":0,"enshrineNum":0},{"id":"qf7a0ArWaj","title":"供应商管理制度及操作流程","pic":"http://pic.iask.com.cn/pic_data_normal.jpg","likeNum":0,"enshrineNum":0},{"id":"qogWRqqETJ","title":"购销合同模板范本","pic":"http://pic.iask.com.cn/dcy6dkKzuel_small1.jpg","likeNum":0,"enshrineNum":0},{"id":"qsQVDQGnM3","title":"国有企业组织结构分支图","pic":"http://pic.iask.com.cn/PXmCfd685pV_small1.jpg","likeNum":0,"enshrineNum":0}]},{"title":"图表模板","files":[{"id":"10088448","title":"2011年考研专业深度分析(重点大学重点专业)免费下载","pic":"http://pic.iask.com.cn/pic_data_normal.jpg","likeNum":2,"enshrineNum":6},{"id":"11108250","title":"JEWELCAD珠宝设计实用教程","pic":"http://pic.iask.com.cn/pic_data_normal.jpg","likeNum":3,"enshrineNum":17},{"id":"2AKy17zp42","title":"大型电商分布式系统实践 - 第三课","pic":"http://pic.iask.com.cn/gwyJg49uekP_small1.jpg","likeNum":0,"enshrineNum":10},{"id":"FbheQo60q3","title":"6-用户上传-doc","pic":"http://pic.iask.com.cn/MRiy962u2P9_small1.jpg","likeNum":0,"enshrineNum":0}]},{"title":"总结汇报","files":[{"id":"1QLAxkbOk8","title":"大于50页","pic":"http://pic.iask.com.cn/IYKxN2btgQj_small1.jpg","likeNum":2,"enshrineNum":4},{"id":"8eFkd5DaL","title":"41物资仓储管理办法-viwen","pic":"http://pic.iask.com.cn/e9Xrei824d.jpg","likeNum":1,"enshrineNum":19},{"id":"rhVHcl08j","title":"测试BUG","pic":"http://pic.iask.com.cn/5toDwtjno5L.jpg","likeNum":109,"enshrineNum":122}]}]},{"title":"最新发布","subCategory":null},{"title":"热门下载","subCategory":null},{"title":"测试","subCategory":[{"title":"111111","files":[{"id":"11108250","title":"JEWELCAD珠宝设计实用教程","pic":"http://pic.iask.com.cn/pic_data_normal.jpg","likeNum":3,"enshrineNum":17},{"id":"1UnV1xGQDe","title":"NB@SCRCU_数据采集方案书NB@SCRCU_数据采集方案书NB@SCRCU_数据采集方案书NB@SCRCU_数据采集方案书NB@SCRCU_数据采集方案书","pic":"http://pic.iask.com.cn/mC2i6n3X7dS_small1.jpg","likeNum":46459,"enshrineNum":26205}]}]}],"tdk":{"title":"null_null_null免费下载_爱问共享资料","keywords":"null,null,null","description":"爱问共享资料提供null,null,null精品资料的在线阅读及下载，同时您还可以和千万网友分享自己的人力资源管理资料文档，获得相应的下载积分。爱问共享资料平台"},"categoryList":null}}
-                // callback(null, data);
-            },
             recommendList:function(callback){ //推荐列表  包含banner 专题 word ppt exl
-                console.log('http://192.168.1.50:8770/gateway/recommend/config/info')
                 let params=[];
                 for (let k in util.pageIds.index){
                     params.push(util.pageIds.index[k])
                 }
                 req.body = params;
-                server.post('http://192.168.1.50:8770/gateway/recommend/config/info', callback, req);
-               
-              
+                server.post(appConfig.apiNewBaselPath+api.index.recommendList, callback, req);
+            },
+            tdk:function(callback){
+                server.get(appConfig.newBasePath + api.tdk.getTdkByUrl.replace(/\$url/, '/'), callback, req);
+            },
+             //第四范式 相关推荐
+             paradigm4Relevant: function (callback) {
+                var pageIds = ['Q_M_FD_hot_home']
+                let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
+                let option = {
+                    url: url,
+                    method: 'POST',
+                    body: JSON.stringify(pageIds),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    },
+                }
+                // callback(null, null);
+                request(option, function (err, res, body) {
+                    if (body) {
+                        try {
+                            var resData = JSON.parse(body);
+                            if (resData.code == 0) {
+                                var data = resData.data || [];
+                                var recommendInfoData_rele = data[0] || {}; //相关资料
+                                get4format(recommendInfoData_rele)
+                            } else {
+                                callback(null, null);
+                            }
+                        } catch (err) {
+                            callback(null, null);
+                            console.log("err=============", err)
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
+                function get4format(recommendInfoData_rele){
+                    var requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+                    var userID = Math.random().toString().slice(-15); //标注用户的ID，
+                    if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
+                        var sceneIDRelevant = recommendInfoData_rele.useId || '';
+                        req.body = { "page":0};
+                        server.post(`https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`, callback, req);
+                     
+                    } else {
+                        callback(null, null);
+                    }
+                }
+            },
+            categoryList:function(callback) {
+                console.log(appConfig.apiNewBaselPath+api.index.navList)
+                req.body = {"site":4,"deeplevel":2};
+                server.post(appConfig.apiNewBaselPath+api.index.navList, callback, req);
+            },
+            // 热门专题（晒内容）
+            hotTopicSeo:function(callback){
+                console.log(appConfig.apiNewBaselPath+api.index.randomRecommend)
+                req.body = {
+                    type: 'topic',
+                    currentPage:1,
+                    pageSize:12
+                };
+                server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
+            },
+            // 最新推荐（晒内容）
+            newsRec:function(callback){
+                req.body = {
+                    type: 'new',
+                    currentPage:1,
+                    pageSize:12
+                };
+                server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
+            },
+            // 推荐信息（晒内容）
+            hotRecData:function(callback){
+                req.body = {
+                    contentType: 100,
+                    clientType:1,
+                    pageSize:12
+                };
+                server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }
+
         } , function(err, results){
-            console.log('$$$$$$$$$$$$$$$$$$$$$$$$')
-            console.log(results,'results.recommendList----')
-            if(results && results.officeIndex && results.officeIndex.data){
-                results.tdk = results.officeIndex.data.tdk;
+            if(results.tdk && results.tdk.data){
+                results.list = {};
+                results.list.data = {};
+                results.list.data.tdk = results.tdk.data;
             }
-            // 推荐位处理数据
+            // 推荐位处理数
             results.contentList=[];
             if(results.recommendList){
+                const recfileArr = [];
                 results.recommendList.data && results.recommendList.data.map(item=>{
                     if(item.pageId == util.pageIds.index.ub){
                         results.bannerList=util.dealHref(item).list || [];  
                     }else if(item.pageId == util.pageIds.index.zt){
                         results.specialList=util.dealHref(item).list || [];
-                    }else if(item.pageId == util.pageIds.index.pptrelevant){
-                        item && results.contentList.push(item);
-                    }else if(item.pageId == util.pageIds.index.docrelevant){
-                        item && results.contentList.push(item);
-                    }else if(item.pageId == util.pageIds.index.xlsrelevant){
-                        item && results.contentList.push(item);
+                    }else if(item.pageId == util.pageIds.index.viprelevant){
+                        results.vipList=util.dealHref(item).list || [];
+                    }else if(item.pageId == util.pageIds.index.recfile1){
+                        let  tmp1 = util.dealHref(item).list || [];
+                        recfileArr.push(tmp1)
+                    }else if(item.pageId == util.pageIds.index.recfile2){
+                        let  tmp2 = util.dealHref(item).list || [];
+                        recfileArr.push(tmp2)
+                    }else if(item.pageId == util.pageIds.index.recfile3){
+                        let  tmp3 = util.dealHref(item).list || [];
+                        recfileArr.push(tmp3)
+                    }else if(item.pageId == util.pageIds.index.recfile4){
+                        let  tmp4 = util.dealHref(item).list || [];
+                        recfileArr.push(tmp4)
+                    }else if(item.pageId == util.pageIds.index.recfile5){
+                        let  tmp5 = util.dealHref(item).list || [];
+                        recfileArr.push(tmp5)
+                    }else if(item.pageId == util.pageIds.index.organize) {
+                        var arr =  util.dealHref(item).list || [];
+                         // 处理权威机构数据
+                         var fileArr = [];
+                         var userInfoArr = [];
+                         arr.forEach(element => {
+                            if(element.type==1) {
+                                fileArr.push(element)
+                            }else if(element.type==2) {
+                                userInfoArr.push(element)
+                            }
+                         });
+                         results.organize = JSON.parse(JSON.stringify(userInfoArr));
+                         var step =0;
+                         for(var i=0;i<4;i++) {
+                            step += 3;
+                            var fileSlice = fileArr.slice(step,step+3);
+                            results.organize[i].fileList = fileSlice
+                         } 
+                    }else if (item.pageId == util.pageIds.index.hotSearchWord) {
+                        // 搜索框下热词搜索
+                        results.hotSearchWord = util.dealHref(item).list || [];
+                    }else if(item.pageId == util.pageIds.index.friendLink){
+                        // 友情链接
+                        results.friendLink = util.dealHref(item).list || [];
                     }
                 })
-            }
-
-            console.warn(results.recommendList.data,'results.recommendList.data')
-            console.log(results,'index***************************')
+                 // VIP专区优先展示第四范式的数据，如果第四范式没有返回数据，则取自定义推荐位配置的数据*
+                 if(results.paradigm4Relevant && results.paradigm4Relevant.length>0) {
+                     results.vipList = results.paradigm4Relevant.map(item=>{
+                         var obj = {};
+                         obj.linkUrl = '/f/'+item.url;
+                         obj.title = item.title;
+                         obj.imagUrl = item.cover_url;
+                         obj.expand = {};
+                         obj.expand.format =item.extra1;
+                         obj.expand.readNum =item.item_read_cnt;
+                         obj.expand.totalPage =0;
+                         return obj;
+                     })
+                    
+                 }
+                results.recfileArr = recfileArr;
+            }  
+           
+            // console.warn(JSON.stringify(results.friendLink),'friendLink')
+            // console.warn(JSON.stringify(results.topicRec),'topicRec')
+            // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
+            // console.log(results,'index***************************')
             render("index/index",results,req,res);
         })
     }
