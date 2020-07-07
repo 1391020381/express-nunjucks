@@ -115,6 +115,9 @@ define(function (require, exports, module) {
         recommend:{
             recommendConfigInfo:gateway + '/recommend/config/info',
             recommendConfigRuleInfo:gateway + '/recommend/config/ruleInfo'
+        },
+        reportBrowse:{
+            fileBrowseReportBrowse:gateway + '/content/fileBrowse/reportBrowse',
         }
     }
 });
