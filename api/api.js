@@ -9,10 +9,12 @@ module.exports = {
         // 文件详情 (正文)
         // fileDetail: '/file/$id',
         fileDetail: '/content/getFileDetail',
+        getFileDetailNoTdk: '/content/getFileDetailNoTdk',
         // 文档详情扩展的信息（统计）
         fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
+        navCategory:'/content/category/navCategory',
         // 相关资料 (右侧)
         fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表
@@ -108,6 +110,9 @@ module.exports = {
         navList:'/content/category/getSimplenessInfo',
         randomRecommend:'/search/content/randomRecommend',
         listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
+    },
+    order:{
+      getOrderInfo: "/gateway/order/get/orderInfo"
     }
 };
 

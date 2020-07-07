@@ -1,0 +1,129 @@
+<div class="my-vip-bottom">
+          <ul class="myvip-tabs" >
+           <li class="{{vipTableType == '0'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=0">我的下载特权</a></li>
+           <li  class="{{vipTableType == '1'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=1">会员充值记录</a></li>
+        </ul>  
+
+
+
+        {{ if  isVip == '1'}}
+        {{if vipTableType == '0'}}
+         <table class="privilege-table table">
+                 <tr class="privilege-table-title table-head">
+                         <th>获取渠道</th>
+                         <th>状态</th>
+                         <th>未使用</th>
+                        <th>已使用</th>
+                       <th>有效期</th>
+                      <th>使用范围</th>
+                 </tr>
+                 {{each list}}
+                     <tr>
+                               <td>
+                                {{if list[$index].voluChannel == '5'}}
+                                    <span>系统赠送</span>
+                                {{/if }}
+                                 {{if list[$index].voluChannel == '17'}}
+                                    <span>直接购买</span>
+                                {{/if }}
+                                 {{if list[$index].voluChannel == '18'}}
+                                    <span>购买VIP套餐赠送</span>
+                                {{/if }}
+                                </td>
+
+                                <td>
+                                {{if list[$index].status == '0'}}
+                                        <span>可使用</span>
+                                {{/if}}
+
+                                 {{if list[$index].status == '1'}}
+                                        <span>已过期</span>
+                                {{/if}}
+                                {{if list[$index].status == '2'}}
+                                        <span>已删除</span>
+                                {{/if}}
+                                 {{if list[$index].status == '3'}}
+                                        <span>冻结中</span>
+                                {{/if}}
+
+                                {{if list[$index].status =='4'}}
+                                        <span>已失效</span>
+                                {{/if}}
+                        
+                               </td>
+                          
+                                <td>{{list[$index].downVouNoUseNum}}</td>
+                               <td>{{list[$index].downVouUsedNum}}</td>
+                              <td>{{list[$index].effectiveStartDate}}至{{list[$index].effectiveEndDate}}</td> 
+
+
+                               <td>
+                                {{if list[$index].site  == '0'}}
+                                        <span>爱问办公</span>                                        
+                                {{/if}}
+
+                                {{if list[$index].site =='3'}}
+                                        <span>爱问办公;爱问共享资料</span>
+                                {{/if}}
+
+                                {{if list[$index].site == '4'}}
+                                        <span>爱问共享资料</span>
+                                {{/if}}
+                               </td> 
+                     </tr> 
+                 {{/each}}
+          </table>
+          {{/if}}
+
+
+
+
+           {{if vipTableType == '1'}}
+                <table class="vip-table table">
+                       <tr class="vip-table-head table-head">
+                           <th>会员名称</th>
+                           <th>状态</th>
+                            <th>有效期</th>
+                            <th>使用范围</th>
+                            <th>权益</th>
+                        </tr>
+                      {{each list}}
+                                   <tr>
+                                     <td>{{list[$index].vipName}}</td>
+                                     <td>
+                                         {{if list[$index].status == '1'}}
+                                               <span>未使用</span>
+                                         {{/if}}
+                                         {{if list[$index].status == '2'}}
+                                               <span>使用中</span>
+                                         {{/if}}
+                                         {{if list[$index].status == '3'}}
+                                               <span>已过期</span>
+                                         {{/if}}
+                                         {{if list[$index].status == '4'}}
+                                               <span>已退款</span>
+                                         {{/if}}
+                                         {{if list[$index].status == '5'}}
+                                               <span>冻结</span>
+                                         {{/if}}
+                                     </td>
+                                     <td>{{list[$index].beginDate}}至{{list[$index].endDate}}</td>
+                                    <td>
+                                        {{if list[$index].site  == '0'}}
+                                        <span>爱问办公</span>                                        
+                                       {{/if}}
+                                        {{if list[$index].site =='3'}}
+                                        <span>爱问办公;爱问共享资料</span>
+                                      {{/if}}
+                                       {{if list[$index].site == '4'}}
+                                        <span>爱问共享资料</span>
+                                      {{/if}} 
+                                    </td>
+                                    <td>{{list[$index].memberContent}}</td>
+                                   </tr>
+                      {{/each}}
+              </table>
+         {{/if}}
+         
+{{/if}}   
+</div>

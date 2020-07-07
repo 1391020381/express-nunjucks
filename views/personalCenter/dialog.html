@@ -1,0 +1,141 @@
+<!--弹框-->
+<div class="dialog" id="dialog-box">
+<!--遮罩层 start-->
+<div id="bgMask" class="common-bgMask"></div></div>
+<!-- 个人中心 上传确认删除dialog -->
+<script type="text/template" id="myuploads-delete-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+
+        <div class="delete-tip-dialog">
+            <div class="title">确定要删除选中的1篇资料吗？</div>
+            <div class="subtitle">删除后资料不可找回</div>
+            <div class="dialog-btn">
+                <span class="confirm-btn">确定</span>
+                <span class="cancel-btn">取消</span>
+        </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 个人中心 账号与安全 身份认证dialog -->
+<script type="text/template" id="identity-authentication-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+
+        <div class="identity-authentication-dialog">
+            <div class="title" data-isTHirdAuthorization="$isTHirdAuthorization">身份验证</div>
+            <div class="authentication-phone">使用手机号+86 $phoneNumber</div>
+            <div class="authentication-form">
+                <input type="text" class="authentication-input"/>
+                <span class="authentication-code" data-authenticationCodeType='0' data-isiDentityAuthentication='1'>获取验证码</span>
+            </div>
+            <div class="dialog-btn">
+                <span class="authentication-btn">确定</span>
+        </div>
+        </div>
+    </div>
+</script>
+
+<!-- 个人中心 账号与安全 绑定手机号dialog -->
+
+<script type="text/template" id="bind-phonenumber-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="bind-phonenumber-dialog">
+            <div class="title" data-isTHirdAuthorization="$isTHirdAuthorization">绑定手机号</div>
+            <ul class="form-list">
+                <li class="form-item">
+                    <span class="item-label">手机号: </span>
+                    <input class="item-phonenumber" type="text" placeholder="请输入手机号"/>
+                </li>
+                <li class="form-item">
+                    <span class="item-label">验证码:</span>
+                    <input class="item-verificationcode" type="text" placeholder="请输入短信验证码"/>
+                    <span class="item-getverificationcode authentication-code" data-authenticationCodeType='0'>获取验证码</span>
+                </li>
+            </ul>
+            <div class="dialog-btn">
+                 <span class="cancel-btn">取消</span><span class="confirm-btn confirm-binding">确认绑定</span>
+        </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 个人中心 账号与安全 设置/修改密码dialog -->
+<script type="text/template" id="set-change-password-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+
+        <div class="set-change-password-dialog">
+            <div class="title">设置/修改密码</div>
+            <ul class="form-list">
+                <li class="form-item">
+                    <span class="item-label">手机号: </span>
+                    <input class="item-phonenumber" type="text" placeholder="请输入手机号" value="$phone" disabled/>
+                </li>
+                <li class="form-item">
+                    <span class="item-label">验证码:</span>
+                    <input class="item-verificationcode" type="text" placeholder="请输入短信验证码"/>
+                    <span class="item-getverificationcode authentication-code" data-authenticationCodeType='0'  data-isiDentityAuthentication='1'>获取验证码</span>
+                </li>
+                <li class="form-item">
+                    <span class="item-label">新密码:</span>
+                    <input class="item-newpassword" type="text" placeholder="请输入新密码（6-16位）"/>
+                </li>
+            </ul>
+            <div class="dialog-btn">
+                <span class="submit-btn set-change-password">确定</span>
+        </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 个人中心 账号与安全 解除绑定账号dialog -->
+<script type="text/template" id="unbind-account-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+
+        <div class="unbind-account-dialog">
+            <div class="title" data-isTHirdAuthorization="$isTHirdAuthorization">确定要解除绑定吗？</div>
+            <div class="subtitle">解除绑定后，再次使用被解绑的账号登录时会生成新的账号</div> 
+            <div class="dialog-btn">
+                 <span class="confirm-btn unbind-btn">确定</span>
+                <span class="cancel-btn">取消</span>
+            </div>
+            <div class="dialog-tip unbind-account-btn">为保证账号安全，请先绑定手机号 <span>立即绑定</span></div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 个人中心 我的钱包提示dialog -->
+<script type="text/template" id="mywallet-tip-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="mywallet-tip-dialog">
+            <div class="title">系统升级公告</div>
+            <div class="mywallet-tip">为了给大家提供更好的提现服务，我们正在优化钱包功能，现暂停提现申请，预计8月31日前恢复。期间给您的提现带来不便，敬请谅解。</div>
+            <div class="mywallet-contact-information">期间上传业务咨询可联系上传客服QQ：3463748482</div>
+        </div>
+    </div>
+</script>
+
+<!-- 个人中心 第三方授权dialog -->
+
+
+
+<script type="text/template" id="thirdparty-authorization-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="thirdparty-authorization-dialog">
+             <iframe src="$thirdpartyAuthorizationSrc"  sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
+               <p>您的浏览器不支持iframe 标签。</p>
+           </iframe>
+        </div>
+    </div>
+</script>
+

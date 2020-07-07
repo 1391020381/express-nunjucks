@@ -1,0 +1,41 @@
+ <div class="payment-title">
+       {{ if orderInfo.orderStatus == 2}}
+        <span class="payment-title-icon success"></span>
+        <span class="payment-title-desc">支付成功</span>
+        {{/if}}
+        {{ if orderInfo.orderStatus == 3}}
+        <span class="payment-title-icon error"></span>
+        <span class="payment-title-desc">支付失败</span>
+        {{/if}}
+    </div>
+    <ul class="order-list">
+        <li class="list-item">
+            <span class="item-title">支付方式:</span>
+            {{ if orderInfo.payType == 'wechat'}}
+                <span class="item-desc">微信支付</span>
+            {{/if}}
+             {{ if orderInfo.payType == 'alipay'}}
+                <span class="item-desc">支付宝支付</span>
+            {{/if}}
+        </li>
+        <li class="list-item">
+            <span class="item-title">订单金额:</span>
+            <span class="item-desc">¥ {{orderInfo.payPrice}}</span>
+        </li>
+        <li class="list-item">
+            <span class="item-title">创建时间:</span>
+            <span class="item-desc">{{orderInfo.orderTime}}</span>
+        </li>
+         <li class="list-item">
+            <span class="item-title">交易订单号:</span>
+            <span class="item-desc">{{orderInfo.payNo}}</span>
+        </li>
+          <li class="list-item">
+            <span class="item-title">商户订单号:</span>
+            <span class="item-desc">{{orderInfo.payNumber}}</span>
+        </li>
+         <li class="list-item">
+            <span class="item-title">商品名称:</span>
+            <span class="item-desc">{{orderInfo.goodsName}}</span>
+        </li>
+</ul> 

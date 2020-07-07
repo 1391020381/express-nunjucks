@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     window.template = require("./template");
     require("./helper");
     require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');
-
+   
 
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;

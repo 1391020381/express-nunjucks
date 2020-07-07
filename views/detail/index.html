@@ -2,6 +2,10 @@
 <html>
 <head>
     {% include "common/head.html" %}
+{# <title>{{results.list.data.title}}爱问共享资料</title>
+<meta name="description" content="爱问共享资料提供优质的{{results.list.data.title}}下载，可编辑，可替换，更多{{results.list.data.title}}课件资料，快来爱问共享资料下载!" />
+<meta name="keywords" content="{{results.list.data.title}}爱问共享资料" />
+<link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/> #}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
     {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css"> #}
      <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
@@ -24,7 +28,7 @@
 <input type="hidden" id="ip-page-type" value="pindex">
 <input type="hidden" id="ip-page-id" value="PC-M-FD">
 <input type="hidden" id="ip-page-name" value="资料详情页">
-
+<input type="hidden" id="ip-page-statusCode" value="{{results.statusCode}}">
 {% include "common/js.html" %}
 {% include "common/outside-fn.html" %}
 {% include "common/360.html" %}
@@ -67,7 +71,7 @@
                 <div class="collect-con fl pc" >
                     <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
                     <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
-                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect" title="点击收藏" bilogContent="markFileClick">
+                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick">
                         <em class="btn-line"></em>
                         {# <i class="icon-detail"></i> #}
                         <i class="icon-newdetail"></i>

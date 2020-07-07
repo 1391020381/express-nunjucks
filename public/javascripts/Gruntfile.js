@@ -68,13 +68,17 @@ module.exports = function (grunt) {
                     'dist/feedback/init.js': ['.build/feedback/init.js'],
                     'dist/404/init.js': ['.build/404/init.js'],
                     'dist/personalCenter/init.js': ['.build/personalCenter/init.js'],
-                    'dist/personalCenter/init.js': ['.build/index/init.js'],
+                    'dist/pay/payment.js': ['.build/pay/payment.js'],
+                    'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js'],
                     'dist/index/init.js': ['.build/index/init.js'],
                     'dist/spider/init.js': ['.build/spider/init.js'],
                     'dist/earth/init.js': ['.build/earth/init.js'],
-                    'dist/category/index.js': ['.build/earth/index.js'],
-                    'dist/authentication/org.js': ['.build/earth/org.js'],
-                    'dist/authentication/user.js': ['.build/earth/user.js']
+                    'dist/category/index.js': ['.build/category/index.js'],
+                    'dist/authentication/organise.js': ['.build/authentication/organise.js'],
+                    'dist/authentication/index.js': ['.build/authentication/index.js'],
+                    'dist/authentication/user.js': ['.build/authentication/user.js'],
+                    'dist/pay/payment.js': ['.build/pay/payment.js'],
+                    'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js']
                 }
             }
         },

@@ -3,7 +3,7 @@
 <div class="personal-center-menu">
     <div class="personal-profile">
         <img class="personal-img" />
-        <p class="personal-nickname">碗中孜然米粉 <span class="level-icon"></span></p>
+        <p class="personal-nickname"><span class="nickname">碗中孜然米粉</span> <span class="level-icon"></span></p>
         {# <div class="personal-level"> Lv20 初出茅庐</div> #}
         <div class="personal-id">
             <span class="id">用户ID:5bf5e4...</span>
@@ -11,59 +11,61 @@
         </div>
     </div>
     <div class="personal-menu">
-        <ul class="menus">
+        <ul class="{{ 'menus active-menus' if results.type === 'home' else 'menus'}}">
             <p class="menus-desc">
                <a class="menu-link" href="/node/personalCenter/home.html">
-                    <span class="menus-icon"></span>
+                    <span class="menus-icon home-icon"></span>
                     <span class="menus-text">我的首页</span> 
                </a>
             </p>
         </ul>
         <ul class="menus">
             <p class="menus-desc">
-               <span class="menus-icon"></span>
+               <span class="menus-icon data-icon"></span>
                <span class="menus-text">我的资料</span>
+               <span class="menu-arrow"></span>
             </p>
-            <li class="menu">
+            <li class="{{ 'menu active-menus' if results.type === 'mydownloads' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/mydownloads.html">我的下载</a>
             </li>
-            <li class="menu">
+            <li class="{{ 'menu active-menus' if results.type === 'mycollection' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/mycollection.html">我的收藏</a>
             </li>
-            <li class="menu">
+            <li  class="{{ 'menu active-menus' if results.type === 'myuploads' else 'menu'}}">
                 <a class="menu-link"  href="/node/personalCenter/myuploads.html">我的上传</a>
             </li>
         </ul>
-        <ul class="menus">
+        <ul  class="{{ 'menus active-menus' if results.type === 'myvip' else 'menus'}}">
             <p class="menus-desc">
                <a class="menu-link"  href="/node/personalCenter/vip.html">
-               <span class="menus-icon"></span>
+               <span class="menus-icon myvip-icon"></span>
                <span class="menus-text">我的VIP<span>
                </a>
             </p>
         </ul>
         <ul class="menus">
             <p class="menus-desc">
-               <span class="menus-icon"></span>
+               <span class="menus-icon myaccount-icon"></span>
                <span class="menus-text">我的账号<span>
+               <span class="menu-arrow"></span>
             </p>
-            <li class="menu">
+            <li  class="{{ 'menu active-menus' if results.type === 'myorder' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/myorder.html">我的订单</a>
             </li>
-            <li class="menu">
+            <li  class="{{ 'menu active-menus' if results.type === 'mycoupon' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/mycoupon.html">我的优惠券</a>
             </li>
-            <li class="menu">
+            <li  class="{{ 'menu active-menus' if results.type === 'accountsecurity' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/accountsecurity.html">账号与安全</a>
             </li>
-             <li class="menu">
+             <li  class="{{ 'menu active-menus' if results.type === 'personalinformation' else 'menu'}}">
                 <a class="menu-link" href="/node/personalCenter/personalinformation.html">个人信息</a>
              </li>
         </ul>
-         <ul class="menus">
+         <ul class="{{ 'menus active-menus' if results.type === 'mywallet' else 'menus'}}">
             <p class="menus-desc">
               <a class="menu-link" href="/node/personalCenter/mywallet.html">
-                <span class="menus-icon"></span>
+                <span class="menus-icon mywallet-icon"></span>
                <span class="menus-text">我的钱包<span>
               </a>
             </p>

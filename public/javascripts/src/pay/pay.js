@@ -12,6 +12,7 @@ define(function (require, exports, moudle) {
     require("../common/bilog");
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
+    var checkStatus =   window.pageConfig.params.checkStatus||'10'
     //生成二维码
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
@@ -35,10 +36,16 @@ define(function (require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
                 }
             }
-            var oid = $("#ip-oid").val();
+            var oid = $("#ip-oid").val(); // 订单号 orderNo
             if (oid) {
                 $(".carding-pay-item .oid").text(oid);
-                var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
+
+
+                // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
+          
+                var url = location.origin + "/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
+
+                
                 try {
                     qr.createQrCode(url, 'pay-qr-code', 180, 180);
                     $(".btn-qr-show-success").click();

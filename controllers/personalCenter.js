@@ -24,25 +24,29 @@ module.exports = {
     },
     myuploads: function (req, res) {
         var results = {
-            type:'myuploads'
+            type:'myuploads',
+            myuploadType:req.query.myuploadType || 1
         }
         render("personalCenter/index", results, req, res);
     },
     vip: function (req, res) {
         var results = {
-            type:'vip'
+            type:'myvip',
+            vipTableType:req.query.vipTableType 
         }
         render("personalCenter/index", results, req, res);
     },
     myorder:function(req,res){
         var results = {
-            type:'myorder'
+            type:'myorder',
+            myorderType:req.query.myorderType || '1'
         }
         render("personalCenter/index", results, req, res);
     },
     mycoupon:function(req,res){
         var results = {
-            type:'mycoupon'
+            type:'mycoupon',
+            mycouponType:req.query.mycouponType
         }
         render("personalCenter/index", results, req, res);
     },
@@ -63,5 +67,11 @@ module.exports = {
             type:'mywallet'
         }
         render("personalCenter/index", results, req, res);
-    }
+    },
+    redirectionURL:function(req,res){
+        render("personalCenter/redirectionURL", {}, req, res);
+    },
+    userPage:function(req,res){
+        render("personalCenter/userPage", {}, req, res);
+    },
 };

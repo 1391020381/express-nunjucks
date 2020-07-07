@@ -1,0 +1,32 @@
+<div class="myvip">
+    <div class="myvip-top">
+            <p class="myvip-title">我的VIP</p>
+            {{ if userInfo.isVip == '0'}}
+                    <div class="not-vip">
+                <div class="not-vip-left">
+                   <p class="not-vip-left-title">你还不是VIP</p>
+                   <p class="not-vip-top-left-subtitle">开通VIP，享专属特权，下海量资料 </p>
+                </div>
+            <div class="not-vip-right">开通VIP>></div>
+            <div class="vip-privilege-items-wrapper"></div>
+           </div>
+
+            {{else}}
+
+            <div class="vip-summary">
+                <p class="vip-summary-title">
+                   <span class="vip-summary-icon"></span>
+                   <span>爱问共享资料VIP </span>
+                </p>
+               <p class="vip-summary-subtitle">
+                   <span>剩余{{userInfo.privilege}}个特权 </span>
+                   <span>{{userInfo.expireTime}}到期</span>
+              </p>
+           </div>
+            {{/if}}
+        <div class="vip-privilege-wrapper"></div>    
+    </div>
+<div class="my-vip-middle advertisement"></div> 
+ <div class="vip-table-wrapper"></div>
+<div class="pagination-wrapper"></div>
+</div>

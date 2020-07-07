@@ -1,0 +1,152 @@
+@charset "utf-8";
+.personal-center-mycoupon {
+  padding: 26px 45px 0 40px;
+}
+.personal-center-mycoupon .mycoupon-title {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-mycoupon .mycoupon-tabs {
+  margin-top: 46px;
+  *zoom: 1;
+}
+.personal-center-mycoupon .mycoupon-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-mycoupon .mycoupon-tabs .tab {
+  float: left;
+  font-size: 14px;
+  color: #222222;
+  margin-right: 60px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.personal-center-mycoupon .mycoupon-tabs .tab-active {
+  font-weight: bold;
+  color: #222222;
+  border-bottom: solid 2px #F25126;
+}
+.personal-center-mycoupon .mycoupon-list {
+  *zoom: 1;
+}
+.personal-center-mycoupon .mycoupon-list:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-mycoupon .mycoupon-list .item {
+  float: left;
+  margin-top: 22px;
+  margin-right: 20px;
+  width: 265px;
+  height: 136px;
+  background: #eee;
+  text-align: center;
+  position: relative;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-price {
+  margin-top: 24px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-price span {
+  font-size: 30px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-desc {
+  margin-top: 12px;
+  font-size: 13px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-time {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-icon {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: url("../../images/personalCenter/attention.png") no-repeat center;
+  background-size: 100%;
+  cursor: pointer;
+}
+.personal-center-mycoupon .mycoupon-list .item .item-icon:hover .item-explain {
+  display: block;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 265px;
+  height: 136px;
+  text-align: left;
+  background: url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
+  background-size: 100%;
+  display: none;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain .item-explain-title {
+  margin-top: 40px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+.personal-center-mycoupon .mycoupon-list .item-explain .item-explain-desc {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse {
+  background: url("../../images/personalCenter/coupon-unuse-bg.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-title {
+  color: #816747;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-price {
+  color: #F15125;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-desc {
+  color: #816746;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-unuse .item-time {
+  color: #A58863;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon {
+  background: url("../../images/personalCenter/coupon-expiringsoon.png") no-repeat right top, url("../../images/personalCenter/coupon-expiring-bg.png") no-repeat center;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-title {
+  color: #816747;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-explain-desc {
+  color: #A58763;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-price {
+  color: #F15125;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-desc {
+  color: #816746;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiringsoon .item-time {
+  color: #A58863;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used {
+  background: url("../../images/personalCenter/coupon-used.png") no-repeat right top, url("../../images/personalCenter/coupon-used-bg.png") no-repeat center;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-price {
+  color: #999999;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-desc {
+  color: #777777;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
+  color: #CCCCCC;
+}

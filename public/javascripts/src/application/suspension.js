@@ -185,19 +185,41 @@ define(function (require, exports, module) {
     /**
      * 我的收藏
      */
+    // function myCollect() {
+    //     var params = {
+    //         pageNum: 1,
+    //         pageSize: 20
+    //     };
+    //     $.ajax(api.user.collect, {
+    //         type: "get",
+    //         async: false,
+    //         data: params,
+    //         dataType: "json"
+    //     }).done(function (res) {
+    //         if (res.code == 0) {
+    //             collectRender(res.data)
+    //         }
+    //     }).fail(function (e) {
+    //         console.log("error===" + e);
+    //     })
+    // }
+
+    //新的我的收藏列表
     function myCollect() {
         var params = {
-            pageNum: 1,
-            pageSize: 20
+            pageNumber: 1,
+            pageSize: 20,
+            sidx:0,
+            order:-1
         };
-        $.ajax(api.user.collect, {
+        $.ajax(api.user.newCollect, {
             type: "get",
             async: false,
             data: params,
             dataType: "json"
         }).done(function (res) {
             if (res.code == 0) {
-                collectRender(res.data)
+                collectRender(res.data.rows)
             }
         }).fail(function (e) {
             console.log("error===" + e);
@@ -254,7 +276,7 @@ define(function (require, exports, module) {
             var subList = list.slice(0, 20);
             for (var k = 0; k < subList.length; k++) {
                 var item = subList[k];
-                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.name + '</a></li>';
+                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + '</a></li>';
                 arr.push($li)
             }
             $myCollect.html(arr.join(''));

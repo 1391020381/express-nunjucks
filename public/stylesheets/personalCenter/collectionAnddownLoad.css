@@ -1,0 +1,77 @@
+@charset "utf-8";
+.mycollection-anddownLoad {
+  padding: 40px 60px 0 40px;
+}
+.mycollection-anddownLoad .title {
+  margin-bottom: 40px;
+}
+.mycollection-anddownLoad .title .title-desc {
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  vertical-align: top;
+}
+.mycollection-anddownLoad .title .file-num {
+  margin-left: 5px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.mycollection-anddownLoad .table-list {
+  width: 100%;
+}
+.mycollection-anddownLoad .table-list .table-title {
+  padding-bottom: 35px;
+  border-bottom: solid 1px #F4F4F4;
+}
+.mycollection-anddownLoad .table-list .table-title .file-title {
+  padding-bottom: 35px;
+  text-align: left;
+}
+.mycollection-anddownLoad .table-list .table-title .action-time {
+  text-align: right;
+}
+.mycollection-anddownLoad .table-list .table-item {
+  *zoom: 1;
+}
+.mycollection-anddownLoad .table-list .table-item:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content {
+  padding-top: 40px;
+  text-align: left;
+  *zoom: 1;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content .file-type {
+  float: left;
+  margin: 0 14px;
+  width: 16px;
+  height: 16px;
+  top: inherit;
+  position: static;
+}
+.mycollection-anddownLoad .table-list .table-item .file-content .file-name {
+  float: left;
+}
+.mycollection-anddownLoad .table-list .table-item .operation-time {
+  padding-top: 40px;
+  text-align: right;
+}
+.mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
+  padding-top: 20px;
+  text-align: left;
+}
+.mycollection-anddownLoad .table-list tr:nth-child(2) .operation-time {
+  padding-top: 20px;
+  text-align: right;
+}

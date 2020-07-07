@@ -85,4 +85,21 @@ router.get('/node/personalCenter/mywallet.html', function(req, res) {
         error(req , res , next);
     }
 });
+
+router.get('/node/redirectionURL.html', function(req, res) {  
+    try{
+        personalCenter.redirectionURL(req , res );
+    }catch(e){
+        error(req , res , next);
+    }
+});
+
+router.get('/node/userPage.html', function(req, res) {  
+    try{
+        personalCenter.userPage(req , res );
+    }catch(e){
+        error(req , res , next);
+    }
+});
+
 module.exports = router;

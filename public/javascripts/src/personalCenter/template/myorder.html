@@ -1,0 +1,66 @@
+<div class="myorder">
+    <p class="myorder-title">我的订单</p>
+     <ul class="myorder-tabs" >
+        <li class="{{ myorderType == '1' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myorder.html?myorderType=1">全部订单</a></li>
+        <li class="{{ myorderType == '0' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myorder.html?myorderType=0">未支付</a></li>
+        <li class="{{ myorderType == '2' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myorder.html?myorderType=2">已支付</a></li>
+    </ul>
+    <table class="myorder-table-list">
+        <tr class="table-list-title">
+            <th>商品名称</th>
+            <th>订单金额</th>
+            <th>下单时间</th>
+            <th>订单状态</th>
+            <th>操作</th>
+        </tr>
+
+    {{if list.length>0}}
+         {{ each list}}
+        <tr class="table-list-item">
+            <td>
+                <p class="item-order">订单号:  {{list[$index].orderNo}} <span class="copy">复制</span></p>
+                {{if list[$index].goodsType == '2'}}
+                       <p class="item-desc"><span class="icon icon-vip"></span>{{list[$index].goodsName}}</p>
+                {{else}}
+                   <p class="item-desc"><span class="icon ico-data {{'ico-'+ list[$index].format}}"></span>{{list[$index].goodsName}}</p>
+                {{/if}}
+               
+            </td>
+            <td>
+                <p class="item-order"></p>
+                <p class="item-desc item-price">￥{{list[$index].payPrice}}</p>
+            </td>
+            <td>
+                <p class="item-order"></p>
+                <p class="item-desc item-time">{{list[$index].orderTime}}</p>
+            </td>
+            <td>
+                <p class="item-order"></p>
+                <p class="item-desc item-status">{{list[$index].orderStatusDesc}}</p>
+            </td>
+            <td>
+                <p class="item-order"></p>
+                {{if list[$index].orderStatus == 4}}
+                    <p class="item-desc item-operation"><span>重新下单</span></p>
+                {{else if list[$index].orderStatus == 0}}
+               <p class="item-desc item-operation" data-orderNo={{list[$index].orderNo}}><span>付款</span></p>
+                {{else}}
+                 <p class="item-desc item-operation" data-orderNo={{list[$index].orderNo}}></p>  
+                {{/if}}
+            </td>
+        </tr>
+
+         {{/each}}
+    {{else}}
+
+     <div class="empty-data">
+          <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
+          <p class="empty-desc">暂无订单信息</p>
+     </div>
+    {{/if}} 
+       
+    </table>
+    <div class="pagination-wrapper">
+        
+    </div>
+</div>

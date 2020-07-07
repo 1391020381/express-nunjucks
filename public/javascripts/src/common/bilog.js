@@ -87,8 +87,17 @@ define(function (require, exports, module) {
         if (new RegExp('/f/').test(referrer)
             && !new RegExp('referrer=').test(referrer)
             && !new RegExp('/f/down').test(referrer)) {
-            initData.prePageID = 'PC-M-FD';
-            initData.prePageName = '资料详情页';
+            var statuCode = $('.ip-page-statusCode')
+            if(statuCode == '404'){
+                initData.prePageID = 'PC-M-FDL'; 
+                initData.prePageName = '资料被删除';
+            }else if(statuCode == '302'){
+                initData.prePageID = 'PC-M-FSM'; 
+                initData.prePageName = '资料私有';
+            } else{
+                initData.prePageID = 'PC-M-FD';
+                initData.prePageName = '资料详情页';
+            } 
         } else if (new RegExp('/pay/payConfirm.html').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-F-L';
             initData.prePageName = '支付页-付费资料-列表页';
@@ -127,6 +136,39 @@ define(function (require, exports, module) {
         }else if (new RegExp('/search/home.html').test(referrer)) {
             initData.prePageID = 'PC-M-SR';
             initData.prePageName = '搜索关键词';
+        }else if(new RegExp('/node/404.html').test(referrer)){
+            initData.prePageID = 'PC-M-404';
+            initData.prePageName = '404错误页';
+        }else if(new RegExp('/node/503.html').test(referrer)){
+            initData.prePageID = 'PC-M-500';
+            initData.prePageName = '500错误页';
+        }else if(new RegExp('/node/personalCenter/home.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER';
+            initData.prePageName = '个人中心-首页';
+        }else if(new RegExp('/node/personalCenter/myuploads.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MU';
+            initData.prePageName = '个人中心-我的上传页';
+        }else if(new RegExp('/node/personalCenter/mycollection.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-CL';
+            initData.prePageName = '个人中心-我的收藏页';
+        }else if(new RegExp('/node/personalCenter/mydownloads.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MD';
+            initData.prePageName = '个人中心-我的下载页';
+        }else if(new RegExp('/node/personalCenter/vip.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-VIP';
+            initData.prePageName = '个人中心-我的VIP';
+        }else if(new RegExp('/node/personalCenter/mycoupon.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MS';
+            initData.prePageName = '个人中心-我的优惠券页';
+        }else if(new RegExp('/node/personalCenter/accountsecurity.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ATM';
+            initData.prePageName = '个人中心-账号与安全页';
+        }else if(new RegExp('/node/personalCenter/personalinformation.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ATF';
+            initData.prePageName = '个人中心-个人信息页';
+        }else if(new RegExp('/node/personalCenter/myorder.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ORD';
+            initData.prePageName = '个人中心-我的订单';
         }
     }
 

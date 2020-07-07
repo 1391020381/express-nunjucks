@@ -34,7 +34,7 @@ module.exports = {
             list: function (callback) {  // cookies.ui
                 var opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.file.fileDetail,
+                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
@@ -47,7 +47,7 @@ module.exports = {
                 };
                 console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list-------------------:',JSON.parse(body))
+                    console.log('detail-list fileInfo-------------------:',JSON.parse(body).data.fileInfo)
                     if(res1.statusCode == 503){ // http请求503
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
                             console.log("503==========");
@@ -81,17 +81,17 @@ module.exports = {
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery}
+                                var results = {showFlag:false,searchQuery,statusCode:'404'}
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
                             }
                              if(productType == 6){
-                                 if(cuk&&fileInfo.uid == uid){
+                                 if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ // 当有cuk,但是 fileInfo.ui  和 uid都是空
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,isPrivate:true}
+                                var results = {showFlag:false,searchQuery,isPrivate:true,statusCode:'302'}
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
@@ -212,9 +212,32 @@ module.exports = {
             // 面包屑导航
             crumbList: function (callback) {
                 //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
-                server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               // server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               var opt = {
+                method: 'POST',
+                url: appConfig.apiNewBaselPath + Api.file.navCategory,
+                body:JSON.stringify({
+                    classId: classId,
+                    spcClassId: spcClassId,  
+                    isGetClassType: isGetClassType
+                  }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            request(opt, function (err, res1, body) {
+              if(body){
+                var data = JSON.parse(body);
+                if (data.code == 0){
+                    callback(null, data);
+                }else{
+                    callback(null,null)
+                }
+              }else {
+                callback(null, null);
+            }        
+            })
             },
-            
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
                 if (fileAttr == 1) {

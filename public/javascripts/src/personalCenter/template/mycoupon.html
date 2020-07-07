@@ -1,0 +1,40 @@
+<div>
+    <p class="mycoupon-title">我的优惠券</p>
+    <ul class="mycoupon-tabs">
+        <li class="{{mycouponType == 0?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=0">未使用</a></li>
+        <li class="{{mycouponType == 1?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=1">已使用</a></li>
+        <li class="{{mycouponType == 2?'tab tab-active':'tab'}}"><a href="/node/personalCenter/mycoupon.html?mycouponType=2">已过期</a></li>
+    </ul>
+
+    <ul class="mycoupon-list">   
+        {{each list}}
+                  <li  class="{{mycouponType == 0 ?'item coupon-unuse':mycouponType == 1?'item coupon-expiringsoon':mycouponType ==2?'item coupon-used':'item'}}">
+                     {{if list[$index].type ==1}}
+                          <p class="item-price">¥ <span>{{list[$index].couponAmount}}</span></p>
+                     {{/if}}
+                     {{ if list[$index].type == 2}}
+                           <p class="item-price"><span>{{list[$index].discount}}</p>
+                     {{/if}}
+                     <p class="item-desc">{{list[$index].content}}</p>
+                     <p class="item-time">{{list[$index].beginDate}}-{{list[$index].endDate}}</p>
+                     <span class="item-icon fr">
+                         <div class="item-explain">
+                            <p class="item-explain-title">使用说明</p>
+                            <p class="item-explain-desc">{{list[$index].describe}} </p>
+                           </div>
+                  </span>
+        </li>
+        {{/each}}
+    </ul>
+
+
+    {{if list.length<=0}}
+          <div class="empty-data">
+            <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/coupon-empty-data.png"/>
+            <p class="empty-desc">你还没有优惠券哦~</p>
+          </div>
+    {{/if}}
+      <div class="pagination-wrapper">
+        
+    </div>
+</div>

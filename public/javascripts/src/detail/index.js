@@ -15,6 +15,10 @@ define(function (require, exports, module) {
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
     var fileName = window.pageConfig.page&&window.pageConfig.page.fileName
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
+
+    handleBaiduStatisticsPush('fileDetailPageView')
+    
     // 初始化显示
     initShow();
     // 初始化绑定
@@ -28,6 +32,9 @@ define(function (require, exports, module) {
         pageInitShow();
         // 访问记录
         storeAccessRecord()
+
+        // 获取收藏的状态
+        getCollectState()
     }
     // 页面加载
     function pageInitShow() {
@@ -250,15 +257,16 @@ define(function (require, exports, module) {
                 });
                 return;
             }else{
-                //var fid=$(this).attr('data-fid');
+                var fid=$(this).attr('data-fid');
                 clickEvent($(this))
-                if ($(this).hasClass('btn-collect-success')) {
-                    collectFile(4)
-                } else {
-                    collectFile(3)
-                }
+                // if ($(this).hasClass('btn-collect-success')) {
+                //     collectFile(4)
+                // } else {
+                //     collectFile(3)
+                // }
     
                 //fileSaveOrupdate(fid,window.pageConfig.page.uid,$(this))
+                setCollect($(this))
             }
            
         });
@@ -575,29 +583,43 @@ define(function (require, exports, module) {
         });
     }
 
-       // 收藏或取消收藏接口
-   function fileSaveOrupdate(fid,uid,_this) {
-    $.ajax({
-        url: api.special.fileSaveOrupdate,
-        type: "POST",
-        data: JSON.stringify({ fid:fid,uid:uid,source:0,channel:0 }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (res) {
-            console.log(this)
-            if(res.code == '0'){
-                $.toast({
-                    text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
-                })
-                _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
-            }else{
-                $.toast({
-                    text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
-                })
+       // 新收藏或取消收藏接口
+   function setCollect(_this) { 
+        $.ajax({
+            url: api.special.setCollect,
+            type: "post",
+            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,source:0}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
+                    })
+                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
+                }else{
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
+                    })
+                }
             }
-        }
-    })
-}
+        })
+    }
+
+    function getCollectState(){//获取收藏的状态
+        $.ajax({
+            url: api.special.getCollectState,
+            type: "get",
+            data: { fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success")
+                }
+            }
+        })
+    } 
 
     // 搜集访问记录
     function storeAccessRecord() {

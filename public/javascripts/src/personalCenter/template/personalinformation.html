@@ -1,0 +1,70 @@
+<div class="personalinformation">
+    <p class="personalinformation-title">个人信息</p>
+    <ul class="form-list">
+        <li class="item">
+            <span class="item-title">用户ID : </span>
+            <span class="item-desc">{{userInfo.id}}</span>
+            <span class="item-btn">复制</span>
+        </li>
+        <li class="item">
+            <span class="item-title">昵称 : </span>
+            <input class="item-input" placeholder="请输入用户昵称" disabled value="{{userInfo.nickName}}"/>
+        </li>
+        <li class="item">
+            <span class="item-title">所在地区 : </span>
+                <select class="item-province-select active-input" value="{{userInfo.prov}}" {{editUser?'':'disabled'}}>
+                  {{ if userInfo.prov}}
+                   {{each provinceList}}
+                    <option value="{{provinceList[$index]}}">{{provinceList[$index]}}</option>
+                 {{/each}}
+                {{else}}
+                    <option value="">请选择你所在的省</option>
+                      {{each provinceList}}
+                       <option value="{{provinceList[$index]}}">{{provinceList[$index]}}</option>
+                     {{/each}}
+                {{/if}}
+           </select>
+           
+          
+            <select class="item-city-select" value="{{userInfo.city}}" {{editUser?'':'disabled'}}>
+                {{ if userInfo.city}}
+                   {{each cityList}}
+                    <option value="{{cityList[$index]}}">{{cityList[$index]}}</option>
+                 {{/each}}
+                {{else}}
+                    <option value="">请选择你所在的市</option>
+                      {{each cityList}}
+                       <option value="{{cityList[$index]}}">{{cityList[$index]}}</option>
+                     {{/each}}
+                {{/if}}
+           </select>
+        </li>
+        <li class="item">
+            <span class="item-title">性别 : </span>
+            <select class="item-sex-select" value="{{userInfo.gender == 'M'?'男':'女'}}" {{editUser?'':'disabled'}}>
+                 <option value="男">男</option>
+                 <option value="女">女</option>
+           </select>
+        </li>
+        <li class="item">
+            <span class="item-title">生日 : </span>
+            <input class="item-date-input" type="text" id="date-input" {{editUser?'':'disabled'}}>
+        </li>
+        <li class="item">
+            <span class="item-title">常用邮箱 : </span>
+            <input class="item-email-input " placeholder="请输入邮箱地址" value="{{userInfo.email}}" {{editUser?'':'disabled'}}/>
+        </li>
+        {{ if editUser}}
+            <li class="item">
+             <span class="item-title">常用邮箱 : </span>
+              <span class="item-btn item-cancel-btn edit-information" data-edit='cancel'>取消</span>
+             <span class="item-btn edit-information" data-edit='save'>保存</span>
+        </li>
+        {{else}}
+         <li class="item">
+             <span class="item-title">常用邮箱 : </span>
+             <span class="item-btn  edit-information" data-edit='edit'>编辑信息</span>
+        </li>
+        {{/if}}
+    </ul>
+</div>

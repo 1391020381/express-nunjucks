@@ -59,7 +59,8 @@ function getSpecialTopic() {
         data: JSON.stringify({
                         currentPage:1,
                         pageSize:5,
-                        topicName: topicName  
+                        topicName: topicName,
+                        siteCode:'4' 
                     }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

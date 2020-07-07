@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>订单详情</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/pay/payment.css"/>
+<script>
+    var fun = function (doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+            var clientWidth = docEl.clientWidth; 
+            if (!clientWidth) return;
+            //这里是假设在750px宽度设计稿的情况下 1rem = 100px
+            //可以根据实际需要修改
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+}
+fun(document, window)
+</script>  
+
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+<body>
+<div class="payment">
+   
+</div>
+ {% include "common/js.html" %}
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{
+                isWeChat:"results.isWeChat",
+                isAliPay:"results.isAliPay"
+            },
+            params:{
+                
+            },
+            report: {
+                
+            },
+            gio:{
+            }
+        };
+        seajs.use(["dist/application/app.js","dist/pay/paymentResult.js"]);
+    </script>
+</body>
+
+</html>

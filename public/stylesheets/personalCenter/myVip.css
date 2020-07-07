@@ -1,0 +1,180 @@
+@charset "utf-8";
+.personal-center-vip .myvip-top {
+  padding: 30px 60px 0 40px;
+  background: #fff;
+}
+.personal-center-vip .myvip-top .myvip-title {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+}
+.personal-center-vip .myvip-top .not-vip {
+  background: #fcfaf4;
+  border: 1px solid #fae5a6;
+  border-radius: 4px;
+  *zoom: 1;
+}
+.personal-center-vip .myvip-top .not-vip:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .myvip-top .not-vip .not-vip-left {
+  margin-left: 34px;
+  margin-top: 34px;
+  margin-bottom: 32px;
+  float: left;
+}
+.personal-center-vip .myvip-top .not-vip .not-vip-left .not-vip-left-title {
+  font-size: 22px;
+  color: #D2A649;
+}
+.personal-center-vip .myvip-top .not-vip .not-vip-left .not-vip-top-left-subtitle {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #BAAD91;
+}
+.personal-center-vip .myvip-top .not-vip .not-vip-right {
+  margin-right: 40px;
+  margin-top: 34px;
+  margin-bottom: 32px;
+  float: right;
+  width: 173px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #F4592D;
+  border-radius: 50px;
+}
+.personal-center-vip .myvip-top .vip-summary {
+  background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
+  background-size: cover;
+  border: 1px solid #fae5a6;
+  border-radius: 4px;
+}
+.personal-center-vip .myvip-top .vip-summary .vip-summary-title {
+  margin-left: 40px;
+  padding-top: 38px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+.personal-center-vip .myvip-top .vip-summary .vip-summary-title .vip-summary-icon {
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+  background: url('../../images/personalCenter/diamond.png') no-repeat center;
+  background-size: 100%;
+}
+.personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle {
+  margin-top: 15px;
+  margin-left: 40px;
+  padding-bottom: 43px;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+.personal-center-vip .myvip-top .vip-privilege-items {
+  margin-top: 46px;
+  padding-bottom: 62px;
+  *zoom: 1;
+}
+.personal-center-vip .myvip-top .vip-privilege-items:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .myvip-top .vip-privilege-items .item {
+  float: left;
+  text-align: center;
+  margin-right: 60px;
+  font-size: 12px;
+}
+.personal-center-vip .myvip-top .vip-privilege-items .item .item-img {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+}
+.personal-center-vip .myvip-top .vip-privilege-items .item .item-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #A17E4A;
+}
+.personal-center-vip .myvip-top .vip-privilege-items .item:first-child {
+  margin-left: 30px;
+}
+.personal-center-vip .myvip-top .vip-privilege-items .item:last-child {
+  margin-right: 0;
+}
+.personal-center-vip .my-vip-middle {
+  width: 940px;
+  border-top: solid 10px #F2F3F3;
+  border-bottom: solid 10px #F2F3F3;
+  height: 141px;
+  background: #fff;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100%;
+  height: 141px;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .swiper-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .swiper-slide-img {
+  width: 100%;
+  height: 141px;
+}
+.personal-center-vip .my-vip-bottom {
+  padding: 0px 60px 0 40px;
+}
+.personal-center-vip .my-vip-bottom .myvip-tabs {
+  margin-top: 10px;
+  *zoom: 1;
+}
+.personal-center-vip .my-vip-bottom .myvip-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-vip .my-vip-bottom .myvip-tabs .tab {
+  float: left;
+  margin-right: 35px;
+  padding-top: 27px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.personal-center-vip .my-vip-bottom .myvip-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.personal-center-vip .my-vip-bottom .table {
+  margin-top: 30px;
+  width: 100%;
+}
+.personal-center-vip .my-vip-bottom .table .table-head th {
+  padding-bottom: 18px;
+  border-bottom: solid 1px #F4F4F4;
+}
+.personal-center-vip .my-vip-bottom .table tr td {
+  padding-top: 32px;
+}
+.personal-center-vip .my-vip-bottom .table tr:nth-child(2) td {
+  padding-top: 15px;
+  font-size: 14px;
+  color: #222222;
+}
+.personal-center-vip .my-vip-bottom .vip-table {
+  width: 100%;
+  margin-top: 50px;
+}
