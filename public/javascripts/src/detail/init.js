@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     require("../cmd-lib/lazyload");
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");

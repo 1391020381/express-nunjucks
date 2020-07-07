@@ -9,6 +9,7 @@ module.exports = {
         // 文件详情 (正文)
         // fileDetail: '/file/$id',
         fileDetail: '/content/getFileDetail',
+        getFileDetailNoTdk: '/content/getFileDetailNoTdk',
         // 文档详情扩展的信息（统计）
         fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航

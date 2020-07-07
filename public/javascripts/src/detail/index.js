@@ -15,6 +15,21 @@ define(function (require, exports, module) {
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
     var fileName = window.pageConfig.page&&window.pageConfig.page.fileName
+
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics.js')
+
+    var fileParams = window.pageConfig.params
+
+    handleBaiduStatisticsPush('fileDetailPageView',{
+        loginstatus:method.getCookie('cuk')?1:0,
+        userid: window.pageConfig.userId||'',
+        pageid:'PC-M-FD',
+        fileid:fileParams&&fileParams.g_fileId,
+        filecategoryname:fileParams&&fileParams.classidName1 + '||'+ params&&params.classidName2 + '||' + params&&params.classidName3,
+        filepaytype:params&&params.productType||'', // 文件类型
+        filecootype:'', // 文件来源   
+        fileformat:params&&params.file_format||''
+    })
     // 初始化显示
     initShow();
     // 初始化绑定

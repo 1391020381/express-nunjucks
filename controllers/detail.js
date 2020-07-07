@@ -36,7 +36,7 @@ module.exports = {
             list: function (callback) {  // cookies.ui
                 var opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.file.fileDetail,
+                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
