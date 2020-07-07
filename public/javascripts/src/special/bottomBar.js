@@ -173,7 +173,7 @@ $('#a-login-link').click(function(){
         $('#searchBtn').click(function(){
             topicName =  $('#scondition').val()
             var ft = $('.search-choose input[name="radio"]:checked ').val()
-            window.open('http://ishare.iask.sina.com.cn/search/home.html'+ '?' + 'ft='+ ft + '&cond='+ encodeURIComponent(encodeURIComponent(topicName)) )
+            window.open('/search/home.html'+ '?' + 'ft='+ ft + '&cond='+ encodeURIComponent(encodeURIComponent(topicName)) )
         })
    }
 });
