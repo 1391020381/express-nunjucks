@@ -217,7 +217,7 @@ define(function(require , exports , module){
             }
             if(!params.idCardFrontPic) {
                 $.toast({
-                    text:'请输入身份证号码',
+                    text:'请上传身份证正面照片',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -226,7 +226,7 @@ define(function(require , exports , module){
             }
             if(!params.idCardBackPic) {
                 $.toast({
-                    text:'请上传身份证正面照片',
+                    text:'请上传身份证背面照片',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -235,7 +235,7 @@ define(function(require , exports , module){
             }
             if(!params.handFrontIdCardPic) {
                 $.toast({
-                    text:'请上传身份证反面照片',
+                    text:'请上传手持身份证照',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -244,7 +244,7 @@ define(function(require , exports , module){
             }
             if(!params.credentialsPic) {
                 $.toast({
-                    text:'请上传手持身份证照片',
+                    text:'请上传证件材料照片',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -253,7 +253,7 @@ define(function(require , exports , module){
             }
             if(!params.phoneNumber) {
                 $.toast({
-                    text:'请上传手持身份证照片',
+                    text:'请输入正确的手机号码',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -262,7 +262,16 @@ define(function(require , exports , module){
             }
             if(!params.checkCode) {
                 $.toast({
-                    text:'请上传手持身份证照片',
+                    text:'请输入手机验证码',
+                    icon:'',
+                    delay : 2000,
+                    callback:false
+                })
+                return false;
+            }
+            if(!$('.rz-label .check-con').hasClass('checked')) {
+                $.toast({
+                    text:'请勾选用户认证协议',
                     icon:'',
                     delay : 2000,
                     callback:false
@@ -280,7 +289,9 @@ define(function(require , exports , module){
                         text:data.msg,
                         icon:'',
                         delay : 2000,
-                        callback:false
+                        callback:function(){
+                            location.reload()
+                        }
                     })
                 }else{
                     $.toast({
