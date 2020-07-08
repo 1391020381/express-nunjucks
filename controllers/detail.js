@@ -45,12 +45,9 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-                console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list fileInfo-------------------:',JSON.parse(body).data.fileInfo)
                     if(res1.statusCode == 503){ // http请求503
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
-                            console.log("503==========");
                             return;     
                     }
                     if (body) {
@@ -114,7 +111,6 @@ module.exports = {
                 })
             },
             getTopBannerList:function(callback){ // 页面顶部banner
-                console.log(req.cookies.isHideDetailTopbanner)
                 if(req.cookies.isHideDetailTopbanner){
                     callback(null,null)
                     return
@@ -131,7 +127,6 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
-                            console.log('getTopBannerList:',data)
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)
@@ -154,7 +149,6 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
-                            console.log('getTopBannerList:',data)
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)
@@ -211,7 +205,6 @@ module.exports = {
             },
             // 面包屑导航
             crumbList: function (callback) {
-                //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
                // server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
                var opt = {
                 method: 'POST',
@@ -308,8 +301,6 @@ module.exports = {
                         },
                     }
                     request(option, function (err, res, body) {
-                        console.log(body, 'body======')
-                        console.log(pageIds, 'pageIds===')
                         if (body) {
                             try {
                                 var resData = JSON.parse(body);
@@ -324,7 +315,6 @@ module.exports = {
                                 }
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -337,10 +327,6 @@ module.exports = {
             //第四范式 相关推荐
             paradigm4Relevant: function (callback) {
                 requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-
-                console.log(recommendInfoData_rele.useId, 'recommendInfoData_rele.useId=======')
-
-
                 if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDRelevant = recommendInfoData_rele.useId || '';
 
@@ -353,12 +339,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
-                                // console.log('第四范式data',data)
                                 callback(null, data);
                             } catch (err) {
-                                console.log('第四范式error')
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -371,8 +354,6 @@ module.exports = {
             //第四范式  猜你喜欢
             paradigm4Guess: function (callback) {
                 requestID_guess = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-                console.log(recommendInfoData_guess.useId, 'recommendInfoData_guess.useId=========')
-
                 if (recommendInfoData_guess.useId) { // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDGuess = recommendInfoData_guess.useId || '';
                     var opt = {
@@ -387,7 +368,6 @@ module.exports = {
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -420,10 +400,8 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-            console.log(results.redirectUrl,'redirectUrl')
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
-                console.log("404==========");
                 return;
             }
             if (results.redirectUrl && results.redirectUrl.data) {
@@ -433,7 +411,6 @@ module.exports = {
                     return;
                 }
             }
-         //   console.log(results,'pc-node results----------');
          
          // 转换新对象
              var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.transcodeInfo,{tdk:results.list.data.tdk})})
@@ -484,12 +461,10 @@ module.exports = {
                 results.userID = userID;
 
             }
-           // console.log('results.paradigm4GuessData',results.paradigm4GuessData)
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
             results.showFlag = true
-            console.log('results:',JSON.stringify(results))
             // if (parseInt(fileAttr, 10) === 1) {
             //     render("detail/index", results, req, res);
             // } else {
@@ -520,9 +495,7 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-                console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
                         var data = JSON.parse(body);
                         var fileInfo = data.data&&data.data.fileInfo
@@ -631,7 +604,6 @@ module.exports = {
                                 }
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -658,7 +630,6 @@ module.exports = {
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -674,7 +645,6 @@ module.exports = {
 
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
-                console.log("404==========");
                 return;
             }
             // 如果有第四范式 猜你喜欢
@@ -693,9 +663,7 @@ module.exports = {
             }
             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
             var results = Object.assign({},results,{list:list})
-            // console.log('results.paradigm4GuessData',results.paradigm4GuessData)
             // 要在这里给默认值 不然报错
-            console.log('results:',JSON.stringify(results))
             render("detail/success", results, req, res);
         })
     },
@@ -716,7 +684,6 @@ function getInitPage(req, results) {
                 var page = bytes[key];
                 var param = page[0] + '-' + page[1];
                 var newUrl = changeURLPar(content, 'range', param);
-                //console.log(newUrl,'newUrl-------------------')
                 newImgUrl.push(newUrl);
             }
             results.list.data.fileContentList =newImgUrl;
