@@ -8,8 +8,8 @@ define(function (require, exports, module) {
     var obj = {
         reqParams: pageConfig.reqParams,
         init:function(){
-            new slider("J_categoty_banner");
-            new slider("j-rightBanner")
+            new slider("J_categoty_banner","J_categoty_focus","J_categoty_prev","J_categoty_next");
+            new slider("j-rightBanner","J_right_focus","J_right__prev","J_right__next")
             this.selectMenu();
             this.pageOperate();
             this.fomatSelect();

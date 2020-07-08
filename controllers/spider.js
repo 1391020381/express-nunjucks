@@ -74,7 +74,7 @@ module.exports = {
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
                             uid= fileInfo.uid || ''           // 上传者id
-                            picArr = transcodeInfo.fileContentList;
+                            picArr = transcodeInfo?transcodeInfo.fileContentList:[];
                             callback(null, data);
                         } else {
                             callback(null, null);

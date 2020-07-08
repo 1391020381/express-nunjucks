@@ -40,7 +40,7 @@ module.exports = {
             },
         } , function(err, results){
             console.log(JSON.stringify(results))
-            var list = results.maplist.data.rows.map(item=>{
+            var list = results.maplist.data && results.maplist.data.rows.map(item=>{
                 if (type == 'f') {
                     var obj ={};
                     obj.linkurl = '/f/'+item.id +'.html';
@@ -56,8 +56,9 @@ module.exports = {
             var resultdata = {};
             resultdata.currentPage = currentPage;
             var pageArr = [];
-            // var
-            for(var i =0; i<60; i++) {
+            var totalPages = results.maplist.data &&results.maplist.data.totalSize?results.maplist.data.totalSize:1;
+            totalPages = totalPages>60?60:totalPages
+            for(var i =0; i<totalPages; i++) {
                 pageArr.push(i+1);
             }
             resultdata.pageArr = pageArr;
@@ -68,7 +69,7 @@ module.exports = {
             })
             resultdata.initialArr.push('09');
             resultdata.initialCapitalArr.push('0-9')
-            resultdata.list = list;
+            resultdata.list = list||[];
             resultdata.prex = prex;
             resultdata.inialPrex = prex.toUpperCase()=='09'?'0-9':prex.toUpperCase();
             resultdata.type = type;

@@ -210,7 +210,7 @@ define(function (require, exports, module) {
     // 埋点上报 请求
     function push(params) {
         setTimeout(function () {
-            console.log(params);
+            console.log(params,'页面上报');
             $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function (data) {
                 console.log(data);
             });
