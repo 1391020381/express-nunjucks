@@ -38,7 +38,7 @@ define(function (require, exports, module) {
         notifyLoginInterface: function (callback) {
             var _self = this;
             if (!method.getCookie('cuk')) {
-                __pc__.push(['pcTrackContent', 'loginDialogLoad']);
+                // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 $.loginPop('login', { 
                     "terminal": "PC", 

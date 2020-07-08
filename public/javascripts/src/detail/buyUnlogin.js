@@ -3,12 +3,12 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var qr = require("../pay/qr");
-    var report = require("../pay/report");
-    var downLoadReport = $.extend({}, gioData);
+   // var report = require("../pay/report");
+    // var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
-    downLoadReport.docPageType_var = pageConfig.page.ptype;
-    downLoadReport.fileUid_var = pageConfig.params.file_uid;
+    // downLoadReport.docPageType_var = pageConfig.page.ptype;
+    // downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
 
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
                     if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
-                        downLoadReport.expendType_var = "现金"
+                        // downLoadReport.expendType_var = "现金"
                         // 如果现金文档，弹出面登陆购买
                         $('body').append(unloginBuyHtml);
                         viewExposure($(this),'noLgFPayCon')
@@ -111,9 +111,9 @@ define(function (require, exports, module) {
                     unloginObj.createdQrCode(data.data.orderNo);
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice/100);
-                    gioPayDocReport.orderId_var = data.data.orderNo;
-                    gioPayDocReport.buyer_uid = visitorId;
-                    gioPayDocReport.login_flag = '游客';
+               //     gioPayDocReport.orderId_var = data.data.orderNo;
+                //    gioPayDocReport.buyer_uid = visitorId;
+                //    gioPayDocReport.login_flag = '游客';
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
                     $('.qrShadow').hide();
@@ -176,8 +176,8 @@ define(function (require, exports, module) {
 
                         } else if (orderStatus == 2) {//成功
                             try {
-                                report.docPaySuccess(gioPayDocReport);//GIO购买上报
-                                __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
+                              //  report.docPaySuccess(gioPayDocReport);//GIO购买上报
+                              //  __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
                                 unloginObj.closeLoginWindon();
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format+'&visitorId='+visitorId;
                                 method.compatibleIESkip(url, false);

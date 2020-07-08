@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     require("./element");
     require("./extend");
     var bilog=require("../common/bilog");
-    require('../report/init');
+   // require('../report/init');
     window.template = require("./template");
     require("./helper");
     require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');

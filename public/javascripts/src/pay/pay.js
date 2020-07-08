@@ -5,7 +5,7 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
-    var report = require("./report");
+    //var report = require("./report");
     var api = require('../application/api');
     require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
@@ -101,15 +101,15 @@ define(function (require, exports, moudle) {
     };
 
     //从详情页进入vip所需要来源
-    if (method.getParam("remark") === "office") { 
-        params.remark = "office";
-        window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
-        window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";
-    } else {
-        params.remark = "other";
-        window.pageConfig.gio.reportVipData.channelName_var = "其他";
-        window.pageConfig.gio.reportPrivilegeData.channelName_var = "其他";
-    }
+    // if (method.getParam("remark") === "office") { 
+    //     params.remark = "office";
+    //     window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
+    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";
+    // } else {
+    //     params.remark = "other";
+    //     window.pageConfig.gio.reportVipData.channelName_var = "其他";
+    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "其他";
+    // }
 
     if (method.getParam("ref")) {
         params.ref = utils.getPageRef(fid);
@@ -218,8 +218,8 @@ define(function (require, exports, moudle) {
                 params.vipMemberId = params.vid = $(".js-tab ul.pay-vip-list").find("li.active").data("vid");
             }
             params.aid = $(".js-tab ul.pay-vip-list").find("li.active").data("actids");
-            report.price = $(".js-tab ul.pay-vip-list").find("li.active").data("price");
-            report.name = $(".js-tab ul.pay-vip-list").find("li.active").data("month");
+        //    report.price = $(".js-tab ul.pay-vip-list").find("li.active").data("price");
+          //  report.name = $(".js-tab ul.pay-vip-list").find("li.active").data("month");
             // 带优惠券id
             params.vouchersId = $('.pay-coupon-wrap').attr('vid')
             params.suvid = $('.pay-coupon-wrap').attr('svuid')
@@ -233,7 +233,7 @@ define(function (require, exports, moudle) {
                 params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             }
             params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
-            report.price = $("ul.pay-pri-list").find("li.active").data("price");
+       //     report.price = $("ul.pay-pri-list").find("li.active").data("price");
         } else if (checkStatus == '8') {  // ptype === 'file'
             params = {
                 fid: pageConfig.params.g_fileId,
@@ -374,18 +374,18 @@ define(function (require, exports, moudle) {
             fileId = fid;
         }
 
-        fillReportData(orderNo, name, price * 100, '二维码合一', type);
+      //(orderNo, name, price * 100, '二维码合一', type);
         var target = "/pay/payQr.html?";          //   0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         if (type == 10) {                 // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买             
             // target = target + "type=0&";
             target = target + "type=10&";
-            report.vipPayClick(window.pageConfig.gio.reportVipData);
+           // report.vipPayClick(window.pageConfig.gio.reportVipData);
             $(".btn-vip-order-done").click();
             // __pc__.push(['pcTrackEvent','orderDone']);
         } else if (type == 13) {
             // target = target + "type=1&";
             target = target + "type=13&";
-            report.privilegePayClick(window.pageConfig.gio.reportPrivilegeData);
+          //  report.privilegePayClick(window.pageConfig.gio.reportPrivilegeData);
         } else if (type == 8) {
             // target = target + "type=2&";
             target = target + "type=8&";
@@ -393,7 +393,7 @@ define(function (require, exports, moudle) {
             if (rf) {
                 rf = JSON.parse(rf);
                 rf.orderId_var = orderNo;
-                report.filePayClick(rf);
+               // report.filePayClick(rf);
             }
         }
         if (method.getParam('fid')) {
@@ -406,23 +406,23 @@ define(function (require, exports, moudle) {
         method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId, false);
     }
 
-    function fillReportData(orderNo, name, price, type, ptype) {
-        if (ptype == 0) {
-            window.pageConfig.gio.reportVipData.orderId_var = orderNo;
-            window.pageConfig.gio.reportVipData.vipName_var = name;
-            window.pageConfig.gio.reportVipData.vipPayPrice_var = price;
-            window.pageConfig.gio.reportVipData.orderPayType_var = type;
-            method.setCookieWithExpPath('rv', JSON.stringify(window.pageConfig.gio.reportVipData), 5 * 60 * 1000, '/');
-        } else if (ptype == 1) {
-            window.pageConfig.gio.reportPrivilegeData.orderId_var = orderNo;
-            window.pageConfig.gio.reportPrivilegeData.privilegeName_var = name;
-            window.pageConfig.gio.reportPrivilegeData.privilegePayPrice_var = price;
-            window.pageConfig.gio.reportPrivilegeData.orderPayType_var = type;
-            method.setCookieWithExpPath('rp', JSON.stringify(window.pageConfig.gio.reportPrivilegeData), 5 * 60 * 1000, '/');
-        } else if (ptype == 2) {
+    // function fillReportData(orderNo, name, price, type, ptype) {
+    //     if (ptype == 0) {
+    //         window.pageConfig.gio.reportVipData.orderId_var = orderNo;
+    //         window.pageConfig.gio.reportVipData.vipName_var = name;
+    //         window.pageConfig.gio.reportVipData.vipPayPrice_var = price;
+    //         window.pageConfig.gio.reportVipData.orderPayType_var = type;
+    //         method.setCookieWithExpPath('rv', JSON.stringify(window.pageConfig.gio.reportVipData), 5 * 60 * 1000, '/');
+    //     } else if (ptype == 1) {
+    //         window.pageConfig.gio.reportPrivilegeData.orderId_var = orderNo;
+    //         window.pageConfig.gio.reportPrivilegeData.privilegeName_var = name;
+    //         window.pageConfig.gio.reportPrivilegeData.privilegePayPrice_var = price;
+    //         window.pageConfig.gio.reportPrivilegeData.orderPayType_var = type;
+    //         method.setCookieWithExpPath('rp', JSON.stringify(window.pageConfig.gio.reportPrivilegeData), 5 * 60 * 1000, '/');
+    //     } else if (ptype == 2) {
 
-        }
-    }
+    //     }
+    // }
     //网页支付宝
     function alipayClick(oid) {
         $(".web-alipay").bind('click', function () {
@@ -474,7 +474,7 @@ define(function (require, exports, moudle) {
                             if (rf) {
                                 rf = JSON.parse(rf);
                                 rf.orderId_var = orderNo;
-                                report.docPaySuccess(rf);
+                              //  report.docPaySuccess(rf);
                                 method.delCookie('rf', "/");
                             }
 
@@ -490,7 +490,7 @@ define(function (require, exports, moudle) {
                             params += "fid=" + fid + "&type=0"+"&renewalVIP="+renewalVIP;
                             var rv = method.getCookie('rv');
                             if (rv) {
-                                report.vipPaySuccess(JSON.parse(rv));
+                               // report.vipPaySuccess(JSON.parse(rv));
                                 method.delCookie('rv', "/");
                             }
 

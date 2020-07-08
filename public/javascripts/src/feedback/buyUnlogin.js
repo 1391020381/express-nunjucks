@@ -104,9 +104,9 @@ define(function (require, exports, module) {
                     unloginObj.createdQrCode(data.data.orderNo);
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.price);
-                    gioPayDocReport.orderId_var = data.data.orderNo;
-                    gioPayDocReport.buyer_uid = visitorId;
-                    gioPayDocReport.login_flag = '游客';
+                   // gioPayDocReport.orderId_var = data.data.orderNo;
+                   // gioPayDocReport.buyer_uid = visitorId;
+                   // gioPayDocReport.login_flag = '游客';
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
                     $('.qrShadow').hide();
