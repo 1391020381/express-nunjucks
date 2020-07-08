@@ -279,6 +279,15 @@ define(function(require , exports , module){
                 smsId:$('.js-msg').attr('smsId'),
                 checkCode:$('.js-msg-val').val().trim()
             }
+            if(!$('.rz-label .check-con').hasClass('checked')) {
+                $.toast({
+                    text:'请勾选用户认证协议',
+                    icon:'',
+                    delay : 2000,
+                    callback:false
+                })
+                return false;
+            }
             params = JSON.stringify(params);
 
             $.ajax('/gateway/user/certification/institutions', {
@@ -291,14 +300,16 @@ define(function(require , exports , module){
                         text:data.msg,
                         icon:'',
                         delay : 2000,
-                        callback:false
+                        callback:function(){
+                            location.reload()
+                        }
                     })
                 }else{
                     $.toast({
                         text:data.msg,
                         icon:'',
                         delay : 2000,
-                        callback:false
+                       
                     })
                 }
 

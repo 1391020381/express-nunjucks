@@ -22,6 +22,13 @@ define(function (require, exports, module) {
                     });
                 }
             });
+            if (utils.getCookie('cuk')) {
+                login.getLoginData(function (data) {
+                    if (data) {
+                        refreshTopBar(data)
+                   }
+                });
+            }
             // 退出登录
             $('.btn-exit').click(function(){
                 login.ishareLogout()
