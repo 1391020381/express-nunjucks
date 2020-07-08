@@ -31,6 +31,7 @@ define(function(require , exports , module){
                     login.notifyLoginInterface(function (data) {
                         refreshTopBar(data);
                         orgObj.nickName = data.nickName;
+                        $('.js-count').html(data.nickName)
                     });
                 }
             });
@@ -48,15 +49,18 @@ define(function(require , exports , module){
             if (!utils.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                    if (data) {
-                        refreshTopBar(data);
                         orgObj.nickName = data.nickName;
+                        $('.js-count').text(data.nickName)
+                        refreshTopBar(data);
                    }
                 });
             }else {
                 login.getLoginData(function (data) {
                     if (data) {
-                        refreshTopBar(data);
+                        $('.js-count').text(data.nickName)
                         orgObj.nickName = data.nickName;
+                        refreshTopBar(data);
+                       
                    }
                 });
             }
@@ -67,21 +71,11 @@ define(function(require , exports , module){
                 type:"get"
             }).done(function(data){
                 if(data.code=="0"){
-                    $.toast({
-                        text:data.msg,
-                        icon:'',
-                        delay : 2000,
-                        callback:false
-                    })  
-                }else{
-                    $.toast({
-                        text:data.msg,
-                        icon:'',
-                        delay : 2000,
-                        callback:false
-                    })
+                    if(data.data.auditStatus==3) {
+                       $('.dialog-limit').show();
+                       $('#bgMask').show()
+                    }
                 }
-
             }).fail(function(e){
                 console.log("error==="+e);
             })

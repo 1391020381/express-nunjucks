@@ -167,7 +167,7 @@ module.exports = {
                  if(results.paradigm4Relevant && results.paradigm4Relevant.length>0) {
                      results.vipList = results.paradigm4Relevant.map(item=>{
                          var obj = {};
-                         obj.linkUrl = '/f/'+item.url;
+                         obj.linkUrl = '/f'+item.url;
                          obj.title = item.title;
                          obj.imagUrl = item.cover_url;
                          obj.expand = {};
@@ -183,7 +183,7 @@ module.exports = {
            
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
             // console.warn(JSON.stringify(results.topicRec),'topicRec')
-            // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
+            console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
             // console.log(results,'index***************************')
             render("index/index",results,req,res);
         })

@@ -32,7 +32,11 @@
     </script>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/authentication/user.css" />
 <!-- 添加360统计代码1、PC端统计代码： -->
-
+<style>
+    .detail-search-info p {
+        display: none;
+    }
+</style>
 </head>
 <script type="text/javascript">
     var _speedMark = + new Date();
@@ -51,17 +55,17 @@
             <div class="pw pw-v">
                 <h2 class="header-title">你正在进行个人认证</h2>
                 <div class="header-process cf">
-                    <div class="process-item step-now fl">
+                    <div class="process-item {{'step-now' if results.isEdit==undefined or results.isEdit==3}} fl">
                         <span class="step-num">1</span>
                         <span class="step-text">填写信息</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item fl">
+                    <div class="process-item {{'step-now' if results.isEdit==0 or results.isEdit==1}} fl">
                         <span class="step-num">2</span>
                         <span class="step-text">等待审核</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item fl">
+                    <div class="process-item {{'step-now' if results.isEdit==2}} fl">
                         <span class="step-num">3</span>
                         <span class="step-text">认证成功</span>
                     </div>
@@ -76,8 +80,8 @@
                     <div class="rz-main-item">
                         <h2 class="rz-main-item-title"><i class="b"></i>基本信息</h2>
                         <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt js-nickName">用户昵称：</dt>
-                            <dt class="rz-main-dd"></dt>
+                            <dt class="rz-main-dt">用户昵称</dt>
+                            <dt class="rz-main-dd js-count"></dt>
                         </dl>
                         <!-- <dl class="rz-main-dl cf">
                             <dt class="rz-main-dt">爱问昵称：</dt>
@@ -92,7 +96,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>真实姓名：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="realName" class="rz-input-text js-realName"  placeholder="与身份证姓名一致">
+                                    <input type="text" name="realName" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.realName}}{%endif%}" class="rz-input-text js-realName"  placeholder="与身份证姓名一致">
                                 </div>
                             </dd>
                         </dl>
@@ -102,9 +106,10 @@
                                 <div class="jqtransform jqtransformdone">
                                     <div class="jqTransformSelectWrapper" style="z-index: 10; width: 228px;">
                                         <div class="js-select">
-                                            <span style="width: 206px;" class="js-authType" authtype="0">中小学教师</span>
+                                            <span style="width: 206px;" class="js-authType" authtype="0">{%if results.isEdit and results.isEdit !=3 %}{{results.authTypeArr[results.authType]['title']}}{%else%}中小学教师{%endif%}</span>
                                             <a href="javascript:;" class="jqTransformSelectOpen"></a>
                                         </div>
+                                        {%if results.isEdit ==undefined %}
                                         <ul style="width: 228px; display: none; ">
                                             <li><a href="javascript:;" index="0" class="selected">中小学教师</a></li>
                                             <li><a href="javascript:;" index="1">大学或高职教师</a></li>
@@ -117,6 +122,7 @@
                                             <li><a href="javascript:;" index="8">设计师</a></li>
                                             <li><a href="javascript:;" index="9">其他</a></li>
                                         </ul>
+                                        {%endif%}
                                     <!-- <select name="authType" value="" class="jqTransformHidden" style="">
                                         <option value="0" selected="">中小学教师</option><option value="1">大学或高职教师</option><option value="2">网络营销</option><option value="3">IT/互联网</option><option value="4">医学</option><option value="5">建筑工程</option><option value="6">金融/证券</option><option value="7">汽车/机械/制造</option><option value="9">设计师</option><option value="8">其他</option>
                                     </select> -->
@@ -129,7 +135,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>身份证号码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="idCardNo" class="rz-input-text js-idCardNo" value="" placeholder="请输入身份证号码">
+                                    <input type="text" name="idCardNo" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-idCardNo" value="{%if results.isEdit and results.isEdit !=3 %}{{results.idCardNo}}{%endif%}" placeholder="请输入身份证号码">
                                 </div>
                             </dd>
                         </dl>
@@ -138,21 +144,21 @@
                                 <dl class="rz-main-dl cf">
                                     <dt class="rz-main-dt"><span class="import">*</span>身份证正面照片：</dt>
                                     <dd class="rz-main-dd">
-                                        <a class="btn-rz-upload fl" id="js-id-front">
+                                        <a class="btn-rz-upload fl" {%if results.isEdit %}{%else%}id="js-id-front"{%endif%} >
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file"><input type="hidden" value="" name="idCardFrontPic"> -->
                                         </a>
                                         <div class="rz-upload-pic fl">
                                             <span class="delete-ele hide"  title="删除"></span>
-                                            <img src="{{cdnUrl}}/images/auth/pic_sfz_z.jpg" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
+                                            <img src="{%if results.isEdit %}{{results.idCardFrontPic}}{%else%}{{cdnUrl}}/images/auth/pic_sfz_z.jpg{%endif%}" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
                                     </dd>
                                 </dl>
                                 <dl class="rz-main-dl cf">
                                     <dt class="rz-main-dt"><span class="import">*</span>身份证反面照片：</dt>
                                     <dd class="rz-main-dd">
-                                        <a class="btn-rz-upload fl" id="js-id-back">
+                                        <a class="btn-rz-upload fl" {%if results.isEdit%}{%else%}id="js-id-back"{%endif%} >
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file">
@@ -160,21 +166,21 @@
                                         </a>
                                         <div class="rz-upload-pic fl">
                                             <span class="delete-ele hide" title="删除"></span>
-                                            <img src="{{cdnUrl}}/images/auth/pic_sfz_f.jpg" aval="pic_sfz_f.jpg" style="max-height: 200px;max-height: 200px;">
+                                            <img src="{%if results.isEdit %}{{results.idCardBackPic}}{%else%}{{cdnUrl}}/images/auth/pic_sfz_f.jpg{%endif%}" aval="pic_sfz_f.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
                                     </dd>
                                 </dl>
                                 <dl class="rz-main-dl cf">
                                     <dt class="rz-main-dt"><span class="import">*</span>手持身份证照片：</dt>
                                     <dd class="rz-main-dd">
-                                        <a class="btn-rz-upload fl" id="js-id-hand">
+                                        <a class="btn-rz-upload fl" {%if results.isEdit %}{%else%}id="js-id-hand"{%endif%}>
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file"><input type="hidden" value="" name="handFrontIdCardPic"> -->
                                         </a>
                                         <div class="rz-upload-pic fl">
                                             <span class="delete-ele hide" title="删除"></span>
-                                            <img src="{{cdnUrl}}/images/auth/pic_sfz_z.jpg" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
+                                            <img src="{%if results.isEdit %}{{results.handFrontIdCardPic}}{%else%}{{cdnUrl}}/images/auth/pic_sfz_z.jpg{%endif%}" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
                                     </dd>
                                 </dl>
@@ -203,7 +209,7 @@
                                 <dl class="rz-main-dl cf">
                                     <dt class="rz-main-dt">证件材料：</dt>
                                     <dd class="rz-main-dd">
-                                        <a class="btn-rz-upload fl" id="js-cer">
+                                        <a class="btn-rz-upload fl" {%if results.isEdit %}{%else%}id="js-cer"{%endif%} >
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file">
@@ -211,7 +217,7 @@
                                         </a>
                                         <div class="rz-upload-pic fl">
                                             <span class="delete-ele hide" title="删除"></span>
-                                            <img src="{{cdnUrl}}/images/auth/pic_zj.jpg" aval="pic_zj.jpg" style="max-height: 200px;max-height: 200px;">
+                                            <img src="{%if results.isEdit and results.isEdit !=3 %}{{results.credentialsPic}}{%else%}{{cdnUrl}}/images/auth/pic_zj.jpg{%endif%}" aval="pic_zj.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
                                     </dd>
                                 </dl>
@@ -227,7 +233,7 @@
                             <dt class="rz-main-dt">认证称谓：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="authAppellation" class="rz-input-text js-authAppellation" value="" placeholder="如中级会计师">
+                                    <input type="text" name="authAppellation" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-authAppellation" value="{%if results.isEdit  %}{{results.authAppellation}}{%endif%}" placeholder="如中级会计师">
                                 </div>
                             </dd>
                         </dl>
@@ -235,7 +241,7 @@
                             <dt class="rz-main-dt">工作单位：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="workUnit" class="rz-input-text js-workUnit" value="" placeholder="如深圳爱问科技股份有限公司">
+                                    <input type="text" name="workUnit" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-workUnit" value="{%if results.isEdit %}{{results.workUnit}}{%endif%}" placeholder="如深圳爱问科技股份有限公司">
                                 </div>
                             </dd>
                         </dl>
@@ -243,7 +249,7 @@
                             <dt class="rz-main-dt">个人简介：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="personProfile" placeholder="请输入简介" class="rz-input-text js-personProfile">
+                                    <input type="text" {%if results.isEdit %}disabled{%endif%} name="personProfile" placeholder="请输入简介" value="{%if results.isEdit %}{{results.personProfile}}{%endif%}" class="rz-input-text js-personProfile">
                                 </div>
                             </dd>
                         </dl>
@@ -251,7 +257,7 @@
                             <dt class="rz-main-dt">个人微博：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" name="personWeibo" placeholder="请输入微博地址"   class="rz-input-text js-personWeibo">
+                                    <input type="text" name="personWeibo" {%if results.isEdit %}disabled{%endif%} placeholder="请输入微博地址" value="{%if results.isEdit %}{{results.personWeibo}}{%endif%}"   class="rz-input-text js-personWeibo">
                                 </div>
                             </dd>
                         </dl>
@@ -262,7 +268,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>手机号码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con validate-input">
-                                    <input type="text" name="phoneNumber" class="rz-input-text js-phone"  placeholder="请输入个人手机号" >
+                                    <input type="text" name="phoneNumber" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-phone" value="{%if results.isEdit %}{{results.phoneNumber}}{%endif%}"  placeholder="请输入个人手机号" >
                                 </div>
                                 <!-- <a class="btn-validate">验证手机</a> -->
                             </dd>
@@ -271,7 +277,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>验证码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con validate-input">
-                                    <input type="text" class="rz-input-text js-msg-val" placeholder="请输入短信验证码">
+                                    <input type="text" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-msg-val" placeholder="请输入短信验证码">
                                 </div>
                                 <a class="ver-btn js-msg">获取验证码</a>
                             </dd>
@@ -280,7 +286,7 @@
                             <dt class="rz-main-dt">QQ：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con nofloat">
-                                    <input type="text" name="qqNumber" placeholder="请输入QQ号" class="rz-input-text js-qqNumber">
+                                    <input type="text" name="qqNumber" {%if results.isEdit %}disabled{%endif%} value="{%if results.isEdit  %}{{results.qqNumber}}{%endif%}" placeholder="请输入QQ号" class="rz-input-text js-qqNumber">
                                 </div>
                                 <div class="rz-agreement-con easy_scrollable" tabindex="0" style="overflow: hidden; padding: 0px; width: 440px; outline: none;">
                                     
@@ -425,15 +431,30 @@
                             </dd>
                         </dl>
                     </div>
+                    {%if results.isEdit ==undefined %}
                     <div class="btn-rz-con">
                         <a class="btn-rz-send js-submit">提交</a>
                     </div>
+                    {%endif%}
                     </form>
             </div>
         </div>
     </div>
     <!-- 底部声明 -->
     {% include "common/new/footer.html" %}
+    <div id="bgMask"></div>
+    <div class="dialog-limit dialog-new-built">
+        <span class="btn-close" title="关闭" onclick="$(this).parent().hide();$('#bgMask').hide();"></span>
+        <div class="dialog-con">
+            <div class="folder-item cf">
+                审核失败，请联系客服了解具体原因并重新提交资料
+            </div>
+            <div class="btn-con">
+                <a class="btn btn-normal" onclick="$(this).parents('.dialog-con').siblings('.btn-close').trigger('click');">取消</a>
+                <a class="btn btn-color" onclick="$(this).parents('.dialog-con').siblings('.btn-close').trigger('click');">确定</a>
+            </div>
+        </div>
+    </div>
     <script>
          window.pageConfig = {
             report: {

@@ -176,12 +176,12 @@
         <div class="vip-con fl">
             <div class="content-con">
                 <div class="content-title">
-                    VIP畅享下载海量资料,  <a  href="">立即开通 ></a>       
+                    VIP畅享下载海量资料,  <a  href="/pay/vip.html">立即开通 ></a>       
                 </div>
                 <div class="content-list current">
                     {%for item in results.vipList  %}
                     <div class="list-item">
-                        <a href="{{item.linkUrl}}">
+                        <a href="{{item.linkUrl}}" style="display: block;" target="_blank">
                             <div class="banner-frame fl">
                                 <img src="{%if item.imagUrl%}{{item.imagUrl}} {% else %}{{cdnUrl}}/images/default-picture.png{%endif%} " alt="">
                                 <i class="ico-type ico-{{item.expand.format}}"></i>
@@ -223,8 +223,8 @@
                         <li class="identical">专属身份标识</li>
                     </ul>
                 </div>
-                <a class="userOperateBtn hide gocenter" href="/node/personalCenter/home.html">会员中心</a>
-                <a class="userOperateBtn hide goVip" href="/pay/vip.html">开通VIP</a>
+                <a class="userOperateBtn hide gocenter" target="_blank" href="/node/personalCenter/home.html">会员中心</a>
+                <a class="userOperateBtn hide goVip" target="_blank" href="/pay/vip.html">开通VIP</a>
                 <a class="userOperateBtn  notLogin" href="javascript:;">立即登录</a>
             </div>
        </div>
@@ -272,7 +272,7 @@
 <div class="institude-area">
     <div class="pw">
         <div class="institude-top">
-           <span class="institude-title">权威机构</span> <span class="institude-title-des">认证后将获得更多关注 , <a  href="/node/auth/index.html">立即认证 ></a></span>       
+           <span class="institude-title">权威机构</span> <span class="institude-title-des">认证后将获得更多关注 , <a  href="/node/auth/index.html" target="_blank">立即认证 ></a></span>       
         </div>
         <div class="institude-list">
             {%for item in results.organize  %}

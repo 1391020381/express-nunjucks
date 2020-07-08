@@ -113,6 +113,10 @@ module.exports = {
     },
     order:{
       getOrderInfo: "/gateway/order/get/orderInfo"
+    },
+    auth:{
+        user:'/user/certification/getPersonal',
+        org:'/user/certification/getInstitutions'
     }
 };
 

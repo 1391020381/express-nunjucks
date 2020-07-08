@@ -76,6 +76,7 @@ module.exports = function (grunt) {
                     'dist/authentication/index.js': ['.build/authentication/index.js'],
                     'dist/authentication/org.js': ['.build/authentication/org.js'],
                     'dist/authentication/user.js': ['.build/authentication/user.js'],
+                    'dist/category/index.js': ['.build/category/index.js'],
                     
                 }
             }
