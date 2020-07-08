@@ -1,5 +1,6 @@
 define(function(require , exports , module){
     console.log('聚合支付码')
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     require("../cmd-lib/toast");
     var api = require('../application/api');
     var method = require("../application/method");
@@ -24,12 +25,12 @@ define(function(require , exports , module){
                 res.data.payPrice = (res.data.payPrice/100).toFixed(2) 
                 res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
                 var _paymentRestultTemplate = template.compile(paymentRestult)({orderInfo:res.data});
-                $(".personal-center-myuploads").html(_paymentRestultTemplate) 
+                $(".payment").html(_paymentRestultTemplate) 
                   if(res.goodsType == 1){
-                    handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:'alipay'})
+                    handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:res.data.payType})
                 }
                 if(res.goodsType == 2){
-                    handleBaiduStatisticsPush('payVipResult',{payresult:1,orderid:orderNo,orderpaytype:'alipay'})
+                    handleBaiduStatisticsPush('payVipResult',{payresult:1,orderid:orderNo,orderpaytype:res.data.payType})
                 }
                }else{
                 $.toast({

@@ -22,6 +22,20 @@ define(function(require , exports , module){
           5:'退款失败',
           7:'退款异常'
     }
+    var goodsTypeList = {
+        1:{
+            desc:'购买资料',
+            checkStatus:8  //资料是付费，用户未购买
+        },
+        2:{
+            desc:'购买VIP',
+            checkStatus:10  //资料是付费，用户未购买
+        },
+        8:{
+            desc:'购买下载特权',
+            checkStatus:13  //  资料是vip,用户是vip,特权不够
+        },
+    }
     if(type == 'myorder'){
         isLogin(initData) 
     }
@@ -30,6 +44,13 @@ define(function(require , exports , module){
         getUserCentreInfo()
         queryOrderlistByCondition()
     }
+    $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
+        var goodsType = $(event.target).attr('data-goodstype')
+        var fid = $(event.target).attr('data-fid')
+        var orderNo = $(event.target).attr('data-orderno')
+        var checkStatus = goodsTypeList[goodsType].checkStatus
+        method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid,true);
+    })
     function queryOrderlistByCondition(currentPage) {
         var orderStatus =   method.getParam('myorderType') == '1'?'': method.getParam('myorderType')
         $.ajax({
@@ -65,7 +86,7 @@ define(function(require , exports , module){
                     var myorder = require("./template/myorder.html")
                     var _myorderTemplate = template.compile(myorder)({list:list||[],myorderType:myorderType});
                    $(".personal-center-myorder").html(_myorderTemplate);     
-                   handlePagination(res.data.totalSize,res.data.currentPage)  
+                   handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{
                 $.toast({
                     text:res.msg,
