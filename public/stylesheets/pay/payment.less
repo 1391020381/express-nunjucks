@@ -7,6 +7,7 @@ html,body{
 .payment{
    width: 100%;
    height: 100%;
+   position: relative;
    .pay-price{
        padding-top:1.78rem;
        text-align: center;
@@ -69,8 +70,10 @@ html,body{
        }
    }
    .pay-confirm{
-    margin: 0 auto;
-    margin-top:5.52rem;
+    position: absolute;
+    left:50%;
+    bottom: 2rem;
+    transform:translate(-50%,0);
     width:6.3rem;
     height:0.9rem;
     line-height: 0.9rem;

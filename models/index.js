@@ -4,7 +4,6 @@ module.exports = {
     get: function (url, callback, req, append) {
         var opt = this.getPaymentType(req, url, '', append);
         request(opt, (error, response, body) => {
-            console.log(body,'body')
             if (body) {
                 try {
                     var data = body;
@@ -27,7 +26,6 @@ module.exports = {
     },
     post: function (url, callback, req) {
         var opt = this.postPaymentType(req, url, '');
-        // console.log(opt, 'opt=================')
         request(opt, (error, response, body) => {
             if (body) {
                 try {
@@ -55,7 +53,6 @@ module.exports = {
         } else if (req.url.indexOf('?') > 0 && !append) {
             url = url + req.url.substring(req.url.indexOf('?'));
         }
-        console.log(url,'urlurlurlurlurlurlurlurl=======')
         return {
             url: url,
             method: "GET",
