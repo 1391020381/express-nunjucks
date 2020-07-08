@@ -42,7 +42,7 @@ define(function(require , exports , module){
                      list.push(item)
                   })
                    
-                  var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mydownloads',list:list||[]});
+                  var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mydownloads',list:list||[],totalSize:res.data.totalSize||0});
                   $(".personal-center-mydownloads").html(_mycollectionAndDownLoadTemplate);
                   handlePagination(res.data.totalPages,res.data.currentPage,'mycollection')
              }else{
@@ -84,7 +84,7 @@ define(function(require , exports , module){
                   }
                   list.push(temp)
               })
-              var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mycollection',list:list||[]});
+              var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mycollection',list:list||[],totalSize:res.data.totalSize||0});
               $(".personal-center-mycollection").html(_mycollectionAndDownLoadTemplate);   
               handlePagination(res.data.totalPages,res.data.currentPage,'mydownloads') 
          }else{
