@@ -24,11 +24,11 @@ module.exports = {
             rightbanner_1821:'PC_M_FC_all_1821_rightbanner',//分类页-右侧banner
             rightbanner_1818:'PC_M_FC_all_1818_rightbanner',//分类页-右侧banner
             rightbanner_1819:'PC_M_FC_all_1819_rightbanner',//分类页-右侧banner
-            zhuanti_1816:'PC_M_FC_all_1816_zhuanti',//分类页-右侧banner
-            zhuanti_1820:'PC_M_FC_all_1820_zhuanti',//分类页-右侧banner
-            zhuanti_1821:'PC_M_FC_all_1821_zhuanti',//分类页-右侧banner
-            zhuanti_1818:'PC_M_FC_all_1818_zhuanti',//分类页-右侧banner
-            zhuanti_1819:'PC_M_FC_all_1819_zhuanti',//分类页-右侧banner
+            zhuanti_1816:'PC_M_FC_all_1816_zhuanti',//分类页-右侧专题
+            zhuanti_1820:'PC_M_FC_all_1820_zhuanti',//分类页-右侧专题
+            zhuanti_1821:'PC_M_FC_all_1821_zhuanti',//分类页-右侧专题
+            zhuanti_1818:'PC_M_FC_all_1818_zhuanti',//分类页-右侧专题
+            zhuanti_1819:'PC_M_FC_all_1819_zhuanti',//分类页-右侧专题
             friendLink:'PC_M_FC_yqlj' //友情链接
         }
     },
