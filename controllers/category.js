@@ -154,7 +154,7 @@ module.exports = {
                 results.list.data.tdk = results.tdk.data;
             }
             var pageIndexArr = pageArr_f.concat(pageArr_b)
-            console.log(results.tdk,'results.tdk')
+            // console.log(results.tdk,'results.tdk')
             results.reqParams = {
                 cid: categoryId,
                 currentPage: currentPage,
@@ -168,7 +168,6 @@ module.exports = {
            var topbannerId = 'topbanner_'+navFatherId;
            var rightbannerId = 'rightbanner_'+navFatherId;
            var zhuantiId = 'zhuanti_'+navFatherId;
-        
            results.categoryTitle.recommendList.data && results.categoryTitle.recommendList.data.map(item=>{
                 if(item.pageId == util.pageIds.categoryPage[topbannerId]){
                     //顶部banner
@@ -184,11 +183,12 @@ module.exports = {
                     results.friendLink = util.dealHref(item).list || [];
                 }
             })
+
             //热点搜索
             results.words.data && results.words.data.rows.map(item=>{
                 item.linkurl = '/node/s/'+item.specialTopicId+'.html'
             })
-            console.log(JSON.stringify(results.words), 'words');
+            // console.log(JSON.stringify(results.words), 'words');
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []

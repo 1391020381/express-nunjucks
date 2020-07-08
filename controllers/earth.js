@@ -56,6 +56,7 @@ module.exports = {
             var resultdata = {};
             resultdata.currentPage = currentPage;
             var pageArr = [];
+            var
             for(var i =0; i<60; i++) {
                 pageArr.push(i+1);
             }

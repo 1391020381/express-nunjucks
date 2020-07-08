@@ -183,7 +183,7 @@ module.exports = {
            
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
             // console.warn(JSON.stringify(results.topicRec),'topicRec')
-            console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
+            // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
             // console.log(results,'index***************************')
             render("index/index",results,req,res);
         })
