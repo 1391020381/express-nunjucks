@@ -61,7 +61,7 @@ define(function(require , exports , module){
             type: "POST",
             data: JSON.stringify({
                 currentPage:1,
-                pageSize:20
+                pageSize:3
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -95,7 +95,7 @@ define(function(require , exports , module){
             type: "POST",
             data: JSON.stringify({
                 currentPage:1,
-                pageSize:20
+                pageSize:3
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -108,7 +108,7 @@ define(function(require , exports , module){
                         res.data.rows.forEach(function(item){
                            data.push({
                             id:1,
-                            fileid:item.fid,
+                            fileid:item.id,
                             format:item.format,
                             totalPage:'',
                             name:item.title
