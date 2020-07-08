@@ -752,7 +752,8 @@ define(function (require, exports, module) {
         var params = '';
         var ref = utils.getPageRef(fid);
         //文件信息存入cookie方便gio上报
-        method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
 
         if (type === 'file') {

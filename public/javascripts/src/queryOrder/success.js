@@ -211,7 +211,7 @@ define(function (require, exports, module) {
         var ref = utils.getPageRef(fid);      //用户来源
         var params = '?fid=' + fid + '&ref=' + ref;
         if (mark === 'vip' || mark === 'default') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // window.open('/pay/vip.html' + params);
             // method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (mark === 'privilege') {
