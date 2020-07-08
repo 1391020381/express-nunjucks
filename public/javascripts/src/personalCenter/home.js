@@ -29,6 +29,7 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
                     $('.personal-center-menu .personal-profile .personal-nickname .nickname').text(res.data.nickName)
                     $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
+                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     var isVipMaster = res.data.isVipMaster
                     var volume = res.data.volume  // 下载券数量
                     var aibeans = res.data.aibeans

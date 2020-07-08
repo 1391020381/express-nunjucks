@@ -10,7 +10,7 @@ define(function (require, exports, module) {
             // 登录
             login: router + '/usermanage/checkLogin',
             // 登出
-            loginOut: '',
+            loginOut: gateway + '/pc/usermanage/logout',
             // 我的收藏
             collect: router + '/usermanage/collect',
             newCollect:gateway+'/content/collect/getUserFileList',

@@ -16,7 +16,7 @@ define(function (require, exports, module) {
 
         function fixAn(start, index,$this) {
             index = index || 0;
-            if (start && (index === 1 || index === 2)) {
+            if (start && (index === 1)) { // index === 1 || index === 2
                 if (method.getCookie('cuk')) {
                     rightSlideShow(index);
                     $anWrap.animate({ "right": "61px" }, 500);
@@ -43,11 +43,13 @@ define(function (require, exports, module) {
             } else if (index === 1) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "visible");
-                $(".mui-collect-wrap").css("visibility", "hidden");
+             //   $(".mui-collect-wrap").css("visibility", "hidden");
             } else if (index === 2) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "hidden");
-                $(".mui-collect-wrap").css("visibility", "visible");
+              //  $(".mui-collect-wrap").css("visibility", "visible");
+              method.compatibleIESkip('/node/upload.html',true);
+
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }

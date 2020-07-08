@@ -29,7 +29,7 @@ define(function(require , exports , module){
                     var mycoupon = require("./template/mycoupon.html")
                     var _mycouponTemplate = template.compile(mycoupon)({list:list||[],mycouponType:type||'0'});
                     $(".personal-center-mycoupon").html(_mycouponTemplate);
-                    handlePagination(res.data.total,res.data.pageNumber) 
+                    handlePagination(res.data.totalPages,res.data.pageNumber) 
                }else{
                 $.toast({
                     text:res.msg,

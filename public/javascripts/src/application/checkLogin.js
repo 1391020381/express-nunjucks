@@ -3,6 +3,7 @@
  */
 define(function (require, exports, module) {
     //var $ = require("$");
+    var api = require('./api');
     var method = require("./method");
     var api = require("./api");
     module.exports = {
@@ -177,7 +178,10 @@ define(function (require, exports, module) {
             //删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
-            $.post("/logout", function () {
+            // $.post("/logout", function () {
+            //     window.location.href = window.location.href;
+            // });
+            $.post(api.user.loginOut, function () {
                 window.location.href = window.location.href;
             });
         }
