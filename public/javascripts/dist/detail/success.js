@@ -1,4 +1,3259 @@
-/*! ishare_pc_website
-*author:Jersey */
-define("dist/detail/success",["../cmd-lib/myDialog","../application/method","../application/checkLogin","../application/api","../cmd-lib/util","swiper","../common/recommendConfigInfo","../common/template/swiper_tmp.html","../common/bindphone","../common/coupon/couponIssue","../cmd-lib/toast","../cmd-lib/loading","../common/coupon/template/couponCard.html","../common/bilog","base64","../report/config"],function(a,b,c){function d(){p.getCookie("cuk")&&q.getLoginData(function(a){y=a,z.isVip=parseInt(a.isVip,10),k(a),j(a)}),p.getCookie("cuk")||y||q.notifyLoginInterface(function(a){y=a,z.isVip=parseInt(a.isVip,10),k(a),j(a)})}function e(a,b){var c=p.getCookie("visitorId")||p.getParam("visitorId");$.get(v.pay.bindUser,{visitorId:c,userId:a,nickName:b},function(a){$.toast({text:a.msg,callback:function(){location.reload()}})})}function f(){$(".previousContainer").hide(),$(".unloginStatus").show(),$(".carding-share").hide(),$(".down-carding-main").addClass("coupon-carding-item"),$(".carding-success-item").css("padding-bottom","60px"),$(".xbsd i").addClass("ico-data ico-"+u),setTimeout(function(){i()},200)}function g(){var a=p.getQueryString("url");a?p.compatibleIESkip(a,!1):A&&h()}function h(){var a=p.getCookie("visitorId")||p.getParam("visitorId");o&&(a=o);var b=p.getQueryString("fid");$.post("/pay/paperDown",{vuk:a,fid:b},function(a){0==a.code?location.href=a.data.dowUrl:41003==a.code?$.toast({text:a.msg}):$.toast({text:a.msg})})}function i(){var a=window.pageConfig&&window.pageConfig.params?window.pageConfig.params:null,b=a&&a.classid1?a.classid1+"":"",c=a&&a.classid2?"-"+a.classid2:"",d=a&&a.classid3?"-"+a.classid3:"",e=b+c+d,f=a?a.g_fileId||"":"",g=$.loginPop("login_wx_code",{terminal:"PC",businessSys:"ishare",domain:document.domain,ptype:"ishare",popup:"hidden",clsId:e,fid:f}),h='<iframe src="'+g+'" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';$(".carding-info-bottom.unloginStatus .qrWrap").html(h)}function j(a){if(a.mobile?$(".carding-info-bottom").hide():$(".carding-binding").show(),"1"==a.isVip){var b=p.compareTime(new Date,new Date(a.expireTime));5>=b?($(".down-succ-title").html("您的VIP将于"+a.expireTime+"到期").show(),$(".down-succ-btn[data-type=vip]").show().css("display","block").siblings("a").hide(),$(".bottom-privilege").show()):a.privilege<=5?($(".down-succ-title").html("您的VIP下载特权仅剩"+a.privilege+"次！").show(),$(".down-succ-btn[data-type=privilege]").show().css("display","block").siblings("a").hide(),$(".bottom-privilege").show()):($(".btn-carding-back").show().css("display","block").siblings("a").hide(),$(".bottom-privilege").hide())}else $(".down-succ-btn[data-type=default]").show().css("display","block").siblings("a").hide(),$(".new-success-item .bottom-privilege").removeClass("hide")}function k(a){var b=$("#unLogin"),c=$("#haveLogin"),d=$(".top-user-more"),e=$(".icon-iShare-text"),f=$(".btn-user-more"),g=$(".vip-status"),h=$(".btn-join-vip"),i=$(".icon-iShare");e.html("1"===a.isVip?"续费VIP":"开通VIP"),f.text("1"===a.isVip?"续费":"开通"),"0"==a.isVip?$(".open-vip").show().siblings("a").hide():$(".xf-open-vip").show().siblings("a").hide();var j=null;if(1==a.isVip?(j=g.find('p[data-type="2"]'),j.find(".expire_time").html(a.expireTime),j.show().siblings().hide(),d.addClass("top-vip-more")):1==a.userType?(j=g.find('p[data-type="3"]'),j.show().siblings().hide()):0==a.isVip&&i.removeClass("icon-vip"),b.hide(),c.find(".icon-detail").html(a.nickName),c.find("img").attr("src",a.weiboImage),d.find("img").attr("src",a.weiboImage),d.find("#userName").html(a.nickName),c.show(),$(".user-avatar img").attr("src",a.weiboImage),$(".name-wrap .name-text").html(a.nickName),"1"==a.isVip){var k="您的VIP将于"+a.expireTime+"到期,剩余"+a.privilege+"次下载特权";$(".detail-right-normal-wel").html(k),$(".detail-right-vip-wel").html("会员尊享权益"),$(".btn-mui").hide(),$("#memProfit").html("VIP权益"),$(".expire-time").show().find("span").html(a.expireTime),h.find('p[data-type="2"]').show().siblings("a").hide(),$(".vip-expire-time").show().find("span").html(a.expireTime),a.privilege&&a.privilege<0&&h.find('p[data-type="3"]').show().siblings("a").hide()}else $(".mui-privilege-list li").removeClass("hide"),h.find('p[data-type="1"]').show().siblings("a").hide()}function l(){var a=$(".more-nav"),b=$("#search-detail-input"),c=$(".detail-lately");a.on("mouseover",function(){var a=$(this);a.hasClass("hover")||$(this).addClass("hover")}),a.on("mouseleave",function(){var a=$(this);a.hasClass("hover")&&$(this).removeClass("hover")}),b.on("keyup",function(a){var b=a.keyCode;$(this).val()&&B($(this).val()),13===b&&C($(this).val())}),b.on("focus",function(){var a=$(".lately-list"),b=a.find("li").length;return b>0?c.show():c.hide(),!0}),$(".btn-new-search").on("click",function(){var a=$("#search-detail-input").val();a&&C(a)}),$(document).on("click",":not(.new-search)",function(a){var b=$(a.target);b.hasClass("new-input")||c.hide()}),c.on("click",function(a){a.stopPropagation()}),$(".user-login,.login-open-vip").on("click",function(){p.getCookie("cuk")||q.notifyLoginInterface(function(a){k(a),$(".down-success-other").show(),$(".qrcode-warpper").show()})}),$(".btn-exit").on("click",function(){q.ishareLogout()})}function m(){$.ajax({url:v.recommend.recommendConfigInfo,type:"POST",data:JSON.stringify(w.downSuccess.pageIds),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){"0"==a.code&&(a.data.forEach(function(a){w.downSuccess.descs.forEach(function(b){a.pageId==b.pageId&&(b.list=p.handleRecommendData(a.list))})}),console.log(w),w.downSuccess.descs.forEach(function(a){if(a.list.length&&"PC_M_DOWN_SUC_banner"==a.pageId){console.log(a.list,"item.list-------------------");var b=template.compile(x)({topBanner:a.list,className:"swiper-top-container"});$(".down-success-banner").html(b);new Swiper(".swiper-top-container",{direction:"horizontal",loop:a.list.length>1?!0:!1,autoplay:3e3})}}))}})}function n(){$(".common-bgMask").hide(),$(".detail-bg-mask").hide(),$("#dialog-box").hide()}a("../cmd-lib/myDialog");var o,p=a("../application/method"),q=a("../application/checkLogin"),r=a("../cmd-lib/util"),s=p.getParam("fid"),t=p.getParam("title"),u=p.getParam("format"),v=a("../application/api");a("swiper");var w=a("../common/recommendConfigInfo"),x=(a("../common/template/swiper_tmp.html"),a("../common/template/swiper_tmp.html"));a("../common/bindphone"),a("../common/coupon/couponIssue"),a("../common/bilog");var y=null,z={};l();var A=p.getQueryString("unloginFlag");A?($("#filename").text(t||""),u&&$(".xbsd i").addClass("ico-data ico-"+u),$(".qrcode-warpper").hide(),$(".down-success-other").hide(),$(".unloginTop").show(),$(".carding-data-pay-con").hide(),p.getCookie("cuk")?($(".carding-info-bottom.unloginStatus").remove(),q.getLoginData(function(a){y=a,o=a.userId,z.isVip=parseInt(a.isVip,10),k(a),j(a)})):(f(),q.listenLoginStatus(function(a){z.isVip=parseInt(a.isVip,10),y=a,e(a.userId,a.nickName)}),setTimeout(function(){g()},1e3))):d(),p.getCookie("cuk")&&g(),$(".quick-down-a").click(function(){g()}),$(".btn-carding-back").on("click",function(){window.location.href="/f/"+s+".html"}),$(".js-buy-open").click(function(){var a=["","免费","下载券","现金","仅供在线阅读","VIP免费","VIP专享"],b=a[p.getCookie("file_state")],c=1==p.getCookie("isVip")?"续费":"充值",d=$(this).data("type"),e=r.getPageRef(s),f="?fid="+s+"&ref="+e;"vip"===d||"default"===d?(__pc__.gioTrack("vipRechargeEntryClick",{entryName_var:b,entryType_var:c}),p.compatibleIESkip("/pay/vip.html"+f,!0)):"privilege"===d&&p.compatibleIESkip("/pay/privilege.html"+f,!0)});var B=function(a){$.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+encodeURIComponent(a)+"&p=3&cb=window.baidu_searchsug&t="+(new Date).getTime())};window.baidu_searchsug=function(a){var b=$("#search-detail-input").val();if(b=b?b.replace(/^\s+|\s+$/gm,""):"",b.length>0&&a&&a.s){var c=a.s||[];if(c.length>0){for(var d=Math.min(c.length,10),e=[],f=0;d>f;f++){var g="/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(c[f]));e.push('<li><a href="'+g+'"  data-html="'+c[f]+'" >'+c[f].replace(new RegExp("("+b+")","gm"),"<span class='search-font'>$1</span>")+"</a></li>")}$(".lately-list").html(e.join("")).parent(".detail-lately").show()}}};var C=function(a){var b=a?a.replace(/^\s+|\s+$/gm,""):"";window.location.href="/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(b))};m(),$(".js-sent-email").click(function(){$("#dialog-box").dialog({html:$("#send-email").html()}).open()}),$("#dialog-box").on("click",".submit-btn",function(a){if(!p.testEmail($(".form-ipt").val()))return void $.toast({text:"请输入正确的邮箱",delay:3e3});if(p.getCookie("cuk")){console.log(p.getCookie("ui"));var b=$("#dialog-box .form-ipt").val();$.ajax({url:v.sms.sendCorpusDownloadMail,type:"POST",data:JSON.stringify({email:b,fid:s,title:t,uid:JSON.parse(p.getCookie("ui")).uid}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){if(console.log(a),"0"==a.code){$.toast({text:"发送邮箱成功!"});var b=$("#dialog-box");b.dialog({}).close()}else $.toast({text:"发送邮箱失败!"})}})}else q.notifyLoginInterface(function(a){k(a)})}),$("#dialog-box").on("click",".close-btn",function(a){n()})}),define("dist/cmd-lib/myDialog",[],function(a,b,c){!function(a){a.extend(a.fn,{dialog:function(b){return this.each(function(){var c=a.data(this,"diglog");c||(c=new a.dialog(b,this),a.data(this,"dialog",c))})}});var b={zIndex:1e3,getZindex:function(){return this.zIndex+=100},dialog:{}};a.dialog=function(a,b){arguments.length&&this._init(a,b)},a.dialog.prototype={options:{title:"title",dragable:!1,cache:!0,html:"",width:"auto",height:"auto",cannelBtn:!0,confirmlBtn:!0,cannelText:"关闭",confirmText:"确定",showFooter:!0,onClose:!1,onOpen:!1,callback:!1,showLoading:!1,loadingTxt:"处理中...",onConfirm:!1,onCannel:!1,getContent:!1,zIndex:b.zIndex,getZindex:function(){return b.zIndex+=100},mask_tpl:'<div class="dialog-mask" data-page="mask" style="z-index:'+b.zIndex+';"></div>'},_init:function(b,c){this.options=a.extend(!0,this.options,b),this.element=a(c),this._build(this.options.html),this._bindEvents()},_build:function(b){var c,d="",e="",f="",g='<div class="body-content"></div>';if(b)c=b;else{if(this.options.confirmlBtn&&(e='<button class="confirm">'+this.options.confirmText+"</button>"),this.options.cannelBtn&&(f='<button class="cannel">'+this.options.cannelText+"</button>"),this.options.showFooter&&(d='<div class="footer">                                    <div class="buttons">                                        '+e+"                                        "+f+"                                    </div>                                </div>"),this.options.showFooter){var h=this.options.height-80+"px";g='<div class="body-content" style="height:'+h+';"></div>'}else g='<div class="body-content" style="height:'+this.options.height+';"></div>';c='<div class="m-dialog" style="z-index:'+this.options.getZindex+';">								<div class="m-d-header">									<h2 style="width:'+this.options.width+';">'+this.options.title+'</h2>									<a href="javascript:;" class="btn-close">X</a>								</div>								<div class="m-d-body" style="width:'+this.options.width+";height:"+this.options.height+';">									'+g+"                                </div>"+d+"</div>"}a(document).find('[data-page="mask"]').length||a("body").append(this.options.mask_tpl),this.element.html(c)},_center:function(){var b=this.element.find(".dialog");b.css({left:(a(document).width()-b.width())/2,top:(document.documentElement.clientHeight-b.height())/2+a(document).scrollTop()})},_bindEvents:function(){var b=this;this.element.delegate(".close,.cancel","click",function(a){a&&a.preventDefault(),b.close(b.options.onClose)}),a(document).delegate('[data-page="mask"]',"click",function(a){a&&a.preventDefault(),b.close(b.options.onClose)}),this.element.delegate(".cannel","click",function(a){a&&a.preventDefault(),b._cannel(b.options.onCannel)}),this.element.delegate(".confirm","click",function(c){c&&c.preventDefault(),a(this).hasClass("disable")||(b.options.showLoading&&(a(this).addClass("disable"),a(this).html(b.options.loadingTxt)),b._confirm(b.options.onConfirm))})},close:function(a){this._hide(a),this.clearCache()},open:function(b){this._callback(b),this.element.show(),a('[data-page="mask"]').show(),this.clearCache()},_hide:function(b){this.element.hide(),a('[data-page="mask"]').hide(),b&&"function"==typeof b&&this._callback(b)},clearCache:function(){this.options.cache||this.element.data("dialog","")},_callback:function(a){a&&"function"==typeof a&&a.call(this)},_cannel:function(a){this._hide(a),this.clearCache()},_confirm:function(a){return this.options.callback?a():(this._hide(a),void this.clearCache())},getElement:function(){return this.element},_getOptions:function(){return this.options},_setTxt:function(a){return this.element.find(".confirm").html(a)},destroy:function(){var a=this;a.element.remove()}},a.extend(a.fn,{open:function(b){a(this).data("dialog")&&a(this).data("dialog").open(b)},close:function(b){a(this).data("dialog")&&a(this).data("dialog").close(b)},clear:function(){a(this).data("dialog")&&a(this).data("dialog").clearCache()},getOptions:function(){return a(this).data("dialog")&&a(this).data("dialog")._getOptions()},getEl:function(){return a(this).data("dialog")&&a(this).data("dialog").getElement()},setTxt:function(b){a(this).data("dialog")&&a(this).data("dialog")._setTxt(b)},destroy:function(){a(this).data("dialog")&&a(this).data("dialog").destroy(t)}})}(jQuery)}),define("dist/application/method",[],function(require,exports,module){return{keyMap:{ishare_detail_access:"ISHARE_DETAIL_ACCESS",ishare_office_detail_access:"ISHARE_OFFICE_DETAIL_ACCESS"},async:function(a,b,c,d,e){$.ajax(a,{type:d||"post",data:e,async:!1,dataType:"json",headers:{"cache-control":"no-cache",Pragma:"no-cache"}}).done(function(a){b&&b(a)}).fail(function(a){console.log("error==="+c)})},get:function(a,b,c){$.ajaxSetup({cache:!1}),this.async(a,b,c,"get")},post:function(a,b,c,d,e){this.async(a,b,c,d,e)},postd:function(a,b,c){this.async(a,b,!1,!1,c)},random:function(a,b){return Math.floor(Math.random()*(b-a))+a},setCookieWithExpPath:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString()},setCookieWithExp:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),d?document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString():document.cookie=a+"="+escape(b)+";expires="+e.toGMTString()},getCookie:function(a){var b=document.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!==b?unescape(b[2]):null},delCookie:function(a,b,c){var d=new Date;d.setTime(d.getTime()-1);var e=this.getCookie(a);null!=e&&(b&&c?document.cookie=a+"= '' ;domain="+c+";expires="+d.toGMTString()+";path="+b:b?document.cookie=a+"= '' ;expires="+d.toGMTString()+";path="+b:document.cookie=a+"="+e+";expires="+d.toGMTString())},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},url2Obj:function(a){for(var b={},c=a.split("?"),d=c[1].split("&"),e=0;e<d.length;e++){var f=d[e].split("=");b[f[0]]=f[1]}return b},getParam:function(a){a=a.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var b="[\\?&]"+a+"=([^&#]*)",c=new RegExp(b),d=c.exec(window.location.href);return null==d?"":decodeURIComponent(d[1].replace(/\+/g," "))},getLocalData:function(a){try{if(localStorage&&localStorage.getItem){var b=localStorage.getItem(a);return null===b?null:JSON.parse(b)}return console.log("浏览器不支持html localStorage getItem"),null}catch(c){return null}},setLocalData:function(a,b){localStorage&&localStorage.setItem?(localStorage.removeItem(a),localStorage.setItem(a,JSON.stringify(b))):console.log("浏览器不支持html localStorage setItem")},browserType:function(){var a=navigator.userAgent,b=a.indexOf("Opera")>-1;return b?"Opera":a.indexOf("compatible")>-1&&a.indexOf("MSIE")>-1&&!b?"IE":a.indexOf("Edge")>-1?"Edge":a.indexOf("Firefox")>-1?"Firefox":a.indexOf("Safari")>-1&&-1===a.indexOf("Chrome")?"Safari":a.indexOf("Chrome")>-1&&a.indexOf("Safari")>-1?"Chrome":void 0},validateIE9:function(){return!(!$.browser.msie||"9.0"!==$.browser.version&&"8.0"!==$.browser.version&&"7.0"!==$.browser.version&&"6.0"!==$.browser.version)},compareTime:function(a,b){return a&&b?Math.abs((b-a)/1e3/60/60/24):""},changeURLPar:function(url,arg,arg_val){var pattern=arg+"=([^&]*)",replaceText=arg+"="+arg_val;if(url.match(pattern)){var tmp="/("+arg+"=)([^&]*)/gi";return tmp=url.replace(eval(tmp),replaceText)}return url.match("[?]")?url+"&"+replaceText:url+"?"+replaceText},getUrlAllParams:function(a){if("undefined"==typeof a)var b=decodeURI(location.search);else var b="?"+a.split("?")[1];var c=new Object;if(-1!=b.indexOf("?"))for(var d=b.substr(1),e=d.split("&"),f=0;f<e.length;f++)c[e[f].split("=")[0]]=decodeURI(e[f].split("=")[1]);return c},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},compatibleIESkip:function(a,b){var c=document.createElement("a");c.href=a,c.style.display="none",b&&(c.target="_blank"),document.body.appendChild(c),c.click()},testEmail:function(a){var b=/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;return b.test(a)?!0:!1},testPhone:function(a){return/^1(3|4|5|7|8)\d{9}$/.test(a)?!0:!1},handleRecommendData:function(a){var b=[];return a.forEach(function(a){var c={};1==a.type&&(a.linkUrl="/f/"+a.tprId+".html",c=a),2==a.type&&(c=a),3==a.type&&(a.linkUrl="/node/s/"+a.tprId+".html",c=a),b.push(c)}),console.log(b),b},formatDate:function(a){var b={"M+":this.getMonth()+1,"d+":this.getDate(),"h+":this.getHours(),"m+":this.getMinutes(),"s+":this.getSeconds(),"q+":Math.floor((this.getMonth()+3)/3),S:this.getMilliseconds()};/(y+)/.test(a)&&(a=a.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length)));for(var c in b)new RegExp("("+c+")").test(a)&&(a=a.replace(RegExp.$1,1==RegExp.$1.length?b[c]:("00"+b[c]).substr((""+b[c]).length)));return a}}}),define("dist/application/checkLogin",["dist/application/api","dist/application/method"],function(a,b,c){var d=a("dist/application/api"),e=a("dist/application/method"),d=a("dist/application/api");c.exports={getIds:function(){var a=window.pageConfig&&window.pageConfig.params?window.pageConfig.params:null,b=window.pageConfig&&window.pageConfig.access?window.pageConfig.access:null,c=[];a&&(a.classid1&&c.push(a.classid1),a.classid2&&c.push(a.classid2),a.classid3&&c.push(a.classid3));var d=a&&c.length>0?c.join("-"):"",e=b?b.fileId||a.g_fileId||"":"",f=window.pageConfig&&window.pageConfig.classIds?window.pageConfig.classIds:"";return!d&&(d=f),{clsId:d,fid:e}},notifyLoginInterface:function(a){var b=this;if(!e.getCookie("cuk")){__pc__.push(["pcTrackContent","loginDialogLoad"]);var c=window.pageConfig&&window.pageConfig.page?window.pageConfig.page.ptype||"index":"index";$.loginPop("login",{terminal:"PC",businessSys:"ishare",domain:document.domain,ptype:c,clsId:this.getIds().clsId,fid:this.getIds().fid},function(c){b.getLoginData(a)})}},listenLoginStatus:function(a){var b=this;$.loginPop("login_wx_code",{terminal:"PC",businessSys:"ishare",domain:document.domain,ptype:"ishare",popup:"hidden",clsId:this.getIds().clsId,fid:this.getIds().fid},function(){b.getLoginData(a)})},notifyCheckInterface:function(){e.getCookie("cuk")&&$.loginPop("checkCode",{terminal:"PC",businessSys:"ishare",domain:document.domain,clsId:this.getIds().clsId,fid:this.getIds().fid},function(a){"0"==a.code&&e.get(d.user.getJessionId,function(a){},"")})},syncUserInfoInterface:function(a){var b=this;e.getCookie("cuk")&&e.get(d.user.getJessionId,function(c){0==c.code&&b.getLoginData(a)},"")},getUserData:function(a){e.getCookie("cuk")&&e.get(d.coupon.querySeniority,function(b){b&&0==b.code&&a(b.data)},"")},getLoginData:function(a){var b=this;try{e.get(d.user.login,function(c){if(0==c.code&&c.data){if(a&&"function"==typeof a){a(c.data);try{window.pageConfig.params.isVip=c.data.isVip,window.pageConfig.page.uid=c.data.userId}catch(d){}}try{var f={uid:c.data.userId,isVip:c.data.isVip,tel:c.data.mobile};e.setCookieWithExpPath("ui",JSON.stringify(f),18e5,"/")}catch(g){}}else 40001==c.code&&b.ishareLogout()})}catch(c){}},ishareLogout:function(){e.delCookie("cuk","/",".sina.com.cn"),e.delCookie("cuk","/",".iask.com.cn"),e.delCookie("cuk","/",".iask.com"),e.delCookie("sid","/",".iask.sina.com.cn"),e.delCookie("sid","/",".iask.com.cn"),e.delCookie("sid","/",".sina.com.cn"),e.delCookie("sid","/",".ishare.iask.com.cn"),e.delCookie("sid","/",".office.iask.com"),e.delCookie("sid_ishare","/",".iask.sina.com.cn"),e.delCookie("sid_ishare","/",".iask.com.cn"),e.delCookie("sid_ishare","/",".sina.com.cn"),e.delCookie("sid_ishare","/",".ishare.iask.com.cn"),e.delCookie("_1st_l","/"),e.delCookie("ui","/"),$.post(d.user.loginOut,function(){window.location.href=window.location.href})}}}),define("dist/application/api",[],function(a,b,c){var d="/gateway/pc",e="/gateway";c.exports={user:{login:d+"/usermanage/checkLogin",loginOut:e+"/pc/usermanage/logout",collect:d+"/usermanage/collect",newCollect:e+"/content/collect/getUserFileList",getJessionId:d+"/usermanage/getJessionId",getSessionInfo:d+"/usermanage/getSessionInfo",addFeedback:e+"/feedback/addFeedback",getFeedbackType:e+"/feedback/getFeedbackType",sendSms:e+"/cas/sms/sendSms",queryBindInfo:e+"/cas/user/queryBindInfo",thirdCodelogin:e+"/cas/login/thirdCode",userBindMobile:e+"/cas/user/bindMobile",checkIdentity:e+"/cas/sms/checkIdentity",userBindThird:e+"/cas/user/bindThird",untyingThird:e+"/cas/user/untyingThird",setUpPassword:e+"/cas/user/setUpPassword",getUserCentreInfo:e+"/user/getUserCentreInfo",editUser:e+"/user/editUser",getFileBrowsePage:e+"/content/fileBrowse/getFileBrowsePage",getDownloadRecordList:e+"/content/getDownloadRecordList",getUserFileList:e+"/content/collect/getUserFileList",getMyUploadPage:e+"/content/getMyUploadPage",getOtherUser:e+"/user/getOthersCentreInfo",getSearchList:e+"/search/content/byCondition"},normalFileDetail:{addComment:d+"/fileSync/addComment",reportContent:d+"/fileSync/addFeedback",isStore:d+"/fileSync/getFileCollect",collect:d+"/fileSync/collect",filePreDownLoad:e+"/content/getPreFileDownUrl",fileDownLoad:d+"/action/downloadUrl",getFileDownLoadUrl:e+"/content/getFileDownUrl",appraise:d+"/fileSync/appraise",getPrePageInfo:d+"/fileSync/prePageInfo",hasDownLoad:d+"/fileSync/isDownload"},officeFileDetail:{},search:{byPosition:d+"/operating/byPosition",specialTopic:e+"/search/specialTopic/lisPage"},sms:{getCaptcha:d+"/usermanage/getSmsYzCode",sendCorpusDownloadMail:e+"/content/fileSendEmail/sendCorpusDownloadMail"},pay:{successBuyDownLoad:d+"/action/downloadNow",bindUser:d+"/order/bindUser",scanOrderInfo:e+"/order/scan/orderInfo"},coupon:{rightsSaleVouchers:e+"/rights/sale/vouchers",rightsSaleQueryPersonal:e+"/rights/sale/queryPersonal",querySeniority:e+"/rights/sale/querySeniority",queryUsing:e+"/rights/sale/queryUsing",getMemberPointRecord:e+"/rights/vip/getMemberPointRecord",getBuyRecord:e+"/rights/vip/getBuyRecord"},vouchers:d+"/sale/vouchers",order:{bindOrderByOrderNo:d+"/order/bindOrderByOrderNo",unloginOrderDown:d+"/order/unloginOrderDown",createOrderInfo:e+"/order/create/orderInfo",rightsVipGetUserMember:e+"/rights/vip/getUserMember",getOrderStatus:e+"/order/get/orderStatus",queryOrderlistByCondition:e+"/order/query/listByCondition",getOrderInfo:e+"/order/get/orderInfo"},getHotSearch:d+"/search/getHotSearch",special:{fileSaveOrupdate:e+"/comment/collect/fileSaveOrupdate",getCollectState:e+"/comment/zc/getUserFileZcState",setCollect:e+"/content/collect/file"},upload:{getCategory:e+"/content/category/getSimplenessInfo",createFolder:e+"/content/saveUserFolder",getFolder:e+"/content/getUserFolders",saveUploadFile:e+"/content/webUploadFile",batchDeleteUserFile:e+"/content/batchDeleteUserFile"},recommend:{recommendConfigInfo:e+"/recommend/config/info",recommendConfigRuleInfo:e+"/recommend/config/ruleInfo"},reportBrowse:{fileBrowseReportBrowse:e+"/content/fileBrowse/reportBrowse"}}}),define("dist/cmd-lib/util",[],function(a,b,c){var d={throttle:function(a,b){var c,d;return function(e){var f=this,g=arguments,h=+new Date;c&&c+b>h?(clearTimeout(d),d=setTimeout(function(){c=h,a.apply(f,g)},b)):(c=h,a.apply(f,g))}},debounce:function(a,b){var c=0,d=this;return function(e){c&&clearTimeout(c),c=setTimeout(function(){a.apply(d,e)},b)}},isWeChatBrow:function(){var a=navigator.userAgent.toLowerCase(),b=-1!=a.indexOf("micromessenger");return b?!0:!1},getWebAppUA:function(){var a=0,b=navigator.userAgent.toLowerCase();return/iphone|ipad|ipod/.test(b)?a=1:/android/.test(b)&&(a=0),a},validateIE8:function(){return!$.browser.msie||"8.0"!=$.browser.version&&"7.0"!=$.browser.version&&"6.0"!=$.browser.version?!1:!0},validateIE9:function(){return!$.browser.msie||"9.0"!=$.browser.version&&"8.0"!=$.browser.version&&"7.0"!=$.browser.version&&"6.0"!=$.browser.version?!1:!0},getReferrer:function(){var a=document.referrer,b="";return/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(a)?b="360wenku":/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)?b="sm":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(a)?b="ishare":/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(a)&&(b="iask"),b},getPageRef:function(a){var b=this,c=0;return(b.is360cookie(a)||b.is360cookie("360"))&&(c=1),b.is360wkCookie()&&(c=3),c},is360cookie:function(a){var b=this,c=b.getCookie("_r_so");if(c)for(var d=c.split("_"),e=0;e<d.length;e++)if(d[e]==a)return!0;return!1},add360wkCookie:function(){this.setCookieWithExpPath("_360hz","1",18e5,"/")},is360wkCookie:function(){return null==getCookie("_360hz")?!1:!0},getCookie:function(a){var b=document.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!==b?unescape(b[2]):null},setCookieWithExpPath:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString()},findRefer:function(){var a=document.referrer,b="other";return/https?\:\/\/[^\s]*\/f\/.*$/g.test(a)?b="pindex":/https?\:\/\/[^\s]*\/d\/.*$/g.test(a)?b="landing":/https?\:\/\/[^\s]*\/c\/.*$/g.test(a)?b="pcat":/https?\:\/\/[^\s]*\/search\/.*$/g.test(a)?b="psearch":/https?\:\/\/[^\s]*\/t\/.*$/g.test(a)?b="ptag":/https?\:\/\/[^\s]*\/[u|n]\/.*$/g.test(a)?b="popenuser":/https?\:\/\/[^\s]*\/ucenter\/.*$/g.test(a)?b="puser":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(a)?b="ishareindex":/https?\:\/\/[^\s]*\/theme\/.*$/g.test(a)?b="theme":/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(a)?b="360wenku":/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)?b="sm":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(a)?b="ishare":/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(a)&&(b="iask"),b},showAlertDialog:function(a,b,c){var d=$(".common-bgMask"),e=$(".common-dialog");e.find("h2[name='title']").text(a),e.find("span[name='content']").html(b),e.find("a.close,a.btn-dialog").unbind("click").click(function(){d.hide(),e.hide(),c&&!$(this).hasClass("close")&&c()}),d.show(),e.show()},browserVersion:function(a){var b=a.indexOf("Opera")>-1,c=a.indexOf("compatible")>-1&&a.indexOf("MSIE")>-1&&!b,d=a.indexOf("Edge")>-1,e=a.indexOf("Firefox")>-1,f=a.indexOf("Safari")>-1&&-1===a.indexOf("Chrome"),g=a.indexOf("Chrome")>-1&&a.indexOf("Safari")>-1;if(c){var h=new RegExp("MSIE (\\d+\\.\\d+);");h.test(a);var i=parseFloat(RegExp.$1);return 7===i?"IE7":8===i?"IE8":9===i?"IE9":10===i?"IE10":11===i?"IE11":12===i?"IE12":"IE"}return b?"Opera":d?"Edge":e?"Firefox":f?"Safari":g?"Chrome":"unKnow"},getBrowserInfo:function(a){var b={},c=a.toLowerCase(),d=/(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/,e=c.match(d);return e&&e.length>=2?(b.browser=e[1].replace(/version/,"'safari")||"unknow",b.ver=e[2]||"1.0.0"):(b.browser="unknow",b.ver="1.0.0"),b.browser+"/"+b.ver}};c.exports=d}),define("dist/common/recommendConfigInfo",[],function(a,b,c){return{search:{descs:[{desc:"搜索页顶部banner",pageId:"PC_M_SR_ub",list:[]},{desc:"搜索页右侧banner",pageId:"PC_M_SR_rb",list:[]},{desc:"搜索页底部banner",pageId:"PC_M_SR_downb",list:[]}],pageIds:["PC_M_SR_ub","PC_M_SR_rb","PC_M_SR_downb"]},paySuccess:{descs:[{desc:"支付成功页面banner",pageId:"PC_M_PAY_SUC_banner",list:[]}],pageIds:["PC_M_PAY_SUC_banner"]},downSuccess:{descs:[{desc:"下载成功页面banner",pageId:"PC_M_DOWN_SUC_banner",list:[]}],pageIds:["PC_M_DOWN_SUC_banner"]},personalCenterHome:{descs:[{desc:"个人中心首页,bannber",pageId:"PC_M_USER_banner",list:[]}],pageIds:["PC_M_USER_banner"]},myVipRightsBanner:{descs:[{desc:"个人中心我的vip,bannber",pageId:"PC_M_USER_VIP_banner",list:[]}],pageIds:["PC_M_USER_VIP_banner"]},myVipRightsList:{descs:[{desc:"个人中心首页/我的VIP页的VIP权益缩略图",pageId:"PC_M_USER_vip",list:[]}],pageIds:["PC_M_USER_vip"]}}}),define("dist/common/template/swiper_tmp.html",[],'<!--轮播图-->\n    <div class="swiper-container {{className}}">\n         <div class="swiper-wrapper">\n         {{each topBanner}}\n            <div class="swiper-slide" >\n               <a href={{ topBanner[$index].linkUrl}} target="_blank">\n                 <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>\n               </a>\n            </div>\n            {{/each}} \n         </div>\n         {{if hasDeleteIcon}}\n        <span class="icon close-swiper"><span>\n        {{/if}}\n         \n    </div>            \n'),define("dist/common/bindphone",["dist/application/api"],function(a,b,c){function d(a){var b=a.replace(/\D/g,"").substring(0,11),c=b.length;return c>3&&8>c?b=b.replace(/^(...)/g,"$1 "):c>=8&&(b=b.replace(/^(...)(....)/g,"$1 $2 ")),b}function e(a){if("1"==a){var b=$("#mobile").val();$(".carding-error").hide(),b?($("#mobile").val(d(b)),$(".btn-binding-code").removeClass("btn-code-no")):$(".btn-binding-code").addClass("btn-code-no")}}var f=a("dist/application/api");$(function(){var a=$(".phone-choice"),b=($("#ip-page-type").val(),$("#ip-checkCode")),c=$("#mobile"),d=($(".login-input-item.img-code-item"),$(".carding-error span"));a.find(".phone-num").click(function(a){a.stopPropagation(),$(this).siblings(".phone-more").is(":hidden")?($(this).parent().addClass("phone-choice-show"),$(this).siblings(".phone-more").show()):($(this).parent().removeClass("phone-choice-show"),$(this).siblings(".phone-more").hide())}),$(".phone-more").find("a").click(function(){var b=$(this).find(".number-con").find("em").text();a.find(".phone-num").find("em").text(b),a.removeClass("phone-choice-show"),a.find(".phone-more").hide()}),$(document).on("keyup","#mobile",function(){e(1)}),$(document).keyup(function(a){13==a.keyCode&&$(".btn-phone-login").trigger("click")}),$(".btn-bind").click(function(){if(!$(this).hasClass("btn-code-no")){var a=c.val().replace(/\s/g,""),e=b.val(),f=$(".phone-num em").text();if(/^\s*$/g.test(a))return void d.text("请输入手机号码!").parent().show();if(/^\s*$/g.test(e))return void d.text("请输入验证码!").parent().show();var g={nationCode:f,mobile:a,smsId:b.attr("smsId"),checkCode:e};$.post("/pay/bindMobile",g,function(a){a&&("0"==a.code?($(".binging-main").hide(),$(".binging-success").show()):(d.text(a.msg).parent().show(),$(".carding-error").show()))},"json")}});var g=function(a,e,i,j){var k=$(".binging-main .yz-link");if(!$(k).hasClass("btn-code-no")){var l=c.val().replace(/\s/g,"");if(/^\s*$/g.test(l))return void d.text("请输入手机号码!").parent().show();d.parent().hide();var m=JSON.stringify({phoneNo:l,businessCode:$(k).siblings('input[name="businessCode"]').val(),appId:a,randstr:e,ticket:i,onOff:j});$.ajax({type:"POST",url:f.sms.getCaptcha,contentType:"application/json;charset=utf-8",dataType:"json",data:m,success:function(a){if(a)if("0"==a.code){b.removeAttr("smsId"),b.attr("smsId",a.data.smsId);var c=$(k).siblings(".yz-time");c.addClass("btn-code-no"),c.show(),$(k).hide(),$(".btn-none-bind").hide(),
-$(".btn-bind").show(),function e(){var a=c.text().replace(/秒后重发$/g,"");return a=/^\d+$/g.test(a)?Number(a):60,a&&a>=0&&c.text(--a+"秒后重发"),0>=a?(c.text("60秒后重发").hide(),void $(k).text("重获验证码").show()):void setTimeout(e,1e3)}()}else"2112"==a.code?h(g):"226"==a.code?d.text("图形验证码错误").parent().show():d.text(a.msg).parent().show();else d.text("发送短信失败").parent().show()}})}};$(".binging-main").delegate(".yz-link","click",function(){g("","","","")})});var g,h=function(a){var b="2071307690";g||(g=new TencentCaptcha(b,i,{bizState:a})),g.show()},i=function(a){0===a.ret&&a.bizState(a.appid,a.randstr,a.ticket,1)};return{showCaptcha:h}}),define("dist/common/coupon/couponIssue",["dist/cmd-lib/toast","dist/application/method","dist/cmd-lib/util","dist/cmd-lib/loading","dist/application/checkLogin","dist/application/api"],function(a,b,c){a("dist/cmd-lib/toast");var d=a("dist/application/method"),e=a("dist/cmd-lib/util"),f=d.getParam("fid");a("dist/cmd-lib/loading");var g=a("dist/application/checkLogin"),h=a("dist/common/coupon/template/couponCard.html"),i=a("dist/application/api"),j={_index:0,pageType:1,type:4,isFirstCashBuy:2,isFirstVipBuy:2,dowStatus:2,isVip:0,isFreeFile:0,userId:"",pageUrl:"",initial:function(){var a=location.pathname.split("/");j.pageUrl=a[a.length-1];var b=d.getQueryString("unloginFlag");(1==j.pageType||2==j.pageType)&&(b||g.getUserData(function(a){j.isVip=a.isVip,j.isFirstCashBuy=a.isFirstCashBuy,j.isFirstVipBuy=a.isFirstVipBuy,j.dowStatus=a.dowStatus,j.userId=a.userId,j.confirmCouponType(),4!=j.type&&"downsucc.html"!=j.pageUrl&&j.getCouponList()}))},domChange:function(){1==j.type&&1==j.isFirstCashBuy&&($(".couponContainer").show(),$(".previousContainer").hide(),0==j.isVip?($(".bottom-privilege").removeClass("hide"),$(".down-succ-btn[data-type=default]").show().css("display","block").siblings("a").hide(),$(".give-coupon-wrap").css("border-bottom","none!important"),$(".couponContainer .carding-er-code").hide()):($(".bottom-privilege").addClass("hide"),$(".down-succ-btn[data-type=default]").show().css("display","hide"),$(".couponContainer .carding-er-code").show())),2==j.type&&1==j.isFirstVipBuy&&($(".couponContainer").show(),$(".previousContainer").hide(),$(".bottom-privilege").hide(),$(".couponContainer .carding-er-code").show()),3==j.type&&($(".couponContainer").show(),$(".previousContainer").hide(),0==j.isVip?$(".downSucc-privi").removeClass("hide"):$(".downSucc-privi").addClass("hide"),$(".carding-er-code").show(),$(".down-succ-btn[data-type=default]").addClass("hide").hide(),$(".give-coupon-wrap").css("border-bottom","none!important"))},confirmCouponType:function(){var a=0,b=Number($("#ip-type").val());"downsucc.html"==j.pageUrl?(j.getFileType(f),a=1,1==j.dowStatus&&1==j.isFreeFile&&1!=localStorage.getItem("FirstDown")&&(j.type=3)):"success.html"==j.pageUrl&&(a=2,2==b&&1==j.isFirstCashBuy&&d.getCookie("FirstCashBuy")!=j.userId?j.type=1:0==b&&1==j.isFirstVipBuy&&d.getCookie("FirstVipBuy")!=j.userId&&(j.type=2)),j.pageType=a},getCouponList:function(){var a="/node/coupon/issueCoupon?type="+j.type;$.get(a,function(a){if(0==a.code&&a.data&&a.data.list.length>0){var b=template.compile(h)({data:a.data});$(".give-title").text(a.data.prompt),$(".give-coupon-list").html(b),j.domChange(),j.bringCouponClick(),$(".down-carding-main").addClass("coupon-carding-item"),$(".carding-vip-main").addClass("coupon-carding-item"),1==j.type?d.setCookieWithExpPath("FirstCashBuy",j.userId,2592e6,"/"):2==j.type?d.setCookieWithExpPath("FirstVipBuy",j.userId,2592e6,"/"):3==j.type&&d.setCookieWithExpPath("FirstDown",j.userId,2592e6,"/")}})},bringCouponClick:function(){$(".btn-receive").click(function(){j.receiveCoupon(j.type,1)})},closeTipByClick:function(){$(".coupon-info-top").on("click",".btn-no-user",function(){$(".coupon-info-top").hide()})},showTips:function(a){setTimeout(function(){0==a?$(".dialog-coupon.dialog-coupon-success").show():$(".dialog-coupon.dialog-coupon-fail").show()},1500)},receiveCoupon:function(a,b){var c={source:b,type:a};c=JSON.stringify(c),$("body").loading({name:"download",title:"请求中"}),$.ajax({type:"POST",url:i.vouchers,contentType:"application/json;charset=utf-8",dataType:"json",data:c,success:function(a){0==a.code?a.data&&(a.data.list.length>0?e.showAlertDialog("温馨提示","领取成功！"):e.showAlertDialog("温馨提示",a.msg)):e.showAlertDialog("温馨提示",a.msg)},complete:function(){$("body").closeLoading("download")}})},getFileType:function(a){var b={id:a};$.get("/node/confirmType",b,function(a){0==a.code&&"free"==a.fileType&&(j.isFreeFile=1,1==j.dowStatus&&1!=localStorage.getItem("FirstDown")&&(j.type=3,j.getCouponList()))})}};setTimeout(function(){j.initial()},2e3)}),define("dist/cmd-lib/toast",[],function(a,b,c){!function(a,b,c){function d(b){this.options={text:"我是toast提示",icon:"",delay:3e3,callback:!1},b&&a.isPlainObject(b)&&a.extend(!0,this.options,b),this.init()}d.prototype.init=function(){var b=this;b.body=a("body"),b.toastWrap=a('<div class="ui-toast" style="position:fixed;width:200px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:10000">'),b.toastIcon=a('<i class="icon"></i>'),b.toastText=a('<span class="ui-toast-text" style="color:#fff">'+b.options.text+"</span>"),b._creatDom(),b.show(),b.hide()},d.prototype._creatDom=function(){var a=this;a.options.icon&&a.toastWrap.append(a.toastIcon.addClass(a.options.icon)),a.toastWrap.append(a.toastText),a.body.append(a.toastWrap)},d.prototype.show=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("hide").addClass("show")},50)},d.prototype.hide=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("show").addClass("hide"),a.toastWrap.remove(),a.options.callback&&a.options.callback()},a.options.delay)},a.toast=function(a){return new d(a)}}($,window,document)}),define("dist/cmd-lib/loading",[],function(a,b,c){!function(a,b,c){a.fn.loading=function(b){var c=a(this),d=this;return this.each(function(){var e="",f={direction:"column",animateIn:"fadeInNoTransform",title:"提交中...",name:"loadingName",type:"origin",discription:"",titleColor:"rgba(255,255,255,0.7)",discColor:"rgba(255,255,255,0.7)",loadingWidth:100,loadingBg:"rgba(0, 0, 0, 0.6)",borderRadius:6,loadingMaskBg:"rgba(0,0,0,0.6)",zIndex:1000001,originDivWidth:10,originDivHeight:10,originWidth:4,originHeight:4,originBg:"#fefefe",smallLoading:!1,imgSrc:"",imgDivWidth:80,imgDivHeight:80,flexCenter:!1,flexDirection:"row",mustRelative:!1,delay:2e3,isClose:!0},g=a.extend(f,b||{});"body"==c.selector?(a("body,html").css({overflow:"hidden"}),e="fixed"):g.mustRelative?(c.css({position:"relative"}),e="absolute"):e="absolute",f._showOriginLoading=function(){var b=g.smallLoading?0:"-10px";"row"==g.direction&&(b="-6px"),d.cpt_loading_mask=a('<div class="cpt-loading-mask animated '+g.animateIn+" "+g.direction+'" data-name="'+g.name+'"></div>').css({background:g.loadingMaskBg,"z-index":g.zIndex,position:e}).appendTo(c),d.div_loading=a('<div class="div-loading"></div>').css({background:g.loadingBg,width:g.loadingWidth,height:g.loadingHeight,"-webkit-border-radius":g.borderRadius,"-moz-border-radius":g.borderRadius,"border-radius":g.borderRadius}).appendTo(d.cpt_loading_mask),g.flexCenter&&d.div_loading.css({display:"-webkit-flex",display:"flex","-webkit-flex-direction":g.flexDirection,"flex-direction":g.flexDirection,"-webkit-align-items":"center","align-items":"center","-webkit-justify-content":"center","justify-content":"center"}),d.loading_title=a('<p class="loading-title txt-textOneRow"></p>').css({color:g.titleColor}).html(g.title).appendTo(d.div_loading),d.loading=a('<div class="loading '+g.type+'"></div>').css({width:g.originDivWidth,height:g.originDivHeight}).appendTo(d.div_loading),d.loading_discription=a('<p class="loading-discription txt-textOneRow"></p>').css({color:g.discColor}).html(g.discription).appendTo(d.div_loading),"origin"==g.type&&(d.loadingOrigin=a('<div class="div-loadingOrigin"><span></span></div><div class="div-loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div>').appendTo(d.loading),d.loadingOrigin.children().css({"margin-top":b,"margin-left":b,width:g.originWidth,height:g.originHeight,background:g.originBg})),"pic"==g.type&&(d.loadingPic=a('<img src="'+g.imgSrc+'" alt="loading" />').appendTo(d.loading)),d.cpt_loading_mask.on("touchstart touchend touchmove click",function(a){a.stopPropagation(),a.preventDefault()})},f._createLoading=function(){a(".cpt-loading-mask[data-name="+g.name+"]").length>0||f._showOriginLoading()},f._createLoading(),f.close=function(){a(".cpt-loading-mask[data-name="+g.name+"]").remove()}})},a.extend(a.fn,{closeLoading:function(b){var b=b||"";if(a("body,html").css({overflow:"auto"}),""==b)a(".cpt-loading-mask").remove();else{var c=b||"loadingName";a(".cpt-loading-mask[data-name="+c+"]").remove()}}})}(jQuery,window,document)}),define("dist/common/coupon/template/couponCard.html",[],'\n{{each data.list as v i}}\n<li class="coupon-li">\n    <div class="coupon-item">\n        <i class="bg-coupon"></i>\n        <div class="price-wrap fl">\n            <p>{{if v.type==1}}¥{{/if}} <strong class="price">{{v.discount?v.discount:v.couponAmount}}</strong>{{if v.type==2}}折{{/if}}</p>\n        </div>\n        <div class="coupon-info-con">\n            <p class="coupon-text">{{v.content}}</p>\n            <p class="coupon-time">{{if v.dateNumber}}{{v.dateNumber}}天内有效{{else}}{{v.timeval}}{{/if}}</p>\n        </div>\n    </div>\n</li>\n{{/each}}\n'),define("dist/common/bilog",["base64","dist/cmd-lib/util","dist/application/method","dist/report/config"],function(a,b,c){function d(){sessionStorage.setItem("sessionID",A)}function e(a,b){if(!new RegExp("/f/").test(a)||new RegExp("referrer=").test(a)||new RegExp("/f/down").test(a))new RegExp("/pay/payConfirm.html").test(a)?(b.prePageID="PC-M-PAY-F-L",b.prePageName="支付页-付费资料-列表页"):new RegExp("/pay/payQr.html\\?type=2").test(a)?(b.prePageID="PC-M-PAY-F-QR",b.prePageName="支付页-付费资料-支付页"):new RegExp("/pay/vip.html").test(a)?(b.prePageID="PC-M-PAY-VIP-L",b.prePageName="支付页-VIP-套餐列表页"):new RegExp("/pay/payQr.html\\?type=0").test(a)?(b.prePageID="PC-M-PAY-VIP-QR",b.prePageName="支付页-VIP-支付页"):new RegExp("/pay/privilege.html").test(a)?(b.prePageID="PC-M-PAY-PRI-L",b.prePageName="支付页-下载特权-套餐列表页"):new RegExp("/pay/payQr.html\\?type=1").test(a)?(b.prePageID="PC-M-PAY-PRI-QR",b.prePageName="支付页-下载特权-支付页"):new RegExp("/pay/success").test(a)?(b.prePageID="PC-M-PAY-SUC",b.prePageName="支付成功页"):new RegExp("/pay/fail").test(a)?(b.prePageID="PC-M-PAY-FAIL",b.prePageName="支付失败页"):new RegExp("/node/f/downsucc.html").test(a)?/unloginFlag=1/.test(a)?(b.prePageID="PC-M-FDPAY-SUC",b.prePageName="免登购买成功页"):(b.prePageID="PC-M-DOWN-SUC",b.prePageName="下载成功页"):new RegExp("/node/f/downfail.html").test(a)?(b.prePageID="PC-M-DOWN-FAIL",b.prePageName="下载失败页"):new RegExp("/search/home.html").test(a)?(b.prePageID="PC-M-SR",b.prePageName="搜索关键词"):new RegExp("/node/404.html").test(a)?(b.prePageID="PC-M-404",b.prePageName="404错误页"):new RegExp("/node/503.html").test(a)?(b.prePageID="PC-M-500",b.prePageName="500错误页"):new RegExp("/node/personalCenter/home.html").test(a)?(b.prePageID="PC-M-USER",b.prePageName="个人中心-首页"):new RegExp("/node/personalCenter/myuploads.html").test(a)?(b.prePageID="PC-M-USER-MU",b.prePageName="个人中心-我的上传页"):new RegExp("/node/personalCenter/mycollection.html").test(a)?(b.prePageID="PC-M-USER-CL",b.prePageName="个人中心-我的收藏页"):new RegExp("/node/personalCenter/mydownloads.html").test(a)?(b.prePageID="PC-M-USER-MD",b.prePageName="个人中心-我的下载页"):new RegExp("/node/personalCenter/vip.html").test(a)?(b.prePageID="PC-M-USER-VIP",b.prePageName="个人中心-我的VIP"):new RegExp("/node/personalCenter/mycoupon.html").test(a)?(b.prePageID="PC-M-USER-MS",b.prePageName="个人中心-我的优惠券页"):new RegExp("/node/personalCenter/accountsecurity.html").test(a)?(b.prePageID="PC-M-USER-ATM",b.prePageName="个人中心-账号与安全页"):new RegExp("/node/personalCenter/personalinformation.html").test(a)?(b.prePageID="PC-M-USER-ATF",b.prePageName="个人中心-个人信息页"):new RegExp("/node/personalCenter/myorder.html").test(a)&&(b.prePageID="PC-M-USER-ORD",b.prePageName="个人中心-我的订单");else{var c=$(".ip-page-statusCode");"404"==c?(b.prePageID="PC-M-FDL",b.prePageName="资料被删除"):"302"==c?(b.prePageID="PC-M-FSM",b.prePageName="资料私有"):(b.prePageID="PC-M-FD",b.prePageName="资料详情页")}}function f(){$.getScript("//ipip.iask.cn/iplookup/search?format=js",function(a,b){"success"===b?(v.setCookieWithExp("ip",remote_ip_info.ip,3e5,"/"),D.ip=remote_ip_info.ip):console.error("ipip获取ip信息error")})}function g(){var a="";return-1!=window.navigator.userAgent.indexOf("Windows NT 10.0")?a="Windows 10":-1!=window.navigator.userAgent.indexOf("Windows NT 6.2")?a="Windows 8":-1!=window.navigator.userAgent.indexOf("Windows NT 6.1")?a="Windows 7":-1!=window.navigator.userAgent.indexOf("Windows NT 6.0")?a="Windows Vista":-1!=window.navigator.userAgent.indexOf("Windows NT 5.1")?a="Windows XP":-1!=window.navigator.userAgent.indexOf("Windows NT 5.0")?a="Windows 2000":-1!=window.navigator.userAgent.indexOf("Mac")?a="Mac/iOS":-1!=window.navigator.userAgent.indexOf("X11")?a="UNIX":-1!=window.navigator.userAgent.indexOf("Linux")&&(a="Linux"),a}function h(a){setTimeout(function(){console.log(a),$.getJSON("https://dw.iask.com.cn/ishare/jsonp?data="+t.encode(JSON.stringify(a))+"&jsoncallback=?",function(a){console.log(a)})})}function i(a,b){var c=a;if(a&&b){for(var d in a)if("var"===d)for(var e in b)c["var"][e]=b[e];else b[d]&&(c[d]=b[d]);console.log("埋点参数:",c),h(c)}}function j(){var a=JSON.parse(JSON.stringify(D));e(document.referrer,a);var b={channel:""},c=v.getCookie("bc");c&&(b.channel=c),a.eventType="page",a.eventID="NE001",a.eventName="normalPageView",a.pageID=$("#ip-page-id").val()||"",a.pageName=$("#ip-page-name").val()||"",a.pageURL=window.location.href;var d=v.getParam("utm_source"),f=v.getParam("utm_campaign"),g=v.getParam("utm_campaign");$.extend(b,{utm_source:d,utm_medium:f,utm_term:g}),i(a,b)}function k(){var a={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePrice:window.pageConfig.params.moneyPrice,fileCouponCount:window.pageConfig.params.file_volume,filePayType:x[window.pageConfig.params.file_state],fileFormat:window.pageConfig.params.file_format,fileProduceType:window.pageConfig&&window.pageConfig.params?window.pageConfig.params.fsource:"",fileCooType:"",fileUploaderID:window.pageConfig.params.file_uid},b=window.pageConfig&&window.pageConfig.params?window.pageConfig.params.is360:"";/https?\:\/\/[^\s]*so.com.*$/g.test(document.referrer)&&!/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)&&"true"==b&&(a.fileCooType="360onebox",v.setCookieWithExp("bc","360onebox",18e5,"/")),/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)&&(a.fileCooType="360wenku",v.setCookieWithExp("bc","360wenku",18e5,"/"));var c=JSON.parse(JSON.stringify(D));e(document.referrer,c),c.eventType="page",c.eventID="SE002",c.eventName="fileDetailPageView",c.pageID=$("#ip-page-id").val()||"",c.pageName=$("#ip-page-name").val()||"",c.pageURL=window.location.href,v.setCookieWithExp("bf",JSON.stringify(a),18e5,"/"),i(c,a)}function l(a){var b=JSON.parse(JSON.stringify(D));if(e(document.referrer,b),b.eventType="page",b.eventID="SE009",b.eventName="payFileResult",b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,a.fileID||(a.fileID=v.getParam("fid")||$("#ip-page-fid").val()),!a.filePayType){var c=$("#ip-page-fstate").val()||1;a.filePayType=x[c]}i(b,a)}function m(a){var b=JSON.parse(JSON.stringify(D));e(document.referrer,b),b.eventType="page",b.eventID="SE011",b.eventName="payVipResult",b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,a.orderID||(a.orderID=v.getParam("orderNo")||""),i(b,a)}function n(a){var b=JSON.parse(JSON.stringify(D));e(document.referrer,b),b.eventType="page",b.eventID="SE013",b.eventName="payPrivilegeResult",b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,i(b,a)}function o(a){var b=JSON.parse(JSON.stringify(D));e(document.referrer,b),b.eventType="page",b.eventID="SE014",b.eventName="downResult",b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,i(b,a)}function p(a){var b=JSON.parse(JSON.stringify(D));b.eventType="page",b.eventID="SE015",b.eventName="searchPageView",e(document.referrer,b),b.pageID="PC-M-SR",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,i(b,a)}function q(a,b){for(var c in b)a[c]&&(b[c]=a[c])}function r(a,b,c,d,f){var g=JSON.parse(JSON.stringify(D));e(document.referrer,g),g.eventType="click",g.eventID=a,g.eventName=b,g.pageID=$("#ip-page-id").val(),g.pageName=$("#ip-page-name").val(),g.pageURL=window.location.href,g.domID=c,g.domName=d,g.domURL=window.location.href,i(g,f)}function s(a,b,c){var d=$("#ip-page-type").val();if("pindex"==d){var e={fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:""},f=v.getCookie("bf");if(f&&q(JSON.parse(f),e),"fileDetailUpDown"==a||"fileDetailMiddleDown"==a||"fileDetailBottomDown"==a)e.downType="","fileDetailUpDown"==a?r("SE003","fileDetailDownClick","fileDetailUpDown","资料详情页顶部立即下载",e):"fileDetailMiddleDown"==a?r("SE003","fileDetailDownClick","fileDetailMiddleDown","资料详情页中部立即下载",e):"fileDetailBottomDown"==a&&r("SE003","fileDetailDownClick","fileDetailBottomDown","资料详情页底部立即下载",e),delete e.downType;else if("fileDetailUpBuy"==a)r("SE004","fileDetailBuyClick","fileDetailUpBuy","资料详情页顶部立即购买",e);else if("fileDetailMiddleBuy"==a)r("SE004","fileDetailBuyClick","fileDetailMiddleBuy","资料详情页中部立即购买",e);else if("fileDetailBottomBuy"==a)r("SE004","fileDetailBuyClick","fileDetailBottomBuy","资料详情页底部立即购买",e);else if("fileDetailMiddleOpenVip8"==a)r("SE005","fileDetailOpenVipClick","fileDetailMiddleOpenVip8","资料详情页中部开通vip，8折购买",e);else if("fileDetailBottomOpenVip8"==a)r("SE005","fileDetailOpenVipClick","fileDetailBottomOpenVip8","资料详情页底部开通vip，8折购买",e);else if("fileDetailMiddleOpenVipPr"==a)r("SE005","fileDetailOpenVipClick","fileDetailMiddleOpenVipPr","资料详情页中部开通vip，享更多特权",e);else if("fileDetailBottomOpenVipPr"==a)r("SE005","fileDetailOpenVipClick","fileDetailBottomOpenVipPr","资料详情页底部开通vip，享更多特权",e);else if("fileDetailComment"==a)r("SE006","fileDetailCommentClick","fileDetailComment","资料详情页评论",e);else if("fileDetailScore"==a){var g=b.find(".on:last").text();e.fileScore=g?g:"",r("SE007","fileDetailScoreClick","fileDetailScore","资料详情页评分",e),delete e.fileScore}}if("payFile"==a){var e={orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:"",filePrice:"",fileSalePrice:""},f=v.getCookie("bf");f&&q(JSON.parse(f),e),r("SE008","payFileClick","payFile","支付页-付费资料-立即支付",e)}else if("payVip"==a){var e={orderID:v.getParam("orderNo")||"",vipID:$(".ui-tab-nav-item.active").data("vid"),vipName:$(".ui-tab-nav-item.active p.vip-time").text()||"",vipPrice:$(".ui-tab-nav-item.active p.vip-price strong").text()||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||""};r("SE010","payVipClick","payVip","支付页-VIP-立即支付",e)}else if("payPrivilege"==a){var e={orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",privilegeName:$(".ui-tab-nav-item.active p.privilege-price").text()||"",privilegePrice:$(".ui-tab-nav-item.active").data("activeprice")||"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:""},f=v.getCookie("bf");f&&q(JSON.parse(f),e),r("SE012","payPrivilegeClick","payPrivilege","支付页-下载特权-立即支付",e)}else"searchResult"==a&&(e={fileID:b.attr("data-fileId"),fileName:b.attr("data-fileName"),keyWords:$("#scondition").val()},r("SE016","normalClick","searchResultClick","搜索结果页点击",e));var e={phone:$("#ip-mobile").val()||"",vipStatus:$("#ip-isVip").val()||"",channel:"",cashBalance:"",integralNumber:"",idolNumber:"",fileCategoryID:"",fileCategoryName:""};E&&(e.vipStatus=E.isVip||"",e.phone=E.tel||"");var h=v.getCookie("bc");h&&(e.channel=h),"paySuccessBacDown"==a?r("NE002","normalClick","paySuccessBacDown","支付成功页-返回下载",e):"paySuccessOpenVip"==a?r("NE002","normalClick","paySuccessOpenVip","支付成功页-开通VIP",e):"downSuccessOpenVip"==a?r("NE002","normalClick","downSuccessOpenVip","下载成功页-开通VIP",e):"downSuccessContinueVip"==a?r("NE002","normalClick","downSuccessContinueVip","下载成功页-续费VIP",e):"downSuccessBacDetail"==a?r("NE002","normalClick","downSuccessBacDetail","下载成功页-返回详情页",e):"downSuccessBindPhone"==a?r("NE002","normalClick","downSuccessBindPhone","下载成功页-立即绑定",e):"viewExposure"==a?(e.moduleID=c,r("SE006","modelView","","",e)):"similarFileClick"==a?(e={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePayType:x[window.pageConfig.params.file_state]},r("SE017","fileListNormalClick","similarFileClick","资料列表常规点击",e)):"underSimilarFileClick"==a?r("SE017","fileListNormalClick","underSimilarFileClick","点击底部猜你喜欢内容时",e):"downSucSimilarFileClick"==a?r("SE017","fileListNormalClick","downSucSimilarFileClick","下载成功页猜你喜欢内容时",e):"markFileClick"==a?(e={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePayType:x[window.pageConfig.params.file_state],markRusult:1},r("SE019","markClick","markFileClick","资料收藏点击",e)):"vipRights"==a?r("NE002","normalClick","vipRights","侧边栏-vip权益",e):"seen"==a?r("NE002","normalClick","seen","侧边栏-我看过的",e):"mark"==a?r("NE002","normalClick","mark","侧边栏-我的收藏",e):"customerService"==a?r("NE002","normalClick","customerService","侧边栏-联系客服",e):"downApp"==a?r("NE002","normalClick","downApp","侧边栏-下载APP",e):"follow"==a&&r("NE002","normalClick","follow","侧边栏-关注领奖",e)}var t=a("base64").Base64,u=a("dist/cmd-lib/util"),v=a("dist/application/method"),w=a("dist/report/config"),x=["","free","","online","vipOnly","cost"],y=v.getCookie("ip")||f(),z=v.getCookie("cid");z||(z=(new Date).getTime()+""+Math.random(),v.setCookieWithExp("cid",z,2592e6,"/"));var A=(new Date).getTime()+""+Math.random(),B=18e5,C=sessionStorage.getItem("sessionID")||"";C||d(),A-C>B&&d();var D={eventType:"",eventID:"",eventName:"",eventTime:String((new Date).getTime()),reportTime:String((new Date).getTime()),sdkVersion:"V1.0.3",terminalType:"0",loginStatus:v.getCookie("cuk")?1:0,visitID:v.getCookie("gr_user_id")||"",userID:"",sessionID:sessionStorage.getItem("sessionID")||z||"",productName:"ishare",productCode:"0",productVer:"V4.5.0",pageID:"",pageName:"",pageURL:"",ip:y||"",resolution:document.documentElement.clientWidth+"*"+document.documentElement.clientHeight,browserVer:u.getBrowserInfo(navigator.userAgent),osType:g(),moduleID:"",moduleName:"",appChannel:"",prePageID:"",prePageName:"",prePageURL:document.referrer,domID:"",domName:"",domURL:"",location:"",deviceID:"",deviceBrand:"",deviceModel:"",deviceLanguage:navigator.language,mac:"",osVer:"",networkType:"",networkProvider:"","var":{}},E=v.getCookie("ui");E&&(E=JSON.parse(E),D.userID=E.uid||""),e(document.referrer,D),$(function(){setTimeout(function(){var a=$("#ip-page-id").val();"PC-M-FD"==a&&k(),"PC-O-SR"!=a&&j();var b={payResult:1,orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",orderPayType:"",orderPayPrice:"",vipID:"",vipName:"",vipPrice:""},c={payResult:1,orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",orderPayType:"",orderPayPrice:"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:"",privilegeID:"",privilegeName:"",privilegePrice:""},d={payResult:1,orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",orderPayType:"",orderPayPrice:"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:"",filePrice:"",fileSalePrice:""},e=v.getCookie("bf"),f=v.getCookie("br"),g=window.location.href;if("PC-M-PAY-SUC"==a||"PC-O-PAY-SUC"==a){if(g.indexOf("type=0")>-1)f&&q(JSON.parse(f),b),m(b);else if(g.indexOf("type=1")>-1)e&&q(JSON.parse(e),c),f&&q(JSON.parse(f),c),n(c);else if(g.indexOf("type=2")>-1){e&&q(JSON.parse(e),d);var f=v.getCookie("br");f&&q(JSON.parse(f),d),l(d)}}else("PC-M-PAY-FAIL"==a||"PC-O-PAY-FAIL"==a)&&(g.indexOf("type=0")>-1?(f&&q(JSON.parse(f),b),b.payResult=0,m(b)):g.indexOf("type=1")>-1?(e&&q(JSON.parse(e),c),f&&q(JSON.parse(f),c),c.payResult=0,n(c)):g.indexOf("type=2")>-1&&(e&&q(JSON.parse(e),d),f&&q(JSON.parse(f),d),d.payResult=0,l(d)));var h={downResult:1,fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:""};if("PC-M-DOWN-SUC"==a){var e=v.getCookie("bf");e&&q(JSON.parse(e),h),h.downResult=1,o(h)}else if("PC-M-DOWN-FAIL"==a){var e=v.getCookie("bf");e&&q(JSON.parse(e),h),h.downResult=0,o(h)}},1e3)}),$(document).delegate("."+w.EVENT_NAME,"click",function(a){var b=$(this),c=b.attr(w.BILOG_CONTENT_NAME);console.log("cnt:",c),c&&setTimeout(function(){s(c,b)})}),c.exports={clickEvent:function(a){var b=a.attr(w.BILOG_CONTENT_NAME);console.log("cnt-导出的:",b),b&&setTimeout(function(){s(b,a)})},viewExposure:function(a,b){var c="viewExposure";c&&setTimeout(function(){s(c,a,b)})},searchResult:p}}),define("dist/report/config",[],function(a,b,c){return{COOKIE_FLAG:"_dplf",COOKIE_CIDE:"_dpcid",COOKIE_CUK:"cuk",COOKIE_TIMEOUT:3e6,SERVER_URL:"/",UACTION_URL:"/uAction",EVENT_NAME:"pc_click",CONTENT_NAME:"pcTrackContent",BILOG_CONTENT_NAME:"bilogContent",ishareTrackEvent:"_ishareTrackEvent",eventCookieFlag:"_eventCookieFlag",EVENT_REPORT:!1,AUTO_PV:!1}});
+define("dist/detail/success", [ "../cmd-lib/myDialog", "../application/method", "../application/checkLogin", "../application/api", "../cmd-lib/util", "swiper", "../common/recommendConfigInfo", "../common/template/swiper_tmp.html", "../common/bindphone", "../common/coupon/couponIssue", "../cmd-lib/toast", "../cmd-lib/loading", "../common/coupon/template/couponCard.html", "../common/bilog", "base64", "../report/config" ], function(require, exports, module) {
+    // var $ = require('$');
+    require("../cmd-lib/myDialog");
+    var method = require("../application/method");
+    var login = require("../application/checkLogin");
+    var utils = require("../cmd-lib/util");
+    var fid = method.getParam("fid");
+    var fileName = method.getParam("title");
+    var format = method.getParam("format");
+    var api = require("../application/api");
+    var userId;
+    require("swiper");
+    var recommendConfigInfo = require("../common/recommendConfigInfo");
+    var swiperTemplate = require("../common/template/swiper_tmp.html");
+    var topBnnerTemplate = require("../common/template/swiper_tmp.html");
+    require("../common/bindphone");
+    require("../common/coupon/couponIssue");
+    require("../common/bilog");
+    // require("../common/baidu-statistics");
+    var userData = null, initData = {};
+    eventBinding();
+    // url上带有这个参数unloginFlag，说明是游客模式过来的
+    // buyUnlogin.js 中跳转过来
+    var unloginFlag = method.getQueryString("unloginFlag");
+    if (unloginFlag) {
+        $("#filename").text(fileName || "");
+        if (format) {
+            $(".xbsd i").addClass("ico-data ico-" + format);
+        }
+        // $('.pay-ok-text').hide();
+        $(".qrcode-warpper").hide();
+        $(".down-success-other").hide();
+        $(".unloginTop").show();
+        $(".carding-data-pay-con").hide();
+        if (method.getCookie("cuk")) {
+            $(".carding-info-bottom.unloginStatus").remove();
+            login.getLoginData(function(data) {
+                userData = data;
+                userId = data.userId;
+                initData.isVip = parseInt(data.isVip, 10);
+                refreshDomTree(data);
+                successReload(data);
+            });
+        } else {
+            unloginBuyStatus();
+            login.listenLoginStatus(function(res) {
+                initData.isVip = parseInt(res.isVip, 10);
+                userData = res;
+                // 登陆成功绑定userid
+                bindOrder(res.userId, res.nickName);
+            });
+            setTimeout(function() {
+                //  getDownUrl()
+                autoDownUrl();
+            }, 1e3);
+        }
+    } else {
+        initShow();
+    }
+    function initShow() {
+        if (method.getCookie("cuk")) {
+            login.getLoginData(function(data) {
+                userData = data;
+                initData.isVip = parseInt(data.isVip, 10);
+                refreshDomTree(data);
+                successReload(data);
+            });
+        }
+        if (!method.getCookie("cuk") && !userData) {
+            // $('.down-success-other').hide()
+            // $('.qrcode-warpper').hide()
+            login.notifyLoginInterface(function(data) {
+                userData = data;
+                initData.isVip = parseInt(data.isVip, 10);
+                refreshDomTree(data);
+                successReload(data);
+            });
+        }
+    }
+    //游客购买成功绑定购买记录
+    function bindOrder(userId, nickName) {
+        var visitorId = method.getCookie("visitorId") || method.getParam("visitorId");
+        $.get(api.pay.bindUser, {
+            visitorId: visitorId,
+            userId: userId,
+            nickName: nickName
+        }, function(data) {
+            $.toast({
+                text: data.msg,
+                callback: function() {
+                    location.reload();
+                }
+            });
+        });
+    }
+    // 游客登陆下载成功
+    function unloginBuyStatus() {
+        $(".previousContainer").hide();
+        $(".unloginStatus").show();
+        $(".carding-share").hide();
+        $(".down-carding-main").addClass("coupon-carding-item");
+        $(".carding-success-item").css("padding-bottom", "60px");
+        $(".xbsd i").addClass("ico-data ico-" + format);
+        setTimeout(function() {
+            createdLoginQr();
+        }, 200);
+    }
+    // 下载页面自动下载
+    if (method.getCookie("cuk")) {
+        autoDownUrl();
+    }
+    // 点击下载
+    $(".quick-down-a").click(function() {
+        // getDownUrl()
+        autoDownUrl();
+    });
+    function autoDownUrl() {
+        var fileDownUrl = method.getQueryString("url");
+        if (fileDownUrl) {
+            method.compatibleIESkip(fileDownUrl, false);
+        } else {
+            if (unloginFlag) {
+                // 游客
+                getDownUrl();
+            }
+        }
+    }
+    function getDownUrl() {
+        var vuk = method.getCookie("visitorId") || method.getParam("visitorId");
+        if (userId) {
+            vuk = userId;
+        }
+        var fid = method.getQueryString("fid");
+        $.post("/pay/paperDown", {
+            vuk: vuk,
+            fid: fid
+        }, function(data) {
+            if (data.code == 0) {
+                location.href = data.data.dowUrl;
+            } else if (data.code == 41003) {
+                $.toast({
+                    text: data.msg
+                });
+            } else {
+                $.toast({
+                    text: data.msg
+                });
+            }
+        });
+    }
+    // 生登陆二维码
+    function createdLoginQr() {
+        var qrCodeparams = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
+        var classid1 = qrCodeparams && qrCodeparams.classid1 ? qrCodeparams.classid1 + "" : "";
+        var classid2 = qrCodeparams && qrCodeparams.classid2 ? "-" + qrCodeparams.classid2 + "" : "";
+        var classid3 = qrCodeparams && qrCodeparams.classid3 ? "-" + qrCodeparams.classid3 + "" : "";
+        var clsId = classid1 + classid2 + classid3;
+        var fid = qrCodeparams ? qrCodeparams.g_fileId || "" : "";
+        var loginUrl = $.loginPop("login_wx_code", {
+            terminal: "PC",
+            businessSys: "ishare",
+            domain: document.domain,
+            ptype: "ishare",
+            popup: "hidden",
+            clsId: clsId,
+            fid: fid
+        });
+        var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+        $(".carding-info-bottom.unloginStatus .qrWrap").html(loginDom);
+    }
+    function successReload(data) {
+        if (data.mobile) {
+            // 登录的情况下不适用 car.html中的二维码
+            // $('.carding-info-bottom').addClass('carding-binding-ok')
+            $(".carding-info-bottom").hide();
+        } else {
+            $(".carding-binding").show();
+        }
+        if (data.isVip == "1") {
+            var time = method.compareTime(new Date(), new Date(data.expireTime));
+            if (time <= 5) {
+                $(".down-succ-title").html("您的VIP将于" + data.expireTime + "到期").show();
+                $(".down-succ-btn[data-type=vip]").show().css("display", "block").siblings("a").hide();
+                $(".bottom-privilege").show();
+            } else if (data.privilege <= 5) {
+                $(".down-succ-title").html("您的VIP下载特权仅剩" + data.privilege + "次！").show();
+                $(".down-succ-btn[data-type=privilege]").show().css("display", "block").siblings("a").hide();
+                $(".bottom-privilege").show();
+            } else {
+                $(".btn-carding-back").show().css("display", "block").siblings("a").hide();
+                $(".bottom-privilege").hide();
+            }
+        } else {
+            $(".down-succ-btn[data-type=default]").show().css("display", "block").siblings("a").hide();
+            $(".new-success-item .bottom-privilege").removeClass("hide");
+        }
+    }
+    $(".btn-carding-back").on("click", function() {
+        window.location.href = "/f/" + fid + ".html";
+    });
+    // 购买跳转
+    $(".js-buy-open").click(function() {
+        var payTypeMapping = [ "", "免费", "下载券", "现金", "仅供在线阅读", "VIP免费", "VIP专享" ];
+        var entryName_var = payTypeMapping[method.getCookie("file_state")];
+        var entryType_var = method.getCookie("isVip") == 1 ? "续费" : "充值";
+        //充值 or 续费
+        var mark = $(this).data("type");
+        var ref = utils.getPageRef(fid);
+        //用户来源
+        var params = "?fid=" + fid + "&ref=" + ref;
+        if (mark === "vip" || mark === "default") {
+            __pc__.gioTrack("vipRechargeEntryClick", {
+                entryName_var: entryName_var,
+                entryType_var: entryType_var
+            });
+            method.compatibleIESkip("/pay/vip.html" + params, true);
+        } else if (mark === "privilege") {
+            method.compatibleIESkip("/pay/privilege.html" + params, true);
+        }
+    });
+    /**
+     * 刷新顶部状态
+     * @param data
+     */
+    function refreshDomTree(data) {
+        var $unLogin = $("#unLogin"), $hasLogin = $("#haveLogin"), $top_user_more = $(".top-user-more"), $icon_iShare_text = $(".icon-iShare-text"), $btn_user_more = $(".btn-user-more"), $vip_status = $(".vip-status"), $btn_join_vip = $(".btn-join-vip"), $icon_iShare = $(".icon-iShare");
+        $icon_iShare_text.html(data.isVip === "1" ? "续费VIP" : "开通VIP");
+        $btn_user_more.text(data.isVip === "1" ? "续费" : "开通");
+        if (data.isVip == "0") {
+            $(".open-vip").show().siblings("a").hide();
+        } else {
+            $(".xf-open-vip").show().siblings("a").hide();
+        }
+        var $target = null;
+        //vip
+        if (data.isVip == 1) {
+            $target = $vip_status.find('p[data-type="2"]');
+            $target.find(".expire_time").html(data.expireTime);
+            $target.show().siblings().hide();
+            $top_user_more.addClass("top-vip-more");
+        } else if (data.userType == 1) {
+            $target = $vip_status.find('p[data-type="3"]');
+            $target.show().siblings().hide();
+        } else if (data.isVip == 0) {
+            $icon_iShare.removeClass("icon-vip");
+        }
+        $unLogin.hide();
+        $hasLogin.find(".icon-detail").html(data.nickName);
+        $hasLogin.find("img").attr("src", data.weiboImage);
+        $top_user_more.find("img").attr("src", data.weiboImage);
+        $top_user_more.find("#userName").html(data.nickName);
+        $hasLogin.show();
+        //右侧导航栏.
+        /* ==>头像,昵称 是否会员文案提示.*/
+        $(".user-avatar img").attr("src", data.weiboImage);
+        $(".name-wrap .name-text").html(data.nickName);
+        if (data.isVip == "1") {
+            var txt = "您的VIP将于" + data.expireTime + "到期,剩余" + data.privilege + "次下载特权";
+            $(".detail-right-normal-wel").html(txt);
+            $(".detail-right-vip-wel").html("会员尊享权益");
+            $(".btn-mui").hide();
+            $("#memProfit").html("VIP权益");
+            $(".expire-time").show().find("span").html(data.expireTime);
+            $btn_join_vip.find('p[data-type="2"]').show().siblings("a").hide();
+            $(".vip-expire-time").show().find("span").html(data.expireTime);
+            if (data.privilege && data.privilege < 0) {
+                $btn_join_vip.find('p[data-type="3"]').show().siblings("a").hide();
+            }
+        } else {
+            $(".mui-privilege-list li").removeClass("hide");
+            $btn_join_vip.find('p[data-type="1"]').show().siblings("a").hide();
+        }
+    }
+    function eventBinding() {
+        var $more_nave = $(".more-nav"), $search_detail_input = $("#search-detail-input"), $detail_lately = $(".detail-lately");
+        // 顶部分类
+        $more_nave.on("mouseover", function() {
+            var $this = $(this);
+            if (!$this.hasClass("hover")) {
+                $(this).addClass("hover");
+            }
+        });
+        $more_nave.on("mouseleave", function() {
+            var $this = $(this);
+            if ($this.hasClass("hover")) {
+                $(this).removeClass("hover");
+            }
+        });
+        // 搜索
+        $search_detail_input.on("keyup", function(e) {
+            var keycode = e.keyCode;
+            if ($(this).val()) {
+                getBaiduData($(this).val());
+            } else {}
+            if (keycode === 13) {
+                searchFn($(this).val());
+            }
+        });
+        $search_detail_input.on("focus", function() {
+            var lately_list = $(".lately-list"), len = lately_list.find("li").length;
+            if (len > 0) {
+                $detail_lately.show();
+            } else {
+                $detail_lately.hide();
+            }
+            return true;
+        });
+        $(".btn-new-search").on("click", function() {
+            var _val = $("#search-detail-input").val();
+            if (!_val) {
+                return;
+            }
+            searchFn(_val);
+        });
+        $(document).on("click", ":not(.new-search)", function(event) {
+            var $target = $(event.target);
+            if ($target.hasClass("new-input")) {
+                return;
+            }
+            $detail_lately.hide();
+        });
+        $detail_lately.on("click", function(event) {
+            event.stopPropagation();
+        });
+        // 登录
+        $(".user-login,.login-open-vip").on("click", function() {
+            if (!method.getCookie("cuk")) {
+                login.notifyLoginInterface(function(data) {
+                    refreshDomTree(data);
+                    $(".down-success-other").show();
+                    $(".qrcode-warpper").show();
+                });
+            }
+        });
+        // 登出
+        $(".btn-exit").on("click", function() {
+            login.ishareLogout();
+        });
+    }
+    //获取百度数据
+    var getBaiduData = function(val) {
+        $.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + encodeURIComponent(val) + "&p=3&cb=window.baidu_searchsug&t=" + new Date().getTime());
+    };
+    /*百度搜索建议回调方法*/
+    window.baidu_searchsug = function(data) {
+        var sword = $("#search-detail-input").val();
+        sword = sword ? sword.replace(/^\s+|\s+$/gm, "") : "";
+        if (sword.length > 0) {
+            if (data && data.s) {
+                var condArr = data.s || [];
+                if (condArr.length > 0) {
+                    var max = Math.min(condArr.length, 10);
+                    var _html = [];
+                    for (var i = 0; i < max; i++) {
+                        var searchurl = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(condArr[i]));
+                        _html.push('<li><a href="' + searchurl + '"  data-html="' + condArr[i] + '" >' + condArr[i].replace(new RegExp("(" + sword + ")", "gm"), "<span class='search-font'>$1</span>") + "</a></li>");
+                    }
+                    $(".lately-list").html(_html.join("")).parent(".detail-lately").show();
+                }
+            }
+        }
+    };
+    //搜索
+    var searchFn = function(_val) {
+        var sword = _val ? _val.replace(/^\s+|\s+$/gm, "") : "";
+        window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+    };
+    gebyPosition();
+    function gebyPosition() {
+        $.ajax({
+            url: api.recommend.recommendConfigInfo,
+            type: "POST",
+            data: JSON.stringify(recommendConfigInfo.downSuccess.pageIds),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    res.data.forEach(function(item) {
+                        // 匹配 组装数据
+                        recommendConfigInfo.downSuccess.descs.forEach(function(desc) {
+                            if (item.pageId == desc.pageId) {
+                                desc.list = method.handleRecommendData(item.list);
+                            }
+                        });
+                    });
+                    console.log(recommendConfigInfo);
+                    recommendConfigInfo.downSuccess.descs.forEach(function(item) {
+                        if (item.list.length) {
+                            if (item.pageId == "PC_M_DOWN_SUC_banner") {
+                                // search-all-main-bottombanner
+                                console.log(item.list, "item.list-------------------");
+                                var _bottomBannerHtml = template.compile(topBnnerTemplate)({
+                                    topBanner: item.list,
+                                    className: "swiper-top-container"
+                                });
+                                $(".down-success-banner").html(_bottomBannerHtml);
+                                var mySwiper = new Swiper(".swiper-top-container", {
+                                    direction: "horizontal",
+                                    loop: item.list.length > 1 ? true : false,
+                                    autoplay: 3e3
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    // 发送邮箱
+    $(".js-sent-email").click(function() {
+        //          $("#dialog-box").dialog({
+        //     html: $('#send-email').html(),
+        // }).open();
+        $("#dialog-box").dialog({
+            html: $("#send-email").html()
+        }).open();
+    });
+    $("#dialog-box").on("click", ".submit-btn", function(e) {
+        // debugger
+        if (!method.testEmail($(".form-ipt").val())) {
+            $.toast({
+                text: "请输入正确的邮箱",
+                delay: 3e3
+            });
+            return;
+        }
+        if (method.getCookie("cuk")) {
+            console.log(method.getCookie("ui"));
+            var email = $("#dialog-box .form-ipt").val();
+            $.ajax({
+                url: api.sms.sendCorpusDownloadMail,
+                type: "POST",
+                data: JSON.stringify({
+                    email: email,
+                    fid: fid,
+                    title: fileName,
+                    uid: JSON.parse(method.getCookie("ui")).uid
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(res) {
+                    console.log(res);
+                    if (res.code == "0") {
+                        $.toast({
+                            text: "发送邮箱成功!"
+                        });
+                        var $dialogBox = $("#dialog-box");
+                        $dialogBox.dialog({}).close();
+                    } else {
+                        $.toast({
+                            text: "发送邮箱失败!"
+                        });
+                    }
+                }
+            });
+        } else {
+            login.notifyLoginInterface(function(data) {
+                // common.afterLogin(data);
+                refreshDomTree(data);
+            });
+        }
+    });
+    $("#dialog-box").on("click", ".close-btn", function(e) {
+        closeRewardPop();
+    });
+    function closeRewardPop() {
+        $(".common-bgMask").hide();
+        $(".detail-bg-mask").hide();
+        $("#dialog-box").hide();
+    }
+});
+
+/**
+ * @Description: jQuery dialog plugin
+ */
+define("dist/cmd-lib/myDialog", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function($) {
+        $.extend($.fn, {
+            dialog: function(options) {
+                return this.each(function() {
+                    var dialog = $.data(this, "diglog");
+                    if (!dialog) {
+                        dialog = new $.dialog(options, this);
+                        $.data(this, "dialog", dialog);
+                    }
+                });
+            }
+        });
+        var common = {
+            zIndex: 1e3,
+            getZindex: function() {
+                return this.zIndex += 100;
+            },
+            dialog: {}
+        };
+        $.dialog = function(options, el) {
+            if (arguments.length) {
+                this._init(options, el);
+            }
+        };
+        $.dialog.prototype = {
+            options: {
+                title: "title",
+                //标题
+                dragable: false,
+                //拖拽暂时未实现
+                cache: true,
+                html: "",
+                //template
+                width: "auto",
+                height: "auto",
+                cannelBtn: true,
+                //关闭按钮
+                confirmlBtn: true,
+                //确认按钮
+                cannelText: "关闭",
+                //按钮文字
+                confirmText: "确定",
+                //
+                showFooter: true,
+                onClose: false,
+                //关闭回调
+                onOpen: false,
+                //打开回调
+                callback: false,
+                showLoading: false,
+                loadingTxt: "处理中...",
+                onConfirm: false,
+                //confirm callback
+                onCannel: false,
+                //onCannel callback
+                getContent: false,
+                //getContent callback
+                zIndex: common.zIndex,
+                getZindex: function() {
+                    return common.zIndex += 100;
+                },
+                mask_tpl: '<div class="dialog-mask" data-page="mask" style="z-index:' + common.zIndex + ';"></div>'
+            },
+            //初始化
+            _init: function(options, el) {
+                this.options = $.extend(true, this.options, options);
+                this.element = $(el);
+                this._build(this.options.html);
+                this._bindEvents();
+            },
+            //初始化渲染组件html
+            _build: function(html) {
+                var _html, footer = "", cfBtn = "", clBtn = "", bodyContent = '<div class="body-content"></div>';
+                if (html) {
+                    _html = html;
+                } else {
+                    if (this.options.confirmlBtn) {
+                        cfBtn = '<button class="confirm">' + this.options.confirmText + "</button>";
+                    }
+                    if (this.options.cannelBtn) {
+                        clBtn = '<button class="cannel">' + this.options.cannelText + "</button>";
+                    }
+                    if (this.options.showFooter) {
+                        footer = '<div class="footer">                                    <div class="buttons">                                        ' + cfBtn + "                                        " + clBtn + "                                    </div>                                </div>";
+                    }
+                    if (this.options.showFooter) {
+                        var h = this.options.height - 80 + "px";
+                        bodyContent = '<div class="body-content" style="height:' + h + ';"></div>';
+                    } else {
+                        bodyContent = '<div class="body-content" style="height:' + this.options.height + ';"></div>';
+                    }
+                    _html = '<div class="m-dialog" style="z-index:' + this.options.getZindex + ';">								<div class="m-d-header">									<h2 style="width:' + this.options.width + ';">' + this.options.title + '</h2>									<a href="javascript:;" class="btn-close">X</a>								</div>								<div class="m-d-body" style="width:' + this.options.width + ";height:" + this.options.height + ';">									' + bodyContent + "                                </div>" + footer + "</div>";
+                }
+                if (!$(document).find('[data-page="mask"]').length) {
+                    $("body").append(this.options.mask_tpl);
+                }
+                this.element.html(_html);
+            },
+            _center: function() {
+                var d = this.element.find(".dialog");
+                d.css({
+                    left: ($(document).width() - d.width()) / 2,
+                    top: (document.documentElement.clientHeight - d.height()) / 2 + $(document).scrollTop()
+                });
+            },
+            _bindEvents: function() {
+                var that = this;
+                this.element.delegate(".close,.cancel", "click", function(e) {
+                    e && e.preventDefault();
+                    that.close(that.options.onClose);
+                });
+                $(document).delegate('[data-page="mask"]', "click", function(e) {
+                    e && e.preventDefault();
+                    that.close(that.options.onClose);
+                });
+                this.element.delegate(".cannel", "click", function(e) {
+                    e && e.preventDefault();
+                    that._cannel(that.options.onCannel);
+                });
+                this.element.delegate(".confirm", "click", function(e) {
+                    e && e.preventDefault();
+                    if ($(this).hasClass("disable")) {
+                        return;
+                    }
+                    if (that.options.showLoading) {
+                        $(this).addClass("disable");
+                        $(this).html(that.options.loadingTxt);
+                    }
+                    that._confirm(that.options.onConfirm);
+                });
+            },
+            close: function(cb) {
+                this._hide(cb);
+                this.clearCache();
+            },
+            open: function(cb) {
+                this._callback(cb);
+                this.element.show();
+                $('[data-page="mask"]').show();
+                //this._center();
+                this.clearCache();
+            },
+            _hide: function(cb) {
+                this.element.hide();
+                $('[data-page="mask"]').hide();
+                if (cb && typeof cb === "function") {
+                    this._callback(cb);
+                }
+            },
+            clearCache: function() {
+                if (!this.options.cache) {
+                    this.element.data("dialog", "");
+                }
+            },
+            _callback: function(cb) {
+                if (cb && typeof cb === "function") {
+                    cb.call(this);
+                }
+            },
+            _cannel: function(cb) {
+                this._hide(cb);
+                this.clearCache();
+            },
+            _confirm: function(cb) {
+                if (!this.options.callback) {
+                    this._hide(cb);
+                    this.clearCache();
+                } else {
+                    return cb();
+                }
+            },
+            getElement: function() {
+                return this.element;
+            },
+            _getOptions: function() {
+                return this.options;
+            },
+            _setTxt: function(t) {
+                return this.element.find(".confirm").html(t);
+            },
+            destroy: function() {
+                var that = this;
+                that.element.remove();
+            }
+        };
+        $.extend($.fn, {
+            open: function(cb) {
+                $(this).data("dialog") && $(this).data("dialog").open(cb);
+            },
+            close: function(cb) {
+                $(this).data("dialog") && $(this).data("dialog").close(cb);
+            },
+            clear: function() {
+                $(this).data("dialog") && $(this).data("dialog").clearCache();
+            },
+            getOptions: function() {
+                return $(this).data("dialog") && $(this).data("dialog")._getOptions();
+            },
+            getEl: function() {
+                return $(this).data("dialog") && $(this).data("dialog").getElement();
+            },
+            setTxt: function(t) {
+                $(this).data("dialog") && $(this).data("dialog")._setTxt(t);
+            },
+            destroy: function() {
+                $(this).data("dialog") && $(this).data("dialog").destroy(t);
+            }
+        });
+    })(jQuery);
+});
+
+define("dist/application/method", [], function(require, exports, module) {
+    //var $ = require("$");
+    return {
+        // 常量映射表
+        keyMap: {
+            // 访问详情页 localStorage
+            ishare_detail_access: "ISHARE_DETAIL_ACCESS",
+            ishare_office_detail_access: "ISHARE_OFFICE_DETAIL_ACCESS"
+        },
+        async: function(url, callback, msg, method, data) {
+            $.ajax(url, {
+                type: method || "post",
+                data: data,
+                async: false,
+                dataType: "json",
+                headers: {
+                    "cache-control": "no-cache",
+                    Pragma: "no-cache"
+                }
+            }).done(function(data) {
+                callback && callback(data);
+            }).fail(function(e) {
+                console.log("error===" + msg);
+            });
+        },
+        get: function(u, c, m) {
+            $.ajaxSetup({
+                cache: false
+            });
+            this.async(u, c, m, "get");
+        },
+        post: function(u, c, m, g, d) {
+            this.async(u, c, m, g, d);
+        },
+        postd: function(u, c, d) {
+            this.async(u, c, false, false, d);
+        },
+        //随机数
+        random: function(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        },
+        // 写cookie（过期时间）
+        setCookieWithExpPath: function(name, value, timeOut, path) {
+            var now = new Date();
+            now.setTime(now.getTime() + timeOut);
+            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + now.toGMTString();
+        },
+        //提供360结算方法
+        setCookieWithExp: function(name, value, timeOut, path) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + timeOut);
+            if (path) {
+                document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+            } else {
+                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+            }
+        },
+        //读 cookie
+        getCookie: function(name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
+                return unescape(arr[2]);
+            }
+            return null;
+        },
+        //删除cookie
+        delCookie: function(name, path, domain) {
+            var now = new Date();
+            now.setTime(now.getTime() - 1);
+            var cval = this.getCookie(name);
+            if (cval != null) {
+                if (path && domain) {
+                    document.cookie = name + "= '' " + ";domain=" + domain + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else if (path) {
+                    document.cookie = name + "= '' " + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else {
+                    document.cookie = name + "=" + cval + ";expires=" + now.toGMTString();
+                }
+            }
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        url2Obj: function(url) {
+            var obj = {};
+            var arr1 = url.split("?");
+            var arr2 = arr1[1].split("&");
+            for (var i = 0; i < arr2.length; i++) {
+                var res = arr2[i].split("=");
+                obj[res[0]] = res[1];
+            }
+            return obj;
+        },
+        //获取url中参数的值
+        getParam: function(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return "";
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        },
+        // 获取本地 localStorage 数据
+        getLocalData: function(key) {
+            try {
+                if (localStorage && localStorage.getItem) {
+                    var val = localStorage.getItem(key);
+                    return val === null ? null : JSON.parse(val);
+                } else {
+                    console.log("浏览器不支持html localStorage getItem");
+                    return null;
+                }
+            } catch (e) {
+                return null;
+            }
+        },
+        // 获取本地 localStorage 数据
+        setLocalData: function(key, val) {
+            if (localStorage && localStorage.setItem) {
+                localStorage.removeItem(key);
+                localStorage.setItem(key, JSON.stringify(val));
+            } else {
+                console.log("浏览器不支持html localStorage setItem");
+            }
+        },
+        // 浏览器环境判断
+        browserType: function() {
+            var userAgent = navigator.userAgent;
+            //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            if (isOpera) {
+                //判断是否Opera浏览器
+                return "Opera";
+            }
+            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+                //判断是否IE浏览器
+                return "IE";
+            }
+            if (userAgent.indexOf("Edge") > -1) {
+                //判断是否IE的Edge浏览器
+                return "Edge";
+            }
+            if (userAgent.indexOf("Firefox") > -1) {
+                //判断是否Firefox浏览器
+                return "Firefox";
+            }
+            if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) {
+                //判断是否Safari浏览器
+                return "Safari";
+            }
+            if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1) {
+                //判断Chrome浏览器
+                return "Chrome";
+            }
+        },
+        //判断IE9以下浏览器
+        validateIE9: function() {
+            return !!($.browser.msie && ($.browser.version === "9.0" || $.browser.version === "8.0" || $.browser.version === "7.0" || $.browser.version === "6.0"));
+        },
+        // 计算两个2个时间相差的天数
+        compareTime: function(startTime, endTime) {
+            if (!startTime || !endTime) return "";
+            return Math.abs((endTime - startTime) / 1e3 / 60 / 60 / 24);
+        },
+        // 修改参数 有参数则修改 无则加
+        changeURLPar: function(url, arg, arg_val) {
+            var pattern = arg + "=([^&]*)";
+            var replaceText = arg + "=" + arg_val;
+            if (url.match(pattern)) {
+                var tmp = "/(" + arg + "=)([^&]*)/gi";
+                tmp = url.replace(eval(tmp), replaceText);
+                return tmp;
+            } else {
+                if (url.match("[?]")) {
+                    return url + "&" + replaceText;
+                } else {
+                    return url + "?" + replaceText;
+                }
+            }
+        },
+        //获取url全部参数
+        getUrlAllParams: function(urlStr) {
+            if (typeof urlStr == "undefined") {
+                var url = decodeURI(location.search);
+            } else {
+                var url = "?" + urlStr.split("?")[1];
+            }
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        /**
+         * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
+         * @param url
+         * @param flag 是否新窗口打开
+         */
+        compatibleIESkip: function(url, flag) {
+            var referLink = document.createElement("a");
+            referLink.href = url;
+            referLink.style.display = "none";
+            if (flag) {
+                referLink.target = "_blank";
+            }
+            document.body.appendChild(referLink);
+            referLink.click();
+        },
+        testEmail: function(val) {
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if (reg.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        testPhone: function(val) {
+            if (/^1(3|4|5|7|8)\d{9}$/.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        handleRecommendData: function(list) {
+            var arr = [];
+            list.forEach(function(item) {
+                var temp = {};
+                if (item.type == 1) {
+                    // 资料 
+                    // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
+                    item.linkUrl = "/f/" + item.tprId + ".html";
+                    temp = item;
+                }
+                if (item.type == 2) {
+                    // 链接
+                    temp = item;
+                }
+                if (item.type == 3) {
+                    // 专题页
+                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
+                    item.linkUrl = "/node/s/" + item.tprId + ".html";
+                    temp = item;
+                }
+                arr.push(temp);
+            });
+            console.log(arr);
+            return arr;
+        },
+        formatDate: function(fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                //月份
+                "d+": this.getDate(),
+                //日
+                "h+": this.getHours(),
+                //小时
+                "m+": this.getMinutes(),
+                //分
+                "s+": this.getSeconds(),
+                //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                //季度
+                S: this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            return fmt;
+        }
+    };
+});
+
+/**
+ * 登录相关
+ */
+define("dist/application/checkLogin", [ "dist/application/api", "dist/application/method" ], function(require, exports, module) {
+    //var $ = require("$");
+    var api = require("dist/application/api");
+    var method = require("dist/application/method");
+    var api = require("dist/application/api");
+    module.exports = {
+        getIds: function() {
+            // 详情页
+            var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
+            var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
+            var classArr = [];
+            if (params) {
+                params.classid1 && classArr.push(params.classid1);
+                params.classid2 && classArr.push(params.classid2);
+                params.classid3 && classArr.push(params.classid3);
+            }
+            var clsId = params ? classArr.length > 0 ? classArr.join("-") : "" : "";
+            var fid = access ? access.fileId || params.g_fileId || "" : "";
+            // 类目页
+            var classIds = window.pageConfig && window.pageConfig.classIds ? window.pageConfig.classIds : "";
+            !clsId && (clsId = classIds);
+            return {
+                clsId: clsId,
+                fid: fid
+            };
+        },
+        /**
+         * description  唤醒登录界面
+         * @param callback 回调函数
+         */
+        notifyLoginInterface: function(callback) {
+            var _self = this;
+            if (!method.getCookie("cuk")) {
+                __pc__.push([ "pcTrackContent", "loginDialogLoad" ]);
+                var ptype = window.pageConfig && window.pageConfig.page ? window.pageConfig.page.ptype || "index" : "index";
+                $.loginPop("login", {
+                    terminal: "PC",
+                    businessSys: "ishare",
+                    domain: document.domain,
+                    ptype: ptype,
+                    clsId: this.getIds().clsId,
+                    fid: this.getIds().fid
+                }, function(data) {
+                    // 透传
+                    // method.get(api.user.getJessionId, function (res) {
+                    _self.getLoginData(callback);
+                });
+            }
+        },
+        listenLoginStatus: function(callback) {
+            var _self = this;
+            $.loginPop("login_wx_code", {
+                terminal: "PC",
+                businessSys: "ishare",
+                domain: document.domain,
+                ptype: "ishare",
+                popup: "hidden",
+                clsId: this.getIds().clsId,
+                fid: this.getIds().fid
+            }, function() {
+                // method.get(api.user.getJessionId, function (res) {
+                // if (res.code == 0) {
+                _self.getLoginData(callback);
+            });
+        },
+        /**
+         * description  唤醒校验界面
+         */
+        notifyCheckInterface: function() {
+            if (method.getCookie("cuk")) {
+                $.loginPop("checkCode", {
+                    terminal: "PC",
+                    businessSys: "ishare",
+                    domain: document.domain,
+                    clsId: this.getIds().clsId,
+                    fid: this.getIds().fid
+                }, function(data) {
+                    if (data.code == "0") {
+                        method.get(api.user.getJessionId, function(res) {}, "");
+                    }
+                });
+            }
+        },
+        /**
+         * description  免登录透传用户信息
+         * @param callback 回调函数
+         */
+        syncUserInfoInterface: function(callback) {
+            var _self = this;
+            if (method.getCookie("cuk")) {
+                method.get(api.user.getJessionId, function(res) {
+                    if (res.code == 0) {
+                        _self.getLoginData(callback);
+                    }
+                }, "");
+            }
+        },
+        /**
+        * description  优惠券提醒 查询用户发券资格-pc
+        * @param callback 回调函数
+        */
+        getUserData: function(callback) {
+            if (method.getCookie("cuk")) {
+                method.get(api.coupon.querySeniority, function(res) {
+                    if (res && res.code == 0) {
+                        callback(res.data);
+                    }
+                }, "");
+            }
+        },
+        /**
+         * 获取用户信息
+         * @param callback 回调函数
+         */
+        getLoginData: function(callback) {
+            var _self = this;
+            try {
+                method.get(api.user.login, function(res) {
+                    if (res.code == 0 && res.data) {
+                        if (callback && typeof callback == "function") {
+                            callback(res.data);
+                            try {
+                                window.pageConfig.params.isVip = res.data.isVip;
+                                window.pageConfig.page.uid = res.data.userId;
+                            } catch (err) {}
+                        }
+                        try {
+                            var userInfo = {
+                                uid: res.data.userId,
+                                isVip: res.data.isVip,
+                                tel: res.data.mobile
+                            };
+                            method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1e3, "/");
+                        } catch (e) {}
+                    } else if (res.code == 40001) {
+                        _self.ishareLogout();
+                    }
+                });
+            } catch (e) {}
+        },
+        /**
+         * 退出
+         */
+        ishareLogout: function() {
+            //删域名cookie
+            method.delCookie("cuk", "/", ".sina.com.cn");
+            method.delCookie("cuk", "/", ".iask.com.cn");
+            method.delCookie("cuk", "/", ".iask.com");
+            //微信扫码登录sceneId
+            method.delCookie("sid", "/", ".iask.sina.com.cn");
+            method.delCookie("sid", "/", ".iask.com.cn");
+            method.delCookie("sid", "/", ".sina.com.cn");
+            method.delCookie("sid", "/", ".ishare.iask.com.cn");
+            method.delCookie("sid", "/", ".office.iask.com");
+            method.delCookie("sid_ishare", "/", ".iask.sina.com.cn");
+            method.delCookie("sid_ishare", "/", ".iask.com.cn");
+            method.delCookie("sid_ishare", "/", ".sina.com.cn");
+            method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
+            //删除第一次登录标识
+            method.delCookie("_1st_l", "/");
+            method.delCookie("ui", "/");
+            // $.post("/logout", function () {
+            //     window.location.href = window.location.href;
+            // });
+            $.post(api.user.loginOut, function() {
+                window.location.href = window.location.href;
+            });
+        }
+    };
+});
+
+/**
+ * 前端交互性API
+ **/
+define("dist/application/api", [], function(require, exports, module) {
+    var router = "/gateway/pc";
+    var gateway = "/gateway";
+    module.exports = {
+        // 用户相关
+        user: {
+            // 登录
+            login: router + "/usermanage/checkLogin",
+            // 登出
+            loginOut: gateway + "/pc/usermanage/logout",
+            // 我的收藏
+            collect: router + "/usermanage/collect",
+            newCollect: gateway + "/content/collect/getUserFileList",
+            // 透传老系统web登录信息接口
+            getJessionId: router + "/usermanage/getJessionId",
+            //优惠券提醒
+            getSessionInfo: router + "/usermanage/getSessionInfo",
+            addFeedback: gateway + "/feedback/addFeedback",
+            //新增反馈
+            getFeedbackType: gateway + "/feedback/getFeedbackType",
+            //获取反馈问题类型
+            sendSms: gateway + "/cas/sms/sendSms",
+            // 发送短信验证码
+            queryBindInfo: gateway + "/cas/user/queryBindInfo",
+            // 查询用户绑定信息
+            thirdCodelogin: gateway + "/cas/login/thirdCode",
+            // /cas/login/thirdCode
+            userBindMobile: gateway + "/cas/user/bindMobile",
+            // 绑定手机号接口
+            checkIdentity: gateway + "/cas/sms/checkIdentity",
+            // 身份验证账号
+            userBindThird: gateway + "/cas/user/bindThird",
+            // 绑定第三方账号接口
+            untyingThird: gateway + "/cas/user/untyingThird",
+            // 解绑第三方
+            setUpPassword: gateway + "/cas/user/setUpPassword",
+            // 设置密码
+            getUserCentreInfo: gateway + "/user/getUserCentreInfo",
+            editUser: gateway + "/user/editUser",
+            // 编辑用户信息
+            getFileBrowsePage: gateway + "/content/fileBrowse/getFileBrowsePage",
+            //分页获取用户的历史浏览记录
+            getDownloadRecordList: gateway + "/content/getDownloadRecordList",
+            //用户下载记录接口
+            getUserFileList: gateway + "/content/collect/getUserFileList",
+            // 查询个人收藏列表
+            getMyUploadPage: gateway + "/content/getMyUploadPage",
+            // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
+            getOtherUser: gateway + "/user/getOthersCentreInfo",
+            //他人信息主页 
+            getSearchList: gateway + "/search/content/byCondition"
+        },
+        // 查询用户发券资格接口
+        // sale: {
+        //     querySeniority: router + '/sale/querySeniority',
+        // },
+        normalFileDetail: {
+            // 添加评论
+            addComment: router + "/fileSync/addComment",
+            // 举报
+            reportContent: router + "/fileSync/addFeedback",
+            // 是否已收藏
+            isStore: router + "/fileSync/getFileCollect",
+            // 取消或者关注
+            collect: router + "/fileSync/collect",
+            // 文件预下载
+            filePreDownLoad: gateway + "/content/getPreFileDownUrl",
+            // 文件下载
+            fileDownLoad: router + "/action/downloadUrl",
+            // 下载获取地址接口
+            getFileDownLoadUrl: gateway + "/content/getFileDownUrl",
+            // 文件打分
+            appraise: router + "/fileSync/appraise",
+            // 文件预览判断接口
+            getPrePageInfo: router + "/fileSync/prePageInfo",
+            // 文件是否已下载
+            hasDownLoad: router + "/fileSync/isDownload"
+        },
+        officeFileDetail: {},
+        search: {
+            //搜索服务--API接口--运营位数据--异步
+            byPosition: router + "/operating/byPosition",
+            specialTopic: gateway + "/search/specialTopic/lisPage"
+        },
+        sms: {
+            // 获取短信验证码
+            getCaptcha: router + "/usermanage/getSmsYzCode",
+            sendCorpusDownloadMail: gateway + "/content/fileSendEmail/sendCorpusDownloadMail"
+        },
+        pay: {
+            // 购买成功后,在页面自动下载文档
+            successBuyDownLoad: router + "/action/downloadNow",
+            // 绑定订单
+            bindUser: router + "/order/bindUser",
+            scanOrderInfo: gateway + "/order/scan/orderInfo"
+        },
+        coupon: {
+            rightsSaleVouchers: gateway + "/rights/sale/vouchers",
+            rightsSaleQueryPersonal: gateway + "/rights/sale/queryPersonal",
+            querySeniority: gateway + "/rights/sale/querySeniority",
+            queryUsing: gateway + "/rights/sale/queryUsing",
+            getMemberPointRecord: gateway + "/rights/vip/getMemberPointRecord",
+            getBuyRecord: gateway + "/rights/vip/getBuyRecord"
+        },
+        vouchers: router + "/sale/vouchers",
+        order: {
+            bindOrderByOrderNo: router + "/order/bindOrderByOrderNo",
+            unloginOrderDown: router + "/order/unloginOrderDown",
+            createOrderInfo: gateway + "/order/create/orderInfo",
+            rightsVipGetUserMember: gateway + "/rights/vip/getUserMember",
+            getOrderStatus: gateway + "/order/get/orderStatus",
+            queryOrderlistByCondition: gateway + "/order/query/listByCondition",
+            getOrderInfo: gateway + "/order/get/orderInfo"
+        },
+        getHotSearch: router + "/search/getHotSearch",
+        special: {
+            fileSaveOrupdate: gateway + "/comment/collect/fileSaveOrupdate",
+            // 收藏与取消收藏
+            getCollectState: gateway + "/comment/zc/getUserFileZcState",
+            //获取收藏状态
+            setCollect: gateway + "/content/collect/file"
+        },
+        upload: {
+            getCategory: gateway + "/content/category/getSimplenessInfo",
+            // 获取所有分类
+            createFolder: gateway + "/content/saveUserFolder",
+            // 获取所有分类
+            getFolder: gateway + "/content/getUserFolders",
+            // 获取所有分类
+            saveUploadFile: gateway + "/content/webUploadFile",
+            batchDeleteUserFile: gateway + "/content/batchDeleteUserFile"
+        },
+        recommend: {
+            recommendConfigInfo: gateway + "/recommend/config/info",
+            recommendConfigRuleInfo: gateway + "/recommend/config/ruleInfo"
+        },
+        reportBrowse: {
+            fileBrowseReportBrowse: gateway + "/content/fileBrowse/reportBrowse"
+        }
+    };
+});
+
+/**
+ * @Description: 工具类
+ */
+define("dist/cmd-lib/util", [], function(require, exports, module) {
+    // var $ = require("$");
+    var utils = {
+        //节流函数 func 是传入执行函数，wait是定义执行间隔时间
+        throttle: function(func, wait) {
+            var last, deferTimer;
+            return function(args) {
+                var that = this;
+                var _args = arguments;
+                //当前时间
+                var now = +new Date();
+                //将当前时间和上一次执行函数时间对比
+                //如果差值大于设置的等待时间就执行函数
+                if (last && now < last + wait) {
+                    clearTimeout(deferTimer);
+                    deferTimer = setTimeout(function() {
+                        last = now;
+                        func.apply(that, _args);
+                    }, wait);
+                } else {
+                    last = now;
+                    func.apply(that, _args);
+                }
+            };
+        },
+        //防抖函数 func 是传入执行函数，wait是定义执行间隔时间
+        debounce: function(func, wait) {
+            //缓存一个定时器id 
+            var timer = 0;
+            var that = this;
+            return function(args) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(function() {
+                    func.apply(that, args);
+                }, wait);
+            };
+        },
+        //判断是否微信浏览器
+        isWeChatBrow: function() {
+            var ua = navigator.userAgent.toLowerCase();
+            var isWeixin = ua.indexOf("micromessenger") != -1;
+            if (isWeixin) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //识别是ios 还是 android
+        getWebAppUA: function() {
+            var res = 0;
+            //非IOS
+            var ua = navigator.userAgent.toLowerCase();
+            if (/iphone|ipad|ipod/.test(ua)) {
+                res = 1;
+            } else if (/android/.test(ua)) {
+                res = 0;
+            }
+            return res;
+        },
+        //判断IE8以下浏览器
+        validateIE8: function() {
+            if ($.browser.msie && ($.browser.version == "8.0" || $.browser.version == "7.0" || $.browser.version == "6.0")) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //判断IE9以下浏览器
+        validateIE9: function() {
+            if ($.browser.msie && ($.browser.version == "9.0" || $.browser.version == "8.0" || $.browser.version == "7.0" || $.browser.version == "6.0")) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //获取来源地址 gio上报使用
+        getReferrer: function() {
+            var referrer = document.referrer;
+            var res = "";
+            if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+                res = "360wenku";
+            } else if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "ishare";
+            } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "iask";
+            }
+            return res;
+        },
+        getPageRef: function(fid) {
+            var that = this;
+            var ref = 0;
+            if (that.is360cookie(fid) || that.is360cookie("360")) {
+                ref = 1;
+            }
+            if (that.is360wkCookie()) {
+                ref = 3;
+            }
+            return ref;
+        },
+        is360cookie: function(val) {
+            var that = this;
+            var rso = that.getCookie("_r_so");
+            if (rso) {
+                var split = rso.split("_");
+                for (var i = 0; i < split.length; i++) {
+                    if (split[i] == val) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+        add360wkCookie: function() {
+            this.setCookieWithExpPath("_360hz", "1", 1e3 * 60 * 30, "/");
+        },
+        is360wkCookie: function() {
+            return getCookie("_360hz") == null ? false : true;
+        },
+        getCookie: function(name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
+                return unescape(arr[2]);
+            }
+            return null;
+        },
+        setCookieWithExpPath: function(name, value, timeOut, path) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + timeOut);
+            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+        },
+        //gio数据上报上一级页面来源
+        findRefer: function() {
+            var referrer = document.referrer;
+            var res = "other";
+            if (/https?\:\/\/[^\s]*\/f\/.*$/g.test(referrer)) {
+                res = "pindex";
+            } else if (/https?\:\/\/[^\s]*\/d\/.*$/g.test(referrer)) {
+                res = "landing";
+            } else if (/https?\:\/\/[^\s]*\/c\/.*$/g.test(referrer)) {
+                res = "pcat";
+            } else if (/https?\:\/\/[^\s]*\/search\/.*$/g.test(referrer)) {
+                res = "psearch";
+            } else if (/https?\:\/\/[^\s]*\/t\/.*$/g.test(referrer)) {
+                res = "ptag";
+            } else if (/https?\:\/\/[^\s]*\/[u|n]\/.*$/g.test(referrer)) {
+                res = "popenuser";
+            } else if (/https?\:\/\/[^\s]*\/ucenter\/.*$/g.test(referrer)) {
+                res = "puser";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(referrer)) {
+                res = "ishareindex";
+            } else if (/https?\:\/\/[^\s]*\/theme\/.*$/g.test(referrer)) {
+                res = "theme";
+            } else if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+                res = "360wenku";
+            } else if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "ishare";
+            } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "iask";
+            }
+            return res;
+        },
+        /*通用对话框(alert)*/
+        showAlertDialog: function(title, content, callback) {
+            var bgMask = $(".common-bgMask");
+            var dialog = $(".common-dialog");
+            /*标题*/
+            dialog.find("h2[name='title']").text(title);
+            /*内容*/
+            dialog.find("span[name='content']").html(content);
+            /*文件下载dialog关闭按钮事件*/
+            dialog.find("a.close,a.btn-dialog").unbind("click").click(function() {
+                bgMask.hide();
+                dialog.hide();
+                /*回调*/
+                if (callback && !$(this).hasClass("close")) callback();
+            });
+            bgMask.show();
+            dialog.show();
+        },
+        browserVersion: function(userAgent) {
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera;
+            //判断是否IE浏览器
+            var isEdge = userAgent.indexOf("Edge") > -1;
+            //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1;
+            //判断是否Firefox浏览器
+            var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1;
+            //判断是否Safari浏览器
+            var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1;
+            //判断Chrome浏览器
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                if (fIEVersion === 7) {
+                    return "IE7";
+                } else if (fIEVersion === 8) {
+                    return "IE8";
+                } else if (fIEVersion === 9) {
+                    return "IE9";
+                } else if (fIEVersion === 10) {
+                    return "IE10";
+                } else if (fIEVersion === 11) {
+                    return "IE11";
+                } else if (fIEVersion === 12) {
+                    return "IE12";
+                } else {
+                    return "IE";
+                }
+            }
+            if (isOpera) {
+                return "Opera";
+            }
+            if (isEdge) {
+                return "Edge";
+            }
+            if (isFF) {
+                return "Firefox";
+            }
+            if (isSafari) {
+                return "Safari";
+            }
+            if (isChrome) {
+                return "Chrome";
+            }
+            return "unKnow";
+        },
+        getBrowserInfo: function(userAgent) {
+            var Sys = {};
+            var ua = userAgent.toLowerCase();
+            var re = /(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/;
+            var m = ua.match(re);
+            if (m && m.length >= 2) {
+                Sys.browser = m[1].replace(/version/, "'safari") || "unknow";
+                Sys.ver = m[2] || "1.0.0";
+            } else {
+                Sys.browser = "unknow";
+                Sys.ver = "1.0.0";
+            }
+            return Sys.browser + "/" + Sys.ver;
+        }
+    };
+    //return utils;
+    module.exports = utils;
+});
+
+define("dist/common/recommendConfigInfo", [], function(require, exports, module) {
+    return {
+        search: {
+            descs: [ //搜索页推荐位
+            {
+                desc: "搜索页顶部banner",
+                pageId: "PC_M_SR_ub",
+                list: []
+            }, {
+                desc: "搜索页右侧banner",
+                pageId: "PC_M_SR_rb",
+                list: []
+            }, {
+                desc: "搜索页底部banner",
+                pageId: "PC_M_SR_downb",
+                list: []
+            } ],
+            pageIds: [ "PC_M_SR_ub", "PC_M_SR_rb", "PC_M_SR_downb" ]
+        },
+        paySuccess: {
+            descs: [ {
+                desc: "支付成功页面banner",
+                pageId: "PC_M_PAY_SUC_banner",
+                list: []
+            } ],
+            pageIds: [ "PC_M_PAY_SUC_banner" ]
+        },
+        downSuccess: {
+            descs: [ {
+                desc: "下载成功页面banner",
+                pageId: "PC_M_DOWN_SUC_banner",
+                list: []
+            } ],
+            pageIds: [ "PC_M_DOWN_SUC_banner" ]
+        },
+        personalCenterHome: {
+            descs: [ {
+                desc: "个人中心首页,bannber",
+                pageId: "PC_M_USER_banner",
+                list: []
+            } ],
+            pageIds: [ "PC_M_USER_banner" ]
+        },
+        myVipRightsBanner: {
+            descs: [ {
+                desc: "个人中心我的vip,bannber",
+                pageId: "PC_M_USER_VIP_banner",
+                list: []
+            } ],
+            pageIds: [ "PC_M_USER_VIP_banner" ]
+        },
+        myVipRightsList: {
+            descs: [ {
+                desc: "个人中心首页/我的VIP页的VIP权益缩略图",
+                pageId: "PC_M_USER_vip",
+                list: []
+            } ],
+            pageIds: [ "PC_M_USER_vip" ]
+        }
+    };
+});
+
+define("dist/common/template/swiper_tmp.html", [], '<!--轮播图-->\n    <div class="swiper-container {{className}}">\n         <div class="swiper-wrapper">\n         {{each topBanner}}\n            <div class="swiper-slide" >\n               <a href={{ topBanner[$index].linkUrl}} target="_blank">\n                 <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>\n               </a>\n            </div>\n            {{/each}} \n         </div>\n         {{if hasDeleteIcon}}\n        <span class="icon close-swiper"><span>\n        {{/if}}\n         \n    </div>            \n');
+
+define("dist/common/bindphone", [ "dist/application/api" ], function(require, exports, moudle) {
+    //var $ = require("$");
+    var api = require("dist/application/api");
+    /**
+     * 获取图形验证码
+     */
+    function getCaptcha() {
+        var mobile = $("#ip-mobile").val().replace(/\s/g, "");
+        if (mobile) {
+            $(".login-error span").parent().hide();
+            $.get("/cas/captcha/get?mobile=" + mobile, function(data, status) {
+                if (status == "success") {
+                    /*$(".unlock-pic").html('<img src="'+data+'" onclick="getCaptcha();" width="80" height="42">')*/
+                    $(".img-code-item .unlock-pic img").attr("src", data);
+                } else {
+                    console.log("获取图形验证码异常");
+                }
+            });
+        } else {
+            $(".login-error span").text("请输入手机号").parent().show();
+        }
+    }
+    function formatTel(mobile) {
+        var value = mobile.replace(/\D/g, "").substring(0, 11);
+        var valueLen = value.length;
+        if (valueLen > 3 && valueLen < 8) {
+            value = value.replace(/^(...)/g, "$1 ");
+        } else if (valueLen >= 8) {
+            value = value.replace(/^(...)(....)/g, "$1 $2 ");
+        }
+        return value;
+    }
+    function handle(flag) {
+        if (flag == "1") {
+            //334
+            var mobile = $("#mobile").val();
+            $(".carding-error").hide();
+            if (mobile) {
+                $("#mobile").val(formatTel(mobile));
+                $(".btn-binding-code").removeClass("btn-code-no");
+            } else {
+                $(".btn-binding-code").addClass("btn-code-no");
+            }
+        }
+    }
+    /**
+     * 验证码验证
+     * @param callback
+     */
+    function fcheckCode(callback) {
+        $.post("/cas-api/checkCode", {
+            nationCode: $(".phone-num em").text(),
+            mobile: $("#ip-mobile").val().replace(/\s/g, ""),
+            smsId: $("#ip-smsId").val(),
+            checkCode: $("#ip-checkCode").val()
+        }, callback);
+    }
+    /**
+     * 验证提示
+     * @param nationCode
+     * @param mobile
+     * @returns {*}
+     */
+    function checkMsg(nationCode, mobile) {
+        var msg = null;
+        if (!mobile) {
+            msg = "请输入手机号";
+        } else {
+            msg = $.checkMobile(nationCode, mobile);
+        }
+        return msg;
+    }
+    function checkBindingMobile(uid) {
+        $.get("/ucenter/checkUserBindMobile?uid=" + uid, function(data) {
+            alert(data);
+        });
+    }
+    var ValidateClick = function() {
+        this.callback = null;
+        /**
+         *  定时器
+         */
+        function TimerClock() {
+            this.maxTimes = 60;
+            //计时周期
+            this.times = 1e3;
+            //计时步伐
+            this.timer = null;
+            this.ele = null;
+            this.callback = null;
+            this.beforeShow = null;
+            /**
+             *
+             * @param ele
+             * @param beforeShow 执行前处理 返回true 继续 false 终止
+             * @param callback回调函数
+             */
+            this.showTimeClock = function(ele, beforeShow, callback) {
+                //倒计时
+                this.ele = ele;
+                this.beforeShow = beforeShow;
+                if (!this.beforeShow()) {
+                    return;
+                }
+                this.ele.text(this.maxTimes);
+                var that = this;
+                this.callback = callback;
+                this.timer = setInterval(function(args) {
+                    that.countDown();
+                }, this.times);
+            };
+            /**
+             * 每秒计数
+             */
+            this.countDown = function() {
+                if (this.maxTimes > 0) {
+                    this.maxTimes = this.maxTimes - 1;
+                    this.ele.text(this.maxTimes);
+                } else {
+                    clearInterval(this.timer);
+                    this.callback();
+                }
+            };
+        }
+        this.execute = function(data, callbcak) {
+            this.callback = callbcak;
+            var mobile = $("#ip-mobile").val().replace(/\s/g, "");
+            var nationCode = $(".phone-num em").text();
+            var captcha = $.trim($captcha.find("input").val());
+            //去空格
+            var msg = null;
+            if (msg = checkMsg(nationCode, mobile)) {
+                //$mobile.find('.error-text').text(msg).show();
+                $loginError.text(msg).parent().show();
+                return;
+            }
+            //发送短信
+            this.sendSms("&nationCode=" + nationCode + "&mobile=" + mobile + "&businessCode=" + data["businessCode"] + "&captcha=" + captcha);
+        };
+        this.showTimeClock = function() {
+            var $checkCode = $(".input-code-div");
+            //设置时间倒计时
+            new TimerClock().showTimeClock($checkCode.find(".validate-text em"), function() {
+                $checkCode.find(".validate-link").hide();
+                $checkCode.find(".validate-text").show();
+                return true;
+            }, function() {
+                $checkCode.find(".validate-text").hide();
+                $checkCode.find(".validate-link").text("重新获取验证码").show();
+            });
+        };
+        /**
+         *  //发送短信
+         * @param data
+         * @param callback
+         */
+        this.sendSms = function(data) {
+            var _this = this;
+            $.get("/cas-api/sendSms?" + getPdata("terminal") + "&" + getPdata("businessSys") + data, _this.callback);
+        };
+    };
+    //检查图形验证码是否正确
+    function checkCaptcha(mobile, captcha, callback) {
+        $.get("/cas/captcha/check?mobile=" + mobile + "&captcha=" + captcha, callback);
+    }
+    //检查手机号是否已注册
+    function checkMobileRegister(mobile, callback) {
+        $.get("/cas/checkMobileRegister?mobile=" + mobile, callback);
+    }
+    $(function() {
+        // debugger
+        //手机区号选择
+        var $choiceCon = $(".phone-choice");
+        var pageType = $("#ip-page-type").val();
+        //页面类型
+        var $checkCode = $("#ip-checkCode");
+        //手机验证码
+        var $mobile = $("#mobile");
+        //手机号
+        var $captcha = $(".login-input-item.img-code-item");
+        //图形验证码div
+        var $loginError = $(".carding-error span");
+        //错误提醒位置
+        $choiceCon.find(".phone-num").click(function(e) {
+            e.stopPropagation();
+            if ($(this).siblings(".phone-more").is(":hidden")) {
+                $(this).parent().addClass("phone-choice-show");
+                $(this).siblings(".phone-more").show();
+            } else {
+                $(this).parent().removeClass("phone-choice-show");
+                $(this).siblings(".phone-more").hide();
+            }
+        });
+        $(".phone-more").find("a").click(function() {
+            var countryNum = $(this).find(".number-con").find("em").text();
+            $choiceCon.find(".phone-num").find("em").text(countryNum);
+            $choiceCon.removeClass("phone-choice-show");
+            $choiceCon.find(".phone-more").hide();
+        });
+        //手机号格式化(xxx xxxx xxxx)
+        $(document).on("keyup", "#mobile", function() {
+            handle(1);
+        });
+        //enter 键
+        $(document).keyup(function(event) {
+            if (event.keyCode == 13) {
+                $(".btn-phone-login").trigger("click");
+            }
+        });
+        //绑定
+        $(".btn-bind").click(function() {
+            if ($(this).hasClass("btn-code-no")) {
+                return;
+            }
+            var mobile = $mobile.val().replace(/\s/g, "");
+            var checkCode = $checkCode.val();
+            var nationCode = $(".phone-num em").text();
+            if (/^\s*$/g.test(mobile)) {
+                $loginError.text("请输入手机号码!").parent().show();
+                return;
+            }
+            if (/^\s*$/g.test(checkCode)) {
+                $loginError.text("请输入验证码!").parent().show();
+                return;
+            }
+            var params = {
+                nationCode: nationCode,
+                mobile: mobile,
+                smsId: $checkCode.attr("smsId"),
+                checkCode: checkCode
+            };
+            $.post("/pay/bindMobile", params, function(data) {
+                if (data) {
+                    if (data.code == "0") {
+                        $(".binging-main").hide();
+                        $(".binging-success").show();
+                    } else {
+                        $loginError.text(data.msg).parent().show();
+                        $(".carding-error").show();
+                    }
+                }
+            }, "json");
+        });
+        var captcha = function(appId, randstr, ticket, onOff) {
+            var _this = $(".binging-main .yz-link");
+            if ($(_this).hasClass("btn-code-no")) {
+                return;
+            }
+            var mobile = $mobile.val().replace(/\s/g, "");
+            if (/^\s*$/g.test(mobile)) {
+                $loginError.text("请输入手机号码!").parent().show();
+                return;
+            }
+            $loginError.parent().hide();
+            var param = JSON.stringify({
+                phoneNo: mobile,
+                businessCode: $(_this).siblings('input[name="businessCode"]').val(),
+                appId: appId,
+                randstr: randstr,
+                ticket: ticket,
+                onOff: onOff
+            });
+            $.ajax({
+                type: "POST",
+                url: api.sms.getCaptcha,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: param,
+                success: function(data) {
+                    if (data) {
+                        if (data.code == "0") {
+                            $checkCode.removeAttr("smsId");
+                            $checkCode.attr("smsId", data.data.smsId);
+                            var yzTime$ = $(_this).siblings(".yz-time");
+                            yzTime$.addClass("btn-code-no");
+                            yzTime$.show();
+                            $(_this).hide();
+                            $(".btn-none-bind").hide();
+                            $(".btn-bind").show();
+                            // $(".btn-binging").removeClass("btn-binging-no");
+                            (function countdown() {
+                                var yzt = yzTime$.text().replace(/秒后重发$/g, "");
+                                yzt = /^\d+$/g.test(yzt) ? Number(yzt) : 60;
+                                if (yzt && yzt >= 0) yzTime$.text(--yzt + "秒后重发");
+                                if (yzt <= 0) {
+                                    yzTime$.text("60秒后重发").hide();
+                                    $(_this).text("重获验证码").show();
+                                    return;
+                                }
+                                setTimeout(countdown, 1e3);
+                            })();
+                        } else if (data.code == "2112") {
+                            showCaptcha(captcha);
+                        } else if (data.code == "226") {
+                            //图形验证码错误
+                            $loginError.text("图形验证码错误").parent().show();
+                        } else {
+                            $loginError.text(data.msg).parent().show();
+                        }
+                    } else {
+                        $loginError.text("发送短信失败").parent().show();
+                    }
+                }
+            });
+        };
+        /*获取短信验证码*/
+        $(".binging-main").delegate(".yz-link", "click", function() {
+            captcha("", "", "", "");
+        });
+    });
+    /**
+     * 天御验证码相关功能
+     */
+    var capt;
+    var showCaptcha = function(options) {
+        var appId = "2071307690";
+        if (!capt) {
+            capt = new TencentCaptcha(appId, captchaCallback, {
+                bizState: options
+            });
+        }
+        capt.show();
+    };
+    var captchaCallback = function(res) {
+        // res（用户主动关闭验证码）= {ret: 2, ticket: null}
+        // res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
+        if (res.ret === 0) {
+            res.bizState(res.appid, res.randstr, res.ticket, 1);
+        }
+    };
+    return {
+        showCaptcha: showCaptcha
+    };
+});
+
+/**
+ * 发优惠券
+ */
+define("dist/common/coupon/couponIssue", [ "dist/cmd-lib/toast", "dist/application/method", "dist/cmd-lib/util", "dist/cmd-lib/loading", "dist/application/checkLogin", "dist/application/api" ], function(require, exports, module) {
+    // var $ = require("$");
+    require("dist/cmd-lib/toast");
+    var method = require("dist/application/method");
+    var utils = require("dist/cmd-lib/util");
+    var fid = method.getParam("fid");
+    require("dist/cmd-lib/loading");
+    var login = require("dist/application/checkLogin");
+    var couponOptions = require("dist/common/coupon/template/couponCard.html");
+    var api = require("dist/application/api");
+    var couponObj = {
+        _index: 0,
+        pageType: 1,
+        //1 是购买成功，2是下载成功
+        type: 4,
+        //0游客，1首次购买现金文档，2首次购买vip，3首次下载免费文档
+        isFirstCashBuy: 2,
+        isFirstVipBuy: 2,
+        dowStatus: 2,
+        isVip: 0,
+        isFreeFile: 0,
+        userId: "",
+        pageUrl: "",
+        initial: function() {
+            var urlArr = location.pathname.split("/");
+            couponObj.pageUrl = urlArr[urlArr.length - 1];
+            var unloginFlag = method.getQueryString("unloginFlag");
+            //免登录购买成功页 下载页
+            if (couponObj.pageType == 1 || couponObj.pageType == 2) {
+                if (!unloginFlag) {
+                    login.getUserData(function(data) {
+                        couponObj.isVip = data.isVip;
+                        couponObj.isFirstCashBuy = data.isFirstCashBuy;
+                        couponObj.isFirstVipBuy = data.isFirstVipBuy;
+                        couponObj.dowStatus = data.dowStatus;
+                        couponObj.userId = data.userId;
+                        couponObj.confirmCouponType();
+                        if (couponObj.type != 4 && couponObj.pageUrl != "downsucc.html") {
+                            couponObj.getCouponList();
+                        }
+                    });
+                }
+            }
+        },
+        domChange: function() {
+            if (couponObj.type == 1) {
+                if (couponObj.isFirstCashBuy == 1) {
+                    // 首次 现金 购买发券
+                    $(".couponContainer").show();
+                    $(".previousContainer").hide();
+                    if (couponObj.isVip == 0) {
+                        $(".bottom-privilege").removeClass("hide");
+                        //出现开通vip提示
+                        $(".down-succ-btn[data-type=default]").show().css("display", "block").siblings("a").hide();
+                        $(".give-coupon-wrap").css("border-bottom", "none!important");
+                        $(".couponContainer .carding-er-code").hide();
+                    } else {
+                        $(".bottom-privilege").addClass("hide");
+                        //隐藏开通vip提示
+                        $(".down-succ-btn[data-type=default]").show().css("display", "hide");
+                        $(".couponContainer .carding-er-code").show();
+                    }
+                }
+            }
+            if (couponObj.type == 2) {
+                if (couponObj.isFirstVipBuy == 1) {
+                    // 首次 vip 购买发券
+                    $(".couponContainer").show();
+                    $(".previousContainer").hide();
+                    $(".bottom-privilege").hide();
+                    $(".couponContainer .carding-er-code").show();
+                }
+            }
+            if (couponObj.type == 3) {
+                //    下载成功页
+                // 首次 免费文档下载
+                $(".couponContainer").show();
+                $(".previousContainer").hide();
+                if (couponObj.isVip == 0) {
+                    $(".downSucc-privi").removeClass("hide");
+                } else {
+                    $(".downSucc-privi").addClass("hide");
+                }
+                $(".carding-er-code").show();
+                $(".down-succ-btn[data-type=default]").addClass("hide").hide();
+                $(".give-coupon-wrap").css("border-bottom", "none!important");
+            }
+        },
+        /**
+        * 确定优惠券请求类型
+       */
+        confirmCouponType: function() {
+            var pageType = 0;
+            //1是购买成功，2是下载成功
+            var buyType = Number($("#ip-type").val());
+            //0是VIP购买，2是现金文档
+            if (couponObj.pageUrl == "downsucc.html") {
+                couponObj.getFileType(fid);
+                pageType = 1;
+                if (couponObj.dowStatus == 1 && couponObj.isFreeFile == 1 && localStorage.getItem("FirstDown") != 1) {
+                    couponObj.type = 3;
+                }
+            } else if (couponObj.pageUrl == "success.html") {
+                pageType = 2;
+                if (buyType == 2 && couponObj.isFirstCashBuy == 1 && method.getCookie("FirstCashBuy") != couponObj.userId) {
+                    couponObj.type = 1;
+                } else if (buyType == 0 && couponObj.isFirstVipBuy == 1 && method.getCookie("FirstVipBuy") != couponObj.userId) {
+                    couponObj.type = 2;
+                }
+            }
+            couponObj.pageType = pageType;
+        },
+        /**
+         * 获取优惠券列表
+        */
+        getCouponList: function() {
+            var url = "/node/coupon/issueCoupon?type=" + couponObj.type;
+            $.get(url, function(res) {
+                if (res.code == 0) {
+                    if (res.data) {
+                        if (res.data.list.length > 0) {
+                            var _html = template.compile(couponOptions)({
+                                data: res.data
+                            });
+                            $(".give-title").text(res.data.prompt);
+                            $(".give-coupon-list").html(_html);
+                            couponObj.domChange();
+                            couponObj.bringCouponClick();
+                            $(".down-carding-main").addClass("coupon-carding-item");
+                            $(".carding-vip-main").addClass("coupon-carding-item");
+                            if (couponObj.type == 1) {
+                                method.setCookieWithExpPath("FirstCashBuy", couponObj.userId, 30 * 24 * 60 * 60 * 1e3, "/");
+                            } else if (couponObj.type == 2) {
+                                method.setCookieWithExpPath("FirstVipBuy", couponObj.userId, 30 * 24 * 60 * 60 * 1e3, "/");
+                            } else if (couponObj.type == 3) {
+                                method.setCookieWithExpPath("FirstDown", couponObj.userId, 30 * 24 * 60 * 60 * 1e3, "/");
+                            }
+                        }
+                    }
+                }
+            });
+        },
+        /**
+          * 点击领取
+         */
+        bringCouponClick: function() {
+            $(".btn-receive").click(function() {
+                couponObj.receiveCoupon(couponObj.type, 1);
+            });
+        },
+        /**
+         * 关闭头部提示
+        */
+        closeTipByClick: function() {
+            $(".coupon-info-top").on("click", ".btn-no-user", function() {
+                $(".coupon-info-top").hide();
+            });
+        },
+        showTips: function(type) {
+            setTimeout(function() {
+                if (type == 0) {
+                    $(".dialog-coupon.dialog-coupon-success").show();
+                } else {
+                    $(".dialog-coupon.dialog-coupon-fail").show();
+                }
+            }, 1500);
+        },
+        /**
+         * 领取优惠券
+        */
+        receiveCoupon: function(type, source) {
+            var data = {
+                source: source,
+                type: type
+            };
+            data = JSON.stringify(data);
+            $("body").loading({
+                name: "download",
+                title: "请求中"
+            });
+            $.ajax({
+                type: "POST",
+                url: api.vouchers,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: data,
+                success: function(res) {
+                    if (res.code == 0) {
+                        if (res.data) {
+                            if (res.data.list.length > 0) {
+                                utils.showAlertDialog("温馨提示", "领取成功！");
+                            } else {
+                                utils.showAlertDialog("温馨提示", res.msg);
+                            }
+                        }
+                    } else {
+                        utils.showAlertDialog("温馨提示", res.msg);
+                    }
+                },
+                complete: function() {
+                    $("body").closeLoading("download");
+                }
+            });
+        },
+        // 确定文件类型
+        getFileType: function(id) {
+            var data = {
+                id: id
+            };
+            $.get("/node/confirmType", data, function(res) {
+                if (res.code == 0) {
+                    if (res.fileType == "free") {
+                        couponObj.isFreeFile = 1;
+                        if (couponObj.dowStatus == 1 && localStorage.getItem("FirstDown") != 1) {
+                            couponObj.type = 3;
+                            couponObj.getCouponList();
+                        }
+                    }
+                }
+            });
+        }
+    };
+    setTimeout(function() {
+        couponObj.initial();
+    }, 2e3);
+});
+
+/**
+ * @Description: toast.js
+ *
+ */
+define("dist/cmd-lib/toast", [], function(require, exports, module) {
+    //var $ = require("$");
+    (function($, win, doc) {
+        function Toast(options) {
+            this.options = {
+                text: "我是toast提示",
+                icon: "",
+                delay: 3e3,
+                callback: false
+            };
+            //默认参数扩展
+            if (options && $.isPlainObject(options)) {
+                $.extend(true, this.options, options);
+            }
+            this.init();
+        }
+        Toast.prototype.init = function() {
+            var that = this;
+            that.body = $("body");
+            that.toastWrap = $('<div class="ui-toast" style="position:fixed;width:200px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:10000">');
+            that.toastIcon = $('<i class="icon"></i>');
+            that.toastText = $('<span class="ui-toast-text" style="color:#fff">' + that.options.text + "</span>");
+            that._creatDom();
+            that.show();
+            that.hide();
+        };
+        Toast.prototype._creatDom = function() {
+            var that = this;
+            if (that.options.icon) {
+                that.toastWrap.append(that.toastIcon.addClass(that.options.icon));
+            }
+            that.toastWrap.append(that.toastText);
+            that.body.append(that.toastWrap);
+        };
+        Toast.prototype.show = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("hide").addClass("show");
+            }, 50);
+        };
+        Toast.prototype.hide = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("show").addClass("hide");
+                that.toastWrap.remove();
+                that.options.callback && that.options.callback();
+            }, that.options.delay);
+        };
+        $.toast = function(options) {
+            return new Toast(options);
+        };
+    })($, window, document);
+});
+
+/**
+ * @Description: 筛选
+ */
+define("dist/cmd-lib/loading", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function($, win, doc) {
+        $.fn.loading = function(options) {
+            var $this = $(this);
+            var _this = this;
+            return this.each(function() {
+                var loadingPosition = "";
+                var defaultProp = {
+                    direction: "column",
+                    //方向，column纵向   row 横向
+                    animateIn: "fadeInNoTransform",
+                    //进入类型
+                    title: "提交中...",
+                    //显示什么内容
+                    name: "loadingName",
+                    //loading的data-name的属性值  用于删除loading需要的参数
+                    type: "origin",
+                    //pic   origin  
+                    discription: "",
+                    //loading的描述
+                    titleColor: "rgba(255,255,255,0.7)",
+                    //title文本颜色
+                    discColor: "rgba(255,255,255,0.7)",
+                    //disc文本颜色
+                    loadingWidth: 100,
+                    //中间的背景宽度width
+                    loadingBg: "rgba(0, 0, 0, 0.6)",
+                    //中间的背景色
+                    borderRadius: 6,
+                    //中间的背景色的borderRadius
+                    loadingMaskBg: "rgba(0,0,0,0.6)",
+                    //背景遮罩层颜色
+                    zIndex: 1000001,
+                    //层级
+                    // 这是圆形旋转的loading样式  
+                    originDivWidth: 10,
+                    //loadingDiv的width
+                    originDivHeight: 10,
+                    //loadingDiv的Height
+                    originWidth: 4,
+                    //小圆点width
+                    originHeight: 4,
+                    //小圆点Height
+                    originBg: "#fefefe",
+                    //小圆点背景色
+                    smallLoading: false,
+                    //显示小的loading
+                    // 这是图片的样式   (pic)
+                    imgSrc: "",
+                    //默认的图片地址
+                    imgDivWidth: 80,
+                    //imgDiv的width
+                    imgDivHeight: 80,
+                    //imgDiv的Height
+                    flexCenter: false,
+                    //是否用flex布局让loading-div垂直水平居中
+                    flexDirection: "row",
+                    //row column  flex的方向   横向 和 纵向				
+                    mustRelative: false,
+                    //$this是否规定relative
+                    delay: 2e3,
+                    //默认2秒关闭                   
+                    isClose: true
+                };
+                var opt = $.extend(defaultProp, options || {});
+                //根据用户是针对body还是元素  设置对应的定位方式
+                if ($this.selector == "body") {
+                    $("body,html").css({
+                        overflow: "hidden"
+                    });
+                    loadingPosition = "fixed";
+                } else if (opt.mustRelative) {
+                    $this.css({
+                        position: "relative"
+                    });
+                    loadingPosition = "absolute";
+                } else {
+                    loadingPosition = "absolute";
+                }
+                defaultProp._showOriginLoading = function() {
+                    var smallLoadingMargin = opt.smallLoading ? 0 : "-10px";
+                    if (opt.direction == "row") {
+                        smallLoadingMargin = "-6px";
+                    }
+                    //悬浮层
+                    _this.cpt_loading_mask = $('<div class="cpt-loading-mask animated ' + opt.animateIn + " " + opt.direction + '" data-name="' + opt.name + '"></div>').css({
+                        background: opt.loadingMaskBg,
+                        "z-index": opt.zIndex,
+                        position: loadingPosition
+                    }).appendTo($this);
+                    //中间的显示层
+                    _this.div_loading = $('<div class="div-loading"></div>').css({
+                        background: opt.loadingBg,
+                        width: opt.loadingWidth,
+                        height: opt.loadingHeight,
+                        "-webkit-border-radius": opt.borderRadius,
+                        "-moz-border-radius": opt.borderRadius,
+                        "border-radius": opt.borderRadius
+                    }).appendTo(_this.cpt_loading_mask);
+                    if (opt.flexCenter) {
+                        _this.div_loading.css({
+                            display: "-webkit-flex",
+                            display: "flex",
+                            "-webkit-flex-direction": opt.flexDirection,
+                            "flex-direction": opt.flexDirection,
+                            "-webkit-align-items": "center",
+                            "align-items": "center",
+                            "-webkit-justify-content": "center",
+                            "justify-content": "center"
+                        });
+                    }
+                    //loading标题
+                    _this.loading_title = $('<p class="loading-title txt-textOneRow"></p>').css({
+                        color: opt.titleColor
+                    }).html(opt.title).appendTo(_this.div_loading);
+                    //loading中间的内容  可以是图片或者转动的小圆球
+                    _this.loading = $('<div class="loading ' + opt.type + '"></div>').css({
+                        width: opt.originDivWidth,
+                        height: opt.originDivHeight
+                    }).appendTo(_this.div_loading);
+                    //描述
+                    _this.loading_discription = $('<p class="loading-discription txt-textOneRow"></p>').css({
+                        color: opt.discColor
+                    }).html(opt.discription).appendTo(_this.div_loading);
+                    if (opt.type == "origin") {
+                        _this.loadingOrigin = $('<div class="div-loadingOrigin"><span></span></div><div class="div-loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div>').appendTo(_this.loading);
+                        _this.loadingOrigin.children().css({
+                            "margin-top": smallLoadingMargin,
+                            "margin-left": smallLoadingMargin,
+                            width: opt.originWidth,
+                            height: opt.originHeight,
+                            background: opt.originBg
+                        });
+                    }
+                    if (opt.type == "pic") {
+                        _this.loadingPic = $('<img src="' + opt.imgSrc + '" alt="loading" />').appendTo(_this.loading);
+                    }
+                    //关闭事件冒泡  和默认的事件
+                    _this.cpt_loading_mask.on("touchstart touchend touchmove click", function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    });
+                };
+                defaultProp._createLoading = function() {
+                    //不能生成两个loading data-name 一样的loading
+                    if ($(".cpt-loading-mask[data-name=" + opt.name + "]").length > 0) {
+                        // console.error('loading mask cant has same date-name('+opt.name+'), you cant set "date-name" prop when you create it');
+                        return;
+                    }
+                    defaultProp._showOriginLoading();
+                };
+                defaultProp._createLoading();
+                defaultProp.close = function() {
+                    $(".cpt-loading-mask[data-name=" + opt.name + "]").remove();
+                };
+            });
+        };
+        //关闭Loading
+        $.extend($.fn, {
+            closeLoading: function(loadingName) {
+                var loadingName = loadingName || "";
+                $("body,html").css({
+                    overflow: "auto"
+                });
+                if (loadingName == "") {
+                    $(".cpt-loading-mask").remove();
+                } else {
+                    var name = loadingName || "loadingName";
+                    $(".cpt-loading-mask[data-name=" + name + "]").remove();
+                }
+            }
+        });
+    })(jQuery, window, document);
+});
+
+define("dist/common/coupon/template/couponCard.html", [], '\n{{each data.list as v i}}\n<li class="coupon-li">\n    <div class="coupon-item">\n        <i class="bg-coupon"></i>\n        <div class="price-wrap fl">\n            <p>{{if v.type==1}}¥{{/if}} <strong class="price">{{v.discount?v.discount:v.couponAmount}}</strong>{{if v.type==2}}折{{/if}}</p>\n        </div>\n        <div class="coupon-info-con">\n            <p class="coupon-text">{{v.content}}</p>\n            <p class="coupon-time">{{if v.dateNumber}}{{v.dateNumber}}天内有效{{else}}{{v.timeval}}{{/if}}</p>\n        </div>\n    </div>\n</li>\n{{/each}}\n');
+
+define("dist/common/bilog", [ "base64", "dist/cmd-lib/util", "dist/application/method", "dist/report/config" ], function(require, exports, module) {
+    //var $ = require("$");
+    var base64 = require("base64").Base64;
+    var util = require("dist/cmd-lib/util");
+    var method = require("dist/application/method");
+    var config = require("dist/report/config");
+    //参数配置
+    // var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP特权'];
+    // var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
+    var payTypeMapping = [ "", "free", "", "online", "vipOnly", "cost" ];
+    //productType=1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    // var fsourceEnum = {
+    //     user: '用户上传', editor: '编辑上传', history: '历史资料1', history2: '历史资料2',
+    //     other_collection_site: '外包采集站点', ishare_collection_site: '自行采集站点',
+    //     other_collection_keyword: '外包采集关键字', ishare_collection_keyword: '自行采集关键字',
+    //     baiduwenku_collection_site: '百度文库采集源', ishare_collection_microdisk: '自行采集微盘',
+    // };
+    var ip = method.getCookie("ip") || getIpAddress();
+    var cid = method.getCookie("cid");
+    if (!cid) {
+        cid = new Date().getTime() + "" + Math.random();
+        method.setCookieWithExp("cid", cid, 30 * 24 * 60 * 60 * 1e3, "/");
+    }
+    var time = new Date().getTime() + "" + Math.random();
+    var min30 = 1e3 * 60 * 30;
+    var sessionID = sessionStorage.getItem("sessionID") || "";
+    function setSessionID() {
+        sessionStorage.setItem("sessionID", time);
+    }
+    if (!sessionID) {
+        setSessionID();
+    }
+    if (time - sessionID > min30) {
+        setSessionID();
+    }
+    var initData = {
+        eventType: "",
+        //事件类型
+        eventID: "",
+        //事件编号
+        eventName: "",
+        //事件英文名字
+        eventTime: String(new Date().getTime()),
+        //事件触发时间戳（毫秒）
+        reportTime: String(new Date().getTime()),
+        //上报时间戳（毫秒）
+        sdkVersion: "V1.0.3",
+        //sdk版本
+        terminalType: "0",
+        //软件终端类型  0-PC，1-M，2-快应用，3-安卓APP，4-IOS APP，5-微信小程序，6-今日头条小程序，7-百度小程序
+        loginStatus: method.getCookie("cuk") ? 1 : 0,
+        //登录状态 0 未登录 1 登录
+        visitID: method.getCookie("gr_user_id") || "",
+        //访客id
+        userID: "",
+        //用户ID
+        sessionID: sessionStorage.getItem("sessionID") || cid || "",
+        //会话ID
+        productName: "ishare",
+        //产品名称
+        productCode: "0",
+        //产品代码
+        productVer: "V4.5.0",
+        //产品版本
+        pageID: "",
+        //当前页面编号
+        pageName: "",
+        //当前页面的名称
+        pageURL: "",
+        //当前页面URL
+        ip: ip || "",
+        //IP地址
+        resolution: document.documentElement.clientWidth + "*" + document.documentElement.clientHeight,
+        //设备屏幕分辨率
+        browserVer: util.getBrowserInfo(navigator.userAgent),
+        //浏览器类型
+        osType: getDeviceOs(),
+        //操作系统类型
+        //非必填
+        moduleID: "",
+        moduleName: "",
+        appChannel: "",
+        //应用下载渠道 仅针对APP移动端
+        prePageID: "",
+        //上一个页面编号
+        prePageName: "",
+        //上一个页面的名称
+        prePageURL: document.referrer,
+        //上一个页面URL
+        domID: "",
+        //当前触发DOM的编号 仅针对click
+        domName: "",
+        //当前触发DOM的名称 仅针对click
+        domURL: "",
+        //当前触发DOM的URL 仅针对click
+        location: "",
+        //位置（经纬度）仅针对移动端
+        deviceID: "",
+        //设备号 仅针对移动端
+        deviceBrand: "",
+        //移动设备品牌（厂商） 仅针对移动端
+        deviceModel: "",
+        //移动设备机型型号 仅针对移动端
+        deviceLanguage: navigator.language,
+        //设备语言
+        mac: "",
+        //MAC地址
+        osVer: "",
+        //操作系统版本 仅针对移动端
+        networkType: "",
+        //联网方式 仅针对移动端
+        networkProvider: "",
+        //网络运营商代码 仅针对移动端，非WIFI下传
+        "var": {}
+    };
+    var userInfo = method.getCookie("ui");
+    if (userInfo) {
+        userInfo = JSON.parse(userInfo);
+        initData.userID = userInfo.uid || "";
+    }
+    setPreInfo(document.referrer, initData);
+    function setPreInfo(referrer, initData) {
+        if (new RegExp("/f/").test(referrer) && !new RegExp("referrer=").test(referrer) && !new RegExp("/f/down").test(referrer)) {
+            var statuCode = $(".ip-page-statusCode");
+            if (statuCode == "404") {
+                initData.prePageID = "PC-M-FDL";
+                initData.prePageName = "资料被删除";
+            } else if (statuCode == "302") {
+                initData.prePageID = "PC-M-FSM";
+                initData.prePageName = "资料私有";
+            } else {
+                initData.prePageID = "PC-M-FD";
+                initData.prePageName = "资料详情页";
+            }
+        } else if (new RegExp("/pay/payConfirm.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-F-L";
+            initData.prePageName = "支付页-付费资料-列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=2").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-F-QR";
+            initData.prePageName = "支付页-付费资料-支付页";
+        } else if (new RegExp("/pay/vip.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-VIP-L";
+            initData.prePageName = "支付页-VIP-套餐列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=0").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-VIP-QR";
+            initData.prePageName = "支付页-VIP-支付页";
+        } else if (new RegExp("/pay/privilege.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-PRI-L";
+            initData.prePageName = "支付页-下载特权-套餐列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=1").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-PRI-QR";
+            initData.prePageName = "支付页-下载特权-支付页";
+        } else if (new RegExp("/pay/success").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-SUC";
+            initData.prePageName = "支付成功页";
+        } else if (new RegExp("/pay/fail").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-FAIL";
+            initData.prePageName = "支付失败页";
+        } else if (new RegExp("/node/f/downsucc.html").test(referrer)) {
+            if (/unloginFlag=1/.test(referrer)) {
+                initData.prePageID = "PC-M-FDPAY-SUC";
+                initData.prePageName = "免登购买成功页";
+            } else {
+                initData.prePageID = "PC-M-DOWN-SUC";
+                initData.prePageName = "下载成功页";
+            }
+        } else if (new RegExp("/node/f/downfail.html").test(referrer)) {
+            initData.prePageID = "PC-M-DOWN-FAIL";
+            initData.prePageName = "下载失败页";
+        } else if (new RegExp("/search/home.html").test(referrer)) {
+            initData.prePageID = "PC-M-SR";
+            initData.prePageName = "搜索关键词";
+        } else if (new RegExp("/node/404.html").test(referrer)) {
+            initData.prePageID = "PC-M-404";
+            initData.prePageName = "404错误页";
+        } else if (new RegExp("/node/503.html").test(referrer)) {
+            initData.prePageID = "PC-M-500";
+            initData.prePageName = "500错误页";
+        } else if (new RegExp("/node/personalCenter/home.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER";
+            initData.prePageName = "个人中心-首页";
+        } else if (new RegExp("/node/personalCenter/myuploads.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MU";
+            initData.prePageName = "个人中心-我的上传页";
+        } else if (new RegExp("/node/personalCenter/mycollection.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-CL";
+            initData.prePageName = "个人中心-我的收藏页";
+        } else if (new RegExp("/node/personalCenter/mydownloads.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MD";
+            initData.prePageName = "个人中心-我的下载页";
+        } else if (new RegExp("/node/personalCenter/vip.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-VIP";
+            initData.prePageName = "个人中心-我的VIP";
+        } else if (new RegExp("/node/personalCenter/mycoupon.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MS";
+            initData.prePageName = "个人中心-我的优惠券页";
+        } else if (new RegExp("/node/personalCenter/accountsecurity.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ATM";
+            initData.prePageName = "个人中心-账号与安全页";
+        } else if (new RegExp("/node/personalCenter/personalinformation.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ATF";
+            initData.prePageName = "个人中心-个人信息页";
+        } else if (new RegExp("/node/personalCenter/myorder.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ORD";
+            initData.prePageName = "个人中心-我的订单";
+        }
+    }
+    //获取ip地址
+    function getIpAddress() {
+        $.getScript("//ipip.iask.cn/iplookup/search?format=js", function(response, status) {
+            if (status === "success") {
+                method.setCookieWithExp("ip", remote_ip_info["ip"], 5 * 60 * 1e3, "/");
+                initData.ip = remote_ip_info["ip"];
+            } else {
+                console.error("ipip获取ip信息error");
+            }
+        });
+    }
+    //获得操作系统类型
+    function getDeviceOs() {
+        var name = "";
+        if (window.navigator.userAgent.indexOf("Windows NT 10.0") != -1) {
+            name = "Windows 10";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.2") != -1) {
+            name = "Windows 8";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.1") != -1) {
+            name = "Windows 7";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.0") != -1) {
+            name = "Windows Vista";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 5.1") != -1) {
+            name = "Windows XP";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 5.0") != -1) {
+            name = "Windows 2000";
+        } else if (window.navigator.userAgent.indexOf("Mac") != -1) {
+            name = "Mac/iOS";
+        } else if (window.navigator.userAgent.indexOf("X11") != -1) {
+            name = "UNIX";
+        } else if (window.navigator.userAgent.indexOf("Linux") != -1) {
+            name = "Linux";
+        }
+        return name;
+    }
+    // 埋点上报 请求
+    function push(params) {
+        setTimeout(function() {
+            console.log(params);
+            $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function(data) {
+                console.log(data);
+            });
+        });
+    }
+    // 埋点引擎
+    function handle(commonData, customData) {
+        var resultData = commonData;
+        if (commonData && customData) {
+            for (var key in commonData) {
+                if (key === "var") {
+                    for (var item in customData) {
+                        resultData["var"][item] = customData[item];
+                    }
+                } else {
+                    if (customData[key]) {
+                        resultData[key] = customData[key];
+                    }
+                }
+            }
+            console.log("埋点参数:", resultData);
+            push(resultData);
+        }
+    }
+    //全部页面都要上报
+    function normalPageView() {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        var customData = {
+            channel: ""
+        };
+        var bc = method.getCookie("bc");
+        if (bc) {
+            customData.channel = bc;
+        }
+        commonData.eventType = "page";
+        commonData.eventID = "NE001";
+        commonData.eventName = "normalPageView";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        var utm_source = method.getParam("utm_source");
+        var utm_medium = method.getParam("utm_campaign");
+        var utm_term = method.getParam("utm_campaign");
+        $.extend(customData, {
+            utm_source: utm_source,
+            utm_medium: utm_medium,
+            utm_term: utm_term
+        });
+        handle(commonData, customData);
+    }
+    //详情页
+    function fileDetailPageView() {
+        var customData = {
+            fileID: window.pageConfig.params.g_fileId,
+            fileName: window.pageConfig.params.file_title,
+            fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+            fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+            filePrice: window.pageConfig.params.moneyPrice,
+            fileCouponCount: window.pageConfig.params.file_volume,
+            filePayType: payTypeMapping[window.pageConfig.params.file_state],
+            fileFormat: window.pageConfig.params.file_format,
+            fileProduceType: window.pageConfig && window.pageConfig.params ? window.pageConfig.params.fsource : "",
+            fileCooType: "",
+            fileUploaderID: window.pageConfig.params.file_uid
+        };
+        var is360 = window.pageConfig && window.pageConfig.params ? window.pageConfig.params.is360 : "";
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(document.referrer) && !/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer) && is360 == "true") {
+            customData.fileCooType = "360onebox";
+            method.setCookieWithExp("bc", "360onebox", 30 * 60 * 1e3, "/");
+        }
+        if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)) {
+            customData.fileCooType = "360wenku";
+            method.setCookieWithExp("bc", "360wenku", 30 * 60 * 1e3, "/");
+        }
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE002";
+        commonData.eventName = "fileDetailPageView";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        method.setCookieWithExp("bf", JSON.stringify(customData), 30 * 60 * 1e3, "/");
+        handle(commonData, customData);
+    }
+    //文件购买结果页
+    function payFileResult(customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE009";
+        commonData.eventName = "payFileResult";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        if (!customData.fileID) {
+            customData.fileID = method.getParam("fid") || $("#ip-page-fid").val();
+        }
+        if (!customData.filePayType) {
+            var state = $("#ip-page-fstate").val() || 1;
+            customData.filePayType = payTypeMapping[state];
+        }
+        handle(commonData, customData);
+    }
+    //vip购买结果页
+    function payVipResult(customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE011";
+        commonData.eventName = "payVipResult";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        if (!customData.orderID) {
+            customData.orderID = method.getParam("orderNo") || "";
+        }
+        handle(commonData, customData);
+    }
+    //下载特权购买结果页
+    function payPrivilegeResult(customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE013";
+        commonData.eventName = "payPrivilegeResult";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+    //下载结果页
+    function downResult(customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE014";
+        commonData.eventName = "downResult";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+    function searchResult(customData) {
+        //导出页面使用
+        var commonData = JSON.parse(JSON.stringify(initData));
+        commonData.eventType = "page";
+        commonData.eventID = "SE015";
+        commonData.eventName = "searchPageView";
+        setPreInfo(document.referrer, commonData);
+        commonData.pageID = "PC-M-SR" || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+    //页面级事件
+    $(function() {
+        setTimeout(function() {
+            var pid = $("#ip-page-id").val();
+            if ("PC-M-FD" == pid) {
+                //详情页
+                fileDetailPageView();
+            }
+            if ("PC-O-SR" != pid) {
+                //不是办公频道搜索结果页
+                normalPageView();
+            }
+            var payVipResultData = {
+                payResult: 1,
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                orderPayType: "",
+                orderPayPrice: "",
+                vipID: "",
+                vipName: "",
+                vipPrice: ""
+            };
+            var payPriResultData = {
+                payResult: 1,
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                orderPayType: "",
+                orderPayPrice: "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: "",
+                privilegeID: "",
+                privilegeName: "",
+                privilegePrice: ""
+            };
+            var payFileResultData = {
+                payResult: 1,
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                orderPayType: "",
+                orderPayPrice: "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: "",
+                filePrice: "",
+                fileSalePrice: ""
+            };
+            var bf = method.getCookie("bf");
+            var br = method.getCookie("br");
+            var href = window.location.href;
+            if ("PC-M-PAY-SUC" == pid || "PC-O-PAY-SUC" == pid) {
+                //支付成功页
+                if (href.indexOf("type=0") > -1) {
+                    //vip购买成功页
+                    if (br) {
+                        trans(JSON.parse(br), payVipResultData);
+                    }
+                    payVipResult(payVipResultData);
+                } else if (href.indexOf("type=1") > -1) {
+                    //下载特权购买成功页
+                    if (bf) {
+                        trans(JSON.parse(bf), payPriResultData);
+                    }
+                    if (br) {
+                        trans(JSON.parse(br), payPriResultData);
+                    }
+                    payPrivilegeResult(payPriResultData);
+                } else if (href.indexOf("type=2") > -1) {
+                    //文件购买成功页
+                    if (bf) {
+                        trans(JSON.parse(bf), payFileResultData);
+                    }
+                    var br = method.getCookie("br");
+                    if (br) {
+                        trans(JSON.parse(br), payFileResultData);
+                    }
+                    payFileResult(payFileResultData);
+                }
+            } else if ("PC-M-PAY-FAIL" == pid || "PC-O-PAY-FAIL" == pid) {
+                //支付失败页
+                if (href.indexOf("type=0") > -1) {
+                    //vip购买失败页
+                    if (br) {
+                        trans(JSON.parse(br), payVipResultData);
+                    }
+                    payVipResultData.payResult = 0;
+                    payVipResult(payVipResultData);
+                } else if (href.indexOf("type=1") > -1) {
+                    //下载特权购买失败页
+                    if (bf) {
+                        trans(JSON.parse(bf), payPriResultData);
+                    }
+                    if (br) {
+                        trans(JSON.parse(br), payPriResultData);
+                    }
+                    payPriResultData.payResult = 0;
+                    payPrivilegeResult(payPriResultData);
+                } else if (href.indexOf("type=2") > -1) {
+                    //文件购买失败页
+                    if (bf) {
+                        trans(JSON.parse(bf), payFileResultData);
+                    }
+                    if (br) {
+                        trans(JSON.parse(br), payFileResultData);
+                    }
+                    payFileResultData.payResult = 0;
+                    payFileResult(payFileResultData);
+                }
+            }
+            var downResultData = {
+                downResult: 1,
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: ""
+            };
+            if ("PC-M-DOWN-SUC" == pid) {
+                //下载成功页
+                var bf = method.getCookie("bf");
+                if (bf) {
+                    trans(JSON.parse(bf), downResultData);
+                }
+                downResultData.downResult = 1;
+                downResult(downResultData);
+            } else if ("PC-M-DOWN-FAIL" == pid) {
+                //下载失败页
+                var bf = method.getCookie("bf");
+                if (bf) {
+                    trans(JSON.parse(bf), downResultData);
+                }
+                downResultData.downResult = 0;
+                downResult(downResultData);
+            }
+        }, 1e3);
+    });
+    //对象值传递
+    function trans(from, to) {
+        for (var i in to) {
+            if (from[i]) {
+                to[i] = from[i];
+            }
+        }
+    }
+    //点击事件
+    $(document).delegate("." + config.EVENT_NAME, "click", function(event) {
+        //动态绑定点击事件
+        // debugger
+        var that = $(this);
+        var cnt = that.attr(config.BILOG_CONTENT_NAME);
+        //上报事件类型
+        console.log("cnt:", cnt);
+        if (cnt) {
+            setTimeout(function() {
+                clickEvent(cnt, that);
+            });
+        }
+    });
+    function clickCenter(eventID, eventName, domId, domName, customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "click";
+        commonData.eventID = eventID;
+        commonData.eventName = eventName;
+        commonData.pageID = $("#ip-page-id").val();
+        commonData.pageName = $("#ip-page-name").val();
+        commonData.pageURL = window.location.href;
+        commonData.domID = domId;
+        commonData.domName = domName;
+        commonData.domURL = window.location.href;
+        handle(commonData, customData);
+    }
+    //点击事件
+    function clickEvent(cnt, that, moduleID) {
+        var ptype = $("#ip-page-type").val();
+        if (ptype == "pindex") {
+            //详情页
+            var customData = {
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            if (cnt == "fileDetailUpDown" || cnt == "fileDetailMiddleDown" || cnt == "fileDetailBottomDown") {
+                customData.downType = "";
+                if (cnt == "fileDetailUpDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailUpDown", "资料详情页顶部立即下载", customData);
+                } else if (cnt == "fileDetailMiddleDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailMiddleDown", "资料详情页中部立即下载", customData);
+                } else if (cnt == "fileDetailBottomDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailBottomDown", "资料详情页底部立即下载", customData);
+                }
+                delete customData.downType;
+            } else if (cnt == "fileDetailUpBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailUpBuy", "资料详情页顶部立即购买", customData);
+            } else if (cnt == "fileDetailMiddleBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailMiddleBuy", "资料详情页中部立即购买", customData);
+            } else if (cnt == "fileDetailBottomBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailBottomBuy", "资料详情页底部立即购买", customData);
+            } else if (cnt == "fileDetailMiddleOpenVip8") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailMiddleOpenVip8", "资料详情页中部开通vip，8折购买", customData);
+            } else if (cnt == "fileDetailBottomOpenVip8") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailBottomOpenVip8", "资料详情页底部开通vip，8折购买", customData);
+            } else if (cnt == "fileDetailMiddleOpenVipPr") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailMiddleOpenVipPr", "资料详情页中部开通vip，享更多特权", customData);
+            } else if (cnt == "fileDetailBottomOpenVipPr") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailBottomOpenVipPr", "资料详情页底部开通vip，享更多特权", customData);
+            } else if (cnt == "fileDetailComment") {
+                clickCenter("SE006", "fileDetailCommentClick", "fileDetailComment", "资料详情页评论", customData);
+            } else if (cnt == "fileDetailScore") {
+                var score = that.find(".on:last").text();
+                customData.fileScore = score ? score : "";
+                clickCenter("SE007", "fileDetailScoreClick", "fileDetailScore", "资料详情页评分", customData);
+                delete customData.fileScore;
+            }
+        }
+        if (cnt == "payFile") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: "",
+                filePrice: "",
+                fileSalePrice: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            clickCenter("SE008", "payFileClick", "payFile", "支付页-付费资料-立即支付", customData);
+        } else if (cnt == "payVip") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                vipID: $(".ui-tab-nav-item.active").data("vid"),
+                vipName: $(".ui-tab-nav-item.active p.vip-time").text() || "",
+                vipPrice: $(".ui-tab-nav-item.active p.vip-price strong").text() || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || ""
+            };
+            clickCenter("SE010", "payVipClick", "payVip", "支付页-VIP-立即支付", customData);
+        } else if (cnt == "payPrivilege") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                // privilegeID: $(".ui-tab-nav-item.active").data('pid') || '',
+                privilegeName: $(".ui-tab-nav-item.active p.privilege-price").text() || "",
+                privilegePrice: $(".ui-tab-nav-item.active").data("activeprice") || "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            clickCenter("SE012", "payPrivilegeClick", "payPrivilege", "支付页-下载特权-立即支付", customData);
+        } else if (cnt == "searchResult") {
+            customData = {
+                fileID: that.attr("data-fileId"),
+                fileName: that.attr("data-fileName"),
+                keyWords: $("#scondition").val()
+            };
+            clickCenter("SE016", "normalClick", "searchResultClick", "搜索结果页点击", customData);
+        }
+        var customData = {
+            phone: $("#ip-mobile").val() || "",
+            vipStatus: $("#ip-isVip").val() || "",
+            channel: "",
+            cashBalance: "",
+            integralNumber: "",
+            idolNumber: "",
+            fileCategoryID: "",
+            fileCategoryName: ""
+        };
+        if (userInfo) {
+            customData.vipStatus = userInfo.isVip || "";
+            customData.phone = userInfo.tel || "";
+        }
+        var bc = method.getCookie("bc");
+        if (bc) {
+            customData.channel = bc;
+        }
+        if (cnt == "paySuccessBacDown") {
+            clickCenter("NE002", "normalClick", "paySuccessBacDown", "支付成功页-返回下载", customData);
+        } else if (cnt == "paySuccessOpenVip") {
+            clickCenter("NE002", "normalClick", "paySuccessOpenVip", "支付成功页-开通VIP", customData);
+        } else if (cnt == "downSuccessOpenVip") {
+            clickCenter("NE002", "normalClick", "downSuccessOpenVip", "下载成功页-开通VIP", customData);
+        } else if (cnt == "downSuccessContinueVip") {
+            clickCenter("NE002", "normalClick", "downSuccessContinueVip", "下载成功页-续费VIP", customData);
+        } else if (cnt == "downSuccessBacDetail") {
+            clickCenter("NE002", "normalClick", "downSuccessBacDetail", "下载成功页-返回详情页", customData);
+        } else if (cnt == "downSuccessBindPhone") {
+            clickCenter("NE002", "normalClick", "downSuccessBindPhone", "下载成功页-立即绑定", customData);
+        } else if (cnt == "viewExposure") {
+            customData.moduleID = moduleID;
+            clickCenter("SE006", "modelView", "", "", customData);
+        } else if (cnt == "similarFileClick") {
+            customData = {
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            };
+            clickCenter("SE017", "fileListNormalClick", "similarFileClick", "资料列表常规点击", customData);
+        } else if (cnt == "underSimilarFileClick") {
+            clickCenter("SE017", "fileListNormalClick", "underSimilarFileClick", "点击底部猜你喜欢内容时", customData);
+        } else if (cnt == "downSucSimilarFileClick") {
+            clickCenter("SE017", "fileListNormalClick", "downSucSimilarFileClick", "下载成功页猜你喜欢内容时", customData);
+        } else if (cnt == "markFileClick") {
+            customData = {
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state],
+                markRusult: 1
+            };
+            clickCenter("SE019", "markClick", "markFileClick", "资料收藏点击", customData);
+        } else if (cnt == "vipRights") {
+            clickCenter("NE002", "normalClick", "vipRights", "侧边栏-vip权益", customData);
+        } else if (cnt == "seen") {
+            clickCenter("NE002", "normalClick", "seen", "侧边栏-我看过的", customData);
+        } else if (cnt == "mark") {
+            clickCenter("NE002", "normalClick", "mark", "侧边栏-我的收藏", customData);
+        } else if (cnt == "customerService") {
+            clickCenter("NE002", "normalClick", "customerService", "侧边栏-联系客服", customData);
+        } else if (cnt == "downApp") {
+            clickCenter("NE002", "normalClick", "downApp", "侧边栏-下载APP", customData);
+        } else if (cnt == "follow") {
+            clickCenter("NE002", "normalClick", "follow", "侧边栏-关注领奖", customData);
+        }
+    }
+    module.exports = {
+        clickEvent: function($this) {
+            var cnt = $this.attr(config.BILOG_CONTENT_NAME);
+            console.log("cnt-导出的:", cnt);
+            if (cnt) {
+                setTimeout(function() {
+                    clickEvent(cnt, $this);
+                });
+            }
+        },
+        viewExposure: function($this, moduleID) {
+            var cnt = "viewExposure";
+            if (cnt) {
+                setTimeout(function() {
+                    clickEvent(cnt, $this, moduleID);
+                });
+            }
+        },
+        searchResult: searchResult
+    };
+});
+
+define("dist/report/config", [], function(require, exports, module) {
+    return {
+        COOKIE_FLAG: "_dplf",
+        //cookie存储地址
+        COOKIE_CIDE: "_dpcid",
+        //客户端id cookie地址存储
+        COOKIE_CUK: "cuk",
+        COOKIE_TIMEOUT: 1e3 * 60 * 50,
+        //过期时间
+        // SERVER_URL: '/dataReport',                  //接口地址
+        SERVER_URL: "/",
+        UACTION_URL: "/uAction",
+        //用户阅读文档数据上传url
+        EVENT_NAME: "pc_click",
+        //绑定事件名称
+        CONTENT_NAME: "pcTrackContent",
+        //上报事件内容名称
+        BILOG_CONTENT_NAME: "bilogContent",
+        //bilog上报事件内容名称
+        ishareTrackEvent: "_ishareTrackEvent",
+        //兼容旧事件
+        eventCookieFlag: "_eventCookieFlag",
+        EVENT_REPORT: false,
+        //浏览页事件级上报是否开启
+        // 以下为配置项
+        AUTO_PV: false
+    };
+});
