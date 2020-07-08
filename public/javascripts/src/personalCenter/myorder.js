@@ -86,7 +86,7 @@ define(function(require , exports , module){
                     var myorder = require("./template/myorder.html")
                     var _myorderTemplate = template.compile(myorder)({list:list||[],myorderType:myorderType});
                    $(".personal-center-myorder").html(_myorderTemplate);     
-                   handlePagination(res.data.totalSize,res.data.currentPage)  
+                   handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{
                 $.toast({
                     text:res.msg,
