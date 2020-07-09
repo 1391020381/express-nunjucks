@@ -98,7 +98,7 @@ module.exports = {
             },
             // 作者信息
             editorInfo:function(callback){
-                server.get(appConfig.apiBasePath + Api.spider.editorInfo.replace(/\$uid/, uid), callback, req);
+                server.get(appConfig.apiNewBaselPath + Api.spider.editorInfo.replace(/\$uid/, uid), callback, req);
             },
             // 文章详情
             fileDetailTxt:function(callback){
@@ -330,7 +330,7 @@ module.exports = {
            // 对热门搜索的主题数进行限制
            results.newRecList = results.newRecList?results.newRecList:[];
            results.type = type;
-        //    console.log(JSON.stringify(results.hotTopicSeo),'hotTopicSeo')
+           console.log(JSON.stringify(results.editorInfo),'editorInfo')
            results.fileDetailArr = newTextArr;
             render("spider/index", results, req, res);
         })
