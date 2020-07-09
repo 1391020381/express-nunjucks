@@ -52,7 +52,7 @@ define(function(require , exports , module){
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
                   var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
-                   handlePagination(res.data.totalSize,res.data.currentPage) 
+                   handlePagination(res.data.totalPages,res.data.currentPage) 
               }else{
                $.toast({
                    text:res.msg,
