@@ -83,7 +83,7 @@ define(function (require,exports,moudle) {
         hotWordAuto:function(){
             var i =0;
             var length = $('.search-container .label-ele').length;
-            setInterval(function(){
+            var timer = setInterval(function(){
                i++;
                if(i == length) {
                    i = 0
@@ -91,6 +91,19 @@ define(function (require,exports,moudle) {
                var val = $('.search-container .label-ele').eq(i).find('a').text();
                $('.search-container .search-input').val(val)
             },2500)
+            $('.search-bar input').on('focus',function(){
+                clearInterval(timer)
+            })
+            $('.search-bar input').on('blur',function(){
+                timer = setInterval(function(){
+                    i++;
+                    if(i == length) {
+                        i = 0
+                    }
+                    var val = $('.search-container .label-ele').eq(i).find('a').text();
+                    $('.search-container .search-input').val(val)
+                 },2500)
+            })
         },
         // 点击搜索
         searchWordHook:function(){
