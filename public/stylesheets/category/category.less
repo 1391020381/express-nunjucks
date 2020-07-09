@@ -1,3 +1,6 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+@import "../less-public/_less_css3";
 html,
 body {
     background: #f4f4f4;
@@ -601,6 +604,11 @@ body {
         .banner {
             height:134px;
             .swiper-container{
+                &:hover {
+                    .btn-banner{
+                      display: block;
+                    }
+                  }
                 height:134px;
                 .swiper-wrapper {
                     position: relative;
@@ -653,6 +661,11 @@ body {
         margin-top:0;
         width: 1200px;
         height: 90px;
+        &:hover {
+            .btn-banner{
+              display: block;
+            }
+          }
         .swiper-container{
             width: 100%;
             height: 100%;
@@ -726,3 +739,55 @@ body {
 .hide{
    display: none!important;
 }
+
+  .btn-banner {
+    width: 36px;
+    .center(known-y, 48px);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    .arrow-btn {
+      display: block;
+      width: 36px;
+      height: 36px;
+    }
+  }
+  .btn-banner-prev {
+    background: no-repeat center url('../../images/index/left_arrow.png');
+    background-size: 100%;
+    left: 18%;
+  }
+  .btn-banner-next {
+    background: no-repeat center url('../../images/index/right_arrow.png');
+    background-size: 100%;
+    right: 18%;
+  } 
+.office-focus {
+    height: 8px;
+    position: absolute;
+    font-size: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 20px;
+    z-index: 65;
+
+    a {
+      .size(8px, 8px);
+      border-radius: 8px;
+      cursor: pointer;
+      .inline-block();
+      vertical-align: top;
+      margin: 0 6px;
+      background-color: #EFF3F5;
+      opacity:0.46;
+      &.on {
+        background-color: #fff;
+        opacity:1;
+      }
+    }
+  }

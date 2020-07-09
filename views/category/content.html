@@ -10,6 +10,16 @@
             </li>
             {% endfor %}
         </ul>
+        <div class="office-focus" id="J_categoty_focus">
+            {%for item in results.topbannerList  %}
+            <a href="javascript:;" data-index="{{loop.index0}}"></a>
+            {%endfor%}
+        </div>
+        <!-- 左右切换banner -->
+        {% if results.topbannerList.length>1 %}
+        <a class="btn-banner btn-banner-prev" id="J_categoty_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        <a class="btn-banner btn-banner-next" id="J_categoty_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+        {% endif %}
     </div>
     <!-- <span class="close-swiper"></span> -->
 </div>
@@ -135,7 +145,6 @@
                 <p>2、根据语意,尝试一下其他相关词语;</p>
                 <p>3、拆分要搜索的关键词,分成几个词语再次搜索;</p> -->
             </div>
-
         </div>
         {% endif %}
 
@@ -175,7 +184,16 @@
                         </div>
                         {%endfor%}
                     </div>
-                    <div class="swiper-pagination"></div>
+                    <div class="office-focus" id="J_right_focus">
+                        {%for item in results.topbannerList  %}
+                        <a href="javascript:;" data-index="{{loop.index0}}"></a>
+                        {%endfor%}
+                    </div>
+                    <!-- 左右切换banner -->
+                    {% if results.topbannerList.length>1 %}
+                    <a class="btn-banner btn-banner-prev" id="J_right__prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+                    <a class="btn-banner btn-banner-next" id="J_right__next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
+                    {% endif %}
                 </div>
             </div>
             <div class="topicBanner-con">

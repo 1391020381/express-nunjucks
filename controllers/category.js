@@ -73,6 +73,7 @@ var list = function (req) {
                 console.log('detail-list-------------------:',JSON.parse(body))
                 if (body) {
                     var data = JSON.parse(body);
+                    console.log(JSON.stringify(data),'navForCpagenavForCpage')
                     if (data.data&&data.data.level1){
                         data.data.level1.forEach(item=>{
                             if(item.select==1) {
