@@ -40,7 +40,7 @@ define(function(require , exports , module){
                         $(".personal-center-home .volume").text(volume?volume:0)
                     }
                     if(aibeans){
-                        $(".personal-center-home .aibeans").text(aibeans?aibeans:0)
+                        $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
                     }
                     callback&&callback(res.data)
                }else{
