@@ -45,11 +45,14 @@ define(function(require , exports , module){
         queryOrderlistByCondition()
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
-        var goodsType = $(event.target).attr('data-goodstype')
-        var fid = $(event.target).attr('data-fid')
-        var orderNo = $(event.target).attr('data-orderno')
-        var checkStatus = goodsTypeList[goodsType].checkStatus
-        method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid,true);
+        var orderStatus = $(event.target).attr('data-orderstatus')
+        if(orderStatus == 4 ||orderStatus ==0){
+            var goodsType = $(event.target).attr('data-goodstype')
+            var fid = $(event.target).attr('data-fid')
+            var orderNo = $(event.target).attr('data-orderno')
+            var checkStatus = goodsTypeList[goodsType]&&goodsTypeList[goodsType].checkStatus
+            method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid,true);
+        } 
     })
     function queryOrderlistByCondition(currentPage) {
         var orderStatus =   method.getParam('myorderType') == '1'?'': method.getParam('myorderType')
