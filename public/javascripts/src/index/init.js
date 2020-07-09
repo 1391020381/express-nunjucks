@@ -1,4 +1,5 @@
 define(function (require,exports,moudle) {
+    require('../application/suspension')
     var slider = require('../common/slider');//轮播插件
     var login = require("../application/checkLogin");
     var utils = require("../cmd-lib/util");
