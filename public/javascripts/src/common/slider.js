@@ -1,10 +1,6 @@
 define(function (require, exports, module) {
     //banner转换
     var slider = function(banners_id, focus_id, pre_id, next_id){
-        console.log(banners_id)
-        console.log(focus_id)
-        console.log(pre_id)
-        console.log(next_id)
         this.$ctn = $('#' + banners_id);
         this.$focus = $('#' + focus_id);
         this.$pre = $('#' + pre_id);
