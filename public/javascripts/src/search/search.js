@@ -74,8 +74,10 @@ define(function (require, exports, moudle) {
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
     function setInputValue() {
-        var sconditionInput = $('#scondition');
-        var searchBtn = $('#searchBtn');
+        // var sconditionInput = $('#scondition');
+        var sconditionInput   = $('.new-input')
+        // var searchBtn = $('#searchBtn');
+        var searchBtn = $('.btn-new-search')
         //点击搜索按钮时
         searchBtn.on('click', function () {
             var inputValue = sconditionInput.val().trim() || '';

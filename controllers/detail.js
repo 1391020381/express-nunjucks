@@ -470,6 +470,7 @@ module.exports = {
             // } else {
             //     render("officeDetail/index", results, req, res);
             // }
+            results.isDetailRender = true
             render("detail/index", results, req, res);
 
             //释放 不然 会一直存在

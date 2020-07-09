@@ -3,6 +3,7 @@ var request = require('request');
 module.exports = {
     get: function (url, callback, req, append) {
         var opt = this.getPaymentType(req, url, '', append);
+        console.log('opt----------------------:',opt)
         request(opt, (error, response, body) => {
             if (body) {
                 try {

@@ -77,7 +77,7 @@ define(function(require , exports , module){
         })
        }
     // 
-    $(document).on('click','.myuploads-table-list .label-input',function(event){ // 切换checkbox选中的状态样式
+    $(document).on('click','.myuploads .label-input',function(event){ // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'))
         if($(this).attr('checked')){ // checked
             $(this).parent().parent().parent().addClass('table-item-active')
@@ -85,6 +85,27 @@ define(function(require , exports , module){
             $(this).parent().parent().parent().removeClass('table-item-active')
             $('.myuploads-table-list #all').attr("checked", false)
         }
+        var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
+        if(checkedNumber.length){
+            $('.myuploads .myuploads-nums').text(checkedNumber.length + '篇')
+        }else{
+            $('.myuploads .myuploads-nums').text(0 + '篇') 
+        }
+    })
+    $(document).on('click','.myuploads-table-list #all',function(event){ // 全选
+        console.log($(this).attr('checked'))
+        if($(this).attr('checked')){
+            $('.myuploads-table-list .label-input').attr("checked", 'checked')
+        }else{
+            $('.myuploads-table-list .label-input').attr("checked", false)
+        }
+        var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
+        if(checkedNumber.length){
+            $('.myuploads .myuploads-nums').text(checkedNumber.length + '篇')
+        }else{
+            $('.myuploads .myuploads-nums').text(0 + '篇') 
+        }
+        
     })
     $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
         var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
@@ -115,18 +136,6 @@ define(function(require , exports , module){
 
     $('#dialog-box').on('click','.delete-tip-dialog .confirm-btn',function(e){
         batchDeleteUserFile()
-    })
-
-    $(document).on('click','.myuploads-table-list #all',function(event){ // 全选
-        console.log($(this).attr('checked'))
-        // .attr("checked", 'checked')
-        if($(this).attr('checked')){
-            $('.myuploads-table-list .label-input').attr("checked", 'checked')
-        }else{
-            $('.myuploads-table-list .label-input').attr("checked", false)
-        }
-       
-        
     })
 
 
