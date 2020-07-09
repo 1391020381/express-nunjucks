@@ -10,13 +10,13 @@
                 {% if results.list.type == 0 and results.list.fid %}
                 <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>购买成功！欢迎加入爱问共享资料VIP</h2>
                 <p class="pay-bottom-text">相关的VIP专享权益与下载特权已发放至您的账户，您可以在<a style="text-decoration: underline;"
-                        href="/ucenter/mydownloads?u={{results.uid}}" target="_blank">个人中心</a>查看</p>
+                        href="/node/personalCenter/mydownloads.html" target="_blank">个人中心</a>查看</p>
                 <a class="btn-carding-back pc_click" bilogContent="paySuccessBacDown" href="/f/{{results.list.fid}}.html">返回详细页</a>
                 <!--其他页流量购买vip成功-->
                 {% elif results.list.type == 0 %}
                 <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，成功开通爱问共享VIP</h2>
                 <p class="pay-bottom-text">相关的VIP专享权益与下载特权已发放至您的账户，您可以在<a style="text-decoration: underline;"
-                        href="/ucenter/mydownloads?u={{results.uid}}" target="_blank">个人中心</a>查看</p>
+                        href="/node/personalCenter/mydownloads.html" target="_blank">个人中心</a>查看</p>
                 <!--详情页流量购买下载特权成功-->
                 {% elif results.list.type == 1 and results.list.fid %}
                 <h2 class="pay-ok-text"><i class="icon-pay-ok"></i>恭喜您，购买成功！</h2>

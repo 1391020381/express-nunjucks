@@ -2,6 +2,9 @@
 .personal-center-personalinformation {
   padding: 26px 0 0 40px;
 }
+.personal-center-personalinformation .personalinformation {
+  padding: 26px 131px 0px 40px;
+}
 .personal-center-personalinformation .personalinformation-title {
   font-size: 16px;
   font-weight: bold;

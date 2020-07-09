@@ -31,7 +31,7 @@
             <!--已登录 -->
             <!--vip 增加样式  user-con-vip-->
             <div class="user-con user-con-vip" id="haveLogin" style="display: none;">
-                <a class="user-link" href="/ucenter/mydownloads?u={{results.list.data.userId}}" target="_blank">
+                <a class="user-link" href="/node/personalCenter/mydownloads.html" target="_blank">
                     <div class="user-img"><img></div>
                     <span class="user-name fl"></span>
                     <i class="icon-iShare icon-vip"></i>
@@ -56,7 +56,7 @@
                                 <!--vip 已过期文字-->
                                 <p data-type="3" class="vip-text" style="display: none;">您的VIP权益已过期，再次开通</p>
                             </div>
-                            <!--非vip 文字开通 vip 文字续费 --->
+                            <!--非vip 文字开通 vip 文字续费-->
                             <a class="btn-user-more js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">续费</a>
                         </div>
                         <ul class="privilege-list">
@@ -67,10 +67,10 @@
                         </ul>
                     </div>
                     <div class="top-entry">
-                        <a class="entry-ele center-ele" href="/ucenter/mydownloads?u={{results.list.data.userId}}" target="_blank"><i class="icon-entry"></i>个人中心</a>
-                        <a class="entry-ele my-collect-ele" href="/ucenter/mycollect?u={{results.list.data.userId}}" target="_blank"><i class="icon-entry"></i>我的收藏</a>
-                        <a class="entry-ele my-upload-ele" href="/ucenter/myuploads?u={{results.list.data.userId}}" target="_blank"><i class="icon-entry"></i>我的上传</a>
-                        <a class="entry-ele my-task" href="/ucenter/sign?u={{results.list.data.userId}}" target="_blank"><i class="icon-entry"></i>我的任务</a>
+                        <a class="entry-ele center-ele" href="/node/personalCenter/home.html" target="_blank"><i class="icon-entry"></i>个人中心</a>
+                        <a class="entry-ele my-collect-ele" href="/node/personalCenter/mycollection.html" target="_blank"><i class="icon-entry"></i>我的收藏</a>
+                        <a class="entry-ele my-upload-ele" href="/node/personalCenter/myuploads.html" target="_blank"><i class="icon-entry"></i>我的上传</a>
+                        {# <a class="entry-ele my-task" href="/ucenter/sign?u={{results.list.data.userId}}" target="_blank"><i class="icon-entry"></i>我的任务</a> #}
                         <a class="btn-exit js-logout">退出</a>
                     </div>
                 </div>
