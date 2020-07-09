@@ -36,8 +36,6 @@ define(function(require , exports , module){
                     var aibeans = res.data.aibeans
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
-                    }else{
-                        $('.opentvip').hide()
                     }
                     if(privilegeNum ){
                         $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
