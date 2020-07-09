@@ -104,11 +104,12 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:location.protocol+"//upload.ishare.iask.com/ishare-upload/picUpload",
+                url:location.protocol+"//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
                 target: [document.getElementById("upload-target"),document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
                 multiple: false,
+                data: {fileCatalog:'ishare'},
                 allows: ".jpg,.jpeg,.gif,.png", //允许上传的文件格式
                 maxSize: 3 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
                 //每次上传都会发送的参数(POST方式)
@@ -151,12 +152,13 @@ define(function(require , exports , module){
                     },
                     //上传完成后触发
                     complete: function (task) {
+                        console.log(task,'task')
                         if(task.limited) {
                             return false;
                         }
                         var res = JSON.parse(task.response);
-                        currentTarget.attr('val',res.data);
-                        currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data);
+                        currentTarget.attr('val',res.data.picKey);
+                        currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data.preUrl+res.data.picKey);
                         currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
                     }
                 }
