@@ -75,21 +75,17 @@ body {
   line-height: 41px;
 }
 .landing-header .search-input-con .search-input {
-  width: 444px;
+  width: 418px;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   border-right: 0 none;
   text-indent: 10px;
 }
 .landing-header .search-input-con .btn-search {
-  /* width: 134px;
+  width: 134px;
   height: 36px;
   line-height: 36px;
-  text-indent: 68px; */
-  width: 100px;
-    height: 36px;
-    line-height: 36px;
-    text-indent: 44px;
+  text-indent: 68px;
 }
 .header-box-fix {
   position: fixed;
@@ -512,6 +508,7 @@ body {
   height: 387px;
   width: 268px;
   margin: 4px auto;
+  overflow: hidden;
 }
 .search-all-main .search-list-section ul li .search-img-box:hover .mask-container {
   display: block;
