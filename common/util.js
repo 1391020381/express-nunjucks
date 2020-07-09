@@ -30,6 +30,9 @@ module.exports = {
             zhuanti_1818:'PC_M_FC_all_1818_zhuanti',//分类页-右侧专题
             zhuanti_1819:'PC_M_FC_all_1819_zhuanti',//分类页-右侧专题
             friendLink:'PC_M_FC_yqlj' //友情链接
+        },
+        special:{
+            friendLink:'PC_M_SS_ZT_yqlj'
         }
     },
     paradigm4Relevant:function(fid,uid,title,sceneID,callback){  //第四范式

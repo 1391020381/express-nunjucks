@@ -31,15 +31,19 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     var isVipMaster = res.data.isVipMaster
-                    var volume = res.data.volume  // 下载券数量
+                    var privilegeNum  = res.data.privilegeNum   // 下载券数量
+                    var  couponNum = res.data.couponNum
                     var aibeans = res.data.aibeans
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
                     }else{
                         $('.opentvip').hide()
                     }
-                    if(volume){
-                        $(".personal-center-home .volume").text(volume?volume:0)
+                    if(privilegeNum ){
+                        $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
+                    }
+                    if(couponNum){
+                        $(".personal-center-home .summary-count").text(couponNum ?couponNum :0)
                     }
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
