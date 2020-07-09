@@ -31,8 +31,8 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     var isVipMaster = res.data.isVipMaster
-                    var privilegeNum  = res.data.privilegeNum   // 下载券数量
-                    var  couponNum = res.data.couponNum
+                    var privilegeNum  = res.data.privilege   // 下载券数量
+                    var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
