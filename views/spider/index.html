@@ -69,7 +69,7 @@
             </div>
             <!-- 摘要 -->
             <div class="file-brief mt20">
-               <p> 爱问共享资料绩效考核频道提供销售公司KPI组成表.doc文档免费下载，数万用户每天上传大量最新资料，数量累计超一个亿{！+300（少于60页）}</p>
+               <p> 爱问共享资料{{results.list.data.fileInfo.title}}文档免费下载，数万用户每天上传大量最新资料，数量累计超一个亿{%if results.list.data.transcodeInfo.totalPage <60 %},{{results.brief}}{%endif%}</p>
             </div>
             <!-- 正文 -->
             <div class="file-content mt20">
@@ -168,8 +168,8 @@
             <div class="paper-info">
                 <div class="info-item">格式：{{results.list.data.fileInfo.format}}</div>
                 <div class="info-item">大小：{{results.list.data.fileInfo.fileSize}}</div>
-                <div class="info-item">页数：{{results.list.data.transcodeInfo.totalPage}}</div>
                 <div class="info-item">软件：{{results.list.data.fileInfo.readTool[results.list.data.fileInfo.software]}}</div>
+                <div class="info-item">页数：{{results.list.data.transcodeInfo.totalPage}}</div>
                 <div class="info-item">分类：{{results.crumbList.data[results.crumbList.data.length-1]['name']}}</div>
                 <div class="info-item">上传时间：{{results.list.data.fileInfo.createtime}}</div>
             </div>

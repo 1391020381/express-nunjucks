@@ -281,6 +281,7 @@ module.exports = {
             results.list.data.fileInfo.readTool = readTool;
             //对正文进行处理
             var textString =  results.fileDetailTxt.data;
+            console.log(results.fileDetailTxt,'results.fileDetailTxt')
            if(picArr.length>6) {
                 picArr = picArr.slice(0,6)
            }
@@ -294,6 +295,8 @@ module.exports = {
                 newTextArr.push(obj)
            }
            var description = textString.substr(0,200);
+           var brief = textString.substr(0,300);
+           results.brief = brief
            results.seo = {};
            results.seo.description = description ||'';
            results.seo.fileurl = fileurl;
