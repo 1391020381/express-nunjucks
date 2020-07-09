@@ -7,20 +7,22 @@
                    <p class="not-vip-left-title">你还不是VIP</p>
                    <p class="not-vip-top-left-subtitle">开通VIP，享专属特权，下海量资料 </p>
                 </div>
-            <div class="not-vip-right">开通VIP>></div>
+            <div class="not-vip-right"> <a href="/node/rights/vip.html" target="_blank"> 开通VIP>></a></div>
             <div class="vip-privilege-items-wrapper"></div>
            </div>
-
             {{else}}
-
             <div class="vip-summary">
                 <p class="vip-summary-title">
                    <span class="vip-summary-icon"></span>
                    <span>爱问共享资料VIP </span>
                 </p>
                <p class="vip-summary-subtitle">
-                   <span>剩余{{userInfo.privilege}}个特权 </span>
-                   <span>{{userInfo.expireTime}}到期</span>
+                  {{if userInfo.privilege}}
+                          <span class="privilege">剩余{{userInfo.privilege}}个特权 </span>
+                  {{else}}
+                          <span class="privilege">剩余0个特权 </span>
+                  {{/if}}
+                   <span class="end-date-master">{{userInfo.endDateMaster}}到期</span>
               </p>
            </div>
             {{/if}}

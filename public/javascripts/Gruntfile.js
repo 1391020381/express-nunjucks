@@ -69,6 +69,7 @@ module.exports = function (grunt) {
                     'dist/404/init.js': ['.build/404/init.js'],
                     'dist/personalCenter/init.js': ['.build/personalCenter/init.js'],
                     'dist/personalCenter/redirectionURL.js': ['.build/personalCenter/redirectionURL.js'],
+                    'dist/personalCenter/userPage.js': ['.build/personalCenter/userPage.js'],
                     'dist/pay/payment.js': ['.build/pay/payment.js'],
                     'dist/pay/paymentResult.js': ['.build/pay/paymentResult.js'],
                     'dist/index/init.js': ['.build/index/init.js'],

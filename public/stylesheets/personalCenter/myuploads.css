@@ -128,8 +128,10 @@
   vertical-align: middle;
   border: 1px solid #cccccc;
   border-radius: 2px;
+  box-sizing: border-box;
 }
 .myuploads .myuploads-table-list input:checked + span {
   background: url("../../images/personalCenter/checkbox-selected.png") no-repeat center;
   background-size: 100%;
+  border: none;
 }

@@ -23,6 +23,9 @@ define(function(require , exports , module){
 
     function getUserCentreInfoCallback(userInfo){
         var myvip = require("./template/myvip.html")
+        var formatDate = method.formatDate
+        Date.prototype.format = formatDate
+        userInfo.endDateMaster = new Date(userInfo.endDateMaster).format("yyyy-MM-dd")
         var _myvipTemplate = template.compile(myvip)({userInfo:userInfo,vipTableType:vipTableType});
         $(".personal-center-vip").html(_myvipTemplate);
         getBannerbyPosition()
