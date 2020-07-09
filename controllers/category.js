@@ -49,7 +49,7 @@ var list = function (req) {
         recommendList:function(callback){ //推荐位列表  包含banner 专题 word ppt exl
             let params=[];
             for (let k in util.pageIds.categoryPage){
-                if (k.includes('1818')) {
+                if (k.includes(navFatherId)) {
                     params.push(util.pageIds.categoryPage[k])
                 }
             }
@@ -84,7 +84,7 @@ var list = function (req) {
                     }
                     let params=[];
                     for (let k in util.pageIds.categoryPage){
-                        if (k.includes(navFatherId)) {
+                        if (k.includes(navFatherId)||k=='friendLink') {
                             params.push(util.pageIds.categoryPage[k])
                         }
                     }
@@ -190,7 +190,7 @@ module.exports = {
             results.words.data && results.words.data.rows.map(item=>{
                 item.linkurl = '/node/s/'+item.specialTopicId+'.html'
             })
-            // console.log(JSON.stringify(results.words), 'words');
+            console.log(JSON.stringify(results.recommendList), 'recommendList');
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []

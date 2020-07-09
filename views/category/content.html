@@ -136,15 +136,7 @@
         </div>
         {% if results.list.data.rows.length===0 %}
         <div class="search-nocontent">
-            <div class="nocontent">
-            </div>
-            <div class="nocontent-text">
-                <p class="nocontent-tip">抱歉,没有相关的文档。</p>
-                <!-- <div>建议您:</div>
-                <p>1、判断输入的文字是否有误;</p>
-                <p>2、根据语意,尝试一下其他相关词语;</p>
-                <p>3、拆分要搜索的关键词,分成几个词语再次搜索;</p> -->
-            </div>
+            <img class="fl" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png" alt=""> <span class="fl" style="margin-top: 40px;font-size: 20px;margin-left: 10px;">抱歉,没有相关的文档。</span>
         </div>
         {% endif %}
 
