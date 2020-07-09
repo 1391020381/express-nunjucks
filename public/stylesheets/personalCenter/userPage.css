@@ -153,8 +153,8 @@
 .personal-center-content .personal-container .left ul li .pic .pos {
   right: 0;
   bottom: 0;
-  left: unset;
-  top: unset;
+  left: inherit;
+  top: inherit;
 }
 .personal-center-content .personal-container .left ul li .info {
   display: inline-block;
@@ -274,8 +274,8 @@
 .personal-center-content .personal-container .right .hot-file ul li .pic .pos {
   right: 0;
   bottom: 0;
-  left: unset;
-  top: unset;
+  left: inherit;
+  top: inherit;
 }
 .personal-center-content .personal-container .right .hot-file ul li .info {
   display: inline-block;
