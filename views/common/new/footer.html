@@ -10,8 +10,11 @@
                 <p class="friend-link-title">友情链接</p>
                 <div class="friend-link-item">
                     {%for item in  results.friendLink %}
-                    <a href="{{item.linkUrl}}" target="_blank">{{item.copywriting1}}</a>
+                    <a {% if loop.index0 > 14 %}style="display: none;"{%endif%} href="{{item.linkUrl}}" target="_blank">{{item.copywriting1}}</a> 
                     {%endfor%}
+                    {%if results.friendLink.length>14%}
+                    <a onclick="$(this).parent().find('a').show();$(this).remove()" href="javascript:;">更多></a>
+                    {%endif%}
                 </div>
             </div>
             {%endif%}
