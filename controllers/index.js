@@ -172,7 +172,7 @@ module.exports = {
                          obj.imagUrl = item.cover_url;
                          obj.expand = {};
                          obj.expand.format =item.extra1;
-                         obj.expand.readNum =item.item_read_cnt;
+                         obj.expand.readNum =item.item_read_cnt||0;
                          obj.expand.totalPage =0;
                          return obj;
                      })
@@ -183,7 +183,7 @@ module.exports = {
            
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
             // console.warn(JSON.stringify(results.topicRec),'topicRec')
-            // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
+            console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
             // console.log(results,'index***************************')
             render("index/index",results,req,res);
         })

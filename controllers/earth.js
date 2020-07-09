@@ -56,7 +56,7 @@ module.exports = {
             var resultdata = {};
             resultdata.currentPage = currentPage;
             var pageArr = [];
-            var totalPages = results.maplist.data &&results.maplist.data.totalSize?results.maplist.data.totalSize:1;
+            var totalPages = results.maplist.data &&results.maplist.data.totalPages?results.maplist.data.totalPages:1;
             totalPages = totalPages>60?60:totalPages
             for(var i =0; i<totalPages; i++) {
                 pageArr.push(i+1);

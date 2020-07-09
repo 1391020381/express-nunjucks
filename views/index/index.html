@@ -231,6 +231,7 @@
    </div>
 </div>
 <!-- 精选资料 -->
+{%if results.recfileArr.length>0%}
 <div class="recmond-area">
     <div class="pw ">
         <div class="recmond-con">
@@ -256,8 +257,8 @@
                                 {{subitem.title}}
                             </div>
                             <div class="word-btm">
-                                <span>{{subitem.expand.readNum}}阅读</span>
-                                <span>{{subitem.expand.totalPage}}页</span>
+                                <span>{%if subitem.expand.readNum%}{{subitem.expand.readNum}}{%else%}0{%endif%}阅读</span>
+                                <span>{%if subitem.expand.totalPage%}{{subitem.expand.totalPage}}{%else%}0{%endif%}页</span>
                             </div>
                         </div>
                     </a>
@@ -268,6 +269,7 @@
         </div>
     </div>
 </div>
+{%endif%}
 <!-- 权威机构 -->
 <div class="institude-area">
     <div class="pw">

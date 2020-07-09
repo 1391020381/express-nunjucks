@@ -30,7 +30,7 @@ var list = function (req) {
                 sortField: sortField,
                 format: format=='all'?'':format,
                 currentPage:currentPage,
-                pageSize:10
+                pageSize:16
             };
             server.post(appConfig.apiNewBaselPath+api.category.list, callback, req);
         },
@@ -40,7 +40,8 @@ var list = function (req) {
         words: function (callback) {
             let params= {
                 currentPage:1,
-                pageSize:6
+                pageSize:6,
+                siteCode:4
             }
             req.body = params;
             server.post(appConfig.apiNewBaselPath+api.category.words, callback, req);

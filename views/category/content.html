@@ -173,12 +173,13 @@
     <!--右边内容-->
     <div class="landing-right fr">
         <div class="landing-search-hot">
+            {%if results.rightBannerList.length>0%}
             <div class="banner">
                <div class="swiper-container">
                     <div class="swiper-wrapper" id="j-rightBanner">
                         {% for item in results.rightBannerList %}
                         <div class="swiper-slide">
-                            <a href="{{item.linkUrl}}">
+                            <a href="{{item.linkUrl}}" target="_blank">
                                 <img src="{{item.imagUrl}}" alt="">
                             </a>
                         </div>
@@ -196,6 +197,7 @@
                     {% endif %}
                 </div>
             </div>
+            {%endif%}
             <div class="topicBanner-con">
                 <h2>推荐专题</h2>
                 <ul>
