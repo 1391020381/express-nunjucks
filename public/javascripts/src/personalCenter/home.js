@@ -39,12 +39,14 @@ define(function(require , exports , module){
                     var isAuth = res.data.isAuth
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
+                    }else{
+                        $('.personal-center-home .opentvip').hide()
                     }
                     if(privilegeNum ){
                         $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
                     }
                     if(couponNum){
-                        $(".personal-center-home .summary-count").text(couponNum ?couponNum :0)
+                        $(".personal-center-home .coupon").text(couponNum ?couponNum :0)
                     }
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
