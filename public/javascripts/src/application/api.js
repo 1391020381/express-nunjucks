@@ -89,7 +89,7 @@ define(function (require, exports, module) {
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
             getBuyRecord:gateway + '/rights/vip/getBuyRecord'
         },
-        vouchers:router+'/sale/vouchers',
+        // vouchers:router+'/sale/vouchers',
         order:{
             bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
