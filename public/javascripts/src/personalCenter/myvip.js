@@ -11,7 +11,7 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var isLogin = require('./effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
-
+    var userInfoValue = {}
     if(type == 'myvip'){
         isLogin(initData)
     }
@@ -25,6 +25,7 @@ define(function(require , exports , module){
         var myvip = require("./template/myvip.html")
         var formatDate = method.formatDate
         Date.prototype.format = formatDate
+        userInfoValue = userInfo
         userInfo.endDateMaster = new Date(userInfo.endDateMaster).format("yyyy-MM-dd")
         var _myvipTemplate = template.compile(myvip)({userInfo:userInfo,vipTableType:vipTableType});
         $(".personal-center-vip").html(_myvipTemplate);
@@ -58,7 +59,7 @@ define(function(require , exports , module){
                         item.effectiveEndDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
                         list.push(item)
                     })
-                    var isVip = method.getCookie('ui')?JSON.parse(method.getCookie('ui')).isVip:''
+                    var isVip = userInfoValue.isVipMaster
                    var _vipTableTemplate = template.compile(vipTable)({list:list||[],isVip:isVip,vipTableType:vipTableType})
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage) 
@@ -90,7 +91,7 @@ define(function(require , exports , module){
                   var vipTable = require('./template/vipTable.html')
                   var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                   var list = res.data&&res.data.rows || []
-                  var isVip = method.getCookie('ui')?JSON.parse(method.getCookie('ui')).isVip:''
+                  var isVip = userInfoValue.isVipMaster
                   var _vipTableTemplate = template.compile(vipTable)({list:list,isVip:isVip,vipTableType:vipTableType});
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage)  
