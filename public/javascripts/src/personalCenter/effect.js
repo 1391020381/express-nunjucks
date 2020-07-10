@@ -36,6 +36,13 @@ define(function (require, exports, module) {
         checkLogin.ishareLogout();
     });
     
+    $('.js-buy-open').click(function(){
+        if($(this).attr('data-type')=="vip") {
+            location.href = "/pay/vip.html"
+        }
+    })
+
+
     //刷新topbar
     var refreshTopBar = function (data) {
         var $unLogin = $('#unLogin');
