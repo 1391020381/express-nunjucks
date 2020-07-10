@@ -27,7 +27,6 @@ define(function(require , exports , module){
                 recommendConfigInfo.search.descs.forEach(function(item){
                     if(item.list.length){
                         if(item.pageId == 'PC_M_SR_ub'){
-                            debugger
                             var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container',hasDeleteIcon:true});
                             $(".search-all-main-topbanner").html(_topBannerHtml);
                             var mySwiper = new Swiper('.swiper-top-container', {
@@ -54,10 +53,12 @@ define(function(require , exports , module){
                                 autoplay: 3000,
                             })
                         }
-                    }else{
-                     $('.close-swiper').hide()   
                     }
                 })
+               }
+               if($(".search-all-main-topbanner .swiper-slide").length<=0){
+                    $('.close-swiper').hide()   
+                   
                }
             }
         })

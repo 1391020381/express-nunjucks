@@ -54,15 +54,16 @@
                                                 <div class="drop">&nbsp;</div>
                                                 <div class="item-wrap-des">
                                                     <div class="item-text">
-                                                        <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                        <div><span class="item-text-title">使用范围：</span>VIP专享资料</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                  </li>
-                                {% elif 'freeDownloadNum' == member.code %}
+                                {% elif 'freeDownloadNum---------------' == member.code %}
                                 <li>
+                                需求是删除 freeDownloadNum判断,为了不最小程度修改代码,添加------使条件不成立
                                     <div class="picture">
                                         <img src="{{cdnUrl}}/images/rights/2.png">
                                     </div>
@@ -77,6 +78,17 @@
                                         {%elif member.type==3%}
                                             {{member.value}}篇
                                         {%endif%}
+                                        <div class="item-wrap-img">
+                                            <img src="{{cdnUrl}}/images/tip.png">
+                                            <div class="item-wrap-dialog">
+                                                <div class="drop">&nbsp;</div>
+                                                <div class="item-wrap-des">
+                                                    <div class="item-text">
+                                                        <div><span class="item-text-title">使用范围：</span>资料类型为【免费资料】的资料</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                  </li>
                             {% elif 'payDiscount' == member.code %}
@@ -144,7 +156,7 @@
                                     <div class="vip-des">
                                         多终端互通
                                     </div>
-                                    <div class="vip-txt"> </div>
+                                    <div class="vip-txt"> 云同步</div>
                                 </li>
                         </ul>
                         <ul class="carding-rewords-icon hide cf" data-index="1">
@@ -171,14 +183,14 @@
                                             <div class="drop">&nbsp;</div>
                                             <div class="item-wrap-des">
                                                 <div class="item-text">
-                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum' == member.code %}
+                            {% elif 'freeDownloadNum---------------' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
@@ -194,6 +206,17 @@
                                     {%elif member.type==3%}
                                     {{member.value}}篇
                                     {%endif%}
+                                     <div class="item-wrap-img">
+                                            <img src="{{cdnUrl}}/images/tip.png">
+                                            <div class="item-wrap-dialog">
+                                                <div class="drop">&nbsp;</div>
+                                                <div class="item-wrap-des">
+                                                    <div class="item-text">
+                                                        <div><span class="item-text-title">使用范围：</span>资料类型为【免费资料】的资料</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </li>
                             {% elif 'payDiscount' == member.code %}
@@ -261,7 +284,7 @@
                                 <div class="vip-des">
                                     多终端互通
                                 </div>
-                                <div class="vip-txt"> </div>
+                                <div class="vip-txt"> 云同步</div>
                             </li>
                         </ul>
                         <ul class="carding-rewords-icon hide cf" data-index="2">
@@ -288,14 +311,14 @@
                                             <div class="drop">&nbsp;</div>
                                             <div class="item-wrap-des">
                                                 <div class="item-text">
-                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum' == member.code %}
+                            {% elif 'freeDownloadNum---------------' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
@@ -311,6 +334,17 @@
                                     {%elif member.type==3%}
                                     {{member.value}}篇
                                     {%endif%}
+                                     <div class="item-wrap-img">
+                                            <img src="{{cdnUrl}}/images/tip.png">
+                                            <div class="item-wrap-dialog">
+                                                <div class="drop">&nbsp;</div>
+                                                <div class="item-wrap-des">
+                                                    <div class="item-text">
+                                                        <div><span class="item-text-title">使用范围：</span>资料类型为【免费资料】的资料</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </li>
                             {% elif 'payDiscount' == member.code %}
@@ -378,7 +412,7 @@
                                 <div class="vip-des">
                                     多终端互通
                                 </div>
-                                <div class="vip-txt"> </div>
+                                <div class="vip-txt">云同步 </div>
                             </li>
                         </ul>
                         <ul class="carding-rewords-icon hide cf" data-index="3">
@@ -405,14 +439,14 @@
                                             <div class="drop">&nbsp;</div>
                                             <div class="item-wrap-des">
                                                 <div class="item-text">
-                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料、下载券资料</div>
+                                                    <div><span class="item-text-title">使用范围：</span>VIP专享资料</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum' == member.code %}
+                            {% elif 'freeDownloadNum---------------' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
@@ -428,6 +462,17 @@
                                     {%elif member.type==3%}
                                     {{member.value}}篇
                                     {%endif%}
+                                     <div class="item-wrap-img">
+                                            <img src="{{cdnUrl}}/images/tip.png">
+                                            <div class="item-wrap-dialog">
+                                                <div class="drop">&nbsp;</div>
+                                                <div class="item-wrap-des">
+                                                    <div class="item-text">
+                                                        <div><span class="item-text-title">使用范围：</span>资料类型为【免费资料】的资料</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </li>
                             {% elif 'payDiscount' == member.code %}
@@ -495,7 +540,7 @@
                                 <div class="vip-des">
                                     多终端互通
                                 </div>
-                                <div class="vip-txt"> </div>
+                                <div class="vip-txt">云同步 </div>
                             </li>
                         </ul>
                     </div>
