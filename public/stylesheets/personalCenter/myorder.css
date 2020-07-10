@@ -80,6 +80,7 @@
   overflow: hidden;
   word-break: break-all;
   width: 300px;
+  cursor: pointer;
 }
 .personal-center-myorder .myorder-table-list .table-list-item .item-price {
   color: #333333;
