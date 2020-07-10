@@ -39,7 +39,11 @@
                     <input id={{list[$index].id}} type="checkbox" class="label-input"/>
                     <span></span>
                     <span  class="file-icon ico-data {{'ico-'+ list[$index].format}}"></span>
-                    <span class="file-title">{{list[$index].title}}</span>
+                    {{if myuploadType !== '4' && myuploadType !== '5'}}
+                      <span class="file-title"><a href="/f/{{list[$index].id}}.html"  target="_blank">{{list[$index].title}}</a></span>
+                    {{else}}
+                      <span class="file-title">{{list[$index].title}}</span>
+                    {{/if}}
                 </label>
             </td>
              <td><img class="delete-icon" data-id={{list[$index].id}} src="{{cdnUrl}}/images/personalCenter/delete-icon.png"></td>

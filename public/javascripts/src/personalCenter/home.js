@@ -15,6 +15,8 @@ define(function(require , exports , module){
             getUserCentreInfo()  
             getFileBrowsePage()
             getDownloadRecordList()
+            getBannerbyPosition()
+            getMyVipRightsList()
     }
     function getUserCentreInfo(callback) {  
         $.ajax({
@@ -34,6 +36,7 @@ define(function(require , exports , module){
                     var privilegeNum  = res.data.privilege   // 下载券数量
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
+                    var isAuth = res.data.isAuth
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
                     }
@@ -45,6 +48,9 @@ define(function(require , exports , module){
                     }
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
+                    }
+                    if(!isAuth){
+                        $('.personal-menu .mywallet').hide()
                     }
                     callback&&callback(res.data)
                }else{
@@ -137,9 +143,6 @@ define(function(require , exports , module){
             }
         })
     }
-
-    getBannerbyPosition()
-    getMyVipRightsList()
     function getBannerbyPosition() { // PC_M_USER_banner
         $.ajax({
             url: api.recommend.recommendConfigInfo,

@@ -88,7 +88,7 @@ define(function(require , exports , module){
         }
         var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
         if(checkedNumber.length){
-            $('.myuploads .myuploads-nums').text(checkedNumber.length + '篇')
+            $('.myuploads .myuploads-nums').text(checkedNumber.length  + '篇')
         }else{
             $('.myuploads .myuploads-nums').text(0 + '篇') 
         }
@@ -97,12 +97,14 @@ define(function(require , exports , module){
         console.log($(this).attr('checked'))
         if($(this).attr('checked')){
             $('.myuploads-table-list .label-input').attr("checked", 'checked')
+            $('.myuploads-table-list .table-item').addClass('table-item-active')
         }else{
             $('.myuploads-table-list .label-input').attr("checked", false)
+            $('.myuploads-table-list .table-item').removeClass('table-item-active')
         }
         var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
         if(checkedNumber.length){
-            $('.myuploads .myuploads-nums').text(checkedNumber.length + '篇')
+            $('.myuploads .myuploads-nums').text(checkedNumber.length-1+ '篇')
         }else{
             $('.myuploads .myuploads-nums').text(0 + '篇') 
         }

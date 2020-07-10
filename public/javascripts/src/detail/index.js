@@ -169,13 +169,13 @@ define(function (require, exports, module) {
         });
 
         // 优惠券发放
-        if (method.getCookie('cuk')) {
-            login.getUserData(function (res) {
-                if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                    receiveCoupon(0, 2, res.userId);
-                }
-            })
-        }
+        // if (method.getCookie('cuk')) {
+        //     login.getUserData(function (res) {
+        //         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
+        //             receiveCoupon(0, 2, res.userId);
+        //         }
+        //     })
+        // }
 
         // 退出
         $('.btn-exit').on('click', function () {
@@ -762,7 +762,7 @@ define(function (require, exports, module) {
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
