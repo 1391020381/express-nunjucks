@@ -8,10 +8,10 @@ define(function(require , exports , module){
     var simplePagination = require("./template/simplePagination.html")
     var orderStatusList = {
         0:'待支付',
-        1:'支付进行中',
-        2:'支付成功',
-        3:'支付失败',
-        4:'订单取消'
+        1:'待支付',
+        2:'交易成功',
+        3:'待支付',
+        4:'订单失效'
     }
     var refundStatusDescList = {
           0:'未申请退款',

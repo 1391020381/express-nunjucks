@@ -99,10 +99,10 @@
   vertical-align: sub;
 }
 .myuploads .myuploads-table-list .table-item td .file-title {
+  display: inline-block;
   font-size: 14px;
   color: #222222;
   vertical-align: middle;
-  padding-left: 26px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

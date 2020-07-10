@@ -6,16 +6,16 @@
         {{/if}}
         {{ if paginationList.length>1}}
             {{each paginationList}}
-                {{if $index >0}}
-                     {{ if $index<+currentPage+3 }}
-                   {{if $index>=currentPage-3}}
-                          {{if currentPage == $index}}
-                                   <li class='page-item active'  data-currentPage={{$index}}>
-                                       {{$index}}
+                {{if $index >=0}}
+                     {{ if $index<+currentPage+10 }}
+                   {{if $index>=currentPage-10}}
+                          {{if currentPage == $index+1}}
+                                   <li class='page-item active'  data-currentPage={{$index +1}}>
+                                       {{$index+1}}
                                     </li>
                           {{else}}
-                                <li class='page-item' data-currentPage={{$index}}>
-                                       {{$index}}
+                                <li class='page-item' data-currentPage={{$index+1}}>
+                                       {{$index+1}}
                                 </li>
                           {{/if}}
                    {{/if}}
@@ -23,10 +23,12 @@
                 {{/if}}
            {{/each}}
 
-           {{if currentPage <= paginationList.length -3}}
+           {{if currentPage <= paginationList.length -10}}
                 <li class="page-more page-item">...</li>
            {{/if}}
-           <li class="page-item" data-currentPage={{+currentPage+1}}>下一页</li>
+           {{if currentPage < paginationList.length}}
+             <li class="page-item" data-currentPage={{paginationList.length}}>下一页</li>
+          {{/if}}
            <li class="page-item" data-currentPage={{paginationList.length}}>尾页</li>
         {{/if}}  
   </ul>
