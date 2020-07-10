@@ -202,9 +202,9 @@
                     {%endfor%}
                 </ul>
             </div>
-            {% if results.words.data.totalPages>5 %}
+            {% if results.words.data.rows.length>2 %}
             <div class="hot-key-word">
-                <h2 class="hot-title">相关搜索词</h2>
+                <h2 class="hot-title">热门搜索</h2>
                 <div class="landing-hot-list sts_5">
                     {% for item in results.words.data.rows %}
                     <a href="{{item.linkurl}}" target="_blank">{{item.topicName}}</a>
@@ -218,7 +218,7 @@
                         var s = "_" + Math.random().toString(36).slice(2);
                         document.write('<div id="' + s + '"></div>');
                         (window.slotbydup = window.slotbydup || []).push({
-                            id: '6336123',
+                            id: 'u2985078',
                             container: s,
                             size: '310,350',
                             display: 'inlay-fix'

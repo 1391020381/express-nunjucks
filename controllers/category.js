@@ -188,7 +188,9 @@ module.exports = {
 
             //热点搜索
             results.words.data && results.words.data.rows.map(item=>{
-                item.linkurl = '/node/s/'+item.specialTopicId+'.html'
+                // /search/home.html?ft=all&cond=%25E6%2595%2599%25E8%2582%25B2 
+                var val = encodeURIComponent(encodeURIComponent(item.specialTopicId))
+                item.linkurl = '/search/home.html?ft=all&cond='+val;
             })
             // console.log(JSON.stringify(results.recommendList), 'recommendList');
             //tkd 后端部分接口写的是tkd字段

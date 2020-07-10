@@ -56,17 +56,17 @@
             <div class="pw pw-v">
                 <h2 class="header-title">你正在进行个人认证</h2>
                 <div class="header-process cf">
-                    <div class="process-item {{'step-now' if results.isEdit==undefined or results.isEdit==3}} fl">
+                    <div class="process-item {{'step-now' if results.auditStatus==undefined or results.auditStatus==3}} fl">
                         <span class="step-num">1</span>
                         <span class="step-text">填写信息</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item {{'step-now' if results.isEdit==0 or results.isEdit==1}} fl">
+                    <div class="process-item {{'step-now' if results.auditStatus==0 or results.auditStatus==1}} fl">
                         <span class="step-num">2</span>
                         <span class="step-text">等待审核</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item {{'step-now' if results.isEdit==2}} fl">
+                    <div class="process-item {{'step-now' if results.auditStatus==2}} fl">
                         <span class="step-num">3</span>
                         <span class="step-text">认证成功</span>
                     </div>
