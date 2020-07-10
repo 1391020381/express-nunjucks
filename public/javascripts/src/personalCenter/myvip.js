@@ -52,7 +52,12 @@ define(function(require , exports , module){
                     console.log('getMemberPointRecord:',res) 
                     var vipTable = require('./template/vipTable.html')
                     var vipTableType =window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
-                    var list = res.data&&res.data.rows || []
+                    var list =  []
+                    res.data.rows.forEach(function(item){
+                        item.effectiveStartDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
+                        item.effectiveEndDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
+                        list.push(item)
+                    })
                     var isVip = method.getCookie('ui')?JSON.parse(method.getCookie('ui')).isVip:''
                    var _vipTableTemplate = template.compile(vipTable)({list:list||[],isVip:isVip,vipTableType:vipTableType})
                    $(".vip-table-wrapper").html(_vipTableTemplate) 

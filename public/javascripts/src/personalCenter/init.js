@@ -29,6 +29,7 @@ clipboardBtn.on('error', function(e) {
     require("./myorder.js")
     require("./accountsecurity.js")
     require("./personalinformation.js")
+    require("./mywallet.js")
     require("../common/bilog");
     // require("../common/baidu-statistics");
 });
