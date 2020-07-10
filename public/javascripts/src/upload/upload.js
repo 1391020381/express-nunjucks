@@ -51,6 +51,11 @@ define(function(require , exports , module){
                     });
                 }
             });
+            $('.js-buy-open').click(function(){
+                if($(this).attr('data-type')=="vip") {
+                    location.href = "/pay/vip.html"
+                }
+            })
             // 退出登录
             $('.btn-exit').click(function(){
                 login.ishareLogout()
