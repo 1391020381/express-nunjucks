@@ -29,14 +29,7 @@ define(function(require , exports , module){
             }) 
         },
         beforeInit:function(){
-            if (!utils.getCookie('cuk')) {
-                login.notifyLoginInterface(function (data) {
-                   if (data) {
-                        refreshTopBar(data);
-                        orgObj.nickName = data.nickName;
-                   }
-                });
-            }else {
+            if (utils.getCookie('cuk')) {
                 login.getLoginData(function (data) {
                     if (data) {
                         refreshTopBar(data);
