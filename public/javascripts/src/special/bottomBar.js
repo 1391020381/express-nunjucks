@@ -55,7 +55,7 @@ define(function(require , exports , module){
     })
 }
 // 顶部header登录逻辑
-$('#a-login-link').click(function(){
+$('#a-login-link,.user-login').click(function(){
     login.notifyLoginInterface(function (data) {
         console.log('-------------------',data)
         refreshTopBar(data);
