@@ -35,6 +35,7 @@ define(function (require, exports, module) {
     $(".btn-exit").on("click", function () {
         checkLogin.ishareLogout();
     });
+    
     //刷新topbar
     var refreshTopBar = function (data) {
         var $unLogin = $('#unLogin');
