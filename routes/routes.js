@@ -8,6 +8,7 @@ let routes = [
     'upload',
     'feedback',
     'personalCenter',
+    'userInfo',
     '503',
     '404',
     'start',

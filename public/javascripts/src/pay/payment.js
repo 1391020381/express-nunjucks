@@ -11,8 +11,6 @@ define(function(require , exports , module){
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-    $('.pay-price .price').text(payPrice)
-    $('.goodsName').text(goodsName)
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -29,6 +27,8 @@ define(function(require , exports , module){
             success: function (res) {
                 console.log('scanOrderInfo:',res)
                if(res.code == '0'){
+                payPrice&&$('.pay-price .price').text(payPrice)
+                goodsName&$('.goodsName').text(goodsName)
                   if(res.data.needRedirect){
                       location.href = res.data.returnUrl
                       return

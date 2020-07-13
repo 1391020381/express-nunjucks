@@ -31,6 +31,7 @@ module.exports = {
         rightsSaleVouchers:   "/rights/sale/vouchers",
         rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
         querySeniority:  '/rights/sale/querySeniority',
+        getRightsVipMemberDetail:'/rights/vip/memberDetail'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
@@ -70,6 +71,9 @@ module.exports = {
         byCondition: '/search/byCondition',
         //搜索服务--API接口--搜索页搜索关联词数据--同步
         associatedWords: '/search/associatedWords'
+    },
+    user:{
+       getUserInfo:'/user/getUserInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     queryOrderPc: '/order/bindOrderByOrderNo',

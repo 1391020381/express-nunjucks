@@ -116,7 +116,7 @@ define(function(require , exports , module){
                 pageSize:16,
                 sortField:sortField,   //createTime最新
                 format:format,
-                // uid:method.getQueryString('uid')
+                uid:method.getQueryString('uid')
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

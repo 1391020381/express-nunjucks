@@ -131,12 +131,12 @@ define(function (require, exports, module) {
     function pageHeaderInfo(data) {
         $hasLogin.removeClass('hide');
         $notLogin.addClass('hide');
-        $('.user-pic').attr('src', data.weiboImage);
+        $('.user-pic').attr('src', data.photoPicURL);
         $('.user-name').html(data.nickName);
     }
 
     function pageRightInfo($anWrap, index, data) {
-        $('.user-avatar img').attr('src', data.weiboImage);
+        $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip === '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';

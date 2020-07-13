@@ -109,9 +109,9 @@ define(function (require, exports, module) {
         $unLogin.addClass('hide');
         $hasLogin.removeClass('hide');
         $hasLogin.find('.user-link .user-name').html(data.nickName);
-        $hasLogin.find('.user-link img').attr('src', data.weiboImage);
+        $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
         $hasLogin.find('.top-user-more .name').html(data.nickName);
-        $hasLogin.find('.top-user-more img').attr('src', data.weiboImage);
+        $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
     }
 
     function loginStatusQuery() {

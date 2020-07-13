@@ -1,17 +1,17 @@
 define(function(require , exports , module){
-    var type = window.pageConfig&&window.pageConfig.page.type
-    if(type == 'myuploads'){
+   // var type = window.pageConfig&&window.pageConfig.page.type
+    //if(type == 'myuploads'){
         // $("#dialog-box").dialog({
         //     html: $('#myuploads-delete-dialog').html(),
         // }).open();
-    }
+    // }
  
     
-    if(type=='mywallet'){
-        $("#dialog-box").dialog({
-            html: $('#mywallet-tip-dialog').html(),
-        }).open();
-    }
+    // if(type=='mywallet'){
+    //     $("#dialog-box").dialog({
+    //         html: $('#mywallet-tip-dialog').html(),
+    //     }).open();
+    // }
     // $('#dialog-box').on('click','.submit-btn',function(e){
         
     // })

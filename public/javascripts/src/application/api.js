@@ -8,6 +8,7 @@ define(function (require, exports, module) {
         // 用户相关
         user: {
             // 登录
+            getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             login: router + '/usermanage/checkLogin',
             // 登出
             loginOut: gateway + '/pc/usermanage/logout',

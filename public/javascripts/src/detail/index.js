@@ -709,7 +709,7 @@ define(function (require, exports, module) {
                                 var showName = anonymous ? '匿名用户' : common.userData.nickName;
                                 var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + '</a>' : '<a href="/n/' + common.userData.userId + '.html" class="user-name-con">' + showName + '</a>';
                                 $('.evaluate-list').prepend('<li class="cf">' +
-                                    '<div class="user-img fl"><img src="' + common.userData.weiboImage + '" alt="头像"></div>' +
+                                    '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' +
                                     '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content +
                                     '</p></div></li>');
                                 $('#commentTxt').val('');

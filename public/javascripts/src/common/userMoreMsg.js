@@ -54,9 +54,9 @@ define(function (require, exports, module) {
 
          //$unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
-        $hasLogin.find('.user-link img').attr('src', data.weiboImage);
+        $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
         $hasLogin.find('.top-user-more .user-name').html(data.nickName);
-        $hasLogin.find('.top-user-more img').attr('src', data.weiboImage);
+        $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
         //$hasLogin.show();
         
 
