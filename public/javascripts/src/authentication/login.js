@@ -8,7 +8,7 @@ define(function(require , exports , module){
         var $vip_status = $('.vip-status');
         var $icon_iShare = $(".icon-iShare");
         var $top_user_more = $(".top-user-more");
-        $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
+        $btn_user_more.text(data.vipStatus == 1 ? '续费' : '开通');
         var $target = null;
        
         if(data.msgCount) {
@@ -20,27 +20,27 @@ define(function(require , exports , module){
             }
         })
         //vip
-        if (data.isVip == 1) {
+        if (data.vipStatus == 1) {
             $target = $vip_status.find('p[data-type="2"]');
             $target.find('.expire_time').html(data.expireTime);
             $target.show().siblings().hide();
             $top_user_more.addClass('top-vip-more');
-            $('.isVip-show').find('span').html(data.expireTime);
-            $('.isVip-show').removeClass('hide');
+            $('.vipStatus-show').find('span').html(data.expireTime);
+            $('.vipStatus-show').removeClass('hide');
             //vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
             $hasLogin.removeClass("user-con-vip");
             $target.show().siblings().hide();
             // 新用户
-        } else if (data.isVip == 0) {
+        } else if (data.vipStatus == 0) {
             $hasLogin.removeClass("user-con-vip");
 
             // 用户不是vip,但是登录啦,隐藏 登录后开通 显示 开通
             $('.btn-join-vip').eq(0).hide()
             $('.btn-join-vip').eq(1).show()
             // 续费vip
-        } else if (data.isVip == 2) {
+        } else if (data.vipStatus == 2) {
             $('.vip-title').hide();
         }
 
@@ -51,7 +51,7 @@ define(function(require , exports , module){
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
         $hasLogin.show();
 
-        window.pageConfig.params.isVip = data.isVip;
+        window.pageConfig.params.vipStatus = data.vipStatus;
         var fileDiscount = data.fileDiscount;
         if (fileDiscount) {
             fileDiscount = fileDiscount / 100;
@@ -60,7 +60,7 @@ define(function(require , exports , module){
         }
         window.pageConfig.params.fileDiscount = fileDiscount;
         $("#ip-uid").val(data.userId);
-        $("#ip-isVip").val(data.isVip);
+        $("#ip-vipStatus").val(data.vipStatus);
         $("#ip-mobile").val(data.mobile);
     }
     return refreshTopBar;

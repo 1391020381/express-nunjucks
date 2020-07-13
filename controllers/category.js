@@ -129,6 +129,9 @@ module.exports = {
             if(results.list&&results.list.data&&results.list.data.rows) {
                 // 页码处理
                 pageObj = results.list.data;
+                var totalPages = pageObj.totalPages;
+                totalPages = totalPages>20?20:totalPages;
+                console.log(totalPages,'pageObj.totalPages')
                 if(pageObj.rows.length>0) {
                     if(currentPage>4) {
                         pageArr_f = [1,'···'];
@@ -140,13 +143,13 @@ module.exports = {
                             pageArr_f.push(i+1);
                         }
                     }
-                    if(pageObj.totalPages-3>currentPage){
+                    if(totalPages-3>currentPage){
                         pageArr_b.push(currentPage+1)
                         pageArr_b.push(currentPage+2)
                         pageArr_b.push('···')
-                        pageArr_b.push(pageObj.totalPages)
+                        pageArr_b.push(totalPages)
                     }else {
-                        for(var i=currentPage;i<pageObj.totalPages;i++) {
+                        for(var i=currentPage;i<totalPages;i++) {
                             pageArr_b.push(i+1);
                         }
                     }
@@ -160,7 +163,7 @@ module.exports = {
             results.reqParams = {
                 cid: categoryId,
                 currentPage: currentPage,
-                totalPages:pageObj.totalPages,
+                totalPages:totalPages,
                 fileType: format,
                 sortField: sortField,
                 pageIndexArr: pageIndexArr

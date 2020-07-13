@@ -70,15 +70,18 @@ define(function (require, exports, module) {
             $('.isVip-show').removeClass('hide');
             //vip 已经 过期
         } else if (data.userType == 1) {
-            $target = $vip_status.find('p[data-type="3"]');
-            $hasLogin.removeClass("user-con-vip");
-            $target.show().siblings().hide();
+            // $target = $vip_status.find('p[data-type="3"]');
+            // $hasLogin.removeClass("user-con-vip");
+            // $target.show().siblings().hide();
             // 新用户
         } else if (data.isVip == 0) {
             $hasLogin.removeClass("user-con-vip");
-            // 续费vip
+            // 已经 过期
         } else if (data.isVip == 2) {
             $('.vip-title').hide();
+            $target = $vip_status.find('p[data-type="3"]');
+            $hasLogin.removeClass("user-con-vip");
+            $target.show().siblings().hide();
         }
 
         $unLogin.hide();
