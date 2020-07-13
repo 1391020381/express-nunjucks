@@ -1,6 +1,5 @@
 
 // 通用头部的逻辑
-
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
@@ -35,7 +34,7 @@ define(function (require, exports, module) {
         checkLogin.ishareLogout();
     });
     
-    $('.js-buy-open').click(function(){
+    $('.js-buy-open').click(function(){  //  头像续费vip也有使用到
         if($(this).attr('data-type')=="vip") {
             location.href = "/pay/vip.html"
         }
@@ -106,13 +105,13 @@ define(function (require, exports, module) {
         $("#ip-isVip").val(data.isVip);
         $("#ip-mobile").val(data.mobile);
     };
-    function isLogin(callback){
-        if (!method.getCookie('cuk')) {
+    function isLogin(callback,isAutoLogin){
+        if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
                 callback(data)
             });
-        } else {
+        } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
                 refreshTopBar(data);
                 callback(data)
