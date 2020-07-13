@@ -108,12 +108,17 @@ define(function (require,exports,moudle) {
         },
         // 点击搜索
         searchWordHook:function(){
+            var searVal = '';
             $('.search-container .icon-search').click(function(){
-                var searVal = $('.search-container .search-input').val();
-                var url = ''
+                searVal = $('.search-container .search-input').val();
                 window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
             })
-           
+            $('.search-container .search-input').keydown(function(e) {  
+                if (e.keyCode == 13) {  
+                    searVal = $('.search-container .search-input').val();
+                    window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+                }  
+            });  
         },
         tabswitchFiles:function(){
             // 精选资料切换
