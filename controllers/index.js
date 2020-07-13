@@ -98,8 +98,8 @@ module.exports = {
             hotRecData:function(callback){
                 req.body = {
                     contentType: 100,
-                    clientType:1,
-                    pageSize:12
+                    clientType:0,
+                    pageSize:12,
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }

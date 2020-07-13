@@ -41,11 +41,13 @@
             {%endfor%} 
         </ul>
         {% endif %}
+        {% if results.bannerList.length>1 %}
         <div class="office-focus" id="J_office_focus">
             {%for item in results.bannerList  %}
             <a href="javascript:;" data-index="{{loop.index0}}"></a>
             {%endfor%}
         </div>
+        {% endif %}
         <!-- 左右切换banner -->
         {% if results.bannerList.length>1 %}
         <a class="btn-banner btn-banner-prev" id="J_office_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>

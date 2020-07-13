@@ -58,7 +58,7 @@
             <ul>
                 {% for item in results.initialCapitalArr %}
                 <li class="{{'active' if results.initialArr[loop.index0] == results.prex}} {{'special-item' if loop.first or loop.last}}">
-                    <a href="/index/{%if results.type == 'f'%}f{%else%}t{%endif%}-{{results.initialArr[loop.index0]}}-{{results.currentPage}}.html">{{item}}</a>
+                    <a href="/index/{%if results.type == 'f'%}f{%else%}t{%endif%}-{{results.initialArr[loop.index0]}}-1.html">{{item}}</a>
                 </li>
                 {% endfor %}
             </ul>
