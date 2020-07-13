@@ -2,7 +2,7 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var api = require('../application/api');
     var type = window.pageConfig&&window.pageConfig.page.type
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var myorderType  = window.pageConfig&&window.pageConfig.page.myorderType
     var simplePagination = require("./template/simplePagination.html")

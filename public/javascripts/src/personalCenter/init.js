@@ -23,7 +23,7 @@ define(function(require , exports , module){
        });
     }
     require('../application/suspension')
-    require("./effect");  // 登录和刷新topbar 
+  //  require("./effect");  // 登录和刷新topbar 
     require("./menu.js")
     require("./dialog.js")
     require("./home.js")

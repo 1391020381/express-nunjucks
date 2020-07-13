@@ -13,8 +13,8 @@ define(function(require , exports , module){
     if(type == 'accountsecurity'){
         isLogin(initData)
     }
-    function initData(){
-        getUserCentreInfo()
+    function initData(userInfo){
+        getUserCentreInfo(userInfo)
         queryUserBindInfo()
     }
     

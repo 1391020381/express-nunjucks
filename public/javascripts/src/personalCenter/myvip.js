@@ -9,7 +9,7 @@ define(function(require , exports , module){
     var simplePagination = require("./template/simplePagination.html")
     var recommendConfigInfo = require('../common/recommendConfigInfo')    
     var api = require('../application/api');
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var userInfoValue = {}
     if(type == 'myvip'){

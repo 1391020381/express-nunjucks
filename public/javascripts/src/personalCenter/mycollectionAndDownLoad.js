@@ -3,7 +3,7 @@ define(function(require , exports , module){
    var api = require('../application/api');
    var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html')
    var simplePagination = require("./template/simplePagination.html")
-   var isLogin = require('./effect.js').isLogin
+   var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
    if(type =='mycollection'||type =='mydownloads'){
@@ -14,7 +14,7 @@ define(function(require , exports , module){
         getUserCentreInfo(userInfo) 
        getUserFileList()
     }else if(type == 'mydownloads'){
-        getUserCentreInfo()
+        getUserCentreInfo(userInfo)
        getDownloadRecordList()
     }
   }

@@ -1,10 +1,9 @@
+
+// 通用头部的逻辑
+
 define(function (require, exports, module) {
-    // var $ = require("$");
     var checkLogin = require("../application/checkLogin");
-    var app = require("../application/app");
     var method = require("../application/method");
-
-
     //登录
     // $(".js-login").on("click", function () {
     //     checkLogin.notifyLoginInterface(function (data) {
@@ -42,6 +41,9 @@ define(function (require, exports, module) {
         }
     })
     
+    $('.vip-join-con').click(function(){
+        method.compatibleIESkip("/node/rights/vip.html",true);
+    })
     $('.btn-new-search').click(function(){
         var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : '';
          method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
@@ -104,8 +106,6 @@ define(function (require, exports, module) {
         $("#ip-isVip").val(data.isVip);
         $("#ip-mobile").val(data.mobile);
     };
-    //是否登录
-   // isLogin()
     function isLogin(callback){
         if (!method.getCookie('cuk')) {
             checkLogin.notifyLoginInterface(function (data) {
