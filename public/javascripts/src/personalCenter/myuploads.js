@@ -5,17 +5,16 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var myuploads = require("./template/myuploads.html")
     var simplePagination = require("./template/simplePagination.html")
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var idList = []  // 保存 要删除的文件id
     if(type == 'myuploads'){
         isLogin(initData)
     }
-    function initData(){
-            getUserCentreInfo()
+    function initData(userInfo){
+            getUserCentreInfo(userInfo)
             getMyUploadPage()   
     }
-
        function getMyUploadPage(currentPage){  // 分页查询我的上传
         var status = method.getParam('myuploadType') || 1
         $.ajax({

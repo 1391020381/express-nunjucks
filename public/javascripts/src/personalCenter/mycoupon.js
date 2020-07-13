@@ -3,13 +3,13 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var type = window.pageConfig&&window.pageConfig.page.type
     var simplePagination = require("./template/simplePagination.html")
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     if(type == 'mycoupon'){
         isLogin(initData)
     }
-    function initData(){
-            getUserCentreInfo()
+    function initData(userInfo){
+            getUserCentreInfo(userInfo)
             rightsSaleQueryUsing()
     }
 

@@ -2,7 +2,7 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var api = require('../application/api');
     var type = window.pageConfig&&window.pageConfig.page.type
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var myorderType  = window.pageConfig&&window.pageConfig.page.myorderType
     var simplePagination = require("./template/simplePagination.html")
@@ -40,8 +40,8 @@ define(function(require , exports , module){
         isLogin(initData) 
     }
     
-    function initData(){
-        getUserCentreInfo()
+    function initData(userInfo){
+        getUserCentreInfo(userInfo)
         queryOrderlistByCondition()
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)

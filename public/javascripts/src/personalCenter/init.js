@@ -23,7 +23,7 @@ define(function(require , exports , module){
        });
     }
     require('../application/suspension')
-    require("./effect");  // 登录和刷新topbar 
+  //  require("./effect");  // 登录和刷新topbar 
     require("./menu.js")
     require("./dialog.js")
     require("./home.js")
@@ -33,8 +33,8 @@ define(function(require , exports , module){
     require("./mycoupon.js")
     require("./myorder.js")
     require("./accountsecurity.js")
-    require("./personalinformation.js")
-    require("./mywallet.js")
+    // require("./personalinformation.js")
+    // require("./mywallet.js")
     require("../common/bilog");
 
     function isLowsIe8(){

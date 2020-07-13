@@ -7,67 +7,49 @@ define(function(require , exports , module){
     var homeRecentlySee = require("./template/homeRecentlySee.html")
     var vipPrivilegeList = require('./template/vipPrivilegeList.html')
     var type = window.pageConfig&&window.pageConfig.page.type
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     if(type == 'home'){
         isLogin(initData)
     }
-    function initData(){
-            getUserCentreInfo()  
+    function initData(userInfo){
+            getUserCentreInfo(userInfo)  
             getFileBrowsePage()
             getDownloadRecordList()
             getBannerbyPosition()
             getMyVipRightsList()
     }
-    function getUserCentreInfo(callback) {  
-        $.ajax({
-            url: api.user.getUserCentreInfo+"?scope=4",
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-               if(res.code == '0'){
-                    console.log('getUserCentreInfo:',res)
-                    // compilerTemplate(res.data)
-                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
-                    // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
-                    $('.personal-center-menu .personal-profile .personal-nickname .nickname').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span> <span class="level-icon"></span></p>')
-                    // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
-                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
-                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
-                    var isVipMaster = res.data.isVipMaster
-                    var privilegeNum  = res.data.privilege   // 下载券数量
-                    var  couponNum = res.data.coupon
-                    var aibeans = res.data.aibeans
-                    var isAuth = res.data.isAuth
-                    if(!isVipMaster){
-                        $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
-                    }else{
-                        $('.personal-center-home .opentvip').hide()
-                    }
-                    if(privilegeNum ){
-                        $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
-                    }
-                    if(couponNum){
-                        $(".personal-center-home .coupon").text(couponNum ?couponNum :0)
-                    }
-                    if(aibeans){
-                        $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
-                    }
-                    if(!isAuth){
-                        $('.personal-menu .mywallet').hide()
-                    }
-                    callback&&callback(res.data)
-               }else{
-                $.toast({
-                    text:res.msg||'查询用户信息失败',
-                    delay : 3000,
-                })
-               }
-            },
-            error:function(error){
-                console.log('getUserCentreInfo:',error)
-            }
-        })
+    function getUserCentreInfo(userInfo,callback) {  
+        console.log('getUserCentreInfo:',userInfo)
+        // compilerTemplate(res.data)
+        $('.personal-center-menu .personal-profile .personal-img').attr('src',userInfo.photoPicURL)
+        // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
+        $('.personal-center-menu .personal-profile .personal-nickname .nickname').html('<p class="personal-nickname"><span class="nickname">'+userInfo.nickName +'</span> <span class="level-icon"></span></p>')
+        // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
+        $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ userInfo.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ userInfo.id +'data-clipboard-action="copy">复制</span>')
+        $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",userInfo.id)
+        var isVipMaster = userInfo.isVipMaster
+        var privilegeNum  = userInfo.privilege   // 下载券数量
+        var couponNum = userInfo.coupon
+        var aibeans = userInfo.aibeans
+        var isAuth = userInfo.isAuth
+        if(!isVipMaster){
+            $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
+        }else{
+            $('.personal-center-home .opentvip').hide()
+        }
+        if(privilegeNum ){
+            $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
+        }
+        if(couponNum){
+            $(".personal-center-home .coupon").text(couponNum ?couponNum :0)
+        }
+        if(aibeans){
+            $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
+        }
+        if(!isAuth){
+            $('.personal-menu .mywallet').hide()
+        }
+        callback&&callback(userInfo)
     }
     function getFileBrowsePage(){ //分页获取用户的历史浏览记录
         $.ajax({

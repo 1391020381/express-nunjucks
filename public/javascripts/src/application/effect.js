@@ -1,10 +1,8 @@
+
+// 通用头部的逻辑
 define(function (require, exports, module) {
-    // var $ = require("$");
     var checkLogin = require("../application/checkLogin");
-    var app = require("../application/app");
     var method = require("../application/method");
-
-
     //登录
     // $(".js-login").on("click", function () {
     //     checkLogin.notifyLoginInterface(function (data) {
@@ -36,12 +34,15 @@ define(function (require, exports, module) {
         checkLogin.ishareLogout();
     });
     
-    $('.js-buy-open').click(function(){
+    $('.js-buy-open').click(function(){  //  头像续费vip也有使用到
         if($(this).attr('data-type')=="vip") {
             location.href = "/pay/vip.html"
         }
     })
     
+    $('.vip-join-con').click(function(){
+        method.compatibleIESkip("/node/rights/vip.html",true);
+    })
     $('.btn-new-search').click(function(){
         var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : '';
          method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
@@ -74,18 +75,15 @@ define(function (require, exports, module) {
             $('.isVip-show').removeClass('hide');
             //vip 已经 过期
         } else if (data.userType == 1) {
-            // $target = $vip_status.find('p[data-type="3"]');
-            // $hasLogin.removeClass("user-con-vip");
-            // $target.show().siblings().hide();
-            // 新用户
-        } else if (data.isVip == 0) {
-            $hasLogin.removeClass("user-con-vip");
-            // 已经 过期
-        } else if (data.isVip == 2) {
-            $('.vip-title').hide();
             $target = $vip_status.find('p[data-type="3"]');
             $hasLogin.removeClass("user-con-vip");
             $target.show().siblings().hide();
+            // 新用户
+        } else if (data.isVip == 0) {
+            $hasLogin.removeClass("user-con-vip");
+            // 续费vip
+        } else if (data.isVip == 2) {
+            $('.vip-title').hide();
         }
 
         $unLogin.hide();
@@ -107,15 +105,13 @@ define(function (require, exports, module) {
         $("#ip-isVip").val(data.isVip);
         $("#ip-mobile").val(data.mobile);
     };
-    //是否登录
-   // isLogin()
-    function isLogin(callback){
-        if (!method.getCookie('cuk')) {
+    function isLogin(callback,isAutoLogin){
+        if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
                 callback(data)
             });
-        } else {
+        } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
                 refreshTopBar(data);
                 callback(data)
