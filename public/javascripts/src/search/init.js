@@ -6,7 +6,11 @@ define(function(require , exports , module){
     // require("./effect");
     // require("./report");
     // require("./pay");
-    require("./login");
+    // require("./login");
+    var isLogin = require('../application/effect.js').isLogin;
+    var isAutoLogin = false;
+    var callback = null;
+    isLogin(callback,isAutoLogin)
     require('./search');
     require('./banner')
     require('../common/bilog')
