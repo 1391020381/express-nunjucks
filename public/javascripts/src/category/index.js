@@ -3,8 +3,11 @@ define(function (require, exports, module) {
     require('../application/suspension')
     var slider = require('../common/slider');//轮播插件
     var utils = require("../cmd-lib/util");
-    var login = require("../application/checkLogin");
-    var refreshTopBar = require("./login");
+    var isLogin = require('../application/effect.js').isLogin;
+    var isAutoLogin = false;
+    var callback = null;
+    isLogin(callback,isAutoLogin);
+
     var obj = {
         reqParams: pageConfig.reqParams,
         init:function(){
@@ -14,30 +17,6 @@ define(function (require, exports, module) {
             this.pageOperate();
             this.fomatSelect();
             this.sortSelect();
-             // 登录
-             $('.user-login,.login-open-vip').on('click', function () {
-                if (!utils.getCookie('cuk')) {
-                    login.notifyLoginInterface(function (data) {
-                        refreshTopBar(data)
-                    });
-                }
-            });
-            if (utils.getCookie('cuk')) {
-                login.getLoginData(function (data) {
-                    if (data) {
-                        refreshTopBar(data)
-                   }
-                });
-            }
-            // 退出登录
-            $('.btn-exit').click(function(){
-                login.ishareLogout()
-            })
-            // 头部搜索跳转
-            $('.btn-new-search').click(function(){
-                var searVal = $('#search-detail-input').val()
-                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
-            }) 
         },
         selectMenu:function(){
             $('.js-nav-menu').click(function(){

@@ -5,13 +5,14 @@ define(function(require , exports , module){
     require("./msgVer");
     require('../cmd-lib/toast');
     var utils = require("../cmd-lib/util");
-    var login = require("../application/checkLogin");
-    var refreshTopBar = require("./login");
+    var isLogin = require('../application/effect.js').isLogin;
+    var isAutoLogin = true;
+    var callback = null;
+    isLogin(callback,isAutoLogin);
     var orgObj = {
         nickName: '',
         validateFrom:/^1[3456789]\d{9}$/,
         init:function(){
-            this.beforeInit();
             this.selectBind();
             this.delUploadImg();
             this.checkedRules();
@@ -25,45 +26,6 @@ define(function(require , exports , module){
             setTimeout(function(){
                 orgObj.uploadfile();
             },500)
-             // 登录
-             $('.user-login,.login-open-vip').on('click', function () {
-                if (!utils.getCookie('cuk')) {
-                    login.notifyLoginInterface(function (data) {
-                        refreshTopBar(data);
-                        orgObj.nickName = data.nickName;
-                        $('.js-count').html(data.nickName)
-                    });
-                }
-            });
-            // 退出登录
-            $('.btn-exit').click(function(){
-                login.ishareLogout()
-            })
-            // 头部搜索跳转
-            $('.btn-new-search').click(function(){
-                var searVal = $('#search-detail-input').val()
-                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
-            }) 
-        },
-        beforeInit:function(){
-            if (!utils.getCookie('cuk')) {
-                login.notifyLoginInterface(function (data) {
-                   if (data) {
-                        orgObj.nickName = data.nickName;
-                        $('.js-count').text(data.nickName)
-                        refreshTopBar(data);
-                   }
-                });
-            }else {
-                login.getLoginData(function (data) {
-                    if (data) {
-                        $('.js-count').text(data.nickName)
-                        orgObj.nickName = data.nickName;
-                        refreshTopBar(data);
-                       
-                   }
-                });
-            }
         },
         // 查询认证信息
         queryCerinfo:function(){
