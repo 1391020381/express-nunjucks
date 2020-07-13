@@ -106,12 +106,12 @@ define(function (require, exports, module) {
         if (!method.getCookie('cuk')) {
             checkLogin.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
-                callback()
+                callback(data)
             });
         } else {
             checkLogin.getLoginData(function (data) {
                 refreshTopBar(data);
-                callback()
+                callback(data)
             });
         }
     }

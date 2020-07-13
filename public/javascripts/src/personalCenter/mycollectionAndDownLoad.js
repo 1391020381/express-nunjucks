@@ -9,9 +9,9 @@ define(function(require , exports , module){
    if(type =='mycollection'||type =='mydownloads'){
       isLogin(initData)
    }
-  function initData(){
+  function initData(userInfo){
     if(type =='mycollection'){
-        getUserCentreInfo() 
+        getUserCentreInfo(userInfo) 
        getUserFileList()
     }else if(type == 'mydownloads'){
         getUserCentreInfo()

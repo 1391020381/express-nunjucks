@@ -16,8 +16,8 @@ define(function(require , exports , module){
         isLogin(initData)
     }
 
-    function initData(){
-            getUserCentreInfo(getUserCentreInfoCallback)
+    function initData(userInfo){
+            getUserCentreInfo(userInfo,getUserCentreInfoCallback)
     }
 
 

@@ -8,8 +8,8 @@ define(function(require , exports , module){
     if(type == 'mycoupon'){
         isLogin(initData)
     }
-    function initData(){
-            getUserCentreInfo()
+    function initData(userInfo){
+            getUserCentreInfo(userInfo)
             rightsSaleQueryUsing()
     }
 

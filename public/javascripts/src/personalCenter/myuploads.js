@@ -11,11 +11,10 @@ define(function(require , exports , module){
     if(type == 'myuploads'){
         isLogin(initData)
     }
-    function initData(){
-            getUserCentreInfo()
+    function initData(userInfo){
+            getUserCentreInfo(userInfo)
             getMyUploadPage()   
     }
-
        function getMyUploadPage(currentPage){  // 分页查询我的上传
         var status = method.getParam('myuploadType') || 1
         $.ajax({

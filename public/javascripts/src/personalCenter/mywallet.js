@@ -5,10 +5,10 @@ define(function (require, exports, module) {
     if(type=='mywallet'){
         isLogin(initCallback)
     }
-    function initCallback(){
+    function initCallback(userInfo){
         $("#dialog-box").dialog({
             html: $('#mywallet-tip-dialog').html(),
         }).open();
-        getUserCentreInfo()
+        getUserCentreInfo(userInfo)
     }
 });

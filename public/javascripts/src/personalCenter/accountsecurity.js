@@ -10,12 +10,12 @@ define(function(require , exports , module){
     var userBindInfo = {}  // 保存用户的绑定信息
     var smsId = ''  // 验证码
     var myWindow = ''  // 保存 openWindow打开的对象
-    isLogin(initData)
+    if(type == 'accountsecurity'){
+        isLogin(initData)
+    }
     function initData(){
-        if(type == 'accountsecurity'){
-            getUserCentreInfo()
-            queryUserBindInfo()
-        }
+        getUserCentreInfo()
+        queryUserBindInfo()
     }
     
 
