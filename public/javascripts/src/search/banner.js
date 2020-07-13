@@ -53,10 +53,12 @@ define(function(require , exports , module){
                                 autoplay: 3000,
                             })
                         }
-                    }else{
-                     $('.close-swiper').hide()   
                     }
                 })
+               }
+               if($(".search-all-main-topbanner .swiper-slide").length<=0){
+                    $('.close-swiper').hide()   
+                   
                }
             }
         })

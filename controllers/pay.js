@@ -37,6 +37,26 @@ module.exports = {
             results.fileDetails = {
                 checkStatus : req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
             }  
+            // 排序每个套餐的权益
+            if(results.list.data.length){
+                var tempListData = []
+                results.list.data.forEach(item=>{
+                    var tempMembers = []
+                    item.members.forEach(member=>{
+                        if(member.code == 'privilegeNum'){
+                            tempMembers[0] = member
+                        }
+                        if(member.code =='payDiscount'){
+                            tempMembers[1] = member
+                        }
+                        if(member.code == 'freeDownloadNum'){
+                            tempMembers[3] = member
+                        }
+                    })
+                    tempListData.push(Object.assign({},item,{members:tempMembers}))
+                })
+                results.list.data = tempListData
+            }
             console.log("vip list------------");
             console.log('后台返回的套餐列表:'+JSON.stringify(results));
             // req.query.remark = 'office'

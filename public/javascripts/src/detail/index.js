@@ -414,7 +414,8 @@ define(function (require, exports, module) {
         $('body').loading({ name: 'download', title: '请求中' });
         $.ajax({
             type: 'POST',
-            url: api.vouchers,
+            // url: api.vouchers,
+            url:api.coupon.rightsSaleVouchers,
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             data: data,

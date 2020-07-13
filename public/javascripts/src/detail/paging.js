@@ -50,7 +50,7 @@ define(function (require, exports, module) {
             // }
             var supportSvg = window.pageConfig.supportSvg;
             var svgFlag = window.pageConfig.svgFlag;
-            if (supportSvg === 'true' && svgFlag === 'true') {
+            if (supportSvg == true && svgFlag == true) {
                 ptype = 'svg';
             }
             //console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl------------')
