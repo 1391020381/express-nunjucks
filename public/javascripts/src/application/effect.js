@@ -48,6 +48,17 @@ define(function (require, exports, module) {
          method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
     })
 
+    var $detailHeader = $(".new-detail-header");
+    var headerHeight = $detailHeader.height();
+    $(window).scroll(function () {
+        var detailTop = $(this).scrollTop();
+        if (detailTop-headerHeight>=0) {
+            $detailHeader.addClass("new-detail-header-fix");
+        } else {
+            $detailHeader.removeClass("new-detail-header-fix");
+        }
+    });
+
     //刷新topbar
     var refreshTopBar = function (data) {
         var $unLogin = $('#unLogin');

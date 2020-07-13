@@ -3,11 +3,14 @@ define(function(require , exports , module){
     var method = require("../application/method"); 
     var api = require("../application/api");
     var login = require("../application/checkLogin");
-    require('./effect.js')
-
+    // require('./effect.js')
+    var isLogin = require('../application/effect.js').isLogin
     require("../cmd-lib/toast");
     
     var userData='',currentPage=1,sortField='downNum',format='';
+    var isAutoLogin = true;
+    var callback = null;
+    isLogin(callback,isAutoLogin)
     init()
 
     function init(){
