@@ -90,7 +90,8 @@ module.exports = {
                 req.body = {
                     type: 'new',
                     currentPage:1,
-                    pageSize:12
+                    pageSize:12,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
             },
@@ -100,6 +101,7 @@ module.exports = {
                     contentType: 100,
                     clientType:0,
                     pageSize:12,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }

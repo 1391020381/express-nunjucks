@@ -246,7 +246,8 @@ module.exports = {
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:20
+                    pageSize:20,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
             },
@@ -255,7 +256,8 @@ module.exports = {
                 req.body = {
                     type: 'new',
                     currentPage:1,
-                    pageSize:20
+                    pageSize:20,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
             },
@@ -264,7 +266,8 @@ module.exports = {
                 req.body = {
                     contentType: 100,
                     clientType:1,
-                    pageSize:20
+                    pageSize:20,
+                    siteCode:0
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.hotRecData, callback, req);
             }
