@@ -207,7 +207,8 @@ define(function (require,exports,moudle) {
             if(data.isVip) {
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
-                var expireStr = data.expireTime+'到期'
+                var expireTime = utils.timeFormat('yyyy-mm-dd',data.endDate)
+                var expireStr = expireTime+'到期'
                 $('.user-state .info-des').text(expireStr);
                 $('.js-vip-open').hide()
             }else{
