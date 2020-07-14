@@ -182,8 +182,11 @@ define(function (require, exports, module) {
             // $.post("/logout", function () {
             //     window.location.href = window.location.href;
             // });
-            $.post(api.user.loginOut, function () {
-                window.location.href = window.location.href;
+            $.get(api.user.loginOut, function (res) {
+                console.log('loginOut:',res)
+                if(res.code == 0){
+                    window.location.href = window.location.href;
+                }
             });
         }
     }

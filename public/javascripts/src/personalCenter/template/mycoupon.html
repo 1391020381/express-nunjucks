@@ -8,7 +8,7 @@
 
     <ul class="mycoupon-list">   
         {{each list}}
-                  <li  class="{{mycouponType == 0 and list[$index.vStatus == 2] ?'item coupon-expiringsoon':mycouponType == 0 and list[$index.vStatus == 1] ?'item coupon-unuse':mycouponType ==2?'item coupon-used':'item'}}">
+                  <li  class="{{mycouponType == 0 && list[$index.vStatus == 2] ?'item coupon-expiringsoon':mycouponType == 0 && list[$index.vStatus == 1] ?'item coupon-unuse':mycouponType ==2?'item coupon-used':'item'}}">
                      {{if list[$index].type ==1}}
                           <p class="item-price">¥ <span>{{list[$index].couponAmount}}</span></p>
                      {{/if}}
