@@ -6,10 +6,10 @@ define(function(require , exports , module){
     var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     if(type == 'mycoupon'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
     function initData(userInfo){
-            getUserCentreInfo(userInfo)
+            getUserCentreInfo()
             rightsSaleQueryUsing()
     }
 

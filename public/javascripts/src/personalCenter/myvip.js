@@ -13,11 +13,11 @@ define(function(require , exports , module){
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var userInfoValue = {}
     if(type == 'myvip'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
 
-    function initData(userInfo){
-            getUserCentreInfo(userInfo,getUserCentreInfoCallback)
+    function initData(){
+            getUserCentreInfo(getUserCentreInfoCallback)
     }
 
 
@@ -59,7 +59,9 @@ define(function(require , exports , module){
                         item.effectiveEndDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
                         list.push(item)
                     })
-                    var isVip = userInfoValue.isVipMaster
+                    
+                    var isVip = userInfoValue.isVip 
+
                    var _vipTableTemplate = template.compile(vipTable)({list:list||[],isVip:isVip,vipTableType:vipTableType})
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage) 
@@ -91,7 +93,9 @@ define(function(require , exports , module){
                   var vipTable = require('./template/vipTable.html')
                   var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                   var list = res.data&&res.data.rows || []
-                  var isVip = userInfoValue.isVipMaster
+
+                  var isVip = userInfoValue.isVip 
+
                   var _vipTableTemplate = template.compile(vipTable)({list:list,isVip:isVip,vipTableType:vipTableType});
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage)  

@@ -37,11 +37,11 @@ define(function(require , exports , module){
         },
     }
     if(type == 'myorder'){
-        isLogin(initData) 
+        isLogin(initData,true) 
     }
     
-    function initData(userInfo){
-        getUserCentreInfo(userInfo)
+    function initData(){
+        getUserCentreInfo()
         queryOrderlistByCondition()
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)

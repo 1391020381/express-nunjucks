@@ -13,12 +13,10 @@ define(function(require , exports , module){
     if(type == 'accountsecurity'){
         isLogin(initData)
     }
-    function initData(userInfo){
-        getUserCentreInfo(userInfo)
+    function initData(){
+        getUserCentreInfo()
         queryUserBindInfo()
     }
-    
-
     function queryUserBindInfo() {  // 查询用户绑定信息
         $.ajax({
             url: api.user.queryBindInfo,

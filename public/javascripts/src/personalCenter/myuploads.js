@@ -9,10 +9,10 @@ define(function(require , exports , module){
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var idList = []  // 保存 要删除的文件id
     if(type == 'myuploads'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
-    function initData(userInfo){
-            getUserCentreInfo(userInfo)
+    function initData(){
+            getUserCentreInfo()
             getMyUploadPage()   
     }
        function getMyUploadPage(currentPage){  // 分页查询我的上传
