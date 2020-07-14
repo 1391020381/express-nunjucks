@@ -77,7 +77,7 @@ define(function (require, exports, module) {
         }
 
         //vip
-        if (data.isVip == 1) {
+        if (data.vipStatus == 1) {
             $target = $vip_status.find('p[data-type="2"]');
             $target.find('.expire_time').html(data.expireTime);
             $target.show().siblings().hide();
@@ -86,15 +86,18 @@ define(function (require, exports, module) {
             $('.isVip-show').removeClass('hide');
             //vip 已经 过期
         } else if (data.userType == 1) {
+            // $target = $vip_status.find('p[data-type="3"]');
+            // $hasLogin.removeClass("user-con-vip");
+            // $target.show().siblings().hide();
+            // 新用户
+        } else if (data.vipStatus == 0) {
+            $hasLogin.removeClass("user-con-vip");
+            // 续费vip
+        } else if (data.vipStatus == 2) {
+            $('.vip-title').hide();
             $target = $vip_status.find('p[data-type="3"]');
             $hasLogin.removeClass("user-con-vip");
             $target.show().siblings().hide();
-            // 新用户
-        } else if (data.isVip == 0) {
-            $hasLogin.removeClass("user-con-vip");
-            // 续费vip
-        } else if (data.isVip == 2) {
-            $('.vip-title').hide();
         }
 
         $unLogin.hide();
