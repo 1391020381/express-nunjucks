@@ -119,13 +119,14 @@ define(function (require, exports, module) {
     function isLogin(callback,isAutoLogin){
         if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
-                refreshTopBar(data);
                 callback(data)
+                refreshTopBar(data);
+               
             });
         } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
-                refreshTopBar(data);
                 callback(data)
+                refreshTopBar(data);
             });
         }
     }
