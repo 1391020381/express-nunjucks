@@ -3,7 +3,7 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var method = require("../application/method");
     var api = require('../application/api');
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo 
     var showCaptcha = require("../common/bindphone").showCaptcha
     var closeRewardPop = require("./dialog.js").closeRewardPop

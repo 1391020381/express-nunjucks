@@ -7,7 +7,7 @@ define(function(require , exports , module){
     var cityList = []
     var userInfoInfomation = {}
     var type = window.pageConfig&&window.pageConfig.page.type
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
     if(type == 'personalinformation'){
