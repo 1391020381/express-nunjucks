@@ -11,7 +11,7 @@ define(function(require , exports , module){
     var smsId = ''  // 验证码
     var myWindow = ''  // 保存 openWindow打开的对象
     if(type == 'accountsecurity'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
     function initData(){
         getUserCentreInfo()
@@ -371,9 +371,13 @@ define(function(require , exports , module){
        }
 
        if(btnOperation == 'setPassword'){
-             $("#dialog-box").dialog({
-            html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
-        }).open();
+           if(userBindInfo.mobile){
+            $("#dialog-box").dialog({
+                html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
+            }).open();
+           }else{
+              bindPhoneNumber()
+           }
        }
     });
 

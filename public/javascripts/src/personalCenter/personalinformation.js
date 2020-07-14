@@ -11,7 +11,7 @@ define(function(require , exports , module){
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
     if(type == 'personalinformation'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
     function initData(){
         getUserCentreInfo(getUserCentreInfoCallBack)
