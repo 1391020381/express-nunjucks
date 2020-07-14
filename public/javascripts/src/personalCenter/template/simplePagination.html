@@ -27,7 +27,7 @@
                 <li class="page-more page-item">...</li>
            {{/if}}
            {{if currentPage < paginationList.length}}
-             <li class="page-item" data-currentPage={{paginationList.length}}>下一页</li>
+             <li class="page-item" data-currentPage={{currentPage+1}}>下一页</li>
           {{/if}}
            <li class="page-item" data-currentPage={{paginationList.length}}>尾页</li>
         {{/if}}  

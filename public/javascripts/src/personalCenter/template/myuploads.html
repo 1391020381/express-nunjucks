@@ -19,17 +19,26 @@
     {{/if }}
     <table class="myuploads-table-list">
         <tr class="myuploads-table-head">
-            <th style="width:400px;">
+                <th style="{{myuploadType == '1'? 'width:400px;':myuploadType == '2'?'myuploadType':''}}">
                 <label for="all">
                    <input  type="checkbox"  id="all" value="all"/>
                    <span></span>
                    <span>资料标题</span>
                 </label>
             </th>
-            <th style="width:100px;"></th>
-            <th style="width:100px;">价格</th>
-            <th style="width:100px;">浏览量</th>
-            <th style="width:100px;">下载量</th>
+            {{ if myuploadType != '4' }}
+                 <th style="width:100px;"></th>
+            {{/if}}
+            {{ if myuploadType == '1'}}
+                     <th style="width:100px;">价格</th>
+                        <th style="width:100px;">浏览量</th>
+                        <th style="width:100px;">下载量</th>
+            {{/if}}
+             {{if myuploadType == '2'}}
+                        <th style="width:100px;">价格</th>
+                        <th style="width:100px;">浏览量</th>
+                        <th style="width:100px;">下载量</th>
+                    {{/if}} 
             <th style="width:100px;">上传时间</th>
         </tr>
           {{each list}}
@@ -46,10 +55,20 @@
                     {{/if}}
                 </label>
             </td>
+              {{ if myuploadType != '4' }}
              <td><img class="delete-icon" data-id={{list[$index].id}} src="{{cdnUrl}}/images/personalCenter/delete-icon.png"></td>
-            <td>{{list[$index].userFilePrice}}</td>
-            <td>{{list[$index].readNum}}</td>
-            <td>{{list[$index].downNum}}</td>
+             {{/if}}
+
+             {{ if myuploadType == '1'}}
+                            <td>{{list[$index].userFilePrice}}</td>
+                            <td>{{list[$index].readNum}}</td>
+                           <td>{{list[$index].downNum}}</td>
+             {{/if}}
+               {{if myuploadType == '2'}}
+                          <td>{{list[$index].userFilePrice}}</td>
+                            <td>{{list[$index].readNum}}</td>
+                           <td>{{list[$index].downNum}}</td>  
+                 {{/if}}
             <td>{{list[$index].createtime}}</td>
         </tr>
           {{/each}}

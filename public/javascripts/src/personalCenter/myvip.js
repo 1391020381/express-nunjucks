@@ -60,9 +60,9 @@ define(function(require , exports , module){
                         list.push(item)
                     })
                     
-                    var isVip = userInfoValue.isVip 
+                    // var isVip = userInfoValue.isVipMaster || userInfoValue.isVipOffice 
 
-                   var _vipTableTemplate = template.compile(vipTable)({list:list||[],isVip:isVip,vipTableType:vipTableType})
+                   var _vipTableTemplate = template.compile(vipTable)({list:list||[],vipTableType:vipTableType})
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage) 
                }else{
@@ -94,9 +94,9 @@ define(function(require , exports , module){
                   var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                   var list = res.data&&res.data.rows || []
 
-                  var isVip = userInfoValue.isVip 
+                //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice 
 
-                  var _vipTableTemplate = template.compile(vipTable)({list:list,isVip:isVip,vipTableType:vipTableType});
+                  var _vipTableTemplate = template.compile(vipTable)({list:list,vipTableType:vipTableType});
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{

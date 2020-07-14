@@ -46,7 +46,7 @@ define(function(require , exports , module){
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
         var orderStatus = $(event.target).attr('data-orderstatus')
-        if(orderStatus == 4 ||orderStatus ==0){
+        if(orderStatus!==2){
             var goodsType = $(event.target).attr('data-goodstype')
             var fid = $(event.target).attr('data-fid')
             var orderNo = $(event.target).attr('data-orderno')

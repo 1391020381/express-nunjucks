@@ -6,7 +6,7 @@ define(function (require, exports, moudle) {
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
     //var report = require("./report");
-    var isLogin = require('../application/effect.js').isLogin;
+    
     var api = require('../application/api');
     require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
@@ -17,73 +17,8 @@ define(function (require, exports, moudle) {
 
 
 
-    var isAutoLogin = true;
-    // var callback = true;
-    isLogin(createQrCode,isAutoLogin)
     //生成二维码
-    // $(function () {  
-    //     var flag = $("#ip-flag").val();  // result.flag
-    //     var uid = $("#ip-uid").val();    //  results.data.uid
-    //     var type = $("#ip-type").val();  // results.type
-    //     var isVip = $("#ip-isVip").val();  //   results.data.isVip  获取保存在input的数据
-    //     if (flag == 3 && uid) {//二维码页面
-    //         if (type == 0) {//vip购买
-    //             if (method.getCookie('cuk')) {
-    //                 $(".btn-vip-login-arrive").click();
-    //                 // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveVipPage']);
-    //             }
-    //         } else if (type == 2) {//文件购买
-    //             if (isVip != 1) {
-    //                 $(".price-discount").hide();
-    //             } else {
-    //                 $(".price-discount").show();
-    //             }
-    //             if (method.getCookie('cuk')) {
-    //                 $(".btn-file-login-arrive").click();
-    //                 // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
-    //             }
-    //         }
-    //         var oid = $("#ip-oid").val(); // 订单号 orderNo
-    //         if (oid) {
-    //             $(".carding-pay-item .oid").text(oid);
-
-
-    //             // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
-          
-    //             var url = location.origin + "/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
-
-                
-    //             try {
-    //                 qr.createQrCode(url, 'pay-qr-code', 180, 180);
-    //                 $(".btn-qr-show-success").click();
-    //                 // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
-    //             } catch (e) {
-    //                 console.log("生成二维码异常");
-    //                 $(".btn-qr-show-fail").click();
-    //                 // __pc__.push(['pcTrackEvent',' qrCodeFail']);
-    //             }
-    //             alipayClick(oid);
-    //             payStatus(oid);
-    //         } else {
-    //             utils.showAlertDialog("温馨提示", '订单失效，请重新下单');
-    //         }
-    //     } else if (flag == "true" && uid) {//成功页面
-    //         var mobile = $("#ip-mobile").val();
-    //         // mobile = false
-    //         if (mobile) {//隐藏绑定手机号模块 公众号模块居中
-    //             $(".carding-info-bottom").addClass('carding-binding-ok');
-    //         }
-    //         if (type === '2') {
-    //             buySuccessDownLoad();
-    //         }
-    //     } else if (flag == "false" && uid) {//失败页面
-
-    //     } else if (flag == "0") {
-    //         // $(".carding-vip-con .vip-title").show();
-    //     }
-    // });
-
-    function createQrCode(){
+    $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
         var uid = $("#ip-uid").val();    //  results.data.uid
         var type = $("#ip-type").val();  // results.type
@@ -143,8 +78,7 @@ define(function (require, exports, moudle) {
         } else if (flag == "0") {
             // $(".carding-vip-con .vip-title").show();
         }
-    }
-
+    });
     var fid = window.pageConfig.params.g_fileId;
     if (!fid) {
         fid = method.getParam('fid');

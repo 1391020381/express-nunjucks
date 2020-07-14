@@ -39,12 +39,13 @@ define(function(require , exports , module){
                          userFilePrice = '免费'
                      }
                      if(item.userFileType == 4){
-                         userFilePrice = userFilePrice + '个特权'
+                        //  userFilePrice = userFilePrice + '个特权'
+                        userFilePrice = '--'
                      }
                      if(item.userFileType == 5){
-                         userFilePrice = (userFilePrice/100).toFixed(2) + '元'
+                         userFilePrice = '-￥'  + (userFilePrice/100).toFixed(2) + '元'
                      }
-                     item.userFilePrice = item.userFilePrice
+                     item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
                      item.createtime = createtime
                      list.push(item)

@@ -3,9 +3,8 @@ define(function(require , exports , module){
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var api = require('../application/api');
     var method = require("../application/method");
-    var orderNo = method.getParam('orderNo');
     var code = method.getParam('code')
-    var goodsName = method.getParam('goodsName')
+    
     var checkStatus =  method.getParam('checkStatus')
     var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat

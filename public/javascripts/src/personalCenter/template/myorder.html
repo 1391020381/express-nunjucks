@@ -20,7 +20,12 @@
             <td>
                 <p class="item-order">订单号:  {{list[$index].orderNo}} <span class="copy clipboardBtn" data-clipboard-text="{{list[$index].orderNo}}" data-clipboard-action="copy">复制</span></p>
                 <p class="item-desc" data-goodsname="{{list[$index].goodsName}}"  data-fid="{{list[$index].fid}}"  data-goodstype="{{list[$index].goodsType}}" data-format="{{list[$index].format}}">
-                   <span class="icon icon-vip"></span>{{list[$index].goodsName}}
+                     {{if list[$index].goodsType == 2}}
+                        <span class="icon icon-vip"></span>
+                   {{else}}
+                        <span class="icon ico-data {{'ico-'+ list[$index].format}}"></span>
+                   {{/if}}
+                   {{list[$index].goodsName}}
                 </p>
              
             </td>
@@ -42,6 +47,10 @@
                     <p class="item-desc item-operation" ><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.fid]}}>重新下单</span></p>
                 {{else if list[$index].orderStatus == 0}}
                <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.fid]}}>付款</span></p>
+                {{else if list[$index].orderStatus == 1}}
+                   <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.fid]}}>付款</span></p>
+                 {{else if list[$index].orderStatus == 3}}
+                  <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.fid]}}>付款</span></p>
                 {{else}}
                  <p class="item-desc item-operation" data-orderno={{list[$index].orderNo}}></p>  
                 {{/if}}
