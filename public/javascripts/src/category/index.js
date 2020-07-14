@@ -20,7 +20,8 @@ define(function (require, exports, module) {
         },
         selectMenu:function(){
             $('.js-nav-menu').click(function(){
-                $(this).parent().toggleClass('selected')
+                $(this).parent().toggleClass('selected');
+                $(this).find('i').toggleClass('rotate')
             })
         },
         pageOperate:function(){
