@@ -4,12 +4,12 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var method = require("../application/method");
     var code = method.getParam('code')
-    
+    var orderNo = method.getParam('orderNo');
     var checkStatus =  method.getParam('checkStatus')
-    var payPrice = (method.getParam('payPrice')/100).toFixed(2)
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+   console.log('scanOrderInfo-start')
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -26,6 +26,8 @@ define(function(require , exports , module){
             success: function (res) {
                 console.log('scanOrderInfo:',res)
                if(res.code == '0'){
+                var payPrice = (method.getParam('payPrice')/100).toFixed(2)
+                var goodsName = method.getParam('goodsName')
                 payPrice&&$('.pay-price .price').text(payPrice)
                 goodsName&$('.goodsName').text(goodsName)
                   if(res.data.needRedirect){
