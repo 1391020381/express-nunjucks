@@ -95,7 +95,12 @@ define(function(require , exports , module){
                   var list = res.data&&res.data.rows || []
 
                 //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice 
-
+                var list =  []
+                res.data.rows.forEach(function(item){
+                    item.beginDate =   new Date(item.beginDate).format("yyyy-MM-dd")
+                    item.endDate =   new Date(item.endDate).format("yyyy-MM-dd")
+                    list.push(item)
+                })
                   var _vipTableTemplate = template.compile(vipTable)({list:list,vipTableType:vipTableType});
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage)  
