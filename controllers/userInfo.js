@@ -14,31 +14,71 @@ module.exports = {
     index: function (req, res) {
         return async.series({
             userInfo:function(callback){
-                server.get(`${appConfig.apiNewBaselPath}${api.user.getUserInfo}`, callback, req);
+               console.log('req.cookies:',req.cookies)
+               var opt = {
+                method: 'GET',
+                url: appConfig.apiNewBaselPath + api.user.getUserInfo,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                },
+            };
+            request(opt, function (err, res1, body) {
+                if (body) {
+                    var data = JSON.parse(body);
+                    if (data.code == 0 && data.data) {
+                        callback(null, data); 
+                    } else {
+                        callback(null, null);
+                    }
+                } else {
+                    callback(null, null);
+                }
+            })
             },
             rightsVipMemberDetail:function(callback){
-                req.body = {
-                    site:'4',
-                    memberCode:''
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.coupon.getRightsVipMemberDetail,
+                    body:JSON.stringify({
+                        site: '4',
+                        memberCode:''
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    },
                 };
-                server.post(`${appConfig.apiNewBaselPath}${api.coupon.getRightsVipMemberDetail}`, callback, req);
+                request(opt, function (err, res1, body) {
+                    if (body) {
+                        var data = JSON.parse(body);
+                        if (data.code == 0 && data.data) {
+                            callback(null, data); 
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
             }
         } , function(err, results){
+            console.log('results-------------:',results)
             var userInfo = {}
             var rightsVipMemberDetail = {}
             var userInfoCode = '0'
             var rightsVipMemberDetailCode = '0'
 
-            if(results.userInfo.code == '0'){
-                userInfo = results.userInfo.data
+            if(results.userInfo&&results.userInfo.code == '0'){
+                userInfo = results.userInfo&&results.userInfo.data
             }else{
-                userInfoCode = results.userInfo.code
+                userInfoCode = results.userInfo&&results.userInfo.code
             }
 
-            if(results.rightsVipMemberDetail.code == '0'){
-                rightsVipMemberDetail = results.rightsVipMemberDetail.data
+            if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){
+                rightsVipMemberDetail = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.data
             }else{
-                rightsVipMemberDetailCode = results.userInfo.code
+                rightsVipMemberDetailCode = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code
             }
 
             var code = userInfoCode == 0 && rightsVipMemberDetailCode == 0?'0':1

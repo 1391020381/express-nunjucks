@@ -7,14 +7,14 @@ define(function(require , exports , module){
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
    if(type =='mycollection'||type =='mydownloads'){
-      isLogin(initData)
+      isLogin(initData,true)
    }
   function initData(userInfo){
     if(type =='mycollection'){
-        getUserCentreInfo(userInfo) 
+        getUserCentreInfo() 
        getUserFileList()
     }else if(type == 'mydownloads'){
-        getUserCentreInfo(userInfo)
+        getUserCentreInfo()
        getDownloadRecordList()
     }
   }

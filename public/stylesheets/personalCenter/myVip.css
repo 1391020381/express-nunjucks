@@ -51,6 +51,9 @@
   background: #F4592D;
   border-radius: 50px;
 }
+.personal-center-vip .myvip-top .not-vip .not-vip-right a {
+  color: #fff;
+}
 .personal-center-vip .myvip-top .vip-summary {
   background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
   background-size: cover;

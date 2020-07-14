@@ -3,12 +3,12 @@ define(function (require, exports, module) {
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var isLogin = require('../application/effect.js').isLogin
     if(type=='mywallet'){
-        isLogin(initCallback)
+        isLogin(initCallback,true)
     }
-    function initCallback(userInfo){
+    function initCallback(){
         $("#dialog-box").dialog({
             html: $('#mywallet-tip-dialog').html(),
         }).open();
-        getUserCentreInfo(userInfo)
+        getUserCentreInfo()
     }
 });
