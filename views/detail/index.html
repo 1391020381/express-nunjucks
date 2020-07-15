@@ -150,6 +150,7 @@
 <script>
     window.pageConfig = {
         page: {
+            data:{{results.list.data | dump | safe}},
             attr: 'other',
             type: 'detail',
             isDownload: '{{results.list.data.isDownload}}',
