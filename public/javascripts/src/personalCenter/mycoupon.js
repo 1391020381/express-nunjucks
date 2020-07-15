@@ -25,7 +25,19 @@ define(function(require , exports , module){
             success: function (res) {
                if(res.code == '0'){
                     console.log('rightsSaleQueryUsing:',res.data&&res.data.list)    
-                    var list = res.data.list
+                    
+                    var formatDate = method.formatDate
+                    Date.prototype.format = formatDate
+
+                    var list = []
+                    $(res.data.list).each(function(index,item){
+                       
+                       var beginDate =  new Date(item.beginDate).format("yyyy-MM-dd")
+                       var endDate = new Date(item.endDate).format("yyyy-MM-dd")
+                       item.beginDate = beginDate
+                       item.endDate = endDate
+                       list.push(item)
+                    })
                     var mycoupon = require("./template/mycoupon.html")
                     var _mycouponTemplate = template.compile(mycoupon)({list:list||[],mycouponType:type||'0'});
                     $(".personal-center-mycoupon").html(_mycouponTemplate);

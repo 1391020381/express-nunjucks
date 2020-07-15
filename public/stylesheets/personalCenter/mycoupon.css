@@ -150,3 +150,15 @@
 .personal-center-mycoupon .mycoupon-list .coupon-used .item-time {
   color: #CCCCCC;
 }
+.personal-center-mycoupon .mycoupon-list .coupon-expiring {
+  background: url("../../images/personalCenter/coupon-expiring.png") no-repeat right top, url("../../images/personalCenter/coupon-used-bg.png") no-repeat center;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiring .item-price {
+  color: #999999;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiring .item-desc {
+  color: #777777;
+}
+.personal-center-mycoupon .mycoupon-list .coupon-expiring .item-time {
+  color: #CCCCCC;
+}
