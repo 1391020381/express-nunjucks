@@ -211,7 +211,8 @@ define(function (require,exports,moudle) {
                 $('.user-state .info-des').text(expireStr);
                 $('.js-vip-open').hide()
             }else{
-                $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide')
+                $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
+                $('.user-state .info-des').text('你还不是VIP');
             }
         }
      }
