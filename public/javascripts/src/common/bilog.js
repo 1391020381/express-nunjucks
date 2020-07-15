@@ -251,11 +251,9 @@ define(function (require, exports, module) {
         commonData.pageID = $("#ip-page-id").val() || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
-        
-        // var utm_source = method.getParam('utm_source');
-        // var utm_medium = method.getParam('utm_campaign');
-        // var utm_term = method.getParam('utm_campaign');
-        // $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
+        var searchEngine = getSearchEngine()
+        var source = getSource(searchEngine)
+        $.extend(customData, {source:source,searchEngine:searchEngine});
         handle(commonData, customData);
     }
     //详情页
@@ -678,7 +676,43 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData); 
         }
     }
-    
+    function getSearchEngine(){
+        // baidu：百度
+        // google:谷歌
+        // 360:360搜索
+        // sougou:搜狗
+        // shenma:神马搜索
+        // bing:必应
+        var referrer = document.referrer;
+        var res = "";
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) { 
+            res = '360';
+        } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+            res = 'baidu';
+        } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+            res = 'sogou';
+        } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+            res = 'sm';
+        }else if(/https?\:\/\/[^\s]*google.com.*$/g.test(referrer)){
+            res = 'google';
+        } else if(/https?\:\/\/[^\s]*bing.com.*$/g.test(referrer)){
+            res = 'bing';
+        } 
+        return res;
+    }
+    function getSource(searchEngine){
+        var referrer = document.referrer;
+        var orgigin = location.origin
+        var source = ''
+        if(searchEngine){ //搜索引擎
+            source = 'searchEngine'
+        }else if(referrer&&referrer.indexOf(orgigin)!==-1){ // 正常访问
+           source = 'vist'
+        }else {
+            source = 'outLink'
+        }
+        return source
+    }
     module.exports = {
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)

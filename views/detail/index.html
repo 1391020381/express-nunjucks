@@ -24,20 +24,20 @@
 <input type="hidden" id="ip-page-type" value="pindex">
 <input type="hidden" id="ip-page-statusCode" value="{{results.statusCode}}">
 
-{{% if results.statusCode == '404'%}}
+{% if results.statusCode == '404'%}
  <input type="hidden" id="ip-page-id" value="PC-M-FDL">
 <input type="hidden" id="ip-page-name" value="资料被删除">
-{{% endif %}}
+{% endif %}
 
-{{% if results.statusCode == '503'%}}
+{% if results.statusCode == '503'%}
  <input type="hidden" id="ip-page-id" value="PC-M-FSM">
 <input type="hidden" id="ip-page-name" value="资料私有">
-{{% endif %}}
+{% endif %}
 
-{{% if  results.statusCode == ''%}}
+{% if  results.statusCode == ''%}
   <input type="hidden" id="ip-page-id" value="PC-M-FD">
 <input type="hidden" id="ip-page-name" value="资料详情页">
-{{% endif%}}
+{% endif%}
 {% include "common/js.html" %}
 {% include "common/outside-fn.html" %}
 {% include "common/360.html" %}
