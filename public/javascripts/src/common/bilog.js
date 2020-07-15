@@ -252,10 +252,10 @@ define(function (require, exports, module) {
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
         
-        var utm_source = method.getParam('utm_source');
-        var utm_medium = method.getParam('utm_campaign');
-        var utm_term = method.getParam('utm_campaign');
-        $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
+        // var utm_source = method.getParam('utm_source');
+        // var utm_medium = method.getParam('utm_campaign');
+        // var utm_term = method.getParam('utm_campaign');
+        // $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
         handle(commonData, customData);
     }
     //详情页
