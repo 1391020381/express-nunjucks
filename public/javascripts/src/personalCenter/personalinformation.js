@@ -37,20 +37,20 @@ define(function(require , exports , module){
     }
     function getProvinceAndCityList(userInfo){
         userInfoInfomation = userInfo
-        areaData.forEach(function(itemCity){
+        $(areaData).each(function(index,itemCity){
             provinceList.push(itemCity.name)
             if(itemCity.name == userInfo.prov&& specialCity.indexOf(userInfo.prov)>-1){
-                itemCity.city.forEach(function(itemArea){
-                    itemArea.area.forEach(function(area){
+                $(itemCity.city).each(function(index,itemArea){
+                    $(itemArea.area).each(function(index,area){
                         cityList.push(area)
                     })
                 })
             }else if(itemCity.name == userInfo.prov&& specialCity.indexOf(userInfo.prov)==-1){
-                itemCity.city.forEach(function(city){
+                $(itemCity.city).each(function(index,city){
                     cityList.push(city.name)
                 })
             } else  if(!userInfo.city){
-                areaData[0].city[0].area.forEach(function(area){
+                $(areaData[0].city[0].area).each(function(index,area){
                     cityList.push(area)
                 })
             }
@@ -116,16 +116,16 @@ define(function(require , exports , module){
           var provinceName = $(this).val()
           var  str = ''
           var cityList = []  
-         areaData.forEach(function(itemCity){
+         $(areaData).each(function(index,itemCity){
             if(provinceName == itemCity.name && specialCity.indexOf(provinceName)>-1){
-                itemCity.city.forEach(function(itemArea){
-                    itemArea.area.forEach(function(area){
+                $(itemCity.city).each(function(index,itemArea){
+                    $(itemArea.area).each(function(index,area){
                         cityList.push(area)
                     })
                 })
             }else{
               if(provinceName == itemCity.name){
-                  itemCity.city.forEach(function(city){
+                  $(itemCity.city).each(function(index,city){
                       cityList.push(city.name)
                   })
               }  
@@ -133,7 +133,7 @@ define(function(require , exports , module){
          }) 
           
 
-          cityList.forEach(function(city){
+          $(cityList).each(function(index,city){
             str +='<option value="'+city +'">'+city +'</option>' 
           })
          

@@ -33,7 +33,7 @@ define(function(require , exports , module){
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  res.data.rows.forEach(function(item){
+                  $(res.data.rows).each(function(index,item){
                      var userFilePrice  = ''
                      if(item.userFileType == 1){
                          userFilePrice = '免费'

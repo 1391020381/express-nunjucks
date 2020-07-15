@@ -96,7 +96,7 @@ define(function(require , exports , module){
                 var formatDate = method.formatDate
                 Date.prototype.format = formatDate
                    if(res.data&&res.data.rows){
-                       res.data.rows.forEach(function(item){
+                       $(res.data.rows).each(function(index,item){
                           item.payPrice = (item.payPrice/100).toFixed(2)
                           item.orderTime = new Date(item.orderTime).format("yyyy-MM-dd")
                           if(item.refundStatus== 0 ||!item.refundStatus){

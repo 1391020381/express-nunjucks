@@ -241,7 +241,7 @@ define(function (require, exports, module) {
         },
         handleRecommendData:function(list){
             var arr = []
-            list.forEach(function(item){
+            $(list).each(function(index,item){
                 var temp = {}
                 if(item.type == 1){ // 资料 
                     // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})

@@ -119,15 +119,15 @@ define(function(require , exports , module){
                     // 复用模板,需要转换接口返回的key
                     var data = []
                     if(res.data&&res.data.rows.length){
-                        res.data.rows.forEach(function(item){
-                           data.push({
-                            id:1,
-                            fileid:item.id,
-                            format:item.format,
-                            totalPage:'',
-                            name:item.title
-                           }) 
-                        })
+                        $(res.data.rows).each(function(index,item){
+                            data.push({
+                             id:1,
+                             fileid:item.id,
+                             format:item.format,
+                             totalPage:'',
+                             name:item.title
+                            }) 
+                         })
                         var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlydownloads',data:data||[]});
                     $(".recently-downloads").html(_homeRecentlySeeTemplate)
                     }else{
@@ -156,15 +156,15 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                res.data.forEach(function(item){  // 匹配 组装数据
-                    recommendConfigInfo.personalCenterHome.descs.forEach(function(desc){
+                $(res.data).each(function(index,item){  // 匹配 组装数据
+                    $(recommendConfigInfo.personalCenterHome.descs).each(function(index,desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.personalCenterHome.descs.forEach(function(k){
+                $(recommendConfigInfo.personalCenterHome.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_banner'){ // search-all-main-bottombanner
                             console.log('PC_M_USER_banner:',k.list)
@@ -192,15 +192,15 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                res.data.forEach(function(item){  // 匹配 组装数据
-                    recommendConfigInfo.myVipRightsList.descs.forEach(function(desc){
+                $(res.data).each(function(index,item){  // 匹配 组装数据
+                    $(recommendConfigInfo.myVipRightsList.descs).each(function(index,desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.myVipRightsList.descs.forEach(function(k){
+                $(recommendConfigInfo.myVipRightsList.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_vip'){ // search-all-main-bottombanner
                             console.log('PC_M_USER_vip:',k.list)
