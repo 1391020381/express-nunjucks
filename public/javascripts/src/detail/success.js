@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var userId;
     require('swiper');
+    var refreshTopBar = require('../application/effect.js').refreshTopBar
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
@@ -41,7 +42,8 @@ define(function (require, exports, module) {
                 userData = data;
                 userId = data.userId;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+              //  refreshDomTree(data);
+              refreshTopBar(data)
                 successReload(data);
             });
         } else {
@@ -67,7 +69,8 @@ define(function (require, exports, module) {
             login.getLoginData(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+               // refreshDomTree(data);
+               refreshTopBar(data)
                 successReload(data);
             });
         }
@@ -79,7 +82,8 @@ define(function (require, exports, module) {
             login.notifyLoginInterface(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+              //  refreshDomTree(data);
+              refreshTopBar(data)
                 successReload(data);
             })
         }
@@ -362,7 +366,8 @@ define(function (require, exports, module) {
         $('.user-login,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
-                    refreshDomTree(data);
+                  //  refreshDomTree(data);
+                  refreshTopBar(data)
                     $('.down-success-other').show()
                     $('.qrcode-warpper').show()
                 });
@@ -490,7 +495,8 @@ define(function (require, exports, module) {
         }else{
             login.notifyLoginInterface(function (data) {
                // common.afterLogin(data);
-               refreshDomTree(data)
+             //  refreshDomTree(data)
+             refreshTopBar(data)
             }); 
         }
     })
