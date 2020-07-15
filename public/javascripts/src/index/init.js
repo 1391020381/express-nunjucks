@@ -199,16 +199,15 @@ define(function (require,exports,moudle) {
             var $btn_user_more = $('.btn-user-more');
             $unLogin.hide();
             $hasLogin.find('.user-link .user-name').html(data.nickName);
-            $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
-            $('.user-top .avatar-frame img').attr('src', data.photoPicURL);
+            $hasLogin.find('.user-link img').attr('src', data.weiboImage);
+            $('.user-top .avatar-frame img').attr('src', data.weiboImage);
             $hasLogin.find('.top-user-more .name').html(data.nickName);
             $('.user-state .user-name').text(data.nickName)
             $hasLogin.show();
             if(data.isVip==1) {
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
-                var expireTime = utils.timeFormat('yyyy-mm-dd',data.endDate)
-                var expireStr = expireTime+'到期'
+                var expireStr = data.expireTime+'到期'
                 $('.user-state .info-des').text(expireStr);
                 $('.js-vip-open').hide()
             }else{
