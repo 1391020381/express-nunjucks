@@ -835,6 +835,9 @@
   background: #FFFFFF;
   border-radius: 6px;
 }
+.specail-area .user-state.vipstate {
+  background: #FFFFFF url(../../images/index/vipBg.png) right top no-repeat;
+}
 .specail-area .user-state .inner-wrap {
   padding: 34px 30px 43px;
 }
