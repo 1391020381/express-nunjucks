@@ -261,9 +261,9 @@ define(function(require , exports , module){
             }).done(function(data){
                 if(data.code=="0"){
                     $.toast({
-                        text:data.msg,
+                        text:'提交成功',
                         icon:'',
-                        delay : 2000,
+                        delay : 3000,
                         callback:function(){
                             location.reload()
                         }
