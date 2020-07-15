@@ -10,13 +10,13 @@
     <meta http-equiv="expires" content="0"> 
     <meta name=renderer  content=webkit>
     <title>文档标题-爱问共享资料</title>
-    <meta name="keywords"content="{{results.list.data.fileInfo.keywords}}"/>
+    <meta name="keywords"content="{%if results.list.data.fileInfo.keywords%}{{results.list.data.fileInfo.keywords}}{%else%}{{results.list.data.fileInfo.title}}{%endif%}"/>
     <meta name="description" content="{{results.seo.description}}"/>
     <meta property="og:type" content="document"/>
     <meta property="og:url" content="{{results.seo.fileurl}}"/>
     <meta property="og:release_date" content="{{results.list.data.fileInfo.createtime}}"/>
     <meta property="og:title" content="{{results.list.data.fileInfo.title}}"/>
-    <meta property="og:description" content="{{results.list.data.fileInfo.keywords}}"/>
+    <meta property="og:description" content="{{results.seo.description}}"/>
     <meta property="og:document:type" content="{{results.list.data.fileInfo.format}}"/>
     <meta property="og:image" content="{{results.list.data.fileInfo.fileSmallPic}}"/>
     <meta property="og:document:page" content="{{results.list.data.transcodeInfo.totalPage}}"/>
@@ -147,7 +147,7 @@
                         <div>
                         {%for item in  results.hotTopicSeo.data %}
                         <p>
-                            <a target="_blank" href="/node/s{{item.id}}.html">{{item.title}}</a>
+                            <a target="_blank" href="/node/s/{{item.id}}.html">{{item.title}}</a>
                         </p>
                         {%endfor%}
                         </div>

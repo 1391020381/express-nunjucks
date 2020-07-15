@@ -275,16 +275,16 @@ module.exports = {
         } , function(err, results){
             // doc对应Word、ppt对应PowerPoint、xls对应Excel、txt对应记事本、pdf对应PDF阅读器
             var readTool ={
-                doc:'Word',
-                ppt:'PowerPoint',
-                xls:'Excel',
+                Word:'Word',
+                PowerPoint:'PowerPoint',
+                Excel:'Excel',
                 txt:'记事本',
                 pdf:'PDF阅读器'
             }
             results.list.data.fileInfo.readTool = readTool;
             //对正文进行处理
-            var textString =  results.fileDetailTxt.data;
-            console.log(results.fileDetailTxt,'results.fileDetailTxt')
+            var textString =  results.fileDetailTxt.data||'';
+            console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
            if(picArr.length>6) {
                 picArr = picArr.slice(0,6)
            }
@@ -336,7 +336,7 @@ module.exports = {
            // 对热门搜索的主题数进行限制
            results.newRecList = results.newRecList?results.newRecList:[];
            results.type = type;
-           console.log(JSON.stringify(results.editorInfo),'editorInfo')
+        //    console.log(JSON.stringify(results.editorInfo),'editorInfo')
            results.fileDetailArr = newTextArr;
             render("spider/index", results, req, res);
         })

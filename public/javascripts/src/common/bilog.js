@@ -252,10 +252,10 @@ define(function (require, exports, module) {
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
         
-        var utm_source = method.getParam('utm_source');
-        var utm_medium = method.getParam('utm_campaign');
-        var utm_term = method.getParam('utm_campaign');
-        $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
+        // var utm_source = method.getParam('utm_source');
+        // var utm_medium = method.getParam('utm_campaign');
+        // var utm_term = method.getParam('utm_campaign');
+        // $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
         handle(commonData, customData);
     }
     //详情页
@@ -282,7 +282,10 @@ define(function (require, exports, module) {
             customData.fileCooType = '360wenku';
             method.setCookieWithExp('bc', '360wenku', 30 * 60 * 1000, '/');
         }
-
+        if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)) {
+            customData.fileCooType = '360wenku';
+            method.setCookieWithExp('bc', '360wenku', 30 * 60 * 1000, '/');
+        }
         var commonData = JSON.parse(JSON.stringify(initData));
         setPreInfo(document.referrer, commonData);
         commonData.eventType = 'page';
