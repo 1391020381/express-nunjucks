@@ -26,6 +26,7 @@
   position: relative;
 }
 .personal-center-home .personal-summarys .summary .summary-desc .summary-aibeans-desc {
+  display: inline-block;
   vertical-align: middle;
 }
 .personal-center-home .personal-summarys .summary .summary-desc .summary-desc-icon {
@@ -275,12 +276,15 @@
   font-size: 16px;
   color: #222222;
   font-weight: bold;
-  vertical-align: top;
+  vertical-align: middle;
 }
 .mycollection-anddownLoad .title .file-num {
   margin-left: 5px;
   font-size: 12px;
   color: #9A9A9A;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 21px;
 }
 .mycollection-anddownLoad .table-list {
   width: 100%;
@@ -290,11 +294,12 @@
   border-bottom: solid 1px #F4F4F4;
 }
 .mycollection-anddownLoad .table-list .table-title .file-title {
-  padding-bottom: 35px;
+  padding-bottom: 30px;
   text-align: left;
 }
 .mycollection-anddownLoad .table-list .table-title .action-time {
-  text-align: right;
+  padding-bottom: 30px;
+  text-align: left;
 }
 .mycollection-anddownLoad .table-list .table-item {
   *zoom: 1;
@@ -340,7 +345,7 @@
 }
 .mycollection-anddownLoad .table-list .table-item .operation-time {
   padding-top: 40px;
-  text-align: right;
+  text-align: left;
   color: #888888;
 }
 .mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
@@ -411,14 +416,18 @@
   width: 13px;
   height: 14px;
   cursor: pointer;
+  vertical-align: middle;
 }
 .myuploads .table-title .delete-desc {
+  display: inline-block;
   margin-left: 6px;
   font-size: 14px;
   color: #9A9A9A;
+  vertical-align: middle;
 }
 .myuploads .table-title .myuploads-nums {
   float: right;
+  color: #999999;
   margin-right: 22px;
 }
 .myuploads .myuploads-table-list {
@@ -558,7 +567,6 @@
   margin-left: 40px;
   padding-top: 38px;
   font-size: 22px;
-  font-weight: bold;
   color: #fff;
 }
 .personal-center-vip .myvip-top .vip-summary .vip-summary-title .vip-summary-icon {
@@ -567,6 +575,7 @@
   height: 20px;
   background: url('../../images/personalCenter/diamond.png') no-repeat center;
   background-size: 100%;
+  vertical-align: middle;
 }
 .personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle {
   margin-top: 15px;
@@ -574,6 +583,9 @@
   padding-bottom: 43px;
   font-size: 14px;
   color: #FFFFFF;
+}
+.personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .end-date-master {
+  margin-left: 20px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items {
   margin-top: 46px;
@@ -618,7 +630,6 @@
 }
 .personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container {
   margin: 0 auto;
-  margin-top: 20px;
   width: 100%;
   height: 141px;
 }
@@ -651,6 +662,7 @@
   padding-top: 27px;
   padding-bottom: 7px;
   cursor: pointer;
+  position: relative;
 }
 .personal-center-vip .my-vip-bottom .myvip-tabs .tab-active {
   border-bottom: solid 2px #F25226;
@@ -669,7 +681,6 @@
 .personal-center-vip .my-vip-bottom .table tr:nth-child(2) td {
   padding-top: 15px;
   font-size: 14px;
-  color: #222222;
 }
 .personal-center-vip .my-vip-bottom .vip-table {
   width: 100%;
@@ -701,6 +712,8 @@
   cursor: pointer;
 }
 .personal-center-myorder .myorder-tabs .tab-active {
+  color: #222222;
+  font-weight: bold;
   border-bottom: solid 2px #F25226;
 }
 .personal-center-myorder .myorder-table-list {
@@ -749,6 +762,9 @@
   vertical-align: middle;
   position: static;
 }
+.personal-center-myorder .myorder-table-list .table-list-item .item-desc .goods-name {
+  display: inline-block;
+}
 .personal-center-myorder .myorder-table-list .table-list-item td:first-child .item-desc {
   padding-left: 26px;
   white-space: nowrap;
@@ -768,12 +784,16 @@
   color: #878787;
 }
 .personal-center-myorder .myorder-table-list .table-list-item .item-operation span {
-  padding: 4px 10px;
-  border: 1px solid #f15125;
-  border-radius: 12px;
   font-size: 12px;
   color: #f15125;
   cursor: pointer;
+  width: 68px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid #f25125;
+  border-radius: 12px;
+  display: inline-block;
 }
 .personal-center-myorder .myorder-table-list .copy {
   cursor: pointer;
@@ -1496,6 +1516,7 @@
 .personal-center-content .personal-center-menu .personal-profile .personal-id .id {
   width: 130px;
   display: inline-block;
+  vertical-align: middle;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1622,6 +1643,7 @@
 }
 .personal-center-content .pagination-wrapper {
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .personal-center-content .pagination-wrapper .pagination {
   margin-left: 155px;
@@ -1658,4 +1680,16 @@
 }
 .personal-center-content .pagination-wrapper .pagination .active a {
   color: #ffffff;
+}
+.personal-center-content .td-text {
+  color: #888888;
+}
+.personal-center-content .td-head-text {
+  color: #222222;
+}
+.personal-center-content .td-status-color {
+  color: #F25125;
+}
+.personal-center-content .td-bold {
+  font-weight: bold;
 }

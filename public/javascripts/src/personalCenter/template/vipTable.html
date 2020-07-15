@@ -21,19 +21,19 @@
                      <tr>
                                <td>
                                 {{if list[$index].voluChannel == '5'}}
-                                    <span>系统赠送</span>
+                                    <span class="td-head-text">系统赠送</span>
                                 {{/if }}
                                  {{if list[$index].voluChannel == '17'}}
-                                    <span>直接购买</span>
+                                    <span class="td-head-text">直接购买</span>
                                 {{/if }}
                                  {{if list[$index].voluChannel == '18'}}
-                                    <span>购买VIP套餐赠送</span>
+                                    <span class="td-head-text">购买VIP套餐赠送</span>
                                 {{/if }}
                                 </td>
 
                                 <td>
                                 {{if list[$index].status == '0'}}
-                                        <span>可使用</span>
+                                        <span class="td-status-color">可使用</span>
                                 {{/if}}
 
                                  {{if list[$index].status == '1'}}
@@ -54,12 +54,12 @@
                                 {{/if}}
                                </td>
                           
-                                <td>{{list[$index].downVouNoUseNum}}</td>
-                               <td>{{list[$index].downVouUsedNum}}</td>
-                              <td>{{list[$index].effectiveStartDate}}至{{list[$index].effectiveEndDate}}</td> 
+                              <td class="td-text">{{list[$index].downVouNoUseNum}}</td>
+                              <td class="td-text">{{list[$index].downVouUsedNum}}</td>
+                              <td class="td-text">{{list[$index].effectiveStartDate}}至{{list[$index].effectiveEndDate}}</td> 
 
 
-                               <td>
+                               <td class="td-text">
                                 {{if list[$index].site  == '0'}}
                                         <span>爱问办公</span>                                        
                                 {{/if}}
@@ -84,17 +84,17 @@
                 <table class="vip-table table">
                        <tr class="vip-table-head table-head">
                            <th>会员名称</th>
-                           <th>状态</th>
-                            <th>有效期</th>
-                            <th>使用范围</th>
+                           <th style="width:100px;">状态</th>
+                            <th style="width:200px;">有效期</th>
+                            <th style="width:200px;">使用范围</th>
                             <th>权益</th>
                         </tr>
                       {{each list}}
                                    <tr>
-                                     <td>{{list[$index].vipName}}</td>
+                                     <td class="td-head-text">{{list[$index].vipName}}</td>
                                      <td>
                                          {{if list[$index].status == '1'}}
-                                               <span>未使用</span>
+                                               <span class="td-status-color">可使用</span>
                                          {{/if}}
                                          {{if list[$index].status == '2'}}
                                                <span>使用中</span>
@@ -109,8 +109,8 @@
                                                <span>冻结</span>
                                          {{/if}}
                                      </td>
-                                     <td>{{list[$index].beginDate}}至{{list[$index].endDate}}</td>
-                                    <td>
+                                     <td class="td-text">{{list[$index].beginDate}}至{{list[$index].endDate}}</td>
+                                    <td class="td-text">
                                         {{if list[$index].site  == '0'}}
                                         <span>爱问办公</span>                                        
                                        {{/if}}
@@ -121,7 +121,7 @@
                                         <span>爱问共享资料</span>
                                       {{/if}} 
                                     </td>
-                                    <td>{{list[$index].memberContent}}</td>
+                                    <td class="td-text">{{list[$index].memberContent}}</td>
                                    </tr>
                       {{/each}}
               </table>

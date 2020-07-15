@@ -7,10 +7,10 @@
     </ul>
     <table class="myorder-table-list">
         <tr class="table-list-title">
-            <th style="width:400px;">商品名称</th>
+            <th style="width:350px;">商品名称</th>
             <th style="width:100px;">订单金额</th>
             <th style="width:200px;">下单时间</th>
-            <th style="width:100px;">订单状态</th>
+            <th style="width:150px;">订单状态</th>
             <th style="width:100px;">操作</th>
         </tr>
 
@@ -25,7 +25,7 @@
                    {{else}}
                         <span class="icon ico-data {{'ico-'+ list[$index].format}}"></span>
                    {{/if}}
-                   {{list[$index].goodsName}}
+                    <span class="goods-name">{{list[$index].goodsName}}</span>
                 </p>
              
             </td>
