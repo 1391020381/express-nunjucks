@@ -6,11 +6,11 @@
 
 
 
-        {{ if  isVip == '1'}}
+    
         {{if vipTableType == '0'}}
          <table class="privilege-table table">
                  <tr class="privilege-table-title table-head">
-                         <th style="width:100px;">获取渠道</th>
+                         <th style="width:150px;">获取渠道</th>
                          <th style="width:100px;">状态</th>
                          <th style="width:100px;">未使用</th>
                         <th style="width:100px;">已使用</th>
@@ -49,7 +49,9 @@
                                 {{if list[$index].status =='4'}}
                                         <span>已失效</span>
                                 {{/if}}
-                        
+                             {{if list[$index].status =='5'}}
+                                        <span>未失效</span>
+                                {{/if}}
                                </td>
                           
                                 <td>{{list[$index].downVouNoUseNum}}</td>
@@ -125,5 +127,5 @@
               </table>
          {{/if}}
          
-{{/if}}   
+ 
 </div>

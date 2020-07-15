@@ -125,7 +125,7 @@ define(function (require, exports, module) {
         getLoginData: function (callback) {
             var _self = this;
             try{
-                method.get(api.user.getUserInfo, function (res) {
+                method.get(api.user.login, function (res) {
                     if (res.code == 0 && res.data) {
                         if (callback && typeof callback == "function") {
                             callback(res.data);
@@ -147,12 +147,10 @@ define(function (require, exports, module) {
                         } catch (e) {
                         }
                         //授权未登录删除本地cuk
-                    } else{
-                        // else if (res.code == 'G-401' || res.code == 'G-403') {
-                        //     _self.ishareLogout();
-                        // }
+                    } else if (res.code == 40001) {
                         _self.ishareLogout();
                     }
+
                 });
             }catch(e){
                 console.log(e)
@@ -184,8 +182,11 @@ define(function (require, exports, module) {
             // $.post("/logout", function () {
             //     window.location.href = window.location.href;
             // });
-            $.post(api.user.loginOut, function () {
-                window.location.href = window.location.href;
+            $.get(api.user.loginOut, function (res) {
+                console.log('loginOut:',res)
+                if(res.code == 0){
+                    window.location.href = window.location.href;
+                }
             });
         }
     }

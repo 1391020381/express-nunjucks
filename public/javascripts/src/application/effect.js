@@ -44,9 +44,29 @@ define(function (require, exports, module) {
         method.compatibleIESkip("/node/rights/vip.html",true);
     })
     $('.btn-new-search').click(function(){
-        var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : '';
-         method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+        var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
+        if(sword){
+            method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+        }
     })
+    $('.new-input').on('keydown', function (e) {
+        if (e.keyCode === 13) {
+            var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
+         if(sword){
+            method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+         }
+        }
+    })
+    var $detailHeader = $(".new-detail-header");
+    var headerHeight = $detailHeader.height();
+    $(window).scroll(function () {
+        var detailTop = $(this).scrollTop();
+        if (detailTop-headerHeight>=0) {
+            $detailHeader.addClass("new-detail-header-fix");
+        } else {
+            $detailHeader.removeClass("new-detail-header-fix");
+        }
+    });
 
     //刷新topbar
     var refreshTopBar = function (data) {
@@ -88,9 +108,9 @@ define(function (require, exports, module) {
 
         $unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
-        $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
+        $hasLogin.find('.user-link img').attr('src', data.weiboImage);
         $hasLogin.find('.top-user-more .name').html(data.nickName);
-        $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
+        $hasLogin.find('.top-user-more img').attr('src', data.weiboImage);
         $hasLogin.show();
 
         window.pageConfig.params.isVip = data.isVip;
@@ -108,13 +128,13 @@ define(function (require, exports, module) {
     function isLogin(callback,isAutoLogin){
         if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
-                callback(data)
+                callback&&callback(data)
                 refreshTopBar(data);
                
             });
         } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
-                callback(data)
+                callback&&callback(data)
                 refreshTopBar(data);
             });
         }

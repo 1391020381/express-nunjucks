@@ -126,7 +126,8 @@ define(function (require, exports, module) {
         },
         createdQrCode: function (oid) {
            // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
-            var url = location.protocol + "/pay/payment?orderNo=" + oid 
+            // var url = location.protocol + "/pay/payment?orderNo=" + oid 
+            var url = location.origin + "/pay/payment?orderNo=" + oid;
             console.log(url)
             try {
                 qr.createQrCode(url, 'payQrCode', 162, 162);

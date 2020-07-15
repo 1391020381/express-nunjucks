@@ -35,7 +35,7 @@ define(function(require , exports , module){
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  res.data.rows.forEach(function(item){
+                  $(res.data.rows).each(function(index,item){
                     var downloadTime = new Date(item.downloadTime).format("yyyy-MM-dd")
                      item.downloadTime = downloadTime
                      item.fileId = item.id
@@ -74,7 +74,7 @@ define(function(require , exports , module){
               var formatDate = method.formatDate
               Date.prototype.format = formatDate
              var list = []
-              res.data.rows.forEach(function(item){
+              $(res.data.rows).each(function(index,item){
                 var collectTime = new Date(item.collectTime).format("yyyy-MM-dd")
                   var temp = {
                     format:item.format,

@@ -1,11 +1,13 @@
 define(function (require, exports, module){
+   var isConvert = window.pageConfig.page.isConvert
     var detailCon = $('.detail-reader-con').find(".detail-con:visible").length -2
     var docMain = $('.doc-main')
     var advertisementHeight = 112
     var detailFooterHeight = 229
     var guessYouLikeHeight = $('.guess-you-like-warpper').height() || 0
    function initStyle(){
-    if(detailCon<=3){ // 只有3页
+    if(isConvert ==1){ // 转码成功
+      if(detailCon<=3){ // 只有3页
         $('.deatil-mr10').css('position','relative')
         $('.detail-footer').css({
             'position': 'absolute',
@@ -17,6 +19,7 @@ define(function (require, exports, module){
       }else{
         commStyle()
       }
+    }
    }
    function loadMoreStyle (){
    // commStyle()

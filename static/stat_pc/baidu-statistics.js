@@ -35,9 +35,9 @@
     // }
    
     //详情页统计代码
-    // if (bdHref.indexOf("/f/")>-1) {
-    //     handle('804df340e392ac0a0dcf0809c9b894ba');
-    // }
+    if (bdHref.indexOf("/f/")>-1) {
+        handle('804df340e392ac0a0dcf0809c9b894ba');
+    }
 
     if (ftype=='vipfree'||ftype=='volume'||ftype=='free'){//广告专用代码文统计代码
         if(pageConfig.params&&pageConfig.params.fileAttr=="1"){

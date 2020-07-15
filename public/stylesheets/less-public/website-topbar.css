@@ -213,6 +213,10 @@
   height: 44px;
   text-align: center;
 }
+.new-detail-header .vip-join-con .img {
+  width: 129px;
+  height: 42px;
+}
 .new-detail-header .vip-join-con:hover .join-vip-ele {
   text-decoration: none;
 }

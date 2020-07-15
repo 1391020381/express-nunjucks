@@ -64,14 +64,14 @@ define(function (require, exports, module) {
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.photoPicURL);
-        $top_user_more.find('img').attr('src', data.photoPicURL);
+        $hasLogin.find('img').attr('src', data.weiboImage);
+        $top_user_more.find('img').attr('src', data.weiboImage);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
         //右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.photoPicURL);
+        $('.user-avatar img').attr('src', data.weiboImage);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip === '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';

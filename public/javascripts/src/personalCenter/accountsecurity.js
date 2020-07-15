@@ -3,7 +3,7 @@ define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var method = require("../application/method");
     var api = require('../application/api');
-    var isLogin = require('./effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo 
     var showCaptcha = require("../common/bindphone").showCaptcha
     var closeRewardPop = require("./dialog.js").closeRewardPop
@@ -11,7 +11,7 @@ define(function(require , exports , module){
     var smsId = ''  // 验证码
     var myWindow = ''  // 保存 openWindow打开的对象
     if(type == 'accountsecurity'){
-        isLogin(initData)
+        isLogin(initData,true)
     }
     function initData(){
         getUserCentreInfo()
@@ -371,9 +371,13 @@ define(function(require , exports , module){
        }
 
        if(btnOperation == 'setPassword'){
-             $("#dialog-box").dialog({
-            html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
-        }).open();
+           if(userBindInfo.mobile){
+            $("#dialog-box").dialog({
+                html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
+            }).open();
+           }else{
+              bindPhoneNumber()
+           }
        }
     });
 

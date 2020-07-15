@@ -2,7 +2,20 @@ define(function(require , exports , module){
     require("../cmd-lib/tab");
     require("../cmd-lib/toast");
     require("../cmd-lib/myDialog");
-
+    require('../application/suspension')
+  //  require("./effect");  // 登录和刷新topbar 
+    require("./menu.js")
+    require("./dialog.js")
+    require("./home.js")
+    require("./mycollectionAndDownLoad.js")
+    require("./myuploads.js")
+    require("./myvip.js")
+    require("./mycoupon.js")
+    require("./myorder.js")
+    require("./accountsecurity.js")
+    require("./personalinformation.js")
+    require("./mywallet.js")
+    require("../common/bilog");
     if(!isLowsIe8()){
         var Clipboard =  require("../cmd-lib/clipboard");
         var clipboardBtn  = new Clipboard('.clipboardBtn');
@@ -22,21 +35,6 @@ define(function(require , exports , module){
            console.error('Trigger:', e.trigger);
        });
     }
-    require('../application/suspension')
-  //  require("./effect");  // 登录和刷新topbar 
-    require("./menu.js")
-    require("./dialog.js")
-    require("./home.js")
-    require("./mycollectionAndDownLoad.js")
-    require("./myuploads.js")
-    require("./myvip.js")
-    require("./mycoupon.js")
-    require("./myorder.js")
-    require("./accountsecurity.js")
-    require("./personalinformation.js")
-    require("./mywallet.js")
-    require("../common/bilog");
-
     function isLowsIe8(){
         var DEFAULT_VERSION = 8.0;  
         var ua = navigator.userAgent.toLowerCase();  
@@ -51,8 +49,5 @@ define(function(require , exports , module){
         }else{
             false
         }
-    }
-    return {
-        isLowsIe8:isLowsIe8
     }
 });

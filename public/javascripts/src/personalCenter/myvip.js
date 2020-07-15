@@ -54,15 +54,15 @@ define(function(require , exports , module){
                     var vipTable = require('./template/vipTable.html')
                     var vipTableType =window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                     var list =  []
-                    res.data.rows.forEach(function(item){
+                    $(res.data.rows).each(function(index,item){
                         item.effectiveStartDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
                         item.effectiveEndDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
                         list.push(item)
                     })
                     
-                    var isVip = userInfoValue.isVip 
+                    // var isVip = userInfoValue.isVipMaster || userInfoValue.isVipOffice 
 
-                   var _vipTableTemplate = template.compile(vipTable)({list:list||[],isVip:isVip,vipTableType:vipTableType})
+                   var _vipTableTemplate = template.compile(vipTable)({list:list||[],vipTableType:vipTableType})
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage) 
                }else{
@@ -94,9 +94,14 @@ define(function(require , exports , module){
                   var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                   var list = res.data&&res.data.rows || []
 
-                  var isVip = userInfoValue.isVip 
-
-                  var _vipTableTemplate = template.compile(vipTable)({list:list,isVip:isVip,vipTableType:vipTableType});
+                //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice 
+                var list =  []
+                $(res.data.rows).each(function(index,item){
+                    item.beginDate =   new Date(item.beginDate).format("yyyy-MM-dd")
+                    item.endDate =   new Date(item.endDate).format("yyyy-MM-dd")
+                    list.push(item)
+                })
+                  var _vipTableTemplate = template.compile(vipTable)({list:list,vipTableType:vipTableType});
                    $(".vip-table-wrapper").html(_vipTableTemplate) 
                     handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{
@@ -137,15 +142,15 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                res.data.forEach(function(item){  // 匹配 组装数据
-                    recommendConfigInfo.myVipRightsBanner.descs.forEach(function(desc){
+                $(res.data).each(function(index,item){  // 匹配 组装数据
+                    $(recommendConfigInfo.myVipRightsBanner.descs).each(function(index,desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.myVipRightsBanner.descs.forEach(function(k){
+                $(recommendConfigInfo.myVipRightsBanner.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_VIP_banner'){ // search-all-main-bottombanner
                             console.log('PC_M_USER_VIP_banner:',k.list)
@@ -173,15 +178,15 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                res.data.forEach(function(item){  // 匹配 组装数据
-                    recommendConfigInfo.myVipRightsList.descs.forEach(function(desc){
+                $(res.data).each(function(index,item){  // 匹配 组装数据
+                    $(recommendConfigInfo.myVipRightsList.descs).each(function(index,desc){
                         if(item.pageId == desc.pageId){
                             desc.list = method.handleRecommendData(item.list)
                         }
                     })
                 })
                 console.log(recommendConfigInfo)
-                recommendConfigInfo.myVipRightsList.descs.forEach(function(k){
+                $(recommendConfigInfo.myVipRightsList.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_vip'){ // search-all-main-bottombanner
                             console.log('PC_M_USER_vip:',k.list)

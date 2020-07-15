@@ -413,9 +413,14 @@ module.exports = {
             }
          
          // 转换新对象
-             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.transcodeInfo,{tdk:results.list.data.tdk})})
+             var list = Object.assign({},{data:Object.assign({},results.list.data.fileInfo,results.list.data.transcodeInfo)})
             if(!list.data.fileContentList){
                 list.data.fileContentList = []
+                list.data.isConvert = 0
+            }
+            if(!list.data.svgPathList){
+                list.data.svgPathList = []
+                list.data.isConvert = 0
             }
              var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
