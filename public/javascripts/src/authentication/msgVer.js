@@ -55,7 +55,7 @@ define(function(require , exports , module){
         pictureVerify:function(appid,randstr,ticket,onoff){
             var params = {mobile:bindPhone.phone,nationCode:'86','businessCode':'6',terminal:'pc',appId:appid,randstr:randstr,ticket:ticket,onOff:onoff};
             params = JSON.stringify(params)
-            $.ajax('/gateway/cas/sms/sendSms', {
+            $.ajax('/gateway/cas/sms/sendSms', { 
                 type:"POST",
                 data:params,
                 contentType:'application/json'
@@ -64,14 +64,14 @@ define(function(require , exports , module){
                     bindPhone.smsId = data.data.smsId;
                     $('.js-msg').attr('smsId',data.data.smsId)
                     $.toast({
-                        text:data.msg,
+                        text:'短信发送成功',
                         icon:'',
                         delay : 2000,
                         callback:false
                     })
                 }else if(data.code=="2112"){
                     bindPhone.showCaptchaProcess(bindPhone.pictureVerify)
-                }else{
+                }else{  
                     $.toast({
                         text:data.msg,
                         icon:'',
