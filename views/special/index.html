@@ -2,73 +2,74 @@
 <html lang="en">
 <head>
     {% if results.tdk.canonicalUrl %}
-    <link rel="canonical" href="{{results.tdk.canonicalUrl}}"/>
+    <link rel="canonical" href="{{results.tdk.canonicalUrl}}" />
     {% endif%}
     {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css"/>
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/ishare_special.css"/>
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css" />
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/ishare_special.css" />
 </head>
 <script type="text/javascript">
-    var _speedMark = +new Date();
+    var _speedMark = + new Date();
     var _version = "{{version}}";
     var _head = "{{cdnUrl}}";
 </script>
 <body>
-{% include "common/js.html" %}
+ {% include "common/js.html" %}
+   
+    <!-- 顶部标签 -->
+    {% include "special/topbar.html" %}
+       <!-- 专题页头部 -->
+    {% include "special/specialHead.html" %}
 
-<!-- 顶部标签 -->
-{% include "special/topbar.html" %}
-<!-- 专题页头部 -->
-{% include "special/specialHead.html" %}
+     <!-- 专题内容主体 -->
+    {% include "special/content.html" %}
 
-<!-- 专题内容主体 -->
-{% include "special/content.html" %}
+     {# 底部的广告位 #}
+     {% if results.list.data.rows.length !==0 %}
+         {% include "special/bottomBar.html" %}
+    {% endif %}
+    
+     <!-- 底部声明 -->
+    {% include "special/footer.html" %}
 
-{# 底部的广告位 #}
-{% if results.list.data.rows.length !==0 %}
-{% include "special/bottomBar.html" %}
-{% endif %}
+    <!-- 右边固定提示导航 -->
 
-<!-- 底部声明 -->
-{% include "special/footer.html" %}
+    {% include "common/suspension.html" %}
+    <script type="text/javascript">
+        window.pageConfig = {
+             params: {
+                isVip: 0,
+                uid:'{{results.uid}}'
+            },
+            urlParams:{
+                specialTopicId:"{{results.urlParams.specialTopicId}}",//专题id
+                dimensionId:"{{results.urlParams.dimensionId}}",//维度id
+                sortFlag:"{{results.urlParams.sortFlag}}",
+                currentPage:"{{results.urlParams.currentPage}}",
+                topicPropertyQueryDTOList:'{{results.urlParams.topicPropertyQueryDTOList}}'
+            },
+            topicName:"{{results.data.topicName}}"
+        }
+        seajs.use(["dist/application/app.js", "dist/special/init.js"]);
+    </script>
+     </script>
+<!-- 百度统计代码 -->
+ <script>
+ // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在  window.pageConfig上的含义,暂时单独添加
+ var _hmt = _hmt || []; //此变量百度统计需要
 
-<!-- 右边固定提示导航 -->
+(function() {
 
-{% include "common/suspension.html" %}
-<script type="text/javascript">
-    window.pageConfig = {
-        params: {
-            isVip: 0,
-            uid: '{{results.uid}}'
-        },
-        urlParams: {
-            specialTopicId: "{{results.urlParams.specialTopicId}}",//专题id
-            dimensionId: "{{results.urlParams.dimensionId}}",//维度id
-            sortFlag: "{{results.urlParams.sortFlag}}",
-            currentPage: "{{results.urlParams.currentPage}}",
-            topicPropertyQueryDTOList: '{{results.urlParams.topicPropertyQueryDTOList}}'
-        },
-        topicName: "{{results.data.topicName}}"
-    }
-    seajs.use(["dist/application/app.js", "dist/special/init.js"]);
-</script>
-<script>
-    // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在  window.pageConfig上的含义,暂时单独添加
-    var _hmt = _hmt || []; //此变量百度统计需要
-    (function () {
-        // 百度统计高级版
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?a0eac0413179b25b0ac75a7b6d2bd134";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-    (function () {
-        // 百度统计基础版
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?c86ddf23466c4042b5bc09c72141b42b";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
+  var hm = document.createElement("script");
+
+  hm.src = "https://hm.baidu.com/hm.js?a0eac0413179b25b0ac75a7b6d2bd134";
+
+  var s = document.getElementsByTagName("script")[0];
+
+  s.parentNode.insertBefore(hm, s);
+
+})();
+
 </script>
 </body>
 </html>
