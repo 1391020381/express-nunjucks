@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="word-btm">
                                     <span>{{item.expand.readNum}}阅读</span>
-                                   
+                                    <!-- <span>{{item.expand.totalPage}}阅读</span> -->
                                 </div>
                             </div>
                         </a>
@@ -214,7 +214,7 @@
                             <div class="user-name">登录获取优质资料</div>
                             <i class="vip-icon"></i>
                         </div>
-                        <div class="info-des">你还不是VIP</div>
+                        <div class="info-des"></div>
                     </div>
                 </div>
                 <div class="special-des">
@@ -234,7 +234,7 @@
 </div>
 <!-- 精选资料 -->
 {%if results.recfileArr.length>0%}
-<div class="recmond-area">
+<div class="recmond-area" style="margin-top: 5px;">
     <div class="pw ">
         <div class="recmond-con">
             <div class="recmond-top">
@@ -307,7 +307,7 @@
 </div>
 <div class="pw">
     <!--热门搜索 start -->
-    <div class="seo-upload-new" style="margin-top: 20px">
+    <div class="seo-upload-new" style="margin-top: 60px;padding-bottom: 20px;">
         <div class="title-tab">
             <div class="tab-left">
                 <div class="upload-title active" type ="new">最新资料</div>
