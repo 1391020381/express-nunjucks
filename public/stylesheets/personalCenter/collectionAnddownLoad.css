@@ -53,15 +53,19 @@
   height: 0;
 }
 .mycollection-anddownLoad .table-list .table-item .file-content .file-type {
-  float: left;
+  display: inline-block;
+  vertical-align: middle;
   margin: 0 14px;
+  margin-left: 0px;
   width: 16px;
   height: 16px;
   top: inherit;
   position: static;
 }
 .mycollection-anddownLoad .table-list .table-item .file-content .file-name {
-  float: left;
+  display: inline-block;
+  line-height: 16px;
+  vertical-align: middle;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -71,6 +75,7 @@
 .mycollection-anddownLoad .table-list .table-item .operation-time {
   padding-top: 40px;
   text-align: right;
+  color: #888888;
 }
 .mycollection-anddownLoad .table-list tr:nth-child(2) .file-content {
   padding-top: 20px;
