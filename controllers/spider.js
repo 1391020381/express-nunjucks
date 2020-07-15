@@ -247,7 +247,8 @@ module.exports = {
                     type: 'topic',
                     currentPage:1,
                     pageSize:20,
-                    siteCode:4
+                    siteCode:4,
+                    random:'y'
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
             },
@@ -257,7 +258,8 @@ module.exports = {
                     type: 'new',
                     currentPage:1,
                     pageSize:20,
-                    siteCode:4
+                    siteCode:4,
+                    random:'y'
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
             },
