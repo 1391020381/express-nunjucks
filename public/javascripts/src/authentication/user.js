@@ -209,15 +209,6 @@ define(function(require , exports , module){
                 })
                 return false;
             }
-            if(!params.credentialsPic) {
-                $.toast({
-                    text:'请上传证件材料照片',
-                    icon:'',
-                    delay : 2000,
-                    callback:false
-                })
-                return false;
-            }
             if(!params.phoneNumber) {
                 $.toast({
                     text:'请输入正确的手机号码',
