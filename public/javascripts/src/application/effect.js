@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     //     });
     // });
 
-    $(".unLogin").on("click", function () {
+    $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
