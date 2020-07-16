@@ -39,9 +39,6 @@
                                  {{if list[$index].status == '1'}}
                                         <span>已过期</span>
                                 {{/if}}
-                                {{if list[$index].status == '2'}}
-                                        <span>已删除</span>
-                                {{/if}}
                                  {{if list[$index].status == '3'}}
                                         <span>冻结中</span>
                                 {{/if}}
@@ -50,7 +47,7 @@
                                         <span>已失效</span>
                                 {{/if}}
                              {{if list[$index].status =='5'}}
-                                        <span>未失效</span>
+                                        <span>未生效</span>
                                 {{/if}}
                                </td>
                           
@@ -94,16 +91,16 @@
                                      <td class="td-head-text">{{list[$index].vipName}}</td>
                                      <td>
                                          {{if list[$index].status == '1'}}
-                                               <span class="td-status-color">可使用</span>
+                                               <span class="td-status-color">未生效</span>
                                          {{/if}}
                                          {{if list[$index].status == '2'}}
-                                               <span>使用中</span>
+                                               <span>可使用</span>
                                          {{/if}}
                                          {{if list[$index].status == '3'}}
                                                <span>已过期</span>
                                          {{/if}}
                                          {{if list[$index].status == '4'}}
-                                               <span>已退款</span>
+                                               <span>已失效</span>
                                          {{/if}}
                                          {{if list[$index].status == '5'}}
                                                <span>冻结</span>

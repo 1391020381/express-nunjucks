@@ -55,7 +55,7 @@ define(function(require , exports , module){
         } 
     })
 
-    $('.personal-center-myorder').click('.item-desc',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
+    $('.personal-center-myorder').click('.goods-name',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
        var goodsName =  $(event.target).attr('data-goodsname') 
        var fid = $(event.target).attr('data-goodstype')
        var goodsType = $(event.target).attr('data-goodstype')
