@@ -57,7 +57,7 @@ define(function(require , exports , module){
 
     $('.personal-center-myorder').click('.goods-name',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
        var goodsName =  $(event.target).attr('data-goodsname') 
-       var fid = $(event.target).attr('data-goodstype')
+       var fid = $(event.target).attr('data-fid')
        var goodsType = $(event.target).attr('data-goodstype')
        var format = $(event.target).attr('data-format')
        if(goodsName){
@@ -67,7 +67,7 @@ define(function(require , exports , module){
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(goodsName)) + '&ref=' + ''
             method.compatibleIESkip('/pay/vip.html' + params,true);
            }else if(goodsType =='8'){
-          var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + '';
+          var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(goodsName)) + '&ref=' + '';
            method.compatibleIESkip('/pay/privilege.html' + params,true);
            }
        }
