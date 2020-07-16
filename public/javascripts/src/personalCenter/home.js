@@ -30,7 +30,7 @@ define(function(require , exports , module){
                     // compilerTemplate(res.data)
                     $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
                     // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
-                    $('.personal-center-menu .personal-profile .personal-nickname .nickname').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span> <span class="level-icon"></span></p>')
+                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span> <span class="level-icon"></span></p>')
                     // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
                     $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)

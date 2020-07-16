@@ -93,6 +93,10 @@
 .personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .end-date-master {
   margin-left: 20px;
 }
+.personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .privilege em {
+  font-size: 16px;
+  font-weight: 800;
+}
 .personal-center-vip .myvip-top .vip-privilege-items {
   margin-top: 46px;
   padding-bottom: 62px;
@@ -129,7 +133,7 @@
 }
 .personal-center-vip .my-vip-middle {
   width: 940px;
-  border-top: solid 10px #F2F3F3;
+  border-top: solid 10px #fafafa;
   height: 141px;
   background: #fff;
 }
@@ -162,7 +166,7 @@
   cursor: pointer;
 }
 .personal-center-vip .my-vip-bottom {
-  border-top: solid 10px #F2F3F3;
+  border-top: solid 10px #fafafa;
   padding: 0px 60px 0 40px;
 }
 .personal-center-vip .my-vip-bottom .myvip-tabs {
