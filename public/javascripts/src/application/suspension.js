@@ -35,10 +35,11 @@ define(function (require, exports, module) {
                 if (method.getCookie('cuk')) {
                     window.open('/node/rights/vip.html','target');
                 } else {
-                    login.notifyLoginInterface(function (data) {
-                        refreshDomTree(null, index, data);
-                        window.open('/node/rights/vip.html','target');
-                    });
+                    // login.notifyLoginInterface(function (data) {
+                    //     refreshDomTree(null, index, data);
+                    //     window.open('/node/rights/vip.html','target');
+                    // });
+                    window.open('/node/rights/vip.html','target');
                 }
             } else if (index === 1) {
                 $(".mui-user-wrap").css("visibility", "hidden");

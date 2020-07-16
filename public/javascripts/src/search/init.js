@@ -14,5 +14,6 @@ define(function(require , exports , module){
     require('./search');
     require('./banner')
     require('../common/bilog')
+    require('../application/suspension')
     // require("../common/baidu-statistics");
 });
