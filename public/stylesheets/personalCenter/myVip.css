@@ -187,6 +187,10 @@
 .personal-center-vip .my-vip-bottom .myvip-tabs .tab-active {
   border-bottom: solid 2px #F25226;
 }
+.personal-center-vip .my-vip-bottom .myvip-tabs .tab-active a {
+  color: #222222;
+  font-weight: bold;
+}
 .personal-center-vip .my-vip-bottom .table {
   margin-top: 30px;
   width: 100%;

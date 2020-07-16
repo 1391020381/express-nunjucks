@@ -328,7 +328,7 @@ define(function(require , exports , module){
        }
 
        if(btnOperation == 'bindPhoneNumber'){
-            bindPhoneNumber()
+            bindPhoneNumber('')
        }
 
        if(btnOperation == 'unbindWechatAuthorization'){

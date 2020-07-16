@@ -25,9 +25,11 @@
   cursor: pointer;
 }
 .personal-center-myorder .myorder-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.personal-center-myorder .myorder-tabs .tab-active a {
   color: #222222;
   font-weight: bold;
-  border-bottom: solid 2px #F25226;
 }
 .personal-center-myorder .myorder-table-list {
   width: 100%;
