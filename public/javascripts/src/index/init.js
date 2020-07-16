@@ -165,7 +165,6 @@ define(function (require,exports,moudle) {
                     newIndex = newIndex>3?0:newIndex;
                     var start = newIndex*12;
                     var end = (newIndex+1)*12;
-                   console.log( $('.upload-list').eq(0).find('li').length)
                     $('.upload-list').eq(0).find('li').addClass('hide')
                    for(var i=start;i<end;i++) {
                        $('.upload-list').eq(0).find('li').eq(i).removeClass('hide')
