@@ -11,10 +11,7 @@ define(function(require , exports , module){
     var tmpList2 =require('./template/list_pravite.html') //私密资料模板
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
-    isLogin(function(data){
-        uploadObj.isAuth = data.isAuth?true:false
-    },isAutoLogin);
-
+   
     var uploadObj = {
         uploadFiles:[],
         permin:1, //1:公开、2:私密
@@ -780,5 +777,9 @@ define(function(require , exports , module){
            
         }
     }
+    isLogin(function(data){
+        uploadObj.isAuth = data.isAuth?true:false
+    },isAutoLogin);
+    
     uploadObj.init();
 });

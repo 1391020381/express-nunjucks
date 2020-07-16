@@ -267,7 +267,7 @@ module.exports = {
             hotRecData:function(callback){
                 req.body = {
                     contentType: 100,
-                    clientType:1,
+                    clientType:0,
                     pageSize:20,
                     siteCode:0
                 };
