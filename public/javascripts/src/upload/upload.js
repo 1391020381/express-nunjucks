@@ -778,8 +778,9 @@ define(function(require , exports , module){
         }
     }
     isLogin(function(data){
-        uploadObj.isAuth = data.isAuth?true:false
+        uploadObj.isAuth = data.isAuth==1?true:false;
+        uploadObj.init();
     },isAutoLogin);
-    
-    uploadObj.init();
+
+   
 });
