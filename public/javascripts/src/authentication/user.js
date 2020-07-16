@@ -7,8 +7,9 @@ define(function(require , exports , module){
     var utils = require("../cmd-lib/util");
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
-    var callback = null;
-    isLogin(callback,isAutoLogin);
+    isLogin(false,isAutoLogin,function(){
+        location.reload()
+    });
 
     var userObj= {
         nickName: '',

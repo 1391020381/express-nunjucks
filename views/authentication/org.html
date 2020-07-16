@@ -249,7 +249,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>手机号码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.contactNumber}}{%endif%}" class="rz-input-text js-phone" placeholder="请输入手机号码" value="" name="contactNumber">
+                                    <input type="tel" {%if results.isEdit %}disabled{%endif%} autocomplete="off"  maxlength="11" value ="{%if results.isEdit  %}{{results.contactNumber}}{%endif%}" class="rz-input-text js-phone" placeholder="请输入手机号码" value="" name="contactNumber">
                                 </div>
                             </dd>
                         </dl>
@@ -257,7 +257,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>验证码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-msg-val" placeholder="请输入短信验证码" value="" name="email">
+                                    <input type="tel" autocomplete="off" maxlength="6" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-msg-val" placeholder="请输入短信验证码" value="" name="email">
                                 </div>
                                 <a class="ver-btn js-msg" href="javascript:;">获取验证码</a>
                             </dd>
@@ -439,6 +439,9 @@
     <script>
          window.pageConfig = {
             report: {
+            },
+            params:{
+                status:"{{results.isEdit}}"
             }
         };
         seajs.use(["dist/application/app.js","dist/authentication/org.js"]);

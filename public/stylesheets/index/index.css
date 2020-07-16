@@ -852,6 +852,9 @@
   border-radius: 50%;
   overflow: hidden;
 }
+.specail-area .user-state .inner-wrap .user-top .avatar-frame img {
+  width: 100%;
+}
 .specail-area .user-state .inner-wrap .user-top .user-info {
   margin-left: 10px;
   overflow: hidden;

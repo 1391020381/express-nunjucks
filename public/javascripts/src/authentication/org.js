@@ -8,7 +8,9 @@ define(function(require , exports , module){
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var callback = null;
-    isLogin(callback,isAutoLogin);
+    isLogin(false,isAutoLogin,function(){
+        location.reload()
+    });
     var orgObj = {
         nickName: '',
         validateFrom:/^1[3456789]\d{9}$/,

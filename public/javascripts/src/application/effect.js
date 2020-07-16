@@ -125,10 +125,11 @@ define(function (require, exports, module) {
         $("#ip-isVip").val(data.isVip);
         $("#ip-mobile").val(data.mobile);
     };
-    function isLogin(callback,isAutoLogin){
+    function isLogin(callback,isAutoLogin,callback2){
         if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
-                callback&&callback(data)
+                callback&&callback(data);
+                callback2&&callback2()
                 refreshTopBar(data);
                
             });
