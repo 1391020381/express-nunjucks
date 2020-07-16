@@ -8,7 +8,9 @@ define(function(require , exports , module){
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var callback = null;
-    isLogin(false,isAutoLogin,function(){
+    isLogin(function(data){
+        $('.js-count').text(data.nickName);
+    },isAutoLogin,function(){
         location.reload()
     });
     var orgObj = {
