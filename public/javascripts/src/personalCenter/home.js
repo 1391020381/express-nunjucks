@@ -55,7 +55,7 @@ define(function(require , exports , module){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
                     }
                     if(!isAuth){
-                        $('.personal-menu .mywallet').hide()
+                        $('.personal-menu .mywallet').css('display','block')
                     }
                     callback&&callback(res.data)
                }else{

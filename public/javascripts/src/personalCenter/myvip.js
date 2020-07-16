@@ -154,7 +154,7 @@ define(function(require , exports , module){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_VIP_banner'){ // search-all-main-bottombanner
                             console.log('PC_M_USER_VIP_banner:',k.list)
-                            var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list ,className:'personalCenter-myvip-swiper-container'});
+                            var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list ,className:'personalCenter-myvip-swiper-container',hasDeleteIcon:true});
                             $(".myvip .advertisement").html(_bannerTemplate);
                             var mySwiper = new Swiper('.personalCenter-myvip-swiper-container', {
                                 direction: 'horizontal',
@@ -200,4 +200,8 @@ define(function(require , exports , module){
             }
         })
     }
+
+    $(document).on('click','.personal-center-vip .close-swiper',function(e){
+        $('.my-vip-middle.advertisement').hide()
+    })
 });

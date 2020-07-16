@@ -55,13 +55,13 @@
             <input class="item-email-input " placeholder="请输入邮箱地址" value="{{userInfo.email}}" {{editUser?'':'disabled'}}/>
         </li>
         {{ if editUser}}
-            <li class="item">
+            <li class="item" style="margin-top:20px;">
              <span class="item-title">常用邮箱 : </span>
               <span class="item-btn item-cancel-btn edit-information" data-edit='cancel'>取消</span>
              <span class="item-btn edit-information" data-edit='save'>保存</span>
         </li>
         {{else}}
-         <li class="item">
+         <li class="item" style="margin-top:20px;">
              <span class="item-title">常用邮箱 : </span>
              <span class="item-btn  edit-information" data-edit='edit'>编辑信息</span>
         </li>
