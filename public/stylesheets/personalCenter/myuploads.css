@@ -35,6 +35,10 @@
 .myuploads .myuploads-tabs .tab-active {
   border-bottom: solid 2px #F25226;
 }
+.myuploads .myuploads-tabs .tab-active a {
+  color: #222222;
+  font-weight: bold;
+}
 .myuploads .table-title {
   margin-top: 10px;
   margin-bottom: 0px;
