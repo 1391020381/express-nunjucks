@@ -37,7 +37,7 @@ define(function(require , exports , module){
                 type:"get"
             }).done(function(data){
                 if(data.code=="0"){
-                    if(data.data.auditStatus==3) {
+                    if(data.data&&data.data.auditStatus==3) {
                         $('.dialog-limit').show();
                        $('#bgMask').show()
                     }
