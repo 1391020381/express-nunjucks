@@ -376,7 +376,7 @@ define(function(require , exports , module){
                 html: $('#set-change-password-dialog').html().replace(/\$phone/, userBindInfo.mobile),
             }).open();
            }else{
-              bindPhoneNumber()
+              bindPhoneNumber('')
            }
        }
     });
