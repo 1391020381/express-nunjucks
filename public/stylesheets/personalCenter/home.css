@@ -26,6 +26,7 @@
   position: relative;
 }
 .personal-center-home .personal-summarys .summary .summary-desc .summary-aibeans-desc {
+  display: inline-block;
   vertical-align: middle;
 }
 .personal-center-home .personal-summarys .summary .summary-desc .summary-desc-icon {

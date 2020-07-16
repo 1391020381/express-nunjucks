@@ -44,7 +44,7 @@ define(function(require , exports , module){
                    
                   var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mydownloads',list:list||[],totalSize:res.data.totalSize||0});
                   $(".personal-center-mydownloads").html(_mycollectionAndDownLoadTemplate);
-                  handlePagination(res.data.totalPages,res.data.currentPage,'mycollection')
+                  handlePagination(res.data.totalPages,res.data.currentPage,'mydownloads')
              }else{
               $.toast({
                   text:res.msg,
@@ -60,8 +60,8 @@ define(function(require , exports , module){
    
 
 
-  function getUserFileList(pageNumber){  // 查询个人收藏列表
-    pageNumber = 1
+  function getUserFileList(currentPage){  // 查询个人收藏列表
+    var pageNumber = currentPage || 1
    $.ajax({
       url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=20&sidx=0&order=-1',
       type: "GET",
@@ -86,7 +86,7 @@ define(function(require , exports , module){
               })
               var _mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({type:'mycollection',list:list||[],totalSize:res.data.totalSize||0});
               $(".personal-center-mycollection").html(_mycollectionAndDownLoadTemplate);   
-              handlePagination(res.data.totalPages,res.data.currentPage,'mydownloads') 
+              handlePagination(res.data.totalPages,res.data.currentPage,'mycollection') 
          }else{
           $.toast({
               text:res.msg,
@@ -112,10 +112,10 @@ define(function(require , exports , module){
         if(!paginationCurrentPage){
             return
         }
-        if(flag == 'mydownloads'){  // 点击分页后重新请求数据
+        if(flag == 'mycollection'){  // 点击分页后重新请求数据
             getUserFileList(paginationCurrentPage)
         }
-        if(flag == 'mycollection'){
+        if(flag == 'mydownloads'){
             getDownloadRecordList(paginationCurrentPage)
         }
        

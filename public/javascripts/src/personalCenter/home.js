@@ -41,6 +41,7 @@ define(function(require , exports , module){
                     var isAuth = res.data.isAuth
                     if(!isVipMaster){
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
+                        $('.personal-center-home .personal-summarys .go2vip').hide() 
                     }else{
                         $('.personal-center-home .opentvip').hide()
                     }

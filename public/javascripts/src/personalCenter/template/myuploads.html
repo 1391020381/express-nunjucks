@@ -23,7 +23,7 @@
                 <label for="all">
                    <input  type="checkbox"  id="all" value="all"/>
                    <span></span>
-                   <span>资料标题</span>
+                   <span style="margin-left: 5px;">资料标题</span>
                 </label>
             </th>
             {{ if myuploadType != '4' }}
@@ -60,16 +60,16 @@
              {{/if}}
 
              {{ if myuploadType == '1'}}
-                            <td>{{list[$index].userFilePrice}}</td>
-                           <td>{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
-                          <td>{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
+                          <td class="td-text">{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
+                          <td class="td-text">{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
              {{/if}}
                {{if myuploadType == '2'}}
-                          <td>{{list[$index].userFilePrice}}</td>
-                          <td>{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
-                          <td>{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
+                          <td class="td-text">{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
+                          <td class="td-text">{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
                  {{/if}}
-            <td>{{list[$index].createtime}}</td>
+            <td class="td-text">{{list[$index].createtime}}</td>
         </tr>
           {{/each}}
     </table>

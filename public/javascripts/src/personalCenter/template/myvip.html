@@ -18,9 +18,9 @@
                 </p>
                <p class="vip-summary-subtitle">
                   {{if userInfo.privilege}}
-                          <span class="privilege">剩余{{userInfo.privilege }}个特权 </span>
+                          <span class="privilege">剩余<em class="td-bold">{{userInfo.privilege}}</em>个特权 </span>
                   {{else}}
-                          <span class="privilege">剩余0个特权 </span>
+                          <span class="privilege">剩余<em class="td-bold">0</em>个特权 </span>
                   {{/if}}
                    <span class="end-date-master">{{userInfo.endDateMaster}}到期</span>
               </p>
