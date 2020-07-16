@@ -3,11 +3,11 @@
 var _hmt = _hmt || [];//此变量百度统计需要  需全局变量
 define(function (require, exports, moudle) {
   var method = require("../application/method");
-  var fileParams = window.pageConfig.params
+  var fileParams = window.pageConfig&&window.pageConfig.params
   var eventNameList = {
     fileDetailPageView:{
         loginstatus:method.getCookie('cuk')?1:0,
-        userid: window.pageConfig.userId||'',
+        userid: window.pageConfig&&window.pageConfig.userId||'',
         pageid:'PC-M-FD',
         fileid:fileParams&&fileParams.g_fileId,
         filecategoryname:fileParams&&fileParams.classidName1 + '||'+ fileParams&&fileParams.classidName2 + '||' + fileParams&&fileParams.classidName3,
@@ -17,7 +17,7 @@ define(function (require, exports, moudle) {
     },
     payFileResult:{
         loginstatus:method.getCookie('cuk')?1:0,
-        userid:window.pageConfig.userId||'',
+        userid:window.pageConfig&&window.pageConfig.userId||'',
         pageid:'PC-M-FD',
         pagename:'',
         payresult:'',

@@ -12,9 +12,9 @@ define(function (require, exports, module) {
     var common = require('./common');
     var clickEvent = require('../common/bilog').clickEvent
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-    var entryName_var = payTypeMapping[pageConfig.params.file_state];
-    var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
-    var fileName = window.pageConfig.page&&window.pageConfig.page.fileName
+    //  var entryName_var = payTypeMapping[pageConfig.params.file_state];
+    // var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
+    var fileName = window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
     handleBaiduStatisticsPush('fileDetailPageView')
