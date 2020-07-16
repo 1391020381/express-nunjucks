@@ -37,7 +37,7 @@ module.exports = {
             }else{
                 results = {};
             }
-            results.authTypeArr = [{val:0,title:'中小学教师'},{val:1,title:'大学或高职教师'},{val:2,title:'网络营销'},{val:3,title:'IT/互联网'},{val:4,title:'医学'},{val:5,title:'建筑工程'},{val:6,title:'金融/证券'},{val:7,title:'汽车/机械/制造'},{val:8,title:'设计师'},{val:9,title:'其他'}]
+            results.authTypeArr = [{val:0,title:'中小学教师'},{val:1,title:'大学或高职教师'},{val:2,title:'网络营销'},{val:3,title:'IT/互联网'},{val:4,title:'医学'},{val:5,title:'建筑工程'},{val:6,title:'金融/证券'},{val:7,title:'汽车/机械/制造'},{val:8,title:'其他'},{val:9,title:'设计师'}]
             
             // console.log(results.auditStatus,'auditStatus')
            

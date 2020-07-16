@@ -145,21 +145,12 @@ define(function (require,exports,moudle) {
                     pageSize:12
                 };
                 var dataType = 1;
+                var newIndex = 0;
+                var topicndex = 0;
             $('.js-fresh').click(function(){
                 var type = $('.seo-upload-new .active').attr('type');
                 var $list = $('.seo-upload-new .upload-list')
-                if( type!='rectopic') {
-                    url = '/gateway/search/content/randomRecommend';
-                    if(type =='new') {
-                        data.type = 'new';
-                        $list = $list[0];
-                        dataType =1;
-                    }else{
-                        data.type = 'topic';
-                        $list = $list[2]
-                        dataType =3;
-                    }
-                }else {
+               if(type == 'rectopic') {
                     dataType =2;
                     $list = $list[1]
                     data = {
@@ -167,9 +158,29 @@ define(function (require,exports,moudle) {
                         clientType:1,
                         pageSize:12
                     }
-                    url = '/gateway/seo/exposeContent/contentInfo/listContentInfos'
-                }
-                getData(url,data,dataType,$list)
+                    url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
+                    getData(url,data,dataType,$list)
+               }else if(type == 'new'){
+                    newIndex++;
+                    newIndex = newIndex>3?0:newIndex;
+                    var start = newIndex*12;
+                    var end = (newIndex+1)*12;
+                   console.log( $('.upload-list').eq(0).find('li').length)
+                    $('.upload-list').eq(0).find('li').addClass('hide')
+                   for(var i=start;i<end;i++) {
+                       $('.upload-list').eq(0).find('li').eq(i).removeClass('hide')
+                   }
+               }else if(type == 'topic'){
+                    topicndex++;
+                    topicndex = topicndex>3?0:topicndex;
+                    var start = topicndex*12;
+                    var end = (topicndex+1)*12;
+                    $('.upload-list').eq(2).find('li').addClass('hide')
+                    for(var i=start;i<end;i++) {
+                        $('.upload-list').eq(2).find('li').eq(i).removeClass('hide')
+                    }
+               }
+               
             })
             
             function getData(url,data,dataType,$list){

@@ -81,7 +81,7 @@ module.exports = {
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:12
+                    pageSize:48
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
             },
@@ -90,7 +90,7 @@ module.exports = {
                 req.body = {
                     type: 'new',
                     currentPage:1,
-                    pageSize:12,
+                    pageSize:48,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
@@ -107,6 +107,13 @@ module.exports = {
             }
 
         } , function(err, results){
+            console.log(JSON.stringify(results.hotTopicSeo),'results.hotTopicSeo')
+            if(results.hotTopicSeo && results.hotTopicSeo.data){
+                results.topicPagtotal = results.hotTopicSeo.data.length
+            }
+            if(results.newsRec && results.newsRec.data){
+                results.newPagetotal = results.newsRec.data.length
+            }
             if(results.tdk && results.tdk.data){
                 results.list = {};
                 results.list.data = {};

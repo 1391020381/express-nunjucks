@@ -312,7 +312,7 @@
         </div>
         <ul class="upload-list current cf" >
             {%for item in  results.newsRec.data %}
-            <li><a href="/f/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            <li class="{%if loop.index0 > 11 %}hide{%endif%}"><a href="/f/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
             {%endfor%}
         </ul>
         <ul class="upload-list cf" >
@@ -322,7 +322,7 @@
         </ul>
         <ul class="upload-list cf" >
             {%for item in  results.hotTopicSeo.data %}
-            <li><a href="/node/s/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            <li class="{%if loop.index0 >11 %}hide{%endif%}"><a href="/node/s/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
             {%endfor%}
         </ul>
        
