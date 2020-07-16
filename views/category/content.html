@@ -10,7 +10,7 @@
             </li>
             {% endfor %}
         </ul>
-        {% if results.topbannerList.length>1 %}
+        {#% if results.topbannerList.length>1 %}
         <div class="office-focus" id="J_categoty_focus">
             {%for item in results.topbannerList  %}
             <a href="javascript:;" data-index="{{loop.index0}}"></a>
@@ -19,7 +19,7 @@
         <!-- 左右切换banner -->
         <a class="btn-banner btn-banner-prev" id="J_categoty_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
         <a class="btn-banner btn-banner-next" id="J_categoty_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-        {% endif %}
+        {% endif %#}
     </div>
     <!-- <span class="close-swiper"></span> -->
 </div>
@@ -177,7 +177,7 @@
                         </div>
                         {%endfor%}
                     </div>
-                    {% if results.topbannerList.length>1 %}
+                    {#% if results.topbannerList.length>1 %}
                     <div class="office-focus" id="J_right_focus">
                         {%for item in results.topbannerList  %}
                         <a href="javascript:;" data-index="{{loop.index0}}"></a>
@@ -186,7 +186,7 @@
                     <!-- 左右切换banner -->
                     <a class="btn-banner btn-banner-prev" id="J_right__prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
                     <a class="btn-banner btn-banner-next" id="J_right__next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-                    {% endif %}
+                    {% endif %#}
                 </div>
             </div>
             {%endif%}
