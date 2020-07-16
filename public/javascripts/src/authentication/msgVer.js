@@ -31,7 +31,6 @@ define(function(require , exports , module){
                 })
             }
             if(!bindPhone.isDisableMsg && bindPhone.avaliPhone){
-                bindPhone.downCountLimt()
                 bindPhone.pictureVerify()
             }
         },
@@ -62,7 +61,8 @@ define(function(require , exports , module){
             }).done(function(data){
                 if(data.code=="0"){
                     bindPhone.smsId = data.data.smsId;
-                    $('.js-msg').attr('smsId',data.data.smsId)
+                    $('.js-msg').attr('smsId',data.data.smsId);
+                    bindPhone.downCountLimt()
                     $.toast({
                         text:'短信发送成功',
                         icon:'',
