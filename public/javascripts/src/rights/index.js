@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var $vipPrivilegeBtn = $('.vip-privilege-btn');
-
+    var refreshTopBar = require('../application/effect').refreshTopBar
     loginStatusQuery();
 
     $vipPrivilegeBtn.on('click', function () {
@@ -79,40 +79,40 @@ define(function (require, exports, module) {
         login.ishareLogout();
     });
 
-     function  refreshTopBar(data) {
-        var $unLogin = $('#unLogin');
-        var $hasLogin = $('#haveLogin');
-        var $btn_user_more = $('.btn-user-more');
-        var $vip_status = $('.vip-status');
-        var $top_user_more = $(".top-user-more");
-        $btn_user_more.text(data.isVip == 1 ? '续费VIP' : '开通VIP');
-        var $target = null;
-        $('#user-msg').text(data.msgCount);
-        $('.message-btn').attr('href', '/user/message/index?u=' + data.userId)
-        if (data.isVip == 1) {
-            $target = $vip_status.find('p[data-type="2"]');
-            $target.find('.expire_time').html(data.expireTime);
-            $target.show().siblings().hide();
-            $top_user_more.addClass('top-vip-more');
-            $vipPrivilegeBtn.html('立即续费');
-            //vip 已经 过期
-        } else if (data.userType == 1) {
-            $target = $vip_status.find('p[data-type="3"]');
-            $hasLogin.removeClass("user-con-vip");
-            $target.show().siblings().hide();
-        } else if (data.isVip == 0) {
-            $hasLogin.removeClass("user-con-vip");
-            // 续费vip
-        } else if (data.isVip == 2) {
-            $('.vip-title').hide();
-        }
-        $unLogin.addClass('hide');
-        $hasLogin.removeClass('hide');
-        $hasLogin.find('.user-link .user-name').html(data.nickName);
-        $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
-        $hasLogin.find('.top-user-more .name').html(data.nickName);
-        $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
-    }
+    //  function  refreshTopBar(data) {
+    //     var $unLogin = $('#unLogin');
+    //     var $hasLogin = $('#haveLogin');
+    //     var $btn_user_more = $('.btn-user-more');
+    //     var $vip_status = $('.vip-status');
+    //     var $top_user_more = $(".top-user-more");
+    //     $btn_user_more.text(data.isVip == 1 ? '续费VIP' : '开通VIP');
+    //     var $target = null;
+    //     $('#user-msg').text(data.msgCount);
+    //     $('.message-btn').attr('href', '/user/message/index?u=' + data.userId)
+    //     if (data.isVip == 1) {
+    //         $target = $vip_status.find('p[data-type="2"]');
+    //         $target.find('.expire_time').html(data.expireTime);
+    //         $target.show().siblings().hide();
+    //         $top_user_more.addClass('top-vip-more');
+    //         $vipPrivilegeBtn.html('立即续费');
+    //         //vip 已经 过期
+    //     } else if (data.userType == 1) {
+    //         $target = $vip_status.find('p[data-type="3"]');
+    //         $hasLogin.removeClass("user-con-vip");
+    //         $target.show().siblings().hide();
+    //     } else if (data.isVip == 0) {
+    //         $hasLogin.removeClass("user-con-vip");
+    //         // 续费vip
+    //     } else if (data.isVip == 2) {
+    //         $('.vip-title').hide();
+    //     }
+    //     $unLogin.addClass('hide');
+    //     $hasLogin.removeClass('hide');
+    //     $hasLogin.find('.user-link .user-name').html(data.nickName);
+    //     $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
+    //     $hasLogin.find('.top-user-more .name').html(data.nickName);
+    //     $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
+    // }
 
     function loginStatusQuery() {
         if (method.getCookie('cuk')) {
