@@ -439,6 +439,9 @@
     <script>
          window.pageConfig = {
             report: {
+            },
+            params:{
+                status:"{{results.isEdit}}"
             }
         };
         seajs.use(["dist/application/app.js","dist/authentication/org.js"]);
