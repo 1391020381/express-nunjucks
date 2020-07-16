@@ -35,7 +35,7 @@
   width: 14px;
   height: 14px;
   border-radius: 7px;
-  background: url(../../images/personalCenter/attention.png) no-repeat center;
+  background: url(../../images/personalCenter/home-attention.png) no-repeat center;
   background-size: 100%;
   vertical-align: middle;
   cursor: pointer;
@@ -119,8 +119,8 @@
 }
 .personal-center-home .personal-summarys .summary:last-child .go2vip {
   display: block;
-  width: 260px;
-  height: 56px;
+  width: 272px;
+  height: 68px;
   cursor: pointer;
 }
 .personal-center-home .advertisement {
@@ -132,6 +132,7 @@
   margin: 0 auto;
   width: 100%;
   height: 142px;
+  border-radius: 4px;
 }
 .personal-center-home .advertisement .personalCenter-home-swiper-container .swiper-container {
   width: 100%;
@@ -553,9 +554,18 @@
   color: #FFFFFF;
   background: #F4592D;
   border-radius: 50px;
+  box-shadow: 0px 3px 7px 0px rgba(244, 46, 89, 0.35);
 }
 .personal-center-vip .myvip-top .not-vip .not-vip-right a {
   color: #fff;
+}
+.personal-center-vip .myvip-top .not-vip .not-vip-right .not-vip-right-icon {
+  margin-left: 4px;
+  display: inline-block;
+  width: 10px;
+  height: 11px;
+  background: url("../../images/personalCenter/arrow.png") no-repeat center;
+  background-size: 100%;
 }
 .personal-center-vip .myvip-top .vip-summary {
   background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
@@ -624,7 +634,6 @@
 .personal-center-vip .my-vip-middle {
   width: 940px;
   border-top: solid 10px #F2F3F3;
-  border-bottom: solid 10px #F2F3F3;
   height: 141px;
   background: #fff;
 }
@@ -632,6 +641,8 @@
   margin: 0 auto;
   width: 100%;
   height: 141px;
+  border-radius: 4px;
+  position: relative;
 }
 .personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .swiper-container {
   width: 100%;
@@ -642,7 +653,20 @@
   width: 100%;
   height: 141px;
 }
+.personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container .close-swiper {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: url("../../images/close.png") no-repeat center;
+  background-size: 100%;
+  z-index: 200;
+  cursor: pointer;
+}
 .personal-center-vip .my-vip-bottom {
+  border-top: solid 10px #F2F3F3;
   padding: 0px 60px 0 40px;
 }
 .personal-center-vip .my-vip-bottom .myvip-tabs {
@@ -976,6 +1000,7 @@
 .personal-center-accountsecurity .account-security-list {
   margin-top: 80px;
   margin-left: 41px;
+  color: #222222;
 }
 .personal-center-accountsecurity .account-security-list .item {
   height: 77px;
@@ -985,7 +1010,7 @@
 }
 .personal-center-accountsecurity .account-security-list .item .item-icon {
   margin-top: 30px;
-  margin-left: -44px;
+  margin-left: -50px;
 }
 .personal-center-accountsecurity .account-security-list .item:nth-child(1) .item-icon {
   margin-right: 22px;
@@ -1027,6 +1052,9 @@
   font-size: 16px;
   color: #222222;
 }
+.personal-center-accountsecurity .account-security-list .item-bindaccount {
+  color: #222222;
+}
 .personal-center-accountsecurity .account-security-list .item-btn {
   margin-top: 26px;
   width: 100px;
@@ -1035,6 +1063,7 @@
   text-align: center;
   background: #eeeeee;
   border-radius: 3px;
+  color: #777;
   cursor: pointer;
 }
 .personal-center-accountsecurity .account-security-list .item-btn-active {
@@ -1514,7 +1543,7 @@
   display: inline-block;
   width: 19px;
   height: 17px;
-  background: url("../../images/personalCenter/vip-icon.png") no-repeat center;
+  background: url("../../images/personalCenter/home-vip.png") no-repeat center;
   background-size: 100%;
 }
 .personal-center-content .personal-center-menu .personal-profile .personal-id {
@@ -1582,7 +1611,7 @@
   cursor: pointer;
 }
 .personal-center-content .personal-center-menu .personal-menu .home-icon {
-  width: 18px;
+  width: 17px;
   height: 16px;
   background: url("../../images/personalCenter/home-icon.png") no-repeat center;
   background-size: 100%;
