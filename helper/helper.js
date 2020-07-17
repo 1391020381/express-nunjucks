@@ -109,6 +109,10 @@ module.exports = function(env){
             }
             return value;
         })
+        //去掉标题格式
+        .addFilter('delType',function(value){
+            return value.split('.')[0]
+        })
 
 }
 

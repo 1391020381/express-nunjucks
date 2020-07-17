@@ -93,7 +93,7 @@
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                p {
+                li{
                     width: 320px;
                     white-space:nowrap;
                     overflow:hidden;
@@ -119,23 +119,24 @@
             .recmend-item {
                 margin-top: 10px;
                 .switch_content_wrap {
-                    div {
+                    ul {
                         overflow: hidden;
                         display: flex;
                         justify-content: space-between;
                         flex-wrap: wrap;
                         line-height: 36px;
+                        li {
+                            width: 320px;
+                            white-space:nowrap;
+                            overflow:hidden;
+                            text-overflow:ellipsis;
+                        }
                     }
                     display: none;
                     &.current {
                         display: block;
                     }
-                    p {
-                        width: 320px;
-                        white-space:nowrap;
-                        overflow:hidden;
-                        text-overflow:ellipsis;
-                    }
+                    
                 }
                 
             }

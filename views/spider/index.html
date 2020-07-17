@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 
 <head>
     <meta name="renderer" content="webkit">
     <meta charset="utf-8">
+    <meta name="applicable-device"content="pc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="pragma" content="no-cache"> 
     <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
     <meta http-equiv="expires" content="0"> 
     <meta name=renderer  content=webkit>
-    <title>文档标题-爱问共享资料</title>
+    <title>{{results.list.data.fileInfo.title}}.{{results.list.data.fileInfo.format}}下载_{%if results.list.data.transcodeInfo.totalPage%}{{results.list.data.transcodeInfo.totalPage}}{%else%}1{%endif%}-爱问共享资料</title>
     <meta name="keywords"content="{%if results.list.data.fileInfo.keywords%}{{results.list.data.fileInfo.keywords}}{%else%}{{results.list.data.fileInfo.title}}{%endif%}"/>
     <meta name="description" content="{{results.seo.description}}"/>
     <meta property="og:type" content="document"/>
@@ -27,17 +28,9 @@
     <meta name="Copyright" content="爱问共享资料ishare.iask.sina.com.cn版权所有"/>
     <link rel="canonical" href="{{results.seo.fileurl}}"/>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
-    <script>
-        /*ie9兼容*/
-        window.console = window.console || (function() {
-            var c = {};
-            c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
-            return c;
-        })();
-    </script>
+    <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1279079195&web_id=1279079195"></script>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/spider/spider.css" />
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
-<!-- 添加360统计代码1、PC端统计代码： -->
+  
 <style>
     .detail-search-info p {
         display: none;
@@ -102,20 +95,18 @@
                     {% endif %}  已有{% if results.editorInfo.uploads.data.uploads>0 %} {{results.editorInfo.uploads.data.uploads}} {% else %}0 {% endif%}人下载
                 </div>
                 <div class="download-groupbtns">
-                    <a href="/f/{{results.guessLikeList[0].id}}-nbhh.html">下一篇相似资料</a>
+                    <a href="https://ishare.iask.sina.com.cn/f/{{results.guessLikeList[0].id}}.html">下一篇相似资料</a>
                     <a href="javascript:;">立即下载</a>
                 </div>
             </div>
             <!-- 你可能还喜欢 -->
             <div class="youlike-area mt20">
                 <h3>你可能还喜欢</h3>
-                <div class="youlike-item">
+                <ul class="youlike-item">
                     {% for item in results.guessLikeList %}
-                    <p>
-                        <a href="/f/{{item.id}}-nbhh.html">{{item.title}}</a>
-                    </p>
+                    <li> <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a></li>
                     {% endfor %}
-                </div>
+                </ul>
             </div>
             <!-- 推荐 -->
             <div class="recmond-area mt20">
@@ -126,31 +117,31 @@
                 </div>
                 <div class="recmend-item">
                     <div class="switch_content_wrap current">
-                        <div>
+                        <ul>
                         {%for item in  results.newsRec.data %}
-                        <p>
-                            <a target="_blank" href="/f/{{item.id}}-nbhh.html">{{item.title}}</a>
-                        </p>
+                            <li>
+                                <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                            </li>
                         {%endfor%}
-                        </div>
+                        </ul>
                     </div>
                     <div class="switch_content_wrap">
-                        <div>
+                        <ul>
                         {%for item in  results.hotRecData.data %}
-                        <p>
-                            <a target="_blank" href="{{item.contentUrl}}">{{item.contentName}}</a>
-                        </p>
+                        <li>
+                            <a target="_blank" href="{{item.contentUrl}}">{{item.contentName|delType}}</a>
+                        </li>
                         {%endfor%}
-                        </div>
+                    </ul>
                     </div>
                     <div class="switch_content_wrap">
-                        <div>
+                        <ul>
                         {%for item in  results.hotTopicSeo.data %}
-                        <p>
-                            <a target="_blank" href="/node/s/{{item.id}}.html">{{item.title}}</a>
-                        </p>
+                        <li>
+                            <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{item.id}}.html">{{item.title|delType}}</a>
+                        </li>
                         {%endfor%}
-                        </div>
+                    </ul>
                     </div>
                 </div>
             </div>
@@ -180,11 +171,13 @@
             <!-- 相关资料 -->
             <div class="related-file">
                 <div class="column-name">相关资料</div>
-                {% for item in results.relevantList %}
-                <div class="file-item">
-                    <a href="/f/{{item.id}}-nbhh.html">{{item.title}}</a>
-                </div>
-                {% endfor %}
+                <ul>
+                    {% for item in results.relevantList %}
+                    <li class="file-item">
+                        <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
             <!-- 热门搜索 -->
             <div class="hot-search">
@@ -196,7 +189,7 @@
                 </div>
                 <div class="search-list">
                     {% for item in results.hotTopicSearch.data.rows %}
-                    <a href="/node/s/{{item.specialTopicId}}.html">{{item.topicName}}</a>
+                    <a href="https://ishare.iask.sina.com.cn/node/s/{{item.specialTopicId}}.html">{{item.topicName|delType}}</a>
                     {% endfor %}
                 </div>
             </div>

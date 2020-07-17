@@ -236,7 +236,7 @@ module.exports = {
                 req.body = {
                     topicName: title,
                     currentPage:1,
-                    pageSize:31
+                    pageSize:40
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.hotTopicSearch, callback, req);
             },
@@ -338,7 +338,7 @@ module.exports = {
            // 对热门搜索的主题数进行限制
            results.newRecList = results.newRecList?results.newRecList:[];
            results.type = type;
-        //    console.log(JSON.stringify(results.editorInfo),'editorInfo')
+           console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
            results.fileDetailArr = newTextArr;
             render("spider/index", results, req, res);
         })
