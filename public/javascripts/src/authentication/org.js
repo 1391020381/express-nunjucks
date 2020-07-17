@@ -57,7 +57,7 @@ define(function(require , exports , module){
                  $(this).addClass('selected');
                  $('.jqTransformSelectWrapper ul').slideUp()
                  $(this).parents('ul').siblings('.js-select').find('span').text($(this).text())
-                 $(this).parents('ul').siblings('.js-select').find('span').attr('authType',$(this).attr('index'))
+                 $(this).parents('ul').siblings('.js-select').attr('authType',$(this).attr('index'))
  
             })
         },

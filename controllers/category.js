@@ -156,10 +156,10 @@ module.exports = {
                 }
             }
             if(results.tdk && results.tdk.data){
+                results.list.data = results.list.data||{};
                 results.list.data.tdk = results.tdk.data;
             }
             var pageIndexArr = pageArr_f.concat(pageArr_b)
-            // console.log(results.tdk,'results.tdk')
             results.reqParams = {
                 cid: categoryId,
                 currentPage: currentPage,
@@ -193,7 +193,7 @@ module.exports = {
             results.words.data && results.words.data.rows.map(item=>{
                 item.linkurl = '/node/s/'+item.specialTopicId+'.html'
             })
-            // console.log(JSON.stringify(results.recommendList), 'recommendList');
+            console.log(JSON.stringify(results.list), 'results.list');
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []
