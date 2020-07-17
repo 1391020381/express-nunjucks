@@ -39,10 +39,11 @@ define(function(require , exports , module){
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
                     var isAuth = res.data.isAuth
-                    if(!isVipMaster){
-                        $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide()  
+                    if(isVipMaster){ 
                         $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .opentvip').hide()
+                    }else{
+                        $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide() 
                     }
                     if(privilegeNum ){
                         $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
@@ -53,7 +54,7 @@ define(function(require , exports , module){
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
                     }
-                    if(!isAuth){
+                    if(isAuth == 1){
                         $('.personal-menu .mywallet').css('display','block')
                     }
                     callback&&callback(res.data)
