@@ -121,13 +121,12 @@ define(function(require , exports , module){
                 console.log('checkIdentity:',res)
                 smsId  = ''   // 清空保存的  短信id
                 //  换绑手机号和解绑第三方 需要身份验证
-                debugger
                 var isTHirdAuthorization = $('#dialog-box .identity-authentication-dialog .title').attr('data-isTHirdAuthorization')
                 if(isTHirdAuthorization){  // 第三方授权解绑 身份认证
                     unbindTHirdAuthorization(isTHirdAuthorization)
                 }else{
                     closeRewardPop()
-                    bindPhoneNumber()
+                    bindPhoneNumber('')
                 }
                }else{
                 $.toast({

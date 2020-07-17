@@ -55,8 +55,10 @@ define(function(require , exports , module){
                     var vipTableType =window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
                     var list =  []
                     $(res.data.rows).each(function(index,item){
-                        item.effectiveStartDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
-                        item.effectiveEndDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
+                        var effectiveStartDate =   new Date(item.effectiveStartDate).format("yyyy-MM-dd")
+                        var effectiveEndDate =   new Date(item.effectiveEndDate).format("yyyy-MM-dd")
+                        item.effectiveStartDate = effectiveStartDate
+                        item.effectiveEndDate = effectiveEndDate
                         list.push(item)
                     })
                     

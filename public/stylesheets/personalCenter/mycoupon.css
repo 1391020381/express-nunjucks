@@ -53,6 +53,9 @@
 }
 .personal-center-mycoupon .mycoupon-list .item .item-price {
   margin-top: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .personal-center-mycoupon .mycoupon-list .item .item-price span {
   font-size: 30px;
@@ -60,10 +63,16 @@
 .personal-center-mycoupon .mycoupon-list .item .item-desc {
   margin-top: 12px;
   font-size: 13px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .personal-center-mycoupon .mycoupon-list .item .item-time {
   margin-top: 8px;
   font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .personal-center-mycoupon .mycoupon-list .item .item-icon {
   margin-right: 10px;
