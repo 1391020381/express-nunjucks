@@ -210,7 +210,8 @@ define(function (require, exports, moudle) {
         e && e.preventDefault();
         //是否登录
         if (!method.getCookie('cuk')) {
-            $(".js-login").click();
+           // $(".js-login").click();
+           $("#unLogin").click();
             return;
         }
         // var ptype = $(this).data("page");  
