@@ -92,7 +92,7 @@ define(function (require, exports, module) {
                 initData.prePageID = 'PC-M-404'; 
                 initData.prePageName = '资料被删除';
             }else if(statuCode == '302'){
-                initData.prePageID = 'M-M-FSM'; 
+                initData.prePageID = 'PC-M-FSM'; 
                 initData.prePageName = '资料私有';
             } else{
                 initData.prePageID = 'PC-M-FD';
