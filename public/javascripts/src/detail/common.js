@@ -7,14 +7,14 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
     // var changeText = require('./changeShowOverText.js').changeText
     var userData = null;
-    var isConvert = window.pageConfig&&window.pageConfig.page.isConvert
+   // var isConvert = window.pageConfig&&window.pageConfig.page.isConvert
     var pageConfig = window.pageConfig&&window.pageConfig 
-    if(isConvert==0){ // 0转码失败  保证资料删除时,如果登录的情况下可以获取登录信息
-        pageConfig =  {
-            page:{},
-            params:{}
-        }
-    }
+    // if(isConvert==0){ // 0转码失败  保证资料删除时,如果登录的情况下可以获取登录信息
+    //     pageConfig =  {
+    //         page:{},
+    //         params:{}
+    //     }
+    // }
     // 页面信息
    // productType  1  4  5 
     var initData = {
