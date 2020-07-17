@@ -37,7 +37,7 @@ define(function(require , exports , module){
                 type:"get"
             }).done(function(data){
                 if(data.code=="0"){
-                    if(data.data.auditStatus==3) {
+                    if(data.data&&data.data.auditStatus==3) {
                         $('.dialog-limit').show();
                        $('#bgMask').show()
                     }
@@ -203,15 +203,6 @@ define(function(require , exports , module){
             if(!params.handFrontIdCardPic) {
                 $.toast({
                     text:'请上传手持身份证照',
-                    icon:'',
-                    delay : 2000,
-                    callback:false
-                })
-                return false;
-            }
-            if(!params.credentialsPic) {
-                $.toast({
-                    text:'请上传证件材料照片',
                     icon:'',
                     delay : 2000,
                     callback:false
