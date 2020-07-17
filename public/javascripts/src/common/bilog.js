@@ -89,10 +89,10 @@ define(function (require, exports, module) {
             && !new RegExp('/f/down').test(referrer)) {
             var statuCode = $('.ip-page-statusCode')
             if(statuCode == '404'){
-                initData.prePageID = 'PC-M-FDL'; 
+                initData.prePageID = 'PC-M-404'; 
                 initData.prePageName = '资料被删除';
             }else if(statuCode == '302'){
-                initData.prePageID = 'PC-M-FSM'; 
+                initData.prePageID = 'M-M-FSM'; 
                 initData.prePageName = '资料私有';
             } else{
                 initData.prePageID = 'PC-M-FD';

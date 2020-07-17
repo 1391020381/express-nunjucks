@@ -76,12 +76,12 @@ define(function(require , exports , module){
 
 
     function queryOrderlistByCondition(currentPage) {
-        var orderStatus =   method.getParam('myorderType') == '1'?'': method.getParam('myorderType')
+        var orderStatus =   method.getParam('myorderType') == '1'?[]: method.getParam('myorderType') == 0?[0,1,3]:[+method.getParam('myorderType')]
         $.ajax({
             url: api.order.queryOrderlistByCondition,
             type: "POST",
             data:JSON.stringify({
-                orderStatus:orderStatus,
+                oStatus:orderStatus,
                 userOpt:'0',
                 currentPage:currentPage || 1,
                 pageSize:20,
@@ -102,7 +102,7 @@ define(function(require , exports , module){
                           if(item.refundStatus== 0 ||!item.refundStatus){
                             item.orderStatusDesc = orderStatusList[item.orderStatus]  
                           }else{
-                            item.orderStatusDesc = refundStatusDescList[item.orderStatus]  
+                            item.orderStatusDesc = refundStatusDescList[item.refundStatus]  
                           }
                          list.push(item) 
                        })
