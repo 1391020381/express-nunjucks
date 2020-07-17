@@ -249,18 +249,24 @@ define(function(require , exports , module){
         openWindow(url)
     }
     function identityAuthentication(isTHirdAuthorization){ // 换绑手机号(后续拉起绑定手机号)   和 解绑第三方需要验证
-        if(isTHirdAuthorization){ // 是否是第三方身份校验 ,给一个标识 在身份认证完后 弹不同的dialog
-            $("#dialog-box").dialog({
-                html: $('#identity-authentication-dialog').html()
-                .replace(/\$phoneNumber/, userBindInfo.mobile)
-                .replace(/\$isTHirdAuthorization/, isTHirdAuthorization)
-            }).open();
+        // 解绑第三方的时候,保证一定有绑定手机号
+
+        if(userBindInfo.mobile){
+            if(isTHirdAuthorization){ // 是否是第三方身份校验 ,给一个标识 在身份认证完后 弹不同的dialog
+                $("#dialog-box").dialog({
+                    html: $('#identity-authentication-dialog').html()
+                    .replace(/\$phoneNumber/, userBindInfo.mobile)
+                    .replace(/\$isTHirdAuthorization/, isTHirdAuthorization)
+                }).open();
+            }else{
+                $("#dialog-box").dialog({
+                    html: $('#identity-authentication-dialog').html()
+                    .replace(/\$phoneNumber/, userBindInfo.mobile)
+                    .replace(/\$isTHirdAuthorization/, '')
+                }).open();
+            }
         }else{
-            $("#dialog-box").dialog({
-                html: $('#identity-authentication-dialog').html()
-                .replace(/\$phoneNumber/, userBindInfo.mobile)
-                .replace(/\$isTHirdAuthorization/, '')
-            }).open();
+            bindPhoneNumber('')
         }
     }
 
