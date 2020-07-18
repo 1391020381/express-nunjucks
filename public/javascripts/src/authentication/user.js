@@ -22,7 +22,12 @@ define(function(require , exports , module){
             this.checkedRules();
             this.queryCerinfo()
             $('.js-submit').click(function(){
-                userObj.submitData();
+                // userObj.submitData();
+                if (method.getCookie('cuk')){
+                    orgObj.submitData();
+                }else{
+                    isLogin(null,isAutoLogin) 
+                }
             })
             $('body').click(function(){
                     $('.jqTransformSelectWrapper ul').slideUp()
