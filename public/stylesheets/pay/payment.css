@@ -1,3 +1,4 @@
+@charset "utf-8";
 html,
 body {
   padding: 0;
@@ -59,13 +60,16 @@ body {
 }
 .payment .order-list .list-item .item-title {
   display: block;
-  width: 1.6rem;
+  width: 1.7rem;
 }
 .payment .order-list .list-item .item-desc {
   flex: 1;
   text-align: right;
   color: #222222;
   font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .payment .pay-confirm {
   position: absolute;
