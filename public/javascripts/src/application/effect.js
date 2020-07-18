@@ -93,6 +93,7 @@ define(function (require, exports, module) {
             $top_user_more.addClass('top-vip-more');
             $('.isVip-show').find('span').html(data.expireTime);
             $('.isVip-show').removeClass('hide');
+            $('.vip-privilege-btn').html('立即续费')
             //vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
