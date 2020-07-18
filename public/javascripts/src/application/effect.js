@@ -136,7 +136,7 @@ define(function (require, exports, module) {
             });
         } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
-                callback2&&callback2()
+                // callback2&&callback2()
                 callback&&callback(data)
                 refreshTopBar(data);
             });
