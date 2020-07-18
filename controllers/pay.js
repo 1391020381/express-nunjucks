@@ -197,6 +197,9 @@ module.exports = {
             }
         }, function (err, results) {
             console.log(results);
+            if(results.list.code !==0){
+                results.list.data = {}
+            }
             results.type = results.list.data.type;
             results.flag = 3;
             // render("pay/index", results, req, res);
