@@ -52,7 +52,7 @@ define(function (require, exports, moudle) {
 
                 // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
           
-                var url = location.origin + "/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
+                var url = "http://ishare.iask.sina.com.cn/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
 
                 
                 try {
