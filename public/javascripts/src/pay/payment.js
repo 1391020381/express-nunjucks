@@ -113,7 +113,8 @@ define(function(require , exports , module){
     }
   
     $(document).on('click','.pay-confirm',function(e){
-        console.log('pay-confirm')
+        console.log('pay-confirm-start')
         scanOrderInfo()
+        console.log('pay-confirm-end')
     })
 });

@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         checkLogin.ishareLogout();
     });
     
-    $('.js-buy-open').click(function(){  //  头像续费vip也有使用到
+    $('.top-user-more .js-buy-open').click(function(){  //  头像续费vip也有使用到
         if($(this).attr('data-type')=="vip") {
             location.href = "/pay/vip.html"
         }
