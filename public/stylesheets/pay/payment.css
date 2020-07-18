@@ -85,3 +85,36 @@ body {
   font-size: 0.32rem;
   color: #FFFFFF;
 }
+.ui-toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  min-width: 2rem;
+  max-width: 80%;
+  text-align: center;
+  font-size: 0.14rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 0.06rem;
+  opacity: 0;
+  transition: all 0.25s ease 0s;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+}
+.ui-toast.show {
+  opacity: 1;
+}
+.ui-toast.hide {
+  opacity: 0;
+}
+.ui-toast .icon {
+  display: block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0.13rem auto 0 auto;
+  background: #eee;
+}
+.ui-toast .ui-toast-text {
+  display: block;
+  padding: 0.1rem 0.15rem;
+}

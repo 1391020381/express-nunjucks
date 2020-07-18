@@ -48,6 +48,10 @@ define(function(require , exports , module){
             },
             error:function(error){
                 console.log('scanOrderInfo:',error)
+                $.toast({
+                    text:error||'scanOrderInfo错误',
+                    delay : 3000,
+                }) 
             }
         })
     }
