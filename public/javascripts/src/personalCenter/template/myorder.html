@@ -13,6 +13,7 @@
             <th style="width:150px;">订单状态</th>
             <th style="width:100px;">操作</th>
         </tr>
+         {{if list.length>0}}
          <tr class="table-list-title">
             <th style="width:350px;"></th>
             <th style="width:100px;"></th>
@@ -20,7 +21,7 @@
             <th style="width:150px;"></th>
             <th style="width:100px;"></th>
         </tr>
-
+     {{/if}}
     {{if list.length>0}}
          {{ each list}}
         <tr class="table-list-item">

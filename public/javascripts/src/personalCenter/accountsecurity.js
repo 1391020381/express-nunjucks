@@ -93,6 +93,8 @@ define(function(require , exports , module){
                 }) 
                 var isTHirdAuthorization = $('#dialog-box .bind-phonenumber-dialog .title').attr('data-isTHirdAuthorization')
                 if(isTHirdAuthorization){  // 绑定第三方的时候，需要先绑定手机号。绑定完手机号需要 拉起绑定第三方的弹框
+                    closeRewardPop()
+                  //  queryUserBindInfo()
                     handleThirdCodelogin(isTHirdAuthorization)
                 }else{
                   closeRewardPop()
