@@ -39,6 +39,7 @@ module.exports = {
                 }
                 // callback(null, null);
                 request(option, function (err, res, body) {
+                    console.log(JSON.stringify(body),'paradigm4Relevant--------------')
                     if (body) {
                         try {
                             var resData = JSON.parse(body);
@@ -107,7 +108,7 @@ module.exports = {
             }
 
         } , function(err, results){
-            console.log(JSON.stringify(results.hotTopicSeo),'results.hotTopicSeo')
+            console.log(JSON.stringify(results),'results')
             if(results.hotTopicSeo && results.hotTopicSeo.data){
                 results.topicPagtotal = results.hotTopicSeo.data.length
             }
