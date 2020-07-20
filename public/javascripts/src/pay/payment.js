@@ -10,8 +10,6 @@ define(function(require , exports , module){
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
 //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
    console.log('scanOrderInfo-start')
-   alert(method.getParam('payPrice'))
-   alert('goodsName-1:',method.getParam('goodsName'))
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -28,11 +26,9 @@ define(function(require , exports , module){
             success: function (res) {
                 console.log('scanOrderInfo:',res)
                if(res.code == '0'){
-               alert('payPrice-2:',method.getParam('payPrice'))
-                alert('goodsName-2:',method.getParam('goodsName'))
                 var payPrice = (method.getParam('payPrice')/100).toFixed(2)
                 var goodsName = method.getParam('goodsName')
-                if(payPrice){
+                if(payPrice!=='0.00'){
                     $('.pay-price .price').text(payPrice)
                 }
                 if(goodsName){
