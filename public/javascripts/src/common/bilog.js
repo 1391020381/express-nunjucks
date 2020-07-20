@@ -365,6 +365,8 @@ define(function (require, exports, module) {
         setPreInfo(document.referrer, commonData);
         commonData.pageID = 'PC-M-SR' || '';
         commonData.pageName = $("#ip-page-name").val() || '';
+        customData.keyWords = $('.new-input').val()||$('.new-input').attr('placeholder')
+       
         commonData.pageURL = window.location.href;
         handle(commonData, customData);
     }
@@ -552,8 +554,8 @@ define(function (require, exports, module) {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailMiddleOpenVipPr', '资料详情页中部开通vip，享更多特权', customData);
             } else if (cnt == 'fileDetailBottomOpenVipPr') {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailBottomOpenVipPr', '资料详情页底部开通vip，享更多特权', customData);
-            } else if (cnt == 'fileDetailComment') {
-                clickCenter('SE006', 'fileDetailCommentClick', 'fileDetailComment', '资料详情页评论', customData);
+            } else if (cnt == 'fileDetailComment') { // 详情评论功能已下架
+                // clickCenter('SE006', 'fileDetailCommentClick', 'fileDetailComment', '资料详情页评论', customData);
             } else if (cnt == 'fileDetailScore') {
                 var score = that.find(".on:last").text();
                 customData.fileScore = score ? score : '';
@@ -605,7 +607,7 @@ define(function (require, exports, module) {
             customData = {
                 fileID: that.attr('data-fileId'),
                 fileName: that.attr('data-fileName'),
-                keyWords:$('#scondition').val()
+                keyWords:$('.new-input').val()||$('.new-input').attr('placeholder')
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
         }
@@ -638,7 +640,7 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
         }else if(cnt =='viewExposure'){
             customData.moduleID = moduleID
-            clickCenter('SE006', 'modelView', '', '', customData);
+            clickCenter('NE006', 'modelView', '', '', customData);
         }else if(cnt == 'similarFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,
@@ -649,6 +651,13 @@ define(function (require, exports, module) {
             }
             clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
         }else if(cnt =='underSimilarFileClick'){
+            customData={
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            }
             clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
         }else if(cnt == 'downSucSimilarFileClick'){
             clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
