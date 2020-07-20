@@ -93,6 +93,7 @@ define(function (require, exports, module) {
             $top_user_more.addClass('top-vip-more');
             $('.isVip-show').find('span').html(data.expireTime);
             $('.isVip-show').removeClass('hide');
+            $('.vip-privilege-btn').html('立即续费')
             //vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
@@ -129,12 +130,13 @@ define(function (require, exports, module) {
         if (!method.getCookie('cuk')&&isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
                 callback&&callback(data);
-                callback2&&callback2()
+                callback2&&callback2(data)
                 refreshTopBar(data);
                
             });
         } else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
+                // callback2&&callback2()
                 callback&&callback(data)
                 refreshTopBar(data);
             });

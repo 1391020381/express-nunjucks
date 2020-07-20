@@ -5,6 +5,7 @@ define(function(require , exports , module){
     require("./msgVer");
     require('../cmd-lib/toast');
     var utils = require("../cmd-lib/util");
+    var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var callback = null;
@@ -22,7 +23,12 @@ define(function(require , exports , module){
             this.checkedRules();
             this.queryCerinfo()
             $('.js-submit').click(function(){
-                orgObj.submitData();
+                if (method.getCookie('cuk')){
+                    orgObj.submitData();
+                }else{
+                    isLogin(null,isAutoLogin) 
+                }
+               
             })
             $('body').click(function(){
                  $('.jqTransformSelectWrapper ul').slideUp()

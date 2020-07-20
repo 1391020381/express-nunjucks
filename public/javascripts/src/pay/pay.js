@@ -14,13 +14,17 @@ define(function (require, exports, moudle) {
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
     var checkStatus =   window.pageConfig.params.checkStatus||'10'
-
-
+    var isLogin = require('../application/effect.js').isLogin;
+    var isAutoLogin = true;
+    var callback = null;
+    isLogin(initPage,isAutoLogin,initPage);
 
     //生成二维码
+   function initPage(userInfo){
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
-        var uid = $("#ip-uid").val();    //  results.data.uid
+       // var uid = $("#ip-uid").val();    //  results.data.uid
+       var uid =  $("#ip-uid").val() ||userInfo.userId
         var type = $("#ip-type").val();  // results.type
         var isVip = $("#ip-isVip").val();  //   results.data.isVip  获取保存在input的数据
         if (flag == 3 && uid) {//二维码页面
@@ -40,14 +44,15 @@ define(function (require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
                 }
             }
-            var oid = $("#ip-oid").val(); // 订单号 orderNo
+            // var oid = $("#ip-oid").val() ||method.getParam('orderNo'); // 订单号 orderNo
+            var oid = method.getParam('orderNo');
             if (oid) {
                 $(".carding-pay-item .oid").text(oid);
 
 
                 // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
           
-                var url = location.origin + "/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
+                var url = "http://ishare.iask.sina.com.cn/pay/payment?orderNo=" + oid + '&checkStatus='+checkStatus;
 
                 
                 try {
@@ -79,6 +84,7 @@ define(function (require, exports, moudle) {
             // $(".carding-vip-con .vip-title").show();
         }
     });
+   }
     var fid = window.pageConfig.params.g_fileId;
     if (!fid) {
         fid = method.getParam('fid');
