@@ -9,6 +9,7 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var tmpList = require('./template/list.html')  //公开资料模板
     var tmpList2 =require('./template/list_pravite.html') //私密资料模板
+    var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
    
@@ -782,5 +783,10 @@ define(function(require , exports , module){
         uploadObj.init();
     },isAutoLogin);
 
+    $('#upload-target').click(function(){
+        if(!method.getCookie('cuk')){
+            isLogin(null,isAutoLogin) 
+        }
+    })
    
 });
