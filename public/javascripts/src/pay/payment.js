@@ -28,8 +28,12 @@ define(function(require , exports , module){
                if(res.code == '0'){
                 var payPrice = (method.getParam('payPrice')/100).toFixed(2)
                 var goodsName = method.getParam('goodsName')
-                payPrice&&$('.pay-price .price').text(payPrice)
-                goodsName&$('.goodsName').text(goodsName)
+                if(payPrice){
+                    $('.pay-price .price').text(payPrice)
+                }
+                if(goodsName){
+                    $('.goodsName').text(goodsName)
+                }
                   if(res.data.needRedirect){
                       location.href = res.data.returnUrl
                       return
