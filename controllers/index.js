@@ -126,6 +126,7 @@ module.exports = {
             }
             // 推荐位处理数
             results.contentList=[];
+            console.log(JSON.stringify(results),'results------------------contentList')
             if(results.recommendList){
                 const recfileArr = [];
                 results.recommendList.data && results.recommendList.data.map(item=>{
