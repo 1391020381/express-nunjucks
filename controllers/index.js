@@ -114,11 +114,15 @@ module.exports = {
             }
             if(results.newsRec && results.newsRec.data){
                 results.newPagetotal = results.newsRec.data.length
+            }else{
+                results.newsRec.data = []
             }
             if(results.tdk && results.tdk.data){
                 results.list = {};
                 results.list.data = {};
                 results.list.data.tdk = results.tdk.data;
+            }else{
+                results.list.data.tdk = {}
             }
             // 推荐位处理数
             results.contentList=[];
