@@ -122,6 +122,8 @@ module.exports = {
                 results.list.data = {};
                 results.list.data.tdk = results.tdk.data;
             }else{
+                results.list = {};
+                results.list.data = {};
                 results.list.data.tdk = {}
             }
             // 推荐位处理数
@@ -165,11 +167,14 @@ module.exports = {
                          });
                          results.organize = JSON.parse(JSON.stringify(userInfoArr));
                          var step =0;
-                         for(var i=0;i<4;i++) {
-                            step += 3;
-                            var fileSlice = fileArr.slice(step,step+3);
-                            results.organize[i].fileList = fileSlice
-                         } 
+                         if(fileArr.length>0) {
+                            for(var i=0;i<4;i++) {
+                                step += 3;
+                                var fileSlice = fileArr.slice(step,step+3);
+                                results.organize[i].fileList = fileSlice
+                             } 
+                         }
+                         
                     }else if (item.pageId == util.pageIds.index.hotSearchWord) {
                         // 搜索框下热词搜索
                         results.hotSearchWord = util.dealHref(item).list || [];
