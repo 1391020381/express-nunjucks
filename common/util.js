@@ -69,15 +69,20 @@ module.exports = {
         return obj    
     },
     dealHref:function(item){  //处理推荐位的链接
-        item.list.map(res=>{
-            if(res.type==1){  //资料
-                res.linkUrl='/f/'+res.tprId + '.html';
-            }else if(res.type==2){ //链接
-            }else if(res.type==3){ //专题
-                res.linkUrl='/node/s/'+res.tprId +'.html';
-            }
-        })
-        return item
+        if(item.list&&item.list.length){
+            item.list.map(res=>{
+                if(res.type==1){  //资料
+                    res.linkUrl='/f/'+res.tprId + '.html';
+                }else if(res.type==2){ //链接
+                }else if(res.type==3){ //专题
+                    res.linkUrl='/node/s/'+res.tprId +'.html';
+                }
+            })
+            return item
+        }else{
+            return []
+        }
+       
     },
     isIe9:function(useragent){
         if(parseInt(useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9){
