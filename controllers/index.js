@@ -194,7 +194,7 @@ module.exports = {
                  }
                 results.recfileArr = recfileArr;
             }  
-           
+            console.log(JSON.stringify(results),'results--------------------------end---------------')
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
             // console.warn(JSON.stringify(results.vipList),'results.vipList')
             // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
