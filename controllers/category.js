@@ -23,40 +23,7 @@ var list = function (req) {
     currentPage = currentPage?Number(currentPage.replace('p','')):1;
     sortField = urlobj[3]||'';
     return {
-        list: function (callback) {
-            // console.log(req.params.id,'url')
-            req.body = {
-                categoryId: categoryId,
-                sortField: sortField,
-                format: format=='all'?'':format,
-                currentPage:currentPage,
-                pageSize:16
-            };
-            server.post(appConfig.apiNewBaselPath+api.category.list, callback, req);
-        },
-        tdk:function(callback){
-            server.get(appConfig.newBasePath + api.tdk.getTdkByUrl.replace(/\$url/, '/c/'+categoryId+'.html'), callback, req);
-        },
-        words: function (callback) {
-            let params= {
-                currentPage:1,
-                pageSize:6,
-                siteCode:4
-            }
-            req.body = params;
-            server.post(appConfig.apiNewBaselPath+api.category.words, callback, req);
-        },
-        recommendList:function(callback){ //推荐位列表  包含banner 专题 word ppt exl
-            let params=[];
-            for (let k in util.pageIds.categoryPage){
-                if (k.includes(navFatherId)) {
-                    params.push(util.pageIds.categoryPage[k])
-                }
-            }
-            req.body = params;
-            server.post(appConfig.apiNewBaselPath+api.category.recommendList, callback, req);
-        },
-        // 导航分类及属性
+          // 导航分类及属性
         categoryTitle: function (callback) {
             req.body = {
                 classId:categoryId
@@ -111,6 +78,41 @@ var list = function (req) {
                     callback(null, null);
                 }
             })
+        },
+        list: function (callback) {
+            // console.log(req.params.id,'url')
+            req.body = {
+                categoryId: categoryId,
+                sortField: sortField,
+                format: format=='all'?'':format,
+                currentPage:currentPage,
+                pageSize:16
+            };
+            server.post(appConfig.apiNewBaselPath+api.category.list, callback, req);
+        },
+        tdk:function(callback){
+            server.get(appConfig.newBasePath + api.tdk.getTdkByUrl.replace(/\$url/, '/c/'+categoryId+'.html'), callback, req);
+        },
+        words: function (callback) {
+            let params= {
+                currentPage:1,
+                pageSize:6,
+                siteCode:4
+            }
+            req.body = params;
+            server.post(appConfig.apiNewBaselPath+api.category.words, callback, req);
+        },
+        recommendList:function(callback){ //推荐位列表  包含banner 专题 word ppt exl
+            let params=[];
+            console.log('navFatherId -------------:',navFatherId)
+            for (let k in util.pageIds.categoryPage){
+                if (k.includes(navFatherId)) {
+                    params.push(util.pageIds.categoryPage[k])
+                }
+            }
+            req.body = params;
+            console.log('req.body-------------:',JSON.stringify(req.body))
+            server.post(appConfig.apiNewBaselPath+api.category.recommendList, callback, req);
         }
        
     }
@@ -120,7 +122,7 @@ var list = function (req) {
 module.exports = {
     //搜索服务--api接口--条件搜索--同步
     getData: function (req, res) {
-        return async.parallel(list(req), function (err, results) {
+        return async.series(list(req), function (err, results) {
             // console.log(req.query, 'req.query');
             var results = results || {};
             var pageObj = {};
