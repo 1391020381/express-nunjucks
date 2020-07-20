@@ -60,7 +60,17 @@
                     <div class="category-inter cf">
                         {%for item in results.categoryList.data.categoryList  %}
                         <div class="category-item fl">
-                            <div class="category-item-inter">
+                             {% if item.id == '1818'%}
+                             <div class="category-item-inter">
+                                <div class="item-title">
+                                    <h4 class="title-text"><a href="http://office.iask.com/" target="_blank">{{item.name}}</a></h4>
+                                    {% if item.categoryList.length>0 %}
+                                    <i class="icon-ele-arrow"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                             {% else%}
+                                <div class="category-item-inter">
                                 <div class="item-title">
                                     <h4 class="title-text"><a href="/c/{{item.id}}.html" target="_blank">{{item.name}}</a></h4>
                                     {% if item.categoryList.length>0 %}
@@ -68,8 +78,23 @@
                                     {% endif %}
                                 </div>
                             </div>
+                             {% endif %}
+                          
                             {% if item.categoryList.length>0 %}
-                            <div class="category-more">
+                               {% if item.id =='1818' %}
+                                <div class="category-more">
+                                <span></span>
+                                <span></span>
+                                <div class="more-inter">
+                                    <ul class="more-list cf">
+                                        {%for label in item.categoryList  %}
+                                        <li><a href="http://office.iask.com/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        {%endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                               {% else %}
+                                <div class="category-more">
                                 <span></span>
                                 <span></span>
                                 <div class="more-inter">
@@ -80,6 +105,7 @@
                                     </ul>
                                 </div>
                             </div>
+                               {% endif%}
                             {% endif %}
                         </div>
                         {%endfor%}
