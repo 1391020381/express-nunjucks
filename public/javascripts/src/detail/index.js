@@ -762,13 +762,17 @@ define(function (require, exports, module) {
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
-        } else if (type === 'vip'&&!data.isVip==1) {
-          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+        } else if (type === 'vip') {
+            if(data&&!data.isVip==1){
+                return
+            }else{
+//  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             // window.open("/pay/vip.html" + params);
             method.compatibleIESkip('/pay/vip.html' + params,true);
+            }
         } else if (type === 'privilege') {
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
