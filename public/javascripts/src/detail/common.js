@@ -39,7 +39,7 @@ define(function (require, exports, module) {
      * @param data checkLogin 返回数据
      */
     var reloadHeader = function (data) {
-        var $unLogin = $('#unLogin'),
+        var $unLogin = $('#detail-unLogin'),  // unLogin
             $hasLogin = $('#haveLogin'),
             $top_user_more = $('.top-user-more'),
             $icon_iShare_text = $('.icon-iShare-text'),
@@ -171,7 +171,7 @@ define(function (require, exports, module) {
                 // changeText(res.data.status)
                 if (pageConfig.params.file_state === '3') {
                     var content = res.data.url || pageConfig.imgUrl[0];
-                    var bytes = res.data.pinfo.bytes || {};
+                    var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
                     var newimgUrl = [];
                     for (var key in bytes) {
                         var page = bytes[key];
