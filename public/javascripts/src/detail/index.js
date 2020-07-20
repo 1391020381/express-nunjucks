@@ -400,7 +400,7 @@ define(function (require, exports, module) {
                 } else {
                     login.notifyLoginInterface(function (data) {
                         common.afterLogin(data);
-                        goPage(type);
+                        goPage(type,data);
                     });
                 }
             } else {
@@ -746,7 +746,7 @@ define(function (require, exports, module) {
 
     };
 
-    function goPage(type) {
+    function goPage(type,data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -762,7 +762,7 @@ define(function (require, exports, module) {
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
-        } else if (type === 'vip') {
+        } else if (type === 'vip'&&!data.isVip==1) {
           //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
