@@ -269,7 +269,7 @@
                 <div class="list-item">
                     <a target="_blank" href="{{subitem.linkUrl}}">
                         <div class="banner-frame fl">
-                            <img src="{{subitem.imagUrl}}" alt="">
+                            <img src="{%if subitem.imagUrl%}{{subitem.imagUrl}}{%else%}{{cdnUrl}}/images/default-picture.png{%endif%}" alt="">
                             <i class="ico-type ico-{{subitem.expand.format}}"></i>
                         </div>
                         <div class="words-des fl">

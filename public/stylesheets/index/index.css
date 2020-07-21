@@ -115,15 +115,6 @@
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-inter {
   padding: 14px 0 0;
 }
-.index-header .index-banner .banner-container .banner-wraper .office-category .category-item {
-  display: none;
-}
-.index-header .index-banner .banner-container .banner-wraper .office-category .category-item:nth-child(1),
-.index-header .index-banner .banner-container .banner-wraper .office-category .category-item:nth-child(2),
-.index-header .index-banner .banner-container .banner-wraper .office-category .category-item:nth-child(3),
-.index-header .index-banner .banner-container .banner-wraper .office-category .category-item:nth-child(4) {
-  display: block;
-}
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-item .category-item-inter {
   position: relative;
   z-index: 10;

@@ -130,7 +130,7 @@ module.exports = {
             results.contentList=[];
             console.log(JSON.stringify(results),'results------------------contentList')
             if(results.recommendList){
-                const recfileArr = [];
+                const recfileArr = [];//精选资料
                 results.recommendList.data && results.recommendList.data.map(item=>{
                     if(item.pageId == util.pageIds.index.ub){
                         results.bannerList=util.dealHref(item).list || [];  
@@ -198,11 +198,21 @@ module.exports = {
                      })
                     
                  }
+                recfileArr.map(item=>{
+                    item.forEach(ctn=>{
+                        if(!ctn.imagUrl){
+                            if(ctn.expand &&ctn.expand.fileSmallPic) {
+                                ctn.imagUrl = ctn.expand.fileSmallPic
+                            }
+                        }
+                    })
+                 })
+
                 results.recfileArr = recfileArr;
             }  
-            console.log(JSON.stringify(results),'results--------------------------end---------------')
+            // console.log(JSON.stringify(results),'results--------------------------end---------------')
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
-            // console.warn(JSON.stringify(results.vipList),'results.vipList')
+            console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
             // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
             // console.log(results,'index***************************')
             render("index/index",results,req,res);

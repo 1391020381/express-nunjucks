@@ -7,8 +7,8 @@
         {{ if paginationList.length>1}}
             {{each paginationList}}
                 {{if $index >=0}}
-                     {{ if $index<+currentPage+10 }}
-                   {{if $index>=currentPage-10}}
+                     {{ if $index<+currentPage+3 }}
+                   {{if $index>=currentPage-3}}
                           {{if currentPage == $index+1}}
                                    <li class='page-item active'  data-currentPage={{$index +1}}>
                                        {{$index+1}}
@@ -23,7 +23,7 @@
                 {{/if}}
            {{/each}}
 
-           {{if currentPage <= paginationList.length -10}}
+           {{if currentPage <= paginationList.length -3}}
                 <li class="page-more page-item">...</li>
            {{/if}}
            {{if currentPage < paginationList.length}}

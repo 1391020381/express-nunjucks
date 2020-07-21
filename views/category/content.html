@@ -125,8 +125,8 @@
                             </a>
                         </h4>
                         <div class="info-bar cf" style="height: auto;">
-                            <span class="bar-txt"><em>{{item.readNum}}</em>阅读</span>
-                            <span class="bar-txt">共<em>{{item.totalPage}}</em>页</span>
+                           {%if item.readNum%} <span class="bar-txt"><em>{{item.readNum}}</em>阅读</span> {%endif%}
+                            {%if item.totalPage%}<span class="bar-txt">共<em>{{item.totalPage}}</em>页</span>{%endif%}
                         </div>
                     </div>
 
@@ -190,6 +190,7 @@
                 </div>
             </div>
             {%endif%}
+            {% if results.zhuantiList.length%}
             <div class="topicBanner-con">
                 <h2>推荐专题</h2>
                 <ul>
@@ -202,6 +203,7 @@
                     {%endfor%}
                 </ul>
             </div>
+            {%endif%}
             {% if results.words.data.rows.length>2 %}
             <div class="hot-key-word">
                 <h2 class="hot-title">热门搜索</h2>
