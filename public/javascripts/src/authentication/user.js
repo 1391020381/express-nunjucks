@@ -108,9 +108,18 @@ define(function(require , exports , module){
                             return false;
                         }
                         var res = JSON.parse(task.response);
-                        currentTarget.attr('val',res.data.picKey);
-                        currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data.preUrl+res.data.picKey);
-                        currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
+                        if(res.data&&res.data.picKey){
+                            currentTarget.attr('val',res.data.picKey);
+                            currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data.preUrl+res.data.picKey);
+                            currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
+                        }else{
+                            $.toast({
+                                text:'上传失败，重新上传',
+                                icon:'',
+                                delay : 2000,
+                                callback:false
+                            })
+                        }
                     }
                 }
             });
