@@ -167,7 +167,7 @@ module.exports = {
                          });
                          results.organize = JSON.parse(JSON.stringify(userInfoArr));
                          var step =0;
-                         if(fileArr.length>0) {
+                         if(fileArr.length>11) {
                             for(var i=0;i<4;i++) {
                                 step += 3;
                                 var fileSlice = fileArr.slice(step,step+3);
