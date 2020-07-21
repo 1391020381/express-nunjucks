@@ -25,7 +25,7 @@ define(function(require , exports , module){
             $('.js-submit').click(function(){
                 // userObj.submitData();
                 if (method.getCookie('cuk')){
-                    orgObj.submitData();
+                    userObj.submitData();
                 }else{
                     isLogin(null,isAutoLogin) 
                 }
