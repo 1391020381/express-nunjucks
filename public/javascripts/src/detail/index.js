@@ -154,7 +154,7 @@ define(function (require, exports, module) {
             event.stopPropagation();
         });
         // 登录
-        $('.user-login,.login-open-vip').on('click', function () {
+        $('#detail-unLogin,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);

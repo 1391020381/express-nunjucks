@@ -113,15 +113,20 @@ define(function (require, exports, module) {
         $hasLogin.find('.top-user-more .name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.weiboImage);
         $hasLogin.show();
-
-        window.pageConfig.params.isVip = data.isVip;
+        
+        if(window.pageConfig.params){
+            window.pageConfig.params.isVip = data.isVip;
+        }
         var fileDiscount = data.fileDiscount;
         if (fileDiscount) {
             fileDiscount = fileDiscount / 100;
         } else {
             fileDiscount = 0.8;
         }
-        window.pageConfig.params.fileDiscount = fileDiscount;
+        if(window.pageConfig.params){
+            window.pageConfig.params.fileDiscount = fileDiscount;
+        }
+      
         $("#ip-uid").val(data.userId);
         $("#ip-isVip").val(data.isVip);
         $("#ip-mobile").val(data.mobile);

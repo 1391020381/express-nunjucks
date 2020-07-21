@@ -10,6 +10,8 @@ define(function(require , exports , module){
     var userBindInfo = {}  // 保存用户的绑定信息
     var smsId = ''  // 验证码
     var myWindow = ''  // 保存 openWindow打开的对象
+   var mobile = ''   // 获取验证码手机号
+   var businessCode = ''   // 获取验证码的场景
     if(type == 'accountsecurity'){
         isLogin(initData,true)
     }
@@ -142,7 +144,7 @@ define(function(require , exports , module){
             }
         })
     }
-    function sendSms(mobile,businessCode){ // 发送短信验证码
+    function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         $.ajax({
             url: api.user.sendSms,
             type: "POST",
@@ -151,7 +153,11 @@ define(function(require , exports , module){
                 mobile:mobile,
                 nationCode:86,
                 businessCode:businessCode, // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
-                terminal:'pc'
+                terminal:'pc',
+                'appId': appId,
+                'randstr': randstr,
+                'ticket': ticket,
+                'onOff': onOff
             }),
             dataType: "json",
             success: function (res) {
@@ -408,17 +414,21 @@ define(function(require , exports , module){
         var isiDentityAuthentication= $(this).attr('data-isiDentityAuthentication')
         if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码
               if(isiDentityAuthentication == '1'){
-                sendSms(userBindInfo.mobile,7)
+                mobile = userBindInfo.mobile
+                businessCode = 7
+                sendSms()
               }else{
-                var mobile = $('#dialog-box .item-phonenumber').val()
-                if(!method.testPhone(mobile)){ //  获取验证码前 需输入验证码
+                var tempmobile = $('#dialog-box .item-phonenumber').val()
+                if(!method.testPhone(tempmobile)){ //  获取验证码前 需输入验证码
                     $.toast({
                         text:'请输入正确的手机号',
                         delay : 3000,
                     })
                     return
                 } 
-                sendSms(mobile,5)
+                mobile = tempmobile
+                businessCode = 5
+                sendSms()
               }
         }
         console.log('获取验证码',authenticationCodeType)

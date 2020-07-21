@@ -68,13 +68,13 @@
 
              {{ if myuploadType == '1'}}
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
-                          <td class="td-text">{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
-                          <td class="td-text">{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
+                          <td class="td-text">{{list[$index].readNum}}</td>
+                          <td class="td-text">{{list[$index].downNum }}</td>
              {{/if}}
                {{if myuploadType == '2'}}
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
-                          <td class="td-text">{{list[$index].readNum > 10000 ? list[$index].readNum/10000+'w' : list[$index].readNum}}</td>
-                          <td class="td-text">{{list[$index].downNum > 10000 ? list[$index].downNum/10000+'w' : list[$index].downNum}}</td>
+                          <td class="td-text">{{list[$index].readNum }}</td>
+                          <td class="td-text">{{list[$index].downNum}}</td>
                  {{/if}}
             <td class="td-text">{{list[$index].createtime}}</td>
         </tr>

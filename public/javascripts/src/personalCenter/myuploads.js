@@ -48,6 +48,9 @@ define(function(require , exports , module){
                      item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
                      item.createtime = createtime
+
+                    item.readNum  = item.readNum > 10000 ? (item.readNum/10000).toFixed(1)+'w' : item.readNum
+                    item.downNum  =  item.downNum > 10000 ? (item.downNum/10000).toFixed(1)+'w' : item.downNum
                      list.push(item)
                   })
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
