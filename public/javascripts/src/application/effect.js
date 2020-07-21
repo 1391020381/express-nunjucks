@@ -44,17 +44,29 @@ define(function (require, exports, module) {
         method.compatibleIESkip("/node/rights/vip.html",true);
     })
     $('.btn-new-search').click(function(){
-        var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
-        if(sword){
-            method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+        if(new RegExp('/search/home.html').test(document.referrer)){
+            var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
+            var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
+            window.location.href = method.changeURLPar(href, 'cond', encodeURIComponent(encodeURIComponent(sword)));
+        }else{
+            var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
+            if(sword){
+                method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+            }
         }
     })
     $('.new-input').on('keydown', function (e) {
-        if (e.keyCode === 13) {
+        if(new RegExp('/search/home.html').test(document.referrer)&&e.keyCode === 13){
+            var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
             var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
-         if(sword){
-            method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
-         }
+            window.location.href = method.changeURLPar(href, 'cond', encodeURIComponent(encodeURIComponent(sword)));
+        }else{
+            if (e.keyCode === 13) {
+                var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
+             if(sword){
+                method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),true);
+             }
+            }
         }
     })
     var $detailHeader = $(".new-detail-header");
