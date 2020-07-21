@@ -10,7 +10,7 @@ define(function(require , exports , module){
         0:'待支付',
         1:'待支付',
         2:'交易成功',
-        3:'待支付',
+        3:'支付失败',
         4:'订单失效'
     }
     var refundStatusDescList = {
@@ -76,7 +76,7 @@ define(function(require , exports , module){
 
 
     function queryOrderlistByCondition(currentPage) {
-        var orderStatus =   (method.getParam('myorderType') == '1' || method.getParam('myorderType') == '')?[]: method.getParam('myorderType') == 0?[0,1,3]:[+method.getParam('myorderType')]
+        var orderStatus =   (method.getParam('myorderType') == '1' || method.getParam('myorderType') == '')?[]: method.getParam('myorderType') == 0?[0,1]:[+method.getParam('myorderType')]
         $.ajax({
             url: api.order.queryOrderlistByCondition,
             type: "POST",
