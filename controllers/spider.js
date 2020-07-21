@@ -284,7 +284,15 @@ module.exports = {
                 txt:'记事本',
                 pdf:'PDF阅读器'
             }
+            var moduleType ={
+                Word:'Word模板',
+                PowerPoint:'PPT模板',
+                Excel:'Excel表格模板',
+                txt:'记事本',
+                pdf:'在线阅读'
+            }
             results.list.data.fileInfo.readTool = readTool;
+            results.list.data.fileInfo.moduleType = moduleType;
             //对正文进行处理
             var textString =  results.fileDetailTxt.data||'';
             console.log(JSON.stringify(results.hotRecData),'results.hotRecData')

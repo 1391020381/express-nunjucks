@@ -50,6 +50,7 @@ module.exports = {
                 server.get(appConfig.apiNewBaselPath+api.auth.org, callback, req);
             },
         } , function(err, results){
+            console.log(results.list,'results.list')
             var results;
             if(results.list.data && results.list.data.auditStatus ==3){
                 results = {};
