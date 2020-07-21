@@ -236,7 +236,8 @@ module.exports = {
                 req.body = {
                     topicName: title,
                     currentPage:1,
-                    pageSize:40
+                    pageSize:40,
+                    siteCode:'4'
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.hotTopicSearch, callback, req);
             },
