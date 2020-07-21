@@ -169,20 +169,9 @@ define(function (require, exports, module) {
      * 我看过的
      */
     function accessList() {
-        var accessKey = method.keyMap.ishare_detail_access;
-        var list = method.getLocalData(accessKey);
-        var $seenRecord = $('#seenRecord'), arr = [];
-        if (list && list.length) {
-            list = list.slice(0, 20);
-            for (var k = 0; k < list.length; k++) {
-                var item = list[k];
-                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + '</a></li>';
-                arr.push($li)
-            }
-            $seenRecord.html(arr.join(''));
-        } else {
-            $seenRecord.hide().siblings('.mui-data-null').show();
-        }
+        // var accessKey = method.keyMap.ishare_detail_access;
+        // var list = method.getLocalData(accessKey);
+        getFileBrowsePage()
     }
 
     /**
@@ -208,7 +197,7 @@ define(function (require, exports, module) {
     // }
 
     //新的我的收藏列表
-    function myCollect() {
+    function myCollect() { // 右侧栏的我的收藏下架
         var params = {
             pageNumber: 1,
             pageSize: 20,
@@ -228,6 +217,45 @@ define(function (require, exports, module) {
             console.log("error===" + e);
         })
     }
+
+    function getFileBrowsePage(){  // 查询个人收藏列表
+       $.ajax({
+        url: api.user.getFileBrowsePage,
+        type: "POST",
+        data: JSON.stringify({
+            currentPage:1,
+            pageSize:20
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+          success: function (res) {
+             if(res.code == '0'){
+                  console.log('getUserFileList:',res)
+                 var list = res.data&&res.data.rows ||[]     
+                 var $seenRecord = $('#seenRecord'), arr = [];
+                 if (list && list.length) {
+                    list = list.slice(0, 20);
+                    for (var k = 0; k < list.length; k++) {
+                        var item = list[k];
+                        var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileid + '.html">' + item.name + '</a></li>';
+                        arr.push($li)
+                    }
+                    $seenRecord.html(arr.join(''));
+                } else {
+                    $seenRecord.hide().siblings('.mui-data-null').show();
+                }             
+             }else{
+                var $seenRecord = $('#seenRecord')
+                $seenRecord.hide().siblings('.mui-data-null').show();
+               console.log(res.msg)
+             }
+          },
+          error:function(error){
+              console.log('getUserFileList:',error)
+          }
+      })
+      }
+
 
     /**
      * 意见反馈

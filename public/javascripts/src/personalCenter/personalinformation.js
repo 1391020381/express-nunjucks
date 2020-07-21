@@ -33,7 +33,7 @@ define(function(require , exports , module){
                 $('.item-date-input').datePicker({currentDate:birthday,maxDate:new Date().format("yyyy-MM-dd")});
                 
             }else{
-                $('.item-date-input').datePicker();
+                $('.item-date-input').datePicker({maxDate:new Date().format("yyyy-MM-dd")});
             } 
     }
     function getProvinceAndCityList(userInfo){
@@ -100,7 +100,9 @@ define(function(require , exports , module){
         var birthday = $('.item-date-input').val()
         var email = $('.item-email-input').val()
         var errMsg = ''
-        if(!province&&(errMsg = '请选择所在省')||!city&&(errMsg='请选择所在的市')||!sex&&(errMsg='请选择性别')||!birthday&&(errMsg='请选择生日')||!method.testEmail(email)&&(errMsg='请填写邮箱')){
+        var regTestEmail = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
+        
+        if(!province&&(errMsg = '请选择所在省')||!city&&(errMsg='请选择所在的市')||!sex&&(errMsg='请选择性别')||!birthday&&(errMsg='请选择生日')||!regTestEmail.test(email)&&(errMsg='请填写邮箱')){
             $.toast({
                 text:errMsg,
                 delay : 3000,

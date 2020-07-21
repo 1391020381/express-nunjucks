@@ -159,9 +159,9 @@ define(function (require, exports, module) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
                     // 登陆后判断是否第一次登陆
-                    login.getUserData(function (res) {
+                    login.getUserData(function (res) { // 新人优惠券已下架
                         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                            receiveCoupon(0, 2, res.userId)
+                         //   receiveCoupon(0, 2, res.userId)
                         }
                     })
                 });
