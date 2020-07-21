@@ -308,6 +308,9 @@ module.exports = {
                 obj.img = picArr[i];
                 newTextArr.push(obj)
            }
+           if(results.crumbList.data) {
+            results.crumbList.data.isGetClassType = isGetClassType || 0;
+           }
            var description = textString.substr(0,200);
            var brief = textString.substr(0,300);
            results.brief = brief
