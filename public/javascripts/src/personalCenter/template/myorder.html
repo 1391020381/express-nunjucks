@@ -52,13 +52,13 @@
             <td>
                 <p class="item-order"></p>
                 {{if list[$index].orderStatus == 4}}
-                    <p class="item-desc item-operation" ><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.goodsId]}}>重新下单</span></p>
+                    <p class="item-desc item-operation" ></p>
                 {{else if list[$index].orderStatus == 0}}
                <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.goodsId]}}>付款</span></p>
                 {{else if list[$index].orderStatus == 1}}
                    <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.goodsId]}}>付款</span></p>
                  {{else if list[$index].orderStatus == 3}}
-                  <p class="item-desc item-operation"><span class="operation-btn" data-orderstatus={{list[$index].orderStatus}} data-orderno={{list[$index].orderNo}} data-goodstype={{list[$index].goodsType}} data-fid ={{list[$index.goodsId]}}>付款</span></p>
+                  <p class="item-desc item-operation"></p>
                 {{else}}
                  <p class="item-desc item-operation" data-orderno={{list[$index].orderNo}}></p>  
                 {{/if}}
