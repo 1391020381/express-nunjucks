@@ -10,7 +10,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
     <meta http-equiv="expires" content="0"> 
     <meta name=renderer  content=webkit>
-    <title>{{results.list.data.fileInfo.title}}.{{results.list.data.fileInfo.format}}下载_{%if results.list.data.transcodeInfo.totalPage%}{{results.list.data.transcodeInfo.totalPage}}{%else%}1{%endif%}-爱问共享资料</title>
+    <title>{{results.list.data.fileInfo.title|delType}}下载_{{results.list.data.fileInfo.moduleType[results.list.data.fileInfo.software]}} - 爱问共享资料</title>
     <meta name="keywords"content="{%if results.list.data.fileInfo.keywords%}{{results.list.data.fileInfo.keywords}}{%else%}{{results.list.data.fileInfo.title}}{%endif%}"/>
     <meta name="description" content="{{results.seo.description}}"/>
     <meta property="og:type" content="document"/>
@@ -28,11 +28,10 @@
     <meta name="Copyright" content="爱问共享资料ishare.iask.sina.com.cn版权所有"/>
     <link rel="canonical" href="{{results.seo.fileurl}}"/>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
-    <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1279079195&web_id=1279079195"></script>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/spider/spider.css" />
   
 <style>
-    .detail-search-info p {
+    #cnzz_stat_icon_1279079195{
         display: none;
     }
 </style>
@@ -204,7 +203,7 @@
         };
         seajs.use(["dist/spider/init.js"]);
     </script>
-  
+    <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279079195'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/stat.php%3Fid%3D1279079195' type='text/javascript'%3E%3C/script%3E"));</script>  
 </body>
 
 </html>

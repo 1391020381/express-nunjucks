@@ -97,7 +97,6 @@ define(function(require , exports , module){
                                 text: "资料不能超过3M",
                             }); 
                         }
-                       
                          //读取图片数据
                          if (currentTarget.attr('id') =='upload-target') {
                             var file = task.file;
@@ -129,9 +128,12 @@ define(function(require , exports , module){
                             return false;
                         }
                         var res = JSON.parse(task.response);
-                        currentTarget.attr('val',res.data.picKey);
-                        currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data.preUrl+res.data.picKey);
-                        currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
+                        if(res.data.picKey) {
+                            currentTarget.attr('val',res.data.picKey);
+                            currentTarget.siblings('.rz-upload-pic').find('img').attr('src',res.data.preUrl+res.data.picKey);
+                            currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
+                        }
+                       
                     }
                 }
             });
