@@ -197,7 +197,7 @@ module.exports = {
             }
         }, function (err, results) {
             console.log(results);
-            if(results.list.code !==0){
+            if(results.list.code != 0){
                 results.list.data = {}
             }
             results.type = results.list.data.type;
