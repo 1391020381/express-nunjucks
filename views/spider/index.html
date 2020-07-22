@@ -94,7 +94,7 @@
                     {% endif %}  已有{% if results.editorInfo.uploads.data.uploads>0 %} {{results.editorInfo.uploads.data.uploads}} {% else %}0 {% endif%}人下载
                 </div>
                 <div class="download-groupbtns">
-                    <a href="https://ishare.iask.sina.com.cn/f/{{results.guessLikeList[0].id}}.html">下一篇相似资料</a>
+                    <a href="{%if results.guessLikeList[0]%}https://ishare.iask.sina.com.cn/f/{{results.guessLikeList[0].id}}.html{%endif%}">下一篇相似资料</a>
                     <a href="javascript:;">立即下载</a>
                 </div>
             </div>
