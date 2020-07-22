@@ -330,18 +330,17 @@ module.exports = {
            }
            
            var description = textString.substr(0,200);
-           if(description.length>0) {
-             description = description.replace(/\s+/g, "")
-             if(description.length>0){
-                description = description.replace(/<\/?.+?>/g,""); 
-                description = description.replace(/[\r\n]/g, "");
-             }
-           }
+           if(description.length>0){
+            
+            description = description.replace(/[\r\n]/g, "");
+            description = description.replace(/&nbsp;/g, "");
+            description = description.replace(/\s+/g, "")
+         }
            var brief = textString.substr(0,300);
            if(brief.length>0){
                 brief = brief.replace(/\s+/g, "")
-                brief = brief.replace(/<\/?.+?>/g,""); 
                 brief = brief.replace(/[\r\n]/g, "");
+                brief = brief.replace('&nbsp;', "");
            }
            results.brief = brief
            results.seo = {};
