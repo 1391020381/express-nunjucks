@@ -39,6 +39,8 @@ define(function(require , exports , module){
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
                     var isAuth = res.data.isAuth
+                    var userTypeId = res.data.userTypeId
+                    var authDesc = userTypeId==2?'个人认证':'机构认证'
                     if(isVipMaster){ 
                         $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .opentvip').hide()
@@ -54,7 +56,9 @@ define(function(require , exports , module){
                     if(aibeans){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
                     }
+                   
                     if(isAuth == 1){
+                        $('.personal-isAuth').html('<span class="auth-desc">'+ authDesc +'</span>')
                         $('.personal-menu .mywallet').css('display','block')
                     }
                     callback&&callback(res.data)
