@@ -101,8 +101,10 @@
                 {% for item in results.list.data.rows or []  %}
                 <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult'>
                     <div class="filepic fl">
+                        <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
                         <img src="{% if item.fileSmallPic %}{{'http://pic.iask.com.cn/'+item.fileSmallPic if item.fileSmallPic}} {%else%} {{cdnUrl}}/images/default-picture.png {%endif%}" alt="">
                         <i class="ico-data ico-{{item.format}}"></i>
+                         </a>
                     </div>
                     <div class="fl file-txt">
                         <h4 class="data-name cf">
