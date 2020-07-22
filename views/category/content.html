@@ -1,5 +1,6 @@
 <div class="search-all-main">
 <div class="search-all-main-topbanner-container">
+    {% if results.topbannerList.length>1 %}
     <div class="search-all-main-topbanner">
         <ul class="swiper-container" id="J_categoty_banner">
             {% for item in results.topbannerList %}
@@ -21,6 +22,7 @@
         <a class="btn-banner btn-banner-next" id="J_categoty_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
         {% endif %#}
     </div>
+    {% endif %}
     <!-- <span class="close-swiper"></span> -->
 </div>
     <!--左边主体11-->
@@ -99,8 +101,10 @@
                 {% for item in results.list.data.rows or []  %}
                 <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult'>
                     <div class="filepic fl">
+                        <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
                         <img src="{% if item.fileSmallPic %}{{'http://pic.iask.com.cn/'+item.fileSmallPic if item.fileSmallPic}} {%else%} {{cdnUrl}}/images/default-picture.png {%endif%}" alt="">
                         <i class="ico-data ico-{{item.format}}"></i>
+                         </a>
                     </div>
                     <div class="fl file-txt">
                         <h4 class="data-name cf">
