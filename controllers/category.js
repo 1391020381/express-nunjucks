@@ -101,19 +101,19 @@ var list = function (req) {
             }
             req.body = params;
             server.post(appConfig.apiNewBaselPath+api.category.words, callback, req);
-        },
-        recommendList:function(callback){ //推荐位列表  包含banner 专题 word ppt exl
-            let params=[];
-            console.log('navFatherId -------------:',navFatherId)
-            for (let k in util.pageIds.categoryPage){
-                if (k.includes(navFatherId)) {
-                    params.push(util.pageIds.categoryPage[k])
-                }
-            }
-            req.body = params;
-            console.log('req.body-------------:',JSON.stringify(req.body))
-            server.post(appConfig.apiNewBaselPath+api.category.recommendList, callback, req);
         }
+        // recommendList:function(callback){ //推荐位列表  包含banner 专题 word ppt exl
+        //     let params=[];
+        //     console.log('navFatherId -------------:',navFatherId)
+        //     for (let k in util.pageIds.categoryPage){
+        //         if (k.includes(navFatherId)) {
+        //             params.push(util.pageIds.categoryPage[k])
+        //         }
+        //     }
+        //     req.body = params;
+        //     console.log('req.body-------------:',JSON.stringify(req.body))
+        //     server.post(appConfig.apiNewBaselPath+api.category.recommendList, callback, req);
+        // }
        
     }
 };
