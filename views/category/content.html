@@ -105,15 +105,9 @@
                     <div class="fl file-txt">
                         <h4 class="data-name cf">
                             <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
-                                {% if item.title.slice(30) %}
                                 <span class="desc fl">
-                                    {{ item.title | replace(item.title.slice(30),'...') | replace(query.cond,'<em class="red-color">'+query.cond+'</em>') }}
+                                    {{ item.title|delType }}
                                 </span>
-                                {%else%}
-                                <span class="desc fl">
-                                    {{ item.title and item.title | replace(query.cond,'<em class="red-color">'+query.cond+'</em>') }}
-                                </span>
-                                {%endif%}
     
                                 {% if item.highQuality %}
                                 <span class="icon-selected"></span>
