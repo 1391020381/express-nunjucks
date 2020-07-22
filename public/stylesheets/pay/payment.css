@@ -86,7 +86,7 @@ body {
   color: #FFFFFF;
 }
 .ui-toast {
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   min-width: 2rem;

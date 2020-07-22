@@ -13,7 +13,7 @@ define(function(require , exports , module){
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
-            url: api.pay.scanOrderInfo,
+            url:  'http://ishare.iask.sina.com.cn'+ api.pay.scanOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo:orderNo,
