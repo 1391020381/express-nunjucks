@@ -69,7 +69,7 @@ define(function (require,exports,moudle) {
                 login.ishareLogout()
             })
             $('.js-vaip—avatar').click(function(){
-                var url = '/node/personalCenter/vip.html';
+                var url = '/node/personalCenter/home.html';
                 if (!utils.getCookie('cuk')) {
                     login.notifyLoginInterface(function (data) {
                         indexObject.refreshTopBar(data);
