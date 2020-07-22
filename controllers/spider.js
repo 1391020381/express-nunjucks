@@ -355,6 +355,7 @@ module.exports = {
                     results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
                     results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
                 }
+                // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
            }
            // 对最新资料  推荐专题数据处理
 
