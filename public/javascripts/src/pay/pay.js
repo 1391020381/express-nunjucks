@@ -1,4 +1,9 @@
 define(function (require, exports, moudle) {
+    // 自有埋点注入
+    var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
+    var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
+    var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
+    // ==== end ====
     //所有支付引用办公频道支付js
     // var $ = require("$");
     require('swiper');
@@ -65,7 +70,8 @@ define(function (require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent',' qrCodeFail']);
                 }
                 alipayClick(oid);
-                payStatus(oid);
+                // 获取支付状态结果
+                getOrderInfo(oid);
             } else {
                 utils.showAlertDialog("温馨提示", '订单失效，请重新下单');
             }
@@ -453,147 +459,388 @@ define(function (require, exports, moudle) {
         });
     }
 
+    // ======= 订单轮询 =========
     /**
      * 订单状态更新
      */
-    var count = 0;
-    function payStatus(orderNo) {
-        $.post("/pay/orderStatus?ts=" + new Date().getTime(), { 'orderNo': orderNo }, function (data, status) {
-            if (data && data.code == 0) {
-                count++;
-                var res = data.data;
-                var orderStatus = res.orderStatus;
-                var fid = res.fid;
-                if (!fid) {
-                    fid = method.getParam('fid');
+    // var count = 0;
+    // function payStatus(orderNo) {
+    //     $.post("/pay/orderStatus?ts=" + new Date().getTime(), { 'orderNo': orderNo }, function (data, status) {
+    //         if (data && data.code == 0) {
+    //             count++;
+    //             var res = data.data;
+    //             var orderStatus = res.orderStatus;
+    //             var fid = res.fid;
+    //             if (!fid) {
+    //                 fid = method.getParam('fid');
+    //             }
+    //
+    //             if (orderStatus == 0) {//待支付
+    //                 if (count <= 30) {
+    //                     window.setTimeout(function () {
+    //                         payStatus(orderNo)
+    //                     }, 4000);
+    //                 }
+    //             } else if (orderStatus == 2) {//成功
+    //                 var params = '?orderNo=' + orderNo + "&";
+    //                 try {
+    //                     method.delCookie("br", "/");
+    //                     if (res.goodsType == 1) {//购买文件成功
+    //                         params += "fid=" + fid + "&type=2";
+    //                         var rf = method.getCookie('rf');
+    //                         if (rf) {
+    //                             rf = JSON.parse(rf);
+    //                             rf.orderId_var = orderNo;
+    //                           //  report.docPaySuccess(rf);
+    //                             method.delCookie('rf', "/");
+    //                         }
+    //
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice,
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //                     } else if (res.goodsType == 2) {//购买vip成功
+    //                         params += "fid=" + fid + "&type=0"+"&renewalVIP="+renewalVIP;
+    //                         var rv = method.getCookie('rv');
+    //                         if (rv) {
+    //                            // report.vipPaySuccess(JSON.parse(rv));
+    //                             method.delCookie('rv', "/");
+    //                         }
+    //
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice,
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                             vipID: res.reportData.id,
+    //                             vipName: res.reportData.name,
+    //                             vipPrice: res.reportData.payPrice || '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //
+    //                         //透传用户信息 更新isVip字段
+    //                         $(".js-sync").trigger('click');
+    //                     } else if (res.goodsType == 8) {//购买下载特权成功
+    //                         params += "fid=" + fid + "&type=1";
+    //                         var rp = method.getCookie('rp');
+    //                         if (rp) {
+    //                             report.privilegePaySuccess(JSON.parse(rp));
+    //                             method.delCookie('rp', "/");
+    //                         }
+    //
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice,
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                             privilegeID: res.reportData.id,
+    //                             privilegeName: res.reportData.name,
+    //                             privilegePrice: res.reportData.payPrice || '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //
+    //                     }
+    //                 } catch (e) {
+    //                 }
+    //                 // window.location.href = "/pay/success.html" + params;
+    //                 method.compatibleIESkip("/pay/success.html" + params, false);
+    //             } else if (orderStatus == 3) {//失败
+    //                 var params = '?orderNo=' + orderNo + "&";
+    //                 try {
+    //                     method.delCookie("br", "/");
+    //                     if (res.goodsType == 1) {//购买文件成功
+    //                         params += "fid=" + fid + "&type=2";
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice,
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //                     } else if (res.goodsType == 2) {//购买vip成功
+    //                         params += "fid=" + fid + "&type=0";
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice,
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                             vipID: res.reportData.id,
+    //                             vipName: res.reportData.name,
+    //                             vipPrice: res.reportData.payPrice || '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //                     } else if (res.goodsType == 8) {//购买下载特权成功
+    //                         params += "fid=" + fid + "&type=1";
+    //                         var bilogResult = {
+    //                             orderID: res.reportData.orderId,
+    //                             orderPayType: res.reportData.orderPayCode,
+    //                             orderPayPrice: res.reportData.payPrice || '',
+    //                             couponID: res.reportData.couponID || '',
+    //                             coupon: '',
+    //                             privilegeID: res.reportData.id,
+    //                             privilegeName: res.reportData.name,
+    //                             privilegePrice: res.reportData.payPrice || '',
+    //                         };
+    //                         method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+    //                     }
+    //                 } catch (e) {
+    //                 }
+    //                 // window.location.href = "/pay/fail.html" + params;
+    //                 method.compatibleIESkip("/pay/fail.html" + params, false);
+    //             }
+    //         } else {//error
+    //             console.log(data);
+    //         }
+    //     });
+    // }
+
+    /**
+     * 获取文件详细信息
+     * @param id 文件id
+     * @param callback 回调携带返回数据
+     */
+    function getFileInfoById(id, callback) {
+        // 获取资料详细信息
+        var params = {
+            clientType: 0,
+            fid: id,
+            sourceType: 2
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/gateway/content/getFileDetailNoTdk',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(params),
+            success: function (response) {
+                console.error('获取资料详情数据', response.data)
+                var fileInfo = {};
+                if (response && response.data && response.data.fileInfo) {
+                    fileInfo = response.data.fileInfo;
                 }
-
-                if (orderStatus == 0) {//待支付
-                    if (count <= 30) {
-                        window.setTimeout(function () {
-                            payStatus(orderNo)
-                        }, 4000);
-                    }
-                } else if (orderStatus == 2) {//成功
-                    var params = '?orderNo=' + orderNo + "&";
-                    try {
-                        method.delCookie("br", "/");
-                        if (res.goodsType == 1) {//购买文件成功
-                            params += "fid=" + fid + "&type=2";
-                            var rf = method.getCookie('rf');
-                            if (rf) {
-                                rf = JSON.parse(rf);
-                                rf.orderId_var = orderNo;
-                              //  report.docPaySuccess(rf);
-                                method.delCookie('rf', "/");
-                            }
-
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice,
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-                        } else if (res.goodsType == 2) {//购买vip成功
-                            params += "fid=" + fid + "&type=0"+"&renewalVIP="+renewalVIP;
-                            var rv = method.getCookie('rv');
-                            if (rv) {
-                               // report.vipPaySuccess(JSON.parse(rv));
-                                method.delCookie('rv', "/");
-                            }
-
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice,
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                                vipID: res.reportData.id,
-                                vipName: res.reportData.name,
-                                vipPrice: res.reportData.payPrice || '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-
-                            //透传用户信息 更新isVip字段
-                            $(".js-sync").trigger('click');
-                        } else if (res.goodsType == 8) {//购买下载特权成功
-                            params += "fid=" + fid + "&type=1";
-                            var rp = method.getCookie('rp');
-                            if (rp) {
-                                report.privilegePaySuccess(JSON.parse(rp));
-                                method.delCookie('rp', "/");
-                            }
-
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice,
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                                privilegeID: res.reportData.id,
-                                privilegeName: res.reportData.name,
-                                privilegePrice: res.reportData.payPrice || '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-
-                        }
-                    } catch (e) {
-                    }
-                    // window.location.href = "/pay/success.html" + params;
-                    method.compatibleIESkip("/pay/success.html" + params, false);
-                } else if (orderStatus == 3) {//失败
-                    var params = '?orderNo=' + orderNo + "&";
-                    try {
-                        method.delCookie("br", "/");
-                        if (res.goodsType == 1) {//购买文件成功
-                            params += "fid=" + fid + "&type=2";
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice,
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-                        } else if (res.goodsType == 2) {//购买vip成功
-                            params += "fid=" + fid + "&type=0";
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice,
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                                vipID: res.reportData.id,
-                                vipName: res.reportData.name,
-                                vipPrice: res.reportData.payPrice || '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-                        } else if (res.goodsType == 8) {//购买下载特权成功
-                            params += "fid=" + fid + "&type=1";
-                            var bilogResult = {
-                                orderID: res.reportData.orderId,
-                                orderPayType: res.reportData.orderPayCode,
-                                orderPayPrice: res.reportData.payPrice || '',
-                                couponID: res.reportData.couponID || '',
-                                coupon: '',
-                                privilegeID: res.reportData.id,
-                                privilegeName: res.reportData.name,
-                                privilegePrice: res.reportData.payPrice || '',
-                            };
-                            method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-                        }
-                    } catch (e) {
-                    }
-                    // window.location.href = "/pay/fail.html" + params;
-                    method.compatibleIESkip("/pay/fail.html" + params, false);
-                }
-            } else {//error
-                console.log(data);
+                callback(fileInfo)
             }
         });
     }
+
+    /**
+     * 只用于订单结果轮询用
+     * @type {number}
+     */
+    var order_count = 0;
+
+    /**
+     * 进入支付界面-调用接口进行轮询-等待后台结果返回-跳转到对应界面
+     * 获取订单信息
+     * @param orderNo 订单号
+     */
+    function getOrderInfo(orderNo) {
+        var params = {orderNo: orderNo};
+        var url = '/pay/orderStatus?ts=' + new Date().getTime();
+        $.post(url, params, function (response) {
+            if (response && response.code == 0 && response.data) {
+                // 缓存查询次数
+                order_count++;
+                var data = response.data;
+                // 防止空指针报错
+                data.reportData = data.reportData || {};
+                data.fid = data.fid || method.getParam('fid');
+                // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
+                if (data.orderStatus == 0) {
+                    // 重新查询
+                    if (order_count <= 30) {
+                        window.setTimeout(function () {
+                            getOrderInfo(orderNo);
+                        }, 4000);
+                    }
+                } else if (data.orderStatus == 2) {
+                    goodsPaySuccess(data, orderNo)
+                } else if (data.orderStatus == 3) {
+                    goodsPayFail(data, orderNo);
+                }
+
+            } else {
+                console.error('未查询到订单信息', response);
+            }
+        })
+    }
+
+    /**
+     * 支付成功
+     * goodsType=>虚拟物品类型 1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8-下载特权
+     * @param orderInfo 订单信息
+     * @param orderNo 订单号
+     */
+    function goodsPaySuccess(orderInfo, orderNo) {
+        // 移除cookie
+        method.delCookie("br", "/");
+        // 携带参数,上报数据
+        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+            bilogResult = null;
+        if (orderInfo.goodsType === 1) {
+            // 购买文件成功
+            href += '&type=2';
+            var rf = method.getCookie('rf');
+            if (rf) {
+                rf = JSON.parse(rf);
+                rf.orderId_var = orderNo;
+                //  report.docPaySuccess(rf);
+                method.delCookie('rf', "/");
+            }
+            // 自由埋点数据
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice,
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+            };
+
+            // 获取资料详细信息
+            getFileInfoById(orderInfo.fid, function (fileInfo) {
+                // 自有埋点
+                payFileResult_bilog.reportResult(orderInfo, fileInfo, true);
+            })
+
+        } else if (orderInfo.goodsType === 2) {
+            // 购买vip成功
+            href += '&type=0' + '&renewalVIP=' + renewalVIP;
+            var rv = method.getCookie('rv');
+            if (rv) {
+                // report.vipPaySuccess(JSON.parse(rv));
+                method.delCookie('rv', "/");
+            }
+            // 自由埋点数据
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice,
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+                vipID: orderInfo.reportData.id,
+                vipName: orderInfo.reportData.name,
+                vipPrice: orderInfo.reportData.payPrice || '',
+            };
+
+            // 自有埋点
+            payVipResult_bilog.reportResult(orderInfo, true);
+
+            //透传用户信息 更新isVip字段
+            $(".js-sync").trigger('click');
+
+        } else if (orderInfo.goodsType === 8) {
+            // 购买下载特权成功
+            href += '&type=1';
+            var rp = method.getCookie('rp');
+            if (rp) {
+                // report.privilegePaySuccess(JSON.parse(rp));
+                method.delCookie('rp', "/");
+            }
+            // 自由埋点数据
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice,
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+                privilegeID: orderInfo.reportData.id,
+                privilegeName: orderInfo.reportData.name,
+                privilegePrice: orderInfo.reportData.payPrice || '',
+            };
+
+            // 获取资料详细信息
+            getFileInfoById(orderInfo.fid, function (fileInfo) {
+                // 自有埋点
+                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, true);
+            })
+        }
+
+        // 自有埋点用到
+        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+        // window.location.href = href;
+        method.compatibleIESkip(href, false);
+    }
+
+    /**
+     * 支付失败
+     * goodsType=>虚拟物品类型 1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8-下载特权
+     * @param orderInfo 订单信息
+     * @param orderNo 订单号
+     */
+    function goodsPayFail(orderInfo, orderNo) {
+        // 携带参数,上报数据
+        var href = '/pay/fail.htm' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+            bilogResult = null;
+        if (orderInfo.goodsType == 1) {
+            // 购买文件失败
+            href += "&type=2";
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice,
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+            };
+
+            // 获取资料详细信息
+            getFileInfoById(orderInfo.fid, function (fileInfo) {
+                // 自有埋点
+                payFileResult_bilog.reportResult(orderInfo, fileInfo, false);
+            })
+
+        } else if (orderInfo.goodsType == 2) {
+            // 购买vip失败
+            href += "&type=0";
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice,
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+                vipID: orderInfo.reportData.id,
+                vipName: orderInfo.reportData.name,
+                vipPrice: orderInfo.reportData.payPrice || '',
+            };
+
+            // 自有埋点
+            payVipResult_bilog.reportResult(orderInfo, false);
+
+        } else if (orderInfo.goodsType == 8) {
+            // 购买下载特权失败
+            href += "&type=1";
+            bilogResult = {
+                orderID: orderInfo.reportData.orderId,
+                orderPayType: orderInfo.reportData.orderPayCode,
+                orderPayPrice: orderInfo.reportData.payPrice || '',
+                couponID: orderInfo.reportData.couponID || '',
+                coupon: '',
+                privilegeID: orderInfo.reportData.id,
+                privilegeName: orderInfo.reportData.name,
+                privilegePrice: orderInfo.reportData.payPrice || '',
+            };
+
+            // 获取资料详细信息
+            getFileInfoById(orderInfo.fid, function (fileInfo) {
+                // 自有埋点
+                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, false);
+            })
+        }
+
+        // 自由埋点用到
+        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
+        // window.location.href = href;
+        method.compatibleIESkip(href, false);
+    }
+
+    // ===== end ====
 
     $(".btn-back").click(function () {
         var referrer = document.referrer;

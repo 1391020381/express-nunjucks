@@ -82,12 +82,7 @@ define(function (require, exports, module) {
             })
         },
         createOrder: function () {
-            var visitorId = '';
-            if (!method.getCookie('visitorId')) {
-                visitorId = unloginObj.getVisitorId();
-            } else {
-                visitorId = method.getCookie('visitorId');
-            }
+            var visitorId = unloginObj.getVisitorId();
 
             var params = {
                 fid: pageConfig.params.g_fileId,
@@ -129,13 +124,7 @@ define(function (require, exports, module) {
          * 根据时间产生随机数
          */
         getVisitorId: function () {
-            var Num = "";
-            for (var i = 0; i < 6; i++) {
-                Num += Math.floor(Math.random() * 10);
-            }
-            var time = 'visitorId' + new Date().getTime() + Num;
-            method.setCookieWithExpPath('visitorId', time, 30 * 24 * 60 * 60 * 1000, '/');
-            return time;
+            return method.getCookie('visitor_id');
         },
         /**
         * 查询订单

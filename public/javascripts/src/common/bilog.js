@@ -297,53 +297,7 @@ define(function (require, exports, module) {
 
         handle(commonData, customData);
     }
-    //文件购买结果页
-    function payFileResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE009';
-        commonData.eventName = 'payFileResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        if(!customData.fileID){
-            customData.fileID = method.getParam('fid') || $("#ip-page-fid").val();
-        }
-        if(!customData.filePayType){
-            var state = $("#ip-page-fstate").val() || 1;
-            customData.filePayType = payTypeMapping[state];
-        }
 
-        handle(commonData, customData);
-    }
-    //vip购买结果页
-    function payVipResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE011';
-        commonData.eventName = 'payVipResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        if (!customData.orderID){
-            customData.orderID = method.getParam('orderNo') || '';
-        }
-        handle(commonData, customData);
-    }
-    //下载特权购买结果页
-    function payPrivilegeResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE013';
-        commonData.eventName = 'payPrivilegeResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        handle(commonData, customData);
-    }
     //下载结果页
     function downResult(customData) {
         var commonData = JSON.parse(JSON.stringify(initData));
@@ -381,84 +335,10 @@ define(function (require, exports, module) {
             if ('PC-O-SR' != pid) {//不是办公频道搜索结果页
                 normalPageView();
             }
-            var payVipResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', vipID: '', vipName: '', vipPrice: '',
-            };
-            var payPriResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', fileID: '', fileName: '', fileCategoryID: '', fileCategoryName: '',
-                filePayType: '', fileFormat: '', fileProduceType: '', fileCooType: '', fileUploaderID: '', privilegeID: '', privilegeName: '', privilegePrice: '',
-            };
-            var payFileResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', fileID: '', fileName: '', fileCategoryID: '', fileCategoryName: '',
-                filePayType: '', fileFormat: '', fileProduceType: '', fileCooType: '', fileUploaderID: '', filePrice: '',
-                fileSalePrice: '',
-            };
+
             var bf = method.getCookie('bf');
             var br = method.getCookie('br');
             var href = window.location.href;
-            if ('PC-M-PAY-SUC' == pid || 'PC-O-PAY-SUC' == pid) {//支付成功页
-                if (href.indexOf("type=0") > -1) {//vip购买成功页
-                    if (br) {
-                        trans(JSON.parse(br), payVipResultData);
-                    }
-                    payVipResult(payVipResultData);
-                } else if (href.indexOf("type=1") > -1) {//下载特权购买成功页
-                    if (bf) {
-                        trans(JSON.parse(bf), payPriResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payPriResultData);
-                    }
-                    payPrivilegeResult(payPriResultData);
-                } else if (href.indexOf("type=2") > -1) {//文件购买成功页
-                    if (bf) {
-                        trans(JSON.parse(bf), payFileResultData);
-                    }
-                    var br = method.getCookie('br');
-                    if (br) {
-                        trans(JSON.parse(br), payFileResultData);
-                    }
-                    payFileResult(payFileResultData);
-                }
-            } else if ('PC-M-PAY-FAIL' == pid || 'PC-O-PAY-FAIL' == pid) {//支付失败页
-                if (href.indexOf("type=0") > -1) {//vip购买失败页
-                    if (br) {
-                        trans(JSON.parse(br), payVipResultData);
-                    }
-                    payVipResultData.payResult = 0;
-                    payVipResult(payVipResultData);
-                } else if (href.indexOf("type=1") > -1) {//下载特权购买失败页
-                    if (bf) {
-                        trans(JSON.parse(bf), payPriResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payPriResultData);
-                    }
-                    payPriResultData.payResult = 0;
-                    payPrivilegeResult(payPriResultData);
-                } else if (href.indexOf("type=2") > -1) {//文件购买失败页
-                    if (bf) {
-                        trans(JSON.parse(bf), payFileResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payFileResultData);
-                    }
-                    payFileResultData.payResult = 0;
-                    payFileResult(payFileResultData);
-                }
-            }
 
             var downResultData = {
                 downResult: 1,
@@ -722,6 +602,21 @@ define(function (require, exports, module) {
         }
         return source
     }
+
+    // todo 埋点相关公共方法 =====
+    // todo 埋点上报请求---新增
+    function reportToBlack(result) {
+        console.log('自有埋点上报结果', result);
+        setTimeout(function () {
+            $.getJSON(
+                "https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(result)) + "&jsoncallback=?",
+                function (data) {
+                    // console.log();
+                }
+            );
+        })
+    }
+
     module.exports = {
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)
@@ -740,6 +635,13 @@ define(function (require, exports, module) {
                 })
             } 
         },
-        searchResult:searchResult
+        searchResult:searchResult,
+        // todo 后续优化-公共处理==============
+        // todo 自有埋点公共数据
+        getBilogCommonData: function getBilogCommonData() {
+            setPreInfo(document.referrer, initData);
+            return initData;
+        },
+        reportToBlack: reportToBlack
     }
 });
