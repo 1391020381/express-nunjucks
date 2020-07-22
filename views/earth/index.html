@@ -58,7 +58,7 @@
             <ul>
                 {% for item in results.list %}
                 <li class="active">
-                    <a target="_blank" href="{{item.linkurl}}">{{item.title}}</a>
+                    <a target="_blank" href="{{item.linkurl}}">{{item.title|delType}}</a>
                 </li>
                 {% endfor %}
             </ul>

@@ -30,7 +30,8 @@ var sceneIDRelevant = ''; //场景的ID
 var recommendInfoData_rele = {}; //相关推荐数据 (相关资料)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var recRelateArrNum = 0;
-var fileurl =''
+var fileurl ='';
+var uid =''
 module.exports = {
     index: function (req, res) {
         if(req.query&&req.query.type) {
@@ -59,7 +60,6 @@ module.exports = {
                     if (body) {
                         var data = JSON.parse(body);
                         var fileInfo = data.data&&data.data.fileInfo;
-                        var transcodeInfo = data.data&&data.data.transcodeInfo;
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
@@ -74,9 +74,23 @@ module.exports = {
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
                             uid= fileInfo.uid || ''           // 上传者id
+                            var transcodeInfo = data.data&&data.data.transcodeInfo;
                             picArr = transcodeInfo?transcodeInfo.fileContentList:[];
+                            if(fileInfo.showflag !=='y'){ // 文件删除
+                                var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+                                var results = {showFlag:false,searchQuery,statusCode:'404'}
+                                res.status(404)
+                                render("detail/index", results, req, res);
+                                return
+                            }
                             callback(null, data);
                         } else {
+                            if(data.code == 'G-404'){ // 文件不存在
+                                var results = {showFlag:false}
+                                res.status(404)
+                                render("detail/index", results, req, res);
+                                return
+                            }
                             callback(null, null);
                         }
                     } else {
@@ -291,8 +305,11 @@ module.exports = {
                 txt:'记事本',
                 pdf:'在线阅读'
             }
-            results.list.data.fileInfo.readTool = readTool;
-            results.list.data.fileInfo.moduleType = moduleType;
+            if(results.list.data && results.list.data.fileInfo) {
+                results.list.data.fileInfo.readTool = readTool;
+                results.list.data.fileInfo.moduleType = moduleType;
+            }
+            
             //对正文进行处理
             var textString =  results.fileDetailTxt.data||'';
             console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
@@ -308,6 +325,10 @@ module.exports = {
                 obj.img = picArr[i];
                 newTextArr.push(obj)
            }
+           if( results.crumbList.data){
+            results.crumbList.data.isGetClassType = isGetClassType || 0;
+           }
+           
            var description = textString.substr(0,200);
            var brief = textString.substr(0,300);
            results.brief = brief
