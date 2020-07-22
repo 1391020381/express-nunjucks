@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "common/head.html" %}
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+</script>
+
+<body>
+    {% include "common/js.html" %}
+     
+
+   登录页面
+
+<!--遮罩层-->
+<div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
+{% include "./dialog.html" %}
+
+
+    <script type="text/javascript">
+        window.pageConfig = {
+            page:{},
+            params:{
+                g_permin:''  // 登录后开通vip 需要
+            }
+        };
+        seajs.use(["dist/application/app.js", "dist/login/init.js"]);
+    </script>
+ 
+
+</body>
+
+</html>

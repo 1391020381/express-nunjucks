@@ -7,6 +7,7 @@ let routes = [
     'special',
     'upload',
     'feedback',
+    'login',
     '503',
     '404'
 ];
