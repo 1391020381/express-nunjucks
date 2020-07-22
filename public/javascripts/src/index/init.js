@@ -68,6 +68,18 @@ define(function (require,exports,moudle) {
             $('.loginOut').click(function(){
                 login.ishareLogout()
             })
+            $('.js-vaip—avatar').click(function(){
+                var url = '/node/personalCenter/home.html';
+                if (!utils.getCookie('cuk')) {
+                    login.notifyLoginInterface(function (data) {
+                        indexObject.refreshTopBar(data);
+                        window.open(url)
+                    });
+                }else{
+                    window.open(url)
+                }
+               
+            })
         },
         beforeInit:function(){
             if (utils.getCookie('cuk')) {
