@@ -241,8 +241,9 @@ module.exports = {
                     pageSize:40
                 };
                 if(recRelateArrNum<31) {
-                    server.post(appConfig.apiNewBaselPath+Api.spider.hotpotSearch, callback, req);
+                    // server.post(appConfig.apiNewBaselPath+Api.spider.hotpotSearch, callback, req);
                 }
+                callback(null, null);
             },
             // 热点专题
             hotTopicSearch:function(callback){
@@ -252,7 +253,8 @@ module.exports = {
                     pageSize:40,
                     siteCode:'4'
                 };
-                server.post(appConfig.apiNewBaselPath+Api.spider.hotTopicSearch, callback, req);
+                // server.post(appConfig.apiNewBaselPath+Api.spider.hotTopicSearch, callback, req);
+                callback(null, null);
             },
              // 热门专题（晒内容）
              hotTopicSeo:function(callback){
@@ -264,7 +266,8 @@ module.exports = {
                     siteCode:4,
                     random:'y'
                 };
-                server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
+                // server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
+                callback(null, null);
             },
             // 最新搜索（晒内容）
             newsRec:function(callback){
@@ -275,7 +278,8 @@ module.exports = {
                     siteCode:4,
                     random:'y'
                 };
-                server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
+                // server.post(appConfig.apiNewBaselPath+Api.spider.newRecData, callback, req);
+                callback(null, null);
             },
             // 热门推荐（晒内容）
             hotRecData:function(callback){
@@ -350,40 +354,40 @@ module.exports = {
                 results.relevantList=results.paradigm4Relevant.slice(0,10)
                 results.guessLikeList=results.paradigm4Relevant.slice(10,21)
            }else {
-                if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
-                    results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
-                    results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
-                }
+                // if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
+                //     results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
+                //     results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
+                // }
                 // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
            }
            // 对最新资料  推荐专题数据处理
 
-           if(results.newRecData &&results.newRecData.data && type!="hot"){
-                results.newRecList=results.newRecData.data.map(item=>{
-                    if(type=="new") {
-                        item.link ="/f/"+item.id+'.html'
-                    }else if(type=="topic"){
-                        item.link ="/node/s/"+item.id+'.html'
-                    }
-                    return item;
-                })
-           }
+        //    if(results.newRecData &&results.newRecData.data && type!="hot"){
+        //         results.newRecList=results.newRecData.data.map(item=>{
+        //             if(type=="new") {
+        //                 item.link ="/f/"+item.id+'.html'
+        //             }else if(type=="topic"){
+        //                 item.link ="/node/s/"+item.id+'.html'
+        //             }
+        //             return item;
+        //         })
+        //    }
            // 热门推荐数据处理
-           if(results.hotRecData &&results.hotRecData.data && type =="hot"){
-            results.newRecList=results.hotRecData.data.map(item=>{
-                    item.link = item.contentUrl;
-                    item.title= item.contentName;
-                    return item;
-                })
-           }
+        //    if(results.hotRecData &&results.hotRecData.data && type =="hot"){
+        //     results.newRecList=results.hotRecData.data.map(item=>{
+        //             item.link = item.contentUrl;
+        //             item.title= item.contentName;
+        //             return item;
+        //         })
+        //    }
            // 对热门搜索的主题数进行限制
-           results.newRecList = results.newRecList?results.newRecList:[];
+        //    results.newRecList = results.newRecList?results.newRecList:[];
            results.type = type;
-           if(results.newsRec && results.newsRec.data){
-            results.newPagetotal = results.newsRec.data.length
-        }else{
-            results.newsRec.data = []
-        }
+        //    if(results.newsRec && results.newsRec.data){
+        //         results.newPagetotal = results.newsRec.data.length
+        //     }else{
+        //         results.newsRec.data = []
+        //     }
            console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
            results.fileDetailArr = newTextArr;
             render("spider/index", results, req, res);
