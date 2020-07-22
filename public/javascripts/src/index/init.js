@@ -168,7 +168,8 @@ define(function (require,exports,moudle) {
                     data = {
                         contentType: 100,
                         clientType:1,
-                        pageSize:12
+                        pageSize:12,
+                        clientType:0
                     }
                     url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
                     getData(url,data,dataType,$list)

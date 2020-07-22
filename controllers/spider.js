@@ -326,7 +326,7 @@ module.exports = {
                 newTextArr.push(obj)
            }
            if( results.crumbList&&results.crumbList.data){
-            results.crumbList.data.isGetClassType = isGetClassType || 0;
+                results.crumbList.data.isGetClassType = isGetClassType || 0;
            }
            
            var description = textString.substr(0,200);
