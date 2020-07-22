@@ -195,7 +195,7 @@ module.exports = {
             results.words.data && results.words.data.rows.map(item=>{
                 item.linkurl = '/node/s/'+item.specialTopicId+'.html'
             })
-            console.log(JSON.stringify(results.list), 'results.list');
+            // console.log(JSON.stringify(results.list), 'results.list');
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []
