@@ -19,9 +19,16 @@ define(function (require, exports, module) {
             this.sortSelect();
         },
         selectMenu:function(){
-            $('.js-nav-menu').click(function(){
+            $('.js-nav-menu').click(function(event){
+                event.stopPropagation()
                 $(this).parent().toggleClass('selected');
                 $(this).find('i').toggleClass('rotate')
+            })
+            $('body').click(function(){
+                if($('.js-nav-menu').parent().hasClass('selected')) {
+                    $('.js-nav-menu').parent().removeClass('selected');
+                    $('.js-nav-menu').find('i').removeClass('rotate');
+                }
             })
         },
         pageOperate:function(){
