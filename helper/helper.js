@@ -111,7 +111,8 @@ module.exports = function(env){
         })
         //去掉标题格式
         .addFilter('delType',function(value){
-            return value.split('.')[0]
+            var index = value.lastIndexOf(".")
+            return value.substr(0,index)
         })
 
 }
