@@ -33,7 +33,8 @@
     <!-- 底部声明 -->
     {#% include "special/footer.html" %} #}
 
-    
+     <!-- 底部 start-->
+    {% include "common/new/footer.html" %}
 
     <!-- 右边固定提示导航 -->
 
@@ -56,13 +57,14 @@
         seajs.use(["dist/application/app.js", "dist/special/init.js"]);
     </script>
     <!-- 百度统计代码 -->
-    <script>
-    // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在  window.pageConfig上的含义,暂时单独添加
-    var _hmt = _hmt || []; //此变量百度统计需要
+ 
 
-    (function() {
+ <script>
+ // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在  window.pageConfig上的含义,暂时单独添加
+ var _hmt = _hmt || []; //此变量百度统计需要
 
-    var hm = document.createElement("script");
+(function() {
+  var hm = document.createElement("script");
 
     hm.src = "https://hm.baidu.com/hm.js?a0eac0413179b25b0ac75a7b6d2bd134";
 
@@ -73,8 +75,8 @@
     })();
 
     </script>
-    <!-- 底部 start-->
-    {% include "common/new/footer.html" %}
+
+
 <script>
 var _hmt = _hmt || [];
 (function() {
@@ -83,6 +85,18 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+
+ (function() {
+     var hm = document.createElement("script");
+
+     hm.src = "https://hm.baidu.com/hm.js?c86ddf23466c4042b5bc09c72141b42b";
+
+     var s = document.getElementsByTagName("script")[0];
+
+     s.parentNode.insertBefore(hm, s);
+
+ })();
+
 </script>
 </body>
 </html>
