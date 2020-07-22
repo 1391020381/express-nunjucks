@@ -7,6 +7,7 @@ window.development = development;
 typeof _head == "undefined" && (_head = '');
 
 seajs.config({
+    base: "./src/cmd-lib/lulu/theme/peak/js",
     paths: {
         'static': _head + '/',
         'style': _head + '/stylesheets',
