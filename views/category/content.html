@@ -1,5 +1,6 @@
 <div class="search-all-main">
 <div class="search-all-main-topbanner-container">
+    {% if results.topbannerList.length>1 %}
     <div class="search-all-main-topbanner">
         <ul class="swiper-container" id="J_categoty_banner">
             {% for item in results.topbannerList %}
@@ -21,6 +22,7 @@
         <a class="btn-banner btn-banner-next" id="J_categoty_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
         {% endif %#}
     </div>
+    {% endif %}
     <!-- <span class="close-swiper"></span> -->
 </div>
     <!--左边主体11-->
