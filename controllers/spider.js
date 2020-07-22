@@ -338,6 +338,11 @@ module.exports = {
              }
            }
            var brief = textString.substr(0,300);
+           if(brief.length>0){
+                brief = brief.replace(/\s+/g, "")
+                brief = brief.replace(/<\/?.+?>/g,""); 
+                brief = brief.replace(/[\r\n]/g, "");
+           }
            results.brief = brief
            results.seo = {};
            results.seo.description = description ||'';
