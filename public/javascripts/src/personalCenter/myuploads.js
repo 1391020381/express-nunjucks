@@ -90,10 +90,16 @@ define(function(require , exports , module){
             $('.myuploads-table-list #all').attr("checked", false)
         }
         var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
+        var  labelInputNum  = $(".myuploads-table-list .label-input")
         if(checkedNumber.length){
             $('.myuploads .myuploads-nums').text(checkedNumber.length  + '篇')
         }else{
             $('.myuploads .myuploads-nums').text(0 + '篇') 
+        }
+        if(checkedNumber.length == labelInputNum.length){
+            $('.myuploads-table-list #all').attr("checked", true)
+        }else{
+            $('.myuploads-table-list #all').attr("checked", false)
         }
     })
     $(document).on('click','.myuploads-table-list #all',function(event){ // 全选
@@ -106,6 +112,7 @@ define(function(require , exports , module){
             $('.myuploads-table-list .table-item').removeClass('table-item-active')
         }
         var checkedNumber = $('.myuploads-table-list input:checkbox:checked')
+        
         if(checkedNumber.length){
             $('.myuploads .myuploads-nums').text(checkedNumber.length-1+ '篇')
         }else{
@@ -116,25 +123,26 @@ define(function(require , exports , module){
     $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
         var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
         // var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
+        var idList = []
         var deleteType = $(this).attr('data-deleteType')
         console.log('isChecked:',isChecked)
-        if(isChecked && !deleteType){  // 单个删除   $(this).attr('data-id') 有值
+        if(!deleteType){  // 单个删除   $(this).attr('data-id') 有值
         idList.push($(this).attr('data-id'))
              $("#dialog-box").dialog({
-            html: $('#myuploads-delete-dialog').html()
+            html: $('#myuploads-delete-dialog').html().replace(/\$deleteNum/, 1)
         }).open();
         return 
         }
 
 
-        if(deleteType == 'deleteSome' && $(".myuploads-table-list input:checked").length > 0){  // 不一定是全部删除,是删除选中的
-            $(".myuploads-table-list input:checked").each(function(i){
+        if(deleteType == 'deleteSome' && $(".myuploads-table-list .label-input:checked").length > 0){  // 不一定是全部删除,是删除选中的
+            $(".myuploads-table-list .label-input:checked").each(function(i){
                 idList.push($(this).attr('id'))
             })
             console.log('idList:',idList)
             console.log('全部删除')
             $("#dialog-box").dialog({
-                html: $('#myuploads-delete-dialog').html()
+                html: $('#myuploads-delete-dialog').html().replace(/\$deleteNum/, idList.length)
             }).open();
             return
         }
