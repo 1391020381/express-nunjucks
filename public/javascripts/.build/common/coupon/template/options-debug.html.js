@@ -1,1 +1,0 @@
-define("dist/common/coupon/template/options-debug.html", [], "{{if data.length>0}}\n    {{each data as v i}}\n    <p class=\"select-ele\">{{v.type==1?'减':'打'}}{{v.type==1?v.couponAmount:v.discount}}{{ v.type==1?'元':'折'}}<span class=\"time-text\">（{{v.timeval}}有效）</span></p>\n    {{/each}}\n    <p class=\"select-ele\"><span class=\"no-user\">不使用优惠券</span></p>\n{{/if}}");
