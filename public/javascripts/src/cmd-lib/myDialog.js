@@ -51,6 +51,7 @@ define(function(require, exports, module) {
                 onCannel : false,   //onCannel callback
                 getContent : false,  //getContent callback
                 zIndex:common.zIndex,
+                closeOnClickModal:true,
                 getZindex: function(){return common.zIndex+=100;},
                 mask_tpl : '<div class="dialog-mask" data-page="mask" style="z-index:'+common.zIndex+';"></div>',
             },
@@ -124,8 +125,10 @@ define(function(require, exports, module) {
                 });
 
                 $(document).delegate('[data-page="mask"]','click',function(e){
-                    e && e.preventDefault();
-                    that.close(that.options.onClose)
+                    if(that.options.closeOnClickModal){
+                        e && e.preventDefault();
+                        that.close(that.options.onClose)
+                    }
                 })
 
                 this.element.delegate('.cannel','click',function(e){
