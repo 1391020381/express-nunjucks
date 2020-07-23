@@ -7,8 +7,14 @@ let routes = [
     'special',
     'upload',
     'feedback',
+    'personalCenter',
+    'userInfo',
     '503',
-    '404'
+    '404',
+    'start',
+    'category',
+    'authentication',
+    'earth'
 ];
 
 module.exports = routes;

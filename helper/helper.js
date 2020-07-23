@@ -109,6 +109,15 @@ module.exports = function(env){
             }
             return value;
         })
+        //去掉标题格式
+        .addFilter('delType',function(value){
+            var index = value.lastIndexOf(".");
+            if(index !=-1) {
+                return value.substr(0,index)
+            }else{
+                return value
+            } 
+        })
 
 }
 

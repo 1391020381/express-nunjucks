@@ -1,0 +1,108 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+@import "../less-public/_less_css3";
+.earth-width {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.earth-content {
+    .cloumn-name{
+        font-size:16px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:#333333;
+        line-height:52px;
+        span {
+            margin-right: 28px;
+        }
+    }
+    .word-nav{
+        margin-top: 20px;
+        ul{
+            border-radius:3px 0px 0px 3px;
+            overflow: hidden;
+            li{
+                width:36px;
+                height:28px;
+                text-align: center;
+                line-height: 28px;
+                font-size:14px;
+                float: left;
+                margin-right: -1px;
+                border: 1px solid #E8E8E8;
+                a {
+                    display: block;
+                    width:36px;
+                    height:28px;
+                }
+                &.active {
+                    background-color: #F25126;
+                    a {
+                        color: #ffffff;
+                    }
+                }
+                &.special-item{
+                    border-radius:0px 3px 3px 0px;
+                }
+            }
+        }
+    }
+    .file-list {
+        margin-top: 20px;
+        min-height: 390px;
+        ul{
+            overflow: hidden;
+            padding-left: 20px;
+            li{
+                width: 357px;
+                height: 27px;
+                line-height: 27px;
+                float: left;
+                a {
+                    display: block;
+                    width: 214px;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                }
+                &:nth-child(3n) {
+                    width: 214px;
+                }
+            }
+            
+        }
+    }
+    .page-con{
+        margin-top: 20px;
+        ul{
+            border-radius:3px 0px 0px 3px;
+            overflow: hidden;
+            li{
+                width:26px;
+                height:26px;
+                text-align: center;
+                line-height: 28px;
+                font-size:14px;
+                float: left;
+                margin-right: 5px;
+                margin-top: 6px;
+                border: 1px solid #E8E8E8;
+                a {
+                    display: block;
+                    width:26px;
+                    height:26px;
+                }
+                &.active {
+                    background-color: #F25126;
+                    a {
+                        color: #ffffff;
+                    }
+                }
+                &.special-item{
+                    border-radius:0px 3px 3px 0px;
+                }
+            }
+        }
+    }
+}

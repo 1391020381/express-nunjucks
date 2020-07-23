@@ -18,7 +18,8 @@ class specialModule{
            listData:'',  //列表数据
            specialTopic:'',
            tdkData:'',
-           specialList:[] //分类及属性  
+           specialList:[], //分类及属性
+           recommendList:'' 
        }
        this.render();
     }
@@ -97,6 +98,27 @@ class specialModule{
                
 
             },
+            specialTopic:async ()=> {
+                let { req,res,detail }=this.state;
+                req.body = {
+                    currentPage:1,
+                    pageSize:30,
+                    name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
+                }
+                let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
+                this.state.specialTopic = specialData.data && specialData.data.rows || [];
+                console.warn(this.state.specialTopic,'热点数据')
+            },
+            recommendList:async()=>{ //推荐列表  包含banner 专题 word ppt exl
+                let {req,res}= this.state;
+                req.body = [util.pageIds.special.friendLink]
+              let  recommendList= await server.$http(appConfig.apiNewBaselPath+api.index.recommendList, 'post', req,res);
+              recommendList.data && recommendList.data.map(item=>{
+                    // 友情链接
+                    this.state.recommendList = util.dealHref(item).list || [];
+            })
+               console.log('this.state.recommendList:',JSON.stringify(this.state.recommendList))
+            },
         }
     }
     finishResults(){
@@ -162,7 +184,6 @@ class specialModule{
          if (listData.data && listData.data.totalPages < 20) {
              pageIndexArr.length = listData.data.totalPages;
          }
-
         let canonicalUrl=paramsObj.currentPage>1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
         _.set(this.state.listData,'data.tdk',this.state.tdkData)
         let results={
@@ -180,7 +201,8 @@ class specialModule{
             uid:this.state.uid,
             tdk:{
                 canonicalUrl:canonicalUrl
-            }
+            }, 
+            friendLink:this.state.recommendList
         };
         console.warn(results,'results')
     render("special/index", results, this.state.req, this.state.res);  

@@ -1,4 +1,96 @@
 module.exports = {
+    pageIds:{  //推荐位id
+        index:{ //首页
+            ub:'PC_M_H_banner', //顶部banner
+            zt:'PC_M_H_zhuanti', //专题推荐
+            viprelevant:'PC_M_H_vipzhuanqu',//首页VIP专区
+            recfile1:'PC_M_H_bjtj1',//首页精选资料-编辑推荐1
+            recfile2:'PC_M_H_bjtj2',//首页精选资料-编辑推荐2
+            recfile3:'PC_M_H_bjtj3',//首页精选资料-编辑推荐3
+            recfile4:'PC_M_H_bjtj4',//首页精选资料-编辑推荐4
+            recfile5:'PC_M_H_bjtj5',//首页精选资料-编辑推荐5
+            organize:'PC_M_H_qwjg', // 首页权威机构
+            hotSearchWord:'PC_M_H_rmss', //热门搜索词
+            friendLink:'PC_M_H_yqlj' //友情链接
+        },
+        categoryPage:{ //分类页
+            topbanner_1816:'PC_M_FC_all_1816_topbanner',//顶部banner图
+            topbanner_1820:'PC_M_FC_all_1820_topbanner',//顶部banner图
+            topbanner_1821:'PC_M_FC_all_1821_topbanner',//顶部banner图
+            topbanner_1818:'PC_M_FC_all_1818_topbanner',//顶部banner图
+            topbanner_1819:'PC_M_FC_all_1819_topbanner',//顶部banner图
+            rightbanner_1816:'PC_M_FC_all_1816_rightbanner',//分类页-右侧banner
+            rightbanner_1820:'PC_M_FC_all_1820_rightbanner',//分类页-右侧banner
+            rightbanner_1821:'PC_M_FC_all_1821_rightbanner',//分类页-右侧banner
+            rightbanner_1818:'PC_M_FC_all_1818_rightbanner',//分类页-右侧banner
+            rightbanner_1819:'PC_M_FC_all_1819_rightbanner',//分类页-右侧banner
+            zhuanti_1816:'PC_M_FC_all_1816_zhuanti',//分类页-右侧专题
+            zhuanti_1820:'PC_M_FC_all_1820_zhuanti',//分类页-右侧专题
+            zhuanti_1821:'PC_M_FC_all_1821_zhuanti',//分类页-右侧专题
+            zhuanti_1818:'PC_M_FC_all_1818_zhuanti',//分类页-右侧专题
+            zhuanti_1819:'PC_M_FC_all_1819_zhuanti',//分类页-右侧专题
+            friendLink:'PC_M_FC_yqlj' //友情链接
+        },
+        special:{
+            friendLink:'PC_M_SS_ZT_yqlj'
+        }
+    },
+    paradigm4Relevant:function(fid,uid,title,sceneID,callback){  //第四范式
+        var requestID = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+        // 办公频道 非私密
+        let userID = uid.slice(0, 10) || ''; //来标注用户的ID，
+        var opt = {
+            url: `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID}&sceneID=${sceneID}&userID=${userID}`,
+            method: 'POST',
+            body: JSON.stringify({ "itemID": fid, "itemTitle": title })
+        }
+        request(opt, function (err, res, body) {
+            if (body) {
+                try {
+                    var data = JSON.parse(body);
+                    data.requestId = requestID;
+                    data.userId = userID;
+                    callback(null, data);
+                } catch (err) {
+                    callback(null, null);
+                    console.log("err=---------------", err)
+                }
+            } else {
+                callback(null, null);
+            }
+        })
+    },
+    dealParam:function(format,firstCage,secondCage){//处理详情推荐位参数
+        let obj={
+            ub:['PC_O_H_'+format+'_'+secondCage+'_ub','PC_O_H_'+format+'_'+firstCage+'_ub','PC_O_H_all_'+secondCage+'_ub','PC_O_H_all_'+firstCage+'_ub'],
+            rb:['PC_O_H_'+format+'_'+secondCage+'_rb','PC_O_H_'+format+'_'+firstCage+'_rb','PC_O_H_all_'+secondCage+'_rb','PC_O_H_all_'+firstCage+'_rb'],
+            xfb:['PC_O_H_'+format+'_'+secondCage+'_xfb','PC_O_H_'+format+'_'+firstCage+'_xfb','PC_O_H_all_'+secondCage+'_xfb','PC_O_H_all_'+firstCage+'_xfb'],
+        }
+        return obj    
+    },
+    dealHref:function(item){  //处理推荐位的链接
+        if(item.list&&item.list.length){
+            item.list.map(res=>{
+                if(res.type==1){  //资料
+                    res.linkUrl='/f/'+res.tprId + '.html';
+                }else if(res.type==2){ //链接
+                }else if(res.type==3){ //专题
+                    res.linkUrl='/node/s/'+res.tprId +'.html';
+                }
+            })
+            return item
+        }else{
+            return []
+        }
+       
+    },
+    isIe9:function(useragent){
+        if(parseInt(useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9){
+            return true
+        }else{
+            return false 
+        }
+    },
     browserVersion: function (userAgent) {
         var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
         var isIE = userAgent.indexOf("compatible") > -1
@@ -147,8 +239,8 @@ module.exports = {
     getPropertyParams:function(list,properList){
 
         var arr=[],result=[];
-        console.log(list,'list------------')
-        console.log(properList,'properList------------')
+      //  console.log(list,'list------------')
+     //   console.log(properList,'properList------------')
         properList.map(item=>{
            item.specialTopicPropertyDOList.map(res=>{
                res.ids=item.propertyGroupId+"_"+res.propertyId;
@@ -186,7 +278,6 @@ module.exports = {
             }
             arr.push(temp)
         })
-        console.log(arr)
         return {list:arr}
     }
    

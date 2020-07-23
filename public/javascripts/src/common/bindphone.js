@@ -347,5 +347,7 @@ define(function (require, exports, moudle) {
             res.bizState(res.appid, res.randstr, res.ticket, 1);
         }
     }
-
+    return {
+        showCaptcha:showCaptcha
+    }
 });

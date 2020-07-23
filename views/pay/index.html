@@ -29,13 +29,13 @@
     <input type="hidden" id="ip-type" value="{{results.type}}">
 
     {% include "common/dialog.html" %}
-    {% include "pay/topbar.html" %}
+    {# {% include "pay/topbar.html" %} #}
 
-    {% if results.flag != 4%}
+    {# {% if results.flag != 4%}
         {% include "pay/header.html" %}
-    {% endif %}
+    {% endif %} #}
 
-
+{% include "common/websiteHeaderbar.html" %}
     {% if results.flag === 'true' %}
         {% include "pay/success.html" %}
     {% elif results.flag === 'false'%}
@@ -53,7 +53,9 @@
     {% endif %}
 
     {# {% include "pay/footer.html" %} #}
-    {% include "../common/footer.html" %}
+    {# {% include "../common/footer.html" %} #}
+        <!-- 底部 start-->
+{% include "common/new/footer.html" %}
     {% include "common/js.html" %}
 
     <script type="text/javascript">

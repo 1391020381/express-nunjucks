@@ -4,12 +4,17 @@ define(function (require, exports, moudle) {
     var api = require('../application/api');
     require('swiper');
    var clickEvent = require('../common/bilog').clickEvent
+    cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
+   if(cond){
+    cond = cond.length>12?cond.slice(0,12) + '...':cond
+}
+$('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招')
     //页面级埋点
-    var gioPageSet = require('../common/gioPageSet');
+   // var gioPageSet = require('../common/gioPageSet');
 
-    gioReport();
+  //  gioReport();
 
-    setInputValue();
+ //   setInputValue();
 
    // gebyPosition();
 
@@ -19,7 +24,7 @@ define(function (require, exports, moudle) {
 
     sort();
 
-    headerFixed();
+   // headerFixed();
 
     relatedSearchClick();
 
@@ -31,13 +36,13 @@ define(function (require, exports, moudle) {
     };
 
     // gio 埋点上报 页面级
-    function gioReport() {
-        var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
+    // function gioReport() {
+    //     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
 
-        gioPageSet.gioPageSet({
-            searchContent_pvar: cond    // 搜索关键词
-        })
-    }
+    //     gioPageSet.gioPageSet({
+    //         searchContent_pvar: cond    // 搜索关键词
+    //     })
+    // }
 
     //获取运营位广告数据
     // function gebyPosition() {
@@ -74,8 +79,10 @@ define(function (require, exports, moudle) {
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
     function setInputValue() {
-        var sconditionInput = $('#scondition');
-        var searchBtn = $('#searchBtn');
+        // var sconditionInput = $('#scondition');
+        var sconditionInput   = $('.new-input')
+        // var searchBtn = $('#searchBtn');
+        var searchBtn = $('.btn-new-search')
         //点击搜索按钮时
         searchBtn.on('click', function () {
             var inputValue = sconditionInput.val().trim() || '';
@@ -164,7 +171,7 @@ define(function (require, exports, moudle) {
     // 页面滚动头部搜索固定
     function headerFixed() {
         var element = $('.header-box');
-        var top = $(element).offset().top;
+        var top = $(element).offset()&&$(element).offset().top;
         $(window).on('scroll', function () {
             var p = $(window).scrollTop();
             $(element).css('position', (p > top) ? 'fixed' : 'static');

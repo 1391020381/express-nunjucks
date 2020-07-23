@@ -87,8 +87,17 @@ define(function (require, exports, module) {
         if (new RegExp('/f/').test(referrer)
             && !new RegExp('referrer=').test(referrer)
             && !new RegExp('/f/down').test(referrer)) {
-            initData.prePageID = 'PC-M-FD';
-            initData.prePageName = '资料详情页';
+            var statuCode = $('.ip-page-statusCode')
+            if(statuCode == '404'){
+                initData.prePageID = 'PC-M-404'; 
+                initData.prePageName = '资料被删除';
+            }else if(statuCode == '302'){
+                initData.prePageID = 'PC-M-FSM'; 
+                initData.prePageName = '资料私有';
+            } else{
+                initData.prePageID = 'PC-M-FD';
+                initData.prePageName = '资料详情页';
+            } 
         } else if (new RegExp('/pay/payConfirm.html').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-F-L';
             initData.prePageName = '支付页-付费资料-列表页';
@@ -127,6 +136,39 @@ define(function (require, exports, module) {
         }else if (new RegExp('/search/home.html').test(referrer)) {
             initData.prePageID = 'PC-M-SR';
             initData.prePageName = '搜索关键词';
+        }else if(new RegExp('/node/404.html').test(referrer)){
+            initData.prePageID = 'PC-M-404';
+            initData.prePageName = '404错误页';
+        }else if(new RegExp('/node/503.html').test(referrer)){
+            initData.prePageID = 'PC-M-500';
+            initData.prePageName = '500错误页';
+        }else if(new RegExp('/node/personalCenter/home.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER';
+            initData.prePageName = '个人中心-首页';
+        }else if(new RegExp('/node/personalCenter/myuploads.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MU';
+            initData.prePageName = '个人中心-我的上传页';
+        }else if(new RegExp('/node/personalCenter/mycollection.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-CL';
+            initData.prePageName = '个人中心-我的收藏页';
+        }else if(new RegExp('/node/personalCenter/mydownloads.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MD';
+            initData.prePageName = '个人中心-我的下载页';
+        }else if(new RegExp('/node/personalCenter/vip.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-VIP';
+            initData.prePageName = '个人中心-我的VIP';
+        }else if(new RegExp('/node/personalCenter/mycoupon.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-MS';
+            initData.prePageName = '个人中心-我的优惠券页';
+        }else if(new RegExp('/node/personalCenter/accountsecurity.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ATM';
+            initData.prePageName = '个人中心-账号与安全页';
+        }else if(new RegExp('/node/personalCenter/personalinformation.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ATF';
+            initData.prePageName = '个人中心-个人信息页';
+        }else if(new RegExp('/node/personalCenter/myorder.html').test(referrer)){
+            initData.prePageID = 'PC-M-USER-ORD';
+            initData.prePageName = '个人中心-我的订单';
         }
     }
 
@@ -168,7 +210,7 @@ define(function (require, exports, module) {
     // 埋点上报 请求
     function push(params) {
         setTimeout(function () {
-            console.log(params);
+            console.log(params,'页面上报');
             $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function (data) {
                 console.log(data);
             });
@@ -209,11 +251,9 @@ define(function (require, exports, module) {
         commonData.pageID = $("#ip-page-id").val() || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
-        
-        var utm_source = method.getParam('utm_source');
-        var utm_medium = method.getParam('utm_campaign');
-        var utm_term = method.getParam('utm_campaign');
-        $.extend(customData, {utm_source:utm_source,utm_medium:utm_medium,utm_term:utm_term});
+        var searchEngine = getSearchEngine()
+        var source = getSource(searchEngine)
+        $.extend(customData, {source:source,searchEngine:searchEngine});
         handle(commonData, customData);
     }
     //详情页
@@ -240,7 +280,10 @@ define(function (require, exports, module) {
             customData.fileCooType = '360wenku';
             method.setCookieWithExp('bc', '360wenku', 30 * 60 * 1000, '/');
         }
-
+        if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)) {
+            customData.fileCooType = '360wenku';
+            method.setCookieWithExp('bc', '360wenku', 30 * 60 * 1000, '/');
+        }
         var commonData = JSON.parse(JSON.stringify(initData));
         setPreInfo(document.referrer, commonData);
         commonData.eventType = 'page';
@@ -322,6 +365,8 @@ define(function (require, exports, module) {
         setPreInfo(document.referrer, commonData);
         commonData.pageID = 'PC-M-SR' || '';
         commonData.pageName = $("#ip-page-name").val() || '';
+        customData.keyWords = $('.new-input').val()||$('.new-input').attr('placeholder')
+       
         commonData.pageURL = window.location.href;
         handle(commonData, customData);
     }
@@ -509,8 +554,8 @@ define(function (require, exports, module) {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailMiddleOpenVipPr', '资料详情页中部开通vip，享更多特权', customData);
             } else if (cnt == 'fileDetailBottomOpenVipPr') {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailBottomOpenVipPr', '资料详情页底部开通vip，享更多特权', customData);
-            } else if (cnt == 'fileDetailComment') {
-                clickCenter('SE006', 'fileDetailCommentClick', 'fileDetailComment', '资料详情页评论', customData);
+            } else if (cnt == 'fileDetailComment') { // 详情评论功能已下架
+                // clickCenter('SE006', 'fileDetailCommentClick', 'fileDetailComment', '资料详情页评论', customData);
             } else if (cnt == 'fileDetailScore') {
                 var score = that.find(".on:last").text();
                 customData.fileScore = score ? score : '';
@@ -562,7 +607,7 @@ define(function (require, exports, module) {
             customData = {
                 fileID: that.attr('data-fileId'),
                 fileName: that.attr('data-fileName'),
-                keyWords:$('#scondition').val()
+                keyWords:$('.new-input').val()||$('.new-input').attr('placeholder')
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
         }
@@ -595,7 +640,7 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
         }else if(cnt =='viewExposure'){
             customData.moduleID = moduleID
-            clickCenter('SE006', 'modelView', '', '', customData);
+            clickCenter('NE006', 'modelView', '', '', customData);
         }else if(cnt == 'similarFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,
@@ -606,6 +651,13 @@ define(function (require, exports, module) {
             }
             clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
         }else if(cnt =='underSimilarFileClick'){
+            customData={
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            }
             clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
         }else if(cnt == 'downSucSimilarFileClick'){
             clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
@@ -633,7 +685,43 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData); 
         }
     }
-    
+    function getSearchEngine(){
+        // baidu：百度
+        // google:谷歌
+        // 360:360搜索
+        // sougou:搜狗
+        // shenma:神马搜索
+        // bing:必应
+        var referrer = document.referrer;
+        var res = "";
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) { 
+            res = '360';
+        } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+            res = 'baidu';
+        } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+            res = 'sogou';
+        } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+            res = 'sm';
+        }else if(/https?\:\/\/[^\s]*google.com.*$/g.test(referrer)){
+            res = 'google';
+        } else if(/https?\:\/\/[^\s]*bing.com.*$/g.test(referrer)){
+            res = 'bing';
+        } 
+        return res;
+    }
+    function getSource(searchEngine){
+        var referrer = document.referrer;
+        var orgigin = location.origin
+        var source = ''
+        if(searchEngine){ //搜索引擎
+            source = 'searchEngine'
+        }else if(referrer&&referrer.indexOf(orgigin)!==-1){ // 正常访问
+           source = 'vist'
+        }else {
+            source = 'outLink'
+        }
+        return source
+    }
     module.exports = {
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)

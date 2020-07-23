@@ -211,7 +211,7 @@ define(function (require, exports, module) {
         var ref = utils.getPageRef(fid);      //用户来源
         var params = '?fid=' + fid + '&ref=' + ref;
         if (mark === 'vip' || mark === 'default') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // window.open('/pay/vip.html' + params);
             // method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (mark === 'privilege') {
@@ -265,14 +265,14 @@ define(function (require, exports, module) {
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.weiboImage);
-        $top_user_more.find('img').attr('src', data.weiboImage);
+        $hasLogin.find('img').attr('src', data.photoPicURL);
+        $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
         //右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.weiboImage);
+        $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip == '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';

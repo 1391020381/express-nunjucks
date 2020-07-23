@@ -722,7 +722,7 @@ define(function (require, exports, module) {
                                 var showName = anonymous ? '匿名用户' : nickName;
                                 var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + '</a>' : '<a href="/n/' + userId + '.html" class="user-name-con">' + showName + '</a>';
                                 $('.evaluate-list').prepend('<li class="cf">' +
-                                    '<div class="user-img fl"><img src="' + common.userData.weiboImage + '" alt="头像"></div>' +
+                                    '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' +
                                     '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content +
                                     '</p></div></li>');
                                 $('#commentTxt').val('');
@@ -774,7 +774,7 @@ define(function (require, exports, module) {
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // window.open("/pay/vip.html" + params);
             method.compatibleIESkip('/pay/vip.html' + params,true);

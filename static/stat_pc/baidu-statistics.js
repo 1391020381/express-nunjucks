@@ -8,7 +8,7 @@
             try {
                 (function () {
                     var hm = document.createElement("script");
-                    hm.src = "//hm.baidu.com/hm.js?" + id;
+                    hm.src = "https://hm.baidu.com/hm.js?" + id;
                     var s = document.getElementsByTagName("script")[0];
                     s.parentNode.insertBefore(hm, s);
                 })();
@@ -38,6 +38,11 @@
     // if (bdHref.indexOf("/f/")>-1) {
     //     handle('804df340e392ac0a0dcf0809c9b894ba');
     // }
+
+    var pid = $("#ip-page-id").val();
+    if ('PC-M-FD' == pid){
+        handle('804df340e392ac0a0dcf0809c9b894ba'); 
+    }
 
     if (ftype=='vipfree'||ftype=='volume'||ftype=='free'){//广告专用代码文统计代码
         if(pageConfig.params&&pageConfig.params.fileAttr=="1"){

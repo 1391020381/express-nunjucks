@@ -1,0 +1,30 @@
+<div class="account-security">
+    <p class="account-security-title">账号与安全</p>
+    <ul class="account-security-list">
+        <li class="item">
+           {{ if userBindInfo.mobile}}
+                <span class="item-icon fl"></span>
+                <span class="item-status fl">已绑定</span>
+                <span class="item-bindaccount fl">{{userBindInfo.mobile}}</span>
+                <span class="item-btn fr item-btn-active" data-btnOperation='modifyPhoneNumber'>修改手机号</span>
+           {{else}}
+                <span class="item-icon fl"></span>
+                <span class="item-status fl">手机号</span>
+                <span class="item-btn fr item-btn-active" data-btnOperation='bindPhoneNumber'>立即绑定</span>
+
+           {{/if}}
+            
+        </li>
+         <li class="item">
+            {{ if userBindInfo.isSetPassword == 1}}
+                    <span class="item-icon fl"></span>
+                    <span class="item-status fl">账号密码</span>
+                   <span class="item-btn fr"  data-btnOperation='changePassword'>修改密码</span>
+            {{else}}
+                    <span class="item-icon fl"></span>
+                    <span class="item-status fl">账号密码</span>
+                   <span class="item-btn fr item-btn-active" data-btnOperation='setPassword'>设置密码</span>
+            {{/if}}
+        </li>
+    </ul>
+</div>

@@ -263,7 +263,39 @@ define(function(require, exports, module) {
             }
 
             return Sys.browser+"/"+Sys.ver;
-       }
+       },
+       timeFormat: function (style, time) {
+        if (!time) return '';
+        var d = new Date(time);
+        var year = d.getFullYear();       //年
+        var month = d.getMonth() + 1;     //月
+        var day = d.getDate();            //日
+        var hh = d.getHours();            //时
+        var mm = d.getMinutes();          //分
+        var ss = d.getSeconds();          //秒
+        var clock = year + "-";
+        if (month < 10) {
+            month += '0';
+        }
+        if (day < 10) {
+            day += '0';
+        }
+        if (hh < 10) {
+            hh += '0';
+        }
+        if (mm < 10) {
+            mm += '0';
+        }
+
+        if (ss < 10) {
+            ss += '0';
+        }
+        if (style === 'yyyy-mm-dd') {
+            return year + '-' + month + '-' + day;
+        }
+        // yyyy-mm-dd HH:mm:ss
+        return year + '-' + month + '-' + day + ' ' + hh + ':' + mm + ':' + ss;
+    }
     }
     //return utils;
     module.exports = utils;

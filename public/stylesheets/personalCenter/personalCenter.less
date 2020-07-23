@@ -1,0 +1,261 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+@import "./home";
+@import "./collectionAnddownLoad";
+@import "./myuploads";
+@import "./myvip";
+@import "./myorder";
+@import "./mycoupon";
+@import "./accountsecurity";
+@import "./personalinformation";
+@import "./dialog";
+.personal-center-content{
+    display: table;
+    margin-top:20px;
+    .personal-center-menu{
+       display: table-cell;
+        background: #ffffff;
+        border-radius: 4px;
+        .personal-profile{
+            width: 240px;
+            padding-top: 48px;
+            text-align: center;
+            .personal-img{
+                display: inline-block;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+            }
+            .personal-nickname{
+                margin-top:10px;
+                font-size: 16px;
+                color: #222222;
+                font-weight:bold;
+                .nickname{
+                    display: inline-block;
+                    width: 96px;
+                    .text-ellipsis();
+                }
+                .level-icon{
+                    display: inline-block;
+                    width: 19px;
+                    height: 17px;
+                    background: url("../../images/personalCenter/home-vip.png") no-repeat center;
+                    background-size: 100%;
+                }
+            }
+            .personal-isAuth{
+                margin-top:10px;
+                .auth-desc{
+                  display: inline-block;
+                  width: 61px;
+                  font-size: 12px;
+                  font-weight: 400;
+                  color: #9b7638;
+                  line-height: 17px;
+                  border: 1px solid #af8f5b;
+                  border-radius: 7px;
+                }
+            }
+            .personal-id{
+                margin-top:16px;
+                margin-bottom: 52px;
+                font-size: 12px;
+                color: #000033;
+                vertical-align: middle;
+                line-height: 24px;
+                .id{
+                    width: 130px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    .text-ellipsis();
+                }
+                .copy{
+                   margin-left: 8px;
+                   padding: 4px 10px;
+                   background: #ebebeb;
+                   border-radius: 6px;
+                   vertical-align: middle;
+                   cursor: pointer;
+                }
+            }
+        }
+        .personal-menu{
+            width: 240px;
+            margin-bottom: 190px;
+            .menus{
+                box-sizing: border-box;
+                .menus-desc{
+                    margin-left:30px;
+                    height: 40px;
+                    line-height: 40px;
+                    color: #222222;
+                    font-weight: bold;
+                    cursor: pointer;
+                    .menus-icon{
+                        display: inline-block;
+                        margin-right: 10px;
+                        // width: 16px;
+                        // height: 16px;
+                        vertical-align: middle;
+                    }
+                    .menus-text{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    .menu-arrow{
+                        display: inline-block;
+                        margin-left: 86px;
+                        width: 11px;
+                        height: 6px;
+                        background: url("../../images/personalCenter/menu-arrow.png") no-repeat center;
+                        background-size: 100%;
+                    }
+                }
+                .menu{
+                    height: 40px;
+                    line-height: 40px; 
+                    padding-left:60px;
+                    box-sizing: border-box;
+                }
+                .menu-link{
+                    display: block;
+                    width: 100%;
+                    color: #222222;
+                    cursor: pointer;
+                }
+            }
+            .home-icon{
+                width: 17px;
+                height: 16px;
+                background: url("../../images/personalCenter/home-icon.png") no-repeat center;
+                background-size:100%;
+            }
+            .data-icon{ // data-icon.png
+                width: 14px;
+                height: 17px;
+                background: url("../../images/personalCenter/data-icon.png") no-repeat center;
+                background-size:100%;
+            }
+            .myvip-icon{
+               width: 16px;
+               height: 14px;
+               background: url("../../images/personalCenter/myvip-icon.png") no-repeat center;
+               background-size:100%; 
+            }
+            .myaccount-icon{ // myaccount-icon.png
+                width: 16px;
+                height: 16px;
+                background: url("../../images/personalCenter/myaccount-icon.png") no-repeat center;
+                background-size:100%; 
+            }
+            .mywallet-icon{ // mywallet-icon.png
+                width: 16px;
+                height: 14px;
+                background: url("../../images/personalCenter/mywallet-icon.png") no-repeat center;
+                background-size:100%; 
+                
+            }
+            .active-menus{
+                position: relative;
+                background: #F5F5F5;
+                &::after{
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    content: '';
+                    width:2px;
+                    height:40px;
+                    background:rgba(242,81,37,1);
+                }
+            }
+        }
+    }
+    .content-main-left{
+        width: 20px;
+    }
+    .content-main{
+        display: table-cell;
+        width: 940px;
+        border-radius: 4px;
+        vertical-align: top;
+        position: relative;
+        .personal-center-mycollection{
+            
+        }
+       
+        .empty-data{
+            position: absolute;
+            left:50%;
+            top:226px;
+            margin-left:-45px;
+            text-align: center;
+            .empty-img{
+                display: inline-block;
+                width: 90px;
+                height: 90px;
+            }
+            .empty-desc{
+                font-size: 16px;
+                color: #444444;
+            }
+        }
+        .mycoupon-empty-data{
+
+        }
+    }
+    .content-main-mycollection{
+        background: #ffffff;
+    }
+    .pagination-wrapper{
+        margin-top:50px;
+        margin-bottom:50px;
+        text-align: center;
+        .pagination{
+            margin: 0 auto;
+            display: inline-block;
+            // margin-left: 155px;
+            .cf();
+            .page-item{
+                float: left;
+                margin-right: 8px;
+                height: 30px;
+                line-height: 30px;
+                padding:0 11px;
+                color: #555555;
+                background:rgba(255,255,255,1);
+                border:1px solid rgba(230, 230, 230, 1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .first,.prev,.next,.last{
+                padding: 0 17px;
+            }
+            .active{
+                background: #F25125;
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+    .td-text{
+        color:#888888;
+    }
+    .td-head-text{
+        color: #222222;
+    }
+    .td-status-color{
+        color: #F25125;
+    }
+    .td-bold{
+        font-weight: bold;
+    }
+}
+
+
+
+
+
+    

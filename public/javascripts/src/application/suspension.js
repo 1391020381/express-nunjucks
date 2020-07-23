@@ -16,7 +16,7 @@ define(function (require, exports, module) {
 
         function fixAn(start, index,$this) {
             index = index || 0;
-            if (start && (index === 1 || index === 2)) {
+            if (start && (index === 1)) { // index === 1 || index === 2
                 if (method.getCookie('cuk')) {
                     rightSlideShow(index);
                     $anWrap.animate({ "right": "61px" }, 500);
@@ -35,19 +35,22 @@ define(function (require, exports, module) {
                 if (method.getCookie('cuk')) {
                     window.open('/node/rights/vip.html','target');
                 } else {
-                    login.notifyLoginInterface(function (data) {
-                        refreshDomTree(null, index, data);
-                        window.open('/node/rights/vip.html','target');
-                    });
+                    // login.notifyLoginInterface(function (data) {
+                    //     refreshDomTree(null, index, data);
+                    //     window.open('/node/rights/vip.html','target');
+                    // });
+                    window.open('/node/rights/vip.html','target');
                 }
             } else if (index === 1) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "visible");
-                $(".mui-collect-wrap").css("visibility", "hidden");
+             //   $(".mui-collect-wrap").css("visibility", "hidden");
             } else if (index === 2) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "hidden");
-                $(".mui-collect-wrap").css("visibility", "visible");
+              //  $(".mui-collect-wrap").css("visibility", "visible");
+              method.compatibleIESkip('/node/upload.html',true);
+
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }
@@ -129,14 +132,14 @@ define(function (require, exports, module) {
         }
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.weiboImage);
-        $top_user_more.find('img').attr('src', data.weiboImage);
+        $hasLogin.find('img').attr('src', data.photoPicURL);
+        $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
         //右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.weiboImage);
+        $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip == '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';
@@ -166,43 +169,93 @@ define(function (require, exports, module) {
      * 我看过的
      */
     function accessList() {
-        var accessKey = method.keyMap.ishare_detail_access;
-        var list = method.getLocalData(accessKey);
-        var $seenRecord = $('#seenRecord'), arr = [];
-        if (list && list.length) {
-            list = list.slice(0, 20);
-            for (var k = 0; k < list.length; k++) {
-                var item = list[k];
-                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + '</a></li>';
-                arr.push($li)
-            }
-            $seenRecord.html(arr.join(''));
-        } else {
-            $seenRecord.hide().siblings('.mui-data-null').show();
-        }
+        // var accessKey = method.keyMap.ishare_detail_access;
+        // var list = method.getLocalData(accessKey);
+        getFileBrowsePage()
     }
 
     /**
      * 我的收藏
      */
-    function myCollect() {
+    // function myCollect() {
+    //     var params = {
+    //         pageNum: 1,
+    //         pageSize: 20
+    //     };
+    //     $.ajax(api.user.collect, {
+    //         type: "get",
+    //         async: false,
+    //         data: params,
+    //         dataType: "json"
+    //     }).done(function (res) {
+    //         if (res.code == 0) {
+    //             collectRender(res.data)
+    //         }
+    //     }).fail(function (e) {
+    //         console.log("error===" + e);
+    //     })
+    // }
+
+    //新的我的收藏列表
+    function myCollect() { // 右侧栏的我的收藏下架
         var params = {
-            pageNum: 1,
-            pageSize: 20
+            pageNumber: 1,
+            pageSize: 20,
+            sidx:0,
+            order:-1
         };
-        $.ajax(api.user.collect, {
+        $.ajax(api.user.newCollect, {
             type: "get",
             async: false,
             data: params,
             dataType: "json"
         }).done(function (res) {
             if (res.code == 0) {
-                collectRender(res.data)
+                collectRender(res.data.rows)
             }
         }).fail(function (e) {
             console.log("error===" + e);
         })
     }
+
+    function getFileBrowsePage(){  // 查询个人收藏列表
+       $.ajax({
+        url: api.user.getFileBrowsePage,
+        type: "POST",
+        data: JSON.stringify({
+            currentPage:1,
+            pageSize:20
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+          success: function (res) {
+             if(res.code == '0'){
+                  console.log('getUserFileList:',res)
+                 var list = res.data&&res.data.rows ||[]     
+                 var $seenRecord = $('#seenRecord'), arr = [];
+                 if (list && list.length) {
+                    list = list.slice(0, 20);
+                    for (var k = 0; k < list.length; k++) {
+                        var item = list[k];
+                        var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileid + '.html">' + item.name + '</a></li>';
+                        arr.push($li)
+                    }
+                    $seenRecord.html(arr.join(''));
+                } else {
+                    $seenRecord.hide().siblings('.mui-data-null').show();
+                }             
+             }else{
+                var $seenRecord = $('#seenRecord')
+                $seenRecord.hide().siblings('.mui-data-null').show();
+               console.log(res.msg)
+             }
+          },
+          error:function(error){
+              console.log('getUserFileList:',error)
+          }
+      })
+      }
+
 
     /**
      * 意见反馈
@@ -254,7 +307,7 @@ define(function (require, exports, module) {
             var subList = list.slice(0, 20);
             for (var k = 0; k < subList.length; k++) {
                 var item = subList[k];
-                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.name + '</a></li>';
+                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + '</a></li>';
                 arr.push($li)
             }
             $myCollect.html(arr.join(''));
@@ -269,7 +322,7 @@ define(function (require, exports, module) {
 
             //右侧导航栏.
             /* ==>头像,昵称 是否会员文案提示.*/
-            $('.user-avatar img').attr('src', data.weiboImage);
+            $('.user-avatar img').attr('src', data.photoPicURL);
             $('.name-wrap .name-text').html(data.nickName);
             if (data.isVip == '1') {
                 var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';

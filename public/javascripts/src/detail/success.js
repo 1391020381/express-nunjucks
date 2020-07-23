@@ -10,6 +10,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var userId;
     require('swiper');
+    var refreshTopBar = require('../application/effect.js').refreshTopBar
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
@@ -41,7 +42,8 @@ define(function (require, exports, module) {
                 userData = data;
                 userId = data.userId;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+              //  refreshDomTree(data);
+              refreshTopBar(data)
                 successReload(data);
             });
         } else {
@@ -67,7 +69,8 @@ define(function (require, exports, module) {
             login.getLoginData(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+               // refreshDomTree(data);
+               refreshTopBar(data)
                 successReload(data);
             });
         }
@@ -79,7 +82,8 @@ define(function (require, exports, module) {
             login.notifyLoginInterface(function (data) {
                 userData = data;
                 initData.isVip = parseInt(data.isVip, 10);
-                refreshDomTree(data);
+              //  refreshDomTree(data);
+              refreshTopBar(data)
                 successReload(data);
             })
         }
@@ -273,14 +277,14 @@ define(function (require, exports, module) {
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.weiboImage);
-        $top_user_more.find('img').attr('src', data.weiboImage);
+        $hasLogin.find('img').attr('src', data.photoPicURL);
+        $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
         //右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.weiboImage);
+        $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip == '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';
@@ -362,7 +366,8 @@ define(function (require, exports, module) {
         $('.user-login,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
-                    refreshDomTree(data);
+                  //  refreshDomTree(data);
+                  refreshTopBar(data)
                     $('.down-success-other').show()
                     $('.qrcode-warpper').show()
                 });
@@ -490,7 +495,8 @@ define(function (require, exports, module) {
         }else{
             login.notifyLoginInterface(function (data) {
                // common.afterLogin(data);
-               refreshDomTree(data)
+             //  refreshDomTree(data)
+             refreshTopBar(data)
             }); 
         }
     })
