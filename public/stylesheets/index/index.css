@@ -589,10 +589,6 @@
   left: 70px;
   display: none;
 }
-.index-header .logo-office img {
-  width: 100%;
-  height: 100%;
-}
 .index-header .logo-office:hover .logo-drag-tips {
   display: block;
 }

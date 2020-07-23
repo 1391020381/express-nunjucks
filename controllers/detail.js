@@ -397,7 +397,7 @@ module.exports = {
             // 查询是否重定向
             redirectUrl:function(callback) {
                 req.body = {
-                    sourceLink:req.protocol+'://'+req.host+req.url
+                    sourceLink:req.protocol+'://'+req.hostname+req.url
                 }
                 server.post(appConfig.apiNewBaselPath + Api.file.redirectUrl, callback, req, true);
             }
@@ -409,7 +409,7 @@ module.exports = {
             }
             if (results.redirectUrl && results.redirectUrl.data) {
                 if(results.redirectUrl.data.targetLink) {
-                    var  url =results.redirectUrl.data.type ==1? req.protocol+'://'+results.redirectUrl.data.targetLink:req.protocol+'://'+req.host+'/f/'+results.redirectUrl.data.targetLink+'.html';
+                    var  url =results.redirectUrl.data.type ==1? req.protocol+'://'+results.redirectUrl.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+results.redirectUrl.data.targetLink+'.html';
                     res.redirect(url);
                     return;
                 }

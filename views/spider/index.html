@@ -94,28 +94,28 @@
                     {% endif %}  已有{% if results.editorInfo.uploads.data.uploads>0 %} {{results.editorInfo.uploads.data.uploads}} {% else %}0 {% endif%}人下载
                 </div>
                 <div class="download-groupbtns">
-                    <a href="https://ishare.iask.sina.com.cn/f/{{results.guessLikeList[0].id}}.html">下一篇相似资料</a>
+                    <a href="{%if results.guessLikeList[0]%}https://ishare.iask.sina.com.cn/f/{{results.guessLikeList[0].id}}.html{%endif%}">下一篇相似资料</a>
                     <a href="javascript:;">立即下载</a>
                 </div>
             </div>
             <!-- 你可能还喜欢 -->
-            <div class="youlike-area mt20">
+            {#<div class="youlike-area mt20">
                 <h3>你可能还喜欢</h3>
                 <ul class="youlike-item">
                     {% for item in results.guessLikeList %}
                     <li> <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a></li>
                     {% endfor %}
                 </ul>
-            </div>
+            </div>#}
             <!-- 推荐 -->
             <div class="recmond-area mt20">
                 <div class="recmend-tab">
-                    <div class="tab-item current" val ="new">最新资料</div>
+                    {#<div class="tab-item current" val ="new">最新资料</div>#}
                     <div class="tab-item" val ="hot">热门推荐</div>
-                    <div class="tab-item" val ="topic">推荐专题</div>
+                    {# <div class="tab-item" val ="topic">推荐专题</div>#}
                 </div>
                 <div class="recmend-item">
-                    <div class="switch_content_wrap current">
+                    {#<div class="switch_content_wrap">
                         <ul>
                         {%for item in  results.newsRec.data %}
                             <li>
@@ -123,8 +123,8 @@
                             </li>
                         {%endfor%}
                         </ul>
-                    </div>
-                    <div class="switch_content_wrap">
+                    </div>#}
+                    <div class="switch_content_wrap current">
                         <ul>
                         {%for item in  results.hotRecData.data %}
                         <li>
@@ -133,7 +133,7 @@
                         {%endfor%}
                     </ul>
                     </div>
-                    <div class="switch_content_wrap">
+                    {#<div class="switch_content_wrap">
                         <ul>
                         {%for item in  results.hotTopicSeo.data %}
                         <li>
@@ -141,7 +141,7 @@
                         </li>
                         {%endfor%}
                     </ul>
-                    </div>
+                    </div>#}
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
                 <div class="info-item">上传时间：{{results.list.data.fileInfo.createtime}}</div>
             </div>
             <!-- 相关资料 -->
-            <div class="related-file">
+            {#<div class="related-file">
                 <div class="column-name">相关资料</div>
                 <ul>
                     {% for item in results.relevantList %}
@@ -192,6 +192,7 @@
                     {% endfor %}
                 </div>
             </div>
+            #}
         </div>
     </div>
 

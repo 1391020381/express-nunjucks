@@ -15,17 +15,17 @@ define(function (require, exports, module) {
             refreshTopBar(data);
         });
     });
-    $('.login-text').on("click",function(){
-        checkLogin.notifyLoginInterface(function (data) {
-            refreshTopBar(data);
-        });
-    })
+    // $('.login-text').on("click",function(){
+    //     checkLogin.notifyLoginInterface(function (data) {
+    //         refreshTopBar(data);
+    //     });
+    // })
     //透传
-    $(".js-sync").on("click", function () {
-        checkLogin.syncUserInfoInterface(function (data) {
-            refreshTopBar(data);
-        });
-    });
+    // $(".js-sync").on("click", function () {
+    //     checkLogin.syncUserInfoInterface(function (data) {
+    //         refreshTopBar(data);
+    //     });
+    // });
     //退出登录
     // $(".js-logout").on("click", function () {
     //     checkLogin.ishareLogout();

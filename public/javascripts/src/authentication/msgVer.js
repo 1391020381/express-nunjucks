@@ -69,7 +69,7 @@ define(function(require , exports , module){
                         delay : 2000,
                         callback:false
                     })
-                }else if(data.code=="2112"){
+                }else if(data.code=="411015"){
                     bindPhone.showCaptchaProcess(bindPhone.pictureVerify)
                 }else{  
                     $.toast({

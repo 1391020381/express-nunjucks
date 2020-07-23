@@ -68,6 +68,18 @@ define(function (require,exports,moudle) {
             $('.loginOut').click(function(){
                 login.ishareLogout()
             })
+            $('.js-vaip—avatar').click(function(){
+                var url = '/node/personalCenter/home.html';
+                if (!utils.getCookie('cuk')) {
+                    login.notifyLoginInterface(function (data) {
+                        indexObject.refreshTopBar(data);
+                        window.open(url)
+                    });
+                }else{
+                    window.open(url)
+                }
+               
+            })
         },
         beforeInit:function(){
             if (utils.getCookie('cuk')) {
@@ -156,7 +168,8 @@ define(function (require,exports,moudle) {
                     data = {
                         contentType: 100,
                         clientType:1,
-                        pageSize:12
+                        pageSize:12,
+                        clientType:0
                     }
                     url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
                     getData(url,data,dataType,$list)
@@ -228,4 +241,6 @@ define(function (require,exports,moudle) {
         }
      }
      indexObject.initial()
+     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')
+     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
 })
