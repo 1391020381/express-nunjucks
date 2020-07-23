@@ -28,15 +28,13 @@ var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 
-
-
 module.exports = {
     render: function (req, res) {
         var _index = {
             list: function (callback) {  // cookies.ui
                 var opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.file.fileDetail,
+                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
                     body:JSON.stringify({
                         clientType: 0,
                         fid: req.params.id,  
@@ -47,12 +45,9 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-                console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list-------------------:',JSON.parse(body))
                     if(res1.statusCode == 503){ // http请求503
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
-                            console.log("503==========");
                             return;     
                     }
                     if (body) {
@@ -83,17 +78,17 @@ module.exports = {
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery}
+                                var results = {showFlag:false,searchQuery,statusCode:'404'}
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
                             }
                              if(productType == 6){
-                                 if(cuk&&fileInfo.uid == uid){
+                                 if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ // 当有cuk,但是 fileInfo.ui  和 uid都是空
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,isPrivate:true}
+                                var results = {showFlag:false,searchQuery,isPrivate:true,statusCode:'302'}
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
@@ -116,7 +111,6 @@ module.exports = {
                 })
             },
             getTopBannerList:function(callback){ // 页面顶部banner
-                console.log(req.cookies.isHideDetailTopbanner)
                 if(req.cookies.isHideDetailTopbanner){
                     callback(null,null)
                     return
@@ -133,7 +127,6 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
-                            console.log('getTopBannerList:',data)
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)
@@ -156,7 +149,6 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
-                            console.log('getTopBannerList:',data)
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)
@@ -213,10 +205,32 @@ module.exports = {
             },
             // 面包屑导航
             crumbList: function (callback) {
-                //console.log('crumbListParams',appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId))
-                server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               // server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+               var opt = {
+                method: 'POST',
+                url: appConfig.apiNewBaselPath + Api.file.navCategory,
+                body:JSON.stringify({
+                    classId: classId,
+                    spcClassId: spcClassId,  
+                    isGetClassType: isGetClassType
+                  }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+            request(opt, function (err, res1, body) {
+              if(body){
+                var data = JSON.parse(body);
+                if (data.code == 0){
+                    callback(null, data);
+                }else{
+                    callback(null,null)
+                }
+              }else {
+                callback(null, null);
+            }        
+            })
             },
-            
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
                 if (fileAttr == 1) {
@@ -287,8 +301,6 @@ module.exports = {
                         },
                     }
                     request(option, function (err, res, body) {
-                        console.log(body, 'body======')
-                        console.log(pageIds, 'pageIds===')
                         if (body) {
                             try {
                                 var resData = JSON.parse(body);
@@ -303,7 +315,6 @@ module.exports = {
                                 }
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -316,10 +327,6 @@ module.exports = {
             //第四范式 相关推荐
             paradigm4Relevant: function (callback) {
                 requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-
-                console.log(recommendInfoData_rele.useId, 'recommendInfoData_rele.useId=======')
-
-
                 if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDRelevant = recommendInfoData_rele.useId || '';
 
@@ -332,12 +339,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
-                                // console.log('第四范式data',data)
                                 callback(null, data);
                             } catch (err) {
-                                console.log('第四范式error')
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -350,8 +354,6 @@ module.exports = {
             //第四范式  猜你喜欢
             paradigm4Guess: function (callback) {
                 requestID_guess = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-                console.log(recommendInfoData_guess.useId, 'recommendInfoData_guess.useId=========')
-
                 if (recommendInfoData_guess.useId) { // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
                     sceneIDGuess = recommendInfoData_guess.useId || '';
                     var opt = {
@@ -366,7 +368,6 @@ module.exports = {
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -389,21 +390,37 @@ module.exports = {
             filePreview: function (callback) {
                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
                 server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+            },
+            // 查询是否重定向
+            redirectUrl:function(callback) {
+                req.body = {
+                    sourceLink:req.protocol+'://'+req.hostname+req.url
+                }
+                server.post(appConfig.apiNewBaselPath + Api.file.redirectUrl, callback, req, true);
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
-                console.log("404==========");
                 return;
             }
-         //   console.log(results,'pc-node results----------');
+            if (results.redirectUrl && results.redirectUrl.data) {
+                if(results.redirectUrl.data.targetLink) {
+                    var  url =results.redirectUrl.data.type ==1? req.protocol+'://'+results.redirectUrl.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+results.redirectUrl.data.targetLink+'.html';
+                    res.redirect(url);
+                    return;
+                }
+            }
          
          // 转换新对象
-             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.transcodeInfo,{tdk:results.list.data.tdk})})
+             var list = Object.assign({},{data:Object.assign({},results.list.data.fileInfo,results.list.data.transcodeInfo)})
             if(!list.data.fileContentList){
                 list.data.fileContentList = []
+                list.data.isConvert = 0
+            }
+            if(!list.data.svgPathList){
+                list.data.svgPathList = []
+                list.data.isConvert = 0
             }
              var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
@@ -449,17 +466,16 @@ module.exports = {
                 results.userID = userID;
 
             }
-           // console.log('results.paradigm4GuessData',results.paradigm4GuessData)
             // 要在这里给默认值 不然报错
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
             results.showFlag = true
-            console.log('results:',JSON.stringify(results))
             // if (parseInt(fileAttr, 10) === 1) {
             //     render("detail/index", results, req, res);
             // } else {
             //     render("officeDetail/index", results, req, res);
             // }
+            results.isDetailRender = true
             render("detail/index", results, req, res);
 
             //释放 不然 会一直存在
@@ -485,9 +501,7 @@ module.exports = {
                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                     },
                 };
-                console.log('opt:',opt)
                 request(opt, function (err, res1, body) {
-                    console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
                         var data = JSON.parse(body);
                         var fileInfo = data.data&&data.data.fileInfo
@@ -596,7 +610,6 @@ module.exports = {
                                 }
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -623,7 +636,6 @@ module.exports = {
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
-                                console.log("err=============", err)
                             }
                         } else {
                             callback(null, null);
@@ -639,7 +651,6 @@ module.exports = {
 
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
-                console.log("404==========");
                 return;
             }
             // 如果有第四范式 猜你喜欢
@@ -658,9 +669,7 @@ module.exports = {
             }
             var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
             var results = Object.assign({},results,{list:list})
-            // console.log('results.paradigm4GuessData',results.paradigm4GuessData)
             // 要在这里给默认值 不然报错
-            console.log('results:',JSON.stringify(results))
             render("detail/success", results, req, res);
         })
     },
@@ -681,7 +690,6 @@ function getInitPage(req, results) {
                 var page = bytes[key];
                 var param = page[0] + '-' + page[1];
                 var newUrl = changeURLPar(content, 'range', param);
-                //console.log(newUrl,'newUrl-------------------')
                 newImgUrl.push(newUrl);
             }
             results.list.data.fileContentList =newImgUrl;

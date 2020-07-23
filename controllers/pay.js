@@ -8,7 +8,6 @@ var request = require('request');
 var api = require("../api/api");
 var appConfig = require("../config/app-config");
 var urlencode = require('urlencode');
-
 module.exports = {
     //获取vip套餐列表
     vip: function (req, res) {
@@ -136,8 +135,7 @@ module.exports = {
                      body:JSON.stringify({
                          clientType: 0,
                          fid: req.query.orderNo,  
-                         sourceType: 1,
-                         isIe9Low:parseInt(req.useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE",""))<9
+                         sourceType: 1
                        }),
                      headers: {
                          'Content-Type': 'application/json',
@@ -199,6 +197,9 @@ module.exports = {
             }
         }, function (err, results) {
             console.log(results);
+            if(results.list.code != 0){
+                results.list.data = {}
+            }
             results.type = results.list.data.type;
             results.flag = 3;
             // render("pay/index", results, req, res);
@@ -477,5 +478,38 @@ module.exports = {
             res.send(results.list).end();
         })
 
+    },
+    // 聚合支付二维码
+    payment:function(req,res){  
+        return async.series({
+            getPayment: function (callback) {
+                callback(null, null);
+             },
+        }, function (err, results) {  // results 是fileDetails组装后的数据 
+            var source =  req.useragent.source
+            // console.log('useragent:',JSON.stringify(req.useragent))
+            var isWeChat = source.indexOf("MicroMessenger") !== -1
+            var isAliPay = source.indexOf("AlipayClient") !== -1
+            var isOther = !isWeChat && !isAliPay
+            // var isOther = false 
+            results.isWeChat = isWeChat
+            results.isAliPay = isAliPay
+            if(isOther){
+                res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});//设置response编码
+                res.end('请使用微信或者支付扫码支付!')
+            }else{
+                render("pay/payment", results, req, res);
+            }
+        })
+    },
+      // 聚合支付结果页
+      paymentresult:function(req,res){  
+        return async.series({
+            getPaymentResult: function (callback) {
+                callback(null, null);
+            },
+        }, function (err, results) {  // results 是fileDetails组装后的数据 
+            render("pay/paymentresult", results, req, res); 
+        })
     }
 };

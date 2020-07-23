@@ -164,7 +164,7 @@ define(function (require, exports, module) {
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?adb0f091db00ed439bf000f2c5cbaee7";
+            hm.src = "https://hm.baidu.com/hm.js?adb0f091db00ed439bf000f2c5cbaee7";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();

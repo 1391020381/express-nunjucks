@@ -1,0 +1,86 @@
+<div class="myuploads">
+     <p class="myuploads-title">
+        <span class="title-desc">我的上传</span>
+        <span class="file-num">{{totalPages}}篇</span>
+    </p>
+    <ul class="myuploads-tabs tabs" >
+        <li  class="{{ myuploadType == '1' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=1">公开资料</a></li>
+        <li class="{{ myuploadType == '2' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=2">付费资料</a></li>
+        <li class="{{ myuploadType == '3' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=3">私有资料</a></li>
+        <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=4">审核中</a></li>
+        <li class="{{ myuploadType == '5' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=5">未通过</a></li>
+    </ul>
+    {{ if list.length}}
+        
+         {{ if  myuploadType !== '4'}}
+          <label class="table-title" >
+            <img class="delete-icon" data-deleteType='deleteSome' src="{{cdnUrl}}/images/personalCenter/delete-icon.png">
+            <span class="delete-desc">删除</span>
+            <span class="myuploads-nums">0篇</span>
+        </label>
+         {{/if}}
+    {{/if }}
+    <table class="myuploads-table-list">
+        <tr class="myuploads-table-head">
+                <th style="{{myuploadType == '1'? 'width:400px;':myuploadType == '2'?'width:400px;':''}}">
+                <label for="all">
+                   {{ if myuploadType !== '4'}}
+                      <input  type="checkbox"  id="all" value="all"/>
+                     <span></span>
+                   {{/if}}
+                   <span style="margin-left: 5px;">资料标题</span>
+                </label>
+            </th>
+            {{ if myuploadType != '4' }}
+                 <th style="width:100px;"></th>
+            {{/if}}
+            {{ if myuploadType == '1'}}
+                     <th style="width:100px;">价格</th>
+                        <th style="width:100px;">浏览量</th>
+                        <th style="width:100px;">下载量</th>
+            {{/if}}
+             {{if myuploadType == '2'}}
+                        <th style="width:100px;">价格</th>
+                        <th style="width:100px;">浏览量</th>
+                        <th style="width:100px;">下载量</th>
+                    {{/if}} 
+            <th style="width:100px;">上传时间</th>
+        </tr>
+          {{each list}}
+                <tr class="table-item">
+            <td>
+                <label for={{list[$index].id}} class="label">
+                     {{ if myuploadType !== '4'}}
+                    <input id={{list[$index].id}} type="checkbox" class="label-input"/>
+                    <span></span>
+                    {{/if}}
+                    <span  class="file-icon ico-data {{'ico-'+ list[$index].format}}"></span>
+                    {{if myuploadType !== '4' && myuploadType !== '5'}}
+                      <span class="file-title"><a href="/f/{{list[$index].id}}.html"  target="_blank">{{list[$index].title}}</a></span>
+                    {{else}}
+                      <span class="file-title">{{list[$index].title}}</span>
+                    {{/if}}
+                </label>
+            </td>
+              {{ if myuploadType != '4' }}
+             <td><img class="delete-icon" data-id={{list[$index].id}} src="{{cdnUrl}}/images/personalCenter/delete-icon.png"></td>
+             {{/if}}
+
+             {{ if myuploadType == '1'}}
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
+                          <td class="td-text">{{list[$index].readNum}}</td>
+                          <td class="td-text">{{list[$index].downNum }}</td>
+             {{/if}}
+               {{if myuploadType == '2'}}
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
+                          <td class="td-text">{{list[$index].readNum }}</td>
+                          <td class="td-text">{{list[$index].downNum}}</td>
+                 {{/if}}
+            <td class="td-text">{{list[$index].createtime}}</td>
+        </tr>
+          {{/each}}
+    </table>
+    <div class="pagination-wrapper">
+        
+    </div>
+</div>

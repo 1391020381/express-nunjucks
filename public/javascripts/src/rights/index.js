@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var $vipPrivilegeBtn = $('.vip-privilege-btn');
-
+    // var refreshTopBar = require('../application/effect').refreshTopBar
     loginStatusQuery();
 
     $vipPrivilegeBtn.on('click', function () {
@@ -66,7 +66,7 @@ define(function (require, exports, module) {
         }
     })
     // 登录
-    $('#unLogin').on('click', function () {
+    $('#rightVipUnLogin').on('click', function () {
         if (!method.getCookie('cuk')) {
             login.notifyLoginInterface(function (data) {
                 refreshTopBar(data);
@@ -80,7 +80,7 @@ define(function (require, exports, module) {
     });
 
      function  refreshTopBar(data) {
-        var $unLogin = $('#unLogin');
+        var $unLogin = $('#rightVipUnLogin');
         var $hasLogin = $('#haveLogin');
         var $btn_user_more = $('.btn-user-more');
         var $vip_status = $('.vip-status');

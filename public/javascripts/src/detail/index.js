@@ -12,9 +12,13 @@ define(function (require, exports, module) {
     var common = require('./common');
     var clickEvent = require('../common/bilog').clickEvent
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-    var entryName_var = payTypeMapping[pageConfig.params.file_state];
-    var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
-    var fileName = window.pageConfig.page&&window.pageConfig.page.fileName
+    //  var entryName_var = payTypeMapping[pageConfig.params.file_state];
+    // var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
+    var fileName = window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
+
+    handleBaiduStatisticsPush('fileDetailPageView')
+    
     // 初始化显示
     initShow();
     // 初始化绑定
@@ -28,6 +32,9 @@ define(function (require, exports, module) {
         pageInitShow();
         // 访问记录
         storeAccessRecord()
+
+        // 获取收藏的状态
+        getCollectState()
     }
     // 页面加载
     function pageInitShow() {
@@ -147,14 +154,14 @@ define(function (require, exports, module) {
             event.stopPropagation();
         });
         // 登录
-        $('.user-login,.login-open-vip').on('click', function () {
+        $('#detail-unLogin,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
                     // 登陆后判断是否第一次登陆
-                    login.getUserData(function (res) {
+                    login.getUserData(function (res) { // 新人优惠券已下架
                         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                            receiveCoupon(0, 2, res.userId)
+                         //   receiveCoupon(0, 2, res.userId)
                         }
                     })
                 });
@@ -162,13 +169,13 @@ define(function (require, exports, module) {
         });
 
         // 优惠券发放
-        if (method.getCookie('cuk')) {
-            login.getUserData(function (res) {
-                if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                    receiveCoupon(0, 2, res.userId);
-                }
-            })
-        }
+        // if (method.getCookie('cuk')) {
+        //     login.getUserData(function (res) {
+        //         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
+        //             receiveCoupon(0, 2, res.userId);
+        //         }
+        //     })
+        // }
 
         // 退出
         $('.btn-exit').on('click', function () {
@@ -250,15 +257,16 @@ define(function (require, exports, module) {
                 });
                 return;
             }else{
-                //var fid=$(this).attr('data-fid');
+                var fid=$(this).attr('data-fid');
                 clickEvent($(this))
-                if ($(this).hasClass('btn-collect-success')) {
-                    collectFile(4)
-                } else {
-                    collectFile(3)
-                }
+                // if ($(this).hasClass('btn-collect-success')) {
+                //     collectFile(4)
+                // } else {
+                //     collectFile(3)
+                // }
     
                 //fileSaveOrupdate(fid,window.pageConfig.page.uid,$(this))
+                setCollect($(this))
             }
            
         });
@@ -392,7 +400,7 @@ define(function (require, exports, module) {
                 } else {
                     login.notifyLoginInterface(function (data) {
                         common.afterLogin(data);
-                        goPage(type);
+                        goPage(type,data);
                     });
                 }
             } else {
@@ -576,29 +584,43 @@ define(function (require, exports, module) {
         });
     }
 
-       // 收藏或取消收藏接口
-   function fileSaveOrupdate(fid,uid,_this) {
-    $.ajax({
-        url: api.special.fileSaveOrupdate,
-        type: "POST",
-        data: JSON.stringify({ fid:fid,uid:uid,source:0,channel:0 }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (res) {
-            console.log(this)
-            if(res.code == '0'){
-                $.toast({
-                    text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
-                })
-                _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
-            }else{
-                $.toast({
-                    text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
-                })
+       // 新收藏或取消收藏接口
+   function setCollect(_this) { 
+        $.ajax({
+            url: api.special.setCollect,
+            type: "post",
+            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,source:0}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
+                    })
+                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
+                }else{
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
+                    })
+                }
             }
-        }
-    })
-}
+        })
+    }
+
+    function getCollectState(){//获取收藏的状态
+        $.ajax({
+            url: api.special.getCollectState,
+            type: "get",
+            data: { fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success")
+                }
+            }
+        })
+    } 
 
     // 搜集访问记录
     function storeAccessRecord() {
@@ -687,7 +709,7 @@ define(function (require, exports, module) {
                                 var showName = anonymous ? '匿名用户' : common.userData.nickName;
                                 var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + '</a>' : '<a href="/n/' + common.userData.userId + '.html" class="user-name-con">' + showName + '</a>';
                                 $('.evaluate-list').prepend('<li class="cf">' +
-                                    '<div class="user-img fl"><img src="' + common.userData.weiboImage + '" alt="头像"></div>' +
+                                    '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' +
                                     '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content +
                                     '</p></div></li>');
                                 $('#commentTxt').val('');
@@ -724,14 +746,15 @@ define(function (require, exports, module) {
 
     };
 
-    function goPage(type) {
+    function goPage(type,data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
         //文件信息存入cookie方便gio上报
-        method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
 
         if (type === 'file') {
@@ -740,12 +763,16 @@ define(function (require, exports, module) {
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+            if(data&&!data.isVip==1){
+                return
+            }else{
+//  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             // window.open("/pay/vip.html" + params);
             method.compatibleIESkip('/pay/vip.html' + params,true);
+            }
         } else if (type === 'privilege') {
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;

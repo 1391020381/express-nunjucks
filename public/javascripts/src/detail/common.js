@@ -7,23 +7,31 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
     // var changeText = require('./changeShowOverText.js').changeText
     var userData = null;
+   // var isConvert = window.pageConfig&&window.pageConfig.page.isConvert
+    var pageConfig = window.pageConfig&&window.pageConfig 
+    // if(isConvert==0){ // 0转码失败  保证资料删除时,如果登录的情况下可以获取登录信息
+    //     pageConfig =  {
+    //         page:{},
+    //         params:{}
+    //     }
+    // }
     // 页面信息
    // productType  1  4  5 
     var initData = {
-        isDownload: window.pageConfig.page.isDownload,                   //仅在线阅读
-        vipFreeFlag: window.pageConfig.params.vipFreeFlag,               //是否VIP免费
+        isDownload: pageConfig.page.isDownload,                   //仅在线阅读
+        vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
         isVip: 0,                                                        //是否VIP
-        perMin: window.pageConfig.params.g_permin,                       //是否现金文档
-        vipDiscountFlag: window.pageConfig.params.vipDiscountFlag,
-        ownVipDiscountFlag: window.pageConfig.params.ownVipDiscountFlag,
-        volume: window.pageConfig.params.file_volume,                    //下载券数量
-        moneyPrice:window.pageConfig.params.moneyPrice,
-        fid: window.pageConfig.params.g_fileId,
-        title: window.pageConfig.page.fileName,
-        format: window.pageConfig.params.file_format,
+        perMin: pageConfig.params.g_permin,                       //是否现金文档
+        vipDiscountFlag: pageConfig.params.vipDiscountFlag,
+        ownVipDiscountFlag: pageConfig.params.ownVipDiscountFlag,
+        volume: pageConfig.params.file_volume,                    //下载券数量
+        moneyPrice:pageConfig.params.moneyPrice,
+        fid: pageConfig.params.g_fileId,
+        title: pageConfig.page.fileName,
+        format: pageConfig.params.file_format,
         cdnUrl: _head,
-        productType:window.pageConfig.page.productType,  // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-        productPrice:window.pageConfig.page.productPrice  // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
+        productType:pageConfig.page.productType,  // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        productPrice:pageConfig.page.productPrice  // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
     };
 
     /**
@@ -31,7 +39,7 @@ define(function (require, exports, module) {
      * @param data checkLogin 返回数据
      */
     var reloadHeader = function (data) {
-        var $unLogin = $('#unLogin'),
+        var $unLogin = $('#detail-unLogin'),  // unLogin
             $hasLogin = $('#haveLogin'),
             $top_user_more = $('.top-user-more'),
             $icon_iShare_text = $('.icon-iShare-text'),
@@ -163,7 +171,7 @@ define(function (require, exports, module) {
                 // changeText(res.data.status)
                 if (pageConfig.params.file_state === '3') {
                     var content = res.data.url || pageConfig.imgUrl[0];
-                    var bytes = res.data.pinfo.bytes || {};
+                    var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
                     var newimgUrl = [];
                     for (var key in bytes) {
                         var page = bytes[key];

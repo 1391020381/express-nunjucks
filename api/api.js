@@ -9,10 +9,12 @@ module.exports = {
         // 文件详情 (正文)
         // fileDetail: '/file/$id',
         fileDetail: '/content/getFileDetail',
+        getFileDetailNoTdk: '/content/getFileDetailNoTdk',
         // 文档详情扩展的信息（统计）
         fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
+        navCategory:'/content/category/navCategory',
         // 相关资料 (右侧)
         fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表
@@ -21,12 +23,15 @@ module.exports = {
         preReadPageLimit: '/fileSync/prePageInfo?fid=$fid&validateIE9=$validateIE9',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
-        getUserFileZcState:'/comment/zc/getUserFileZcState'
+        getUserFileZcState:'/comment/zc/getUserFileZcState',
+        // 是否重定向
+        redirectUrl:'/seo/link/getLinkByUrl'
     },
     coupon:{
         rightsSaleVouchers:   "/rights/sale/vouchers",
         rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
         querySeniority:  '/rights/sale/querySeniority',
+        getRightsVipMemberDetail:'/rights/vip/memberDetail'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
@@ -67,6 +72,9 @@ module.exports = {
         //搜索服务--API接口--搜索页搜索关联词数据--同步
         associatedWords: '/search/associatedWords'
     },
+    user:{
+       getUserInfo:'/user/getUserInfo'
+    },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
@@ -79,6 +87,40 @@ module.exports = {
     },
     tdk:{
         getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
+    },
+    category:{//分类页
+        list:'/search/content/byCondition', //查询列表
+        words:'/search/specialTopic/lisPage', //热点搜索
+        recommendList:'/recommend/config/info', //推荐位
+        navForCpage:'/content/category/navForCpage', //分类导航
+    },
+    map:{//地图
+        list:'/search/content/setmap',
+        topic:'/search/specialTopic/lisPage'
+    },
+    spider:{
+        details:'/content/getFileDetailNoTdk',
+        crumbList:'/content/category/navCategory',
+        editorInfo:'/user/getOthersCentreInfo?uid=$uid',
+        fileDetailTxt:'/content/file/getFileBody',
+        hotpotSearch:'/search/content/byCondition',
+        hotTopicSearch:'/search/specialTopic/lisPage',
+        newRecData:'/search/content/randomRecommend',
+        hotRecData:'/seo/exposeContent/contentInfo/listContentInfos',
+        
+    },
+    index:{
+        recommendList:'/recommend/config/info', //推荐位
+        navList:'/content/category/getSimplenessInfo',
+        randomRecommend:'/search/content/randomRecommend',
+        listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
+    },
+    order:{
+      getOrderInfo: "/gateway/order/get/orderInfo"
+    },
+    auth:{
+        user:'/user/certification/getPersonal',
+        org:'/user/certification/getInstitutions'
     }
 };
 

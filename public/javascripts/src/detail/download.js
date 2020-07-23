@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var common = require('./common');
     var login = require('../application/checkLogin');
     var api = require('../application/api');
-    var downLoadReport = $.extend({}, gioData);   // init.js 中引入的 report中在 window上挂载了 gioData 
+   // var downLoadReport = $.extend({}, gioData);   // init.js 中引入的 report中在 window上挂载了 gioData 
     var ref = utils.getPageRef(window.pageConfig.params.g_fileId);      //用户来源
     var expendScoreNum_var = '';    //用户下载文档成功后消耗的积分数量
     var expendNum_var = '';         //用户下载文档成功后消耗下载券、下载特权或现金的数量
@@ -45,8 +45,8 @@ define(function (require, exports, module) {
     var userData = null;
 
 
-    downLoadReport.docPageType_var = pageConfig.page.ptype;
-    downLoadReport.fileUid_var = pageConfig.params.file_uid;
+    // downLoadReport.docPageType_var = pageConfig.page.ptype;
+    // downLoadReport.fileUid_var = pageConfig.params.file_uid;
 
     //下载跳转公用
     var publicDownload = function () {
@@ -126,7 +126,7 @@ define(function (require, exports, module) {
                 } else if (window.pageConfig.params.file_volume > 0 && res.data.privilege > 0) {//消耗下载特权数量
                     expendNum_var = 1;
                 }
-                docDLSuccess(res.data.consume, true);
+             //   docDLSuccess(res.data.consume, true);
                 if (browserEnv === 'IE' || browserEnv === 'Edge') {
                     // window.location.href = res.data.downloadURL;
                     method.compatibleIESkip(res.data.fileDownUrl,false);
@@ -170,7 +170,8 @@ define(function (require, exports, module) {
                 var params = '';
                 var ref = utils.getPageRef(fid);
                 //文件信息存入cookie方便gio上报
-                method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+                // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+                method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
                 method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
                 params = '?orderNo=' + fid + '&checkStatus='+ res.data.checkStatus + '&referrer=' + document.referrer;
                 // window.location.href = "/pay/payConfirm.html" + params;

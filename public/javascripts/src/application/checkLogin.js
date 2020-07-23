@@ -3,6 +3,7 @@
  */
 define(function (require, exports, module) {
     //var $ = require("$");
+    var api = require('./api');
     var method = require("./method");
     var api = require("./api");
     module.exports = {
@@ -37,7 +38,7 @@ define(function (require, exports, module) {
         notifyLoginInterface: function (callback) {
             var _self = this;
             if (!method.getCookie('cuk')) {
-                __pc__.push(['pcTrackContent', 'loginDialogLoad']);
+                // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 $.loginPop('login', { 
                     "terminal": "PC", 
@@ -149,9 +150,10 @@ define(function (require, exports, module) {
                     } else if (res.code == 40001) {
                         _self.ishareLogout();
                     }
+
                 });
             }catch(e){
-
+                console.log(e)
             }
   
         },
@@ -177,8 +179,14 @@ define(function (require, exports, module) {
             //删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
-            $.post("/logout", function () {
-                window.location.href = window.location.href;
+            // $.post("/logout", function () {
+            //     window.location.href = window.location.href;
+            // });
+            $.get(api.user.loginOut, function (res) {
+                console.log('loginOut:',res)
+                if(res.code == 0){
+                    window.location.href = window.location.href;
+                }
             });
         }
     }

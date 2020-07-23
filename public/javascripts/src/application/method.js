@@ -241,7 +241,7 @@ define(function (require, exports, module) {
         },
         handleRecommendData:function(list){
             var arr = []
-            list.forEach(function(item){
+            $(list).each(function(index,item){
                 var temp = {}
                 if(item.type == 1){ // 资料 
                     // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
@@ -275,6 +275,62 @@ define(function (require, exports, module) {
             for (var k in o)
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             return fmt;
+        },
+        getReferrer: function () {
+            var referrer = document.referrer;
+            var res = "";
+            if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = '360';
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = 'baidu';
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = 'sogou';
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = 'sm';
+            }
+            return res;
+        },
+         judgeSource:function(ishareBilog) {
+            if (!ishareBilog) {
+                ishareBilog = {};
+            }
+            ishareBilog.searchEngine = ''
+            var from = '';
+            from = utils.getQueryVariable('from');
+            if (!from) {
+                from = sessionStorage.getItem('webWxFrom') || utils.getCookie('webWxFrom')
+            }
+            if (from) {
+                ishareBilog.source = from;
+                sessionStorage.setItem('webWxFrom', from);
+                sessionStorage.removeItem('webReferrer')
+            } else {
+                var referrer = sessionStorage.getItem('webReferrer') || utils.getCookie('webReferrer')
+                if (!referrer) {
+                    referrer = document.referrer
+                }
+                if (referrer) {
+                    sessionStorage.setItem('webReferrer', referrer)
+                    sessionStorage.removeItem('webWxFrom')
+                    referrer = referrer.toLowerCase(); //转为小写
+                    var webSites = new Array('google.', 'baidu.', '360.', 'sogou.', 'shenma.', 'bing.');
+                    var searchEngineArr = new Array('google', 'baidu', '360', 'sogou', 'shenma', 'bing');
+                    for (var i = 0, l = webSites.length; i < l; i++) {
+                        if (referrer.indexOf(webSites[i]) >= 0) {
+                            ishareBilog.source = 'searchEngine';
+                            ishareBilog.searchEngine = searchEngineArr[i];
+                        }
+                    }
+                }
+                if (!referrer || !ishareBilog.source) {
+                    if(utils.isWeChatBrow()){
+                        ishareBilog.source = 'wechat';
+                    }else{
+                        ishareBilog.source = 'outLink';
+                    }
+                }
+            }
+            return ishareBilog
         }
     }
 });

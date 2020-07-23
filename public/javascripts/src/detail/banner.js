@@ -52,6 +52,7 @@ new Swiper('.swiper-turnPageTwoBanner-container',{
 })
 var topicName = window.pageConfig.page&&window.pageConfig.page.fileName
 getSpecialTopic()
+fileBrowseReportBrowse()
 function getSpecialTopic() {
     $.ajax({
         url: api.search.specialTopic,
@@ -59,7 +60,29 @@ function getSpecialTopic() {
         data: JSON.stringify({
                         currentPage:1,
                         pageSize:5,
-                        topicName: topicName  
+                        topicName: topicName,
+                        siteCode:'4' 
+                    }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+           if(res.code == '0'){
+            if(res.data.rows&&res.data.rows.length){
+              var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+              $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+            }
+           }
+        }
+    })
+}
+
+function fileBrowseReportBrowse() {
+    $.ajax({
+        url: api.reportBrowse.fileBrowseReportBrowse,
+        type: "POST",
+        data: JSON.stringify({
+                        terminal:'0',
+                        fid:window.pageConfig.params&&window.pageConfig.params.g_fileId
                     }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
