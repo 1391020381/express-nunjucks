@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         sdkVersion: 'V1.0.3',//sdk版本
         terminalType: '0',//软件终端类型  0-PC，1-M，2-快应用，3-安卓APP，4-IOS APP，5-微信小程序，6-今日头条小程序，7-百度小程序
         loginStatus: method.getCookie("cuk") ? 1 : 0,//登录状态 0 未登录 1 登录
-        visitID: method.getCookie("gr_user_id") || '',//访客id
+        visitID: method.getCookie("visitor_id") || '',//访客id
         userID: '',//用户ID
         sessionID: sessionStorage.getItem('sessionID') || cid || '',//会话ID
         productName: 'ishare',//产品名称
@@ -84,20 +84,22 @@ define(function (require, exports, module) {
     setPreInfo(document.referrer, initData);
 
     function setPreInfo(referrer, initData) {
+        // 获取访客id
+        initData = getVisitorId(initData);
         if (new RegExp('/f/').test(referrer)
             && !new RegExp('referrer=').test(referrer)
             && !new RegExp('/f/down').test(referrer)) {
             var statuCode = $('.ip-page-statusCode')
             if(statuCode == '404'){
-                initData.prePageID = 'PC-M-404'; 
+                initData.prePageID = 'PC-M-404';
                 initData.prePageName = '资料被删除';
             }else if(statuCode == '302'){
-                initData.prePageID = 'PC-M-FSM'; 
+                initData.prePageID = 'PC-M-FSM';
                 initData.prePageName = '资料私有';
             } else{
                 initData.prePageID = 'PC-M-FD';
                 initData.prePageName = '资料详情页';
-            } 
+            }
         } else if (new RegExp('/pay/payConfirm.html').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-F-L';
             initData.prePageName = '支付页-付费资料-列表页';
@@ -320,7 +322,7 @@ define(function (require, exports, module) {
         commonData.pageID = 'PC-M-SR' || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         customData.keyWords = $('.new-input').val()||$('.new-input').attr('placeholder')
-       
+
         commonData.pageURL = window.location.href;
         handle(commonData, customData);
     }
@@ -540,7 +542,7 @@ define(function (require, exports, module) {
             }
             clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
         }else if(cnt == 'downSucSimilarFileClick'){
-            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
+            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData);
         }else if(cnt == 'markFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,
@@ -550,19 +552,19 @@ define(function (require, exports, module) {
                 filePayType: payTypeMapping[window.pageConfig.params.file_state],
                 markRusult: 1
             }
-            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData); 
+            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData);
         }else if(cnt == 'vipRights'){
-            clickCenter('NE002', 'normalClick', 'vipRights', '侧边栏-vip权益', customData); 
+            clickCenter('NE002', 'normalClick', 'vipRights', '侧边栏-vip权益', customData);
         }else if(cnt == 'seen'){
-            clickCenter('NE002', 'normalClick', 'seen', '侧边栏-我看过的', customData); 
+            clickCenter('NE002', 'normalClick', 'seen', '侧边栏-我看过的', customData);
         }else if(cnt == 'mark'){
-            clickCenter('NE002', 'normalClick', 'mark', '侧边栏-我的收藏', customData); 
+            clickCenter('NE002', 'normalClick', 'mark', '侧边栏-我的收藏', customData);
         }else if(cnt == 'customerService'){
-            clickCenter('NE002', 'normalClick', 'customerService', '侧边栏-联系客服', customData); 
+            clickCenter('NE002', 'normalClick', 'customerService', '侧边栏-联系客服', customData);
         }else if(cnt == 'downApp'){
-            clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData); 
+            clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData);
         }else if(cnt == 'follow'){
-            clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData); 
+            clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData);
         }
     }
     function getSearchEngine(){
@@ -574,7 +576,7 @@ define(function (require, exports, module) {
         // bing:必应
         var referrer = document.referrer;
         var res = "";
-        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) { 
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
             res = '360';
         } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
             res = 'baidu';
@@ -586,7 +588,7 @@ define(function (require, exports, module) {
             res = 'google';
         } else if(/https?\:\/\/[^\s]*bing.com.*$/g.test(referrer)){
             res = 'bing';
-        } 
+        }
         return res;
     }
     function getSource(searchEngine){
@@ -605,6 +607,15 @@ define(function (require, exports, module) {
 
     // todo 埋点相关公共方法 =====
     // todo 埋点上报请求---新增
+
+    // 获取访客id
+    function getVisitorId(data) {
+        if(!method.getCookie('cuk')){
+            data.visitID = method.getCookie("visitor_id");
+        }
+        return data;
+    }
+
     function reportToBlack(result) {
         console.log('自有埋点上报结果', result);
         setTimeout(function () {
@@ -633,7 +644,7 @@ define(function (require, exports, module) {
                 setTimeout(function(){
                     clickEvent(cnt,$this,moduleID)
                 })
-            } 
+            }
         },
         searchResult:searchResult,
         // todo 后续优化-公共处理==============

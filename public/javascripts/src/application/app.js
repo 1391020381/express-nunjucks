@@ -2,7 +2,6 @@ define(function (require, exports, module) {
     var method = require("./method");
     require("./element");
     require("./extend");
-    var bilog=require("../common/bilog");
    // require('../report/init');
   require('./effect.js')
     window.template = require("./template");
@@ -13,7 +12,7 @@ define(function (require, exports, module) {
     function getVisitUserId() {
         // 访客id-有效时间和name在此处写死
         var name = 'visitor_id',
-            expires = 30 * 24 * 60 * 60 * 60 * 1000,
+            expires = 30 * 24 * 60 * 60 * 1000,
             visitId = method.getCookie(name);
         // 过有效期-重新请求
         if (!visitId) {
@@ -26,6 +25,7 @@ define(function (require, exports, module) {
     }
     getVisitUserId();
 
+    var bilog=require("../common/bilog");
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;
     return {

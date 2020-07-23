@@ -18,7 +18,7 @@ define(function (require, exports, module) {
         commonData.pageID = 'PC-M-FD';
         commonData.pageName = '资料详情页';
         commonData.pageURL = window.location.href;
-        commonData.visitID = Method.getCookie('visit_user_id') || '';
+        commonData.visitID = Method.getCookie('visitor_id');
 
         var classIdStr = [fileInfo.classid1, fileInfo.classid2, fileInfo.classid3]
             .filter(function (item) {return !!item}).join("||");
