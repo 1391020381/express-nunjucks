@@ -9,12 +9,17 @@
 
         
             <div class="login-conent">
-                <div class="login-title">
-                    <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
-                    <span class="login-desc">微信扫码登录</span>
-                </div>
-                <div class="login-qrContent">
-                    
+                    <div class="weixin-login">
+                         <div class="login-title">
+                              <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                             <span class="login-desc">微信扫码登录</span>
+                       </div>
+                        <div class="login-qrContent">
+                          <div class="login-qr"></div>
+                          <div class="login-qr-invalidtip">
+                             <p class="qr-invalidtip">二维码已失效</p>
+                            <p class="qr-refresh">刷新</p>
+                         </div>
                 </div>
                 <div class="login-qrinfo">请使用微信扫描二维码登录</div>
                 <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-policy">《隐私政策》</a>
@@ -32,6 +37,9 @@
                        <li class="login-type-password">密码登录</li>
                   </ul>
                </div>
+                    
+                    
+                    </div>
            </div>
    
 </script>
