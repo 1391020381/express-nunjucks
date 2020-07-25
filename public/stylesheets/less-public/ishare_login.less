@@ -47,7 +47,7 @@
         .login-desc {
             position: absolute;
             left: 270px;
-            top: 57px;
+            top: 55px;
             font-size: 17px;
             color: #333;
 
@@ -230,24 +230,24 @@
 
     .verificationCode-login {
         .login-item {
-            // width: 338px;
+            width: 338px;
             height: 42px;
             margin: 0 auto;
-            position: relative;
         }
 
         .mobile {
             margin-top: 50px;
-            padding-left: 64px;
+            position: relative;
+
             .phone-choice {
-                width: 64px;
-                height: 42px;
-                line-height: 42px;
                 position: absolute;
                 left: 0;
                 top: 0;
-                background-color: #fff;
+                width: 56px;
+                height: 42px;
+                line-height: 42px;
                 cursor: pointer;
+                background: rgba(255, 255, 255, 1);
 
                 .phone-num {
                     width: 100%;
@@ -255,11 +255,26 @@
                     line-height: 42px;
                     font-size: 15px;
                     color: #333333;
-                    text-align: center;
+                    border: 1px solid rgba(204, 204, 204, 1);
+                    border-right: none;
+                    border-radius: 4px;
+                    position: relative;
 
-                    em,
                     .add {
+                        margin-left: 6px;
                         font-style: normal;
+                    }
+
+                    .arrow-phone {
+                        width: 0;
+                        height: 0;
+                        border-left: 6px solid transparent;
+                        border-right: 6px solid transparent;
+                        border-top: 6px solid #A0A0A0;
+                        top: 50%;
+                        right: 5px;
+                        position: absolute;
+                        margin-top: -3px;
                     }
                 }
 
@@ -269,17 +284,85 @@
             }
 
             .input-moblie {
-                height: 44px;
-                 position: relative;
-                input {}
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 282px;
+                height: 42px;
+                border: 1px solid rgba(204, 204, 204, 1);
+
+                input {
+                    display: block;
+                    padding: 0;
+                    padding-left: 12px;
+                    line-height: inherit;
+                    width: 270px;
+                    height: 42px;
+                    border: none;
+                }
+
+                .mobile-errortip {
+                    position: absolute;
+                    width: 75px;
+                    height: 15px;
+                    font-size: 15px;
+                    color: #E63223;
+                    right: 10px;
+                    top: 50%;
+                    margin-top: -10px;
+                }
             }
         }
 
         .code {
             margin-top: 22px;
+            position: relative;
+
+            .verification-code {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 170px;
+                height: 42px;
+                border: 1px solid rgba(204, 204, 204, 1);
+                border-radius: 4px;
+                padding-left: 12px;
+            }
+
+            .getVerificationCode {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 140px;
+                height: 44px;
+                line-height: 44px;
+                font-size: 15px;
+                color: #FFFFFF;
+                text-align: center;
+                background: rgba(242, 81, 38, 1);
+                border-radius: 4px;
+            }
+        }
+
+        .login-info {
+            margin: 24px auto 0 auto;
+            width: 336px;
+            height: 34px;
+            line-height: 24px;
+            font-size: 14px;
+            color: #9999;
+
+            a {
+                color: inherit;
+            }
+
+            .service-agreement {
+                margin-left: 10px;
+            }
         }
 
         .login-btn {
+            margin-top: 32px;
             width: 339px;
             height: 44px;
             line-height: 44px;
@@ -288,6 +371,93 @@
             border-radius: 4px;
             font-size: 15px;
             color: #ffffff;
+        }
+
+        .login-type-list {
+
+            height: 64px;
+            line-height: 64px;
+            background: #f5f3ef;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(245, 243, 239, 1);
+
+            li {
+                float: left;
+                cursor: pointer;
+            }
+
+            .icon {
+                display: inline-block;
+                width: 22px;
+                height: 22px;
+                vertical-align: middle;
+            }
+
+            .login-desc {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .login-type-qq {
+                padding-left: 24px;
+
+                .qq-icon {
+                    background: url('../../images/login/qq.png') no-repeat center;
+                    background-size: 100%;
+                }
+
+                .login-desc {
+                    margin-left: 7px;
+                    font-size: 13px;
+                    color: #656565;
+                }
+            }
+
+            .login-type-weibo {
+                margin-left: 24px;
+                position: relative;
+
+                .weibo-icon {
+                    background: url('../../images/login/weibo.png') no-repeat center;
+                    background-size: 100%;
+                }
+
+                .login-desc {
+                    margin-left: 7px;
+                    font-size: 13px;
+                    color: #656565;
+                }
+                &::after {
+                    content: '';
+                    width: 1px;
+                    height: 14px;
+                    background: rgba(215, 213, 209, 1);
+                    position: absolute;
+                    left: -12px;
+                    top: 50%;
+                    margin-top: -7px;
+                }
+            }
+
+            .login-type-verificationCode {
+                margin-left: 121px;
+                font-size: 15px;
+                color: #1D739F;
+            }
+
+            .login-type-password {
+                font-size: 15px;
+                color: #999999;
+                position: absolute;
+                top: 0;
+                right: 24px;
+                font-size: 15px;
+                color: #999999;
+               
+            }
         }
     }
 }
