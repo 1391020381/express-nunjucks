@@ -46,7 +46,7 @@ module.exports = {
                     },
                 };
                 request(opt, function (err, res1, body) {
-                    if(res1.statusCode == 503){ // http请求503
+                    if(res1&&res1.statusCode == 503){ // http请求503
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
                             return;     
                     }
