@@ -8,6 +8,7 @@ var server = require("../models/index");
 var Api = require("../api/api");
 var appConfig = require("../config/app-config");
 var urlencode = require('urlencode');
+const { cond } = require("lodash");
 //测试数据
 
 
@@ -30,10 +31,16 @@ module.exports = {
             words: function (callback) {
 
                 var newReq = {};
-                for (var key in req) {
-                    newReq[key] = req[key];
-                }
-                newReq.query = { cond: newReq.query.cond };
+                // for (var key in req) {
+                //     newReq[key] = req[key];
+                // }
+                // newReq.query = { cond: newReq.query.cond };
+                if (req.query.cond) {
+                    req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
+                };
+                var cond = req.query.cond || ''
+                console.log('cond:',cond)
+                newReq.query = { cond: cond };
                 server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, newReq);
             }
 
