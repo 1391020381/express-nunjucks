@@ -2308,6 +2308,176 @@ select {
   position: absolute;
   right: 24px;
 }
+.tourist-purchase-dialog {
+  width: 460px;
+  height: 603px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1000;
+  margin-top: -265px;
+  margin-left: -230px;
+  background: #fbf9f5;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+}
+.tourist-purchase-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  background: url(../../images/icon_iShare.png) no-repeat;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  background-position: -220px -20px;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .login-content {
+  display: none;
+}
+.tourist-purchase-dialog .tourist-purchase-container {
+  width: 100%;
+  height: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs {
+  height: 73px;
+  line-height: 73px;
+  border-bottom: 1px solid #efeee8;
+  position: relative;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab {
+  position: absolute;
+  top: 50%;
+  height: 22px;
+  line-height: 22px;
+  font-size: 22px;
+  margin-top: -11px;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab-active {
+  color: #333333;
+  font-weight: 500;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tourist-purchase {
+  left: 93px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .login-purchase {
+  left: 280px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
+  margin-top: 45px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary {
+  font-size: 14px;
+  line-height: 14px;
+  color: #666666;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary .file-icon {
+  margin-left: 58px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: static;
+  vertical-align: middle;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary .file-desc {
+  display: inline-block;
+  width: 332px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-price-summary {
+  text-align: center;
+  margin-top: 22px;
+  color: #333333;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-price-summary .price {
+  font-size: 24px;
+  color: #F25125;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent {
+  margin: 0 auto;
+  margin-top: 23px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr {
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+  border-radius: 4px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip {
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip .tourist-purchase-qr-invalidtip {
+  font-size: 14px;
+  padding-top: 69px;
+  color: #ffffff;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip .tourist-purchase-refresh {
+  margin: 10px auto 0 auto;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .tourist-purchase-container .qrcode-tip {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #666666;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon {
+  margin-top: 15px;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon .wei-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url("../../images/login/weixin-active.png") no-repeat center;
+  background-size: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon .alipay-icon {
+  margin-left: 34px;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url("../../images/login/alipay-active.png") no-repeat center;
+  background-size: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-tip {
+  margin: 0 auto;
+  margin-top: 32px;
+  font-size: 14px;
+  color: #999999;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer {
+  margin-top: 20px;
+  width: 100%;
+  height: 64px;
+  line-height: 64px;
+  text-indent: 16px;
+  background: #f5f4f0;
+}
 .footer-con {
   background-color: #3a3a3a;
 }
