@@ -1752,29 +1752,29 @@ select {
   background-position: -220px -20px;
   cursor: pointer;
 }
-.login-conent {
+.login-content {
   width: 100%;
   height: 100%;
 }
-.login-conent .login-title {
+.login-content .login-title {
   height: 79px;
   position: relative;
 }
-.login-conent .login-title .ishare-log {
+.login-content .login-title .ishare-log {
   position: absolute;
   left: 89px;
   top: 42px;
   width: 152px;
   height: 37px;
 }
-.login-conent .login-title .login-desc {
+.login-content .login-title .login-desc {
   position: absolute;
   left: 270px;
   top: 55px;
   font-size: 17px;
   color: #333;
 }
-.login-conent .login-title .login-desc::after {
+.login-content .login-title .login-desc::after {
   position: absolute;
   content: '';
   left: -16px;
@@ -1785,23 +1785,20 @@ select {
   border-radius: 50%;
   background: #333;
 }
-.login-conent .weixin-login {
-  display: none;
-}
-.login-conent .weixin-login .login-qrContent {
+.login-content .weixin-login .login-qrContent {
   margin: 0 auto;
   margin-top: 44px;
   width: 200px;
   height: 200px;
   position: relative;
 }
-.login-conent .weixin-login .login-qrContent .login-qr {
+.login-content .weixin-login .login-qrContent .login-qr {
   width: 100%;
   height: 100%;
   background: #eeeeee;
   border-radius: 4px;
 }
-.login-conent .weixin-login .login-qrContent .login-qr-invalidtip {
+.login-content .weixin-login .login-qrContent .login-qr-invalidtip {
   width: 100%;
   height: 100%;
   background: #666364;
@@ -1810,13 +1807,13 @@ select {
   left: 0;
   top: 0;
 }
-.login-conent .weixin-login .login-qrContent .login-qr-invalidtip .qr-invalidtip {
+.login-content .weixin-login .login-qrContent .login-qr-invalidtip .qr-invalidtip {
   font-size: 14px;
   padding-top: 69px;
   color: #ffffff;
   text-align: center;
 }
-.login-conent .weixin-login .login-qrContent .login-qr-invalidtip .qr-refresh {
+.login-content .weixin-login .login-qrContent .login-qr-invalidtip .qr-refresh {
   margin: 10px auto 0 auto;
   width: 110px;
   height: 38px;
@@ -1828,7 +1825,7 @@ select {
   text-align: center;
   cursor: pointer;
 }
-.login-conent .weixin-login .login-qrinfo {
+.login-content .weixin-login .login-qrinfo {
   margin: 0 auto;
   margin-top: 20px;
   font-size: 15px;
@@ -1836,7 +1833,7 @@ select {
   color: #656565;
   text-align: center;
 }
-.login-conent .weixin-login .login-info {
+.login-content .weixin-login .login-info {
   margin: 24px auto 0 auto;
   width: 336px;
   height: 34px;
@@ -1844,58 +1841,58 @@ select {
   font-size: 14px;
   color: #9999;
 }
-.login-conent .weixin-login .login-info a {
+.login-content .weixin-login .login-info a {
   color: inherit;
 }
-.login-conent .weixin-login .login-info .service-agreement {
+.login-content .weixin-login .login-info .service-agreement {
   margin-left: 10px;
 }
-.login-conent .weixin-login .login-type-list {
+.login-content .weixin-login .login-type-list {
   margin-top: 51px;
   height: 64px;
   line-height: 64px;
   background: #f5f3ef;
 }
-.login-conent .weixin-login .login-type-list li {
+.login-content .weixin-login .login-type-list li {
   float: left;
   cursor: pointer;
 }
-.login-conent .weixin-login .login-type-list .icon {
+.login-content .weixin-login .login-type-list .icon {
   display: inline-block;
   width: 22px;
   height: 22px;
   vertical-align: middle;
 }
-.login-conent .weixin-login .login-type-list .login-desc {
+.login-content .weixin-login .login-type-list .login-desc {
   display: inline-block;
   vertical-align: middle;
 }
-.login-conent .weixin-login .login-type-list .login-type-qq {
+.login-content .weixin-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
-.login-conent .weixin-login .login-type-list .login-type-qq .qq-icon {
+.login-content .weixin-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq-active.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .weixin-login .login-type-list .login-type-qq .login-desc {
+.login-content .weixin-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .weixin-login .login-type-list .login-type-weibo {
+.login-content .weixin-login .login-type-list .login-type-weibo {
   margin-left: 24px;
   position: relative;
 }
-.login-conent .weixin-login .login-type-list .login-type-weibo .weibo-icon {
+.login-content .weixin-login .login-type-list .login-type-weibo .weibo-icon {
   background: url('../../images/login/weibo-active.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .weixin-login .login-type-list .login-type-weibo .login-desc {
+.login-content .weixin-login .login-type-list .login-type-weibo .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .weixin-login .login-type-list .login-type-weibo::after {
+.login-content .weixin-login .login-type-list .login-type-weibo::after {
   content: '';
   width: 1px;
   height: 14px;
@@ -1905,18 +1902,18 @@ select {
   top: 50%;
   margin-top: -7px;
 }
-.login-conent .weixin-login .login-type-list .login-type-verificationCode {
+.login-content .weixin-login .login-type-list .login-type-verificationCode {
   margin-left: 121px;
   font-size: 15px;
   color: #1D739F;
 }
-.login-conent .weixin-login .login-type-list .login-type-password {
+.login-content .weixin-login .login-type-list .login-type-password {
   margin-left: 24px;
   font-size: 15px;
   color: #999999;
   position: relative;
 }
-.login-conent .weixin-login .login-type-list .login-type-password::after {
+.login-content .weixin-login .login-type-list .login-type-password::after {
   content: '';
   width: 1px;
   height: 14px;
@@ -1926,19 +1923,19 @@ select {
   top: 50%;
   margin-top: -7px;
 }
-.login-conent .verificationCode-login {
+.login-content .verificationCode-login {
   display: none;
 }
-.login-conent .verificationCode-login .login-item {
+.login-content .verificationCode-login .login-item {
   width: 338px;
   height: 42px;
   margin: 0 auto;
 }
-.login-conent .verificationCode-login .mobile {
+.login-content .verificationCode-login .mobile {
   margin-top: 50px;
   position: relative;
 }
-.login-conent .verificationCode-login .mobile .phone-choice {
+.login-content .verificationCode-login .mobile .phone-choice {
   position: absolute;
   left: 0;
   top: 0;
@@ -1948,7 +1945,7 @@ select {
   cursor: pointer;
   background: #ffffff;
 }
-.login-conent .verificationCode-login .mobile .phone-choice .phone-num {
+.login-content .verificationCode-login .mobile .phone-choice .phone-num {
   width: 100%;
   height: 42px;
   line-height: 42px;
@@ -1959,11 +1956,11 @@ select {
   border-radius: 4px;
   position: relative;
 }
-.login-conent .verificationCode-login .mobile .phone-choice .phone-num .add {
+.login-content .verificationCode-login .mobile .phone-choice .phone-num .add {
   margin-left: 6px;
   font-style: normal;
 }
-.login-conent .verificationCode-login .mobile .phone-choice .phone-num .arrow-phone {
+.login-content .verificationCode-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
   border-left: 6px solid transparent;
@@ -1974,10 +1971,10 @@ select {
   position: absolute;
   margin-top: -3px;
 }
-.login-conent .verificationCode-login .mobile .phone-choice .phone-more {
+.login-content .verificationCode-login .mobile .phone-choice .phone-more {
   display: none;
 }
-.login-conent .verificationCode-login .mobile .input-moblie {
+.login-content .verificationCode-login .mobile .input-moblie {
   position: absolute;
   right: 0;
   top: 0;
@@ -1985,7 +1982,7 @@ select {
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-conent .verificationCode-login .mobile .input-moblie input {
+.login-content .verificationCode-login .mobile .input-moblie input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -1994,7 +1991,7 @@ select {
   height: 42px;
   border: none;
 }
-.login-conent .verificationCode-login .mobile .input-moblie .mobile-errortip {
+.login-content .verificationCode-login .mobile .input-moblie .mobile-errortip {
   position: absolute;
   width: 75px;
   height: 15px;
@@ -2004,11 +2001,11 @@ select {
   top: 50%;
   margin-top: -10px;
 }
-.login-conent .verificationCode-login .code {
+.login-content .verificationCode-login .code {
   margin-top: 22px;
   position: relative;
 }
-.login-conent .verificationCode-login .code .verification-code {
+.login-content .verificationCode-login .code .verification-code {
   position: absolute;
   left: 0;
   top: 0;
@@ -2018,7 +2015,7 @@ select {
   border-radius: 4px;
   padding-left: 12px;
 }
-.login-conent .verificationCode-login .code .getVerificationCode {
+.login-content .verificationCode-login .code .getVerificationCode {
   position: absolute;
   right: 0;
   top: 0;
@@ -2031,7 +2028,7 @@ select {
   background: #f25126;
   border-radius: 4px;
 }
-.login-conent .verificationCode-login .login-info {
+.login-content .verificationCode-login .login-info {
   margin: 24px auto 0 auto;
   width: 336px;
   height: 34px;
@@ -2039,13 +2036,13 @@ select {
   font-size: 14px;
   color: #9999;
 }
-.login-conent .verificationCode-login .login-info a {
+.login-content .verificationCode-login .login-info a {
   color: inherit;
 }
-.login-conent .verificationCode-login .login-info .service-agreement {
+.login-content .verificationCode-login .login-info .service-agreement {
   margin-left: 10px;
 }
-.login-conent .verificationCode-login .login-btn {
+.login-content .verificationCode-login .login-btn {
   margin-top: 32px;
   width: 339px;
   height: 44px;
@@ -2056,7 +2053,7 @@ select {
   font-size: 15px;
   color: #ffffff;
 }
-.login-conent .verificationCode-login .login-type-list {
+.login-content .verificationCode-login .login-type-list {
   height: 64px;
   line-height: 64px;
   position: absolute;
@@ -2065,77 +2062,77 @@ select {
   right: 0;
   background: #f5f3ef;
 }
-.login-conent .verificationCode-login .login-type-list li {
+.login-content .verificationCode-login .login-type-list li {
   float: left;
   cursor: pointer;
 }
-.login-conent .verificationCode-login .login-type-list .icon {
+.login-content .verificationCode-login .login-type-list .icon {
   display: inline-block;
   width: 22px;
   height: 22px;
   vertical-align: middle;
 }
-.login-conent .verificationCode-login .login-type-list .login-desc {
+.login-content .verificationCode-login .login-type-list .login-desc {
   display: inline-block;
   vertical-align: middle;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weixin {
+.login-content .verificationCode-login .login-type-list .login-type-weixin {
   padding-left: 24px;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weixin .weixin-icon {
+.login-content .verificationCode-login .login-type-list .login-type-weixin .weixin-icon {
   background: url('../../images/login/weixin.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-qq {
+.login-content .verificationCode-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-qq .qq-icon {
+.login-content .verificationCode-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-qq .login-desc {
+.login-content .verificationCode-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weibo {
+.login-content .verificationCode-login .login-type-list .login-type-weibo {
   margin-left: 24px;
   position: relative;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weibo .weibo-icon {
+.login-content .verificationCode-login .login-type-list .login-type-weibo .weibo-icon {
   background: url('../../images/login/weibo.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weibo .login-desc {
+.login-content .verificationCode-login .login-type-list .login-type-weibo .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-verificationCode {
+.login-content .verificationCode-login .login-type-list .login-type-verificationCode {
   margin-left: 121px;
   font-size: 15px;
   color: #1D739F;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-password {
+.login-content .verificationCode-login .login-type-list .login-type-password {
   position: absolute;
   top: 0;
   right: 24px;
   font-size: 15px;
   color: #999999;
 }
-.login-conent .password-login {
+.login-content .password-login {
   display: none;
 }
-.login-conent .password-login .login-item {
+.login-content .password-login .login-item {
   width: 338px;
   height: 42px;
   margin: 0 auto;
 }
-.login-conent .password-login .mobile {
+.login-content .password-login .mobile {
   margin-top: 50px;
   position: relative;
 }
-.login-conent .password-login .mobile .phone-choice {
+.login-content .password-login .mobile .phone-choice {
   position: absolute;
   left: 0;
   top: 0;
@@ -2145,7 +2142,7 @@ select {
   cursor: pointer;
   background: #ffffff;
 }
-.login-conent .password-login .mobile .phone-choice .phone-num {
+.login-content .password-login .mobile .phone-choice .phone-num {
   width: 100%;
   height: 42px;
   line-height: 42px;
@@ -2156,11 +2153,11 @@ select {
   border-radius: 4px;
   position: relative;
 }
-.login-conent .password-login .mobile .phone-choice .phone-num .add {
+.login-content .password-login .mobile .phone-choice .phone-num .add {
   margin-left: 6px;
   font-style: normal;
 }
-.login-conent .password-login .mobile .phone-choice .phone-num .arrow-phone {
+.login-content .password-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
   border-left: 6px solid transparent;
@@ -2171,10 +2168,10 @@ select {
   position: absolute;
   margin-top: -3px;
 }
-.login-conent .password-login .mobile .phone-choice .phone-more {
+.login-content .password-login .mobile .phone-choice .phone-more {
   display: none;
 }
-.login-conent .password-login .mobile .input-moblie {
+.login-content .password-login .mobile .input-moblie {
   position: absolute;
   right: 0;
   top: 0;
@@ -2182,7 +2179,7 @@ select {
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-conent .password-login .mobile .input-moblie input {
+.login-content .password-login .mobile .input-moblie input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -2191,7 +2188,7 @@ select {
   height: 42px;
   border: none;
 }
-.login-conent .password-login .mobile .input-moblie .mobile-errortip {
+.login-content .password-login .mobile .input-moblie .mobile-errortip {
   position: absolute;
   width: 75px;
   height: 15px;
@@ -2201,10 +2198,10 @@ select {
   top: 50%;
   margin-top: -10px;
 }
-.login-conent .password-login .password {
+.login-content .password-login .password {
   position: relative;
 }
-.login-conent .password-login .password .login-password {
+.login-content .password-login .password .login-password {
   display: block;
   width: 326px;
   margin-top: 22px;
@@ -2215,7 +2212,7 @@ select {
   border: 1px solid #cccccc;
   border-radius: 4px;
 }
-.login-conent .password-login .password .mobile-errortip {
+.login-content .password-login .password .mobile-errortip {
   position: absolute;
   width: 75px;
   height: 15px;
@@ -2225,7 +2222,7 @@ select {
   top: 50%;
   margin-top: -10px;
 }
-.login-conent .password-login .login-btn {
+.login-content .password-login .login-btn {
   margin-top: 32px;
   width: 339px;
   height: 44px;
@@ -2236,7 +2233,7 @@ select {
   font-size: 15px;
   color: #ffffff;
 }
-.login-conent .password-login .login-info {
+.login-content .password-login .login-info {
   margin: 24px auto 0 auto;
   width: 336px;
   height: 34px;
@@ -2244,13 +2241,13 @@ select {
   font-size: 14px;
   color: #9999;
 }
-.login-conent .password-login .login-info a {
+.login-content .password-login .login-info a {
   color: inherit;
 }
-.login-conent .password-login .login-info .service-agreement {
+.login-content .password-login .login-info .service-agreement {
   margin-left: 10px;
 }
-.login-conent .password-login .login-type-list {
+.login-content .password-login .login-type-list {
   height: 64px;
   line-height: 64px;
   position: absolute;
@@ -2259,63 +2256,57 @@ select {
   right: 0;
   background: #f5f3ef;
 }
-.login-conent .password-login .login-type-list li {
+.login-content .password-login .login-type-list li {
   float: left;
   cursor: pointer;
 }
-.login-conent .password-login .login-type-list .icon {
+.login-content .password-login .login-type-list .icon {
   display: inline-block;
   width: 22px;
   height: 22px;
   vertical-align: middle;
 }
-.login-conent .password-login .login-type-list .login-desc {
+.login-content .password-login .login-type-list .login-desc {
   display: inline-block;
   vertical-align: middle;
 }
-.login-conent .password-login .login-type-list .login-type-weixin {
+.login-content .password-login .login-type-list .login-type-weixin {
   padding-left: 24px;
 }
-.login-conent .password-login .login-type-list .login-type-weixin .weixin-icon {
+.login-content .password-login .login-type-list .login-type-weixin .weixin-icon {
   background: url('../../images/login/weixin.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .password-login .login-type-list .login-type-qq {
+.login-content .password-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
-.login-conent .password-login .login-type-list .login-type-qq .qq-icon {
+.login-content .password-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .password-login .login-type-list .login-type-qq .login-desc {
+.login-content .password-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .password-login .login-type-list .login-type-weibo {
+.login-content .password-login .login-type-list .login-type-weibo {
   margin-left: 24px;
   position: relative;
 }
-.login-conent .password-login .login-type-list .login-type-weibo .weibo-icon {
+.login-content .password-login .login-type-list .login-type-weibo .weibo-icon {
   background: url('../../images/login/weibo.png') no-repeat center;
   background-size: 100%;
 }
-.login-conent .password-login .login-type-list .login-type-weibo .login-desc {
+.login-content .password-login .login-type-list .login-type-weibo .login-desc {
   margin-left: 7px;
   font-size: 13px;
   color: #656565;
 }
-.login-conent .password-login .login-type-list .login-type-verificationCode {
-  margin-left: 121px;
+.login-content .password-login .login-type-list .login-type-verificationCode {
   font-size: 15px;
   color: #1D739F;
-}
-.login-conent .password-login .login-type-list .login-type-password {
   position: absolute;
-  top: 0;
   right: 24px;
-  font-size: 15px;
-  color: #999999;
 }
 .footer-con {
   background-color: #3a3a3a;

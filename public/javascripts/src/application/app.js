@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var bilog=require("../common/bilog");
    // require('../report/init');
   require('./effect.js')
+  require('./login')
     window.template = require("./template");
     require("./helper");
     require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');
