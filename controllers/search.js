@@ -35,9 +35,6 @@ module.exports = {
                 //     newReq[key] = req[key];
                 // }
                 // newReq.query = { cond: newReq.query.cond };
-                if (req.query.cond) {
-                    req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
-                };
                 var cond = req.query.cond || ''
                 console.log('cond:',cond)
                 newReq.query = { cond: cond };
