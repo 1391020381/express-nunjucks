@@ -166,7 +166,7 @@
                 padding-left: 24px;
 
                 .qq-icon {
-                    background: url('../../images/login/qq.png') no-repeat center;
+                    background: url('../../images/login/qq-active.png') no-repeat center;
                     background-size: 100%;
                 }
 
@@ -182,7 +182,7 @@
                 position: relative;
 
                 .weibo-icon {
-                    background: url('../../images/login/weibo.png') no-repeat center;
+                    background: url('../../images/login/weibo-active.png') no-repeat center;
                     background-size: 100%;
                 }
 
@@ -377,7 +377,6 @@
         }
 
         .login-type-list {
-
             height: 64px;
             line-height: 64px;
             background: #f5f3ef;
@@ -403,7 +402,13 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-
+            .login-type-weixin{
+                padding-left: 24px;
+                .weixin-icon{
+                    background: url('../../images/login/weixin.png') no-repeat center;
+                    background-size: 100%;
+                }
+            }
             .login-type-qq {
                 padding-left: 24px;
 
@@ -433,16 +438,7 @@
                     font-size: 13px;
                     color: #656565;
                 }
-                &::after {
-                    content: '';
-                    width: 1px;
-                    height: 14px;
-                    background: rgba(215, 213, 209, 1);
-                    position: absolute;
-                    left: -12px;
-                    top: 50%;
-                    margin-top: -7px;
-                }
+               
             }
 
             .login-type-verificationCode {
@@ -464,6 +460,7 @@
         }
     }
     .password-login{
+        display: none;
         .login-item {
             width: 338px;
             height: 42px;
@@ -547,17 +544,30 @@
                 }
             }
         }
-        .login-password{
-            display: block;
-            width: 326px;
-            margin-top:22px;
-            padding: 0;
-            padding-left: 12px;
-            line-height: 42px;
-             background:rgba(255,255,255,1);
-             border:1px solid rgba(204, 204, 204, 1);
-             border-radius:4px;
-        }
+        .password{
+            position: relative;
+            .login-password{
+                display: block;
+                width: 326px;
+                margin-top:22px;
+                padding: 0;
+                padding-left: 12px;
+                line-height: 42px;
+                 background:rgba(255,255,255,1);
+                 border:1px solid rgba(204, 204, 204, 1);
+                 border-radius:4px;
+            }
+            .mobile-errortip{
+                position: absolute;
+                width: 75px;
+                height: 15px;
+                font-size: 15px;
+                color: #E63223;
+                right: 0px;
+                top: 50%;
+                margin-top: -10px;
+            }
+        } 
         .login-btn {
             margin-top: 32px;
             width: 339px;

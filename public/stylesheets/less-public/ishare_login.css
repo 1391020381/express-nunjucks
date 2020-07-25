@@ -146,7 +146,7 @@
   padding-left: 24px;
 }
 .login-conent .weixin-login .login-type-list .login-type-qq .qq-icon {
-  background: url('../../images/login/qq.png') no-repeat center;
+  background: url('../../images/login/qq-active.png') no-repeat center;
   background-size: 100%;
 }
 .login-conent .weixin-login .login-type-list .login-type-qq .login-desc {
@@ -159,7 +159,7 @@
   position: relative;
 }
 .login-conent .weixin-login .login-type-list .login-type-weibo .weibo-icon {
-  background: url('../../images/login/weibo.png') no-repeat center;
+  background: url('../../images/login/weibo-active.png') no-repeat center;
   background-size: 100%;
 }
 .login-conent .weixin-login .login-type-list .login-type-weibo .login-desc {
@@ -351,6 +351,13 @@
   display: inline-block;
   vertical-align: middle;
 }
+.login-conent .verificationCode-login .login-type-list .login-type-weixin {
+  padding-left: 24px;
+}
+.login-conent .verificationCode-login .login-type-list .login-type-weixin .weixin-icon {
+  background: url('../../images/login/weixin.png') no-repeat center;
+  background-size: 100%;
+}
 .login-conent .verificationCode-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
@@ -376,16 +383,6 @@
   font-size: 13px;
   color: #656565;
 }
-.login-conent .verificationCode-login .login-type-list .login-type-weibo::after {
-  content: '';
-  width: 1px;
-  height: 14px;
-  background: #d7d5d1;
-  position: absolute;
-  left: -12px;
-  top: 50%;
-  margin-top: -7px;
-}
 .login-conent .verificationCode-login .login-type-list .login-type-verificationCode {
   margin-left: 121px;
   font-size: 15px;
@@ -397,6 +394,9 @@
   right: 24px;
   font-size: 15px;
   color: #999999;
+}
+.login-conent .password-login {
+  display: none;
 }
 .login-conent .password-login .login-item {
   width: 338px;
@@ -473,7 +473,10 @@
   top: 50%;
   margin-top: -10px;
 }
-.login-conent .password-login .login-password {
+.login-conent .password-login .password {
+  position: relative;
+}
+.login-conent .password-login .password .login-password {
   display: block;
   width: 326px;
   margin-top: 22px;
@@ -483,6 +486,16 @@
   background: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
+}
+.login-conent .password-login .password .mobile-errortip {
+  position: absolute;
+  width: 75px;
+  height: 15px;
+  font-size: 15px;
+  color: #E63223;
+  right: 0px;
+  top: 50%;
+  margin-top: -10px;
 }
 .login-conent .password-login .login-btn {
   margin-top: 32px;
