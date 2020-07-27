@@ -35,7 +35,7 @@ define(function (require, exports, module) {
    $(document).on('click','#dialog-box .login-type-list .login-type-weibo .weibo-icon',function(e){  // 微博登录
     console.log('weibo登录')
 })
-  $(document).on('click','#dialog-box .login-dialog .close-btn',function(e){
+  $(document).on('click','#dialog-box  .close-btn',function(e){
       closeRewardPop()
   })
   $(document).on('click','#dialog-box .tourist-purchase-dialog .tabs .tab',function(e){
