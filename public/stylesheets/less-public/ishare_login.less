@@ -724,24 +724,34 @@
         height: 100%;
 
         .tabs {
-            height: 73px;
-            line-height: 73px;
+            height: 71px;
+            line-height: 71px;
+            line-height: 71px;
             border-bottom: 1px solid rgba(239, 238, 232, 1);
             position: relative;
 
             .tab {
                 position: absolute;
-                top: 50%;
-                height: 22px;
-                line-height: 22px;
                 font-size: 22px;
-                margin-top: -11px;
                 cursor: pointer;
             }
-
+            .border-bottom{
+                display: none;
+                position: absolute;
+                left:50%;
+                bottom: 0;
+                margin-left:-25px;
+                width:50px;
+                height:4px;
+                background:rgba(242,81,37,1);
+                border-radius:2px;
+            }
             .tab-active {
                 color: #333333;
                 font-weight: 500;
+                .border-bottom{
+                    display: block;
+                }
             }
 
             .tourist-purchase {
@@ -753,10 +763,11 @@
             }
         }
         .tourist-purchase-content{
-            margin-top: 45px;
+            margin-top: 40px;
         }
         .file-summary {
             font-size: 14px;
+            height: 14px;
             line-height: 14px;
             color: #666666;
 
@@ -780,6 +791,8 @@
         .file-price-summary {
             text-align: center;
             margin-top: 22px;
+            height: 24px;
+            line-height: 24px;
             color: #333333;
             .price{
                 font-size: 24px;
@@ -836,11 +849,13 @@
         .qrcode-tip {
             margin-top: 20px;
             font-size: 15px;
+            line-height: 15px;
             color: #666666;
             text-align: center;
         }
 
         .paytype-icon {
+            height: 28px;
             margin-top: 15px;
             text-align: center;
 
@@ -866,6 +881,8 @@
             margin: 0 auto;
             margin-top: 32px;
             font-size: 14px;
+            height: 14px;
+            line-height: 14px;
             color: #999999;
             text-align: center;
         }

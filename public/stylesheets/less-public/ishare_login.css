@@ -613,23 +613,33 @@
   height: 100%;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs {
-  height: 73px;
-  line-height: 73px;
+  height: 71px;
+  line-height: 71px;
   border-bottom: 1px solid #efeee8;
   position: relative;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .tab {
   position: absolute;
-  top: 50%;
-  height: 22px;
-  line-height: 22px;
   font-size: 22px;
-  margin-top: -11px;
   cursor: pointer;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .border-bottom {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -25px;
+  width: 50px;
+  height: 4px;
+  background: #f25125;
+  border-radius: 2px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .tab-active {
   color: #333333;
   font-weight: 500;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab-active .border-bottom {
+  display: block;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .tourist-purchase {
   left: 93px;
@@ -638,10 +648,11 @@
   left: 280px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
-  margin-top: 45px;
+  margin-top: 40px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary {
   font-size: 14px;
+  height: 14px;
   line-height: 14px;
   color: #666666;
 }
@@ -664,6 +675,8 @@
 .tourist-purchase-dialog .tourist-purchase-container .file-price-summary {
   text-align: center;
   margin-top: 22px;
+  height: 24px;
+  line-height: 24px;
   color: #333333;
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-price-summary .price {
@@ -713,10 +726,12 @@
 .tourist-purchase-dialog .tourist-purchase-container .qrcode-tip {
   margin-top: 20px;
   font-size: 15px;
+  line-height: 15px;
   color: #666666;
   text-align: center;
 }
 .tourist-purchase-dialog .tourist-purchase-container .paytype-icon {
+  height: 28px;
   margin-top: 15px;
   text-align: center;
 }
@@ -739,6 +754,8 @@
   margin: 0 auto;
   margin-top: 32px;
   font-size: 14px;
+  height: 14px;
+  line-height: 14px;
   color: #999999;
   text-align: center;
 }

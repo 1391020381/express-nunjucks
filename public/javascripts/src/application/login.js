@@ -40,6 +40,8 @@ define(function (require, exports, module) {
   })
   $(document).on('click','#dialog-box .tourist-purchase-dialog .tabs .tab',function(e){
       var dataType = $(this).attr('data-type')
+      $('#dialog-box .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
+      $(this).addClass('tab-active')
       if(dataType == 'tourist-purchase'){
         $('#dialog-box .tourist-purchase-dialog .login-content').hide()
         $('#dialog-box .tourist-purchase-dialog .tourist-purchase-content').show()
