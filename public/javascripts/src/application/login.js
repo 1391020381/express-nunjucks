@@ -52,6 +52,29 @@ define(function (require, exports, module) {
         
       }
   })
+
+  // 选择区号的逻辑 
+  $(document).on('click','#dialog-box .phone-choice',function(e){
+      $(this).addClass('phone-choice-show')
+      $('#dialog-box .phone-more').show()
+      return false
+      
+  })
+  $(document).on('click','#dialog-box .phone-more .phone-ele',function(e){
+      var areaNum = $(this).find('.number-con em').text()
+      console.log('areaNum:',areaNum)
+      $('#dialog-box .phone-choice').removeClass('phone-choice-show')
+      $('#dialog-box .phone-more').hide()
+      return false
+  })
+  $(document).on('click','.login-dialog',function(e){
+      $('#dialog-box .phone-choice').removeClass('phone-choice-show')
+      $('#dialog-box .phone-more').hide()
+  })
+  $(document).on('click','.login-content',function(e){
+    $('#dialog-box .phone-choice').removeClass('phone-choice-show')
+    $('#dialog-box .phone-more').hide()
+})
 function closeRewardPop(){
     $(".common-bgMask").hide();
     $(".detail-bg-mask").hide();
