@@ -400,6 +400,7 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
+            console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;
