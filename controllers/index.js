@@ -82,7 +82,8 @@ module.exports = {
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:48
+                    pageSize:48,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
             },
