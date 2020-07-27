@@ -118,6 +118,10 @@
 }
 .login-content .weixin-login .login-info .service-agreement {
   margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .weixin-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
 }
 .login-content .weixin-login .login-type-list {
   margin-top: 51px;
@@ -341,6 +345,10 @@
 }
 .login-content .verificationCode-login .login-info .service-agreement {
   margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
 }
 .login-content .verificationCode-login .login-btn {
   margin-top: 32px;
@@ -574,6 +582,10 @@
 }
 .login-content .password-login .login-info .service-agreement {
   margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .password-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
 }
 .login-content .password-login .login-type-list {
   height: 64px;
