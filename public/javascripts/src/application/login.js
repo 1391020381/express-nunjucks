@@ -212,9 +212,9 @@ function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二�
  function handleThirdCodelogin(loginType) {
     // var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
     var clientCode = loginType
-    var channel = 2
+    var channel = 1  // 使用渠道：1:登录；2:绑定
    var location =  'http://ishare.iask.sina.com.cn/node/redirectionURL.html' + '?clientCode=' + clientCode
-   var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) +'&redirectionType=login'
+   var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
    openWindow(url)
 }
  function openWindow(url){ // 第三方打开新的标签页
