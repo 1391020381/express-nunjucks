@@ -121,10 +121,10 @@ define(function(require , exports , module){
         
     })
     $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
-        var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
+        idList = [];
+        var isChecked = $(this).parent().parent().find('.label-input').attr('checked');
         // var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
-        idList = []
-        var deleteType = $(this).attr('data-deleteType')
+        var deleteType = $(this).attr('data-deleteType');
         console.log('isChecked:',isChecked)
         if(!deleteType){  // 单个删除   $(this).attr('data-id') 有值
         idList.push($(this).attr('data-id'))
