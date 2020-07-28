@@ -30,13 +30,13 @@ define(function (require, exports, module) {
             // 支付结果（0失败、1成功）
             payResult: isSuccess ? 1 : 0,
             // 订单id
-            orderID: orderInfo.orderId,
+            orderID: orderInfo.orderNo,
             // 支付方式
-            orderPayType: orderInfo.orderPayCode,
+            orderPayType: orderInfo.payType,
             // 订单实付价格
             orderPayPrice: orderInfo.payPrice,
             // 选中的优惠券ID
-            couponID: orderInfo.couponID,
+            couponID: orderInfo.vouchersId,
             // 选中的优惠券名称
             coupon: '',
 
