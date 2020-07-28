@@ -8,6 +8,7 @@ define(function (require, exports, module) {
         // 用户相关
         user: {
             // 登录
+            loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             refreshWeChatQrcode:gateway + '/cas/login/refreshRrcode', // 刷新微信登录二维码

@@ -234,19 +234,19 @@
   position: relative;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-num .add {
-  margin-left: 6px;
+  margin-left: 4px;
   font-style: normal;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #A0A0A0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
   top: 50%;
   right: 5px;
   position: absolute;
-  margin-top: -3px;
+  margin-top: -2px;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-more {
   display: none;
@@ -296,6 +296,7 @@
   border: none;
 }
 .login-content .verificationCode-login .mobile .input-moblie .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -319,7 +320,31 @@
   border-radius: 4px;
   padding-left: 12px;
 }
+.login-content .verificationCode-login .code .verification-code-tip {
+  display: none;
+  position: absolute;
+  top: 50%;
+  font-size: 15px;
+  height: 15px;
+  color: #E63223;
+  left: 96px;
+  margin-top: -9px;
+}
 .login-content .verificationCode-login .code .getVerificationCode {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 140px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 15px;
+  color: #999999;
+  text-align: center;
+  background: #e9e8e5;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+.login-content .verificationCode-login .code .getVerificationCode-active {
   position: absolute;
   right: 0;
   top: 0;
@@ -331,6 +356,7 @@
   text-align: center;
   background: #f25126;
   border-radius: 4px;
+  cursor: pointer;
 }
 .login-content .verificationCode-login .login-info {
   margin: 24px auto 0 auto;
@@ -360,6 +386,7 @@
   border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+  cursor: pointer;
 }
 .login-content .verificationCode-login .login-type-list {
   height: 64px;
@@ -525,6 +552,7 @@
   border: none;
 }
 .login-content .password-login .mobile .input-moblie .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -549,6 +577,7 @@
   border-radius: 4px;
 }
 .login-content .password-login .password .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -568,6 +597,7 @@
   border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+  cursor: pointer;
 }
 .login-content .password-login .login-info {
   margin: 24px auto 0 auto;

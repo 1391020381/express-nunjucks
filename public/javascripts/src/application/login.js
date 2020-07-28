@@ -1,10 +1,14 @@
 define(function (require, exports, module) {
    myWindow = '' // 保存第三方授权时,打开的标签
+   var smsId = ''  // 验证码
+   var myWindow = ''  // 保存 openWindow打开的对象
+  var mobile = ''   // 获取验证码手机号
+  var businessCode = ''   // 获取验证码的场景
    var api = require("./api")
    var method = require("./method");
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
-    
+   var showCaptcha = require("../common/bindphone").showCaptcha
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
     var weiboLogin = $('.login-type-list .login-type-weibo .weibo-icon')
     var verificationCodeLogin = $('.login-type-list .login-type-verificationCode')
@@ -38,6 +42,24 @@ define(function (require, exports, module) {
 //    $(document).on('click','#dialog-box .login-type-list .login-type-weibo .weibo-icon',function(e){  // 微博登录
 //     console.log('weibo登录')
 // })
+
+$(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
+    var authenticationCodeType = $(this).attr('data-authenticationCodeType')
+    if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码
+        businessCode = 4
+        sendSms()
+    
+    }
+    console.log('获取验证码',authenticationCodeType)
+})
+$(document).on('change','#dialog-box .telphone',function(e){
+    mobile = $(this).val()
+    console.log('mobile:',mobile)
+    if(method.testPhone(mobile)){
+        $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
+    }
+})
+
 $(document).on('click','#dialog-box .login-type-list .icon',function(){
     var loginType = $(this).attr('data-logintype')
     console.log('loginType:',loginType)
@@ -74,6 +96,7 @@ $(document).on('click','#dialog-box .login-type-list .icon',function(){
   $(document).on('click','#dialog-box .phone-more .phone-ele',function(e){
       var areaNum = $(this).find('.number-con em').text()
       console.log('areaNum:',areaNum)
+      $('#dialog-box .phone-choice .phone-num .add').text('+'+areaNum)
       $('#dialog-box .phone-choice').removeClass('phone-choice-show')
       $('#dialog-box .phone-more').hide()
       return false
@@ -85,6 +108,22 @@ $(document).on('click','#dialog-box .login-type-list .icon',function(){
   $(document).on('click','.login-content',function(e){
     $('#dialog-box .phone-choice').removeClass('phone-choice-show')
     $('#dialog-box .phone-more').hide()
+})
+$(document).on('click','#dialog-box .login-btn',function(e){ 
+    var logintype = $(this).attr('data-logintype')
+    if(logintype == 'verificationCode'){
+        var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
+        var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
+        loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
+        return
+    }
+    if(logintype == 'password'){ // mobile
+        // var tempMobile = $('#dialog-box .password-login .input-moblie .telphone').val()
+        var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
+        var password = $('#dialog-box .password-login .password .login-password').val()
+        loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
+        return
+    }
 })
 function closeRewardPop(){
     $(".common-bgMask").hide();
@@ -266,8 +305,108 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
 window.thirdLoginRedirect = thirdLoginRedirect
 
 
+function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
+    $.ajax({
+        url: api.user.sendSms,
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data:JSON.stringify({
+            mobile:mobile,
+            nationCode:86,
+            businessCode:businessCode, // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
+            terminal:'pc',
+            'appId': appId,
+            'randstr': randstr,
+            'ticket': ticket,
+            'onOff': onOff
+        }),
+        dataType: "json",
+        success: function (res) {
+           if(res.code == '0'){
+            console.log('sendSms:',res) 
+            smsId = res.data.smsId   
+            var authenticationCode =   $('#dialog-box .getVerificationCode')
+                authenticationCode.attr('data-authenticationCodeType',1);  // 获取验证码
+                var timer = null;
+                var textNumber = 60;
+                (function countdown() {
+                    if(textNumber <=0){
+                        clearTimeout(timer)
+                        authenticationCode.text('重新获取验证码')
+                        authenticationCode.css({ 
+                            'font-size':'13px',
+                            "color": "#fff", 
+                            "border-color": "#eee"
+                        })
+                        authenticationCode.attr('data-authenticationCodeType',2) // 可以重新获取验证码
+                    }else{
+                        authenticationCode.text(textNumber--)
+                        authenticationCode.css({ 
+                            "color": "#fff", 
+                            "border-color": "#eee"
+                        })
+                        timer =  setTimeout(countdown, 1000);
+                    }
+                })();
+           }else if(res.code == '411015'){ // 单日ip获取验证码超过三次
+                showCaptcha(sendSms);
+           }else if(res.code == '411033'){ // 图形验证码错误
+            $.toast({
+                text:'图形验证码错误',
+                delay : 3000,
+            }) 
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            console.log('sendSms:',error)
+            $.toast({
+                text:error.msg||'获取验证码错误',
+                delay : 3000,
+            }) 
+        }
+    })
+}
 
-
+function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,password){ // 通过密码或验证码登录
+    $.ajax({
+        url: api.user.loginByPsodOrVerCode,
+        type: "POST",
+        data:JSON.stringify({
+            loginType:loginType,
+            terminal:'pc',
+            mobile:mobile,
+            nationCode:nationCode,
+            smsId:smsId,
+            checkCode:checkCode,
+            password:password 
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log('loginByPsodOrVerCode:',res)
+           if(res.code == '0'){
+            method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            $.toast({
+                text:error.msg||'验证码或密码登录错误',
+                delay : 3000,
+            })
+            console.log('loginByPsodOrVerCode:',error)
+        }
+    })
+}
  function showLoginDialog(){
     var loginDialog = $('#login-dialog')
     

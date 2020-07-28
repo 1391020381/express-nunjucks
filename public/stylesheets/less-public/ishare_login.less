@@ -271,20 +271,20 @@
                     position: relative;
 
                     .add {
-                        margin-left: 6px;
+                        margin-left: 4px;
                         font-style: normal;
                     }
 
                     .arrow-phone {
                         width: 0;
                         height: 0;
-                        border-left: 6px solid transparent;
-                        border-right: 6px solid transparent;
-                        border-top: 6px solid #A0A0A0;
-                        top: 50%;
-                        right: 5px;
-                        position: absolute;
-                        margin-top: -3px;
+                        border-left: 4px solid transparent;
+                       border-right: 4px solid transparent;
+                       border-top: 4px solid #A0A0A0;
+                       top: 50%;
+                         right: 5px;
+                         position: absolute;
+                         margin-top: -2px;
                     }
                 }
 
@@ -341,6 +341,7 @@
                 }
 
                 .mobile-errortip {
+                    display: none;
                     position: absolute;
                     width: 75px;
                     height: 15px;
@@ -367,8 +368,31 @@
                 border-radius: 4px;
                 padding-left: 12px;
             }
-
-            .getVerificationCode {
+            .verification-code-tip{
+                display: none;
+                position: absolute;
+                 top: 50%;
+                font-size: 15px;
+                height: 15px;
+                color: #E63223;
+                 left: 96px;
+                margin-top: -9px;
+            }
+            .getVerificationCode{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 140px;
+                height: 44px;
+                line-height: 44px;
+                font-size: 15px;
+                color: #999999;
+                text-align: center;
+                background:rgba(233,232,229,1);
+                border-radius:4px;
+                cursor: not-allowed;
+            }
+            .getVerificationCode-active {
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -380,6 +404,7 @@
                 text-align: center;
                 background: rgba(242, 81, 38, 1);
                 border-radius: 4px;
+                cursor: pointer;
             }
         }
 
@@ -414,6 +439,7 @@
             border-radius: 4px;
             font-size: 15px;
             color: #ffffff;
+            cursor: pointer;
         }
 
         .login-type-list {
@@ -609,6 +635,7 @@
                 }
 
                 .mobile-errortip {
+                    display: none;
                     position: absolute;
                     width: 75px;
                     height: 15px;
@@ -637,6 +664,7 @@
             }
 
             .mobile-errortip {
+                 display: none;
                 position: absolute;
                 width: 75px;
                 height: 15px;
@@ -658,6 +686,7 @@
             border-radius: 4px;
             font-size: 15px;
             color: #ffffff;
+            cursor: pointer;
         }
 
         .login-info {
