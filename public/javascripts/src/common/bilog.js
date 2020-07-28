@@ -85,7 +85,7 @@ define(function (require, exports, module) {
 
     function setPreInfo(referrer, initData) {
         // 获取访客id
-        initData = getVisitorId(initData);
+        initData.visitID = method.getCookie("visitor_id");
         if (new RegExp('/f/').test(referrer)
             && !new RegExp('referrer=').test(referrer)
             && !new RegExp('/f/down').test(referrer)) {
@@ -607,14 +607,6 @@ define(function (require, exports, module) {
 
     // todo 埋点相关公共方法 =====
     // todo 埋点上报请求---新增
-
-    // 获取访客id
-    function getVisitorId(data) {
-        if(!method.getCookie('cuk')){
-            data.visitID = method.getCookie("visitor_id");
-        }
-        return data;
-    }
 
     function reportToBlack(result) {
         console.log('自有埋点上报结果', result);
