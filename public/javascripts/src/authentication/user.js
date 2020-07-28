@@ -35,7 +35,7 @@ define(function(require , exports , module){
             })
             setTimeout(function(){
                 userObj.uploadfile();
-            },500)
+            },800)
         },
          // 查询认证信息
          queryCerinfo:function(){
@@ -45,7 +45,36 @@ define(function(require , exports , module){
                 if(data.code=="0"){
                     if(data.data&&data.data.auditStatus==3) {
                         $('.dialog-limit').show();
-                       $('#bgMask').show()
+                        $('#bgMask').show()
+                    }else if(data.data) {
+                        if(data.data.auditStatus ==0||data.data.auditStatus ==1){
+                            $('.header-process .process-item').eq(1).addClass('step-now').siblings().removeClass('step-now')
+                        }else if(data.data.auditStatus==2) {
+                            $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now')
+                        }
+                        $('.js-realName').val(data.data.realName).attr('disabled','disabled');
+                        var Authtype = [{val:0,title:'中小学教师'},{val:1,title:'大学或高职教师'},{val:2,title:'网络营销'},{val:3,title:'IT/互联网'},{val:4,title:'医学'},{val:5,title:'建筑工程'},{val:6,title:'金融/证券'},{val:7,title:'汽车/机械/制造'},{val:8,title:'其他'},{val:9,title:'设计师'}]
+                        $('.js-authType').text(Authtype[data.data.authType].title);
+                        $('.js-authTypeList').remove();
+                        $('.js-idCardNo').val(data.data.idCardNo).attr('disabled','disabled');
+                        $('.js-idCardFrontPic img').attr('src',data.data.idCardFrontPic);
+                        $('#js-id-front').removeAttr('id')
+                        $('.js-idCardBackPic img').attr('src',data.data.idCardBackPic);
+                        $('#js-id-back').removeAttr('id')
+                        $('.js-handFrontIdCardPic img').attr('src',data.data.handFrontIdCardPic);
+                        $('#js-id-hand').removeAttr('id')
+                        $('.js-credentialsPic img').attr('src',data.data.credentialsPic);
+                        $('#js-cer').removeAttr('id')
+                        $('.js-authAppellation').val(data.data.authAppellation).attr('disabled','disabled');
+                        $('.js-workUnit').val(data.data.workUnit).attr('disabled','disabled');
+                        $('.js-personProfile').val(data.data.personProfile).attr('disabled','disabled');
+                        $('.js-personWeibo').val(data.data.personWeibo).attr('disabled','disabled');
+                        $('.js-phone').val(data.data.phoneNumber).attr('disabled','disabled');
+                        $('.js-qqNumber').val(data.data.qqNumber).attr('disabled','disabled');
+                        $('.js-msg').attr('disabled','disabled');
+                        $('.js-edit').hide()
+                        
+                        
                     }
                 }
 
