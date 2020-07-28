@@ -43,7 +43,7 @@ define(function(require , exports , module){
                         userFilePrice = '--'
                      }
                      if(item.userFileType == 5){
-                         userFilePrice = '-￥'  + (item.userFilePrice/100).toFixed(2) + '元'
+                         userFilePrice = '￥'  + (item.userFilePrice/100).toFixed(2) + '元'
                      }
                      item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
