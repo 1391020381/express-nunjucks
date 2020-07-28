@@ -148,7 +148,7 @@
 }
 .login-content .weixin-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq-active.png') no-repeat center;
-  background-size: 100%;
+  background-size: contain;
 }
 .login-content .weixin-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;
@@ -396,7 +396,7 @@
 }
 .login-content .verificationCode-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq.png') no-repeat center;
-  background-size: 100%;
+  background-size: contain;
 }
 .login-content .verificationCode-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;
@@ -622,7 +622,7 @@
 }
 .login-content .password-login .login-type-list .login-type-qq .qq-icon {
   background: url('../../images/login/qq.png') no-repeat center;
-  background-size: 100%;
+  background-size: contain;
 }
 .login-content .password-login .login-type-list .login-type-qq .login-desc {
   margin-left: 7px;

@@ -10,6 +10,7 @@ define(function (require, exports, module) {
             // 登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
+            refreshWeChatQrcode:gateway + '/cas/login/refreshRrcode', // 刷新微信登录二维码
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             login: router + '/usermanage/checkLogin',
             // 登出

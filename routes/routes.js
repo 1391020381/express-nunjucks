@@ -7,7 +7,6 @@ let routes = [
     'special',
     'upload',
     'feedback',
-    'login',
     'personalCenter',
     'userInfo',
     '503',

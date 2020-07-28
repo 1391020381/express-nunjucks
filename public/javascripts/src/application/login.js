@@ -2,6 +2,7 @@ define(function (require, exports, module) {
    // 登录弹框的逻辑
    var api = require("./api")
    var method = require("./method");
+   require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
     var weixinLogin = $('.login-type-list .login-type-weixin .weixin-icon')
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
@@ -99,8 +100,8 @@ $.ajaxSetup({
         }
     }
  });
- getLoginQrcode()
-function getLoginQrcode(cid,fid){
+ 
+function getLoginQrcode(cid,fid){  // 生成二维码
     $.ajax({
         url: api.user.getLoginQrcode,
         type: "POST",
@@ -133,7 +134,7 @@ function getLoginQrcode(cid,fid){
     })
 }
 
- function loginByWeChat(){
+ function loginByWeChat(){ // 微信扫码登录
     $.ajax({
         url: api.user.loginByWeChat,
         type: "POST",
@@ -163,4 +164,60 @@ function getLoginQrcode(cid,fid){
         }
     })
  }
+ function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二维码
+    $.ajax({
+        url: api.user.refreshWeChatQrcode,
+        type: "POST",
+        data:JSON.stringify({
+           url:url,
+           expires_in:expires_in,
+           site:"1",
+           sceneId:sceneId
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log('refreshWeChatQrcode:',res)
+           if(res.code == '0'){
+            
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            $.toast({
+                text:error.msg||'公众号登录二维码',
+                delay : 3000,
+            })
+            console.log('refreshWeChatQrcode:',error)
+        }
+    })
+ }
+
+
+ function showLoginDialog(){
+    var loginDialog = $('#login-dialog')
+    
+    $("#dialog-box").dialog({
+        html: loginDialog.html(),
+        'closeOnClickModal':false,
+        callback:function(){
+            console.log('dialog显示后的回调')
+        }
+    }).open();
+  }
+  function showTouristPurchaseDialog(){
+    var touristPurchaseDialog = $('#tourist-purchase-dialog')
+    $("#dialog-box").dialog({
+        html: touristPurchaseDialog.html(),
+        'closeOnClickModal':false
+    }).open(); 
+  }
+  return {
+    showLoginDialog:showLoginDialog,
+    showTouristPurchaseDialog:showTouristPurchaseDialog
+  }
  });

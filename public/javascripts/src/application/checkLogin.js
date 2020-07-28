@@ -6,6 +6,7 @@ define(function (require, exports, module) {
     var api = require('./api');
     var method = require("./method");
     var api = require("./api");
+    var showLoginDialog = require('./login').showLoginDialog
     module.exports = {
         getIds: function () {
             // 详情页
@@ -40,19 +41,20 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                $.loginPop('login', { 
-                    "terminal": "PC", 
-                    "businessSys": "ishare", 
-                    "domain": document.domain, 
-                    "ptype": ptype,
-                    "clsId": this.getIds().clsId,
-                    "fid": this.getIds().fid
-                }, function (data) {
-                    // 透传
-                    // method.get(api.user.getJessionId, function (res) {
-                    _self.getLoginData(callback);
-                    // }, '');
-                });
+                showLoginDialog()
+                // $.loginPop('login', { 
+                //     "terminal": "PC", 
+                //     "businessSys": "ishare", 
+                //     "domain": document.domain, 
+                //     "ptype": ptype,
+                //     "clsId": this.getIds().clsId,
+                //     "fid": this.getIds().fid
+                // }, function (data) {
+                //     // 透传
+                //     // method.get(api.user.getJessionId, function (res) {
+                //     _self.getLoginData(callback);
+                //     // }, '');
+                // });
             }
         },
         listenLoginStatus: function (callback) {
