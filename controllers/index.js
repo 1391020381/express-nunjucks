@@ -115,6 +115,7 @@ module.exports = {
             if(results.newsRec && results.newsRec.data){
                 results.newPagetotal = results.newsRec.data.length
             }else{
+                results.newsRec = {}
                 results.newsRec.data = []
             }
             if(results.tdk && results.tdk.data){

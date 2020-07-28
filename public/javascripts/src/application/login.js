@@ -1,10 +1,10 @@
 define(function (require, exports, module) {
-   // 登录弹框的逻辑
+   myWindow = '' // 保存第三方授权时,打开的标签
    var api = require("./api")
    var method = require("./method");
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
-    var weixinLogin = $('.login-type-list .login-type-weixin .weixin-icon')
+    
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
     var weiboLogin = $('.login-type-list .login-type-weibo .weibo-icon')
     var verificationCodeLogin = $('.login-type-list .login-type-verificationCode')
@@ -32,11 +32,15 @@ define(function (require, exports, module) {
     $('#dialog-box .login-content .password-login').show()
    })
 
-   $(document).on('click','#dialog-box .login-type-list .login-type-qq .qq-icon',function(e){  // qq登录
-       console.log('qq登录')
-   })
-   $(document).on('click','#dialog-box .login-type-list .login-type-weibo .weibo-icon',function(e){  // 微博登录
-    console.log('weibo登录')
+//    $(document).on('click','#dialog-box .login-type-list .login-type-qq .qq-icon',function(e){  // qq登录
+//        console.log('qq登录')
+//    })
+//    $(document).on('click','#dialog-box .login-type-list .login-type-weibo .weibo-icon',function(e){  // 微博登录
+//     console.log('weibo登录')
+// })
+$(document).on('click','#dialog-box .login-type-list .icon',function(){
+    var loginType = $(this).attr('data-logintype')
+    console.log('loginType:',loginType)
 })
   $(document).on('click','#dialog-box  .close-btn',function(e){
       closeRewardPop()
@@ -101,6 +105,7 @@ $.ajaxSetup({
     }
  });
  
+// 微信登录
 function getLoginQrcode(cid,fid){  // 生成二维码
     $.ajax({
         url: api.user.getLoginQrcode,
@@ -133,38 +138,7 @@ function getLoginQrcode(cid,fid){  // 生成二维码
         }
     })
 }
-
- function loginByWeChat(){ // 微信扫码登录
-    $.ajax({
-        url: api.user.loginByWeChat,
-        type: "POST",
-        data:JSON.stringify({
-            sceneId:sceneId, // 公众号登录二维码id
-            site:"1"
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (res) {
-            console.log('loginByWeChat:',res)
-           if(res.code == '0'){
-            
-           }else{
-            $.toast({
-                text:res.msg,
-                delay : 3000,
-            })
-           }
-        },
-        error:function(error){
-            $.toast({
-                text:error.msg||'公众号登录二维码',
-                delay : 3000,
-            })
-            console.log('loginByWeChat:',error)
-        }
-    })
- }
- function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二维码
+function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二维码
     $.ajax({
         url: api.user.refreshWeChatQrcode,
         type: "POST",
@@ -196,6 +170,98 @@ function getLoginQrcode(cid,fid){  // 生成二维码
         }
     })
  }
+ function loginByWeChat(){ // 微信扫码登录  返回 access_token 通过 access_token(cuk)
+    $.ajax({
+        url: api.user.loginByWeChat,
+        type: "POST",
+        data:JSON.stringify({
+            sceneId:sceneId, // 公众号登录二维码id
+            site:"1"
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log('loginByWeChat:',res)
+           if(res.code == '0'){
+            
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            $.toast({
+                text:error.msg||'公众号登录二维码',
+                delay : 3000,
+            })
+            console.log('loginByWeChat:',error)
+        }
+    })
+ }
+
+
+ // QQ 微博 登录
+
+
+ function handleThirdCodelogin(loginType) {
+    // var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
+    var clientCode = loginType
+    var channel = 2
+   var location =  'http://ishare.iask.sina.com.cn/node/redirectionURL.html' + '?clientCode=' + clientCode
+   var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) +'&redirectionType=login'
+   openWindow(url)
+}
+ function openWindow(url){ // 第三方打开新的标签页
+    var iWidth = 585;
+    var iHeight = 525;
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    var param = 'height=' + iHeight + ',width=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes';
+    myWindow =  window.open(url, '', param);
+}
+
+function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取 access_token
+    $.ajax({
+       url: api.user.thirdLoginRedirect,
+       type: "POST",
+       contentType: "application/json; charset=utf-8",
+       data:JSON.stringify({
+           terminal:'pc',
+           thirdType:clientCode,
+           code:code,
+           businessSys:'ishare'
+       }),
+       dataType: "json",
+       success: function (res) {
+          if(res.code == '0'){
+           $.toast({
+               text:'绑定成功',
+               delay : 3000,
+           })
+           myWindow.close()
+          }else{
+           $.toast({
+               text:res.msg,
+               delay : 3000,
+           })
+           myWindow.close()
+          }
+       },
+       error:function(error){
+           myWindow.close()
+           console.log('userBindThird:',error)
+           $.toast({
+               text:error.msg,
+               delay : 3000,
+           }) 
+       }
+   })
+}
+window.thirdLoginRedirect = thirdLoginRedirect
+
+
 
 
  function showLoginDialog(){

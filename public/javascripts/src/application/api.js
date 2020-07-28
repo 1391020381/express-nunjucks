@@ -12,6 +12,7 @@ define(function (require, exports, module) {
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             refreshWeChatQrcode:gateway + '/cas/login/refreshRrcode', // 刷新微信登录二维码
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
+            thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
             login: router + '/usermanage/checkLogin',
             // 登出
             loginOut: gateway + '/pc/usermanage/logout',
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
             queryBindInfo: gateway + '/cas/user/queryBindInfo',  // 查询用户绑定信息
-            thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode
+            thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode 第三方授权
             userBindMobile:gateway + '/cas/user/bindMobile',   // 绑定手机号接口
             checkIdentity:gateway + '/cas/sms/checkIdentity', // 身份验证账号
             userBindThird:gateway + '/cas/user/bindThird', // 绑定第三方账号接口
