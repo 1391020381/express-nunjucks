@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
    // 登录弹框的逻辑
+   var api = require("./api")
    var method = require("./method");
     var weixinLogin = $('.login-type-list .login-type-weixin .weixin-icon')
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
@@ -97,22 +98,21 @@ $.ajaxSetup({
         }
     }
  });
-
-function getLoginQrcode(){
+ getLoginQrcode()
+function getLoginQrcode(cid,fid){
     $.ajax({
-        url: api.order.queryOrderlistByCondition,
+        url: api.user.getLoginQrcode,
         type: "POST",
         data:JSON.stringify({
-            oStatus:orderStatus,
-            userOpt:'0',
-            currentPage:currentPage || 1,
-            pageSize:20,
-            sortStr:'orderTime'
+            cid:cid || '1816',
+            site:'1',
+            fid:fid||'',
+            domain:location.host
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            console.log('queryOrderlistByCondition:',res)
+            console.log('getLoginQrcode:',res)
            if(res.code == '0'){
             
            }else{
@@ -123,7 +123,11 @@ function getLoginQrcode(){
            }
         },
         error:function(error){
-            console.log('queryOrderlistByCondition:',error)
+            $.toast({
+                text:error.msg,
+                delay : 3000,
+            })
+            console.log('getLoginQrcode:',error)
         }
     })
 }
