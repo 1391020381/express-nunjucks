@@ -80,4 +80,23 @@ function closeRewardPop(){
     $(".detail-bg-mask").hide();
     $('#dialog-box').hide();
 } 
+
+$.ajaxSetup({
+    headers:{
+        'Authrization':method.getCookie('cuk')
+    },
+    complete:function(XMLHttpRequest,textStatus){
+    },
+    statusCode: {
+        401: function() { 
+            method.delCookie("cuk", "/");
+            $.toast({
+                text:'请重新登录',
+                delay : 2000
+            })
+        }
+    }
+ });
+
+
  });
