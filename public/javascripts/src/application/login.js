@@ -98,5 +98,33 @@ $.ajaxSetup({
     }
  });
 
-
+function getLoginQrcode(){
+    $.ajax({
+        url: api.order.queryOrderlistByCondition,
+        type: "POST",
+        data:JSON.stringify({
+            oStatus:orderStatus,
+            userOpt:'0',
+            currentPage:currentPage || 1,
+            pageSize:20,
+            sortStr:'orderTime'
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log('queryOrderlistByCondition:',res)
+           if(res.code == '0'){
+            
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            console.log('queryOrderlistByCondition:',error)
+        }
+    })
+}
  });
