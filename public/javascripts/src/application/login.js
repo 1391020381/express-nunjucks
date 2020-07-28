@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
    // 登录弹框的逻辑
-
+   var method = require("./method");
     var weixinLogin = $('.login-type-list .login-type-weixin .weixin-icon')
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
     var weiboLogin = $('.login-type-list .login-type-weibo .weibo-icon')
