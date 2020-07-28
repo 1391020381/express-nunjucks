@@ -103,7 +103,7 @@ define(function(require , exports , module){
                         $('.js-businessLicensePic img').attr('src',data.data.businessLicensePic);
                         $('#upload-target2').removeAttr('id')
                         $('.js-phone').val(data.data.contactNumber).attr('disabled','disabled');
-                        $('.js-mail').val(data.data.contactNumber).attr('disabled','disabled');
+                        $('.js-mail').val(data.data.email).attr('disabled','disabled');
                         $('.js-msg').attr('disabled','disabled');
                         $('.js-edit').hide()
                         
