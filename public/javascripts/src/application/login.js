@@ -108,7 +108,7 @@ function getLoginQrcode(cid,fid){
             cid:cid || '1816',
             site:'1',
             fid:fid||'',
-            domain:location.host
+            domain:document.domain
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -133,4 +133,34 @@ function getLoginQrcode(cid,fid){
     })
 }
 
+ function loginByWeChat(){
+    $.ajax({
+        url: api.user.loginByWeChat,
+        type: "POST",
+        data:JSON.stringify({
+            sceneId:sceneId, // 公众号登录二维码id
+            site:"1"
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log('loginByWeChat:',res)
+           if(res.code == '0'){
+            
+           }else{
+            $.toast({
+                text:res.msg,
+                delay : 3000,
+            })
+           }
+        },
+        error:function(error){
+            $.toast({
+                text:error.msg||'公众号登录二维码',
+                delay : 3000,
+            })
+            console.log('loginByWeChat:',error)
+        }
+    })
+ }
  });

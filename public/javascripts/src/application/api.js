@@ -9,6 +9,7 @@ define(function (require, exports, module) {
         user: {
             // 登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
+            loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             login: router + '/usermanage/checkLogin',
             // 登出
