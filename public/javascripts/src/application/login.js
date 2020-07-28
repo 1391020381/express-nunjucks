@@ -41,6 +41,10 @@ define(function (require, exports, module) {
 $(document).on('click','#dialog-box .login-type-list .icon',function(){
     var loginType = $(this).attr('data-logintype')
     console.log('loginType:',loginType)
+    if(loginType){
+        handleThirdCodelogin(loginType)
+    }
+    
 })
   $(document).on('click','#dialog-box  .close-btn',function(e){
       closeRewardPop()
@@ -228,7 +232,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        type: "POST",
        contentType: "application/json; charset=utf-8",
        data:JSON.stringify({
-           terminal:'pc',
+           terminal:'0',
            thirdType:clientCode,
            code:code,
            businessSys:'ishare'
