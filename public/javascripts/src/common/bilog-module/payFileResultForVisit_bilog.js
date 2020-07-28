@@ -2,7 +2,13 @@
 define(function (require, exports, module) {
     var Bilog = require("../bilog");
     var Method = require("../../application/method");
-
+    // 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    var ProductTypeMap = {
+        1: 'free',
+        3: 'online',
+        4: 'vipOnly',
+        5: 'cost'
+    }
     /**
      * 上报数据
      * @param orderInfo 订单数据
@@ -49,7 +55,7 @@ define(function (require, exports, module) {
             // 资料分类名称
             fileCategoryName: classNameStr,
             // 资料付费类型
-            filePayType: fileInfo.productType,
+            filePayType: ProductTypeMap[fileInfo.productType],
             // 资料格式
             fileFormat: fileInfo.format,
             // 资料生产方式-用户上传/编辑上传等
