@@ -2,6 +2,7 @@ define(function (require, exports, module) {
    // 登录弹框的逻辑
    var api = require("./api")
    var method = require("./method");
+   require('../cmd-lib/toast');
     var weixinLogin = $('.login-type-list .login-type-weixin .weixin-icon')
     var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
     var weiboLogin = $('.login-type-list .login-type-weibo .weibo-icon')
@@ -124,11 +125,12 @@ function getLoginQrcode(cid,fid){
         },
         error:function(error){
             $.toast({
-                text:error.msg,
+                text:error.msg||'生成二维码接口错误',
                 delay : 3000,
             })
             console.log('getLoginQrcode:',error)
         }
     })
 }
+
  });
