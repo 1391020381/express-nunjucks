@@ -2012,7 +2012,7 @@ select {
   border-bottom-color: #fff;
   border-bottom-left-radius: 0;
 }
-.login-content .verificationCode-login .mobile .input-moblie {
+.login-content .verificationCode-login .mobile .input-mobile {
   position: absolute;
   right: 0;
   top: 0;
@@ -2020,7 +2020,7 @@ select {
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-content .verificationCode-login .mobile .input-moblie input {
+.login-content .verificationCode-login .mobile .input-mobile input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -2029,7 +2029,7 @@ select {
   height: 42px;
   border: none;
 }
-.login-content .verificationCode-login .mobile .input-moblie .mobile-errortip {
+.login-content .verificationCode-login .mobile .input-mobile .mobile-errortip {
   display: none;
   position: absolute;
   width: 75px;
@@ -2116,10 +2116,17 @@ select {
   height: 44px;
   line-height: 44px;
   text-align: center;
-  background: #f25126;
-  border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+}
+.login-content .verificationCode-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.login-content .verificationCode-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
   cursor: pointer;
 }
 .login-content .verificationCode-login .login-type-list {
@@ -2224,15 +2231,15 @@ select {
   position: relative;
 }
 .login-content .password-login .mobile .phone-choice .phone-num .add {
-  margin-left: 6px;
+  margin-left: 4px;
   font-style: normal;
 }
 .login-content .password-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #A0A0A0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
   top: 50%;
   right: 5px;
   position: absolute;
@@ -2268,7 +2275,7 @@ select {
   border-bottom-color: #fff;
   border-bottom-left-radius: 0;
 }
-.login-content .password-login .mobile .input-moblie {
+.login-content .password-login .mobile .input-mobile {
   position: absolute;
   right: 0;
   top: 0;
@@ -2276,7 +2283,7 @@ select {
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-content .password-login .mobile .input-moblie input {
+.login-content .password-login .mobile .input-mobile input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -2285,7 +2292,7 @@ select {
   height: 42px;
   border: none;
 }
-.login-content .password-login .mobile .input-moblie .mobile-errortip {
+.login-content .password-login .mobile .input-mobile .mobile-errortip {
   display: none;
   position: absolute;
   width: 75px;
@@ -2327,10 +2334,19 @@ select {
   height: 44px;
   line-height: 44px;
   text-align: center;
-  background: #f25126;
   border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+  cursor: pointer;
+}
+.login-content .password-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.login-content .password-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
   cursor: pointer;
 }
 .login-content .password-login .login-info {
