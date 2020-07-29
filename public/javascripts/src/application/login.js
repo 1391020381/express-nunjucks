@@ -1,13 +1,17 @@
+
+
 define(function (require, exports, module) {
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象
+   var sceneId = '' // 微信二维码的场景id
   var mobile = ''   // 获取验证码手机号
   var businessCode = ''   // 获取验证码的场景
   var timer = null   // 二维码过期
+  var setIntervalTimer = null   // 保存轮询微信登录的定时器
   var expires_in = ''  // 二位码过期时间
    var api = require("./api")
-   var qr = require("../pay/qr");
+//    var qr = require("../pay/qr");
    var method = require("./method");
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
@@ -38,7 +42,10 @@ define(function (require, exports, module) {
     $('#dialog-box .login-content .verificationCode-login').hide()
     $('#dialog-box .login-content .password-login').show()
    })
-
+   $(document).on('click','#dialog-box .weixin-login .login-qrContent .qr-refresh',function(e){ // 刷新微信登录二维码
+        //    getLoginQrcode(cid,fid,true)
+        getLoginQrcode('','',true)
+   })
 
 
 $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
@@ -147,7 +154,7 @@ $.ajaxSetup({
  });
  
 // 微信登录
-function getLoginQrcode(cid,fid){  // 生成二维码
+function getLoginQrcode(cid,fid,isqrRefresh){  // 生成二维码 或刷新二维码
     $.ajax({
         url: api.user.getLoginQrcode,
         type: "POST",
@@ -162,9 +169,14 @@ function getLoginQrcode(cid,fid){  // 生成二维码
         success: function (res) {
             console.log('getLoginQrcode:',res)
            if(res.code == '0'){
+            isShowQrInvalidtip(false)  
             expires_in = res.data.expires_in
-            
-            qr.createQrCode(res.data.url, 'login-qr', 178, 178,'../../../images/login/logo.png');
+            sceneId = res.data.sceneId
+            countdown()
+            $('#dialog-box #login-qr').attr('src',res.data.url)
+            setIntervalTimer = setInterval(function(){
+                loginByWeChat()
+            },1000)
            }else{
             $.toast({
                 text:res.msg,
@@ -181,38 +193,26 @@ function getLoginQrcode(cid,fid){  // 生成二维码
         }
     })
 }
-function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二维码
-    $.ajax({
-        url: api.user.refreshWeChatQrcode,
-        type: "POST",
-        data:JSON.stringify({
-           url:url,
-           expires_in:expires_in,
-           site:"1",
-           sceneId:sceneId
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (res) {
-            console.log('refreshWeChatQrcode:',res)
-           if(res.code == '0'){
-            
-           }else{
-            $.toast({
-                text:res.msg,
-                delay : 3000,
-            })
-           }
-        },
-        error:function(error){
-            $.toast({
-                text:error.msg||'公众号登录二维码',
-                delay : 3000,
-            })
-            console.log('refreshWeChatQrcode:',error)
-        }
-    })
- }
+function isShowQrInvalidtip(flag){
+    if(flag){
+        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr').hide()
+        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr-invalidtip').show()
+    }else{
+        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr-invalidtip').hide()
+        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr').show()
+       
+    }
+}
+function countdown() {  // 二维码失效倒计时
+    if(expires_in <=0){
+        clearTimeout(timer)
+        isShowQrInvalidtip(true)
+        // getLoginQrcode()
+    }else{
+        expires_in--
+        timer =  setTimeout(countdown, 1000);
+    }
+}
  function loginByWeChat(){ // 微信扫码登录  返回 access_token 通过 access_token(cuk)
     $.ajax({
         url: api.user.loginByWeChat,
@@ -226,8 +226,9 @@ function refreshWeChatQrcode(url,expires_in,sceneId){ // 刷新微信登录二�
         success: function (res) {
             console.log('loginByWeChat:',res)
            if(res.code == '0'){
-            
+                clearInterval(setIntervalTimer)
            }else{
+            clearInterval(setIntervalTimer)
             $.toast({
                 text:res.msg,
                 delay : 3000,
@@ -303,16 +304,6 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
    })
 }
 window.thirdLoginRedirect = thirdLoginRedirect
-
-
-function countdown() {  // 二维码失效倒计时
-    if(expires_in <=0){
-        clearTimeout(timer)
-    }else{
-        expires_in--
-        timer =  setTimeout(countdown, 1000);
-    }
-}
 
 function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
     $.ajax({
