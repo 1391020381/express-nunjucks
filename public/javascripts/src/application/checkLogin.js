@@ -41,7 +41,9 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                showLoginDialog()
+                showLoginDialog(function(){
+                    console.log('loginCallback')
+                })
                 // $.loginPop('login', { 
                 //     "terminal": "PC", 
                 //     "businessSys": "ishare", 

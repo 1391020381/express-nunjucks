@@ -10,6 +10,7 @@ define(function (require, exports, module) {
   var timer = null   // 二维码过期
   var setIntervalTimer = null   // 保存轮询微信登录的定时器
   var expires_in = ''  // 二位码过期时间
+  var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
    var api = require("./api")
 //    var qr = require("../pay/qr");
    var method = require("./method");
@@ -227,6 +228,8 @@ function countdown() {  // 二维码失效倒计时
             console.log('loginByWeChat:',res)
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
+                method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+                loginCallback()
            }else{
             clearInterval(setIntervalTimer)
             $.toast({
@@ -391,6 +394,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             console.log('loginByPsodOrVerCode:',res)
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+            loginCallback()
            }else{
             $.toast({
                 text:res.msg,
@@ -407,7 +411,8 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         }
     })
 }
- function showLoginDialog(){
+ function showLoginDialog(callback){
+    loginCallback = callback
     var loginDialog = $('#login-dialog')
     
     $("#dialog-box").dialog({
