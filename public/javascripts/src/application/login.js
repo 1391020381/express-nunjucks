@@ -4,7 +4,10 @@ define(function (require, exports, module) {
    var myWindow = ''  // 保存 openWindow打开的对象
   var mobile = ''   // 获取验证码手机号
   var businessCode = ''   // 获取验证码的场景
+  var timer = null   // 二维码过期
+  var expires_in = ''  // 二位码过期时间
    var api = require("./api")
+   var qr = require("../pay/qr");
    var method = require("./method");
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
@@ -36,12 +39,7 @@ define(function (require, exports, module) {
     $('#dialog-box .login-content .password-login').show()
    })
 
-//    $(document).on('click','#dialog-box .login-type-list .login-type-qq .qq-icon',function(e){  // qq登录
-//        console.log('qq登录')
-//    })
-//    $(document).on('click','#dialog-box .login-type-list .login-type-weibo .weibo-icon',function(e){  // 微博登录
-//     console.log('weibo登录')
-// })
+
 
 $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
     var authenticationCodeType = $(this).attr('data-authenticationCodeType')
@@ -157,14 +155,16 @@ function getLoginQrcode(cid,fid){  // 生成二维码
             cid:cid || '1816',
             site:'1',
             fid:fid||'',
-            domain:document.domain
+            domain:encodeURIComponent(document.domain)
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
             console.log('getLoginQrcode:',res)
            if(res.code == '0'){
+            expires_in = res.data.expires_in
             
+            qr.createQrCode(res.data.url, 'login-qr', 178, 178,'../../../images/login/logo.png');
            }else{
             $.toast({
                 text:res.msg,
@@ -305,6 +305,15 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
 window.thirdLoginRedirect = thirdLoginRedirect
 
 
+function countdown() {  // 二维码失效倒计时
+    if(expires_in <=0){
+        clearTimeout(timer)
+    }else{
+        expires_in--
+        timer =  setTimeout(countdown, 1000);
+    }
+}
+
 function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
     $.ajax({
         url: api.user.sendSms,
@@ -412,11 +421,8 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
     
     $("#dialog-box").dialog({
         html: loginDialog.html(),
-        'closeOnClickModal':false,
-        callback:function(){
-            console.log('dialog显示后的回调')
-        }
-    }).open();
+        'closeOnClickModal':false
+    }).open(getLoginQrcode);
   }
   function showTouristPurchaseDialog(){
     var touristPurchaseDialog = $('#tourist-purchase-dialog')
