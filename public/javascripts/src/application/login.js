@@ -129,8 +129,13 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
 $(document).on('input','#dialog-box .password-login .login-password',function(){ // 密码错误只能通过后台返回 
     var password = $(this).val()
     var telphone = $('#dialog-box .password-login .telphone').val()
+    if(password&&password.length>0){
+        $('#dialog-box .password-login .password .close-eye').show()
+    }else{
+        $('#dialog-box .password-login .password .close-eye').hide() 
+    }
     if(password.length>4){
-        $('#dialog-box .password-login .login-password').val(password.slice(0,11))
+        $('#dialog-box .password-login .login-password').val(password.slice(0,4))
     }
     if(password&&password.length==4&&method.testPhone(telphone)){
         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
@@ -141,7 +146,23 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
     }
 })
 
-
+$(document).on('click','#dialog-box .password-login .close-eye',function(){
+    var textInput =  $('#dialog-box .password-login .text-input')
+    textInput.hide()
+    $('#dialog-box .password-login .password-input').val(textInput.val())
+    $('#dialog-box .password-login .password-input').show()
+    $('#dialog-box .password-login .password .close-eye').hide() 
+    $('#dialog-box .password-login .password .eye').show() 
+})
+$(document).on('click','#dialog-box .password-login .eye',function(){
+    var passwordInput =  $('#dialog-box .password-login .password-input')
+    passwordInput.hide()
+    $('#dialog-box .password-login .text-input').val(passwordInput.val())
+    $('#dialog-box .password-login .text-input').show()
+    $('#dialog-box .password-login .password .eye').hide() 
+    $('#dialog-box .password-login .password .close-eye').show() 
+   
+})
 
 $(document).on('click','#dialog-box .login-type-list .icon',function(){
     var loginType = $(this).attr('data-logintype')

@@ -2313,9 +2313,34 @@ select {
   padding: 0;
   padding-left: 12px;
   line-height: 42px;
+  height: 42px;
   background: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
+}
+.login-content .password-login .password .close-eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: url('../../images/login/close-eye.png');
+  background-size: 100%;
+  cursor: pointer;
+}
+.login-content .password-login .password .eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 15px;
+  margin-top: -7.5px;
+  background: url('../../images/login/eye.png');
+  background-size: 100%;
+  cursor: pointer;
 }
 .login-content .password-login .password .mobile-errortip {
   display: none;
