@@ -73,7 +73,7 @@ define(function (require, exports, module) {
 
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
-        var visitorId = method.getCookie('visitorId')||method.getParam('visitorId');
+        var visitorId = getVisitIdByCookie();
         var params = {
             visitorId: visitorId,
             userId: userId,
@@ -124,7 +124,7 @@ define(function (require, exports, module) {
     })
 
     function getDownUrl() {
-        var vuk = method.getCookie('visitorId')||method.getParam('visitorId');
+        var vuk = getVisitIdByCookie();
         if (userId) {
             vuk = userId;
         }
@@ -393,5 +393,14 @@ define(function (require, exports, module) {
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+    }
+
+    // 获取访客id
+    function getVisitIdByCookie() {
+        var visitId = method.getCookie('visitor_id');
+        if (!visitId) {
+            visitId = method.getParam('visitorId');
+        }
+        return visitId;
     }
 });

@@ -31,6 +31,39 @@ var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 module.exports = {
     render: function (req, res) {
         var _index = {
+             // 查询是否重定向
+             redirectUrl:function(callback) {
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.file.redirectUrl,
+                    body:JSON.stringify({
+                        sourceLink:req.protocol+'://'+req.hostname+req.url
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        if (data.code == 0 ){
+                            if (data.data) {
+                                if(data.data.targetLink) {
+                                    var  url =data.data.type ==1? req.protocol+'://'+data.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+data.data.targetLink+'.html';
+                                    res.redirect(url);
+                                    return;
+                                }
+                            }else{
+                                callback(null,null)
+                            }
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
+            },
             list: function (callback) {  // cookies.ui
                 var opt = {
                     method: 'POST',
@@ -59,7 +92,10 @@ module.exports = {
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
                             if(fileInfo.fileAttr == 2){
-                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
+                                // 跳转到办公携带参数修改
+                                // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
+                                var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
+                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
                                 return
                             }
 
@@ -390,27 +426,15 @@ module.exports = {
             filePreview: function (callback) {
                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
                 server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
-            },
-            // 查询是否重定向
-            redirectUrl:function(callback) {
-                req.body = {
-                    sourceLink:req.protocol+'://'+req.hostname+req.url
-                }
-                server.post(appConfig.apiNewBaselPath + Api.file.redirectUrl, callback, req, true);
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
+            console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;
             }
-            if (results.redirectUrl && results.redirectUrl.data) {
-                if(results.redirectUrl.data.targetLink) {
-                    var  url =results.redirectUrl.data.type ==1? req.protocol+'://'+results.redirectUrl.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+results.redirectUrl.data.targetLink+'.html';
-                    res.redirect(url);
-                    return;
-                }
-            }
+           
          
          // 转换新对象
              var list = Object.assign({},{data:Object.assign({},results.list.data.fileInfo,results.list.data.transcodeInfo)})
@@ -510,7 +534,11 @@ module.exports = {
                         if (data.code == 0 && data.data) {
                             // fileAttr ==  文件分类类型 1普通文件 2办公频道
                             if(data.data.fileAttr == 2){
-                                res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
+                                // 跳转到办公携带参数修改
+                                //res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
+                                var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
+                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+
                                 return
                             }
 
