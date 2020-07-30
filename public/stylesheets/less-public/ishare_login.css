@@ -918,6 +918,10 @@
   text-indent: 16px;
   background: #f5f4f0;
 }
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer .tourist-purchase-download {
+  color: #2D6373;
+  cursor: pointer;
+}
 .tourist-login .login-qrContent {
   margin: 0 auto;
   width: 200px;
