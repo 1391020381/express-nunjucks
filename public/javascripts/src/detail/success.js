@@ -49,13 +49,14 @@ define(function (require, exports, module) {
             });
         } else {
             unloginBuyStatus();
-            login.listenLoginStatus(function (res) {
-                initData.isVip = parseInt(res.isVip, 10);
-                userData = res;
-                // 登陆成功绑定userid
-                bindOrder(res.userId, res.nickName);
+            // login.listenLoginStatus(function (res) {
+            //     initData.isVip = parseInt(res.isVip, 10);
+            //     userData = res;
+            //     // 登陆成功绑定userid
+            //     bindOrder(res.userId, res.nickName);
 
-            });
+            // });
+            // 轮询登录状态
             setTimeout(function () {
               //  getDownUrl()
               autoDownUrl()
@@ -183,7 +184,16 @@ define(function (require, exports, module) {
         // $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
         var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
-        getLoginQrcode()
+         function touristLoginCallback(res) {
+            initData.isVip = parseInt(res.isVip, 10);
+            userData = res;
+            // 登陆成功绑定userid
+            bindOrder(res.userId, res.nickName);
+
+        }
+        getLoginQrcode('','','',true,function(res){
+            touristLoginCallback(res)
+        })
     }
 
     function successReload(data) {

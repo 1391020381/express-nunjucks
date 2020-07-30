@@ -11,6 +11,7 @@ define(function (require, exports, module) {
   var setIntervalTimer = null   // 保存轮询微信登录的定时器
   var expires_in = ''  // 二位码过期时间
   var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
+  var touristLoginCallback = null // 保存游客登录的传入的回调函数
    var api = require("./api")
 //    var qr = require("../pay/qr");
    var method = require("./method");
@@ -253,7 +254,7 @@ $.ajaxSetup({
  });
  
 // 微信登录
-function getLoginQrcode(cid,fid,isqrRefresh){  // 生成二维码 或刷新二维码
+function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成二维码 或刷新二维码 callback 游客登录的callback
     $.ajax({
         url: api.user.getLoginQrcode,
         type: "POST",
@@ -268,11 +269,16 @@ function getLoginQrcode(cid,fid,isqrRefresh){  // 生成二维码 或刷新二�
         success: function (res) {
             console.log('getLoginQrcode:',res)
            if(res.code == '0'){
+            touristLoginCallback = callback 
             isShowQrInvalidtip(false)  
             expires_in = res.data.expires_in
             sceneId = res.data.sceneId
             countdown()
-            $('#dialog-box #login-qr').attr('src',res.data.url)
+            if(isTouristLogin){
+                $('.tourist-login #login-qr').attr('src',res.data.url)
+            }else{
+               $('#dialog-box #login-qr').attr('src',res.data.url)
+            }
             setIntervalTimer = setInterval(function(){
                 loginByWeChat()
             },1000)
@@ -292,13 +298,13 @@ function getLoginQrcode(cid,fid,isqrRefresh){  // 生成二维码 或刷新二�
         }
     })
 }
-function isShowQrInvalidtip(flag){
+function isShowQrInvalidtip(flag){ // 普通微信登录  游客微信登录
     if(flag){
-        $('#dialog-box .login-content  .login-qrContent .login-qr').hide()
-        $('#dialog-box .login-content  .login-qrContent .login-qr-invalidtip').show()
+        $('.login-qrContent .login-qr').hide()
+        $('.login-qrContent .login-qr-invalidtip').show()
     }else{
-        $('#dialog-box .login-content  .login-qrContent .login-qr-invalidtip').hide()
-        $('#dialog-box .login-content  .login-qrContent .login-qr').show()
+        $('.login-qrContent .login-qr-invalidtip').hide()
+        $('.login-qrContent .login-qr').show()
        
     }
 }
@@ -327,7 +333,8 @@ function countdown() {  // 二维码失效倒计时
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-                loginCallback()
+                loginCallback&&loginCallback()
+                touristLoginCallback&&touristLoginCallback()
            }else{
             clearInterval(setIntervalTimer)
             $.toast({
@@ -382,7 +389,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        success: function (res) {
           if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-            loginCallback()
+            loginCallback&&loginCallback()
            myWindow.close()
           }else{
            $.toast({
@@ -490,7 +497,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             console.log('loginByPsodOrVerCode:',res)
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-            loginCallback()
+            loginCallback&&loginCallback()
            }else{
             $.toast({
                 text:res.msg,
@@ -523,7 +530,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         html: touristPurchaseDialog.html(),
         'closeOnClickModal':false
     }).open(function(){
-        loginCallback()
+        loginCallback&&loginCallback()
         getLoginQrcode()
     }); 
   }
