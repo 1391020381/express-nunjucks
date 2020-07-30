@@ -2646,6 +2646,87 @@ select {
   text-indent: 16px;
   background: #f5f4f0;
 }
+.tourist-login .login-qrContent {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.tourist-login .login-qrContent .login-qr {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+}
+.tourist-login .login-qrContent .login-qr #login-qr {
+  width: 178px;
+  height: 178px;
+  padding: 11px;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip .qr-invalidtip {
+  font-size: 14px;
+  padding-top: 69px;
+  color: #ffffff;
+  text-align: center;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip .qr-refresh {
+  margin: 10px auto 0 auto;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.tourist-login .login-qrinfo {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 15px;
+  color: #656565;
+  text-align: center;
+}
+.tourist-login .login-qrinfo .wechat-icon {
+  margin-right: 8px;
+  display: inline-block;
+  width: 23px;
+  height: 20px;
+  vertical-align: middle;
+  background: url('../../images/login/tourist-wechat-login.png') no-repeat center;
+  background-size: 100%;
+}
+.tourist-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.tourist-login .login-info a {
+  color: inherit;
+}
+.tourist-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.tourist-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
+}
 .footer-con {
   background-color: #3a3a3a;
 }

@@ -294,11 +294,11 @@ function getLoginQrcode(cid,fid,isqrRefresh){  // 生成二维码 或刷新二�
 }
 function isShowQrInvalidtip(flag){
     if(flag){
-        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr').hide()
-        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr-invalidtip').show()
+        $('#dialog-box .login-content  .login-qrContent .login-qr').hide()
+        $('#dialog-box .login-content  .login-qrContent .login-qr-invalidtip').show()
     }else{
-        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr-invalidtip').hide()
-        $('#dialog-box .login-content .weixin-login .login-qrContent .login-qr').show()
+        $('#dialog-box .login-content  .login-qrContent .login-qr-invalidtip').hide()
+        $('#dialog-box .login-content  .login-qrContent .login-qr').show()
        
     }
 }
@@ -529,6 +529,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
   }
   return {
     showLoginDialog:showLoginDialog,
-    showTouristPurchaseDialog:showTouristPurchaseDialog
+    showTouristPurchaseDialog:showTouristPurchaseDialog,
+    getLoginQrcode:getLoginQrcode
   }
  });

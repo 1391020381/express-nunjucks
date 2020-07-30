@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
+    var getLoginQrcode = require('../application/login').getLoginQrcode
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -169,17 +170,20 @@ define(function (require, exports, module) {
         var classid3 = qrCodeparams && qrCodeparams.classid3 ? '-' + qrCodeparams.classid3 + '' : '';
         var clsId = classid1 + classid2 + classid3;
         var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
-        var loginUrl = $.loginPop('login_wx_code', {
-            "terminal": "PC",
-            "businessSys": "ishare",
-            'domain': document.domain,
-            "ptype": "ishare",
-            "popup": "hidden",
-            "clsId": clsId,
-            "fid": fid
-        });
-        var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+        // var loginUrl = $.loginPop('login_wx_code', {
+        //     "terminal": "PC",
+        //     "businessSys": "ishare",
+        //     'domain': document.domain,
+        //     "ptype": "ishare",
+        //     "popup": "hidden",
+        //     "clsId": clsId,
+        //     "fid": fid
+        // });
+        // var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+        // $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+        var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+        getLoginQrcode()
     }
 
     function successReload(data) {
