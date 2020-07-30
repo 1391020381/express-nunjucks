@@ -18,15 +18,6 @@ define(function (require, exports, module) {
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
    var showCaptcha = require("../common/bindphone").showCaptcha
-    var  qqLogin = $('.login-type-list .login-type-qq .qq-icon')
-    var weiboLogin = $('.login-type-list .login-type-weibo .weibo-icon')
-    var verificationCodeLogin = $('.login-type-list .login-type-verificationCode')
-    var passwordLogin  = $('.login-type-list .login-type-password')
-
-    var weixinLoginContent = $('#dialog-box .login-content .weixin-login')
-    var verificationCodeLoginContent =  $('#dialog-box .login-content .verificationCode-login')
-    var passwordLoginContent = $('#dialog-box .login-content .password-login')
-
     $(document).on('click','#dialog-box .login-type-list .login-type-weixin .weixin-icon',function(e){  // 微信登录
         $('#dialog-box .login-content .verificationCode-login').hide()
         $('#dialog-box .login-content .password-login').hide()
@@ -165,7 +156,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
    
 })
 
-$(document).on('click','#dialog-box .login-type-list .icon',function(){
+$(document).on('click','#dialog-box .login-type-list .icon',function(){ // 第三方登录
     var loginType = $(this).attr('data-logintype')
     console.log('loginType:',loginType)
     if(loginType){
@@ -283,6 +274,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
                 loginByWeChat()
             },1000)
            }else{
+            clearInterval(setIntervalTimer)
             $.toast({
                 text:res.msg,
                 delay : 3000,

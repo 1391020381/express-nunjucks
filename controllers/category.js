@@ -33,8 +33,7 @@ var list = function (req) {
                 url: appConfig.apiNewBaselPath+api.category.navForCpage,
                 body:JSON.stringify({classId:categoryId}),
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    'Content-Type': 'application/json'
                 },
             };
             request(opt, function (err, res1, body) {
@@ -60,8 +59,7 @@ var list = function (req) {
                         url: appConfig.apiNewBaselPath+api.category.recommendList,
                         body:JSON.stringify(params),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         }
                     },function (err2, res2, body1){
                        var results = JSON.parse(body1)

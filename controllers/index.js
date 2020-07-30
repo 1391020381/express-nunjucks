@@ -33,8 +33,7 @@ module.exports = {
                     method: 'POST',
                     body: JSON.stringify(pageIds),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 }
                 // callback(null, null);

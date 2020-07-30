@@ -41,8 +41,7 @@ module.exports = {
                         sourceType: 0
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
@@ -165,8 +164,7 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo,
                     body:JSON.stringify(params),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     }
                 };
                 request(opt,function(err,res1,body){
@@ -296,8 +294,7 @@ module.exports = {
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {
@@ -497,8 +494,7 @@ module.exports = {
                         sourceType: 1
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
@@ -591,8 +587,7 @@ module.exports = {
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {

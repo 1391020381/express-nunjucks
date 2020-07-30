@@ -89,8 +89,7 @@ module.exports = {
                         scope:4
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res, body) {
@@ -138,8 +137,7 @@ module.exports = {
                          sourceType: 1
                        }),
                      headers: {
-                         'Content-Type': 'application/json',
-                         'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                         'Content-Type': 'application/json'
                      },
                  };
                  console.log('opt:',opt)
@@ -239,7 +237,7 @@ module.exports = {
                     url: appConfig.apiBasePath + api.pay.orderPoint.replace(/\$orderNo/, req.query.orderNo),
                     headers: {
                         'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Authrization':req.cookies.cuk
                     },
                 };
                 request(opt, function (err, res, body) {
@@ -452,8 +450,7 @@ module.exports = {
                 var opt = {
                     url: appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.id),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res, body) {
