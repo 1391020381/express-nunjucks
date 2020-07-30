@@ -67,8 +67,9 @@
 .login-content .weixin-login .login-qrContent .login-qr {
   width: 100%;
   height: 100%;
-  background: #ffffff;
   border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
 }
 .login-content .weixin-login .login-qrContent .login-qr #login-qr {
   width: 178px;
@@ -800,9 +801,9 @@
   height: 14px;
   line-height: 14px;
   color: #666666;
+  text-align: center;
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary .file-icon {
-  margin-left: 58px;
   margin-right: 4px;
   display: inline-block;
   width: 16px;
@@ -812,7 +813,7 @@
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary .file-desc {
   display: inline-block;
-  width: 332px;
+  max-width: 332px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -838,10 +839,15 @@
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr {
   width: 100%;
   height: 100%;
-  background: #eeeeee;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
   border-radius: 4px;
 }
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr #touristPayQrCode {
+  padding: 11px;
+}
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip {
+  display: none;
   width: 100%;
   height: 100%;
   background: #666364;

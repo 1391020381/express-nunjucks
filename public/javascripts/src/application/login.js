@@ -381,10 +381,8 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        dataType: "json",
        success: function (res) {
           if(res.code == '0'){
-           $.toast({
-               text:'绑定成功',
-               delay : 3000,
-           })
+            method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+            loginCallback()
            myWindow.close()
           }else{
            $.toast({
@@ -396,7 +394,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        },
        error:function(error){
            myWindow.close()
-           console.log('userBindThird:',error)
+           console.log('thirdLoginRedirect:',error)
            $.toast({
                text:error.msg,
                delay : 3000,
@@ -518,12 +516,16 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         'closeOnClickModal':false
     }).open(getLoginQrcode);
   }
-  function showTouristPurchaseDialog(){
+  function showTouristPurchaseDialog(callback){
+    loginCallback = callback
     var touristPurchaseDialog = $('#tourist-purchase-dialog')
     $("#dialog-box").dialog({
         html: touristPurchaseDialog.html(),
         'closeOnClickModal':false
-    }).open(); 
+    }).open(function(){
+        loginCallback()
+        getLoginQrcode()
+    }); 
   }
   return {
     showLoginDialog:showLoginDialog,

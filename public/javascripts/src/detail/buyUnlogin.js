@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     // downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
-
+    var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
     var unloginObj = {
         count: 0,
         isClear: false,//是否清除支付查询
@@ -37,7 +37,11 @@ define(function (require, exports, module) {
                 unloginObj.closeLoginWindon()
             })
             //失败重新生产订单
-            $('body').on('click', '.buyUnloginWrap .failTip', function () {
+            // $('body').on('click', '.buyUnloginWrap .failTip', function () {
+            //     unloginObj.createOrder();
+            //     unloginObj.count = 0;
+            // })
+            $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-refresh', function () {
                 unloginObj.createOrder();
                 unloginObj.count = 0;
             })
@@ -51,32 +55,39 @@ define(function (require, exports, module) {
                     if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         // downLoadReport.expendType_var = "现金"
                         // 如果现金文档，弹出面登陆购买
-                        $('body').append(unloginBuyHtml);
-                        viewExposure($(this),'noLgFPayCon')
-                        var loginUrl = '';
-                        var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
-                        var classid1 = params && params.classid1 ? params.classid1 + '' : '';
-                        var classid2 = params && params.classid2 ? '-' + params.classid2 + '' : '';
-                        var classid3 = params && params.classid3 ? '-' + params.classid3 + '' : '';
-                        var clsId = classid1 + classid2 + classid3;
-                        var fid = params ? params.g_fileId || '' : '';
-                        require.async(['//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js'], function () {
-                            loginUrl = $.loginPop('login', {
-                                "terminal": "PC",
-                                "businessSys": "ishare",
-                                'domain': document.domain,
-                                "popup": "hidden",
-                                "clsId": clsId,
-                                "fid": fid
-                            });
-                            var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
-                            $('.loginFrameWrap').html(loginDom);
-                        })
+                        // $('body').append(unloginBuyHtml);
+                        // viewExposure($(this),'noLgFPayCon')
+                        // var loginUrl = '';
+                        // var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
+                        // var classid1 = params && params.classid1 ? params.classid1 + '' : '';
+                        // var classid2 = params && params.classid2 ? '-' + params.classid2 + '' : '';
+                        // var classid3 = params && params.classid3 ? '-' + params.classid3 + '' : '';
+                        // var clsId = classid1 + classid2 + classid3;
+                        // var fid = params ? params.g_fileId || '' : '';
+                        // require.async(['//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js'], function () {
+                        //     loginUrl = $.loginPop('login', {
+                        //         "terminal": "PC",
+                        //         "businessSys": "ishare",
+                        //         'domain': document.domain,
+                        //         "popup": "hidden",
+                        //         "clsId": clsId,
+                        //         "fid": fid
+                        //     });
+                        //     var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+                        //     $('.loginFrameWrap').html(loginDom);
+                        // })
+                        showTouristPurchaseDialog(function(){
                         var className = 'ico-' + pageConfig.params.file_format;
-                        $('.buyUnloginWrap .ico-data').addClass(className)
-                        $('.papper-title span').text(pageConfig.params.file_title)
-                        $('.shouldPayWrap span').text(pageConfig.params.price);
+                        $('.tourist-purchase-content .ico-data').addClass(className)
+                        $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title)
+                        $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
                         unloginObj.createOrder()
+                        })
+                        // var className = 'ico-' + pageConfig.params.file_format;
+                        // $('.buyUnloginWrap .ico-data').addClass(className)
+                        // $('.papper-title span').text(pageConfig.params.file_title)
+                        // $('.shouldPayWrap span').text(pageConfig.params.price);
+                        // unloginObj.createOrder()
                     }
                 }
             })
@@ -116,11 +127,16 @@ define(function (require, exports, module) {
                 //    gioPayDocReport.login_flag = '游客';
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
-                    $('.qrShadow').hide();
-                    $('.shadowTip').hide()
+                    // $('.qrShadow').hide();
+                    // $('.shadowTip').hide()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').show()
                 } else {
-                    $('.qrShadow').show();
-                    $('.failTip').show()
+                    // $('.qrShadow').show();
+                    // $('.failTip').show()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
+                    
                 }
             });
         },
@@ -131,9 +147,11 @@ define(function (require, exports, module) {
             var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
             console.log(url)
             try {
-                qr.createQrCode(url, 'payQrCode', 162, 162);
+                // qr.createQrCode(url, 'payQrCode', 162, 162);
+                // qr.createdQrCode(url,'touristPayQrCode',162,162)
+                qr.createQrCode(url,'touristPayQrCode',178,178)
             } catch (e) {
-
+                console.log('createdQrCode:',e)
             }
         },
         /**
@@ -173,8 +191,10 @@ define(function (require, exports, module) {
                                 window.setTimeout(function () { unloginObj.payStatus(orderNo, visitorId) }, 3000);
                             }
                             if (unloginObj.count > 28) {
-                                $('.qrShadow').show();
-                                $('.failTip').show()
+                                // $('.qrShadow').show();
+                                // $('.failTip').show()
+                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                             }
 
                         } else if (orderStatus == 2) {//成功

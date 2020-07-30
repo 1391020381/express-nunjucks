@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var method = require("./method");
     var api = require("./api");
     var showLoginDialog = require('./login').showLoginDialog
+    var showTouristPurchaseDialog = require('./login').showTouristPurchaseDialog
     module.exports = {
         getIds: function () {
             // 详情页
@@ -44,6 +45,9 @@ define(function (require, exports, module) {
                 showLoginDialog(function(){
                     console.log('loginCallback')
                 })
+                // showTouristPurchaseDialog(function(){
+                //     console.log('游客购买')
+                // })
                 // $.loginPop('login', { 
                 //     "terminal": "PC", 
                 //     "businessSys": "ishare", 
