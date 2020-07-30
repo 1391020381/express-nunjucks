@@ -210,6 +210,13 @@ $(document).on('click','#dialog-box .login-btn',function(e){
     if(logintype == 'verificationCode'){
         var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
         var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
+        var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
+        if(!method.testPhone(mobile)){
+            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+            return
+        }else{
+            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+        }
         loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
         return
     }
@@ -491,6 +498,30 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
             loginCallback&&loginCallback()
            }else{
+                if(loginType == 'codeLogin'){ // 验证码登录
+                    if(res.code=='411003'){ // 短信验证码已过期
+
+                    }
+                    if(res.code == '411004'){ // 短信验证码错误
+
+                    }
+                    if(res.code =='411005'){ // 手机号未注册
+
+                    }
+                    if(res.code == '411006'){ //手机号格式不正确
+
+                    }
+               }
+               
+               if(loginType == 'ppLogin'){ //手机密码登录
+                        if(res.code =='411005'){ // 手机号未注册
+
+                    }
+                    if(res.code =='411007'){ // 登录密码不正确
+
+                    }
+
+               }
             $.toast({
                 text:res.msg,
                 delay : 3000,

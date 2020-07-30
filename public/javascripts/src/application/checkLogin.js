@@ -44,6 +44,7 @@ define(function (require, exports, module) {
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 showLoginDialog(function(){
                     console.log('loginCallback')
+                    _self.getLoginData(callback)
                 })
                 // showTouristPurchaseDialog(function(){
                 //     console.log('游客购买')
@@ -133,7 +134,7 @@ define(function (require, exports, module) {
         getLoginData: function (callback) {
             var _self = this;
             try{
-                method.get(api.user.login, function (res) {
+                method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         if (callback && typeof callback == "function") {
                             callback(res.data);
