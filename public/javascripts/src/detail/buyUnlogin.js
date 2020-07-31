@@ -4,10 +4,12 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var qr = require("../pay/qr");
+    var login = require("../application/checkLogin");
     // var report = require("../pay/report");
     // var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
+    var common = require('./common');
     // downLoadReport.docPageType_var = pageConfig.page.ptype;
     // downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
@@ -96,13 +98,16 @@ define(function (require, exports, module) {
                         //     var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
                         //     $('.loginFrameWrap').html(loginDom);
                         // })
-                        showTouristPurchaseDialog(function(){
+                        showTouristPurchaseDialog(function(data){ // 游客登录后刷新头部和其他数据
+                            login.getLoginData(function (data) {
+                                common.afterLogin(data);
+                            });
+                        })
                         var className = 'ico-' + pageConfig.params.file_format;
                         $('.tourist-purchase-content .ico-data').addClass(className)
                         $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title)
                         $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
-                        unloginObj.createOrder()
-                        })
+                       unloginObj.createOrder()
                         // var className = 'ico-' + pageConfig.params.file_format;
                         // $('.buyUnloginWrap .ico-data').addClass(className)
                         // $('.papper-title span').text(pageConfig.params.file_title)
@@ -183,6 +188,7 @@ define(function (require, exports, module) {
          * isClear 是否停止
          */
         payStatus: function (orderNo, visitorId) {
+           
             var params = JSON.stringify({orderNo: orderNo});
             $.ajax({
                 type: 'post',
@@ -227,7 +233,7 @@ define(function (require, exports, module) {
                         }
                     } else {
                         $.toast({
-                            text: data.msg,
+                            text: response.message,
                         })
                         unloginObj.closeLoginWindon();
                     }
