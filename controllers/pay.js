@@ -57,8 +57,8 @@ module.exports = {
                 })
                 results.list.data = tempListData
             }
-            console.log("vip list------------");
-            console.log('后台返回的套餐列表:'+JSON.stringify(results));
+            // console.log("vip list------------");
+            // console.log('后台返回的套餐列表:'+JSON.stringify(results));
             // req.query.remark = 'office'
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);
@@ -97,6 +97,9 @@ module.exports = {
                     if (body) {
                         try {
                             var data = JSON.parse(body);
+                            console.log('请求地址post-------------------:',opt.url)
+                            console.log('请求参数-------------------:',opt.body)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                             if (data.code == 0) {
                                 
                                 callback(null, data);
@@ -142,11 +145,14 @@ module.exports = {
                          'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
                      },
                  };
-                 console.log('opt:',opt)
+                //  console.log('opt:',opt)
                  request(opt, function (err, res1, body) {
                     if (body) {
                         try {
                             var data = JSON.parse(body);
+                            console.log('请求地址post-------------------:',opt.url)
+                            console.log('请求参数-------------------:',opt.body)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                             if (data.code == 0) {
                                 var backData = {};
                                 backData.checkStatus = req.query.checkStatus[0]
@@ -196,7 +202,7 @@ module.exports = {
                 server.get(appConfig.apiBasePath + api.pay.qr.replace(/\$orderNo/, req.query.orderNo), callback, req);
             }
         }, function (err, results) {
-            console.log(results);
+            // console.log(results);
             if(results.list.code != 0){
                 results.list.data = {}
             }
@@ -214,14 +220,14 @@ module.exports = {
     scanQr: function (req, res) {
         return async.series({
             list: function (callback) {
-                console.log("响应二维码start==============");
-                console.log(req.query);
+                // console.log("响应二维码start==============");
+                // console.log(req.query);
                 req.body = req.query;
-                console.log(req.body);
+                // console.log(req.body);
                 server.get(appConfig.apiBasePath + api.pay.handle, callback, req);
             }
         }, function (err, results) {
-            console.log("响应二维码end==============");
+            // console.log("响应二维码end==============");
             // render("pay/cashbar", results, req, res);
             if ('office' == req.query.remark) {
                 render("office/pay/cashbar", results, req, res);
@@ -246,6 +252,9 @@ module.exports = {
                     if (body) {
                         try {
                             var data = JSON.parse(body);
+                            console.log('请求地址post-------------------:',opt.url)
+                            console.log('请求参数-------------------:',opt.body)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                             if (data.code == 0) {
                                 var backData = {
                                     fileId: req.query.fid,
@@ -274,14 +283,14 @@ module.exports = {
                 }
             },
             list: function (callback) {  // 从query上获取参数
-                console.log(req.url);
-                console.log(req.query);
+                // console.log(req.url);
+                // console.log(req.query);
                 callback(null, req.query);
             }
         }, function (err, results) {    // type=2 购买文件成功  type=0  购买vip成功  type=1   购买下载特权成功
             results.flag = 'true';
             results.type = results.list.type;
-            console.log(results);
+            // console.log(results);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);
             } else {
@@ -303,7 +312,7 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                console.log(req.url);
+                // console.log(req.url);
                 callback(null, req.query);
             }
         }, function (err, results) {
@@ -324,8 +333,8 @@ module.exports = {
                 server.post(appConfig.apiBasePath + api.pay.order, callback, req);
             }
         }, function (err, results) {
-            console.log("下单操作=================");
-            console.log(results);
+            // console.log("下单操作=================");
+            // console.log(results);
             res.send(results.list).end();
         })
     },
@@ -336,8 +345,8 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + api.pay.orderUnlogin, callback, req);
             }
         }, function (err, results) {
-            console.log("免登陆下单操作=================");
-            console.log(appConfig.apiBasePath + api.pay.orderUnlogin);
+            // console.log("免登陆下单操作=================");
+            // console.log(appConfig.apiBasePath + api.pay.orderUnlogin);
             res.send(results.list).end();
         })
     },
@@ -348,23 +357,23 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + api.pay.orderStatusUlogin, callback, req);
             }
         }, function (err, results) {
-            console.log(appConfig.apiNewBaselPath + api.pay.orderStatusUlogin);
-            console.log("下单操作=================");
-            console.log(results);
+            // console.log(appConfig.apiNewBaselPath + api.pay.orderStatusUlogin);
+            // console.log("下单操作=================");
+            // console.log(results);
             res.send(results.list).end();
         })
     },
     //免登下载接口
     visitorDownload: function (req, res) {
-        console.log(req.body)
+        // console.log(req.body)
         return async.series({
             list: function (callback) {
                 server.post(appConfig.apiBasePath + api.pay.visitorDownload, callback, req);
             }
         }, function (err, results) {
-            console.log(appConfig.apiBasePath + api.pay.visitorDownload)
-            console.log("免登陆下载操作=================");
-            console.log(results);
+            // console.log(appConfig.apiBasePath + api.pay.visitorDownload)
+            // console.log("免登陆下载操作=================");
+            // console.log(results);
             res.send(results.list).end();
         })
     },
@@ -373,18 +382,18 @@ module.exports = {
         return async.series({
             list: function (callback) {
                 req.body.type = 2;//兼容老系统
-                console.log(req.body);
+                // console.log(req.body);
                 server.post(appConfig.apiBasePath + api.pay.order, callback, req);
             }
         }, function (err, results) {
-            console.log("老系统文件下单操作=================");
+            // console.log("老系统文件下单操作=================");
             var data = results.list;
             if (data && data.code == '0' && data.data.orderNo) {
                 data.code = 'Y';//兼容操作
             } else {
                 data.code = 'N';//兼容操作
             }
-            console.log(results.list);
+            // console.log(results.list);
             res.send(results.list).end();
         })
     },
@@ -395,8 +404,8 @@ module.exports = {
                 server.post(appConfig.apiBasePath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
             }
         }, function (err, results) {
-            console.log("订单状态============");
-            console.log(results.list);
+            // console.log("订单状态============");
+            // console.log(results.list);
             res.send(results.list).end();
         })
     },
@@ -407,7 +416,7 @@ module.exports = {
                 server.get(appConfig.apiBasePath + api.pay.webAlipay, callback, req);
             }
         }, function (err, results) {
-            console.log(results.list);
+            // console.log(results.list);
             res.send(results.list).end();
         })
     },
@@ -435,13 +444,13 @@ module.exports = {
     bindUnlogin: function (req, res) {
         return async.series({
             list: function (callback) {
-                console.log('绑定**********************************')
-                console.log(appConfig.apiBasePath + api.pay.bindUnlogin)
+                // console.log('绑定**********************************')
+                // console.log(appConfig.apiBasePath + api.pay.bindUnlogin)
                 server.get(appConfig.apiBasePath + api.pay.bindUnlogin, callback, req);
             }
         }, function (err, results) {
-            console.log('绑定结果**********************************')
-            console.log(results)
+            // console.log('绑定结果**********************************')
+            // console.log(results)
             res.send(results.list).end();
         })
     },
@@ -460,6 +469,8 @@ module.exports = {
                     if (body) {
                         try {
                             var data = JSON.parse(body);
+                            console.log('请求地址get-------------------:',opt.url)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                             if (data.code == 0) {
                                 callback(null, {fileType: data.data.payType, code: 0});
                             } else {

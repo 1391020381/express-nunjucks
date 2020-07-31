@@ -58,6 +58,9 @@ module.exports = {
                     // console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:', opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         var fileInfo = data.data&&data.data.fileInfo;
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
@@ -183,6 +186,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var resData = JSON.parse(body);
+                                console.log('请求地址post-------------------:',option.url)
+                                console.log('请求参数-------------------:', option.body)
+                                console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
                                 if (resData.code == 0) {
                                     var data = resData.data || [];
                                     recommendInfoData_rele = data[0] || {}; //相关资料
@@ -218,6 +224,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
+                                console.log('请求地址post-------------------:',opt.url)
+                                console.log('请求参数-------------------:', opt.body)
+                                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                                 recRelateArrNum = data.length
                                 callback(null, data);
                             } catch (err) {
@@ -242,7 +251,7 @@ module.exports = {
                 };
                 if(recRelateArrNum<31) {
                     // server.post(appConfig.apiNewBaselPath+Api.spider.hotpotSearch, callback, req);
-                }
+                }   
                 callback(null, null);
             },
             // 热点专题
@@ -315,7 +324,7 @@ module.exports = {
             
             //对正文进行处理
             var textString =  results.fileDetailTxt.data||'';
-            console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
+            // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
            if(picArr.length>6) {
                 picArr = picArr.slice(0,6)
            }
@@ -388,7 +397,7 @@ module.exports = {
         //     }else{
         //         results.newsRec.data = []
         //     }
-           console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
+        //    console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
            results.fileDetailArr = newTextArr;
             render("spider/index", results, req, res);
         })

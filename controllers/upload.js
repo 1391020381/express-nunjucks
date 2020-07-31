@@ -25,8 +25,11 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:', opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
-                            console.log('getTopBannerList:',data)
+                            // console.log('getTopBannerList:',data)
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)

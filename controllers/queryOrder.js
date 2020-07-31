@@ -7,7 +7,7 @@ var urlencode = require('urlencode');
 //测试
 module.exports = {
     render: function(res, req) {
-            console.log('1---------1')
+            // console.log('1---------1')
             return async.series({}, function (err, results) {
                 render("queryOrder/index", results, res, req);
             })

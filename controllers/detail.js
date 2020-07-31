@@ -46,6 +46,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             if (data.data) {
                                 if(data.data.targetLink) {
@@ -80,6 +83,7 @@ module.exports = {
                 };
                 request(opt, function (err, res1, body) {
                     if(res1.statusCode == 503){ // http请求503
+                            console.log('--------详情页503重定向到503页面-------------')
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
                             return;     
                     }
@@ -87,6 +91,9 @@ module.exports = {
                         var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
                         var cuk = req.cookies.cuk
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
@@ -162,6 +169,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
@@ -184,6 +194,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
@@ -208,6 +221,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         var bannerList = {
                             'rightTopBanner':[],
                             'rightBottomBanner':[],
@@ -233,6 +249,8 @@ module.exports = {
                 if(req.cookies.ui){
                     var uid=JSON.parse(req.cookies.ui).uid;
                     server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                        console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
+                        console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
                         callback(null,item)
                     })
                 }else{
@@ -257,6 +275,9 @@ module.exports = {
             request(opt, function (err, res1, body) {
               if(body){
                 var data = JSON.parse(body);
+                console.log('请求地址post-------------------:',opt.url)
+                console.log('请求参数-------------------:',opt.body)
+                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                 if (data.code == 0){
                     callback(null, data);
                 }else{
@@ -340,6 +361,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var resData = JSON.parse(body);
+                                console.log('请求地址post-------------------:',option.url)
+                                console.log('请求参数-------------------:',option.body)
+                                console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
                                 if (resData.code == 0) {
                                     var data = resData.data || [];
                                     recommendInfoData_rele = data[0] || {}; //相关资料
@@ -375,6 +399,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
+                                console.log('请求地址post-------------------:',opt.url)
+                                console.log('请求参数-------------------:',opt.body)
+                                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
@@ -401,6 +428,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
+                                console.log('请求地址post-------------------:',opt.url)
+                                console.log('请求参数-------------------:',opt.body)
+                                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
@@ -429,7 +459,7 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-            console.log('results:',JSON.stringify(results))
+            // console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;

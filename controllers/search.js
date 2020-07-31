@@ -21,8 +21,6 @@ module.exports = {
         // console.log(req.query,'req.query======')
 
         return async.series({
-
-
             list: function (callback) {
 
                 server.get(appConfig.apiBasePath + Api.search.byCondition, callback, req);
@@ -40,14 +38,14 @@ module.exports = {
                     req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
                 }
                 var cond = req.query.cond || ''
-                console.log('cond:',cond)
+                // console.log('cond:',cond)
                 req.query = { cond: cond };
                 server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, req);
             }
 
         }, function (err, results) {
-            console.log(req.query, 'req.query');
-            console.warn(results, 'results');
+            // console.log(req.query, 'req.query');
+            // console.warn(results, 'results');
             var results = results || {};
             results.condition = [
                 {
@@ -144,7 +142,7 @@ module.exports = {
                 req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
             };
     
-            console.warn(results.list.data.rows,'results-------------')
+            // console.warn(results.list.data.rows,'results-------------')
             render("search/home", results, req, res);
         })
 

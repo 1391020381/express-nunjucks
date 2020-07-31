@@ -34,6 +34,8 @@ class specialModule{
                 let { paramsObj,req,res }=this.state;
                 const url=appConfig.apiNewBaselPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
                 this.state.detail=await server.$http(url,'get', req, res, true);
+                console.log('请求地址get-------------------:',url)
+                console.log('返回code------:'+this.state.detail.code,'返回msg-------:'+this.state.detail.msg)
                 if(this.state.detail.data.templateCode!=='ishare_zt_model1' || !this.state.detail.data){
                     res.redirect('/node/404.html')
                     return
@@ -45,7 +47,7 @@ class specialModule{
                 }else{// 无维度的情况
                     this.state.specialList=this.state.detail.data.specialTopicPropertyGroupDOList; //
                 }
-                console.warn(this.state.detail,'详情数据')
+                // console.warn(this.state.detail,'详情数据')
             },
             listTopicContents:async ()=> { //获取专题列表
                 let { paramsObj,req,res,specialList }=this.state;
@@ -63,9 +65,12 @@ class specialModule{
                     currentPage: +paramsObj.currentPage || 1,
                     pageSize: 40
                 };
-                console.warn(req.body,'req.body****************') 
+                // console.warn(req.body,'req.body****************') 
                 this.state.listData=await server.$http(appConfig.apiNewBaselPath + api.special.listTopicContents,'post', req,res,true);
-                console.warn(this.state.listData,'列表数据')
+                // console.warn(this.state.listData,'列表数据')
+                console.log('请求地址post-------------------:',appConfig.apiNewBaselPath + api.special.listTopicContents)
+                console.log('请求参数-------------------:', this.state.req.body)
+                console.log('返回code------:'+this.state.listData.code,'返回msg-------:'+this.state.listData.msg)
             },
             specialTopic:async ()=> {
                 let { req,res,detail }=this.state;
@@ -76,13 +81,17 @@ class specialModule{
                 }
                 let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
                 this.state.specialTopic = specialData.data && specialData.data.rows || [];
-                console.warn(this.state.specialTopic,'热点数据')
+                console.log('请求地址post-------------------:',appConfig.apiNewBaselPath + api.special.specialTopic)
+                console.log('请求参数-------------------:',req.body)
+                console.log('返回code------:'+specialData.code,'返回msg-------:'+specialData.msg)
             },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
                 let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
                 let topicName = this.state.detail.data.topicName;
                 let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
+                console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'))
+                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                 if(data.code == '0' && data.data){
                     data.data.title = data.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
                     this.state.tdkData=data.data
@@ -107,17 +116,23 @@ class specialModule{
                 }
                 let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
                 this.state.specialTopic = specialData.data && specialData.data.rows || [];
-                console.warn(this.state.specialTopic,'热点数据')
+                console.log('请求地址post-------------------:',appConfig.apiNewBaselPath + api.special.specialTopic)
+                console.log('请求参数-------------------:',req.body)
+                console.log('返回code------:'+specialData.code,'返回msg-------:'+specialData.msg)
+                // console.warn(this.state.specialTopic,'热点数据')
             },
             recommendList:async()=>{ //推荐列表  包含banner 专题 word ppt exl
                 let {req,res}= this.state;
                 req.body = [util.pageIds.special.friendLink]
               let  recommendList= await server.$http(appConfig.apiNewBaselPath+api.index.recommendList, 'post', req,res);
+              console.log('请求地址post-------------------:',appConfig.apiNewBaselPath+api.index.recommendList)
+              console.log('请求参数-------------------:',req.body)
+              console.log('返回code------:'+recommendList.code,'返回msg-------:'+recommendList.msg)
               recommendList.data && recommendList.data.map(item=>{
                     // 友情链接
                     this.state.recommendList = util.dealHref(item).list || [];
             })
-               console.log('this.state.recommendList:',JSON.stringify(this.state.recommendList))
+            //    console.log('this.state.recommendList:',JSON.stringify(this.state.recommendList))
             },
         }
     }
@@ -204,7 +219,7 @@ class specialModule{
             }, 
             friendLink:this.state.recommendList
         };
-        console.warn(results,'results')
+        // console.warn(results,'results')
     render("special/index", results, this.state.req, this.state.res);  
        
     }
