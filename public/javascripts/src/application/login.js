@@ -317,13 +317,17 @@ function countdown() {  // 二维码失效倒计时
         timer =  setTimeout(countdown, 1000);
     }
 }
- function loginByWeChat(){ // 微信扫码登录  返回 access_token 通过 access_token(cuk)
+ function loginByWeChat(cid,fid){ // 微信扫码登录  返回 access_token 通过 access_token(cuk)
     $.ajax({
         url: api.user.loginByWeChat,
         type: "POST",
         data:JSON.stringify({
             sceneId:sceneId, // 公众号登录二维码id
-            site:"1"
+            site:"1",
+            site:'1',
+            cid:cid,
+            fid:fid||'1816',
+            domain:encodeURIComponent(document.domain)
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -335,11 +339,13 @@ function countdown() {  // 二维码失效倒计时
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
            }else{
-            clearInterval(setIntervalTimer)
-            $.toast({
-                text:res.msg,
-                delay : 3000,
-            })
+            if(res.code !='411046'){ //  411046 用户未登录
+                clearInterval(setIntervalTimer)
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+            }
            }
         },
         error:function(error){
