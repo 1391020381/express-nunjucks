@@ -35,7 +35,7 @@ define(function(require , exports , module){
             })
             setTimeout(function(){
                 orgObj.uploadfile();
-            },500)
+            },800)
         },
         // 查询认证信息
         queryCerinfo:function(){
@@ -46,6 +46,68 @@ define(function(require , exports , module){
                     if(data.data&&data.data.auditStatus==3) {
                        $('.dialog-limit').show();
                        $('#bgMask').show()
+                    }else if(data.data) {
+                        if(data.data.auditStatus ==0||data.data.auditStatus ==1){
+                            $('.header-process .process-item').eq(1).addClass('step-now').siblings().removeClass('step-now')
+                        }else if(data.data.auditStatus==2) {
+                            $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now')
+                        }
+                        $('.js-realName').val(data.data.realName).attr('disabled','disabled');
+                        var organizeIndustryArr = [
+                            {val:0,title:'企业'},
+                            {val:1,title:'学校'},
+                            {val:2,title:'网络营销'},
+                            {val:3,title:'IT/互联网'},
+                            {val:4,title:'医学'}
+                        ]
+                        var industryTypeArr = [
+                            {val:0,title:'教育'},
+                            {val:1,title:'法律'},
+                            {val:2,title:'建筑/房地产'},
+                            {val:3,title:'制造加工'},
+                            {val:4,title:'通信电子'},
+                            {val:5,title:'农林牧渔'},
+                            {val:6,title:'健康/医学'},
+                            {val:7,title:'IT/互联网'},
+                            {val:8,title:'水利电力'},
+                            {val:9,title:'公关广告'},
+                            {val:10,title:'行业资讯'},
+                            {val:11,title:'金融'},
+                            {val:12,title:'石油化工'},
+                            {val:13,title:'人文艺术'},
+                            {val:14,title:'军事/航天/航空'},
+                            {val:15,title:'餐饮美食'},
+                            {val:16,title:'交通运输'},
+                            {val:17,title:'出版行业'},
+                            {val:18,title:'娱乐休闲'},
+                            {val:19,title:'生活科普'},
+                            {val:20,title:'学术/科研'},
+                            {val:21,title:'能源矿产'},
+                            {val:22,title:'文化传媒'},
+                            {val:23,title:'体育'},
+                            {val:24,title:'旅游'},
+                            {val:25,title:'政府'},
+                            {val:26,title:'其他'}
+                        ]
+                        $('.js-organize span').text(organizeIndustryArr[data.data.organizeIndustryType].title);
+                        $('.js-organlist').remove();
+                        $('.js-industry span').text(industryTypeArr[data.data.industryType].title);
+                        $('.js-industryTypeList').remove();
+                        $('.js-organize-name').val(data.data.organizeName).attr('disabled','disabled');
+                        $('.js-website').val(data.data.organizeWebsite).attr('disabled','disabled');
+                        $('.js-brief').val(data.data.organizeProfile).attr('disabled','disabled');
+                        $('.js-add').val(data.data.organizeAddress).attr('disabled','disabled');
+                        $('.js-cer-code').val(data.data.socialCreditCode).attr('disabled','disabled');
+                        $('.js-logoPic img').attr('src',data.data.logoPic);
+                        $('#upload-target').removeAttr('id')
+                        $('.js-businessLicensePic img').attr('src',data.data.businessLicensePic);
+                        $('#upload-target2').removeAttr('id')
+                        $('.js-phone').val(data.data.contactNumber).attr('disabled','disabled');
+                        $('.js-mail').val(data.data.email).attr('disabled','disabled');
+                        $('.js-msg').attr('disabled','disabled');
+                        $('.js-edit').hide()
+                        
+                        
                     }
                 }
             }).fail(function(e){

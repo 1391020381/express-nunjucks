@@ -39,10 +39,13 @@ module.exports = {
                 }
                 // callback(null, null);
                 request(option, function (err, res, body) {
-                    console.log(JSON.stringify(body),'paradigm4Relevant--------------')
+                    // console.log(JSON.stringify(body),'paradigm4Relevant--------------')
                     if (body) {
                         try {
                             var resData = JSON.parse(body);
+                            console.log('请求地址post-------------------:',option.url)
+                            console.log('请求参数-------------------:',option.body)
+                            console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
                             if (resData.code == 0) {
                                 var data = resData.data || [];
                                 var recommendInfoData_rele = data[0] || {}; //相关资料
@@ -72,17 +75,18 @@ module.exports = {
                 }
             },
             categoryList:function(callback) {
-                console.log(appConfig.apiNewBaselPath+api.index.navList)
+                // console.log(appConfig.apiNewBaselPath+api.index.navList)
                 req.body = {"site":4,"deeplevel":2};
                 server.post(appConfig.apiNewBaselPath+api.index.navList, callback, req);
             },
             // 热门专题（晒内容）
             hotTopicSeo:function(callback){
-                console.log(appConfig.apiNewBaselPath+api.index.randomRecommend)
+                // console.log(appConfig.apiNewBaselPath+api.index.randomRecommend)
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:48
+                    pageSize:48,
+                    siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
             },
@@ -108,7 +112,7 @@ module.exports = {
             }
 
         } , function(err, results){
-            console.log(JSON.stringify(results),'results')
+            // console.log(JSON.stringify(results),'results')
             if(results.hotTopicSeo && results.hotTopicSeo.data){
                 results.topicPagtotal = results.hotTopicSeo.data.length
             }
@@ -129,7 +133,7 @@ module.exports = {
             }
             // 推荐位处理数
             results.contentList=[];
-            console.log(JSON.stringify(results),'results------------------contentList')
+            // console.log(JSON.stringify(results),'results------------------contentList')
             if(results.recommendList){
                 const recfileArr = [];//精选资料
                 results.recommendList.data && results.recommendList.data.map(item=>{
@@ -213,7 +217,7 @@ module.exports = {
             }  
             // console.log(JSON.stringify(results),'results--------------------------end---------------')
             // console.warn(JSON.stringify(results.friendLink),'friendLink')
-            console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
+            // console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
             // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
             // console.log(results,'index***************************')
             render("index/index",results,req,res);

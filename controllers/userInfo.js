@@ -14,7 +14,7 @@ module.exports = {
     index: function (req, res) {
         return async.series({
             userInfo:function(callback){
-               console.log('req.cookies:',req.cookies)
+            //    console.log('req.cookies:',req.cookies)
                var opt = {
                 method: 'GET',
                 url: appConfig.apiNewBaselPath + api.user.getUserInfo,
@@ -26,6 +26,8 @@ module.exports = {
             request(opt, function (err, res1, body) {
                 if (body) {
                     var data = JSON.parse(body);
+                    console.log('请求地址get-------------------:',opt.url)
+                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                     if (data.code == 0 && data.data) {
                         callback(null, data); 
                     } else {
@@ -52,6 +54,9 @@ module.exports = {
                 request(opt, function (err, res1, body) {
                     if (body) {
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:', opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 && data.data) {
                             callback(null, data); 
                         } else {
@@ -63,7 +68,7 @@ module.exports = {
                 })
             }
         } , function(err, results){
-            console.log('results-------------:',results)
+            // console.log('results-------------:',results)
             var userInfo = {}
             var rightsVipMemberDetail = {}
             var userInfoCode = '0'
@@ -82,7 +87,7 @@ module.exports = {
             }
 
             var code = userInfoCode == 0 && rightsVipMemberDetailCode == 0?'0':1
-            console.log('userInfo:',JSON.stringify(userInfo),'rightsVipMemberDetail:',JSON.stringify(rightsVipMemberDetail))
+            // console.log('userInfo:',JSON.stringify(userInfo),'rightsVipMemberDetail:',JSON.stringify(rightsVipMemberDetail))
             var data = Object.assign({},userInfo,rightsVipMemberDetail)
             res.json(Object.assign({},results,{data:data,code:code}))
         })

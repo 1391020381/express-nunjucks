@@ -99,7 +99,7 @@ module.exports = {
     // 办公频道类目
     category: function (req, res) {
         return async.series(list(req), function (err, result) {
-            console.log(result,'result***********')
+            // console.log(result,'result***********')
             //最大20页
             var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
             var data = result && result.contents.data;
@@ -175,7 +175,7 @@ module.exports = {
                     tdk: tdk
                 },
             };
-            console.log(result, 'resultsearch===')
+            // console.log(result, 'resultsearch===')
             render('office/category/index.html', result, req, res);
         });
     },

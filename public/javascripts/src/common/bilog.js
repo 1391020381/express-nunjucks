@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         sdkVersion: 'V1.0.3',//sdk版本
         terminalType: '0',//软件终端类型  0-PC，1-M，2-快应用，3-安卓APP，4-IOS APP，5-微信小程序，6-今日头条小程序，7-百度小程序
         loginStatus: method.getCookie("cuk") ? 1 : 0,//登录状态 0 未登录 1 登录
-        visitID: method.getCookie("gr_user_id") || '',//访客id
+        visitID: method.getCookie("visitor_id") || '',//访客id
         userID: '',//用户ID
         sessionID: sessionStorage.getItem('sessionID') || cid || '',//会话ID
         productName: 'ishare',//产品名称
@@ -84,20 +84,22 @@ define(function (require, exports, module) {
     setPreInfo(document.referrer, initData);
 
     function setPreInfo(referrer, initData) {
+        // 获取访客id
+        initData.visitID = method.getCookie("visitor_id");
         if (new RegExp('/f/').test(referrer)
             && !new RegExp('referrer=').test(referrer)
             && !new RegExp('/f/down').test(referrer)) {
             var statuCode = $('.ip-page-statusCode')
             if(statuCode == '404'){
-                initData.prePageID = 'PC-M-404'; 
+                initData.prePageID = 'PC-M-404';
                 initData.prePageName = '资料被删除';
             }else if(statuCode == '302'){
-                initData.prePageID = 'PC-M-FSM'; 
+                initData.prePageID = 'PC-M-FSM';
                 initData.prePageName = '资料私有';
             } else{
                 initData.prePageID = 'PC-M-FD';
                 initData.prePageName = '资料详情页';
-            } 
+            }
         } else if (new RegExp('/pay/payConfirm.html').test(referrer)) {
             initData.prePageID = 'PC-M-PAY-F-L';
             initData.prePageName = '支付页-付费资料-列表页';
@@ -297,53 +299,7 @@ define(function (require, exports, module) {
 
         handle(commonData, customData);
     }
-    //文件购买结果页
-    function payFileResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE009';
-        commonData.eventName = 'payFileResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        if(!customData.fileID){
-            customData.fileID = method.getParam('fid') || $("#ip-page-fid").val();
-        }
-        if(!customData.filePayType){
-            var state = $("#ip-page-fstate").val() || 1;
-            customData.filePayType = payTypeMapping[state];
-        }
 
-        handle(commonData, customData);
-    }
-    //vip购买结果页
-    function payVipResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE011';
-        commonData.eventName = 'payVipResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        if (!customData.orderID){
-            customData.orderID = method.getParam('orderNo') || '';
-        }
-        handle(commonData, customData);
-    }
-    //下载特权购买结果页
-    function payPrivilegeResult(customData) {
-        var commonData = JSON.parse(JSON.stringify(initData));
-        setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'page';
-        commonData.eventID = 'SE013';
-        commonData.eventName = 'payPrivilegeResult';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
-        commonData.pageURL = window.location.href;
-        handle(commonData, customData);
-    }
     //下载结果页
     function downResult(customData) {
         var commonData = JSON.parse(JSON.stringify(initData));
@@ -366,7 +322,7 @@ define(function (require, exports, module) {
         commonData.pageID = 'PC-M-SR' || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         customData.keyWords = $('.new-input').val()||$('.new-input').attr('placeholder')
-       
+
         commonData.pageURL = window.location.href;
         handle(commonData, customData);
     }
@@ -381,84 +337,10 @@ define(function (require, exports, module) {
             if ('PC-O-SR' != pid) {//不是办公频道搜索结果页
                 normalPageView();
             }
-            var payVipResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', vipID: '', vipName: '', vipPrice: '',
-            };
-            var payPriResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', fileID: '', fileName: '', fileCategoryID: '', fileCategoryName: '',
-                filePayType: '', fileFormat: '', fileProduceType: '', fileCooType: '', fileUploaderID: '', privilegeID: '', privilegeName: '', privilegePrice: '',
-            };
-            var payFileResultData = {
-                payResult: 1,
-                orderID: method.getParam('orderNo') || '',
-                couponID: $(".pay-coupon-wrap").attr("vid") || '',
-                coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
-                orderPayType: '', orderPayPrice: '', fileID: '', fileName: '', fileCategoryID: '', fileCategoryName: '',
-                filePayType: '', fileFormat: '', fileProduceType: '', fileCooType: '', fileUploaderID: '', filePrice: '',
-                fileSalePrice: '',
-            };
+
             var bf = method.getCookie('bf');
             var br = method.getCookie('br');
             var href = window.location.href;
-            if ('PC-M-PAY-SUC' == pid || 'PC-O-PAY-SUC' == pid) {//支付成功页
-                if (href.indexOf("type=0") > -1) {//vip购买成功页
-                    if (br) {
-                        trans(JSON.parse(br), payVipResultData);
-                    }
-                    payVipResult(payVipResultData);
-                } else if (href.indexOf("type=1") > -1) {//下载特权购买成功页
-                    if (bf) {
-                        trans(JSON.parse(bf), payPriResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payPriResultData);
-                    }
-                    payPrivilegeResult(payPriResultData);
-                } else if (href.indexOf("type=2") > -1) {//文件购买成功页
-                    if (bf) {
-                        trans(JSON.parse(bf), payFileResultData);
-                    }
-                    var br = method.getCookie('br');
-                    if (br) {
-                        trans(JSON.parse(br), payFileResultData);
-                    }
-                    payFileResult(payFileResultData);
-                }
-            } else if ('PC-M-PAY-FAIL' == pid || 'PC-O-PAY-FAIL' == pid) {//支付失败页
-                if (href.indexOf("type=0") > -1) {//vip购买失败页
-                    if (br) {
-                        trans(JSON.parse(br), payVipResultData);
-                    }
-                    payVipResultData.payResult = 0;
-                    payVipResult(payVipResultData);
-                } else if (href.indexOf("type=1") > -1) {//下载特权购买失败页
-                    if (bf) {
-                        trans(JSON.parse(bf), payPriResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payPriResultData);
-                    }
-                    payPriResultData.payResult = 0;
-                    payPrivilegeResult(payPriResultData);
-                } else if (href.indexOf("type=2") > -1) {//文件购买失败页
-                    if (bf) {
-                        trans(JSON.parse(bf), payFileResultData);
-                    }
-                    if (br) {
-                        trans(JSON.parse(br), payFileResultData);
-                    }
-                    payFileResultData.payResult = 0;
-                    payFileResult(payFileResultData);
-                }
-            }
 
             var downResultData = {
                 downResult: 1,
@@ -660,7 +542,7 @@ define(function (require, exports, module) {
             }
             clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
         }else if(cnt == 'downSucSimilarFileClick'){
-            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData); 
+            clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData);
         }else if(cnt == 'markFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,
@@ -670,19 +552,19 @@ define(function (require, exports, module) {
                 filePayType: payTypeMapping[window.pageConfig.params.file_state],
                 markRusult: 1
             }
-            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData); 
+            clickCenter('SE019', 'markClick', 'markFileClick', '资料收藏点击', customData);
         }else if(cnt == 'vipRights'){
-            clickCenter('NE002', 'normalClick', 'vipRights', '侧边栏-vip权益', customData); 
+            clickCenter('NE002', 'normalClick', 'vipRights', '侧边栏-vip权益', customData);
         }else if(cnt == 'seen'){
-            clickCenter('NE002', 'normalClick', 'seen', '侧边栏-我看过的', customData); 
+            clickCenter('NE002', 'normalClick', 'seen', '侧边栏-我看过的', customData);
         }else if(cnt == 'mark'){
-            clickCenter('NE002', 'normalClick', 'mark', '侧边栏-我的收藏', customData); 
+            clickCenter('NE002', 'normalClick', 'mark', '侧边栏-我的收藏', customData);
         }else if(cnt == 'customerService'){
-            clickCenter('NE002', 'normalClick', 'customerService', '侧边栏-联系客服', customData); 
+            clickCenter('NE002', 'normalClick', 'customerService', '侧边栏-联系客服', customData);
         }else if(cnt == 'downApp'){
-            clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData); 
+            clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData);
         }else if(cnt == 'follow'){
-            clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData); 
+            clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData);
         }
     }
     function getSearchEngine(){
@@ -694,7 +576,7 @@ define(function (require, exports, module) {
         // bing:必应
         var referrer = document.referrer;
         var res = "";
-        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) { 
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
             res = '360';
         } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
             res = 'baidu';
@@ -706,7 +588,7 @@ define(function (require, exports, module) {
             res = 'google';
         } else if(/https?\:\/\/[^\s]*bing.com.*$/g.test(referrer)){
             res = 'bing';
-        } 
+        }
         return res;
     }
     function getSource(searchEngine){
@@ -722,6 +604,22 @@ define(function (require, exports, module) {
         }
         return source
     }
+
+    // todo 埋点相关公共方法 =====
+    // todo 埋点上报请求---新增
+
+    function reportToBlack(result) {
+        console.log('自有埋点上报结果', result);
+        setTimeout(function () {
+            $.getJSON(
+                "https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(result)) + "&jsoncallback=?",
+                function (data) {
+                    // console.log();
+                }
+            );
+        })
+    }
+
     module.exports = {
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)
@@ -738,8 +636,15 @@ define(function (require, exports, module) {
                 setTimeout(function(){
                     clickEvent(cnt,$this,moduleID)
                 })
-            } 
+            }
         },
-        searchResult:searchResult
+        searchResult:searchResult,
+        // todo 后续优化-公共处理==============
+        // todo 自有埋点公共数据
+        getBilogCommonData: function getBilogCommonData() {
+            setPreInfo(document.referrer, initData);
+            return initData;
+        },
+        reportToBlack: reportToBlack
     }
 });

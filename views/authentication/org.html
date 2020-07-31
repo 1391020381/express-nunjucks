@@ -47,17 +47,17 @@
             <div class="pw pw-v">
                 <h2 class="header-title">你正在进行机构认证</h2>
                 <div class="header-process cf">
-                    <div class="process-item {{'step-now' if results.auditStatus==undefined or results.auditStatus==3}} fl">
+                    <div class="process-item step-now fl">
                         <span class="step-num">1</span>
                         <span class="step-text">填写信息</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item {{'step-now' if  results.auditStatus==1 or results.auditStatus==0}} fl">
+                    <div class="process-item  fl">
                         <span class="step-num">2</span>
                         <span class="step-text">等待审核</span>
                     </div>
                     <div class="step-line"></div>
-                    <div class="process-item {{'step-now' if results.auditStatus==2}} fl">
+                    <div class="process-item fl">
                         <span class="step-num">3</span>
                         <span class="step-text">认证成功</span>
                     </div>
@@ -66,8 +66,6 @@
         </div>
         <div class="pw mt30">
             <div class="rz-main">
-                <input type="hidden" id="ip-auditStatus" value="">
-                <input type="hidden" id="ip-atype" value="org">
                 <form id="info-form">
                     <div class="rz-main-item">
                         <h2 class="rz-main-item-title"><i class="b"></i>基本信息</h2>
@@ -81,18 +79,16 @@
                                 <div class="jqtransform jqtransformdone">
                                     <div class="jqTransformSelectWrapper" style="width: 228px;">
                                         <div class="js-select js-organize" authtype="0">
-                                            <span style="width: 206px;">{%if results.isEdit%}{{results.organizeIndustryArr[results.organizeIndustryType]['title']}}{%else%}企业{%endif%}</span>
+                                            <span style="width: 206px;">企业</span>
                                             <a href="javascript:;" class="jqTransformSelectOpen"></a>
                                         </div>
-                                        {%if results.isEdit ==undefined %}
-                                        <ul style="width: 228px; display: none; visibility: visible;z-index: 201;">
+                                        <ul class="js-organlist" style="width: 228px; display: none; visibility: visible;z-index: 201;">
                                             <li><a href="javascript:;" index="0" class="selected">企业</a></li>
                                             <li><a href="javascript:;" index="1">学校</a></li>
                                             <li><a href="javascript:;" index="2">网络营销</a></li>
                                             <li><a href="javascript:;" index="3">IT/互联网</a></li>
                                             <li><a href="javascript:;" index="4">医学</a></li>
                                         </ul>
-                                        {%endif%}
                                 </div>
                                 </div>
                                 <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
@@ -104,13 +100,12 @@
                                 <div class="jqtransform jqtransformdone">
                                     <div class="jqTransformSelectWrapper" style="width: 228px;">
                                         <div class="js-select js-industry" authtype="0">
-                                            <span style="width: 206px;">{%if results.isEdit%}{{results.industryTypeArr[results.industryType]['title']}}{%else%}教育{%endif%}</span>
+                                            <span style="width: 206px;">教育</span>
                                             <a href="javascript:;" class="jqTransformSelectOpen"></a>
                                         </div>
                                         <!-- 0-教育、1-法律、2-建筑/房地产、3-制造加工、4-通信电子、5-农林牧渔、6-健康/医学、7-IT/互联网、8-水利电力、9-公关广告、10-行业资讯、 
 11-金融、12-石油化工、13-人文艺术、14-军事/航天/航空、15-餐饮美食、16-交通运输、17-出版行业、18-娱乐休闲、19-生活科普、20-学术/科研、21-能源矿产、22-文化传媒、23-体育、24-旅游、25-政府、26-其他 -->
-                                        {%if results.isEdit ==undefined %}
-                                        <ul style="width: 228px; display: none; visibility: visible;">
+                                        <ul class="js-industryTypeList" style="width: 228px; display: none; visibility: visible;">
                                             <li><a href="javascript:;" index="0" class="selected">教育</a></li>
                                             <li><a href="javascript:;" index="1">法律</a></li>
                                             <li><a href="javascript:;" index="2">建筑/房地产</a></li>
@@ -139,7 +134,6 @@
                                             <li><a href="javascript:;" index="25">政府</a></li>
                                             <li><a href="javascript:;" index="26">其他</a></li>
                                         </ul>
-                                        {%endif%}
                                 </div>
                                 </div>
                                 <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
@@ -149,7 +143,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>机构名称：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" class="rz-input-text js-organize-name" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.organizeName}}{%endif%}"  placeholder="请输入机构名称" name="organizeName">
+                                    <input type="text" class="rz-input-text js-organize-name"   placeholder="请输入机构名称" name="organizeName">
                                 </div>
                                 <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
                             </dd>
@@ -158,7 +152,7 @@
                             <dt class="rz-main-dt">机构官网：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con rz-input-410">
-                                    <input type="text" class="rz-input-text js-website" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.organizeWebsite}}{%endif%}" placeholder="请输入网站地址"  name="organizeWebsite">
+                                    <input type="text" class="rz-input-text js-website"   placeholder="请输入网站地址"  name="organizeWebsite">
                                 </div>
                             </dd>
                         </dl>
@@ -166,7 +160,7 @@
                             <dt class="rz-main-dt">机构简介：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-area-con">
-                                    <textarea class="rz-text-area js-brief" {%if results.isEdit %}disabled{%endif%} placeholder="请输入机构简介" name="organizeProfile">{%if results.isEdit  %}{{results.organizeProfile}}{%endif%}</textarea>
+                                    <textarea class="rz-text-area js-brief"  placeholder="请输入机构简介" name="organizeProfile"></textarea>
                                 </div>
                             </dd>
                         </dl>
@@ -174,7 +168,7 @@
                             <dt class="rz-main-dt">机构地址：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con rz-input-410">
-                                    <input type="text" class="rz-input-text js-add" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.organizeAddress}}{%endif%}"  placeholder="请输入机构所在地" name="organizeAddress" value="">
+                                    <input type="text" class="rz-input-text js-add"    placeholder="请输入机构所在地" name="organizeAddress" value="">
                                 </div>
                             </dd>
                         </dl>
@@ -182,7 +176,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>统一社会信用代码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="text" class="rz-input-text js-cer-code" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.socialCreditCode}}{%endif%}"  placeholder="请输入社会信用代码" name="organizeName">
+                                    <input type="text" class="rz-input-text js-cer-code"  placeholder="请输入社会信用代码" name="organizeName">
                                 </div>
                                 <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
                             </dd>
@@ -192,15 +186,15 @@
                                 <dt class="rz-main-dt"><span class="import">*</span>企业LOGO：</dt>
                                 <dd class="rz-main-dd">
                                     <div class="cf">
-                                        <a class="btn-rz-upload fl" {%if results.isEdit %}{%else%}id="upload-target"{%endif%}>
+                                        <a class="btn-rz-upload fl" id="upload-target">
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file" aval="logo" > -->
                                             <!-- <input type="hidden" name="logoPic" value=""> -->
                                         </a>
-                                        <div class="rz-upload-pic fl">
+                                        <div class="rz-upload-pic fl js-logoPic">
                                             <span class="delete-ele" title="删除" style="display:none"></span>
-                                            <img src="{%if results.isEdit%}{{results.logoPic}}{%else%}{{cdnUrl}}/images/auth/pic_sfz_z.jpg{%endif%}" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
+                                            <img src="{{cdnUrl}}/images/auth/pic_sfz_z.jpg" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
                                     </div>
                                     <div class="rz-info-bottom">
@@ -213,12 +207,12 @@
                                 <dt class="rz-main-dt"><span class="import">*</span>营业执照：</dt>
                                 <dd class="rz-main-dd">
                                     <div class="cf">
-                                        <a class="btn-rz-upload fl" {%if results.isEdit %}{%else%}id="upload-target2"{%endif%}>
+                                        <a class="btn-rz-upload fl" id="upload-target2">
                                             <div class="plus-icon">+</div>
                                             <div class="upload-des">上传图片</div>
                                             <!-- <input type="file" class="rz-file"> -->
                                             <input type="hidden" name="businessLicensePic"></a>
-                                        <div class="rz-upload-pic fl">
+                                        <div class="rz-upload-pic fl js-businessLicensePic">
                                             <span class="delete-ele" title="删除" style="display:none"></span>
                                             <img src="{%if results.isEdit%}{{results.businessLicensePic}}{%else%}{{cdnUrl}}/images/auth/pic_zj.jpg{%endif%}" aval="pic_zj.jpg" style="max-height: 200px;max-height: 200px;">
                                         </div>
@@ -240,7 +234,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>手机号码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="tel" {%if results.isEdit %}disabled{%endif%} autocomplete="off"  maxlength="11" value ="{%if results.isEdit  %}{{results.contactNumber}}{%endif%}" class="rz-input-text js-phone" placeholder="请输入手机号码" value="" name="contactNumber">
+                                    <input type="tel"  autocomplete="off"  maxlength="11"  class="rz-input-text js-phone" placeholder="请输入手机号码" value="" name="contactNumber">
                                 </div>
                             </dd>
                         </dl>
@@ -248,7 +242,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>验证码：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con">
-                                    <input type="tel" autocomplete="off" maxlength="6" {%if results.isEdit %}disabled{%endif%} class="rz-input-text js-msg-val" placeholder="请输入短信验证码" value="" name="email">
+                                    <input type="tel" autocomplete="off" maxlength="6"  class="rz-input-text js-msg-val" placeholder="请输入短信验证码" value="" name="email">
                                 </div>
                                 <a class="ver-btn js-msg" href="javascript:;">获取验证码</a>
                             </dd>
@@ -257,7 +251,7 @@
                             <dt class="rz-main-dt"><span class="import">*</span>电子邮箱：</dt>
                             <dd class="rz-main-dd">
                                 <div class="rz-input-con nofloat">
-                                    <input type="text" {%if results.isEdit %}disabled{%endif%} value ="{%if results.isEdit  %}{{results.email}}{%endif%}" class="rz-input-text js-mail" placeholder="请输入电子邮箱" value="" name="email">
+                                    <input type="text" class="rz-input-text js-mail" placeholder="请输入电子邮箱" value="" name="email">
                                 </div>
                                 <div class="rz-agreement-con easy_scrollable" tabindex="0" style="overflow: hidden; padding: 0px; width: 440px; outline: none;">
                                     
@@ -403,11 +397,9 @@
                             </dd>
                         </dl>
                     </div>
-                   {%if results.isEdit ==undefined %}
-                    <div class="btn-rz-con">
+                    <div class="btn-rz-con js-edit">
                         <a class="btn-rz-send js-submit">提交审核</a>
                     </div>
-                    {%endif%}
                 </form>
             </div>
         </div>
