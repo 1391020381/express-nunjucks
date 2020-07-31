@@ -15,7 +15,7 @@
 .login-dialog .close-btn {
   display: block;
   overflow: hidden;
-  background: url(../../images/icon_iShare.png) no-repeat;
+  background: url(../images/icon_iShare.png) no-repeat;
   width: 18px;
   height: 18px;
   position: absolute;
@@ -67,10 +67,17 @@
 .login-content .weixin-login .login-qrContent .login-qr {
   width: 100%;
   height: 100%;
-  background: #eeeeee;
   border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+}
+.login-content .weixin-login .login-qrContent .login-qr #login-qr {
+  width: 178px;
+  height: 178px;
+  padding: 11px;
 }
 .login-content .weixin-login .login-qrContent .login-qr-invalidtip {
+  display: none;
   width: 100%;
   height: 100%;
   background: #666364;
@@ -147,7 +154,7 @@
   padding-left: 24px;
 }
 .login-content .weixin-login .login-type-list .login-type-qq .qq-icon {
-  background: url('../../images/login/qq-active.png') no-repeat center;
+  background: url('../images/login/qq-active.png') no-repeat center;
   background-size: contain;
 }
 .login-content .weixin-login .login-type-list .login-type-qq .login-desc {
@@ -160,7 +167,7 @@
   position: relative;
 }
 .login-content .weixin-login .login-type-list .login-type-weibo .weibo-icon {
-  background: url('../../images/login/weibo-active.png') no-repeat center;
+  background: url('../images/weibo-active.png') no-repeat center;
   background-size: 100%;
 }
 .login-content .weixin-login .login-type-list .login-type-weibo .login-desc {
@@ -234,19 +241,19 @@
   position: relative;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-num .add {
-  margin-left: 6px;
+  margin-left: 4px;
   font-style: normal;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #A0A0A0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
   top: 50%;
   right: 5px;
   position: absolute;
-  margin-top: -3px;
+  margin-top: -2px;
 }
 .login-content .verificationCode-login .mobile .phone-choice .phone-more {
   display: none;
@@ -278,7 +285,7 @@
   border-bottom-color: #fff;
   border-bottom-left-radius: 0;
 }
-.login-content .verificationCode-login .mobile .input-moblie {
+.login-content .verificationCode-login .mobile .input-mobile {
   position: absolute;
   right: 0;
   top: 0;
@@ -286,7 +293,7 @@
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-content .verificationCode-login .mobile .input-moblie input {
+.login-content .verificationCode-login .mobile .input-mobile input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -295,7 +302,8 @@
   height: 42px;
   border: none;
 }
-.login-content .verificationCode-login .mobile .input-moblie .mobile-errortip {
+.login-content .verificationCode-login .mobile .input-mobile .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -319,7 +327,31 @@
   border-radius: 4px;
   padding-left: 12px;
 }
+.login-content .verificationCode-login .code .verification-code-tip {
+  display: none;
+  position: absolute;
+  top: 50%;
+  font-size: 15px;
+  height: 15px;
+  color: #E63223;
+  left: 96px;
+  margin-top: -9px;
+}
 .login-content .verificationCode-login .code .getVerificationCode {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 140px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 15px;
+  color: #999999;
+  text-align: center;
+  background: #e9e8e5;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+.login-content .verificationCode-login .code .getVerificationCode-active {
   position: absolute;
   right: 0;
   top: 0;
@@ -331,6 +363,7 @@
   text-align: center;
   background: #f25126;
   border-radius: 4px;
+  cursor: pointer;
 }
 .login-content .verificationCode-login .login-info {
   margin: 24px auto 0 auto;
@@ -356,10 +389,18 @@
   height: 44px;
   line-height: 44px;
   text-align: center;
-  background: #f25126;
-  border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+}
+.login-content .verificationCode-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.login-content .verificationCode-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .login-content .verificationCode-login .login-type-list {
   height: 64px;
@@ -388,14 +429,14 @@
   padding-left: 24px;
 }
 .login-content .verificationCode-login .login-type-list .login-type-weixin .weixin-icon {
-  background: url('../../images/login/weixin.png') no-repeat center;
+  background: url('../images/login/weixin.png') no-repeat center;
   background-size: 100%;
 }
 .login-content .verificationCode-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
 .login-content .verificationCode-login .login-type-list .login-type-qq .qq-icon {
-  background: url('../../images/login/qq.png') no-repeat center;
+  background: url('../images/login/qq.png') no-repeat center;
   background-size: contain;
 }
 .login-content .verificationCode-login .login-type-list .login-type-qq .login-desc {
@@ -408,7 +449,7 @@
   position: relative;
 }
 .login-content .verificationCode-login .login-type-list .login-type-weibo .weibo-icon {
-  background: url('../../images/login/weibo.png') no-repeat center;
+  background: url('../images/login/weibo.png') no-repeat center;
   background-size: 100%;
 }
 .login-content .verificationCode-login .login-type-list .login-type-weibo .login-desc {
@@ -463,15 +504,15 @@
   position: relative;
 }
 .login-content .password-login .mobile .phone-choice .phone-num .add {
-  margin-left: 6px;
+  margin-left: 4px;
   font-style: normal;
 }
 .login-content .password-login .mobile .phone-choice .phone-num .arrow-phone {
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #A0A0A0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
   top: 50%;
   right: 5px;
   position: absolute;
@@ -507,7 +548,7 @@
   border-bottom-color: #fff;
   border-bottom-left-radius: 0;
 }
-.login-content .password-login .mobile .input-moblie {
+.login-content .password-login .mobile .input-mobile {
   position: absolute;
   right: 0;
   top: 0;
@@ -515,7 +556,7 @@
   height: 42px;
   border: 1px solid #cccccc;
 }
-.login-content .password-login .mobile .input-moblie input {
+.login-content .password-login .mobile .input-mobile input {
   display: block;
   padding: 0;
   padding-left: 12px;
@@ -524,7 +565,8 @@
   height: 42px;
   border: none;
 }
-.login-content .password-login .mobile .input-moblie .mobile-errortip {
+.login-content .password-login .mobile .input-mobile .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -544,11 +586,37 @@
   padding: 0;
   padding-left: 12px;
   line-height: 42px;
+  height: 42px;
   background: #ffffff;
   border: 1px solid #cccccc;
   border-radius: 4px;
 }
+.login-content .password-login .password .close-eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: url('../images/login/close-eye.png');
+  background-size: 100%;
+  cursor: pointer;
+}
+.login-content .password-login .password .eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 15px;
+  margin-top: -7.5px;
+  background: url('../images/login/eye.png');
+  background-size: 100%;
+  cursor: pointer;
+}
 .login-content .password-login .password .mobile-errortip {
+  display: none;
   position: absolute;
   width: 75px;
   height: 15px;
@@ -564,10 +632,20 @@
   height: 44px;
   line-height: 44px;
   text-align: center;
-  background: #f25126;
   border-radius: 4px;
   font-size: 15px;
   color: #ffffff;
+  cursor: pointer;
+}
+.login-content .password-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.login-content .password-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .login-content .password-login .login-info {
   margin: 24px auto 0 auto;
@@ -614,14 +692,14 @@
   padding-left: 24px;
 }
 .login-content .password-login .login-type-list .login-type-weixin .weixin-icon {
-  background: url('../../images/login/weixin.png') no-repeat center;
+  background: url('../images/login/weixin.png') no-repeat center;
   background-size: 100%;
 }
 .login-content .password-login .login-type-list .login-type-qq {
   padding-left: 24px;
 }
 .login-content .password-login .login-type-list .login-type-qq .qq-icon {
-  background: url('../../images/login/qq.png') no-repeat center;
+  background: url('../images/login/qq.png') no-repeat center;
   background-size: contain;
 }
 .login-content .password-login .login-type-list .login-type-qq .login-desc {
@@ -634,7 +712,7 @@
   position: relative;
 }
 .login-content .password-login .login-type-list .login-type-weibo .weibo-icon {
-  background: url('../../images/login/weibo.png') no-repeat center;
+  background: url('../images/login/weibo.png') no-repeat center;
   background-size: 100%;
 }
 .login-content .password-login .login-type-list .login-type-weibo .login-desc {
@@ -664,7 +742,7 @@
 .tourist-purchase-dialog .close-btn {
   display: block;
   overflow: hidden;
-  background: url(../../images/icon_iShare.png) no-repeat;
+  background: url(../images/icon_iShare.png) no-repeat;
   width: 18px;
   height: 18px;
   position: absolute;
@@ -723,9 +801,9 @@
   height: 14px;
   line-height: 14px;
   color: #666666;
+  text-align: center;
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary .file-icon {
-  margin-left: 58px;
   margin-right: 4px;
   display: inline-block;
   width: 16px;
@@ -735,7 +813,7 @@
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary .file-desc {
   display: inline-block;
-  width: 332px;
+  max-width: 332px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -761,10 +839,15 @@
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr {
   width: 100%;
   height: 100%;
-  background: #eeeeee;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
   border-radius: 4px;
 }
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr #touristPayQrCode {
+  padding: 11px;
+}
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip {
+  display: none;
   width: 100%;
   height: 100%;
   background: #666364;
@@ -807,7 +890,7 @@
   display: inline-block;
   width: 28px;
   height: 28px;
-  background: url("../../images/login/weixin-active.png") no-repeat center;
+  background: url("../images/login/weixin-active.png") no-repeat center;
   background-size: 100%;
 }
 .tourist-purchase-dialog .tourist-purchase-container .paytype-icon .alipay-icon {
@@ -815,7 +898,7 @@
   display: inline-block;
   width: 28px;
   height: 28px;
-  background: url("../../images/login/alipay-active.png") no-repeat center;
+  background: url("../images/login/alipay-active.png") no-repeat center;
   background-size: 100%;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-tip {
@@ -834,4 +917,89 @@
   line-height: 64px;
   text-indent: 16px;
   background: #f5f4f0;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer .tourist-purchase-download {
+  color: #2D6373;
+  cursor: pointer;
+}
+.tourist-login .login-qrContent {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.tourist-login .login-qrContent .login-qr {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+}
+.tourist-login .login-qrContent .login-qr #login-qr {
+  width: 178px;
+  height: 178px;
+  padding: 11px;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip .qr-invalidtip {
+  font-size: 14px;
+  padding-top: 69px;
+  color: #ffffff;
+  text-align: center;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip .qr-refresh {
+  margin: 10px auto 0 auto;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.tourist-login .login-qrinfo {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 15px;
+  color: #656565;
+  text-align: center;
+}
+.tourist-login .login-qrinfo .wechat-icon {
+  margin-right: 8px;
+  display: inline-block;
+  width: 23px;
+  height: 20px;
+  vertical-align: middle;
+  background: url('../images/login/tourist-wechat-login.png') no-repeat center;
+  background-size: 100%;
+}
+.tourist-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.tourist-login .login-info a {
+  color: inherit;
+}
+.tourist-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.tourist-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
 }

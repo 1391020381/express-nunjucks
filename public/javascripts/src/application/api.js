@@ -8,9 +8,9 @@ define(function (require, exports, module) {
         // 用户相关
         user: {
             // 登录
+            loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
-            refreshWeChatQrcode:gateway + '/cas/login/refreshRrcode', // 刷新微信登录二维码
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
             login: router + '/usermanage/checkLogin',

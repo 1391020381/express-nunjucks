@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var method = require("./method");
     var api = require("./api");
     var showLoginDialog = require('./login').showLoginDialog
+    var showTouristPurchaseDialog = require('./login').showTouristPurchaseDialog
     module.exports = {
         getIds: function () {
             // 详情页
@@ -41,7 +42,13 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                showLoginDialog()
+                showLoginDialog(function(){
+                    console.log('loginCallback')
+                    _self.getLoginData(callback)
+                })
+                // showTouristPurchaseDialog(function(){
+                //     console.log('游客购买')
+                // })
                 // $.loginPop('login', { 
                 //     "terminal": "PC", 
                 //     "businessSys": "ishare", 
@@ -127,7 +134,7 @@ define(function (require, exports, module) {
         getLoginData: function (callback) {
             var _self = this;
             try{
-                method.get(api.user.login, function (res) {
+                method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         if (callback && typeof callback == "function") {
                             callback(res.data);

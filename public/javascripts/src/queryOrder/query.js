@@ -211,7 +211,7 @@ define(function (require, exports, module) {
             loginPopShow();
         }
         // 意见反馈的url
-        var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+        var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
         var $iconDetailWrap = $('.icon-detail-wrap');

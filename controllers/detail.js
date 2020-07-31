@@ -77,8 +77,7 @@ module.exports = {
                         sourceType: 0
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
@@ -214,8 +213,7 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo,
                     body:JSON.stringify(params),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     }
                 };
                 request(opt,function(err,res1,body){
@@ -353,8 +351,7 @@ module.exports = {
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {
@@ -551,8 +548,7 @@ module.exports = {
                         sourceType: 1
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
@@ -649,8 +645,7 @@ module.exports = {
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {
@@ -707,10 +702,10 @@ module.exports = {
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
 
-            if (!results.list || results.list.code == 40004 || !results.list.data) {
-                res.redirect('/node/404.html');
-                return;
-            }
+            // if (!results.list || results.list.code == 40004 || !results.list.data) {
+            //     res.redirect('/node/404.html');
+            //     return;
+            // }
             // 如果有第四范式 猜你喜欢
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {

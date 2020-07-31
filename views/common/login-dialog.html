@@ -16,14 +16,16 @@
                          <span class="login-desc">微信扫码登录</span>
                     </div>
                     <div class="login-qrContent">
-                         <div class="login-qr"></div>
+                         <div class="login-qr">
+                              <img id="login-qr" src="">
+                         </div>
                          <div class="login-qr-invalidtip">
                               <p class="qr-invalidtip">二维码已失效</p>
                               <p class="qr-refresh">刷新</p>
                          </div>
                     </div>
                     <div class="login-qrinfo">请使用微信扫描二维码登录</div>
-                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy">《隐私政策》</a>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                     </div>
                     <ul class="login-type-list">
                          <li class="login-type-qq">
@@ -233,17 +235,18 @@
                                    </a>
                               </div>
                          </div>
-                         <div class="input-moblie">
-                              <input   type="text" placeholder="请输入手机号"/>
+                         <div class="input-mobile">
+                              <input   type="text" class="telphone" placeholder="请输入手机号"/>
                               <span class="mobile-errortip">手机号错误</span>
                          </div>
                     </div>
                     <div class="login-item code">
                          <input class="verification-code" placeholder="请输入验证码"/>
-                         <span class="getVerificationCode">获取验证</span>
+                         <span class="verification-code-tip">验证码错误</span>
+                         <span class="getVerificationCode" data-authenticationCodeType='0'>获取验证码</span>
                     </div>
-                    <div class="login-item login-btn">登录</div>
-                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy">《隐私政策》</a>
+                    <div class="login-item login-btn login-btn-disable" data-logintype="verificationCode">登录</div>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                     </div>
                     <ul class="login-type-list">
                          <li class="login-type-weixin">
@@ -457,17 +460,20 @@
                                    </a>
                               </div>
                          </div>
-                         <div class="input-moblie">
-                              <input   type="text" placeholder="请输入手机号"/>
+                         <div class="input-mobile">
+                              <input   type="text"  class="telphone" placeholder="请输入手机号"/>
                               <span class="mobile-errortip">手机号错误</span>
                          </div>
                     </div>
                     <div class="login-item password">
-                         <input class="login-password"/>
+                         <input class="login-password text-input"/>
+                         <input class="login-password password-input" type="password" style="display:none;"/>
+                         <span class="close-eye"></span>
+                         <span class="eye"></span>
                          <span class="mobile-errortip">密码错误</span>
                     </div>
-                    <div class="login-item login-btn">登录</div>
-                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy">《隐私政策》</a>
+                    <div class="login-item login-btn login-btn-disable" data-logintype="password">登录</div>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                     </div>
                     <ul class="login-type-list">
                          <li class="login-type-weixin">
@@ -487,7 +493,7 @@
                     </ul>
                </div>
           </div>
-     </script>
+</script>
 
      <script type="text/template" id="tourist-purchase-dialog">
           <div class="tourist-purchase-dialog">
@@ -500,15 +506,17 @@
                     </ul>
                     <div class="tourist-purchase-content">
                          <div class="file-summary">
-                              <span class="file-icon icon ico-data ico-pdf"></span>
-                              <span class="file-desc">小学数学老师个人求职简历模板自荐信工作经验唯美</span>
+                              <span class="file-icon icon ico-data"></span>
+                              <span class="file-desc"></span>
                          </div>
                          <div class="file-price-summary">
-                              <span class="file-price">应付金额：<em class="price">29.0</em>
+                              <span class="file-price">应付金额：<em class="price"></em>
                               </span>元
                                     </div>
                          <div class="tourist-purchase-qrContent">
-                              <div class="tourist-purchase-qr"></div>
+                              <div class="tourist-purchase-qr">
+                                   <div id="touristPayQrCode"></div>
+                              </div>
                               <div class="tourist-purchase-invalidtip">
                                    <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
                                    <p class="tourist-purchase-refresh">刷新</p>
@@ -522,7 +530,7 @@
                          </div>
                          <div class="tourist-purchase-tip">扫码即代表已阅读并同意《下载风险提示》</div>
                          <div class="tourist-purchase-footer">
-                                        如您已经购买过该文档，下载未成功或需要重复下载请<span class="tourist-purchase-download">点击此处</span>
+                                        如您已经购买过该文档，下载未成功或需要重复下载请<span class="tourist-purchase-download" target="_blank" href="/node/queryOrder">点击此处</span>
                          </div>
                     </div>
 
@@ -534,14 +542,16 @@
                                    <span class="login-desc">微信扫码登录</span>
                               </div>
                               <div class="login-qrContent">
-                                   <div class="login-qr"></div>
+                                   <div class="login-qr">
+                                         <img id="login-qr" src="">
+                                   </div>
                                    <div class="login-qr-invalidtip">
                                         <p class="qr-invalidtip">二维码已失效</p>
                                         <p class="qr-refresh">刷新</p>
                                    </div>
                               </div>
                               <div class="login-qrinfo">请使用微信扫描二维码登录</div>
-                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" herf="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                               </div>
                               <ul class="login-type-list">
                                    <li class="login-type-qq">
@@ -751,17 +761,18 @@
                                              </a>
                                         </div>
                                    </div>
-                                   <div class="input-moblie">
-                                        <input   type="text" placeholder="请输入手机号"/>
+                                   <div class="input-mobile">
+                                        <input   type="text" class="telphone" placeholder="请输入手机号"/>
                                         <span class="mobile-errortip">手机号错误</span>
                                    </div>
                               </div>
                               <div class="login-item code">
                                    <input class="verification-code" placeholder="请输入验证码"/>
-                                   <span class="getVerificationCode">获取验证</span>
+                                    <span class="verification-code-tip">验证码错误</span>
+                                   <span class="getVerificationCode" data-authenticationCodeType='0'>获取验证码</span>
                               </div>
-                              <div class="login-item login-btn">登录</div>
-                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              <div class="login-item login-btn login-btn-disable" data-logintype="verificationCode">登录</div>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                               </div>
                               <ul class="login-type-list">
                                    <li class="login-type-weixin">
@@ -975,17 +986,20 @@
                                              </a>
                                         </div>
                                    </div>
-                                   <div class="input-moblie">
-                                        <input   type="text" placeholder="请输入手机号"/>
+                                   <div class="input-mobile">
+                                        <input   type="text" class="telphone" placeholder="请输入手机号"/>
                                         <span class="mobile-errortip">手机号错误</span>
                                    </div>
                               </div>
                               <div class="login-item password">
-                                   <input class="login-password"/>
+                                  <input class="login-password text-input"/>
+                                 <input class="login-password password-input" type="password" style="display:none;"/>
+                                   <span class="close-eye"></span>
+                                   <span class="eye"></span>
                                    <span class="mobile-errortip">密码错误</span>
                               </div>
-                              <div class="login-item login-btn">登录</div>
-                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" herf="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              <div class="login-item login-btn login-btn-disable" data-logintype="password">登录</div>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
                               </div>
                               <ul class="login-type-list">
                                    <li class="login-type-weixin">
@@ -1009,3 +1023,34 @@
                </div>
           </div>
      </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div  id="tourist-login" style="display:none;">
+    <div class="tourist-login">
+      <div class="login-qrContent">
+               <div class="login-qr">
+                    <img id="login-qr" src=""/>
+               </div>
+               <div class="login-qr-invalidtip">
+                    <p class="qr-invalidtip">二维码已失效</p>
+                     <p class="qr-refresh">刷新</p>
+               </div>
+     </div>
+     <div class="login-qrinfo"><span class="wechat-icon"></span><span class="wechat-icon-desc">请使用微信扫描二维码登录</span></div>
+      <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+      </div>
+     </div>
+  </div>  
+
+
+
