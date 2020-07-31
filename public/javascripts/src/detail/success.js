@@ -185,13 +185,15 @@ define(function (require, exports, module) {
         var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
          function touristLoginCallback(res) {
-            initData.isVip = parseInt(res.isVip, 10);
-            userData = res;
-            // 登陆成功绑定userid
-            bindOrder(res.userId, res.nickName);
-
+            login.getLoginData(function (data) {
+                initData.isVip = parseInt(data.isVip, 10);
+                userData = data;
+                // 登陆成功绑定userid
+                bindOrder(data.userId, data.nickName);
+            });
         }
-        getLoginQrcode('','','',true,function(res){
+        
+        getLoginQrcode('','',false,true,function(res){
             touristLoginCallback(res)
         })
     }

@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     $('#dialog-box .login-content .verificationCode-login').hide()
     $('#dialog-box .login-content .password-login').show()
    })
-   $(document).on('click','#dialog-box .weixin-login .login-qrContent .qr-refresh',function(e){ // 刷新微信登录二维码
+   $(document).on('click','#dialog-box .qr-refresh',function(e){ // 刷新微信登录二维码
         //    getLoginQrcode(cid,fid,true)
         getLoginQrcode('','',true)
    })
@@ -156,7 +156,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
    
 })
 
-$(document).on('click','#dialog-box .login-type-list .icon',function(){ // 第三方登录
+$(document).on('click','#dialog-box .login-type-list .login-type',function(){ // 第三方登录
     var loginType = $(this).attr('data-logintype')
     console.log('loginType:',loginType)
     if(loginType){
@@ -233,27 +233,13 @@ function closeRewardPop(){
     $(".common-bgMask").hide();
     $(".detail-bg-mask").hide();
     $('#dialog-box').hide();
+    clearInterval(setIntervalTimer)
 } 
 
-$.ajaxSetup({
-    headers:{
-        'Authrization':method.getCookie('cuk')
-    },
-    complete:function(XMLHttpRequest,textStatus){
-    },
-    statusCode: {
-        401: function() { 
-            method.delCookie("cuk", "/");
-            $.toast({
-                text:'请重新登录',
-                delay : 2000
-            })
-        }
-    }
- });
+
  
 // 微信登录
-function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin){  // 生成二维码 或刷新二维码 callback 游客登录的callback
+function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
     $.ajax({
         url: api.user.getLoginQrcode,
         type: "POST",
@@ -275,6 +261,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin){  // 生成二维码
             countdown()
             if(isTouristLogin){
                 $('.tourist-login #login-qr').attr('src',res.data.url)
+                touristLoginCallback = callback
             }else{
                $('#dialog-box #login-qr').attr('src',res.data.url)
             }
@@ -553,14 +540,14 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         }
     })
 }
- function showLoginDialog(callback){
+ function showLoginDialog(params,callback){
     loginCallback = callback
     var loginDialog = $('#login-dialog')
     
     $("#dialog-box").dialog({
         html: loginDialog.html(),
         'closeOnClickModal':false
-    }).open(getLoginQrcode);
+    }).open(getLoginQrcode(params.clsId,params.fid));
   }
   function showTouristPurchaseDialog(callback){ // 游客购买的回调函数
     touristLoginCallback = callback

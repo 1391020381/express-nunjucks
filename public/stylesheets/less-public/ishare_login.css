@@ -5,7 +5,7 @@
   position: fixed;
   left: 50%;
   top: 50%;
-  z-index: 1000;
+  z-index: 99999;
   margin-top: -265px;
   margin-left: -230px;
   background: #fbf9f5;
@@ -732,7 +732,7 @@
   position: fixed;
   left: 50%;
   top: 50%;
-  z-index: 1000;
+  z-index: 99999;
   margin-top: -265px;
   margin-left: -230px;
   background: #fbf9f5;

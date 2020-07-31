@@ -26,6 +26,23 @@ define(function (require, exports, module) {
     }
     getVisitUserId();
 
+    $.ajaxSetup({
+        headers:{
+            'Authrization':method.getCookie('cuk')
+        },
+        complete:function(XMLHttpRequest,textStatus){
+        },
+        statusCode: {
+            401: function() { 
+                method.delCookie("cuk", "/");
+                $.toast({
+                    text:'请重新登录',
+                    delay : 2000
+                })
+            }
+        }
+     });
+     
     var bilog=require("../common/bilog");
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;

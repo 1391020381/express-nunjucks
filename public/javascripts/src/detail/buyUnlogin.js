@@ -98,7 +98,7 @@ define(function (require, exports, module) {
                         //     var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
                         //     $('.loginFrameWrap').html(loginDom);
                         // })
-                        showTouristPurchaseDialog(function(data){ // 游客登录后刷新头部和其他数据
+                        showTouristPurchaseDialog(function(){ // 游客登录后刷新头部和其他数据
                             login.getLoginData(function (data) {
                                 common.afterLogin(data);
                             });
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
          * isClear 是否停止
          */
         payStatus: function (orderNo, visitorId) {
-           
+           orderNo = 45432441372672
             var params = JSON.stringify({orderNo: orderNo});
             $.ajax({
                 type: 'post',

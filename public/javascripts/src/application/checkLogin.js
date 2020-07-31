@@ -42,7 +42,9 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                showLoginDialog(function(){
+                var clsId = this.getIds().clsId
+                var fid  = this.getIds().fid
+                showLoginDialog({clsId:clsId,fid:fid},function(){
                     console.log('loginCallback')
                     _self.getLoginData(callback)
                 })

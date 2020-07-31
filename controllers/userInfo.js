@@ -80,8 +80,8 @@ module.exports = {
                 userInfoCode = results.userInfo&&results.userInfo.code
             }
 
-            if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){
-                rightsVipMemberDetail = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.data
+            if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){ // 在前端页面
+                rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus})
             }else{
                 rightsVipMemberDetailCode = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code
             }

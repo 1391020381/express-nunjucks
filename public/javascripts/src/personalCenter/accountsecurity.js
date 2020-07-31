@@ -21,6 +21,9 @@ define(function(require , exports , module){
     }
     function queryUserBindInfo() {  // 查询用户绑定信息
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.queryBindInfo,
             type: "GET",
             contentType: "application/json; charset=utf-8",
