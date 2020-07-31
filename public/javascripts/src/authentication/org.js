@@ -21,7 +21,9 @@ define(function(require , exports , module){
             this.selectBind();
             this.delUploadImg();
             this.checkedRules();
-            this.queryCerinfo()
+            if(method.getCookie('cuk')) {
+                this.queryCerinfo()
+            }
             $('.js-submit').click(function(){
                 if (method.getCookie('cuk')){
                     orgObj.submitData();
