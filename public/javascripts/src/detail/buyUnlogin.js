@@ -12,7 +12,6 @@ define(function (require, exports, module) {
     // downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
-<<<<<<< HEAD
     // 资料详情数据-从全局window中获取
     var fileInfo = {
         id: pageConfig.params.g_fileId,
@@ -32,9 +31,7 @@ define(function (require, exports, module) {
     var payFileResultForVisit_bilog = require("../common/bilog-module/payFileResultForVisit_bilog");
     // ==== end ====
 
-=======
     var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
->>>>>>> 372b1ca4f870b913ea72e365020a60eae13e4437
     var unloginObj = {
         count: 0,
         isClear: false,//是否清除支付查询

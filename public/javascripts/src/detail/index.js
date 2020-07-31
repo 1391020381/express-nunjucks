@@ -39,6 +39,7 @@ define(function (require, exports, module) {
     // 页面加载
     function pageInitShow() {
         if (method.getCookie('cuk')) {
+            fileBrowseReportBrowse()
             login.getLoginData(function (data) {
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
@@ -407,6 +408,27 @@ define(function (require, exports, module) {
                 goPage(type);
             }
         });
+    }
+
+    function fileBrowseReportBrowse() {
+        $.ajax({
+            url: api.reportBrowse.fileBrowseReportBrowse,
+            type: "POST",
+            data: JSON.stringify({
+                            terminal:'0',
+                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId
+                        }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                if(res.data.rows&&res.data.rows.length){
+                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                }
+               }
+            }
+        })
     }
     function receiveCoupon(type, source, userId) {
         var data = { source: source, type: type };
