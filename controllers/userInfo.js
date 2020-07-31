@@ -46,7 +46,7 @@ module.exports = {
                       }),
                     headers: {
                         'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Authrization':req.cookies.cuk
                     },
                 };
                 request(opt, function (err, res1, body) {

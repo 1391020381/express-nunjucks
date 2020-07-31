@@ -46,7 +46,6 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
     var telphone = $('#dialog-box .verificationCode-login .input-mobile .telphone').val()
     if(!method.testPhone(telphone)){
         $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
-      
         return
     }else{
         $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
@@ -336,6 +335,7 @@ function countdown() {  // 二维码失效倒计时
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+                closeRewardPop()
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
            }else{
@@ -393,7 +393,8 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        dataType: "json",
        success: function (res) {
           if(res.code == '0'){
-            method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+            method.setCookieWithExpPath("cuk", res.data&&data.access_token, res.data.expires_in*1000, "/");
+            closeRewardPop()
             loginCallback&&loginCallback()
            myWindow.close()
           }else{
@@ -502,6 +503,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             console.log('loginByPsodOrVerCode:',res)
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+            closeRewardPop()
             loginCallback&&loginCallback()
            }else{
                 if(loginType == 'codeLogin'){ // 验证码登录

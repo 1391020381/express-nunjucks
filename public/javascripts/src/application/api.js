@@ -15,7 +15,7 @@ define(function (require, exports, module) {
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
             login: router + '/usermanage/checkLogin',
             // 登出
-            loginOut: gateway + '/pc/usermanage/logout',
+            loginOut: gateway + '/cas/login/logout',
             // 我的收藏
             collect: router + '/usermanage/collect',
             newCollect:gateway+'/content/collect/getUserFileList',

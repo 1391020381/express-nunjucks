@@ -174,7 +174,10 @@ define(function (require, exports, module) {
             method.delCookie("cuk", "/", ".sina.com.cn");
             method.delCookie("cuk", "/", ".iask.com.cn");
             method.delCookie("cuk", "/", ".iask.com");
-            //微信扫码登录sceneId
+
+           
+            method.delCookie("cuk", "/");
+
             method.delCookie("sid", "/", ".iask.sina.com.cn");
             method.delCookie("sid", "/", ".iask.com.cn");
             method.delCookie("sid", "/", ".sina.com.cn");
