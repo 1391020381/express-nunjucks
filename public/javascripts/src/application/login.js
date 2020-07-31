@@ -280,7 +280,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin){  // 生成二维码
             }
             setIntervalTimer = setInterval(function(){
                 loginByWeChat()
-            },1000)
+            },4000)
            }else{
             clearInterval(setIntervalTimer)
             $.toast({
@@ -337,7 +337,9 @@ function countdown() {  // 二维码失效倒计时
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+               
                 closeRewardPop()
+                console.log('loginByWeChat-------------')
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
            }else{
@@ -397,6 +399,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
           if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data&&res.data.access_token, res.data.expires_in*1000, "/");
             closeRewardPop()
+            console.log('thirdLoginRedirect-------------')
             loginCallback&&loginCallback()
             touristLoginCallback&& touristLoginCallback()
            myWindow.close()
@@ -507,6 +510,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
             closeRewardPop()
+            console.log('loginByPsodOrVerCode')
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()
            }else{

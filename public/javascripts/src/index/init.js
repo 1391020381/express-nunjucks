@@ -222,8 +222,8 @@ define(function (require,exports,moudle) {
             var $btn_user_more = $('.btn-user-more');
             $unLogin.hide();
             $hasLogin.find('.user-link .user-name').html(data.nickName);
-            $hasLogin.find('.user-link img').attr('src', data.weiboImage);
-            $('.user-top .avatar-frame img').attr('src', data.weiboImage);
+            $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
+            $('.user-top .avatar-frame img').attr('src', data.photoPicURL);
             $hasLogin.find('.top-user-more .name').html(data.nickName);
             $('.user-state .user-name').text(data.nickName)
             $hasLogin.show();
