@@ -1,9 +1,10 @@
 define(function (require, exports, module) {
     // var $ = require("$");
+    var api = require('../application/api');
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var qr = require("../pay/qr");
-   // var report = require("../pay/report");
+    // var report = require("../pay/report");
     // var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
@@ -11,7 +12,29 @@ define(function (require, exports, module) {
     // downLoadReport.fileUid_var = pageConfig.params.file_uid;
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
+<<<<<<< HEAD
+    // 资料详情数据-从全局window中获取
+    var fileInfo = {
+        id: pageConfig.params.g_fileId,
+        title: pageConfig.params.file_title,
+        productType: pageConfig.params.file_state,
+        format: pageConfig.params.file_format,
+        fileSourceChannel: pageConfig.params.g_fileId,
+        uid: pageConfig.params.file_uid,
+        classid1: pageConfig.params.classid1,
+        classid2: pageConfig.params.classid2,
+        classid3: pageConfig.params.classid3,
+        classidName1: pageConfig.params.classidName1,
+        classidName2: pageConfig.params.classidName2,
+        classidName3: pageConfig.params.classidName3,
+    }
+    // 自有埋点注入
+    var payFileResultForVisit_bilog = require("../common/bilog-module/payFileResultForVisit_bilog");
+    // ==== end ====
+
+=======
     var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
+>>>>>>> 372b1ca4f870b913ea72e365020a60eae13e4437
     var unloginObj = {
         count: 0,
         isClear: false,//是否清除支付查询
@@ -93,38 +116,33 @@ define(function (require, exports, module) {
             })
         },
         createOrder: function () {
-            var visitorId = '';
-            if (!method.getCookie('visitorId')) {
-                visitorId = unloginObj.getVisitorId();
-            } else {
-                visitorId = method.getCookie('visitorId');
-            }
+            var visitorId = unloginObj.getVisitorId();
 
             var params = {
                 fid: pageConfig.params.g_fileId,
-                goodsId:pageConfig.params.g_fileId,
+                goodsId: pageConfig.params.g_fileId,
                 goodsType: 1,
                 ref: utils.getPageRef(window.pageConfig.params.g_fileId),
                 referrer: pageConfig.params.referrer,
-                remark:'other',
-                sourceMode:0,
-                channelSource:4,
-                host:location.origin,
-                channel:'other',
+                remark: 'other',
+                sourceMode: 0,
+                channelSource: 4,
+                host: location.origin,
+                channel: 'other',
                 isVisitor: 1,
                 visitorId: visitorId,
-                isVouchers:1,
-                returnPayment:false
+                isVouchers: 1,
+                returnPayment: false
             }
             $.post('/pay/orderUnlogin?ts=' + new Date().getTime(), params, function (data, status) {
                 if (data && data.code == '0') {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
                     // 订单详情赋值
-                    $('.shouldPayWrap span').text(data.data.payPrice/100);
-               //     gioPayDocReport.orderId_var = data.data.orderNo;
-                //    gioPayDocReport.buyer_uid = visitorId;
-                //    gioPayDocReport.login_flag = '游客';
+                    $('.shouldPayWrap span').text(data.data.payPrice / 100);
+                    //     gioPayDocReport.orderId_var = data.data.orderNo;
+                    //    gioPayDocReport.buyer_uid = visitorId;
+                    //    gioPayDocReport.login_flag = '游客';
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
                     // $('.qrShadow').hide();
@@ -141,8 +159,8 @@ define(function (require, exports, module) {
             });
         },
         createdQrCode: function (oid) {
-           // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
-            // var url = location.protocol + "/pay/payment?orderNo=" + oid 
+            // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
+            // var url = location.protocol + "/pay/payment?orderNo=" + oid
             // var url = location.origin + "/pay/qr?orderNo=" + oid;
             var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
             console.log(url)
@@ -158,37 +176,34 @@ define(function (require, exports, module) {
          * 根据时间产生随机数
          */
         getVisitorId: function () {
-            var Num = "";
-            for (var i = 0; i < 6; i++) {
-                Num += Math.floor(Math.random() * 10);
-            }
-            var time = 'visitorId' + new Date().getTime() + Num;
-            method.setCookieWithExpPath('visitorId', time, 30 * 24 * 60 * 60 * 1000, '/');
-            return time;
+            // 从cookie中获取访客id
+            return method.getCookie('visitor_id');
         },
         /**
-        * 查询订单
-        * orderNo 订单
-        * visitorId 游客唯一id
-        * isClear 是否停止
-        */
+         * 查询订单
+         * orderNo 订单
+         * visitorId 游客唯一id
+         * isClear 是否停止
+         */
         payStatus: function (orderNo, visitorId) {
-            var params = { orderNo: orderNo};
-            params = JSON.stringify(params);
+            var params = JSON.stringify({orderNo: orderNo});
             $.ajax({
                 type: 'post',
-                url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
+                url: api.order.getOrderInfo,
+                // url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
                 contentType: "application/json;charset=utf-8",
                 data: params,
-                success: function (data) {
-                    if (data && data.code == 0) {
+                success: function (response) {
+                    if (response && response.code == 0 && response.data) {
                         unloginObj.count++;
-                        var orderStatus = data.data;
+                        var orderInfo = response.data;
                         var fid = pageConfig.params.g_fileId;
-                       
-                        if (orderStatus == 0) {//待支付 
+                        if (orderInfo.orderStatus == 0) {
+                            // 待支付
                             if (unloginObj.count <= 30 && !unloginObj.isClear) {
-                                window.setTimeout(function () { unloginObj.payStatus(orderNo, visitorId) }, 3000);
+                                window.setTimeout(function () {
+                                    unloginObj.payStatus(orderNo, visitorId)
+                                }, 3000);
                             }
                             if (unloginObj.count > 28) {
                                 // $('.qrShadow').show();
@@ -196,19 +211,22 @@ define(function (require, exports, module) {
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                             }
-
-                        } else if (orderStatus == 2) {//成功
+                        } else if (orderInfo.orderStatus == 2) {
+                            // 成功
                             try {
-                              //  report.docPaySuccess(gioPayDocReport);//GIO购买上报
-                              //  __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
+                                //  report.docPaySuccess(gioPayDocReport);//GIO购买上报
+                                //  __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
                                 unloginObj.closeLoginWindon();
-                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format+'&visitorId='+visitorId;
+                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
+
+                                // 自由埋点
+                                payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, true)
                             } catch (e) {
                             }
-
-                        }else {
-
+                        } else if (orderInfo.orderStatus == 3) {
+                            // 自由埋点
+                            payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, false)
                         }
                     } else {
                         $.toast({
@@ -218,13 +236,13 @@ define(function (require, exports, module) {
                     }
                 },
                 complete: function () {
-                    
+
                 }
             })
         },
         /**
-        * 关闭弹窗
-        */
+         * 关闭弹窗
+         */
         closeLoginWindon: function () {
             $('.buyUnloginWrap').remove()
             $('.aiwen_login_model_div').remove();
@@ -234,5 +252,4 @@ define(function (require, exports, module) {
         }
     }
     unloginObj.init()
-}
-);
+});

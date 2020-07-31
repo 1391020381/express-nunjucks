@@ -43,7 +43,7 @@ define(function(require , exports , module){
                         userFilePrice = '--'
                      }
                      if(item.userFileType == 5){
-                         userFilePrice = '-￥'  + (item.userFilePrice/100).toFixed(2) + '元'
+                         userFilePrice = '￥'  + (item.userFilePrice/100).toFixed(2) + '元'
                      }
                      item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
@@ -121,17 +121,17 @@ define(function(require , exports , module){
         
     })
     $(document).on('click','.delete-icon',function(event){ // 删除选中的文件  可能是全选
-        var isChecked = $(this).parent().parent().find('.label-input').attr('checked')
+        idList = [];
+        var isChecked = $(this).parent().parent().find('.label-input').attr('checked');
         // var isCheckedAll = $('.myuploads-table-list #all').attr('checked')
-        var idList = []
-        var deleteType = $(this).attr('data-deleteType')
+        var deleteType = $(this).attr('data-deleteType');
         console.log('isChecked:',isChecked)
         if(!deleteType){  // 单个删除   $(this).attr('data-id') 有值
         idList.push($(this).attr('data-id'))
              $("#dialog-box").dialog({
             html: $('#myuploads-delete-dialog').html().replace(/\$deleteNum/, 1)
         }).open();
-        return 
+        return false
         }
 
 
@@ -144,11 +144,12 @@ define(function(require , exports , module){
             $("#dialog-box").dialog({
                 html: $('#myuploads-delete-dialog').html().replace(/\$deleteNum/, idList.length)
             }).open();
-            return
+            return false
         }
     })
 
     $('#dialog-box').on('click','.delete-tip-dialog .confirm-btn',function(e){
+        console.log('idList:',idList)
         batchDeleteUserFile()
     })
 

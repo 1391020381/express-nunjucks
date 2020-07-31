@@ -32,14 +32,14 @@ module.exports = {
                 };
                if(type == 'f') {
                     server.post(appConfig.apiNewBaselPath+Api.map.list, callback, req);
-                    console.log(appConfig.apiNewBaselPath+Api.map.list)
+                    // console.log(appConfig.apiNewBaselPath+Api.map.list)
                }else {
                     server.post(appConfig.apiNewBaselPath+Api.map.topic, callback, req);
                }
                 
             },
         } , function(err, results){
-            console.log(JSON.stringify(results))
+            // console.log(JSON.stringify(results))
             var list = results.maplist.data && results.maplist.data.rows.map(item=>{
                 if (type == 'f') {
                     var obj ={};

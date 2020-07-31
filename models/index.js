@@ -3,7 +3,6 @@ var request = require('request');
 module.exports = {
     get: function (url, callback, req, append) {
         var opt = this.getPaymentType(req, url, '', append);
-        console.log('opt----------------------:',opt)
         request(opt, (error, response, body) => {
             if (body) {
                 try {
@@ -16,6 +15,8 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
+                    console.log('请求地址get-------------------:',opt.url)
+                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -39,6 +40,9 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
+                    console.log('请求地址post-------------------:',opt.url)
+                    console.log('请求参数-------------------:',req.body)
+                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);

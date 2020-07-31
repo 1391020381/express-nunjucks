@@ -25,7 +25,7 @@ module.exports = {
         return async.series({
             list:function(callback){
                 var type,price;
-                console.log('personalCoupon:',req.query.type,req.query.price)
+                // console.log('personalCoupon:',req.query.type,req.query.price)
                 if(req.query){
                     type = req.query.type;
                     price = req.query.price;
@@ -35,8 +35,8 @@ module.exports = {
                 server.get(appConfig.apiNewBaselPath + Api.coupon.rightsSaleQueryPersonal, callback ,req);
             }
         } , function(err, results){
-            console.log('个人优惠券》》》》》》》》》》')
-            console.log('cuk-JSESSIONID===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
+            // console.log('个人优惠券》》》》》》》》》》')
+            // console.log('cuk-JSESSIONID===============' + 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID);
             res.send(results.list).end();
         })
     },
@@ -47,7 +47,7 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + Api.coupon.rightsSaleVouchers, callback ,req);
             }
         } , function(err, results){
-            console.log("领取优惠券============");
+            // console.log("领取优惠券============");
             // console.log(results.list);
             res.send('1111').end();
         })
