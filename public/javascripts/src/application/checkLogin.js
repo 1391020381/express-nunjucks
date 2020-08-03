@@ -204,6 +204,11 @@ define(function (require, exports, module) {
                 console.log('loginOut:',res)
                 if(res.code == 0){
                     window.location.href = window.location.href;
+                }else{
+                    $.toast({
+                        text:res.msg,
+                        delay : 3000,
+                    })
                 }
             });
         }
