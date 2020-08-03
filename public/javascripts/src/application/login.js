@@ -2,7 +2,7 @@
 
 define(function (require, exports, module) {
   require("../cmd-lib/jqueryMd5.js")
- // var consumer =  require('./iframe-parent')
+ var consumer =  require('./iframe-parent')
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象
@@ -362,7 +362,7 @@ function countdown() {  // 二维码失效倒计时
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-               
+                consumer.send(res.data.access_token, res.data.expires_in)
                 closeRewardPop()
                
                 loginCallback&&loginCallback()
@@ -423,6 +423,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        success: function (res) {
           if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data&&res.data.access_token, res.data.expires_in*1000, "/");
+            consumer.send(res.data.access_token, res.data.expires_in)
             closeRewardPop()
           
             loginCallback&&loginCallback()
@@ -534,6 +535,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
            
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
+            consumer.send(res.data.access_token, res.data.expires_in)
             closeRewardPop()
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()

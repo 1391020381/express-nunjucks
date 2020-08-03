@@ -44,7 +44,7 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + api.coupon.getRightsVipMemberDetail,
                     body:JSON.stringify({
                         site: '4',
-                        memberCode:''
+                        memberCode:'PREVILEGE_NUM'
                       }),
                     headers: {
                         'Content-Type': 'application/json',
