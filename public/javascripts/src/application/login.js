@@ -80,6 +80,11 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
             $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
             return
         }
+        if(!checkCode||checkCode&&checkCode.length!==4){
+            $('#dialog-box .verificationCode-login .code .verification-code-tip').show()
+            return
+        }
+            $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
             $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
             loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
             return
@@ -89,6 +94,10 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
         var password = $('#dialog-box .password-login .password .login-password').val().trim()
         var mobile = $('#dialog-box .password-login .telphone').val().trim()
+        if(!method.testPhone(mobile)){
+            $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+            return
+        }
         loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
         return
     }
@@ -140,11 +149,14 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
         
     }
 })
-$(document).on('input','#dialog-box .verification-code',function(e){ // 验证码错误只能通过后台返回 
+$(document).on('input','#dialog-box .verification-code',function(e){ // 
     mobile = $('#dialog-box .verificationCode-login .telphone').val()
     verificationCode = $(this).val()
     if(verificationCode.length>4){
         $('#dialog-box .verification-code').val(verificationCode.slice(0,4))
+    }
+    if(verificationCode&&verificationCode.length>=4){
+        $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
     }
     if(verificationCode&&verificationCode.length>=4&&method.testPhone(mobile)){
         $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
@@ -175,7 +187,7 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
         $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
     }
 })
-$(document).on('input','#dialog-box .password-login .login-password',function(){ // 密码错误只能通过后台返回 
+$(document).on('input','#dialog-box .password-login .login-password',function(){ 
     var password = $(this).val()
     var telphone = $('#dialog-box .password-login .telphone').val()
     if(password&&password.length>0){
@@ -523,7 +535,6 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
             closeRewardPop()
-           
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()
            }else{
@@ -531,30 +542,6 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
                 text:res.msg,
                 delay : 3000,
             })
-            //     if(loginType == 'codeLogin'){ // 验证码登录
-            //         if(res.code=='411003'){ // 短信验证码已过期
-
-            //         }
-            //         if(res.code == '411004'){ // 短信验证码错误
-
-            //         }
-            //         if(res.code =='411005'){ // 手机号未注册
-
-            //         }
-            //         if(res.code == '411006'){ //手机号格式不正确
-
-            //         }
-            //    }
-               
-            //    if(loginType == 'ppLogin'){ //手机密码登录
-            //             if(res.code =='411005'){ // 手机号未注册
-
-            //         }
-            //         if(res.code =='411007'){ // 登录密码不正确
-
-            //         }
-
-            //    }
            }
         },
         error:function(error){
