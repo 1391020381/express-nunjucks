@@ -2,6 +2,7 @@
 
 define(function (require, exports, module) {
   require("../cmd-lib/jqueryMd5.js")
+  require('./consumer')
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象

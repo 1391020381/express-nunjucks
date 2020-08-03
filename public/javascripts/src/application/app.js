@@ -7,7 +7,7 @@ define(function (require, exports, module) {
   require('./login')
     window.template = require("./template");
     require("./helper");
-    require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');
+   // require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');
 
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {

@@ -493,9 +493,11 @@ define(function (require, exports, module) {
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
         }else if(cnt =='loginResult'){ // 登录结果
-              commonData.pageID ='ishare';
-              commonData.pageName = 'PC-M-PLOGIN'
-              $.extend(customData, {'var':params});
+            var  customData = {
+              pageID :'ishare',
+              pageName:'PC-M-PLOGIN'
+            } 
+            $.extend(customData, {'var':params});
             clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
         }
 
