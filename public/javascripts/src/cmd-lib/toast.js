@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         Toast.prototype.init = function(){
             var that = this;
             that.body 		= $('body');
-            that.toastWrap = $('<div class="ui-toast" style="position:fixed;width:200px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:10000">');
+            that.toastWrap = $('<div class="ui-toast" style="position:fixed;min-width:200px;padding:0 10px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:99999999">');
             that.toastIcon = $('<i class="icon"></i>');
             that.toastText = $('<span class="ui-toast-text" style="color:#fff">' + that.options.text + '</span>');
     

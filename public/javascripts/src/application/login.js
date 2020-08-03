@@ -2,7 +2,7 @@
 
 define(function (require, exports, module) {
   require("../cmd-lib/jqueryMd5.js")
-  require('./consumer')
+ // var consumer =  require('./iframe-parent')
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象
@@ -36,21 +36,21 @@ define(function (require, exports, module) {
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
    var showCaptcha = require("../common/bindphone").showCaptcha
-    $(document).on('click','#dialog-box .login-type-list .login-type-weixin .weixin-icon',function(e){  // 微信登录
+    $(document).on('click','#dialog-box .login-type-list .login-type-weixin .weixin-icon',function(e){  // 切换到微信登录
         $('#dialog-box .login-content .verificationCode-login').hide()
         $('#dialog-box .login-content .password-login').hide()
         $('#dialog-box .login-content .weixin-login').show()
         window.loginType.type = window.loginType.values[0]
     })
     
-    $(document).on('click','#dialog-box .login-type-list .login-type-verificationCode',function(e){ // 验证码
+    $(document).on('click','#dialog-box .login-type-list .login-type-verificationCode',function(e){ // 切换到验证码
         $('#dialog-box .login-content .password-login').hide()
         $('#dialog-box .login-content .weixin-login').hide()
         $('#dialog-box .login-content .verificationCode-login').show()
         window.loginType.type = window.loginType.values[3]
     })
 
-   $(document).on('click','#dialog-box .login-type-list .login-type-password',function(e){  // 密码登录
+   $(document).on('click','#dialog-box .login-type-list .login-type-password',function(e){  // 切换到密码登录
     $('#dialog-box .login-content .weixin-login').hide()
     $('#dialog-box .login-content .verificationCode-login').hide()
     $('#dialog-box .login-content .password-login').show()
@@ -59,7 +59,6 @@ define(function (require, exports, module) {
 
    $(document).on('click','#dialog-box .login-type-list .login-type',function(){ // 第三方登录
     var loginType = $(this).attr('data-logintype')  // qq  weibo
-    console.log('loginType:',loginType)
     if(loginType){
         handleThirdCodelogin(loginType)
         if(loginType == 'qq'){
@@ -71,7 +70,29 @@ define(function (require, exports, module) {
     }
     
 })
-
+$(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证码登录
+    var logintype = $(this).attr('data-logintype')
+    if(logintype == 'verificationCode'){
+        var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
+        var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
+        var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
+        if(!method.testPhone(mobile)){
+            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+            return
+        }
+            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+            loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
+            return
+    }
+    if(logintype == 'password'){ // mobile
+        // var tempMobile = $('#dialog-box .password-login .input-moblie .telphone').val()
+        var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
+        var password = $('#dialog-box .password-login .password .login-password').val().trim()
+        var mobile = $('#dialog-box .password-login .telphone').val().trim()
+        loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
+        return
+    }
+})
 
    $(document).on('click','#dialog-box .qr-refresh',function(e){ // 刷新微信登录二维码
         //    getLoginQrcode(cid,fid,true)
@@ -93,7 +114,7 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
         sendSms()
     
     }
-    console.log('获取验证码',authenticationCodeType)
+  
 })
 $(document).on('input','#dialog-box .verificationCode-login .telphone',function(e){
     mobile = $(this).val()
@@ -101,7 +122,6 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
     if(mobile.length>11){
         $('#dialog-box .telphone').val(mobile.slice(0,11))
     }
-    console.log('mobile:',mobile.slice(0,11))
     if(method.testPhone(mobile.slice(0,11))){
         $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
         $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
@@ -221,7 +241,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
   })
   $(document).on('click','#dialog-box .phone-more .phone-ele',function(e){
       var areaNum = $(this).find('.number-con em').text()
-      console.log('areaNum:',areaNum)
+     
       $('#dialog-box .phone-choice .phone-num .add').text('+'+areaNum)
       $('#dialog-box .phone-choice').removeClass('phone-choice-show')
       $('#dialog-box .phone-more').hide()
@@ -235,30 +255,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
     $('#dialog-box .phone-choice').removeClass('phone-choice-show')
     $('#dialog-box .phone-more').hide()
 })
-$(document).on('click','#dialog-box .login-btn',function(e){ 
-    var logintype = $(this).attr('data-logintype')
-    if(logintype == 'verificationCode'){
-        var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
-        var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
-        var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
-        if(!method.testPhone(mobile)){
-            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
-            return
-        }else{
-            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
-        }
-        loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
-        return
-    }
-    if(logintype == 'password'){ // mobile
-        // var tempMobile = $('#dialog-box .password-login .input-moblie .telphone').val()
-        var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
-        var password = $('#dialog-box .password-login .password .login-password').val().trim()
-        var mobile = $('#dialog-box .password-login .telphone').val().trim()
-        loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
-        return
-    }
-})
+
 function closeRewardPop(){
     $(".common-bgMask").hide();
     $(".detail-bg-mask").hide();
@@ -282,7 +279,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            console.log('getLoginQrcode:',res)
+            
            if(res.code == '0'){
             isShowQrInvalidtip(false)  
             expires_in = res.data&&res.data.expires_in
@@ -310,7 +307,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
                 text:error.msg||'生成二维码接口错误',
                 delay : 3000,
             })
-            console.log('getLoginQrcode:',error)
+          
         }
     })
 }
@@ -349,13 +346,13 @@ function countdown() {  // 二维码失效倒计时
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            console.log('loginByWeChat:',res)
+           
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
                
                 closeRewardPop()
-                console.log('loginByWeChat-------------')
+               
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
            }else{
@@ -373,7 +370,7 @@ function countdown() {  // 二维码失效倒计时
                 text:error.msg||'公众号登录二维码',
                 delay : 3000,
             })
-            console.log('loginByWeChat:',error)
+           
         }
     })
  }
@@ -415,7 +412,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
           if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data&&res.data.access_token, res.data.expires_in*1000, "/");
             closeRewardPop()
-            console.log('thirdLoginRedirect-------------')
+          
             loginCallback&&loginCallback()
             touristLoginCallback&& touristLoginCallback()
            myWindow.close()
@@ -429,7 +426,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        },
        error:function(error){
            myWindow.close()
-           console.log('thirdLoginRedirect:',error)
+         
            $.toast({
                text:error.msg,
                delay : 3000,
@@ -457,7 +454,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         dataType: "json",
         success: function (res) {
            if(res.code == '0'){
-            console.log('sendSms:',res) 
+         
             smsId = res.data.smsId   
             var authenticationCode =   $('#dialog-box .getVerificationCode')
                 authenticationCode.attr('data-authenticationCodeType',1);  // 获取验证码
@@ -497,7 +494,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
            }
         },
         error:function(error){
-            console.log('sendSms:',error)
+           
             $.toast({
                 text:error.msg||'获取验证码错误',
                 delay : 3000,
@@ -522,42 +519,42 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
-            console.log('loginByPsodOrVerCode:',res)
+           
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
             closeRewardPop()
-            console.log('loginByPsodOrVerCode')
+           
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()
            }else{
-                if(loginType == 'codeLogin'){ // 验证码登录
-                    if(res.code=='411003'){ // 短信验证码已过期
-
-                    }
-                    if(res.code == '411004'){ // 短信验证码错误
-
-                    }
-                    if(res.code =='411005'){ // 手机号未注册
-
-                    }
-                    if(res.code == '411006'){ //手机号格式不正确
-
-                    }
-               }
-               
-               if(loginType == 'ppLogin'){ //手机密码登录
-                        if(res.code =='411005'){ // 手机号未注册
-
-                    }
-                    if(res.code =='411007'){ // 登录密码不正确
-
-                    }
-
-               }
             $.toast({
                 text:res.msg,
                 delay : 3000,
             })
+            //     if(loginType == 'codeLogin'){ // 验证码登录
+            //         if(res.code=='411003'){ // 短信验证码已过期
+
+            //         }
+            //         if(res.code == '411004'){ // 短信验证码错误
+
+            //         }
+            //         if(res.code =='411005'){ // 手机号未注册
+
+            //         }
+            //         if(res.code == '411006'){ //手机号格式不正确
+
+            //         }
+            //    }
+               
+            //    if(loginType == 'ppLogin'){ //手机密码登录
+            //             if(res.code =='411005'){ // 手机号未注册
+
+            //         }
+            //         if(res.code =='411007'){ // 登录密码不正确
+
+            //         }
+
+            //    }
            }
         },
         error:function(error){
@@ -565,7 +562,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
                 text:error.msg||'验证码或密码登录错误',
                 delay : 3000,
             })
-            console.log('loginByPsodOrVerCode:',error)
+           
         }
     })
 }
