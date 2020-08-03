@@ -103,7 +103,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
     }
 })
 
-   $(document).on('click','#dialog-box .qr-refresh',function(e){ // 刷新微信登录二维码
+   $(document).on('click','.qr-refresh',function(e){ // 刷新微信登录二维码   包括游客登录页面
         //    getLoginQrcode(cid,fid,true)
         getLoginQrcode('','',true)
    })
@@ -283,7 +283,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
         url: api.user.getLoginQrcode,
         type: "POST",
         data:JSON.stringify({
-            cid:cid || '1816',
+            cid:cid || '',
             site:'1',
             fid:fid||'',
             domain:encodeURIComponent(document.domain)
@@ -297,7 +297,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             expires_in = res.data&&res.data.expires_in
             sceneId = res.data&&res.data.sceneId
             countdown()
-            if(isTouristLogin){
+            if(isTouristLogin||isqrRefresh){
                 $('.tourist-login #login-qr').attr('src',res.data.url)
                 touristLoginCallback = callback
             }else{
