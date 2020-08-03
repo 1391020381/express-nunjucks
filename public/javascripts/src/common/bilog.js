@@ -402,7 +402,7 @@ define(function (require, exports, module) {
         handle(commonData, customData);
     }
     //点击事件
-    function clickEvent(cnt, that,moduleID) {
+    function clickEvent(cnt, that,moduleID,params) {
         var ptype = $("#ip-page-type").val();
         if (ptype == 'pindex') {//详情页
             var customData = {
@@ -492,6 +492,11 @@ define(function (require, exports, module) {
                 keyWords:$('.new-input').val()||$('.new-input').attr('placeholder')
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
+        }else if(cnt =='loginResult'){ // 登录结果
+              commonData.pageID ='ishare';
+              commonData.pageName = 'PC-M-PLOGIN'
+              $.extend(customData, {'var':params});
+            clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
         }
 
         var customData = {
@@ -635,6 +640,14 @@ define(function (require, exports, module) {
             if(cnt){
                 setTimeout(function(){
                     clickEvent(cnt,$this,moduleID)
+                })
+            }
+        },
+        loginResult:function($this,moduleID,params){
+            var cnt = 'loginResult'
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,'',moduleID,params)
                 })
             }
         },

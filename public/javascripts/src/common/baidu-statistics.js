@@ -1,5 +1,7 @@
 // 百度统计 自定义数据上传
 
+
+
 var _hmt = _hmt || [];//此变量百度统计需要  需全局变量
 define(function (require, exports, moudle) {
   var method = require("../application/method");
@@ -48,6 +50,13 @@ define(function (require, exports, moudle) {
         fileformat:'',
         filecootype:'',
         fileuploaderid:''
+    },
+    loginResult:{
+        pagename:$('#ip-page-id').val(),
+        pageid:$('#ip-page-name').val(),
+        loginType:'',
+        userid:'',
+        loginResult:""
     }
   }
     function handle(id) {
@@ -75,6 +84,9 @@ define(function (require, exports, moudle) {
 
     if(eventName == 'payVipResult'){
         params = $.extend(temp, {payresult:params.payresult,orderid:params.orderNo,orderpaytype:params.orderpaytype});
+    }
+    if(eventName == 'loginResult'){
+        params = $.extend(temp,{loginType:params.loginType,userid:params.userid,loginResult:params.loginResult})
     }
     
     _hmt.push(['_trackCustomEvent',eventName,params]);

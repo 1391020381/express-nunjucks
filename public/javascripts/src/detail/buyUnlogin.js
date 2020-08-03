@@ -99,6 +99,7 @@ define(function (require, exports, module) {
                         //     $('.loginFrameWrap').html(loginDom);
                         // })
                         showTouristPurchaseDialog(function(){ // 游客登录后刷新头部和其他数据
+                            viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data);
                             });

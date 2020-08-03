@@ -7,7 +7,9 @@ define(function (require, exports, module) {
     var method = require("./method");
     var api = require("./api");
     var showLoginDialog = require('./login').showLoginDialog
-    var showTouristPurchaseDialog = require('./login').showTouristPurchaseDialog
+    
+    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+    var loginResult = require('../common/bilog').loginResult
     module.exports = {
         getIds: function () {
             // 详情页
@@ -48,9 +50,7 @@ define(function (require, exports, module) {
                     console.log('loginCallback')
                     _self.getLoginData(callback)
                 })
-                // showTouristPurchaseDialog(function(){
-                //     console.log('游客购买')
-                // })
+             
                 // $.loginPop('login', { 
                 //     "terminal": "PC", 
                 //     "businessSys": "ishare", 
@@ -138,6 +138,8 @@ define(function (require, exports, module) {
             try{
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
+                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
+                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
                         if (callback && typeof callback == "function") {
                             callback(res.data);
                             try {
@@ -157,8 +159,10 @@ define(function (require, exports, module) {
                             method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
                         } catch (e) {
                         }
-                        //授权未登录删除本地cuk
-                    } else if (res.code == 40001) {
+                       
+                    } else  {
+                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: '',loginResult:"0"})
+                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: res.data.userId,loginResult:"0"})
                         _self.ishareLogout();
                     }
 

@@ -1,7 +1,7 @@
 
 
 define(function (require, exports, module) {
-    require("../cmd-lib/jqueryMd5.js")
+  require("../cmd-lib/jqueryMd5.js")
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象
@@ -13,6 +13,22 @@ define(function (require, exports, module) {
   var expires_in = ''  // 二位码过期时间
   var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
   var touristLoginCallback = null // 保存游客登录的传入的回调函数
+  window.loginType = {
+      type:'0',
+      values:{
+        0: 'wechat',//微信登录
+        1:'qq',//qq登录
+        2:'weibo',//微博登录
+        3:'phoneCode',//手机号+验证码
+        4:'phonePw'//手机号+密码
+      }
+  }  //   保存登录方式在 登录数上报时使用
+
+
+
+
+
+
    var api = require("./api")
 //    var qr = require("../pay/qr");
    var method = require("./method");
@@ -23,19 +39,39 @@ define(function (require, exports, module) {
         $('#dialog-box .login-content .verificationCode-login').hide()
         $('#dialog-box .login-content .password-login').hide()
         $('#dialog-box .login-content .weixin-login').show()
+        window.loginType.type = window.loginType.values[0]
     })
     
     $(document).on('click','#dialog-box .login-type-list .login-type-verificationCode',function(e){ // 验证码
         $('#dialog-box .login-content .password-login').hide()
         $('#dialog-box .login-content .weixin-login').hide()
         $('#dialog-box .login-content .verificationCode-login').show()
+        window.loginType.type = window.loginType.values[3]
     })
 
    $(document).on('click','#dialog-box .login-type-list .login-type-password',function(e){  // 密码登录
     $('#dialog-box .login-content .weixin-login').hide()
     $('#dialog-box .login-content .verificationCode-login').hide()
     $('#dialog-box .login-content .password-login').show()
+    window.loginType.type = window.loginType.values[4]
    })
+
+   $(document).on('click','#dialog-box .login-type-list .login-type',function(){ // 第三方登录
+    var loginType = $(this).attr('data-logintype')  // qq  weibo
+    console.log('loginType:',loginType)
+    if(loginType){
+        handleThirdCodelogin(loginType)
+        if(loginType == 'qq'){
+            window.loginType.type = window.loginType.values[1]
+        }
+        if(loginType == 'weibo'){
+            window.loginType.type = window.loginType.values[2]
+        }
+    }
+    
+})
+
+
    $(document).on('click','#dialog-box .qr-refresh',function(e){ // 刷新微信登录二维码
         //    getLoginQrcode(cid,fid,true)
         getLoginQrcode('','',true)
@@ -156,14 +192,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
    
 })
 
-$(document).on('click','#dialog-box .login-type-list .login-type',function(){ // 第三方登录
-    var loginType = $(this).attr('data-logintype')
-    console.log('loginType:',loginType)
-    if(loginType){
-        handleThirdCodelogin(loginType)
-    }
-    
-})
+
   $(document).on('click','#dialog-box  .close-btn',function(e){
       closeRewardPop()
   })
@@ -254,10 +283,9 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
         success: function (res) {
             console.log('getLoginQrcode:',res)
            if(res.code == '0'){
-            
             isShowQrInvalidtip(false)  
-            expires_in = res.data.expires_in
-            sceneId = res.data.sceneId
+            expires_in = res.data&&res.data.expires_in
+            sceneId = res.data&&res.data.sceneId
             countdown()
             if(isTouristLogin){
                 $('.tourist-login #login-qr').attr('src',res.data.url)
