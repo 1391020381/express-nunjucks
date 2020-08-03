@@ -104,26 +104,31 @@ app.use('/', router);
 
 // development error handler
 // will print stacktrace
-if (appConfig.env === 'dev') {
-    app.use(function (err, req, res, next) {
+
+
+app.use(function (err, req, res, next) {
+    if (appConfig.env === 'dev'||appConfig.env === 'test') {
         res.status(err.status || 500);
         res.send({
             status: 0,
             message: err.message,
             error: err
         })
-    });
-}
+    }else{
+        log4js.info(err);
+    }
+    
+});
 
 // production error handler
 // will print stacktrace
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send({
-        status: 0,
-        message: err.message,
-        error: {}
-    })
-});
+// app.use(function (err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.send({
+//         status: 0,
+//         message: err.message,
+//         error: {}
+//     })
+// });
 
 module.exports = app;

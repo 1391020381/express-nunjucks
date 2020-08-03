@@ -29,7 +29,7 @@ var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 
 module.exports = {
-    render: function (req, res) {
+    render: function (req, res,next) {
         var _index = {
              // 查询是否重定向
              redirectUrl:function(callback) {
@@ -456,7 +456,11 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-            // console.log('results:',JSON.stringify(results))
+           if(err){
+               next(err)
+           }
+           try{
+                  // console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;
@@ -532,6 +536,9 @@ module.exports = {
             //释放 不然 会一直存在
             recommendInfoData_rele = {};
             recommendInfoData_guess = {};
+           }catch(e){
+                next(e)
+           }
 
         })
     },
