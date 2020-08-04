@@ -656,7 +656,7 @@ define(function (require, exports, moudle) {
                 // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
                 if (data.orderStatus == 0) {
                     // 重新查询
-                    if (order_count <= 30) {
+                    if (order_count <= 30*5) {
                         window.setTimeout(function () {
                             getOrderInfo(orderNo);
                         }, 4000);

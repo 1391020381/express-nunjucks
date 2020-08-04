@@ -119,7 +119,8 @@ define(function (require) {
     var ssoUrlList = {
         'dev':'http://dev-login-ishare-iask.com.cn',
         'test':'http://test-login-ishare-iask.com.cn',
-        'pre':'http://login-ishare-iask.com.cn'
+        'pre':'http://pre-login-ishare-iask.com.cn',
+        'prod':'http://login-ishare-iask.com.cn'
     }
     var ssoUrl = ssoUrlList[env] || ssoUrlList[pre]
     var consumer = new Consumer({
