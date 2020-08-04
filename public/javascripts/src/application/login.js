@@ -286,6 +286,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             cid:cid || '',
             site:'1',
             fid:fid||'',
+            sceneId:sceneId,
             domain:encodeURIComponent(document.domain)
         }),
         contentType: "application/json; charset=utf-8",
