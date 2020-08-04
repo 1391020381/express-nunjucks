@@ -11,6 +11,7 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var common = require('../detail/common');
     require("../common/coupon/couponIssue");
+    var isLogin = require('../application/effect.js').isLogin
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
@@ -27,7 +28,7 @@ define(function (require, exports, module) {
         pageInitShow();
         // 访问记录
         storeAccessRecord()
-        getUserInfos();
+      //  getUserInfos();
         // // 进入页面判断是否登陆 否 - 弹出登录弹窗
         // loginPopShow();
     }
@@ -205,6 +206,7 @@ define(function (require, exports, module) {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
                 common.afterLogin(data);
+                userInfo = data;
                 window.pageConfig.userId = data && data.userId ? data.userId : '';
             });
         } else {
@@ -313,13 +315,13 @@ define(function (require, exports, module) {
 
         //////
         // 优惠券发放
-        if (method.getCookie('cuk')) {
-            login.getUserData(function (res) {
-                if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
-                    receiveCoupon(0, 2, res.userId);
-                }
-            })
-        }
+        // if (method.getCookie('cuk')) {
+        //     login.getUserData(function (res) {
+        //         if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
+        //             receiveCoupon(0, 2, res.userId);
+        //         }
+        //     })
+        // }
 
         // 退出
         $('.btn-exit').on('click', function () {
