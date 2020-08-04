@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var common = require('../detail/common');
     require("../common/coupon/couponIssue");
-    var isLogin = require('../application/effect.js').isLogin
+    var refreshTopBar = require('../application/effect.js').refreshTopBar
     var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
     var entryName_var = payTypeMapping[pageConfig.params.file_state];
     var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
@@ -52,14 +52,16 @@ define(function (require, exports, module) {
     
     function loginPopShow() {
         login.notifyLoginInterface(function (data) {
-            common.afterLogin(data);
+            // common.afterLogin(data);
+            refreshTopBar(data)
+            userInfo = data
             // 登陆后判断是否第一次登陆
-            getUserInfos();
-            login.getUserData(function (res) {
-                if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
-                    receiveCoupon(0, 2, res.userIdres && res.userIdres.userId);
-                }
-            })
+            // getUserInfos();
+            // login.getUserData(function (res) {
+            //     if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
+            //         receiveCoupon(0, 2, res.userIdres && res.userIdres.userId);
+            //     }
+            // })
         });
     }
     
@@ -205,7 +207,8 @@ define(function (require, exports, module) {
     function pageInitShow() {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
-                common.afterLogin(data);
+                // common.afterLogin(data);
+                refreshTopBar(data)
                 userInfo = data;
                 window.pageConfig.userId = data && data.userId ? data.userId : '';
             });
@@ -301,14 +304,16 @@ define(function (require, exports, module) {
         $('.user-login,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
-                    common.afterLogin(data);
-                    getUserInfos();
-                    // 登陆后判断是否第一次登陆
-                    login.getUserData(function (res) {
-                        if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
-                            receiveCoupon(0, 2, res && res.userIdres && res.userIdres.userId)
-                        }
-                    })
+                    // common.afterLogin(data);
+                    refreshTopBar(data)
+                    userInfo = data
+                    // getUserInfos();
+                    // // 登陆后判断是否第一次登陆
+                    // login.getUserData(function (res) {
+                    //     if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
+                    //         receiveCoupon(0, 2, res && res.userIdres && res.userIdres.userId)
+                    //     }
+                    // })
                 });
             }
         });
@@ -453,7 +458,8 @@ define(function (require, exports, module) {
 
                 } else {
                     login.notifyLoginInterface(function (data) {
-                        common.afterLogin(data);
+                        // common.afterLogin(data);
+                        refreshTopBar(data)
                         goPage(type);
                     });
                 }
