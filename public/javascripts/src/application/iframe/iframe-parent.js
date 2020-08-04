@@ -126,7 +126,7 @@ define(function (require) {
         id: 'PC_MAIN_I_SHARE',
         projectName: 'I_SHARE',
         ssoId: 'I_SHARE_SSO',
-        ssoUrl: 'http://192.168.100.165:8085/index.html', // 222
+        ssoUrl: ssoUrl, // 222
     });
 
     return consumer;
