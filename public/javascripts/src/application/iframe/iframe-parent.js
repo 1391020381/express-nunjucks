@@ -7,6 +7,9 @@ define(function (require) {
     // 通信sso
     function Consumer(config) {
         var self = this;
+        // 本地数据
+        var token = this.getJsCode();
+
         // 实例化消息中心
         this.messenger = new Messenger(config.id, config.projectName);
         // cookie有效期，默认1天
@@ -22,13 +25,19 @@ define(function (require) {
         // 监听服务端sso消息
         this.messenger.listen(function (msg) {
             var data = JSON.parse(msg);
-            console.log('parent-服务端sso传回数据', data);
+            console.log('parent-服务端sso传回数据', data, token, data.token);
             if (data && data.token) {
                 // 传入数据，表明为登录
                 self.setJsCode(data.token, data.expires);
+                if (token !== data.token) {
+                    window.location.reload();
+                }
             } else {
                 // 传入空数据，表明为登出
-                self.delJsCode();
+                if (token) {
+                    window.location.reload();
+                    self.delJsCode();
+                }
             }
         });
     }
@@ -41,7 +50,8 @@ define(function (require) {
         iframe.id = id;
         iframe.src = url;
         iframe.style.display = 'none';
-        document.getElementsByTagName('body')[0].appendChild(iframe);
+        var body = document.getElementsByTagName('body')[0];
+        body.appendChild(iframe);
         self.messenger.addTarget(iframe.contentWindow, id);
     }
 
@@ -53,6 +63,14 @@ define(function (require) {
             token: token,
             expires: expires
         }));
+    }
+
+    // 获取jsCodeData
+    Consumer.prototype.getJsCode = function () {
+        if (this.isEmpty(this.getCookie('cuk'))) {
+            return null;
+        }
+        return this.getCookie('cuk');
     }
 
     /**
