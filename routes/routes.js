@@ -14,7 +14,8 @@ let routes = [
     'start',
     'category',
     'authentication',
-    'earth'
+    'earth',
+    'login'
 ];
 
 module.exports = routes;
