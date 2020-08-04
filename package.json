@@ -7,8 +7,10 @@
         "start": "cross-env NODE_ENV=prod  pm2 start pm2.json",
         "stop": "pm2 stop pm2.json",
         "restart": "cross-env NODE_ENV=prod  pm2 restart pm2.json",
+        "pre": "cross-env NODE_ENV=pre  pm2 restart pm2.json",
         "test": "cross-env NODE_ENV=test  pm2 restart pm2.json",
-        "dev": "cross-env NODE_ENV=development  nodemon ./bin/www",
+        "dev": "cross-env NODE_ENV=dev  pm2 restart pm2.json",
+        "local": "cross-env NODE_ENV=local  nodemon ./bin/www",
         "buildPage": "node ./build/build-page.js"
     },
     "dependencies": {
