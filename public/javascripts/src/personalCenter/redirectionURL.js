@@ -7,7 +7,7 @@ define(function(require , exports , module){
     // 个人中心的账号与安全 第三方(wechat qq weibo 绑定解绑)   与 网站第三方授权登录 共用同一个 重定向地址
     if(channel == '1'){
         window.opener.thirdLoginRedirect(code,channel,clientCode)
-    }else{
+    }else if(channel == '2'){
         window.opener.handleBindThird(code,channel,clientCode)
     }
     
