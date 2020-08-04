@@ -456,10 +456,8 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-           if(err){
-               next(err)
-           }
-           try{
+          
+           
                   // console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
@@ -536,9 +534,7 @@ module.exports = {
             //释放 不然 会一直存在
             recommendInfoData_rele = {};
             recommendInfoData_guess = {};
-           }catch(e){
-                next(e)
-           }
+           
 
         })
     },

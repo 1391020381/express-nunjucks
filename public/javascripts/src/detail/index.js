@@ -550,11 +550,11 @@ define(function (require, exports, module) {
                 $fixBar.find(".data-item").hide();
             }
             //滚动超过600展示优惠券广告
-            if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
-                $('.pc-tui-coupon').show();
-                localStorage.setItem('loginCouponAd', 1);
-                closeCouponAD()
-            }
+            // if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
+            //     $('.pc-tui-coupon').show();
+            //     localStorage.setItem('loginCouponAd', 1);
+            //     closeCouponAD()
+            // }
         });
         // 关闭底部优惠券弹窗
         function closeCouponAD() {

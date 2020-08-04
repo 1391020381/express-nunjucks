@@ -7,14 +7,9 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
     // var changeText = require('./changeShowOverText.js').changeText
     var userData = null;
-   // var isConvert = window.pageConfig&&window.pageConfig.page.isConvert
+ 
     var pageConfig = window.pageConfig&&window.pageConfig 
-    // if(isConvert==0){ // 0转码失败  保证资料删除时,如果登录的情况下可以获取登录信息
-    //     pageConfig =  {
-    //         page:{},
-    //         params:{}
-    //     }
-    // }
+   
     // 页面信息
    // productType  1  4  5 
     var initData = {
@@ -122,7 +117,7 @@ define(function (require, exports, module) {
            // originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
           //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
-            var savePrice = (params.moneyPrice *0.8).toFixed(2);
+            var savePrice = (initData.moneyPrice *0.8).toFixed(2);
             $('#vip-save-money').html(savePrice);
             $('.js-original-price').html(savePrice);
         }
