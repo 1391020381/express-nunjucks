@@ -15,7 +15,8 @@ define(function (require, exports, module) {
                 dataType: "json",
                 headers: {
                     'cache-control': 'no-cache',
-                    'Pragma': 'no-cache'
+                    'Pragma': 'no-cache',
+                    'Authrization':this.getCookie('cuk')
                 }
             }).done(function (data) {
                 callback && callback(data);
