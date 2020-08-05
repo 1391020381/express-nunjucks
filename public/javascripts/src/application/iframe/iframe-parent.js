@@ -135,6 +135,7 @@ define(function (require) {
     }
   
     var ssoUrlList = {
+        "local":'http://192.168.100.165:8085',
         'dev':'http://dev-login-ishare.iask.com.cn',
         'test':'http://test-login-ishare.iask.com.cn',
         'pre':'http://pre-login-ishare.iask.com.cn',
