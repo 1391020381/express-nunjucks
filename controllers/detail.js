@@ -101,7 +101,7 @@ module.exports = {
                                 // 跳转到办公携带参数修改
                                 // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
                                 return
                             }
 
@@ -566,7 +566,7 @@ module.exports = {
                                 // 跳转到办公携带参数修改
                                 //res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
 
                                 return
                             }
