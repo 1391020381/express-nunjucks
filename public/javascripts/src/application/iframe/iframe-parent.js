@@ -37,10 +37,10 @@ define(function (require) {
             } else {
                 // 传入空数据，表明为登出
                 // 本地还存在token-先清除-在触发刷新
-                if (token) {
-                    self.delJsCode();
-                    window.location.reload();
-                }
+                // if (token) {
+                //     self.delJsCode();
+                //     window.location.reload();
+                // }
             }
         });
     }
@@ -138,7 +138,7 @@ define(function (require) {
     }
   
     var ssoUrlList = {
-        "local":'http://192.168.100.222:8085',
+        "local":'http://192.168.100.165:8085',
         'dev':'http://dev-login-ishare.iask.com.cn',
         'test':'http://test-login-ishare.iask.com.cn',
         'pre':'http://pre-login-ishare.iask.com.cn',
