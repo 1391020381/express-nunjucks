@@ -14,6 +14,7 @@ define(function (require, exports, module) {
   var expires_in = ''  // 二位码过期时间
   var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
   var touristLoginCallback = null // 保存游客登录的传入的回调函数
+  var normalPageView = require('../common/bilog').normalPageView
   window.loginType = {
       type:'0',
       values:{
@@ -238,6 +239,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
         $('#dialog-box .tourist-purchase-dialog .tourist-purchase-content').show()
       }
       if(dataType == 'login-purchase'){
+        normalPageView('loginResult')
         $('#dialog-box .tourist-purchase-dialog .tourist-purchase-content').hide()
         $('#dialog-box .tourist-purchase-dialog .login-content').show()
         
@@ -559,7 +561,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
  function showLoginDialog(params,callback){
     loginCallback = callback
     var loginDialog = $('#login-dialog')
-    
+    normalPageView('loginResult')
     $("#dialog-box").dialog({
         html: loginDialog.html(),
         'closeOnClickModal':false

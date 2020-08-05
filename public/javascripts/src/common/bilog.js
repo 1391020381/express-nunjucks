@@ -239,7 +239,7 @@ define(function (require, exports, module) {
     }
 
     //全部页面都要上报
-    function normalPageView() {
+    function normalPageView(loginResult) {
         var commonData = JSON.parse(JSON.stringify(initData));
         setPreInfo(document.referrer, commonData);
         var customData = { channel: '' };
@@ -250,6 +250,11 @@ define(function (require, exports, module) {
         commonData.eventType = 'page';
         commonData.eventID = 'NE001';
         commonData.eventName = 'normalPageView';
+        if(loginResult){
+            // clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
+            commonData.pageID = 'PLOGIN'
+            commonData.pageName = '登录页';
+        }
         commonData.pageID = $("#ip-page-id").val() || '';
         commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
@@ -628,6 +633,9 @@ define(function (require, exports, module) {
     }
 
     module.exports = {
+        normalPageView:function(loginResult){
+            normalPageView(loginResult)
+        },
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)
             console.log('cnt-导出的:',cnt)
