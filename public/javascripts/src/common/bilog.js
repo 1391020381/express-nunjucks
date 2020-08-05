@@ -254,9 +254,10 @@ define(function (require, exports, module) {
             // clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
             commonData.pageID = 'PLOGIN'
             commonData.pageName = '登录页';
+        }else{
+            commonData.pageID = $("#ip-page-id").val() || '';
+            commonData.pageName = $("#ip-page-name").val() || '';
         }
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
         commonData.pageURL = window.location.href;
         var searchEngine = getSearchEngine()
         var source = getSource(searchEngine)
