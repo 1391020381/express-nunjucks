@@ -25,18 +25,21 @@ define(function (require) {
         // 监听服务端sso消息
         this.messenger.listen(function (msg) {
             var data = JSON.parse(msg);
-            console.log('parent-服务端sso传回数据', data, token, data.token);
+            console.log('parent-服务端sso传回数据', data, data.token);
+            console.log('客户端本地数据', token);
             if (data && data.token) {
                 // 传入数据，表明为登录
-                self.setJsCode(data.token, data.expires);
+                // 若本地已保存过此Token，不在重复设置
                 if (token !== data.token) {
                     window.location.reload();
+                    self.setJsCode(data.token, data.expires);
                 }
             } else {
                 // 传入空数据，表明为登出
+                // 本地还存在token-先清除-在触发刷新
                 if (token) {
-                    window.location.reload();
                     self.delJsCode();
+                    window.location.reload();
                 }
             }
         });
@@ -135,7 +138,7 @@ define(function (require) {
     }
   
     var ssoUrlList = {
-        "local":'http://192.168.100.165:8085',
+        "local":'http://192.168.100.222:8085',
         'dev':'http://dev-login-ishare.iask.com.cn',
         'test':'http://test-login-ishare.iask.com.cn',
         'pre':'http://pre-login-ishare.iask.com.cn',
@@ -146,7 +149,7 @@ define(function (require) {
         id: 'PC_MAIN_I_SHARE',
         projectName: 'I_SHARE',
         ssoId: 'I_SHARE_SSO',
-        ssoUrl: ssoUrl, // 222
+        ssoUrl: ssoUrl,
     });
 
     return consumer;
