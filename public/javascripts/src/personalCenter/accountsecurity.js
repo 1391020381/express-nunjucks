@@ -256,9 +256,10 @@ define(function(require , exports , module){
           var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
           var channel = 2
         //   var location = window.location.origin + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-        var location =  'http://ishare.iask.sina.com.cn/node/redirectionURL.html' + '?clientCode=' + clientCode
+        var locationUrl = location.href.split(location.search)[0]
+        var location =  locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
         //  var url = window.location.origin + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
-        var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
+        var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
         openWindow(url)
     }
     function identityAuthentication(isTHirdAuthorization){ // 换绑手机号(后续拉起绑定手机号)   和 解绑第三方需要验证
