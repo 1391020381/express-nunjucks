@@ -256,7 +256,7 @@ define(function(require , exports , module){
           var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
           var channel = 2
         //   var location = window.location.origin + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-        var locationUrl = window.location.href.split(window.location.search)[0]
+        var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname
         var location =  locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
         //  var url = window.location.origin + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
         var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
