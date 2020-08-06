@@ -34,6 +34,7 @@ define(function(require , exports , module){
                 if(goodsName){
                     $('.goodsName').text(goodsName)
                 }
+                console.log('needRedirect:',res.data.needRedirect)
                   if(res.data.needRedirect){
                       location.href = res.data.returnUrl
                       return
@@ -60,6 +61,7 @@ define(function(require , exports , module){
         })
     }
     function wechatPay(appId,timeStamp,nonceStr,package,paySign){  // prepayId 对应 package
+        console.log('wechatPay:',appId,timeStamp,nonceStr,package,paySign)
         function onBridgeReady(){
             WeixinJSBridge.invoke(
                'getBrandWCPayRequest', {
@@ -87,6 +89,7 @@ define(function(require , exports , module){
             //    if(checkStatus ==10 || checkStatus==13){
             //     handleBaiduStatisticsPush('payVipResult',{payresult:0,orderid:orderNo,orderpaytype:'wechat'})
             //    }
+            console.log('wechatPay支付失败:',res)
                 $.toast({
                     text:"支付失败",
                     delay : 3000,

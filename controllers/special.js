@@ -77,6 +77,7 @@ class specialModule{
                 req.body = {
                     currentPage:1,
                     pageSize:30,
+                    siteCode:"4",
                     name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
                 }
                 let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
