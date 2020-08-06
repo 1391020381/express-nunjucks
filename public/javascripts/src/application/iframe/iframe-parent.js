@@ -139,10 +139,10 @@ define(function (require) {
   
     var ssoUrlList = {
         "local":'http://192.168.100.165:8085',
-        'dev':'http://dev-login-ishare.iask.com.cn',
-        'test':'http://test-login-ishare.iask.com.cn',
-        'pre':'http://pre-login-ishare.iask.com.cn',
-        'prod':'http://login-ishare.iask.com.cn'
+        'dev':'https://dev-login-ishare.iask.com.cn',
+        'test':'https://test-login-ishare.iask.com.cn',
+        'pre':'https://pre-login-ishare.iask.com.cn',
+        'prod':'https://login-ishare.iask.com.cn'
     }
     var ssoUrl = ssoUrlList[env] || ssoUrlList['prod']
     var consumer = new Consumer({
