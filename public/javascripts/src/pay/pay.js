@@ -292,16 +292,16 @@ define(function (require, exports, moudle) {
 
     var clickPay = function (checkStatus) {
         // params.isVip = window.pageConfig.params.isVip;
-        params.isVip = userInfo.isVip    // 在用户信息里面获取
-        if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
-            if (params.isVip == '2') {//判断vip状态
-                utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
-                return;
-            } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
-                utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
-                return;
-            }
-        }
+        // params.isVip = userInfo.isVip    // 在用户信息里面获取
+        // if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
+        //     if (params.isVip == '2') {//判断vip状态
+        //         utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
+        //         return;
+        //     } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
+        //         utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
+        //         return;
+        //     }
+        // }
         handleOrderResultInfo();
     };
 

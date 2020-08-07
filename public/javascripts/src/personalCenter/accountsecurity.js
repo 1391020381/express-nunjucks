@@ -49,6 +49,9 @@ define(function(require , exports , module){
     }
     function untyingThird(thirdType){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.untyingThird,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -79,6 +82,9 @@ define(function(require , exports , module){
     }
     function userBindMobile(mobile,smsId,checkCode){ // 绑定手机号接口
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.userBindMobile,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -119,6 +125,9 @@ define(function(require , exports , module){
     }
     function checkIdentity(smsId,checkCode){ // 身份验证账号
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.checkIdentity + '?smsId='+ smsId + '&checkCode=' + checkCode,
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -149,6 +158,9 @@ define(function(require , exports , module){
     }
     function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.sendSms,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -215,6 +227,9 @@ define(function(require , exports , module){
     }
     function setUpPassword(smsId,checkCode,password){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.setUpPassword,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -291,6 +306,9 @@ define(function(require , exports , module){
     }
     function handleBindThird(code,channel,clientCode){
          $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.userBindThird,
             type: "POST",
             contentType: "application/json; charset=utf-8",

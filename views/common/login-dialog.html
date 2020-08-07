@@ -19,10 +19,9 @@
                          <div class="login-qr">
                               <img id="login-qr" src="{{cdnUrl}}/images/login/qrcode-default.png">
                          </div>
-                         <div class="login-qr-invalidtip">
-                              <p class="qr-invalidtip">二维码已失效</p>
-                              <p class="qr-refresh">刷新</p>
-                         </div>
+                         <div class="login-qr-invalidtip"></div>
+                         <p class="qr-invalidtip">二维码已失效</p>
+                         <p class="qr-refresh">刷新</p>
                     </div>
                     <div class="login-qrinfo">请使用微信扫描二维码登录</div>
                     <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
@@ -466,11 +465,11 @@
                          </div>
                     </div>
                     <div class="login-item password">
-                         <input class="login-password text-input"/>
-                         <input class="login-password password-input" type="password" style="display:none;"/>
+                         <input class="login-password text-input" style="display:none;"/>
+                         <input class="login-password password-input" type="password"/>
                          <span class="close-eye"></span>
                          <span class="eye"></span>
-                         <span class="mobile-errortip">密码错误</span>
+                         <span class="password-errortip">密码长度6-8位</span>
                     </div>
                     <div class="login-item login-btn login-btn-disable" data-logintype="password">登录</div>
                     <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
@@ -517,10 +516,9 @@
                               <div class="tourist-purchase-qr">
                                    <div id="touristPayQrCode"></div>
                               </div>
-                              <div class="tourist-purchase-invalidtip">
-                                   <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
+                              <div class="tourist-purchase-invalidtip"></div>
+                              <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
                                    <p class="tourist-purchase-refresh">刷新</p>
-                              </div>
 
                          </div>
                          <div class="qrcode-tip">请使用微信或支付宝扫描支付</div>
@@ -545,10 +543,9 @@
                                    <div class="login-qr">
                                          <img id="login-qr" src="{{cdnUrl}}/images/login/qrcode-default.png">
                                    </div>
-                                   <div class="login-qr-invalidtip">
-                                        <p class="qr-invalidtip">二维码已失效</p>
+                                   <div class="login-qr-invalidtip"></div>
+                                    <p class="qr-invalidtip">二维码已失效</p>
                                         <p class="qr-refresh">刷新</p>
-                                   </div>
                               </div>
                               <div class="login-qrinfo">请使用微信扫描二维码登录</div>
                               <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
@@ -779,12 +776,12 @@
                                         <span class="icon weixin-icon"></span>
                                         <span class="login-desc"></span>
                                    </li>
-                                   <li class="login-type-qq">
-                                        <span class="icon qq-icon" data-logintype="qq"></span>
+                                   <li class="login-type-qq login-type" data-logintype="qq">
+                                        <span class="icon qq-icon" ></span>
                                         <span class="login-desc"></span>
                                    </li>
-                                   <li class="login-type-weibo">
-                                        <span class="icon weibo-icon" data-logintype="weibo"></span>
+                                   <li class="login-type-weibo login-type"  data-logintype="weibo">
+                                        <span class="icon weibo-icon"></span>
                                         <span class="login-desc"></span>
                                    </li>
 
@@ -1006,12 +1003,12 @@
                                         <span class="icon weixin-icon"></span>
                                         <span class="login-desc"></span>
                                    </li>
-                                   <li class="login-type-qq">
-                                        <span class="icon qq-icon" data-logintype="qq"></span>
+                                   <li class="login-type-qq login-type" data-logintype="qq">
+                                        <span class="icon qq-icon"></span>
                                         <span class="login-desc"></span>
                                    </li>
-                                   <li class="login-type-weibo">
-                                        <span class="icon weibo-icon" data-logintype="weibo"></span>
+                                   <li class="login-type-weibo login-type" data-logintype="weibo">
+                                        <span class="icon weibo-icon" ></span>
                                         <span class="login-desc"></span>
                                    </li>
 
@@ -1041,10 +1038,9 @@
                <div class="login-qr">
                     <img id="login-qr" src="{{cdnUrl}}/images/login/qrcode-default.png"/>
                </div>
-               <div class="login-qr-invalidtip">
-                    <p class="qr-invalidtip">二维码已失效</p>
-                     <p class="qr-refresh">刷新</p>
-               </div>
+               <div class="login-qr-invalidtip"></div>
+               <p class="qr-invalidtip">二维码已失效</p>
+               <p class="qr-refresh">刷新</p>
      </div>
      <div class="login-qrinfo"><span class="wechat-icon"></span><span class="wechat-icon-desc">请使用微信扫描二维码登录</span></div>
       <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>

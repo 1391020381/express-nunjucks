@@ -151,12 +151,16 @@ define(function (require, exports, module) {
                     // $('.qrShadow').hide();
                     // $('.shadowTip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide()
-                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').show()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').hide()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
+                    // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').show()
                 } else {
                     // $('.qrShadow').show();
                     // $('.failTip').show()
-                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                    // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                     
                 }
             });
@@ -194,6 +198,9 @@ define(function (require, exports, module) {
             $.ajax({
                 type: 'post',
                 url: api.order.getOrderInfo,
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 // url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
                 contentType: "application/json;charset=utf-8",
                 data: params,
@@ -212,8 +219,11 @@ define(function (require, exports, module) {
                             if (unloginObj.count > 28) {
                                 // $('.qrShadow').show();
                                 // $('.failTip').show()
-                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
+                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
+                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                             }
                         } else if (orderInfo.orderStatus == 2) {
                             // 成功

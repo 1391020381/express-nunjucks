@@ -250,7 +250,7 @@ define(function (require, exports, module) {
         commonData.eventType = 'page';
         commonData.eventID = 'NE001';
         commonData.eventName = 'normalPageView';
-        if(loginResult){
+        if(loginResult = 'loginResultPage'){
             // clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
             commonData.pageID = 'PLOGIN'
             commonData.pageName = '登录页';
@@ -398,8 +398,14 @@ define(function (require, exports, module) {
         commonData.eventType = 'click';
         commonData.eventID = eventID;
         commonData.eventName = eventName;
-        commonData.pageID = $("#ip-page-id").val();
-        commonData.pageName = $("#ip-page-name").val();
+        if(eventID=='SE001'){
+            commonData.pageID = 'ishare'
+            commonData.pageName ='PC-M-PLOGIN'
+        }else{
+            commonData.pageID = $("#ip-page-id").val();
+            commonData.pageName = $("#ip-page-name").val();
+        }
+        
         commonData.pageURL = window.location.href;
 
         commonData.domID = domId;
@@ -498,13 +504,10 @@ define(function (require, exports, module) {
                 keyWords:$('.new-input').val()||$('.new-input').attr('placeholder')
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
-        }else if(cnt =='loginResult'){ // 登录结果
-            var  customData = {
-              pageID :'ishare',
-              pageName:'PC-M-PLOGIN'
-            } 
-            $.extend(customData, {'var':params});
-            clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
+        }else if(cnt == 'loginResult'){
+
+        clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', params);
+
         }
 
         var customData = {

@@ -99,6 +99,11 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
             $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
             return
         }
+        if(!password||password.length<6||password.length>8){
+            $('#dialog-box .password-login .password .password-errortip').show()
+        }else{
+            $('#dialog-box .password-login .password .password-errortip').hide()
+        }
         loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
         return
     }
@@ -113,6 +118,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
 $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
     var authenticationCodeType = $(this).attr('data-authenticationCodeType')
     var telphone = $('#dialog-box .verificationCode-login .input-mobile .telphone').val()
+    var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
     if(!method.testPhone(telphone)){
         $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
         return
@@ -129,6 +135,7 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
 $(document).on('input','#dialog-box .verificationCode-login .telphone',function(e){
     mobile = $(this).val()
     var verificationCode = $('#dialog-box .verificationCode-login .verification-code').val()
+    var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
     if(mobile.length>11){
         $('#dialog-box .telphone').val(mobile.slice(0,11))
     }
@@ -151,6 +158,7 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
     }
 })
 $(document).on('input','#dialog-box .verification-code',function(e){ // 
+    var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
     mobile = $('#dialog-box .verificationCode-login .telphone').val()
     verificationCode = $(this).val()
     if(verificationCode.length>4){
@@ -168,6 +176,7 @@ $(document).on('input','#dialog-box .verification-code',function(e){ //
     }
 })
 $(document).on('input','#dialog-box .password-login .telphone',function(){ // 
+    var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
     mobile = $(this).val()
     if(mobile.length>11){
         $('#dialog-box .password-login .telphone').val(mobile.slice(0,11))
@@ -175,11 +184,11 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
     if(method.testPhone(mobile.slice(0,11))){
        $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
        // 此时密码格式正确
-       var loginPassword =$('#dialog-box .password-login .password .login-password').val()
-    //    if(loginPassword&&loginPassword.length>=4){
-    //      $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
-    //      $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
-    //    }
+       var loginPassword =$('#dialog-box .password-login .password .login-password:visible').val()
+       if(loginPassword&&loginPassword.length>=6&&loginPassword&&loginPassword.length<=8){
+         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
+         $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+       }
     }else{
         if(mobile&&mobile.length>=11){
             $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
@@ -189,17 +198,23 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
     }
 })
 $(document).on('input','#dialog-box .password-login .login-password',function(){ 
+    var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
     var password = $(this).val()
     var telphone = $('#dialog-box .password-login .telphone').val()
     if(password&&password.length>0){
-        $('#dialog-box .password-login .password .close-eye').show()
+        $('#dialog-box .password-login .password .eye').show()
     }else{
         $('#dialog-box .password-login .password .close-eye').hide() 
     }
-    // if(password.length>4){
-    //     $('#dialog-box .password-login .login-password').val(password.slice(0,4))
-    // }
-    if(method.testPhone(telphone)){
+    if(password.length>8){
+        $('#dialog-box .password-login .login-password').val(password.slice(0,8))
+    }
+    if(!password||password.length<6||password.length>8){
+        $('#dialog-box .password-login .password .password-errortip').show()
+    }else{
+        $('#dialog-box .password-login .password .password-errortip').hide()
+    }
+    if(method.testPhone(telphone)&&password.length>=6&&password.length<=8){
         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
          $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
     }else{
@@ -239,7 +254,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
         $('#dialog-box .tourist-purchase-dialog .tourist-purchase-content').show()
       }
       if(dataType == 'login-purchase'){
-        normalPageView('loginResult')
+        normalPageView('loginResultPage')
         $('#dialog-box .tourist-purchase-dialog .tourist-purchase-content').hide()
         $('#dialog-box .tourist-purchase-dialog .login-content').show()
         
@@ -327,18 +342,23 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
     })
 }
 function isShowQrInvalidtip(flag){ // 普通微信登录  游客微信登录
+    
     if(flag){
-        $('.login-qrContent .login-qr').hide()
+        // $('.login-qrContent .login-qr').hide()
         $('.login-qrContent .login-qr-invalidtip').show()
+        $('.login-qrContent .qr-invalidtip').show()
+        $('.login-qrContent .qr-refresh').show()
     }else{
         $('.login-qrContent .login-qr-invalidtip').hide()
-        $('.login-qrContent .login-qr').show()
+        $('.login-qrContent .qr-invalidtip').hide()
+        $('.login-qrContent .qr-refresh').hide()
        
     }
 }
 function countdown() {  // 二维码失效倒计时
     if(expires_in <=0){
         clearTimeout(timer)
+        clearInterval(setIntervalTimer)
         isShowQrInvalidtip(true)
         // getLoginQrcode()
     }else{
@@ -365,11 +385,18 @@ function countdown() {  // 二维码失效倒计时
            if(res.code == '0'){
                 clearInterval(setIntervalTimer)
                 method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-                consumer.send(res.data.access_token, res.data.expires_in)
+               
                 closeRewardPop()
                
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
+                consumer.send(res.data.access_token, res.data.expires_in)
+                // window.location.reload()
+                $.ajaxSetup({
+                    headers:{
+                        'Authrization':method.getCookie('cuk')
+                    }
+                 });
            }else{
             if(res.code !='411046'){ //  411046 用户未登录
                 clearInterval(setIntervalTimer)
@@ -429,12 +456,20 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
        success: function (res) {
           if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data&&res.data.access_token, res.data.expires_in*1000, "/");
-            consumer.send(res.data.access_token, res.data.expires_in)
+          
             closeRewardPop()
           
             loginCallback&&loginCallback()
             touristLoginCallback&& touristLoginCallback()
            myWindow.close()
+           consumer.send(res.data.access_token, res.data.expires_in)
+
+        //    window.location.reload()
+        $.ajaxSetup({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            }
+         });
           }else{
            $.toast({
                text:res.msg,
@@ -541,10 +576,17 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
            
            if(res.code == '0'){
             method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in*1000, "/");
-            consumer.send(res.data.access_token, res.data.expires_in)
             closeRewardPop()
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()
+            consumer.send(res.data.access_token, res.data.expires_in)
+
+            // window.location.reload()
+            $.ajaxSetup({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                }
+             });
            }else{
             $.toast({
                 text:res.msg,
@@ -564,7 +606,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
  function showLoginDialog(params,callback){
     loginCallback = callback
     var loginDialog = $('#login-dialog')
-    normalPageView('loginResult')
+    normalPageView('loginResultPage')
     $("#dialog-box").dialog({
         html: loginDialog.html(),
         'closeOnClickModal':false
