@@ -81,7 +81,7 @@ module.exports = {
             }
 
             if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){ // 在前端页面
-                console.log('rightsVipMemberDetail:',results.rightsVipMemberDetail)
+              //  console.log('rightsVipMemberDetail:',results.rightsVipMemberDetail)
                 var fileDiscount = results.rightsVipMemberDetail.data.memberPoint&&results.rightsVipMemberDetail.data.memberPoint.value,
                 rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus,expireTime: results.rightsVipMemberDetail.data.endDate?moment(results.rightsVipMemberDetail.data.endDate).format('YYYY-MM-DD'):'',fileDiscount:fileDiscount})
             }else{

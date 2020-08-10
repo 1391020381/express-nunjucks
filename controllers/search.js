@@ -39,7 +39,7 @@ module.exports = {
                 }
                 var cond = req.query.cond || ''
                 // console.log('cond:',cond)
-                req.query = { cond: cond };
+                req.query = Object.assign({},req.query,{ cond: cond });
                 server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, req);
             }
 
@@ -142,7 +142,7 @@ module.exports = {
                 req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
             };
     
-            // console.warn(results.list.data.rows,'results-------------')
+            console.warn(JSON.stringify(results),'results-------------')
             render("search/home", results, req, res);
         })
 
