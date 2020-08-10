@@ -233,6 +233,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.getCategory,
                 contentType: "application/json;charset=utf-8",
@@ -562,6 +565,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.createFolder,
                 contentType: "application/json;charset=utf-8",
@@ -589,6 +595,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.getFolder,
                 contentType: "application/json;charset=utf-8",
@@ -761,6 +770,9 @@ define(function(require , exports , module){
                     }
                     locker = true;
                     $.ajax({
+                        headers:{
+                            'Authrization':method.getCookie('cuk')
+                        },
                         type: 'post',
                         url: api.upload.saveUploadFile,
                         contentType: "application/json;charset=utf-8",
