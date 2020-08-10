@@ -402,8 +402,8 @@ module.exports = {
                 server.post(appConfig.apiBasePath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
             }
         }, function (err, results) {
-            // console.log("订单状态============");
-            // console.log(results.list);
+            console.log("订单状态============");
+            console.log(results.list);
             res.send(results.list).end();
         })
     },

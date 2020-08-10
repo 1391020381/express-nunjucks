@@ -65,7 +65,7 @@ module.exports = {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                'Authrization':req.cookies.cuk
             }
         };
     },
@@ -78,7 +78,7 @@ module.exports = {
                 "content-type": "application/json",
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                'Authrization':req.cookies.cuk
             },
             body: req.body
         };

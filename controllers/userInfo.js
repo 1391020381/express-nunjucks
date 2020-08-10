@@ -7,7 +7,7 @@ var request = require('request');
 var server = require("../models/index");
 var api = require("../api/api");
 var appConfig = require("../config/app-config");
-
+var moment = require('moment');
 var util = require('../common/util');
 
 module.exports = {
@@ -81,7 +81,8 @@ module.exports = {
             }
 
             if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){ // 在前端页面
-                rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus})
+                console.log('endDate:',results.rightsVipMemberDetail.data.endDate)
+                rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus,expireTime: results.rightsVipMemberDetail.data.endDate?moment(results.rightsVipMemberDetail.data.endDate).format('YYYY-MM-DD'):''})
             }else{
                 rightsVipMemberDetailCode = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code
             }
