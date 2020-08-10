@@ -57,6 +57,30 @@
   border-radius: 50%;
   background: #333;
 }
+.login-content .errortip {
+  display: none;
+  position: absolute;
+  left: 61px;
+  top: 100px;
+}
+.login-content .errortip .error-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('../../images/login/warning.png') no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.login-content .errortip .error-tip {
+  margin-left: 5px;
+  width: 315px;
+  font-size: 15px;
+  color: #E53223;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .login-content .weixin-login .login-qrContent {
   margin: 0 auto;
   margin-top: 44px;
@@ -807,6 +831,30 @@
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .login-purchase {
   left: 280px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip {
+  display: none;
+  position: absolute;
+  left: 61px;
+  top: 170px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip .error-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('../../images/login/warning.png') no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip .error-tip {
+  margin-left: 5px;
+  width: 315px;
+  font-size: 15px;
+  color: #E53223;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
   margin-top: 40px;

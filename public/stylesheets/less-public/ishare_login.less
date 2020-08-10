@@ -64,7 +64,28 @@
             }
         }
     }
-
+    .errortip{
+        display: none;
+        position: absolute;
+        left: 61px;
+        top: 100px;
+        .error-icon{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: url('../../images/login/warning.png') no-repeat center;
+            background-size: 100%;
+            vertical-align: middle;
+        }
+        .error-tip{
+            margin-left:5px;
+            width: 315px;
+            font-size: 15px;
+            color: #E53223;
+            vertical-align: middle;
+            .text-ellipsis(); 
+        }
+    }
     .weixin-login {
         // display: none;
 
@@ -947,6 +968,28 @@
 
             .login-purchase {
                 left: 280px;
+            }
+        }
+        .errortip{
+            display: none;
+            position: absolute;
+            left: 61px;
+            top: 170px;
+            .error-icon{
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                background: url('../../images/login/warning.png') no-repeat center;
+                background-size: 100%;
+                vertical-align: middle;
+            }
+            .error-tip{
+                margin-left:5px;
+                width: 315px;
+                font-size: 15px;
+                color: #E53223;
+                vertical-align: middle;
+                .text-ellipsis(); 
             }
         }
         .tourist-purchase-content{

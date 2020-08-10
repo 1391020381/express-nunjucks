@@ -183,7 +183,7 @@ define(function (require, exports, module) {
                 // }).open();
                 // break;
                 var ui = method.getCookie('ui')?JSON.parse(decodeURIComponent(method.getCookie('ui'))):{isVip:''}
-                if (ui.isVip === '1') {
+                if (ui.isVip == '1') {
                             $("#dialog-box").dialog({
                                 html: $vipFreeDownCounts.html(),
                             }).open();
@@ -207,7 +207,7 @@ define(function (require, exports, module) {
             //     var showTips = 0;
             //     if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
             //         showTips = 1;
-            //     } else if (state == 2 && isVip == 0) {//下载券资料 非vip用户
+            //     } else if (state == 2 && isVip == 0) {//下载券资料 非vip用户a
             //         showTips = 2;
             //     }
             //     var format = window.pageConfig.params.file_format;

@@ -78,15 +78,18 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
         var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
         if(!method.testPhone(mobile)){
-            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+            showErrorTip('verificationCode-login',true,'手机号错误')
+           // $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
             return
         }
         if(!checkCode||checkCode&&checkCode.length!==4){
-            $('#dialog-box .verificationCode-login .code .verification-code-tip').show()
+          //  $('#dialog-box .verificationCode-login .code .verification-code-tip').show()
+          showErrorTip('verificationCode-login',true,'验证码错误')
             return
         }
-            $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
-            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+            // $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
+            // $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+            showErrorTip('verificationCode-login',false,'')
             loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
             return
     }
@@ -96,13 +99,17 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var password = $('#dialog-box .password-login .password .login-password').val().trim()
         var mobile = $('#dialog-box .password-login .telphone').val().trim()
         if(!method.testPhone(mobile)){
-            $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+         //   $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+         showErrorTip('password-login',true,'手机号错误')
             return
         }
         if(!password||password.length<6||password.length>8){
-            $('#dialog-box .password-login .password .password-errortip').show()
+           // $('#dialog-box .password-login .password .password-errortip').show()
+           showErrorTip('password-login',true,'密码错误')
+           return
         }else{
-            $('#dialog-box .password-login .password .password-errortip').hide()
+          //  $('#dialog-box .password-login .password .password-errortip').hide()
+          showErrorTip('password-login',false,'')
         }
         loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
         return
@@ -120,10 +127,12 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
     var telphone = $('#dialog-box .verificationCode-login .input-mobile .telphone').val()
     var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
     if(!method.testPhone(telphone)){
-        $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
+       // $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
+       showErrorTip('verificationCode-login',true,'手机号错误')
         return
     }else{
-        $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+      //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+      showErrorTip('verificationCode-login',false,'')
     }
     if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码 
         businessCode = 4
@@ -140,7 +149,8 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
         $('#dialog-box .telphone').val(mobile.slice(0,11))
     }
     if(method.testPhone(mobile.slice(0,11))){
-        $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+      //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+      showErrorTip('verificationCode-login',false,'')
         $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
         if(verificationCode>=4){
             $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
@@ -148,7 +158,9 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
         }
     }else{
         if(mobile&&mobile.length>=11){
-            $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+          //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+          showErrorTip('verificationCode-login',true,'手机号错误')
+          return
         }
         $('#dialog-box .getVerificationCode').removeClass('getVerificationCode-active')
         $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
@@ -165,7 +177,8 @@ $(document).on('input','#dialog-box .verification-code',function(e){ //
         $('#dialog-box .verification-code').val(verificationCode.slice(0,4))
     }
     if(verificationCode&&verificationCode.length>=4){
-        $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
+      //  $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
+        showErrorTip('verificationCode-login',false,'')
     }
     if(verificationCode&&verificationCode.length>=4&&method.testPhone(mobile)){
         $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
@@ -182,7 +195,8 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
         $('#dialog-box .password-login .telphone').val(mobile.slice(0,11))
     }
     if(method.testPhone(mobile.slice(0,11))){
-       $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
+      // $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
+      showErrorTip('password-login',false,'')
        // 此时密码格式正确
        var loginPassword =$('#dialog-box .password-login .password .login-password:visible').val()
        if(loginPassword&&loginPassword.length>=6&&loginPassword&&loginPassword.length<=8){
@@ -191,7 +205,9 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
        }
     }else{
         if(mobile&&mobile.length>=11){
-            $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+           // $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+           showErrorTip('password-login',true,'手机号错误')
+           return
         } 
         $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
         $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
@@ -210,9 +226,12 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
         $('#dialog-box .password-login .login-password').val(password.slice(0,8))
     }
     if(!password||password.length<6||password.length>8){
-        $('#dialog-box .password-login .password .password-errortip').show()
+       // $('#dialog-box .password-login .password .password-errortip').show()
+       showErrorTip('password-login',true,'密码错误')
+       return 
     }else{
-        $('#dialog-box .password-login .password .password-errortip').hide()
+        //$('#dialog-box .password-login .password .password-errortip').hide()
+        showErrorTip('password-login',false,'')
     }
     if(method.testPhone(telphone)&&password.length>=6&&password.length<=8){
         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
@@ -291,7 +310,26 @@ function closeRewardPop(){
     $('#dialog-box').hide();
     clearInterval(setIntervalTimer)
 } 
+function showErrorTip(type,isShow,msg){
+    if(isShow){
+        if(type=='verificationCode-login'){
+            $('#dialog-box .verificationCode-login .errortip .error-tip').text(msg)
+            $('#dialog-box .verificationCode-login .errortip').show()
+        }else if(type == 'password-login'){
+            $('#dialog-box .password-login .errortip .error-tip').text(msg)
+            $('#dialog-box .password-login .errortip').show()
+        }
+    }else{
+        if(type=='verificationCode-login'){
+            $('#dialog-box .verificationCode-login .errortip .error-tip').text('')
+            $('#dialog-box .verificationCode-login .errortip').hide()
+        }else if(type == 'password-login'){
+            $('#dialog-box .password-login .errortip .error-tip').text('')
+            $('#dialog-box .password-login .errortip').hide()
+        }
+    }
 
+}
 
  
 // 微信登录
@@ -588,10 +626,16 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
                 }
              });
            }else{
-            $.toast({
-                text:res.msg,
-                delay : 3000,
-            })
+            // $.toast({
+            //     text:res.msg,
+            //     delay : 3000,
+            // })
+            if(checkCode){
+                showErrorTip('verificationCode-login',true,res.msg)
+            }else{
+                showErrorTip('password-login',true,res.msg)
+            }
+          
            }
         },
         error:function(error){
