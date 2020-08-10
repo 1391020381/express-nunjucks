@@ -538,7 +538,7 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
         }else if(cnt =='viewExposure'){
             customData.moduleID = moduleID
-            clickCenter('NE006', 'modelView', '', '', customData);
+           // clickCenter('NE006', 'modelView', '', '', customData);
         }else if(cnt == 'similarFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,

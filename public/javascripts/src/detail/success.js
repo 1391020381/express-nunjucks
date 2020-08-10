@@ -49,13 +49,13 @@ define(function (require, exports, module) {
             });
         } else {
             unloginBuyStatus();
-            // login.listenLoginStatus(function (res) {
-            //     initData.isVip = parseInt(res.isVip, 10);
-            //     userData = res;
-            //     // 登陆成功绑定userid
-            //     bindOrder(res.userId, res.nickName);
+            login.listenLoginStatus(function (res) {
+                initData.isVip = parseInt(res.isVip, 10);
+                userData = res;
+                // 登陆成功绑定userid
+                bindOrder(res.userId, res.nickName);
 
-            // });
+            });
             // 轮询登录状态
             setTimeout(function () {
               //  getDownUrl()

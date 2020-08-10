@@ -15,7 +15,7 @@ define(function (require, exports, module) {
   var touristLoginCallback = null // 保存游客登录的传入的回调函数
   var normalPageView = require('../common/bilog').normalPageView
   window.loginType = {
-      type:'0',
+      type:'wechat',
       values:{
         0: 'wechat',//微信登录
         1:'qq',//qq登录
@@ -95,7 +95,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
     if(logintype == 'password'){ // mobile
         // var tempMobile = $('#dialog-box .password-login .input-moblie .telphone').val()
         var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
-        var password = $('#dialog-box .password-login .password .login-password').val().trim()
+        var password = $('#dialog-box .password-login .password .login-password:visible').val().trim()
         var mobile = $('#dialog-box .password-login .telphone').val().trim()
         if(!method.testPhone(mobile)){
          //   $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
