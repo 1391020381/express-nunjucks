@@ -193,7 +193,7 @@ define(function (require, exports, module) {
          * isClear 是否停止
          */
         payStatus: function (orderNo, visitorId) {
-           orderNo = 45432441372672
+        //    orderNo = 45432441372672
             var params = JSON.stringify({orderNo: orderNo});
             $.ajax({
                 type: 'post',

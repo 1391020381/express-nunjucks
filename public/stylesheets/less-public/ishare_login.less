@@ -406,7 +406,8 @@
                 text-align: center;
                 background:rgba(233,232,229,1);
                 border-radius:4px;
-                cursor: not-allowed;
+                // cursor: not-allowed;
+                cursor: pointer;
             }
             .getVerificationCode-active {
                 position: absolute;
@@ -453,12 +454,16 @@
             text-align: center;
             font-size: 15px;
             color: #ffffff;
+            &:hover{
+                background: #EC3A22;
+            }
            
         }
         .login-btn-disable {
             background:rgba(242,81,38,1);
             opacity:0.6;
-            cursor: not-allowed;
+            // cursor: not-allowed;
+            cursor: pointer;
         }
         .login-btn-active{
             background: rgba(242, 81, 38, 1);
@@ -752,12 +757,17 @@
             font-size: 15px;
             color: #ffffff;
             cursor: pointer;
+            &:hover{
+                background: #EC3A22;
+            }
+
         }
         
         .login-btn-disable {
             background:rgba(242,81,38,1);
             opacity:0.6;
-            cursor: not-allowed;
+            // cursor: not-allowed;
+            cursor: pointer;
         }
         .login-btn-active{
             background: rgba(242, 81, 38, 1);
