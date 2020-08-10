@@ -83,7 +83,7 @@ define(function (require, exports, module) {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow',
             // 绑定订单
-            bindUser: gateway + '/bind/loginUser',
+            bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo'
         },
         coupon:{
