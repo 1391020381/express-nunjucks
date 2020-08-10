@@ -2,7 +2,6 @@
 
 define(function (require, exports, module) {
   require("../cmd-lib/jqueryMd5.js")
- var consumer =  require('./iframe/iframe-parent')
    myWindow = '' // 保存第三方授权时,打开的标签
    var smsId = ''  // 验证码
    var myWindow = ''  // 保存 openWindow打开的对象
@@ -428,7 +427,7 @@ function countdown() {  // 二维码失效倒计时
                
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
-                consumer.send(res.data.access_token, res.data.expires_in)
+               
                 // window.location.reload()
                 $.ajaxSetup({
                     headers:{
@@ -500,7 +499,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
             loginCallback&&loginCallback()
             touristLoginCallback&& touristLoginCallback()
            myWindow.close()
-           consumer.send(res.data.access_token, res.data.expires_in)
+           
 
         //    window.location.reload()
         $.ajaxSetup({
@@ -617,7 +616,7 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             closeRewardPop()
             loginCallback&&loginCallback()
             touristLoginCallback&&touristLoginCallback()
-            consumer.send(res.data.access_token, res.data.expires_in)
+          
 
             // window.location.reload()
             $.ajaxSetup({

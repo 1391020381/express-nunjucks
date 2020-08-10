@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     var loginResult = require('../common/bilog').loginResult
-    var consumer =  require('./iframe/iframe-parent')
     module.exports = {
         getIds: function () {
             // 详情页
@@ -204,7 +203,6 @@ define(function (require, exports, module) {
             $.get(api.user.loginOut, function (res) {
                 console.log('loginOut:',res)
                 if(res.code == 0){
-                    consumer.send('', '')
                     window.location.href = window.location.href;
                 }else{
                     $.toast({
