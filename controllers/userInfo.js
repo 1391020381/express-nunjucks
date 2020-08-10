@@ -44,7 +44,7 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + api.coupon.getRightsVipMemberDetail,
                     body:JSON.stringify({
                         site: '4',
-                        memberCode:'PREVILEGE_NUM'
+                        memberCode:'PAY_DISCOUNT'
                       }),
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,8 +81,9 @@ module.exports = {
             }
 
             if(results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code == '0'){ // 在前端页面
-                console.log('endDate:',results.rightsVipMemberDetail.data.endDate)
-                rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus,expireTime: results.rightsVipMemberDetail.data.endDate?moment(results.rightsVipMemberDetail.data.endDate).format('YYYY-MM-DD'):''})
+                console.log('rightsVipMemberDetail:',results.rightsVipMemberDetail)
+                var fileDiscount = results.rightsVipMemberDetail.data.memberPoint&&results.rightsVipMemberDetail.data.memberPoint.value,
+                rightsVipMemberDetail = Object.assign({},results.rightsVipMemberDetail.data,{isVip:results.rightsVipMemberDetail.data.vipStatus,expireTime: results.rightsVipMemberDetail.data.endDate?moment(results.rightsVipMemberDetail.data.endDate).format('YYYY-MM-DD'):'',fileDiscount:fileDiscount})
             }else{
                 rightsVipMemberDetailCode = results.rightsVipMemberDetail&&results.rightsVipMemberDetail.code
             }
