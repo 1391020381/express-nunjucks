@@ -224,7 +224,7 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
     if(password.length>8){
         $('#dialog-box .password-login .login-password').val(password.slice(0,8))
     }
-    if(!password||password.length<6||password.length>8){
+    if(!password||password.length>8){
        // $('#dialog-box .password-login .password .password-errortip').show()
        showErrorTip('password-login',true,'密码错误')
        return 

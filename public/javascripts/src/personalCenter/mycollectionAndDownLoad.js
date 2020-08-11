@@ -21,6 +21,9 @@ define(function(require , exports , module){
 
    function getDownloadRecordList(currentPage){ //用户下载记录接口
       $.ajax({
+         headers:{
+            'Authrization':method.getCookie('cuk')
+         },
           url: api.user.getDownloadRecordList,
           type: "POST",
           data: JSON.stringify({
@@ -63,6 +66,9 @@ define(function(require , exports , module){
   function getUserFileList(currentPage){  // 查询个人收藏列表
     var pageNumber = currentPage || 1
    $.ajax({
+      headers:{
+        'Authrization':method.getCookie('cuk')
+      },
       url: api.user.getUserFileList + '?pageNumber=' + pageNumber + '&pageSize=20&sidx=0&order=-1',
       type: "GET",
       contentType: "application/json; charset=utf-8",

@@ -61,6 +61,9 @@ define(function(require , exports , module){
    
     function editUser(gender,birthday,prov,city,email){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.editUser,
             type: "POST",
             data: JSON.stringify({
