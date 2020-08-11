@@ -17,17 +17,19 @@ define(function (require, exports, module) {
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
             
             var classArr = []
-            if (params) {
-                params.classid1 && classArr.push(params.classid1)
-                params.classid2 && classArr.push(params.classid2)
-                params.classid3 && classArr.push(params.classid3)
-            }
-            var clsId = params ? (classArr.length > 0 ? classArr.join('-') : '') : '';
+            // if (params) {
+            //     params.classid1 && classArr.push(params.classid1)
+            //     params.classid2 && classArr.push(params.classid2)
+            //     params.classid3 && classArr.push(params.classid3)
+            // }
+           // var clsId = params ? (classArr.length > 0 ? classArr.join('-') : '') : '';  
+
+            var clsId = params?params.classid:'' 
 
             var fid = access ? (access.fileId || params.g_fileId || '') : '';
 
             // 类目页
-            var classIds = window.pageConfig && window.pageConfig.classIds ? window.pageConfig.classIds : '';
+            var classIds = params.classIds ? params.classIds : '';
             !clsId && (clsId = classIds)
 
             return {

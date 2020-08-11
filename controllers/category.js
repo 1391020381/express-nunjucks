@@ -200,6 +200,7 @@ module.exports = {
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []
+            results.categoryId = categoryId   // 登录时传入当前分类id
             render("category/home", results, req, res);
         })
 
