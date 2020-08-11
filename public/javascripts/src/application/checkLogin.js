@@ -29,7 +29,7 @@ define(function (require, exports, module) {
             var fid = access ? (access.fileId || params.g_fileId || '') : '';
 
             // 类目页
-            var classIds = params.classIds ? params.classIds : '';
+            var classIds = params&&params.classIds ? params.classIds : '';
             !clsId && (clsId = classIds)
 
             return {
