@@ -102,14 +102,14 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
          showErrorTip('password-login',true,'手机号错误')
             return
         }
-        if(!password||password.length<6||password.length>8){
+        // if(!password||password.length<6||password.length>8){
            // $('#dialog-box .password-login .password .password-errortip').show()
-           showErrorTip('password-login',true,'密码错误')
-           return
-        }else{
-          //  $('#dialog-box .password-login .password .password-errortip').hide()
-          showErrorTip('password-login',false,'')
-        }
+        //    showErrorTip('password-login',true,'密码错误')
+        //    return
+        // }else{
+        //   //  $('#dialog-box .password-login .password .password-errortip').hide()
+        //   showErrorTip('password-login',false,'')
+        // }
         loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
         return
     }
@@ -221,17 +221,17 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
     }else{
         $('#dialog-box .password-login .password .close-eye').hide() 
     }
-    if(password.length>8){
-        $('#dialog-box .password-login .login-password').val(password.slice(0,8))
-    }
-    if(!password||password.length>8){
+    if(password.length>16){
+        $('#dialog-box .password-login .login-password').val(password.slice(0,16))
+     }
+    // if(!password||password.length>8){
        // $('#dialog-box .password-login .password .password-errortip').show()
-       showErrorTip('password-login',true,'密码错误')
-       return 
-    }else{
-        //$('#dialog-box .password-login .password .password-errortip').hide()
-        showErrorTip('password-login',false,'')
-    }
+    //    showErrorTip('password-login',true,'密码错误')
+    //    return 
+    // }else{
+    //     //$('#dialog-box .password-login .password .password-errortip').hide()
+    //     showErrorTip('password-login',false,'')
+    // }
     if(method.testPhone(telphone)&&password.length>=6&&password.length<=8){
         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
          $('#dialog-box .password-login .login-btn').addClass('login-btn-active')

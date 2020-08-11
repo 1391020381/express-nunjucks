@@ -24,6 +24,10 @@
   background-position: -220px -20px;
   cursor: pointer;
 }
+.login-dialog input::-webkit-input-safebox-button {
+  display: none;
+  /*去掉搜狗浏览器密码软盘*/
+}
 .login-content {
   width: 100%;
   height: 100%;
