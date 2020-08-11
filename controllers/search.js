@@ -66,7 +66,6 @@ module.exports = {
                     content: [
                         { code: '', des: '全部', active: (req.query.fileType === '' || req.query.fileType == undefined) ? true : false },
                         { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
-                        { code: 'downloadVoucher', des: '下载券', active: req.query.fileType === 'downloadVoucher' ? true : false },
                         { code: 'vipExclusive', des: 'VIP专享', active: req.query.fileType === 'vipExclusive' ? true : false },
                         { code: 'pay', des: '付费', active: req.query.fileType === 'pay' ? true : false }
                     ]
