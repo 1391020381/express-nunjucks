@@ -140,7 +140,7 @@ define(function (require, exports, module) {
             try{
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
-                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
+                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,loginResult:"1"})
                         handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
                         if (callback && typeof callback == "function") {
                             callback(res.data);

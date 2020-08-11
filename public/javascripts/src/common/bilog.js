@@ -399,8 +399,8 @@ define(function (require, exports, module) {
         commonData.eventID = eventID;
         commonData.eventName = eventName;
         if(eventID=='SE001'){
-            commonData.pageID = 'ishare'
-            commonData.pageName ='PC-M-PLOGIN'
+            commonData.pageID = 'PC-M-PLOGIN'
+            commonData.pageName ='登录页'
         }else{
             commonData.pageID = $("#ip-page-id").val();
             commonData.pageName = $("#ip-page-name").val();
