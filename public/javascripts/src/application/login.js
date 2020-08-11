@@ -76,7 +76,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
         var checkCode = $('#dialog-box .verificationCode-login .verification-code').val()
         var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
-        if(!method.testPhone(mobile)){
+        if(!method.testPhone(mobile)&&nationCode=='86'){
             showErrorTip('verificationCode-login',true,'手机号错误')
            // $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
             return
@@ -97,7 +97,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
         var password = $('#dialog-box .password-login .password .login-password:visible').val().trim()
         var mobile = $('#dialog-box .password-login .telphone').val().trim()
-        if(!method.testPhone(mobile)){
+        if(!method.testPhone(mobile)&&nationCode==86){
          //   $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
          showErrorTip('password-login',true,'手机号错误')
             return
@@ -125,18 +125,26 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
     var authenticationCodeType = $(this).attr('data-authenticationCodeType')
     var telphone = $('#dialog-box .verificationCode-login .input-mobile .telphone').val()
     var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
-    if(!method.testPhone(telphone)){
-       // $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
-       showErrorTip('verificationCode-login',true,'手机号错误')
-        return
+    if(nationCode=='86'){
+        if(!method.testPhone(telphone)){
+            // $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
+            showErrorTip('verificationCode-login',true,'手机号错误')
+             return
+         }else{
+           //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+           showErrorTip('verificationCode-login',false,'')
+         }
+         if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码 
+             businessCode = 4
+             sendSms()
+         
+         }
     }else{
-      //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
-      showErrorTip('verificationCode-login',false,'')
-    }
-    if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码 
-        businessCode = 4
-        sendSms()
-    
+        if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码 
+            businessCode = 4
+            sendSms()
+        
+        }
     }
   
 })
@@ -147,26 +155,41 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
     if(mobile.length>11){
         $('#dialog-box .telphone').val(mobile.slice(0,11))
     }
-    if(method.testPhone(mobile.slice(0,11))){
-      //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
-      showErrorTip('verificationCode-login',false,'')
-        $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
-        if(verificationCode>=4){
-            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
-            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
-        }
+    if(nationCode=='86'){ // 国内号码
+        if(method.testPhone(mobile.slice(0,11))){
+            //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+            showErrorTip('verificationCode-login',false,'')
+              $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
+              if(verificationCode&&verificationCode.length>=4){
+                  $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
+                  $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
+              }
+          }else{
+              if(mobile&&mobile.length>=11){
+                //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+                showErrorTip('verificationCode-login',true,'手机号错误')
+                return
+              }
+              $('#dialog-box .getVerificationCode').removeClass('getVerificationCode-active')
+              $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
+              $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
+      
+              
+          }
     }else{
-        if(mobile&&mobile.length>=11){
-          //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
-          showErrorTip('verificationCode-login',true,'手机号错误')
-          return
+        if(mobile){
+            $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
+            if(verificationCode&&verificationCode.length>=4){
+                $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
+                $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
+            }
+        }else{
+            $('#dialog-box .getVerificationCode').removeClass('getVerificationCode-active')
+            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
+            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
         }
-        $('#dialog-box .getVerificationCode').removeClass('getVerificationCode-active')
-        $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
-        $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
-
-        
     }
+    
 })
 $(document).on('input','#dialog-box .verification-code',function(e){ // 
     var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
@@ -179,13 +202,24 @@ $(document).on('input','#dialog-box .verification-code',function(e){ //
       //  $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
         showErrorTip('verificationCode-login',false,'')
     }
-    if(verificationCode&&verificationCode.length>=4&&method.testPhone(mobile)){
-        $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
-        $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
+    if(nationCode=='86'){
+        if(verificationCode&&verificationCode.length>=4&&method.testPhone(mobile)){
+            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
+            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
+        }else{
+            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
+            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
+        }
     }else{
-        $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
-        $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
+        if(verificationCode&&verificationCode.length>=4&&mobile){
+            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-disable')
+            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-active')
+        }else{
+            $('#dialog-box .verificationCode-login .login-btn').removeClass('login-btn-active')
+            $('#dialog-box .verificationCode-login .login-btn').addClass('login-btn-disable')
+        }
     }
+    
 })
 $(document).on('input','#dialog-box .password-login .telphone',function(){ // 
     var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
@@ -193,23 +227,37 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
     if(mobile.length>11){
         $('#dialog-box .password-login .telphone').val(mobile.slice(0,11))
     }
-    if(method.testPhone(mobile.slice(0,11))){
-      // $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
-      showErrorTip('password-login',false,'')
-       // 此时密码格式正确
-       var loginPassword =$('#dialog-box .password-login .password .login-password:visible').val()
-       if(loginPassword&&loginPassword.length>=6&&loginPassword&&loginPassword.length<=8){
-         $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
-         $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
-       }
+    if(nationCode=='86'){
+        if(method.testPhone(mobile.slice(0,11))){
+            // $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
+            showErrorTip('password-login',false,'')
+             // 此时密码格式正确
+             var loginPassword =$('#dialog-box .password-login .password .login-password:visible').val()
+             if(loginPassword&&loginPassword.length>=6&&loginPassword&&loginPassword.length<=8){
+               $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
+               $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+             }
+          }else{
+              if(mobile&&mobile.length>=11){
+                 // $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+                 showErrorTip('password-login',true,'手机号错误')
+                 return
+              } 
+              $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
+              $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+          }
     }else{
-        if(mobile&&mobile.length>=11){
-           // $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
-           showErrorTip('password-login',true,'手机号错误')
-           return
-        } 
-        $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
-        $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+        if(mobile){
+            showErrorTip('password-login',false,'')
+            if(loginPassword&&loginPassword.length>=6&&loginPassword&&loginPassword.length<=8){
+                $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
+                $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+              }
+        }else{
+            // showErrorTip('password-login',true,'手机号错误')
+            $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
+            $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+        }
     }
 })
 $(document).on('input','#dialog-box .password-login .login-password',function(){ 
@@ -232,13 +280,24 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
     //     //$('#dialog-box .password-login .password .password-errortip').hide()
     //     showErrorTip('password-login',false,'')
     // }
-    if(method.testPhone(telphone)&&password.length>=6&&password.length<=8){
-        $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
-         $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+    if(nationCode == '86'){
+        if(method.testPhone(telphone)&&password){
+            $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
+             $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+        }else{
+            $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
+             $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+        }
     }else{
-        $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
-         $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+        if(telphone&&password){
+            $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
+            $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
+        }else{
+            $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
+            $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
+        }
     }
+   
 })
 
 $(document).on('click','#dialog-box .password-login .close-eye',function(){
@@ -283,6 +342,7 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
   $(document).on('click','#dialog-box .phone-choice',function(e){
       $(this).addClass('phone-choice-show')
       $('#dialog-box .phone-more').show()
+     
       return false
       
   })
@@ -292,6 +352,12 @@ $(document).on('click','#dialog-box .password-login .eye',function(){
       $('#dialog-box .phone-choice .phone-num .add').text('+'+areaNum)
       $('#dialog-box .phone-choice').removeClass('phone-choice-show')
       $('#dialog-box .phone-more').hide()
+      $('#dialog-box input').val('')
+      $('#dialog-box .getVerificationCode').removeClass('getVerificationCode-active')
+      $('#dialog-box .login-btn').removeClass('login-btn-active')
+      $('#dialog-box .login-btn').addClass('login-btn-disable')
+      showErrorTip('verificationCode-login',false,'')
+      showErrorTip('password-login',false,'')
       return false
   })
   $(document).on('click','.login-dialog',function(e){
@@ -536,7 +602,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         contentType: "application/json; charset=utf-8",
         data:JSON.stringify({
             mobile:mobile,
-            nationCode:86,
+            nationCode: $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim(),
             businessCode:businessCode, // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
             terminal:'pc',
             'appId': appId,
