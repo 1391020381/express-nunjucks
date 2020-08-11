@@ -354,7 +354,9 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             countdown()
             if(isTouristLogin||isqrRefresh){
                 $('.tourist-login #login-qr').attr('src',res.data.url)
-                touristLoginCallback = callback
+                if(callback){
+                    touristLoginCallback = callback
+                }
             }else{
                $('#dialog-box #login-qr').attr('src',res.data.url)
             }
