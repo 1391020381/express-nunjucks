@@ -218,6 +218,7 @@ define(function (require, exports, module) {
                 initData.isVip = parseInt(data.isVip, 10);
                 userData = data;
                 // 登陆成功绑定userid
+                $('.qrcode-warpper').show()
                 bindOrder(data.userId, data.nickName);
             });
         }
