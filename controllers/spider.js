@@ -171,7 +171,7 @@ module.exports = {
                         default:
                     }
                     pageIds = ['M_M_FD_doc_jjgl_relevant_1']
-                    let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
+                    let url = appConfig.newBasePath + '/gateway/recommend/config/info' 
                     let option = {
                         url: url,
                         method: 'POST',

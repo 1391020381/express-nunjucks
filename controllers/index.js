@@ -27,7 +27,7 @@ module.exports = {
              //第四范式 相关推荐
              paradigm4Relevant: function (callback) {
                 var pageIds = ['Q_M_FD_hot_home']
-                let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
+                let url =  appConfig.newBasePath + '/gateway/recommend/config/info' 
                 let option = {
                     url: url,
                     method: 'POST',
