@@ -28,6 +28,14 @@
   display: none;
   /*去掉搜狗浏览器密码软盘*/
 }
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  /* 避免占用 input 元素额外的 padding，正常情况下存在 display: none!; 就可以了 */
+  right: 0;
+}
 .login-content {
   width: 100%;
   height: 100%;
@@ -39,7 +47,7 @@
 .login-content .login-title .ishare-log {
   position: absolute;
   left: 89px;
-  top: 42px;
+  top: 45px;
   width: 152px;
   height: 37px;
 }
@@ -100,9 +108,8 @@
   border: 1px solid #d4d4d4;
 }
 .login-content .weixin-login .login-qrContent .login-qr #login-qr {
-  width: 178px;
-  height: 178px;
-  padding: 11px;
+  width: 200px;
+  height: 200px;
 }
 .login-content .weixin-login .login-qrContent .login-qr-invalidtip {
   display: none;
@@ -164,8 +171,14 @@
   margin-left: 10px;
   cursor: pointer;
 }
+.login-content .weixin-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
 .login-content .weixin-login .login-info .privacy-pooptioncy {
   cursor: pointer;
+}
+.login-content .weixin-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
 }
 .login-content .weixin-login .login-type-list {
   margin-top: 51px;
@@ -225,6 +238,9 @@
 .login-content .weixin-login .login-type-list .login-type-verificationCode {
   margin-left: 121px;
   font-size: 15px;
+  color: #999999;
+}
+.login-content .weixin-login .login-type-list .login-type-verificationCode:hover {
   color: #1D739F;
 }
 .login-content .weixin-login .login-type-list .login-type-password {
@@ -232,6 +248,9 @@
   font-size: 15px;
   color: #999999;
   position: relative;
+}
+.login-content .weixin-login .login-type-list .login-type-password:hover {
+  color: #1D739F;
 }
 .login-content .weixin-login .login-type-list .login-type-password::after {
   content: '';
@@ -417,8 +436,14 @@
   margin-left: 10px;
   cursor: pointer;
 }
+.login-content .verificationCode-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
 .login-content .verificationCode-login .login-info .privacy-pooptioncy {
   cursor: pointer;
+}
+.login-content .verificationCode-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
 }
 .login-content .verificationCode-login .login-btn {
   margin-top: 32px;
@@ -428,6 +453,7 @@
   text-align: center;
   font-size: 15px;
   color: #ffffff;
+  border-radius: 4px;
 }
 .login-content .verificationCode-login .login-btn:hover {
   background: #EC3A22;
@@ -500,6 +526,9 @@
 .login-content .verificationCode-login .login-type-list .login-type-verificationCode {
   margin-left: 121px;
   font-size: 15px;
+  color: #999999;
+}
+.login-content .verificationCode-login .login-type-list .login-type-verificationCode:hover {
   color: #1D739F;
 }
 .login-content .verificationCode-login .login-type-list .login-type-password {
@@ -508,6 +537,9 @@
   right: 24px;
   font-size: 15px;
   color: #999999;
+}
+.login-content .verificationCode-login .login-type-list .login-type-password:hover {
+  color: #1D739F;
 }
 .login-content .password-login {
   display: none;
@@ -705,8 +737,14 @@
   margin-left: 10px;
   cursor: pointer;
 }
+.login-content .password-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
 .login-content .password-login .login-info .privacy-pooptioncy {
   cursor: pointer;
+}
+.login-content .password-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
 }
 .login-content .password-login .login-type-list {
   height: 64px;
@@ -765,9 +803,12 @@
 }
 .login-content .password-login .login-type-list .login-type-verificationCode {
   font-size: 15px;
-  color: #1D739F;
   position: absolute;
   right: 24px;
+  color: #999999;
+}
+.login-content .password-login .login-type-list .login-type-verificationCode:hover {
+  color: #1D739F;
 }
 .tourist-purchase-dialog {
   width: 460px;
@@ -846,7 +887,7 @@
   display: inline-block;
   width: 18px;
   height: 18px;
-  background: url('../../images/login/warning.png') no-repeat center;
+  background: url('../images/login/warning.png') no-repeat center;
   background-size: 100%;
   vertical-align: middle;
 }
@@ -986,6 +1027,9 @@
   color: #999999;
   text-align: center;
 }
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-tip a:hover {
+  color: #1d73a0;
+}
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer {
   margin-top: 20px;
   width: 100%;
@@ -993,9 +1037,10 @@
   line-height: 64px;
   text-align: center;
   background: #f5f4f0;
+  color: #999999;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer .tourist-purchase-download {
-  color: #2D6373;
+  color: #1d73a0;
   cursor: pointer;
 }
 .tourist-login .login-qrContent {
@@ -1085,6 +1130,15 @@
   margin-left: 10px;
   cursor: pointer;
 }
+.tourist-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
 .tourist-login .login-info .privacy-pooptioncy {
   cursor: pointer;
+}
+.tourist-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
+}
+.tourist-login a:hover {
+  color: #1d73a0;
 }

@@ -32,6 +32,13 @@ input::-webkit-input-safebox-button{
 }
 }
 
+input::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute; /* 避免占用 input 元素额外的 padding，正常情况下存在 display: none!; 就可以了 */
+    right: 0;
+}
 .login-content {
     width: 100%;
     height: 100%;
@@ -43,7 +50,7 @@ input::-webkit-input-safebox-button{
         .ishare-log {
             position: absolute;
             left: 89px;
-            top: 42px;
+            top: 45px;
             width: 152px;
             height: 37px;
         }
@@ -108,9 +115,9 @@ input::-webkit-input-safebox-button{
                 background:rgba(255,255,255,1);
                 border:1px solid rgba(212, 212, 212, 1);
                 #login-qr{
-                    width: 178px;
-                    height: 178px;
-                    padding:11px;
+                    width: 200px;
+                    height: 200px;
+                    // padding:11px;
                 }
             }
 
@@ -179,9 +186,15 @@ input::-webkit-input-safebox-button{
             .service-agreement {
                 margin-left: 10px;
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
             .privacy-pooptioncy{
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
         }
 
@@ -254,7 +267,10 @@ input::-webkit-input-safebox-button{
             .login-type-verificationCode {
                 margin-left: 121px;
                 font-size: 15px;
-                color: #1D739F;
+                color: #999999;
+                &:hover{
+                    color: #1D739F;
+                }
             }
 
             .login-type-password {
@@ -262,7 +278,9 @@ input::-webkit-input-safebox-button{
                 font-size: 15px;
                 color: #999999;
                 position: relative;
-
+                &:hover{
+                    color: #1D739F;
+                }
                 &::after {
                     content: '';
                     width: 1px;
@@ -465,9 +483,15 @@ input::-webkit-input-safebox-button{
             .service-agreement {
                 margin-left: 10px;
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
             .privacy-pooptioncy{
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
         }
 
@@ -479,6 +503,7 @@ input::-webkit-input-safebox-button{
             text-align: center;
             font-size: 15px;
             color: #ffffff;
+            border-radius:4px;
             &:hover{
                 background: #EC3A22;
             }
@@ -586,7 +611,10 @@ input::-webkit-input-safebox-button{
             .login-type-verificationCode {
                 margin-left: 121px;
                 font-size: 15px;
-                color: #1D739F;
+                color: #999999;
+                &:hover{
+                    color: #1D739F;
+                }
             }
 
             .login-type-password {
@@ -597,6 +625,9 @@ input::-webkit-input-safebox-button{
                 right: 24px;
                 font-size: 15px;
                 color: #999999;
+                &:hover{
+                    color: #1D739F;
+                }
 
             }
         }
@@ -814,9 +845,15 @@ input::-webkit-input-safebox-button{
             .service-agreement {
                 margin-left: 10px;
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
             .privacy-pooptioncy{
                 cursor: pointer;
+                &:hover{
+                    color: #1d73a0;
+                }
             }
         }
 
@@ -892,9 +929,12 @@ input::-webkit-input-safebox-button{
 
             .login-type-verificationCode {
                 font-size: 15px;
-                color: #1D739F;
                 position: absolute;
                 right: 24px;
+                color: #999999;
+                &:hover{
+                    color: #1D739F;
+                }
             }
 
 
@@ -983,7 +1023,7 @@ input::-webkit-input-safebox-button{
                 display: inline-block;
                 width: 18px;
                 height: 18px;
-                background: url('../../images/login/warning.png') no-repeat center;
+                background: url('../images/login/warning.png') no-repeat center;
                 background-size: 100%;
                 vertical-align: middle;
             }
@@ -1132,6 +1172,9 @@ input::-webkit-input-safebox-button{
             line-height: 14px;
             color: #999999;
             text-align: center;
+            a:hover{
+                color: #1d73a0;
+            }
         }
 
         .tourist-purchase-footer {
@@ -1141,8 +1184,9 @@ input::-webkit-input-safebox-button{
             line-height: 64px;
             text-align: center;
             background:rgba(245,244,240,1);
+            color: #999999;
             .tourist-purchase-download{
-                color: #2D6373;
+                color: #1d73a0;
                 cursor: pointer;
             }
         }
@@ -1247,10 +1291,19 @@ input::-webkit-input-safebox-button{
         .service-agreement {
             margin-left: 10px;
             cursor: pointer;
+            &:hover{
+                color: #1d73a0;
+            }
         }
         .privacy-pooptioncy{
             cursor: pointer;
+            &:hover{
+                color: #1d73a0;
+            }
         }
+    }
+    a:hover{
+        color: #1d73a0;
     }
 }
 
