@@ -26,7 +26,7 @@ define(function (require, exports, module) {
     
     // buyUnlogin.js 中跳转过来
     var unloginFlag = method.getQueryString('unloginFlag');
-    unloginFlag = true
+    // unloginFlag = true
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
