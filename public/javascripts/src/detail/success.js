@@ -39,6 +39,9 @@ define(function (require, exports, module) {
         $('.carding-data-pay-con').hide();
 
         if (method.getCookie('cuk')) {
+            $('.qrcode-warpper').show()
+            $('.carding-er-code').hide()
+            $('.qrWrap').hide()
             $('.carding-info-bottom.unloginStatus').remove();
             login.getLoginData(function (data) {
                 userData = data;
@@ -74,6 +77,10 @@ define(function (require, exports, module) {
                 initData.isVip = parseInt(data.isVip, 10);
                // refreshDomTree(data);
                refreshTopBar(data)
+                $('.qrcode-warpper').show()
+               $('.qrWrap').hide()
+                $('.carding-er-code').hide()
+            $('.qrWrap').hide()
                 successReload(data);
             });
         }
@@ -219,6 +226,8 @@ define(function (require, exports, module) {
                 userData = data;
                 // 登陆成功绑定userid
                 $('.qrcode-warpper').show()
+                $('.carding-er-code').hide()
+               $('.qrWrap').hide()
                 bindOrder(data.userId, data.nickName);
             });
         }
@@ -416,6 +425,8 @@ define(function (require, exports, module) {
                   refreshTopBar(data)
                     $('.down-success-other').show()
                     $('.qrcode-warpper').show()
+                    $('.carding-er-code').hide()
+                   $('.qrWrap').hide()
                 });
             }
         });
