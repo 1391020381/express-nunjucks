@@ -117,6 +117,7 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
 
    $(document).on('click','.qr-refresh',function(e){ // 刷新微信登录二维码   包括游客登录页面
         //    getLoginQrcode(cid,fid,true)
+        $('#dialog-box .qrcode-default').hide()
         getLoginQrcode('','',true)
    })
 
@@ -419,12 +420,16 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             sceneId = res.data&&res.data.sceneId
             countdown()
             if(isTouristLogin||isqrRefresh){
+                $('.tourist-login .qrcode-default').hide()
                 $('.tourist-login #login-qr').attr('src',res.data.url)
                 if(callback){
                     touristLoginCallback = callback
                 }
             }else{
+               $('#dialog-box .qrcode-default').hide()
                $('#dialog-box #login-qr').attr('src',res.data.url)
+               $('#dialog-box #login-qr').show()
+               
             }
             setIntervalTimer = setInterval(function(){
                 loginByWeChat()

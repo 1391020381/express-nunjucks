@@ -723,7 +723,7 @@ module.exports = {
                 })
                 results.paradigm4GuessData = paradigm4Guess || [];
             }
-            var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
+            var list = Object.assign({},{data:Object.assign(results.list&&results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
             var results = Object.assign({},results,{list:list})
             // 要在这里给默认值 不然报错
             render("detail/success", results, req, res);

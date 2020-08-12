@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         }
        // $('.pay-ok-text').hide();
          $('.qrcode-warpper').hide()
-         $('.down-success-other').hide()
+       //  $('.down-success-other').hide()
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
 
