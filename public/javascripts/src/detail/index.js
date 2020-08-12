@@ -412,6 +412,9 @@ define(function (require, exports, module) {
 
     function fileBrowseReportBrowse() {
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.reportBrowse.fileBrowseReportBrowse,
             type: "POST",
             data: JSON.stringify({
@@ -609,6 +612,9 @@ define(function (require, exports, module) {
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.special.setCollect,
             type: "post",
             data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,source:0}),
@@ -631,6 +637,9 @@ define(function (require, exports, module) {
 
     function getCollectState(){//获取收藏的状态
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.special.getCollectState,
             type: "get",
             data: { fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid },

@@ -397,6 +397,9 @@ define(function (require, exports, module) {
             // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
            if(window.pageConfig.page.productType == 4){
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 url: api.normalFileDetail.filePreDownLoad,
                 type: "POST",
                 data: JSON.stringify({
@@ -438,6 +441,9 @@ define(function (require, exports, module) {
 
     var getFileDownLoadUrl  = function (){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.normalFileDetail.getFileDownLoadUrl,
             type: "POST",
             data: JSON.stringify({

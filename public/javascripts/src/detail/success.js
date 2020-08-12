@@ -512,6 +512,9 @@ define(function (require, exports, module) {
             console.log(method.getCookie('ui'))
             var email = $('#dialog-box .form-ipt').val()
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 url: api.sms.sendCorpusDownloadMail,
                 type: "POST",
                 data: JSON.stringify({
