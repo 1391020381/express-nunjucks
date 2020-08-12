@@ -122,6 +122,7 @@ input::-webkit-credentials-auto-fill-button {
 .login-content .weixin-login .login-qrContent .login-qr #login-qr {
   width: 200px;
   height: 200px;
+  display: none;
 }
 .login-content .weixin-login .login-qrContent .login-qr-invalidtip {
   display: none;
@@ -1070,9 +1071,9 @@ input::-webkit-credentials-auto-fill-button {
   border: 1px solid #d4d4d4;
 }
 .tourist-login .login-qrContent .login-qr #login-qr {
-  width: 178px;
-  height: 178px;
-  padding: 11px;
+  width: 200px;
+  height: 200px;
+  display: none;
 }
 .tourist-login .login-qrContent .login-qr-invalidtip {
   display: none;
