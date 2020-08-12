@@ -11,8 +11,7 @@
         "test": "cross-env NODE_ENV=test  pm2 restart pm2.json && node --max_old_space_size=4096",
         "dev": "cross-env NODE_ENV=dev  pm2 restart pm2.json && node --max_old_space_size=4096",
         "local": "cross-env NODE_ENV=local  nodemon ./bin/www",
-        "buildPage": "node ./build/build-page.js",
-        "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
+        "buildPage": "node ./build/build-page.js"
     },
     "dependencies": {
         "async": "^2.6.2",
