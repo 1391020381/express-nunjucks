@@ -11,7 +11,7 @@ module.exports = { // http://ishare.iask.sina.com.cn/
     // apiNewBaselPath:'http://dev-ishare.iask.com.cn:8769/gateway',
     // newBasePath:'http://dev-ishare.iask.com.cn:8769',
     // 日志输入路径
-    logPath: '/data/log/node-pc/',
+    logPath: '/data/logs/node-pc/',
     //服务端口-自定义
     port: 3004
 };
