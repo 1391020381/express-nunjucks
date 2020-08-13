@@ -4,7 +4,7 @@
       "name":"ishare_pc",
       "script":"./bin/www",
       "cwd": "./",
-      "watch": true,
+      "watch": false,
       "ignore_watch":[
         "node_modules",
         "log"
