@@ -90,7 +90,7 @@ input::-webkit-credentials-auto-fill-button {
   display: inline-block;
   width: 18px;
   height: 18px;
-  background: url('../../images/login/warning.png') no-repeat center;
+  background: url('../images/login/warning.png') no-repeat center;
   background-size: 100%;
   vertical-align: middle;
 }
