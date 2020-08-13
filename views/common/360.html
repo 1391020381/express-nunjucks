@@ -7,10 +7,12 @@
         var fid = '{{results.list.data.fileId}}';
         var referrer = document.referrer;
         if (is360 === '360oneboxold') {
-            if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer) && !/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
-                add360cookie(fid);
-                add360cookie("360");
-            }
+           // if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer) && !/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+              //  add360cookie(fid);
+              //  add360cookie("360");
+           // }
+            add360cookie(fid);
+            add360cookie("360");
         }
         //360文库合作
         if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)){
