@@ -4,16 +4,16 @@
       "name":"ishare_pc",
       "script":"./bin/www",
       "cwd": "./",
-      "watch": false,
+      "watch": true,
       "ignore_watch":[
         "node_modules",
-        "log"
+        "logs"
       ],
       "exec_mode": "cluster_mode",
       "min_uptime": "60s",
       "instances":3,
-      "error_file":"/data/log/node-pc/app-err.log",
-      "out_file": "/data/log/node-pc/app-out.log",
+      "error_file":"/data/logs/node-pc/app-err.log",
+      "out_file": "/data/logs/node-pc/app-out.log",
       "merge_logs": true,                         
       "log_date_format": "YYYY-MM-DD HH:mm:ss",   
       "max_restarts": 30,
