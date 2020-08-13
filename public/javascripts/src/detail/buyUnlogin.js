@@ -34,6 +34,7 @@ define(function (require, exports, module) {
     // ==== end ====
 
     var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
+    var  getIds = require('../application/checkLogin').getIds
     var unloginObj = {
         count: 0,
         isClear: false,//是否清除支付查询
@@ -98,7 +99,9 @@ define(function (require, exports, module) {
                         //     var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
                         //     $('.loginFrameWrap').html(loginDom);
                         // })
-                        showTouristPurchaseDialog(function(){ // 游客登录后刷新头部和其他数据
+                        var clsId = getIds().clsId
+                        var fid  = getIds().fid
+                        showTouristPurchaseDialog({clsId:clsId,fid:fid},function(){ // 游客登录后刷新头部和其他数据
                             viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data);

@@ -730,15 +730,13 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
         'closeOnClickModal':false
     }).open(getLoginQrcode(params.clsId,params.fid));
   }
-  function showTouristPurchaseDialog(callback){ // 游客购买的回调函数
+  function showTouristPurchaseDialog(params,callback){ // 游客购买的回调函数
     touristLoginCallback = callback
     var touristPurchaseDialog = $('#tourist-purchase-dialog')
     $("#dialog-box").dialog({
         html: touristPurchaseDialog.html(),
         'closeOnClickModal':false
-    }).open(function(){
-        getLoginQrcode() 
-    }); 
+    }).open(getLoginQrcode(params.clsId,params.fid)); 
   }
   return {
     showLoginDialog:showLoginDialog,

@@ -1,10 +1,12 @@
 <script type="text/javascript">
     //统一将360流量存入cookie 30分钟
+      
     try {
-        var is360 = '{{results.list.data.is360}}';
+     //   var is360 = '{{results.list.data.is360}}';
+     var is360 = getParam('utm_source')
         var fid = '{{results.list.data.fileId}}';
         var referrer = document.referrer;
-        if (is360 === 'true') {
+        if (is360 === '360oneboxold') {
             if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer) && !/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
                 add360cookie(fid);
                 add360cookie("360");
@@ -44,4 +46,14 @@
         }
     } catch (e) {
     }
+    function getParam(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return "";
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
 </script>

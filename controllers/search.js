@@ -141,7 +141,7 @@ module.exports = {
                 req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
             };
     
-            console.warn(JSON.stringify(results),'results-------------')
+            // console.warn(JSON.stringify(results),'results-------------')
             render("search/home", results, req, res);
         })
 
