@@ -349,9 +349,9 @@ define(function (require, exports, moudle) {
                             //单日单ip发送验证码超过3次
                         }
                         //单日单ip发送验证码超过3次
-                        else if (data.code == '2112') {
+                        else if (data.code == '411015') {
                             showCaptcha(captcha);
-                        } else if (data.code == '226') {
+                        } else if (data.code == '411033') {
                             //图形验证码错误
                             $loginError.text("图形验证码错误").parent().show();
                         } else {
