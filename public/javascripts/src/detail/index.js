@@ -39,6 +39,7 @@ define(function (require, exports, module) {
     // 页面加载
     function pageInitShow() {
         if (method.getCookie('cuk')) {
+            fileBrowseReportBrowse()
             login.getLoginData(function (data) {
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
@@ -159,11 +160,11 @@ define(function (require, exports, module) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
                     // 登陆后判断是否第一次登陆
-                    login.getUserData(function (res) { // 新人优惠券已下架
-                        if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                         //   receiveCoupon(0, 2, res.userId)
-                        }
-                    })
+                    // login.getUserData(function (res) { // 新人优惠券已下架
+                    //     if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
+                    //      //   receiveCoupon(0, 2, res.userId)
+                    //     }
+                    // })
                 });
             }
         });
@@ -408,6 +409,30 @@ define(function (require, exports, module) {
             }
         });
     }
+
+    function fileBrowseReportBrowse() {
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.reportBrowse.fileBrowseReportBrowse,
+            type: "POST",
+            data: JSON.stringify({
+                            terminal:'0',
+                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId
+                        }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                if(res.data.rows&&res.data.rows.length){
+                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                }
+               }
+            }
+        })
+    }
     function receiveCoupon(type, source, userId) {
         var data = { source: source, type: type };
         data = JSON.stringify(data);
@@ -528,11 +553,11 @@ define(function (require, exports, module) {
                 $fixBar.find(".data-item").hide();
             }
             //滚动超过600展示优惠券广告
-            if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
-                $('.pc-tui-coupon').show();
-                localStorage.setItem('loginCouponAd', 1);
-                closeCouponAD()
-            }
+            // if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
+            //     $('.pc-tui-coupon').show();
+            //     localStorage.setItem('loginCouponAd', 1);
+            //     closeCouponAD()
+            // }
         });
         // 关闭底部优惠券弹窗
         function closeCouponAD() {
@@ -587,6 +612,9 @@ define(function (require, exports, module) {
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.special.setCollect,
             type: "post",
             data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,source:0}),
@@ -609,6 +637,9 @@ define(function (require, exports, module) {
 
     function getCollectState(){//获取收藏的状态
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.special.getCollectState,
             type: "get",
             data: { fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid },

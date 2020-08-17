@@ -78,6 +78,9 @@ define(function(require , exports , module){
     function queryOrderlistByCondition(currentPage) {
         var orderStatus =   (method.getParam('myorderType') == '1' || method.getParam('myorderType') == '')?[]: method.getParam('myorderType') == 0?[0,1]:[+method.getParam('myorderType')]
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.order.queryOrderlistByCondition,
             type: "POST",
             data:JSON.stringify({

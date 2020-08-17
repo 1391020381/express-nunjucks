@@ -7,14 +7,9 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
     // var changeText = require('./changeShowOverText.js').changeText
     var userData = null;
-   // var isConvert = window.pageConfig&&window.pageConfig.page.isConvert
+ 
     var pageConfig = window.pageConfig&&window.pageConfig 
-    // if(isConvert==0){ // 0转码失败  保证资料删除时,如果登录的情况下可以获取登录信息
-    //     pageConfig =  {
-    //         page:{},
-    //         params:{}
-    //     }
-    // }
+   
     // 页面信息
    // productType  1  4  5 
     var initData = {
@@ -72,14 +67,14 @@ define(function (require, exports, module) {
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.weiboImage);
-        $top_user_more.find('img').attr('src', data.weiboImage);
+        $hasLogin.find('img').attr('src', data.photoPicURL);
+        $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
         //右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.weiboImage);
+        $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
         if (data.isVip === '1') {
             var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';
@@ -122,7 +117,7 @@ define(function (require, exports, module) {
            // originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
           //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
-            var savePrice = (params.moneyPrice *0.8).toFixed(2);
+            var savePrice = (initData.moneyPrice *0.8).toFixed(2);
             $('#vip-save-money').html(savePrice);
             $('.js-original-price').html(savePrice);
         }

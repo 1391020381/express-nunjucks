@@ -33,15 +33,15 @@ var list = function (req) {
                 url: appConfig.apiNewBaselPath+api.category.navForCpage,
                 body:JSON.stringify({classId:categoryId}),
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                    'Content-Type': 'application/json'
                 },
             };
             request(opt, function (err, res1, body) {
-                console.log('detail-list-------------------:',JSON.parse(body))
+                console.log('请求地址post-------------------:',appConfig.apiNewBaselPath+api.category.navForCpage)
+                console.log('请求参数-------------------:',JSON.stringify({classId:categoryId}))
                 if (body) {
                     var data = JSON.parse(body);
-                    console.log(JSON.stringify(data),'navForCpagenavForCpage')
+                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                     if (data.data&&data.data.level1){
                         data.data.level1.forEach(item=>{
                             if(item.select==1) {
@@ -60,11 +60,13 @@ var list = function (req) {
                         url: appConfig.apiNewBaselPath+api.category.recommendList,
                         body:JSON.stringify(params),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         }
                     },function (err2, res2, body1){
+                        console.log('请求地址post-------------------:',appConfig.apiNewBaselPath+api.category.recommendList)
+                        console.log('请求参数-------------------:',JSON.stringify(params))
                        var results = JSON.parse(body1)
+                        console.log('返回code------:'+results.code,'返回msg-------:'+results.msg)
                        if(results) {
                             data.recommendList = results;
                             callback(null, data);
@@ -133,7 +135,6 @@ module.exports = {
                 pageObj = results.list.data;
                 var totalPages = pageObj.totalPages;
                 totalPages = totalPages>20?20:totalPages;
-                console.log(totalPages,'pageObj.totalPages')
                 if(pageObj.rows.length>0) {
                     if(currentPage>4) {
                         pageArr_f = [1,'···'];
@@ -199,6 +200,7 @@ module.exports = {
             //tkd 后端部分接口写的是tkd字段
             // 遍历classId
             var classArr = []
+            results.categoryId = categoryId   // 登录时传入当前分类id
             render("category/home", results, req, res);
         })
 

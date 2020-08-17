@@ -6,6 +6,10 @@ define(function (require, exports, module) {
     var api = require('./api');
     var method = require("./method");
     var api = require("./api");
+    var showLoginDialog = require('./login').showLoginDialog
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
+    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+    var loginResult = require('../common/bilog').loginResult
     module.exports = {
         getIds: function () {
             // 详情页
@@ -13,17 +17,19 @@ define(function (require, exports, module) {
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
             
             var classArr = []
-            if (params) {
-                params.classid1 && classArr.push(params.classid1)
-                params.classid2 && classArr.push(params.classid2)
-                params.classid3 && classArr.push(params.classid3)
-            }
-            var clsId = params ? (classArr.length > 0 ? classArr.join('-') : '') : '';
+            // if (params) {
+            //     params.classid1 && classArr.push(params.classid1)
+            //     params.classid2 && classArr.push(params.classid2)
+            //     params.classid3 && classArr.push(params.classid3)
+            // }
+           // var clsId = params ? (classArr.length > 0 ? classArr.join('-') : '') : '';  
+
+            var clsId = params?params.classid:'' 
 
             var fid = access ? (access.fileId || params.g_fileId || '') : '';
 
             // 类目页
-            var classIds = window.pageConfig && window.pageConfig.classIds ? window.pageConfig.classIds : '';
+            var classIds = params&&params.classIds ? params.classIds : '';
             !clsId && (clsId = classIds)
 
             return {
@@ -40,19 +46,26 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                $.loginPop('login', { 
-                    "terminal": "PC", 
-                    "businessSys": "ishare", 
-                    "domain": document.domain, 
-                    "ptype": ptype,
-                    "clsId": this.getIds().clsId,
-                    "fid": this.getIds().fid
-                }, function (data) {
-                    // 透传
-                    // method.get(api.user.getJessionId, function (res) {
-                    _self.getLoginData(callback);
-                    // }, '');
-                });
+                var clsId = this.getIds().clsId
+                var fid  = this.getIds().fid
+                showLoginDialog({clsId:clsId,fid:fid},function(){
+                    console.log('loginCallback')
+                    _self.getLoginData(callback)
+                })
+             
+                // $.loginPop('login', { 
+                //     "terminal": "PC", 
+                //     "businessSys": "ishare", 
+                //     "domain": document.domain, 
+                //     "ptype": ptype,
+                //     "clsId": this.getIds().clsId,
+                //     "fid": this.getIds().fid
+                // }, function (data) {
+                //     // 透传
+                //     // method.get(api.user.getJessionId, function (res) {
+                //     _self.getLoginData(callback);
+                //     // }, '');
+                // });
             }
         },
         listenLoginStatus: function (callback) {
@@ -125,8 +138,10 @@ define(function (require, exports, module) {
         getLoginData: function (callback) {
             var _self = this;
             try{
-                method.get(api.user.login, function (res) {
+                method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
+                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,loginResult:"1"})
+                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
                         if (callback && typeof callback == "function") {
                             callback(res.data);
                             try {
@@ -146,8 +161,10 @@ define(function (require, exports, module) {
                             method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
                         } catch (e) {
                         }
-                        //授权未登录删除本地cuk
-                    } else if (res.code == 40001) {
+                       
+                    } else  {
+                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: '',loginResult:"0"})
+                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: res.data.userId,loginResult:"0"})
                         _self.ishareLogout();
                     }
 
@@ -165,7 +182,10 @@ define(function (require, exports, module) {
             method.delCookie("cuk", "/", ".sina.com.cn");
             method.delCookie("cuk", "/", ".iask.com.cn");
             method.delCookie("cuk", "/", ".iask.com");
-            //微信扫码登录sceneId
+
+           
+            method.delCookie("cuk", "/");
+
             method.delCookie("sid", "/", ".iask.sina.com.cn");
             method.delCookie("sid", "/", ".iask.com.cn");
             method.delCookie("sid", "/", ".sina.com.cn");
@@ -186,6 +206,11 @@ define(function (require, exports, module) {
                 console.log('loginOut:',res)
                 if(res.code == 0){
                     window.location.href = window.location.href;
+                }else{
+                    $.toast({
+                        text:res.msg,
+                        delay : 3000,
+                    })
                 }
             });
         }

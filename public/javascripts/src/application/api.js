@@ -8,10 +8,14 @@ define(function (require, exports, module) {
         // 用户相关
         user: {
             // 登录
+            loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
+            getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
+            loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
+            thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
             login: router + '/usermanage/checkLogin',
             // 登出
-            loginOut: gateway + '/pc/usermanage/logout',
+            loginOut: gateway + '/cas/login/logout',
             // 我的收藏
             collect: router + '/usermanage/collect',
             newCollect:gateway+'/content/collect/getUserFileList',
@@ -23,7 +27,7 @@ define(function (require, exports, module) {
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
             queryBindInfo: gateway + '/cas/user/queryBindInfo',  // 查询用户绑定信息
-            thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode
+            thirdCodelogin:gateway + '/cas/login/thirdCode',   // /cas/login/thirdCode 第三方授权
             userBindMobile:gateway + '/cas/user/bindMobile',   // 绑定手机号接口
             checkIdentity:gateway + '/cas/sms/checkIdentity', // 身份验证账号
             userBindThird:gateway + '/cas/user/bindThird', // 绑定第三方账号接口
@@ -79,7 +83,7 @@ define(function (require, exports, module) {
             // 购买成功后,在页面自动下载文档
             successBuyDownLoad: router + '/action/downloadNow',
             // 绑定订单
-            bindUser: router + '/order/bindUser',
+            bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo'
         },
         coupon:{

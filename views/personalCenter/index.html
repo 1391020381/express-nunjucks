@@ -18,6 +18,7 @@
     var _speedMark = + new Date();
     var _version = "{{version}}";
     var _head = "{{cdnUrl}}";
+    var env = "{{env}}";
 </script>
 <body>
     
@@ -101,7 +102,7 @@
   {% if results.type == 'accountsecurity' %}
     <!--天御图形验证码 -->
 {# <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script> #}
-<script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+{# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}
   {% endif %}
 {% include "./dialog.html" %}
     <script type="text/javascript">

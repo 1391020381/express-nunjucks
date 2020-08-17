@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         var $anWrap = $fixFull.find(".fixed-detail-wrap");
 
         function fixAn(start, index,$this) {
+            
             index = index || 0;
             if (start && (index === 1)) { // index === 1 || index === 2
                 if (method.getCookie('cuk')) {
@@ -53,7 +54,12 @@ define(function (require, exports, module) {
 
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ "right": "-307px" }, 200);
+                if(index ==6){
+                    method.compatibleIESkip('https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q',true);
+                }
             }
+               
+            
             
         
         }

@@ -17,6 +17,7 @@
             _version = "{{version}}",
             _head = "{{cdnUrl}}";
         var _dpData = [];//广告测试
+        var env = "{{env}}";
     </script>
 </head>
 <body class="office-body screen-body">
@@ -63,7 +64,7 @@
                              {% if item.id == '1818'%}
                              <div class="category-item-inter">
                                 <div class="item-title">
-                                    <h4 class="title-text"><a href="http://office.iask.com/" target="_blank">{{item.name}}</a></h4>
+                                    <h4 class="title-text"><a href="https://office.iask.com/" target="_blank">{{item.name}}</a></h4>
                                     {% if item.categoryList.length>0 %}
                                     <i class="icon-ele-arrow"></i>
                                     {% endif %}
@@ -88,7 +89,7 @@
                                 <div class="more-inter">
                                     <ul class="more-list cf">
                                         {%for label in item.categoryList  %}
-                                        <li><a href="http://office.iask.com/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        <li><a href="https://office.iask.com/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
                                         {%endfor%}
                                     </ul>
                                 </div>
@@ -111,7 +112,7 @@
                         {%endfor%}
                     </div>
                 </div>
-                <a style="position: absolute;top: 12px;height: 30px;line-height: 30px;right:150px;color: #ffffff;font-weight: bold;" target="_blank" href="/node/auth/index.html">申请认证</a>
+                <a style="position: absolute;top: 12px;height: 30px;line-height: 30px;right:170px;color: #ffffff;font-weight: bold;" target="_blank" href="/node/auth/index.html">申请认证</a>
                 <!-- 登录信息模块展示 -->
                 <div class="top-bar-right">
                     <!--已登录 -->

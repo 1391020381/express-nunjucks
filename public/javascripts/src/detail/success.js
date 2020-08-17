@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
     var swiperTemplate = require("../common/template/swiper_tmp.html");
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
+    var getLoginQrcode = require('../application/login').getLoginQrcode
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -25,6 +26,7 @@ define(function (require, exports, module) {
     
     // buyUnlogin.js 中跳转过来
     var unloginFlag = method.getQueryString('unloginFlag');
+    // unloginFlag = true
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
@@ -32,11 +34,14 @@ define(function (require, exports, module) {
         }
        // $('.pay-ok-text').hide();
          $('.qrcode-warpper').hide()
-         $('.down-success-other').hide()
+       //  $('.down-success-other').hide()
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
 
         if (method.getCookie('cuk')) {
+            $('.qrcode-warpper').show()
+            $('.carding-er-code').hide()
+            $('.qrWrap').hide()
             $('.carding-info-bottom.unloginStatus').remove();
             login.getLoginData(function (data) {
                 userData = data;
@@ -48,13 +53,14 @@ define(function (require, exports, module) {
             });
         } else {
             unloginBuyStatus();
-            login.listenLoginStatus(function (res) {
-                initData.isVip = parseInt(res.isVip, 10);
-                userData = res;
-                // 登陆成功绑定userid
-                bindOrder(res.userId, res.nickName);
+            // login.listenLoginStatus(function (res) {
+            //     initData.isVip = parseInt(res.isVip, 10);
+            //     userData = res;
+            //     // 登陆成功绑定userid
+            //     bindOrder(res.userId, res.nickName);
 
-            });
+            // });
+            // 轮询登录状态
             setTimeout(function () {
               //  getDownUrl()
               autoDownUrl()
@@ -71,6 +77,10 @@ define(function (require, exports, module) {
                 initData.isVip = parseInt(data.isVip, 10);
                // refreshDomTree(data);
                refreshTopBar(data)
+                $('.qrcode-warpper').show()
+               $('.qrWrap').hide()
+                $('.carding-er-code').hide()
+            $('.qrWrap').hide()
                 successReload(data);
             });
         }
@@ -92,18 +102,46 @@ define(function (require, exports, module) {
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
         var visitorId = getVisitIdByCookie();
-        $.get(api.pay.bindUser, {
-            'visitorId': visitorId,
-            'userId': userId,
-            'nickName': nickName
-        }, function (data) {
-            $.toast({
-                text: data.msg,
-                callback: function () {
-                    location.reload()
-                }
-            })
-        });
+        // $.get(api.pay.bindUser, {
+        //     'visitorId': visitorId,
+        //     'userId': userId,
+        //     'nickName': nickName
+        // }, function (data) {
+        //     $.toast({
+        //         text: data.msg,
+        //         callback: function () {
+        //             location.reload()
+        //         }
+        //     })
+        // });
+        $.ajax({
+            url: api.pay.bindUser,
+            type: "POST",
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            data: JSON.stringify({
+                    'visitorId': visitorId,
+                    'userId': userId,
+                    'nickName': nickName
+                 }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    $.toast({
+                        text: res.msg,
+                        callback: function () {
+                            location.reload()
+                        }
+                    })
+                
+               }
+            }
+        })
+
+
+
     }
 
     // 游客登陆下载成功
@@ -169,17 +207,34 @@ define(function (require, exports, module) {
         var classid3 = qrCodeparams && qrCodeparams.classid3 ? '-' + qrCodeparams.classid3 + '' : '';
         var clsId = classid1 + classid2 + classid3;
         var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
-        var loginUrl = $.loginPop('login_wx_code', {
-            "terminal": "PC",
-            "businessSys": "ishare",
-            'domain': document.domain,
-            "ptype": "ishare",
-            "popup": "hidden",
-            "clsId": clsId,
-            "fid": fid
-        });
-        var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+        // var loginUrl = $.loginPop('login_wx_code', {
+        //     "terminal": "PC",
+        //     "businessSys": "ishare",
+        //     'domain': document.domain,
+        //     "ptype": "ishare",
+        //     "popup": "hidden",
+        //     "clsId": clsId,
+        //     "fid": fid
+        // });
+        // var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+        // $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+        var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+         function touristLoginCallback(res) {
+            login.getLoginData(function (data) {
+                initData.isVip = parseInt(data.isVip, 10);
+                userData = data;
+                // 登陆成功绑定userid
+                $('.qrcode-warpper').show()
+                $('.carding-er-code').hide()
+               $('.qrWrap').hide()
+                bindOrder(data.userId, data.nickName);
+            });
+        }
+        
+        getLoginQrcode('','',false,true,function(res){
+            touristLoginCallback(res)
+        })
     }
 
     function successReload(data) {
@@ -370,6 +425,8 @@ define(function (require, exports, module) {
                   refreshTopBar(data)
                     $('.down-success-other').show()
                     $('.qrcode-warpper').show()
+                    $('.carding-er-code').hide()
+                   $('.qrWrap').hide()
                 });
             }
         });
@@ -467,6 +524,9 @@ define(function (require, exports, module) {
             console.log(method.getCookie('ui'))
             var email = $('#dialog-box .form-ipt').val()
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 url: api.sms.sendCorpusDownloadMail,
                 type: "POST",
                 data: JSON.stringify({

@@ -292,16 +292,16 @@ define(function (require, exports, moudle) {
 
     var clickPay = function (checkStatus) {
         // params.isVip = window.pageConfig.params.isVip;
-        params.isVip = userInfo.isVip    // 在用户信息里面获取
-        if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
-            if (params.isVip == '2') {//判断vip状态
-                utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
-                return;
-            } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
-                utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
-                return;
-            }
-        }
+        // params.isVip = userInfo.isVip    // 在用户信息里面获取
+        // if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
+        //     if (params.isVip == '2') {//判断vip状态
+        //         utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
+        //         return;
+        //     } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
+        //         utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
+        //         return;
+        //     }
+        // }
         handleOrderResultInfo();
     };
 
@@ -645,30 +645,80 @@ define(function (require, exports, moudle) {
     function getOrderInfo(orderNo) {
         var params = {orderNo: orderNo};
         var url = '/pay/orderStatus?ts=' + new Date().getTime();
-        $.post(url, params, function (response) {
-            if (response && response.code == 0 && response.data) {
-                // 缓存查询次数
-                order_count++;
-                var data = response.data;
-                // 防止空指针报错
-                data.reportData = data.reportData || {};
-                data.fid = data.fid || method.getParam('fid');
-                // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
-                if (data.orderStatus == 0) {
-                    // 重新查询
-                    if (order_count <= 30) {
-                        window.setTimeout(function () {
-                            getOrderInfo(orderNo);
-                        }, 4000);
-                    }
-                } else if (data.orderStatus == 2) {
-                    goodsPaySuccess(data, orderNo)
-                } else if (data.orderStatus == 3) {
-                    goodsPayFail(data, orderNo);
-                }
+        // $.post(url, params, function (response) {
+        //     if (response && response.code == 0 && response.data) {
+        //         // 缓存查询次数
+        //         order_count++;
+        //         var data = response.data;
+        //         // 防止空指针报错
+        //         data.reportData = data.reportData || {};
+        //         data.fid = data.fid || method.getParam('fid');
+        //         // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
+        //         if (data.orderStatus == 0) {
+        //             // 重新查询
+        //             if (order_count <= 30*5) {
+        //                 window.setTimeout(function () {
+        //                     getOrderInfo(orderNo);
+        //                 }, 4000);
+        //             }
+        //         } else if (data.orderStatus == 2) {
+        //             goodsPaySuccess(data, orderNo)
+        //         } else if (data.orderStatus == 3) {
+        //             goodsPayFail(data, orderNo);
+        //         }
 
-            } else {
-                console.error('未查询到订单信息', response);
+        //     } else {
+        //         console.error('未查询到订单信息', response);
+        //     }
+        // })
+
+
+
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: url,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify(params),
+            dataType: "json",
+            success: function (response) {
+               if(response && response.code == 0 && response.data){
+                    // 缓存查询次数
+                    order_count++;
+                    var data = response.data;
+                    // 防止空指针报错
+                    data.reportData = data.reportData || {};
+                    data.fid = data.fid || method.getParam('fid');
+                    // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
+                    if (data.orderStatus == 0) {
+                        // 重新查询
+                        if (order_count <= 30*5) {
+                            window.setTimeout(function () {
+                                getOrderInfo(orderNo);
+                            }, 4000);
+                        }
+                    } else if (data.orderStatus == 2) {
+                        goodsPaySuccess(data, orderNo)
+                    } else if (data.orderStatus == 3) {
+                        goodsPayFail(data, orderNo);
+                    }
+    
+                
+               }else{
+                $.toast({
+                    text:response.msg,
+                    delay : 3000,
+                })
+               
+               }
+            },
+            error:function(error){
+                $.toast({
+                    text:error.msg,
+                    delay : 3000,
+                }) 
             }
         })
     }

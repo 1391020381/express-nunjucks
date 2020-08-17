@@ -1,0 +1,1060 @@
+<!--弹框-->
+<div class="dialog" id="dialog-box">
+     <!--遮罩层 start-->
+     <div id="bgMask" class="common-bgMask"></div>
+</div>
+<!-- 登录dialog -->
+<script type="text/template" id="login-dialog">
+     <div class="login-dialog">
+          <i class="close-btn"></i>
+
+          <div class="login-content">
+
+               <div class="weixin-login">
+                    <div class="login-title">
+                         <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                         <span class="login-desc">微信扫码登录</span>
+                    </div>
+                    <div class="login-qrContent">
+                         <div class="login-qr">
+                              <img class="qrcode-default" src="{{cdnUrl}}/images/login/qrcode-default.gif">
+                              <img id="login-qr" src="" >
+                         </div>
+                         <div class="login-qr-invalidtip"></div>
+                         <p class="qr-invalidtip">二维码已失效</p>
+                         <p class="qr-refresh">刷新</p>
+                    </div>
+                    <div class="login-qrinfo">请使用微信扫描二维码登录</div>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="https://iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                    </div>
+                    <ul class="login-type-list">
+                         <li class="login-type-qq login-type" data-logintype="qq">
+                              <span class="icon qq-icon" ></span>
+                              <span class="login-desc">QQ</span>
+                         </li>
+                         <li class="login-type-weibo login-type" data-logintype="weibo">
+                              <span class="icon weibo-icon" ></span>
+                              <span class="login-desc">微博</span>
+                         </li>
+                         <li class="login-type-verificationCode">验证码登录</li>
+                         <li class="login-type-password">密码登录</li>
+                    </ul>
+               </div>
+
+               <div class="verificationCode-login">
+                    <div class="login-title">
+                         <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                         <span class="login-desc">验证码登录</span>
+                    </div>
+                    <div class="verificationCode-login-errortip errortip"><span class="error-icon"></span><span class="error-tip"></span></div>
+                    <div class="login-item mobile">
+                         <div class="phone-choice">
+                              <div class="phone-num">
+                                   <i class="add">+86</i>
+                                   <i class="arrow-phone"></i>
+                              </div>
+                              <div class="phone-more">
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>86</em>
+                                        </div>
+                                        <em>中国大陆</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>852</em>
+                                        </div>
+                                        <em>中国香港</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>853</em>
+                                        </div>
+                                        <em>中国澳门</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>886</em>
+                                        </div>
+                                        <em>中国台湾</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>1</em>
+                                        </div>
+                                        <em>美国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>1</em>
+                                        </div>
+                                        <em>加拿大</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>55</em>
+                                        </div>
+                                        <em>巴西</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>60</em>
+                                        </div>
+                                        <em>马来西亚</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>61</em>
+                                        </div>
+                                        <em>澳洲</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>81</em>
+                                        </div>
+                                        <em>日本</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>82</em>
+                                        </div>
+                                        <em>韩国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>65</em>
+                                        </div>
+                                        <em>新加坡</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>44</em>
+                                        </div>
+                                        <em>英国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>33</em>
+                                        </div>
+                                        <em>法国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>7</em>
+                                        </div>
+                                        <em>俄罗斯</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>91</em>
+                                        </div>
+                                        <em>印度</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>49</em>
+                                        </div>
+                                        <em>德国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>62</em>
+                                        </div>
+                                        <em>印尼</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>855</em>
+                                        </div>
+                                        <em>柬埔寨</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>95</em>
+                                        </div>
+                                        <em>缅甸</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>673</em>
+                                        </div>
+                                        <em>文莱</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>63</em>
+                                        </div>
+                                        <em>菲律宾</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>84</em>
+                                        </div>
+                                        <em>越南</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>856</em>
+                                        </div>
+                                        <em>老挝</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>66</em>
+                                        </div>
+                                        <em>泰国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>92</em>
+                                        </div>
+                                        <em>巴基斯坦</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>90</em>
+                                        </div>
+                                        <em>土耳其</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>31</em>
+                                        </div>
+                                        <em>荷兰</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>39</em>
+                                        </div>
+                                        <em>意大利</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>34</em>
+                                        </div>
+                                        <em>西班牙</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>351</em>
+                                        </div>
+                                        <em>葡萄牙</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>20</em>
+                                        </div>
+                                        <em>埃及</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>966</em>
+                                        </div>
+                                        <em>沙特</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>380</em>
+                                        </div>
+                                        <em>乌克兰</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>974</em>
+                                        </div>
+                                        <em>卡塔尔</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>971</em>
+                                        </div>
+                                        <em>阿联酋</em>
+                                   </a>
+                              </div>
+                         </div>
+                         <div class="input-mobile">
+                              <input   type="text" class="telphone" placeholder="请输入手机号"/>
+                              <span class="mobile-errortip">手机号错误</span>
+                         </div>
+                    </div>
+                    <div class="login-item code">
+                         <input class="verification-code" placeholder="请输入验证码"/>
+                         <span class="verification-code-tip">验证码错误</span>
+                         <span class="getVerificationCode" data-authenticationCodeType='0'>获取验证码</span>
+                    </div>
+                    <div class="login-item login-btn login-btn-disable" data-logintype="verificationCode">登录</div>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="https://iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                    </div>
+                    <ul class="login-type-list">
+                         <li class="login-type-weixin">
+                              <span class="icon weixin-icon"></span>
+                              <span class="login-desc"></span>
+                         </li>
+                         <li class="login-type-qq login-type" data-logintype="qq">
+                              <span class="icon qq-icon" ></span>
+                              <span class="login-desc"></span>
+                         </li>
+                         <li class="login-type-weibo login-type" data-logintype="weibo">
+                              <span class="icon weibo-icon" ></span>
+                              <span class="login-desc"></span>
+                         </li>
+
+                         <li class="login-type-password">密码登录</li>
+                    </ul>
+               </div>
+
+               <div class="password-login">
+                    <div class="login-title">
+                         <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                         <span class="login-desc">密码登录</span>
+                    </div>
+                     <div class="password-login-errortip errortip"><span class="error-icon"></span><span class="error-tip"></span></div>
+                    <div class="login-item mobile">
+                         <div class="phone-choice">
+                              <div class="phone-num">
+                                   <i class="add">+86</i>
+                                   <i class="arrow-phone"></i>
+                              </div>
+                              <div class="phone-more">
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>86</em>
+                                        </div>
+                                        <em>中国大陆</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>852</em>
+                                        </div>
+                                        <em>中国香港</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>853</em>
+                                        </div>
+                                        <em>中国澳门</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>886</em>
+                                        </div>
+                                        <em>中国台湾</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>1</em>
+                                        </div>
+                                        <em>美国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>1</em>
+                                        </div>
+                                        <em>加拿大</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>55</em>
+                                        </div>
+                                        <em>巴西</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>60</em>
+                                        </div>
+                                        <em>马来西亚</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>61</em>
+                                        </div>
+                                        <em>澳洲</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>81</em>
+                                        </div>
+                                        <em>日本</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>82</em>
+                                        </div>
+                                        <em>韩国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>65</em>
+                                        </div>
+                                        <em>新加坡</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>44</em>
+                                        </div>
+                                        <em>英国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>33</em>
+                                        </div>
+                                        <em>法国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>7</em>
+                                        </div>
+                                        <em>俄罗斯</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>91</em>
+                                        </div>
+                                        <em>印度</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>49</em>
+                                        </div>
+                                        <em>德国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>62</em>
+                                        </div>
+                                        <em>印尼</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>855</em>
+                                        </div>
+                                        <em>柬埔寨</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>95</em>
+                                        </div>
+                                        <em>缅甸</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>673</em>
+                                        </div>
+                                        <em>文莱</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>63</em>
+                                        </div>
+                                        <em>菲律宾</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>84</em>
+                                        </div>
+                                        <em>越南</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>856</em>
+                                        </div>
+                                        <em>老挝</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>66</em>
+                                        </div>
+                                        <em>泰国</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>92</em>
+                                        </div>
+                                        <em>巴基斯坦</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>90</em>
+                                        </div>
+                                        <em>土耳其</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>31</em>
+                                        </div>
+                                        <em>荷兰</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>39</em>
+                                        </div>
+                                        <em>意大利</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>34</em>
+                                        </div>
+                                        <em>西班牙</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>351</em>
+                                        </div>
+                                        <em>葡萄牙</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>20</em>
+                                        </div>
+                                        <em>埃及</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>966</em>
+                                        </div>
+                                        <em>沙特</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>380</em>
+                                        </div>
+                                        <em>乌克兰</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>974</em>
+                                        </div>
+                                        <em>卡塔尔</em>
+                                   </a>
+                                   <a class="phone-ele">
+                                        <div class="number-con">+<em>971</em>
+                                        </div>
+                                        <em>阿联酋</em>
+                                   </a>
+                              </div>
+                         </div>
+                         <div class="input-mobile">
+                              <input   type="text"  class="telphone" placeholder="请输入手机号"/>
+                              <span class="mobile-errortip">手机号错误</span>
+                         </div>
+                    </div>
+                    <div class="login-item password">
+                         <input class="login-password text-input" style="display:none;"/>
+                         <input class="login-password password-input" type="password"/>
+                         <span class="close-eye"></span>
+                         <span class="eye"></span>
+                         <span class="password-errortip">密码长度6-8位</span>
+                    </div>
+                    <div class="login-item login-btn login-btn-disable" data-logintype="password">登录</div>
+                    <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="https://iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                    </div>
+                    <ul class="login-type-list">
+                         <li class="login-type-weixin">
+                              <span class="icon weixin-icon"></span>
+                              <span class="login-desc"></span>
+                         </li>
+                         <li class="login-type-qq login-type" data-logintype="qq">
+                              <span class="icon qq-icon" ></span>
+                              <span class="login-desc"></span>
+                         </li>
+                         <li class="login-type-weibo login-type" data-logintype="weibo">
+                              <span class="icon weibo-icon" ></span>
+                              <span class="login-desc"></span>
+                         </li>
+
+                         <li class="login-type-verificationCode">验证码登录</li>
+                    </ul>
+               </div>
+          </div>
+</script>
+
+     <script type="text/template" id="tourist-purchase-dialog">
+          <div class="tourist-purchase-dialog">
+               <i class="close-btn"></i>
+
+               <div class="tourist-purchase-container">
+                    <ul class="tabs">
+                         <li class="tab tourist-purchase tab-active" data-type="tourist-purchase">游客购买 <span class="border-bottom"></span></li>
+                         <li class="tab login-purchase" data-type="login-purchase">登录购买 <span class="border-bottom"></span></li>
+                    </ul>
+                    <div class="tourist-purchase-content">
+                         <div class="file-summary">
+                              <span class="file-icon icon ico-data"></span>
+                              <span class="file-desc"></span>
+                         </div>
+                         <div class="file-price-summary">
+                              <span class="file-price">应付金额：<em class="price"></em>
+                              </span>元
+                                    </div>
+                         <div class="tourist-purchase-qrContent">
+                              <div class="tourist-purchase-qr">
+                                   <div id="touristPayQrCode"></div>
+                              </div>
+                              <div class="tourist-purchase-invalidtip"></div>
+                              <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
+                                   <p class="tourist-purchase-refresh">刷新</p>
+
+                         </div>
+                         <div class="qrcode-tip">请使用微信或支付宝扫描支付</div>
+                         <div class="paytype-icon">
+                              <span class="wei-icon"></span>
+                              <span class="alipay-icon"></span>
+                         </div>
+                         <div class="tourist-purchase-tip">扫码即代表已阅读并同意<a href="https://iask.sina.com.cn/helpCenter/5d8de2c0474e311ca8200e99.html" target="_blank">《下载风险提示》</a></div>
+                         <div class="tourist-purchase-footer">
+                                        如您已经购买过该文档，下载未成功或需要重复下载请<a class="tourist-purchase-download" target="_blank" href="/node/queryOrder">点击此处</a>
+                         </div>
+                    </div>
+
+                    <div class="login-content">
+
+                         <div class="weixin-login">
+                              <div class="login-title">
+                                   <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                                   <span class="login-desc">微信扫码登录</span>
+                              </div>
+                              <div class="login-qrContent">
+                                   <div class="login-qr">
+                                       <img class="qrcode-default" src="{{cdnUrl}}/images/login/qrcode-default.gif">
+                                         <img id="login-qr" src="">
+                                   </div>
+                                   <div class="login-qr-invalidtip"></div>
+                                    <p class="qr-invalidtip">二维码已失效</p>
+                                        <p class="qr-refresh">刷新</p>
+                              </div>
+                              <div class="login-qrinfo">请使用微信扫描二维码登录</div>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="https://iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              </div>
+                              <ul class="login-type-list">
+                                   <li class="login-type-qq login-type" data-logintype="qq">
+                                        <span class="icon qq-icon"></span>
+                                        <span class="login-desc">QQ</span>
+                                   </li>
+                                   <li class="login-type-weibo login-type" data-logintype="weibo">
+                                        <span class="icon weibo-icon" data-logintype="weibo"></span>
+                                        <span class="login-desc">微博</span>
+                                   </li>
+                                   <li class="login-type-verificationCode">验证码登录</li>
+                                   <li class="login-type-password">密码登录</li>
+                              </ul>
+                         </div>
+
+                         <div class="verificationCode-login">
+                              <div class="login-title">
+                                   <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                                   <span class="login-desc">验证码登录</span>
+                              </div>
+                              <div class="verificationCode-login-errortip errortip"><span class="error-icon"></span><span class="error-tip"></span></div>
+                              <div class="login-item mobile">
+                                   <div class="phone-choice">
+                                        <div class="phone-num">
+                                             <i class="add">+86</i>
+                                             <i class="arrow-phone"></i>
+                                        </div>
+                                        <div class="phone-more">
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>86</em>
+                                                  </div>
+                                                  <em>中国大陆</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>852</em>
+                                                  </div>
+                                                  <em>中国香港</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>853</em>
+                                                  </div>
+                                                  <em>中国澳门</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>886</em>
+                                                  </div>
+                                                  <em>中国台湾</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>1</em>
+                                                  </div>
+                                                  <em>美国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>1</em>
+                                                  </div>
+                                                  <em>加拿大</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>55</em>
+                                                  </div>
+                                                  <em>巴西</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>60</em>
+                                                  </div>
+                                                  <em>马来西亚</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>61</em>
+                                                  </div>
+                                                  <em>澳洲</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>81</em>
+                                                  </div>
+                                                  <em>日本</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>82</em>
+                                                  </div>
+                                                  <em>韩国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>65</em>
+                                                  </div>
+                                                  <em>新加坡</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>44</em>
+                                                  </div>
+                                                  <em>英国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>33</em>
+                                                  </div>
+                                                  <em>法国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>7</em>
+                                                  </div>
+                                                  <em>俄罗斯</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>91</em>
+                                                  </div>
+                                                  <em>印度</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>49</em>
+                                                  </div>
+                                                  <em>德国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>62</em>
+                                                  </div>
+                                                  <em>印尼</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>855</em>
+                                                  </div>
+                                                  <em>柬埔寨</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>95</em>
+                                                  </div>
+                                                  <em>缅甸</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>673</em>
+                                                  </div>
+                                                  <em>文莱</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>63</em>
+                                                  </div>
+                                                  <em>菲律宾</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>84</em>
+                                                  </div>
+                                                  <em>越南</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>856</em>
+                                                  </div>
+                                                  <em>老挝</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>66</em>
+                                                  </div>
+                                                  <em>泰国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>92</em>
+                                                  </div>
+                                                  <em>巴基斯坦</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>90</em>
+                                                  </div>
+                                                  <em>土耳其</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>31</em>
+                                                  </div>
+                                                  <em>荷兰</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>39</em>
+                                                  </div>
+                                                  <em>意大利</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>34</em>
+                                                  </div>
+                                                  <em>西班牙</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>351</em>
+                                                  </div>
+                                                  <em>葡萄牙</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>20</em>
+                                                  </div>
+                                                  <em>埃及</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>966</em>
+                                                  </div>
+                                                  <em>沙特</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>380</em>
+                                                  </div>
+                                                  <em>乌克兰</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>974</em>
+                                                  </div>
+                                                  <em>卡塔尔</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>971</em>
+                                                  </div>
+                                                  <em>阿联酋</em>
+                                             </a>
+                                        </div>
+                                   </div>
+                                   <div class="input-mobile">
+                                        <input   type="text" class="telphone" placeholder="请输入手机号"/>
+                                        <span class="mobile-errortip">手机号错误</span>
+                                   </div>
+                              </div>
+                              <div class="login-item code">
+                                   <input class="verification-code" placeholder="请输入验证码"/>
+                                    <span class="verification-code-tip">验证码错误</span>
+                                   <span class="getVerificationCode" data-authenticationCodeType='0'>获取验证码</span>
+                              </div>
+                              <div class="login-item login-btn login-btn-disable" data-logintype="verificationCode">登录</div>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              </div>
+                              <ul class="login-type-list">
+                                   <li class="login-type-weixin">
+                                        <span class="icon weixin-icon"></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+                                   <li class="login-type-qq login-type" data-logintype="qq">
+                                        <span class="icon qq-icon" ></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+                                   <li class="login-type-weibo login-type"  data-logintype="weibo">
+                                        <span class="icon weibo-icon"></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+
+                                   <li class="login-type-password">密码登录</li>
+                              </ul>
+                         </div>
+
+                         <div class="password-login">
+                              <div class="login-title">
+                                   <img class="ishare-log" src="{{cdnUrl}}/images/login/logo.png">
+                                   <span class="login-desc">密码登录</span>
+                              </div>
+                               <div class="password-login-errortip errortip"><span class="error-icon"></span><span class="error-tip"></span></div>
+                              <div class="login-item mobile">
+                                   <div class="phone-choice">
+                                        <div class="phone-num">
+                                             <i class="add">+86</i>
+                                             <i class="arrow-phone"></i>
+                                        </div>
+                                        <div class="phone-more">
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>86</em>
+                                                  </div>
+                                                  <em>中国大陆</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>852</em>
+                                                  </div>
+                                                  <em>中国香港</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>853</em>
+                                                  </div>
+                                                  <em>中国澳门</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>886</em>
+                                                  </div>
+                                                  <em>中国台湾</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>1</em>
+                                                  </div>
+                                                  <em>美国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>1</em>
+                                                  </div>
+                                                  <em>加拿大</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>55</em>
+                                                  </div>
+                                                  <em>巴西</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>60</em>
+                                                  </div>
+                                                  <em>马来西亚</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>61</em>
+                                                  </div>
+                                                  <em>澳洲</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>81</em>
+                                                  </div>
+                                                  <em>日本</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>82</em>
+                                                  </div>
+                                                  <em>韩国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>65</em>
+                                                  </div>
+                                                  <em>新加坡</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>44</em>
+                                                  </div>
+                                                  <em>英国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>33</em>
+                                                  </div>
+                                                  <em>法国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>7</em>
+                                                  </div>
+                                                  <em>俄罗斯</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>91</em>
+                                                  </div>
+                                                  <em>印度</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>49</em>
+                                                  </div>
+                                                  <em>德国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>62</em>
+                                                  </div>
+                                                  <em>印尼</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>855</em>
+                                                  </div>
+                                                  <em>柬埔寨</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>95</em>
+                                                  </div>
+                                                  <em>缅甸</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>673</em>
+                                                  </div>
+                                                  <em>文莱</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>63</em>
+                                                  </div>
+                                                  <em>菲律宾</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>84</em>
+                                                  </div>
+                                                  <em>越南</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>856</em>
+                                                  </div>
+                                                  <em>老挝</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>66</em>
+                                                  </div>
+                                                  <em>泰国</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>92</em>
+                                                  </div>
+                                                  <em>巴基斯坦</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>90</em>
+                                                  </div>
+                                                  <em>土耳其</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>31</em>
+                                                  </div>
+                                                  <em>荷兰</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>39</em>
+                                                  </div>
+                                                  <em>意大利</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>34</em>
+                                                  </div>
+                                                  <em>西班牙</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>351</em>
+                                                  </div>
+                                                  <em>葡萄牙</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>20</em>
+                                                  </div>
+                                                  <em>埃及</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>966</em>
+                                                  </div>
+                                                  <em>沙特</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>380</em>
+                                                  </div>
+                                                  <em>乌克兰</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>974</em>
+                                                  </div>
+                                                  <em>卡塔尔</em>
+                                             </a>
+                                             <a class="phone-ele">
+                                                  <div class="number-con">+<em>971</em>
+                                                  </div>
+                                                  <em>阿联酋</em>
+                                             </a>
+                                        </div>
+                                   </div>
+                                   <div class="input-mobile">
+                                        <input   type="text" class="telphone" placeholder="请输入手机号"/>
+                                        <span class="mobile-errortip">手机号错误</span>
+                                   </div>
+                              </div>
+                              <div class="login-item password">
+                              
+                                 <input class="login-password text-input" style="display:none;"/>
+                         <input class="login-password password-input" type="password"/>
+                                   <span class="close-eye"></span>
+                                   <span class="eye"></span>
+                                   <span class="mobile-errortip" style="display:none;">密码错误</span>
+                              </div>
+                              <div class="login-item login-btn login-btn-disable" data-logintype="password">登录</div>
+                              <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="http://ishare.iask.sina.com.cn/agreement.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+                              </div>
+                              <ul class="login-type-list">
+                                   <li class="login-type-weixin">
+                                        <span class="icon weixin-icon"></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+                                   <li class="login-type-qq login-type" data-logintype="qq">
+                                        <span class="icon qq-icon"></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+                                   <li class="login-type-weibo login-type" data-logintype="weibo">
+                                        <span class="icon weibo-icon" ></span>
+                                        <span class="login-desc"></span>
+                                   </li>
+
+                                   <li class="login-type-verificationCode">验证码登录</li>
+                              </ul>
+                         </div>
+                    </div>
+
+               </div>
+          </div>
+     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div  id="tourist-login" style="display:none;">
+    <div class="tourist-login">
+      <div class="login-qrContent">
+               <div class="login-qr">
+               <img class="qrcode-default" src="{{cdnUrl}}/images/login/qrcode-default.gif">
+               <img id="login-qr" src=""/>
+               </div>
+               <div class="login-qr-invalidtip"></div>
+               <p class="qr-invalidtip">二维码已失效</p>
+               <p class="qr-refresh">刷新</p>
+     </div>
+     <div class="login-qrinfo"><span class="wechat-icon"></span><span class="wechat-icon-desc">请使用微信扫描二维码登录</span></div>
+      <div class="login-info">未注册用户验证后自动登录,登录即代表已阅读并同意 <a class="service-agreement" href="https://iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html" target="_blank">《服务协议》</a>与<a class="privacy-pooptioncy" href="https://iask.sina.com.cn/helpCenter/5e15a829474e3171f58ae2ae.html" target="_blank">《隐私政策》</a>
+      </div>
+     </div>
+  </div>  
+
+
+

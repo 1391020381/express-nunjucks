@@ -16,6 +16,8 @@
 @import "ishare_coupon_ad";
 // 免登陆相关
 @import "less-public/_ishare_unlogin_buy.less";
+
+// 登录相关
 //文件图标
 .ico-data{
   width: 16px;
@@ -80,6 +82,11 @@
 .ico-big-xlsx{
   &:extend(.ico-big-xls);
 }
+
+// 登录
+
+@import "less-public/ishare_login";
+
 //底部
 @import "less-public/_ishare_footer";
 //右侧悬浮工具栏
@@ -296,7 +303,7 @@ a{ color: @gray-light;
   background: #000;
   .opacity(65);
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   top: 0;
   left: 0;
   display: none;

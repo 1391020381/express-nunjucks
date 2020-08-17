@@ -1,6 +1,7 @@
 define(function (require, exports, moudle) {
     //var $ = require("$");
     var api = require('../application/api');
+    var method = require('../application/method')
     /**
      * 获取图形验证码
      */
@@ -243,17 +244,48 @@ define(function (require, exports, moudle) {
                 'smsId': $checkCode.attr('smsId'),
                 'checkCode': checkCode
             };
-            $.post('/pay/bindMobile', params, function (data) {
-                if (data) {
-                    if (data.code == '0') {
+            // $.post('/pay/bindMobile', params, function (data) {
+            //     if (data) {
+            //         if (data.code == '0') {
+            //             $(".binging-main").hide();
+            //             $(".binging-success").show();
+            //         } else {
+            //             $loginError.text(data.msg).parent().show();
+            //             $(".carding-error").show();
+            //         }
+            //     }
+            // }, 'json');
+            userBindMobile(mobile,$checkCode.attr('smsId'),checkCode)
+            function userBindMobile(mobile,smsId,checkCode){ // 绑定手机号接口
+                $.ajax({
+                    headers:{
+                        'Authrization':method.getCookie('cuk')
+                    },
+                    url: api.user.userBindMobile,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify({
+                        terminal:'pc',
+                        mobile:mobile,
+                        nationCode:$('.phone-choice .phone-num em').text(),
+                        smsId:smsId,
+                        checkCode:checkCode
+                    }),
+                    dataType: "json",
+                    success: function (res) {
+                       if(res.code == '0'){
                         $(".binging-main").hide();
                         $(".binging-success").show();
-                    } else {
-                        $loginError.text(data.msg).parent().show();
+                       }else{
+                        $loginError.text(res.msg).parent().show();
                         $(".carding-error").show();
+                       }
+                    },
+                    error:function(error){
+                        console.log('userBindMobile:',error)
                     }
-                }
-            }, 'json');
+                })
+            }
         });
 
         var captcha = function (appId, randstr, ticket, onOff) {
@@ -268,8 +300,16 @@ define(function (require, exports, moudle) {
             }
             $loginError.parent().hide();
             var param = JSON.stringify({
-                'phoneNo': mobile,
-                'businessCode': $(_this).siblings('input[name="businessCode"]').val(),
+                // 'phoneNo': mobile,
+                // 'businessCode': $(_this).siblings('input[name="businessCode"]').val(),
+                // 'appId': appId,
+                // 'randstr': randstr,
+                // 'ticket': ticket,
+                // 'onOff': onOff
+                mobile:mobile,
+                nationCode:$('.phone-choice .phone-num em').text(),
+                businessCode:$(_this).siblings('input[name="businessCode"]').val(), // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
+                terminal:'pc',
                 'appId': appId,
                 'randstr': randstr,
                 'ticket': ticket,
@@ -277,7 +317,8 @@ define(function (require, exports, moudle) {
             });
             $.ajax({
                 type: 'POST',
-                url: api.sms.getCaptcha,
+                // url: api.sms.getCaptcha,
+                url:api.user.sendSms,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: param,
@@ -308,9 +349,9 @@ define(function (require, exports, moudle) {
                             //单日单ip发送验证码超过3次
                         }
                         //单日单ip发送验证码超过3次
-                        else if (data.code == '2112') {
+                        else if (data.code == '411015') {
                             showCaptcha(captcha);
-                        } else if (data.code == '226') {
+                        } else if (data.code == '411033') {
                             //图形验证码错误
                             $loginError.text("图形验证码错误").parent().show();
                         } else {

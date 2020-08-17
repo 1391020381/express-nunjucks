@@ -233,6 +233,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.getCategory,
                 contentType: "application/json;charset=utf-8",
@@ -240,9 +243,9 @@ define(function(require , exports , module){
                 success: function (res) {
                     if (res.code == 0) {
                         res.data.categoryList.forEach(function(layer1){
-                            if(layer1.categoryList) {
+                            if(layer1.categoryList && layer1.categoryList.length>0) {
                                 layer1.categoryList.forEach(function(layer2){
-                                    if(layer2.categoryList) {
+                                    if(layer2.categoryList && layer2.categoryList.length>0) {
                                         layer2.categoryList.forEach(function(layer3){
                                             layer3.last = 1
                                         })
@@ -272,29 +275,39 @@ define(function(require , exports , module){
                 $(this).siblings('.fenlei').toggle()
                 $(this).siblings('.fenlei').find('.date-con-in').css({width:'140px',overflow: 'hidden scroll'})
             })
-            $('.doc-list').on('hover','li',function(){
-                $(this).addClass('active').siblings('li').removeClass('active');
-                // $(this).find('ul li').removeClass('active');
-                $(this).parents('.date-con-in').css({overflowY:'auto'})
+            // $('.doc-list').on('hover','li',function(){
+            //     $(this).addClass('active').siblings('li').removeClass('active');
+            //     // $(this).find('ul li').removeClass('active');
+            //     $(this).parents('.date-con-in').css({overflowY:'auto'})
                
-            })
-            $('.doc-list').on('hover','.date-con-first li',function(){
+            // })
+            $('.doc-list').on('hover','.date-con-first>li',function(){
+                $(this).addClass('active').siblings('li').removeClass('active');
+                $('.date-con-sec>li').removeClass('active');
+                $(this).parents('.date-con-in').css({overflowY:'auto'})
                 $(this).parents('.date-con-in').css({width:'282px',overflow: 'hidden scroll'})
-
             })
-          
-            $('.doc-list').on('hover','.date-con-sec li',function(){
+            $('.doc-list').on('hover','.date-con-first',function(){
+                $(this).parents('.date-con-in').css({width:'282px',overflow: 'hidden scroll'})
+            })
+            $('.doc-list').on('hover','.date-con-sec>li',function(){
+                $(this).addClass('active').siblings('li').removeClass('active');
+                $('.date-con-third>li').removeClass('active');
                 var itemWidth = '282px';
                if($(this).find('a').attr('last')){
                     itemWidth = '282px';
                }else{
                     itemWidth = '423px';
+                    var height = $('.date-con-sec').height();
+                    $('.date-con-third').height('210px')
                }
                 $(this).parents('.date-con-in').css({width:itemWidth,overflow: 'hidden scroll'})
             })
             $('.doc-list').on('hover','.date-con-third li',function(){
+                $(this).addClass('active').siblings('li').removeClass('active');
                 $(this).parents('.date-con-in').css({width:'423px',overflow: 'hidden scroll'})
             })
+            
             $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
                 if(!$(this).find('a').attr('last')){
@@ -552,6 +565,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.createFolder,
                 contentType: "application/json;charset=utf-8",
@@ -579,6 +595,9 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params)
             $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
                 type: 'post',
                 url: api.upload.getFolder,
                 contentType: "application/json;charset=utf-8",
@@ -751,6 +770,9 @@ define(function(require , exports , module){
                     }
                     locker = true;
                     $.ajax({
+                        headers:{
+                            'Authrization':method.getCookie('cuk')
+                        },
                         type: 'post',
                         url: api.upload.saveUploadFile,
                         contentType: "application/json;charset=utf-8",

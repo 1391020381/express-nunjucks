@@ -21,6 +21,9 @@ define(function(require , exports , module){
     }
     function queryUserBindInfo() {  // 查询用户绑定信息
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.queryBindInfo,
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -46,6 +49,9 @@ define(function(require , exports , module){
     }
     function untyingThird(thirdType){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.untyingThird,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -76,6 +82,9 @@ define(function(require , exports , module){
     }
     function userBindMobile(mobile,smsId,checkCode){ // 绑定手机号接口
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.userBindMobile,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -116,6 +125,9 @@ define(function(require , exports , module){
     }
     function checkIdentity(smsId,checkCode){ // 身份验证账号
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.checkIdentity + '?smsId='+ smsId + '&checkCode=' + checkCode,
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -146,6 +158,9 @@ define(function(require , exports , module){
     }
     function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.sendSms,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -212,6 +227,9 @@ define(function(require , exports , module){
     }
     function setUpPassword(smsId,checkCode,password){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.setUpPassword,
             type: "POST",
             contentType: "application/json; charset=utf-8",
@@ -253,9 +271,10 @@ define(function(require , exports , module){
           var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
           var channel = 2
         //   var location = window.location.origin + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-        var location =  'http://ishare.iask.sina.com.cn/node/redirectionURL.html' + '?clientCode=' + clientCode
+        var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname
+        var location =  locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
         //  var url = window.location.origin + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
-        var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
+        var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location)
         openWindow(url)
     }
     function identityAuthentication(isTHirdAuthorization){ // 换绑手机号(后续拉起绑定手机号)   和 解绑第三方需要验证
@@ -287,6 +306,9 @@ define(function(require , exports , module){
     }
     function handleBindThird(code,channel,clientCode){
          $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.userBindThird,
             type: "POST",
             contentType: "application/json; charset=utf-8",

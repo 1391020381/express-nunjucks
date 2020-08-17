@@ -18,6 +18,7 @@
     var _speedMark = +new Date(),
         _version = "{{version}}",
         _head = "{{cdnUrl}}";
+ var env = "{{env}}";
 </script>
 <body>
 {% if results.unloginFlag %}
@@ -112,7 +113,7 @@
                     <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
                     <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
                 </div>
-                <div  class="down-success-other">
+                {# <div  class="down-success-other">
                     <div class="down-success-banner">
                 
                     </div>
@@ -121,7 +122,7 @@
                       {% include "detail/guessYouLike.html" %}
                      {%endif%}
                     </div>
-                </div>
+                </div> #}
             </div>
              <!-- 下载成功页面不用绑定手机号 -->
             {# {% include "common/card.html" %} #}
@@ -139,6 +140,17 @@
 
                 </div>
             </div>
+
+            <div  class="down-success-other">
+                    <div class="down-success-banner">
+                
+                    </div>
+                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
+                     {%if results.paradigm4GuessData.length>0 %}
+                      {% include "detail/guessYouLike.html" %}
+                     {%endif%}
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -165,7 +177,8 @@
 </div> #}
 
 
-{% include "../common/footer.html" %}
+{# {% include "../common/footer.html" %} #}
+{% include "common/new/footer.html" %}
 <script type="text/javascript" charset="utf-8"
         src="{{staticUrl}}/buttonLite.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{staticUrl}}/bshareC0.js"></script>

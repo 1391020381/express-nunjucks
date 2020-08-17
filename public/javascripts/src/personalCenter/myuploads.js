@@ -18,6 +18,9 @@ define(function(require , exports , module){
        function getMyUploadPage(currentPage){  // 分页查询我的上传
         var status = method.getParam('myuploadType') || 1
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+           },
            url: api.user.getMyUploadPage,
            type: "POST",
            data: JSON.stringify({
@@ -156,6 +159,9 @@ define(function(require , exports , module){
 
     function batchDeleteUserFile(){
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+              },
             url: api.upload.batchDeleteUserFile,
             type: "POST",
             contentType: "application/json; charset=utf-8",

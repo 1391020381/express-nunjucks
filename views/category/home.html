@@ -12,6 +12,7 @@
     var _speedMark = + new Date();
     var _version = "{{version}}";
     var _head = "{{cdnUrl}}";
+    var env = "{{env}}";
 </script>
 
 <body>
@@ -38,6 +39,9 @@
                 totalPages: "{{results.reqParams.totalPages}}",
                 fileType: "{{results.reqParams.fileType}}",
                 sortField: "{{results.reqParams.sortField}}"
+            },
+            params:{
+                classIds:"{{results.categoryId}}"
             },
             report: {
 

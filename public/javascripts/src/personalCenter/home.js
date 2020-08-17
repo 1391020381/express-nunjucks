@@ -20,6 +20,9 @@ define(function(require , exports , module){
     }
     function getUserCentreInfo(callback) {  
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.getUserCentreInfo+"?scope=4",
             type: "GET",
             contentType: "application/json; charset=utf-8",
@@ -76,6 +79,9 @@ define(function(require , exports , module){
 
     function getFileBrowsePage(){ //分页获取用户的历史浏览记录
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.getFileBrowsePage,
             type: "POST",
             data: JSON.stringify({
@@ -110,6 +116,9 @@ define(function(require , exports , module){
     }
     function getDownloadRecordList(){ //用户下载记录接口
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.user.getDownloadRecordList,
             type: "POST",
             data: JSON.stringify({

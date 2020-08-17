@@ -239,7 +239,7 @@ define(function (require, exports, module) {
     }
 
     //全部页面都要上报
-    function normalPageView() {
+    function normalPageView(loginResult) {
         var commonData = JSON.parse(JSON.stringify(initData));
         setPreInfo(document.referrer, commonData);
         var customData = { channel: '' };
@@ -250,8 +250,14 @@ define(function (require, exports, module) {
         commonData.eventType = 'page';
         commonData.eventID = 'NE001';
         commonData.eventName = 'normalPageView';
-        commonData.pageID = $("#ip-page-id").val() || '';
-        commonData.pageName = $("#ip-page-name").val() || '';
+        if(loginResult = 'loginResultPage'){
+            // clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
+            commonData.pageID = 'PLOGIN'
+            commonData.pageName = '登录页';
+        }else{
+            commonData.pageID = $("#ip-page-id").val() || '';
+            commonData.pageName = $("#ip-page-name").val() || '';
+        }
         commonData.pageURL = window.location.href;
         var searchEngine = getSearchEngine()
         var source = getSource(searchEngine)
@@ -392,8 +398,14 @@ define(function (require, exports, module) {
         commonData.eventType = 'click';
         commonData.eventID = eventID;
         commonData.eventName = eventName;
-        commonData.pageID = $("#ip-page-id").val();
-        commonData.pageName = $("#ip-page-name").val();
+        if(eventID=='SE001'){
+            commonData.pageID = 'PC-M-PLOGIN'
+            commonData.pageName ='登录页'
+        }else{
+            commonData.pageID = $("#ip-page-id").val();
+            commonData.pageName = $("#ip-page-name").val();
+        }
+        
         commonData.pageURL = window.location.href;
 
         commonData.domID = domId;
@@ -402,7 +414,7 @@ define(function (require, exports, module) {
         handle(commonData, customData);
     }
     //点击事件
-    function clickEvent(cnt, that,moduleID) {
+    function clickEvent(cnt, that,moduleID,params) {
         var ptype = $("#ip-page-type").val();
         if (ptype == 'pindex') {//详情页
             var customData = {
@@ -492,6 +504,10 @@ define(function (require, exports, module) {
                 keyWords:$('.new-input').val()||$('.new-input').attr('placeholder')
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
+        }else if(cnt == 'loginResult'){
+
+        clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', params);
+
         }
 
         var customData = {
@@ -522,7 +538,7 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downSuccessBindPhone', '下载成功页-立即绑定', customData);
         }else if(cnt =='viewExposure'){
             customData.moduleID = moduleID
-            clickCenter('NE006', 'modelView', '', '', customData);
+           // clickCenter('NE006', 'modelView', '', '', customData);
         }else if(cnt == 'similarFileClick'){
             customData={
                 fileID: window.pageConfig.params.g_fileId,
@@ -621,6 +637,9 @@ define(function (require, exports, module) {
     }
 
     module.exports = {
+        normalPageView:function(loginResult){
+            normalPageView(loginResult)
+        },
         clickEvent:function($this){
             var cnt = $this.attr(config.BILOG_CONTENT_NAME)
             console.log('cnt-导出的:',cnt)
@@ -635,6 +654,14 @@ define(function (require, exports, module) {
             if(cnt){
                 setTimeout(function(){
                     clickEvent(cnt,$this,moduleID)
+                })
+            }
+        },
+        loginResult:function($this,moduleID,params){
+            var cnt = 'loginResult'
+            if(cnt){
+                setTimeout(function(){
+                    clickEvent(cnt,'',moduleID,params)
                 })
             }
         },

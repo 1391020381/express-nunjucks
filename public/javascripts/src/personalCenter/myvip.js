@@ -39,6 +39,9 @@ define(function(require , exports , module){
     }
     function getMemberPointRecord(currentPage){  // 查询用户特权等记录流水
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+              },
             url: api.coupon.getMemberPointRecord,
             type: "POST",
             data: JSON.stringify({
@@ -81,6 +84,9 @@ define(function(require , exports , module){
     }
     function getBuyRecord(currentPage){ // 查询用户充值权益记录
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+              },
             url: api.coupon.getBuyRecord,
             type: "POST",
             data: JSON.stringify({

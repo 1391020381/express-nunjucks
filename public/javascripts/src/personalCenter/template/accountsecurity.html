@@ -15,6 +15,50 @@
            {{/if}}
             
         </li>
+        <li class="item">
+          {{if userBindInfo.wechatThird}}
+                 <span class="item-icon fl"></span>
+                <span class="item-status fl">已绑定</span>
+                <span class="item-bindaccount fl">{{userBindInfo.wechatName}}</span>
+                <span class="item-btn fr" data-btnOperation='unbindWechatAuthorization'>解除绑定</span>
+          {{else}}
+                <span class="item-icon fl"></span>
+                <span class="item-status fl">微信</span>
+                <span class="item-btn item-btn-active fr" data-btnOperation='bindWechatAuthorization'>立即绑定</span>
+
+          {{/if}}
+           
+        </li>
+        <li class="item">
+          {{if userBindInfo.weiboThird}}
+                     <span class="item-icon fl"></span>
+                     <span class="item-status fl">已绑定</span>
+                    <span class="item-bindaccount fl">{{userBindInfo.weiboName}}</span>
+                    <span class="item-btn fr" data-btnOperation='unbindWeiboAuthorization'>解除绑定</span>
+
+          {{else}}
+                     <span class="item-icon fl"></span>
+                     <span class="item-status fl">微博</span>
+                    <span class="item-btn fr item-btn-active" data-btnOperation='bindWeiboAuthorization'>立即绑定</span>
+
+          {{/if}}
+           
+        </li>
+         <li class="item">
+
+           {{ if userBindInfo.qqThird}}
+                    <span class="item-icon fl"></span>
+                    <span class="item-status fl">QQ</span>
+                    <span class="item-bindaccount fl">{{userBindInfo.qqName}}</span>
+                    <span class="item-btn fr" data-btnOperation='unbindQQAuthorization'>解除绑定</span>
+
+           {{else}}
+                    <span class="item-icon fl"></span>
+                    <span class="item-status fl">QQ</span>
+                    <span class="item-btn fr item-btn-active" data-btnOperation='bindQQAuthorization'>立即绑定</span>
+           {{/if}}
+            
+        </li>
          <li class="item">
             {{ if userBindInfo.isSetPassword == 1}}
                     <span class="item-icon fl"></span>

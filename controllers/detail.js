@@ -29,7 +29,7 @@ var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
 
 module.exports = {
-    render: function (req, res) {
+    render: function (req, res,next) {
         var _index = {
              // 查询是否重定向
              redirectUrl:function(callback) {
@@ -46,6 +46,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             if (data.data) {
                                 if(data.data.targetLink) {
@@ -74,12 +77,12 @@ module.exports = {
                         sourceType: 0
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
-                    if(res1.statusCode == 503){ // http请求503
+                    if(res1&&res1.statusCode == 503){ // http请求503
+                            console.log('--------详情页503重定向到503页面-------------')
                             res.redirect(`/node/503.html?fid=${req.params.id}`);
                             return;     
                     }
@@ -87,6 +90,9 @@ module.exports = {
                         var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
                         var cuk = req.cookies.cuk
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
@@ -95,7 +101,7 @@ module.exports = {
                                 // 跳转到办公携带参数修改
                                 // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
                                 return
                             }
 
@@ -162,6 +168,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
@@ -184,6 +193,9 @@ module.exports = {
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         if (data.code == 0 ){
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
@@ -201,13 +213,15 @@ module.exports = {
                     url: appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo,
                     body:JSON.stringify(params),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     }
                 };
                 request(opt,function(err,res1,body){
                     if(body){
                         var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                         var bannerList = {
                             'rightTopBanner':[],
                             'rightBottomBanner':[],
@@ -233,6 +247,8 @@ module.exports = {
                 if(req.cookies.ui){
                     var uid=JSON.parse(req.cookies.ui).uid;
                     server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                        console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
+                        console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
                         callback(null,item)
                     })
                 }else{
@@ -257,6 +273,9 @@ module.exports = {
             request(opt, function (err, res1, body) {
               if(body){
                 var data = JSON.parse(body);
+                console.log('请求地址post-------------------:',opt.url)
+                console.log('请求参数-------------------:',opt.body)
+                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                 if (data.code == 0){
                     callback(null, data);
                 }else{
@@ -326,20 +345,22 @@ module.exports = {
                         default:
                     }
 
-                    let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
+                    let url = appConfig.newBasePath + '/gateway/recommend/config/info' 
                     let option = {
                         url: url,
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {
                         if (body) {
                             try {
                                 var resData = JSON.parse(body);
+                                console.log('请求地址post-------------------:',option.url)
+                                console.log('请求参数-------------------:',option.body)
+                                console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
                                 if (resData.code == 0) {
                                     var data = resData.data || [];
                                     recommendInfoData_rele = data[0] || {}; //相关资料
@@ -375,6 +396,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
+                                console.log('请求地址post-------------------:',opt.url)
+                                console.log('请求参数-------------------:',opt.body)
+                                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
@@ -401,6 +425,9 @@ module.exports = {
                         if (body) {
                             try {
                                 var data = JSON.parse(body);
+                                console.log('请求地址post-------------------:',opt.url)
+                                console.log('请求参数-------------------:',opt.body)
+                                console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
                                 callback(null, data);
                             } catch (err) {
                                 callback(null, null);
@@ -429,7 +456,9 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-            console.log('results:',JSON.stringify(results))
+          
+           
+                  // console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;
@@ -505,6 +534,7 @@ module.exports = {
             //释放 不然 会一直存在
             recommendInfoData_rele = {};
             recommendInfoData_guess = {};
+           
 
         })
     },
@@ -521,8 +551,7 @@ module.exports = {
                         sourceType: 1
                       }),
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                        'Content-Type': 'application/json'
                     },
                 };
                 request(opt, function (err, res1, body) {
@@ -537,7 +566,7 @@ module.exports = {
                                 // 跳转到办公携带参数修改
                                 //res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`http://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
 
                                 return
                             }
@@ -613,14 +642,13 @@ module.exports = {
                         default:
                     }
 
-                    let url = appConfig.env === 'prod' ? appConfig.newBasePath + '/gateway/recommend/config/info' : 'http://192.168.1.50:8769/gateway/recommend/config/info';
+                    let url =  appConfig.newBasePath + '/gateway/recommend/config/info' 
                     let option = {
                         url: url,
                         method: 'POST',
                         body: JSON.stringify(pageIds),
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Cookie': 'cuk=' + req.cookies.cuk + ' ;JSESSIONID=' + req.cookies.JSESSIONID,
+                            'Content-Type': 'application/json'
                         },
                     }
                     request(option, function (err, res, body) {
@@ -677,10 +705,10 @@ module.exports = {
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
 
-            if (!results.list || results.list.code == 40004 || !results.list.data) {
-                res.redirect('/node/404.html');
-                return;
-            }
+            // if (!results.list || results.list.code == 40004 || !results.list.data) {
+            //     res.redirect('/node/404.html');
+            //     return;
+            // }
             // 如果有第四范式 猜你喜欢
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {
@@ -695,7 +723,7 @@ module.exports = {
                 })
                 results.paradigm4GuessData = paradigm4Guess || [];
             }
-            var list = Object.assign({},{data:Object.assign(results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
+            var list = Object.assign({},{data:Object.assign(results.list&&results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
             var results = Object.assign({},results,{list:list})
             // 要在这里给默认值 不然报错
             render("detail/success", results, req, res);

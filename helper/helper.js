@@ -118,6 +118,13 @@ module.exports = function(env){
                 return value
             } 
         })
+        // 过滤字符串中的html标签
+        .addFilter('replaceHtml',function(value){
+            var reg = /<[^<>]+>/g;//1、全局匹配g肯定忘记写,2、<>标签中不能包含标签实现过滤HTML标签
+            value = value.replace(reg, '');//替换HTML标签
+            value = value.replace(/&nbsp;/ig, '');//替换HTML空格
+                return value;
+        })
 
 }
 
