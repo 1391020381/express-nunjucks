@@ -24,6 +24,12 @@ router.get('/node/f/downfail.html',function(req , res , next){
 });
 //资料详情页
 router.get('/f/:id*.html*',function(req , res , next){
+
+    // else if(req.params.id.includes('-zhizhu')){  // 包含相关推荐
+    //     spiderController.index(req, res);
+    // }没有相关推荐
+
+
     console.log('资料详情----------------------')
     try{
         if (req.params.id.includes('-nbhh')) {
