@@ -116,7 +116,7 @@ define(function (require, exports, module) {
             $hasLogin.removeClass("user-con-vip");
             // 续费vip
         } else if (data.isVip == 2) {
-            
+            console.log('data.isVip:',data.isVip)
             // $('.vip-title').hide();
         }
 
