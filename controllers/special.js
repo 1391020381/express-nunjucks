@@ -221,7 +221,7 @@ class specialModule{
             }, 
             friendLink:this.state.recommendList
         };
-        // console.warn(results,'results')
+        
     render("special/index", results, this.state.req, this.state.res);  
        
     }
