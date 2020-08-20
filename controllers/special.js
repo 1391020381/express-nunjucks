@@ -140,7 +140,7 @@ class specialModule{
     }
     finishResults(){
         let { paramsObj,req,res,detail,listData,specialTopic }=this.state;
-        var data=detail.data;
+        var data=detail.data || {};
         // 处理tag标签选中
         var dimlist={};
         if(data && data.dimensionStatus==0){ //开启了维度
@@ -158,21 +158,21 @@ class specialModule{
 
     //添加全部
         if(dimlist){
-            dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
+            dimlist.specialTopicPropertyGroupDOList&&dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
                 firstItem.specialTopicPropertyDOList.unshift({
                     propertyId:'all',
                     propertyName:"全部",
                     active:true,
                     ids:firstItem.propertyGroupId+"_all"
                 })
-                firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
+                firstItem.specialTopicPropertyDOList&&firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
                     secondItem.ids=firstItem.propertyGroupId+'_'+secondItem.propertyId;
                     
                 })                   
             })
             //查找到当前分类  及选中的tag
             var currentArr=[];
-            dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
+            dimlist.specialTopicPropertyGroupDOList&&dimlist.specialTopicPropertyGroupDOList.map(function(firstItem,firstIndex){
                 firstItem.specialTopicPropertyDOList.map(function(secondItem,secondIndex){
                     if(paramsObj.topicPropertyQueryDTOList.includes(secondItem.ids)){
                         currentArr.push({
@@ -182,14 +182,14 @@ class specialModule{
                     }                
                 })    
             })
-            currentArr.map(item=>{
+            currentArr&&currentArr.map(item=>{
                 dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList.map(res=>{
                     res.active=false;
                 })
                 dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active=true;
             })
 
-            data.specialLength=dimlist.specialTopicPropertyGroupDOList.length;//分类的长度
+            data.specialLength=dimlist.specialTopicPropertyGroupDOList&&dimlist.specialTopicPropertyGroupDOList.length;//分类的长度
             data.specialTopicPropertyGroupDOList=dimlist.specialTopicPropertyGroupDOList;
 
             paramsObj.topicPropertyQueryDTOList=JSON.stringify(paramsObj.topicPropertyQueryDTOList)       
