@@ -761,10 +761,10 @@ define(function(require , exports , module){
                     upload()
                 }
                function upload(){
-                    $.toast({
-                        text: '上传中......',
-                        delay:1000000
-                    });
+                    // $.toast({
+                    //     text: '上传中......',
+                    //     delay:1000000
+                    // });
                     if(locker){
                         return false;
                     }
@@ -779,7 +779,7 @@ define(function(require , exports , module){
                         data: params,
                         success: function (res) {
                             locker = false;
-                            $('body').find('.ui-toast').hide()
+                            // $('body').find('.ui-toast').hide()
                             if (res.code == 0) {
                                 $('.secondStep').hide();
                                 $('.successWrap').show();
@@ -792,7 +792,7 @@ define(function(require , exports , module){
                         },
                         complete: function () {
                             locker = false;
-                            $('body').find('.ui-toast').hide()
+                            // $('body').find('.ui-toast').hide()
                         }
                     })
                }
