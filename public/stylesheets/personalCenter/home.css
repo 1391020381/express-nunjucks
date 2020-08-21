@@ -116,13 +116,45 @@
 }
 .personal-center-home .personal-summarys .summary:nth-child(3) {
   margin-left: 95px;
-  margin-right: 212px;
+  margin-right: 60px;
 }
-.personal-center-home .personal-summarys .summary:last-child .go2vip {
+.personal-center-home .personal-summarys .summary:last-child {
+  position: relative;
+}
+.personal-center-home .personal-summarys .summary:last-child .left-border {
+  position: absolute;
+  left: 0;
+  top: -15px;
+  width: 1px;
+  height: 100px;
+  background: #f2f3f3;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip {
+  margin-left: 60px;
+  width: 138px;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip .whole-station-vip-img {
   display: block;
-  width: 272px;
-  height: 68px;
-  cursor: pointer;
+  width: 138px;
+  height: 31;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip .whole-station-vip-endtime {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #343434;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip {
+  margin-left: 50px;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip .office-vip-img {
+  display: block;
+  width: 138px;
+  height: 31;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip .office-vip-endtime {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #343434;
 }
 .personal-center-home .advertisement {
   margin-top: 10px;

@@ -2,7 +2,7 @@
  * 登录相关
  */
 define(function (require, exports, module) {
-    //var $ = require("$");
+   
     var api = require('./api');
     var method = require("./method");
     var api = require("./api");
@@ -17,12 +17,7 @@ define(function (require, exports, module) {
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
             
             var classArr = []
-            // if (params) {
-            //     params.classid1 && classArr.push(params.classid1)
-            //     params.classid2 && classArr.push(params.classid2)
-            //     params.classid3 && classArr.push(params.classid3)
-            // }
-           // var clsId = params ? (classArr.length > 0 ? classArr.join('-') : '') : '';  
+          
 
             var clsId = params?params.classid:'' 
 
@@ -44,7 +39,7 @@ define(function (require, exports, module) {
         notifyLoginInterface: function (callback) {
             var _self = this;
             if (!method.getCookie('cuk')) {
-                // __pc__.push(['pcTrackContent', 'loginDialogLoad']);
+              
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 var clsId = this.getIds().clsId
                 var fid  = this.getIds().fid
@@ -52,20 +47,6 @@ define(function (require, exports, module) {
                     console.log('loginCallback')
                     _self.getLoginData(callback)
                 })
-             
-                // $.loginPop('login', { 
-                //     "terminal": "PC", 
-                //     "businessSys": "ishare", 
-                //     "domain": document.domain, 
-                //     "ptype": ptype,
-                //     "clsId": this.getIds().clsId,
-                //     "fid": this.getIds().fid
-                // }, function (data) {
-                //     // 透传
-                //     // method.get(api.user.getJessionId, function (res) {
-                //     _self.getLoginData(callback);
-                //     // }, '');
-                // });
             }
         },
         listenLoginStatus: function (callback) {
@@ -79,11 +60,9 @@ define(function (require, exports, module) {
                 "clsId": this.getIds().clsId,
                 "fid": this.getIds().fid
             }, function () {
-                // method.get(api.user.getJessionId, function (res) {
-                // if (res.code == 0) {
+               
                 _self.getLoginData(callback);
-                // }
-                // }, '');
+               
             })
         },
         /**
@@ -147,8 +126,7 @@ define(function (require, exports, module) {
                             try {
                                 window.pageConfig.params.isVip = res.data.isVip;
                                 window.pageConfig.page.uid = res.data.userId;
-                                // console.log(res.data);
-                                // method.setCookieWithExpPath("uid", res.data.userId, 30 * 60 * 1000, "/");
+                               
                             } catch (err) { }
                         }
     
@@ -199,9 +177,7 @@ define(function (require, exports, module) {
             //删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
-            // $.post("/logout", function () {
-            //     window.location.href = window.location.href;
-            // });
+            
             $.get(api.user.loginOut, function (res) {
                 console.log('loginOut:',res)
                 if(res.code == 0){

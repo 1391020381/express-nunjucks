@@ -30,26 +30,21 @@ define(function (require, exports, module) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }
             if (start && index === 0) {
-                // $(".mui-user-wrap").css("visibility", "visible");
-                // $(".mui-sel-wrap").css("visibility", "hidden");
-                // $(".mui-collect-wrap").css("visibility", "hidden");
+                
                 if (method.getCookie('cuk')) {
                     window.open('/node/rights/vip.html','target');
                 } else {
-                    // login.notifyLoginInterface(function (data) {
-                    //     refreshDomTree(null, index, data);
-                    //     window.open('/node/rights/vip.html','target');
-                    // });
+                    
                     window.open('/node/rights/vip.html','target');
                 }
             } else if (index === 1) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "visible");
-             //   $(".mui-collect-wrap").css("visibility", "hidden");
+           
             } else if (index === 2) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "hidden");
-              //  $(".mui-collect-wrap").css("visibility", "visible");
+            
               method.compatibleIESkip('/node/upload.html',true);
 
             } else if (index === 4 || index === 6) {
@@ -76,7 +71,7 @@ define(function (require, exports, module) {
         });
         // 开通vip
         $fixFull.on('click','.js-buy-open',function(){
-            // window.open('/pay/vip.html');
+           
             method.compatibleIESkip('/pay/vip.html',true);
         })
         $(".op-menu-wrap").click(function (e) {
@@ -175,32 +170,11 @@ define(function (require, exports, module) {
      * 我看过的
      */
     function accessList() {
-        // var accessKey = method.keyMap.ishare_detail_access;
-        // var list = method.getLocalData(accessKey);
+      
         getFileBrowsePage()
     }
 
-    /**
-     * 我的收藏
-     */
-    // function myCollect() {
-    //     var params = {
-    //         pageNum: 1,
-    //         pageSize: 20
-    //     };
-    //     $.ajax(api.user.collect, {
-    //         type: "get",
-    //         async: false,
-    //         data: params,
-    //         dataType: "json"
-    //     }).done(function (res) {
-    //         if (res.code == 0) {
-    //             collectRender(res.data)
-    //         }
-    //     }).fail(function (e) {
-    //         console.log("error===" + e);
-    //     })
-    // }
+   
 
     //新的我的收藏列表
     function myCollect() { // 右侧栏的我的收藏下架
@@ -269,9 +243,7 @@ define(function (require, exports, module) {
      */
     $('.op-feedback').on('click', function () {
         var curr = window.location.href;
-        // window.open('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr));
-        // method.compatibleIESkip('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr),true);
-        // window.location.href = '/feedAndComp/userFeedback?url='+encodeURIComponent(curr);
+       
         method.compatibleIESkip('/node/feedback/feedback.html?url=' + encodeURIComponent(curr),true);
     });
 

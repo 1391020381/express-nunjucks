@@ -40,9 +40,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     function sentEmail(){
          // 寻找相关资料  
             $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-            // $("#dialog-box").dialog({
-            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
-            // }).open();
+           
             $("#dialog-box").dialog({
                 html: $('#reward-mission-pop').html(),
             }).open();
@@ -138,9 +136,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            }else{
             textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
            }
-        //    if(status == 2){ 
-        //     textContent =  '下载到本地阅读'
-        //    } 
+       
            break
            case '1' :
            textContent = '下载到本地阅读'
