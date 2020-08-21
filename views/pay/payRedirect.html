@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手机版爱问专业资料</title>
+    <meta name="description" content="手机版爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。" />
+    <meta name="keywords" content="手机版爱问共享资料,共享资料,爱问共享资料" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes,maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="applicable-device" content="mobile">   
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Content-Type" content="text/html; charset="UTF-8" />
+</head>
+<script type="text/javascript">
+    var _speedMark = + new Date();
+    var _version = "{{version}}";
+    var _head = "{{cdnUrl}}";
+    var env = "{{env}}";
+</script>
+<script src="{{cdnUrl}}/javascripts/sea-modules/jquery/jquery/1.8.3/jquery.min.js"></script>
+<style>
+    .loading-img{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -16px;
+        margin-top: -16px;
+    }
+</style>
+<body>
+    <div class="page">
+        <img src="{{cdnUrl}}/images/loading.gif" alt="" class="loading-img">
+    </div>
+    <script type="text/javascript">
+         //支付成功后统一的空白页 在通过空白页进行处理跳转的逻辑  域名为同一个
+         $(function(){
+            var redirectUrl=getParam('redirectUrl');//跳转的地址
+            if(redirectUrl){
+                window.location.replace(decodeURIComponent(redirectUrl));
+            }
+         })
+
+         function getParam (name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return "";
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    </script>
+</body>
+
+</html>
