@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    //var $ = require("$");
+   
     return {
         // 常量映射表
         keyMap: {

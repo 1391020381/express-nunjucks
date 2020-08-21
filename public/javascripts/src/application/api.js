@@ -42,10 +42,6 @@ define(function (require, exports, module) {
             getOtherUser:gateway+'/user/getOthersCentreInfo',//他人信息主页 
             getSearchList:gateway+'/search/content/byCondition' //他人信息主页 热门与最新
         },
-        // 查询用户发券资格接口
-        // sale: {
-        //     querySeniority: router + '/sale/querySeniority',
-        // },
         normalFileDetail: {
             // 添加评论
             addComment: router + '/fileSync/addComment',
