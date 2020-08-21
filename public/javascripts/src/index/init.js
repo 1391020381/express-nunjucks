@@ -227,16 +227,23 @@ define(function (require,exports,moudle) {
             $hasLogin.find('.top-user-more .name').html(data.nickName);
             $('.user-state .user-name').text(data.nickName)
             $hasLogin.show();
+
+            // data.isVip = 0
+
             if(data.isVip==1) {
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 var expireStr = data.expireTime+'到期'
-                $('.user-state .info-des').text(expireStr);
+                var wholeStationVip =  '<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">2020-12-15到期</span></p>'     
+                var officeVip = '<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">2020-12-15到期</span></p>'
+                var infoDescContent = wholeStationVip + officeVip
+                // $('.user-state .info-des').text(expireStr);
+                $('.user-state .info-des').html(infoDescContent);
                 $('.user-state').addClass('vipstate')
                 $('.js-vip-open').hide()
             }else{
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
-                $('.user-state .info-des').text('你还不是VIP');
+                $('.user-state .info-des').text('普通用户');
             }
         }
      }
