@@ -3,34 +3,15 @@
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
-    //登录
-    // $(".js-login").on("click", function () {
-    //     checkLogin.notifyLoginInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // });
+   
 
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
     });
-    // $('.login-text').on("click",function(){
-    //     checkLogin.notifyLoginInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // })
-    //透传
-    // $(".js-sync").on("click", function () {
-    //     checkLogin.syncUserInfoInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // });
-    //退出登录
-    // $(".js-logout").on("click", function () {
-    //     checkLogin.ishareLogout();
-    // });
-    $(".btn-exit").on("click", function () {
+ 
+    $(".loginOut").on("click", function () {
         checkLogin.ishareLogout();
     });
     
