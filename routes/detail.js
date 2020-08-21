@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var detailController = require('../controllers/detail');
 var spiderController = require("../controllers/spider");
+var spiderController1 = require("../controllers/spider1");
 var queryOrderController = require("../controllers/queryOrder");
 var error = require('../common/error');
 
@@ -24,12 +25,18 @@ router.get('/node/f/downfail.html',function(req , res , next){
 });
 //资料详情页
 router.get('/f/:id*.html*',function(req , res , next){
+
+   
+
+
     console.log('资料详情----------------------')
     try{
         if (req.params.id.includes('-nbhh')) {
             // 蜘蛛模板
             spiderController.index(req, res);
-        }else{
+        }else if(req.params.id.includes('-zhizhu')){  // 包含相关推荐
+            spiderController1.index(req, res);
+         }else{
             console.log("页面请求开始.......");
             console.time();
             detailController.render(req , res);
