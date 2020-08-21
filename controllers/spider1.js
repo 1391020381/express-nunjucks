@@ -39,7 +39,7 @@ module.exports = {
         }
         return async.series({
             list: function (callback) {
-                id = req.params.id.replace('-nbhh','')
+                id = req.params.id.replace('-zhizhu','')
                 fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
                 var opt = {
                     method: 'POST',
