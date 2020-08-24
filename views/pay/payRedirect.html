@@ -38,7 +38,9 @@
          $(function(){
             var redirectUrl=getParam('redirectUrl');//跳转的地址
             if(redirectUrl){
-                window.location.replace(decodeURIComponent(redirectUrl));
+                setTimeout(function(){
+                    window.location.replace(decodeURIComponent(redirectUrl));
+                },5000)
             }
          })
 

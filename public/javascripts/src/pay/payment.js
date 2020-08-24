@@ -108,11 +108,9 @@ define(function(require , exports , module){
     }
     function getOrderStatus(orderNo){
         if(platformCode=='m'){ //m端跳转公共的支付空白页 然后跳相关的页面(m端付费文档微信浏览器)
-            var redirectUrl=host+"/node/payinfo?orderNo="+orderNo+"&mark=wx";
+            var redirectUrl=host+"/node/payInfo?orderNo="+orderNo+"&mark=wx";
             console.log('http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl))
-            setTimeout(function(){
-                location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
-            },8000)
+            location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
           
         }else{ //直接跳结果
             location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
