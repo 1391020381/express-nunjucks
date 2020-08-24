@@ -20,7 +20,7 @@ define(function (require, exports, module) {
     if(productType == '4'){
         require('../common/baidu-statistics.js').initBaiduStatistics('504d2c29e8aefe02ad5d66207e4de083')
     }
-    if(productType == '5'){
+    if(productType == '1'){
         require('../common/baidu-statistics.js').initBaiduStatistics('c0fb058099c13a527871d024b1d809f8') 
     }
 }
