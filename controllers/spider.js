@@ -14,7 +14,7 @@ var id = '';
 var classId = '';
 var spcClassId	= '';
 var isGetClassType = '';
-var picArr = [];
+// var picArr = [];
 var fid = null;
 var type = 'new'
 var classId = null;
@@ -39,7 +39,7 @@ module.exports = {
         }
         return async.series({
             list: function (callback) {
-                picArr = [] // 清空保存的上一个蜘蛛模板的图片
+                // picArr = [] // 清空保存的上一个蜘蛛模板的图片
                 id = req.params.id.replace('-nbhh','')
                 fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
                 var opt = {
@@ -76,8 +76,8 @@ module.exports = {
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
                             uid= fileInfo.uid || ''           // 上传者id
-                            var transcodeInfo = data.data&&data.data.transcodeInfo;
-                            picArr = transcodeInfo?transcodeInfo.fileContentList:[];
+                            // var transcodeInfo = data.data&&data.data.transcodeInfo;
+                            // picArr = transcodeInfo?transcodeInfo.fileContentList:[];
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
                                 var results = {showFlag:false,searchQuery,statusCode:'404'}
@@ -324,9 +324,10 @@ module.exports = {
             //对正文进行处理
             var textString =  results.fileDetailTxt.data||'';
             // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
-           if(picArr.length>6) {
-                picArr = picArr.slice(0,6)
-           }
+            var picArr = results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList
+            if(picArr&&picArr.length>6) {
+                 picArr = picArr.slice(0,6)
+            }
            var sliceNum = Math.ceil(textString.length/picArr.length);
            var newTextArr = [];
            for(var i =0; i<picArr.length; i++) {
