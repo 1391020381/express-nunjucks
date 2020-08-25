@@ -178,3 +178,35 @@
   font-size: 18px;
   color: #FFFFFF;
 }
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record {
+  margin-top: 47px;
+  margin-bottom: 42px;
+}
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-desc {
+  margin-left: 5px;
+  margin-bottom: 38px;
+  font-size: 14px;
+  color: #656565;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list {
+  margin: 30px 60px 0 40px;
+  background: #ffffff;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-title {
+  border-bottom: solid 1px #f4f4f4;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-title th {
+  padding-bottom: 5px;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item td {
+  padding-top: 18px;
+}

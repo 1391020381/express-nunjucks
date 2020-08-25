@@ -64,7 +64,8 @@ module.exports = {
     },
     mywallet:function(req,res){
         var results = {
-            type:'mywallet'
+            type:'mywallet',
+            mywalletType:req.query.mywalletType|| '1'
         }
         render("personalCenter/index", results, req, res);
     },
