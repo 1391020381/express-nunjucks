@@ -27,7 +27,7 @@
     var href = window.location.href;
 
     //全站统计代码
-    handle('d64e095b3ea12558c7c2e342f6bb66bc');
+    handle('17cdd3f409f282dc0eeb3785fcf78a66');
 
     //办公频道页面统计代码  办公频道独立出来了
     // if (/[^\s]*office*/g.test(ptype)) {
