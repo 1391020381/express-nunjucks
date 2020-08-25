@@ -1,0 +1,74 @@
+<div class="mywallet">
+    <div class="mywallet-summary">
+        <p class="mywallet-title">我的钱包</p>
+        <ul class="mywallet-tabs tabs" >
+            <li  class="{{ mywalletType == '1' ? 'tab-active tab':'tab'}}">
+                <a href="/node/personalCenter/myuploads.html?myuploadType=1">概况</a>
+            </li>
+            <li class="{{ mywalletType == '2' ? 'tab-active tab' :'tab'}}">
+                <a href="/node/personalCenter/myuploads.html?myuploadType=2">提现记录</a>
+            </li>
+            <li class="{{ mywalletType == '3' ? 'tab-active tab' :'tab'}}">
+                <a href="/node/personalCenter/myuploads.html?myuploadType=3">财务记录</a>
+            </li>
+        </ul>
+        <p class="mywallet-balance">
+            <span class="balance-title">钱包余额</span>
+            <span class="balance-icon"></span>
+            <span class="balance-sum">19.90</span>
+            <span class="balance-unit">元<span>
+                    <span class="balance-reflect">申请提现</span>
+                </p>
+            </div>
+            <div class="mywallet-dividing-line"></div>
+            <div class="survey-content">
+                <p class="survey-tip">
+                    <span class="survey-tip-icon"></span>
+                    <span class="survey-tip-desc">明细</span>
+                    <span class="survey-tip-subdesc">仅可查询近半年内明细</span>
+                </p>
+                <p class="survey-content-select">
+                    <span class="start-time">开始时间</span>
+                    <input class="start-time-input" type="text" id="date-input"/>
+                    <span class="end-time">结束时间</span>
+                    <input class="end-time-input" type="text" id="date-input"/>
+                    <span class="select-btn">搜索</span>
+                </p>
+                <table class="suervery-table-list">
+                    <tr class="suervery-table-title">
+                        <th style="width:200px;">结算批次号</th>
+                        <th style="width:150px;">
+                            <span>实收总金额</span>
+                            <span style="display:block;text-indent: 18px;">（元）</span></th>
+                        <th style="width:300px;">结算周期</th>
+                        <th style="width:150px;">状态</th>
+                        <th style="width:100px;">操作</th>
+                    </tr>
+                    {{ if list.length>0}}
+                        {{ each list}}
+                        <tr class="suervery-table-item">
+                            <td>12387645678</td>
+                            <td>30.00</td>
+                            <td>2020-02-22至2020-08-12</td>
+                            <td>已入账</td>
+                            <td>
+                                <span class="export-details-btn">导出明细</span></td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                       <td>
+                          <div class="empty-data">
+                            <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
+                            <p class="empty-desc">近期暂无收入，尝试上传更多优质资料吧~~</p>
+                            <div class="go2upload">上传资料</div>
+                        </div>
+                       </td>
+                    </tr>
+                {{/if}}
+            </table>
+
+            <div class="pagination-wrapper"></div>
+        </div>
+
+    </div>
