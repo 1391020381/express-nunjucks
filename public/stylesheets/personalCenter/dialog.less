@@ -1,6 +1,7 @@
 @import "../less-public/_ishare_setting";
 @import "../less-public/_less_mixin";
-.personal-center-dialog{
+
+.personal-center-dialog {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -10,7 +11,7 @@
     box-sizing: border-box;
     transform: translate(-50%, -50%);
 
-    .close-btn{
+    .close-btn {
         display: block;
         overflow: hidden;
         background: url(../../images/icon_iShare.png) no-repeat;
@@ -22,78 +23,89 @@
         background-position: -220px -20px;
         cursor: pointer;
     }
-    
-    .delete-tip-dialog{
-        width:448px;
-        height:234px;
-        background:rgba(255,255,255,1);
-        border-radius:4px;
+
+    .delete-tip-dialog {
+        width: 448px;
+        height: 234px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 4px;
         text-align: center;
-        .title{
-            padding-top:53px;
+
+        .title {
+            padding-top: 53px;
             font-size: 18px;
             color: #000000;
         }
-        .subtitle{
-            margin-top:20px;
+
+        .subtitle {
+            margin-top: 20px;
             font-size: 14px;
             color: #666666;
         }
-        .dialog-btn{
-            padding-top:45px;
-            .confirm-btn{
+
+        .dialog-btn {
+            padding-top: 45px;
+
+            .confirm-btn {
                 display: inline-block;
                 margin-right: 10px;
-                width:120px;
-                height:40px;
+                width: 120px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #FFFFFF;
                 text-align: center;
-                background:rgba(242,82,38,1);
-                border-radius:2px;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 2px;
                 cursor: pointer;
             }
-            .cancel-btn{
+
+            .cancel-btn {
                 display: inline-block;
-                width:120px;
-                height:40px;
+                width: 120px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #F25226;
                 text-align: center;
-                border:1px solid rgba(242,82,38,1);
-               border-radius:2px;
-               cursor: pointer;
+                border: 1px solid rgba(242, 82, 38, 1);
+                border-radius: 2px;
+                cursor: pointer;
             }
         }
     }
-    .identity-authentication-dialog{
+
+    .identity-authentication-dialog {
         width: 430px;
         height: 308px;
         text-align: center;
-        .title{
-            padding-top:40px;
+
+        .title {
+            padding-top: 40px;
             font-size: 22px;
             color: #222222;
         }
-        .authentication-phone{
+
+        .authentication-phone {
             margin-top: 53px;
             font-size: 15px;
             text-align: left;
             color: #222222;
             text-indent: 38px
         }
-        .authentication-form{
-            margin-top:16px;
+
+        .authentication-form {
+            margin-top: 16px;
             height: 40px;
             line-height: 40px;
-            .authentication-input{
+
+            .authentication-input {
                 display: inline-block;
                 width: 215px;
                 height: 30px;
             }
-            .authentication-code{
+
+            .authentication-code {
                 display: inline-block;
                 margin-left: 10px;
                 width: 108px;
@@ -106,251 +118,482 @@
                 cursor: pointer;
             }
         }
-        .dialog-btn{
-            .authentication-btn{
+
+        .dialog-btn {
+            .authentication-btn {
                 display: inline-block;
-                margin-top:18px;
-                width:350px;
-                height:42px;
+                margin-top: 18px;
+                width: 350px;
+                height: 42px;
                 line-height: 42px;
                 font-size: 15px;
                 color: #fff;
                 text-align: center;
-                background:rgba(242,82,38,1);
-                border-radius:3px;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 3px;
                 cursor: pointer;
-            }
-        }
-    }
-    .set-change-password-dialog{
-        width: 430px;
-        height: 358px;
-        text-align: center;
-        .title{
-            padding-top: 22px;
-            font-size: 22px;
-            color: #222222;
-        }
-        .form-list{
-            .form-item{
-                margin-top:14px;
-                .item-label{
-                    margin-right: 13px;
-                }
-                input{
-                    display: inline-block;
-                    width:293px;
-                    height:40px;
-                    text-indent: 15px;
-                    border:1px solid rgba(225,225,225,1);
-                    box-sizing: border-box;
-                     border-radius:3px;
-                     padding: 0;
-                }
-            }
-            .form-item:first-child{
-                margin-top:32px;
-            }
-            .form-item:nth-child(2){
-                .item-verificationcode{
-                    width:174px;
-                    height:40px;
-                    line-height: 40px;
-                    border:1px solid rgba(225,225,225,1);
-                    border-radius:3px;
-                }
-                .item-getverificationcode{
-                      margin-left:10px;
-                      display: inline-block;
-                      width:110px;
-                      height:40px;
-                      line-height: 40px;
-                      text-align: center;
-                      color: #F25226;
-                      border:1px solid rgba(242,82,38,1);
-                      box-sizing: border-box;
-                      border-radius:3px;
-                      cursor: pointer;
-                }
-            }
-        }
-        .dialog-btn{
-            .submit-btn{
-                display: inline-block;
-                margin-top:18px;
-                width:350px;
-                height:42px;
-                line-height: 42px;
-                text-align: center;
-                font-size: 15px;
-                color: #fff;
-               background:rgba(242,82,38,1);
-               border-radius:3px;
-               cursor: pointer;
             }
         }
     }
 
-    .bind-phonenumber-dialog{
+    .set-change-password-dialog {
         width: 430px;
-        height: 323px;
+        height: 358px;
         text-align: center;
-        .title{
+
+        .title {
             padding-top: 22px;
             font-size: 22px;
             color: #222222;
         }
-        .form-list{
-            .form-item{
-                margin-top:14px;
-                .item-label{
+
+        .form-list {
+            .form-item {
+                margin-top: 14px;
+
+                .item-label {
                     margin-right: 13px;
                 }
-                input{
+
+                input {
                     display: inline-block;
-                    width:293px;
-                    height:40px;
+                    width: 293px;
+                    height: 40px;
                     text-indent: 15px;
-                    border:1px solid rgba(225,225,225,1);
+                    border: 1px solid rgba(225, 225, 225, 1);
                     box-sizing: border-box;
-                     border-radius:3px;
-                     padding: 0;
+                    border-radius: 3px;
+                    padding: 0;
                 }
             }
-            .form-item:first-child{
-                margin-top:32px;
+
+            .form-item:first-child {
+                margin-top: 32px;
             }
-            .form-item:nth-child(2){
-                .item-verificationcode{
-                    width:174px;
-                    height:40px;
+
+            .form-item:nth-child(2) {
+                .item-verificationcode {
+                    width: 174px;
+                    height: 40px;
                     line-height: 40px;
-                    border:1px solid rgba(225,225,225,1);
-                    border-radius:3px;
+                    border: 1px solid rgba(225, 225, 225, 1);
+                    border-radius: 3px;
                 }
-                .item-getverificationcode{
-                      margin-left:10px;
-                      display: inline-block;
-                      width:110px;
-                      height:40px;
-                      line-height: 40px;
-                      text-align: center;
-                      color: #F25226;
-                      border:1px solid rgba(242,82,38,1);
-                      box-sizing: border-box;
-                      border-radius:3px;
-                      cursor: pointer;
+
+                .item-getverificationcode {
+                    margin-left: 10px;
+                    display: inline-block;
+                    width: 110px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #F25226;
+                    border: 1px solid rgba(242, 82, 38, 1);
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    cursor: pointer;
                 }
             }
         }
-        .dialog-btn{
-            padding-top:47px;
+
+        .dialog-btn {
+            .submit-btn {
+                display: inline-block;
+                margin-top: 18px;
+                width: 350px;
+                height: 42px;
+                line-height: 42px;
+                text-align: center;
+                font-size: 15px;
+                color: #fff;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .bind-phonenumber-dialog {
+        width: 430px;
+        height: 323px;
+        text-align: center;
+
+        .title {
+            padding-top: 22px;
+            font-size: 22px;
+            color: #222222;
+        }
+
+        .form-list {
+            .form-item {
+                margin-top: 14px;
+
+                .item-label {
+                    margin-right: 13px;
+                }
+
+                input {
+                    display: inline-block;
+                    width: 293px;
+                    height: 40px;
+                    text-indent: 15px;
+                    border: 1px solid rgba(225, 225, 225, 1);
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    padding: 0;
+                }
+            }
+
+            .form-item:first-child {
+                margin-top: 32px;
+            }
+
+            .form-item:nth-child(2) {
+                .item-verificationcode {
+                    width: 174px;
+                    height: 40px;
+                    line-height: 40px;
+                    border: 1px solid rgba(225, 225, 225, 1);
+                    border-radius: 3px;
+                }
+
+                .item-getverificationcode {
+                    margin-left: 10px;
+                    display: inline-block;
+                    width: 110px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #F25226;
+                    border: 1px solid rgba(242, 82, 38, 1);
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .dialog-btn {
+            padding-top: 47px;
             padding-left: 54px;
-            .confirm-btn{
+
+            .confirm-btn {
                 display: inline-block;
                 // margin-right: 10px;
-                width:140px;
-                height:40px;
+                width: 140px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #FFFFFF;
                 text-align: center;
-                background:rgba(242,82,38,1);
-                border-radius:2px;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 2px;
                 cursor: pointer;
             }
-            .cancel-btn{
+
+            .cancel-btn {
                 margin-right: 10px;
                 display: inline-block;
-                width:140px;
-                height:40px;
+                width: 140px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #F25226;
                 text-align: center;
-                border:1px solid rgba(242,82,38,1);
-               border-radius:2px;
-               cursor: pointer;
+                border: 1px solid rgba(242, 82, 38, 1);
+                border-radius: 2px;
+                cursor: pointer;
             }
         }
     }
-    .unbind-account-dialog{
+
+    .unbind-account-dialog {
         width: 447px;
         // height: 288px;
         text-align: center;
-        .title{
-           padding-top:50px;
-           font-size: 22px;
-           color: #222222; 
+
+        .title {
+            padding-top: 50px;
+            font-size: 22px;
+            color: #222222;
         }
-        .subtitle{
+
+        .subtitle {
             margin-top: 16px;
             font-size: 15px;
             color: #666666;
         }
-        .dialog-btn{
-            margin:46px 0;
-            .confirm-btn{
+
+        .dialog-btn {
+            margin: 46px 0;
+
+            .confirm-btn {
                 display: inline-block;
                 margin-right: 10px;
-                width:160px;
-                height:40px;
+                width: 160px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #FFFFFF;
                 text-align: center;
-                background:rgba(242,82,38,1);
-                border-radius:2px;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 2px;
                 cursor: pointer;
             }
-            .cancel-btn{
+
+            .cancel-btn {
                 display: inline-block;
-                width:160px;
-                height:40px;
+                width: 160px;
+                height: 40px;
                 line-height: 40px;
                 font-size: 15px;
                 color: #F25226;
                 text-align: center;
-                border:1px solid rgba(242,82,38,1);
-               border-radius:2px;
-               cursor: pointer;
+                border: 1px solid rgba(242, 82, 38, 1);
+                border-radius: 2px;
+                cursor: pointer;
             }
         }
-        .dialog-tip{
+
+        .dialog-tip {
             height: 50px;
             line-height: 50px;
             text-align: center;
             font-size: 13px;
             color: #767270;
-            border-top:solid 1px #EFEEE9;
-            span{
+            border-top: solid 1px #EFEEE9;
+
+            span {
                 color: #2B739F;
                 cursor: pointer;
             }
         }
     }
-    .mywallet-tip-dialog{
+
+    .mywallet-tip-dialog {
         width: 430px;
         text-align: center;
-        .title{
+
+        .title {
             padding-top: 43px;
             font-size: 22px;
-            color: #222; 
+            color: #222;
         }
-        .mywallet-tip{
+
+        .mywallet-tip {
             padding: 20px;
         }
-        .mywallet-contact-information{
+
+        .mywallet-contact-information {
             padding-bottom: 40px;
         }
     }
-    .thirdparty-authorization-dialog{
+
+    .thirdparty-authorization-dialog {
         width: 800px;
         height: 400px;
-        iframe{
+
+        iframe {
             width: 100%;
             height: 100%;
             border: none;
+        }
+    }
+
+    .withdrawal-application-dialog {
+        width: 643px;
+        // height: 447px;
+        padding: 30px 0 30px 25px;
+
+        .withdrawal-application-title {
+            .title-icon {
+                display: inline-block;
+                width: 4px;
+                height: 17px;
+                background: #F25226;
+                vertical-align: middle;
+            }
+
+            .title-desc {
+                margin-left: 5px;
+                font-size: 16px;
+                color: #222222;
+                font-weight: bold;
+            }
+
+            .title-subdesc {
+                margin-left: 6px;
+                font-size: 12px;
+                color: #9A9A9A;
+            }
+        }
+
+        .withdrawal-application-from {
+            margin-top: 33px;
+
+            .withdrawal-amount {
+
+
+                .withdrawal-amount-title {
+                    width: 80px;
+                    text-align: right;
+                    font-size: 14px;
+                    color: #666666;
+
+                    em {
+                        display: inline-block;
+                        width: 6px;
+                        height: 6px;
+                        background: red;
+                    }
+                }
+
+                .amount {
+                    margin-left: 10px;
+                    display: inline-block;
+                    width: 110px;
+                    height: 34px;
+                    background: rgba(255, 255, 255, 1);
+                    border: 1px solid rgba(222, 222, 222, 1);
+                    border-radius: 2px;
+                }
+
+                .full-withdrawal {
+                    margin-left: 9px;
+                    font-size: 14px;
+                    color: #F25226;
+                    cursor: pointer;
+                }
+
+                .full-withdrawal-tip {
+                    font-size: 14px;
+                    color: #A7A7A7;
+                }
+
+                .tax {
+                    padding-left: 85px;
+                    margin-top: 13px;
+                    color: #999999;
+                }
+
+                .withholding-tax {}
+
+                .actual-receipt {
+                    .tax-explanation-icon {
+                        display: inline-block;
+                        width: 14px;
+                        height: 14px;
+                        background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+                        background-size: 100%;
+                    }
+
+                    .tax-explanation-desc {
+                        margin-left: 5px;
+                        font-size: 14px;
+                        color: #F25226;
+                    }
+                }
+            }
+
+            .invoice {
+                margin-top: 42px;
+
+                .invoice-title {
+                    display: inline-block;
+                    width: 80px;
+                    text-align: right;
+                    vertical-align: top;
+                }
+
+                input {
+                    display: none;
+                }
+
+                .invoice-icon {
+                    margin-right: 5px;
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    background: url("../../images/personalCenter/radio-default.png") no-repeat center;
+                    background-size: 100%;
+                    vertical-align: middle;
+                }
+
+                .invoice-radio:checked+.invoice-icon {
+                    background: url("../../images/personalCenter/radio-check.png") no-repeat center;
+                    background-size: 100%;
+                    vertical-align: middle;
+                }
+               
+                .upload{
+                    margin-top:23px;
+                    display: block;
+                    font-size:14px;
+                    color:#F25125;
+                }
+                .electronic-invoice {
+                    margin-left: 9px;
+                    display: inline-block;
+                    
+
+                }
+
+                .paper-invoice {
+                    margin-left: 93px;
+                    display: inline-block;
+                }
+            }
+            .img-preview{
+                margin-left:80px;
+                margin-top:25px;
+                .img{
+                    display: block;
+                    width: 120px;
+                    height: 75px;
+                }
+                .re-upload{
+                    margin-top:13px;
+                    display: block;
+                    width: 120px;
+                    text-align: center;
+                    font-size:14px;
+                    color: #F25125;
+                    cursor: pointer;
+                }
+            }
+            .submit-btn{
+                margin-top:29px;
+                .confirm-btn{
+                    margin-left:80px;
+                    display: inline-block;
+                    width:150px;
+                    height:50px;
+                    line-height: 50px;
+                    text-align: center;
+                   background:rgba(242,81,37,1);
+                  border-radius:4px;
+                  font-size:18px;
+                  color: #FFFFFF;
+                }
+                .cancel-btn{
+                    margin-left:20px;
+                    display: inline-block;
+                    width:150px;
+                   height:50px;
+                   line-height: 50px;
+                   text-align: center;
+                   border:1px solid rgba(242,81,37,1);
+                  border-radius:4px;
+                  font-size:18px;
+                  color: #F25125;
+                }
+            }
+            .withdrawal-application-dialog-tip{
+                margin-left:80px;
+                margin-top:12px;
+                font-size:12px;
+                color: #999999;
+            }
         }
     }
 }

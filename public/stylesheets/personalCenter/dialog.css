@@ -336,3 +336,167 @@
   height: 100%;
   border: none;
 }
+.personal-center-dialog .withdrawal-application-dialog {
+  width: 643px;
+  padding: 30px 0 30px 25px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-title .title-icon {
+  display: inline-block;
+  width: 4px;
+  height: 17px;
+  background: #F25226;
+  vertical-align: middle;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-title .title-desc {
+  margin-left: 5px;
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-title .title-subdesc {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #9A9A9A;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from {
+  margin-top: 33px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .withdrawal-amount-title {
+  width: 80px;
+  text-align: right;
+  font-size: 14px;
+  color: #666666;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .withdrawal-amount-title em {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: red;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .amount {
+  margin-left: 10px;
+  display: inline-block;
+  width: 110px;
+  height: 34px;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .full-withdrawal {
+  margin-left: 9px;
+  font-size: 14px;
+  color: #F25226;
+  cursor: pointer;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .full-withdrawal-tip {
+  font-size: 14px;
+  color: #A7A7A7;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .tax {
+  padding-left: 85px;
+  margin-top: 13px;
+  color: #999999;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .actual-receipt .tax-explanation-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+  background-size: 100%;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .actual-receipt .tax-explanation-desc {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #F25226;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice {
+  margin-top: 42px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .invoice-title {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+  vertical-align: top;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice input {
+  display: none;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .invoice-icon {
+  margin-right: 5px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url("../../images/personalCenter/radio-default.png") no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .invoice-radio:checked + .invoice-icon {
+  background: url("../../images/personalCenter/radio-check.png") no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .upload {
+  margin-top: 23px;
+  display: block;
+  font-size: 14px;
+  color: #F25125;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .electronic-invoice {
+  margin-left: 9px;
+  display: inline-block;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .paper-invoice {
+  margin-left: 93px;
+  display: inline-block;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .img-preview {
+  margin-left: 80px;
+  margin-top: 25px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .img-preview .img {
+  display: block;
+  width: 120px;
+  height: 75px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .img-preview .re-upload {
+  margin-top: 13px;
+  display: block;
+  width: 120px;
+  text-align: center;
+  font-size: 14px;
+  color: #F25125;
+  cursor: pointer;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .submit-btn {
+  margin-top: 29px;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .submit-btn .confirm-btn {
+  margin-left: 80px;
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: #f25125;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .submit-btn .cancel-btn {
+  margin-left: 20px;
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border: 1px solid #f25125;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #F25125;
+}
+.personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-application-dialog-tip {
+  margin-left: 80px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #999999;
+}

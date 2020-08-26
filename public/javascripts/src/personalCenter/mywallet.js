@@ -7,7 +7,12 @@ define(function (require, exports, module) {
         isLogin(initCallback,true)
     }
     function initCallback(){
-       
+       $(document).on('click','.balance-reflect',function(e){
+        $("#dialog-box").dialog({
+            html: $('#withdrawal-application-dialog').html(),
+            'closeOnClickModal':false
+        }).open();
+       })
     //     var myorder = require("./template/myorder.html")
     //     var _myorderTemplate = template.compile(myorder)({list:list||[],myorderType:myorderType});
     //    $(".personal-center-myorder").html(_myorderTemplate); 

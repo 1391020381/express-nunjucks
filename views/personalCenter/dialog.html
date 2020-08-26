@@ -139,3 +139,51 @@
     </div>
 </script>
 
+
+
+<!-- 个人中心 我的钱包提现申请dialog -->
+
+<script type="text/template" id="withdrawal-application-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="withdrawal-application-dialog">
+             <div class="withdrawal-application-title">
+                 <span class="title-icon"></span>
+                 <span class="title-desc">提现申请</span>
+                 <span class="title-subdesc">提现审核通过后次月初打款</span>
+             </div>
+             <div class="withdrawal-application-from">
+                <div class="withdrawal-amount">
+                    <span class="withdrawal-amount-title"><em></em>提现金额 :</span>
+                    <input class="amount"/>
+                    <span class="full-withdrawal">全部提现</span>
+                    <span class="full-withdrawal-tip">（不含退款保证金）</span>
+                    <p class="withholding-tax tax"><span>代扣税 :</span><span>5.00</span>元</p>
+                    <p class="turnover-tax tax"><span>流转税 :</span><span>5.00</span>元</p>
+                    <p class="actual-receipt tax"><span>实际到账 :</span><span>280.00</span>元 <span class="tax-explanation-icon"></span><span class="tax-explanation-desc">税费说明</span></p>
+                </div>
+                <div class="invoice">
+                   <span class="invoice-title"><em></em>发票 :</span>
+                    <label class="electronic-invoice" for="electronic-invoice-radio">
+                        <input id="electronic-invoice-radio" class="invoice-radio" name="invoice" type="radio"/>
+                        <span class="invoice-icon"></span>电子发票 <span class="upload">上传</span>
+                    </label>
+                    <label class="paper-invoice" for="paper-invoice-radio">
+                        <input id="paper-invoice-radio" class="invoice-radio" name="invoice" type="radio"/>
+                        <span class="invoice-icon"></span>邮寄纸质发票<span></span>（查看邮寄地址） <span class="upload">上传（拍照后上传审核）</span>
+                    </label>
+                </div>
+                <div class="img-preview">
+                    <img class="img"/>
+                    <span class="re-upload">重新上传</span>
+                </div>
+                <div class="submit-btn">
+                    <span class="confirm-btn">确认</span>
+                    <span class="cancel-btn">取消</span>
+                </div>
+                <p class="withdrawal-application-dialog-tip">请务必提供提现金额所对应的发票信息，否则将无法进行提现</p>
+             </div>
+        </div>
+    </div>
+
+</script>
