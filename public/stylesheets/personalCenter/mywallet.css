@@ -239,10 +239,93 @@
 }
 .personal-center-mywallet .mywallet .financial-records-content .label-item .required em {
   position: absolute;
-  left: 46px;
   top: 4px;
   width: 6px;
   height: 6px;
   border-radius: 3px;
   background: red;
+}
+.personal-center-mywallet .mywallet .financial-records-content .certification-type .item-content {
+  font-size: 14px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .account-name .item-content {
+  font-size: 14px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-province {
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-city {
+  margin-left: 10px;
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening em {
+  left: 40px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank .item-bank {
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank .item-bank-name {
+  margin-left: 10px;
+  display: inline-block;
+  width: 160px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank em {
+  left: 27px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .item-openingbank-name {
+  display: inline-block;
+  width: 330px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .openingbank-name-tip {
+  margin-left: 30px;
+  display: inline-block;
+  width: 308px;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .openingbank-name-tip span {
+  display: block;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank em {
+  left: 13px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number .item-openingbank-name {
+  width: 330px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number em {
+  left: 0px;
+}
+.personal-center-mywallet .mywallet .financial-records-btn {
+  margin-top: 60px;
+}
+.personal-center-mywallet .mywallet .financial-records-btn .submit-btn {
+  display: inline-block;
+  width: 228px;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  background: #f25226;
+  border-radius: 3px;
+  font-size: 22px;
+  color: #FFFFFF;
+  cursor: pointer;
 }
