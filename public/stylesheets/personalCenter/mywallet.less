@@ -205,6 +205,7 @@
                         border-radius: 4px;
                         font-size:18px;
                         color: #FFFFFF;
+                        cursor: pointer;
                     }
                 }
             }
@@ -231,6 +232,7 @@
         .withdrawal-record-table-list{
             margin: 30px 60px 0 40px;
             background: #ffffff;  
+            position: relative;
             .withdrawal-record-table-title{
                 th {
                     padding-bottom: 5px;
@@ -243,6 +245,40 @@
                     padding-top: 18px;
                 }
             } 
+            .empty-data {
+                position: absolute;
+                margin-left: -158px;
+            }
+        }
+        .mywallet-financial-records{
+            margin-top:20px;
+            margin-bottom: 30px;
+        }
+        .financial-records-content{
+            padding: 30px 60px 0 40px;
+            .label-item{
+                margin-bottom: 16px;
+                .item-desc{
+                    margin-right: 10px;
+                    font-size: 14px;
+                    color: #666666;
+                    display: inline-block;
+                    width: 100px;
+                    text-align: right;                   
+                }
+                .required{
+                    position: relative;
+                    em{
+                        position: absolute;
+                        left:46px;
+                        top:4px;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 3px;
+                        background:red;
+                    }
+                }
+            }
         }
     }
 }

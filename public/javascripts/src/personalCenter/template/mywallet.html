@@ -20,17 +20,23 @@
                 <span class="balance-unit">元<span>
                         <span class="balance-reflect">申请提现</span>
                     </p>
-                {{/if}}
+        {{/if}}
 
-                {{if mywalletType == '2'}}
+        {{if mywalletType == '2'}}
                     <p class="mywallet-withdrawal-record">
                         <span class="withdrawal-record-icon"></span>
                         <span class="withdrawal-record-desc">结算规则须知></span>
                     </p>
-                {{/if}}
+        {{/if}}
+
+         {{if mywalletType == '3'}}
+                    <p class="mywallet-financial-records">
+                        <span class="financial-records-icon"></span>
+                        <span class="financial-records-desc">如有疑问，联系上传用户客服QQ：<span>3463748482</span></span>
+                    </p>
+        {{/if}}
             </div>
 
-            
             {{if mywalletType == '1'}}
                 <div class="mywallet-dividing-line"></div>
                 <div class="survey-content">
@@ -81,44 +87,105 @@
                 </table>
 
                 <div class="pagination-wrapper"></div>
-               </div>
+            </div>
+           {{/if}}
+
+        {{if mywalletType == '2'}}
+            <table class="withdrawal-record-table-list">
+                <tr class="withdrawal-record-table-title">
+                    <th style="width:200px;">提现流水号</th>
+                    <th style="width:200px;">提现时间</th>
+                    <th style="width:200px;">
+                        <span>税前收入</span>
+                        <span style="display:block;text-indent: 5px;">（元）</span></th>
+                    <th style="width:200px;">
+                        <span>代扣税</span>
+                        <span style="display:block;text-indent: 3px;">（元）</span></th>
+                    <th style="width:200px;">
+                        <span>流转税</span>
+                        <span style="display:block;text-indent:3px;">（元）</span></th>
+                    <th style="width:150px;">
+                        <span>状态</span>
+                        <span style="display:block;text-indent: -5px;">（元）</span></th>
+                    <th style="width:200px;">
+                        <span>税后收入</span>
+                        <span style="display:block;text-indent: 5px;">（元）</span></th>
+                </tr>
+
+                {{ if list.length>0}}
+                    {{each list}}
+                    <tr class="withdrawal-record-table-item">
+                        <td>1234567891234</td>
+                        <td>2020-02-09</td>
+                        <td>20.00</td>
+                        <td>5.00</td>
+                        <td>6.00</td>
+                        <td>审核中</td>
+                        <td>300.00</td>
+                    </tr>
+
+                    <tr class="withdrawal-record-table-item">
+                        <td>1234567891234</td>
+                        <td>2020-02-09</td>
+                        <td>20.00</td>
+                        <td>5.00</td>
+                        <td>6.00</td>
+                        <td>审核不通过</td>
+                        <td>300.00</td>
+                    </tr>
+                {{/each}}
+            {{else}}
+
+                <tr>
+                    <td>
+                        <div class="empty-data">
+                            <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
+                            <p class="empty-desc">近期暂无收入，尝试上传更多优质资料吧~~</p>
+                            
+                        </div>
+                    </td>
+                </tr>
+
             {{/if}}
-          
-
-            {{if mywalletType == '2'}}
-                  <table class="withdrawal-record-table-list">
-                        <tr class="withdrawal-record-table-title">
-                                <th style="width:200px;">提现流水号</th>
-                                <th style="width:200px;">提现时间</th>
-                                <th style="width:200px;">  <span>税前收入</span> <span style="display:block;text-indent: 5px;">（元）</span></th>
-                                <th style="width:200px;">  <span>代扣税</span> <span style="display:block;text-indent: 5px;">（元）</span></th>
-                                <th style="width:200px;">  <span>流转税</span> <span style="display:block;text-indent:5px;">（元）</span></th>
-                                <th style="width:150px;">  <span>状态</span> <span style="display:block;text-indent: 5px;">（元）</span></th>
-                                <th style="width:200px;">  <span>税后收入</span> <span style="display:block;text-indent: 5px;">（元）</span></th>
-                         </tr>       
-                        <tr class="withdrawal-record-table-item">
-                            <td>1234567891234</td>
-                            <td>2020-02-09</td>
-                            <td>20.00</td>
-                            <td>5.00</td>
-                            <td>6.00</td>
-                            <td>审核中</td>
-                            <td>300.00</td>
-                        </tr>
-
-                         <tr class="withdrawal-record-table-item">
-                            <td>1234567891234</td>
-                            <td>2020-02-09</td>
-                            <td>20.00</td>
-                            <td>5.00</td>
-                            <td>6.00</td>
-                            <td>审核不通过</td>
-                            <td>300.00</td>
-                        </tr>
-                  
-                  </table>
-
-            {{/if}}
+        </table>
+        <div class="pagination-wrapper"></div>
+      {{/if}}
 
 
-    </div>
+      {{if mywalletType == '3'}}
+      <div class="mywallet-dividing-line"></div>
+        <div class="financial-records-content">
+            <p class="label-item certification-type">
+                <span class="item-desc">认证类型:</span> <span class="item-content">个人用户</span>
+            </p>
+            <p class="label-item account-name">
+                <span class="item-desc">开户名:</span> <span class="item-content">大大大夏</span>
+            </p>
+             <p class="label-item placeof-account-opening">
+                <span class="item-desc required"><em></em>开户地:</span> 
+                <select class="item-province" placeholder="请选择"></select>
+                <select class="item-city" placeholder="请选择"></select>
+            </p>
+           <p class="label-item receiving-bank">
+                <span class="item-desc required"><em></em>收款银行:</span> 
+                <select class="item-bank"></select>
+                <input class="item-bank-name" placeholder="请输入收款银行名称"/>
+            </p>
+             <p class="label-item fullnameof-opening-bank">
+                <span class="item-desc required"><em></em>开户行全称:</span> 
+                <input class="item-openingbank-name"/>
+                <p class="openingbank-name-tip" placeholder="请输入开户行全称">
+                    <span>格式：银行+省+市+分行全名</span>
+                    <span>示例：招商银行广东深圳软件园支行</span>
+                </p>
+            </p>
+             <p class="label-item receiving-bank-card-number">
+                <span class="item-desc required"><em></em>收款银行卡号:</span> 
+                <input class="item-openingbank-name" placeholder="请输入银行卡卡号"/>
+            </p>
+
+            <p class="financial-records-btn">保存</p>
+        </div>
+      {{/if}}
+
+</div>
