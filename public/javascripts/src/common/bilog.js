@@ -505,7 +505,11 @@ define(function (require, exports, module) {
             };
             clickCenter('SE016', 'normalClick', 'searchResultClick', '搜索结果页点击', customData);
         }else if(cnt == 'loginResult'){
-
+            
+         
+            initData.loginStatus = method.getCookie("cuk") ? 1 : 0,//登录状态 0 未登录 1 登录
+            
+            // $.extend(customData, params);
         clickCenter('SE001', 'loginResult', 'PC-M-LOGIN', '登录页', params);
 
         }

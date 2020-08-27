@@ -35,11 +35,12 @@ define(function (require, exports, module) {
 
         // 获取收藏的状态
         getCollectState()
+
+        fileBrowseReportBrowse()  // 资料详情上报服务端
     }
     // 页面加载
     function pageInitShow() {
         if (method.getCookie('cuk')) {
-            fileBrowseReportBrowse()
             login.getLoginData(function (data) {
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
