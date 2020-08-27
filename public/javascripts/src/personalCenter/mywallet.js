@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+    require('../cmd-lib/jquery.datepicker.js')
     var type = window.pageConfig&&window.pageConfig.page.type
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var isLogin = require('../application/effect.js').isLogin
@@ -80,6 +81,9 @@ define(function (require, exports, module) {
            })
            var _mywalletTemplate = template.compile(mywallet)({list:[],mywalletType:mywalletType});
            $('.personal-center-mywallet').html(_mywalletTemplate)
+            var currentDate =   new Date(new Date().getTime()).format("yyyy-MM-dd")
+           $('.start-time-input').datePicker({maxDate:currentDate});
+           $('.end-time-input').datePicker({maxDate:currentDate});
        }   
         if(mywalletType == '2'){
             getWithdrawalRecord()
@@ -89,7 +93,89 @@ define(function (require, exports, module) {
         }
     }
   
-  
+    function getAccountBalance(){ // 获取账户余额
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.mywallet.getAccountBalance,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                }) 
+               }
+            },
+            error:function(error){
+                console.log('getAccountBalance:',error)
+            }
+        })
+    }
+    function withdrawal(){ // 提现
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.mywallet.withdrawal,
+            type: "POST",
+            data: JSON.stringify({
+                currentPage:currentPage || 1,
+                pageSize:20
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    console.log('withdrawal:',res)
+                  
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+               }
+            },
+            error:function(error){
+              
+                $.toast({
+                    text:error.msg||'提现失败',
+                    delay : 3000,
+                })
+            }
+        })
+    }
+
+    function getPersonalAccountTax(){ // 查询个人提现扣税结算
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.mywallet.getPersonalAccountTax,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                }) 
+               }
+            },
+            error:function(error){
+                console.log('getPersonalAccountTax:',error)
+            }
+        })
+
+    }
     function getWithdrawalRecord(currentPage){ // 查询提现记录
         handleWithdrawalRecordData({})
 
