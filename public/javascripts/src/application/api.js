@@ -119,6 +119,14 @@ define(function (require, exports, module) {
         },
         reportBrowse:{
             fileBrowseReportBrowse:gateway + '/content/fileBrowse/reportBrowse',
+        },
+        mywallet:{
+            getAccountBalance: gateway + '/account/balance/getGrossIncome', // 账户余额信息
+            withdrawal: gateway + '/account/with/apply', // 申请提现
+            getWithdrawalRecord:gateway + '/account/withd/getPersonList', // 查询用户提现记录
+            editFinanceAccount: gateway + '/account/finance/edit', // 编辑用户财务信息
+            getFinanceAccountInfo:gateway + '/account/finance/getInfo', // 查询用户财务信息
+           getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
         }
     }
 });

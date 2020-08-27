@@ -1508,12 +1508,14 @@
   display: inline-block;
   width: 160px;
   height: 34px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-city {
   margin-left: 10px;
   display: inline-block;
   width: 160px;
   height: 34px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening em {
   left: 40px;
@@ -1522,6 +1524,7 @@
   display: inline-block;
   width: 160px;
   height: 34px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .receiving-bank .item-bank-name {
   margin-left: 10px;
@@ -1531,6 +1534,8 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .receiving-bank em {
   left: 27px;
@@ -1542,6 +1547,8 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .openingbank-name-tip {
   margin-left: 30px;
@@ -1555,12 +1562,14 @@
 .personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank em {
   left: 13px;
 }
-.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number .item-openingbank-name {
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number .item-openingbank-num {
   width: 330px;
   height: 30px;
   background: #ffffff;
   border: 1px solid #dedede;
   border-radius: 2px;
+  text-indent: 10px;
+  color: #222222;
 }
 .personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number em {
   left: 0px;

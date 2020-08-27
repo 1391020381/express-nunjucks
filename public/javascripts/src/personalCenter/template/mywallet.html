@@ -140,7 +140,7 @@
                     <td>
                         <div class="empty-data">
                             <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
-                            <p class="empty-desc">近期暂无收入，尝试上传更多优质资料吧~~</p>
+                            <p class="empty-desc">暂无提现记录～</p>
                             
                         </div>
                     </td>
@@ -156,24 +156,53 @@
       <div class="mywallet-dividing-line"></div>
         <div class="financial-records-content">
             <p class="label-item certification-type">
-                <span class="item-desc">认证类型 :</span> <span class="item-content">个人用户</span>
+                <span class="item-desc">认证类型 :</span> <span class="item-content">{{financeAccountInfo.userTypeName}}</span>
             </p>
             <p class="label-item account-name">
-                <span class="item-desc">开户名:</span> <span class="item-content">大大大夏</span>
+                <span class="item-desc">开户名:</span> <span class="item-content">{{financeAccountInfo.bankAccountName}}</span>
             </p>
              <p class="label-item placeof-account-opening">
                 <span class="item-desc required"><em></em>开户地 :</span> 
-                <select class="item-province" placeholder="请选择"></select>
-                <select class="item-city" placeholder="请选择"></select>
+                <select class="item-province" placeholder="请选择" value="{{financeAccountInfo.province}}" {{financeAccountInfo.isEdit?'':'disabled'}}>
+                       {{ if financeAccountInfo.province}}
+                   {{each provinceList}}
+                    <option value="{{provinceList[$index]}}">{{provinceList[$index]}}</option>
+                 {{/each}}
+                {{else}}
+                    <option value="">省份</option>
+                      {{each provinceList}}
+                       <option value="{{provinceList[$index]}}">{{provinceList[$index]}}</option>
+                     {{/each}}
+                {{/if}}
+                </select>
+                <select class="item-city" placeholder="请选择" value="{{financeAccountInfo.city}}" {{financeAccountInfo.isEdit?'':'disabled'}}>
+                         {{ if financeAccountInfo.city}}
+                   {{each cityList}}
+                    <option value="{{cityList[$index]}}">{{cityList[$index]}}</option>
+                 {{/each}}
+                {{else}}
+                    <option value="">城市</option>
+                      {{each cityList}}
+                       <option value="{{cityList[$index]}}">{{cityList[$index]}}</option>
+                     {{/each}}
+                {{/if}}
+                
+                </select>
             </p>
            <p class="label-item receiving-bank">
                 <span class="item-desc required"><em></em>收款银行 :</span> 
-                <select class="item-bank"></select>
-                <input class="item-bank-name" placeholder="请输入收款银行名称"/>
+                <select class="item-bank" {{financeAccountInfo.isEdit?'':'disabled'}}>
+                    <option>
+                         {{each bankList}}
+                            <option value="{{bankList[$index].value}}">{{bankList[$index].value}}</option>
+                         {{/each}}
+                    </option>
+                </select>
+                <input class="item-bank-name" placeholder="请输入收款银行名称" {{financeAccountInfo.isEdit?'':'disabled'}}/>
             </p>
              <div class="label-item fullnameof-opening-bank">
                 <span class="item-desc required"><em></em>开户行全称 :</span> 
-                <input class="item-openingbank-name"/>
+                <input class="item-openingbank-name" value="{{financeAccountInfo.bankBranchName}}" {{financeAccountInfo.isEdit?'':'disabled'}}/>
                 <p class="openingbank-name-tip">
                     <span>格式：银行+省+市+分行全名</span>
                     <span>示例：招商银行广东深圳软件园支行</span>
@@ -181,7 +210,7 @@
             </div>
              <p class="label-item receiving-bank-card-number">
                 <span class="item-desc required"><em></em>收款银行卡号 :</span> 
-                <input class="item-openingbank-name" placeholder="请输入银行卡卡号"/>
+                <input class="item-openingbank-num" placeholder="请输入银行卡卡号" value="{{financeAccountInfo.bankAccountNo}}" {{financeAccountInfo.isEdit?'':'disabled'}}/>
             </p>
 
             <p class="label-item financial-records-btn">
