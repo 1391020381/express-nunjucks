@@ -16,7 +16,7 @@ define(function (require, exports, module) {
             visitId = method.getCookie(name);
         // 过有效期-重新请求
         if (!visitId) {
-            method.get('/gateway/user/getVisitorId', function (response) {
+            method.get('http://ishare.gateway.api.pc:8769/gateway/user/getVisitorId', function (response) {
                 if (response.code == 0 && response.data) {
                     method.setCookieWithExp(name, response.data, expires, '/');
                 }

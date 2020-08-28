@@ -11,7 +11,6 @@
     <meta name="applicable-device" content="mobile">   
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta http-equiv="Content-Type" content="text/html; charset="UTF-8" />
 </head>
 <script type="text/javascript">
     var _speedMark = + new Date();
@@ -38,9 +37,7 @@
          $(function(){
             var redirectUrl=getParam('redirectUrl');//跳转的地址
             if(redirectUrl){
-                setTimeout(function(){
-                    window.location.replace(decodeURIComponent(redirectUrl));
-                },5000)
+                window.location.replace(decodeURIComponent(redirectUrl));
             }
          })
 
