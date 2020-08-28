@@ -127,6 +127,8 @@ define(function (require, exports, module) {
             editFinanceAccount: gateway + '/account/finance/edit', // 编辑用户财务信息
             getFinanceAccountInfo:gateway + '/account/finance/getInfo', // 查询用户财务信息
            getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
+           getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
+           getMyWalletList: gateway + '/settlement/settle/getMyWalletList' // 我的钱包收入
         }
     }
 });

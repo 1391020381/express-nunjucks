@@ -2083,6 +2083,7 @@
   border-radius: 4px;
   font-size: 18px;
   color: #F25125;
+  cursor: pointer;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-application-dialog-tip {
   margin-left: 80px;

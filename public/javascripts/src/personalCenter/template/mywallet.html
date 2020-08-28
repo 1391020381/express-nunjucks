@@ -65,10 +65,10 @@
                         {{ if list.length>0}}
                             {{ each list}}
                             <tr class="suervery-table-item">
-                                <td>12387645678</td>
-                                <td>30.00</td>
-                                <td>2020-02-22至2020-08-12</td>
-                                <td>已入账</td>
+                                <td>{{list[$index].batchNo}}</td>
+                                <td>{{list[$index].totalTransactionAmount}}</td>
+                                <td>{{list[$index].settleStartDate}}至{{list[$index].settleEndDate}}</td>
+                                <td>{{list[$index].statusDesc}}</td>
                                 <td>
                                     <span class="export-details-btn">导出明细</span></td>
                             </tr>
@@ -115,23 +115,13 @@
                 {{ if list.length>0}}
                     {{each list}}
                     <tr class="withdrawal-record-table-item">
-                        <td>1234567891234</td>
-                        <td>2020-02-09</td>
-                        <td>20.00</td>
-                        <td>5.00</td>
-                        <td>6.00</td>
-                        <td>审核中</td>
-                        <td>300.00</td>
-                    </tr>
-
-                    <tr class="withdrawal-record-table-item">
-                        <td>1234567891234</td>
-                        <td>2020-02-09</td>
-                        <td>20.00</td>
-                        <td>5.00</td>
-                        <td>6.00</td>
-                        <td>审核不通过</td>
-                        <td>300.00</td>
+                        <td>{{list[$index].withdrawId}}</td>
+                        <td>{{list[$index].withdrawTime}}</td>
+                        <td>{{list[$index].withdrawPrice}}</td>
+                        <td>{{list[$index].holdingTaxPrice}}</td>
+                        <td>{{list[$index].transferTax}}</td>
+                        <td>{{list[$index].auditStatusDesc}}</td>
+                        <td>{{list[$index].finalPrice}}</td>
                     </tr>
                 {{/each}}
             {{else}}
