@@ -239,11 +239,7 @@
 }
 .personal-center-mywallet .mywallet .financial-records-content .label-item .required em {
   position: absolute;
-  top: 4px;
-  width: 6px;
-  height: 6px;
-  border-radius: 3px;
-  background: red;
+  color: red;
 }
 .personal-center-mywallet .mywallet .financial-records-content .certification-type .item-content {
   font-size: 14px;

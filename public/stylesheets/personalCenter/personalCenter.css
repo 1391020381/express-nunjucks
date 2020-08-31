@@ -1490,11 +1490,7 @@
 }
 .personal-center-mywallet .mywallet .financial-records-content .label-item .required em {
   position: absolute;
-  top: 4px;
-  width: 6px;
-  height: 6px;
-  border-radius: 3px;
-  background: red;
+  color: red;
 }
 .personal-center-mywallet .mywallet .financial-records-content .certification-type .item-content {
   font-size: 14px;
@@ -1958,10 +1954,8 @@
   color: #666666;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .withdrawal-amount-title em {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: red;
+  margin-right: 2px;
+  color: red;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .amount {
   margin-left: 10px;

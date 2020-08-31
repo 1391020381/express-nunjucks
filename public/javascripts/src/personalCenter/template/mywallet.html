@@ -152,7 +152,7 @@
                 <span class="item-desc">开户名:</span> <span class="item-content">{{financeAccountInfo.bankAccountName}}</span>
             </p>
              <p class="label-item placeof-account-opening">
-                <span class="item-desc required"><em></em>开户地 :</span> 
+                <span class="item-desc required"><em>*</em>开户地 :</span> 
                 <select class="item-province" placeholder="请选择" value="{{financeAccountInfo.province}}" {{financeAccountInfo.isEdit?'':'disabled'}}>
                        {{ if financeAccountInfo.province}}
                    {{each provinceList}}
@@ -180,7 +180,7 @@
                 </select>
             </p>
            <p class="label-item receiving-bank">
-                <span class="item-desc required"><em></em>收款银行 :</span> 
+                <span class="item-desc required"><em>*</em>收款银行 :</span> 
                 <select class="item-bank" {{financeAccountInfo.isEdit?'':'disabled'}}>
                     <option>
                          {{each bankList}}
@@ -191,7 +191,7 @@
                 <input class="item-bank-name" placeholder="请输入收款银行名称" {{financeAccountInfo.isEdit?'':'disabled'}}/>
             </p>
              <div class="label-item fullnameof-opening-bank">
-                <span class="item-desc required"><em></em>开户行全称 :</span> 
+                <span class="item-desc required"><em>*</em>开户行全称 :</span> 
                 <input class="item-openingbank-name" value="{{financeAccountInfo.bankBranchName}}" {{financeAccountInfo.isEdit?'':'disabled'}}/>
                 <p class="openingbank-name-tip">
                     <span>格式：银行+省+市+分行全名</span>
@@ -199,7 +199,7 @@
                 </p>
             </div>
              <p class="label-item receiving-bank-card-number">
-                <span class="item-desc required"><em></em>收款银行卡号 :</span> 
+                <span class="item-desc required"><em>*</em>收款银行卡号 :</span> 
                 <input class="item-openingbank-num" placeholder="请输入银行卡卡号" value="{{financeAccountInfo.bankAccountNo}}" {{financeAccountInfo.isEdit?'':'disabled'}}/>
             </p>
 

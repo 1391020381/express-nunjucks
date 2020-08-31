@@ -368,10 +368,8 @@
   color: #666666;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .withdrawal-amount-title em {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: red;
+  margin-right: 2px;
+  color: red;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .amount {
   margin-left: 10px;
