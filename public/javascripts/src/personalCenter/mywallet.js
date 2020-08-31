@@ -305,8 +305,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                    console.log('exportMyWalletDetail:',res)
-                  
+                    console.log('exportMyWalletDetail:',res)  
                }else{
                 $.toast({
                     text:res.msg,
@@ -545,6 +544,13 @@ define(function (require, exports, module) {
         upload()
        })
    
+    $(document).on('click','.survey-content .export-details-btn',function(e){
+     var id  =  $(this).attr("data-id")
+     $("#dialog-box").dialog({
+        html: $('#send-email-dialog').html(),
+        'closeOnClickModal':false
+    }).open();
+    })   
     function upload(){
         var E = Q.event,
         Uploader = Q.Uploader;
