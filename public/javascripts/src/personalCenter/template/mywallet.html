@@ -13,19 +13,28 @@
             </li>
         </ul>
         {{if mywalletType == '1'}}
-            <p class="mywallet-balance">
-                <span class="balance-title">钱包余额</span>
-                <span class="balance-icon"></span>
-                <span class="balance-sum">19.90</span>
+            <div class="mywallet-balance">
+                <div class="balance-summary">
+                   <span class="balance-title">钱包余额</span>
+                   <span class="balance-icon"></span>
+                   <span class="balance-sum">19.90</span>
+                <div class="balance-summary-tip">
+                                    <div class="balance-summary-tip-con">
+                                        <i class="before"></i>
+                                        <i class="after"></i>
+                                        <p class="balance-summary-tip-txt">钱包余额需大于100元才能发起提现</p>
+                                    </div>
+                  </div>  
+                </div>
                 <span class="balance-unit">元<span>
                         <span class="balance-reflect">申请提现</span>
-                    </p>
+                    </div>
         {{/if}}
 
         {{if mywalletType == '2'}}
                     <p class="mywallet-withdrawal-record">
                         <span class="withdrawal-record-icon"></span>
-                        <span class="withdrawal-record-desc">结算规则须知></span>
+                        <a class="withdrawal-record-desc" href="https://iask.sina.com.cn/helpCenter/5f4476a5474e31015362e167.html" target="_blank">结算规则须知></a>
                     </p>
         {{/if}}
 
