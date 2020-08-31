@@ -44,8 +44,9 @@
   display: block;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip {
+  display: none;
   position: absolute;
-  right: -138px;
+  right: -131px;
   top: -40px;
   width: 250px;
   height: 40px;
@@ -61,23 +62,23 @@
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con .before {
   width: 0;
   height: 0;
-  border-top: 8px solid rgba(204, 204, 204, 0.6);
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid transparent;
-  position: absolute;
-  bottom: -17px;
-  left: 15px;
-}
-.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con .after {
-  width: 0;
-  height: 0;
-  border-top: 8px solid rgba(204, 204, 204, 0.6);
+  border-top: 8px solid #f7e9d5;
   border-right: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 8px solid transparent;
   position: absolute;
   bottom: -16px;
+  left: 15px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con .after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid #f8f8f8;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  position: absolute;
+  bottom: -15px;
   left: 15px;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-title {

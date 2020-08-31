@@ -50,8 +50,9 @@
                     }
 
                     .balance-summary-tip {
+                        display: none;
                         position: absolute;
-                        right: -138px;
+                        right: -131px;
                         top: -40px;
                         width: 250px;
                         height: 40px;
@@ -67,23 +68,24 @@
                             .before {
                                 width: 0;
                                 height: 0;
-                                border-top: 8px solid rgba(204, 204, 204, 0.6);
-                                border-right: 8px solid transparent;
-                                border-bottom: 8px solid transparent;
-                                border-left: 8px solid transparent;
-                                position: absolute;
-                                bottom: -17px;
-                                left: 15px;
-                            }
-                            .after{
-                                width: 0;
-                                height: 0;
-                                border-top: 8px solid rgba(204, 204, 204, 0.6);
+                                border-top: 8px solid #f7e9d5;
                                 border-right: 8px solid transparent;
                                 border-bottom: 8px solid transparent;
                                 border-left: 8px solid transparent;
                                 position: absolute;
                                 bottom: -16px;
+                                left: 15px;
+                            }
+
+                            .after {
+                                width: 0;
+                                height: 0;
+                                border-top: 8px solid #f8f8f8;
+                                border-right: 8px solid transparent;
+                                border-bottom: 8px solid transparent;
+                                border-left: 8px solid transparent;
+                                position: absolute;
+                                bottom: -15px;
                                 left: 15px;
                             }
                         }
@@ -318,9 +320,10 @@
         .mywallet-financial-records {
             margin-top: 20px;
             margin-bottom: 30px;
-            .financial-records-icon{
+
+            .financial-records-icon {
                 display: inline-block;
-                width:14px;
+                width: 14px;
                 height: 14px;
                 background: url(../../images/personalCenter/question-mark.png) no-repeat center;
                 background-size: 100%;
