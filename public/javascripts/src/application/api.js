@@ -128,7 +128,8 @@ define(function (require, exports, module) {
             getFinanceAccountInfo:gateway + '/account/finance/getInfo', // 查询用户财务信息
            getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
            getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
-           getMyWalletList: gateway + '/settlement/settle/getMyWalletList' // 我的钱包收入
+           getMyWalletList: gateway + '/settlement/settle/getMyWalletList', // 我的钱包收入
+           exportMyWalletDetail:gateway + '/settlement/settle/exportMyWalletDetail'  // 我的钱包明细导出
         }
     }
 });

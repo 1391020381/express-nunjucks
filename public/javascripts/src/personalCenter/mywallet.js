@@ -123,12 +123,6 @@ define(function (require, exports, module) {
     function initCallback(){
        getUserCentreInfo()
        if(mywalletType  == '1'){
-        $(document).on('click','.balance-reflect',function(e){
-            $("#dialog-box").dialog({
-                html: $('#withdrawal-application-dialog').html(),
-                'closeOnClickModal':false
-            }).open();
-           })
            var params = {
                currentPage:1,
                pageSize:20,
@@ -296,7 +290,39 @@ define(function (require, exports, module) {
             }
         })
     }
-
+    function exportMyWalletDetail(id,email){ // 我的钱包明细导出
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.mywallet.exportMyWalletDetail,
+            type: "POST",
+            data: JSON.stringify({
+                id:currentPage || 1,
+                email:''
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    console.log('exportMyWalletDetail:',res)
+                  
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+               }
+            },
+            error:function(error){
+              
+                $.toast({
+                    text:error.msg||'我的钱包明细导出失败',
+                    delay : 3000,
+                })
+            }
+        })
+    }
    function handleWithdrawalRecordData(res){
     var list = []
     res = withdrawalRecordData
@@ -510,13 +536,21 @@ define(function (require, exports, module) {
         closeRewardPop()
     })
 
+    $(document).on('click','.balance-reflect',function(e){
+        $("#dialog-box").dialog({
+            html: $('#withdrawal-application-dialog').html(),
+            'closeOnClickModal':false
+        }).open();
 
+        upload()
+       })
+   
     function upload(){
         var E = Q.event,
         Uploader = Q.Uploader;
         var uploader = new Uploader({
             url:location.protocol+"//upload.ishare.iask.com/ishare-upload/fileUpload",
-            target: [document.getElementById("upload-target"), document.getElementById("upload-target2")],
+            target: [document.getElementById("upload-target"), document.getElementById("upload-target1"),document.getElementById("upload-target2")],
             upName:'file',
             dataType: "application/json",
             multiple: true,
