@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var isLogin = require('../application/effect.js').isLogin
     var api = require('../application/api');
     var method = require("../application/method"); 
-
+    var walletDetailsId = ''
     require("../cmd-lib/upload/Q");
     require("../cmd-lib/upload/Q.Uploader");
 
@@ -545,12 +545,16 @@ define(function (require, exports, module) {
        })
    
     $(document).on('click','.survey-content .export-details-btn',function(e){
-     var id  =  $(this).attr("data-id")
+    walletDetailsId  =  $(this).attr("data-id")
      $("#dialog-box").dialog({
         html: $('#send-email-dialog').html(),
         'closeOnClickModal':false
     }).open();
     })   
+    $(document).on('click','.send-email-dialog .submit-btn',function(e){
+
+        exportMyWalletDetail(walletDetailsId,email) 
+    })
     function upload(){
         var E = Q.event,
         Uploader = Q.Uploader;
