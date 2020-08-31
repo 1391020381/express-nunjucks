@@ -20,6 +20,8 @@ define(function (require, exports, moudle) {
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
     var checkStatus =   window.pageConfig.params.checkStatus||'10'
     var isLogin = require('../application/effect.js').isLogin;
+    var expires_in = 60 // 支付二维码过期时间
+    var timer = null   // 定时器
     var isAutoLogin = true;
     var callback = null;
     isLogin(initPage,isAutoLogin,initPage);
@@ -63,6 +65,9 @@ define(function (require, exports, moudle) {
                 try {
                     qr.createQrCode(url, 'pay-qr-code', 180, 180);
                     $(".btn-qr-show-success").click();
+                    $('.pay-qrcode-loading').hide()
+                    isShowQrInvalidtip(false)
+                    countdown()
                     // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
                 } catch (e) {
                     console.log("生成二维码异常");
@@ -91,6 +96,34 @@ define(function (require, exports, moudle) {
         }
     });
    }
+   
+   function countdown() {  // 二维码失效倒计时
+    if(expires_in <=0){
+        clearTimeout(timer)
+        expires_in = 60
+        $('.pic-pay-code .pay-qrcode-loading').hide()
+        isShowQrInvalidtip(true)
+    }else{
+        expires_in--
+        timer =  setTimeout(countdown, 1000);
+    }
+}
+
+function isShowQrInvalidtip(flag){ // 
+    if(flag){
+        $('.pic-pay-code .pay-qrcode-expire').show()
+        $('.pic-pay-code .pay-qrcode-invalidtip').show()
+        $('.pic-pay-code .pay-qrcode-refresh').show()
+    }else{
+        $('.pic-pay-code .pay-qrcode-expire').hide()
+        $('.pic-pay-code .pay-qrcode-invalidtip').hide()
+        $('.pic-pay-code .pay-qrcode-refresh').hide()   
+    }
+}
+
+$(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
+    initPage(userInfo)
+})
     var fid = window.pageConfig.params.g_fileId;
     if (!fid) {
         fid = method.getParam('fid');
