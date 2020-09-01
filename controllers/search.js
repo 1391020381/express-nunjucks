@@ -26,22 +26,22 @@ module.exports = {
                 server.get(appConfig.apiBasePath + Api.search.byCondition, callback, req);
 
             },
-            words: function (callback) {
+            // words: function (callback) {
 
-                var newReq = {};
-                // for (var key in req) {
-                //     newReq[key] = req[key];
-                // }
-                // newReq.query = { cond: newReq.query.cond };
+            //     var newReq = {};
+            //     // for (var key in req) {
+            //     //     newReq[key] = req[key];
+            //     // }
+            //     // newReq.query = { cond: newReq.query.cond };
 
-                if (req.query.cond) {
-                    req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
-                }
-                var cond = req.query.cond || ''
-                // console.log('cond:',cond)
-                req.query = Object.assign({},req.query,{ cond: cond });
-                server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, req);
-            }
+            //     if (req.query.cond) {
+            //         req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
+            //     }
+            //     var cond = req.query.cond || ''
+            //     // console.log('cond:',cond)
+            //     req.query = Object.assign({},req.query,{ cond: cond });
+            //     server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, req);
+            // }
 
         }, function (err, results) {
             // console.log(req.query, 'req.query');
