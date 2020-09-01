@@ -16,6 +16,10 @@ define(function (require, exports, module) {
     var  areaData = require('../common/area.js')
     var  bankData = require('../common/bankData.js')
     var closeRewardPop = require('./dialog').closeRewardPop
+    var invoicePicture =  {}    // 发票照片信息
+    var balance = ''      // 账号余额
+    var canWithPrice = '' // 提现余额
+    var financeAccountInfo = {}   // 财务信息
     var provinceList = []
     var cityList = []
     var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
@@ -131,6 +135,8 @@ define(function (require, exports, module) {
            }
            handleMyWalletListData()
            getMyWalletList(params)
+           getAccountBalance()
+           getFinanceAccountInfo() // 查询用户财务信息 , 当 提现按钮可点击时,财务信息不完成，需要先补充财务信息
           
        }   
         if(mywalletType == '2'){
@@ -152,8 +158,11 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                    
+                     balance = res.data.balance?(res.data.balance/100).toFixed(2):0
+                     canWithPrice = res.data.canWithPrice?(res.data.canWithPrice/100).toFixed(2):0
+                     $('.mywallet .balance-sum').text(balance)
                }else{
+                $('.mywallet .balance-sum').text(0)
                 $.toast({
                     text:res.msg,
                     delay : 3000,
@@ -335,7 +344,7 @@ define(function (require, exports, module) {
         
         list.push(item)
     })
-    var _mywalletTemplate = template.compile(mywallet)({list:list,mywalletType:mywalletType});
+    var _mywalletTemplate = template.compile(mywallet)({list:list||[],mywalletType:mywalletType});
     $('.personal-center-mywallet').html(_mywalletTemplate)
     handlePagination(res.data.totalPages,res.data.currentPage) 
     }
@@ -361,8 +370,7 @@ define(function (require, exports, module) {
         
     }
     
-   function getFinanceAccountInfo(){
-    handleFinanceAccountInfo()  
+   function getFinanceAccountInfo(){ // 查询个人财务信息
     $.ajax({
         headers:{
             'Authrization':method.getCookie('cuk')
@@ -373,13 +381,17 @@ define(function (require, exports, module) {
         dataType: "json",
         success: function (res) {
            if(res.code == '0'){
-                
+            financeAccountInfo = res.data
+            if(mywalletType == '3'){
+                handleFinanceAccountInfo(res)  
+            }
            }else{
             $.toast({
                 text:res.msg,
                 delay : 3000,
             }) 
            }
+           handleFinanceAccountInfo({})  
         },
         error:function(error){
             console.log('queryUserBindInfo:',error)
@@ -438,7 +450,7 @@ define(function (require, exports, module) {
         })
        }
 
-    function editFinanceAccount(params){
+    function editFinanceAccount(params){  // 编辑个人财务信息
         $.ajax({
             headers:{
                 'Authrization':method.getCookie('cuk')
@@ -536,12 +548,31 @@ define(function (require, exports, module) {
     })
 
     $(document).on('click','.balance-reflect',function(e){
-        $("#dialog-box").dialog({
-            html: $('#withdrawal-application-dialog').html(),
-            'closeOnClickModal':false
-        }).open();
-
-        upload()
+        var financeaccountinfoIsComplete = financeAccountInfo.bankAccountName&&financeAccountInfo.bankAccountNo&&financeAccountInfo.province&&financeAccountInfo.city&&financeAccountInfo.bankName&&financeAccountInfo.bankBranchName&&financeAccountInfo.userTypeName?true:false
+        balance = 200
+        if(balance&&+balance>100){
+            if(financeaccountinfoIsComplete){
+                $("#dialog-box").dialog({
+                    html: $('#withdrawal-application-dialog').html(),
+                    'closeOnClickModal':false
+                }).open();
+                uploadfile()
+            }else{
+                $("#dialog-box").dialog({
+                    html: $('#go2FinanceAccount-dialog').html(),
+                    'closeOnClickModal':false
+                }).open(); 
+            }
+           
+        }else{
+            $.toast({
+                text:'账户余额大于100元才可以提现',
+                icon:'',
+                delay : 2000,
+                callback:false
+            })
+        }
+      
        })
    
     $(document).on('click','.survey-content .export-details-btn',function(e){
@@ -555,35 +586,20 @@ define(function (require, exports, module) {
 
         exportMyWalletDetail(walletDetailsId,email) 
     })
-    function upload(){
+    function uploadfile(){
         var E = Q.event,
         Uploader = Q.Uploader;
         var uploader = new Uploader({
-            url:location.protocol+"//upload.ishare.iask.com/ishare-upload/fileUpload",
-            target: [document.getElementById("upload-target"), document.getElementById("upload-target1"),document.getElementById("upload-target2")],
+            url:location.protocol+"//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
+            target: [document.getElementById('upload-target')],
             upName:'file',
             dataType: "application/json",
-            multiple: true,
-            // workerThread:20,
-            // view: document.getElementById("upload-view"),
-            allows: ".pdf,.ppt,.pptx,.txt,.xls,.xlsx,.doc,.docx", //允许上传的文件格式
-            maxSize: 50 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
+            multiple: false,
+            data: {fileCatalog:'ishare'},
+            allows: ".jpg,.jpeg,.gif,.png", //允许上传的文件格式
+            maxSize: 3 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
             //每次上传都会发送的参数(POST方式)
-            /*
-                上传回调事件：
-                init,          //上传管理器初始化完毕后触发
-                select,        //点击上传按钮准备选择上传文件之前触发,返回false可禁止选择文件
-                add[Async],    //添加任务之前触发,返回false将跳过该任务
-                upload[Async], //上传任务之前触发,返回false将跳过该任务
-                send[Async],   //发送数据之前触发,返回false将跳过该任务
-                cancel,        //取消上传任务后触发
-                remove,        //移除上传任务后触发
-                progress,      //上传进度发生变化后触发(仅html5模式有效)
-                complete       //上传完成后触发
-            */
             on: {
-                init: function(){
-                },
                 //添加之前触发
                 add: function (task) {
                     //task.limited存在值的任务不会上传，此处无需返回false
@@ -592,91 +608,33 @@ define(function (require, exports, module) {
                             text: "不支持此格式上传",
                         });
                         case 'size': return $.toast({
-                            text: "资料过大，请压缩后重新上传",
+                            text: "资料不能超过3M",
                         }); 
                     }
-                    //自定义判断，返回false时该文件不会添加到上传队列
-                    //userFileType 1 免费 5 付费 6 私有
-                    if (uploadObj.uploadFiles.length>19) {
-                        return false;
-                    }
-                    var ext = task.ext.split('.')[1];
-                    var obj = {ext:ext,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
-                    uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
-                   
-                    $('.secondStep').show();
-                    $('.firstStep').hide();
-                    // console.log(uploadObj.uploadFiles);
+                    
                     // console.log(task)
-                    // console.log('&&&&&&&&&&&&&&&&&&&')
-                    uploadObj.publicFileRener()
-                },
-                //任务移除后触发
-                remove: function (task) {
-                    console.log(task.name + ": 已移除!");
-                },
-                //上传之前触发
-                upload: function (task) {
-                    //exe文件可以添加，但不会上传
-                    if (task.ext == ".exe") return false;
-                   
-                },
-                // 上传进度
-                progress:function(task){
-                    //total  ： 总上传数据(byte)
-                    //loaded ： 已上传数据(byte)
-                    // console.log('上传中。。。。')
-                    // console.log(loaded/total)
+                    //自定义判断，返回false时该文件不会添加到上传队列
                 },
                 //上传完成后触发
                 complete: function (task) {
+                    if(task.limited) {
+                        return false;
+                    }
                     var res = JSON.parse(task.response);
-                    uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail,res.data.success);
-                    //this.list  为上传任务列表
-                    //this.index 为当前上传任务索引
-                    //uploadStatus 1成功 2失败
-                    if (res.data.fail.length>0) {
-                        uploadObj.uploadFiles.forEach(function(item){
-                            if (item.fileName ==res.data.fail[0].fileName && item.size == res.data.success[0].size) {
-                                item.uploadStatus = 2;
-                            }
+                    if(res.data&&res.data.picKey){
+                         $('.img-preview .img').attr('src',res.data.preUrl + res.data.picKey)
+                         $('.img-preview .re-upload').text('重新上传')
+                    }else{
+                        $.toast({
+                            text:'上传失败，重新上传',
+                            icon:'',
+                            delay : 2000,
+                            callback:false
                         })
-                    }
-                    if (res.data.success.length>0) {
-                        uploadObj.uploadFiles.forEach(function(item){
-                            if (item.fileName ==res.data.success[0].fileName && item.size == res.data.success[0].size ) {
-                                item.uploadStatus = 1;
-                                item.path = res.data.success[0].path;
-                                item.extension = res.data.success[0].extension;
-                            }
-                        })
-                    }
-                    
-                    uploadObj.publicFileRener()
-                    if (this.index >= this.list.length - 1) {
-                        //所有任务上传完成
-                        // console.log(uploadObj.uploadFiles)
-                        // console.log("所有任务上传完成：" + new Date());
                     }
                 }
             }
         });
-        var boxDropArea = document.getElementById("drop-area");
-        if (!Uploader.support.html5) {
-            $('.dratTip').text("您的浏览器不支持拖拽文件上传！")
-            return;
-        }
-
-        //阻止浏览器默认拖放行为
-        E.add(boxDropArea, "dragleave", E.stop);
-        E.add(boxDropArea, "dragenter", E.stop);
-        E.add(boxDropArea, "dragover", E.stop);
-
-        E.add(boxDropArea, "drop", function (e) {
-            E.stop(e);
-            //获取文件对象
-            var files = e.dataTransfer.files;
-            uploader.addList(files);
-        });
+       
     }
 });
