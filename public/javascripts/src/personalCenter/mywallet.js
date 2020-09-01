@@ -549,7 +549,7 @@ define(function (require, exports, module) {
 
     $(document).on('click','.balance-reflect',function(e){
         var financeaccountinfoIsComplete = financeAccountInfo.bankAccountName&&financeAccountInfo.bankAccountNo&&financeAccountInfo.province&&financeAccountInfo.city&&financeAccountInfo.bankName&&financeAccountInfo.bankBranchName&&financeAccountInfo.userTypeName?true:false
-        balance = 200
+        // balance = 200
         if(balance&&+balance>100){
             if(financeaccountinfoIsComplete){
                 $("#dialog-box").dialog({
