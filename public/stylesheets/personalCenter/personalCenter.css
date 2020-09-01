@@ -2126,6 +2126,29 @@
   color: #fff;
   cursor: pointer;
 }
+.personal-center-dialog .go2FinanceAccount-dialog {
+  width: 420px;
+  margin-bottom: 30px;
+}
+.personal-center-dialog .go2FinanceAccount-dialog .title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #333;
+  padding-top: 28px;
+}
+.personal-center-dialog .go2FinanceAccount-dialog .go2FinanceAccount-btn {
+  width: 150px;
+  height: 40px;
+  background-color: #ee4b28;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 4px;
+  margin: 0 auto;
+  margin-top: 30px;
+  color: #fff;
+  cursor: pointer;
+}
 .personal-center-content {
   display: table;
   margin-top: 20px;

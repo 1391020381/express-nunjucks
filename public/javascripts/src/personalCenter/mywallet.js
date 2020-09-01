@@ -17,6 +17,9 @@ define(function (require, exports, module) {
     var  bankData = require('../common/bankData.js')
     var closeRewardPop = require('./dialog').closeRewardPop
     var invoicePicture =  {}    // 发票照片信息
+    var balance = ''      // 账号余额
+    var canWithPrice = '' // 提现余额
+    var financeAccountInfo = {}   // 财务信息
     var provinceList = []
     var cityList = []
     var specialCity = ['北京市','天津市','重庆市','上海市','澳门','香港']
@@ -133,6 +136,7 @@ define(function (require, exports, module) {
            handleMyWalletListData()
            getMyWalletList(params)
            getAccountBalance()
+           getFinanceAccountInfo() // 查询用户财务信息 , 当 提现按钮可点击时,财务信息不完成，需要先补充财务信息
           
        }   
         if(mywalletType == '2'){
@@ -154,8 +158,11 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                    
+                     balance = res.data.balance?(res.data.balance/100).toFixed(2):0
+                     canWithPrice = res.data.canWithPrice?(res.data.canWithPrice/100).toFixed(2):0
+                     $('.mywallet .balance-sum').text(balance)
                }else{
+                $('.mywallet .balance-sum').text(0)
                 $.toast({
                     text:res.msg,
                     delay : 3000,
@@ -337,7 +344,7 @@ define(function (require, exports, module) {
         
         list.push(item)
     })
-    var _mywalletTemplate = template.compile(mywallet)({list:list,mywalletType:mywalletType});
+    var _mywalletTemplate = template.compile(mywallet)({list:list||[],mywalletType:mywalletType});
     $('.personal-center-mywallet').html(_mywalletTemplate)
     handlePagination(res.data.totalPages,res.data.currentPage) 
     }
@@ -363,8 +370,7 @@ define(function (require, exports, module) {
         
     }
     
-   function getFinanceAccountInfo(){
-    handleFinanceAccountInfo()  
+   function getFinanceAccountInfo(){ // 查询个人财务信息
     $.ajax({
         headers:{
             'Authrization':method.getCookie('cuk')
@@ -375,13 +381,17 @@ define(function (require, exports, module) {
         dataType: "json",
         success: function (res) {
            if(res.code == '0'){
-                
+            financeAccountInfo = res.data
+            if(mywalletType == '3'){
+                handleFinanceAccountInfo(res)  
+            }
            }else{
             $.toast({
                 text:res.msg,
                 delay : 3000,
             }) 
            }
+           handleFinanceAccountInfo({})  
         },
         error:function(error){
             console.log('queryUserBindInfo:',error)
@@ -440,7 +450,7 @@ define(function (require, exports, module) {
         })
        }
 
-    function editFinanceAccount(params){
+    function editFinanceAccount(params){  // 编辑个人财务信息
         $.ajax({
             headers:{
                 'Authrization':method.getCookie('cuk')
@@ -538,12 +548,31 @@ define(function (require, exports, module) {
     })
 
     $(document).on('click','.balance-reflect',function(e){
-        $("#dialog-box").dialog({
-            html: $('#withdrawal-application-dialog').html(),
-            'closeOnClickModal':false
-        }).open();
-
-        uploadfile()
+        var financeaccountinfoIsComplete = financeAccountInfo.bankAccountName&&financeAccountInfo.bankAccountNo&&financeAccountInfo.province&&financeAccountInfo.city&&financeAccountInfo.bankName&&financeAccountInfo.bankBranchName&&financeAccountInfo.userTypeName?true:false
+        balance = 200
+        if(balance&&+balance>100){
+            if(financeaccountinfoIsComplete){
+                $("#dialog-box").dialog({
+                    html: $('#withdrawal-application-dialog').html(),
+                    'closeOnClickModal':false
+                }).open();
+                uploadfile()
+            }else{
+                $("#dialog-box").dialog({
+                    html: $('#go2FinanceAccount-dialog').html(),
+                    'closeOnClickModal':false
+                }).open(); 
+            }
+           
+        }else{
+            $.toast({
+                text:'账户余额大于100元才可以提现',
+                icon:'',
+                delay : 2000,
+                callback:false
+            })
+        }
+      
        })
    
     $(document).on('click','.survey-content .export-details-btn',function(e){
