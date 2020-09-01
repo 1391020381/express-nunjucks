@@ -61,14 +61,6 @@ define(function (require, exports, module) {
                 successReload(data);
             });
         }
-        // if (!method.getCookie('cuk') && !userData) {
-        //     login.notifyLoginInterface(function (data) {
-        //         userData = data;
-        //         initData.isVip = parseInt(data.isVip, 10);
-        //         refreshDomTree(data);
-        //         successReload(data);
-        //     })
-        // }
     }
 
     //游客购买成功绑定购买记录

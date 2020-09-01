@@ -11,12 +11,12 @@ module.exports = {
         fileDetail: '/content/getFileDetail',
         getFileDetailNoTdk: '/content/getFileDetailNoTdk',
         // 文档详情扩展的信息（统计）
-        fileExternal: '/fileSync/statistics/$fid',
+        // fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
         navCategory:'/content/category/navCategory',
         // 相关资料 (右侧)
-        fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
+        // fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表
         commentList: '/file/getComments?fid=$fid',
         // 限制预读页数
@@ -45,8 +45,8 @@ module.exports = {
         status: '/order/status/$orderNo',           //订单状态
         orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
-        sms: '/usermanage/getSmsYzCode',            //发送验证码
-        bind: '/usermanage/bindMobile',              //绑定手机号
+        // sms: '/usermanage/getSmsYzCode',            //发送验证码
+        // bind: '/usermanage/bindMobile',              //绑定手机号
         bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点

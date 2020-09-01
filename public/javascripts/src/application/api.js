@@ -13,16 +13,15 @@ define(function (require, exports, module) {
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
-            login: router + '/usermanage/checkLogin',
+            // login: router + '/usermanage/checkLogin',
             // 登出
             loginOut: gateway + '/cas/login/logout',
             // 我的收藏
-            collect: router + '/usermanage/collect',
             newCollect:gateway+'/content/collect/getUserFileList',
             // 透传老系统web登录信息接口
-            getJessionId: router + '/usermanage/getJessionId',
+            // getJessionId: router + '/usermanage/getJessionId',
             //优惠券提醒
-            getSessionInfo: router + '/usermanage/getSessionInfo',
+            // getSessionInfo: router + '/usermanage/getSessionInfo',
             addFeedback:gateway+'/feedback/addFeedback', //新增反馈
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
@@ -44,40 +43,40 @@ define(function (require, exports, module) {
         },
         normalFileDetail: {
             // 添加评论
-            addComment: router + '/fileSync/addComment',
+            // addComment: router + '/fileSync/addComment',
             // 举报
-            reportContent: router + '/fileSync/addFeedback',
+            // reportContent: router + '/fileSync/addFeedback',
             // 是否已收藏
-            isStore: router + '/fileSync/getFileCollect',
+            // isStore: router + '/fileSync/getFileCollect',
             // 取消或者关注
-            collect: router + '/fileSync/collect',
+            // collect: router + '/fileSync/collect',
             // 文件预下载
             filePreDownLoad: gateway + '/content/getPreFileDownUrl',
             // 文件下载
-            fileDownLoad: router + '/action/downloadUrl',  
+            // fileDownLoad: router + '/action/downloadUrl',  
             // 下载获取地址接口
             getFileDownLoadUrl: gateway + '/content/getFileDownUrl',
             // 文件打分
-            appraise: router + '/fileSync/appraise',
+            // appraise: router + '/fileSync/appraise',
             // 文件预览判断接口
             getPrePageInfo: router + '/fileSync/prePageInfo',
             // 文件是否已下载
-            hasDownLoad: router + '/fileSync/isDownload'
+            // hasDownLoad: router + '/fileSync/isDownload'
         },
         officeFileDetail: {},
         search: {
             //搜索服务--API接口--运营位数据--异步
-            byPosition: router + '/operating/byPosition',
+            // byPosition: router + '/operating/byPosition',
             specialTopic: gateway + '/search/specialTopic/lisPage'   // 专题热点查询
         },
         sms: {
             // 获取短信验证码
-            getCaptcha: router + '/usermanage/getSmsYzCode',
+            // getCaptcha: router + '/usermanage/getSmsYzCode',
             sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail'
         },
         pay: {
             // 购买成功后,在页面自动下载文档
-            successBuyDownLoad: router + '/action/downloadNow',
+            // successBuyDownLoad: router + '/action/downloadNow',
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo'

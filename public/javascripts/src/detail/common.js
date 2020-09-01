@@ -126,22 +126,22 @@ define(function (require, exports, module) {
     /**
      * 查询是否已经收藏
      */
-    var queryStoreFlag = function () {
-        method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
-            if (res.code == 0) {
-                var $btn_collect = $('#btn-collect');
-                if (res.data === 1) {
-                    $btn_collect.addClass('btn-collect-success');
-                } else {
-                    $btn_collect.removeClass('btn-collect-success')
-                }
-            } else if (res.code == 40001) {
-                setTimeout(function () {
-                    method.delCookie('cuk', "/", ".sina.com.cn");
-                }, 0)
-            }
-        });
-    };
+    // var queryStoreFlag = function () {
+    //     method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
+    //         if (res.code == 0) {
+    //             var $btn_collect = $('#btn-collect');
+    //             if (res.data === 1) {
+    //                 $btn_collect.addClass('btn-collect-success');
+    //             } else {
+    //                 $btn_collect.removeClass('btn-collect-success')
+    //             }
+    //         } else if (res.code == 40001) {
+    //             setTimeout(function () {
+    //                 method.delCookie('cuk', "/", ".sina.com.cn");
+    //             }, 0)
+    //         }
+    //     });
+    // };
 
 
     /**

@@ -160,51 +160,14 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
-                    // 登陆后判断是否第一次登陆
-                    // login.getUserData(function (res) { // 新人优惠券已下架
-                    //     if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                    //      //   receiveCoupon(0, 2, res.userId)
-                    //     }
-                    // })
                 });
             }
         });
 
-        // 优惠券发放
-        // if (method.getCookie('cuk')) {
-        //     login.getUserData(function (res) {
-        //         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-        //             receiveCoupon(0, 2, res.userId);
-        //         }
-        //     })
-        // }
-
+   
         // 退出
         $('.btn-exit').on('click', function () {
             login.ishareLogout();
-        });
-        // 相关推荐—下一页按钮事件
-        $slider_control.find(".btn-next").on('click', function () {
-            $(".btn-prev").removeClass("btn-disable");
-            $(this).addClass("btn-disable");
-            relatedPage();
-        });
-        //关推荐—上一页按钮事件
-        $slider_control.find(".btn-prev").on('click', function () {
-            $(".btn-next").removeClass("btn-disable");
-            $(this).addClass("btn-disable");
-            relatedPage();
-        });
-        // 评论框获得焦点
-        $('#commentTxt').on('focus', function () {
-            if (method.getCookie('cuk')) {
-                login.getLoginData(function (data) {
-                    common.userData = data;
-                    if (!data.mobile) {
-                        login.notifyCheckInterface();
-                    }
-                });
-            }
         });
         $('#search-detail-input').on('focus', function () {
             $('.detail-search-info').hide();
@@ -216,40 +179,6 @@ define(function (require, exports, module) {
         // 显示举报窗口
         $('.report-link').on('click', function () {
             method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
-            // $("#dialog-box").dialog({
-            //     html: $('#report-file-box').html(),
-            // }).open();
-        });
-        // 提交举报内容
-        $('#dialog-box').on('click', '.report-as', function () {
-            var type = $("input[name='radio1']:checked").val();
-            if (type === '1') {
-                // window.location.href = '/feedAndComp/tort?type=1&pageUrl=' + window.location.href;
-                method.compatibleIESkip('/feedAndComp/tort?type=1&pageUrl=' + window.location.href,false);
-            } else {
-                if (!method.getCookie('cuk')) {
-                    $('#bgMask').hide();
-                    $('#dialog-box').hide();
-                    login.notifyLoginInterface(null);
-                } else {
-                    var content = $('#report-content').val();
-                    method.post(api.normalFileDetail.reportContent, function (res) {
-                        if (res.code == 0) {
-                            $("#dialog-box").dialog({
-                                html: $("#tpl-down-text").html().replace(/\$msg/, '举报成功'),
-                            }).open();
-                        }
-                    }, '', '', {
-                        type: type,
-                        content: content,
-                        pageUrl: window.location.href
-                    })
-                }
-            }
-        });
-        // 发表评论
-        $('#comment').on('click', function () {
-            commentArticle()
         });
         // 取消或者关注
         $('#btn-collect').on('click', function () {
@@ -261,42 +190,11 @@ define(function (require, exports, module) {
             }else{
                 var fid=$(this).attr('data-fid');
                 clickEvent($(this))
-                // if ($(this).hasClass('btn-collect-success')) {
-                //     collectFile(4)
-                // } else {
-                //     collectFile(3)
-                // }
-    
-                //fileSaveOrupdate(fid,window.pageConfig.page.uid,$(this))
                 setCollect($(this))
             }
            
         });
-        // 文件评分
-        $('.star-list').on('click', function (e) {
-            if (!method.getCookie('cuk')) {
-                login.notifyLoginInterface(function (data) {
-                    common.afterLogin(data);
-                });
-            } else {
-                method.get(api.normalFileDetail.hasDownLoad + '?fid=' + window.pageConfig.params.g_fileId, function (res) {
-                    if (res.code == 0) {
-                        if (res.data) {
-                            var data = {
-                                fid: pageConfig.params.g_fileId,
-                                score: $(this).find('li.on').length
-                            };
-                            appraiseStar(data)
-                        } else {
-                            $("#dialog-box").dialog({
-                                html: $('#tpl-down-text').html()
-                                    .replace(/\$msg/, '您还未获取该资料,先要获取资料后才可以评分哦!')
-                            }).open();
-                        }
-                    }
-                });
-            }
-        });
+      
         // 查找相关资料
         $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
             $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
@@ -467,17 +365,17 @@ define(function (require, exports, module) {
             }
         })
     }
-    function appraiseStar(data) {
-        method.post(api.normalFileDetail.appraise, function (res) {
-            if (res.code == 0) {
-                var $dSuccess = $('.d-success');
-                $dSuccess.removeClass('hide');
-                setTimeout(function () {
-                    $dSuccess.addClass('hide')
-                }, 1500)
-            }
-        }, '', 'post', data);
-    }
+    // function appraiseStar(data) {
+    //     method.post(api.normalFileDetail.appraise, function (res) {
+    //         if (res.code == 0) {
+    //             var $dSuccess = $('.d-success');
+    //             $dSuccess.removeClass('hide');
+    //             setTimeout(function () {
+    //                 $dSuccess.addClass('hide')
+    //             }, 1500)
+    //         }
+    //     }, '', 'post', data);
+    // }
 
     //获取焦点
     function inputFocus(ele, focus, css) {
@@ -584,31 +482,31 @@ define(function (require, exports, module) {
 
 
     // 添加取消收藏
-    function collectFile(cond) {
-        method.post(api.normalFileDetail.collect, function (res) {
-            if (res.code == 0) {
-                var $btn_collect = $('#btn-collect');
-                if (cond === 3) {
-                    var $dCollect = $('.d-collect');
-                    $dCollect.removeClass('hide');
-                    setTimeout(function () {
-                        $dCollect.addClass('hide');
-                    }, 2000);
-                    $btn_collect.addClass('btn-collect-success');
-                } else {
-                    $btn_collect.removeClass('btn-collect-success')
-                }
-            } else if (res.code == 40001) {
-                setTimeout(function () {
-                    method.delCookie('cuk', "/", ".sina.com.cn");
-                }, 0)
-            }
-        }, '', 'post', {
-            fid: pageConfig.params.g_fileId,
-            cond: cond,
-            flag: 'y'
-        });
-    }
+    // function collectFile(cond) {
+    //     method.post(api.normalFileDetail.collect, function (res) {
+    //         if (res.code == 0) {
+    //             var $btn_collect = $('#btn-collect');
+    //             if (cond === 3) {
+    //                 var $dCollect = $('.d-collect');
+    //                 $dCollect.removeClass('hide');
+    //                 setTimeout(function () {
+    //                     $dCollect.addClass('hide');
+    //                 }, 2000);
+    //                 $btn_collect.addClass('btn-collect-success');
+    //             } else {
+    //                 $btn_collect.removeClass('btn-collect-success')
+    //             }
+    //         } else if (res.code == 40001) {
+    //             setTimeout(function () {
+    //                 method.delCookie('cuk', "/", ".sina.com.cn");
+    //             }, 0)
+    //         }
+    //     }, '', 'post', {
+    //         fid: pageConfig.params.g_fileId,
+    //         cond: cond,
+    //         flag: 'y'
+    //     });
+    // }
 
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
@@ -692,34 +590,23 @@ define(function (require, exports, module) {
         return fileArr;
     }
 
-    /**
-     * 相关推荐翻页
-     */
-    function relatedPage() {
-        $(".related-data-list").find("li").each(function () {
-            if ($(this).is(":hidden")) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    }
+   
 
     // 评论
-    function commentArticle() {
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                common.afterLogin(data);
-            });
-        } else if (method.getCookie('cuk') && !common.userData) {
-            login.getLoginData(function (data) {
-                common.afterLogin(data);
-                commentContent();
-            })
-        } else {
-            commentContent();
-        }
-    }
+    // function commentArticle() {
+    //     if (!method.getCookie('cuk')) {
+    //         login.notifyLoginInterface(function (data) {
+    //             common.afterLogin(data);
+    //         });
+    //     } else if (method.getCookie('cuk') && !common.userData) {
+    //         login.getLoginData(function (data) {
+    //             common.afterLogin(data);
+    //             commentContent();
+    //         })
+    //     } else {
+    //         commentContent();
+    //     }
+    // }
 
     var commentContent = function () {
         var content = $('#commentTxt').val();

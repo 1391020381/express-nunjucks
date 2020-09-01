@@ -244,16 +244,17 @@ module.exports = {
                 
             },
             getUserFileZcState:function(callback){
-                if(req.cookies.ui){
-                    var uid=JSON.parse(req.cookies.ui).uid;
-                    server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
-                        console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
-                        console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
-                        callback(null,item)
-                    })
-                }else{
-                    callback(null,null)
-                }
+                // if(req.cookies.ui){
+                //     var uid=JSON.parse(req.cookies.ui).uid;
+                //     server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                //         console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
+                //         console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
+                //         callback(null,item)
+                //     })
+                // }else{
+                //     callback(null,null)
+                // }
+                callback(null,null)
             },
             // 面包屑导航
             crumbList: function (callback) {
@@ -288,11 +289,12 @@ module.exports = {
             },
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
-                if (fileAttr == 1) {
-                    server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
-                } else {
-                    callback(null, null);
-                }
+                // if (fileAttr == 1) {
+                //     server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
+                // } else {
+                //     callback(null, null);
+                // }
+                callback(null, null);
             },
 
             // 动态获取第四范式 场景id 物料库id
@@ -443,9 +445,9 @@ module.exports = {
             },
 
             // 文档详情扩展的信息
-            fileExternal: function (callback) {
-                server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
-            },
+            // fileExternal: function (callback) {
+            //     server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
+            // },
             // 用户评论   用户评论被删除
             // commentList: function (callback) {
             //     server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
@@ -481,9 +483,9 @@ module.exports = {
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
             results.crumbList.data.isGetClassType = isGetClassType || 0;
             getInitPage(req, results);
-            if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
-                results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
-            }
+            // if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
+            //     results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
+            // }
             // 如果有第四范式 相关
             if (results.paradigm4Relevant) {
                 var paradigm4RelevantMap = results.paradigm4Relevant.map(item => {

@@ -66,38 +66,6 @@ define(function (require, exports, module) {
             })
         },
         /**
-         * description  唤醒校验界面
-         */
-        notifyCheckInterface: function () {
-            if (method.getCookie('cuk')) {
-                $.loginPop('checkCode', { 
-                    "terminal": "PC", 
-                    "businessSys": "ishare", 
-                    "domain": document.domain,
-                    "clsId": this.getIds().clsId,
-                    "fid": this.getIds().fid
-                }, function (data) {
-                    if (data.code == '0') {
-                        method.get(api.user.getJessionId, function (res) { }, '');
-                    }
-                });
-            }
-        },
-        /**
-         * description  免登录透传用户信息
-         * @param callback 回调函数
-         */
-        syncUserInfoInterface: function (callback) {
-            var _self = this;
-            if (method.getCookie('cuk')) {
-                method.get(api.user.getJessionId, function (res) {
-                    if (res.code == 0) {
-                        _self.getLoginData(callback);
-                    }
-                }, '');
-            }
-        },
-        /**
         * description  优惠券提醒 查询用户发券资格-pc
         * @param callback 回调函数
         */

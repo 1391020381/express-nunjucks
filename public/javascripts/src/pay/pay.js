@@ -940,24 +940,67 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         if (!method.getCookie('cuk')) return;
         var fid = window.pageConfig.params.g_fileId;
         if (!fid) return;
-        method.get(api.pay.successBuyDownLoad + '/' + fid, function (res) {
-            if (res.code == '0') {
-                var browserEnv = method.browserType();
-                method.delCookie("event_data_down", "/");
-                if (browserEnv === 'IE' || browserEnv === 'Edge') {
-                    // window.location.href = res.data;
-                    method.compatibleIESkip(res.data, false);
-                } else if (browserEnv === 'Firefox') {
-                    var downLoadURL = res.data;
-                    var sub = downLoadURL.lastIndexOf('&fn=');
-                    var sub_url1 = downLoadURL.substr(0, sub + 4);
-                    var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
-                    // window.location.href = sub_url1 + sub_ur2;
-                    method.compatibleIESkip(sub_url1 + sub_ur2, false);
-                } else {
-                    // window.location.href = res.data;
-                    method.compatibleIESkip(res.data, false);
-                }
+        // method.get(api.pay.successBuyDownLoad + '/' + fid, function (res) {
+        //     if (res.code == '0') {
+        //         var browserEnv = method.browserType();
+        //         method.delCookie("event_data_down", "/");
+        //         if (browserEnv === 'IE' || browserEnv === 'Edge') {
+        //             // window.location.href = res.data;
+        //             method.compatibleIESkip(res.data, false);
+        //         } else if (browserEnv === 'Firefox') {
+        //             var downLoadURL = res.data;
+        //             var sub = downLoadURL.lastIndexOf('&fn=');
+        //             var sub_url1 = downLoadURL.substr(0, sub + 4);
+        //             var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+        //             // window.location.href = sub_url1 + sub_ur2;
+        //             method.compatibleIESkip(sub_url1 + sub_ur2, false);
+        //         } else {
+        //             // window.location.href = res.data;
+        //             method.compatibleIESkip(res.data, false);
+        //         }
+        //     }
+        // })
+        getFileDownLoadUrl(fid)
+      
+    }
+    function getFileDownLoadUrl(fid){
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.normalFileDetail.getFileDownLoadUrl,
+            type: "POST",
+            data: JSON.stringify({
+                "clientType": 0,
+                "fid": fid,  
+                "sourceType": 1
+              }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                    console.log(res)
+                    if (res.code == '0') {
+                        var browserEnv = method.browserType();
+                        method.delCookie("event_data_down", "/");
+                        if (browserEnv === 'IE' || browserEnv === 'Edge') {
+                            // window.location.href = res.data;
+                            method.compatibleIESkip(res.data, false);
+                        } else if (browserEnv === 'Firefox') {
+                            var downLoadURL = res.data;
+                            var sub = downLoadURL.lastIndexOf('&fn=');
+                            var sub_url1 = downLoadURL.substr(0, sub + 4);
+                            var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+                            // window.location.href = sub_url1 + sub_ur2;
+                            method.compatibleIESkip(sub_url1 + sub_ur2, false);
+                        } else {
+                            // window.location.href = res.data;
+                            method.compatibleIESkip(res.data, false);
+                        }
+                    }else{
+                        $.toast({
+                            text: res.msg||'下载失败'
+                        })
+                    }
             }
         })
     }
