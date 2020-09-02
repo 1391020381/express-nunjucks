@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
+    var urlConfig = require('../application/urlConfig')
     // var report = require("../pay/report");
     // var downLoadReport = $.extend({}, gioData);
     var gioInfo = require("../cmd-lib/gioInfo");
@@ -172,7 +173,8 @@ define(function (require, exports, module) {
             // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
             // var url = location.protocol + "/pay/payment?orderNo=" + oid
             // var url = location.origin + "/pay/qr?orderNo=" + oid;
-            var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
+         //   var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
+            var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid
             console.log(url)
             try {
                 // qr.createQrCode(url, 'payQrCode', 162, 162);
