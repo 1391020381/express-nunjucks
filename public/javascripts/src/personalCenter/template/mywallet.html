@@ -158,12 +158,7 @@
                 <span class="item-desc">认证类型 :</span> <span class="item-content">{{financeAccountInfo.userTypeName}}</span>
             </p>
             <p class="label-item account-name">
-                {{if financeAccountInfo.bankAccountName}}
-                <span class="item-desc">开户名:</span> <span class="item-content">{{financeAccountInfo.bankAccountName}}</span>
-
-                {{else}}
-                  <span class="item-desc">开户名:</span> <input class="item-account-name" placeholder="请输入开户名"/>
-                {{/if}}
+                  <span class="item-desc">开户名:</span> <input class="item-account-name" placeholder="请输入开户名" {{financeAccountInfo.isEdit?'':'disabled'}}/>
             </p>
              <p class="label-item placeof-account-opening">
                 <span class="item-desc required"><em>*</em>开户地 :</span> 

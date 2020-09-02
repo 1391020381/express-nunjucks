@@ -399,7 +399,29 @@ module.exports = {
     orderStatus: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.post(appConfig.apiBasePath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
+                // server.post(appConfig.apiNewBaselPath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.status,
+                    body:JSON.stringify({
+                        orderNo:req.body.orderNo
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0 ) {
+                            callback(null, data); 
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
             }
         }, function (err, results) {
             console.log("订单状态============");

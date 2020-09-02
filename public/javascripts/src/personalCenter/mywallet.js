@@ -43,104 +43,32 @@ define(function (require, exports, module) {
         1: '机构'
     }
 
-    var withdrawalRecordData = { // 提现信息数据
-        code: '1',
-        data: {
-            currentPage: 1,
-            pageSize: 20,
-            totalPages: 100,
-            rows: [
-                {
-                    withdrawId: '123456789',
-                    withdrawTime: new Date().getTime(),
-                    withdrawPrice: 100,
-                    holdingTaxPrice: 100,
-                    transferTax: 100,
-                    auditStatus: 0,
-                    NoPassReason: '信息不全,无法提现',
-                    finalPrice: 100
-                },
-                {
-                    withdrawId: '123456789',
-                    withdrawTime: new Date().getTime(),
-                    withdrawPrice: 1000,
-                    holdingTaxPrice: 1000,
-                    transferTax: 1000,
-                    auditStatus: 0,
-                    NoPassReason: '信息不全,无法提现',
-                    finalPrice: 1000
-                }
-            ]
-        }
-    }
+   
 
-    var accountFinance = {
-        code: '1',
-        data: {
-            userTypeName: '个人用户',
-            bankAccountName: '大大大夏',
-            bankAccountNo: '6214838658185278',
-            province: "广东省",
-            city: "深圳市",
-            bankName: "招商银行",
-            bankBranchName: '高新园招商银行支行',
-            isEdit: false
-        }
-    }
+   
 
-    var myWalletList = {
-        code: '1',
-        data: {
-            rows: [
-                {
-                    id: '1',
-                    settleBatchNo: "123456789",
-                    sellerId: '1',
-                    sellerNickname: "行云流水justdoit",
-                    batchNo: '987654321',
-                    settleStartDate: new Date().getTime(),
-                    settleEndDate: new Date().getTime(),
-                    status: 0,
-                    sellerType: 0,
-                    totalTransactionAmount: 123456789
-                },
-                {
-                    id: '1',
-                    settleBatchNo: "123456789",
-                    sellerId: '1',
-                    sellerNickname: "行云流水justdoit",
-                    batchNo: '987654321',
-                    settleStartDate: new Date().getTime(),
-                    settleEndDate: new Date().getTime(),
-                    status: 0,
-                    sellerType: 0,
-                    totalTransactionAmount: 123456789
-                }
-            ],
-            currentPage: 1,
-            totalPages: 200
-        }
-    }
+   
     if (type == 'mywallet') {
         isLogin(initCallback, true)
     }
     function initCallback() {
         getUserCentreInfo()
         if (mywalletType == '1') {
-            var params = {
-                currentPage: 1,
-                pageSize: 20,
-                settleStartDate: '',
-                settleEndDate: ""
-            }
-            handleMyWalletListData()
-            getMyWalletList(params)
+            var currentDate = new Date(new Date().getTime()).format("yyyy-MM-dd")
+            var oneweekdate = new Date(new Date().getTime()-15*24*3600*1000);
+            var y = oneweekdate.getFullYear();
+            var m = oneweekdate.getMonth()+1;
+            var d = oneweekdate.getDate();
+            var formatwdate = y+'-'+m+'-'+d;
+            $('.start-time-input').datePicker({ maxDate: currentDate,currentDate:currentDate });
+            $('.end-time-input').datePicker({ maxDate: currentDate,currentDate:new Date(formatwdate).format("yyyy-MM-dd")});
+            getMyWalletList(1)
             getAccountBalance()
             getFinanceAccountInfo() // 查询用户财务信息 , 当 提现按钮可点击时,财务信息不完成，需要先补充财务信息
 
         }
         if (mywalletType == '2') {
-            getWithdrawalRecord()
+            getWithdrawalRecord(1)
         }
         if (mywalletType == '3') {
             getFinanceAccountInfo()
@@ -192,6 +120,8 @@ define(function (require, exports, module) {
                         delay: 3000,
                     })
                     closeRewardPop()
+                    getAccountBalance()
+                    getMyWalletList(1)
                 } else {
                     $.toast({
                         text: res.msg,
@@ -209,26 +139,32 @@ define(function (require, exports, module) {
         })
     }
 
-    function getMyWalletList(params) { // 我的钱包收入
+    function getMyWalletList(currentPage) { // 我的钱包收入
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
             },
             url: api.mywallet.getMyWalletList,
             type: "POST",
-            data: JSON.stringify(params),
+            data: JSON.stringify({
+                currentPage: currentPage,
+                pageSize: 20,
+                settleStartDate: $('.start-time-input').val(),
+                settleEndDate: $('.end-time-input').val()
+            }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
                 if (res.code == '0') {
                     console.log('getMyWalletList:', res)
-
+                    handleMyWalletListData(res)
                 } else {
                     $.toast({
                         text: res.msg,
                         delay: 3000,
                     })
                 }
+                handleMyWalletListData({})
             },
             error: function (error) {
 
@@ -236,6 +172,7 @@ define(function (require, exports, module) {
                     text: error.msg || 'getMyWalletList',
                     delay: 3000,
                 })
+                handleMyWalletListData({})
             }
         })
     }
@@ -271,29 +208,24 @@ define(function (require, exports, module) {
 
     }
     function getWithdrawalRecord(currentPage) { // 查询提现记录
-        handleWithdrawalRecordData({})
-
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
             },
-            url: api.mywallet.getWithdrawalRecord,
-            type: "POST",
-            data: JSON.stringify({
-                currentPage: currentPage || 1,
-                pageSize: 20
-            }),
+            url: api.mywallet.getWithdrawalRecord + '?currentPage='+ currentPage +'&pageSize=' + 20,
+            type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
                 if (res.code == '0') {
                     console.log('getWithdrawalRecord:', res)
-
+                    handleWithdrawalRecordData(res)
                 } else {
                     $.toast({
                         text: res.msg,
                         delay: 3000,
                     })
+                    handleWithdrawalRecordData({})
                 }
             },
             error: function (error) {
@@ -398,8 +330,8 @@ define(function (require, exports, module) {
     }
     function handleWithdrawalRecordData(res) {
         var list = []
-        res = withdrawalRecordData
-        $(res.data.rows).each(function (index, item) {
+        // res = withdrawalRecordData
+        $(res.data&&res.data.rows).each(function (index, item) {
             item.withdrawTime = new Date(item.withdrawTime).format("yyyy-MM-dd")
             item.withdrawPrice = item.withdrawPrice ? (item.withdrawPrice / 100).toFixed(2) : '-'
             item.holdingTaxPrice = item.holdingTaxPrice ? (item.holdingTaxPrice / 100).toFixed(2) : '-'
@@ -411,13 +343,12 @@ define(function (require, exports, module) {
         })
         var _mywalletTemplate = template.compile(mywallet)({ list: list || [], mywalletType: mywalletType });
         $('.personal-center-mywallet').html(_mywalletTemplate)
-        handlePagination(res.data.totalPages, res.data.currentPage)
+        handlePagination(res.data&&res.data.totalPages, res.data&&res.data.currentPage)
     }
 
     function handleMyWalletListData(res) {
         var list = []
-        res = myWalletList
-        $(res.data.rows).each(function (index, item) {
+        $(res.data&&res.data.rows).each(function (index, item) {
             item.settleStartDate = new Date(item.settleStartDate).format("yyyy-MM-dd")
             item.settleEndDate = new Date(item.settleEndDate).format("yyyy-MM-dd")
             item.statusDesc = myWalletStatusList[item.status]
@@ -428,10 +359,7 @@ define(function (require, exports, module) {
         })
         var _mywalletTemplate = template.compile(mywallet)({ list: list || [], mywalletType: mywalletType });
         $('.personal-center-mywallet').html(_mywalletTemplate)
-        var currentDate = new Date(new Date().getTime()).format("yyyy-MM-dd")
-        $('.start-time-input').datePicker({ maxDate: currentDate });
-        $('.end-time-input').datePicker({ maxDate: currentDate });
-        handlePagination(res.data.totalPages, res.data.currentPage)
+        handlePagination(res.data&&res.data.totalPages, res.data&&res.data.currentPage)
 
     }
     function handleFinanceAccountInfo(res) { // 
@@ -482,6 +410,11 @@ define(function (require, exports, module) {
             if (!paginationCurrentPage) {
                 return
             }
+
+            if (mywalletType == '1') {
+                getWithdrawalRecord(paginationCurrentPage)
+            }
+
             if (mywalletType == '2') {
                 getWithdrawalRecord(paginationCurrentPage)
             }
@@ -566,7 +499,7 @@ define(function (require, exports, module) {
             return
         }
         var params = {
-            withPrice: withPrice,
+            withPrice: withPrice*100,
             invoicePicUrl: invoicePicUrl,
             invoiceType: invoiceType
         }

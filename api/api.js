@@ -42,7 +42,8 @@ module.exports = {
         orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
-        status: '/order/status/$orderNo',           //订单状态
+        // status: '/order/status/$orderNo',           //订单状态
+        status: '/order/get/orderStatus',           //订单状态
         orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
         // sms: '/usermanage/getSmsYzCode',            //发送验证码
