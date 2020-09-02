@@ -2197,6 +2197,7 @@
   height: 17px;
   background: url("../../images/personalCenter/office-vip-icon.png") no-repeat center;
   background-size: 100%;
+  vertical-align: baseline;
 }
 .personal-center-content .personal-center-menu .personal-profile .personal-isAuth {
   margin-top: 10px;
