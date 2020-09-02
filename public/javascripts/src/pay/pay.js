@@ -766,7 +766,10 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         // 移除cookie
         method.delCookie("br", "/");
         // 携带参数,上报数据
-        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+        // var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+        var format = window.pageConfig&&window.pageConfig.params.format
+        var title = window.pageConfig&&window.pageConfig.params.title
+        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title),
             bilogResult = null;
         if (orderInfo.goodsType === 1) {
             // 购买文件成功

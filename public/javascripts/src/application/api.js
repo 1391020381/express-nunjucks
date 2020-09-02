@@ -100,7 +100,8 @@ define(function (require, exports, module) {
             queryOrderlistByCondition:gateway  + '/order/query/listByCondition',
             getOrderInfo:gateway + '/order/get/orderInfo'
         },
-        getHotSearch:router+'/search/getHotSearch',
+        // getHotSearch:router+'/search/getHotSearch',
+        getHotSearch:gateway+'/cms/search/content/hotWords',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 收藏与取消收藏
             getCollectState:gateway+'/comment/zc/getUserFileZcState',  //获取收藏状态
