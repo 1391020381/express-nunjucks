@@ -227,10 +227,11 @@ define(function (require,exports,moudle) {
             $hasLogin.find('.top-user-more .name').html(data.nickName);
             $('.user-state .user-name').text(data.nickName)
             $hasLogin.show();
-
+            console.log('data:',data)
             // data.isVip = 0
 
             if(data.isVip==1) {
+                
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 var expireStr = data.expireTime+'到期'

@@ -11,7 +11,7 @@ define(function (require, exports, moudle) {
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
     //var report = require("./report");
-    
+   var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
@@ -59,8 +59,8 @@ define(function (require, exports, moudle) {
 
                 // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
           
-                var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
-
+            //    var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
+                  var url  = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&checkStatus='+checkStatus;
                 
                 try {
                     qr.createQrCode(url, 'pay-qr-code', 180, 180);

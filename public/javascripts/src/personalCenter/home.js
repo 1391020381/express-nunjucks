@@ -30,26 +30,42 @@ define(function(require , exports , module){
             success: function (res) {
                if(res.code == '0'){
                     console.log('getUserCentreInfo:',res)
-                    // compilerTemplate(res.data)
-                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
-                    // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
-                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span> <span class="whole-station-vip-icon"></span></span><span class="office-vip-icon"></span></p>')
-                    // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
-                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
-                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
-                    $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
                     var isVipMaster = res.data.isVipMaster
+                    var isVipOffice = res.data.isVipOffice
                     var privilegeNum  = res.data.privilege   // 下载券数量
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
                     var isAuth = res.data.isAuth
                     var userTypeId = res.data.userTypeId
                     var authDesc = userTypeId==2?'个人认证':'机构认证'
+                    var endDateMaster = res.data.endDateMaster? new Date(res.data.endDateMaster).format("yyyy-MM-dd"):''
+                    var endDateOffice = res.data.endDateOffice? new Date(res.data.endDateOffice).format("yyyy-MM-dd"):''
+                    // compilerTemplate(res.data)
+                    var masterIcon = isVipMaster?'<span class="whole-station-vip-icon"></span>':''
+                    var officIcon = isVipOffice?'<span class="office-vip-icon"></span>':''
+                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
+                    // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
+                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span>'+ masterIcon + officIcon + '</p>')
+                    // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
+                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
+                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
+                    // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
+                 
                     if(isVipMaster){ 
-                        $('.personal-center-home .personal-summarys .go2vip').hide() 
+                        // $('.personal-center-home .personal-summarys .go2vip').hide() 
+                        $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
                         $('.personal-center-home .opentvip').hide()
                     }else{
+                        $('.personal-center-home .whole-station-vip').hide()
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide() 
+                    }
+                    if(isVipOffice){
+                        $('.personal-center-home .office-vip .office-vip-endtime').text(endDateOffice +'到期')
+                    }else{
+                        $('.personal-center-home .office-vip').hide()
+                    }
+                    if(!isVipMaster && !isVipOffice){
+                        $('.personal-summarys .left-border').hide()
                     }
                     if(privilegeNum ){
                         $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
