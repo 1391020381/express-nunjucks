@@ -479,6 +479,7 @@
   border-radius: 4px;
   font-size: 18px;
   color: #FFFFFF;
+  cursor: pointer;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .submit-btn .cancel-btn {
   margin-left: 20px;

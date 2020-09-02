@@ -305,6 +305,16 @@
   font-size: 14px;
   color: #222222;
 }
+.personal-center-mywallet .mywallet .financial-records-content .account-name .item-account-name {
+  display: inline-block;
+  width: 330px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
+}
 .personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-province {
   display: inline-block;
   width: 160px;

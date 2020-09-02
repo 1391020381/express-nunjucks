@@ -17,7 +17,7 @@
                 <div class="balance-summary">
                    <span class="balance-title">钱包余额</span>
                    <span class="balance-icon"></span>
-                   <span class="balance-sum">19.90</span>
+                   <span class="balance-sum"></span>
                 <div class="balance-summary-tip">
                                     <div class="balance-summary-tip-con">
                                         <i class="before"></i>
@@ -158,7 +158,12 @@
                 <span class="item-desc">认证类型 :</span> <span class="item-content">{{financeAccountInfo.userTypeName}}</span>
             </p>
             <p class="label-item account-name">
+                {{if financeAccountInfo.bankAccountName}}
                 <span class="item-desc">开户名:</span> <span class="item-content">{{financeAccountInfo.bankAccountName}}</span>
+
+                {{else}}
+                  <span class="item-desc">开户名:</span> <input class="item-account-name" placeholder="请输入开户名"/>
+                {{/if}}
             </p>
              <p class="label-item placeof-account-opening">
                 <span class="item-desc required"><em>*</em>开户地 :</span> 

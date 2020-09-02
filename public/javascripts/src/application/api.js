@@ -91,7 +91,8 @@ define(function (require, exports, module) {
         },
         // vouchers:router+'/sale/vouchers',
         order:{
-            bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+            // bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+            bindOrderByOrderNo:gateway +'/order/bind/byOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',
             rightsVipGetUserMember:gateway + "/rights/vip/getUserMember",

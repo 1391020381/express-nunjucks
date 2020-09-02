@@ -76,7 +76,7 @@ module.exports = {
        getUserInfo:'/user/getUserInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
-    queryOrderPc: '/order/bindOrderByOrderNo',
+    // queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     recommendConfigRuleInfo:'/recommend/config/ruleInfo',
     recommendConfigInfo:'/recommend/config/info',

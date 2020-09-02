@@ -251,7 +251,12 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 if (res.code == '0') {
-
+                    var holdingTaxPrice = (res.data.holdingTaxPrice/100).toFixed(2)   // 代扣税费
+                    var  transferTax = (res.data.transferTax/100).toFixed(2)          //  流转税费
+                    var receivedAmount = (balance - holdingTaxPrice -transferTax).toFixed(2)
+                    $('.withdrawal-application-dialog .holdingTaxPrice').text(holdingTaxPrice)
+                    $('.withdrawal-application-dialog .transferTax').text(transferTax)
+                    $('.withdrawal-application-dialog .receivedAmount').text(receivedAmount)
                 } else {
                     $.toast({
                         text: res.msg,
@@ -343,7 +348,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 if (res.code == '0') {
-                    financeAccountInfo = res.data
+                    financeAccountInfo = res.data || {}
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo(res)
                     }
@@ -352,8 +357,8 @@ define(function (require, exports, module) {
                         text: res.msg,
                         delay: 3000,
                     })
+                    handleFinanceAccountInfo({})
                 }
-                handleFinanceAccountInfo({})
             },
             error: function (error) {
                 console.log('queryUserBindInfo:', error)
@@ -374,7 +379,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 if (res.code == '0') {
                     console.log('editFinanceAccount:', res)
-
+                    getFinanceAccountInfo()
                 } else {
                     $.toast({
                         text: res.msg,
@@ -430,16 +435,20 @@ define(function (require, exports, module) {
 
     }
     function handleFinanceAccountInfo(res) { // 
-        res = accountFinance
-        userFinanceAccountInfo = res.data
-        getProvinceAndCityList(res.data)
-        var _mywalletTemplate = template.compile(mywallet)({ financeAccountInfo: res.data || {}, provinceList: provinceList, cityList: cityList, bankList: bankData, mywalletType: mywalletType });
-        $('.personal-center-mywallet').html(_mywalletTemplate)
-        $('.item-province').val(res.data.province)
-        $('.item-city').val(res.data.city)
+        // res = accountFinance
+       
+        userFinanceAccountInfo = res.data || {}
+      
+        userFinanceAccountInfo.isEdit = userFinanceAccountInfo.isEdit?userFinanceAccountInfo.isEdit:true
 
-        $('.item-bank').val(res.data.bankName)
-        res.data.bankName == '其他' ? $('.mywallet .item-bank-name').show() : $('.mywallet .item-bank-name').hide()
+        getProvinceAndCityList(res.data||{})
+        var _mywalletTemplate = template.compile(mywallet)({ financeAccountInfo: userFinanceAccountInfo || {}, provinceList: provinceList, cityList: cityList, bankList: bankData, mywalletType: mywalletType });
+        $('.personal-center-mywallet').html(_mywalletTemplate)
+        $('.item-province').val(res.data&&res.data.province)
+        $('.item-city').val(res.data&&res.data.city)
+
+        $('.item-bank').val(res.data&&res.data.bankName)
+        res.data&&res.data.bankName == '其他' ? $('.mywallet .item-bank-name').show() : $('.mywallet .item-bank-name').hide()
     }
 
     function getProvinceAndCityList(financeAccountInfo) {
@@ -462,7 +471,7 @@ define(function (require, exports, module) {
                 })
             }
         })
-        console.log('provinceList:', provinceList, 'cityList:', cityList)
+       
     }
 
     function handlePagination(totalPages, currentPage) {
@@ -509,7 +518,7 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        var bankAccountName = $('.mywallet .account-name .item-content').text()
+        var bankAccountName = $('.mywallet .account-name .item-content').text() || $('.mywallet .account-name .item-account-name').val()
         var bankAccountNo = $('.mywallet .item-openingbank-num').val()
         var province = $('.mywallet .item-province').val()
         var city = $('.mywallet .item-city').val()
@@ -536,14 +545,18 @@ define(function (require, exports, module) {
         }
     })
 
-    $(document).on('change', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
+    $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
         var withdrawPrice = $(this).val()
-        utils.debounce(getPersonalAccountTax(withdrawPrice), 1000)
+        if(+withdrawPrice>800){
+            utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
+        }else{
+            $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
+        }
     })
 
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
-        var withPrice = ''
-        var invoicePicUrl = ''
+        var withPrice = $('.withdrawal-application-dialog .amount').val()
+        var invoicePicUrl =  invoicePicture.picKey
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
         if (!withPrice && (errMsg = '请输入提现金额') || !invoicePicUrl && (errMsg = '请上传发票图片')) {
             $.toast({
@@ -647,7 +660,9 @@ define(function (require, exports, module) {
                         return false;
                     }
                     var res = JSON.parse(task.response);
+                    
                     if (res.data && res.data.picKey) {
+                        invoicePicture = res.data
                         $('.img-preview .img').attr('src', res.data.preUrl + res.data.picKey)
                         $('.img-preview .re-upload').text('重新上传')
                     } else {
