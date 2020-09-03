@@ -37,7 +37,6 @@ define(function(require , exports , module){
                 if(goodsName){
                     $('.goodsName').text(goodsName)
                 }
-                $(".payment").removeClass('hide');
                 console.log('needRedirect:',res.data.needRedirect)
                   if(res.data.needRedirect){
                       setTimeout(function(){
@@ -45,6 +44,7 @@ define(function(require , exports , module){
                         return
                       },200)
                   }else{
+                    $(".payment").removeClass('hide');
                     if(isWeChat == 'true'){
                         wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
                     }else if(isAliPay == 'true'){
