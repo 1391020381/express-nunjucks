@@ -229,15 +229,16 @@ define(function (require,exports,moudle) {
             $hasLogin.show();
             console.log('data:',data)
             // data.isVip = 0
+             
+            var wholeStationVip = data.isMasterVip?'<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">'+ data.expireTime +'到期</span></p>':''    
+            var officeVip = data.isOfficeVip?'<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">'+ data.officeVipExpireTime +'到期</span></p>':''
+            var infoDescContent = wholeStationVip + officeVip
 
-            if(data.isVip==1) {
-                
+            if(data.isMasterVip == 1 || data.isOfficeVip == 1) {  
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
-                var expireStr = data.expireTime+'到期'
-                var wholeStationVip =  '<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">2020-12-15到期</span></p>'     
-                var officeVip = '<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">2020-12-15到期</span></p>'
-                var infoDescContent = wholeStationVip + officeVip
+              //  var expireStr = data.expireTime+'到期'
+                
                 // $('.user-state .info-des').text(expireStr);
                 $('.user-state .info-des').html(infoDescContent);
                 $('.user-state').addClass('vipstate')

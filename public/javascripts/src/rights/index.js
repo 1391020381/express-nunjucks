@@ -25,7 +25,7 @@ define(function (require, exports, module) {
                 if (data.isOfficeVip) {
                     $JsPayOfficeVip.html('立即续费');
                 }
-                if (data.isMainVip) {
+                if (data.isMasterVip) {
                     $JsPayMainVip.html('立即续费');
                 }
             });

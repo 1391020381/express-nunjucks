@@ -31,7 +31,8 @@ module.exports = {
         rightsSaleVouchers:   "/rights/sale/vouchers",
         rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
         querySeniority:  '/rights/sale/querySeniority',
-        getRightsVipMemberDetail:'/rights/vip/memberDetail'
+        getRightsVipMemberDetail:'/rights/vip/memberDetail',
+        getVipAllMemberDetail:'/rights/vip/allMemberDetail'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
