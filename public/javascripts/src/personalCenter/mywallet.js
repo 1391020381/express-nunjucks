@@ -284,7 +284,9 @@ define(function (require, exports, module) {
                         text: res.msg,
                         delay: 3000,
                     })
-                    handleFinanceAccountInfo({})
+                    if (mywalletType == '3') {
+                        handleFinanceAccountInfo({})
+                    }
                 }
             },
             error: function (error) {
@@ -462,11 +464,11 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        var bankAccountName = $('.mywallet .account-name .item-content').text() || $('.mywallet .account-name .item-account-name').val()
+        var bankAccountName = $('.mywallet .account-name .item-account-name').val()
         var bankAccountNo = $('.mywallet .item-openingbank-num').val()
         var province = $('.mywallet .item-province').val()
         var city = $('.mywallet .item-city').val()
-        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
+        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('.mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
         var bankBranchName = $('.mywallet .item-openingbank-name').val()
 
         if (userFinanceAccountInfo.isEdit) {
@@ -586,6 +588,12 @@ define(function (require, exports, module) {
             return
         }
         exportMyWalletDetail(walletDetailsId, email)
+    })
+    $(document).on('change','.receiving-bank .item-bank',function(e){
+        var currentBankName = $(this).val()
+        console.log($(this).val())
+        
+        currentBankName&&currentBankName == '其他' ? $('.mywallet .item-bank-name').show() : $('.mywallet .item-bank-name').hide()
     })
     function uploadfile() {
         var E = Q.event,
