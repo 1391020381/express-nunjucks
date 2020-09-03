@@ -54,14 +54,7 @@ define(function (require, exports, module) {
     function initCallback() {
         getUserCentreInfo()
         if (mywalletType == '1') {
-            var currentDate = new Date(new Date().getTime()).format("yyyy-MM-dd")
-            var oneweekdate = new Date(new Date().getTime()-15*24*3600*1000);
-            var y = oneweekdate.getFullYear();
-            var m = oneweekdate.getMonth()+1;
-            var d = oneweekdate.getDate();
-            var formatwdate = y+'-'+m+'-'+d;
-            $('.start-time-input').datePicker({ maxDate: currentDate,currentDate:currentDate });
-            $('.end-time-input').datePicker({ maxDate: currentDate,currentDate:new Date(formatwdate).format("yyyy-MM-dd")});
+         
             getMyWalletList(1)
             getAccountBalance()
             getFinanceAccountInfo() // 查询用户财务信息 , 当 提现按钮可点击时,财务信息不完成，需要先补充财务信息
@@ -88,7 +81,7 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     balance = res.data.balance ? (res.data.balance / 100).toFixed(2) : 0
                     canWithPrice = res.data.canWithPrice ? (res.data.canWithPrice / 100).toFixed(2) : 0
-                    $('.mywallet .balance-sum').text(balance)
+                    $('.mywallet .balance-sum').text()?'':$('.mywallet .balance-sum').text(balance)
                 } else {
                     $('.mywallet .balance-sum').text(0)
                     $.toast({
@@ -163,8 +156,8 @@ define(function (require, exports, module) {
                         text: res.msg,
                         delay: 3000,
                     })
+                    handleMyWalletListData({})
                 }
-                handleMyWalletListData({})
             },
             error: function (error) {
 
@@ -245,14 +238,15 @@ define(function (require, exports, module) {
             url: api.mywallet.exportMyWalletDetail,
             type: "POST",
             data: JSON.stringify({
-                id: currentPage || 1,
-                email: ''
+                batchNo:id,
+                email: email
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
                 if (res.code == '0') {
                     console.log('exportMyWalletDetail:', res)
+                    closeRewardPop()
                 } else {
                     $.toast({
                         text: res.msg,
@@ -358,7 +352,23 @@ define(function (require, exports, module) {
             list.push(item)
         })
         var _mywalletTemplate = template.compile(mywallet)({ list: list || [], mywalletType: mywalletType });
+
+      
+
         $('.personal-center-mywallet').html(_mywalletTemplate)
+        $('.mywallet .balance-sum').text()?'':$('.mywallet .balance-sum').text(balance)
+
+     
+        var currentDate = new Date(new Date().getTime()).format("yyyy-MM-dd")
+        // var oneweekdate = new Date(new Date().getTime()-15*24*3600*1000);
+        // var y = oneweekdate.getFullYear();
+        // var m = oneweekdate.getMonth()+1;
+        // var d = oneweekdate.getDate();
+        // var formatwdate = y+'-'+m+'-'+d;
+        $('.end-time-input').datePicker({ maxDate: currentDate });
+        $('.start-time-input').datePicker({ maxDate: currentDate});
+
+
         handlePagination(res.data&&res.data.totalPages, res.data&&res.data.currentPage)
 
     }
@@ -545,7 +555,7 @@ define(function (require, exports, module) {
         }).open();
     })
     $(document).on('click', '.send-email-dialog .submit-btn', function (e) {
-        var email = $('.send-email-dialog .form-ipt')
+        var email = $('.send-email-dialog .form-ipt').val()
         var regTestEmail = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
         if (!regTestEmail.test(email)) {
             $.toast({
