@@ -39,20 +39,19 @@ fun(document, window)
     var env = "{{env}}";
 </script>
 <body>
-<div class="payment">
+<div class="payment hide">
  <div class="pay-price">
     ¥ <span class="price"></span>
  </div>
-    <ul class="order-list">
-         <li class="list-item">
-            <p class="item-title">商品名称:</p>
-            <span class="item-desc goodsName"></span>
-        </li>
-    </ul>
-    <div class="pay-confirm">继续支付</div>
-
-      {% include "common/js.html" %}
+<ul class="order-list">
+        <li class="list-item">
+        <p class="item-title">商品名称:</p>
+        <span class="item-desc goodsName"></span>
+    </li>
+</ul>
+<div class="pay-confirm">继续支付</div>
 </div>
+{% include "common/js.html" %}
 
 {# {% if results.isWeChat %}
    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>

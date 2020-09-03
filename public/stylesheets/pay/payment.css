@@ -85,6 +85,9 @@ body {
   font-size: 0.32rem;
   color: #FFFFFF;
 }
+.hide {
+  display: none;
+}
 .ui-toast {
   position: absolute;
   left: 50%;

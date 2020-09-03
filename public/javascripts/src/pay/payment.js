@@ -37,6 +37,7 @@ define(function(require , exports , module){
                 if(goodsName){
                     $('.goodsName').text(goodsName)
                 }
+                $(".payment").removeClass('hide');
                 console.log('needRedirect:',res.data.needRedirect)
                   if(res.data.needRedirect){
                       setTimeout(function(){
