@@ -391,6 +391,7 @@
   color: #A7A7A7;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .tax {
+  display: none;
   padding-left: 85px;
   margin-top: 13px;
   color: #999999;
@@ -452,7 +453,7 @@
   margin-top: 25px;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .img-preview .img {
-  display: block;
+  display: none;
   width: 120px;
   height: 75px;
 }
