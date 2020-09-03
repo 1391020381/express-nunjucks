@@ -595,6 +595,13 @@ define(function (require, exports, module) {
         
         currentBankName&&currentBankName == '其他' ? $('.mywallet .item-bank-name').show() : $('.mywallet .item-bank-name').hide()
     })
+
+    $(document).on('click','.mywallet .survey-content-select .select-btn',function(e){
+        var startTime = $('.survey-content-select .start-time-input').val()
+        var endTime = $('.survey-content-select .end-time-input').val()
+        // new Date(endTime)
+        getMyWalletList(1)
+    })
     function uploadfile() {
         var E = Q.event,
             Uploader = Q.Uploader;
