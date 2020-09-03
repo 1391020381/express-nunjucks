@@ -42,13 +42,14 @@ define(function(require , exports , module){
                       setTimeout(function(){
                         location.href = res.data.returnUrl
                         return
-                      },300)
+                      },200)
+                  }else{
+                    if(isWeChat == 'true'){
+                        wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                    }else if(isAliPay == 'true'){
+                        aliPay(res.data.aliPayUrl)
+                    }
                   } 
-                  if(isWeChat == 'true'){
-                    wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
-                }else if(isAliPay == 'true'){
-                    aliPay(res.data.aliPayUrl)
-                }
                }else{
                 $.toast({
                     text:res.msg||'scanOrderInfo错误',
