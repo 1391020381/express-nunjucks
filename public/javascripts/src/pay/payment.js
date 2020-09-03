@@ -39,14 +39,18 @@ define(function(require , exports , module){
                 }
                 console.log('needRedirect:',res.data.needRedirect)
                   if(res.data.needRedirect){
-                      location.href = res.data.returnUrl
-                      return
+                      setTimeout(function(){
+                        location.href = res.data.returnUrl
+                        return
+                      },200)
+                  }else{
+                    $(".payment").removeClass('hide');
+                    if(isWeChat == 'true'){
+                        wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                    }else if(isAliPay == 'true'){
+                        aliPay(res.data.aliPayUrl)
+                    }
                   } 
-                  if(isWeChat == 'true'){
-                    wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
-                }else if(isAliPay == 'true'){
-                    aliPay(res.data.aliPayUrl)
-                }
                }else{
                 $.toast({
                     text:res.msg||'scanOrderInfo错误',
