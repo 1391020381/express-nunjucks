@@ -116,7 +116,7 @@ define(function(require , exports , module){
             location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
           
         }else{ //直接跳结果
-            location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
+            location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
         }
    
     }
