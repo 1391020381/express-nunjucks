@@ -421,9 +421,12 @@ define(function (require, exports, module) {
                                     .replace(/\$productPrice/, res.data.productPrice||0)
                                     .replace(/\$code/, res.data.status)
                             }).open();
-                          }else{
-                            getFileDownLoadUrl()
                           }
+                        }else{
+                            $.toast({
+                                text:res.msg||'预下载失败',
+                                delay : 2000,
+                            })
                         }
                 }
             })
@@ -459,7 +462,8 @@ define(function (require, exports, module) {
                         bouncedType(res);
                     }else{
                         $.toast({
-                            text: res.msg||'下载失败'
+                            text:res.msg||'下载失败',
+                            delay : 2000,
                         })
                     }
             }

@@ -137,7 +137,7 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         fid: window.pageConfig.params.g_fileId || '',                            //文件id
         aid: '',                                                                 //活动id
         vid: '',                                                                 //vip套餐id
-        pid: '',                                                                 //特权id
+        pid: $('.pay-pri-list .active').attr('data-pid'),                                                                  //特权id
         oid: "",                                                                 //订单ID 获取旧订单
         type: window.pageConfig.params.checkStatus||'10',  // 用户search 续费vip进入                                                              //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
@@ -191,6 +191,8 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         var price = $(this).data('price');
         var activePrice = $(this).data('activeprice');
         var discountPrice = $(this).data('discountprice');
+        var giveDesc =  $this.find('.give-desc').html() || ''
+        $(".pay-privilege-text").html(giveDesc)
         if (activePrice > 0) {
             $("#activePrice").html(activePrice);
             if (discountPrice > 0) {
@@ -377,6 +379,7 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
             ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
         }
+        console.log('temp:',JSON.stringify(temp))
         $.ajax({
             url: api.order.createOrderInfo,
             type: "POST",

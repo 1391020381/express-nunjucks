@@ -7,6 +7,9 @@
                 {% for item in results.list.data.packages %}
                 <li class="ui-tab-nav-item {% if loop.index==1 %}active{% endif %}" data-price="{{item.price}}" data-activeprice="{{item.activePrice}}" data-discountprice="{{item.discountPrice}}" data-actids="{{item.activityId}}" data-pid="{{item.id}}">
                     <div class="pay-vip-item pay-carding-item">
+                      {% if item.desc %}
+                        <div class="give-desc" style="display:none;">{{item.desc}}</div>
+                        {% endif %}
                         <p class="privilege-price">{{item.downNum}}次下载特权</p>
                         {% if item.giveDVoluNum > 0 %}
                         <p class="give-text">赠送<span class="num">{{item.giveDVoluNum}}</span>下载特权</p>
@@ -19,7 +22,8 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="pay-privilege-text"></p>
+            <div class="pay-privilege-text">{{results.list.data.packages[0].desc}}</div>
+            {# <p class="pay-privilege-text"></p> #}
             <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元<span id="discountPrice" class="original-text">{{ '（立省'+results.list.data.packages[0].discountPrice+'元）' if results.list.data.packages[0].discountPrice else 'display:none;'}}</span></p>
             <a href="javascript:;" data-page="privilege" class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payPrivilege">立即支付</a>
 

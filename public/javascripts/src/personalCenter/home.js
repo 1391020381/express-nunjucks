@@ -250,7 +250,7 @@ define(function(require , exports , module){
     }
 
     $(document).on('click','.personal-center-home .add-privileges',function(e){
-        method.compatibleIESkip('/pay/privilege.html', true);
+        method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
     })
     return {
         getUserCentreInfo:getUserCentreInfo

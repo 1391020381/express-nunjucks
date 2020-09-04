@@ -73,11 +73,12 @@ module.exports = {
         return async.series({
             // 全部分类
             category: function (callback) {
-                if ('office' == req.query.remark) {
-                    server.get(appConfig.apiBasePath + api.office.search.category, callback, req, true);
-                } else {
-                    callback(null, null);
-                }
+                // if ('office' == req.query.remark) {
+                //     server.get(appConfig.apiBasePath + api.office.search.category, callback, req, true);
+                // } else {
+                //     callback(null, null);
+                // }
+                callback(null, null);
             },
             list: function (callback) {
               //  server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
