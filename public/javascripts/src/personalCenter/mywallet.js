@@ -493,8 +493,8 @@ define(function (require, exports, module) {
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
         var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/    // 校验金额
-        var withdrawPrice = $(this).val()
-        if(withdrawPrice == '' || withdrawPrice == '0' || withdrawPrice == '0.' || withdrawPrice == '0.0'){
+        var withdrawPrice = +$(this).val()
+        if(!reg.test(+withdrawPrice) ||withdrawPrice == '' || withdrawPrice == '0' || withdrawPrice == '0.' || withdrawPrice == '0.0'){
             $.toast({
                 text: '请输入正确的提现金额!',
                 icon: '',
@@ -504,7 +504,7 @@ define(function (require, exports, module) {
             $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
             return
         }
-        if(reg.test(+withdrawPrice)&&+withdrawPrice>800){
+        if(withdrawPrice>800){
             utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
         }else{
             $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
