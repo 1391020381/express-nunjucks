@@ -187,6 +187,7 @@ define(function (require, exports, module) {
                     $('.withdrawal-application-dialog .holdingTaxPrice').text(holdingTaxPrice)
                     $('.withdrawal-application-dialog .transferTax').text(transferTax)
                     $('.withdrawal-application-dialog .receivedAmount').text(receivedAmount)
+                    $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
                 } else {
                     $.toast({
                         text: res.msg,
@@ -283,7 +284,9 @@ define(function (require, exports, module) {
                         text: res.msg,
                         delay: 3000,
                     })
-                    handleFinanceAccountInfo({})
+                    if (mywalletType == '3') {
+                        handleFinanceAccountInfo({})
+                    }
                 }
             },
             error: function (error) {
@@ -461,11 +464,11 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        var bankAccountName = $('.mywallet .account-name .item-content').text() || $('.mywallet .account-name .item-account-name').val()
+        var bankAccountName = $('.mywallet .account-name .item-account-name').val()
         var bankAccountNo = $('.mywallet .item-openingbank-num').val()
         var province = $('.mywallet .item-province').val()
         var city = $('.mywallet .item-city').val()
-        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
+        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('.mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
         var bankBranchName = $('.mywallet .item-openingbank-name').val()
 
         if (userFinanceAccountInfo.isEdit) {
@@ -489,11 +492,24 @@ define(function (require, exports, module) {
     })
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
+        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/    // 校验金额
         var withdrawPrice = $(this).val()
-        if(+withdrawPrice>800){
+        if(withdrawPrice == '' || withdrawPrice == '0' || withdrawPrice == '0.' || withdrawPrice == '0.0'){
+            $.toast({
+                text: '请输入正确的提现金额!',
+                icon: '',
+                delay: 2000,
+                callback: false
+            })
+            $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
+            return
+        }
+        if(reg.test(+withdrawPrice)&&+withdrawPrice>800){
             utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
         }else{
             $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
+           
+            $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
         }
     })
 
@@ -528,7 +544,12 @@ define(function (require, exports, module) {
                     html: $('#withdrawal-application-dialog').html(),
                     'closeOnClickModal': false
                 }).open();
-                uploadfile()
+                if(financeAccountInfo.userTypeName == '机构'){
+                    $('.withdrawal-application-dialog .invoice').hide()
+                    $('.withdrawal-application-dialog .img-preview').hide()
+                }else{
+                    uploadfile()
+                }
             } else {
                 $("#dialog-box").dialog({
                     html: $('#go2FinanceAccount-dialog').html(),
@@ -567,6 +588,19 @@ define(function (require, exports, module) {
             return
         }
         exportMyWalletDetail(walletDetailsId, email)
+    })
+    $(document).on('change','.receiving-bank .item-bank',function(e){
+        var currentBankName = $(this).val()
+        console.log($(this).val())
+        
+        currentBankName&&currentBankName == '其他' ? $('.mywallet .item-bank-name').show() : $('.mywallet .item-bank-name').hide()
+    })
+
+    $(document).on('click','.mywallet .survey-content-select .select-btn',function(e){
+        var startTime = $('.survey-content-select .start-time-input').val()
+        var endTime = $('.survey-content-select .end-time-input').val()
+        // new Date(endTime)
+        getMyWalletList(1)
     })
     function uploadfile() {
         var E = Q.event,
@@ -607,6 +641,7 @@ define(function (require, exports, module) {
                     if (res.data && res.data.picKey) {
                         invoicePicture = res.data
                         $('.img-preview .img').attr('src', res.data.preUrl + res.data.picKey)
+                        $('.img-preview .img').show()
                         $('.img-preview .re-upload').text('重新上传')
                     } else {
                         $.toast({

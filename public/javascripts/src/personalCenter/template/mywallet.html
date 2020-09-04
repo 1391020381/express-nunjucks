@@ -102,7 +102,7 @@
         {{if mywalletType == '2'}}
             <table class="withdrawal-record-table-list">
                 <tr class="withdrawal-record-table-title">
-                    <th style="width:200px;">提现流水号</th>
+                    <th style="width:300px;">提现流水号</th>
                     <th style="width:200px;">提现时间</th>
                     <th style="width:200px;">
                         <span>税前收入</span>
@@ -113,7 +113,7 @@
                     <th style="width:200px;">
                         <span>流转税</span>
                         <span style="display:block;text-indent:3px;">（元）</span></th>
-                    <th style="width:150px;">
+                    <th style="width:200px;">
                         <span>状态</span>
                         <span style="display:block;text-indent: -5px;">（元）</span></th>
                     <th style="width:200px;">
@@ -129,7 +129,21 @@
                         <td>{{list[$index].withdrawPrice}}</td>
                         <td>{{list[$index].holdingTaxPrice}}</td>
                         <td>{{list[$index].transferTax}}</td>
-                        <td>{{list[$index].auditStatusDesc}}</td>
+                        <td>
+                            {{if list[$index].auditStatus != 2}}
+                                <span>{{list[$index].auditStatusDesc}}</span>
+                            {{else}}
+                                <div class="audit-failed">
+                                <span class="audit-failed-desc">{{list[$index].auditStatusDesc}}</span>
+                                <span class="audit-failed-icon"></span>
+                                    <p class="audit-failed-reason">
+                                         <span class="before"></span>
+                                         <span class="after"></span>
+                                         <span class="audit-failed-reasondesc">{{list[$index].noPassReason}}</span>
+                                    </p>
+                                </div>
+                            {{/if}}
+                        </td>
                         <td>{{list[$index].finalPrice}}</td>
                     </tr>
                 {{/each}}

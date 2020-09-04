@@ -309,6 +309,70 @@
                 td {
                     padding-top: 18px;
                 }
+
+                .audit-failed {
+                    position: relative;
+
+                    .audit-failed-desc {
+                        display: inline-block;
+                        font-size: 13px;
+                        color: #F25125;
+                        vertical-align: middle;
+                    }
+
+                    .audit-failed-icon {
+                        margin-left: 2px;
+                        display: inline-block;
+                        width: 14px;
+                        height: 14px;
+                        background: url('../../images/personalCenter/home-attion.png') no-repeat center;
+                        background-size: 100%;
+                        vertical-align: middle;
+                    }
+                    &:hover{
+                        .audit-failed-reason{
+                            display: block;
+                        }
+                    }
+                    .audit-failed-reason {
+                        display: none;
+                        position: absolute;
+                        left: 53px;
+                        top: -50px;
+                        width: 190px;
+                        height: 40px;
+                        line-height: 40px;
+                        text-align: center;
+                        border: 1px solid #f7e9d5;
+                        background-color: #f8f8f8;
+
+                        .before {
+                            width: 0;
+                            height: 0;
+                            border-top: 8px solid #f7e9d5;
+                            border-right: 8px solid transparent;
+                            border-bottom: 8px solid transparent;
+                            border-left: 8px solid transparent;
+                            position: absolute;
+                            bottom: -16px;
+                            left: 15px;
+                        }
+
+                        .after {
+                            width: 0;
+                            height: 0;
+                            border-top: 8px solid #f8f8f8;
+                            border-right: 8px solid transparent;
+                            border-bottom: 8px solid transparent;
+                            border-left: 8px solid transparent;
+                            position: absolute;
+                            bottom: -15px;
+                            left: 15px;
+                        }
+
+                        .audit-failed-reasondesc {}
+                    }
+                }
             }
 
             .empty-data {
@@ -370,7 +434,8 @@
                     font-size: 14px;
                     color: #222222;
                 }
-                .item-account-name{
+
+                .item-account-name {
                     display: inline-block;
                     width: 330px;
                     height: 32px;
