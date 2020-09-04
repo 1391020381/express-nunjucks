@@ -287,6 +287,9 @@ define(function (require, exports, module) {
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo({})
                     }
+                    if(res.code == '410008'){  // 认证用户 切换 非认证用户 在当前页面登录
+                        method.compatibleIESkip('/node/personalCenter/home.html', true);
+                    }
                 }
             },
             error: function (error) {
