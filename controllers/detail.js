@@ -454,7 +454,7 @@ module.exports = {
             // },
             filePreview: function (callback) {
                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
-                server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+                server.get(appConfig.apiNewBaselPath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
@@ -753,6 +753,9 @@ function getInitPage(req, results) {
             results.list.data.fileContentList =newImgUrl;
         }
         // 接口限制可预览页数
+        if(!results.filePreview.data){
+            results.filePreview.data = {}
+        }
         let preRead = results.filePreview.data.preRead;
         if (!preRead) {
             preRead = results.filePreview.data.preRead = 50;
