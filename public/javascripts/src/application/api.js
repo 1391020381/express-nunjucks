@@ -59,7 +59,8 @@ define(function (require, exports, module) {
             // 文件打分
             // appraise: router + '/fileSync/appraise',
             // 文件预览判断接口
-            getPrePageInfo: router + '/fileSync/prePageInfo',
+            // getPrePageInfo: router + '/fileSync/prePageInfo',
+            getPrePageInfo:gateway + '/content/file/getPrePageInfo'
             // 文件是否已下载
             // hasDownLoad: router + '/fileSync/isDownload'
         },
