@@ -517,7 +517,7 @@ define(function (require, exports, module) {
         var withPrice = $('.withdrawal-application-dialog .amount').val()
         var invoicePicUrl =  invoicePicture.picKey
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
-        if (!withPrice && (errMsg = '请输入提现金额') || !invoicePicUrl && (errMsg = '请上传发票图片')) {
+        if (!withPrice && (errMsg = '请输入提现金额') || (financeAccountInfo.userTypeName == '机构'&&!invoicePicUrl && (errMsg = '请上传发票图片'))) {
             $.toast({
                 text: errMsg,
                 delay: 3000,
