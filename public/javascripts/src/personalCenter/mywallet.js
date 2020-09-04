@@ -183,7 +183,7 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     var holdingTaxPrice = (res.data.holdingTaxPrice/100).toFixed(2)   // 代扣税费
                     var  transferTax = (res.data.transferTax/100).toFixed(2)          //  流转税费
-                    var receivedAmount = (balance - holdingTaxPrice -transferTax).toFixed(2)
+                    var receivedAmount = (res.data.finalPrice/100).toFixed(2)
                     $('.withdrawal-application-dialog .holdingTaxPrice').text(holdingTaxPrice)
                     $('.withdrawal-application-dialog .transferTax').text(transferTax)
                     $('.withdrawal-application-dialog .receivedAmount').text(receivedAmount)
@@ -524,11 +524,19 @@ define(function (require, exports, module) {
             })
             return
         }
-        var params = {
-            withPrice: withPrice*100,
-            invoicePicUrl: invoicePicUrl,
-            invoiceType: invoiceType
+        var params = {}
+        if(financeAccountInfo.userTypeName != '机构'){
+             params = {
+                withPrice: withPrice*100
+            }
+        }else{
+            params = {
+                withPrice: withPrice*100,
+                invoicePicUrl: invoicePicUrl,
+                invoiceType: invoiceType
+            }  
         }
+        
         withdrawal(params)
     })
     $(document).on('click', '.withdrawal-application-dialog .cancel-btn', function (e) { // 隐藏dialog
@@ -544,7 +552,7 @@ define(function (require, exports, module) {
                     html: $('#withdrawal-application-dialog').html(),
                     'closeOnClickModal': false
                 }).open();
-                if(financeAccountInfo.userTypeName == '机构'){
+                if(financeAccountInfo.userTypeName != '机构'){
                     $('.withdrawal-application-dialog .invoice').hide()
                     $('.withdrawal-application-dialog .img-preview').hide()
                 }else{
