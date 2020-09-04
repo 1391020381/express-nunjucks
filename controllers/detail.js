@@ -10,6 +10,7 @@ var Api = require("../api/api");
 var request = require('request');
 var appConfig = require("../config/app-config");
 var fid = null;
+
 var classId = null;
 var title = null;
 var spcClassId = null;
@@ -87,7 +88,7 @@ module.exports = {
                             return;     
                     }
                     if (body) {
-                        var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
+                       var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
                         var cuk = req.cookies.cuk
                         var data = JSON.parse(body);
                         console.log('请求地址post-------------------:',opt.url)
@@ -453,8 +454,34 @@ module.exports = {
             //     server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
             // },
             filePreview: function (callback) {
-                var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
-                server.get(appConfig.apiNewBaselPath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
+                // server.get(appConfig.apiNewBaselPath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.file.preReadPageLimit,
+                    body:JSON.stringify({
+                        fid:fid,
+                        validateIE9:validateIE9  
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                        if (data.code == 0 ){
+                            callback(null, data);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联

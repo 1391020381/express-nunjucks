@@ -20,7 +20,7 @@ module.exports = {
         // 评论列表
         commentList: '/file/getComments?fid=$fid',
         // 限制预读页数
-        preReadPageLimit: '/content/file/getPrePageInfo?fid=$fid&validateIE9=$validateIE9',
+        preReadPageLimit: '/content/file/getPrePageInfo',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
         getUserFileZcState:'/comment/zc/getUserFileZcState',
@@ -44,7 +44,7 @@ module.exports = {
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
         // status: '/order/status/$orderNo',           //订单状态
-        status: '/order/get/orderStatus',           //订单状态
+        status: '/order/get/orderInfo',           //订单状态
         orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
         // sms: '/usermanage/getSmsYzCode',            //发送验证码

@@ -151,38 +151,83 @@ define(function (require, exports, module) {
         var validateIE9 = method.validateIE9() ? 1 : 0;
         var pageConfig = window.pageConfig;
         var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
-        method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
-            if (res.code == 0) {
-                pageConfig.page.preRead = res.data&&res.data.preRead || 50;
-                var num = method.getParam('page');
-                if (num > 0) {
-                    pageConfig.page.is360page = 'true';
-                    pageConfig.page.initReadPage = Math.min(num, 50);
-                }
-                pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+        // method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
+        //     if (res.code == 0) {
+        //         pageConfig.page.preRead = res.data&&res.data.preRead || 50;
+        //         var num = method.getParam('page');
+        //         if (num > 0) {
+        //             pageConfig.page.is360page = 'true';
+        //             pageConfig.page.initReadPage = Math.min(num, 50);
+        //         }
+        //         pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
 
 
-                // 修改继续阅读文案要判断是否购买过
-                // changeText(res.data.status)
-                if (pageConfig.params.file_state === '3') {
-                    var content = res.data.url || pageConfig.imgUrl[0];
-                    var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
-                    var newimgUrl = [];
-                    for (var key in bytes) {
-                        var page = bytes[key];
-                        var param = page[0] + '-' + page[1];
-                        var newUrl = method.changeURLPar(content, 'range', param);
-                        newimgUrl.push(newUrl);
+        //         // 修改继续阅读文案要判断是否购买过
+        //         // changeText(res.data.status)
+        //         if (pageConfig.params.file_state === '3') {
+        //             var content = res.data.url || pageConfig.imgUrl[0];
+        //             var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
+        //             var newimgUrl = [];
+        //             for (var key in bytes) {
+        //                 var page = bytes[key];
+        //                 var param = page[0] + '-' + page[1];
+        //                 var newUrl = method.changeURLPar(content, 'range', param);
+        //                 newimgUrl.push(newUrl);
+        //             }
+        //             pageConfig.imgUrl = newimgUrl;
+        //         }
+        //         //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+        //         if (method.getCookie('cuk')) {
+        //             reloadingPartOfPage();
+        //         }
+        //         reSetOriginalPrice();
+        //     }
+        // })
+
+        $.ajax({
+            url: api.normalFileDetail.getPrePageInfo,
+            type: "POST",
+            data: JSON.stringify({
+                fid:pageConfig.params.g_fileId,
+                validateIE9:validateIE9  
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res.code == 0) {
+                    pageConfig.page.preRead = res.data&&res.data.preRead || 50;
+                    var num = method.getParam('page');
+                    if (num > 0) {
+                        pageConfig.page.is360page = 'true';
+                        pageConfig.page.initReadPage = Math.min(num, 50);
                     }
-                    pageConfig.imgUrl = newimgUrl;
+                    pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+    
+    
+                    // 修改继续阅读文案要判断是否购买过
+                    // changeText(res.data.status)
+                    if (pageConfig.params.file_state === '3') {
+                        var content = res.data.url || pageConfig.imgUrl[0];
+                        var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
+                        var newimgUrl = [];
+                        for (var key in bytes) {
+                            var page = bytes[key];
+                            var param = page[0] + '-' + page[1];
+                            var newUrl = method.changeURLPar(content, 'range', param);
+                            newimgUrl.push(newUrl);
+                        }
+                        pageConfig.imgUrl = newimgUrl;
+                    }
+                    //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+                    if (method.getCookie('cuk')) {
+                        reloadingPartOfPage();
+                    }
+                    reSetOriginalPrice();
                 }
-                //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
-                if (method.getCookie('cuk')) {
-                    reloadingPartOfPage();
-                }
-                reSetOriginalPrice();
             }
         })
+
+
     };
 
     return {

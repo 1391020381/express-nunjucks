@@ -720,21 +720,21 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
                if(response && response.code == 0 ){
                     // 缓存查询次数
                     order_count++;
-                    //var data = response.data;
-                    // 防止空指针报错
-                    // data.reportData = data.reportData || {};
-                    // data.fid = data.fid || method.getParam('fid');
+                     var data = response.data;
+                    // // 防止空指针报错
+                     data.reportData = data.reportData || {};
+                     data.fid = data.fid || method.getParam('fid');
                     // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
-                    if (response.data == 0) {
+                    if (data.orderStatus == 0) {
                         // 重新查询
                         if (order_count <= 30*5) {
                             window.setTimeout(function () {
                                 getOrderInfo(orderNo);
                             }, 4000);
                         }
-                    } else if (data.data == 2) {
+                    } else if (data.orderStatus == 2) {
                         goodsPaySuccess(data, orderNo)
-                    } else if (data.data == 3) {
+                    } else if (data.orderStatus == 3) {
                         goodsPayFail(data, orderNo);
                     }
     

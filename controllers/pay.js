@@ -277,6 +277,7 @@ module.exports = {
                 title:req.query.title ?decodeURIComponent(req.query.title):'',
                 state:  "",
               } 
+              callback(null, backData);
             },
             // 全部分类
             category: function (callback) {
