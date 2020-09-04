@@ -1,6 +1,6 @@
 @charset "utf-8";
 .personal-center-home .personal-summarys {
-  padding: 56px 0;
+  padding-top: 49px;
   background: #ffffff;
   *zoom: 1;
 }
@@ -44,6 +44,24 @@
 }
 .personal-center-home .personal-summarys .summary .summary-desc:hover .bean-info {
   display: block;
+}
+.personal-center-home .personal-summarys .summary .privileges {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 77px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border: 1px solid #F25226;
+  border-radius: 11px;
+  font-size: 13px;
+  color: #F25226;
+  cursor: pointer;
+}
+.personal-center-home .personal-summarys .summary .occupying-effect {
+  display: none;
+  color: #fff;
+  border: 1px solid #fff;
 }
 .personal-center-home .personal-summarys .summary:nth-child(1) {
   margin-left: 63px;

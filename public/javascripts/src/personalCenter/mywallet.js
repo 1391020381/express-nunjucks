@@ -504,13 +504,14 @@ define(function (require, exports, module) {
             $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
             return
         }
-        if(withdrawPrice>800){
-            utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
-        }else{
-            $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
+        utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
+        // if(withdrawPrice>800){
+        //     utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
+        // }else{
+        //     $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
            
-            $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
-        }
+        //     $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
+        // }
     })
 
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
