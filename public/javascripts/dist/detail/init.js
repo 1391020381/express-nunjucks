@@ -1,9 +1,8899 @@
-/*! ishare_pc_website
-*author:Jersey */
-define("dist/detail/init",["../cmd-lib/lazyload","../cmd-lib/myDialog","../cmd-lib/loading","../detail/index","../application/suspension","../application/method","../application/checkLogin","../application/api","../application/login","../cmd-lib/jqueryMd5","../common/bilog","base64","../cmd-lib/util","../report/config","../cmd-lib/toast","../common/bindphone","../common/baidu-statistics","../application/app","../application/element","../application/template","../application/extend","../application/effect","../application/helper","./common","./template/pay_btn_tmp.html","./template/pay_middle_tmp.html","./template/pay_header.tmp.html","./template/head_tip.html","../detail/search","./template/history_tmp.html","./template/hot_search_tmp.html","../detail/download","../cmd-lib/gioInfo","../detail/paging","./template/img_box.html","./changeShowOverText","./download","./index","./changeDetailFooter","../detail/expand","../detail/buyUnlogin","../pay/qr","../cmd-lib/qr/qrcode.min","../cmd-lib/qr/jquery.qrcode.min","../application/urlConfig","../common/bilog-module/payFileResultForVisit_bilog","./template/buyUnlogin.html","../detail/paradigm4","../detail/banner","swiper","./template/HotSpotSearch.html"],function(a,b,c){a("../cmd-lib/lazyload"),a("../cmd-lib/myDialog"),a("../cmd-lib/loading"),a("../detail/index"),a("../detail/search"),a("../detail/download"),a("../detail/paging"),a("../detail/expand"),a("../detail/buyUnlogin"),a("../common/bilog"),a("../detail/paradigm4"),a("../detail/banner"),a("../common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66"),a("../common/baidu-statistics").initBaiduStatistics("adb0f091db00ed439bf000f2c5cbaee7");var d=window.pageConfig.params&&window.pageConfig.params.productType;"4"==d&&a("../common/baidu-statistics").initBaiduStatistics("504d2c29e8aefe02ad5d66207e4de083"),"1"==d&&a("../common/baidu-statistics").initBaiduStatistics("c0fb058099c13a527871d024b1d809f8")}),define("dist/cmd-lib/lazyload",[],function(a,b,c){!function(a,b,c,d){var e=a(b);a.fn.lazyload=function(f){function g(){var b=0;i.each(function(){var c=a(this);if(!j.skip_invisible||c.is(":visible"))if(a.abovethetop(this,j)||a.leftofbegin(this,j));else if(a.belowthefold(this,j)||a.rightoffold(this,j)){if(++b>j.failure_limit)return!1}else c.trigger("appear"),b=0})}var h,i=this,j={threshold:0,failure_limit:0,event:"scroll",effect:"show",container:b,data_attribute:"src",skip_invisible:!0,appear:null,load:null,placeholder:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"};return f&&(d!==f.failurelimit&&(f.failure_limit=f.failurelimit,delete f.failurelimit),d!==f.effectspeed&&(f.effect_speed=f.effectspeed,delete f.effectspeed),a.extend(j,f)),h=j.container===d||j.container===b?e:a(j.container),0===j.event.indexOf("scroll")&&h.bind(j.event,function(){return g()}),this.each(function(){var b=this,c=a(b);b.loaded=!1,(c.attr("src")===d||c.attr("src")===!1)&&c.is("img")&&c.attr("src",j.placeholder),c.one("appear",function(){if(!this.loaded){if(j.appear){var d=i.length;j.appear.call(b,d,j)}a("<img />").bind("load",function(){var d=c.attr("data-"+j.data_attribute);c.hide(),c.is("img")?c.attr("src",d):c.css("background-image","url('"+d+"')"),c[j.effect](j.effect_speed),b.loaded=!0;var e=a.grep(i,function(a){return!a.loaded});if(i=a(e),j.load){var f=i.length;j.load.call(b,f,j)}}).attr("src",c.attr("data-"+j.data_attribute))}}),0!==j.event.indexOf("scroll")&&c.bind(j.event,function(){b.loaded||c.trigger("appear")})}),e.bind("resize",function(){g()}),/(?:iphone|ipod|ipad).*os 5/gi.test(navigator.appVersion)&&e.bind("pageshow",function(b){b.originalEvent&&b.originalEvent.persisted&&i.each(function(){a(this).trigger("appear")})}),a(c).ready(function(){g()}),this},a.belowthefold=function(c,f){var g;return g=f.container===d||f.container===b?(b.innerHeight?b.innerHeight:e.height())+e.scrollTop():a(f.container).offset().top+a(f.container).height(),g<=a(c).offset().top-f.threshold},a.rightoffold=function(c,f){var g;return g=f.container===d||f.container===b?e.width()+e.scrollLeft():a(f.container).offset().left+a(f.container).width(),g<=a(c).offset().left-f.threshold},a.abovethetop=function(c,f){var g;return g=f.container===d||f.container===b?e.scrollTop():a(f.container).offset().top,g>=a(c).offset().top+f.threshold+a(c).height()},a.leftofbegin=function(c,f){var g;return g=f.container===d||f.container===b?e.scrollLeft():a(f.container).offset().left,g>=a(c).offset().left+f.threshold+a(c).width()},a.inviewport=function(b,c){return!(a.rightoffold(b,c)||a.leftofbegin(b,c)||a.belowthefold(b,c)||a.abovethetop(b,c))},a.extend(a.expr[":"],{"below-the-fold":function(b){return a.belowthefold(b,{threshold:0})},"above-the-top":function(b){return!a.belowthefold(b,{threshold:0})},"right-of-screen":function(b){return a.rightoffold(b,{threshold:0})},"left-of-screen":function(b){return!a.rightoffold(b,{threshold:0})},"in-viewport":function(b){return a.inviewport(b,{threshold:0})},"above-the-fold":function(b){return!a.belowthefold(b,{threshold:0})},"right-of-fold":function(b){return a.rightoffold(b,{threshold:0})},"left-of-fold":function(b){return!a.rightoffold(b,{threshold:0})}})}(jQuery,window,document)}),define("dist/cmd-lib/myDialog",[],function(a,b,c){!function(a){a.extend(a.fn,{dialog:function(b){return this.each(function(){var c=a.data(this,"diglog");c||(c=new a.dialog(b,this),a.data(this,"dialog",c))})}});var b={zIndex:1e3,getZindex:function(){return this.zIndex+=100},dialog:{}};a.dialog=function(a,b){arguments.length&&this._init(a,b)},a.dialog.prototype={options:{title:"title",dragable:!1,cache:!0,html:"",width:"auto",height:"auto",cannelBtn:!0,confirmlBtn:!0,cannelText:"关闭",confirmText:"确定",showFooter:!0,onClose:!1,onOpen:!1,callback:!1,showLoading:!1,loadingTxt:"处理中...",onConfirm:!1,onCannel:!1,getContent:!1,zIndex:b.zIndex,closeOnClickModal:!0,getZindex:function(){return b.zIndex+=100},mask_tpl:'<div class="dialog-mask" data-page="mask" style="z-index:'+b.zIndex+';"></div>'},_init:function(b,c){this.options=a.extend(!0,this.options,b),this.element=a(c),this._build(this.options.html),this._bindEvents()},_build:function(b){var c,d="",e="",f="",g='<div class="body-content"></div>';if(b)c=b;else{if(this.options.confirmlBtn&&(e='<button class="confirm">'+this.options.confirmText+"</button>"),this.options.cannelBtn&&(f='<button class="cannel">'+this.options.cannelText+"</button>"),this.options.showFooter&&(d='<div class="footer">                                    <div class="buttons">                                        '+e+"                                        "+f+"                                    </div>                                </div>"),this.options.showFooter){var h=this.options.height-80+"px";g='<div class="body-content" style="height:'+h+';"></div>'}else g='<div class="body-content" style="height:'+this.options.height+';"></div>';c='<div class="m-dialog" style="z-index:'+this.options.getZindex+';">								<div class="m-d-header">									<h2 style="width:'+this.options.width+';">'+this.options.title+'</h2>									<a href="javascript:;" class="btn-close">X</a>								</div>								<div class="m-d-body" style="width:'+this.options.width+";height:"+this.options.height+';">									'+g+"                                </div>"+d+"</div>"}a(document).find('[data-page="mask"]').length||a("body").append(this.options.mask_tpl),this.element.html(c)},_center:function(){var b=this.element.find(".dialog");b.css({left:(a(document).width()-b.width())/2,top:(document.documentElement.clientHeight-b.height())/2+a(document).scrollTop()})},_bindEvents:function(){var b=this;this.element.delegate(".close,.cancel","click",function(a){a&&a.preventDefault(),b.close(b.options.onClose)}),a(document).delegate('[data-page="mask"]',"click",function(a){b.options.closeOnClickModal&&(a&&a.preventDefault(),b.close(b.options.onClose))}),this.element.delegate(".cannel","click",function(a){a&&a.preventDefault(),b._cannel(b.options.onCannel)}),this.element.delegate(".confirm","click",function(c){c&&c.preventDefault(),a(this).hasClass("disable")||(b.options.showLoading&&(a(this).addClass("disable"),a(this).html(b.options.loadingTxt)),b._confirm(b.options.onConfirm))})},close:function(a){this._hide(a),this.clearCache()},open:function(b){this._callback(b),this.element.show(),a('[data-page="mask"]').show(),this.clearCache()},_hide:function(b){this.element.hide(),a('[data-page="mask"]').hide(),b&&"function"==typeof b&&this._callback(b)},clearCache:function(){this.options.cache||this.element.data("dialog","")},_callback:function(a){a&&"function"==typeof a&&a.call(this)},_cannel:function(a){this._hide(a),this.clearCache()},_confirm:function(a){return this.options.callback?a():(this._hide(a),void this.clearCache())},getElement:function(){return this.element},_getOptions:function(){return this.options},_setTxt:function(a){return this.element.find(".confirm").html(a)},destroy:function(){var a=this;a.element.remove()}},a.extend(a.fn,{open:function(b){a(this).data("dialog")&&a(this).data("dialog").open(b)},close:function(b){a(this).data("dialog")&&a(this).data("dialog").close(b)},clear:function(){a(this).data("dialog")&&a(this).data("dialog").clearCache()},getOptions:function(){return a(this).data("dialog")&&a(this).data("dialog")._getOptions()},getEl:function(){return a(this).data("dialog")&&a(this).data("dialog").getElement()},setTxt:function(b){a(this).data("dialog")&&a(this).data("dialog")._setTxt(b)},destroy:function(){a(this).data("dialog")&&a(this).data("dialog").destroy(t)}})}(jQuery)}),define("dist/cmd-lib/loading",[],function(a,b,c){!function(a,b,c){a.fn.loading=function(b){var c=a(this),d=this;return this.each(function(){var e="",f={direction:"column",animateIn:"fadeInNoTransform",title:"提交中...",name:"loadingName",type:"origin",discription:"",titleColor:"rgba(255,255,255,0.7)",discColor:"rgba(255,255,255,0.7)",loadingWidth:100,loadingBg:"rgba(0, 0, 0, 0.6)",borderRadius:6,loadingMaskBg:"rgba(0,0,0,0.6)",zIndex:1000001,originDivWidth:10,originDivHeight:10,originWidth:4,originHeight:4,originBg:"#fefefe",smallLoading:!1,imgSrc:"",imgDivWidth:80,imgDivHeight:80,flexCenter:!1,flexDirection:"row",mustRelative:!1,delay:2e3,isClose:!0},g=a.extend(f,b||{});"body"==c.selector?(a("body,html").css({overflow:"hidden"}),e="fixed"):g.mustRelative?(c.css({position:"relative"}),e="absolute"):e="absolute",f._showOriginLoading=function(){var b=g.smallLoading?0:"-10px";"row"==g.direction&&(b="-6px"),d.cpt_loading_mask=a('<div class="cpt-loading-mask animated '+g.animateIn+" "+g.direction+'" data-name="'+g.name+'"></div>').css({background:g.loadingMaskBg,"z-index":g.zIndex,position:e}).appendTo(c),d.div_loading=a('<div class="div-loading"></div>').css({background:g.loadingBg,width:g.loadingWidth,height:g.loadingHeight,"-webkit-border-radius":g.borderRadius,"-moz-border-radius":g.borderRadius,"border-radius":g.borderRadius}).appendTo(d.cpt_loading_mask),g.flexCenter&&d.div_loading.css({display:"-webkit-flex",display:"flex","-webkit-flex-direction":g.flexDirection,"flex-direction":g.flexDirection,"-webkit-align-items":"center","align-items":"center","-webkit-justify-content":"center","justify-content":"center"}),d.loading_title=a('<p class="loading-title txt-textOneRow"></p>').css({color:g.titleColor}).html(g.title).appendTo(d.div_loading),d.loading=a('<div class="loading '+g.type+'"></div>').css({width:g.originDivWidth,height:g.originDivHeight}).appendTo(d.div_loading),d.loading_discription=a('<p class="loading-discription txt-textOneRow"></p>').css({color:g.discColor}).html(g.discription).appendTo(d.div_loading),"origin"==g.type&&(d.loadingOrigin=a('<div class="div-loadingOrigin"><span></span></div><div class="div-loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div>').appendTo(d.loading),d.loadingOrigin.children().css({"margin-top":b,"margin-left":b,width:g.originWidth,height:g.originHeight,background:g.originBg})),"pic"==g.type&&(d.loadingPic=a('<img src="'+g.imgSrc+'" alt="loading" />').appendTo(d.loading)),d.cpt_loading_mask.on("touchstart touchend touchmove click",function(a){a.stopPropagation(),a.preventDefault()})},f._createLoading=function(){a(".cpt-loading-mask[data-name="+g.name+"]").length>0||f._showOriginLoading()},f._createLoading(),f.close=function(){a(".cpt-loading-mask[data-name="+g.name+"]").remove()}})},a.extend(a.fn,{closeLoading:function(b){var b=b||"";if(a("body,html").css({overflow:"auto"}),""==b)a(".cpt-loading-mask").remove();else{var c=b||"loadingName";a(".cpt-loading-mask[data-name="+c+"]").remove()}}})}(jQuery,window,document)}),define("dist/detail/index",["dist/application/suspension","dist/application/method","dist/application/checkLogin","dist/application/api","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics","dist/application/app","dist/application/element","dist/application/template","dist/application/extend","dist/application/effect","dist/application/helper","dist/detail/common"],function(a,b,c){function d(){u&&(u=u.length>12?u.slice(0,12)+"...":u),$("#search-detail-input").attr("placeholder",u||"与人沟通的十大绝招"),e(),l(),k(),g()}function e(){if(p.getCookie("cuk"))r.getLoginData(function(a){s.afterLogin(a),window.pageConfig.userId=a.userId,p.getCookie("event_data")&&(n(event),p.delCookie("event_data","/"))});else{var a=window.pageConfig.params;if(("4"==a.productType||"5"==a.productType)&&"1"==a.vipDiscountFlag){var b=a.moneyPrice;$(".js-original-price").html(b);var c=(.8*a.moneyPrice).toFixed(2);$(".vip-save-money").html(c),$(".js-original-price").html(c)}}var d="/node/feedback/feedback.html?url="+encodeURIComponent(location.href);$(".user-feedback").attr("href",d);var e=$(".icon-detail-wrap");e.length&&$(window).on("scroll",function(){var a=$(this),b=a.scrollTop();b>=180?(e.addClass("icon-text-fixed"),$(".icon-text-fixed").css("left",$(".bd-wrap")[0].offsetLeft-6)):(e.removeClass("icon-text-fixed"),e.css("left","-6px"))})}function f(){function a(){function a(){$(".common-bgMask").hide(),$(".detail-bg-mask").hide(),$("#dialog-box").hide()}console.log(6666),$(".m-reward-pop .close-btn").on("click",function(){a()}),$(".m-reward-pop .submit-btn").on("click",function(){var b=window.pageConfig.userId;if(!b)return a(),void $.toast({text:"该功能仅对VIP用户开放",delay:3e3});var c=/^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/,d=$(".m-reward-pop .form-ipt").val(),e=$(".m-reward-pop .form-verify-tips");if(e.hide(),!c.test(d))return void e.show();var f={userId:b,fid:window.pageConfig.params.g_fileId,email:d,channelSource:4};$.ajax("/gateway/content/sendmail/findFile",{type:"POST",data:JSON.stringify(f),dataType:"json",contentType:"application/json"}).done(function(b){0==b.code?(a(),$.toast({text:"发送成功",delay:2e3})):401100==b.code?$.toast({text:"该功能仅对VIP用户开放",delay:2e3}):$.toast({text:"发送失败，请重试",delay:2e3})}).fail(function(a){$.toast({text:"发送失败，请重试",delay:2e3})})})}var b=$(".more-nav"),c=$("#search-detail-input"),d=$(".detail-lately");$(".slider-control");b.on("mouseover",function(){var a=$(this);a.hasClass("hover")||$(this).addClass("hover")}),b.on("mouseleave",function(){var a=$(this);a.hasClass("hover")&&$(this).removeClass("hover")}),c.on("keyup",function(a){var b=a.keyCode;$(this).val()&&w($(this).val()),13===b&&x($(this).val())}),c.on("focus",function(){$(".detail-search-info").hide();var a=$(".lately-list"),b=a.find("li").length;return b>0?d.show():d.hide(),!0}),$(".btn-new-search").on("click",function(){var a=c.val()||c.attr("placeholder");x(a)}),$(".detail-search-info").on("click",function(){var a=c.val()||c.attr("placeholder");x(a)}),$(document).on("click",":not(.new-search)",function(a){var b=$(a.target);b.hasClass("new-input")||d.hide()}),d.on("click",function(a){a.stopPropagation()}),$("#detail-unLogin,.login-open-vip").on("click",function(){p.getCookie("cuk")||r.notifyLoginInterface(function(a){s.afterLogin(a)})}),$(".btn-exit").on("click",function(){r.ishareLogout()}),$("#search-detail-input").on("focus",function(){$(".detail-search-info").hide()}),$("#commentCheckbox").on("click",function(){$(this).find(".check-con").toggleClass("checked")}),$(".report-link").on("click",function(){p.compatibleIESkip("/node/feedback/feedback.html?url="+location.href,!0)}),$("#btn-collect").on("click",function(){if(!p.getCookie("cuk"))return void r.notifyLoginInterface(function(a){s.afterLogin(a)});$(this).attr("data-fid");t($(this)),j($(this))}),$(".detail-fixed").on("click","#searchRes",function(){$("body,html").animate({scrollTop:$("#littleApp").offset().top-60},200),$("#dialog-box").dialog({html:$("#reward-mission-pop").html()}).open(),setTimeout(a,500)}),$("body").on("click",".js-buy-open",function(a){var b=$(this).data("type");p.getCookie("cuk")?n(b):($(this).attr("loginOffer")&&p.setCookieWithExpPath("_loginOffer",$(this).attr("loginOffer"),36e5,"/"),p.setCookieWithExpPath("enevt_data",b,36e5,"/"),"5"==pageConfig.params.productType&&"file"==b||r.notifyLoginInterface(function(a){s.afterLogin(a),n(b,a)}))})}function g(){$.ajax({headers:{Authrization:p.getCookie("cuk")},url:o.reportBrowse.fileBrowseReportBrowse,type:"POST",data:JSON.stringify({terminal:"0",fid:window.pageConfig.params&&window.pageConfig.params.g_fileId}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){if("0"==a.code&&a.data.rows&&a.data.rows.length){var b=template.compile(HotSpotSearch)({hotSpotSearchList:a.data.rows||[]});$(".hot-spot-search-warper").html(b)}}})}function h(a,b,c){$(a).focus(function(){$(this).parents(c).addClass(b)}),$(a).blur(function(){$(this).parents(c).removeClass(b)})}function i(a,b,c){$(a).hover(function(){$(this).addClass(c),$(b).fadeIn("slow")},function(){$(this).removeClass(c),$(b).fadeOut("slow")})}function j(a){$.ajax({headers:{Authrization:p.getCookie("cuk")},url:o.special.setCollect,type:"post",data:JSON.stringify({fid:window.pageConfig.params.g_fileId,source:0}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(b){"0"==b.code?($.toast({text:a.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"}),a.hasClass("btn-collect-success")?a.removeClass("btn-collect-success"):a.addClass("btn-collect-success")):$.toast({text:a.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"})}})}function k(){$.ajax({headers:{Authrization:p.getCookie("cuk")},url:o.special.getCollectState,type:"get",data:{fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid},contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){"0"==a.code&&(a.data.hasCollect?$("#btn-collect").addClass("btn-collect-success"):$("#btn-collect").removeClass("btn-collect-success"))}})}function l(){var a=pageConfig.access,b=p.keyMap.ishare_detail_access;if(pageConfig&&a){var c=p.getLocalData(b);!c||c.length<1?(c=[],c.push(a),p.setLocalData(b,c)):(c=m(a.fileId,c),c.unshift({fileId:a.fileId,title:a.title,format:a.format,time:(new Date).getTime()}),p.setLocalData(b,c))}}function m(a,b){for(var c=0;c<b.length;c++)if(b[c].fileId===a){b.splice(c,1);break}return 50===b.length&&b.pop(),b}function n(a,b){var c=window.pageConfig.params.g_fileId,d=window.pageConfig.params.file_format,e=window.pageConfig.params.file_title,f="",g=q.getPageRef(c);if(p.setCookieWithExpPath("rf",JSON.stringify({}),3e5,"/"),p.setCookieWithExp("f",JSON.stringify({fid:c,title:e,format:d}),3e5,"/"),"file"===a)f="?orderNo="+c+"&checkStatus=8&referrer="+document.referrer,p.compatibleIESkip("/pay/payConfirm.html"+f,!1);else if("vip"===a){if(b&&1==!b.isVip)return;var f="?fid="+c+"&ft="+d+"&checkStatus=10&name="+encodeURIComponent(encodeURIComponent(e))+"&ref="+g;p.compatibleIESkip("/pay/vip.html"+f,!0)}else if("privilege"===a){var f="?fid="+c+"&ft="+d+"&checkStatus=13&name="+encodeURIComponent(encodeURIComponent(e))+"&ref="+g;p.compatibleIESkip("/pay/privilege.html"+f,!0)}}a("dist/application/suspension");var o=(a("dist/application/app"),a("dist/application/api")),p=a("dist/application/method"),q=a("dist/cmd-lib/util"),r=a("dist/application/checkLogin"),s=a("dist/detail/common"),t=a("dist/common/bilog").clickEvent,u=window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName,v=a("dist/common/baidu-statistics").handleBaiduStatisticsPush;v("fileDetailPageView"),d(),f(),$(function(){function a(){$(".coupon-info-top").on("click",".btn-no-user",function(){$(".coupon-info-top").hide(),localStorage.setItem("firstCoupon",1)})}var b=$(".new-detail-header"),c=b.height(),d=b.find(".new-input");h(d,"new-search-focus",".new-search"),h(".evaluate-textarea textarea","evaluate-textarea-focus",".evaluate-textarea");var e=$("#fix-right"),f=$(".detail-fixed-con"),g=$(".detail-footer"),j=b.height();if(e.length){e.offset().top-c}$(window).scroll(function(){var a=$(this).scrollTop(),d=g.offset().top-j-g.height();a>c?(b.addClass("new-detail-header-fix"),$(".coupon-info-top").hide()):(b.removeClass("new-detail-header-fix"),!localStorage.getItem("firstCoupon")&&p.getCookie("cuk")&&$(".coupon-info-top").show()),a>j+e.height()?($(".fix-right-bannertop").hide(),$(".fix-right-bannerbottom").hide(),e.css({position:"fixed",top:c,"z-index":"75"})):(e.removeAttr("style"),$(".fix-right-bannertop").show(),$(".fix-right-bannerbottom").show()),a>d?(f.find(".operation").hide(),f.find(".data-item").show()):(f.find(".operation").show(),f.find(".data-item").hide())}),a(),$(".firstLoginHook").click(function(){$(".pc-tui-coupon").hide()}),i(b.find(".more-nav"),null,"hover")});var w=function(a){$.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+encodeURIComponent(a)+"&p=3&cb=window.baidu_searchsug&t="+(new Date).getTime())};window.baidu_searchsug=function(a){var b=$("#search-detail-input").val();if(b=b?b.replace(/^\s+|\s+$/gm,""):"",b.length>0&&a&&a.s){var c=a.s;if(c.length>0){for(var d=Math.min(c.length,10),e=[],f=0;d>f;f++){var g="/search/home.html?cond="+encodeURIComponent(encodeURIComponent(c[f]));e.push('<li><a href="'+g+'"  data-html="'+c[f]+'" >'+c[f].replace(new RegExp("("+b+")","gm"),"<span class='search-font'>$1</span>")+"</a></li>")}$(".lately-list").html(e.join("")).parent(".detail-lately").show()}}};var x=function(a){var b=a?a.replace(/^\s+|\s+$/gm,""):"";p.compatibleIESkip("/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(b)),!1)};c.exports={goPage:n}}),define("dist/application/suspension",["dist/application/method","dist/application/checkLogin","dist/application/api","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics","dist/application/app","dist/application/element","dist/application/template","dist/application/extend","dist/application/effect","dist/application/helper"],function(a,b,c){function d(){function a(a,b,c){b=b||0,a&&1===b?k.getCookie("cuk")?(f(b),g.animate({right:"61px"},500)):l.notifyLoginInterface(function(a){e(g,b,a)}):g.animate({right:"-307px"},200),a&&0===b?k.getCookie("cuk")?window.open("/node/rights/vip.html","target"):window.open("/node/rights/vip.html","target"):1===b?($(".mui-user-wrap").css("visibility","hidden"),$(".mui-sel-wrap").css("visibility","visible")):2===b?($(".mui-user-wrap").css("visibility","hidden"),$(".mui-sel-wrap").css("visibility","hidden"),k.compatibleIESkip("/node/upload.html",!0)):(4===b||6===b)&&(g.animate({right:"-307px"},200),6==b&&k.compatibleIESkip("https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q",!0))}function b(a){var b=$(window).height();b>=920?d.removeClass("fixed-min-height"):d.addClass("fixed-min-height")}var c=$(".fixed-op").find(".J_menu"),d=$(".fixed-right-full"),g=d.find(".fixed-detail-wrap");$(".btn-detail-back").on("click",function(){a(!1,$(this)),c.removeClass("active")}),$(document).on("click",function(){var b=$(this);a(!1,b),c.removeClass("active")}),d.on("click",".js-buy-open",function(){k.compatibleIESkip("/pay/vip.html",!0)}),$(".op-menu-wrap").click(function(a){a.stopPropagation()}),c.on("click",function(){var b=$(this).index();$(this).attr("bilogContent")&&n($(this)),$(this).hasClass("active")?($(this).removeClass("active"),a(!1,$(this))):($(this).addClass("active").siblings().removeClass("active"),a(!0,b,$(this)))}),$(window).bind("resize ready",b)}function e(a,b,c){var d=$("#unLogin"),e=$("#haveLogin"),g=$(".top-user-more"),h=$(".icon-iShare-text"),i=$(".btn-user-more"),j=$(".vip-status");h.html("1"==c.isVip?"续费VIP":"开通VIP"),i.text("1"==c.isVip?"续费":"开通"),"0"==c.isVip?$(".open-vip").show().siblings("a").hide():$(".xf-open-vip").show().siblings("a").hide();var k=null;if("1"==c.isVip?(k=j.find('p[data-type="2"]'),k.find(".expire_time").html(c.expireTime),k.show().siblings().hide()):"1"==c.isVip&&"2"==c.userType&&(k=j.find('p[data-type="3"]'),k.show().siblings().hide()),d.hide(),e.find(".icon-detail").html(c.nickName),e.find("img").attr("src",c.photoPicURL),g.find("img").attr("src",c.photoPicURL),g.find("#userName").html(c.nickName),e.show(),$(".user-avatar img").attr("src",c.photoPicURL),$(".name-wrap .name-text").html(c.nickName),"1"==c.isVip){var l="您的VIP将于"+c.expireTime+"到期,剩余"+c.privilege+"次下载特权";$(".detail-right-normal-wel").html(l),$(".detail-right-vip-wel").html("会员尊享权益"),$(".btn-mui").hide(),$("#memProfit").html("VIP权益")}else $(".mui-privilege-list li").removeClass("hide");f(b),a&&a.animate({right:"61px"},500)}function f(a){1===a?g():2===a&&h()}function g(){i()}function h(){var a={pageNumber:1,pageSize:20,sidx:0,order:-1};$.ajax(m.user.newCollect,{type:"get",async:!1,data:a,dataType:"json"}).done(function(a){0==a.code&&j(a.data.rows)}).fail(function(a){console.log("error==="+a)})}function i(){$.ajax({url:m.user.getFileBrowsePage,type:"POST",data:JSON.stringify({currentPage:1,pageSize:20}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){if("0"==a.code){console.log("getUserFileList:",a);var b=a.data&&a.data.rows||[],c=$("#seenRecord"),d=[];if(b&&b.length){b=b.slice(0,20);for(var e=0;e<b.length;e++){var f=b[e],g='<li><i class="ico-data ico-'+f.format+'"></i><a target="_blank" href="/f/'+f.fileid+'.html">'+f.name+"</a></li>";d.push(g)}c.html(d.join(""))}else c.hide().siblings(".mui-data-null").show()}else{var c=$("#seenRecord");c.hide().siblings(".mui-data-null").show(),console.log(a.msg)}},error:function(a){console.log("getUserFileList:",a)}})}function j(a){var b=$("#myCollect"),c=[];if(a&&a.length){for(var d=a.slice(0,20),e=0;e<d.length;e++){var f=d[e],g='<li><i class="ico-data ico-'+f.format+'"></i><a target="_blank" href="/f/'+f.fileId+'.html">'+f.title+"</a></li>";c.push(g)}b.html(c.join("")),a.length>20&&b.siblings(".btn-mui-fix").removeClass("hide")}else b.siblings(".mui-data-null").removeClass("hide")}var k=a("dist/application/method"),l=a("dist/application/checkLogin"),m=(a("dist/application/app"),a("dist/application/api")),n=a("dist/common/bilog").clickEvent;d(),$(".op-feedback").on("click",function(){var a=window.location.href;k.compatibleIESkip("/node/feedback/feedback.html?url="+encodeURIComponent(a),!0)}),$("#go-back-top").on("click",function(){$("body,html").animate({scrollTop:0},200)});try{!function(a,b,c,d,e,f,g){a[d]=a[d]||function(){(a[d].a=a[d].a||[]).push(arguments)},f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=!0,f.charset="UTF-8",f.src="//static.meiqia.com/dist/meiqia.js?_=t",g.parentNode.insertBefore(f,g)}(window,document,"script","_MEIQIA"),_MEIQIA("entId","149498"),_MEIQIA("allSet",function(){_MEIQIA("showPanel")}),_MEIQIA("manualInit")}catch(o){}$(".btn-mui-contact").on("click",function(){_MEIQIA("init")}),c.exports={usermsg:function(a){if($(".user-avatar img").attr("src",a.photoPicURL),$(".name-wrap .name-text").html(a.nickName),"1"==a.isVip){var b="您的VIP将于"+a.expireTime+"到期,剩余"+a.privilege+"次下载特权";$(".detail-right-normal-wel").html(b),$(".detail-right-vip-wel").html("会员尊享权益"),$(".btn-mui").hide(),$("#memProfit").html("VIP权益")}else $(".mui-privilege-list li").removeClass("hide")}}}),define("dist/application/method",[],function(require,exports,module){return{keyMap:{ishare_detail_access:"ISHARE_DETAIL_ACCESS",ishare_office_detail_access:"ISHARE_OFFICE_DETAIL_ACCESS"},async:function(a,b,c,d,e){$.ajax(a,{type:d||"post",data:e,async:!1,dataType:"json",headers:{"cache-control":"no-cache",Pragma:"no-cache",Authrization:this.getCookie("cuk")}}).done(function(a){b&&b(a)}).fail(function(a){console.log("error==="+c)})},get:function(a,b,c){$.ajaxSetup({cache:!1}),this.async(a,b,c,"get")},post:function(a,b,c,d,e){this.async(a,b,c,d,e)},postd:function(a,b,c){this.async(a,b,!1,!1,c)},random:function(a,b){return Math.floor(Math.random()*(b-a))+a},setCookieWithExpPath:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString()},setCookieWithExp:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),d?document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString():document.cookie=a+"="+escape(b)+";expires="+e.toGMTString()},getCookie:function(a){var b=document.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!==b?unescape(b[2]):null},delCookie:function(a,b,c){var d=new Date;d.setTime(d.getTime()-1);var e=this.getCookie(a);null!=e&&(b&&c?document.cookie=a+"= '' ;domain="+c+";expires="+d.toGMTString()+";path="+b:b?document.cookie=a+"= '' ;expires="+d.toGMTString()+";path="+b:document.cookie=a+"="+e+";expires="+d.toGMTString())},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},url2Obj:function(a){for(var b={},c=a.split("?"),d=c[1].split("&"),e=0;e<d.length;e++){var f=d[e].split("=");b[f[0]]=f[1]}return b},getParam:function(a){a=a.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var b="[\\?&]"+a+"=([^&#]*)",c=new RegExp(b),d=c.exec(window.location.href);return null==d?"":decodeURIComponent(d[1].replace(/\+/g," "))},getLocalData:function(a){try{if(localStorage&&localStorage.getItem){var b=localStorage.getItem(a);return null===b?null:JSON.parse(b)}return console.log("浏览器不支持html localStorage getItem"),null}catch(c){return null}},setLocalData:function(a,b){localStorage&&localStorage.setItem?(localStorage.removeItem(a),localStorage.setItem(a,JSON.stringify(b))):console.log("浏览器不支持html localStorage setItem")},browserType:function(){var a=navigator.userAgent,b=a.indexOf("Opera")>-1;return b?"Opera":a.indexOf("compatible")>-1&&a.indexOf("MSIE")>-1&&!b?"IE":a.indexOf("Edge")>-1?"Edge":a.indexOf("Firefox")>-1?"Firefox":a.indexOf("Safari")>-1&&-1===a.indexOf("Chrome")?"Safari":a.indexOf("Chrome")>-1&&a.indexOf("Safari")>-1?"Chrome":void 0},validateIE9:function(){return!(!$.browser.msie||"9.0"!==$.browser.version&&"8.0"!==$.browser.version&&"7.0"!==$.browser.version&&"6.0"!==$.browser.version)},compareTime:function(a,b){return a&&b?Math.abs((b-a)/1e3/60/60/24):""},changeURLPar:function(url,arg,arg_val){var pattern=arg+"=([^&]*)",replaceText=arg+"="+arg_val;if(url.match(pattern)){var tmp="/("+arg+"=)([^&]*)/gi";return tmp=url.replace(eval(tmp),replaceText)}return url.match("[?]")?url+"&"+replaceText:url+"?"+replaceText},getUrlAllParams:function(a){if("undefined"==typeof a)var b=decodeURI(location.search);else var b="?"+a.split("?")[1];var c=new Object;if(-1!=b.indexOf("?"))for(var d=b.substr(1),e=d.split("&"),f=0;f<e.length;f++)c[e[f].split("=")[0]]=decodeURI(e[f].split("=")[1]);return c},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},compatibleIESkip:function(a,b){var c=document.createElement("a");c.href=a,c.style.display="none",b&&(c.target="_blank"),document.body.appendChild(c),c.click()},testEmail:function(a){
-var b=/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;return b.test(a)?!0:!1},testPhone:function(a){return/^1(3|4|5|6|7|8|9)\d{9}$/.test(a)?!0:!1},handleRecommendData:function(a){var b=[];return $(a).each(function(a,c){var d={};1==c.type&&(c.linkUrl="/f/"+c.tprId+".html",d=c),2==c.type&&(d=c),3==c.type&&(c.linkUrl="/node/s/"+c.tprId+".html",d=c),b.push(d)}),console.log(b),b},formatDate:function(a){var b={"M+":this.getMonth()+1,"d+":this.getDate(),"h+":this.getHours(),"m+":this.getMinutes(),"s+":this.getSeconds(),"q+":Math.floor((this.getMonth()+3)/3),S:this.getMilliseconds()};/(y+)/.test(a)&&(a=a.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length)));for(var c in b)new RegExp("("+c+")").test(a)&&(a=a.replace(RegExp.$1,1==RegExp.$1.length?b[c]:("00"+b[c]).substr((""+b[c]).length)));return a},getReferrer:function(){var a=document.referrer,b="";return/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)&&(b="sm"),b},judgeSource:function(a){a||(a={}),a.searchEngine="";var b="";if(b=utils.getQueryVariable("from"),b||(b=sessionStorage.getItem("webWxFrom")||utils.getCookie("webWxFrom")),b)a.source=b,sessionStorage.setItem("webWxFrom",b),sessionStorage.removeItem("webReferrer");else{var c=sessionStorage.getItem("webReferrer")||utils.getCookie("webReferrer");if(c||(c=document.referrer),c){sessionStorage.setItem("webReferrer",c),sessionStorage.removeItem("webWxFrom"),c=c.toLowerCase();for(var d=new Array("google.","baidu.","360.","sogou.","shenma.","bing."),e=new Array("google","baidu","360","sogou","shenma","bing"),f=0,g=d.length;g>f;f++)c.indexOf(d[f])>=0&&(a.source="searchEngine",a.searchEngine=e[f])}c&&a.source||(utils.isWeChatBrow()?a.source="wechat":a.source="outLink")}return a}}}),define("dist/application/checkLogin",["dist/application/api","dist/application/method","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics"],function(a,b,c){var d=a("dist/application/api"),e=a("dist/application/method"),d=a("dist/application/api"),f=a("dist/application/login").showLoginDialog;a("dist/common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66");var g=a("dist/common/baidu-statistics").handleBaiduStatisticsPush,h=a("dist/common/bilog").loginResult;c.exports={getIds:function(){var a=window.pageConfig&&window.pageConfig.params?window.pageConfig.params:null,b=window.pageConfig&&window.pageConfig.access?window.pageConfig.access:null,c=a?a.classid:"",d=b?b.fileId||a.g_fileId||"":"",e=a&&a.classIds?a.classIds:"";return!c&&(c=e),{clsId:c,fid:d}},notifyLoginInterface:function(a){var b=this;if(!e.getCookie("cuk")){var c=(window.pageConfig&&window.pageConfig.page?window.pageConfig.page.ptype||"index":"index",this.getIds().clsId),d=this.getIds().fid;f({clsId:c,fid:d},function(){console.log("loginCallback"),b.getLoginData(a)})}},listenLoginStatus:function(a){var b=this;$.loginPop("login_wx_code",{terminal:"PC",businessSys:"ishare",domain:document.domain,ptype:"ishare",popup:"hidden",clsId:this.getIds().clsId,fid:this.getIds().fid},function(){b.getLoginData(a)})},getUserData:function(a){e.getCookie("cuk")&&e.get(d.coupon.querySeniority,function(b){b&&0==b.code&&a(b.data)},"")},getLoginData:function(a){var b=this;try{e.get("/node/api/getUserInfo",function(c){if(0==c.code&&c.data){if(h("","loginResult",{loginType:window.loginType&&window.loginType.type,phone:c.data.mobile,loginResult:"1"}),g("loginResult",{loginType:window.loginType&&window.loginType.type,phone:c.data.mobile,userid:c.data.userId,loginResult:"1"}),a&&"function"==typeof a){a(c.data);try{window.pageConfig.params.isVip=c.data.isVip,window.pageConfig.page.uid=c.data.userId}catch(d){}}try{var f={uid:c.data.userId,isVip:c.data.isVip,tel:c.data.mobile};e.setCookieWithExpPath("ui",JSON.stringify(f),18e5,"/")}catch(i){}}else h("","loginResult",{loginType:window.loginType&&window.loginType.type,phone:"",userid:"",loginResult:"0"}),g("loginResult",{loginType:window.loginType&&window.loginType.type,phone:"",userid:c.data.userId,loginResult:"0"}),b.ishareLogout()})}catch(c){console.log(c)}},ishareLogout:function(){e.delCookie("cuk","/",".sina.com.cn"),e.delCookie("cuk","/",".iask.com.cn"),e.delCookie("cuk","/",".iask.com"),e.delCookie("cuk","/"),e.delCookie("sid","/",".iask.sina.com.cn"),e.delCookie("sid","/",".iask.com.cn"),e.delCookie("sid","/",".sina.com.cn"),e.delCookie("sid","/",".ishare.iask.com.cn"),e.delCookie("sid","/",".office.iask.com"),e.delCookie("sid_ishare","/",".iask.sina.com.cn"),e.delCookie("sid_ishare","/",".iask.com.cn"),e.delCookie("sid_ishare","/",".sina.com.cn"),e.delCookie("sid_ishare","/",".ishare.iask.com.cn"),e.delCookie("_1st_l","/"),e.delCookie("ui","/"),$.get(d.user.loginOut,function(a){console.log("loginOut:",a),0==a.code?window.location.href=window.location.href:$.toast({text:a.msg,delay:3e3})})}}}),define("dist/application/api",[],function(a,b,c){var d="/gateway/pc",e="/gateway";c.exports={user:{loginByPsodOrVerCode:e+"/cas/login/authorize",getLoginQrcode:e+"/cas/login/qrcode",loginByWeChat:e+"/cas/login/gzhScan",getUserInfo:"/node/api/getUserInfo",thirdLoginRedirect:e+"/cas/login/redirect",loginOut:e+"/cas/login/logout",newCollect:e+"/content/collect/getUserFileList",addFeedback:e+"/feedback/addFeedback",getFeedbackType:e+"/feedback/getFeedbackType",sendSms:e+"/cas/sms/sendSms",queryBindInfo:e+"/cas/user/queryBindInfo",thirdCodelogin:e+"/cas/login/thirdCode",userBindMobile:e+"/cas/user/bindMobile",checkIdentity:e+"/cas/sms/checkIdentity",userBindThird:e+"/cas/user/bindThird",untyingThird:e+"/cas/user/untyingThird",setUpPassword:e+"/cas/user/setUpPassword",getUserCentreInfo:e+"/user/getUserCentreInfo",editUser:e+"/user/editUser",getFileBrowsePage:e+"/content/fileBrowse/getFileBrowsePage",getDownloadRecordList:e+"/content/getDownloadRecordList",getUserFileList:e+"/content/collect/getUserFileList",getMyUploadPage:e+"/content/getMyUploadPage",getOtherUser:e+"/user/getOthersCentreInfo",getSearchList:e+"/search/content/byCondition"},normalFileDetail:{filePreDownLoad:e+"/content/getPreFileDownUrl",getFileDownLoadUrl:e+"/content/getFileDownUrl",getPrePageInfo:e+"/content/file/getPrePageInfo"},officeFileDetail:{},search:{specialTopic:e+"/search/specialTopic/lisPage"},sms:{sendCorpusDownloadMail:e+"/content/fileSendEmail/sendCorpusDownloadMail"},pay:{bindUser:e+"/order/bind/loginUser",scanOrderInfo:e+"/order/scan/orderInfo"},coupon:{rightsSaleVouchers:e+"/rights/sale/vouchers",rightsSaleQueryPersonal:e+"/rights/sale/queryPersonal",querySeniority:e+"/rights/sale/querySeniority",queryUsing:e+"/rights/sale/queryUsing",getMemberPointRecord:e+"/rights/vip/getMemberPointRecord",getBuyRecord:e+"/rights/vip/getBuyRecord"},order:{bindOrderByOrderNo:e+"/order/bind/byOrderNo",unloginOrderDown:d+"/order/unloginOrderDown",createOrderInfo:e+"/order/create/orderInfo",rightsVipGetUserMember:e+"/rights/vip/getUserMember",getOrderStatus:e+"/order/get/orderStatus",queryOrderlistByCondition:e+"/order/query/listByCondition",getOrderInfo:e+"/order/get/orderInfo"},getHotSearch:e+"/cms/search/content/hotWords",special:{fileSaveOrupdate:e+"/comment/collect/fileSaveOrupdate",getCollectState:e+"/comment/zc/getUserFileZcState",setCollect:e+"/content/collect/file"},upload:{getCategory:e+"/content/category/getSimplenessInfo",createFolder:e+"/content/saveUserFolder",getFolder:e+"/content/getUserFolders",saveUploadFile:e+"/content/webUploadFile",batchDeleteUserFile:e+"/content/batchDeleteUserFile"},recommend:{recommendConfigInfo:e+"/recommend/config/info",recommendConfigRuleInfo:e+"/recommend/config/ruleInfo"},reportBrowse:{fileBrowseReportBrowse:e+"/content/fileBrowse/reportBrowse"},mywallet:{getAccountBalance:e+"/account/balance/getGrossIncome",withdrawal:e+"/account/with/apply",getWithdrawalRecord:e+"/account/withd/getPersonList",editFinanceAccount:e+"/account/finance/edit",getFinanceAccountInfo:e+"/account/finance/getInfo",getPersonalAccountTax:e+"/account/tax/getPersonal",getPersonalAccountTax:e+"/account/tax/getPersonal",getMyWalletList:e+"/settlement/settle/getMyWalletList",exportMyWalletDetail:e+"/settlement/settle/exportMyWalletDetail"}}}),define("dist/application/login",["dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/application/method","dist/report/config","dist/application/api","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone"],function(a,b,c){function d(){$(".common-bgMask").hide(),$(".detail-bg-mask").hide(),$("#dialog-box").hide(),clearInterval(w)}function e(a,b,c){b?"verificationCode-login"==a?($("#dialog-box .verificationCode-login .errortip .error-tip").text(c),$("#dialog-box .verificationCode-login .errortip").show()):"password-login"==a&&($("#dialog-box .password-login .errortip .error-tip").text(c),$("#dialog-box .password-login .errortip").show()):"verificationCode-login"==a?($("#dialog-box .verificationCode-login .errortip .error-tip").text(""),$("#dialog-box .verificationCode-login .errortip").hide()):"password-login"==a&&($("#dialog-box .password-login .errortip .error-tip").text(""),$("#dialog-box .password-login .errortip").hide())}function f(a,b,c,d,e){$.ajax({url:B.user.getLoginQrcode,type:"POST",data:JSON.stringify({cid:a||"",site:"1",fid:b||"",sceneId:s,domain:encodeURIComponent(document.domain)}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){"0"==a.code?(g(!1),x=a.data&&a.data.expires_in,s=a.data&&a.data.sceneId,h(),d||c?($(".tourist-login .qrcode-default").hide(),$(".tourist-login #login-qr").attr("src",a.data.url),$(".tourist-login #login-qr").show(),e&&(z=e)):($("#dialog-box .qrcode-default").hide(),$("#dialog-box #login-qr").attr("src",a.data.url),$("#dialog-box #login-qr").show()),w=setInterval(function(){i()},4e3)):(clearInterval(w),$.toast({text:a.msg,delay:3e3}))},error:function(a){$.toast({text:a.msg||"生成二维码接口错误",delay:3e3})}})}function g(a){a?($(".login-qrContent .login-qr-invalidtip").show(),$(".login-qrContent .qr-invalidtip").show(),$(".login-qrContent .qr-refresh").show()):($(".login-qrContent .login-qr-invalidtip").hide(),$(".login-qrContent .qr-invalidtip").hide(),$(".login-qrContent .qr-refresh").hide())}function h(){0>=x?(clearTimeout(v),clearInterval(w),$("#dialog-box .qrcode-default").hide(),g(!0)):(x--,v=setTimeout(h,1e3))}function i(a,b){$.ajax({url:B.user.loginByWeChat,type:"POST",data:JSON.stringify({sceneId:s,site:"1",site:"1",cid:a,fid:b||"1816",domain:encodeURIComponent(document.domain)}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){"0"==a.code?(clearInterval(w),C.setCookieWithExpPath("cuk",a.data.access_token,1e3*a.data.expires_in,"/"),d(),y&&y(),z&&z(),$.ajaxSetup({headers:{Authrization:C.getCookie("cuk")}})):"411046"!=a.code&&(clearInterval(w),$.toast({text:a.msg,delay:3e3}))},error:function(a){$.toast({text:a.msg||"公众号登录二维码",delay:3e3})}})}function j(a){var b=a,c=1,d=window.location.origin?window.location.origin:window.location.protocol+"//"+window.location.hostname,e=d+"/node/redirectionURL.html?clientCode="+b,f=d+B.user.thirdCodelogin+"?clientCode="+b+"&channel="+c+"&terminal=pc&businessSys=ishare&location="+encodeURIComponent(e);k(f)}function k(a){var b=585,c=525,d=(window.screen.availHeight-30-c)/2,e=(window.screen.availWidth-10-b)/2,f="height="+c+",width="+b+",top="+d+",left="+e+",toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes";r=window.open(a,"",f)}function l(a,b,c){$.ajax({url:B.user.thirdLoginRedirect,type:"POST",contentType:"application/json; charset=utf-8",data:JSON.stringify({terminal:"0",thirdType:c,code:a,businessSys:"ishare"}),dataType:"json",success:function(a){"0"==a.code?(C.setCookieWithExpPath("cuk",a.data&&a.data.access_token,1e3*a.data.expires_in,"/"),d(),y&&y(),z&&z(),r.close(),$.ajaxSetup({headers:{Authrization:C.getCookie("cuk")}})):($.toast({text:a.msg,delay:3e3}),r.close())},error:function(a){r.close(),$.toast({text:a.msg,delay:3e3})}})}function m(a,b,c,d){$.ajax({url:B.user.sendSms,type:"POST",contentType:"application/json; charset=utf-8",data:JSON.stringify({mobile:t,nationCode:$("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/,"").trim(),businessCode:u,terminal:"pc",appId:a,randstr:b,ticket:c,onOff:d}),dataType:"json",success:function(a){if("0"==a.code){q=a.data.smsId;var b=$("#dialog-box .getVerificationCode");b.attr("data-authenticationCodeType",1);var c=null,d=60;!function e(){0>=d?(clearTimeout(c),b.text("重新获取验证码"),b.css({"font-size":"13px",color:"#fff","border-color":"#eee"}),b.attr("data-authenticationCodeType",2)):(b.text(d--),b.css({color:"#fff","border-color":"#eee"}),c=setTimeout(e,1e3))}()}else"411015"==a.code?D(m):"411033"==a.code?$.toast({text:"图形验证码错误",delay:3e3}):$.toast({text:a.msg,delay:3e3})},error:function(a){$.toast({text:a.msg||"获取验证码错误",delay:3e3})}})}function n(a,b,c,f,g,h){$.ajax({url:B.user.loginByPsodOrVerCode,type:"POST",data:JSON.stringify({loginType:a,terminal:"pc",mobile:b,nationCode:c,smsId:f,checkCode:g,password:$.md5(h)}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){"0"==a.code?(C.setCookieWithExpPath("cuk",a.data.access_token,1e3*a.data.expires_in,"/"),d(),y&&y(),z&&z(),$.ajaxSetup({headers:{Authrization:C.getCookie("cuk")}})):g?e("verificationCode-login",!0,a.msg):e("password-login",!0,a.msg)},error:function(a){$.toast({text:a.msg||"验证码或密码登录错误",delay:3e3})}})}function o(a,b){y=b;var c=$("#login-dialog");A("loginResultPage"),$("#dialog-box").dialog({html:c.html(),closeOnClickModal:!1}).open(f(a.clsId,a.fid))}function p(a,b){z=b;var c=$("#tourist-purchase-dialog");$("#dialog-box").dialog({html:c.html(),closeOnClickModal:!1}).open(f(a.clsId,a.fid))}a("dist/cmd-lib/jqueryMd5"),r="";var q="",r="",s="",t="",u="",v=null,w=null,x="",y=null,z=null,A=a("dist/common/bilog").normalPageView;window.loginType={type:"wechat",values:{0:"wechat",1:"qq",2:"weibo",3:"phoneCode",4:"phonePw"}};var B=a("dist/application/api"),C=a("dist/application/method");a("dist/cmd-lib/myDialog"),a("dist/cmd-lib/toast");var D=a("dist/common/bindphone").showCaptcha;return $(document).on("click","#dialog-box .login-type-list .login-type-weixin .weixin-icon",function(a){$("#dialog-box .login-content .verificationCode-login").hide(),$("#dialog-box .login-content .password-login").hide(),$("#dialog-box .login-content .weixin-login").show(),window.loginType.type=window.loginType.values[0]}),$(document).on("click","#dialog-box .login-type-list .login-type-verificationCode",function(a){$("#dialog-box .login-content .password-login").hide(),$("#dialog-box .login-content .weixin-login").hide(),$("#dialog-box .login-content .verificationCode-login").show(),window.loginType.type=window.loginType.values[3]}),$(document).on("click","#dialog-box .login-type-list .login-type-password",function(a){$("#dialog-box .login-content .weixin-login").hide(),$("#dialog-box .login-content .verificationCode-login").hide(),$("#dialog-box .login-content .password-login").show(),window.loginType.type=window.loginType.values[4]}),$(document).on("click","#dialog-box .login-type-list .login-type",function(){var a=$(this).attr("data-logintype");a&&(j(a),"qq"==a&&(window.loginType.type=window.loginType.values[1]),"weibo"==a&&(window.loginType.type=window.loginType.values[2]))}),$(document).on("click","#dialog-box .login-btn",function(a){var b=$(this).attr("data-logintype");if("verificationCode"==b){var c=$("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/,"").trim(),d=$("#dialog-box .verificationCode-login .verification-code").val(),f=$("#dialog-box .verificationCode-login .telphone").val().trim();return C.testPhone(f)||"86"!=c?!d||d&&4!==d.length?void e("verificationCode-login",!0,"验证码错误"):(e("verificationCode-login",!1,""),void n("codeLogin",f,c,q,d,"")):void e("verificationCode-login",!0,"手机号错误")}if("password"==b){var c=$("#dialog-box .password-login .phone-num").text().replace(/\+/,"").trim(),g=$("#dialog-box .password-login .password .login-password:visible").val().trim(),f=$("#dialog-box .password-login .telphone").val().trim();return C.testPhone(f)||86!=c?void n("ppLogin",f,c,"","",g):void e("password-login",!0,"手机号错误")}}),$(document).on("click",".qr-refresh",function(a){f("","",!0)}),$(document).on("click","#dialog-box .getVerificationCode",function(a){var b=$(this).attr("data-authenticationCodeType"),c=$("#dialog-box .verificationCode-login .input-mobile .telphone").val(),d=$("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/,"").trim();if("86"==d){if(!C.testPhone(c))return void e("verificationCode-login",!0,"手机号错误");e("verificationCode-login",!1,""),(0==b||2==b)&&(u=4,m())}else(0==b||2==b)&&(u=4,m())}),$(document).on("input","#dialog-box .verificationCode-login .telphone",function(a){t=$(this).val();var b=$("#dialog-box .verificationCode-login .verification-code").val(),c=$("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/,"").trim();if(t.length>11&&$("#dialog-box .telphone").val(t.slice(0,11)),"86"==c)if(C.testPhone(t.slice(0,11)))e("verificationCode-login",!1,""),$("#dialog-box .getVerificationCode").addClass("getVerificationCode-active"),b&&b.length>=4&&($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active"));else{if(t&&t.length>=11)return void e("verificationCode-login",!0,"手机号错误");$("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active"),$("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable")}else t?($("#dialog-box .getVerificationCode").addClass("getVerificationCode-active"),b&&b.length>=4&&($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active"))):($("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active"),$("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable"))}),$(document).on("input","#dialog-box .verification-code",function(a){var b=$("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/,"").trim();t=$("#dialog-box .verificationCode-login .telphone").val(),verificationCode=$(this).val(),verificationCode.length>4&&$("#dialog-box .verification-code").val(verificationCode.slice(0,4)),verificationCode&&verificationCode.length>=4&&e("verificationCode-login",!1,""),"86"==b?verificationCode&&verificationCode.length>=4&&C.testPhone(t)?($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active")):($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable")):verificationCode&&verificationCode.length>=4&&t?($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active")):($("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable"))}),$(document).on("input","#dialog-box .password-login .telphone",function(){var a=$("#dialog-box .password-login .phone-num").text().replace(/\+/,"").trim();if(t=$(this).val(),t.length>11&&$("#dialog-box .password-login .telphone").val(t.slice(0,11)),"86"==a)if(C.testPhone(t.slice(0,11))){e("password-login",!1,"");var b=$("#dialog-box .password-login .password .login-password:visible").val();b&&b.length>=6&&b&&b.length<=8&&($("#dialog-box .password-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .password-login .login-btn").addClass("login-btn-active"))}else{if(t&&t.length>=11)return void e("password-login",!0,"手机号错误");$("#dialog-box .password-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .password-login .login-btn").addClass("login-btn-disable")}else t?(e("password-login",!1,""),b&&b.length>=6&&b&&b.length<=8&&($("#dialog-box .password-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .password-login .login-btn").addClass("login-btn-active"))):($("#dialog-box .password-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .password-login .login-btn").addClass("login-btn-disable"))}),$(document).on("input","#dialog-box .password-login .login-password",function(){var a=$("#dialog-box .password-login .phone-num").text().replace(/\+/,"").trim(),b=$(this).val(),c=$("#dialog-box .password-login .telphone").val();b&&b.length>0?$("#dialog-box .password-login .password .eye").show():$("#dialog-box .password-login .password .close-eye").hide(),b.length>16&&$("#dialog-box .password-login .login-password").val(b.slice(0,16)),"86"==a?C.testPhone(c)&&b?($("#dialog-box .password-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .password-login .login-btn").addClass("login-btn-active")):($("#dialog-box .password-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .password-login .login-btn").addClass("login-btn-disable")):c&&b?($("#dialog-box .password-login .login-btn").removeClass("login-btn-disable"),$("#dialog-box .password-login .login-btn").addClass("login-btn-active")):($("#dialog-box .password-login .login-btn").removeClass("login-btn-active"),$("#dialog-box .password-login .login-btn").addClass("login-btn-disable"))}),$(document).on("click","#dialog-box .password-login .close-eye",function(){var a=$("#dialog-box .password-login .text-input");a.hide(),$("#dialog-box .password-login .password-input").val(a.val()),$("#dialog-box .password-login .password-input").show(),$("#dialog-box .password-login .password .close-eye").hide(),$("#dialog-box .password-login .password .eye").show()}),$(document).on("click","#dialog-box .password-login .eye",function(){var a=$("#dialog-box .password-login .password-input");a.hide(),$("#dialog-box .password-login .text-input").val(a.val()),$("#dialog-box .password-login .text-input").show(),$("#dialog-box .password-login .password .eye").hide(),$("#dialog-box .password-login .password .close-eye").show()}),$(document).on("click","#dialog-box  .close-btn",function(a){d()}),$(document).on("click","#dialog-box .tourist-purchase-dialog .tabs .tab",function(a){var b=$(this).attr("data-type");$("#dialog-box .tourist-purchase-dialog .tabs .tab").removeClass("tab-active"),$(this).addClass("tab-active"),"tourist-purchase"==b&&($("#dialog-box .tourist-purchase-dialog .login-content").hide(),$("#dialog-box .tourist-purchase-dialog .tourist-purchase-content").show()),"login-purchase"==b&&(A("loginResultPage"),$("#dialog-box .tourist-purchase-dialog .tourist-purchase-content").hide(),$("#dialog-box .tourist-purchase-dialog .login-content").show())}),$(document).on("click","#dialog-box .phone-choice",function(a){return $(this).addClass("phone-choice-show"),$("#dialog-box .phone-more").show(),!1}),$(document).on("click","#dialog-box .phone-more .phone-ele",function(a){var b=$(this).find(".number-con em").text();return $("#dialog-box .phone-choice .phone-num .add").text("+"+b),$("#dialog-box .phone-choice").removeClass("phone-choice-show"),$("#dialog-box .phone-more").hide(),$("#dialog-box input").val(""),$("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active"),$("#dialog-box .login-btn").removeClass("login-btn-active"),$("#dialog-box .login-btn").addClass("login-btn-disable"),e("verificationCode-login",!1,""),e("password-login",!1,""),!1}),$(document).on("click",".login-dialog",function(a){$("#dialog-box .phone-choice").removeClass("phone-choice-show"),$("#dialog-box .phone-more").hide()}),$(document).on("click",".login-content",function(a){$("#dialog-box .phone-choice").removeClass("phone-choice-show"),$("#dialog-box .phone-more").hide()}),window.thirdLoginRedirect=l,{showLoginDialog:o,showTouristPurchaseDialog:p,getLoginQrcode:f}}),define("dist/cmd-lib/jqueryMd5",[],function(a,b,c){!function(a){var b=function(a,b){return a<<b|a>>>32-b},c=function(a,b){var c,d,e,f,g;return e=2147483648&a,f=2147483648&b,c=1073741824&a,d=1073741824&b,g=(1073741823&a)+(1073741823&b),c&d?2147483648^g^e^f:c|d?1073741824&g?3221225472^g^e^f:1073741824^g^e^f:g^e^f},d=function(a,b,c){return a&b|~a&c},e=function(a,b,c){return a&c|b&~c},f=function(a,b,c){return a^b^c},g=function(a,b,c){return b^(a|~c)},h=function(a,e,f,g,h,i,j){return a=c(a,c(c(d(e,f,g),h),j)),c(b(a,i),e)},i=function(a,d,f,g,h,i,j){return a=c(a,c(c(e(d,f,g),h),j)),c(b(a,i),d)},j=function(a,d,e,g,h,i,j){return a=c(a,c(c(f(d,e,g),h),j)),c(b(a,i),d)},k=function(a,d,e,f,h,i,j){return a=c(a,c(c(g(d,e,f),h),j)),c(b(a,i),d)},l=function(a){for(var b,c=a.length,d=c+8,e=(d-d%64)/64,f=16*(e+1),g=Array(f-1),h=0,i=0;c>i;)b=(i-i%4)/4,h=i%4*8,g[b]=g[b]|a.charCodeAt(i)<<h,i++;return b=(i-i%4)/4,h=i%4*8,g[b]=g[b]|128<<h,g[f-2]=c<<3,g[f-1]=c>>>29,g},m=function(a){var b,c,d="",e="";for(c=0;3>=c;c++)b=a>>>8*c&255,e="0"+b.toString(16),d+=e.substr(e.length-2,2);return d},n=function(a){a=a.replace(/\x0d\x0a/g,"\n");for(var b="",c=0;c<a.length;c++){var d=a.charCodeAt(c);128>d?b+=String.fromCharCode(d):d>127&&2048>d?(b+=String.fromCharCode(d>>6|192),b+=String.fromCharCode(63&d|128)):(b+=String.fromCharCode(d>>12|224),b+=String.fromCharCode(d>>6&63|128),b+=String.fromCharCode(63&d|128))}return b};a.extend({md5:function(a){var b,d,e,f,g,o,p,q,r,s=Array(),t=7,u=12,v=17,w=22,x=5,y=9,z=14,A=20,B=4,C=11,D=16,E=23,F=6,G=10,H=15,I=21;for(a=n(a),s=l(a),o=1732584193,p=4023233417,q=2562383102,r=271733878,b=0;b<s.length;b+=16)d=o,e=p,f=q,g=r,o=h(o,p,q,r,s[b+0],t,3614090360),r=h(r,o,p,q,s[b+1],u,3905402710),q=h(q,r,o,p,s[b+2],v,606105819),p=h(p,q,r,o,s[b+3],w,3250441966),o=h(o,p,q,r,s[b+4],t,4118548399),r=h(r,o,p,q,s[b+5],u,1200080426),q=h(q,r,o,p,s[b+6],v,2821735955),p=h(p,q,r,o,s[b+7],w,4249261313),o=h(o,p,q,r,s[b+8],t,1770035416),r=h(r,o,p,q,s[b+9],u,2336552879),q=h(q,r,o,p,s[b+10],v,4294925233),p=h(p,q,r,o,s[b+11],w,2304563134),o=h(o,p,q,r,s[b+12],t,1804603682),r=h(r,o,p,q,s[b+13],u,4254626195),q=h(q,r,o,p,s[b+14],v,2792965006),p=h(p,q,r,o,s[b+15],w,1236535329),o=i(o,p,q,r,s[b+1],x,4129170786),r=i(r,o,p,q,s[b+6],y,3225465664),q=i(q,r,o,p,s[b+11],z,643717713),p=i(p,q,r,o,s[b+0],A,3921069994),o=i(o,p,q,r,s[b+5],x,3593408605),r=i(r,o,p,q,s[b+10],y,38016083),q=i(q,r,o,p,s[b+15],z,3634488961),p=i(p,q,r,o,s[b+4],A,3889429448),o=i(o,p,q,r,s[b+9],x,568446438),r=i(r,o,p,q,s[b+14],y,3275163606),q=i(q,r,o,p,s[b+3],z,4107603335),p=i(p,q,r,o,s[b+8],A,1163531501),o=i(o,p,q,r,s[b+13],x,2850285829),r=i(r,o,p,q,s[b+2],y,4243563512),q=i(q,r,o,p,s[b+7],z,1735328473),p=i(p,q,r,o,s[b+12],A,2368359562),o=j(o,p,q,r,s[b+5],B,4294588738),r=j(r,o,p,q,s[b+8],C,2272392833),q=j(q,r,o,p,s[b+11],D,1839030562),p=j(p,q,r,o,s[b+14],E,4259657740),o=j(o,p,q,r,s[b+1],B,2763975236),r=j(r,o,p,q,s[b+4],C,1272893353),q=j(q,r,o,p,s[b+7],D,4139469664),p=j(p,q,r,o,s[b+10],E,3200236656),o=j(o,p,q,r,s[b+13],B,681279174),r=j(r,o,p,q,s[b+0],C,3936430074),q=j(q,r,o,p,s[b+3],D,3572445317),p=j(p,q,r,o,s[b+6],E,76029189),o=j(o,p,q,r,s[b+9],B,3654602809),r=j(r,o,p,q,s[b+12],C,3873151461),q=j(q,r,o,p,s[b+15],D,530742520),p=j(p,q,r,o,s[b+2],E,3299628645),o=k(o,p,q,r,s[b+0],F,4096336452),r=k(r,o,p,q,s[b+7],G,1126891415),q=k(q,r,o,p,s[b+14],H,2878612391),p=k(p,q,r,o,s[b+5],I,4237533241),o=k(o,p,q,r,s[b+12],F,1700485571),r=k(r,o,p,q,s[b+3],G,2399980690),q=k(q,r,o,p,s[b+10],H,4293915773),p=k(p,q,r,o,s[b+1],I,2240044497),o=k(o,p,q,r,s[b+8],F,1873313359),r=k(r,o,p,q,s[b+15],G,4264355552),q=k(q,r,o,p,s[b+6],H,2734768916),p=k(p,q,r,o,s[b+13],I,1309151649),o=k(o,p,q,r,s[b+4],F,4149444226),r=k(r,o,p,q,s[b+11],G,3174756917),q=k(q,r,o,p,s[b+2],H,718787259),p=k(p,q,r,o,s[b+9],I,3951481745),o=c(o,d),p=c(p,e),q=c(q,f),r=c(r,g);var J=m(o)+m(p)+m(q)+m(r);return J.toLowerCase()}})}(jQuery)}),define("dist/common/bilog",["base64","dist/cmd-lib/util","dist/application/method","dist/report/config"],function(a,b,c){function d(){sessionStorage.setItem("sessionID",A)}function e(a,b){if(b.visitID=v.getCookie("visitor_id"),!new RegExp("/f/").test(a)||new RegExp("referrer=").test(a)||new RegExp("/f/down").test(a))new RegExp("/pay/payConfirm.html").test(a)?(b.prePageID="PC-M-PAY-F-L",b.prePageName="支付页-付费资料-列表页"):new RegExp("/pay/payQr.html\\?type=2").test(a)?(b.prePageID="PC-M-PAY-F-QR",b.prePageName="支付页-付费资料-支付页"):new RegExp("/pay/vip.html").test(a)?(b.prePageID="PC-M-PAY-VIP-L",b.prePageName="支付页-VIP-套餐列表页"):new RegExp("/pay/payQr.html\\?type=0").test(a)?(b.prePageID="PC-M-PAY-VIP-QR",b.prePageName="支付页-VIP-支付页"):new RegExp("/pay/privilege.html").test(a)?(b.prePageID="PC-M-PAY-PRI-L",b.prePageName="支付页-下载特权-套餐列表页"):new RegExp("/pay/payQr.html\\?type=1").test(a)?(b.prePageID="PC-M-PAY-PRI-QR",b.prePageName="支付页-下载特权-支付页"):new RegExp("/pay/success").test(a)?(b.prePageID="PC-M-PAY-SUC",b.prePageName="支付成功页"):new RegExp("/pay/fail").test(a)?(b.prePageID="PC-M-PAY-FAIL",b.prePageName="支付失败页"):new RegExp("/node/f/downsucc.html").test(a)?/unloginFlag=1/.test(a)?(b.prePageID="PC-M-FDPAY-SUC",b.prePageName="免登购买成功页"):(b.prePageID="PC-M-DOWN-SUC",b.prePageName="下载成功页"):new RegExp("/node/f/downfail.html").test(a)?(b.prePageID="PC-M-DOWN-FAIL",b.prePageName="下载失败页"):new RegExp("/search/home.html").test(a)?(b.prePageID="PC-M-SR",b.prePageName="搜索关键词"):new RegExp("/node/404.html").test(a)?(b.prePageID="PC-M-404",b.prePageName="404错误页"):new RegExp("/node/503.html").test(a)?(b.prePageID="PC-M-500",b.prePageName="500错误页"):new RegExp("/node/personalCenter/home.html").test(a)?(b.prePageID="PC-M-USER",b.prePageName="个人中心-首页"):new RegExp("/node/personalCenter/myuploads.html").test(a)?(b.prePageID="PC-M-USER-MU",b.prePageName="个人中心-我的上传页"):new RegExp("/node/personalCenter/mycollection.html").test(a)?(b.prePageID="PC-M-USER-CL",b.prePageName="个人中心-我的收藏页"):new RegExp("/node/personalCenter/mydownloads.html").test(a)?(b.prePageID="PC-M-USER-MD",b.prePageName="个人中心-我的下载页"):new RegExp("/node/personalCenter/vip.html").test(a)?(b.prePageID="PC-M-USER-VIP",b.prePageName="个人中心-我的VIP"):new RegExp("/node/personalCenter/mycoupon.html").test(a)?(b.prePageID="PC-M-USER-MS",b.prePageName="个人中心-我的优惠券页"):new RegExp("/node/personalCenter/accountsecurity.html").test(a)?(b.prePageID="PC-M-USER-ATM",b.prePageName="个人中心-账号与安全页"):new RegExp("/node/personalCenter/personalinformation.html").test(a)?(b.prePageID="PC-M-USER-ATF",b.prePageName="个人中心-个人信息页"):new RegExp("/node/personalCenter/myorder.html").test(a)&&(b.prePageID="PC-M-USER-ORD",b.prePageName="个人中心-我的订单");else{var c=$(".ip-page-statusCode");"404"==c?(b.prePageID="PC-M-404",b.prePageName="资料被删除"):"302"==c?(b.prePageID="PC-M-FSM",b.prePageName="资料私有"):(b.prePageID="PC-M-FD",b.prePageName="资料详情页")}}function f(){$.getScript("//ipip.iask.cn/iplookup/search?format=js",function(a,b){"success"===b?(v.setCookieWithExp("ip",remote_ip_info.ip,3e5,"/"),D.ip=remote_ip_info.ip):console.error("ipip获取ip信息error")})}function g(){var a="";return-1!=window.navigator.userAgent.indexOf("Windows NT 10.0")?a="Windows 10":-1!=window.navigator.userAgent.indexOf("Windows NT 6.2")?a="Windows 8":-1!=window.navigator.userAgent.indexOf("Windows NT 6.1")?a="Windows 7":-1!=window.navigator.userAgent.indexOf("Windows NT 6.0")?a="Windows Vista":-1!=window.navigator.userAgent.indexOf("Windows NT 5.1")?a="Windows XP":-1!=window.navigator.userAgent.indexOf("Windows NT 5.0")?a="Windows 2000":-1!=window.navigator.userAgent.indexOf("Mac")?a="Mac/iOS":-1!=window.navigator.userAgent.indexOf("X11")?a="UNIX":-1!=window.navigator.userAgent.indexOf("Linux")&&(a="Linux"),a}function h(a){setTimeout(function(){console.log(a,"页面上报"),$.getJSON("https://dw.iask.com.cn/ishare/jsonp?data="+t.encode(JSON.stringify(a))+"&jsoncallback=?",function(a){
-console.log(a)})})}function i(a,b){var c=a;if(a&&b){for(var d in a)if("var"===d)for(var e in b)c["var"][e]=b[e];else b[d]&&(c[d]=b[d]);console.log("埋点参数:",c),h(c)}}function j(a){var b=JSON.parse(JSON.stringify(D));e(document.referrer,b);var c={channel:""},d=v.getCookie("bc");d&&(c.channel=d),b.eventType="page",b.eventID="NE001",b.eventName="normalPageView","loginResultPage"==a?(b.pageID="PC-M-LOGIN",b.pageName="登录页"):(b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||""),b.pageURL=window.location.href;var f=q(),g=r(f);$.extend(c,{source:g,searchEngine:f}),i(b,c)}function k(){var a={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePrice:window.pageConfig.params.moneyPrice,fileCouponCount:window.pageConfig.params.file_volume,filePayType:x[window.pageConfig.params.file_state],fileFormat:window.pageConfig.params.file_format,fileProduceType:window.pageConfig&&window.pageConfig.params?window.pageConfig.params.fsource:"",fileCooType:"",fileUploaderID:window.pageConfig.params.file_uid},b=window.pageConfig&&window.pageConfig.params?window.pageConfig.params.is360:"";/https?\:\/\/[^\s]*so.com.*$/g.test(document.referrer)&&!/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)&&"true"==b&&(a.fileCooType="360onebox",v.setCookieWithExp("bc","360onebox",18e5,"/")),/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)&&(a.fileCooType="360wenku",v.setCookieWithExp("bc","360wenku",18e5,"/")),/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)&&(a.fileCooType="360wenku",v.setCookieWithExp("bc","360wenku",18e5,"/"));var c=JSON.parse(JSON.stringify(D));e(document.referrer,c),c.eventType="page",c.eventID="SE002",c.eventName="fileDetailPageView",c.pageID=$("#ip-page-id").val()||"",c.pageName=$("#ip-page-name").val()||"",c.pageURL=window.location.href,v.setCookieWithExp("bf",JSON.stringify(a),18e5,"/"),i(c,a)}function l(a){var b=JSON.parse(JSON.stringify(D));e(document.referrer,b),b.eventType="page",b.eventID="SE014",b.eventName="downResult",b.pageID=$("#ip-page-id").val()||"",b.pageName=$("#ip-page-name").val()||"",b.pageURL=window.location.href,i(b,a)}function m(a){var b=JSON.parse(JSON.stringify(D));b.eventType="page",b.eventID="SE015",b.eventName="searchPageView",e(document.referrer,b),b.pageID="PC-M-SR",b.pageName=$("#ip-page-name").val()||"",a.keyWords=$(".new-input").val()||$(".new-input").attr("placeholder"),b.pageURL=window.location.href,i(b,a)}function n(a,b){for(var c in b)a[c]&&(b[c]=a[c])}function o(a,b,c,d,f){var g=JSON.parse(JSON.stringify(D));e(document.referrer,g),g.eventType="click",g.eventID=a,g.eventName=b,"SE001"==a?(g.pageID="PC-M-LOGIN",g.pageName="登录页"):(g.pageID=$("#ip-page-id").val(),g.pageName=$("#ip-page-name").val()),g.pageURL=window.location.href,g.domID=c,g.domName=d,g.domURL=window.location.href,i(g,f)}function p(a,b,c,d){var e=$("#ip-page-type").val();if("pindex"==e){var f={fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:""},g=v.getCookie("bf");if(g&&n(JSON.parse(g),f),"fileDetailUpDown"==a||"fileDetailMiddleDown"==a||"fileDetailBottomDown"==a)f.downType="","fileDetailUpDown"==a?o("SE003","fileDetailDownClick","fileDetailUpDown","资料详情页顶部立即下载",f):"fileDetailMiddleDown"==a?o("SE003","fileDetailDownClick","fileDetailMiddleDown","资料详情页中部立即下载",f):"fileDetailBottomDown"==a&&o("SE003","fileDetailDownClick","fileDetailBottomDown","资料详情页底部立即下载",f),delete f.downType;else if("fileDetailUpBuy"==a)o("SE004","fileDetailBuyClick","fileDetailUpBuy","资料详情页顶部立即购买",f);else if("fileDetailMiddleBuy"==a)o("SE004","fileDetailBuyClick","fileDetailMiddleBuy","资料详情页中部立即购买",f);else if("fileDetailBottomBuy"==a)o("SE004","fileDetailBuyClick","fileDetailBottomBuy","资料详情页底部立即购买",f);else if("fileDetailMiddleOpenVip8"==a)o("SE005","fileDetailOpenVipClick","fileDetailMiddleOpenVip8","资料详情页中部开通vip，8折购买",f);else if("fileDetailBottomOpenVip8"==a)o("SE005","fileDetailOpenVipClick","fileDetailBottomOpenVip8","资料详情页底部开通vip，8折购买",f);else if("fileDetailMiddleOpenVipPr"==a)o("SE005","fileDetailOpenVipClick","fileDetailMiddleOpenVipPr","资料详情页中部开通vip，享更多特权",f);else if("fileDetailBottomOpenVipPr"==a)o("SE005","fileDetailOpenVipClick","fileDetailBottomOpenVipPr","资料详情页底部开通vip，享更多特权",f);else if("fileDetailComment"==a);else if("fileDetailScore"==a){var h=b.find(".on:last").text();f.fileScore=h?h:"",o("SE007","fileDetailScoreClick","fileDetailScore","资料详情页评分",f),delete f.fileScore}}if("payFile"==a){var f={orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:"",filePrice:"",fileSalePrice:""},g=v.getCookie("bf");g&&n(JSON.parse(g),f),o("SE008","payFileClick","payFile","支付页-付费资料-立即支付",f)}else if("payVip"==a){var f={orderID:v.getParam("orderNo")||"",vipID:$(".ui-tab-nav-item.active").data("vid"),vipName:$(".ui-tab-nav-item.active p.vip-time").text()||"",vipPrice:$(".ui-tab-nav-item.active p.vip-price strong").text()||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||""};o("SE010","payVipClick","payVip","支付页-VIP-立即支付",f)}else if("payPrivilege"==a){var f={orderID:v.getParam("orderNo")||"",couponID:$(".pay-coupon-wrap").attr("vid")||"",coupon:$(".pay-coupon-wrap p.chose-ele").text()||"",privilegeName:$(".ui-tab-nav-item.active p.privilege-price").text()||"",privilegePrice:$(".ui-tab-nav-item.active").data("activeprice")||"",fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:"",fileFormat:"",fileProduceType:"",fileCooType:"",fileUploaderID:""},g=v.getCookie("bf");g&&n(JSON.parse(g),f),o("SE012","payPrivilegeClick","payPrivilege","支付页-下载特权-立即支付",f)}else"searchResult"==a?(f={fileID:b.attr("data-fileId"),fileName:b.attr("data-fileName"),keyWords:$(".new-input").val()||$(".new-input").attr("placeholder")},o("SE016","normalClick","searchResultClick","搜索结果页点击",f)):"loginResult"==a&&(D.loginStatus=v.getCookie("cuk")?1:0,o("SE001","loginResult","PC-M-LOGIN","登录页",d));var f={phone:$("#ip-mobile").val()||"",vipStatus:$("#ip-isVip").val()||"",channel:"",cashBalance:"",integralNumber:"",idolNumber:"",fileCategoryID:"",fileCategoryName:""};E&&(f.vipStatus=E.isVip||"",f.phone=E.tel||"");var i=v.getCookie("bc");i&&(f.channel=i),"paySuccessBacDown"==a?o("NE002","normalClick","paySuccessBacDown","支付成功页-返回下载",f):"paySuccessOpenVip"==a?o("NE002","normalClick","paySuccessOpenVip","支付成功页-开通VIP",f):"downSuccessOpenVip"==a?o("NE002","normalClick","downSuccessOpenVip","下载成功页-开通VIP",f):"downSuccessContinueVip"==a?o("NE002","normalClick","downSuccessContinueVip","下载成功页-续费VIP",f):"downSuccessBacDetail"==a?o("NE002","normalClick","downSuccessBacDetail","下载成功页-返回详情页",f):"downSuccessBindPhone"==a?o("NE002","normalClick","downSuccessBindPhone","下载成功页-立即绑定",f):"viewExposure"==a?f.moduleID=c:"similarFileClick"==a?(f={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePayType:x[window.pageConfig.params.file_state]},o("SE017","fileListNormalClick","similarFileClick","资料列表常规点击",f)):"underSimilarFileClick"==a?(f={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePayType:x[window.pageConfig.params.file_state]},o("SE017","fileListNormalClick","underSimilarFileClick","点击底部猜你喜欢内容时",f)):"downSucSimilarFileClick"==a?o("SE017","fileListNormalClick","downSucSimilarFileClick","下载成功页猜你喜欢内容时",f):"markFileClick"==a?(f={fileID:window.pageConfig.params.g_fileId,fileName:window.pageConfig.params.file_title,fileCategoryID:window.pageConfig.params.classid1+"||"+window.pageConfig.params.classid2+"||"+window.pageConfig.params.classid3,fileCategoryName:window.pageConfig.params.classidName1+"||"+window.pageConfig.params.classidName2+"||"+window.pageConfig.params.classidName3,filePayType:x[window.pageConfig.params.file_state],markRusult:1},o("SE019","markClick","markFileClick","资料收藏点击",f)):"vipRights"==a?o("NE002","normalClick","vipRights","侧边栏-vip权益",f):"seen"==a?o("NE002","normalClick","seen","侧边栏-我看过的",f):"mark"==a?o("NE002","normalClick","mark","侧边栏-我的收藏",f):"customerService"==a?o("NE002","normalClick","customerService","侧边栏-联系客服",f):"downApp"==a?o("NE002","normalClick","downApp","侧边栏-下载APP",f):"follow"==a&&o("NE002","normalClick","follow","侧边栏-关注领奖",f)}function q(){var a=document.referrer,b="";return/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)?b="sm":/https?\:\/\/[^\s]*google.com.*$/g.test(a)?b="google":/https?\:\/\/[^\s]*bing.com.*$/g.test(a)&&(b="bing"),b}function r(a){var b=document.referrer,c=location.origin,d="";return d=a?"searchEngine":b&&-1!==b.indexOf(c)?"vist":"outLink"}function s(a){console.log("自有埋点上报结果",a),setTimeout(function(){$.getJSON("https://dw.iask.com.cn/ishare/jsonp?data="+t.encode(JSON.stringify(a))+"&jsoncallback=?",function(a){})})}var t=a("base64").Base64,u=a("dist/cmd-lib/util"),v=a("dist/application/method"),w=a("dist/report/config"),x=["","free","","online","vipOnly","cost"],y=v.getCookie("ip")||f(),z=v.getCookie("cid");z||(z=(new Date).getTime()+""+Math.random(),v.setCookieWithExp("cid",z,2592e6,"/"));var A=(new Date).getTime()+""+Math.random(),B=18e5,C=sessionStorage.getItem("sessionID")||"";C||d(),A-C>B&&d();var D={eventType:"",eventID:"",eventName:"",eventTime:String((new Date).getTime()),reportTime:String((new Date).getTime()),sdkVersion:"V1.0.3",terminalType:"0",loginStatus:v.getCookie("cuk")?1:0,visitID:v.getCookie("visitor_id")||"",userID:"",sessionID:sessionStorage.getItem("sessionID")||z||"",productName:"ishare",productCode:"0",productVer:"V4.5.0",pageID:"",pageName:"",pageURL:"",ip:y||"",resolution:document.documentElement.clientWidth+"*"+document.documentElement.clientHeight,browserVer:u.getBrowserInfo(navigator.userAgent),osType:g(),moduleID:"",moduleName:"",appChannel:"",prePageID:"",prePageName:"",prePageURL:document.referrer,domID:"",domName:"",domURL:"",location:"",deviceID:"",deviceBrand:"",deviceModel:"",deviceLanguage:navigator.language,mac:"",osVer:"",networkType:"",networkProvider:"","var":{}},E=v.getCookie("ui");E&&(E=JSON.parse(E),D.userID=E.uid||""),e(document.referrer,D),$(function(){setTimeout(function(){var a=$("#ip-page-id").val();"PC-M-FD"==a&&k(),"PC-O-SR"!=a&&j();var b=v.getCookie("bf"),c=(v.getCookie("br"),window.location.href,{downResult:1,fileID:"",fileName:"",fileCategoryID:"",fileCategoryName:"",filePayType:""});if("PC-M-DOWN-SUC"==a){var b=v.getCookie("bf");b&&n(JSON.parse(b),c),c.downResult=1,l(c)}else if("PC-M-DOWN-FAIL"==a){var b=v.getCookie("bf");b&&n(JSON.parse(b),c),c.downResult=0,l(c)}},1e3)}),$(document).delegate("."+w.EVENT_NAME,"click",function(a){var b=$(this),c=b.attr(w.BILOG_CONTENT_NAME);console.log("cnt:",c),c&&setTimeout(function(){p(c,b)})}),c.exports={normalPageView:function(a){j(a)},clickEvent:function(a){var b=a.attr(w.BILOG_CONTENT_NAME);console.log("cnt-导出的:",b),b&&setTimeout(function(){p(b,a)})},viewExposure:function(a,b){var c="viewExposure";c&&setTimeout(function(){p(c,a,b)})},loginResult:function(a,b,c){var d="loginResult";d&&setTimeout(function(){p(d,"",b,c)})},searchResult:m,getBilogCommonData:function(){return e(document.referrer,D),D},reportToBlack:s}}),define("dist/cmd-lib/util",[],function(a,b,c){var d={throttle:function(a,b){var c,d;return function(e){var f=this,g=arguments,h=+new Date;c&&c+b>h?(clearTimeout(d),d=setTimeout(function(){c=h,a.apply(f,g)},b)):(c=h,a.apply(f,g))}},debounce:function(a,b){var c=0,d=this;return function(e){c&&clearTimeout(c),c=setTimeout(function(){a.apply(d,e)},b)}},isWeChatBrow:function(){var a=navigator.userAgent.toLowerCase(),b=-1!=a.indexOf("micromessenger");return b?!0:!1},getWebAppUA:function(){var a=0,b=navigator.userAgent.toLowerCase();return/iphone|ipad|ipod/.test(b)?a=1:/android/.test(b)&&(a=0),a},validateIE8:function(){return!$.browser.msie||"8.0"!=$.browser.version&&"7.0"!=$.browser.version&&"6.0"!=$.browser.version?!1:!0},validateIE9:function(){return!$.browser.msie||"9.0"!=$.browser.version&&"8.0"!=$.browser.version&&"7.0"!=$.browser.version&&"6.0"!=$.browser.version?!1:!0},getReferrer:function(){var a=document.referrer,b="";return/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(a)?b="360wenku":/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)?b="sm":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(a)?b="ishare":/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(a)&&(b="iask"),b},getPageRef:function(a){var b=this,c=0;return(b.is360cookie(a)||b.is360cookie("360"))&&(c=1),b.is360wkCookie()&&(c=3),c},is360cookie:function(a){var b=this,c=b.getCookie("_r_so");if(c)for(var d=c.split("_"),e=0;e<d.length;e++)if(d[e]==a)return!0;return!1},add360wkCookie:function(){this.setCookieWithExpPath("_360hz","1",18e5,"/")},is360wkCookie:function(){return null==getCookie("_360hz")?!1:!0},getCookie:function(a){var b=document.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!==b?unescape(b[2]):null},setCookieWithExpPath:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString()},findRefer:function(){var a=document.referrer,b="other";return/https?\:\/\/[^\s]*\/f\/.*$/g.test(a)?b="pindex":/https?\:\/\/[^\s]*\/d\/.*$/g.test(a)?b="landing":/https?\:\/\/[^\s]*\/c\/.*$/g.test(a)?b="pcat":/https?\:\/\/[^\s]*\/search\/.*$/g.test(a)?b="psearch":/https?\:\/\/[^\s]*\/t\/.*$/g.test(a)?b="ptag":/https?\:\/\/[^\s]*\/[u|n]\/.*$/g.test(a)?b="popenuser":/https?\:\/\/[^\s]*\/ucenter\/.*$/g.test(a)?b="puser":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(a)?b="ishareindex":/https?\:\/\/[^\s]*\/theme\/.*$/g.test(a)?b="theme":/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(a)?b="360wenku":/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)?b="sm":/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(a)?b="ishare":/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(a)&&(b="iask"),b},showAlertDialog:function(a,b,c){var d=$(".common-bgMask"),e=$(".common-dialog");e.find("h2[name='title']").text(a),e.find("span[name='content']").html(b),e.find("a.close,a.btn-dialog").unbind("click").click(function(){d.hide(),e.hide(),c&&!$(this).hasClass("close")&&c()}),d.show(),e.show()},browserVersion:function(a){var b=a.indexOf("Opera")>-1,c=a.indexOf("compatible")>-1&&a.indexOf("MSIE")>-1&&!b,d=a.indexOf("Edge")>-1,e=a.indexOf("Firefox")>-1,f=a.indexOf("Safari")>-1&&-1===a.indexOf("Chrome"),g=a.indexOf("Chrome")>-1&&a.indexOf("Safari")>-1;if(c){var h=new RegExp("MSIE (\\d+\\.\\d+);");h.test(a);var i=parseFloat(RegExp.$1);return 7===i?"IE7":8===i?"IE8":9===i?"IE9":10===i?"IE10":11===i?"IE11":12===i?"IE12":"IE"}return b?"Opera":d?"Edge":e?"Firefox":f?"Safari":g?"Chrome":"unKnow"},getBrowserInfo:function(a){var b={},c=a.toLowerCase(),d=/(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/,e=c.match(d);return e&&e.length>=2?(b.browser=e[1].replace(/version/,"'safari")||"unknow",b.ver=e[2]||"1.0.0"):(b.browser="unknow",b.ver="1.0.0"),b.browser+"/"+b.ver},timeFormat:function(a,b){if(!b)return"";var c=new Date(b),d=c.getFullYear(),e=c.getMonth()+1,f=c.getDate(),g=c.getHours(),h=c.getMinutes(),i=c.getSeconds();return 10>e&&(e+="0"),10>f&&(f+="0"),10>g&&(g+="0"),10>h&&(h+="0"),10>i&&(i+="0"),"yyyy-mm-dd"===a?d+"-"+e+"-"+f:d+"-"+e+"-"+f+" "+g+":"+h+":"+i}};c.exports=d}),define("dist/report/config",[],function(a,b,c){return{COOKIE_FLAG:"_dplf",COOKIE_CIDE:"_dpcid",COOKIE_CUK:"cuk",COOKIE_TIMEOUT:3e6,SERVER_URL:"/",UACTION_URL:"/uAction",EVENT_NAME:"pc_click",CONTENT_NAME:"pcTrackContent",BILOG_CONTENT_NAME:"bilogContent",ishareTrackEvent:"_ishareTrackEvent",eventCookieFlag:"_eventCookieFlag",EVENT_REPORT:!1,AUTO_PV:!1}}),define("dist/cmd-lib/toast",[],function(a,b,c){!function(a,b,c){function d(b){this.options={text:"我是toast提示",icon:"",delay:3e3,callback:!1},b&&a.isPlainObject(b)&&a.extend(!0,this.options,b),this.init()}d.prototype.init=function(){var b=this;b.body=a("body"),b.toastWrap=a('<div class="ui-toast" style="position:fixed;min-width:200px;padding:0 10px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:99999999">'),b.toastIcon=a('<i class="icon"></i>'),b.toastText=a('<span class="ui-toast-text" style="color:#fff">'+b.options.text+"</span>"),b._creatDom(),b.show(),b.hide()},d.prototype._creatDom=function(){var a=this;a.options.icon&&a.toastWrap.append(a.toastIcon.addClass(a.options.icon)),a.toastWrap.append(a.toastText),a.body.append(a.toastWrap)},d.prototype.show=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("hide").addClass("show")},50)},d.prototype.hide=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("show").addClass("hide"),a.toastWrap.remove(),a.options.callback&&a.options.callback()},a.options.delay)},a.toast=function(a){return new d(a)}}($,window,document)}),define("dist/common/bindphone",["dist/application/api","dist/application/method"],function(a,b,c){function d(a){var b=a.replace(/\D/g,"").substring(0,11),c=b.length;return c>3&&8>c?b=b.replace(/^(...)/g,"$1 "):c>=8&&(b=b.replace(/^(...)(....)/g,"$1 $2 ")),b}function e(a){if("1"==a){var b=$("#mobile").val();$(".carding-error").hide(),b?($("#mobile").val(d(b)),$(".btn-binding-code").removeClass("btn-code-no")):$(".btn-binding-code").addClass("btn-code-no")}}var f=a("dist/application/api"),g=a("dist/application/method");$(function(){var a=$(".phone-choice"),b=($("#ip-page-type").val(),$("#ip-checkCode")),c=$("#mobile"),d=($(".login-input-item.img-code-item"),$(".carding-error span"));a.find(".phone-num").click(function(a){a.stopPropagation(),$(this).siblings(".phone-more").is(":hidden")?($(this).parent().addClass("phone-choice-show"),$(this).siblings(".phone-more").show()):($(this).parent().removeClass("phone-choice-show"),$(this).siblings(".phone-more").hide())}),$(".phone-more").find("a").click(function(){var b=$(this).find(".number-con").find("em").text();a.find(".phone-num").find("em").text(b),a.removeClass("phone-choice-show"),a.find(".phone-more").hide()}),$(document).on("keyup","#mobile",function(){e(1)}),$(document).keyup(function(a){13==a.keyCode&&$(".btn-phone-login").trigger("click")}),$(".btn-bind").click(function(){function a(a,b,c){$.ajax({headers:{Authrization:g.getCookie("cuk")},url:f.user.userBindMobile,type:"POST",contentType:"application/json; charset=utf-8",data:JSON.stringify({terminal:"pc",mobile:a,nationCode:$(".phone-choice .phone-num em").text(),smsId:b,checkCode:c}),dataType:"json",success:function(a){"0"==a.code?($(".binging-main").hide(),$(".binging-success").show()):(d.text(a.msg).parent().show(),$(".carding-error").show())},error:function(a){console.log("userBindMobile:",a)}})}if(!$(this).hasClass("btn-code-no")){var e=c.val().replace(/\s/g,""),h=b.val(),i=$(".phone-num em").text();if(/^\s*$/g.test(e))return void d.text("请输入手机号码!").parent().show();if(/^\s*$/g.test(h))return void d.text("请输入验证码!").parent().show();({nationCode:i,mobile:e,smsId:b.attr("smsId"),checkCode:h});a(e,b.attr("smsId"),h)}});var h=function(a,e,g,j){var k=$(".binging-main .yz-link");if(!$(k).hasClass("btn-code-no")){var l=c.val().replace(/\s/g,"");if(/^\s*$/g.test(l))return void d.text("请输入手机号码!").parent().show();d.parent().hide();var m=JSON.stringify({mobile:l,nationCode:$(".phone-choice .phone-num em").text(),businessCode:$(k).siblings('input[name="businessCode"]').val(),terminal:"pc",appId:a,randstr:e,ticket:g,onOff:j});$.ajax({type:"POST",url:f.user.sendSms,contentType:"application/json;charset=utf-8",dataType:"json",data:m,success:function(a){if(a)if("0"==a.code){b.removeAttr("smsId"),b.attr("smsId",a.data.smsId);var c=$(k).siblings(".yz-time");c.addClass("btn-code-no"),c.show(),$(k).hide(),$(".btn-none-bind").hide(),$(".btn-bind").show(),function e(){var a=c.text().replace(/秒后重发$/g,"");return a=/^\d+$/g.test(a)?Number(a):60,a&&a>=0&&c.text(--a+"秒后重发"),0>=a?(c.text("60秒后重发").hide(),void $(k).text("重获验证码").show()):void setTimeout(e,1e3)}()}else"411015"==a.code?i(h):"411033"==a.code?d.text("图形验证码错误").parent().show():d.text(a.msg).parent().show();else d.text("发送短信失败").parent().show()}})}};$(".binging-main").delegate(".yz-link","click",function(){h("","","","")})});var h,i=function(a){var b="2071307690";h||(h=new TencentCaptcha(b,j,{bizState:a})),h.show()},j=function(a){0===a.ret&&a.bizState(a.appid,a.randstr,a.ticket,1)};return{showCaptcha:i}});var _hmt=_hmt||[];define("dist/common/baidu-statistics",["dist/application/method"],function(a,b,c){function d(a){if(a)try{!function(){var b=document.createElement("script");b.src="https://hm.baidu.com/hm.js?"+a;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}()}catch(b){console.error(a,b)}}function e(a,b){var c=h[a];"fileDetailPageView"==a&&(b=c),"payFileResult"==a&&(b=$.extend(c,{payresult:b.payresult,orderid:b.orderNo,orderpaytype:b.orderpaytype})),"payVipResult"==a&&(b=$.extend(c,{payresult:b.payresult,orderid:b.orderNo,orderpaytype:b.orderpaytype})),"loginResult"==a&&(b=$.extend(c,{loginType:b.loginType,userid:b.userid,loginResult:b.loginResult})),_hmt.push(["_trackCustomEvent",a,b]),console.log("百度统计:",a,b)}var f=a("dist/application/method"),g=window.pageConfig&&window.pageConfig.params,h={fileDetailPageView:{loginstatus:f.getCookie("cuk")?1:0,userid:window.pageConfig&&window.pageConfig.userId||"",pageid:"PC-M-FD",fileid:g&&g.g_fileId,filecategoryname:g&&g.classidName1+"||"+g&&g.classidName2+"||"+g&&g.classidName3,filepaytype:g&&g.productType||"",filecootype:"",fileformat:g&&g.file_format||""},payFileResult:{loginstatus:f.getCookie("cuk")?1:0,userid:window.pageConfig&&window.pageConfig.userId||"",pageid:"PC-M-FD",pagename:"",payresult:"",orderid:"",orderpaytype:"",orderpayprice:"",fileid:"",filename:"",fileprice:"",filecategoryname:"",fileformat:"",filecootype:"",fileuploaderid:""},payVipResult:{loginstatus:f.getCookie("cuk")?1:0,userid:"",pageid:"PC-M-FD",pagename:"",payresult:"",orderid:"",orderpaytype:"",orderpayprice:"",fileid:"",filename:"",fileprice:"",filecategoryname:"",fileformat:"",filecootype:"",fileuploaderid:""},loginResult:{pagename:$("#ip-page-id").val(),pageid:$("#ip-page-name").val(),loginType:"",userid:"",loginResult:""}};return{initBaiduStatistics:d,handleBaiduStatisticsPush:e}}),define("dist/application/app",["dist/application/method","dist/application/element","dist/application/template","dist/application/extend","dist/application/effect","dist/application/checkLogin","dist/application/api","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics","dist/application/helper"],function(a,b,c){function d(){var a="visitor_id",b=2592e6,c=e.getCookie(a);c||e.get("http://ishare.iask.sina.com.cn/gateway/user/getVisitorId",function(c){0==c.code&&c.data&&e.setCookieWithExp(a,c.data,b,"/")})}var e=a("dist/application/method");a("dist/application/element"),a("dist/application/extend"),a("dist/application/effect"),a("dist/application/login"),window.template=a("dist/application/template"),a("dist/application/helper"),d(),$.ajaxSetup({headers:{Authrization:e.getCookie("cuk")},complete:function(a,b){},statusCode:{401:function(){e.delCookie("cuk","/"),$.toast({text:"请重新登录",delay:2e3})}}});var f=a("dist/common/bilog");return window.getCookie=e.getCookie,{method:e,v:"1.0.1",bilog:f}}),define("dist/application/element",["dist/application/method","dist/application/template"],function(a,b,c){a("dist/application/method"),a("dist/application/template");if(window.pageConfig&&window.pageConfig.hotData){JSON.parse(window.pageConfig.hotData)}var d=function(a){var b={ele:a,init:function(){return this.ele[0].addEventListener("click",function(){$("html, body").animate({scrollTop:0},120)},!1),window.addEventListener("scroll",this,!1),this},handleEvent:function(a){var b=$(document).scrollTop();$(window).height();return b>100?this.ele.show():this.ele.hide(),b>10?$(".m-header").addClass("header-fix"):$(".m-header").removeClass("header-fix"),this}};b.init().handleEvent()};$("#backToTop").length&&d&&d($("#backToTop"))}),!function(){function a(a){return a.replace(t,"").replace(u,",").replace(v,"").replace(w,"").replace(x,"").split(/^$|,+/)}function b(a){return"'"+a.replace(/('|\\)/g,"\\$1").replace(/\r/g,"\\r").replace(/\n/g,"\\n")+"'"}function c(c,d){function e(a){return m+=a.split(/\n/).length-1,k&&(a=a.replace(/[\n\r\t\s]+/g," ").replace(/<!--.*?-->/g,"")),a&&(a=s[1]+b(a)+s[2]+"\n"),a}function f(b){var c=m;if(j?b=j(b,d):g&&(b=b.replace(/\n/g,function(){return m++,"$line="+m+";"})),0===b.indexOf("=")){var e=l&&!/^=[=#]/.test(b);if(b=b.replace(/^=[=#]?|[\s;]*$/g,""),e){var f=b.replace(/\s*\([^\)]+\)/,"");n[f]||/^(include|print)$/.test(f)||(b="$escape("+b+")")}else b="$string("+b+")";b=s[1]+b+s[2]}return g&&(b="$line="+c+";"+b),r(a(b),function(a){if(a&&!p[a]){var b;b="print"===a?u:"include"===a?v:n[a]?"$utils."+a:o[a]?"$helpers."+a:"$data."+a,w+=a+"="+b+",",p[a]=!0}}),b+"\n"}var g=d.debug,h=d.openTag,i=d.closeTag,j=d.parser,k=d.compress,l=d.escape,m=1,p={$data:1,$filename:1,$utils:1,$helpers:1,$out:1,$line:1},q="".trim,s=q?["$out='';","$out+=",";","$out"]:["$out=[];","$out.push(",");","$out.join('')"],t=q?"$out+=text;return $out;":"$out.push(text);",u="function(){var text=''.concat.apply('',arguments);"+t+"}",v="function(filename,data){data=data||$data;var text=$utils.$include(filename,data,$filename);"+t+"}",w="'console.log(3316)';var $utils=this,$helpers=$utils.$helpers,"+(g?"$line=0,":""),x=s[0],y="return new String("+s[3]+");";r(c.split(h),function(a){a=a.split(i);var b=a[0],c=a[1];1===a.length?x+=e(b):(x+=f(b),c&&(x+=e(c)))});var z=w+x+y;g&&(z="try{"+z+"}catch(e){throw {filename:$filename,name:'Render Error',message:e.message,line:$line,source:"+b(c)+".split(/\\n/)[$line-1].replace(/^[\\s\\t]+/,'')};}");try{var A=new Function("$data","$filename",z);return A.prototype=n,A}catch(B){throw B.temp="function anonymous($data,$filename) {"+z+"}",B}}var d=function(a,b){return"string"==typeof b?q(b,{filename:a}):g(a,b)};d.version="3.0.0",d.config=function(a,b){e[a]=b};var e=d.defaults={openTag:"<%",closeTag:"%>",escape:!0,cache:!0,compress:!1,parser:null},f=d.cache={};d.render=function(a,b){return q(a,b)};var g=d.renderFile=function(a,b){var c=d.get(a)||p({filename:a,name:"Render Error",message:"Template not found"});return b?c(b):c};d.get=function(a){var b;if(f[a])b=f[a];else if("object"==typeof document){var c=document.getElementById(a);if(c){var d=(c.value||c.innerHTML).replace(/^\s*|\s*$/g,"");b=q(d,{filename:a})}}return b};var h=function(a,b){return"string"!=typeof a&&(b=typeof a,"number"===b?a+="":a="function"===b?h(a.call(a)):""),a},i={"<":"&#60;",">":"&#62;",'"':"&#34;","'":"&#39;","&":"&#38;"},j=function(a){return i[a]},k=function(a){return h(a).replace(/&(?![\w#]+;)|[<>"']/g,j)},l=Array.isArray||function(a){return"[object Array]"==={}.toString.call(a)},m=function(a,b){var c,d;if(l(a))for(c=0,d=a.length;d>c;c++)b.call(a,a[c],c,a);else for(c in a)b.call(a,a[c],c)},n=d.utils={$helpers:{},$include:g,$string:h,$escape:k,$each:m};d.helper=function(a,b){o[a]=b};var o=d.helpers=n.$helpers;d.onerror=function(a){var b="Template Error\n\n";for(var c in a)b+="<"+c+">\n"+a[c]+"\n\n";"object"==typeof console&&console.error(b)};var p=function(a){return d.onerror(a),function(){return"{Template Error}"}},q=d.compile=function(a,b){function d(c){try{return new i(c,h)+""}catch(d){return b.debug?p(d)():(b.debug=!0,q(a,b)(c))}}b=b||{};for(var g in e)void 0===b[g]&&(b[g]=e[g]);var h=b.filename;try{var i=c(a,b)}catch(j){return j.filename=h||"anonymous",j.name="Syntax Error",p(j)}return d.prototype=i.prototype,d.toString=function(){return i.toString()},h&&b.cache&&(f[h]=d),d},r=n.$each,s="break,case,catch,continue,debugger,default,delete,do,else,false,finally,for,function,if,in,instanceof,new,null,return,switch,this,throw,true,try,typeof,var,void,while,with,abstract,boolean,byte,char,class,const,double,enum,export,extends,final,float,goto,implements,import,int,interface,long,native,package,private,protected,public,short,static,super,synchronized,throws,transient,volatile,arguments,let,yield,undefined",t=/\/\*[\w\W]*?\*\/|\/\/[^\n]*\n|\/\/[^\n]*$|"(?:[^"\\]|\\[\w\W])*"|'(?:[^'\\]|\\[\w\W])*'|[\s\t\n]*\.[\s\t\n]*[$\w\.]+/g,u=/[^\w$]+/g,v=new RegExp(["\\b"+s.replace(/,/g,"\\b|\\b")+"\\b"].join("|"),"g"),w=/^\d[^,]*|,\d[^,]*/g,x=/^,+|,+$/g;e.openTag="{{",e.closeTag="}}";var y=function(a,b){var c=b.split(":"),d=c.shift(),e=c.join(":")||"";return e&&(e=", "+e),"$helpers."+d+"("+a+e+")"};e.parser=function(a,b){a=a.replace(/^\s/,"");var c=a.split(" "),e=c.shift(),f=c.join(" ");switch(e){case"if":a="if("+f+"){";break;case"else":c="if"===c.shift()?" if("+c.join(" ")+")":"",a="}else"+c+"{";break;case"/if":a="}";break;case"each":var g=c[0]||"$data",h=c[1]||"as",i=c[2]||"$value",j=c[3]||"$index",k=i+","+j;"as"!==h&&(g="[]"),a="$each("+g+",function("+k+"){";break;case"/each":a="});";break;case"echo":a="print("+f+");";break;case"print":case"include":a=e+"("+c.join(",")+");";break;default:if(-1!==f.indexOf("|")){var l=b.escape;0===a.indexOf("#")&&(a=a.substr(1),l=!1);for(var m=0,n=a.split("|"),o=n.length,p=l?"$escape":"$string",q=p+"("+n[m++]+")";o>m;m++)q=y(q,n[m]);a="=#"+q}else a=d.helpers[e]?"=#"+e+"("+c.join(",")+");":"="+a}return a},"function"==typeof define?define("dist/application/template",[],function(){return d}):"undefined"!=typeof exports?module.exports=d:this.template=d}(),define("dist/application/extend",[],function(a,b,c){function d(a){var b={"M+":this.getMonth()+1,"d+":this.getDate(),"h+":this.getHours(),"m+":this.getMinutes(),"s+":this.getSeconds(),"q+":Math.floor((this.getMonth()+3)/3),S:this.getMilliseconds()};/(y+)/.test(a)&&(a=a.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length)));for(var c in b)new RegExp("("+c+")").test(a)&&(a=a.replace(RegExp.$1,1==RegExp.$1.length?b[c]:("00"+b[c]).substr((""+b[c]).length)));return a}String.prototype.format||(String.prototype.format=function(){var a=arguments;return this.replace(/{(\d+)}/g,function(b,c){return"undefined"!=typeof a[c]?a[c]:b})}),String.prototype.trim||(String.prototype.trim=function(){return this.replace(/^\s*/,"").replace(/\s*$/,"")}),String.prototype.stripTags||(String.prototype.stripTags=function(){return this.replace(/<\/?[^>]+>/gi,"")}),Array.indexOf||(Array.prototype.indexOf=function(a){for(var b=0;b<this.length;b++)if(this[b]==a)return b;return-1}),Date.prototype.formatDate||(Date.prototype.formatDate=d)}),define("dist/application/effect",["dist/application/checkLogin","dist/application/api","dist/application/method","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/cmd-lib/util","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics","dist/application/method"],function(a,b,c){
-function d(a,b,c){!f.getCookie("cuk")&&b?e.notifyLoginInterface(function(b){a&&a(b),c&&c(b),i(b)}):f.getCookie("cuk")&&e.getLoginData(function(b){a&&a(b),i(b)})}var e=a("dist/application/checkLogin"),f=a("dist/application/method");$("#unLogin").on("click",function(){e.notifyLoginInterface(function(a){i(a)})}),$(".loginOut").on("click",function(){e.ishareLogout()}),$(".top-user-more .js-buy-open").click(function(){"vip"==$(this).attr("data-type")&&(location.href="/pay/vip.html")}),$(".vip-join-con").click(function(){f.compatibleIESkip("/node/rights/vip.html",!0)}),$(".btn-new-search").click(function(){if(new RegExp("/search/home.html").test(location.href)){var a=window.location.href.substring(0,window.location.href.indexOf("?"))+"?ft=all",b=$(".new-input").val()?$(".new-input").val().replace(/^\s+|\s+$/gm,""):$(".new-input").attr("placeholder");window.location.href=f.changeURLPar(a,"cond",encodeURIComponent(encodeURIComponent(b)))}else{var b=$(".new-input").val()?$(".new-input").val().replace(/^\s+|\s+$/gm,""):$(".new-input").attr("placeholder");b&&f.compatibleIESkip("/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(b)),!0)}}),$(".new-input").on("keydown",function(a){if(new RegExp("/search/home.html").test(location.href)&&13===a.keyCode){var b=window.location.href.substring(0,window.location.href.indexOf("?"))+"?ft=all",c=$(".new-input").val()?$(".new-input").val().replace(/^\s+|\s+$/gm,""):$(".new-input").attr("placeholder");window.location.href=f.changeURLPar(b,"cond",encodeURIComponent(encodeURIComponent(c)))}else if(13===a.keyCode){var c=$(".new-input").val()?$(".new-input").val().replace(/^\s+|\s+$/gm,""):$(".new-input").attr("placeholder");c&&f.compatibleIESkip("/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(c)),!0)}});var g=$(".new-detail-header"),h=g.height();$(window).scroll(function(){var a=$(this).scrollTop();a-h>=0?g.addClass("new-detail-header-fix"):g.removeClass("new-detail-header-fix")});var i=function(a){var b=$("#unLogin"),c=$("#haveLogin"),d=$(".btn-user-more"),e=$(".vip-status"),g=($(".icon-iShare"),$(".top-user-more"));d.text(1==a.isVip?"续费":"开通");var h=null;"6"===f.getCookie("file_state")&&$(".vip-title").eq(0).show(),1==a.isVip?(h=e.find('p[data-type="2"]'),h.find(".expire_time").html(a.expireTime),h.show().siblings().hide(),g.addClass("top-vip-more"),$(".isVip-show").find("span").html(a.expireTime),$(".isVip-show").removeClass("hide"),$(".vip-privilege-btn").html("立即续费")):1==a.userType?(h=e.find('p[data-type="3"]'),c.removeClass("user-con-vip"),h.show().siblings().hide()):0==a.isVip?c.removeClass("user-con-vip"):2==a.isVip&&console.log("data.isVip:",a.isVip),b.hide(),c.find(".user-link .user-name").html(a.nickName),c.find(".user-link img").attr("src",a.photoPicURL),c.find(".top-user-more .name").html(a.nickName),c.find(".top-user-more img").attr("src",a.photoPicURL),c.show(),window.pageConfig.params&&(window.pageConfig.params.isVip=a.isVip);var i=a.fileDiscount;i?i/=100:i=.8,window.pageConfig.params&&(window.pageConfig.params.fileDiscount=i),$("#ip-uid").val(a.userId),$("#ip-isVip").val(a.isVip),$("#ip-mobile").val(a.mobile)};return{refreshTopBar:i,isLogin:d}}),define("dist/application/helper",[],function(a,b,c){template.helper("encodeValue",function(a){return encodeURIComponent(encodeURIComponent(a))})}),define("dist/detail/common",["dist/application/method","dist/application/api"],function(a,b,c){var d=a("dist/application/method"),e=a("dist/application/api"),f=a("dist/detail/template/pay_btn_tmp.html"),g=(a("dist/detail/template/pay_middle_tmp.html"),a("dist/detail/template/pay_header.tmp.html"),null),h=window.pageConfig&&window.pageConfig,i={isDownload:h.page.isDownload,vipFreeFlag:h.params.vipFreeFlag,isVip:0,perMin:h.params.g_permin,vipDiscountFlag:h.params.vipDiscountFlag,ownVipDiscountFlag:h.params.ownVipDiscountFlag,volume:h.params.file_volume,moneyPrice:h.params.moneyPrice,fid:h.params.g_fileId,title:h.page.fileName,format:h.params.file_format,cdnUrl:_head,productType:h.page.productType,productPrice:h.page.productPrice},j=function(a){var b=$("#detail-unLogin"),c=$("#haveLogin"),d=$(".top-user-more"),e=$(".icon-iShare-text"),f=$(".btn-user-more"),g=$(".vip-status");$(".icon-iShare");$(".top-bar .news").removeClass("hide").find("#user-msg").text(a.msgCount),e.html("1"===a.isVip?"续费VIP":"开通VIP"),f.text("1"===a.isVip?"续费":"开通"),"0"===a.isVip?$(".open-vip").show().siblings("a").hide():$(".xf-open-vip").show().siblings("a").hide();var h=null;if(1==a.isVip?(h=g.find('p[data-type="2"]'),h.find(".expire_time").html(a.expireTime),h.show().siblings().hide(),d.addClass("top-vip-more")):1==a.userType&&(h=g.find('p[data-type="3"]'),h.show().siblings().hide()),b.hide(),c.find(".icon-detail").html(a.nickName),c.find("img").attr("src",a.photoPicURL),d.find("img").attr("src",a.photoPicURL),d.find("#userName").html(a.nickName),c.show(),$(".user-avatar img").attr("src",a.photoPicURL),$(".name-wrap .name-text").html(a.nickName),"1"===a.isVip){var i="您的VIP将于"+a.expireTime+"到期,剩余"+a.privilege+"次下载特权";$(".detail-right-normal-wel").html(i),$(".detail-right-vip-wel").html("会员尊享权益"),$(".btn-mui").hide(),$("#memProfit").html("VIP权益")}else $(".mui-privilege-list li").removeClass("hide")},k=function(){$("#footer-btn").html(template.compile(f)({data:i}))},l=function(){var a=0;if("1"==i.vipDiscountFlag&&(a=(1e3*i.moneyPrice/1250).toFixed(2),$(".js-original-price").html(a),$(".vip-price").html("&yen;"+(.8*i.moneyPrice).toFixed(2))),"5"===i.productType&&"1"==i.vipDiscountFlag){a=(1e3*i.moneyPrice/1250).toFixed(2),$(".js-original-price").html(a);var b=(.8*i.moneyPrice).toFixed(2);$("#vip-save-money").html(b),$(".js-original-price").html(b)}},m=function(){var a=d.validateIE9()?1:0,b=window.pageConfig;"?fid="+b.params.g_fileId+"&validateIE9="+a;$.ajax({url:e.normalFileDetail.getPrePageInfo,type:"POST",data:JSON.stringify({fid:b.params.g_fileId,validateIE9:a}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){if(0==a.code){b.page.preRead=a.data&&a.data.preRead||50;var c=d.getParam("page");if(c>0&&(b.page.is360page="true",b.page.initReadPage=Math.min(c,50)),b.page.status=i.status=a.data&&a.data.status,"3"===b.params.file_state){var e=a.data.url||b.imgUrl[0],f=a.data.pinfo&&a.data.pinfo.bytes||{},g=[];for(var h in f){var j=f[h],m=j[0]+"-"+j[1],n=d.changeURLPar(e,"range",m);g.push(n)}b.imgUrl=g}d.getCookie("cuk")&&k(),l()}}})};return{initData:i,userData:g,beforeLogin:function(){},afterLogin:function(a){g=a,i.isVip=parseInt(a.isVip,10),j(a),m()}}}),define("dist/detail/template/pay_btn_tmp.html",[],'<div class="bottom-fix qwe">\n        {{if data.productType == "3"}}\n            <!--仅在线阅读-->\n            {{if data.isVip == 1}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                    <span class="online-read">仅供在线阅读</span>\n                </div>\n                <div class="integral-con fr">\n                    <a id="searchRes" class="btn-fix-vip fl" ><i class="icon-detail"></i>寻找资料</a>\n                </div>\n\n            {{else}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                    <span class="online-read">仅供在线阅读</span>\n                </div>\n                <div class="integral-con fr">\n                    <a class="btn-fix-vip js-buy-open fl pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" data-type="vip">开通VIP，享更多特权</a>\n                </div>\n            {{/if}}\n        {{else}}\n            <!--VIP免费-->\n            {{if data.productType == 4}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                </div>\n                <div class="integral-con fr">\n                    <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                </div>\n            {{else}}\n                {{if data.productType == "5" }}\n                    <!--现金文档 -->\n                    <!--专享8折 加入vip8折购买 立即下载 立即购买-->\n                      {{if data.isVip == 1 && data.vipDiscountFlag == 1 }}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl">\n                                <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                            </h2>\n                        </div>\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con price-more fl">\n                                     <p class="price vip-price">¥{{data.productPrice}}</p>\n                                    <p class="origin-price">原价&yen; {{data.productPrice}}</p>\n                                </div>\n                                 <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>\n                            {{else}}\n                                 <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                        <!--&& data.ownVipDiscountFlag== 1-->\n                      {{else if data.isVip != 1 && data.vipDiscountFlag == 1 }}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                        </div>\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con price-more fl">\n                                    <!--现金文档价格 -->\n                                    <p class="price" style="">&yen;{{data.productPrice}}</p>\n                                    <!--现金文档 有折扣 非vip会员 -->\n                                  \n                                      <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{data.productPrice}}</span></p>\n                                </div>\n                                <a class="btn-fix-bottom btn-fix-border js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>\n                            {{else}}\n                                 <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                      {{else}}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl">\n                                <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                            </h2>\n                        </div>\n\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con fl">\n                                    <!--现金文档价格 -->\n                                     <p class="price" style="">¥{{data.productPrice}}</p>\n                                </div>\n                                <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即下载</a>\n                            {{else}}\n                                <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                    {{/if}}\n                {{else}}\n                    <!--vip-->\n                    {{if data.isVip == 1}}\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n                            <div class="integral-con fr">\n                                {{if data.volume > 0}}\n                                    <div class="price-con fl">\n                                        <p class="price">{{data.volume}}下载券</p>\n                                    </div>\n                                {{/if}}\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            </div>\n                    {{else}}\n                        {{if data.volume > 0}}\n\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n\n                            <div class="integral-con fr">\n                                <div class="price-con fl">\n                                    <p class="price" style="">{{data.volume}}下载券</p>\n                                </div>\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>\n                            </div>\n                        {{else}}\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n\n                            <div class="integral-con fr">\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>\n                            </div>\n                        {{/if}}\n                    {{/if}}\n                {{/if}}\n            {{/if}}\n        {{/if}}\n</div>\n'),define("dist/detail/template/pay_middle_tmp.html",[],'{{if data.isDownload === "n"}}\n<!--仅在线阅读-->\n{{if data.isVip == 1}}\n<div class="detail-wx-wrap">\n    <p class="detail-wx-text">本资料仅支持在线阅读，VIP可扫码寻找。</p>\n    <div class="detail-wx-entry">\n        <div class="wx-entry-con">\n            <div class="wx-code-con">\n                <img src="//pic.iask.com.cn/mini/qrc_{{data.fid}}.png">\n                <p>资料小程序码</p>\n            </div>\n            <div class="entry-main">\n                <div class="wx-step-con">\n                    <p class="step-text" style="text-align: left;">使用微信“扫一扫”扫码寻找资料</p>\n                    <div class="wx-step-list cf">\n                        <div class="step-num">\n                            <p>1</p>\n                            <p class="step-num-text">打开微信</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>2</p>\n                            <p class="step-num-text">扫描小程序码</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>3</p>\n                            <p class="step-num-text">发布寻找信息</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>4</p>\n                            <p class="step-num-text">等待寻找结果</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n{{else}}\n<div class="btn-data-con">\n    <p>仅供在线阅读</p>\n    <div class="btn-con mt18">\n        <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVipPr" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP，享更多特权</a>\n    </div>\n</div>\n{{/if}}\n{{else}}\n<div class="btn-data-con direct-dowonload-01">\n    <!--VIP免费-->\n    {{if data.vipFreeFlag == 1}}\n        <div class="btn-con mt18">\n            <a class="btn-state-red pc_click" pcTrackContent=\'downloadBtn-2\' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>\n        </div>\n    {{else}}\n    {{if data.perMin == "3"}}\n    <!--现金文档 -->\n    <!--专享8折 加入vip8折购买 立即下载 立即购买-->\n    {{if data.isVip == 1 && data.vipDiscountFlag ==1 && data.ownVipDiscountFlag ==1}}\n        {{if data.status!=2}}\n            <div class="price-item">\n                <p class="price-text vip-price">&yen; {{(data.moneyPrice*1000/1250).toFixed(2)}}</p>\n                <p class="origin-price">原价&yen; {{data.moneyPrice}}</p>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid js-buy-open  pc_click"  pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" data-type="file">立即购买</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n\n    {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}\n\n        {{if data.status!=2}}\n            <div class="price-item">\n                <p class="price-text">¥{{data.moneyPrice}}</p>\n                <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid btn-buy-border js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>\n                <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVip8" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP, 8折起</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n\n    {{else}}\n        {{if data.status!=2}}\n            <div class="price-item">\n                <div class="price-item">\n                    <p class="price-text">&yen;{{data.moneyPrice}}</p>\n                </div>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n    {{/if}}\n    {{else}}\n    <!-- 下载券下载 -->\n        {{ if data.volume >0 }}\n            <p class="ticket-num"><i class="icon-detail"></i>{{data.volume}}下载券</p>\n        {{/if}}\n        <div class="btn-con mt18">\n            <a class="btn-state-red pc_click" pcTrackContent=\'downloadBtn-2\' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>\n        </div>\n    {{/if}}\n    {{/if}}\n</div>\n{{/if}}\n\n'),define("dist/detail/template/pay_header.tmp.html",[],'{{ if data.isDownload != \'n\' }}\n    {{if data.vipFreeFlag == 1}}\n           <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n    {{else}}\n          {{ if data.perMin == "3"}}\n                {{if data.isVip == 1 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag == 1}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp header-price-more">\n                                    <p class="price vip-price">&yen; {{(data.moneyPrice*1000/1250).toFixed(2)}}</p>\n                                    <p class="origin-price">原价&yen;{{data.moneyPrice}}</p>\n                                </div>\n                            {{else}}\n                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n                {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp header-price-more">\n                                    <p class="price">&yen;{{data.moneyPrice}}</p>\n                                    <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>\n                                </div>\n                            {{else}}\n                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n                {{else}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp">\n                                    <p class="price">&yen;{{data.moneyPrice}}</p>\n                                </div>\n                            {{else}}\n                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n\n                {{/if}}\n          {{else}}\n                {{ if data.volume >0 }}\n                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                                <p class="btn-text"><span>{{data.volume}}</span>下载券</p>\n                {{else}}\n                        <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                {{/if}}\n          {{/if}}\n    {{/if}}\n{{/if}}'),define("dist/detail/template/head_tip.html",[],'<div class="info-wrap">\n    <i class="before"></i>\n    <i class="after"></i>\n    <p>{{data.prompt}}</p>\n    <div class="btn-wrap">\n        <a href="../pay/vip.html" target="_blank" class="btn-user">立即使用</a>\n        <a class="btn-no-user">暂不使用</a>\n    </div>\n</div>'),define("dist/detail/search",[],function(a,b,c){var d=a("dist/detail/template/history_tmp.html"),e=a("dist/detail/template/hot_search_tmp.html"),f=JSON.parse(localStorage.getItem("lhistory")),g=JSON.parse(sessionStorage.getItem("hotSearch"));if(f){var h=template.compile(d)({data:f});$(".search-history-list").html(h)}$("ul.search-history-list li").length>0?$(".delete-history-ele").show():$(".delete-history-ele").hide(),$(".btn-m-search").on("click",function(a){a.stopPropagation(),sessionStorage.getItem("hotSearch")?k(g):j(),$("#search-bd-con").hide(),$(".search-dialog").show(),$("#search-input").focus()}),$(document).on("keyup","#search-input",function(a){var b=a.keyCode;$(this).val()?($(".btn-input-delete").show(),$(".btn-cancel").css("color","#f25125"),$(".search-main:eq(0):visible").hide(),$(".search-main:eq(1):hidden").show(),m($(this).val())):($(".search-main:eq(0):hidden").show(),$(".search-main:eq(1):visible").hide(),$(".btn-input-delete").hide(),$(".btn-cancel").css("color","#444")),13==b&&i()}),$(document).on("click",".btn-cancel",function(a){a&&a.stopPropagation(),i()}),$(document).on("click",".js_back",function(a){a&&a.stopPropagation(),$(".search-dialog").hide(),$("#search-bd-con").show(),$("#search-input").blur()}),$(document).on("click",".btn-input-delete",function(a){$(this).hide(),$("#search-input").val("")}),$(document).on("click","#search-hot-box",function(a){var b=$(a.target).text();n(b)}),$(document).on("click",".delete-history-ele",function(a){$(this).hide(),$(".search-dialog .search-history-list").hide(),localStorage.removeItem("lhistory")}),$(document).on("click",".btn-delete",function(a){if($("ul.search-history-list li").length){var b=$(this).data("html");o(b),$(this).closest("li").remove()}$("ul.search-history-list li").length>0?$(".delete-history-ele").show():$(".delete-history-ele").hide()}),$(".search-dialog .search-list").on("click","a",function(a){var b=$(this).data("html");b&&n(b)});var i=function(){var a=$("#search-input").val();return(a=a?a.replace(/^\s+|\s+$/gm,""):"")?(n(a),void l(a)):void $.toast({text:"搜索内容为空"})},j=function(){$.ajax(api.getHotSearch,{type:"get",async:!1,dataType:"json"}).done(function(a){0==a.code&&(k(a.data),sessionStorage.setItem("hotSearch",JSON.stringify(a.data)))}).fail(function(a){$.toast({text:"error",delay:2e3})})},k=function(a){if(a){var b=template.compile(e)({data:a});$("#search-hot-box").html(b)}},l=function(a){window.location.href="/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(a))},m=function(a){$.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+encodeURIComponent(a)+"&p=3&cb=window.baidu_searchsug&t="+(new Date).getTime())};window.baidu_searchsug=function(a){var b=$(".search-dialog .s-input").val();if(b=b?b.replace(/^\s+|\s+$/gm,""):"",b.length>0&&a&&a.s){var c=a.s;if(c.length>0){for(var d=Math.min(c.length,10),e=[],f=0;d>f;f++){var g="/search/home.html?ft=all&cond="+encodeURIComponent(encodeURIComponent(c[f]));e.push('<li><a href="'+g+'"  data-html="'+c[f]+'" >'+c[f].replace(new RegExp("("+b+")","gm"),"<span class='search-font'>$1</span>")+"</a></li>")}$(".search-dialog .search-main .search-list").html(e.join(""))}}};var n=function(a){f?-1===$.inArray(a,f)&&f.unshift(a):f=[a],localStorage.setItem("lhistory",JSON.stringify(f))},o=function(a){var b=$.inArray(a,f);b>-1&&f.splice(b,1),localStorage.setItem("lhistory",JSON.stringify(f))}}),define("dist/detail/template/history_tmp.html",[],'{{each data as value i}}\n<li>\n    <a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n    <a href="javascript:;" class="btn-delete" data-html="{{value}}"></a>\n</li>\n{{/each}}'),define("dist/detail/template/hot_search_tmp.html",[],'{{each data as value i}}\n<a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n{{/each}}'),define("dist/detail/download",["dist/application/method","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/cmd-lib/loading","dist/cmd-lib/util","dist/cmd-lib/gioInfo","dist/detail/common","dist/application/api","dist/application/checkLogin","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/report/config","dist/common/bindphone","dist/common/baidu-statistics"],function(a,b,c){var d=a("dist/application/method");a("dist/cmd-lib/myDialog"),a("dist/cmd-lib/toast"),a("dist/cmd-lib/loading");var e=a("dist/cmd-lib/util"),f=a("dist/cmd-lib/gioInfo"),g=a("dist/detail/common"),h=a("dist/application/checkLogin"),i=a("dist/application/api"),j=(e.getPageRef(window.pageConfig.params.g_fileId),""),k="",l=window.pageConfig.params.g_fileId,m=$("#tpl-down-android").html(),n=window.pageConfig.params.file_title,o=$("#tpl-down-text"),p=($("#tpl-down-finished"),$("#integral-download-vip"),$("#integral-download-normal"),$("#volume-download-vip"),$("#volume-download-normal"),$("#have_privilege"),$("#permanent_privilege")),q=$("#permanent_privilege_not"),r=$("#vipFreeDownCounts"),s=$("#freeDownCounts"),t=($("#download-join-vip"),null),u=function(){d.delCookie("event_data_down","/"),"n"!==window.pageConfig.page.isDownload&&d.get(i.normalFileDetail.filePreDownLoad+"?fid="+l,function(a){0==a.code?(w(a),v(a.data.status)):42e3==a.code||42001==a.code||42002==a.code||42003==a.code?$("#dialog-box").dialog({html:o.html().replace(/\$msg/,a.msg)}).open():40001==a.code?h.notifyLoginInterface(function(a){t=a}):42011==a.code?d.compatibleIESkip("/pay/vip.html",!0):$("#dialog-box").dialog({html:o.html().replace(/\$msg/,a.msg)}).open()},"")},v=function(a){f.downloadLimitedCodeMap[a]&&(downLoadReport.downloadLimited_var=f.downloadLimitedCodeMap[a],__pc__.gioTrack("docDLFail",downLoadReport))},w=function(a){var b=$("#dialog-box");switch(l=window.pageConfig.params.g_fileId,a.data.checkStatus){case 0:var c=d.browserType();if(d.delCookie("event_data_down","/"),a.data.score>0?j=1*a.data.score:a.data.volume>0?k=1*a.data.volume:window.pageConfig.params.file_volume>0&&a.data.privilege>0&&(k=1),"IE"===c||"Edge"===c)d.compatibleIESkip(a.data.fileDownUrl,!1);else if("Firefox"===c){var f=a.data.fileDownUrl,g=f.lastIndexOf("&fn="),h=f.substr(0,g+4),i=decodeURIComponent(f.substr(g+4,f.length)),l=window.pageConfig.params.g_fileId;d.compatibleIESkip(h+i,!1);var m="/node/f/downsucc.html?fid="+l+"&url="+encodeURIComponent(a.data.fileDownUrl);A(m)}else{var l=window.pageConfig.params.g_fileId,m="/node/f/downsucc.html?fid="+l+"&title="+encodeURIComponent(n)+"&url="+encodeURIComponent(a.data.fileDownUrl);A(m)}break;case 8:var l=window.pageConfig.params.g_fileId,p=window.pageConfig.params.file_format,t=window.pageConfig.params.file_title,u="",v=e.getPageRef(l);d.setCookieWithExpPath("rf",JSON.stringify({}),3e5,"/"),d.setCookieWithExp("f",JSON.stringify({fid:l,title:t,format:p}),3e5,"/"),u="?orderNo="+l+"&checkStatus="+a.data.checkStatus+"&referrer="+document.referrer,d.compatibleIESkip("/pay/payConfirm.html"+u,!1);break;case 1:var w=d.getCookie("ui")?JSON.parse(decodeURIComponent(d.getCookie("ui"))):{isVip:""};"1"==w.isVip?$("#dialog-box").dialog({html:r.html()}).open():$("#dialog-box").dialog({html:s.html()}).open();break;case 2:b.dialog({html:o.html().replace(/\$msg/,"您当日下载过于频繁,一分钟后再下载")}).open();break;case 10:var l=window.pageConfig.params.g_fileId,x=(window.pageConfig.params.file_state,window.pageConfig.params.isVip,1),p=window.pageConfig.params.file_format,t=window.pageConfig.params.file_title;d.setCookieWithExp("f",JSON.stringify({fid:l,title:t,format:p}),3e5,"/");var u="?fid="+l+"&ft="+p+"&checkStatus="+a.data.checkStatus+"&name="+encodeURIComponent(encodeURIComponent(t))+"&ref="+v+"&showTips="+x;B("/pay/vip.html"+u);break;case 13:b.dialog({html:q.html().replace(/\$title/,pageConfig.params.file_title.substr(0,20)).replace(/\$fileSize/,pageConfig.params.file_size).replace(/\$code/,a.data.status).replace(/\$privilege/,a.data.privilege).replace(/\$productPrice/,a.data.productPrice)}).open();break;case 17:b.dialog({html:o.html().replace(/\$msg/,"在线文档不支持下载")}).open();break;case 99:break;case 98:}},x=function(){d.getCookie("cuk")?d.getCookie("cuk")&&!t?h.getLoginData(function(a){t=a,u(),g.afterLogin(a);
-}):d.getCookie("cuk")&&t&&u():(h.notifyLoginInterface(function(a){t=a,u(),g.afterLogin(a)}),$(this).attr("loginOffer")&&d.setCookieWithExpPath("_loginOffer",$(this).attr("loginOffer"),36e5,"/"),d.setCookieWithExpPath("event_data_down","down",36e5,"/")),__pc__.gioTrack("docDetailDLClick",downLoadReport)},y=function(){d.getCookie("cuk")?4==window.pageConfig.page.productType?$.ajax({headers:{Authrization:d.getCookie("cuk")},url:i.normalFileDetail.filePreDownLoad,type:"POST",data:JSON.stringify({clientType:0,fid:l,sourceType:1}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){console.log(a),"0"==a.code?0==a.data.checkStatus&&2==a.data.consumeStatus?D.dialog({html:p.html().replace(/\$title/,pageConfig.params.file_title.substr(0,20)).replace(/\$fileSize/,pageConfig.params.file_size).replace(/\$privilege/,a.data.privilege||0).replace(/\$productPrice/,a.data.productPrice||0).replace(/\$code/,a.data.status)}).open():w(a):$.toast({text:a.msg||"预下载失败",delay:2e3})}}):z():h.notifyLoginInterface(function(a){g.afterLogin(a),t=a,y()})},z=function(){$.ajax({headers:{Authrization:d.getCookie("cuk")},url:i.normalFileDetail.getFileDownLoadUrl,type:"POST",data:JSON.stringify({clientType:0,fid:l,sourceType:1}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){console.log(a),"0"==a.code?w(a):$.toast({text:a.msg||"下载失败",delay:2e3})}})},A=function(a){d.compatibleIESkip(a,!0)},B=function(a){d.compatibleIESkip(a,!1)},C=d.getCookie("event_data_down");d.getCookie("cuk")&&"down"==C&&(d.delCookie("event_data_down","/"),x());var D=$("#dialog-box");D.on("click",".btn-dialog-download",function(){var a=$(this).attr("data-code");a&&z()}),$(document).on("click",'[data-toggle="download"]',function(a){y()}),$(document).on("click",".sava-app",function(a){$("#dialog-box").dialog({html:m}).open()}),c.exports={downLoad:y}}),define("dist/cmd-lib/gioInfo",[],function(a,b,c){var d={downloadLimitedCodeMap:{"-1":"下载限制黑名单","-2":"文件不存在","-3":"私有文件","-4":"只读",1:"已超过了当日下载量",2:"当日下载过于频繁",3:"下载券积分不足",4:"下载券不足兑换积分",5:"下载券足够",8:"未购买",9:"下载特权足够",10:"用户不是vip不能下",12:"vip专享下载—扣除下载特权",13:"vip专享下载—扣除下载特权但不够扣",98:"显示图形验证码",99:"校验图形验证码不通过"},downloadConsumeMap:{1:"下载券",2:"下载特权",3:"积分",4:"VIP免费",5:"本人文件",6:"现金",7:"已下载过",8:"免费"}};c.exports=d}),define("dist/detail/paging",["dist/detail/changeShowOverText","dist/detail/download","dist/application/method","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/cmd-lib/loading","dist/cmd-lib/util","dist/cmd-lib/gioInfo","dist/detail/common","dist/application/api","dist/application/checkLogin","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/report/config","dist/common/bindphone","dist/common/baidu-statistics","dist/detail/index","dist/application/suspension","dist/application/app","dist/application/element","dist/application/template","dist/application/extend","dist/application/effect","dist/application/helper","dist/detail/changeDetailFooter"],function(a,b,c){function d(a,b){try{$(".hide-ad").show();var c=document.getElementById(a),d="iframeu4078296_0";$.browser.msie&&$.browser.version<=9&&(c=document.getElementById(d));var e=document.getElementById(b);c&&(c.parentNode.removeChild(c),e&&e.appendChild(c))}catch(f){}}function e(){for(var a=$(".data-detail"),b=0;b<a.length;b++){var c=a[b].getBoundingClientRect().top;if(y>c&&c>0){$(".page-input").text(b+1);break}}}function f(a){console.log("当前传递的是第 "+a+" 项"),a-=1;var b=$(".detail-con").eq(a);if(!b.length)return!1;var c=window.pageConfig.params.g_fileExtension||"",d=window.pageConfig.supportSvg,e=window.pageConfig.svgFlag,f=b.find(".data-detail");if(f.length){var g=window.pageConfig.imgUrl;f.find(".loading").remove();var h=g[a];e&&d?(h=this.window.pageConfig.svgUrl[a],f.html("<embed src='"+h+"' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>")):"txt"===c?f.html(h):f.html("<img class='img-png lazy' width='100%' height='100%' src='"+h+"' alt=''>")}}function g(a){q=a||q;var b=w>=q+5?q+5:w;A.drawing(b);var c=$(".detail-pro-con div.article-page").length;c-w>=0&&(A.isHideMore(c),"点击可继续阅读 >"!==$(".red-color").text()&&n(),m()),c==t&&(A.isHideMore(c),"点击可继续阅读 >"!==$(".red-color").text()&&n(),m()),p()}function h(){if(!z)return!1;for(var a=$(".data-detail"),b=0;b<a.length;b++){var c=a[b].getBoundingClientRect().bottom;if(c>y&&c>0){if(z){var d=a.eq(b).closest(".article-page").attr("data-num"),e=a.eq(b).find(".loading");d&&e.length&&f(d)}$(".page-input").text(b+1);break}}}function i(a){a=a||window.event,a.wheelDelta?(a.wheelDelta>0&&h(),a.wheelDelta<0):a.detail&&(a.detail<0&&h(),a.detail>0)}function j(a,b){var c="",d="",e=window.pageConfig.params.g_fileExtension||"",f=window.pageConfig.supportSvg,g=window.pageConfig.svgFlag;return"txt"===e?c+="<div class='detail-con first-style article-page source-link' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail other-format-style'>"+a+"</div></div></div>":g&&f?(d="ppt"===e?"ppt-format-style":"other-format-style",c+="<div class='detail-con third-style article-page source-link ' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail "+d+"'><embed src='"+a+"' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/></div></div></div>"):(d="ppt"===e?"ppt-format-style":"other-format-style",c+="<div class='detail-con second-style article-page source-link' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail "+d+"'><img class='img-png lazy' width='100%' height='100%' src='"+a+"' alt=''></div></div></div>"),c}function k(a,b){var c="",d="",e=window.pageConfig.params.g_fileExtension||"",f=window.pageConfig.supportSvg,g=window.pageConfig.svgFlag;return"txt"===e?c+="<div class='detail-con first-style article-page source-link' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail other-format-style'><div class='loading' style='height: 800px;'></div></div></div></div>":g&&f?(d="ppt"===e?"ppt-format-style":"other-format-style",c+="<div class='detail-con third-style article-page source-link ' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail "+d+"'><div class='loading' style='height: 800px;'></div></div></div></div>"):(d="ppt"===e?"ppt-format-style":"other-format-style",c+="<div class='detail-con second-style article-page source-link' data-num='"+b+"'><div class='detail-inner article-main'><div class='data-detail "+d+"'><div class='loading' style='height: 800px;'></div></div></div></div>"),c}var l=a("dist/detail/template/img_box.html"),m=a("dist/detail/changeShowOverText").changeText,n=a("dist/detail/changeShowOverText").readMoreTextEvent,o=a("dist/detail/changeDetailFooter").initStyle,p=a("dist/detail/changeDetailFooter").loadMoreStyle;if(window.pageConfig.imgUrl){var q=2,r=0,s=window.pageConfig.imgUrl.length,t=window.pageConfig.params.totalPage,u=window.pageConfig.params.g_fileExtension||"",v=window.pageConfig.page.preRead||50,w=Math.min(v,50),x=window.pageConfig.page.initReadPage,y=(document.documentElement.clientHeight||window.innerHeight)/4,z=window.location.hash,A={goSwiper:null,isHideMore:function(a){a>=w&&t>w?$(".show-over-text").eq(0).show():a>=s&&$(".show-over-text").eq(1).show()},drawing:function(a){if(!(2>=s)){$(".detail-pro-con div.article-page").eq(2).show(),w>=4&&$(".detail-pro-con div.article-page").eq(3).show(),d("a_6307747","a_page_con_3");var b=[],c=$(".detail-pro-con div.article-page").length,e=window.pageConfig.supportSvg,f=window.pageConfig.svgFlag;1==e&&1==f&&(u="svg");for(var g=c+1;g<=Math.min(s,50,a);g++){q=g;var h={imgSrc:window.pageConfig.imgUrl[g-1],noPage:g,imgTotalPage:s,totalPage:t,remainPage:s-g,ptype:u};e&&f&&(h.svgSrc=window.pageConfig.svgUrl[g-1]),b.push(h)}var i=template.compile(l)({data:b,ptype:u});"txt"===u?$(".font-detail-con").append(i):$(".ppt-pic-con").append(i),$("img.lazy").lazyload({effect:"fadeIn"});var j=r-=5;if("none"==$(".page-text .endof-trial-reading").css("display")&&$(".show-more-text .page-num").text(j>=0?j:0),s>=a){var k=$(".page-input").text(),m=$(".detail-pro-con").find("div.article-page").eq(k).position();m&&$("body,html").animate({scrollTop:m.top},200)}}},handleHtmlExpireUrl:function(){var a=0,b=window.pageConfig.imgUrl[0],c=b.indexOf("?Expires="),d=b.indexOf("&KID=sina"),e=1e3*parseInt(b.substring(c+9,d)),f=+new Date(e),g=+new Date;return(g>f||b.indexOf("sinacloud.net")>-1)&&(a=1),a}};$(window).on("scroll",e),x>s&&m(),$(function(){var a=$(".detail-pro-con div.article-page");if(z&&z.split("#page")[1]){var b=z.split("#page");if(b.length){var c=Math.min(+b[1],s,v);if(2>=c)r=t-q,a.eq(2).hide(),a.eq(3).hide();else if(7>=c)r=t-2,g(),setTimeout(function(){var a=$(".detail-pro-con").find("div.article-page").eq(c-1).offset().top;$("body,html").animate({scrollTop:a})},2e3);else{r=t-c+5,g();var d=$(".font-detail-con"),e=d.length?d:$(".ppt-pic-con"),f=window.pageConfig.imgUrl[c-1],h=window.pageConfig.supportSvg,i=window.pageConfig.svgFlag;i&&h&&(f=window.pageConfig.svgUrl[c-1]),e.append(j(f,c));for(var l=$(".article-page[data-num='"+c+"']"),m=window.pageConfig.imgUrl,n=7,p=m.slice(n,c-1),u=[],w=8,x=0;x<p.length;x++){var y={index:w,url:p[x]};w++,u.push(y)}for(var B="",C=0;C<u.length;C++){var D=u[C];B+=k("",D.index)}l.before(B),setTimeout(function(){$("body,html").animate({scrollTop:l.offset().top})},2e3),parseInt(b[1])>=v&&A.isHideMore(c),q=c,$(".show-more-text .page-num").text(t-c)}}}else r=t-q,a.eq(2).hide(),a.eq(3).hide(),o()}),document.addEventListener&&document.addEventListener("DOMMouseScroll",i,!1),window.onmousewheel=document.onmousewheel=i,$(document).on("click",'[data-toggle="btnReadMore"]',function(){g()}),$(".page-next").on("click",function(){var a=$(".page-input").text()-0;if(2!==w||2!==a){var b=$(".data-detail"),c=w>=q+5?q+5:w;if(2===a&&A.drawing(c),a==b.length&&t>a&&w>a){A.drawing(c);var d=$(".detail-pro-con div.article-page").length;d-w>=0&&A.isHideMore(d),d==t&&A.isHideMore(d)}if(t>a&&w>a){var e=$(".detail-pro-con div.article-page").eq(a).offset()&&$(".detail-pro-con div.article-page").eq(a).offset().top;e&&($("body,html").animate({scrollTop:e},200),setTimeout(function(){$(".page-input").text(a+1)},100))}b.length==w&&t>w&&($(".show-more-text").hide(),$(".show-over-text").eq(0).show(),$(".btn-read-more").hide(),$(".article-mask").hide()),b.length==t&&($(".show-more-text").hide(),$(".show-over-text").eq(1).show(),$(".btn-read-more").hide(),$(".article-mask").hide())}}),$(".page-prev").on("click",function(){var a=$(".page-input").text()-0;if(1!==a){var b=$(".detail-pro-con div.article-page").eq(a-2).offset().top;b&&($("body,html").animate({scrollTop:b},200),setTimeout(function(){$(".page-input").text(a-1)},100))}}),$(".page-input").keydown(function(a){if(13===a.keyCode){var b=$(".page-input").text()-0;if(b>w){var c=$(".d-page-wrap");return c.removeClass("hide"),void setTimeout(function(){c.addClass("hide")},1500)}var d=$(".data-detail");if(b>0&&b<=d.length){var e=$(".detail-pro-con div.article-page").eq(b-1).offset().top;e&&$("body,html").animate({scrollTop:e},200)}}}),$(document).on("click",'[data-toggle="btnExpandMore"]',function(){$(".ppt-pic-con").css("height","auto"),$(this).parent().remove(),$(".js-mask").show(),$("img.lazy").lazyload()}),$("div.detail-pro-con").delegate(".article-page","click",function(){"txt"!==u&&"html"!=$("#ip-file-convertType").val()&&$(".code-source").css("visibility","visible")}),$(".code-source").click(function(){$(".code-source").css("visibility","hidden")}),$(function(){var a="iframeu4078296_0";$.browser.msie&&$.browser.version<=9&&$("#"+a).parent().hide()})}}),define("dist/detail/template/img_box.html",[],'{{each data as value i}}\n{{if ptype == \'txt\'}}\n<div class="detail-con first-style  article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            {{#data[i].imgSrc}}\n        </div>\n    </div>\n</div>\n{{else}}\n{{if ptype == \'svg\'}}\n{{if data[i].svgSrc}}\n<div class="detail-con third-style   article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            <embed data-src="{{data[i].svgSrc}}" src="{{data[i].svgSrc}}" width="100%" height="100%"\n                type="image/svg+xml" pluginspage="//www.adobe.com/svg/viewer/install/" />\n        </div>\n    </div>\n</div>\n{{/if}}\n{{else}}\n{{if data[i].imgSrc }}\n<div class="detail-con second-style  article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            <img data-src="{{data[i].imgSrc}}" src="{{data[i].imgSrc}}" alt="" class="img-png lazy"\n                style="width: 100%;height: auto">\n        </div>\n    </div>\n</div>\n{{/if}}\n{{/if}}\n{{/if}}\n{{/each}}'),define("dist/detail/changeShowOverText",["dist/detail/download","dist/application/method","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/cmd-lib/loading","dist/cmd-lib/util","dist/cmd-lib/gioInfo","dist/detail/common","dist/application/api","dist/application/checkLogin","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/report/config","dist/common/bindphone","dist/common/baidu-statistics","dist/detail/index","dist/application/suspension","dist/application/app","dist/application/element","dist/application/template","dist/application/extend","dist/application/effect","dist/application/helper"],function(a,b,c){function d(){h.getCookie("cuk")?3==o?"1"==s.isVip?e():k("vip"):g():i.notifyLoginInterface(function(a){j.afterLogin(a)})}function e(){function a(){function a(){$(".common-bgMask").hide(),$(".detail-bg-mask").hide(),$("#dialog-box").hide()}console.log(6666),$(".m-reward-pop .close-btn").on("click",function(){a()}),$(".m-reward-pop .submit-btn").on("click",function(){var b=window.pageConfig.userId;if(!b)return a(),void $.toast({text:"该功能仅对VIP用户开放",delay:3e3});var c=/^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/,d=$(".m-reward-pop .form-ipt").val(),e=$(".m-reward-pop .form-verify-tips");if(e.hide(),!c.test(d))return void e.show();var f={userId:b,fid:window.pageConfig.params.g_fileId,email:d,channelSource:4};$.ajax("/gateway/content/sendmail/findFile",{type:"POST",data:JSON.stringify(f),dataType:"json",contentType:"application/json"}).done(function(b){0==b.code?(a(),$.toast({text:"发送成功",delay:2e3})):401100==b.code?$.toast({text:"该功能仅对VIP用户开放",delay:2e3}):$.toast({text:"发送失败，请重试",delay:2e3})}).fail(function(a){$.toast({text:"发送失败，请重试",delay:2e3})})})}$("body,html").animate({scrollTop:$("#littleApp").offset().top-60},200),$("#dialog-box").dialog({html:$("#reward-mission-pop").html()}).open(),setTimeout(a,500)}function f(a){var b="";switch(o){case"5":b="1"==s.isVip&&"1"==q?"¥"+(.8*p).toFixed(2)+"获取该资料":"¥"+(+p).toFixed(2)+"获取该资料";break;case"1":b="下载到本地阅读";break;case"3":b="1"!=s.isVip?"开通VIP寻找资料":"寻找资料";break;case"4":b="n"==r?"开通VIP 下载资料":"下载到本地阅读"}l.text(b),m.show(),-1==n.text()&&n.text(0)}var g=a("dist/detail/download").downLoad,h=a("dist/application/method"),i=a("dist/application/checkLogin"),j=a("dist/detail/common"),k=a("dist/detail/index").goPage,l=$(".red-color"),m=$(".page-text .endof-trial-reading"),n=$(".page-num"),o=window.pageConfig.page.productType,p=window.pageConfig.page.productPrice,q=window.pageConfig.params.vipDiscountFlag,r=(h.getCookie("cuk"),window.pageConfig.page.isDownload),s=h.getCookie("ui")?JSON.parse(h.getCookie("ui")):{};c.exports={changeText:f,readMoreTextEvent:d}}),define("dist/detail/changeDetailFooter",[],function(a,b,c){function d(){1==g&&(3>=h?($(".deatil-mr10").css("position","relative"),$(".detail-footer").css({position:"absolute",left:"0px",right:"0px",bottom:113+i+"px",width:"890px"})):f())}function e(){d()}function f(){$(".deatil-mr10").css("position","relative"),$(".detail-footer").css({position:"absolute",left:"0px",right:"0px",bottom:0+i+"px",width:"890px"})}var g=window.pageConfig.page.isConvert,h=$(".detail-reader-con").find(".detail-con:visible").length-2,i=$(".guess-you-like-warpper").height()||0;c.exports={initStyle:d,loadMoreStyle:e}}),define("dist/detail/expand",[],function(a,b,c){$(function(){function a(a,b,c,d,e,f){function g(a,b,c){$(a).attr("style","-webkit-transform: scale("+b+");-webkit-transform-origin: 0 0;-moz-transform: scale("+b+");-moz-transform-origin:0 0;-ms-transform: scale("+b+"); -ms-transform-origin: 0 0;transform: scale("+b+"); transform-origin: 0 0;").width(c),"Microsoft Internet Explorer"==navigator.appName&&parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g,"").replace("MSIE",""))<9&&$(a).attr("style","zoom:"+b)}function h(a,b,c){var d=($(a).width()/c).toFixed(3)-.002;$(b).each(function(){$(this).parent().height($(this).height()*d+26),g(this,d,c)})}function i(a,b,c,d){$(a).each(function(){"1"==d?$(this).parent().height($(this).outerHeight()*c+26):$(this).parent().height($(this).outerHeight()+26),g(this,c,b)})}function j(a){q=0,$(".detail-con").css("background-color","#fff"),$(".ppt-pic-con").css("background","#fff"),$(".pw-detail").css("width","1213px"),$(".detail-footer").show(),$(".deatil-mr10").css("position","relative"),$(".detail-topbanner").show(),$(".fixed-right-full").show(),$(a).removeClass("reader-fullScreen-no").addClass("reader-fullScreen"),$(".zoom-decrease").removeClass("zoom-decrease-no"),$(".zoom-add").removeClass("zoom-add-no"),$(".detail-main").removeClass("detail-main-full"),$(".new-detail-header").show(),$(".detail-fixed").removeClass("detail-fixed-full"),$(a).attr("title","全屏浏览"),$(".detail-inner,.detail-profile,.detail-main,.bd-wrap,.doc-main-br,.detail-con,.doc-main").removeAttr("style")}var k,l,m,n,o,p,q=0,r=220,s=0,t=134;k=$(b).width(),l=$(b).height(),o=$(".zoom-decrease").attr("class"),p=$(".zoom-add").attr("class");var u=($(window).width()/k).toFixed(3)-.002;window.screen.width>$(d).width()&&(m=window.screen.width-50,n=$(d).width()),$(a).on("click",function(){if($(".detail-inner,.detail-profile,.detail-main,.bd-wrap,.doc-main-br,.detail-con,.doc-main").removeAttr("style"),$(this).hasClass("reader-fullScreen")){q=1,$(this).removeClass("reader-fullScreen").addClass("reader-fullScreen-no"),$(".reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no"),$(".zoom-decrease").addClass("zoom-decrease-no"),$(".zoom-add").addClass("zoom-add-no"),$(".detail-main").addClass("detail-main-full");var b=($(".detail-main").width(),1);$(".detail-con").css("background-color","#333"),$(".ppt-pic-con").css("background","#333"),$(".detail-footer").hide(),$(".deatil-mr10").css("position","static"),$(".detail-topbanner").hide(),$(".pw-detail").css("width","890px"),$(".detail-inner").css({"-webkit-transform":"scale("+b+")","-webkit-transform-origin":"0 0","-moz-transform":"scale("+b+")","-moz-transform-origin":"0 0",transform:"scale("+b+")","-ms-transform-origin":"0 0","-ms-transform":"scale("+b+")","transform-origin":"0 0"}).parent(".detail-con").height($(".detail-inner").height()*b),"Microsoft Internet Explorer"==navigator.appName&&parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g,"").replace("MSIE",""))<9&&$(".detail-inner").css({zoom:b}).parent(".detail-con").height($(".detail-inner").height()*b),$(".new-detail-header").hide(),$(".detail-fixed").addClass("detail-fixed-full"),$(".fixed-right-full").hide(),$(a).attr("title","退出全屏")}else j(a);$(window).resize()}),$(document).keydown(function(b){27===b.which&&$(".reader-fullScreen-no").size()>0&&j(a)}),$(window).resize(function(){""==$(b).html()&&(u=($(window).width()/k).toFixed(3)-.002,u>1&&i(c,k,u,"1"))}),$(".zoom-add").click(function(){if(0==q){if($(".zoom-decrease").removeClass("zoom-decrease-no"),o=$(".zoom-decrease").attr("class"),$(b).width()<$(e).width()?$(b).width($(b).width()+t):$(d).width()<m&&($(d).width($(d).width()+t),$(e).width($(e).width()+t),$(b).width(""),$(b).prev().width("")),h(b,c,k),$(d).width()==m)return $(this).addClass("zoom-add-no"),p=$(".zoom-add").attr("class"),!1;h(b,c,k),s=1,$(".doc-main-br").width($(e).width())}}),$(".zoom-decrease").click(function(){return $(b).width()>r&&0==q&&($(f).width($(f).width()-t),$(b).width($(b).width()-t),$(".zoom-add").removeClass("zoom-add-no"),$(d).width()>n&&($(d).width($(d).width()-t),$(e).width($(e).width()-t)),h(b,c,k),p=$(".zoom-add").attr("class"),s=1,$(".doc-main-br").width($(e).width())),$(b).width()==r&&0==q?($(this).addClass("zoom-decrease-no"),o=$(".zoom-decrease").attr("class"),!1):void 0})}window.orighWidth=$(".detail-main:first").width(),window.orighheight=$(".detail-main:first").height(),a(".reader-fullScreen,.reader-fullScreen-no",".detail-main",".detail-inner",".bd-wrap",".doc-main",".detail-profile")})}),define("dist/detail/buyUnlogin",["dist/application/api","dist/cmd-lib/util","dist/application/method","dist/pay/qr","dist/cmd-lib/qr/qrcode.min","dist/cmd-lib/qr/jquery.qrcode.min","dist/application/checkLogin","dist/application/login","dist/cmd-lib/jqueryMd5","dist/common/bilog","base64","dist/report/config","dist/cmd-lib/myDialog","dist/cmd-lib/toast","dist/common/bindphone","dist/common/baidu-statistics","dist/application/urlConfig","dist/cmd-lib/gioInfo","dist/detail/common","dist/common/bilog-module/payFileResultForVisit_bilog"],function(a,b,c){var d=a("dist/application/api"),e=a("dist/cmd-lib/util"),f=a("dist/application/method"),g=a("dist/pay/qr"),h=a("dist/application/checkLogin"),i=a("dist/application/urlConfig"),j=(a("dist/cmd-lib/gioInfo"),a("dist/common/bilog").viewExposure),k=a("dist/detail/common"),l=pageConfig.page.fileName,m=pageConfig.params.file_format,n={id:pageConfig.params.g_fileId,title:pageConfig.params.file_title,productType:pageConfig.params.file_state,format:pageConfig.params.file_format,fileSourceChannel:pageConfig.params.g_fileId,uid:pageConfig.params.file_uid,classid1:pageConfig.params.classid1,classid2:pageConfig.params.classid2,classid3:pageConfig.params.classid3,classidName1:pageConfig.params.classidName1,classidName2:pageConfig.params.classidName2,classidName3:pageConfig.params.classidName3},o=a("dist/common/bilog-module/payFileResultForVisit_bilog"),p=a("dist/application/login").showTouristPurchaseDialog,q=a("dist/application/checkLogin").getIds,r={count:0,isClear:!1,init:function(){this.bindClick()},bindClick:function(){$("body").on("click",".buyUnloginWrap .navItem",function(){$(this).addClass("active").siblings().removeClass("active");var a=$(this).index();$(".optionsContent").hide(),$(".optionsContent").eq(a).show()}),$("body").on("click",".buyUnloginWrap .selectIcon",function(){$(this).toggleClass("selected"),$(".qrShadow").toggle(),$(".riskTip").toggle()}),$("body").on("click",".buyUnloginWrap .closeIcon",function(){r.closeLoginWindon()}),$("body").on("click",".tourist-purchase-qrContent .tourist-purchase-refresh",function(){r.createOrder(),r.count=0});var b=a("dist/detail/template/buyUnlogin.html");b+='<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>',$("body").on("click",".js-buy-open",function(a){if(r.isClear=!1,!f.getCookie("cuk")&&5==pageConfig.params.productType&&"file"==$(this).data("type")){var b=q().clsId,c=q().fid;p({clsId:b,fid:c},function(){j($(this),"noLgFPayCon"),h.getLoginData(function(a){k.afterLogin(a)})});var d="ico-"+pageConfig.params.file_format;$(".tourist-purchase-content .ico-data").addClass(d),$(".tourist-purchase-content .file-desc").text(pageConfig.params.file_title),$(".tourist-purchase-content .file-price-summary .price").text(pageConfig.params.productPrice),r.createOrder()}})},createOrder:function(){var a=r.getVisitorId(),b={fid:pageConfig.params.g_fileId,goodsId:pageConfig.params.g_fileId,goodsType:1,ref:e.getPageRef(window.pageConfig.params.g_fileId),referrer:pageConfig.params.referrer,remark:"other",sourceMode:0,channelSource:4,host:location.origin,channel:"other",isVisitor:1,visitorId:a,isVouchers:1,returnPayment:!1};$.post("/pay/orderUnlogin?ts="+(new Date).getTime(),b,function(b,c){b&&"0"==b.code?(r.createdQrCode(b.data.orderNo),$(".shouldPayWrap span").text(b.data.payPrice/100),r.payStatus(b.data.orderNo,a),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").hide(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").hide(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").hide()):($(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").show(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").show(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").show())})},createdQrCode:function(a){var b=i.payUrl+"/pay/qr?orderNo="+a;console.log(b);try{g.createQrCode(b,"touristPayQrCode",178,178)}catch(c){console.log("createdQrCode:",c)}},getVisitorId:function(){return f.getCookie("visitor_id")},payStatus:function(a,b){var c=JSON.stringify({orderNo:a});$.ajax({type:"post",url:d.order.getOrderInfo,headers:{Authrization:f.getCookie("cuk")},contentType:"application/json;charset=utf-8",data:c,success:function(c){if(c&&0==c.code&&c.data){r.count++;var d=c.data,e=pageConfig.params.g_fileId;if(0==d.orderStatus)r.count<=30&&!r.isClear&&window.setTimeout(function(){r.payStatus(a,b)},3e3),r.count>28&&($(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").show(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").show(),$(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").show());else if(2==d.orderStatus)try{r.closeLoginWindon();var g="/node/f/downsucc.html?fid="+e+"&unloginFlag=1&name="+l.slice(0,20)+"&format="+m+"&visitorId="+b;f.compatibleIESkip(g,!1),o.reportResult(d,n,!0)}catch(h){}else 3==d.orderStatus&&o.reportResult(d,n,!1)}else $.toast({text:c.message}),r.closeLoginWindon()},complete:function(){}})},closeLoginWindon:function(){$(".buyUnloginWrap").remove(),$(".aiwen_login_model_div").remove(),r.isClear=!0,r.count=0}};r.init()}),define("dist/pay/qr",["dist/cmd-lib/util","dist/cmd-lib/qr/qrcode.min","dist/cmd-lib/qr/jquery.qrcode.min"],function(a,b,c){var d=a("dist/cmd-lib/util"),e=a("dist/cmd-lib/qr/qrcode.min");a("dist/cmd-lib/qr/jquery.qrcode.min");return{createQrCode:function(a,b,c,f){if(a)try{console.log("生成二维码start"),$("#"+b).html("");var g=new e(document.getElementById(b),{width:c,height:f});g.clear(),g.makeCode(a),console.log("生成二维码end"),$("#"+b+" img").hide()}catch(h){console.info(a+":生成二维码异常"),d.validateIE9()||console.info(a+":生成二维码异常")}},generateIE8QRCode:function(a,b,c,d){$("#"+b).html(""),$("#"+b).qrcode({render:"table",width:c,height:d,text:a,typeNumber:-1,correctLevel:2,background:"#ffffff",foreground:"#000000"})}}}),define("dist/cmd-lib/qr/qrcode.min",[],function(a,b,c){var d;!function(){function a(a){this.mode=k.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],c=0,d=this.data.length;d>c;c++){var e=this.data.charCodeAt(c);e>65536?(b[0]=240|(1835008&e)>>>18,b[1]=128|(258048&e)>>>12,b[2]=128|(4032&e)>>>6,b[3]=128|63&e):e>2048?(b[0]=224|(61440&e)>>>12,b[1]=128|(4032&e)>>>6,b[2]=128|63&e):e>128?(b[0]=192|(1984&e)>>>6,b[1]=128|63&e):b[0]=e,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function c(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=new Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function e(a,b){this.totalCount=a,this.dataCount=b}function f(){this.buffer=[],this.length=0}function g(){return"undefined"!=typeof CanvasRenderingContext2D}function h(){var a=!1,b=navigator.userAgent;return/android/i.test(b)&&(a=!0,aMat=b.toString().match(/android ([0-9]\.[0-9])/i),aMat&&aMat[1]&&(a=parseFloat(aMat[1]))),a}function i(a,b){for(var c=1,d=j(a),e=0,f=q.length;f>=e;e++){var g=0;switch(b){case l.L:g=q[e][0];break;case l.M:g=q[e][1];break;case l.Q:g=q[e][2];break;case l.H:g=q[e][3]}if(g>=d)break;c++}if(c>q.length)throw new Error("Too long data");return c}function j(a){var b=encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g,"a");return b.length+(b.length!=a?3:0)}a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}},b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=n.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){var d=a.createEmptyMovieClip(b,c),e=1;this.make();for(var f=0;f<this.modules.length;f++)for(var g=f*e,h=0;h<this.modules[f].length;h++){var i=h*e,j=this.modules[f][h];j&&(d.beginFill(0,100),d.moveTo(i,g),d.lineTo(i+e,g),d.lineTo(i+e,g+e),d.lineTo(i,g+e),d.endFill())}return d},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(var b=8;b<this.moduleCount-8;b++)null==this.modules[6][b]&&(this.modules[6][b]=0==b%2)},setupPositionAdjustPattern:function(){for(var a=n.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var f=-2;2>=f;f++)for(var g=-2;2>=g;g++)this.modules[d+f][e+g]=-2==f||2==f||-2==g||2==g||0==f&&0==g?!0:!1}},setupTypeNumber:function(a){for(var b=n.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=n.getBCHTypeInfo(c),e=0;15>e;e++){var f=!a&&1==(1&d>>e);6>e?this.modules[e][8]=f:8>e?this.modules[e+1][8]=f:this.modules[this.moduleCount-15+e][8]=f}for(var e=0;15>e;e++){var f=!a&&1==(1&d>>e);8>e?this.modules[8][this.moduleCount-e-1]=f:9>e?this.modules[8][15-e-1+1]=f:this.modules[8][15-e-1]=f}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,f=0,g=this.moduleCount-1;g>0;g-=2)for(6==g&&g--;;){for(var h=0;2>h;h++)if(null==this.modules[d][g-h]){var i=!1;f<a.length&&(i=1==(1&a[f]>>>e));
-var j=n.getMask(b,d,g-h);j&&(i=!i),this.modules[d][g-h]=i,e--,-1==e&&(f++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},b.PAD0=236,b.PAD1=17,b.createData=function(a,c,d){for(var g=e.getRSBlocks(a,c),h=new f,i=0;i<d.length;i++){var j=d[i];h.put(j.mode,4),h.put(j.getLength(),n.getLengthInBits(j.mode,a)),j.write(h)}for(var k=0,i=0;i<g.length;i++)k+=g[i].dataCount;if(h.getLengthInBits()>8*k)throw new Error("code length overflow. ("+h.getLengthInBits()+">"+8*k+")");for(h.getLengthInBits()+4<=8*k&&h.put(0,4);0!=h.getLengthInBits()%8;)h.putBit(!1);for(;!(h.getLengthInBits()>=8*k)&&(h.put(b.PAD0,8),!(h.getLengthInBits()>=8*k));)h.put(b.PAD1,8);return b.createBytes(h,g)},b.createBytes=function(a,b){for(var d=0,e=0,f=0,g=new Array(b.length),h=new Array(b.length),i=0;i<b.length;i++){var j=b[i].dataCount,k=b[i].totalCount-j;e=Math.max(e,j),f=Math.max(f,k),g[i]=new Array(j);for(var l=0;l<g[i].length;l++)g[i][l]=255&a.buffer[l+d];d+=j;var m=n.getErrorCorrectPolynomial(k),o=new c(g[i],m.getLength()-1),p=o.mod(m);h[i]=new Array(m.getLength()-1);for(var l=0;l<h[i].length;l++){var q=l+p.getLength()-h[i].length;h[i][l]=q>=0?p.get(q):0}}for(var r=0,l=0;l<b.length;l++)r+=b[l].totalCount;for(var s=new Array(r),t=0,l=0;e>l;l++)for(var i=0;i<b.length;i++)l<g[i].length&&(s[t++]=g[i][l]);for(var l=0;f>l;l++)for(var i=0;i<b.length;i++)l<h[i].length&&(s[t++]=h[i][l]);return s};for(var k={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},l={L:1,M:0,Q:3,H:2},m={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},n={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;n.getBCHDigit(b)-n.getBCHDigit(n.G15)>=0;)b^=n.G15<<n.getBCHDigit(b)-n.getBCHDigit(n.G15);return(a<<10|b)^n.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;n.getBCHDigit(b)-n.getBCHDigit(n.G18)>=0;)b^=n.G18<<n.getBCHDigit(b)-n.getBCHDigit(n.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return n.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case m.PATTERN000:return 0==(b+c)%2;case m.PATTERN001:return 0==b%2;case m.PATTERN010:return 0==c%3;case m.PATTERN011:return 0==(b+c)%3;case m.PATTERN100:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case m.PATTERN101:return 0==b*c%2+b*c%3;case m.PATTERN110:return 0==(b*c%2+b*c%3)%2;case m.PATTERN111:return 0==(b*c%3+(b+c)%2)%2;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new c([1],0),d=0;a>d;d++)b=b.multiply(new c([1,o.gexp(d)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case k.MODE_NUMBER:return 10;case k.MODE_ALPHA_NUM:return 9;case k.MODE_8BIT_BYTE:return 8;case k.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case k.MODE_NUMBER:return 12;case k.MODE_ALPHA_NUM:return 11;case k.MODE_8BIT_BYTE:return 16;case k.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case k.MODE_NUMBER:return 14;case k.MODE_ALPHA_NUM:return 13;case k.MODE_8BIT_BYTE:return 16;case k.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(var e=0;b>e;e++)for(var d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(var k=0,e=0;b>e;e++)for(var d=0;b>d;d++)a.isDark(d,e)&&k++;var l=Math.abs(100*k/b/b-50)/5;return c+=10*l}},o={glog:function(a){if(1>a)throw new Error("glog("+a+")");return o.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return o.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)},p=0;8>p;p++)o.EXP_TABLE[p]=1<<p;for(var p=8;256>p;p++)o.EXP_TABLE[p]=o.EXP_TABLE[p-4]^o.EXP_TABLE[p-5]^o.EXP_TABLE[p-6]^o.EXP_TABLE[p-8];for(var p=0;255>p;p++)o.LOG_TABLE[o.EXP_TABLE[p]]=p;c.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),d=0;d<this.getLength();d++)for(var e=0;e<a.getLength();e++)b[d+e]^=o.gexp(o.glog(this.get(d))+o.glog(a.get(e)));return new c(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;for(var b=o.glog(this.get(0))-o.glog(a.get(0)),d=new Array(this.getLength()),e=0;e<this.getLength();e++)d[e]=this.get(e);for(var e=0;e<a.getLength();e++)d[e]^=o.gexp(o.glog(a.get(e))+b);return new c(d,0).mod(a)}},e.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],e.getRSBlocks=function(a,b){var c=e.getRsBlockTable(a,b);if(void 0==c)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,f=[],g=0;d>g;g++)for(var h=c[3*g+0],i=c[3*g+1],j=c[3*g+2],k=0;h>k;k++)f.push(new e(i,j));return f},e.getRsBlockTable=function(a,b){switch(b){case l.L:return e.RS_BLOCK_TABLE[4*(a-1)+0];case l.M:return e.RS_BLOCK_TABLE[4*(a-1)+1];case l.Q:return e.RS_BLOCK_TABLE[4*(a-1)+2];case l.H:return e.RS_BLOCK_TABLE[4*(a-1)+3];default:return void 0}},f.prototype={get:function(a){var b=Math.floor(a/8);return 1==(1&this.buffer[b]>>>7-a%8)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(1&a>>>b-c-1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var q=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],[586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],[929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],[1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],[1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],[2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]],r=function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){function b(a,b){var c=document.createElementNS("http://www.w3.org/2000/svg",a);for(var d in b)b.hasOwnProperty(d)&&c.setAttribute(d,b[d]);return c}var c=this._htOption,d=this._el,e=a.getModuleCount();Math.floor(c.width/e),Math.floor(c.height/e),this.clear();var f=b("svg",{viewBox:"0 0 "+String(e)+" "+String(e),width:"100%",height:"100%",fill:c.colorLight});f.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),d.appendChild(f),f.appendChild(b("rect",{fill:c.colorDark,width:"1",height:"1",id:"template"}));for(var g=0;e>g;g++)for(var h=0;e>h;h++)if(a.isDark(g,h)){var i=b("use",{x:String(g),y:String(h)});i.setAttributeNS("http://www.w3.org/1999/xlink","href","#template"),f.appendChild(i)}},a.prototype.clear=function(){for(;this._el.hasChildNodes();)this._el.removeChild(this._el.lastChild)},a}(),s="svg"===document.documentElement.tagName.toLowerCase(),t=s?r:g()?function(){function a(){this._elImage.src=this._elCanvas.toDataURL("image/png"),this._elImage.style.display="block",this._elCanvas.style.display="none"}function b(a,b){var c=this;if(c._fFail=b,c._fSuccess=a,null===c._bSupportDataURI){var d=document.createElement("img"),e=function(){c._bSupportDataURI=!1,c._fFail&&_fFail.call(c)},f=function(){c._bSupportDataURI=!0,c._fSuccess&&c._fSuccess.call(c)};return d.onabort=e,d.onerror=e,d.onload=f,void(d.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==")}c._bSupportDataURI===!0&&c._fSuccess?c._fSuccess.call(c):c._bSupportDataURI===!1&&c._fFail&&c._fFail.call(c)}if(this._android&&this._android<=2.1){var c=1/window.devicePixelRatio,d=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(a,b,e,f,g,h,i,j){if("nodeName"in a&&/img/i.test(a.nodeName))for(var k=arguments.length-1;k>=1;k--)arguments[k]=arguments[k]*c;else"undefined"==typeof j&&(arguments[1]*=c,arguments[2]*=c,arguments[3]*=c,arguments[4]*=c);d.apply(this,arguments)}}var e=function(a,b){this._bIsPainted=!1,this._android=h(),this._htOption=b,this._elCanvas=document.createElement("canvas"),this._elCanvas.width=b.width,this._elCanvas.height=b.height,a.appendChild(this._elCanvas),this._el=a,this._oContext=this._elCanvas.getContext("2d"),this._bIsPainted=!1,this._elImage=document.createElement("img"),this._elImage.style.display="none",this._el.appendChild(this._elImage),this._bSupportDataURI=null};return e.prototype.draw=function(a){var b=this._elImage,c=this._oContext,d=this._htOption,e=a.getModuleCount(),f=d.width/e,g=d.height/e,h=Math.round(f),i=Math.round(g);b.style.display="none",this.clear();for(var j=0;e>j;j++)for(var k=0;e>k;k++){var l=a.isDark(j,k),m=k*f,n=j*g;c.strokeStyle=l?d.colorDark:d.colorLight,c.lineWidth=1,c.fillStyle=l?d.colorDark:d.colorLight,c.fillRect(m,n,f,g),c.strokeRect(Math.floor(m)+.5,Math.floor(n)+.5,h,i),c.strokeRect(Math.ceil(m)-.5,Math.ceil(n)-.5,h,i)}this._bIsPainted=!0},e.prototype.makeImage=function(){this._bIsPainted&&b.call(this,a)},e.prototype.isPainted=function(){return this._bIsPainted},e.prototype.clear=function(){this._oContext.clearRect(0,0,this._elCanvas.width,this._elCanvas.height),this._bIsPainted=!1},e.prototype.round=function(a){return a?Math.floor(1e3*a)/1e3:a},e}():function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){for(var b=this._htOption,c=this._el,d=a.getModuleCount(),e=Math.floor(b.width/d),f=Math.floor(b.height/d),g=['<table style="border:0;border-collapse:collapse;">'],h=0;d>h;h++){g.push("<tr>");for(var i=0;d>i;i++)g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+e+"px;height:"+f+"px;background-color:"+(a.isDark(h,i)?b.colorDark:b.colorLight)+';"></td>');g.push("</tr>")}g.push("</table>"),c.innerHTML=g.join("");var j=c.childNodes[0],k=(b.width-j.offsetWidth)/2,l=(b.height-j.offsetHeight)/2;k>0&&l>0&&(j.style.margin=l+"px "+k+"px")},a.prototype.clear=function(){this._el.innerHTML=""},a}();d=function(a,b){if(this._htOption={width:256,height:256,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:l.H},"string"==typeof b&&(b={text:b}),b)for(var c in b)this._htOption[c]=b[c];"string"==typeof a&&(a=document.getElementById(a)),this._android=h(),this._el=a,this._oQRCode=null,this._oDrawing=new t(this._el,this._htOption),this._htOption.text&&this.makeCode(this._htOption.text)},d.prototype.makeCode=function(a){this._oQRCode=new b(i(a,this._htOption.correctLevel),this._htOption.correctLevel),this._oQRCode.addData(a),this._oQRCode.make(),this._el.title=a,this._oDrawing.draw(this._oQRCode),this.makeImage()},d.prototype.makeImage=function(){"function"==typeof this._oDrawing.makeImage&&(!this._android||this._android>=3)&&this._oDrawing.makeImage()},d.prototype.clear=function(){this._oDrawing.clear()},d.CorrectLevel=l}(),c.exports=d}),define("dist/cmd-lib/qr/jquery.qrcode.min",[],function(a,b,c){!function(a){a.fn.qrcode=function(b){function c(a){this.mode=h,this.data=a}function d(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function e(a,b){if(void 0==a.length)throw Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function f(a,b){this.totalCount=a,this.dataCount=b}function g(){this.buffer=[],this.length=0}var h;c.prototype={getLength:function(){return this.data.length},write:function(a){for(var b=0;b<this.data.length;b++)a.put(this.data.charCodeAt(b),8)}},d.prototype={addData:function(a){this.dataList.push(new c(a)),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){if(1>this.typeNumber){for(var a=1,a=1;40>a;a++){for(var b=f.getRSBlocks(a,this.errorCorrectLevel),c=new g,d=0,e=0;e<b.length;e++)d+=b[e].dataCount;for(e=0;e<this.dataList.length;e++)b=this.dataList[e],c.put(b.mode,4),c.put(b.getLength(),i.getLengthInBits(b.mode,a)),b.write(c);if(c.getLengthInBits()<=8*d)break}this.typeNumber=a}this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,b){this.moduleCount=4*this.typeNumber+17,this.modules=Array(this.moduleCount);for(var c=0;c<this.moduleCount;c++){this.modules[c]=Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[c][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,b),7<=this.typeNumber&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=d.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,b)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=i.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){for(a=a.createEmptyMovieClip(b,c),this.make(),b=0;b<this.modules.length;b++)for(var c=1*b,d=0;d<this.modules[b].length;d++){var e=1*d;this.modules[b][d]&&(a.beginFill(0,100),a.moveTo(e,c),a.lineTo(e+1,c),a.lineTo(e+1,c+1),a.lineTo(e,c+1),a.endFill())}return a},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(a=8;a<this.moduleCount-8;a++)null==this.modules[6][a]&&(this.modules[6][a]=0==a%2)},setupPositionAdjustPattern:function(){for(var a=i.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var f=-2;2>=f;f++)for(var g=-2;2>=g;g++)this.modules[d+f][e+g]=-2==f||2==f||-2==g||2==g||0==f&&0==g?!0:!1}},setupTypeNumber:function(a){for(var b=i.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(b>>c&1);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(c=0;18>c;c++)d=!a&&1==(b>>c&1),this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d},setupTypeInfo:function(a,b){for(var c=i.getBCHTypeInfo(this.errorCorrectLevel<<3|b),d=0;15>d;d++){var e=!a&&1==(c>>d&1);6>d?this.modules[d][8]=e:8>d?this.modules[d+1][8]=e:this.modules[this.moduleCount-15+d][8]=e}for(d=0;15>d;d++)e=!a&&1==(c>>d&1),8>d?this.modules[8][this.moduleCount-d-1]=e:9>d?this.modules[8][15-d-1+1]=e:this.modules[8][15-d-1]=e;this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,f=0,g=this.moduleCount-1;g>0;g-=2)for(6==g&&g--;;){for(var h=0;2>h;h++)if(null==this.modules[d][g-h]){var j=!1;f<a.length&&(j=1==(a[f]>>>e&1)),i.getMask(b,d,g-h)&&(j=!j),this.modules[d][g-h]=j,e--,-1==e&&(f++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},d.PAD0=236,d.PAD1=17,d.createData=function(a,b,c){for(var b=f.getRSBlocks(a,b),e=new g,h=0;h<c.length;h++){var j=c[h];e.put(j.mode,4),e.put(j.getLength(),i.getLengthInBits(j.mode,a)),j.write(e)}for(h=a=0;h<b.length;h++)a+=b[h].dataCount;if(e.getLengthInBits()>8*a)throw Error("code length overflow. ("+e.getLengthInBits()+">"+8*a+")");for(e.getLengthInBits()+4<=8*a&&e.put(0,4);0!=e.getLengthInBits()%8;)e.putBit(!1);for(;!(e.getLengthInBits()>=8*a)&&(e.put(d.PAD0,8),!(e.getLengthInBits()>=8*a));)e.put(d.PAD1,8);return d.createBytes(e,b)},d.createBytes=function(a,b){for(var c=0,d=0,f=0,g=Array(b.length),h=Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k,d=Math.max(d,k),f=Math.max(f,l);g[j]=Array(k);for(var m=0;m<g[j].length;m++)g[j][m]=255&a.buffer[m+c];for(c+=k,m=i.getErrorCorrectPolynomial(l),k=new e(g[j],m.getLength()-1).mod(m),h[j]=Array(m.getLength()-1),m=0;m<h[j].length;m++)l=m+k.getLength()-h[j].length,h[j][m]=l>=0?k.get(l):0}for(m=j=0;m<b.length;m++)j+=b[m].totalCount;for(c=Array(j),m=k=0;d>m;m++)for(j=0;j<b.length;j++)m<g[j].length&&(c[k++]=g[j][m]);for(m=0;f>m;m++)for(j=0;j<b.length;j++)m<h[j].length&&(c[k++]=h[j][m]);return c},h=4;for(var i={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;0<=i.getBCHDigit(b)-i.getBCHDigit(i.G15);)b^=i.G15<<i.getBCHDigit(b)-i.getBCHDigit(i.G15);return(a<<10|b)^i.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;0<=i.getBCHDigit(b)-i.getBCHDigit(i.G18);)b^=i.G18<<i.getBCHDigit(b)-i.getBCHDigit(i.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return i.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case 0:return 0==(b+c)%2;case 1:return 0==b%2;case 2:return 0==c%3;case 3:return 0==(b+c)%3;case 4:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case 5:return 0==b*c%2+b*c%3;case 6:return 0==(b*c%2+b*c%3)%2;case 7:return 0==(b*c%3+(b+c)%2)%2;default:throw Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new e([1],0),c=0;a>c;c++)b=b.multiply(new e([1,j.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case 1:return 10;case 2:return 9;case h:return 8;case 8:return 8;default:throw Error("mode:"+a)}else if(27>b)switch(a){case 1:return 12;case 2:return 11;case h:return 16;case 8:return 10;default:throw Error("mode:"+a)}else{if(!(41>b))throw Error("type:"+b);switch(a){case 1:return 14;case 2:return 13;case h:return 16;case 8:return 12;default:throw Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||0==h&&0==i||g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(d=0;b-1>d;d++)for(e=0;b-1>e;e++)f=0,a.isDark(d,e)&&f++,a.isDark(d+1,e)&&f++,a.isDark(d,e+1)&&f++,a.isDark(d+1,e+1)&&f++,(0==f||4==f)&&(c+=3);for(d=0;b>d;d++)for(e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(e=0;b>e;e++)for(d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(e=f=0;b>e;e++)for(d=0;b>d;d++)a.isDark(d,e)&&f++;return a=Math.abs(100*f/b/b-50)/5,c+10*a}},j={glog:function(a){if(1>a)throw Error("glog("+a+")");return j.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return j.EXP_TABLE[a]},EXP_TABLE:Array(256),LOG_TABLE:Array(256)},k=0;8>k;k++)j.EXP_TABLE[k]=1<<k;for(k=8;256>k;k++)j.EXP_TABLE[k]=j.EXP_TABLE[k-4]^j.EXP_TABLE[k-5]^j.EXP_TABLE[k-6]^j.EXP_TABLE[k-8];for(k=0;255>k;k++)j.LOG_TABLE[j.EXP_TABLE[k]]=k;return e.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=j.gexp(j.glog(this.get(c))+j.glog(a.get(d)));return new e(b,0)},mod:function(a){if(0>this.getLength()-a.getLength())return this;for(var b=j.glog(this.get(0))-j.glog(a.get(0)),c=Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(d=0;d<a.getLength();d++)c[d]^=j.gexp(j.glog(a.get(d))+b);return new e(c,0).mod(a)}},f.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],f.getRSBlocks=function(a,b){var c=f.getRsBlockTable(a,b);if(void 0==c)throw Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,e=[],g=0;d>g;g++)for(var h=c[3*g+0],i=c[3*g+1],j=c[3*g+2],k=0;h>k;k++)e.push(new f(i,j));return e},f.getRsBlockTable=function(a,b){switch(b){case 1:return f.RS_BLOCK_TABLE[4*(a-1)+0];case 0:return f.RS_BLOCK_TABLE[4*(a-1)+1];case 3:return f.RS_BLOCK_TABLE[4*(a-1)+2];case 2:return f.RS_BLOCK_TABLE[4*(a-1)+3]}},g.prototype={get:function(a){return 1==(this.buffer[Math.floor(a/8)]>>>7-a%8&1)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(a>>>b-c-1&1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}},"string"==typeof b&&(b={text:b}),b=a.extend({},{render:"canvas",width:256,height:256,typeNumber:-1,correctLevel:2,background:"#ffffff",foreground:"#000000"},b),this.each(function(){var c;if("canvas"==b.render){c=new d(b.typeNumber,b.correctLevel),c.addData(b.text),c.make();var e=document.createElement("canvas");e.width=b.width,e.height=b.height;for(var f=e.getContext("2d"),g=b.width/c.getModuleCount(),h=b.height/c.getModuleCount(),i=0;i<c.getModuleCount();i++)for(var j=0;j<c.getModuleCount();j++){f.fillStyle=c.isDark(i,j)?b.foreground:b.background;var k=Math.ceil((j+1)*g)-Math.floor(j*g),l=Math.ceil((i+1)*g)-Math.floor(i*g);f.fillRect(Math.round(j*g),Math.round(i*h),k,l)}}else for(c=new d(b.typeNumber,b.correctLevel),c.addData(b.text),c.make(),e=a("<table></table>").css("width",b.width+"px").css("height",b.height+"px").css("border","0px").css("border-collapse","collapse").css("background-color",b.background),f=b.width/c.getModuleCount(),g=b.height/c.getModuleCount(),h=0;h<c.getModuleCount();h++)for(i=a("<tr></tr>").css("height",g+"px").appendTo(e),j=0;j<c.getModuleCount();j++)a("<td></td>").css("width",f+"px").css("background-color",c.isDark(h,j)?b.foreground:b.background).appendTo(i);c=e,jQuery(c).appendTo(this)})}}(jQuery)}),define("dist/application/urlConfig",[],function(a,b,c){var d={ajaxUrl:"",payUrl:"",loginUrl:""};return"local"==env&&(d={ajaxUrl:"http://ishare.iask.sina.com.cn",payUrl:"http://dev-open-ishare.iask.com.cn",loginUrl:""}),"dev"==env&&(d={ajaxUrl:"http://dev-ishare.iask.sina.com.cn",payUrl:"http://dev-open-ishare.iask.com.cn",loginUrl:""}),"test"==env&&(d={ajaxUrl:"http://test-ishare.iask.sina.com.cn",payUrl:"http://test-open-ishare.iask.com.cn",loginUrl:""}),"pre"==env&&(d={ajaxUrl:"http://pre-ishare.iask.sina.com.cn",payUrl:"http://pre-open-ishare.iask.com.cn",loginUrl:""}),"prod"==env&&(d={ajaxUrl:"http://prod-ishare.iask.sina.com.cn",payUrl:"http://prod-open-ishare.iask.com.cn",loginUrl:""}),d}),define("dist/common/bilog-module/payFileResultForVisit_bilog",["dist/common/bilog","base64","dist/cmd-lib/util","dist/application/method","dist/report/config"],function(a,b,c){function d(a,b,c){var d=e.getBilogCommonData();d.eventType="page",d.eventID="SE009",d.eventName="payFileResult",d.pageID="PC-M-FD",d.pageName="资料详情页",d.pageURL=window.location.href,d.visitID=f.getCookie("visitor_id");var h=[b.classid1,b.classid2,b.classid3].filter(function(a){return!!a}).join("||"),i=[b.classidName1,b.classidName2,b.classidName3].filter(function(a){return!!a}).join("||");d["var"]={payResult:c?1:0,orderID:a.orderNo,orderPayType:a.payType,orderPayPrice:a.payPrice,couponID:a.vouchersId,coupon:"",fileID:b.id,fileName:b.title,fileCategoryID:h,fileCategoryName:i,filePayType:g[b.productType],fileFormat:b.format,fileProduceType:b.fileSourceChannel,fileCooType:f.getCookie("bc")||"",fileUploaderID:b.uid,filePrice:a.originalPrice,fileSalePrice:a.payPrice},e.reportToBlack(d)}var e=a("dist/common/bilog"),f=a("dist/application/method"),g={1:"free",3:"online",4:"vipOnly",5:"cost"};return{reportResult:d}}),define("dist/detail/template/buyUnlogin.html",[],'<div class="buyUnloginWrap">\n    <div class="switchNav">\n        <div class="navItem fl active">游客购买</div>\n        <div class="navItem fr">登录购买</div>\n        <div class="closeIcon"></div>\n    </div>\n    <div class="optionsContent">\n        <h2 class="papper-title">\n            <i class="ico-data "></i><span></span>\n        </h2>\n        <p class="shouldPayWrap">\n            应付金额: <span></span>元\n        </p>\n        <div class="qrcodeWrap">\n            <div id="payQrCode"></div>\n            <div class="qrShadow" style="display: none;">  \n            </div>\n            <p class="shadowTip riskTip" style="display: none;">请先阅读 <br>下载风险提示</p>\n            <p class="shadowTip failTip" style="display: none;">失败或失效 <br>请点击重新生成</p>\n        </div>\n        <p class="payTip">请使用微信或支付宝扫码支付</p>\n        <div class="payTypeWrap">\n           <img src="../../../../images/new_detail/payTypelogo.png" alt="">\n        </div>\n        <div class="downTerm">\n            <i class="selectIcon"></i>\n            我已阅读并接受<a style="text-decoration: underline;" target="_blank" href="//iask.sina.com.cn/helpCenter/5d8de2c0474e311ca8200e99.html">《下载风险提示》</a>\n        </div>\n        <div class="bottomTip">\n            <!-- 注：如你购买过该资料，下载未成功或需要重复下载，请联系客服. -->\n            注：如您已经购买过该文档，下载未成功或需要重复下载请<a style="color: #3C69A7;text-decoration: underline;" target="_blank" href="/node/queryOrder">点击此处</a>\n        </div>\n    </div>\n    <div class="optionsContent loginFrameWrap" style="display: none">\n\n    </div>\n</div>'),
-define("dist/detail/paradigm4",["dist/common/bilog","base64","dist/cmd-lib/util","dist/application/method","dist/report/config"],function(a,b,c){function d(){var a="689a073a474249da8a7e7c04a3d7c7eb",b=new Date,c=b.getFullYear(),d=b.getMonth()+1,f=d>9?d:"0"+d,g=b.getDate()>9?b.getDate():"0"+b.getDate(),h=b.toTimeString().split("GMT")[0].trim(),i=c+"-"+f+"-"+g+" "+h,j=window.paradigm4||{},k=j.paradigm4Guess||[],l=j.requestID_rele||"",m=j.requestID_guess||"",n=j.paradigm4Relevant||[],o=j.recommendInfoData_rele||{},p=j.recommendInfoData_guess||{},q=o.useId||"",r=p.useId||"",s=j.userId,t=[];"null"!=n&&n&&n.forEach(function(a){t.push({itemId:a.item_id,actionTime:b.getTime(),action:"show",itemSetId:o.materialId||"",sceneId:q,userId:s,context:a.context,requestId:l})});var u=[];"null"!=k&&k&&k.forEach(function(a){u.push({itemId:a.item_id,actionTime:b.getTime(),action:"show",itemSetId:p.materialId||"",sceneId:r,userId:s,context:a.context,requestId:m})});var v=JSON.stringify({date:i,actions:[].concat(t,u)});$.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken="+a,v,function(a){}),$(".guessyoulike").find(".item").click(function(){var b=$(this).data("id")||"";e($(this));for(var d="",h=0;h<k.length;h++)if(k[h].item_id==b){d=k[h].context;break}var i=new Date,j=i.toTimeString().split("GMT")[0].trim(),l=c+"-"+f+"-"+g+" "+j,n=JSON.stringify({date:l,actions:[{itemId:b,actionTime:i.getTime(),action:"detailPageShow",itemSetId:p.materialId||"",sceneId:r,userId:s,context:d,requestId:m}]});$.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken="+a,n,function(a){})}),$(".related-data-list").find("li").click(function(){var b=$(this).data("id")||"";e($(this));for(var d="",h=0;h<n.length;h++)if(n[h].item_id==b){d=n[h].context;break}var i=new Date,j=i.toTimeString().split("GMT")[0].trim(),k=c+"-"+f+"-"+g+" "+j,m=JSON.stringify({date:k,actions:[{itemId:b,actionTime:i.getTime(),action:"detailPageShow",itemSetId:o.materialId||"",sceneId:q,userId:s,context:d,requestId:l}]});$.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken="+a,m,function(a){})})}var e=a("dist/common/bilog").clickEvent;(window.paradigm4.paradigm4Guess||window.paradigm4.paradigm4Relevant)&&setTimeout(function(){d()})}),define("dist/detail/banner",["swiper","dist/application/method","dist/application/api"],function(a,b,c){function d(){$.ajax({url:f.search.specialTopic,type:"POST",data:JSON.stringify({currentPage:1,pageSize:5,topicName:h,siteCode:"4"}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){if("0"==a.code&&a.data.rows&&a.data.rows.length){var b=template.compile(g)({hotSpotSearchList:a.data.rows||[]});$(".hot-spot-search-warper").html(b)}}})}a("swiper");var e=a("dist/application/method"),f=a("dist/application/api"),g=a("dist/detail/template/HotSpotSearch.html");new Swiper(".swiper-top-container",{direction:"horizontal",loop:$(".swiper-top-container .swiper-slide").length>1?!0:!1,autoplay:3e3}),$(".close-swiper").on("click",function(a){a.stopPropagation(),$(".detail-topbanner").hide(),e.setCookieWithExpPath("isHideDetailTopbanner",1)}),new Swiper(".fix-right-swiperbannertop",{direction:"horizontal",loop:$(".fix-right-swiperbannertop .swiper-slide").length>1?!0:!1,autoplay:3e3}),new Swiper(".fix-right-swiperbannerbottom",{direction:"horizontal",loop:$(".fix-right-swiperbannerbottom .swiper-slide").length>1?!0:!1,autoplay:3e3}),new Swiper(".swiper-titlebottom-container",{direction:"horizontal",loop:$(".swiper-titlebottom-container .swiper-slide").length>1?!0:!1,autoplay:3e3}),new Swiper(".swiper-titlebottom-container",{direction:"horizontal",loop:$(".swiper-titlebottom-container .swiper-slide").length>1?!0:!1,autoplay:3e3}),new Swiper(".swiper-turnPageOneBanner-container",{direction:"horizontal",loop:$(".swiper-turnPageOneBanner-container .swiper-slide").length>1?!0:!1,autoplay:3e3}),new Swiper(".swiper-turnPageTwoBanner-container",{direction:"horizontal",loop:$(".swiper-turnPageTwoBanner-container .swiper-slide").length>1?!0:!1,autoplay:3e3});var h=window.pageConfig.page&&window.pageConfig.page.fileName;d()}),define("dist/detail/template/HotSpotSearch.html",[],'<!--热点搜索-->\n<div class="hot-spot-search">\n    <h2 class="hot-spot-search-title">相关搜索<h2>\n    <ul class="hot-items">\n         {{each hotSpotSearchList}}\n             <li class="item">\n                <a  href="/node/s/{{hotSpotSearchList[$index].id}}.html"  target="_blank">{{hotSpotSearchList[$index].topicName}}</a>\n             </li>\n        {{/each}}  \n    </ul>\n</div>');
+define("dist/detail/init", [ "../cmd-lib/lazyload", "../cmd-lib/myDialog", "../cmd-lib/loading", "../detail/index", "../application/suspension", "../application/method", "../application/checkLogin", "../application/api", "../application/login", "../cmd-lib/jqueryMd5", "../common/bilog", "base64", "../cmd-lib/util", "../report/config", "../cmd-lib/toast", "../common/bindphone", "../common/baidu-statistics", "../application/app", "../application/element", "../application/template", "../application/extend", "../application/effect", "../application/helper", "./common", "./template/pay_btn_tmp.html", "./template/pay_middle_tmp.html", "./template/pay_header.tmp.html", "./template/head_tip.html", "../detail/search", "./template/history_tmp.html", "./template/hot_search_tmp.html", "../detail/download", "../cmd-lib/gioInfo", "../detail/paging", "./template/img_box.html", "./changeShowOverText", "./download", "./index", "./changeDetailFooter", "../detail/expand", "../detail/buyUnlogin", "../pay/qr", "../cmd-lib/qr/qrcode.min", "../cmd-lib/qr/jquery.qrcode.min", "../application/urlConfig", "../common/bilog-module/payFileResultForVisit_bilog", "./template/buyUnlogin.html", "../detail/paradigm4", "../detail/banner", "swiper", "./template/HotSpotSearch.html" ], function(require, exports, module) {
+    require("../cmd-lib/lazyload");
+    require("../cmd-lib/myDialog");
+    require("../cmd-lib/loading");
+    // require("../detail/report");
+    require("../detail/index");
+    require("../detail/search");
+    require("../detail/download");
+    require("../detail/paging");
+    require("../detail/expand");
+    // require("../common/baidu-statistics");
+    require("../detail/buyUnlogin");
+    require("../common/bilog");
+    require("../detail/paradigm4");
+    require("../detail/banner");
+    require("../common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66");
+    require("../common/baidu-statistics").initBaiduStatistics("adb0f091db00ed439bf000f2c5cbaee7");
+    var productType = window.pageConfig.params && window.pageConfig.params.productType;
+    if (productType == "4") {
+        require("../common/baidu-statistics").initBaiduStatistics("504d2c29e8aefe02ad5d66207e4de083");
+    }
+    if (productType == "1") {
+        require("../common/baidu-statistics").initBaiduStatistics("c0fb058099c13a527871d024b1d809f8");
+    }
+});
+
+define("dist/cmd-lib/lazyload", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function($, window, document, undefined) {
+        var $window = $(window);
+        $.fn.lazyload = function(options) {
+            var elements = this;
+            var $container;
+            var settings = {
+                threshold: 0,
+                failure_limit: 0,
+                event: "scroll",
+                effect: "show",
+                container: window,
+                data_attribute: "src",
+                skip_invisible: true,
+                appear: null,
+                load: null,
+                placeholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+            };
+            function update() {
+                var counter = 0;
+                elements.each(function() {
+                    var $this = $(this);
+                    if (settings.skip_invisible && !$this.is(":visible")) {
+                        return;
+                    }
+                    if ($.abovethetop(this, settings) || $.leftofbegin(this, settings)) {} else if (!$.belowthefold(this, settings) && !$.rightoffold(this, settings)) {
+                        $this.trigger("appear");
+                        /* if we found an image we'll load, reset the counter */
+                        counter = 0;
+                    } else {
+                        if (++counter > settings.failure_limit) {
+                            return false;
+                        }
+                    }
+                });
+            }
+            if (options) {
+                /* Maintain BC for a couple of versions. */
+                if (undefined !== options.failurelimit) {
+                    options.failure_limit = options.failurelimit;
+                    delete options.failurelimit;
+                }
+                if (undefined !== options.effectspeed) {
+                    options.effect_speed = options.effectspeed;
+                    delete options.effectspeed;
+                }
+                $.extend(settings, options);
+            }
+            /* Cache container as jQuery as object. */
+            $container = settings.container === undefined || settings.container === window ? $window : $(settings.container);
+            /* Fire one scroll event per scroll. Not one scroll event per image. */
+            if (0 === settings.event.indexOf("scroll")) {
+                $container.bind(settings.event, function() {
+                    return update();
+                });
+            }
+            this.each(function() {
+                var self = this;
+                var $self = $(self);
+                self.loaded = false;
+                /* If no src attribute given use data:uri. */
+                if ($self.attr("src") === undefined || $self.attr("src") === false) {
+                    if ($self.is("img")) {
+                        $self.attr("src", settings.placeholder);
+                    }
+                }
+                /* When appear is triggered load original image. */
+                $self.one("appear", function() {
+                    if (!this.loaded) {
+                        if (settings.appear) {
+                            var elements_left = elements.length;
+                            settings.appear.call(self, elements_left, settings);
+                        }
+                        $("<img />").bind("load", function() {
+                            var original = $self.attr("data-" + settings.data_attribute);
+                            $self.hide();
+                            if ($self.is("img")) {
+                                $self.attr("src", original);
+                            } else {
+                                $self.css("background-image", "url('" + original + "')");
+                            }
+                            $self[settings.effect](settings.effect_speed);
+                            self.loaded = true;
+                            /* Remove image from array so it is not looped next time. */
+                            var temp = $.grep(elements, function(element) {
+                                return !element.loaded;
+                            });
+                            elements = $(temp);
+                            if (settings.load) {
+                                var elements_left = elements.length;
+                                settings.load.call(self, elements_left, settings);
+                            }
+                        }).attr("src", $self.attr("data-" + settings.data_attribute));
+                    }
+                });
+                /* When wanted event is triggered load original image */
+                /* by triggering appear.                              */
+                if (0 !== settings.event.indexOf("scroll")) {
+                    $self.bind(settings.event, function() {
+                        if (!self.loaded) {
+                            $self.trigger("appear");
+                        }
+                    });
+                }
+            });
+            /* Check if something appears when window is resized. */
+            $window.bind("resize", function() {
+                update();
+            });
+            /* With IOS5 force loading images when navigating with back button. */
+            /* Non optimal workaround. */
+            if (/(?:iphone|ipod|ipad).*os 5/gi.test(navigator.appVersion)) {
+                $window.bind("pageshow", function(event) {
+                    if (event.originalEvent && event.originalEvent.persisted) {
+                        elements.each(function() {
+                            $(this).trigger("appear");
+                        });
+                    }
+                });
+            }
+            /* Force initial check if images should appear. */
+            $(document).ready(function() {
+                update();
+            });
+            return this;
+        };
+        /* Convenience methods in jQuery namespace.           */
+        /* Use as  $.belowthefold(element, {threshold : 100, container : window}) */
+        $.belowthefold = function(element, settings) {
+            var fold;
+            if (settings.container === undefined || settings.container === window) {
+                fold = (window.innerHeight ? window.innerHeight : $window.height()) + $window.scrollTop();
+            } else {
+                fold = $(settings.container).offset().top + $(settings.container).height();
+            }
+            return fold <= $(element).offset().top - settings.threshold;
+        };
+        $.rightoffold = function(element, settings) {
+            var fold;
+            if (settings.container === undefined || settings.container === window) {
+                fold = $window.width() + $window.scrollLeft();
+            } else {
+                fold = $(settings.container).offset().left + $(settings.container).width();
+            }
+            return fold <= $(element).offset().left - settings.threshold;
+        };
+        $.abovethetop = function(element, settings) {
+            var fold;
+            if (settings.container === undefined || settings.container === window) {
+                fold = $window.scrollTop();
+            } else {
+                fold = $(settings.container).offset().top;
+            }
+            return fold >= $(element).offset().top + settings.threshold + $(element).height();
+        };
+        $.leftofbegin = function(element, settings) {
+            var fold;
+            if (settings.container === undefined || settings.container === window) {
+                fold = $window.scrollLeft();
+            } else {
+                fold = $(settings.container).offset().left;
+            }
+            return fold >= $(element).offset().left + settings.threshold + $(element).width();
+        };
+        $.inviewport = function(element, settings) {
+            return !$.rightoffold(element, settings) && !$.leftofbegin(element, settings) && !$.belowthefold(element, settings) && !$.abovethetop(element, settings);
+        };
+        /* Custom selectors for your convenience.   */
+        /* Use as $("img:below-the-fold").something() or */
+        /* $("img").filter(":below-the-fold").something() which is faster */
+        $.extend($.expr[":"], {
+            "below-the-fold": function(a) {
+                return $.belowthefold(a, {
+                    threshold: 0
+                });
+            },
+            "above-the-top": function(a) {
+                return !$.belowthefold(a, {
+                    threshold: 0
+                });
+            },
+            "right-of-screen": function(a) {
+                return $.rightoffold(a, {
+                    threshold: 0
+                });
+            },
+            "left-of-screen": function(a) {
+                return !$.rightoffold(a, {
+                    threshold: 0
+                });
+            },
+            "in-viewport": function(a) {
+                return $.inviewport(a, {
+                    threshold: 0
+                });
+            },
+            /* Maintain BC for couple of versions. */
+            "above-the-fold": function(a) {
+                return !$.belowthefold(a, {
+                    threshold: 0
+                });
+            },
+            "right-of-fold": function(a) {
+                return $.rightoffold(a, {
+                    threshold: 0
+                });
+            },
+            "left-of-fold": function(a) {
+                return !$.rightoffold(a, {
+                    threshold: 0
+                });
+            }
+        });
+    })(jQuery, window, document);
+});
+
+/**
+ * @Description: jQuery dialog plugin
+ */
+define("dist/cmd-lib/myDialog", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function($) {
+        $.extend($.fn, {
+            dialog: function(options) {
+                return this.each(function() {
+                    var dialog = $.data(this, "diglog");
+                    if (!dialog) {
+                        dialog = new $.dialog(options, this);
+                        $.data(this, "dialog", dialog);
+                    }
+                });
+            }
+        });
+        var common = {
+            zIndex: 1e3,
+            getZindex: function() {
+                return this.zIndex += 100;
+            },
+            dialog: {}
+        };
+        $.dialog = function(options, el) {
+            if (arguments.length) {
+                this._init(options, el);
+            }
+        };
+        $.dialog.prototype = {
+            options: {
+                title: "title",
+                //标题
+                dragable: false,
+                //拖拽暂时未实现
+                cache: true,
+                html: "",
+                //template
+                width: "auto",
+                height: "auto",
+                cannelBtn: true,
+                //关闭按钮
+                confirmlBtn: true,
+                //确认按钮
+                cannelText: "关闭",
+                //按钮文字
+                confirmText: "确定",
+                //
+                showFooter: true,
+                onClose: false,
+                //关闭回调
+                onOpen: false,
+                //打开回调
+                callback: false,
+                showLoading: false,
+                loadingTxt: "处理中...",
+                onConfirm: false,
+                //confirm callback
+                onCannel: false,
+                //onCannel callback
+                getContent: false,
+                //getContent callback
+                zIndex: common.zIndex,
+                closeOnClickModal: true,
+                getZindex: function() {
+                    return common.zIndex += 100;
+                },
+                mask_tpl: '<div class="dialog-mask" data-page="mask" style="z-index:' + common.zIndex + ';"></div>'
+            },
+            //初始化
+            _init: function(options, el) {
+                this.options = $.extend(true, this.options, options);
+                this.element = $(el);
+                this._build(this.options.html);
+                this._bindEvents();
+            },
+            //初始化渲染组件html
+            _build: function(html) {
+                var _html, footer = "", cfBtn = "", clBtn = "", bodyContent = '<div class="body-content"></div>';
+                if (html) {
+                    _html = html;
+                } else {
+                    if (this.options.confirmlBtn) {
+                        cfBtn = '<button class="confirm">' + this.options.confirmText + "</button>";
+                    }
+                    if (this.options.cannelBtn) {
+                        clBtn = '<button class="cannel">' + this.options.cannelText + "</button>";
+                    }
+                    if (this.options.showFooter) {
+                        footer = '<div class="footer">                                    <div class="buttons">                                        ' + cfBtn + "                                        " + clBtn + "                                    </div>                                </div>";
+                    }
+                    if (this.options.showFooter) {
+                        var h = this.options.height - 80 + "px";
+                        bodyContent = '<div class="body-content" style="height:' + h + ';"></div>';
+                    } else {
+                        bodyContent = '<div class="body-content" style="height:' + this.options.height + ';"></div>';
+                    }
+                    _html = '<div class="m-dialog" style="z-index:' + this.options.getZindex + ';">								<div class="m-d-header">									<h2 style="width:' + this.options.width + ';">' + this.options.title + '</h2>									<a href="javascript:;" class="btn-close">X</a>								</div>								<div class="m-d-body" style="width:' + this.options.width + ";height:" + this.options.height + ';">									' + bodyContent + "                                </div>" + footer + "</div>";
+                }
+                if (!$(document).find('[data-page="mask"]').length) {
+                    $("body").append(this.options.mask_tpl);
+                }
+                this.element.html(_html);
+            },
+            _center: function() {
+                var d = this.element.find(".dialog");
+                d.css({
+                    left: ($(document).width() - d.width()) / 2,
+                    top: (document.documentElement.clientHeight - d.height()) / 2 + $(document).scrollTop()
+                });
+            },
+            _bindEvents: function() {
+                var that = this;
+                this.element.delegate(".close,.cancel", "click", function(e) {
+                    e && e.preventDefault();
+                    that.close(that.options.onClose);
+                });
+                $(document).delegate('[data-page="mask"]', "click", function(e) {
+                    if (that.options.closeOnClickModal) {
+                        e && e.preventDefault();
+                        that.close(that.options.onClose);
+                    }
+                });
+                this.element.delegate(".cannel", "click", function(e) {
+                    e && e.preventDefault();
+                    that._cannel(that.options.onCannel);
+                });
+                this.element.delegate(".confirm", "click", function(e) {
+                    e && e.preventDefault();
+                    if ($(this).hasClass("disable")) {
+                        return;
+                    }
+                    if (that.options.showLoading) {
+                        $(this).addClass("disable");
+                        $(this).html(that.options.loadingTxt);
+                    }
+                    that._confirm(that.options.onConfirm);
+                });
+            },
+            close: function(cb) {
+                this._hide(cb);
+                this.clearCache();
+            },
+            open: function(cb) {
+                this._callback(cb);
+                this.element.show();
+                $('[data-page="mask"]').show();
+                //this._center();
+                this.clearCache();
+            },
+            _hide: function(cb) {
+                this.element.hide();
+                $('[data-page="mask"]').hide();
+                if (cb && typeof cb === "function") {
+                    this._callback(cb);
+                }
+            },
+            clearCache: function() {
+                if (!this.options.cache) {
+                    this.element.data("dialog", "");
+                }
+            },
+            _callback: function(cb) {
+                if (cb && typeof cb === "function") {
+                    cb.call(this);
+                }
+            },
+            _cannel: function(cb) {
+                this._hide(cb);
+                this.clearCache();
+            },
+            _confirm: function(cb) {
+                if (!this.options.callback) {
+                    this._hide(cb);
+                    this.clearCache();
+                } else {
+                    return cb();
+                }
+            },
+            getElement: function() {
+                return this.element;
+            },
+            _getOptions: function() {
+                return this.options;
+            },
+            _setTxt: function(t) {
+                return this.element.find(".confirm").html(t);
+            },
+            destroy: function() {
+                var that = this;
+                that.element.remove();
+            }
+        };
+        $.extend($.fn, {
+            open: function(cb) {
+                $(this).data("dialog") && $(this).data("dialog").open(cb);
+            },
+            close: function(cb) {
+                $(this).data("dialog") && $(this).data("dialog").close(cb);
+            },
+            clear: function() {
+                $(this).data("dialog") && $(this).data("dialog").clearCache();
+            },
+            getOptions: function() {
+                return $(this).data("dialog") && $(this).data("dialog")._getOptions();
+            },
+            getEl: function() {
+                return $(this).data("dialog") && $(this).data("dialog").getElement();
+            },
+            setTxt: function(t) {
+                $(this).data("dialog") && $(this).data("dialog")._setTxt(t);
+            },
+            destroy: function() {
+                $(this).data("dialog") && $(this).data("dialog").destroy(t);
+            }
+        });
+    })(jQuery);
+});
+
+/**
+ * @Description: 筛选
+ */
+define("dist/cmd-lib/loading", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function($, win, doc) {
+        $.fn.loading = function(options) {
+            var $this = $(this);
+            var _this = this;
+            return this.each(function() {
+                var loadingPosition = "";
+                var defaultProp = {
+                    direction: "column",
+                    //方向，column纵向   row 横向
+                    animateIn: "fadeInNoTransform",
+                    //进入类型
+                    title: "提交中...",
+                    //显示什么内容
+                    name: "loadingName",
+                    //loading的data-name的属性值  用于删除loading需要的参数
+                    type: "origin",
+                    //pic   origin  
+                    discription: "",
+                    //loading的描述
+                    titleColor: "rgba(255,255,255,0.7)",
+                    //title文本颜色
+                    discColor: "rgba(255,255,255,0.7)",
+                    //disc文本颜色
+                    loadingWidth: 100,
+                    //中间的背景宽度width
+                    loadingBg: "rgba(0, 0, 0, 0.6)",
+                    //中间的背景色
+                    borderRadius: 6,
+                    //中间的背景色的borderRadius
+                    loadingMaskBg: "rgba(0,0,0,0.6)",
+                    //背景遮罩层颜色
+                    zIndex: 1000001,
+                    //层级
+                    // 这是圆形旋转的loading样式  
+                    originDivWidth: 10,
+                    //loadingDiv的width
+                    originDivHeight: 10,
+                    //loadingDiv的Height
+                    originWidth: 4,
+                    //小圆点width
+                    originHeight: 4,
+                    //小圆点Height
+                    originBg: "#fefefe",
+                    //小圆点背景色
+                    smallLoading: false,
+                    //显示小的loading
+                    // 这是图片的样式   (pic)
+                    imgSrc: "",
+                    //默认的图片地址
+                    imgDivWidth: 80,
+                    //imgDiv的width
+                    imgDivHeight: 80,
+                    //imgDiv的Height
+                    flexCenter: false,
+                    //是否用flex布局让loading-div垂直水平居中
+                    flexDirection: "row",
+                    //row column  flex的方向   横向 和 纵向				
+                    mustRelative: false,
+                    //$this是否规定relative
+                    delay: 2e3,
+                    //默认2秒关闭                   
+                    isClose: true
+                };
+                var opt = $.extend(defaultProp, options || {});
+                //根据用户是针对body还是元素  设置对应的定位方式
+                if ($this.selector == "body") {
+                    $("body,html").css({
+                        overflow: "hidden"
+                    });
+                    loadingPosition = "fixed";
+                } else if (opt.mustRelative) {
+                    $this.css({
+                        position: "relative"
+                    });
+                    loadingPosition = "absolute";
+                } else {
+                    loadingPosition = "absolute";
+                }
+                defaultProp._showOriginLoading = function() {
+                    var smallLoadingMargin = opt.smallLoading ? 0 : "-10px";
+                    if (opt.direction == "row") {
+                        smallLoadingMargin = "-6px";
+                    }
+                    //悬浮层
+                    _this.cpt_loading_mask = $('<div class="cpt-loading-mask animated ' + opt.animateIn + " " + opt.direction + '" data-name="' + opt.name + '"></div>').css({
+                        background: opt.loadingMaskBg,
+                        "z-index": opt.zIndex,
+                        position: loadingPosition
+                    }).appendTo($this);
+                    //中间的显示层
+                    _this.div_loading = $('<div class="div-loading"></div>').css({
+                        background: opt.loadingBg,
+                        width: opt.loadingWidth,
+                        height: opt.loadingHeight,
+                        "-webkit-border-radius": opt.borderRadius,
+                        "-moz-border-radius": opt.borderRadius,
+                        "border-radius": opt.borderRadius
+                    }).appendTo(_this.cpt_loading_mask);
+                    if (opt.flexCenter) {
+                        _this.div_loading.css({
+                            display: "-webkit-flex",
+                            display: "flex",
+                            "-webkit-flex-direction": opt.flexDirection,
+                            "flex-direction": opt.flexDirection,
+                            "-webkit-align-items": "center",
+                            "align-items": "center",
+                            "-webkit-justify-content": "center",
+                            "justify-content": "center"
+                        });
+                    }
+                    //loading标题
+                    _this.loading_title = $('<p class="loading-title txt-textOneRow"></p>').css({
+                        color: opt.titleColor
+                    }).html(opt.title).appendTo(_this.div_loading);
+                    //loading中间的内容  可以是图片或者转动的小圆球
+                    _this.loading = $('<div class="loading ' + opt.type + '"></div>').css({
+                        width: opt.originDivWidth,
+                        height: opt.originDivHeight
+                    }).appendTo(_this.div_loading);
+                    //描述
+                    _this.loading_discription = $('<p class="loading-discription txt-textOneRow"></p>').css({
+                        color: opt.discColor
+                    }).html(opt.discription).appendTo(_this.div_loading);
+                    if (opt.type == "origin") {
+                        _this.loadingOrigin = $('<div class="div-loadingOrigin"><span></span></div><div class="div-loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div><div class="div_loadingOrigin"><span></span></div>').appendTo(_this.loading);
+                        _this.loadingOrigin.children().css({
+                            "margin-top": smallLoadingMargin,
+                            "margin-left": smallLoadingMargin,
+                            width: opt.originWidth,
+                            height: opt.originHeight,
+                            background: opt.originBg
+                        });
+                    }
+                    if (opt.type == "pic") {
+                        _this.loadingPic = $('<img src="' + opt.imgSrc + '" alt="loading" />').appendTo(_this.loading);
+                    }
+                    //关闭事件冒泡  和默认的事件
+                    _this.cpt_loading_mask.on("touchstart touchend touchmove click", function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    });
+                };
+                defaultProp._createLoading = function() {
+                    //不能生成两个loading data-name 一样的loading
+                    if ($(".cpt-loading-mask[data-name=" + opt.name + "]").length > 0) {
+                        // console.error('loading mask cant has same date-name('+opt.name+'), you cant set "date-name" prop when you create it');
+                        return;
+                    }
+                    defaultProp._showOriginLoading();
+                };
+                defaultProp._createLoading();
+                defaultProp.close = function() {
+                    $(".cpt-loading-mask[data-name=" + opt.name + "]").remove();
+                };
+            });
+        };
+        //关闭Loading
+        $.extend($.fn, {
+            closeLoading: function(loadingName) {
+                var loadingName = loadingName || "";
+                $("body,html").css({
+                    overflow: "auto"
+                });
+                if (loadingName == "") {
+                    $(".cpt-loading-mask").remove();
+                } else {
+                    var name = loadingName || "loadingName";
+                    $(".cpt-loading-mask[data-name=" + name + "]").remove();
+                }
+            }
+        });
+    })(jQuery, window, document);
+});
+
+/**
+ * 详情页首页
+ */
+define("dist/detail/index", [ "dist/application/suspension", "dist/application/method", "dist/application/checkLogin", "dist/application/api", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/application/app", "dist/application/element", "dist/application/template", "dist/application/extend", "dist/application/effect", "dist/application/helper", "dist/detail/common" ], function(require, exports, module) {
+    // var $ = require('$');
+    require("dist/application/suspension");
+    var app = require("dist/application/app");
+    var api = require("dist/application/api");
+    var method = require("dist/application/method");
+    var utils = require("dist/cmd-lib/util");
+    var login = require("dist/application/checkLogin");
+    var common = require("dist/detail/common");
+    var clickEvent = require("dist/common/bilog").clickEvent;
+    var payTypeMapping = [ "", "免费", "下载券", "现金", "仅供在线阅读", "VIP免费", "VIP专享" ];
+    //  var entryName_var = payTypeMapping[pageConfig.params.file_state];
+    // var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
+    var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
+    var handleBaiduStatisticsPush = require("dist/common/baidu-statistics").handleBaiduStatisticsPush;
+    handleBaiduStatisticsPush("fileDetailPageView");
+    // 初始化显示
+    initShow();
+    // 初始化绑定
+    eventBinding();
+    function initShow() {
+        if (fileName) {
+            fileName = fileName.length > 12 ? fileName.slice(0, 12) + "..." : fileName;
+        }
+        $("#search-detail-input").attr("placeholder", fileName || "与人沟通的十大绝招");
+        // 初始化显示
+        pageInitShow();
+        // 访问记录
+        storeAccessRecord();
+        // 获取收藏的状态
+        getCollectState();
+        fileBrowseReportBrowse();
+    }
+    // 页面加载
+    function pageInitShow() {
+        if (method.getCookie("cuk")) {
+            login.getLoginData(function(data) {
+                common.afterLogin(data);
+                window.pageConfig.userId = data.userId;
+                //已经登录 并且有触发支付点击
+                if (method.getCookie("event_data")) {
+                    //唤起支付弹框
+                    goPage(event);
+                    method.delCookie("event_data", "/");
+                }
+            });
+        } else {
+            var params = window.pageConfig.params;
+            if ((params.productType == "4" || params.productType == "5") && params.vipDiscountFlag == "1") {
+                // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+                // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
+                // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+                var originalPrice = params.moneyPrice;
+                $(".js-original-price").html(originalPrice);
+                // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
+                var savePrice = (params.moneyPrice * .8).toFixed(2);
+                $(".vip-save-money").html(savePrice);
+                $(".js-original-price").html(savePrice);
+            }
+        }
+        // 意见反馈的url
+        // var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+        var url = "/node/feedback/feedback.html?url=" + encodeURIComponent(location.href);
+        $(".user-feedback").attr("href", url);
+        var $iconDetailWrap = $(".icon-detail-wrap");
+        //  付费文档图标
+        if ($iconDetailWrap.length) {
+            $(window).on("scroll", function() {
+                var $this = $(this);
+                var top = $this.scrollTop();
+                if (top >= 180) {
+                    $iconDetailWrap.addClass("icon-text-fixed");
+                    $(".icon-text-fixed").css("left", $(".bd-wrap")[0].offsetLeft - 6);
+                } else {
+                    $iconDetailWrap.removeClass("icon-text-fixed");
+                    $iconDetailWrap.css("left", "-6px");
+                }
+            });
+        }
+    }
+    // 事件绑定
+    function eventBinding() {
+        var $more_nave = $(".more-nav"), $search_detail_input = $("#search-detail-input"), $detail_lately = $(".detail-lately"), $slider_control = $(".slider-control");
+        // 顶部分类
+        $more_nave.on("mouseover", function() {
+            var $this = $(this);
+            if (!$this.hasClass("hover")) {
+                $(this).addClass("hover");
+            }
+        });
+        $more_nave.on("mouseleave", function() {
+            var $this = $(this);
+            if ($this.hasClass("hover")) {
+                $(this).removeClass("hover");
+            }
+        });
+        // 搜索
+        $search_detail_input.on("keyup", function(e) {
+            var keycode = e.keyCode;
+            if ($(this).val()) {
+                getBaiduData($(this).val());
+            } else {}
+            if (keycode === 13) {
+                searchFn($(this).val());
+            }
+        });
+        $search_detail_input.on("focus", function() {
+            $(".detail-search-info").hide();
+            var lately_list = $(".lately-list"), len = lately_list.find("li").length;
+            if (len > 0) {
+                $detail_lately.show();
+            } else {
+                $detail_lately.hide();
+            }
+            return true;
+        });
+        $(".btn-new-search").on("click", function() {
+            var _val = $search_detail_input.val() || $search_detail_input.attr("placeholder");
+            // if (!_val) {
+            //     return
+            // }
+            searchFn(_val);
+        });
+        $(".detail-search-info").on("click", function() {
+            var _val = $search_detail_input.val() || $search_detail_input.attr("placeholder");
+            // if (!_val) {
+            //     return
+            // }
+            searchFn(_val);
+        });
+        $(document).on("click", ":not(.new-search)", function(event) {
+            var $target = $(event.target);
+            if ($target.hasClass("new-input")) {
+                return;
+            }
+            $detail_lately.hide();
+        });
+        $detail_lately.on("click", function(event) {
+            event.stopPropagation();
+        });
+        // 登录
+        $("#detail-unLogin,.login-open-vip").on("click", function() {
+            if (!method.getCookie("cuk")) {
+                login.notifyLoginInterface(function(data) {
+                    common.afterLogin(data);
+                });
+            }
+        });
+        // 退出
+        $(".btn-exit").on("click", function() {
+            login.ishareLogout();
+        });
+        $("#search-detail-input").on("focus", function() {
+            $(".detail-search-info").hide();
+        });
+        // 点击checkbox
+        $("#commentCheckbox").on("click", function() {
+            $(this).find(".check-con").toggleClass("checked");
+        });
+        // 显示举报窗口
+        $(".report-link").on("click", function() {
+            method.compatibleIESkip("/node/feedback/feedback.html" + "?url=" + location.href, true);
+        });
+        // 取消或者关注
+        $("#btn-collect").on("click", function() {
+            if (!method.getCookie("cuk")) {
+                login.notifyLoginInterface(function(data) {
+                    common.afterLogin(data);
+                });
+                return;
+            } else {
+                var fid = $(this).attr("data-fid");
+                clickEvent($(this));
+                setCollect($(this));
+            }
+        });
+        // 查找相关资料
+        $(".detail-fixed").on("click", "#searchRes", function() {
+            // 寻找相关资料  
+            $("body,html").animate({
+                scrollTop: $("#littleApp").offset().top - 60
+            }, 200);
+            // $("#dialog-box").dialog({
+            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+            // }).open();
+            $("#dialog-box").dialog({
+                html: $("#reward-mission-pop").html()
+            }).open();
+            setTimeout(bindEventPop, 500);
+        });
+        //  $("#dialog-box").dialog({
+        //     html: $('#reward-mission-pop').html(),
+        // }).open();
+        function bindEventPop() {
+            console.log(6666);
+            // 绑定关闭悬赏任务弹窗pop
+            $(".m-reward-pop .close-btn").on("click", function() {
+                closeRewardPop();
+            });
+            // submit提交
+            $(".m-reward-pop .submit-btn").on("click", function() {
+                var userId = window.pageConfig.userId;
+                if (!userId) {
+                    closeRewardPop();
+                    $.toast({
+                        text: "该功能仅对VIP用户开放",
+                        delay: 3e3
+                    });
+                    return;
+                }
+                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+                var mailVal = $(".m-reward-pop .form-ipt").val();
+                var tips = $(".m-reward-pop .form-verify-tips");
+                tips.hide();
+                if (!reg.test(mailVal)) {
+                    tips.show();
+                    return;
+                }
+                var params = {
+                    userId: userId,
+                    fid: window.pageConfig.params.g_fileId,
+                    email: mailVal,
+                    channelSource: 4
+                };
+                $.ajax("/gateway/content/sendmail/findFile", {
+                    type: "POST",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    contentType: "application/json"
+                }).done(function(res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text: "发送成功",
+                            delay: 2e3
+                        });
+                    } else if (res.code == 401100) {
+                        $.toast({
+                            text: "该功能仅对VIP用户开放",
+                            delay: 2e3
+                        });
+                    } else {
+                        $.toast({
+                            text: "发送失败，请重试",
+                            delay: 2e3
+                        });
+                    }
+                }).fail(function(e) {
+                    $.toast({
+                        text: "发送失败，请重试",
+                        delay: 2e3
+                    });
+                });
+            });
+            // 关闭任务pop
+            function closeRewardPop() {
+                $(".common-bgMask").hide();
+                $(".detail-bg-mask").hide();
+                $("#dialog-box").hide();
+            }
+        }
+        // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
+        $("body").on("click", ".js-buy-open", function(e) {
+            var type = $(this).data("type");
+            if (!method.getCookie("cuk")) {
+                //上报数据相关
+                if ($(this).attr("loginOffer")) {
+                    method.setCookieWithExpPath("_loginOffer", $(this).attr("loginOffer"), 1e3 * 60 * 60 * 1, "/");
+                }
+                method.setCookieWithExpPath("enevt_data", type, 1e3 * 60 * 60 * 1, "/");
+                if (pageConfig.params.productType == "5" && type == "file") {} else {
+                    login.notifyLoginInterface(function(data) {
+                        common.afterLogin(data);
+                        goPage(type, data);
+                    });
+                }
+            } else {
+                goPage(type);
+            }
+        });
+    }
+    function fileBrowseReportBrowse() {
+        $.ajax({
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            url: api.reportBrowse.fileBrowseReportBrowse,
+            type: "POST",
+            data: JSON.stringify({
+                terminal: "0",
+                fid: window.pageConfig.params && window.pageConfig.params.g_fileId
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    if (res.data.rows && res.data.rows.length) {
+                        var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({
+                            hotSpotSearchList: res.data.rows || []
+                        });
+                        $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                    }
+                }
+            }
+        });
+    }
+    function receiveCoupon(type, source, userId) {
+        var data = {
+            source: source,
+            type: type
+        };
+        data = JSON.stringify(data);
+        $("body").loading({
+            name: "download",
+            title: "请求中"
+        });
+        $.ajax({
+            type: "POST",
+            // url: api.vouchers,
+            url: api.coupon.rightsSaleVouchers,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: function(res) {
+                if (res.code == 0) {
+                    if (res.data.list) {
+                        if (res.data.list.length > 0) {
+                            var headTip = require("dist/detail/template/head_tip.html");
+                            var _html = template.compile(headTip)({
+                                data: res.data
+                            });
+                            $(".coupon-info-top").html(_html);
+                            //第一次登录
+                            method.setCookieWithExpPath("_1st_l", userId, 30 * 24 * 60 * 60 * 1e3, "/");
+                        } else {
+                            utils.showAlertDialog("温馨提示", res.msg);
+                        }
+                    }
+                } else {
+                    utils.showAlertDialog("温馨提示", res.msg);
+                }
+            },
+            complete: function() {
+                $("body").closeLoading("download");
+            }
+        });
+    }
+    // function appraiseStar(data) {
+    //     method.post(api.normalFileDetail.appraise, function (res) {
+    //         if (res.code == 0) {
+    //             var $dSuccess = $('.d-success');
+    //             $dSuccess.removeClass('hide');
+    //             setTimeout(function () {
+    //                 $dSuccess.addClass('hide')
+    //             }, 1500)
+    //         }
+    //     }, '', 'post', data);
+    // }
+    //获取焦点
+    function inputFocus(ele, focus, css) {
+        $(ele).focus(function() {
+            $(this).parents(css).addClass(focus);
+        });
+        $(ele).blur(function() {
+            $(this).parents(css).removeClass(focus);
+        });
+    }
+    //hover
+    function elementHover(ele, eleShow, hover) {
+        $(ele).hover(function() {
+            $(this).addClass(hover);
+            $(eleShow).fadeIn("slow");
+        }, function() {
+            $(this).removeClass(hover);
+            $(eleShow).fadeOut("slow");
+        });
+    }
+    $(function() {
+        ////详情页用户展开
+        //elementHover(".new-detail-header .user-con",null,"hover");
+        //详情页获取焦点
+        var $detailHeader = $(".new-detail-header");
+        var headerHeight = $detailHeader.height();
+        var $headerInput = $detailHeader.find(".new-input");
+        inputFocus($headerInput, "new-search-focus", ".new-search");
+        inputFocus(".evaluate-textarea textarea", "evaluate-textarea-focus", ".evaluate-textarea");
+        //详情页头部悬浮
+        var fixEle = $("#fix-right");
+        var $fixBar = $(".detail-fixed-con");
+        var $dFooter = $(".detail-footer");
+        var fixHeight = $detailHeader.height();
+        if (fixEle.length) {
+            var fixTop = fixEle.offset().top - headerHeight;
+        }
+        $(window).scroll(function() {
+            var detailTop = $(this).scrollTop();
+            var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
+            if (detailTop > headerHeight) {
+                $detailHeader.addClass("new-detail-header-fix");
+                $(".coupon-info-top").hide();
+            } else {
+                $detailHeader.removeClass("new-detail-header-fix");
+                // 未登陆，且第一次弹出
+                if (!localStorage.getItem("firstCoupon") && method.getCookie("cuk")) {
+                    $(".coupon-info-top").show();
+                }
+            }
+            //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
+            if (detailTop > fixHeight + fixEle.height()) {
+                $(".fix-right-bannertop").hide();
+                $(".fix-right-bannerbottom").hide();
+                fixEle.css({
+                    position: "fixed",
+                    top: headerHeight,
+                    "z-index": "75"
+                });
+            } else {
+                fixEle.removeAttr("style");
+                $(".fix-right-bannertop").show();
+                $(".fix-right-bannerbottom").show();
+            }
+            //底部悬浮展示文档
+            if (detailTop > fixStart) {
+                $fixBar.find(".operation").hide();
+                $fixBar.find(".data-item").show();
+            } else {
+                $fixBar.find(".operation").show();
+                $fixBar.find(".data-item").hide();
+            }
+        });
+        // 关闭底部优惠券弹窗
+        function closeCouponAD() {
+            $(".pc-tui-coupon .btn-close").click(function() {
+                $(".pc-tui-coupon").hide();
+            });
+        }
+        //关闭头部优惠券赠送信息
+        closeHeadCouponTip();
+        function closeHeadCouponTip() {
+            $(".coupon-info-top").on("click", ".btn-no-user", function() {
+                $(".coupon-info-top").hide();
+                localStorage.setItem("firstCoupon", 1);
+            });
+        }
+        $(".firstLoginHook").click(function() {
+            $(".pc-tui-coupon").hide();
+        });
+        //详情页分类展开
+        elementHover($detailHeader.find(".more-nav"), null, "hover");
+    });
+    // 添加取消收藏
+    // function collectFile(cond) {
+    //     method.post(api.normalFileDetail.collect, function (res) {
+    //         if (res.code == 0) {
+    //             var $btn_collect = $('#btn-collect');
+    //             if (cond === 3) {
+    //                 var $dCollect = $('.d-collect');
+    //                 $dCollect.removeClass('hide');
+    //                 setTimeout(function () {
+    //                     $dCollect.addClass('hide');
+    //                 }, 2000);
+    //                 $btn_collect.addClass('btn-collect-success');
+    //             } else {
+    //                 $btn_collect.removeClass('btn-collect-success')
+    //             }
+    //         } else if (res.code == 40001) {
+    //             setTimeout(function () {
+    //                 method.delCookie('cuk', "/", ".sina.com.cn");
+    //             }, 0)
+    //         }
+    //     }, '', 'post', {
+    //         fid: pageConfig.params.g_fileId,
+    //         cond: cond,
+    //         flag: 'y'
+    //     });
+    // }
+    // 新收藏或取消收藏接口
+    function setCollect(_this) {
+        $.ajax({
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            url: api.special.setCollect,
+            type: "post",
+            data: JSON.stringify({
+                fid: window.pageConfig.params.g_fileId,
+                source: 0
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success") ? "取消收藏成功" : "收藏成功"
+                    });
+                    _this.hasClass("btn-collect-success") ? _this.removeClass("btn-collect-success") : _this.addClass("btn-collect-success");
+                } else {
+                    $.toast({
+                        text: _this.hasClass("btn-collect-success") ? "取消收藏失败" : "收藏失败"
+                    });
+                }
+            }
+        });
+    }
+    function getCollectState() {
+        //获取收藏的状态
+        $.ajax({
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            url: api.special.getCollectState,
+            type: "get",
+            data: {
+                fid: window.pageConfig.params.g_fileId,
+                uid: window.pageConfig.page.uid
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success");
+                }
+            }
+        });
+    }
+    // 搜集访问记录
+    function storeAccessRecord() {
+        // 存储浏览记录
+        var access = pageConfig.access, accessKey = method.keyMap.ishare_detail_access;
+        if (pageConfig && access) {
+            var fileArr = method.getLocalData(accessKey);
+            if (!fileArr || fileArr.length < 1) {
+                fileArr = [];
+                fileArr.push(access);
+                method.setLocalData(accessKey, fileArr);
+            } else {
+                fileArr = handleExistsFile(access.fileId, fileArr);
+                fileArr.unshift({
+                    fileId: access.fileId,
+                    title: access.title,
+                    format: access.format,
+                    time: new Date().getTime()
+                });
+                method.setLocalData(accessKey, fileArr);
+            }
+        }
+    }
+    /*是否存在文件Id*/
+    function handleExistsFile(fileId, fileArr) {
+        for (var i = 0; i < fileArr.length; i++) {
+            if (fileArr[i].fileId === fileId) {
+                fileArr.splice(i, 1);
+                break;
+            }
+        }
+        if (fileArr.length === 50) {
+            fileArr.pop();
+        }
+        return fileArr;
+    }
+    // 评论
+    // function commentArticle() {
+    //     if (!method.getCookie('cuk')) {
+    //         login.notifyLoginInterface(function (data) {
+    //             common.afterLogin(data);
+    //         });
+    //     } else if (method.getCookie('cuk') && !common.userData) {
+    //         login.getLoginData(function (data) {
+    //             common.afterLogin(data);
+    //             commentContent();
+    //         })
+    //     } else {
+    //         commentContent();
+    //     }
+    // }
+    var commentContent = function() {
+        var content = $("#commentTxt").val();
+        var fid = pageConfig.params.g_fileId;
+        var type = "1";
+        var anonymous = $("#commentCheckbox .check-con").hasClass("checked");
+        if (content.length < 1 || content.length > 200) {
+            $(".error-info").text("评论内容长度必须在1~200个字符之间");
+            return false;
+        }
+        method.get(api.normalFileDetail.hasDownLoad + "?fid=" + window.pageConfig.params.g_fileId, function(res) {
+            if (res.code == 0) {
+                if (res.data) {
+                    method.post(api.normalFileDetail.addComment, function(res) {
+                        if (res.code == 0) {
+                            if (res.data === 0) {
+                                var showName = anonymous ? "匿名用户" : common.userData.nickName;
+                                var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + "</a>" : '<a href="/n/' + common.userData.userId + '.html" class="user-name-con">' + showName + "</a>";
+                                $(".evaluate-list").prepend('<li class="cf">' + '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' + '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content + "</p></div></li>");
+                                $("#commentTxt").val("");
+                            } else if (res.data === 2) {
+                                $(".error-info").text("一天最多评论15条");
+                            } else if (res.data === 3) {
+                                $(".error-info").text("一分钟之内提交过于频繁");
+                            } else if (res.data === 5) {
+                                $(".error-info").text("您经评论过");
+                            } else if (res.data === 4) {
+                                $(".error-info").text("*您的评论包含敏感词,请修改再发布!");
+                            }
+                        } else if (res.code == 40001) {
+                            setTimeout(function() {
+                                method.delCookie("cuk", "/", ".sina.com.cn");
+                            }, 0);
+                        } else {
+                            $(".error-info").text(res.msg);
+                        }
+                    }, "", "", {
+                        content: content,
+                        fid: fid,
+                        type: type,
+                        anonymous: anonymous ? 1 : 0
+                    });
+                } else {
+                    $("#dialog-box").dialog({
+                        html: $("#tpl-down-text").html().replace(/\$msg/, "您还未获取该资料,先要获取资料后才可以评论哦!")
+                    }).open();
+                }
+            }
+        }, "");
+    };
+    function goPage(type, data) {
+        // data 登录后用户信息
+        var fid = window.pageConfig.params.g_fileId;
+        var format = window.pageConfig.params.file_format;
+        var title = window.pageConfig.params.file_title;
+        var params = "";
+        var ref = utils.getPageRef(fid);
+        //文件信息存入cookie方便gio上报
+        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        method.setCookieWithExpPath("rf", JSON.stringify({}), 5 * 60 * 1e3, "/");
+        method.setCookieWithExp("f", JSON.stringify({
+            fid: fid,
+            title: title,
+            format: format
+        }), 5 * 60 * 1e3, "/");
+        if (type === "file") {
+            // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+            params = "?orderNo=" + fid + "&checkStatus=" + "8" + "&referrer=" + document.referrer;
+            // window.location.href = "/pay/payConfirm.html" + params;
+            method.compatibleIESkip("/pay/payConfirm.html" + params, false);
+        } else if (type === "vip") {
+            if (data && !data.isVip == 1) {
+                return;
+            } else {
+                //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+                // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+                // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+                var params = "?fid=" + fid + "&ft=" + format + "&checkStatus=" + "10" + "&name=" + encodeURIComponent(encodeURIComponent(title)) + "&ref=" + ref;
+                // window.open("/pay/vip.html" + params);
+                method.compatibleIESkip("/pay/vip.html" + params, true);
+            }
+        } else if (type === "privilege") {
+            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+            var params = "?fid=" + fid + "&ft=" + format + "&checkStatus=" + "13" + "&name=" + encodeURIComponent(encodeURIComponent(title)) + "&ref=" + ref;
+            // window.open("/pay/privilege.html" + params);
+            method.compatibleIESkip("/pay/privilege.html" + params, true);
+        }
+    }
+    //获取百度数据
+    var getBaiduData = function(val) {
+        $.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + encodeURIComponent(val) + "&p=3&cb=window.baidu_searchsug&t=" + new Date().getTime());
+    };
+    /*百度搜索建议回调方法*/
+    window.baidu_searchsug = function(data) {
+        var sword = $("#search-detail-input").val();
+        sword = sword ? sword.replace(/^\s+|\s+$/gm, "") : "";
+        if (sword.length > 0) {
+            if (data && data.s) {
+                var condArr = data.s;
+                if (condArr.length > 0) {
+                    var max = Math.min(condArr.length, 10);
+                    var _html = [];
+                    for (var i = 0; i < max; i++) {
+                        var searchurl = "/search/home.html?cond=" + encodeURIComponent(encodeURIComponent(condArr[i]));
+                        _html.push('<li><a href="' + searchurl + '"  data-html="' + condArr[i] + '" >' + condArr[i].replace(new RegExp("(" + sword + ")", "gm"), "<span class='search-font'>$1</span>") + "</a></li>");
+                    }
+                    $(".lately-list").html(_html.join("")).parent(".detail-lately").show();
+                }
+            }
+        }
+    };
+    //搜索
+    var searchFn = function(_val) {
+        var sword = _val ? _val.replace(/^\s+|\s+$/gm, "") : "";
+        // window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+        method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), false);
+    };
+    module.exports = {
+        goPage: goPage
+    };
+});
+
+define("dist/application/suspension", [ "dist/application/method", "dist/application/checkLogin", "dist/application/api", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/application/app", "dist/application/element", "dist/application/template", "dist/application/extend", "dist/application/effect", "dist/application/helper" ], function(require, exports, module) {
+    //var $ = require("$");
+    var method = require("dist/application/method");
+    var login = require("dist/application/checkLogin");
+    // 右侧滚动
+    var app = require("dist/application/app");
+    var api = require("dist/application/api");
+    var clickEvent = require("dist/common/bilog").clickEvent;
+    scrollMenu();
+    function scrollMenu() {
+        //右侧悬浮 js
+        var $fixBtn = $(".fixed-op").find(".J_menu");
+        var $fixFull = $(".fixed-right-full");
+        var $anWrap = $fixFull.find(".fixed-detail-wrap");
+        function fixAn(start, index, $this) {
+            index = index || 0;
+            if (start && index === 1) {
+                // index === 1 || index === 2
+                if (method.getCookie("cuk")) {
+                    rightSlideShow(index);
+                    $anWrap.animate({
+                        right: "61px"
+                    }, 500);
+                } else {
+                    login.notifyLoginInterface(function(data) {
+                        refreshDomTree($anWrap, index, data);
+                    });
+                }
+            } else {
+                $anWrap.animate({
+                    right: "-307px"
+                }, 200);
+            }
+            if (start && index === 0) {
+                if (method.getCookie("cuk")) {
+                    window.open("/node/rights/vip.html", "target");
+                } else {
+                    window.open("/node/rights/vip.html", "target");
+                }
+            } else if (index === 1) {
+                $(".mui-user-wrap").css("visibility", "hidden");
+                $(".mui-sel-wrap").css("visibility", "visible");
+            } else if (index === 2) {
+                $(".mui-user-wrap").css("visibility", "hidden");
+                $(".mui-sel-wrap").css("visibility", "hidden");
+                method.compatibleIESkip("/node/upload.html", true);
+            } else if (index === 4 || index === 6) {
+                $anWrap.animate({
+                    right: "-307px"
+                }, 200);
+                if (index == 6) {
+                    method.compatibleIESkip("https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q", true);
+                }
+            }
+        }
+        $(".btn-detail-back").on("click", function() {
+            fixAn(false, $(this));
+            $fixBtn.removeClass("active");
+        });
+        $(document).on("click", function() {
+            var $this = $(this);
+            fixAn(false, $this);
+            $fixBtn.removeClass("active");
+        });
+        // 开通vip
+        $fixFull.on("click", ".js-buy-open", function() {
+            method.compatibleIESkip("/pay/vip.html", true);
+        });
+        $(".op-menu-wrap").click(function(e) {
+            e.stopPropagation();
+        });
+        $fixBtn.on("click", function() {
+            var index = $(this).index();
+            if ($(this).attr("bilogContent")) {
+                // 侧边栏数据上报
+                clickEvent($(this));
+            }
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+                fixAn(false, $(this));
+            } else {
+                $(this).addClass("active").siblings().removeClass("active");
+                fixAn(true, index, $(this));
+            }
+        });
+        $(window).bind("resize ready", resizeWindow);
+        function resizeWindow(e) {
+            var newWindowHeight = $(window).height();
+            if (newWindowHeight >= 920) {
+                $fixFull.removeClass("fixed-min-height");
+            } else {
+                $fixFull.addClass("fixed-min-height");
+            }
+        }
+    }
+    function refreshDomTree($anWrap, index, data) {
+        var $unLogin = $("#unLogin"), $hasLogin = $("#haveLogin"), $top_user_more = $(".top-user-more"), $icon_iShare_text = $(".icon-iShare-text"), $btn_user_more = $(".btn-user-more"), $vip_status = $(".vip-status");
+        $icon_iShare_text.html(data.isVip == "1" ? "续费VIP" : "开通VIP");
+        $btn_user_more.text(data.isVip == "1" ? "续费" : "开通");
+        if (data.isVip == "0") {
+            $(".open-vip").show().siblings("a").hide();
+        } else {
+            $(".xf-open-vip").show().siblings("a").hide();
+        }
+        var $target = null;
+        if (data.isVip == "1") {
+            $target = $vip_status.find('p[data-type="2"]');
+            $target.find(".expire_time").html(data.expireTime);
+            $target.show().siblings().hide();
+        } else if (data.isVip == "1" && data.userType == "2") {
+            $target = $vip_status.find('p[data-type="3"]');
+            $target.show().siblings().hide();
+        }
+        $unLogin.hide();
+        $hasLogin.find(".icon-detail").html(data.nickName);
+        $hasLogin.find("img").attr("src", data.photoPicURL);
+        $top_user_more.find("img").attr("src", data.photoPicURL);
+        $top_user_more.find("#userName").html(data.nickName);
+        $hasLogin.show();
+        //右侧导航栏.
+        /* ==>头像,昵称 是否会员文案提示.*/
+        $(".user-avatar img").attr("src", data.photoPicURL);
+        $(".name-wrap .name-text").html(data.nickName);
+        if (data.isVip == "1") {
+            var txt = "您的VIP将于" + data.expireTime + "到期,剩余" + data.privilege + "次下载特权";
+            $(".detail-right-normal-wel").html(txt);
+            $(".detail-right-vip-wel").html("会员尊享权益");
+            $(".btn-mui").hide();
+            $("#memProfit").html("VIP权益");
+        } else {
+            $(".mui-privilege-list li").removeClass("hide");
+        }
+        rightSlideShow(index);
+        // 发现有调用传入$anWrap 为 null ，因此作此判断
+        if ($anWrap) {
+            $anWrap.animate({
+                right: "61px"
+            }, 500);
+        }
+    }
+    function rightSlideShow(index) {
+        if (index === 1) {
+            accessList();
+        } else if (index === 2) {
+            myCollect();
+        }
+    }
+    /**
+     * 我看过的
+     */
+    function accessList() {
+        getFileBrowsePage();
+    }
+    //新的我的收藏列表
+    function myCollect() {
+        // 右侧栏的我的收藏下架
+        var params = {
+            pageNumber: 1,
+            pageSize: 20,
+            sidx: 0,
+            order: -1
+        };
+        $.ajax(api.user.newCollect, {
+            type: "get",
+            async: false,
+            data: params,
+            dataType: "json"
+        }).done(function(res) {
+            if (res.code == 0) {
+                collectRender(res.data.rows);
+            }
+        }).fail(function(e) {
+            console.log("error===" + e);
+        });
+    }
+    function getFileBrowsePage() {
+        // 查询个人收藏列表
+        $.ajax({
+            url: api.user.getFileBrowsePage,
+            type: "POST",
+            data: JSON.stringify({
+                currentPage: 1,
+                pageSize: 20
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    console.log("getUserFileList:", res);
+                    var list = res.data && res.data.rows || [];
+                    var $seenRecord = $("#seenRecord"), arr = [];
+                    if (list && list.length) {
+                        list = list.slice(0, 20);
+                        for (var k = 0; k < list.length; k++) {
+                            var item = list[k];
+                            var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileid + '.html">' + item.name + "</a></li>";
+                            arr.push($li);
+                        }
+                        $seenRecord.html(arr.join(""));
+                    } else {
+                        $seenRecord.hide().siblings(".mui-data-null").show();
+                    }
+                } else {
+                    var $seenRecord = $("#seenRecord");
+                    $seenRecord.hide().siblings(".mui-data-null").show();
+                    console.log(res.msg);
+                }
+            },
+            error: function(error) {
+                console.log("getUserFileList:", error);
+            }
+        });
+    }
+    /**
+     * 意见反馈
+     * @param list
+     */
+    $(".op-feedback").on("click", function() {
+        var curr = window.location.href;
+        method.compatibleIESkip("/node/feedback/feedback.html?url=" + encodeURIComponent(curr), true);
+    });
+    $("#go-back-top").on("click", function() {
+        $("body,html").animate({
+            scrollTop: 0
+        }, 200);
+    });
+    try {
+        //引入美洽客服
+        (function(m, ei, q, i, a, j, s) {
+            m[i] = m[i] || function() {
+                (m[i].a = m[i].a || []).push(arguments);
+            };
+            j = ei.createElement(q), s = ei.getElementsByTagName(q)[0];
+            j.async = true;
+            j.charset = "UTF-8";
+            j.src = "//static.meiqia.com/dist/meiqia.js?_=t";
+            s.parentNode.insertBefore(j, s);
+        })(window, document, "script", "_MEIQIA");
+        _MEIQIA("entId", "149498");
+        // 初始化成功后调用美洽 showPanel
+        _MEIQIA("allSet", function() {
+            _MEIQIA("showPanel");
+        });
+        // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+        _MEIQIA("manualInit");
+    } catch (e) {}
+    // 联系客服
+    $(".btn-mui-contact").on("click", function() {
+        _MEIQIA("init");
+    });
+    function collectRender(list) {
+        var $myCollect = $("#myCollect"), arr = [];
+        if (!list || !list.length) {
+            $myCollect.siblings(".mui-data-null").removeClass("hide");
+        } else {
+            var subList = list.slice(0, 20);
+            for (var k = 0; k < subList.length; k++) {
+                var item = subList[k];
+                var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + "</a></li>";
+                arr.push($li);
+            }
+            $myCollect.html(arr.join(""));
+            if (list.length > 20) {
+                $myCollect.siblings(".btn-mui-fix").removeClass("hide");
+            }
+        }
+    }
+    module.exports = {
+        usermsg: function(data) {
+            //右侧导航栏.
+            /* ==>头像,昵称 是否会员文案提示.*/
+            $(".user-avatar img").attr("src", data.photoPicURL);
+            $(".name-wrap .name-text").html(data.nickName);
+            if (data.isVip == "1") {
+                var txt = "您的VIP将于" + data.expireTime + "到期,剩余" + data.privilege + "次下载特权";
+                $(".detail-right-normal-wel").html(txt);
+                $(".detail-right-vip-wel").html("会员尊享权益");
+                $(".btn-mui").hide();
+                $("#memProfit").html("VIP权益");
+            } else {
+                $(".mui-privilege-list li").removeClass("hide");
+            }
+        }
+    };
+});
+
+define("dist/application/method", [], function(require, exports, module) {
+    return {
+        // 常量映射表
+        keyMap: {
+            // 访问详情页 localStorage
+            ishare_detail_access: "ISHARE_DETAIL_ACCESS",
+            ishare_office_detail_access: "ISHARE_OFFICE_DETAIL_ACCESS"
+        },
+        async: function(url, callback, msg, method, data) {
+            $.ajax(url, {
+                type: method || "post",
+                data: data,
+                async: false,
+                dataType: "json",
+                headers: {
+                    "cache-control": "no-cache",
+                    Pragma: "no-cache",
+                    Authrization: this.getCookie("cuk")
+                }
+            }).done(function(data) {
+                callback && callback(data);
+            }).fail(function(e) {
+                console.log("error===" + msg);
+            });
+        },
+        get: function(u, c, m) {
+            $.ajaxSetup({
+                cache: false
+            });
+            this.async(u, c, m, "get");
+        },
+        post: function(u, c, m, g, d) {
+            this.async(u, c, m, g, d);
+        },
+        postd: function(u, c, d) {
+            this.async(u, c, false, false, d);
+        },
+        //随机数
+        random: function(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        },
+        // 写cookie（过期时间）
+        setCookieWithExpPath: function(name, value, timeOut, path) {
+            var now = new Date();
+            now.setTime(now.getTime() + timeOut);
+            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + now.toGMTString();
+        },
+        //提供360结算方法
+        setCookieWithExp: function(name, value, timeOut, path) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + timeOut);
+            if (path) {
+                document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+            } else {
+                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+            }
+        },
+        //读 cookie
+        getCookie: function(name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
+                return unescape(arr[2]);
+            }
+            return null;
+        },
+        //删除cookie
+        delCookie: function(name, path, domain) {
+            var now = new Date();
+            now.setTime(now.getTime() - 1);
+            var cval = this.getCookie(name);
+            if (cval != null) {
+                if (path && domain) {
+                    document.cookie = name + "= '' " + ";domain=" + domain + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else if (path) {
+                    document.cookie = name + "= '' " + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else {
+                    document.cookie = name + "=" + cval + ";expires=" + now.toGMTString();
+                }
+            }
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        url2Obj: function(url) {
+            var obj = {};
+            var arr1 = url.split("?");
+            var arr2 = arr1[1].split("&");
+            for (var i = 0; i < arr2.length; i++) {
+                var res = arr2[i].split("=");
+                obj[res[0]] = res[1];
+            }
+            return obj;
+        },
+        //获取url中参数的值
+        getParam: function(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return "";
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        },
+        // 获取本地 localStorage 数据
+        getLocalData: function(key) {
+            try {
+                if (localStorage && localStorage.getItem) {
+                    var val = localStorage.getItem(key);
+                    return val === null ? null : JSON.parse(val);
+                } else {
+                    console.log("浏览器不支持html localStorage getItem");
+                    return null;
+                }
+            } catch (e) {
+                return null;
+            }
+        },
+        // 获取本地 localStorage 数据
+        setLocalData: function(key, val) {
+            if (localStorage && localStorage.setItem) {
+                localStorage.removeItem(key);
+                localStorage.setItem(key, JSON.stringify(val));
+            } else {
+                console.log("浏览器不支持html localStorage setItem");
+            }
+        },
+        // 浏览器环境判断
+        browserType: function() {
+            var userAgent = navigator.userAgent;
+            //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            if (isOpera) {
+                //判断是否Opera浏览器
+                return "Opera";
+            }
+            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+                //判断是否IE浏览器
+                return "IE";
+            }
+            if (userAgent.indexOf("Edge") > -1) {
+                //判断是否IE的Edge浏览器
+                return "Edge";
+            }
+            if (userAgent.indexOf("Firefox") > -1) {
+                //判断是否Firefox浏览器
+                return "Firefox";
+            }
+            if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) {
+                //判断是否Safari浏览器
+                return "Safari";
+            }
+            if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1) {
+                //判断Chrome浏览器
+                return "Chrome";
+            }
+        },
+        //判断IE9以下浏览器
+        validateIE9: function() {
+            return !!($.browser.msie && ($.browser.version === "9.0" || $.browser.version === "8.0" || $.browser.version === "7.0" || $.browser.version === "6.0"));
+        },
+        // 计算两个2个时间相差的天数
+        compareTime: function(startTime, endTime) {
+            if (!startTime || !endTime) return "";
+            return Math.abs((endTime - startTime) / 1e3 / 60 / 60 / 24);
+        },
+        // 修改参数 有参数则修改 无则加
+        changeURLPar: function(url, arg, arg_val) {
+            var pattern = arg + "=([^&]*)";
+            var replaceText = arg + "=" + arg_val;
+            if (url.match(pattern)) {
+                var tmp = "/(" + arg + "=)([^&]*)/gi";
+                tmp = url.replace(eval(tmp), replaceText);
+                return tmp;
+            } else {
+                if (url.match("[?]")) {
+                    return url + "&" + replaceText;
+                } else {
+                    return url + "?" + replaceText;
+                }
+            }
+        },
+        //获取url全部参数
+        getUrlAllParams: function(urlStr) {
+            if (typeof urlStr == "undefined") {
+                var url = decodeURI(location.search);
+            } else {
+                var url = "?" + urlStr.split("?")[1];
+            }
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        /**
+         * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
+         * @param url
+         * @param flag 是否新窗口打开
+         */
+        compatibleIESkip: function(url, flag) {
+            var referLink = document.createElement("a");
+            referLink.href = url;
+            referLink.style.display = "none";
+            if (flag) {
+                referLink.target = "_blank";
+            }
+            document.body.appendChild(referLink);
+            referLink.click();
+        },
+        testEmail: function(val) {
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if (reg.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        testPhone: function(val) {
+            if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        handleRecommendData: function(list) {
+            var arr = [];
+            $(list).each(function(index, item) {
+                var temp = {};
+                if (item.type == 1) {
+                    // 资料 
+                    // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
+                    item.linkUrl = "/f/" + item.tprId + ".html";
+                    temp = item;
+                }
+                if (item.type == 2) {
+                    // 链接
+                    temp = item;
+                }
+                if (item.type == 3) {
+                    // 专题页
+                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
+                    item.linkUrl = "/node/s/" + item.tprId + ".html";
+                    temp = item;
+                }
+                arr.push(temp);
+            });
+            console.log(arr);
+            return arr;
+        },
+        formatDate: function(fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                //月份
+                "d+": this.getDate(),
+                //日
+                "h+": this.getHours(),
+                //小时
+                "m+": this.getMinutes(),
+                //分
+                "s+": this.getSeconds(),
+                //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                //季度
+                S: this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            return fmt;
+        },
+        getReferrer: function() {
+            var referrer = document.referrer;
+            var res = "";
+            if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            }
+            return res;
+        },
+        judgeSource: function(ishareBilog) {
+            if (!ishareBilog) {
+                ishareBilog = {};
+            }
+            ishareBilog.searchEngine = "";
+            var from = "";
+            from = utils.getQueryVariable("from");
+            if (!from) {
+                from = sessionStorage.getItem("webWxFrom") || utils.getCookie("webWxFrom");
+            }
+            if (from) {
+                ishareBilog.source = from;
+                sessionStorage.setItem("webWxFrom", from);
+                sessionStorage.removeItem("webReferrer");
+            } else {
+                var referrer = sessionStorage.getItem("webReferrer") || utils.getCookie("webReferrer");
+                if (!referrer) {
+                    referrer = document.referrer;
+                }
+                if (referrer) {
+                    sessionStorage.setItem("webReferrer", referrer);
+                    sessionStorage.removeItem("webWxFrom");
+                    referrer = referrer.toLowerCase();
+                    //转为小写
+                    var webSites = new Array("google.", "baidu.", "360.", "sogou.", "shenma.", "bing.");
+                    var searchEngineArr = new Array("google", "baidu", "360", "sogou", "shenma", "bing");
+                    for (var i = 0, l = webSites.length; i < l; i++) {
+                        if (referrer.indexOf(webSites[i]) >= 0) {
+                            ishareBilog.source = "searchEngine";
+                            ishareBilog.searchEngine = searchEngineArr[i];
+                        }
+                    }
+                }
+                if (!referrer || !ishareBilog.source) {
+                    if (utils.isWeChatBrow()) {
+                        ishareBilog.source = "wechat";
+                    } else {
+                        ishareBilog.source = "outLink";
+                    }
+                }
+            }
+            return ishareBilog;
+        }
+    };
+});
+
+/**
+ * 登录相关
+ */
+define("dist/application/checkLogin", [ "dist/application/api", "dist/application/method", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics" ], function(require, exports, module) {
+    var api = require("dist/application/api");
+    var method = require("dist/application/method");
+    var api = require("dist/application/api");
+    var showLoginDialog = require("dist/application/login").showLoginDialog;
+    require("dist/common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66");
+    var handleBaiduStatisticsPush = require("dist/common/baidu-statistics").handleBaiduStatisticsPush;
+    var loginResult = require("dist/common/bilog").loginResult;
+    module.exports = {
+        getIds: function() {
+            // 详情页
+            var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
+            var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
+            var classArr = [];
+            var clsId = params ? params.classid : "";
+            var fid = access ? access.fileId || params.g_fileId || "" : "";
+            // 类目页
+            var classIds = params && params.classIds ? params.classIds : "";
+            !clsId && (clsId = classIds);
+            return {
+                clsId: clsId,
+                fid: fid
+            };
+        },
+        /**
+         * description  唤醒登录界面
+         * @param callback 回调函数
+         */
+        notifyLoginInterface: function(callback) {
+            var _self = this;
+            if (!method.getCookie("cuk")) {
+                var ptype = window.pageConfig && window.pageConfig.page ? window.pageConfig.page.ptype || "index" : "index";
+                var clsId = this.getIds().clsId;
+                var fid = this.getIds().fid;
+                showLoginDialog({
+                    clsId: clsId,
+                    fid: fid
+                }, function() {
+                    console.log("loginCallback");
+                    _self.getLoginData(callback);
+                });
+            }
+        },
+        listenLoginStatus: function(callback) {
+            var _self = this;
+            $.loginPop("login_wx_code", {
+                terminal: "PC",
+                businessSys: "ishare",
+                domain: document.domain,
+                ptype: "ishare",
+                popup: "hidden",
+                clsId: this.getIds().clsId,
+                fid: this.getIds().fid
+            }, function() {
+                _self.getLoginData(callback);
+            });
+        },
+        /**
+        * description  优惠券提醒 查询用户发券资格-pc
+        * @param callback 回调函数
+        */
+        getUserData: function(callback) {
+            if (method.getCookie("cuk")) {
+                method.get(api.coupon.querySeniority, function(res) {
+                    if (res && res.code == 0) {
+                        callback(res.data);
+                    }
+                }, "");
+            }
+        },
+        /**
+         * 获取用户信息
+         * @param callback 回调函数
+         */
+        getLoginData: function(callback) {
+            var _self = this;
+            try {
+                method.get("/node/api/getUserInfo", function(res) {
+                    // api.user.login
+                    if (res.code == 0 && res.data) {
+                        loginResult("", "loginResult", {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: res.data.mobile,
+                            loginResult: "1"
+                        });
+                        handleBaiduStatisticsPush("loginResult", {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: res.data.mobile,
+                            userid: res.data.userId,
+                            loginResult: "1"
+                        });
+                        if (callback && typeof callback == "function") {
+                            callback(res.data);
+                            try {
+                                window.pageConfig.params.isVip = res.data.isVip;
+                                window.pageConfig.page.uid = res.data.userId;
+                            } catch (err) {}
+                        }
+                        try {
+                            var userInfo = {
+                                uid: res.data.userId,
+                                isVip: res.data.isVip,
+                                tel: res.data.mobile
+                            };
+                            method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1e3, "/");
+                        } catch (e) {}
+                    } else {
+                        loginResult("", "loginResult", {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: "",
+                            userid: "",
+                            loginResult: "0"
+                        });
+                        handleBaiduStatisticsPush("loginResult", {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: "",
+                            userid: res.data.userId,
+                            loginResult: "0"
+                        });
+                        _self.ishareLogout();
+                    }
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        /**
+         * 退出
+         */
+        ishareLogout: function() {
+            //删域名cookie
+            method.delCookie("cuk", "/", ".sina.com.cn");
+            method.delCookie("cuk", "/", ".iask.com.cn");
+            method.delCookie("cuk", "/", ".iask.com");
+            method.delCookie("cuk", "/");
+            method.delCookie("sid", "/", ".iask.sina.com.cn");
+            method.delCookie("sid", "/", ".iask.com.cn");
+            method.delCookie("sid", "/", ".sina.com.cn");
+            method.delCookie("sid", "/", ".ishare.iask.com.cn");
+            method.delCookie("sid", "/", ".office.iask.com");
+            method.delCookie("sid_ishare", "/", ".iask.sina.com.cn");
+            method.delCookie("sid_ishare", "/", ".iask.com.cn");
+            method.delCookie("sid_ishare", "/", ".sina.com.cn");
+            method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
+            //删除第一次登录标识
+            method.delCookie("_1st_l", "/");
+            method.delCookie("ui", "/");
+            $.get(api.user.loginOut, function(res) {
+                console.log("loginOut:", res);
+                if (res.code == 0) {
+                    window.location.href = window.location.href;
+                } else {
+                    $.toast({
+                        text: res.msg,
+                        delay: 3e3
+                    });
+                }
+            });
+        }
+    };
+});
+
+/**
+ * 前端交互性API
+ **/
+define("dist/application/api", [], function(require, exports, module) {
+    var router = "/gateway/pc";
+    var gateway = "/gateway";
+    module.exports = {
+        // 用户相关
+        user: {
+            // 登录
+            loginByPsodOrVerCode: gateway + "/cas/login/authorize",
+            // 通过密码和验证码登录
+            getLoginQrcode: gateway + "/cas/login/qrcode",
+            // 生成公众号登录二维码
+            loginByWeChat: gateway + "/cas/login/gzhScan",
+            // 公众号扫码登录
+            getUserInfo: "/node/api/getUserInfo",
+            // node聚合的接口获取用户信息
+            thirdLoginRedirect: gateway + "/cas/login/redirect",
+            // 根据第三方授权的code,获取 access_token
+            // login: router + '/usermanage/checkLogin',
+            // 登出
+            loginOut: gateway + "/cas/login/logout",
+            // 我的收藏
+            newCollect: gateway + "/content/collect/getUserFileList",
+            // 透传老系统web登录信息接口
+            // getJessionId: router + '/usermanage/getJessionId',
+            //优惠券提醒
+            // getSessionInfo: router + '/usermanage/getSessionInfo',
+            addFeedback: gateway + "/feedback/addFeedback",
+            //新增反馈
+            getFeedbackType: gateway + "/feedback/getFeedbackType",
+            //获取反馈问题类型
+            sendSms: gateway + "/cas/sms/sendSms",
+            // 发送短信验证码
+            queryBindInfo: gateway + "/cas/user/queryBindInfo",
+            // 查询用户绑定信息
+            thirdCodelogin: gateway + "/cas/login/thirdCode",
+            // /cas/login/thirdCode 第三方授权
+            userBindMobile: gateway + "/cas/user/bindMobile",
+            // 绑定手机号接口
+            checkIdentity: gateway + "/cas/sms/checkIdentity",
+            // 身份验证账号
+            userBindThird: gateway + "/cas/user/bindThird",
+            // 绑定第三方账号接口
+            untyingThird: gateway + "/cas/user/untyingThird",
+            // 解绑第三方
+            setUpPassword: gateway + "/cas/user/setUpPassword",
+            // 设置密码
+            getUserCentreInfo: gateway + "/user/getUserCentreInfo",
+            editUser: gateway + "/user/editUser",
+            // 编辑用户信息
+            getFileBrowsePage: gateway + "/content/fileBrowse/getFileBrowsePage",
+            //分页获取用户的历史浏览记录
+            getDownloadRecordList: gateway + "/content/getDownloadRecordList",
+            //用户下载记录接口
+            getUserFileList: gateway + "/content/collect/getUserFileList",
+            // 查询个人收藏列表
+            getMyUploadPage: gateway + "/content/getMyUploadPage",
+            // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
+            getOtherUser: gateway + "/user/getOthersCentreInfo",
+            //他人信息主页 
+            getSearchList: gateway + "/search/content/byCondition"
+        },
+        normalFileDetail: {
+            // 添加评论
+            // addComment: router + '/fileSync/addComment',
+            // 举报
+            // reportContent: router + '/fileSync/addFeedback',
+            // 是否已收藏
+            // isStore: router + '/fileSync/getFileCollect',
+            // 取消或者关注
+            // collect: router + '/fileSync/collect',
+            // 文件预下载
+            filePreDownLoad: gateway + "/content/getPreFileDownUrl",
+            // 文件下载
+            // fileDownLoad: router + '/action/downloadUrl',  
+            // 下载获取地址接口
+            getFileDownLoadUrl: gateway + "/content/getFileDownUrl",
+            // 文件打分
+            // appraise: router + '/fileSync/appraise',
+            // 文件预览判断接口
+            // getPrePageInfo: router + '/fileSync/prePageInfo',
+            getPrePageInfo: gateway + "/content/file/getPrePageInfo"
+        },
+        officeFileDetail: {},
+        search: {
+            //搜索服务--API接口--运营位数据--异步
+            // byPosition: router + '/operating/byPosition',
+            specialTopic: gateway + "/search/specialTopic/lisPage"
+        },
+        sms: {
+            // 获取短信验证码
+            // getCaptcha: router + '/usermanage/getSmsYzCode',
+            sendCorpusDownloadMail: gateway + "/content/fileSendEmail/sendCorpusDownloadMail"
+        },
+        pay: {
+            // 购买成功后,在页面自动下载文档
+            // successBuyDownLoad: router + '/action/downloadNow',
+            // 绑定订单
+            bindUser: gateway + "/order/bind/loginUser",
+            scanOrderInfo: gateway + "/order/scan/orderInfo"
+        },
+        coupon: {
+            rightsSaleVouchers: gateway + "/rights/sale/vouchers",
+            rightsSaleQueryPersonal: gateway + "/rights/sale/queryPersonal",
+            querySeniority: gateway + "/rights/sale/querySeniority",
+            queryUsing: gateway + "/rights/sale/queryUsing",
+            getMemberPointRecord: gateway + "/rights/vip/getMemberPointRecord",
+            getBuyRecord: gateway + "/rights/vip/getBuyRecord"
+        },
+        // vouchers:router+'/sale/vouchers',
+        order: {
+            // bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+            bindOrderByOrderNo: gateway + "/order/bind/byOrderNo",
+            unloginOrderDown: router + "/order/unloginOrderDown",
+            createOrderInfo: gateway + "/order/create/orderInfo",
+            rightsVipGetUserMember: gateway + "/rights/vip/getUserMember",
+            getOrderStatus: gateway + "/order/get/orderStatus",
+            queryOrderlistByCondition: gateway + "/order/query/listByCondition",
+            getOrderInfo: gateway + "/order/get/orderInfo"
+        },
+        // getHotSearch:router+'/search/getHotSearch',
+        getHotSearch: gateway + "/cms/search/content/hotWords",
+        special: {
+            fileSaveOrupdate: gateway + "/comment/collect/fileSaveOrupdate",
+            // 收藏与取消收藏
+            getCollectState: gateway + "/comment/zc/getUserFileZcState",
+            //获取收藏状态
+            setCollect: gateway + "/content/collect/file"
+        },
+        upload: {
+            getCategory: gateway + "/content/category/getSimplenessInfo",
+            // 获取所有分类
+            createFolder: gateway + "/content/saveUserFolder",
+            // 获取所有分类
+            getFolder: gateway + "/content/getUserFolders",
+            // 获取所有分类
+            saveUploadFile: gateway + "/content/webUploadFile",
+            batchDeleteUserFile: gateway + "/content/batchDeleteUserFile"
+        },
+        recommend: {
+            recommendConfigInfo: gateway + "/recommend/config/info",
+            recommendConfigRuleInfo: gateway + "/recommend/config/ruleInfo"
+        },
+        reportBrowse: {
+            fileBrowseReportBrowse: gateway + "/content/fileBrowse/reportBrowse"
+        },
+        mywallet: {
+            getAccountBalance: gateway + "/account/balance/getGrossIncome",
+            // 账户余额信息
+            withdrawal: gateway + "/account/with/apply",
+            // 申请提现
+            getWithdrawalRecord: gateway + "/account/withd/getPersonList",
+            // 查询用户提现记录
+            editFinanceAccount: gateway + "/account/finance/edit",
+            // 编辑用户财务信息
+            getFinanceAccountInfo: gateway + "/account/finance/getInfo",
+            // 查询用户财务信息
+            getPersonalAccountTax: gateway + "/account/tax/getPersonal",
+            // 查询个人提现扣税结算
+            getPersonalAccountTax: gateway + "/account/tax/getPersonal",
+            // 查询个人提现扣税结算
+            getMyWalletList: gateway + "/settlement/settle/getMyWalletList",
+            // 我的钱包收入
+            exportMyWalletDetail: gateway + "/settlement/settle/exportMyWalletDetail"
+        }
+    };
+});
+
+define("dist/application/login", [ "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/application/method", "dist/report/config", "dist/application/api", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone" ], function(require, exports, module) {
+    require("dist/cmd-lib/jqueryMd5");
+    myWindow = "";
+    // 保存第三方授权时,打开的标签
+    var smsId = "";
+    // 验证码
+    var myWindow = "";
+    // 保存 openWindow打开的对象
+    var sceneId = "";
+    // 微信二维码的场景id
+    var mobile = "";
+    // 获取验证码手机号
+    var businessCode = "";
+    // 获取验证码的场景
+    var timer = null;
+    // 二维码过期
+    var setIntervalTimer = null;
+    // 保存轮询微信登录的定时器
+    var expires_in = "";
+    // 二位码过期时间
+    var loginCallback = null;
+    // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
+    var touristLoginCallback = null;
+    // 保存游客登录的传入的回调函数
+    var normalPageView = require("dist/common/bilog").normalPageView;
+    window.loginType = {
+        type: "wechat",
+        values: {
+            0: "wechat",
+            //微信登录
+            1: "qq",
+            //qq登录
+            2: "weibo",
+            //微博登录
+            3: "phoneCode",
+            //手机号+验证码
+            4: "phonePw"
+        }
+    };
+    //   保存登录方式在 登录数上报时使用
+    var api = require("dist/application/api");
+    var method = require("dist/application/method");
+    require("dist/cmd-lib/myDialog");
+    require("dist/cmd-lib/toast");
+    var showCaptcha = require("dist/common/bindphone").showCaptcha;
+    $(document).on("click", "#dialog-box .login-type-list .login-type-weixin .weixin-icon", function(e) {
+        // 切换到微信登录
+        $("#dialog-box .login-content .verificationCode-login").hide();
+        $("#dialog-box .login-content .password-login").hide();
+        $("#dialog-box .login-content .weixin-login").show();
+        window.loginType.type = window.loginType.values[0];
+    });
+    $(document).on("click", "#dialog-box .login-type-list .login-type-verificationCode", function(e) {
+        // 切换到验证码
+        $("#dialog-box .login-content .password-login").hide();
+        $("#dialog-box .login-content .weixin-login").hide();
+        $("#dialog-box .login-content .verificationCode-login").show();
+        window.loginType.type = window.loginType.values[3];
+    });
+    $(document).on("click", "#dialog-box .login-type-list .login-type-password", function(e) {
+        // 切换到密码登录
+        $("#dialog-box .login-content .weixin-login").hide();
+        $("#dialog-box .login-content .verificationCode-login").hide();
+        $("#dialog-box .login-content .password-login").show();
+        window.loginType.type = window.loginType.values[4];
+    });
+    $(document).on("click", "#dialog-box .login-type-list .login-type", function() {
+        // 第三方登录
+        var loginType = $(this).attr("data-logintype");
+        // qq  weibo
+        if (loginType) {
+            handleThirdCodelogin(loginType);
+            if (loginType == "qq") {
+                window.loginType.type = window.loginType.values[1];
+            }
+            if (loginType == "weibo") {
+                window.loginType.type = window.loginType.values[2];
+            }
+        }
+    });
+    $(document).on("click", "#dialog-box .login-btn", function(e) {
+        //  密码和验证码登录
+        var logintype = $(this).attr("data-logintype");
+        if (logintype == "verificationCode") {
+            var nationCode = $("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/, "").trim();
+            var checkCode = $("#dialog-box .verificationCode-login .verification-code").val();
+            var mobile = $("#dialog-box .verificationCode-login .telphone").val().trim();
+            if (!method.testPhone(mobile) && nationCode == "86") {
+                showErrorTip("verificationCode-login", true, "手机号错误");
+                return;
+            }
+            if (!checkCode || checkCode && checkCode.length !== 4) {
+                showErrorTip("verificationCode-login", true, "验证码错误");
+                return;
+            }
+            showErrorTip("verificationCode-login", false, "");
+            loginByPsodOrVerCode("codeLogin", mobile, nationCode, smsId, checkCode, "");
+            // mobile 在获取验证码时 在全局mobile保存
+            return;
+        }
+        if (logintype == "password") {
+            // mobile
+            var nationCode = $("#dialog-box .password-login .phone-num").text().replace(/\+/, "").trim();
+            var password = $("#dialog-box .password-login .password .login-password:visible").val().trim();
+            var mobile = $("#dialog-box .password-login .telphone").val().trim();
+            if (!method.testPhone(mobile) && nationCode == 86) {
+                showErrorTip("password-login", true, "手机号错误");
+                return;
+            }
+            loginByPsodOrVerCode("ppLogin", mobile, nationCode, "", "", password);
+            return;
+        }
+    });
+    $(document).on("click", ".qr-refresh", function(e) {
+        // 刷新微信登录二维码   包括游客登录页面
+        getLoginQrcode("", "", true);
+    });
+    $(document).on("click", "#dialog-box .getVerificationCode", function(e) {
+        // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
+        var authenticationCodeType = $(this).attr("data-authenticationCodeType");
+        var telphone = $("#dialog-box .verificationCode-login .input-mobile .telphone").val();
+        var nationCode = $("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/, "").trim();
+        if (nationCode == "86") {
+            if (!method.testPhone(telphone)) {
+                showErrorTip("verificationCode-login", true, "手机号错误");
+                return;
+            } else {
+                showErrorTip("verificationCode-login", false, "");
+            }
+            if (authenticationCodeType == 0 || authenticationCodeType == 2) {
+                // 获取验证码 
+                businessCode = 4;
+                sendSms();
+            }
+        } else {
+            if (authenticationCodeType == 0 || authenticationCodeType == 2) {
+                // 获取验证码 
+                businessCode = 4;
+                sendSms();
+            }
+        }
+    });
+    $(document).on("input", "#dialog-box .verificationCode-login .telphone", function(e) {
+        mobile = $(this).val();
+        var verificationCode = $("#dialog-box .verificationCode-login .verification-code").val();
+        var nationCode = $("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/, "").trim();
+        if (mobile.length > 11) {
+            $("#dialog-box .telphone").val(mobile.slice(0, 11));
+        }
+        if (nationCode == "86") {
+            // 国内号码
+            if (method.testPhone(mobile.slice(0, 11))) {
+                showErrorTip("verificationCode-login", false, "");
+                $("#dialog-box .getVerificationCode").addClass("getVerificationCode-active");
+                if (verificationCode && verificationCode.length >= 4) {
+                    $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable");
+                    $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active");
+                }
+            } else {
+                if (mobile && mobile.length >= 11) {
+                    showErrorTip("verificationCode-login", true, "手机号错误");
+                    return;
+                }
+                $("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active");
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable");
+            }
+        } else {
+            if (mobile) {
+                $("#dialog-box .getVerificationCode").addClass("getVerificationCode-active");
+                if (verificationCode && verificationCode.length >= 4) {
+                    $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable");
+                    $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active");
+                }
+            } else {
+                $("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active");
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable");
+            }
+        }
+    });
+    $(document).on("input", "#dialog-box .verification-code", function(e) {
+        // 
+        var nationCode = $("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/, "").trim();
+        mobile = $("#dialog-box .verificationCode-login .telphone").val();
+        verificationCode = $(this).val();
+        if (verificationCode.length > 4) {
+            $("#dialog-box .verification-code").val(verificationCode.slice(0, 4));
+        }
+        if (verificationCode && verificationCode.length >= 4) {
+            showErrorTip("verificationCode-login", false, "");
+        }
+        if (nationCode == "86") {
+            if (verificationCode && verificationCode.length >= 4 && method.testPhone(mobile)) {
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active");
+            } else {
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable");
+            }
+        } else {
+            if (verificationCode && verificationCode.length >= 4 && mobile) {
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-disable");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-active");
+            } else {
+                $("#dialog-box .verificationCode-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .verificationCode-login .login-btn").addClass("login-btn-disable");
+            }
+        }
+    });
+    $(document).on("input", "#dialog-box .password-login .telphone", function() {
+        // 
+        var nationCode = $("#dialog-box .password-login .phone-num").text().replace(/\+/, "").trim();
+        mobile = $(this).val();
+        if (mobile.length > 11) {
+            $("#dialog-box .password-login .telphone").val(mobile.slice(0, 11));
+        }
+        if (nationCode == "86") {
+            if (method.testPhone(mobile.slice(0, 11))) {
+                showErrorTip("password-login", false, "");
+                // 此时密码格式正确
+                var loginPassword = $("#dialog-box .password-login .password .login-password:visible").val();
+                if (loginPassword && loginPassword.length >= 6 && loginPassword && loginPassword.length <= 8) {
+                    $("#dialog-box .password-login .login-btn").removeClass("login-btn-disable");
+                    $("#dialog-box .password-login .login-btn").addClass("login-btn-active");
+                }
+            } else {
+                if (mobile && mobile.length >= 11) {
+                    showErrorTip("password-login", true, "手机号错误");
+                    return;
+                }
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-disable");
+            }
+        } else {
+            if (mobile) {
+                showErrorTip("password-login", false, "");
+                if (loginPassword && loginPassword.length >= 6 && loginPassword && loginPassword.length <= 8) {
+                    $("#dialog-box .password-login .login-btn").removeClass("login-btn-disable");
+                    $("#dialog-box .password-login .login-btn").addClass("login-btn-active");
+                }
+            } else {
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-disable");
+            }
+        }
+    });
+    $(document).on("input", "#dialog-box .password-login .login-password", function() {
+        var nationCode = $("#dialog-box .password-login .phone-num").text().replace(/\+/, "").trim();
+        var password = $(this).val();
+        var telphone = $("#dialog-box .password-login .telphone").val();
+        if (password && password.length > 0) {
+            $("#dialog-box .password-login .password .eye").show();
+        } else {
+            $("#dialog-box .password-login .password .close-eye").hide();
+        }
+        if (password.length > 16) {
+            $("#dialog-box .password-login .login-password").val(password.slice(0, 16));
+        }
+        if (nationCode == "86") {
+            if (method.testPhone(telphone) && password) {
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-disable");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-active");
+            } else {
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-disable");
+            }
+        } else {
+            if (telphone && password) {
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-disable");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-active");
+            } else {
+                $("#dialog-box .password-login .login-btn").removeClass("login-btn-active");
+                $("#dialog-box .password-login .login-btn").addClass("login-btn-disable");
+            }
+        }
+    });
+    $(document).on("click", "#dialog-box .password-login .close-eye", function() {
+        var textInput = $("#dialog-box .password-login .text-input");
+        textInput.hide();
+        $("#dialog-box .password-login .password-input").val(textInput.val());
+        $("#dialog-box .password-login .password-input").show();
+        $("#dialog-box .password-login .password .close-eye").hide();
+        $("#dialog-box .password-login .password .eye").show();
+    });
+    $(document).on("click", "#dialog-box .password-login .eye", function() {
+        var passwordInput = $("#dialog-box .password-login .password-input");
+        passwordInput.hide();
+        $("#dialog-box .password-login .text-input").val(passwordInput.val());
+        $("#dialog-box .password-login .text-input").show();
+        $("#dialog-box .password-login .password .eye").hide();
+        $("#dialog-box .password-login .password .close-eye").show();
+    });
+    $(document).on("click", "#dialog-box  .close-btn", function(e) {
+        closeRewardPop();
+    });
+    $(document).on("click", "#dialog-box .tourist-purchase-dialog .tabs .tab", function(e) {
+        var dataType = $(this).attr("data-type");
+        $("#dialog-box .tourist-purchase-dialog .tabs .tab").removeClass("tab-active");
+        $(this).addClass("tab-active");
+        if (dataType == "tourist-purchase") {
+            $("#dialog-box .tourist-purchase-dialog .login-content").hide();
+            $("#dialog-box .tourist-purchase-dialog .tourist-purchase-content").show();
+        }
+        if (dataType == "login-purchase") {
+            normalPageView("loginResultPage");
+            $("#dialog-box .tourist-purchase-dialog .tourist-purchase-content").hide();
+            $("#dialog-box .tourist-purchase-dialog .login-content").show();
+        }
+    });
+    // 选择区号的逻辑 
+    $(document).on("click", "#dialog-box .phone-choice", function(e) {
+        $(this).addClass("phone-choice-show");
+        $("#dialog-box .phone-more").show();
+        return false;
+    });
+    $(document).on("click", "#dialog-box .phone-more .phone-ele", function(e) {
+        var areaNum = $(this).find(".number-con em").text();
+        $("#dialog-box .phone-choice .phone-num .add").text("+" + areaNum);
+        $("#dialog-box .phone-choice").removeClass("phone-choice-show");
+        $("#dialog-box .phone-more").hide();
+        $("#dialog-box input").val("");
+        $("#dialog-box .getVerificationCode").removeClass("getVerificationCode-active");
+        $("#dialog-box .login-btn").removeClass("login-btn-active");
+        $("#dialog-box .login-btn").addClass("login-btn-disable");
+        showErrorTip("verificationCode-login", false, "");
+        showErrorTip("password-login", false, "");
+        return false;
+    });
+    $(document).on("click", ".login-dialog", function(e) {
+        $("#dialog-box .phone-choice").removeClass("phone-choice-show");
+        $("#dialog-box .phone-more").hide();
+    });
+    $(document).on("click", ".login-content", function(e) {
+        $("#dialog-box .phone-choice").removeClass("phone-choice-show");
+        $("#dialog-box .phone-more").hide();
+    });
+    function closeRewardPop() {
+        $(".common-bgMask").hide();
+        $(".detail-bg-mask").hide();
+        $("#dialog-box").hide();
+        clearInterval(setIntervalTimer);
+    }
+    function showErrorTip(type, isShow, msg) {
+        if (isShow) {
+            if (type == "verificationCode-login") {
+                $("#dialog-box .verificationCode-login .errortip .error-tip").text(msg);
+                $("#dialog-box .verificationCode-login .errortip").show();
+            } else if (type == "password-login") {
+                $("#dialog-box .password-login .errortip .error-tip").text(msg);
+                $("#dialog-box .password-login .errortip").show();
+            }
+        } else {
+            if (type == "verificationCode-login") {
+                $("#dialog-box .verificationCode-login .errortip .error-tip").text("");
+                $("#dialog-box .verificationCode-login .errortip").hide();
+            } else if (type == "password-login") {
+                $("#dialog-box .password-login .errortip .error-tip").text("");
+                $("#dialog-box .password-login .errortip").hide();
+            }
+        }
+    }
+    // 微信登录
+    function getLoginQrcode(cid, fid, isqrRefresh, isTouristLogin, callback) {
+        // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
+        $.ajax({
+            url: api.user.getLoginQrcode,
+            type: "POST",
+            data: JSON.stringify({
+                cid: cid || "",
+                site: "1",
+                fid: fid || "",
+                sceneId: sceneId,
+                domain: encodeURIComponent(document.domain)
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    isShowQrInvalidtip(false);
+                    expires_in = res.data && res.data.expires_in;
+                    sceneId = res.data && res.data.sceneId;
+                    countdown();
+                    if (isTouristLogin || isqrRefresh) {
+                        $(".tourist-login .qrcode-default").hide();
+                        $(".tourist-login #login-qr").attr("src", res.data.url);
+                        $(".tourist-login #login-qr").show();
+                        if (callback) {
+                            touristLoginCallback = callback;
+                        }
+                    } else {
+                        $("#dialog-box .qrcode-default").hide();
+                        $("#dialog-box #login-qr").attr("src", res.data.url);
+                        $("#dialog-box #login-qr").show();
+                    }
+                    setIntervalTimer = setInterval(function() {
+                        loginByWeChat();
+                    }, 4e3);
+                } else {
+                    clearInterval(setIntervalTimer);
+                    $.toast({
+                        text: res.msg,
+                        delay: 3e3
+                    });
+                }
+            },
+            error: function(error) {
+                $.toast({
+                    text: error.msg || "生成二维码接口错误",
+                    delay: 3e3
+                });
+            }
+        });
+    }
+    function isShowQrInvalidtip(flag) {
+        // 普通微信登录  游客微信登录
+        if (flag) {
+            $(".login-qrContent .login-qr-invalidtip").show();
+            $(".login-qrContent .qr-invalidtip").show();
+            $(".login-qrContent .qr-refresh").show();
+        } else {
+            $(".login-qrContent .login-qr-invalidtip").hide();
+            $(".login-qrContent .qr-invalidtip").hide();
+            $(".login-qrContent .qr-refresh").hide();
+        }
+    }
+    function countdown() {
+        // 二维码失效倒计时
+        if (expires_in <= 0) {
+            clearTimeout(timer);
+            clearInterval(setIntervalTimer);
+            $("#dialog-box .qrcode-default").hide();
+            isShowQrInvalidtip(true);
+        } else {
+            expires_in--;
+            timer = setTimeout(countdown, 1e3);
+        }
+    }
+    function loginByWeChat(cid, fid) {
+        // 微信扫码登录  返回 access_token 通过 access_token(cuk)
+        $.ajax({
+            url: api.user.loginByWeChat,
+            type: "POST",
+            data: JSON.stringify({
+                sceneId: sceneId,
+                // 公众号登录二维码id
+                site: "1",
+                site: "1",
+                cid: cid,
+                fid: fid || "1816",
+                domain: encodeURIComponent(document.domain)
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    clearInterval(setIntervalTimer);
+                    method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in * 1e3, "/");
+                    closeRewardPop();
+                    loginCallback && loginCallback();
+                    touristLoginCallback && touristLoginCallback();
+                    $.ajaxSetup({
+                        headers: {
+                            Authrization: method.getCookie("cuk")
+                        }
+                    });
+                } else {
+                    if (res.code != "411046") {
+                        //  411046 用户未登录
+                        clearInterval(setIntervalTimer);
+                        $.toast({
+                            text: res.msg,
+                            delay: 3e3
+                        });
+                    }
+                }
+            },
+            error: function(error) {
+                $.toast({
+                    text: error.msg || "公众号登录二维码",
+                    delay: 3e3
+                });
+            }
+        });
+    }
+    // QQ 微博 登录
+    function handleThirdCodelogin(loginType) {
+        var clientCode = loginType;
+        var channel = 1;
+        // 使用渠道：1:登录；2:绑定
+        var locationUrl = window.location.origin ? window.location.origin : window.location.protocol + "//" + window.location.hostname;
+        var location = locationUrl + "/node/redirectionURL.html" + "?clientCode=" + clientCode;
+        var url = locationUrl + api.user.thirdCodelogin + "?clientCode=" + clientCode + "&channel=" + channel + "&terminal=pc" + "&businessSys=ishare" + "&location=" + encodeURIComponent(location);
+        openWindow(url);
+    }
+    function openWindow(url) {
+        // 第三方打开新的标签页
+        var iWidth = 585;
+        var iHeight = 525;
+        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+        var param = "height=" + iHeight + ",width=" + iWidth + ",top=" + iTop + ",left=" + iLeft + ",toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes";
+        myWindow = window.open(url, "", param);
+    }
+    function thirdLoginRedirect(code, channel, clientCode) {
+        // 根据授权code 获取 access_token
+        $.ajax({
+            url: api.user.thirdLoginRedirect,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                terminal: "0",
+                thirdType: clientCode,
+                code: code,
+                businessSys: "ishare"
+            }),
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    method.setCookieWithExpPath("cuk", res.data && res.data.access_token, res.data.expires_in * 1e3, "/");
+                    closeRewardPop();
+                    loginCallback && loginCallback();
+                    touristLoginCallback && touristLoginCallback();
+                    myWindow.close();
+                    $.ajaxSetup({
+                        headers: {
+                            Authrization: method.getCookie("cuk")
+                        }
+                    });
+                } else {
+                    $.toast({
+                        text: res.msg,
+                        delay: 3e3
+                    });
+                    myWindow.close();
+                }
+            },
+            error: function(error) {
+                myWindow.close();
+                $.toast({
+                    text: error.msg,
+                    delay: 3e3
+                });
+            }
+        });
+    }
+    window.thirdLoginRedirect = thirdLoginRedirect;
+    function sendSms(appId, randstr, ticket, onOff) {
+        // 发送短信验证码
+        $.ajax({
+            url: api.user.sendSms,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                mobile: mobile,
+                nationCode: $("#dialog-box .verificationCode-login .phone-num").text().replace(/\+/, "").trim(),
+                businessCode: businessCode,
+                // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
+                terminal: "pc",
+                appId: appId,
+                randstr: randstr,
+                ticket: ticket,
+                onOff: onOff
+            }),
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    smsId = res.data.smsId;
+                    var authenticationCode = $("#dialog-box .getVerificationCode");
+                    authenticationCode.attr("data-authenticationCodeType", 1);
+                    // 获取验证码
+                    var timer = null;
+                    var textNumber = 60;
+                    (function countdown() {
+                        if (textNumber <= 0) {
+                            clearTimeout(timer);
+                            authenticationCode.text("重新获取验证码");
+                            authenticationCode.css({
+                                "font-size": "13px",
+                                color: "#fff",
+                                "border-color": "#eee"
+                            });
+                            authenticationCode.attr("data-authenticationCodeType", 2);
+                        } else {
+                            authenticationCode.text(textNumber--);
+                            authenticationCode.css({
+                                color: "#fff",
+                                "border-color": "#eee"
+                            });
+                            timer = setTimeout(countdown, 1e3);
+                        }
+                    })();
+                } else if (res.code == "411015") {
+                    // 单日ip获取验证码超过三次
+                    showCaptcha(sendSms);
+                } else if (res.code == "411033") {
+                    // 图形验证码错误
+                    $.toast({
+                        text: "图形验证码错误",
+                        delay: 3e3
+                    });
+                } else {
+                    $.toast({
+                        text: res.msg,
+                        delay: 3e3
+                    });
+                }
+            },
+            error: function(error) {
+                $.toast({
+                    text: error.msg || "获取验证码错误",
+                    delay: 3e3
+                });
+            }
+        });
+    }
+    function loginByPsodOrVerCode(loginType, mobile, nationCode, smsId, checkCode, password) {
+        // 通过密码或验证码登录
+        $.ajax({
+            url: api.user.loginByPsodOrVerCode,
+            type: "POST",
+            data: JSON.stringify({
+                loginType: loginType,
+                terminal: "pc",
+                mobile: mobile,
+                nationCode: nationCode,
+                smsId: smsId,
+                checkCode: checkCode,
+                password: $.md5(password)
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in * 1e3, "/");
+                    closeRewardPop();
+                    loginCallback && loginCallback();
+                    touristLoginCallback && touristLoginCallback();
+                    $.ajaxSetup({
+                        headers: {
+                            Authrization: method.getCookie("cuk")
+                        }
+                    });
+                } else {
+                    if (checkCode) {
+                        showErrorTip("verificationCode-login", true, res.msg);
+                    } else {
+                        showErrorTip("password-login", true, res.msg);
+                    }
+                }
+            },
+            error: function(error) {
+                $.toast({
+                    text: error.msg || "验证码或密码登录错误",
+                    delay: 3e3
+                });
+            }
+        });
+    }
+    function showLoginDialog(params, callback) {
+        loginCallback = callback;
+        var loginDialog = $("#login-dialog");
+        normalPageView("loginResultPage");
+        $("#dialog-box").dialog({
+            html: loginDialog.html(),
+            closeOnClickModal: false
+        }).open(getLoginQrcode(params.clsId, params.fid));
+    }
+    function showTouristPurchaseDialog(params, callback) {
+        // 游客购买的回调函数
+        touristLoginCallback = callback;
+        var touristPurchaseDialog = $("#tourist-purchase-dialog");
+        $("#dialog-box").dialog({
+            html: touristPurchaseDialog.html(),
+            closeOnClickModal: false
+        }).open(getLoginQrcode(params.clsId, params.fid));
+    }
+    return {
+        showLoginDialog: showLoginDialog,
+        showTouristPurchaseDialog: showTouristPurchaseDialog,
+        getLoginQrcode: getLoginQrcode
+    };
+});
+
+/**
+* jQuery MD5 hash algorithm function
+* 
+* <code>
+* Calculate the md5 hash of a String 
+* String $.md5 ( String str )
+* </code>
+* 
+* Calculates the MD5 hash of str using the 绂� RSA Data Security, Inc. MD5 Message-Digest Algorithm, and returns that hash. 
+* MD5 (Message-Digest algorithm 5) is a widely-used cryptographic hash function with a 128-bit hash value. MD5 has been employed in a wide variety of security applications, and is also commonly used to check the integrity of data. The generated hash is also non-reversable. Data cannot be retrieved from the message digest, the digest uniquely identifies the data.
+* MD5 was developed by Professor Ronald L. Rivest in 1994. Its 128 bit (16 byte) message digest makes it a faster implementation than SHA-1.
+* This script is used to process a variable length message into a fixed-length output of 128 bits using the MD5 algorithm. It is fully compatible with UTF-8 encoding. It is very useful when u want to transfer encrypted passwords over the internet. If you plan using UTF-8 encoding in your project don't forget to set the page encoding to UTF-8 (Content-Type meta tag). 
+* This function orginally get from the WebToolkit and rewrite for using as the jQuery plugin.
+* 
+* Example
+* Code
+* <code>
+* $.md5("I'm Persian."); 
+* </code>
+* Result
+* <code>
+* "b8c901d0f02223f9761016cfff9d68df"
+* </code>
+* 
+* @alias Muhammad Hussein Fattahizadeh < muhammad [AT] semnanweb [DOT] com >
+* @link http://www.semnanweb.com/jquery-plugin/md5.html
+* @see http://www.webtoolkit.info/
+* @license http://www.gnu.org/licenses/gpl.html [GNU General Public License]
+* @param {jQuery} {md5:function(string))
+* @return string
+*/
+define("dist/cmd-lib/jqueryMd5", [], function(require, exports, module) {
+    (function($) {
+        var rotateLeft = function(lValue, iShiftBits) {
+            return lValue << iShiftBits | lValue >>> 32 - iShiftBits;
+        };
+        var addUnsigned = function(lX, lY) {
+            var lX4, lY4, lX8, lY8, lResult;
+            lX8 = lX & 2147483648;
+            lY8 = lY & 2147483648;
+            lX4 = lX & 1073741824;
+            lY4 = lY & 1073741824;
+            lResult = (lX & 1073741823) + (lY & 1073741823);
+            if (lX4 & lY4) return lResult ^ 2147483648 ^ lX8 ^ lY8;
+            if (lX4 | lY4) {
+                if (lResult & 1073741824) return lResult ^ 3221225472 ^ lX8 ^ lY8; else return lResult ^ 1073741824 ^ lX8 ^ lY8;
+            } else {
+                return lResult ^ lX8 ^ lY8;
+            }
+        };
+        var F = function(x, y, z) {
+            return x & y | ~x & z;
+        };
+        var G = function(x, y, z) {
+            return x & z | y & ~z;
+        };
+        var H = function(x, y, z) {
+            return x ^ y ^ z;
+        };
+        var I = function(x, y, z) {
+            return y ^ (x | ~z);
+        };
+        var FF = function(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(F(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        };
+        var GG = function(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(G(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        };
+        var HH = function(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(H(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        };
+        var II = function(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(I(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        };
+        var convertToWordArray = function(string) {
+            var lWordCount;
+            var lMessageLength = string.length;
+            var lNumberOfWordsTempOne = lMessageLength + 8;
+            var lNumberOfWordsTempTwo = (lNumberOfWordsTempOne - lNumberOfWordsTempOne % 64) / 64;
+            var lNumberOfWords = (lNumberOfWordsTempTwo + 1) * 16;
+            var lWordArray = Array(lNumberOfWords - 1);
+            var lBytePosition = 0;
+            var lByteCount = 0;
+            while (lByteCount < lMessageLength) {
+                lWordCount = (lByteCount - lByteCount % 4) / 4;
+                lBytePosition = lByteCount % 4 * 8;
+                lWordArray[lWordCount] = lWordArray[lWordCount] | string.charCodeAt(lByteCount) << lBytePosition;
+                lByteCount++;
+            }
+            lWordCount = (lByteCount - lByteCount % 4) / 4;
+            lBytePosition = lByteCount % 4 * 8;
+            lWordArray[lWordCount] = lWordArray[lWordCount] | 128 << lBytePosition;
+            lWordArray[lNumberOfWords - 2] = lMessageLength << 3;
+            lWordArray[lNumberOfWords - 1] = lMessageLength >>> 29;
+            return lWordArray;
+        };
+        var wordToHex = function(lValue) {
+            var WordToHexValue = "", WordToHexValueTemp = "", lByte, lCount;
+            for (lCount = 0; lCount <= 3; lCount++) {
+                lByte = lValue >>> lCount * 8 & 255;
+                WordToHexValueTemp = "0" + lByte.toString(16);
+                WordToHexValue = WordToHexValue + WordToHexValueTemp.substr(WordToHexValueTemp.length - 2, 2);
+            }
+            return WordToHexValue;
+        };
+        var uTF8Encode = function(string) {
+            string = string.replace(/\x0d\x0a/g, "\n");
+            var output = "";
+            for (var n = 0; n < string.length; n++) {
+                var c = string.charCodeAt(n);
+                if (c < 128) {
+                    output += String.fromCharCode(c);
+                } else if (c > 127 && c < 2048) {
+                    output += String.fromCharCode(c >> 6 | 192);
+                    output += String.fromCharCode(c & 63 | 128);
+                } else {
+                    output += String.fromCharCode(c >> 12 | 224);
+                    output += String.fromCharCode(c >> 6 & 63 | 128);
+                    output += String.fromCharCode(c & 63 | 128);
+                }
+            }
+            return output;
+        };
+        $.extend({
+            md5: function(string) {
+                var x = Array();
+                var k, AA, BB, CC, DD, a, b, c, d;
+                var S11 = 7, S12 = 12, S13 = 17, S14 = 22;
+                var S21 = 5, S22 = 9, S23 = 14, S24 = 20;
+                var S31 = 4, S32 = 11, S33 = 16, S34 = 23;
+                var S41 = 6, S42 = 10, S43 = 15, S44 = 21;
+                string = uTF8Encode(string);
+                x = convertToWordArray(string);
+                a = 1732584193;
+                b = 4023233417;
+                c = 2562383102;
+                d = 271733878;
+                for (k = 0; k < x.length; k += 16) {
+                    AA = a;
+                    BB = b;
+                    CC = c;
+                    DD = d;
+                    a = FF(a, b, c, d, x[k + 0], S11, 3614090360);
+                    d = FF(d, a, b, c, x[k + 1], S12, 3905402710);
+                    c = FF(c, d, a, b, x[k + 2], S13, 606105819);
+                    b = FF(b, c, d, a, x[k + 3], S14, 3250441966);
+                    a = FF(a, b, c, d, x[k + 4], S11, 4118548399);
+                    d = FF(d, a, b, c, x[k + 5], S12, 1200080426);
+                    c = FF(c, d, a, b, x[k + 6], S13, 2821735955);
+                    b = FF(b, c, d, a, x[k + 7], S14, 4249261313);
+                    a = FF(a, b, c, d, x[k + 8], S11, 1770035416);
+                    d = FF(d, a, b, c, x[k + 9], S12, 2336552879);
+                    c = FF(c, d, a, b, x[k + 10], S13, 4294925233);
+                    b = FF(b, c, d, a, x[k + 11], S14, 2304563134);
+                    a = FF(a, b, c, d, x[k + 12], S11, 1804603682);
+                    d = FF(d, a, b, c, x[k + 13], S12, 4254626195);
+                    c = FF(c, d, a, b, x[k + 14], S13, 2792965006);
+                    b = FF(b, c, d, a, x[k + 15], S14, 1236535329);
+                    a = GG(a, b, c, d, x[k + 1], S21, 4129170786);
+                    d = GG(d, a, b, c, x[k + 6], S22, 3225465664);
+                    c = GG(c, d, a, b, x[k + 11], S23, 643717713);
+                    b = GG(b, c, d, a, x[k + 0], S24, 3921069994);
+                    a = GG(a, b, c, d, x[k + 5], S21, 3593408605);
+                    d = GG(d, a, b, c, x[k + 10], S22, 38016083);
+                    c = GG(c, d, a, b, x[k + 15], S23, 3634488961);
+                    b = GG(b, c, d, a, x[k + 4], S24, 3889429448);
+                    a = GG(a, b, c, d, x[k + 9], S21, 568446438);
+                    d = GG(d, a, b, c, x[k + 14], S22, 3275163606);
+                    c = GG(c, d, a, b, x[k + 3], S23, 4107603335);
+                    b = GG(b, c, d, a, x[k + 8], S24, 1163531501);
+                    a = GG(a, b, c, d, x[k + 13], S21, 2850285829);
+                    d = GG(d, a, b, c, x[k + 2], S22, 4243563512);
+                    c = GG(c, d, a, b, x[k + 7], S23, 1735328473);
+                    b = GG(b, c, d, a, x[k + 12], S24, 2368359562);
+                    a = HH(a, b, c, d, x[k + 5], S31, 4294588738);
+                    d = HH(d, a, b, c, x[k + 8], S32, 2272392833);
+                    c = HH(c, d, a, b, x[k + 11], S33, 1839030562);
+                    b = HH(b, c, d, a, x[k + 14], S34, 4259657740);
+                    a = HH(a, b, c, d, x[k + 1], S31, 2763975236);
+                    d = HH(d, a, b, c, x[k + 4], S32, 1272893353);
+                    c = HH(c, d, a, b, x[k + 7], S33, 4139469664);
+                    b = HH(b, c, d, a, x[k + 10], S34, 3200236656);
+                    a = HH(a, b, c, d, x[k + 13], S31, 681279174);
+                    d = HH(d, a, b, c, x[k + 0], S32, 3936430074);
+                    c = HH(c, d, a, b, x[k + 3], S33, 3572445317);
+                    b = HH(b, c, d, a, x[k + 6], S34, 76029189);
+                    a = HH(a, b, c, d, x[k + 9], S31, 3654602809);
+                    d = HH(d, a, b, c, x[k + 12], S32, 3873151461);
+                    c = HH(c, d, a, b, x[k + 15], S33, 530742520);
+                    b = HH(b, c, d, a, x[k + 2], S34, 3299628645);
+                    a = II(a, b, c, d, x[k + 0], S41, 4096336452);
+                    d = II(d, a, b, c, x[k + 7], S42, 1126891415);
+                    c = II(c, d, a, b, x[k + 14], S43, 2878612391);
+                    b = II(b, c, d, a, x[k + 5], S44, 4237533241);
+                    a = II(a, b, c, d, x[k + 12], S41, 1700485571);
+                    d = II(d, a, b, c, x[k + 3], S42, 2399980690);
+                    c = II(c, d, a, b, x[k + 10], S43, 4293915773);
+                    b = II(b, c, d, a, x[k + 1], S44, 2240044497);
+                    a = II(a, b, c, d, x[k + 8], S41, 1873313359);
+                    d = II(d, a, b, c, x[k + 15], S42, 4264355552);
+                    c = II(c, d, a, b, x[k + 6], S43, 2734768916);
+                    b = II(b, c, d, a, x[k + 13], S44, 1309151649);
+                    a = II(a, b, c, d, x[k + 4], S41, 4149444226);
+                    d = II(d, a, b, c, x[k + 11], S42, 3174756917);
+                    c = II(c, d, a, b, x[k + 2], S43, 718787259);
+                    b = II(b, c, d, a, x[k + 9], S44, 3951481745);
+                    a = addUnsigned(a, AA);
+                    b = addUnsigned(b, BB);
+                    c = addUnsigned(c, CC);
+                    d = addUnsigned(d, DD);
+                }
+                var tempValue = wordToHex(a) + wordToHex(b) + wordToHex(c) + wordToHex(d);
+                return tempValue.toLowerCase();
+            }
+        });
+    })(jQuery);
+});
+
+define("dist/common/bilog", [ "base64", "dist/cmd-lib/util", "dist/application/method", "dist/report/config" ], function(require, exports, module) {
+    //var $ = require("$");
+    var base64 = require("base64").Base64;
+    var util = require("dist/cmd-lib/util");
+    var method = require("dist/application/method");
+    var config = require("dist/report/config");
+    //参数配置
+    // var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP特权'];
+    // var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
+    var payTypeMapping = [ "", "free", "", "online", "vipOnly", "cost" ];
+    //productType=1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    // var fsourceEnum = {
+    //     user: '用户上传', editor: '编辑上传', history: '历史资料1', history2: '历史资料2',
+    //     other_collection_site: '外包采集站点', ishare_collection_site: '自行采集站点',
+    //     other_collection_keyword: '外包采集关键字', ishare_collection_keyword: '自行采集关键字',
+    //     baiduwenku_collection_site: '百度文库采集源', ishare_collection_microdisk: '自行采集微盘',
+    // };
+    var ip = method.getCookie("ip") || getIpAddress();
+    var cid = method.getCookie("cid");
+    if (!cid) {
+        cid = new Date().getTime() + "" + Math.random();
+        method.setCookieWithExp("cid", cid, 30 * 24 * 60 * 60 * 1e3, "/");
+    }
+    var time = new Date().getTime() + "" + Math.random();
+    var min30 = 1e3 * 60 * 30;
+    var sessionID = sessionStorage.getItem("sessionID") || "";
+    function setSessionID() {
+        sessionStorage.setItem("sessionID", time);
+    }
+    if (!sessionID) {
+        setSessionID();
+    }
+    if (time - sessionID > min30) {
+        setSessionID();
+    }
+    var initData = {
+        eventType: "",
+        //事件类型
+        eventID: "",
+        //事件编号
+        eventName: "",
+        //事件英文名字
+        eventTime: String(new Date().getTime()),
+        //事件触发时间戳（毫秒）
+        reportTime: String(new Date().getTime()),
+        //上报时间戳（毫秒）
+        sdkVersion: "V1.0.3",
+        //sdk版本
+        terminalType: "0",
+        //软件终端类型  0-PC，1-M，2-快应用，3-安卓APP，4-IOS APP，5-微信小程序，6-今日头条小程序，7-百度小程序
+        loginStatus: method.getCookie("cuk") ? 1 : 0,
+        //登录状态 0 未登录 1 登录
+        visitID: method.getCookie("visitor_id") || "",
+        //访客id
+        userID: "",
+        //用户ID
+        sessionID: sessionStorage.getItem("sessionID") || cid || "",
+        //会话ID
+        productName: "ishare",
+        //产品名称
+        productCode: "0",
+        //产品代码
+        productVer: "V4.5.0",
+        //产品版本
+        pageID: "",
+        //当前页面编号
+        pageName: "",
+        //当前页面的名称
+        pageURL: "",
+        //当前页面URL
+        ip: ip || "",
+        //IP地址
+        resolution: document.documentElement.clientWidth + "*" + document.documentElement.clientHeight,
+        //设备屏幕分辨率
+        browserVer: util.getBrowserInfo(navigator.userAgent),
+        //浏览器类型
+        osType: getDeviceOs(),
+        //操作系统类型
+        //非必填
+        moduleID: "",
+        moduleName: "",
+        appChannel: "",
+        //应用下载渠道 仅针对APP移动端
+        prePageID: "",
+        //上一个页面编号
+        prePageName: "",
+        //上一个页面的名称
+        prePageURL: document.referrer,
+        //上一个页面URL
+        domID: "",
+        //当前触发DOM的编号 仅针对click
+        domName: "",
+        //当前触发DOM的名称 仅针对click
+        domURL: "",
+        //当前触发DOM的URL 仅针对click
+        location: "",
+        //位置（经纬度）仅针对移动端
+        deviceID: "",
+        //设备号 仅针对移动端
+        deviceBrand: "",
+        //移动设备品牌（厂商） 仅针对移动端
+        deviceModel: "",
+        //移动设备机型型号 仅针对移动端
+        deviceLanguage: navigator.language,
+        //设备语言
+        mac: "",
+        //MAC地址
+        osVer: "",
+        //操作系统版本 仅针对移动端
+        networkType: "",
+        //联网方式 仅针对移动端
+        networkProvider: "",
+        //网络运营商代码 仅针对移动端，非WIFI下传
+        "var": {}
+    };
+    var userInfo = method.getCookie("ui");
+    if (userInfo) {
+        userInfo = JSON.parse(userInfo);
+        initData.userID = userInfo.uid || "";
+    }
+    setPreInfo(document.referrer, initData);
+    function setPreInfo(referrer, initData) {
+        // 获取访客id
+        initData.visitID = method.getCookie("visitor_id");
+        if (new RegExp("/f/").test(referrer) && !new RegExp("referrer=").test(referrer) && !new RegExp("/f/down").test(referrer)) {
+            var statuCode = $(".ip-page-statusCode");
+            if (statuCode == "404") {
+                initData.prePageID = "PC-M-404";
+                initData.prePageName = "资料被删除";
+            } else if (statuCode == "302") {
+                initData.prePageID = "PC-M-FSM";
+                initData.prePageName = "资料私有";
+            } else {
+                initData.prePageID = "PC-M-FD";
+                initData.prePageName = "资料详情页";
+            }
+        } else if (new RegExp("/pay/payConfirm.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-F-L";
+            initData.prePageName = "支付页-付费资料-列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=2").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-F-QR";
+            initData.prePageName = "支付页-付费资料-支付页";
+        } else if (new RegExp("/pay/vip.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-VIP-L";
+            initData.prePageName = "支付页-VIP-套餐列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=0").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-VIP-QR";
+            initData.prePageName = "支付页-VIP-支付页";
+        } else if (new RegExp("/pay/privilege.html").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-PRI-L";
+            initData.prePageName = "支付页-下载特权-套餐列表页";
+        } else if (new RegExp("/pay/payQr.html\\?type=1").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-PRI-QR";
+            initData.prePageName = "支付页-下载特权-支付页";
+        } else if (new RegExp("/pay/success").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-SUC";
+            initData.prePageName = "支付成功页";
+        } else if (new RegExp("/pay/fail").test(referrer)) {
+            initData.prePageID = "PC-M-PAY-FAIL";
+            initData.prePageName = "支付失败页";
+        } else if (new RegExp("/node/f/downsucc.html").test(referrer)) {
+            if (/unloginFlag=1/.test(referrer)) {
+                initData.prePageID = "PC-M-FDPAY-SUC";
+                initData.prePageName = "免登购买成功页";
+            } else {
+                initData.prePageID = "PC-M-DOWN-SUC";
+                initData.prePageName = "下载成功页";
+            }
+        } else if (new RegExp("/node/f/downfail.html").test(referrer)) {
+            initData.prePageID = "PC-M-DOWN-FAIL";
+            initData.prePageName = "下载失败页";
+        } else if (new RegExp("/search/home.html").test(referrer)) {
+            initData.prePageID = "PC-M-SR";
+            initData.prePageName = "搜索关键词";
+        } else if (new RegExp("/node/404.html").test(referrer)) {
+            initData.prePageID = "PC-M-404";
+            initData.prePageName = "404错误页";
+        } else if (new RegExp("/node/503.html").test(referrer)) {
+            initData.prePageID = "PC-M-500";
+            initData.prePageName = "500错误页";
+        } else if (new RegExp("/node/personalCenter/home.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER";
+            initData.prePageName = "个人中心-首页";
+        } else if (new RegExp("/node/personalCenter/myuploads.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MU";
+            initData.prePageName = "个人中心-我的上传页";
+        } else if (new RegExp("/node/personalCenter/mycollection.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-CL";
+            initData.prePageName = "个人中心-我的收藏页";
+        } else if (new RegExp("/node/personalCenter/mydownloads.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MD";
+            initData.prePageName = "个人中心-我的下载页";
+        } else if (new RegExp("/node/personalCenter/vip.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-VIP";
+            initData.prePageName = "个人中心-我的VIP";
+        } else if (new RegExp("/node/personalCenter/mycoupon.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-MS";
+            initData.prePageName = "个人中心-我的优惠券页";
+        } else if (new RegExp("/node/personalCenter/accountsecurity.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ATM";
+            initData.prePageName = "个人中心-账号与安全页";
+        } else if (new RegExp("/node/personalCenter/personalinformation.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ATF";
+            initData.prePageName = "个人中心-个人信息页";
+        } else if (new RegExp("/node/personalCenter/myorder.html").test(referrer)) {
+            initData.prePageID = "PC-M-USER-ORD";
+            initData.prePageName = "个人中心-我的订单";
+        }
+    }
+    //获取ip地址
+    function getIpAddress() {
+        $.getScript("//ipip.iask.cn/iplookup/search?format=js", function(response, status) {
+            if (status === "success") {
+                method.setCookieWithExp("ip", remote_ip_info["ip"], 5 * 60 * 1e3, "/");
+                initData.ip = remote_ip_info["ip"];
+            } else {
+                console.error("ipip获取ip信息error");
+            }
+        });
+    }
+    //获得操作系统类型
+    function getDeviceOs() {
+        var name = "";
+        if (window.navigator.userAgent.indexOf("Windows NT 10.0") != -1) {
+            name = "Windows 10";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.2") != -1) {
+            name = "Windows 8";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.1") != -1) {
+            name = "Windows 7";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 6.0") != -1) {
+            name = "Windows Vista";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 5.1") != -1) {
+            name = "Windows XP";
+        } else if (window.navigator.userAgent.indexOf("Windows NT 5.0") != -1) {
+            name = "Windows 2000";
+        } else if (window.navigator.userAgent.indexOf("Mac") != -1) {
+            name = "Mac/iOS";
+        } else if (window.navigator.userAgent.indexOf("X11") != -1) {
+            name = "UNIX";
+        } else if (window.navigator.userAgent.indexOf("Linux") != -1) {
+            name = "Linux";
+        }
+        return name;
+    }
+    // 埋点上报 请求
+    function push(params) {
+        setTimeout(function() {
+            console.log(params, "页面上报");
+            $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function(data) {
+                console.log(data);
+            });
+        });
+    }
+    // 埋点引擎
+    function handle(commonData, customData) {
+        var resultData = commonData;
+        if (commonData && customData) {
+            for (var key in commonData) {
+                if (key === "var") {
+                    for (var item in customData) {
+                        resultData["var"][item] = customData[item];
+                    }
+                } else {
+                    if (customData[key]) {
+                        resultData[key] = customData[key];
+                    }
+                }
+            }
+            console.log("埋点参数:", resultData);
+            push(resultData);
+        }
+    }
+    //全部页面都要上报
+    function normalPageView(loginResult) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        var customData = {
+            channel: ""
+        };
+        var bc = method.getCookie("bc");
+        if (bc) {
+            customData.channel = bc;
+        }
+        commonData.eventType = "page";
+        commonData.eventID = "NE001";
+        commonData.eventName = "normalPageView";
+        if (loginResult == "loginResultPage") {
+            // clickCenter('SE001', 'loginResult', 'PLOGIN', '登录页', customData);
+            commonData.pageID = "PC-M-LOGIN";
+            commonData.pageName = "登录页";
+        } else {
+            commonData.pageID = $("#ip-page-id").val() || "";
+            commonData.pageName = $("#ip-page-name").val() || "";
+        }
+        commonData.pageURL = window.location.href;
+        var searchEngine = getSearchEngine();
+        var source = getSource(searchEngine);
+        $.extend(customData, {
+            source: source,
+            searchEngine: searchEngine
+        });
+        handle(commonData, customData);
+    }
+    //详情页
+    function fileDetailPageView() {
+        var customData = {
+            fileID: window.pageConfig.params.g_fileId,
+            fileName: window.pageConfig.params.file_title,
+            fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+            fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+            filePrice: window.pageConfig.params.moneyPrice,
+            fileCouponCount: window.pageConfig.params.file_volume,
+            filePayType: payTypeMapping[window.pageConfig.params.file_state],
+            fileFormat: window.pageConfig.params.file_format,
+            fileProduceType: window.pageConfig && window.pageConfig.params ? window.pageConfig.params.fsource : "",
+            fileCooType: "",
+            fileUploaderID: window.pageConfig.params.file_uid
+        };
+        var is360 = window.pageConfig && window.pageConfig.params ? window.pageConfig.params.is360 : "";
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(document.referrer) && !/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer) && is360 == "true") {
+            customData.fileCooType = "360onebox";
+            method.setCookieWithExp("bc", "360onebox", 30 * 60 * 1e3, "/");
+        }
+        if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)) {
+            customData.fileCooType = "360wenku";
+            method.setCookieWithExp("bc", "360wenku", 30 * 60 * 1e3, "/");
+        }
+        if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(document.referrer)) {
+            customData.fileCooType = "360wenku";
+            method.setCookieWithExp("bc", "360wenku", 30 * 60 * 1e3, "/");
+        }
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE002";
+        commonData.eventName = "fileDetailPageView";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        method.setCookieWithExp("bf", JSON.stringify(customData), 30 * 60 * 1e3, "/");
+        handle(commonData, customData);
+    }
+    //下载结果页
+    function downResult(customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "page";
+        commonData.eventID = "SE014";
+        commonData.eventName = "downResult";
+        commonData.pageID = $("#ip-page-id").val() || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+    function searchResult(customData) {
+        //导出页面使用
+        var commonData = JSON.parse(JSON.stringify(initData));
+        commonData.eventType = "page";
+        commonData.eventID = "SE015";
+        commonData.eventName = "searchPageView";
+        setPreInfo(document.referrer, commonData);
+        commonData.pageID = "PC-M-SR" || "";
+        commonData.pageName = $("#ip-page-name").val() || "";
+        customData.keyWords = $(".new-input").val() || $(".new-input").attr("placeholder");
+        commonData.pageURL = window.location.href;
+        handle(commonData, customData);
+    }
+    //页面级事件
+    $(function() {
+        setTimeout(function() {
+            var pid = $("#ip-page-id").val();
+            if ("PC-M-FD" == pid) {
+                //详情页
+                fileDetailPageView();
+            }
+            if ("PC-O-SR" != pid) {
+                //不是办公频道搜索结果页
+                normalPageView();
+            }
+            var bf = method.getCookie("bf");
+            var br = method.getCookie("br");
+            var href = window.location.href;
+            var downResultData = {
+                downResult: 1,
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: ""
+            };
+            if ("PC-M-DOWN-SUC" == pid) {
+                //下载成功页
+                var bf = method.getCookie("bf");
+                if (bf) {
+                    trans(JSON.parse(bf), downResultData);
+                }
+                downResultData.downResult = 1;
+                downResult(downResultData);
+            } else if ("PC-M-DOWN-FAIL" == pid) {
+                //下载失败页
+                var bf = method.getCookie("bf");
+                if (bf) {
+                    trans(JSON.parse(bf), downResultData);
+                }
+                downResultData.downResult = 0;
+                downResult(downResultData);
+            }
+        }, 1e3);
+    });
+    //对象值传递
+    function trans(from, to) {
+        for (var i in to) {
+            if (from[i]) {
+                to[i] = from[i];
+            }
+        }
+    }
+    //点击事件
+    $(document).delegate("." + config.EVENT_NAME, "click", function(event) {
+        //动态绑定点击事件
+        // debugger
+        var that = $(this);
+        var cnt = that.attr(config.BILOG_CONTENT_NAME);
+        //上报事件类型
+        console.log("cnt:", cnt);
+        if (cnt) {
+            setTimeout(function() {
+                clickEvent(cnt, that);
+            });
+        }
+    });
+    function clickCenter(eventID, eventName, domId, domName, customData) {
+        var commonData = JSON.parse(JSON.stringify(initData));
+        setPreInfo(document.referrer, commonData);
+        commonData.eventType = "click";
+        commonData.eventID = eventID;
+        commonData.eventName = eventName;
+        if (eventID == "SE001") {
+            commonData.pageID = "PC-M-LOGIN";
+            commonData.pageName = "登录页";
+        } else {
+            commonData.pageID = $("#ip-page-id").val();
+            commonData.pageName = $("#ip-page-name").val();
+        }
+        commonData.pageURL = window.location.href;
+        commonData.domID = domId;
+        commonData.domName = domName;
+        commonData.domURL = window.location.href;
+        handle(commonData, customData);
+    }
+    //点击事件
+    function clickEvent(cnt, that, moduleID, params) {
+        var ptype = $("#ip-page-type").val();
+        if (ptype == "pindex") {
+            //详情页
+            var customData = {
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            if (cnt == "fileDetailUpDown" || cnt == "fileDetailMiddleDown" || cnt == "fileDetailBottomDown") {
+                customData.downType = "";
+                if (cnt == "fileDetailUpDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailUpDown", "资料详情页顶部立即下载", customData);
+                } else if (cnt == "fileDetailMiddleDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailMiddleDown", "资料详情页中部立即下载", customData);
+                } else if (cnt == "fileDetailBottomDown") {
+                    clickCenter("SE003", "fileDetailDownClick", "fileDetailBottomDown", "资料详情页底部立即下载", customData);
+                }
+                delete customData.downType;
+            } else if (cnt == "fileDetailUpBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailUpBuy", "资料详情页顶部立即购买", customData);
+            } else if (cnt == "fileDetailMiddleBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailMiddleBuy", "资料详情页中部立即购买", customData);
+            } else if (cnt == "fileDetailBottomBuy") {
+                clickCenter("SE004", "fileDetailBuyClick", "fileDetailBottomBuy", "资料详情页底部立即购买", customData);
+            } else if (cnt == "fileDetailMiddleOpenVip8") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailMiddleOpenVip8", "资料详情页中部开通vip，8折购买", customData);
+            } else if (cnt == "fileDetailBottomOpenVip8") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailBottomOpenVip8", "资料详情页底部开通vip，8折购买", customData);
+            } else if (cnt == "fileDetailMiddleOpenVipPr") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailMiddleOpenVipPr", "资料详情页中部开通vip，享更多特权", customData);
+            } else if (cnt == "fileDetailBottomOpenVipPr") {
+                clickCenter("SE005", "fileDetailOpenVipClick", "fileDetailBottomOpenVipPr", "资料详情页底部开通vip，享更多特权", customData);
+            } else if (cnt == "fileDetailComment") {} else if (cnt == "fileDetailScore") {
+                var score = that.find(".on:last").text();
+                customData.fileScore = score ? score : "";
+                clickCenter("SE007", "fileDetailScoreClick", "fileDetailScore", "资料详情页评分", customData);
+                delete customData.fileScore;
+            }
+        }
+        if (cnt == "payFile") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: "",
+                filePrice: "",
+                fileSalePrice: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            clickCenter("SE008", "payFileClick", "payFile", "支付页-付费资料-立即支付", customData);
+        } else if (cnt == "payVip") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                vipID: $(".ui-tab-nav-item.active").data("vid"),
+                vipName: $(".ui-tab-nav-item.active p.vip-time").text() || "",
+                vipPrice: $(".ui-tab-nav-item.active p.vip-price strong").text() || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || ""
+            };
+            clickCenter("SE010", "payVipClick", "payVip", "支付页-VIP-立即支付", customData);
+        } else if (cnt == "payPrivilege") {
+            var customData = {
+                orderID: method.getParam("orderNo") || "",
+                couponID: $(".pay-coupon-wrap").attr("vid") || "",
+                coupon: $(".pay-coupon-wrap p.chose-ele").text() || "",
+                // privilegeID: $(".ui-tab-nav-item.active").data('pid') || '',
+                privilegeName: $(".ui-tab-nav-item.active p.privilege-price").text() || "",
+                privilegePrice: $(".ui-tab-nav-item.active").data("activeprice") || "",
+                fileID: "",
+                fileName: "",
+                fileCategoryID: "",
+                fileCategoryName: "",
+                filePayType: "",
+                fileFormat: "",
+                fileProduceType: "",
+                fileCooType: "",
+                fileUploaderID: ""
+            };
+            var bf = method.getCookie("bf");
+            if (bf) {
+                trans(JSON.parse(bf), customData);
+            }
+            clickCenter("SE012", "payPrivilegeClick", "payPrivilege", "支付页-下载特权-立即支付", customData);
+        } else if (cnt == "searchResult") {
+            customData = {
+                fileID: that.attr("data-fileId"),
+                fileName: that.attr("data-fileName"),
+                keyWords: $(".new-input").val() || $(".new-input").attr("placeholder")
+            };
+            clickCenter("SE016", "normalClick", "searchResultClick", "搜索结果页点击", customData);
+        } else if (cnt == "loginResult") {
+            initData.loginStatus = method.getCookie("cuk") ? 1 : 0, //登录状态 0 未登录 1 登录
+            // $.extend(customData, params);
+            clickCenter("SE001", "loginResult", "PC-M-LOGIN", "登录页", params);
+        }
+        var customData = {
+            phone: $("#ip-mobile").val() || "",
+            vipStatus: $("#ip-isVip").val() || "",
+            channel: "",
+            cashBalance: "",
+            integralNumber: "",
+            idolNumber: "",
+            fileCategoryID: "",
+            fileCategoryName: ""
+        };
+        if (userInfo) {
+            customData.vipStatus = userInfo.isVip || "";
+            customData.phone = userInfo.tel || "";
+        }
+        var bc = method.getCookie("bc");
+        if (bc) {
+            customData.channel = bc;
+        }
+        if (cnt == "paySuccessBacDown") {
+            clickCenter("NE002", "normalClick", "paySuccessBacDown", "支付成功页-返回下载", customData);
+        } else if (cnt == "paySuccessOpenVip") {
+            clickCenter("NE002", "normalClick", "paySuccessOpenVip", "支付成功页-开通VIP", customData);
+        } else if (cnt == "downSuccessOpenVip") {
+            clickCenter("NE002", "normalClick", "downSuccessOpenVip", "下载成功页-开通VIP", customData);
+        } else if (cnt == "downSuccessContinueVip") {
+            clickCenter("NE002", "normalClick", "downSuccessContinueVip", "下载成功页-续费VIP", customData);
+        } else if (cnt == "downSuccessBacDetail") {
+            clickCenter("NE002", "normalClick", "downSuccessBacDetail", "下载成功页-返回详情页", customData);
+        } else if (cnt == "downSuccessBindPhone") {
+            clickCenter("NE002", "normalClick", "downSuccessBindPhone", "下载成功页-立即绑定", customData);
+        } else if (cnt == "viewExposure") {
+            customData.moduleID = moduleID;
+        } else if (cnt == "similarFileClick") {
+            customData = {
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            };
+            clickCenter("SE017", "fileListNormalClick", "similarFileClick", "资料列表常规点击", customData);
+        } else if (cnt == "underSimilarFileClick") {
+            customData = {
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            };
+            clickCenter("SE017", "fileListNormalClick", "underSimilarFileClick", "点击底部猜你喜欢内容时", customData);
+        } else if (cnt == "downSucSimilarFileClick") {
+            clickCenter("SE017", "fileListNormalClick", "downSucSimilarFileClick", "下载成功页猜你喜欢内容时", customData);
+        } else if (cnt == "markFileClick") {
+            customData = {
+                fileID: window.pageConfig.params.g_fileId,
+                fileName: window.pageConfig.params.file_title,
+                fileCategoryID: window.pageConfig.params.classid1 + "||" + window.pageConfig.params.classid2 + "||" + window.pageConfig.params.classid3,
+                fileCategoryName: window.pageConfig.params.classidName1 + "||" + window.pageConfig.params.classidName2 + "||" + window.pageConfig.params.classidName3,
+                filePayType: payTypeMapping[window.pageConfig.params.file_state],
+                markRusult: 1
+            };
+            clickCenter("SE019", "markClick", "markFileClick", "资料收藏点击", customData);
+        } else if (cnt == "vipRights") {
+            clickCenter("NE002", "normalClick", "vipRights", "侧边栏-vip权益", customData);
+        } else if (cnt == "seen") {
+            clickCenter("NE002", "normalClick", "seen", "侧边栏-我看过的", customData);
+        } else if (cnt == "mark") {
+            clickCenter("NE002", "normalClick", "mark", "侧边栏-我的收藏", customData);
+        } else if (cnt == "customerService") {
+            clickCenter("NE002", "normalClick", "customerService", "侧边栏-联系客服", customData);
+        } else if (cnt == "downApp") {
+            clickCenter("NE002", "normalClick", "downApp", "侧边栏-下载APP", customData);
+        } else if (cnt == "follow") {
+            clickCenter("NE002", "normalClick", "follow", "侧边栏-关注领奖", customData);
+        }
+    }
+    function getSearchEngine() {
+        // baidu：百度
+        // google:谷歌
+        // 360:360搜索
+        // sougou:搜狗
+        // shenma:神马搜索
+        // bing:必应
+        var referrer = document.referrer;
+        var res = "";
+        if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+            res = "360";
+        } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+            res = "baidu";
+        } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+            res = "sogou";
+        } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+            res = "sm";
+        } else if (/https?\:\/\/[^\s]*google.com.*$/g.test(referrer)) {
+            res = "google";
+        } else if (/https?\:\/\/[^\s]*bing.com.*$/g.test(referrer)) {
+            res = "bing";
+        }
+        return res;
+    }
+    function getSource(searchEngine) {
+        var referrer = document.referrer;
+        var orgigin = location.origin;
+        var source = "";
+        if (searchEngine) {
+            //搜索引擎
+            source = "searchEngine";
+        } else if (referrer && referrer.indexOf(orgigin) !== -1) {
+            // 正常访问
+            source = "vist";
+        } else {
+            source = "outLink";
+        }
+        return source;
+    }
+    // todo 埋点相关公共方法 =====
+    // todo 埋点上报请求---新增
+    function reportToBlack(result) {
+        console.log("自有埋点上报结果", result);
+        setTimeout(function() {
+            $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(result)) + "&jsoncallback=?", function(data) {});
+        });
+    }
+    module.exports = {
+        normalPageView: function(loginResult) {
+            normalPageView(loginResult);
+        },
+        clickEvent: function($this) {
+            var cnt = $this.attr(config.BILOG_CONTENT_NAME);
+            console.log("cnt-导出的:", cnt);
+            if (cnt) {
+                setTimeout(function() {
+                    clickEvent(cnt, $this);
+                });
+            }
+        },
+        viewExposure: function($this, moduleID) {
+            var cnt = "viewExposure";
+            if (cnt) {
+                setTimeout(function() {
+                    clickEvent(cnt, $this, moduleID);
+                });
+            }
+        },
+        loginResult: function($this, moduleID, params) {
+            var cnt = "loginResult";
+            if (cnt) {
+                setTimeout(function() {
+                    clickEvent(cnt, "", moduleID, params);
+                });
+            }
+        },
+        searchResult: searchResult,
+        // todo 后续优化-公共处理==============
+        // todo 自有埋点公共数据
+        getBilogCommonData: function getBilogCommonData() {
+            setPreInfo(document.referrer, initData);
+            return initData;
+        },
+        reportToBlack: reportToBlack
+    };
+});
+
+/**
+ * @Description: 工具类
+ */
+define("dist/cmd-lib/util", [], function(require, exports, module) {
+    // var $ = require("$");
+    var utils = {
+        //节流函数 func 是传入执行函数，wait是定义执行间隔时间
+        throttle: function(func, wait) {
+            var last, deferTimer;
+            return function(args) {
+                var that = this;
+                var _args = arguments;
+                //当前时间
+                var now = +new Date();
+                //将当前时间和上一次执行函数时间对比
+                //如果差值大于设置的等待时间就执行函数
+                if (last && now < last + wait) {
+                    clearTimeout(deferTimer);
+                    deferTimer = setTimeout(function() {
+                        last = now;
+                        func.apply(that, _args);
+                    }, wait);
+                } else {
+                    last = now;
+                    func.apply(that, _args);
+                }
+            };
+        },
+        //防抖函数 func 是传入执行函数，wait是定义执行间隔时间
+        debounce: function(func, wait) {
+            //缓存一个定时器id 
+            var timer = 0;
+            var that = this;
+            return function(args) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(function() {
+                    func.apply(that, args);
+                }, wait);
+            };
+        },
+        //判断是否微信浏览器
+        isWeChatBrow: function() {
+            var ua = navigator.userAgent.toLowerCase();
+            var isWeixin = ua.indexOf("micromessenger") != -1;
+            if (isWeixin) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //识别是ios 还是 android
+        getWebAppUA: function() {
+            var res = 0;
+            //非IOS
+            var ua = navigator.userAgent.toLowerCase();
+            if (/iphone|ipad|ipod/.test(ua)) {
+                res = 1;
+            } else if (/android/.test(ua)) {
+                res = 0;
+            }
+            return res;
+        },
+        //判断IE8以下浏览器
+        validateIE8: function() {
+            if ($.browser.msie && ($.browser.version == "8.0" || $.browser.version == "7.0" || $.browser.version == "6.0")) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //判断IE9以下浏览器
+        validateIE9: function() {
+            if ($.browser.msie && ($.browser.version == "9.0" || $.browser.version == "8.0" || $.browser.version == "7.0" || $.browser.version == "6.0")) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        //获取来源地址 gio上报使用
+        getReferrer: function() {
+            var referrer = document.referrer;
+            var res = "";
+            if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+                res = "360wenku";
+            } else if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "ishare";
+            } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "iask";
+            }
+            return res;
+        },
+        getPageRef: function(fid) {
+            var that = this;
+            var ref = 0;
+            if (that.is360cookie(fid) || that.is360cookie("360")) {
+                ref = 1;
+            }
+            if (that.is360wkCookie()) {
+                ref = 3;
+            }
+            return ref;
+        },
+        is360cookie: function(val) {
+            var that = this;
+            var rso = that.getCookie("_r_so");
+            if (rso) {
+                var split = rso.split("_");
+                for (var i = 0; i < split.length; i++) {
+                    if (split[i] == val) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+        add360wkCookie: function() {
+            this.setCookieWithExpPath("_360hz", "1", 1e3 * 60 * 30, "/");
+        },
+        is360wkCookie: function() {
+            return getCookie("_360hz") == null ? false : true;
+        },
+        getCookie: function(name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
+                return unescape(arr[2]);
+            }
+            return null;
+        },
+        setCookieWithExpPath: function(name, value, timeOut, path) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + timeOut);
+            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+        },
+        //gio数据上报上一级页面来源
+        findRefer: function() {
+            var referrer = document.referrer;
+            var res = "other";
+            if (/https?\:\/\/[^\s]*\/f\/.*$/g.test(referrer)) {
+                res = "pindex";
+            } else if (/https?\:\/\/[^\s]*\/d\/.*$/g.test(referrer)) {
+                res = "landing";
+            } else if (/https?\:\/\/[^\s]*\/c\/.*$/g.test(referrer)) {
+                res = "pcat";
+            } else if (/https?\:\/\/[^\s]*\/search\/.*$/g.test(referrer)) {
+                res = "psearch";
+            } else if (/https?\:\/\/[^\s]*\/t\/.*$/g.test(referrer)) {
+                res = "ptag";
+            } else if (/https?\:\/\/[^\s]*\/[u|n]\/.*$/g.test(referrer)) {
+                res = "popenuser";
+            } else if (/https?\:\/\/[^\s]*\/ucenter\/.*$/g.test(referrer)) {
+                res = "puser";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(referrer)) {
+                res = "ishareindex";
+            } else if (/https?\:\/\/[^\s]*\/theme\/.*$/g.test(referrer)) {
+                res = "theme";
+            } else if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+                res = "360wenku";
+            } else if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "ishare";
+            } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
+                res = "iask";
+            }
+            return res;
+        },
+        /*通用对话框(alert)*/
+        showAlertDialog: function(title, content, callback) {
+            var bgMask = $(".common-bgMask");
+            var dialog = $(".common-dialog");
+            /*标题*/
+            dialog.find("h2[name='title']").text(title);
+            /*内容*/
+            dialog.find("span[name='content']").html(content);
+            /*文件下载dialog关闭按钮事件*/
+            dialog.find("a.close,a.btn-dialog").unbind("click").click(function() {
+                bgMask.hide();
+                dialog.hide();
+                /*回调*/
+                if (callback && !$(this).hasClass("close")) callback();
+            });
+            bgMask.show();
+            dialog.show();
+        },
+        browserVersion: function(userAgent) {
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera;
+            //判断是否IE浏览器
+            var isEdge = userAgent.indexOf("Edge") > -1;
+            //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1;
+            //判断是否Firefox浏览器
+            var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1;
+            //判断是否Safari浏览器
+            var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1;
+            //判断Chrome浏览器
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                if (fIEVersion === 7) {
+                    return "IE7";
+                } else if (fIEVersion === 8) {
+                    return "IE8";
+                } else if (fIEVersion === 9) {
+                    return "IE9";
+                } else if (fIEVersion === 10) {
+                    return "IE10";
+                } else if (fIEVersion === 11) {
+                    return "IE11";
+                } else if (fIEVersion === 12) {
+                    return "IE12";
+                } else {
+                    return "IE";
+                }
+            }
+            if (isOpera) {
+                return "Opera";
+            }
+            if (isEdge) {
+                return "Edge";
+            }
+            if (isFF) {
+                return "Firefox";
+            }
+            if (isSafari) {
+                return "Safari";
+            }
+            if (isChrome) {
+                return "Chrome";
+            }
+            return "unKnow";
+        },
+        getBrowserInfo: function(userAgent) {
+            var Sys = {};
+            var ua = userAgent.toLowerCase();
+            var re = /(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/;
+            var m = ua.match(re);
+            if (m && m.length >= 2) {
+                Sys.browser = m[1].replace(/version/, "'safari") || "unknow";
+                Sys.ver = m[2] || "1.0.0";
+            } else {
+                Sys.browser = "unknow";
+                Sys.ver = "1.0.0";
+            }
+            return Sys.browser + "/" + Sys.ver;
+        },
+        timeFormat: function(style, time) {
+            if (!time) return "";
+            var d = new Date(time);
+            var year = d.getFullYear();
+            //年
+            var month = d.getMonth() + 1;
+            //月
+            var day = d.getDate();
+            //日
+            var hh = d.getHours();
+            //时
+            var mm = d.getMinutes();
+            //分
+            var ss = d.getSeconds();
+            //秒
+            var clock = year + "-";
+            if (month < 10) {
+                month += "0";
+            }
+            if (day < 10) {
+                day += "0";
+            }
+            if (hh < 10) {
+                hh += "0";
+            }
+            if (mm < 10) {
+                mm += "0";
+            }
+            if (ss < 10) {
+                ss += "0";
+            }
+            if (style === "yyyy-mm-dd") {
+                return year + "-" + month + "-" + day;
+            }
+            // yyyy-mm-dd HH:mm:ss
+            return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+        }
+    };
+    //return utils;
+    module.exports = utils;
+});
+
+define("dist/report/config", [], function(require, exports, module) {
+    return {
+        COOKIE_FLAG: "_dplf",
+        //cookie存储地址
+        COOKIE_CIDE: "_dpcid",
+        //客户端id cookie地址存储
+        COOKIE_CUK: "cuk",
+        COOKIE_TIMEOUT: 1e3 * 60 * 50,
+        //过期时间
+        // SERVER_URL: '/dataReport',                  //接口地址
+        SERVER_URL: "/",
+        UACTION_URL: "/uAction",
+        //用户阅读文档数据上传url
+        EVENT_NAME: "pc_click",
+        //绑定事件名称
+        CONTENT_NAME: "pcTrackContent",
+        //上报事件内容名称
+        BILOG_CONTENT_NAME: "bilogContent",
+        //bilog上报事件内容名称
+        ishareTrackEvent: "_ishareTrackEvent",
+        //兼容旧事件
+        eventCookieFlag: "_eventCookieFlag",
+        EVENT_REPORT: false,
+        //浏览页事件级上报是否开启
+        // 以下为配置项
+        AUTO_PV: false
+    };
+});
+
+/**
+ * @Description: toast.js
+ *
+ */
+define("dist/cmd-lib/toast", [], function(require, exports, module) {
+    //var $ = require("$");
+    (function($, win, doc) {
+        function Toast(options) {
+            this.options = {
+                text: "我是toast提示",
+                icon: "",
+                delay: 3e3,
+                callback: false
+            };
+            //默认参数扩展
+            if (options && $.isPlainObject(options)) {
+                $.extend(true, this.options, options);
+            }
+            this.init();
+        }
+        Toast.prototype.init = function() {
+            var that = this;
+            that.body = $("body");
+            that.toastWrap = $('<div class="ui-toast" style="position:fixed;min-width:200px;padding:0 10px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:40%;left:50%;margin-left:-100px;margin-top:-30px;border-radius:4px;z-index:99999999">');
+            that.toastIcon = $('<i class="icon"></i>');
+            that.toastText = $('<span class="ui-toast-text" style="color:#fff">' + that.options.text + "</span>");
+            that._creatDom();
+            that.show();
+            that.hide();
+        };
+        Toast.prototype._creatDom = function() {
+            var that = this;
+            if (that.options.icon) {
+                that.toastWrap.append(that.toastIcon.addClass(that.options.icon));
+            }
+            that.toastWrap.append(that.toastText);
+            that.body.append(that.toastWrap);
+        };
+        Toast.prototype.show = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("hide").addClass("show");
+            }, 50);
+        };
+        Toast.prototype.hide = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("show").addClass("hide");
+                that.toastWrap.remove();
+                that.options.callback && that.options.callback();
+            }, that.options.delay);
+        };
+        $.toast = function(options) {
+            return new Toast(options);
+        };
+    })($, window, document);
+});
+
+define("dist/common/bindphone", [ "dist/application/api", "dist/application/method" ], function(require, exports, moudle) {
+    //var $ = require("$");
+    var api = require("dist/application/api");
+    var method = require("dist/application/method");
+    /**
+     * 获取图形验证码
+     */
+    function getCaptcha() {
+        var mobile = $("#ip-mobile").val().replace(/\s/g, "");
+        if (mobile) {
+            $(".login-error span").parent().hide();
+            $.get("/cas/captcha/get?mobile=" + mobile, function(data, status) {
+                if (status == "success") {
+                    /*$(".unlock-pic").html('<img src="'+data+'" onclick="getCaptcha();" width="80" height="42">')*/
+                    $(".img-code-item .unlock-pic img").attr("src", data);
+                } else {
+                    console.log("获取图形验证码异常");
+                }
+            });
+        } else {
+            $(".login-error span").text("请输入手机号").parent().show();
+        }
+    }
+    function formatTel(mobile) {
+        var value = mobile.replace(/\D/g, "").substring(0, 11);
+        var valueLen = value.length;
+        if (valueLen > 3 && valueLen < 8) {
+            value = value.replace(/^(...)/g, "$1 ");
+        } else if (valueLen >= 8) {
+            value = value.replace(/^(...)(....)/g, "$1 $2 ");
+        }
+        return value;
+    }
+    function handle(flag) {
+        if (flag == "1") {
+            //334
+            var mobile = $("#mobile").val();
+            $(".carding-error").hide();
+            if (mobile) {
+                $("#mobile").val(formatTel(mobile));
+                $(".btn-binding-code").removeClass("btn-code-no");
+            } else {
+                $(".btn-binding-code").addClass("btn-code-no");
+            }
+        }
+    }
+    /**
+     * 验证码验证
+     * @param callback
+     */
+    function fcheckCode(callback) {
+        $.post("/cas-api/checkCode", {
+            nationCode: $(".phone-num em").text(),
+            mobile: $("#ip-mobile").val().replace(/\s/g, ""),
+            smsId: $("#ip-smsId").val(),
+            checkCode: $("#ip-checkCode").val()
+        }, callback);
+    }
+    /**
+     * 验证提示
+     * @param nationCode
+     * @param mobile
+     * @returns {*}
+     */
+    function checkMsg(nationCode, mobile) {
+        var msg = null;
+        if (!mobile) {
+            msg = "请输入手机号";
+        } else {
+            msg = $.checkMobile(nationCode, mobile);
+        }
+        return msg;
+    }
+    function checkBindingMobile(uid) {
+        $.get("/ucenter/checkUserBindMobile?uid=" + uid, function(data) {
+            alert(data);
+        });
+    }
+    var ValidateClick = function() {
+        this.callback = null;
+        /**
+         *  定时器
+         */
+        function TimerClock() {
+            this.maxTimes = 60;
+            //计时周期
+            this.times = 1e3;
+            //计时步伐
+            this.timer = null;
+            this.ele = null;
+            this.callback = null;
+            this.beforeShow = null;
+            /**
+             *
+             * @param ele
+             * @param beforeShow 执行前处理 返回true 继续 false 终止
+             * @param callback回调函数
+             */
+            this.showTimeClock = function(ele, beforeShow, callback) {
+                //倒计时
+                this.ele = ele;
+                this.beforeShow = beforeShow;
+                if (!this.beforeShow()) {
+                    return;
+                }
+                this.ele.text(this.maxTimes);
+                var that = this;
+                this.callback = callback;
+                this.timer = setInterval(function(args) {
+                    that.countDown();
+                }, this.times);
+            };
+            /**
+             * 每秒计数
+             */
+            this.countDown = function() {
+                if (this.maxTimes > 0) {
+                    this.maxTimes = this.maxTimes - 1;
+                    this.ele.text(this.maxTimes);
+                } else {
+                    clearInterval(this.timer);
+                    this.callback();
+                }
+            };
+        }
+        this.execute = function(data, callbcak) {
+            this.callback = callbcak;
+            var mobile = $("#ip-mobile").val().replace(/\s/g, "");
+            var nationCode = $(".phone-num em").text();
+            var captcha = $.trim($captcha.find("input").val());
+            //去空格
+            var msg = null;
+            if (msg = checkMsg(nationCode, mobile)) {
+                //$mobile.find('.error-text').text(msg).show();
+                $loginError.text(msg).parent().show();
+                return;
+            }
+            //发送短信
+            this.sendSms("&nationCode=" + nationCode + "&mobile=" + mobile + "&businessCode=" + data["businessCode"] + "&captcha=" + captcha);
+        };
+        this.showTimeClock = function() {
+            var $checkCode = $(".input-code-div");
+            //设置时间倒计时
+            new TimerClock().showTimeClock($checkCode.find(".validate-text em"), function() {
+                $checkCode.find(".validate-link").hide();
+                $checkCode.find(".validate-text").show();
+                return true;
+            }, function() {
+                $checkCode.find(".validate-text").hide();
+                $checkCode.find(".validate-link").text("重新获取验证码").show();
+            });
+        };
+        /**
+         *  //发送短信
+         * @param data
+         * @param callback
+         */
+        this.sendSms = function(data) {
+            var _this = this;
+            $.get("/cas-api/sendSms?" + getPdata("terminal") + "&" + getPdata("businessSys") + data, _this.callback);
+        };
+    };
+    //检查图形验证码是否正确
+    function checkCaptcha(mobile, captcha, callback) {
+        $.get("/cas/captcha/check?mobile=" + mobile + "&captcha=" + captcha, callback);
+    }
+    //检查手机号是否已注册
+    function checkMobileRegister(mobile, callback) {
+        $.get("/cas/checkMobileRegister?mobile=" + mobile, callback);
+    }
+    $(function() {
+        // debugger
+        //手机区号选择
+        var $choiceCon = $(".phone-choice");
+        var pageType = $("#ip-page-type").val();
+        //页面类型
+        var $checkCode = $("#ip-checkCode");
+        //手机验证码
+        var $mobile = $("#mobile");
+        //手机号
+        var $captcha = $(".login-input-item.img-code-item");
+        //图形验证码div
+        var $loginError = $(".carding-error span");
+        //错误提醒位置
+        $choiceCon.find(".phone-num").click(function(e) {
+            e.stopPropagation();
+            if ($(this).siblings(".phone-more").is(":hidden")) {
+                $(this).parent().addClass("phone-choice-show");
+                $(this).siblings(".phone-more").show();
+            } else {
+                $(this).parent().removeClass("phone-choice-show");
+                $(this).siblings(".phone-more").hide();
+            }
+        });
+        $(".phone-more").find("a").click(function() {
+            var countryNum = $(this).find(".number-con").find("em").text();
+            $choiceCon.find(".phone-num").find("em").text(countryNum);
+            $choiceCon.removeClass("phone-choice-show");
+            $choiceCon.find(".phone-more").hide();
+        });
+        //手机号格式化(xxx xxxx xxxx)
+        $(document).on("keyup", "#mobile", function() {
+            handle(1);
+        });
+        //enter 键
+        $(document).keyup(function(event) {
+            if (event.keyCode == 13) {
+                $(".btn-phone-login").trigger("click");
+            }
+        });
+        //绑定
+        $(".btn-bind").click(function() {
+            if ($(this).hasClass("btn-code-no")) {
+                return;
+            }
+            var mobile = $mobile.val().replace(/\s/g, "");
+            var checkCode = $checkCode.val();
+            var nationCode = $(".phone-num em").text();
+            if (/^\s*$/g.test(mobile)) {
+                $loginError.text("请输入手机号码!").parent().show();
+                return;
+            }
+            if (/^\s*$/g.test(checkCode)) {
+                $loginError.text("请输入验证码!").parent().show();
+                return;
+            }
+            var params = {
+                nationCode: nationCode,
+                mobile: mobile,
+                smsId: $checkCode.attr("smsId"),
+                checkCode: checkCode
+            };
+            // $.post('/pay/bindMobile', params, function (data) {
+            //     if (data) {
+            //         if (data.code == '0') {
+            //             $(".binging-main").hide();
+            //             $(".binging-success").show();
+            //         } else {
+            //             $loginError.text(data.msg).parent().show();
+            //             $(".carding-error").show();
+            //         }
+            //     }
+            // }, 'json');
+            userBindMobile(mobile, $checkCode.attr("smsId"), checkCode);
+            function userBindMobile(mobile, smsId, checkCode) {
+                // 绑定手机号接口
+                $.ajax({
+                    headers: {
+                        Authrization: method.getCookie("cuk")
+                    },
+                    url: api.user.userBindMobile,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        terminal: "pc",
+                        mobile: mobile,
+                        nationCode: $(".phone-choice .phone-num em").text(),
+                        smsId: smsId,
+                        checkCode: checkCode
+                    }),
+                    dataType: "json",
+                    success: function(res) {
+                        if (res.code == "0") {
+                            $(".binging-main").hide();
+                            $(".binging-success").show();
+                        } else {
+                            $loginError.text(res.msg).parent().show();
+                            $(".carding-error").show();
+                        }
+                    },
+                    error: function(error) {
+                        console.log("userBindMobile:", error);
+                    }
+                });
+            }
+        });
+        var captcha = function(appId, randstr, ticket, onOff) {
+            var _this = $(".binging-main .yz-link");
+            if ($(_this).hasClass("btn-code-no")) {
+                return;
+            }
+            var mobile = $mobile.val().replace(/\s/g, "");
+            if (/^\s*$/g.test(mobile)) {
+                $loginError.text("请输入手机号码!").parent().show();
+                return;
+            }
+            $loginError.parent().hide();
+            var param = JSON.stringify({
+                // 'phoneNo': mobile,
+                // 'businessCode': $(_this).siblings('input[name="businessCode"]').val(),
+                // 'appId': appId,
+                // 'randstr': randstr,
+                // 'ticket': ticket,
+                // 'onOff': onOff
+                mobile: mobile,
+                nationCode: $(".phone-choice .phone-num em").text(),
+                businessCode: $(_this).siblings('input[name="businessCode"]').val(),
+                // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
+                terminal: "pc",
+                appId: appId,
+                randstr: randstr,
+                ticket: ticket,
+                onOff: onOff
+            });
+            $.ajax({
+                type: "POST",
+                // url: api.sms.getCaptcha,
+                url: api.user.sendSms,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: param,
+                success: function(data) {
+                    if (data) {
+                        if (data.code == "0") {
+                            $checkCode.removeAttr("smsId");
+                            $checkCode.attr("smsId", data.data.smsId);
+                            var yzTime$ = $(_this).siblings(".yz-time");
+                            yzTime$.addClass("btn-code-no");
+                            yzTime$.show();
+                            $(_this).hide();
+                            $(".btn-none-bind").hide();
+                            $(".btn-bind").show();
+                            // $(".btn-binging").removeClass("btn-binging-no");
+                            (function countdown() {
+                                var yzt = yzTime$.text().replace(/秒后重发$/g, "");
+                                yzt = /^\d+$/g.test(yzt) ? Number(yzt) : 60;
+                                if (yzt && yzt >= 0) yzTime$.text(--yzt + "秒后重发");
+                                if (yzt <= 0) {
+                                    yzTime$.text("60秒后重发").hide();
+                                    $(_this).text("重获验证码").show();
+                                    return;
+                                }
+                                setTimeout(countdown, 1e3);
+                            })();
+                        } else if (data.code == "411015") {
+                            showCaptcha(captcha);
+                        } else if (data.code == "411033") {
+                            //图形验证码错误
+                            $loginError.text("图形验证码错误").parent().show();
+                        } else {
+                            $loginError.text(data.msg).parent().show();
+                        }
+                    } else {
+                        $loginError.text("发送短信失败").parent().show();
+                    }
+                }
+            });
+        };
+        /*获取短信验证码*/
+        $(".binging-main").delegate(".yz-link", "click", function() {
+            captcha("", "", "", "");
+        });
+    });
+    /**
+     * 天御验证码相关功能
+     */
+    var capt;
+    var showCaptcha = function(options) {
+        var appId = "2071307690";
+        if (!capt) {
+            capt = new TencentCaptcha(appId, captchaCallback, {
+                bizState: options
+            });
+        }
+        capt.show();
+    };
+    var captchaCallback = function(res) {
+        // res（用户主动关闭验证码）= {ret: 2, ticket: null}
+        // res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
+        if (res.ret === 0) {
+            res.bizState(res.appid, res.randstr, res.ticket, 1);
+        }
+    };
+    return {
+        showCaptcha: showCaptcha
+    };
+});
+
+// 百度统计 自定义数据上传
+var _hmt = _hmt || [];
+
+//此变量百度统计需要  需全局变量
+define("dist/common/baidu-statistics", [ "dist/application/method" ], function(require, exports, moudle) {
+    var method = require("dist/application/method");
+    var fileParams = window.pageConfig && window.pageConfig.params;
+    var eventNameList = {
+        fileDetailPageView: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: window.pageConfig && window.pageConfig.userId || "",
+            pageid: "PC-M-FD",
+            fileid: fileParams && fileParams.g_fileId,
+            filecategoryname: fileParams && fileParams.classidName1 + "||" + fileParams && fileParams.classidName2 + "||" + fileParams && fileParams.classidName3,
+            filepaytype: fileParams && fileParams.productType || "",
+            // 文件类型
+            filecootype: "",
+            // 文件来源   
+            fileformat: fileParams && fileParams.file_format || ""
+        },
+        payFileResult: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: window.pageConfig && window.pageConfig.userId || "",
+            pageid: "PC-M-FD",
+            pagename: "",
+            payresult: "",
+            orderid: "",
+            orderpaytype: "",
+            orderpayprice: "",
+            fileid: "",
+            filename: "",
+            fileprice: "",
+            filecategoryname: "",
+            fileformat: "",
+            filecootype: "",
+            fileuploaderid: ""
+        },
+        payVipResult: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: "",
+            pageid: "PC-M-FD",
+            pagename: "",
+            payresult: "",
+            orderid: "",
+            orderpaytype: "",
+            orderpayprice: "",
+            fileid: "",
+            filename: "",
+            fileprice: "",
+            filecategoryname: "",
+            fileformat: "",
+            filecootype: "",
+            fileuploaderid: ""
+        },
+        loginResult: {
+            pagename: $("#ip-page-id").val(),
+            pageid: $("#ip-page-name").val(),
+            loginType: "",
+            userid: "",
+            loginResult: ""
+        }
+    };
+    function handle(id) {
+        if (id) {
+            try {
+                (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?" + id;
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            } catch (e) {
+                console.error(id, e);
+            }
+        }
+    }
+    function handleBaiduStatisticsPush(eventName, params) {
+        // vlaue是对象
+        var temp = eventNameList[eventName];
+        if (eventName == "fileDetailPageView") {
+            params = temp;
+        }
+        if (eventName == "payFileResult") {
+            params = $.extend(temp, {
+                payresult: params.payresult,
+                orderid: params.orderNo,
+                orderpaytype: params.orderpaytype
+            });
+        }
+        if (eventName == "payVipResult") {
+            params = $.extend(temp, {
+                payresult: params.payresult,
+                orderid: params.orderNo,
+                orderpaytype: params.orderpaytype
+            });
+        }
+        if (eventName == "loginResult") {
+            params = $.extend(temp, {
+                loginType: params.loginType,
+                userid: params.userid,
+                loginResult: params.loginResult
+            });
+        }
+        _hmt.push([ "_trackCustomEvent", eventName, params ]);
+        console.log("百度统计:", eventName, params);
+    }
+    return {
+        initBaiduStatistics: handle,
+        handleBaiduStatisticsPush: handleBaiduStatisticsPush
+    };
+});
+
+define("dist/application/app", [ "dist/application/method", "dist/application/element", "dist/application/template", "dist/application/extend", "dist/application/effect", "dist/application/checkLogin", "dist/application/api", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/application/helper" ], function(require, exports, module) {
+    var method = require("dist/application/method");
+    require("dist/application/element");
+    require("dist/application/extend");
+    require("dist/application/effect");
+    require("dist/application/login");
+    window.template = require("dist/application/template");
+    require("dist/application/helper");
+    // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
+    function getVisitUserId() {
+        // 访客id-有效时间和name在此处写死
+        var name = "visitor_id", expires = 30 * 24 * 60 * 60 * 1e3, visitId = method.getCookie(name);
+        // 过有效期-重新请求
+        if (!visitId) {
+            method.get("http://ishare.iask.sina.com.cn/gateway/user/getVisitorId", function(response) {
+                if (response.code == 0 && response.data) {
+                    method.setCookieWithExp(name, response.data, expires, "/");
+                }
+            });
+        }
+    }
+    getVisitUserId();
+    $.ajaxSetup({
+        headers: {
+            Authrization: method.getCookie("cuk")
+        },
+        complete: function(XMLHttpRequest, textStatus) {},
+        statusCode: {
+            401: function() {
+                method.delCookie("cuk", "/");
+                $.toast({
+                    text: "请重新登录",
+                    delay: 2e3
+                });
+            }
+        }
+    });
+    var bilog = require("dist/common/bilog");
+    //此方法是为了解决外部登录找不到此方法
+    window.getCookie = method.getCookie;
+    return {
+        method: method,
+        v: "1.0.1",
+        bilog: bilog
+    };
+});
+
+define("dist/application/element", [ "dist/application/method", "dist/application/template" ], function(require, exports, module) {
+    //var $ = require("$");
+    var method = require("dist/application/method");
+    var template = require("dist/application/template");
+    //获取热点搜索全部数据
+    if (window.pageConfig && window.pageConfig.hotData) {
+        var hot_data = JSON.parse(window.pageConfig.hotData);
+        var arr = [];
+        var darwData = [];
+        function unique(min, max) {
+            var index = method.random(min, max);
+            if ($.inArray(index, arr) === -1) {
+                arr.push(index);
+                darwData.push(hot_data[index]);
+                if (arr.length < 10) {
+                    unique(0, hot_data.length);
+                }
+            } else {
+                unique(0, hot_data.length);
+            }
+            return darwData;
+        }
+    }
+    //返回顶部
+    var fn_goTop = function($id) {
+        var Obj = {
+            ele: $id,
+            init: function() {
+                this.ele[0].addEventListener("click", function() {
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, 120);
+                }, false);
+                window.addEventListener("scroll", this, false);
+                return this;
+            },
+            handleEvent: function(evt) {
+                var top = $(document).scrollTop(), height = $(window).height();
+                top > 100 ? this.ele.show() : this.ele.hide();
+                if (top > 10) {
+                    $(".m-header").addClass("header-fix");
+                } else {
+                    $(".m-header").removeClass("header-fix");
+                }
+                return this;
+            }
+        };
+        Obj.init().handleEvent();
+    };
+    $("#backToTop").length && fn_goTop && fn_goTop($("#backToTop"));
+});
+
+/*!art-template - Template Engine | http://aui.github.com/artTemplate/*/
+!function() {
+    function a(a) {
+        return a.replace(t, "").replace(u, ",").replace(v, "").replace(w, "").replace(x, "").split(/^$|,+/);
+    }
+    function b(a) {
+        return "'" + a.replace(/('|\\)/g, "\\$1").replace(/\r/g, "\\r").replace(/\n/g, "\\n") + "'";
+    }
+    function c(c, d) {
+        function e(a) {
+            return m += a.split(/\n/).length - 1, k && (a = a.replace(/[\n\r\t\s]+/g, " ").replace(/<!--.*?-->/g, "")), 
+            a && (a = s[1] + b(a) + s[2] + "\n"), a;
+        }
+        function f(b) {
+            var c = m;
+            if (j ? b = j(b, d) : g && (b = b.replace(/\n/g, function() {
+                return m++, "$line=" + m + ";";
+            })), 0 === b.indexOf("=")) {
+                var e = l && !/^=[=#]/.test(b);
+                if (b = b.replace(/^=[=#]?|[\s;]*$/g, ""), e) {
+                    var f = b.replace(/\s*\([^\)]+\)/, "");
+                    n[f] || /^(include|print)$/.test(f) || (b = "$escape(" + b + ")");
+                } else b = "$string(" + b + ")";
+                b = s[1] + b + s[2];
+            }
+            return g && (b = "$line=" + c + ";" + b), r(a(b), function(a) {
+                if (a && !p[a]) {
+                    var b;
+                    b = "print" === a ? u : "include" === a ? v : n[a] ? "$utils." + a : o[a] ? "$helpers." + a : "$data." + a, 
+                    w += a + "=" + b + ",", p[a] = !0;
+                }
+            }), b + "\n";
+        }
+        var g = d.debug, h = d.openTag, i = d.closeTag, j = d.parser, k = d.compress, l = d.escape, m = 1, p = {
+            $data: 1,
+            $filename: 1,
+            $utils: 1,
+            $helpers: 1,
+            $out: 1,
+            $line: 1
+        }, q = "".trim, s = q ? [ "$out='';", "$out+=", ";", "$out" ] : [ "$out=[];", "$out.push(", ");", "$out.join('')" ], t = q ? "$out+=text;return $out;" : "$out.push(text);", u = "function(){var text=''.concat.apply('',arguments);" + t + "}", v = "function(filename,data){data=data||$data;var text=$utils.$include(filename,data,$filename);" + t + "}", w = "'console.log(3316)';var $utils=this,$helpers=$utils.$helpers," + (g ? "$line=0," : ""), x = s[0], y = "return new String(" + s[3] + ");";
+        r(c.split(h), function(a) {
+            a = a.split(i);
+            var b = a[0], c = a[1];
+            1 === a.length ? x += e(b) : (x += f(b), c && (x += e(c)));
+        });
+        var z = w + x + y;
+        g && (z = "try{" + z + "}catch(e){throw {filename:$filename,name:'Render Error',message:e.message,line:$line,source:" + b(c) + ".split(/\\n/)[$line-1].replace(/^[\\s\\t]+/,'')};}");
+        try {
+            var A = new Function("$data", "$filename", z);
+            return A.prototype = n, A;
+        } catch (B) {
+            throw B.temp = "function anonymous($data,$filename) {" + z + "}", B;
+        }
+    }
+    var d = function(a, b) {
+        return "string" == typeof b ? q(b, {
+            filename: a
+        }) : g(a, b);
+    };
+    d.version = "3.0.0", d.config = function(a, b) {
+        e[a] = b;
+    };
+    var e = d.defaults = {
+        openTag: "<%",
+        closeTag: "%>",
+        escape: !0,
+        cache: !0,
+        compress: !1,
+        parser: null
+    }, f = d.cache = {};
+    d.render = function(a, b) {
+        return q(a, b);
+    };
+    var g = d.renderFile = function(a, b) {
+        var c = d.get(a) || p({
+            filename: a,
+            name: "Render Error",
+            message: "Template not found"
+        });
+        return b ? c(b) : c;
+    };
+    d.get = function(a) {
+        var b;
+        if (f[a]) b = f[a]; else if ("object" == typeof document) {
+            var c = document.getElementById(a);
+            if (c) {
+                var d = (c.value || c.innerHTML).replace(/^\s*|\s*$/g, "");
+                b = q(d, {
+                    filename: a
+                });
+            }
+        }
+        return b;
+    };
+    var h = function(a, b) {
+        return "string" != typeof a && (b = typeof a, "number" === b ? a += "" : a = "function" === b ? h(a.call(a)) : ""), 
+        a;
+    }, i = {
+        "<": "&#60;",
+        ">": "&#62;",
+        '"': "&#34;",
+        "'": "&#39;",
+        "&": "&#38;"
+    }, j = function(a) {
+        return i[a];
+    }, k = function(a) {
+        return h(a).replace(/&(?![\w#]+;)|[<>"']/g, j);
+    }, l = Array.isArray || function(a) {
+        return "[object Array]" === {}.toString.call(a);
+    }, m = function(a, b) {
+        var c, d;
+        if (l(a)) for (c = 0, d = a.length; d > c; c++) b.call(a, a[c], c, a); else for (c in a) b.call(a, a[c], c);
+    }, n = d.utils = {
+        $helpers: {},
+        $include: g,
+        $string: h,
+        $escape: k,
+        $each: m
+    };
+    d.helper = function(a, b) {
+        o[a] = b;
+    };
+    var o = d.helpers = n.$helpers;
+    d.onerror = function(a) {
+        var b = "Template Error\n\n";
+        for (var c in a) b += "<" + c + ">\n" + a[c] + "\n\n";
+        "object" == typeof console && console.error(b);
+    };
+    var p = function(a) {
+        return d.onerror(a), function() {
+            return "{Template Error}";
+        };
+    }, q = d.compile = function(a, b) {
+        function d(c) {
+            try {
+                return new i(c, h) + "";
+            } catch (d) {
+                return b.debug ? p(d)() : (b.debug = !0, q(a, b)(c));
+            }
+        }
+        b = b || {};
+        for (var g in e) void 0 === b[g] && (b[g] = e[g]);
+        var h = b.filename;
+        try {
+            var i = c(a, b);
+        } catch (j) {
+            return j.filename = h || "anonymous", j.name = "Syntax Error", p(j);
+        }
+        return d.prototype = i.prototype, d.toString = function() {
+            return i.toString();
+        }, h && b.cache && (f[h] = d), d;
+    }, r = n.$each, s = "break,case,catch,continue,debugger,default,delete,do,else,false,finally,for,function,if,in,instanceof,new,null,return,switch,this,throw,true,try,typeof,var,void,while,with,abstract,boolean,byte,char,class,const,double,enum,export,extends,final,float,goto,implements,import,int,interface,long,native,package,private,protected,public,short,static,super,synchronized,throws,transient,volatile,arguments,let,yield,undefined", t = /\/\*[\w\W]*?\*\/|\/\/[^\n]*\n|\/\/[^\n]*$|"(?:[^"\\]|\\[\w\W])*"|'(?:[^'\\]|\\[\w\W])*'|[\s\t\n]*\.[\s\t\n]*[$\w\.]+/g, u = /[^\w$]+/g, v = new RegExp([ "\\b" + s.replace(/,/g, "\\b|\\b") + "\\b" ].join("|"), "g"), w = /^\d[^,]*|,\d[^,]*/g, x = /^,+|,+$/g;
+    e.openTag = "{{", e.closeTag = "}}";
+    var y = function(a, b) {
+        var c = b.split(":"), d = c.shift(), e = c.join(":") || "";
+        return e && (e = ", " + e), "$helpers." + d + "(" + a + e + ")";
+    };
+    e.parser = function(a, b) {
+        a = a.replace(/^\s/, "");
+        var c = a.split(" "), e = c.shift(), f = c.join(" ");
+        switch (e) {
+          case "if":
+            a = "if(" + f + "){";
+            break;
+
+          case "else":
+            c = "if" === c.shift() ? " if(" + c.join(" ") + ")" : "", a = "}else" + c + "{";
+            break;
+
+          case "/if":
+            a = "}";
+            break;
+
+          case "each":
+            var g = c[0] || "$data", h = c[1] || "as", i = c[2] || "$value", j = c[3] || "$index", k = i + "," + j;
+            "as" !== h && (g = "[]"), a = "$each(" + g + ",function(" + k + "){";
+            break;
+
+          case "/each":
+            a = "});";
+            break;
+
+          case "echo":
+            a = "print(" + f + ");";
+            break;
+
+          case "print":
+          case "include":
+            a = e + "(" + c.join(",") + ");";
+            break;
+
+          default:
+            if (-1 !== f.indexOf("|")) {
+                var l = b.escape;
+                0 === a.indexOf("#") && (a = a.substr(1), l = !1);
+                for (var m = 0, n = a.split("|"), o = n.length, p = l ? "$escape" : "$string", q = p + "(" + n[m++] + ")"; o > m; m++) q = y(q, n[m]);
+                a = "=#" + q;
+            } else a = d.helpers[e] ? "=#" + e + "(" + c.join(",") + ");" : "=" + a;
+        }
+        return a;
+    }, "function" == typeof define ? define("dist/application/template", [], function() {
+        return d;
+    }) : "undefined" != typeof exports ? module.exports = d : this.template = d;
+}();
+
+define("dist/application/extend", [], function(require, exports, module) {
+    if (!String.prototype.format) {
+        String.prototype.format = function() {
+            var args = arguments;
+            return this.replace(/{(\d+)}/g, function(match, number) {
+                return typeof args[number] != "undefined" ? args[number] : match;
+            });
+        };
+    }
+    if (!String.prototype.trim) {
+        String.prototype.trim = function() {
+            return this.replace(/^\s*/, "").replace(/\s*$/, "");
+        };
+    }
+    if (!String.prototype.stripTags) {
+        //移除html
+        String.prototype.stripTags = function() {
+            return this.replace(/<\/?[^>]+>/gi, "");
+        };
+    }
+    if (!Array.indexOf) {
+        Array.prototype.indexOf = function(obj) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == obj) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+    }
+    if (!Date.prototype.formatDate) {
+        // new Date(new Date().getTime()).formatDate("yyyy-MM-dd")
+        Date.prototype.formatDate = formatDate;
+        function formatDate(fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                //月份
+                "d+": this.getDate(),
+                //日
+                "h+": this.getHours(),
+                //小时
+                "m+": this.getMinutes(),
+                //分
+                "s+": this.getSeconds(),
+                //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                //季度
+                S: this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            return fmt;
+        }
+    }
+});
+
+// 通用头部的逻辑
+define("dist/application/effect", [ "dist/application/checkLogin", "dist/application/api", "dist/application/method", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/application/method" ], function(require, exports, module) {
+    var checkLogin = require("dist/application/checkLogin");
+    var method = require("dist/application/method");
+    $("#unLogin").on("click", function() {
+        checkLogin.notifyLoginInterface(function(data) {
+            refreshTopBar(data);
+        });
+    });
+    $(".loginOut").on("click", function() {
+        checkLogin.ishareLogout();
+    });
+    $(".top-user-more .js-buy-open").click(function() {
+        //  头像续费vip也有使用到
+        if ($(this).attr("data-type") == "vip") {
+            location.href = "/pay/vip.html";
+        }
+    });
+    $(".vip-join-con").click(function() {
+        method.compatibleIESkip("/node/rights/vip.html", true);
+    });
+    $(".btn-new-search").click(function() {
+        if (new RegExp("/search/home.html").test(location.href)) {
+            var href = window.location.href.substring(0, window.location.href.indexOf("?")) + "?ft=all";
+            var sword = $(".new-input").val() ? $(".new-input").val().replace(/^\s+|\s+$/gm, "") : $(".new-input").attr("placeholder");
+            window.location.href = method.changeURLPar(href, "cond", encodeURIComponent(encodeURIComponent(sword)));
+        } else {
+            var sword = $(".new-input").val() ? $(".new-input").val().replace(/^\s+|\s+$/gm, "") : $(".new-input").attr("placeholder");
+            if (sword) {
+                method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
+            }
+        }
+    });
+    $(".new-input").on("keydown", function(e) {
+        if (new RegExp("/search/home.html").test(location.href) && e.keyCode === 13) {
+            var href = window.location.href.substring(0, window.location.href.indexOf("?")) + "?ft=all";
+            var sword = $(".new-input").val() ? $(".new-input").val().replace(/^\s+|\s+$/gm, "") : $(".new-input").attr("placeholder");
+            window.location.href = method.changeURLPar(href, "cond", encodeURIComponent(encodeURIComponent(sword)));
+        } else {
+            if (e.keyCode === 13) {
+                var sword = $(".new-input").val() ? $(".new-input").val().replace(/^\s+|\s+$/gm, "") : $(".new-input").attr("placeholder");
+                if (sword) {
+                    method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
+                }
+            }
+        }
+    });
+    var $detailHeader = $(".new-detail-header");
+    var headerHeight = $detailHeader.height();
+    $(window).scroll(function() {
+        var detailTop = $(this).scrollTop();
+        if (detailTop - headerHeight >= 0) {
+            $detailHeader.addClass("new-detail-header-fix");
+        } else {
+            $detailHeader.removeClass("new-detail-header-fix");
+        }
+    });
+    //刷新topbar
+    var refreshTopBar = function(data) {
+        var $unLogin = $("#unLogin");
+        var $hasLogin = $("#haveLogin");
+        var $btn_user_more = $(".btn-user-more");
+        var $vip_status = $(".vip-status");
+        var $icon_iShare = $(".icon-iShare");
+        var $top_user_more = $(".top-user-more");
+        $btn_user_more.text(data.isVip == 1 ? "续费" : "开通");
+        var $target = null;
+        //VIP专享资料
+        if (method.getCookie("file_state") === "6") {
+            $(".vip-title").eq(0).show();
+        }
+        //vip
+        if (data.isVip == 1) {
+            $target = $vip_status.find('p[data-type="2"]');
+            $target.find(".expire_time").html(data.expireTime);
+            $target.show().siblings().hide();
+            $top_user_more.addClass("top-vip-more");
+            $(".isVip-show").find("span").html(data.expireTime);
+            $(".isVip-show").removeClass("hide");
+            $(".vip-privilege-btn").html("立即续费");
+        } else if (data.userType == 1) {
+            $target = $vip_status.find('p[data-type="3"]');
+            $hasLogin.removeClass("user-con-vip");
+            $target.show().siblings().hide();
+        } else if (data.isVip == 0) {
+            $hasLogin.removeClass("user-con-vip");
+        } else if (data.isVip == 2) {
+            console.log("data.isVip:", data.isVip);
+        }
+        $unLogin.hide();
+        $hasLogin.find(".user-link .user-name").html(data.nickName);
+        $hasLogin.find(".user-link img").attr("src", data.photoPicURL);
+        $hasLogin.find(".top-user-more .name").html(data.nickName);
+        $hasLogin.find(".top-user-more img").attr("src", data.photoPicURL);
+        $hasLogin.show();
+        if (window.pageConfig.params) {
+            window.pageConfig.params.isVip = data.isVip;
+        }
+        var fileDiscount = data.fileDiscount;
+        if (fileDiscount) {
+            fileDiscount = fileDiscount / 100;
+        } else {
+            fileDiscount = .8;
+        }
+        if (window.pageConfig.params) {
+            window.pageConfig.params.fileDiscount = fileDiscount;
+        }
+        $("#ip-uid").val(data.userId);
+        $("#ip-isVip").val(data.isVip);
+        $("#ip-mobile").val(data.mobile);
+    };
+    function isLogin(callback, isAutoLogin, callback2) {
+        if (!method.getCookie("cuk") && isAutoLogin) {
+            checkLogin.notifyLoginInterface(function(data) {
+                callback && callback(data);
+                callback2 && callback2(data);
+                refreshTopBar(data);
+            });
+        } else if (method.getCookie("cuk")) {
+            checkLogin.getLoginData(function(data) {
+                // callback2&&callback2()
+                callback && callback(data);
+                refreshTopBar(data);
+            });
+        }
+    }
+    return {
+        refreshTopBar: refreshTopBar,
+        isLogin: isLogin
+    };
+});
+
+define("dist/application/helper", [], function(require, exports, module) {
+    template.helper("encodeValue", function(value) {
+        return encodeURIComponent(encodeURIComponent(value));
+    });
+});
+
+define("dist/detail/common", [ "dist/application/method", "dist/application/api" ], function(require, exports, module) {
+    // var $ = require("$");
+    var method = require("dist/application/method");
+    var api = require("dist/application/api");
+    var pay_btn_tmp = require("dist/detail/template/pay_btn_tmp.html");
+    var pay_middle_tmp = require("dist/detail/template/pay_middle_tmp.html");
+    var pay_header_tmp = require("dist/detail/template/pay_header.tmp.html");
+    // var changeText = require('./changeShowOverText.js').changeText
+    var userData = null;
+    var pageConfig = window.pageConfig && window.pageConfig;
+    // 页面信息
+    // productType  1  4  5 
+    var initData = {
+        isDownload: pageConfig.page.isDownload,
+        //仅在线阅读
+        vipFreeFlag: pageConfig.params.vipFreeFlag,
+        //是否VIP免费
+        isVip: 0,
+        //是否VIP
+        perMin: pageConfig.params.g_permin,
+        //是否现金文档
+        vipDiscountFlag: pageConfig.params.vipDiscountFlag,
+        ownVipDiscountFlag: pageConfig.params.ownVipDiscountFlag,
+        volume: pageConfig.params.file_volume,
+        //下载券数量
+        moneyPrice: pageConfig.params.moneyPrice,
+        fid: pageConfig.params.g_fileId,
+        title: pageConfig.page.fileName,
+        format: pageConfig.params.file_format,
+        cdnUrl: _head,
+        productType: pageConfig.page.productType,
+        // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        productPrice: pageConfig.page.productPrice
+    };
+    /**
+     * 刷新头部信息
+     * @param data checkLogin 返回数据
+     */
+    var reloadHeader = function(data) {
+        var $unLogin = $("#detail-unLogin"), // unLogin
+        $hasLogin = $("#haveLogin"), $top_user_more = $(".top-user-more"), $icon_iShare_text = $(".icon-iShare-text"), $btn_user_more = $(".btn-user-more"), $vip_status = $(".vip-status"), $icon_iShare = $(".icon-iShare");
+        // 顶部右侧的消息
+        $(".top-bar .news").removeClass("hide").find("#user-msg").text(data.msgCount);
+        $icon_iShare_text.html(data.isVip === "1" ? "续费VIP" : "开通VIP");
+        $btn_user_more.text(data.isVip === "1" ? "续费" : "开通");
+        if (data.isVip === "0") {
+            $(".open-vip").show().siblings("a").hide();
+        } else {
+            $(".xf-open-vip").show().siblings("a").hide();
+        }
+        var $target = null;
+        //vip
+        if (data.isVip == 1) {
+            $target = $vip_status.find('p[data-type="2"]');
+            $target.find(".expire_time").html(data.expireTime);
+            $target.show().siblings().hide();
+            $top_user_more.addClass("top-vip-more");
+        } else if (data.userType == 1) {
+            $target = $vip_status.find('p[data-type="3"]');
+            $target.show().siblings().hide();
+        }
+        $unLogin.hide();
+        $hasLogin.find(".icon-detail").html(data.nickName);
+        $hasLogin.find("img").attr("src", data.photoPicURL);
+        $top_user_more.find("img").attr("src", data.photoPicURL);
+        $top_user_more.find("#userName").html(data.nickName);
+        $hasLogin.show();
+        //右侧导航栏.
+        /* ==>头像,昵称 是否会员文案提示.*/
+        $(".user-avatar img").attr("src", data.photoPicURL);
+        $(".name-wrap .name-text").html(data.nickName);
+        if (data.isVip === "1") {
+            var txt = "您的VIP将于" + data.expireTime + "到期,剩余" + data.privilege + "次下载特权";
+            $(".detail-right-normal-wel").html(txt);
+            $(".detail-right-vip-wel").html("会员尊享权益");
+            $(".btn-mui").hide();
+            $("#memProfit").html("VIP权益");
+        } else {
+            $(".mui-privilege-list li").removeClass("hide");
+        }
+    };
+    /**
+     * 登录后,要刷新顶部.中间,底部内容
+     */
+    var reloadingPartOfPage = function() {
+        $("#footer-btn").html(template.compile(pay_btn_tmp)({
+            data: initData
+        }));
+    };
+    /**
+     * 重新刷新价格显示
+     */
+    var reSetOriginalPrice = function() {
+        var originalPrice = 0;
+        if (initData.vipDiscountFlag == "1") {
+            // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            originalPrice = (initData.moneyPrice * 1e3 / 1250).toFixed(2);
+            // 8折
+            // originalPrice = initData.moneyPrice ;
+            $(".js-original-price").html(originalPrice);
+            // var fileDiscount = userData.fileDiscount;
+            // if (fileDiscount && fileDiscount !== 80) {
+            //     $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
+            // }
+            $(".vip-price").html("&yen;" + (initData.moneyPrice * (80 / 100)).toFixed(2));
+        }
+        if (initData.productType === "5" && initData.vipDiscountFlag == "1") {
+            // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
+            originalPrice = (initData.moneyPrice * 1e3 / 1250).toFixed(2);
+            // originalPrice = initData.moneyPrice 
+            $(".js-original-price").html(originalPrice);
+            //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
+            var savePrice = (initData.moneyPrice * .8).toFixed(2);
+            $("#vip-save-money").html(savePrice);
+            $(".js-original-price").html(savePrice);
+        }
+    };
+    /**
+     * 查询是否已经收藏
+     */
+    // var queryStoreFlag = function () {
+    //     method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
+    //         if (res.code == 0) {
+    //             var $btn_collect = $('#btn-collect');
+    //             if (res.data === 1) {
+    //                 $btn_collect.addClass('btn-collect-success');
+    //             } else {
+    //                 $btn_collect.removeClass('btn-collect-success')
+    //             }
+    //         } else if (res.code == 40001) {
+    //             setTimeout(function () {
+    //                 method.delCookie('cuk', "/", ".sina.com.cn");
+    //             }, 0)
+    //         }
+    //     });
+    // };
+    /**
+     * 文件预览判断接口
+     */
+    var filePreview = function() {
+        var validateIE9 = method.validateIE9() ? 1 : 0;
+        var pageConfig = window.pageConfig;
+        var params = "?fid=" + pageConfig.params.g_fileId + "&validateIE9=" + validateIE9;
+        // method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
+        //     if (res.code == 0) {
+        //         pageConfig.page.preRead = res.data&&res.data.preRead || 50;
+        //         var num = method.getParam('page');
+        //         if (num > 0) {
+        //             pageConfig.page.is360page = 'true';
+        //             pageConfig.page.initReadPage = Math.min(num, 50);
+        //         }
+        //         pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+        //         // 修改继续阅读文案要判断是否购买过
+        //         // changeText(res.data.status)
+        //         if (pageConfig.params.file_state === '3') {
+        //             var content = res.data.url || pageConfig.imgUrl[0];
+        //             var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
+        //             var newimgUrl = [];
+        //             for (var key in bytes) {
+        //                 var page = bytes[key];
+        //                 var param = page[0] + '-' + page[1];
+        //                 var newUrl = method.changeURLPar(content, 'range', param);
+        //                 newimgUrl.push(newUrl);
+        //             }
+        //             pageConfig.imgUrl = newimgUrl;
+        //         }
+        //         //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+        //         if (method.getCookie('cuk')) {
+        //             reloadingPartOfPage();
+        //         }
+        //         reSetOriginalPrice();
+        //     }
+        // })
+        $.ajax({
+            url: api.normalFileDetail.getPrePageInfo,
+            type: "POST",
+            data: JSON.stringify({
+                fid: pageConfig.params.g_fileId,
+                validateIE9: validateIE9
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == 0) {
+                    pageConfig.page.preRead = res.data && res.data.preRead || 50;
+                    var num = method.getParam("page");
+                    if (num > 0) {
+                        pageConfig.page.is360page = "true";
+                        pageConfig.page.initReadPage = Math.min(num, 50);
+                    }
+                    pageConfig.page.status = initData.status = res.data && res.data.status;
+                    // 0 未登录、转化失败、未购买 2 已购买、本人文件
+                    // 修改继续阅读文案要判断是否购买过
+                    // changeText(res.data.status)
+                    if (pageConfig.params.file_state === "3") {
+                        var content = res.data.url || pageConfig.imgUrl[0];
+                        var bytes = res.data.pinfo && res.data.pinfo.bytes || {};
+                        var newimgUrl = [];
+                        for (var key in bytes) {
+                            var page = bytes[key];
+                            var param = page[0] + "-" + page[1];
+                            var newUrl = method.changeURLPar(content, "range", param);
+                            newimgUrl.push(newUrl);
+                        }
+                        pageConfig.imgUrl = newimgUrl;
+                    }
+                    //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+                    if (method.getCookie("cuk")) {
+                        reloadingPartOfPage();
+                    }
+                    reSetOriginalPrice();
+                }
+            }
+        });
+    };
+    return {
+        initData: initData,
+        userData: userData,
+        beforeLogin: function() {},
+        afterLogin: function(data) {
+            userData = data;
+            initData.isVip = parseInt(data.isVip, 10);
+            reloadHeader(data);
+            // queryStoreFlag();
+            filePreview();
+        }
+    };
+});
+
+define("dist/detail/template/pay_btn_tmp.html", [], '<div class="bottom-fix qwe">\n        {{if data.productType == "3"}}\n            <!--仅在线阅读-->\n            {{if data.isVip == 1}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                    <span class="online-read">仅供在线阅读</span>\n                </div>\n                <div class="integral-con fr">\n                    <a id="searchRes" class="btn-fix-vip fl" ><i class="icon-detail"></i>寻找资料</a>\n                </div>\n\n            {{else}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                    <span class="online-read">仅供在线阅读</span>\n                </div>\n                <div class="integral-con fr">\n                    <a class="btn-fix-vip js-buy-open fl pc_click" pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8" data-type="vip">开通VIP，享更多特权</a>\n                </div>\n            {{/if}}\n        {{else}}\n            <!--VIP免费-->\n            {{if data.productType == 4}}\n                <div class="data-item fl">\n                    <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                </div>\n                <div class="integral-con fr">\n                    <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                </div>\n            {{else}}\n                {{if data.productType == "5" }}\n                    <!--现金文档 -->\n                    <!--专享8折 加入vip8折购买 立即下载 立即购买-->\n                      {{if data.isVip == 1 && data.vipDiscountFlag == 1 }}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl">\n                                <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                            </h2>\n                        </div>\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con price-more fl">\n                                     <p class="price vip-price">¥{{data.productPrice}}</p>\n                                    <p class="origin-price">原价&yen; {{data.productPrice}}</p>\n                                </div>\n                                 <a class="btn-fix-bottom js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>\n                            {{else}}\n                                 <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                        <!--&& data.ownVipDiscountFlag== 1-->\n                      {{else if data.isVip != 1 && data.vipDiscountFlag == 1 }}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>\n                        </div>\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con price-more fl">\n                                    <!--现金文档价格 -->\n                                    <p class="price" style="">&yen;{{data.productPrice}}</p>\n                                    <!--现金文档 有折扣 非vip会员 -->\n                                  \n                                      <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{data.productPrice}}</span></p>\n                                </div>\n                                <a class="btn-fix-bottom btn-fix-border js-buy-open fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>\n                            {{else}}\n                                 <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                      {{else}}\n                        <div class="data-item fl">\n                            <h2 class="data-title fl">\n                                <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                            </h2>\n                        </div>\n\n                        <div class="integral-con fr">\n                            {{if data.status!=2}}\n                                <div class="price-con fl">\n                                    <!--现金文档价格 -->\n                                     <p class="price" style="">¥{{data.productPrice}}</p>\n                                </div>\n                                <a class="btn-fix-bottom js-buy-open  fl pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即下载</a>\n                            {{else}}\n                                <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            {{/if}}\n                        </div>\n                    {{/if}}\n                {{else}}\n                    <!--vip-->\n                    {{if data.isVip == 1}}\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n                            <div class="integral-con fr">\n                                {{if data.volume > 0}}\n                                    <div class="price-con fl">\n                                        <p class="price">{{data.volume}}下载券</p>\n                                    </div>\n                                {{/if}}\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>\n                            </div>\n                    {{else}}\n                        {{if data.volume > 0}}\n\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n\n                            <div class="integral-con fr">\n                                <div class="price-con fl">\n                                    <p class="price" style="">{{data.volume}}下载券</p>\n                                </div>\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>\n                            </div>\n                        {{else}}\n                            <div class="data-item fl">\n                                <h2 class="data-title fl">\n                                    <i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}\n                                </h2>\n                            </div>\n\n                            <div class="integral-con fr">\n                                <a class="btn-fix-bottom  fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>\n                            </div>\n                        {{/if}}\n                    {{/if}}\n                {{/if}}\n            {{/if}}\n        {{/if}}\n</div>\n');
+
+define("dist/detail/template/pay_middle_tmp.html", [], '{{if data.isDownload === "n"}}\n<!--仅在线阅读-->\n{{if data.isVip == 1}}\n<div class="detail-wx-wrap">\n    <p class="detail-wx-text">本资料仅支持在线阅读，VIP可扫码寻找。</p>\n    <div class="detail-wx-entry">\n        <div class="wx-entry-con">\n            <div class="wx-code-con">\n                <img src="//pic.iask.com.cn/mini/qrc_{{data.fid}}.png">\n                <p>资料小程序码</p>\n            </div>\n            <div class="entry-main">\n                <div class="wx-step-con">\n                    <p class="step-text" style="text-align: left;">使用微信“扫一扫”扫码寻找资料</p>\n                    <div class="wx-step-list cf">\n                        <div class="step-num">\n                            <p>1</p>\n                            <p class="step-num-text">打开微信</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>2</p>\n                            <p class="step-num-text">扫描小程序码</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>3</p>\n                            <p class="step-num-text">发布寻找信息</p>\n                        </div>\n                        <i class="step-arrow"></i>\n                        <div class="step-num">\n                            <p>4</p>\n                            <p class="step-num-text">等待寻找结果</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n{{else}}\n<div class="btn-data-con">\n    <p>仅供在线阅读</p>\n    <div class="btn-con mt18">\n        <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVipPr" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP，享更多特权</a>\n    </div>\n</div>\n{{/if}}\n{{else}}\n<div class="btn-data-con direct-dowonload-01">\n    <!--VIP免费-->\n    {{if data.vipFreeFlag == 1}}\n        <div class="btn-con mt18">\n            <a class="btn-state-red pc_click" pcTrackContent=\'downloadBtn-2\' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>\n        </div>\n    {{else}}\n    {{if data.perMin == "3"}}\n    <!--现金文档 -->\n    <!--专享8折 加入vip8折购买 立即下载 立即购买-->\n    {{if data.isVip == 1 && data.vipDiscountFlag ==1 && data.ownVipDiscountFlag ==1}}\n        {{if data.status!=2}}\n            <div class="price-item">\n                <p class="price-text vip-price">&yen; {{(data.moneyPrice*1000/1250).toFixed(2)}}</p>\n                <p class="origin-price">原价&yen; {{data.moneyPrice}}</p>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid js-buy-open  pc_click"  pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" data-type="file">立即购买</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n\n    {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}\n\n        {{if data.status!=2}}\n            <div class="price-item">\n                <p class="price-text">¥{{data.moneyPrice}}</p>\n                <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid btn-buy-border js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>\n                <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVip8" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP, 8折起</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n\n    {{else}}\n        {{if data.status!=2}}\n            <div class="price-item">\n                <div class="price-item">\n                    <p class="price-text">&yen;{{data.moneyPrice}}</p>\n                </div>\n            </div>\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>\n            </div>\n        {{else}}\n            <div class="btn-con mt18">\n                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent=\'downloadBtn-2\' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>\n            </div>\n        {{/if}}\n    {{/if}}\n    {{else}}\n    <!-- 下载券下载 -->\n        {{ if data.volume >0 }}\n            <p class="ticket-num"><i class="icon-detail"></i>{{data.volume}}下载券</p>\n        {{/if}}\n        <div class="btn-con mt18">\n            <a class="btn-state-red pc_click" pcTrackContent=\'downloadBtn-2\' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>\n        </div>\n    {{/if}}\n    {{/if}}\n</div>\n{{/if}}\n\n');
+
+define("dist/detail/template/pay_header.tmp.html", [], '{{ if data.isDownload != \'n\' }}\n    {{if data.vipFreeFlag == 1}}\n           <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n    {{else}}\n          {{ if data.perMin == "3"}}\n                {{if data.isVip == 1 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag == 1}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp header-price-more">\n                                    <p class="price vip-price">&yen; {{(data.moneyPrice*1000/1250).toFixed(2)}}</p>\n                                    <p class="origin-price">原价&yen;{{data.moneyPrice}}</p>\n                                </div>\n                            {{else}}\n                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n                {{else if data.isVip == 0 && data.vipDiscountFlag == 1 && data.ownVipDiscountFlag== 1}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp header-price-more">\n                                    <p class="price">&yen;{{data.moneyPrice}}</p>\n                                    <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>\n                                </div>\n                            {{else}}\n                                 <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n                {{else}}\n                            {{if data.status!=2}}\n                                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy" data-type="file">立即购买</a>\n                                <div class="header-price-warp">\n                                    <p class="price">&yen;{{data.moneyPrice}}</p>\n                                </div>\n                            {{else}}\n                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                            {{/if}}\n\n                {{/if}}\n          {{else}}\n                {{ if data.volume >0 }}\n                                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                                <p class="btn-text"><span>{{data.volume}}</span>下载券</p>\n                {{else}}\n                        <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown" data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>\n                {{/if}}\n          {{/if}}\n    {{/if}}\n{{/if}}');
+
+define("dist/detail/template/head_tip.html", [], '<div class="info-wrap">\n    <i class="before"></i>\n    <i class="after"></i>\n    <p>{{data.prompt}}</p>\n    <div class="btn-wrap">\n        <a href="../pay/vip.html" target="_blank" class="btn-user">立即使用</a>\n        <a class="btn-no-user">暂不使用</a>\n    </div>\n</div>');
+
+define("dist/detail/search", [], function(require, exports, module) {
+    // var $ = require("$");
+    var history_tmp = require("dist/detail/template/history_tmp.html");
+    var hot_search_tmp = require("dist/detail/template/hot_search_tmp.html");
+    var historyArr = JSON.parse(localStorage.getItem("lhistory"));
+    var hotSearchData = JSON.parse(sessionStorage.getItem("hotSearch"));
+    if (historyArr) {
+        var _html = template.compile(history_tmp)({
+            data: historyArr
+        });
+        $(".search-history-list").html(_html);
+    }
+    $("ul.search-history-list li").length > 0 ? $(".delete-history-ele").show() : $(".delete-history-ele").hide();
+    //点击出现搜索页
+    $(".btn-m-search").on("click", function(e) {
+        e.stopPropagation();
+        if (sessionStorage.getItem("hotSearch")) {
+            buildHotSearchHtml(hotSearchData);
+        } else {
+            getHotSearch();
+        }
+        $("#search-bd-con").hide();
+        $(".search-dialog").show();
+        $("#search-input").focus();
+    });
+    //输入框
+    $(document).on("keyup", "#search-input", function(e) {
+        var keycode = e.keyCode;
+        if ($(this).val()) {
+            $(".btn-input-delete").show();
+            $(".btn-cancel").css("color", "#f25125");
+            $(".search-main:eq(0):visible").hide();
+            $(".search-main:eq(1):hidden").show();
+            getBaiduData($(this).val());
+        } else {
+            $(".search-main:eq(0):hidden").show();
+            $(".search-main:eq(1):visible").hide();
+            $(".btn-input-delete").hide();
+            $(".btn-cancel").css("color", "#444");
+        }
+        if (keycode == 13) {
+            searchFn();
+        }
+    });
+    //搜索点击
+    $(document).on("click", ".btn-cancel", function(e) {
+        e && e.stopPropagation();
+        searchFn();
+    });
+    //返回
+    $(document).on("click", ".js_back", function(e) {
+        e && e.stopPropagation();
+        $(".search-dialog").hide();
+        $("#search-bd-con").show();
+        $("#search-input").blur();
+    });
+    //清空
+    $(document).on("click", ".btn-input-delete", function(e) {
+        $(this).hide();
+        $("#search-input").val("");
+    });
+    //热门搜索
+    $(document).on("click", "#search-hot-box", function(e) {
+        var hotData = $(e.target).text();
+        mergeFn(hotData);
+    });
+    //清空历史
+    $(document).on("click", ".delete-history-ele", function(e) {
+        $(this).hide();
+        $(".search-dialog .search-history-list").hide();
+        localStorage.removeItem("lhistory");
+    });
+    //单个清楚历史记录
+    $(document).on("click", ".btn-delete", function(e) {
+        if ($("ul.search-history-list li").length) {
+            var d = $(this).data("html");
+            removeTag(d);
+            $(this).closest("li").remove();
+        }
+        $("ul.search-history-list li").length > 0 ? $(".delete-history-ele").show() : $(".delete-history-ele").hide();
+    });
+    $(".search-dialog .search-list").on("click", "a", function(e) {
+        var val = $(this).data("html");
+        if (val) {
+            mergeFn(val);
+        }
+    });
+    //搜索
+    var searchFn = function() {
+        var _val = $("#search-input").val();
+        _val = _val ? _val.replace(/^\s+|\s+$/gm, "") : "";
+        if (!_val) {
+            $.toast({
+                text: "搜索内容为空"
+            });
+            return;
+        }
+        mergeFn(_val);
+        gotoUrl(_val);
+    };
+    //获取热门搜索数据
+    var getHotSearch = function() {
+        $.ajax(api.getHotSearch, {
+            type: "get",
+            async: false,
+            dataType: "json"
+        }).done(function(res) {
+            if (res.code == 0) {
+                buildHotSearchHtml(res.data);
+                sessionStorage.setItem("hotSearch", JSON.stringify(res.data));
+            }
+        }).fail(function(e) {
+            $.toast({
+                text: "error",
+                delay: 2e3
+            });
+        });
+    };
+    //构建热门数据
+    var buildHotSearchHtml = function(d) {
+        if (d) {
+            var _html = template.compile(hot_search_tmp)({
+                data: d
+            });
+            $("#search-hot-box").html(_html);
+        }
+    };
+    //跳转
+    var gotoUrl = function(sword) {
+        window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+    };
+    //获取百度数据
+    var getBaiduData = function(val) {
+        $.getScript("//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + encodeURIComponent(val) + "&p=3&cb=window.baidu_searchsug&t=" + new Date().getTime());
+    };
+    /*百度搜索建议回调方法*/
+    window.baidu_searchsug = function(data) {
+        var sword = $(".search-dialog .s-input").val();
+        sword = sword ? sword.replace(/^\s+|\s+$/gm, "") : "";
+        if (sword.length > 0) {
+            if (data && data.s) {
+                var condArr = data.s;
+                if (condArr.length > 0) {
+                    var max = Math.min(condArr.length, 10);
+                    var _html = [];
+                    for (var i = 0; i < max; i++) {
+                        var searchurl = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(condArr[i]));
+                        _html.push('<li><a href="' + searchurl + '"  data-html="' + condArr[i] + '" >' + condArr[i].replace(new RegExp("(" + sword + ")", "gm"), "<span class='search-font'>$1</span>") + "</a></li>");
+                    }
+                    $(".search-dialog .search-main .search-list").html(_html.join(""));
+                }
+            }
+        }
+    };
+    //合并数据
+    var mergeFn = function(d) {
+        if (historyArr) {
+            if ($.inArray(d, historyArr) === -1) {
+                historyArr.unshift(d);
+            }
+        } else {
+            historyArr = [ d ];
+        }
+        localStorage.setItem("lhistory", JSON.stringify(historyArr));
+    };
+    var removeTag = function(val) {
+        var index = $.inArray(val, historyArr);
+        if (index > -1) {
+            historyArr.splice(index, 1);
+        }
+        localStorage.setItem("lhistory", JSON.stringify(historyArr));
+    };
+});
+
+define("dist/detail/template/history_tmp.html", [], '{{each data as value i}}\n<li>\n    <a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n    <a href="javascript:;" class="btn-delete" data-html="{{value}}"></a>\n</li>\n{{/each}}');
+
+define("dist/detail/template/hot_search_tmp.html", [], '{{each data as value i}}\n<a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n{{/each}}');
+
+define("dist/detail/download", [ "dist/application/method", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/cmd-lib/loading", "dist/cmd-lib/util", "dist/cmd-lib/gioInfo", "dist/detail/common", "dist/application/api", "dist/application/checkLogin", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/report/config", "dist/common/bindphone", "dist/common/baidu-statistics" ], function(require, exports, module) {
+    // var $ = require("$");
+    var method = require("dist/application/method");
+    require("dist/cmd-lib/myDialog");
+    require("dist/cmd-lib/toast");
+    require("dist/cmd-lib/loading");
+    var utils = require("dist/cmd-lib/util");
+    var gioInfo = require("dist/cmd-lib/gioInfo");
+    var common = require("dist/detail/common");
+    var login = require("dist/application/checkLogin");
+    var api = require("dist/application/api");
+    // var downLoadReport = $.extend({}, gioData);   // init.js 中引入的 report中在 window上挂载了 gioData 
+    var ref = utils.getPageRef(window.pageConfig.params.g_fileId);
+    //用户来源
+    var expendScoreNum_var = "";
+    //用户下载文档成功后消耗的积分数量
+    var expendNum_var = "";
+    //用户下载文档成功后消耗下载券、下载特权或现金的数量
+    var fid = window.pageConfig.params.g_fileId;
+    // 文件id
+    var tpl_android = $("#tpl-down-android").html();
+    //下载app  项目全局 没有 这个 classId
+    var file_title = window.pageConfig.params.file_title;
+    //详情页异常信息提示弹框
+    var $tpl_down_text = $("#tpl-down-text");
+    // 在 详情index.html中引入的 dialog.html 用有  一些弹框模板
+    // 文档已下载
+    var $tpl_down_finished = $("#tpl-down-finished");
+    // 是vip
+    var $integral_download_vip = $("#integral-download-vip");
+    // 非vip
+    var $integral_download_normal = $("#integral-download-normal");
+    //下载券下载 vip
+    var $volume_download_vip = $("#volume-download-vip");
+    //下载券下载 普通用户
+    var $volume_download_normal = $("#volume-download-normal");
+    var $have_privilege = $("#have_privilege");
+    // vip专享下载--扣除下载特权
+    var $permanent_privilege = $("#permanent_privilege");
+    // 扣除下载特权--但不够扣
+    var $permanent_privilege_not = $("#permanent_privilege_not");
+    // vip 免费下载次数达上限提醒
+    var $vipFreeDownCounts = $("#vipFreeDownCounts");
+    // 非VIP 免费下载次数达上限提醒
+    var $freeDownCounts = $("#freeDownCounts");
+    //
+    // 弹窗加入VIP
+    var $download_join_vip = $("#download-join-vip");
+    var userData = null;
+    // downLoadReport.docPageType_var = pageConfig.page.ptype;
+    // downLoadReport.fileUid_var = pageConfig.params.file_uid;
+    //下载跳转公用
+    var publicDownload = function() {
+        method.delCookie("event_data_down", "/");
+        if (window.pageConfig.page.isDownload === "n") {
+            return;
+        }
+        // 文件预下载
+        // filePreDownLoad: router + '/action/downloadCheck',
+        method.get(api.normalFileDetail.filePreDownLoad + "?fid=" + fid, function(res) {
+            if (res.code == 0) {
+                //阻塞下载gio上报
+                bouncedType(res);
+                docDLFail(res.data.status);
+            } else if (res.code == 42e3 || res.code == 42001 || res.code == 42002 || res.code == 42003) {
+                $("#dialog-box").dialog({
+                    html: $tpl_down_text.html().replace(/\$msg/, res.msg)
+                }).open();
+            } else if (res.code == 40001) {
+                login.notifyLoginInterface(function(data) {
+                    userData = data;
+                });
+            } else if (res.code == 42011) {
+                method.compatibleIESkip("/pay/vip.html", true);
+            } else {
+                $("#dialog-box").dialog({
+                    html: $tpl_down_text.html().replace(/\$msg/, res.msg)
+                }).open();
+            }
+        }, "");
+    };
+    //上报数据处理-下载成功
+    var docDLSuccess = function(consume, flag) {
+        //消费类型
+        downLoadReport.expendType_var = gioInfo.downloadConsumeMap[consume];
+        //如果不是下载过添加这2个字段
+        if (flag) {
+            //消耗的积分数量
+            downLoadReport.expendScoreNum_var = expendScoreNum_var;
+            //消耗的消耗下载券数量
+            downLoadReport.expendNum_var = expendNum_var;
+        }
+        //防止上报字段错误
+        if (downLoadReport.downloadLimited_var) {
+            delete downLoadReport.downloadLimited_var;
+        }
+        __pc__.gioTrack("docDLSuccess", downLoadReport);
+    };
+    //上报数据处理-下载受限
+    var docDLFail = function(status) {
+        if (gioInfo.downloadLimitedCodeMap[status]) {
+            downLoadReport.downloadLimited_var = gioInfo.downloadLimitedCodeMap[status];
+            __pc__.gioTrack("docDLFail", downLoadReport);
+        }
+    };
+    var bouncedType = function(res) {
+        //屏蔽下载的 后台返回 文件不存在需要怎么提示
+        // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位元
+        var $dialogBox = $("#dialog-box");
+        fid = window.pageConfig.params.g_fileId;
+        switch (res.data.checkStatus) {
+          // 下载
+            case 0:
+            // 原来 status 100
+            var browserEnv = method.browserType();
+            method.delCookie("event_data_down", "/");
+            if (res.data.score > 0) {
+                expendScoreNum_var = res.data.score * 1;
+            } else if (res.data.volume > 0) {
+                expendNum_var = res.data.volume * 1;
+            } else if (window.pageConfig.params.file_volume > 0 && res.data.privilege > 0) {
+                //消耗下载特权数量
+                expendNum_var = 1;
+            }
+            //   docDLSuccess(res.data.consume, true);
+            if (browserEnv === "IE" || browserEnv === "Edge") {
+                // window.location.href = res.data.downloadURL;
+                method.compatibleIESkip(res.data.fileDownUrl, false);
+            } else if (browserEnv === "Firefox") {
+                // window.location.href = decodeURIComponent(res.data.downloadURL);
+                var fileDownUrl = res.data.fileDownUrl;
+                var sub = fileDownUrl.lastIndexOf("&fn=");
+                var sub_url1 = fileDownUrl.substr(0, sub + 4);
+                var sub_ur2 = decodeURIComponent(fileDownUrl.substr(sub + 4, fileDownUrl.length));
+                var fid = window.pageConfig.params.g_fileId;
+                // window.location.href = sub_url1 + sub_ur2;
+                method.compatibleIESkip(sub_url1 + sub_ur2, false);
+                var url = "/node/f/downsucc.html?fid=" + fid + "&url=" + encodeURIComponent(res.data.fileDownUrl);
+                goNewTab(url);
+            } else {
+                // window.location.href = res.data.downloadURL;
+                // method.compatibleIESkip(res.data.fileDownUrl,false);
+                var fid = window.pageConfig.params.g_fileId;
+                var url = "/node/f/downsucc.html?fid=" + fid + "&title=" + encodeURIComponent(file_title) + "&url=" + encodeURIComponent(res.data.fileDownUrl);
+                goNewTab(url);
+            }
+            break;
+
+          // 已下载过    
+            // case 7:
+            //     downLoad(res.data.status);
+            //     break;
+            // 原来判断通过    
+            // case 0:
+            //     downLoad();
+            //     break;
+            // 超过了当日下载阈值,
+            // 资料是付费，用户未购买
+            case 8:
+            // goPage(res)
+            var fid = window.pageConfig.params.g_fileId;
+            var format = window.pageConfig.params.file_format;
+            var title = window.pageConfig.params.file_title;
+            var params = "";
+            var ref = utils.getPageRef(fid);
+            //文件信息存入cookie方便gio上报
+            // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+            method.setCookieWithExpPath("rf", JSON.stringify({}), 5 * 60 * 1e3, "/");
+            method.setCookieWithExp("f", JSON.stringify({
+                fid: fid,
+                title: title,
+                format: format
+            }), 5 * 60 * 1e3, "/");
+            params = "?orderNo=" + fid + "&checkStatus=" + res.data.checkStatus + "&referrer=" + document.referrer;
+            // window.location.href = "/pay/payConfirm.html" + params;
+            method.compatibleIESkip("/pay/payConfirm.html" + params, false);
+            break;
+
+          case 1:
+            // $dialogBox.dialog({
+            //     html: $tpl_down_text.html().replace(/\$msg/, '您已经超过了当日下载量')
+            // }).open();
+            // break;
+            var ui = method.getCookie("ui") ? JSON.parse(decodeURIComponent(method.getCookie("ui"))) : {
+                isVip: ""
+            };
+            if (ui.isVip == "1") {
+                $("#dialog-box").dialog({
+                    html: $vipFreeDownCounts.html()
+                }).open();
+            } else {
+                $("#dialog-box").dialog({
+                    html: $freeDownCounts.html()
+                }).open();
+            }
+            break;
+
+          // 下载过于频繁
+            case 2:
+            $dialogBox.dialog({
+                html: $tpl_down_text.html().replace(/\$msg/, "您当日下载过于频繁,一分钟后再下载")
+            }).open();
+            break;
+
+          // 下载券不足并且积分也不足
+            // case 3:
+            //     var fid = window.pageConfig.params.g_fileId;
+            //     var state = window.pageConfig.params.file_state;
+            //     var isVip = window.pageConfig.params.isVip;
+            //     var showTips = 0;
+            //     if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
+            //         showTips = 1;
+            //     } else if (state == 2 && isVip == 0) {//下载券资料 非vip用户a
+            //         showTips = 2;
+            //     }
+            //     var format = window.pageConfig.params.file_format;
+            //     var title = window.pageConfig.params.file_title;
+            //     method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+            //     var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+            //     var url = '/pay/vip.html' + params;
+            //     if (userData.isVip === '1') {
+            //         url = '/pay/privilege.html?fid=' + fid + '&ref=' + ref;
+            //     }
+            //     goLocalTab(url);
+            //     break;
+            // 下载券不足并且积分充足  积分兑换下载
+            // case 4:
+            //     if (userData.isVip === '1') {
+            //         $dialogBox.dialog({
+            //             html: $integral_download_vip.html().replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     } else {
+            //         $dialogBox.dialog({
+            //             html: $integral_download_normal.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$evolume/, res.data.nvolume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     }
+            //     break;
+            // 下载券足够   使用下载券下载
+            // case 5:
+            //     if (userData.isVip === '1') {
+            //         $dialogBox.dialog({
+            //             html: $volume_download_vip.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     } else {
+            //         $dialogBox.dialog({
+            //             html: $volume_download_normal.html()
+            //                 .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //                 .replace(/\$fileSize/, pageConfig.params.file_size)
+            //                 .replace(/\$ovolume/, res.data.ovolume)
+            //                 .replace(/\$volume/, res.data.volume)
+            //                 .replace(/\$code/, res.data.status)
+            //         }).open();
+            //     }
+            //     break;
+            // 下载特权足够
+            // case 9:
+            //     $dialogBox.dialog({
+            //         html: $have_privilege.html()
+            //             .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //             .replace(/\$fileSize/, pageConfig.params.file_size)
+            //             .replace(/\$privilege/, res.data.privilege)
+            //             .replace(/\$code/, res.data.status)
+            //     }).open();
+            //     break;
+            // 下载限制黑名单
+            // case -1:
+            //     $dialogBox.dialog({
+            //         html: $tpl_down_text.html().replace(/\$msg/, '您的账号已被禁止下载，如有疑问联系平台！')
+            //     }).open();
+            //     break;
+            // 用户不是vip不能下
+            case 10:
+            var fid = window.pageConfig.params.g_fileId;
+            var state = window.pageConfig.params.file_state;
+            var isVip = window.pageConfig.params.isVip;
+            var showTips = 1;
+            // if ((state == 5 || state == 6) && isVip == 0) {//专享资料 非vip用户
+            //     showTips = 1;
+            // }
+            var format = window.pageConfig.params.file_format;
+            var title = window.pageConfig.params.file_title;
+            method.setCookieWithExp("f", JSON.stringify({
+                fid: fid,
+                title: title,
+                format: format
+            }), 5 * 60 * 1e3, "/");
+            var params = "?fid=" + fid + "&ft=" + format + "&checkStatus=" + res.data.checkStatus + "&name=" + encodeURIComponent(encodeURIComponent(title)) + "&ref=" + ref + "&showTips=" + showTips;
+            goLocalTab("/pay/vip.html" + params);
+            break;
+
+          // vip专享下载--扣除下载特权    
+            // case 12:
+            //     $dialogBox.dialog({
+            //         html: $permanent_privilege.html()
+            //             .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
+            //             .replace(/\$fileSize/, pageConfig.params.file_size)
+            //             .replace(/\$privilege/, res.data.privilege)
+            //             .replace(/\$code/, res.data.status)
+            //     }).open();
+            //     break;
+            // vip专享下载--扣除下载特权但不够扣    
+            case 13:
+            $dialogBox.dialog({
+                html: $permanent_privilege_not.html().replace(/\$title/, pageConfig.params.file_title.substr(0, 20)).replace(/\$fileSize/, pageConfig.params.file_size).replace(/\$code/, res.data.status).replace(/\$privilege/, res.data.privilege).replace(/\$productPrice/, res.data.productPrice)
+            }).open();
+            break;
+
+          // 在线文档不支持下载       
+            case 17:
+            $dialogBox.dialog({
+                html: $tpl_down_text.html().replace(/\$msg/, "在线文档不支持下载")
+            }).open();
+            break;
+
+          // 免费下载次数不足    
+            // case 15:
+            //     if (userData.isVip === '1') {
+            //         $("#dialog-box").dialog({
+            //             html: $vipFreeDownCounts.html(),
+            //         }).open();
+            //     }else {
+            //         $("#dialog-box").dialog({
+            //             html: $freeDownCounts.html(),
+            //         }).open();
+            //     }
+            //     break;
+            // 验证码不正确
+            case 99:
+            break;
+
+          // 显示验证码
+            case 98:
+            break;
+
+          // 已下载过
+            default:        }
+    };
+    /**
+     * 预下载
+     */
+    var preDownLoad = function() {
+        //gio上报-下载按钮点击
+        if (!method.getCookie("cuk")) {
+            login.notifyLoginInterface(function(data) {
+                userData = data;
+                publicDownload();
+                common.afterLogin(data);
+            });
+            if ($(this).attr("loginOffer")) {
+                method.setCookieWithExpPath("_loginOffer", $(this).attr("loginOffer"), 1e3 * 60 * 60 * 1, "/");
+            }
+            method.setCookieWithExpPath("event_data_down", "down", 1e3 * 60 * 60 * 1, "/");
+        } else if (method.getCookie("cuk") && !userData) {
+            login.getLoginData(function(data) {
+                userData = data;
+                publicDownload();
+                common.afterLogin(data);
+            });
+        } else if (method.getCookie("cuk") && userData) {
+            publicDownload();
+        }
+        __pc__.gioTrack("docDetailDLClick", downLoadReport);
+    };
+    // var downLoad = function () {
+    //     // 文件下载 /action/downloadUrl?fid=文件id&code=验证码,预下载返回需要验证码
+    //     var url = api.normalFileDetail.fileDownLoad + '?fid=' + window.pageConfig.params.g_fileId + "&code=" + (code ? code : '');
+    //     $.ajax({
+    //         async: false,
+    //         type: "GET",
+    //         url: url,
+    //         dataType: "json",
+    //         success: function (data) {
+    //             bouncedType(data);
+    //         }
+    //     });
+    // };
+    /**
+    * 
+    * 获取下载获取地址接口
+    */
+    var handleFileDownUrl = function() {
+        if (method.getCookie("cuk")) {
+            // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
+            if (window.pageConfig.page.productType == 4) {
+                $.ajax({
+                    headers: {
+                        Authrization: method.getCookie("cuk")
+                    },
+                    url: api.normalFileDetail.filePreDownLoad,
+                    type: "POST",
+                    data: JSON.stringify({
+                        clientType: 0,
+                        fid: fid,
+                        sourceType: 1
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(res) {
+                        console.log(res);
+                        if (res.code == "0") {
+                            if (res.data.checkStatus == 0 && res.data.consumeStatus == 2) {
+                                // consumeStatus == 2 用下载特权消费的
+                                $dialogBox.dialog({
+                                    html: $permanent_privilege.html().replace(/\$title/, pageConfig.params.file_title.substr(0, 20)).replace(/\$fileSize/, pageConfig.params.file_size).replace(/\$privilege/, res.data.privilege || 0).replace(/\$productPrice/, res.data.productPrice || 0).replace(/\$code/, res.data.status)
+                                }).open();
+                            } else {
+                                bouncedType(res);
+                            }
+                        } else {
+                            $.toast({
+                                text: res.msg || "预下载失败",
+                                delay: 2e3
+                            });
+                        }
+                    }
+                });
+            } else {
+                getFileDownLoadUrl();
+            }
+        } else {
+            login.notifyLoginInterface(function(data) {
+                common.afterLogin(data);
+                userData = data;
+                handleFileDownUrl();
+            });
+        }
+    };
+    var getFileDownLoadUrl = function() {
+        $.ajax({
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            url: api.normalFileDetail.getFileDownLoadUrl,
+            type: "POST",
+            data: JSON.stringify({
+                clientType: 0,
+                fid: fid,
+                sourceType: 1
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                console.log(res);
+                if (res.code == "0") {
+                    bouncedType(res);
+                } else {
+                    $.toast({
+                        text: res.msg || "下载失败",
+                        delay: 2e3
+                    });
+                }
+            }
+        });
+    };
+    /**
+     * 跳转到新的tab
+     * @param href
+     */
+    var goNewTab = function(href) {
+        // var $a = $("#ishare-h-tab-a");
+        // if ($a.length > 0) {
+        //     $a.attr("href", href);
+        // } else {
+        //     var referLink = "<a id='ishare-h-tab-a' class='ishare-h-tab-a' style='display: none;' target='_blank' href='" + href + "'><p>.</p></a>";
+        //     $('body').append(referLink);
+        // }
+        // $('#ishare-h-tab-a p').trigger('click');
+        method.compatibleIESkip(href, true);
+    };
+    var goLocalTab = function(href) {
+        // var $a = $("#ishare-h-tab-a");
+        // if ($a.length > 0) {
+        //     $a.attr("href", href);
+        // } else {
+        //     var referLink = "<a id='ishare-h-tab-a' class='ishare-h-tab-a' style='display: none;'  href='" + href + "'><p>.</p></a>";
+        //     $('body').append(referLink);
+        // }
+        // $('#ishare-h-tab-a p').trigger('click');
+        // window.open(href);
+        method.compatibleIESkip(href, false);
+    };
+    //已经登录 并且有触发支付点击
+    var downCookie = method.getCookie("event_data_down");
+    if (method.getCookie("cuk") && downCookie == "down") {
+        method.delCookie("event_data_down", "/");
+        //唤起下载
+        preDownLoad();
+    }
+    var $dialogBox = $("#dialog-box");
+    // 弹窗下载
+    $dialogBox.on("click", ".btn-dialog-download", function() {
+        var code = $(this).attr("data-code");
+        if (code) {
+            // downLoad(code);
+            //  handleFileDownUrl()
+            getFileDownLoadUrl();
+        }
+    });
+    // 跳转VIP,或者特权页面
+    // $dialogBox.on('click', '.dialog-btn-joinVip', function () {
+    //     var type = $(this).attr('data-type');
+    //     if (type === 'vip') {
+    //         goLocalTab('/pay/vip.html');
+    //     } else if (type === 'privilege') {
+    //         goLocalTab('/pay/privilege.html');
+    //     }
+    // });
+    //点击预下载按钮
+    $(document).on("click", '[data-toggle="download"]', function(e) {
+        //  preDownLoad();
+        //   debugger
+        handleFileDownUrl();
+    });
+    //用app保存
+    $(document).on("click", ".sava-app", function(e) {
+        $("#dialog-box").dialog({
+            html: tpl_android
+        }).open();
+    });
+    module.exports = {
+        downLoad: handleFileDownUrl
+    };
+});
+
+/**
+ * @Description: gio上报文案汇总
+ */
+define("dist/cmd-lib/gioInfo", [], function(require, exports, module) {
+    var gioInfo = {
+        //下载失败受限上传文案
+        downloadLimitedCodeMap: {
+            "-1": "下载限制黑名单",
+            "-2": "文件不存在",
+            "-3": "私有文件",
+            "-4": "只读",
+            "1": "已超过了当日下载量",
+            "2": "当日下载过于频繁",
+            "3": "下载券积分不足",
+            "4": "下载券不足兑换积分",
+            "5": "下载券足够",
+            "8": "未购买",
+            "9": "下载特权足够",
+            "10": "用户不是vip不能下",
+            "12": "vip专享下载—扣除下载特权",
+            "13": "vip专享下载—扣除下载特权但不够扣",
+            "98": "显示图形验证码",
+            "99": "校验图形验证码不通过"
+        },
+        downloadConsumeMap: {
+            "1": "下载券",
+            "2": "下载特权",
+            "3": "积分",
+            "4": "VIP免费",
+            "5": "本人文件",
+            "6": "现金",
+            "7": "已下载过",
+            "8": "免费"
+        }
+    };
+    module.exports = gioInfo;
+});
+
+define("dist/detail/paging", [ "dist/detail/changeShowOverText", "dist/detail/download", "dist/application/method", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/cmd-lib/loading", "dist/cmd-lib/util", "dist/cmd-lib/gioInfo", "dist/detail/common", "dist/application/api", "dist/application/checkLogin", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/report/config", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/detail/index", "dist/application/suspension", "dist/application/app", "dist/application/element", "dist/application/template", "dist/application/extend", "dist/application/effect", "dist/application/helper", "dist/detail/changeDetailFooter" ], function(require, exports, module) {
+    // var $ = require("$");
+    var img_tmp = require("dist/detail/template/img_box.html");
+    var changeText = require("dist/detail/changeShowOverText").changeText;
+    var readMoreTextEvent = require("dist/detail/changeShowOverText").readMoreTextEvent;
+    var initStyle = require("dist/detail/changeDetailFooter").initStyle;
+    var loadMoreStyle = require("dist/detail/changeDetailFooter").loadMoreStyle;
+    if (!window.pageConfig.imgUrl) return;
+    //启始页 默认的情况
+    var cPage = 2;
+    var restPage = 0;
+    var imgTotalPage = window.pageConfig.imgUrl.length;
+    var totalPage = window.pageConfig.params.totalPage;
+    //最大页数
+    var ptype = window.pageConfig.params.g_fileExtension || "";
+    var preRead = window.pageConfig.page.preRead || 50;
+    var limitPage = Math.min(preRead, 50);
+    //最大限制阅读页数
+    var initReadPage = window.pageConfig.page.initReadPage;
+    // 默认展示的页数
+    var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
+    var hash = window.location.hash;
+    var action = {
+        goSwiper: null,
+        //判断是否已经是最后一页
+        isHideMore: function(pageNum) {
+            // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
+            if (pageNum >= limitPage && limitPage < totalPage) {
+                // 试读结束
+                $(".show-over-text").eq(0).show();
+            } else if (pageNum >= imgTotalPage) {
+                $(".show-over-text").eq(1).show();
+            }
+        },
+        //加载渲染
+        drawing: function(currentPage) {
+            if (imgTotalPage <= 2) return;
+            $(".detail-pro-con div.article-page").eq(2).show();
+            if (limitPage >= 4) {
+                $(".detail-pro-con div.article-page").eq(3).show();
+            }
+            //加载广告
+            createAd("a_6307747", "a_page_con_3");
+            //保存当前渲染页面数
+            var arr = [];
+            var pageNum = $(".detail-pro-con div.article-page").length;
+            // //如果传入当前页数少于当前已加载页数
+            // if (currentPage <= pageNum) {
+            //     var top = $(".detail-pro-con").find('div.article-page').eq(currentPage - 1).position().top;
+            //     $('body,html').animate({scrollTop: top}, 200);
+            // }
+            var supportSvg = window.pageConfig.supportSvg;
+            var svgFlag = window.pageConfig.svgFlag;
+            if (supportSvg == true && svgFlag == true) {
+                ptype = "svg";
+            }
+            //console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl------------')
+            //每次从当前页面加一 到 最大限度页码数
+            for (var i = pageNum + 1; i <= Math.min(imgTotalPage, 50, currentPage); i++) {
+                cPage = i;
+                var item = {
+                    // imgSrc: JSON.parse(window.pageConfig.imgUrl)[i - 1],
+                    imgSrc: window.pageConfig.imgUrl[i - 1],
+                    noPage: i,
+                    imgTotalPage: imgTotalPage,
+                    totalPage: totalPage,
+                    remainPage: imgTotalPage - i,
+                    ptype: ptype
+                };
+                if (supportSvg && svgFlag) {
+                    // item.svgSrc = JSON.parse(window.pageConfig.svgUrl)[i - 1];
+                    item.svgSrc = window.pageConfig.svgUrl[i - 1];
+                }
+                arr.push(item);
+            }
+            //拿到数据进行渲染
+            var _html = template.compile(img_tmp)({
+                data: arr,
+                ptype: ptype
+            });
+            if (ptype === "txt") {
+                $(".font-detail-con").append(_html);
+            } else {
+                $(".ppt-pic-con").append(_html);
+            }
+            $("img.lazy").lazyload({
+                effect: "fadeIn"
+            });
+            //剩余页数
+            var remainPage = restPage -= 5;
+            if ($(".page-text .endof-trial-reading").css("display") == "none") {
+                $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
+            }
+            //滚动到指定位置
+            if (currentPage <= imgTotalPage) {
+                // var index = $('.page-input').val();
+                var index = $(".page-input").text();
+                var position = $(".detail-pro-con").find("div.article-page").eq(index).position();
+                if (position) {
+                    $("body,html").animate({
+                        scrollTop: position.top
+                    }, 200);
+                }
+            }
+        },
+        //判断地址是否有效
+        handleHtmlExpireUrl: function() {
+            var isoverdue = 0;
+            var pageHtmlUrl = window.pageConfig.imgUrl[0];
+            var st = pageHtmlUrl.indexOf("?Expires=");
+            var ft = pageHtmlUrl.indexOf("&KID=sina");
+            var strDate = parseInt(pageHtmlUrl.substring(st + 9, ft)) * 1e3;
+            var sdate = +new Date(strDate);
+            //有效日期
+            var date = +new Date();
+            //获取当前时间
+            //过期
+            if (sdate < date || pageHtmlUrl.indexOf("sinacloud.net") > -1) {
+                isoverdue = 1;
+            }
+            return isoverdue;
+        }
+    };
+    //滚动监听页数
+    $(window).on("scroll", getPage);
+    //总页面
+    // if (totalPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(1).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // } else if (limitPage <= 2) {
+    //     $(".show-more-text").hide();
+    //     $(".show-over-text").eq(0).show();
+    //     $(".btn-read-more").hide();
+    //     $(".article-mask").hide();
+    // }
+    if (initReadPage > imgTotalPage) {
+        changeText();
+    }
+    $(function() {
+        //默认隐藏
+        var $articlePages = $(".detail-pro-con div.article-page");
+        //360
+        if (hash && hash.split("#page")[1]) {
+            var hashArr = hash.split("#page");
+            if (hashArr.length) {
+                var hashPage = Math.min(+hashArr[1], imgTotalPage, preRead);
+                if (hashPage <= 2) {
+                    restPage = totalPage - cPage;
+                    $articlePages.eq(2).hide();
+                    $articlePages.eq(3).hide();
+                } else if (hashPage <= 7) {
+                    restPage = totalPage - 2;
+                    loadMore();
+                    setTimeout(function() {
+                        var top = $(".detail-pro-con").find("div.article-page").eq(hashPage - 1).offset().top;
+                        $("body,html").animate({
+                            scrollTop: top
+                        });
+                    }, 2e3);
+                } else {
+                    restPage = totalPage - hashPage + 5;
+                    // limitPage = imgTotalPage;
+                    loadMore();
+                    var $font_detail_con = $(".font-detail-con");
+                    var $target = $font_detail_con.length ? $font_detail_con : $(".ppt-pic-con");
+                    // console.log(window.pageConfig.imgUrl,'window.pageConfig.imgUrl')
+                    var src = window.pageConfig.imgUrl[hashPage - 1];
+                    var supportSvg = window.pageConfig.supportSvg;
+                    var svgFlag = window.pageConfig.svgFlag;
+                    if (svgFlag && supportSvg) {
+                        src = window.pageConfig.svgUrl[hashPage - 1];
+                    }
+                    $target.append(addItem(src, hashPage));
+                    var $last = $(".article-page[data-num='" + hashPage + "']");
+                    var imgUrl = window.pageConfig.imgUrl;
+                    var startIndex = 7, subUrl = imgUrl.slice(startIndex, hashPage - 1);
+                    var list = [];
+                    var count = 8;
+                    for (var t = 0; t < subUrl.length; t++) {
+                        var item = {
+                            index: count,
+                            url: subUrl[t]
+                        };
+                        count++;
+                        list.push(item);
+                    }
+                    var str = "";
+                    for (var y = 0; y < list.length; y++) {
+                        var tp = list[y];
+                        str += addItemLoading("", tp.index);
+                    }
+                    $last.before(str);
+                    setTimeout(function() {
+                        $("body,html").animate({
+                            scrollTop: $last.offset().top
+                        });
+                    }, 2e3);
+                    if (parseInt(hashArr[1]) >= preRead) {
+                        action.isHideMore(hashPage);
+                    }
+                    cPage = hashPage;
+                    $(".show-more-text .page-num").text(totalPage - hashPage);
+                }
+            }
+        } else {
+            restPage = totalPage - cPage;
+            $articlePages.eq(2).hide();
+            $articlePages.eq(3).hide();
+            initStyle();
+        }
+    });
+    //给页面绑定滑轮滚动事件
+    if (document.addEventListener) {
+        //firefox
+        document.addEventListener("DOMMouseScroll", scrollFunc, false);
+    }
+    //滚动滑轮触发scrollFunc方法 //ie 谷歌
+    window.onmousewheel = document.onmousewheel = scrollFunc;
+    //点击加载更多
+    $(document).on("click", '[data-toggle="btnReadMore"]', function() {
+        loadMore();
+    });
+    //点击下一页 >
+    $(".page-next").on("click", function() {
+        // var index = $('.page-input').val() - 0;
+        var index = $(".page-input").text() - 0;
+        if (limitPage === 2 && index === 2) return;
+        var dataDetail = $(".data-detail");
+        var drawingPage = cPage + 5 <= limitPage ? cPage + 5 : limitPage;
+        if (index === 2) {
+            action.drawing(drawingPage);
+        }
+        if (index == dataDetail.length && index < totalPage && index < limitPage) {
+            action.drawing(drawingPage);
+            var loadedPage = $(".detail-pro-con div.article-page").length;
+            //如果已经到最后了
+            if (loadedPage - limitPage >= 0) {
+                action.isHideMore(loadedPage);
+            }
+            if (loadedPage == totalPage) {
+                action.isHideMore(loadedPage);
+            }
+        }
+        if (index < totalPage && index < limitPage) {
+            var position = $(".detail-pro-con div.article-page").eq(index).offset() && $(".detail-pro-con div.article-page").eq(index).offset().top;
+            if (position) {
+                $("body,html").animate({
+                    scrollTop: position
+                }, 200);
+                setTimeout(function() {
+                    // $('.page-input').val(index + 1);
+                    $(".page-input").text(index + 1);
+                }, 100);
+            }
+        }
+        if (dataDetail.length == limitPage && limitPage < totalPage) {
+            $(".show-more-text").hide();
+            $(".show-over-text").eq(0).show();
+            $(".btn-read-more").hide();
+            $(".article-mask").hide();
+        }
+        if (dataDetail.length == totalPage) {
+            $(".show-more-text").hide();
+            $(".show-over-text").eq(1).show();
+            $(".btn-read-more").hide();
+            $(".article-mask").hide();
+        }
+    });
+    // 点击上一页 <
+    $(".page-prev").on("click", function() {
+        // var index = $('.page-input').val() - 0;
+        var index = $(".page-input").text() - 0;
+        if (index === 1) {
+            return;
+        }
+        var position = $(".detail-pro-con div.article-page").eq(index - 2).offset().top;
+        if (position) {
+            $("body,html").animate({
+                scrollTop: position
+            }, 200);
+            setTimeout(function() {
+                // $('.page-input').val(index - 1);
+                $(".page-input").text(index - 1);
+            }, 100);
+        }
+    });
+    //enter键盘 按下事件
+    $(".page-input").keydown(function(event) {
+        if (event.keyCode === 13) {
+            // var index = $('.page-input').val() - 0;
+            var index = $(".page-input").text() - 0;
+            if (index > limitPage) {
+                var $d_page_wrap = $(".d-page-wrap");
+                $d_page_wrap.removeClass("hide");
+                setTimeout(function() {
+                    $d_page_wrap.addClass("hide");
+                }, 1500);
+                return;
+            }
+            var dataDetail = $(".data-detail");
+            if (index > 0 && index <= dataDetail.length) {
+                var position = $(".detail-pro-con div.article-page").eq(index - 1).offset().top;
+                if (position) {
+                    $("body,html").animate({
+                        scrollTop: position
+                    }, 200);
+                }
+            }
+        }
+    });
+    //点击展开
+    $(document).on("click", '[data-toggle="btnExpandMore"]', function() {
+        //移除固定高度
+        $(".ppt-pic-con").css("height", "auto");
+        $(this).parent().remove();
+        $(".js-mask").show();
+        $("img.lazy").lazyload();
+    });
+    //点击大图预览
+    $("div.detail-pro-con").delegate(".article-page", "click", function() {
+        if (ptype === "txt") {
+            return;
+        }
+        if ($("#ip-file-convertType").val() != "html") {
+            $(".code-source").css("visibility", "visible");
+        }
+    });
+    //点击隐藏大图
+    $(".code-source").click(function() {
+        $(".code-source").css("visibility", "hidden");
+    });
+    $(function() {
+        var iframeId = "iframeu4078296_0";
+        if ($.browser.msie && $.browser.version <= 9) {
+            $("#" + iframeId).parent().hide();
+        }
+    });
+    /* 将广告挪到广告位 */
+    function createAd(adId, divId) {
+        try {
+            $(".hide-ad").show();
+            var ad = document.getElementById(adId);
+            var iframeId = "iframeu4078296_0";
+            if ($.browser.msie && $.browser.version <= 9) {
+                ad = document.getElementById(iframeId);
+            }
+            var div = document.getElementById(divId);
+            if (ad) {
+                ad.parentNode.removeChild(ad);
+                if (div) {
+                    div.appendChild(ad);
+                }
+            }
+        } catch (e) {}
+    }
+    //节流函数
+    function throttle(fn) {
+        var canRun = true;
+        // 通过闭包保存一个标记
+        return function() {
+            if (!canRun) return;
+            // 在函数开头判断标记是否为true，不为true则return
+            canRun = false;
+            // 立即设置为false
+            setTimeout(function() {
+                // 将外部传入的函数的执行放在setTimeout中
+                fn.apply(this, arguments);
+                // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。当定时器没有执行的时候标记永远是false，在开头被return掉
+                canRun = true;
+            }, 0);
+        };
+    }
+    function getPage() {
+        var dataDetail = $(".data-detail");
+        for (var i = 0; i < dataDetail.length; i++) {
+            var elTop = dataDetail[i].getBoundingClientRect().top;
+            if (clientHeight > elTop && elTop > 0) {
+                // $('.page-input').val(i + 1);
+                $(".page-input").text(i + 1);
+                break;
+            }
+        }
+    }
+    function displayLoading(num) {
+        console.log("当前传递的是第 " + num + " 项");
+        num = num - 1;
+        var $target = $(".detail-con").eq(num);
+        if (!$target.length) {
+            return false;
+        }
+        var ptype = window.pageConfig.params.g_fileExtension || "";
+        var supportSvg = window.pageConfig.supportSvg;
+        var svgFlag = window.pageConfig.svgFlag;
+        var $detail = $target.find(".data-detail");
+        if ($detail.length) {
+            var srcArr = window.pageConfig.imgUrl;
+            $detail.find(".loading").remove();
+            var src = srcArr[num];
+            if (svgFlag && supportSvg) {
+                src = this.window.pageConfig.svgUrl[num];
+                $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>");
+            } else if (ptype === "txt") {
+                $detail.html(src);
+            } else {
+                $detail.html("<img class='img-png lazy' width='100%' height='100%' src='" + src + "' alt=''>");
+            }
+        }
+    }
+    function loadMore(page) {
+        cPage = page || cPage;
+        var drawingPage = cPage + 5 <= limitPage ? cPage + 5 : limitPage;
+        //加载更多开始
+        action.drawing(drawingPage);
+        var loadedPage = $(".detail-pro-con div.article-page").length;
+        //如果已经到最后了
+        if (loadedPage - limitPage >= 0) {
+            action.isHideMore(loadedPage);
+            if ($(".red-color").text() !== "点击可继续阅读 >") {
+                readMoreTextEvent();
+            }
+            changeText();
+        }
+        if (loadedPage == totalPage) {
+            action.isHideMore(loadedPage);
+            if ($(".red-color").text() !== "点击可继续阅读 >") {
+                readMoreTextEvent();
+            }
+            changeText();
+        }
+        loadMoreStyle();
+    }
+    function mouseScroll() {
+        if (!hash) {
+            return false;
+        }
+        var dataDetail = $(".data-detail");
+        for (var i = 0; i < dataDetail.length; i++) {
+            var elBottom = dataDetail[i].getBoundingClientRect().bottom;
+            if (elBottom > clientHeight && elBottom > 0) {
+                if (hash) {
+                    var num = dataDetail.eq(i).closest(".article-page").attr("data-num");
+                    var $loading = dataDetail.eq(i).find(".loading");
+                    if (num && $loading.length) {
+                        displayLoading(num);
+                    }
+                }
+                // $('.page-input').val(i + 1);
+                $(".page-input").text(i + 1);
+                break;
+            }
+        }
+    }
+    function scrollFunc(e) {
+        e = e || window.event;
+        if (e.wheelDelta) {
+            //第一步：先判断浏览器IE，谷歌滑轮事件
+            if (e.wheelDelta > 0) {
+                //当滑轮向上滚动时
+                mouseScroll();
+            }
+            if (e.wheelDelta < 0) {}
+        } else if (e.detail) {
+            //Firefox滑轮事件
+            if (e.detail < 0) {
+                //当滑轮向上滚动时
+                mouseScroll();
+            }
+            if (e.detail > 0) {}
+        }
+    }
+    function addItem(src, num) {
+        var $item = "", padding = "";
+        var ptype = window.pageConfig.params.g_fileExtension || "";
+        var supportSvg = window.pageConfig.supportSvg;
+        var svgFlag = window.pageConfig.svgFlag;
+        if (ptype === "txt") {
+            $item += "<div class='detail-con first-style article-page source-link' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail other-format-style'>" + src + "</div>" + "</div>" + "</div>";
+        } else if (svgFlag && supportSvg) {
+            if (ptype === "ppt") {
+                padding = "ppt-format-style";
+            } else {
+                padding = "other-format-style";
+            }
+            $item += "<div class='detail-con third-style article-page source-link ' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail " + padding + "'>" + "<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>" + "</div>" + "</div>" + "</div>";
+        } else {
+            if (ptype === "ppt") {
+                padding = "ppt-format-style";
+            } else {
+                padding = "other-format-style";
+            }
+            $item += "<div class='detail-con second-style article-page source-link' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail " + padding + "'>" + "<img class='img-png lazy' width='100%' height='100%' src='" + src + "' alt=''>" + "</div>" + "</div>" + "</div>";
+        }
+        return $item;
+    }
+    function addItemLoading(src, num) {
+        var $item = "", padding = "";
+        var ptype = window.pageConfig.params.g_fileExtension || "";
+        var supportSvg = window.pageConfig.supportSvg;
+        var svgFlag = window.pageConfig.svgFlag;
+        if (ptype === "txt") {
+            $item += "<div class='detail-con first-style article-page source-link' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail other-format-style'>" + "<div class='loading' style='height: 800px;'></div>" + "</div>" + "</div>" + "</div>";
+        } else if (svgFlag && supportSvg) {
+            if (ptype === "ppt") {
+                padding = "ppt-format-style";
+            } else {
+                padding = "other-format-style";
+            }
+            $item += "<div class='detail-con third-style article-page source-link ' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail " + padding + "'>" + "<div class='loading' style='height: 800px;'></div>" + "</div>" + "</div>" + "</div>";
+        } else {
+            if (ptype === "ppt") {
+                padding = "ppt-format-style";
+            } else {
+                padding = "other-format-style";
+            }
+            $item += "<div class='detail-con second-style article-page source-link' data-num='" + num + "'>" + "<div class='detail-inner article-main'>" + "<div class='data-detail " + padding + "'>" + "<div class='loading' style='height: 800px;'></div>" + "</div>" + "</div>" + "</div>";
+        }
+        return $item;
+    }
+});
+
+define("dist/detail/template/img_box.html", [], '{{each data as value i}}\n{{if ptype == \'txt\'}}\n<div class="detail-con first-style  article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            {{#data[i].imgSrc}}\n        </div>\n    </div>\n</div>\n{{else}}\n{{if ptype == \'svg\'}}\n{{if data[i].svgSrc}}\n<div class="detail-con third-style   article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            <embed data-src="{{data[i].svgSrc}}" src="{{data[i].svgSrc}}" width="100%" height="100%"\n                type="image/svg+xml" pluginspage="//www.adobe.com/svg/viewer/install/" />\n        </div>\n    </div>\n</div>\n{{/if}}\n{{else}}\n{{if data[i].imgSrc }}\n<div class="detail-con second-style  article-page source-link mt10" data-num="{{data[i].noPage}}">\n    <div class="detail-inner article-main">\n        <div class="data-detail {{if ptype == \'ppt\'}} ppt-format-style {{else}}  other-format-style  {{/if}}">\n            <img data-src="{{data[i].imgSrc}}" src="{{data[i].imgSrc}}" alt="" class="img-png lazy"\n                style="width: 100%;height: auto">\n        </div>\n    </div>\n</div>\n{{/if}}\n{{/if}}\n{{/if}}\n{{/each}}');
+
+define("dist/detail/changeShowOverText", [ "dist/detail/download", "dist/application/method", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/cmd-lib/loading", "dist/cmd-lib/util", "dist/cmd-lib/gioInfo", "dist/detail/common", "dist/application/api", "dist/application/checkLogin", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/report/config", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/detail/index", "dist/application/suspension", "dist/application/app", "dist/application/element", "dist/application/template", "dist/application/extend", "dist/application/effect", "dist/application/helper" ], function(require, exports, module) {
+    // 需要判断时候是否要登录 是否点击
+    // 试读完毕后, 修改 继续阅读 按钮的文字 而且修改后 事件的逻辑 走下载逻辑
+    var downLoad = require("dist/detail/download").downLoad;
+    var method = require("dist/application/method");
+    var login = require("dist/application/checkLogin");
+    var common = require("dist/detail/common");
+    var goPage = require("dist/detail/index").goPage;
+    var readMore = $(".red-color");
+    var pageText = $(".page-text .endof-trial-reading");
+    var pageNum = $(".page-num");
+    // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    // 是否登录  method.getCookie('cuk')
+    // 是否可以下载  window.pageConfig.page.isDownload
+    // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
+    var productType = window.pageConfig.page.productType;
+    var productPrice = window.pageConfig.page.productPrice;
+    var vipDiscountFlag = window.pageConfig.params.vipDiscountFlag;
+    var cuk = method.getCookie("cuk");
+    var isDownload = window.pageConfig.page.isDownload;
+    // 'n' 屏蔽下载
+    var ui = method.getCookie("ui") ? JSON.parse(method.getCookie("ui")) : {};
+    function readMoreTextEvent() {
+        // 文件下载接口的返回数据
+        if (method.getCookie("cuk")) {
+            if (productType == 3) {
+                // 发送邮箱
+                if (ui.isVip == "1") {
+                    sentEmail();
+                } else {
+                    goPage("vip");
+                }
+            } else {
+                downLoad();
+            }
+        } else {
+            login.notifyLoginInterface(function(data) {
+                common.afterLogin(data);
+            });
+        }
+    }
+    function sentEmail() {
+        // 寻找相关资料  
+        $("body,html").animate({
+            scrollTop: $("#littleApp").offset().top - 60
+        }, 200);
+        $("#dialog-box").dialog({
+            html: $("#reward-mission-pop").html()
+        }).open();
+        setTimeout(bindEventPop, 500);
+        function bindEventPop() {
+            console.log(6666);
+            // 绑定关闭悬赏任务弹窗pop
+            $(".m-reward-pop .close-btn").on("click", function() {
+                closeRewardPop();
+            });
+            // submit提交
+            $(".m-reward-pop .submit-btn").on("click", function() {
+                var userId = window.pageConfig.userId;
+                if (!userId) {
+                    closeRewardPop();
+                    $.toast({
+                        text: "该功能仅对VIP用户开放",
+                        delay: 3e3
+                    });
+                    return;
+                }
+                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+                var mailVal = $(".m-reward-pop .form-ipt").val();
+                var tips = $(".m-reward-pop .form-verify-tips");
+                tips.hide();
+                if (!reg.test(mailVal)) {
+                    tips.show();
+                    return;
+                }
+                var params = {
+                    userId: userId,
+                    fid: window.pageConfig.params.g_fileId,
+                    email: mailVal,
+                    channelSource: 4
+                };
+                $.ajax("/gateway/content/sendmail/findFile", {
+                    type: "POST",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    contentType: "application/json"
+                }).done(function(res) {
+                    if (res.code == 0) {
+                        closeRewardPop();
+                        $.toast({
+                            text: "发送成功",
+                            delay: 2e3
+                        });
+                    } else if (res.code == 401100) {
+                        $.toast({
+                            text: "该功能仅对VIP用户开放",
+                            delay: 2e3
+                        });
+                    } else {
+                        $.toast({
+                            text: "发送失败，请重试",
+                            delay: 2e3
+                        });
+                    }
+                }).fail(function(e) {
+                    $.toast({
+                        text: "发送失败，请重试",
+                        delay: 2e3
+                    });
+                });
+            });
+            // 关闭任务pop
+            function closeRewardPop() {
+                $(".common-bgMask").hide();
+                $(".detail-bg-mask").hide();
+                $("#dialog-box").hide();
+            }
+        }
+    }
+    module.exports = {
+        changeText: changeReadMoreText,
+        readMoreTextEvent: readMoreTextEvent
+    };
+    // 1. 预览完成 修改文案 登录的后也要更新
+    // 2 点击事件
+    function changeReadMoreText(status) {
+        var textContent = "";
+        switch (productType) {
+          case "5":
+            // 付费
+            if (ui.isVip == "1" && vipDiscountFlag == "1") {
+                textContent = "¥" + (productPrice * .8).toFixed(2) + "获取该资料";
+            } else {
+                textContent = "¥" + (+productPrice).toFixed(2) + "获取该资料";
+            }
+            break;
+
+          case "1":
+            textContent = "下载到本地阅读";
+            break;
+
+          case "3":
+            if (ui.isVip != "1") {
+                textContent = "开通VIP寻找资料";
+            } else {
+                textContent = "寻找资料";
+            }
+            break;
+
+          case "4":
+            if (isDownload == "n") {
+                textContent = "开通VIP 下载资料";
+            } else {
+                textContent = "下载到本地阅读";
+            }
+            break;
+
+          default:        }
+        readMore.text(textContent);
+        pageText.show();
+        if (pageNum.text() == -1) {
+            pageNum.text(0);
+        }
+    }
+});
+
+define("dist/detail/changeDetailFooter", [], function(require, exports, module) {
+    var isConvert = window.pageConfig.page.isConvert;
+    var detailCon = $(".detail-reader-con").find(".detail-con:visible").length - 2;
+    var guessYouLikeHeight = $(".guess-you-like-warpper").height() || 0;
+    function initStyle() {
+        if (isConvert == 1) {
+            // 转码成功
+            if (detailCon <= 3) {
+                // 只有3页
+                $(".deatil-mr10").css("position", "relative");
+                $(".detail-footer").css({
+                    position: "absolute",
+                    left: "0px",
+                    right: "0px",
+                    bottom: 113 + guessYouLikeHeight + "px",
+                    width: "890px"
+                });
+            } else {
+                commStyle();
+            }
+        }
+    }
+    function loadMoreStyle() {
+        // commStyle()
+        initStyle();
+    }
+    function commStyle() {
+        $(".deatil-mr10").css("position", "relative");
+        $(".detail-footer").css({
+            position: "absolute",
+            left: "0px",
+            right: "0px",
+            bottom: 0 + guessYouLikeHeight + "px",
+            width: "890px"
+        });
+    }
+    module.exports = {
+        initStyle: initStyle,
+        loadMoreStyle: loadMoreStyle
+    };
+});
+
+define("dist/detail/expand", [], function(require, exports, module) {
+    // var $ = require('$');
+    //事件：全屏、退出全屏、放大、缩小-------开始---------------------------------
+    $(function() {
+        window.orighWidth = $(".detail-main:first").width();
+        window.orighheight = $(".detail-main:first").height();
+        //声明所有触发事件：全屏、退出全屏、放大、缩小
+        //参数：全屏退出全屏按钮、原文中包含要全屏内容的元素、被全屏内容的最外层元素、放大缩小时页面中宽度需要相应变化的三个元素(参数)
+        function zoom(enlarge, original, scaleojb, bdwrap, docmain, profile) {
+            //公共变量：
+            // fullscreen：标记状态，0为非全屏、1为全屏状态
+            // origw：缩放前原文宽度
+            // origh：缩放前原文高度
+            // maxw：根据客户端屏幕大小计算出的可放大到的最大宽度
+            // minw：根据客户端屏幕大小计算出的可缩小到的最小宽度
+            // maxwrap：被放大缩小元素的最外层元素
+            // 初始状态的被全屏内容、全屏样式名、非全屏样式名、放大按钮的当前样式名、缩小按钮的当前样式名、是否触发过放大缩小、外层元素每次缩放的像素
+            var fullscreen = 0, origw, origh, maxw, minw = 220, maxwrap, copyhtml = "", csname1 = "", csname2 = "", classdec, classadd, a = 0, prevw = 134;
+            //公共函数：css缩放函数
+            //参数：设置缩放倍数的元素、缩放倍数、缩放元素宽度设置
+            function zoomcss(objcss, multicss, hcss) {
+                $(objcss).attr("style", "-webkit-transform: scale(" + multicss + ");-webkit-transform-origin: 0 0;-moz-transform: scale(" + multicss + ");-moz-transform-origin:0 0;-ms-transform: scale(" + multicss + "); -ms-transform-origin: 0 0;transform: scale(" + multicss + "); transform-origin: 0 0;").width(hcss);
+                //ie9 以下版浏览器
+                if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g, "").replace("MSIE", "")) < 9) {
+                    $(objcss).attr("style", "zoom:" + multicss + "");
+                }
+            }
+            //公共函数：放大缩小
+            //参数：设置缩放倍数的元素、被全屏内容的最外层元素
+            function bigsmall(originalbs, scaleojbbs, origwbs) {
+                var multibs = ($(originalbs).width() / origwbs).toFixed(3) - .002;
+                $(scaleojbbs).each(function() {
+                    $(this).parent().height($(this).height() * multibs + 26);
+                    //调用css缩放函数
+                    zoomcss(this, multibs, origwbs);
+                });
+            }
+            //公共函数：全屏、窗口大小变化事件时
+            //参数：设置缩放倍数的元素、原文中宽度、缩放倍数、区别全屏(resizepub=0)还是窗口大小变化事件(resizepub=1)
+            function zoompublic(scaleojbpub, origwpub, multipub, resizepub) {
+                //$(scaleojbpub).parent().parent().parent().attr("style","position:absolute;top:0;left:0;z-index:61;margin-top:-10px;padding-bottom:50px;").width(origwpub*multipub);
+                $(scaleojbpub).each(function() {
+                    if (resizepub == "1") {
+                        //窗口大小变化事件时，被全屏内容的外层元素设置高度，26是下边距值
+                        $(this).parent().height($(this).outerHeight() * multipub + 26);
+                    } else {
+                        //全屏事件时，被全屏内容的外层元素设置高度
+                        $(this).parent().height($(this).outerHeight() + 26);
+                    }
+                    //调用css缩放函数
+                    zoomcss(this, multipub, origwpub);
+                });
+            }
+            //公共函数：键盘ESC、页面退出全屏 两种方式触发退出全屏
+            //参数：全屏退出全屏对象、退出全屏样式名、全屏样式名、原文中包含要全屏内容的元素、被全屏内容的最外层元素、设置缩放倍数的元素、初始状态的被全屏内容的高度
+            //        function zoomout(thisout,csname2out,csname1out,originalout,scaleojbout,copyhtmlout){
+            //            thisout.removeClass(csname2out).addClass(csname1out).html("<i class="+"icon"+"></i>全屏");
+            //            $(originalout).append(copyhtmlout).height("auto");
+            ////            $(originalout).append($(original)).height("auto");
+            //            $(scaleojbout).parent().parent().parent().attr("style","position:static;").width("auto");
+            //            $(scaleojbout).each(function(){
+            //                $(this).parent().height("auto");
+            //                //调用css缩放函数
+            //                zoomcss(this,1,"auto");
+            //                $(this).parent().parent().attr("style","position:static;");
+            //            });
+            //            $("."+$(scaleojbout).parent().parent().parent().attr("class")+":last").remove();
+            //        }
+            origw = $(original).width();
+            //初始状态的被全屏内容的宽度
+            origh = $(original).height();
+            //初始状态的被全屏内容的高度
+            classdec = $(".zoom-decrease").attr("class");
+            classadd = $(".zoom-add").attr("class");
+            //放大缩小的倍数
+            var multi = ($(window).width() / origw).toFixed(3) - .002;
+            //判断客户端屏幕是否比页面宽度大，才可以执行放大操作
+            if (window.screen.width > $(bdwrap).width()) {
+                maxw = window.screen.width - 50;
+                maxwrap = $(bdwrap).width();
+            }
+            //事件：全屏、退出全屏
+            function scallOrigin(enlarge) {
+                //如果当前对象含退出全屏样式名，执行退出全屏事件，fullscreen=0 标记非全屏状态
+                fullscreen = 0;
+                $(".detail-con").css("background-color", "#fff");
+                $(".ppt-pic-con").css("background", "#fff");
+                $(".pw-detail").css("width", "1213px");
+                $(".detail-footer").show();
+                $(".deatil-mr10").css("position", "relative");
+                $(".detail-topbanner").show();
+                $(".fixed-right-full").show();
+                $(enlarge).removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
+                // $(".reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
+                //$(".operation .reader-fullScreen-no").removeClass("reader-fullScreen-no").addClass("reader-fullScreen");
+                $(".zoom-decrease").removeClass("zoom-decrease-no");
+                $(".zoom-add").removeClass("zoom-add-no");
+                $(".detail-main").removeClass("detail-main-full");
+                $(".new-detail-header").show();
+                $(".detail-fixed").removeClass("detail-fixed-full");
+                $(enlarge).attr("title", "全屏浏览");
+                $(".detail-inner,.detail-profile,.detail-main,.bd-wrap,.doc-main-br,.detail-con,.doc-main").removeAttr("style");
+            }
+            $(enlarge).on("click", function() {
+                //先恢复原始
+                $(".detail-inner,.detail-profile,.detail-main,.bd-wrap,.doc-main-br,.detail-con,.doc-main").removeAttr("style");
+                //        	$(".detail-inner").css({"width":"793px","min-height":"800px"});
+                if ($(this).hasClass("reader-fullScreen")) {
+                    //如果当前对象含全屏样式名，执行全屏事件，fullscreen=1 标记全屏状态
+                    fullscreen = 1;
+                    $(this).removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
+                    $(".reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
+                    //$(".operation .reader-fullScreen").removeClass("reader-fullScreen").addClass("reader-fullScreen-no");
+                    $(".zoom-decrease").addClass("zoom-decrease-no");
+                    $(".zoom-add").addClass("zoom-add-no");
+                    $(".detail-main").addClass("detail-main-full");
+                    var fwidth = $(".detail-main").width();
+                    // var scale = (fwidth / window.orighWidth).toFixed(3);
+                    var scale = 1;
+                    $(".detail-con").css("background-color", "#333");
+                    $(".ppt-pic-con").css("background", "#333");
+                    $(".detail-footer").hide();
+                    $(".deatil-mr10").css("position", "static");
+                    $(".detail-topbanner").hide();
+                    $(".pw-detail").css("width", "890px");
+                    $(".detail-inner").css({
+                        "-webkit-transform": "scale(" + scale + ")",
+                        "-webkit-transform-origin": "0 0",
+                        "-moz-transform": "scale(" + scale + ")",
+                        "-moz-transform-origin": "0 0",
+                        transform: "scale(" + scale + ")",
+                        "-ms-transform-origin": "0 0",
+                        "-ms-transform": "scale(" + scale + ")",
+                        "transform-origin": "0 0"
+                    }).parent(".detail-con").height($(".detail-inner").height() * scale);
+                    if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion.split(";")[1].replace(/[ ]/g, "").replace("MSIE", "")) < 9) {
+                        $(".detail-inner").css({
+                            zoom: scale
+                        }).parent(".detail-con").height($(".detail-inner").height() * scale);
+                    }
+                    $(".new-detail-header").hide();
+                    $(".detail-fixed").addClass("detail-fixed-full");
+                    $(".fixed-right-full").hide();
+                    $(enlarge).attr("title", "退出全屏");
+                } else {
+                    //如果当前对象含退出全屏样式名，执行退出全屏事件，fullscreen=0 标记非全屏状态
+                    scallOrigin(enlarge);
+                }
+                $(window).resize();
+            });
+            //事件：键盘ESC键退出全屏
+            $(document).keydown(function(e) {
+                if (e.which === 27) {
+                    //调用公共函数
+                    //                zoomout($("." + csname2), csname2, csname1, original, scaleojb, copyhtml, origh);
+                    if ($(".reader-fullScreen-no").size() > 0) {
+                        scallOrigin(enlarge);
+                    }
+                }
+            });
+            //事件：窗口大小变化
+            $(window).resize(function() {
+                if ($(original).html() == "") {
+                    multi = ($(window).width() / origw).toFixed(3) - .002;
+                    if (multi > 1) {
+                        //调用公共函数
+                        zoompublic(scaleojb, origw, multi, "1");
+                    }
+                }
+            });
+            //事件：放大
+            $(".zoom-add").click(function() {
+                if (fullscreen == 0) {
+                    $(".zoom-decrease").removeClass("zoom-decrease-no");
+                    classdec = $(".zoom-decrease").attr("class");
+                    if ($(original).width() < $(docmain).width()) {
+                        $(original).width($(original).width() + prevw);
+                    } else if ($(bdwrap).width() < maxw) {
+                        $(bdwrap).width($(bdwrap).width() + prevw);
+                        $(docmain).width($(docmain).width() + prevw);
+                        $(original).width("");
+                        $(original).prev().width("");
+                    }
+                    bigsmall(original, scaleojb, origw);
+                    if ($(bdwrap).width() == maxw) {
+                        $(this).addClass("zoom-add-no");
+                        classadd = $(".zoom-add").attr("class");
+                        return false;
+                    } else {
+                        bigsmall(original, scaleojb, origw);
+                        a = 1;
+                    }
+                    $(".doc-main-br").width($(docmain).width());
+                }
+            });
+            //事件：缩小
+            $(".zoom-decrease").click(function() {
+                if ($(original).width() > minw && fullscreen == 0) {
+                    $(profile).width($(profile).width() - prevw);
+                    $(original).width($(original).width() - prevw);
+                    $(".zoom-add").removeClass("zoom-add-no");
+                    if ($(bdwrap).width() > maxwrap) {
+                        $(bdwrap).width($(bdwrap).width() - prevw);
+                        $(docmain).width($(docmain).width() - prevw);
+                    }
+                    bigsmall(original, scaleojb, origw);
+                    classadd = $(".zoom-add").attr("class");
+                    a = 1;
+                    $(".doc-main-br").width($(docmain).width());
+                }
+                if ($(original).width() == minw && fullscreen == 0) {
+                    $(this).addClass("zoom-decrease-no");
+                    classdec = $(".zoom-decrease").attr("class");
+                    return false;
+                }
+            });
+        }
+        //执行所有触发事件：全屏、退出全屏、放大、缩小
+        zoom(".reader-fullScreen,.reader-fullScreen-no", ".detail-main", ".detail-inner", ".bd-wrap", ".doc-main", ".detail-profile");
+    });
+});
+
+define("dist/detail/buyUnlogin", [ "dist/application/api", "dist/cmd-lib/util", "dist/application/method", "dist/pay/qr", "dist/cmd-lib/qr/qrcode.min", "dist/cmd-lib/qr/jquery.qrcode.min", "dist/application/checkLogin", "dist/application/login", "dist/cmd-lib/jqueryMd5", "dist/common/bilog", "base64", "dist/report/config", "dist/cmd-lib/myDialog", "dist/cmd-lib/toast", "dist/common/bindphone", "dist/common/baidu-statistics", "dist/application/urlConfig", "dist/cmd-lib/gioInfo", "dist/detail/common", "dist/common/bilog-module/payFileResultForVisit_bilog" ], function(require, exports, module) {
+    // var $ = require("$");
+    var api = require("dist/application/api");
+    var utils = require("dist/cmd-lib/util");
+    var method = require("dist/application/method");
+    var qr = require("dist/pay/qr");
+    var login = require("dist/application/checkLogin");
+    var urlConfig = require("dist/application/urlConfig");
+    // var report = require("../pay/report");
+    // var downLoadReport = $.extend({}, gioData);
+    var gioInfo = require("dist/cmd-lib/gioInfo");
+    var viewExposure = require("dist/common/bilog").viewExposure;
+    var common = require("dist/detail/common");
+    // downLoadReport.docPageType_var = pageConfig.page.ptype;
+    // downLoadReport.fileUid_var = pageConfig.params.file_uid;
+    var fileName = pageConfig.page.fileName;
+    var format = pageConfig.params.file_format;
+    // 资料详情数据-从全局window中获取
+    var fileInfo = {
+        id: pageConfig.params.g_fileId,
+        title: pageConfig.params.file_title,
+        productType: pageConfig.params.file_state,
+        format: pageConfig.params.file_format,
+        fileSourceChannel: pageConfig.params.g_fileId,
+        uid: pageConfig.params.file_uid,
+        classid1: pageConfig.params.classid1,
+        classid2: pageConfig.params.classid2,
+        classid3: pageConfig.params.classid3,
+        classidName1: pageConfig.params.classidName1,
+        classidName2: pageConfig.params.classidName2,
+        classidName3: pageConfig.params.classidName3
+    };
+    // 自有埋点注入
+    var payFileResultForVisit_bilog = require("dist/common/bilog-module/payFileResultForVisit_bilog");
+    // ==== end ====
+    var showTouristPurchaseDialog = require("dist/application/login").showTouristPurchaseDialog;
+    var getIds = require("dist/application/checkLogin").getIds;
+    var unloginObj = {
+        count: 0,
+        isClear: false,
+        //是否清除支付查询
+        init: function() {
+            this.bindClick();
+        },
+        bindClick: function() {
+            //切换购买方式（游客购买或登陆购买）
+            $("body").on("click", ".buyUnloginWrap .navItem", function() {
+                $(this).addClass("active").siblings().removeClass("active");
+                var _index = $(this).index();
+                $(".optionsContent").hide();
+                $(".optionsContent").eq(_index).show();
+            });
+            //勾选条款
+            $("body").on("click", ".buyUnloginWrap .selectIcon", function() {
+                $(this).toggleClass("selected");
+                $(".qrShadow").toggle();
+                $(".riskTip").toggle();
+            });
+            //关闭
+            $("body").on("click", ".buyUnloginWrap .closeIcon", function() {
+                unloginObj.closeLoginWindon();
+            });
+            //失败重新生产订单
+            // $('body').on('click', '.buyUnloginWrap .failTip', function () {
+            //     unloginObj.createOrder();
+            //     unloginObj.count = 0;
+            // })
+            $("body").on("click", ".tourist-purchase-qrContent .tourist-purchase-refresh", function() {
+                unloginObj.createOrder();
+                unloginObj.count = 0;
+            });
+            //弹出未登录购买弹窗
+            var unloginBuyHtml = require("dist/detail/template/buyUnlogin.html");
+            unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>';
+            $("body").on("click", ".js-buy-open", function(e) {
+                unloginObj.isClear = false;
+                if (!method.getCookie("cuk")) {
+                    if (pageConfig.params.productType == 5 && $(this).data("type") == "file") {
+                        //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
+                        // downLoadReport.expendType_var = "现金"
+                        // 如果现金文档，弹出面登陆购买
+                        // $('body').append(unloginBuyHtml);
+                        // viewExposure($(this),'noLgFPayCon')
+                        // var loginUrl = '';
+                        // var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
+                        // var classid1 = params && params.classid1 ? params.classid1 + '' : '';
+                        // var classid2 = params && params.classid2 ? '-' + params.classid2 + '' : '';
+                        // var classid3 = params && params.classid3 ? '-' + params.classid3 + '' : '';
+                        // var clsId = classid1 + classid2 + classid3;
+                        // var fid = params ? params.g_fileId || '' : '';
+                        // require.async(['//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js'], function () {
+                        //     loginUrl = $.loginPop('login', {
+                        //         "terminal": "PC",
+                        //         "businessSys": "ishare",
+                        //         'domain': document.domain,
+                        //         "popup": "hidden",
+                        //         "clsId": clsId,
+                        //         "fid": fid
+                        //     });
+                        //     var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
+                        //     $('.loginFrameWrap').html(loginDom);
+                        // })
+                        var clsId = getIds().clsId;
+                        var fid = getIds().fid;
+                        showTouristPurchaseDialog({
+                            clsId: clsId,
+                            fid: fid
+                        }, function() {
+                            // 游客登录后刷新头部和其他数据
+                            viewExposure($(this), "noLgFPayCon");
+                            login.getLoginData(function(data) {
+                                common.afterLogin(data);
+                            });
+                        });
+                        var className = "ico-" + pageConfig.params.file_format;
+                        $(".tourist-purchase-content .ico-data").addClass(className);
+                        $(".tourist-purchase-content .file-desc").text(pageConfig.params.file_title);
+                        $(".tourist-purchase-content .file-price-summary .price").text(pageConfig.params.productPrice);
+                        unloginObj.createOrder();
+                    }
+                }
+            });
+        },
+        createOrder: function() {
+            var visitorId = unloginObj.getVisitorId();
+            var params = {
+                fid: pageConfig.params.g_fileId,
+                goodsId: pageConfig.params.g_fileId,
+                goodsType: 1,
+                ref: utils.getPageRef(window.pageConfig.params.g_fileId),
+                referrer: pageConfig.params.referrer,
+                remark: "other",
+                sourceMode: 0,
+                channelSource: 4,
+                host: location.origin,
+                channel: "other",
+                isVisitor: 1,
+                visitorId: visitorId,
+                isVouchers: 1,
+                returnPayment: false
+            };
+            $.post("/pay/orderUnlogin?ts=" + new Date().getTime(), params, function(data, status) {
+                if (data && data.code == "0") {
+                    // 生成二维码
+                    unloginObj.createdQrCode(data.data.orderNo);
+                    // 订单详情赋值
+                    $(".shouldPayWrap span").text(data.data.payPrice / 100);
+                    //     gioPayDocReport.orderId_var = data.data.orderNo;
+                    //    gioPayDocReport.buyer_uid = visitorId;
+                    //    gioPayDocReport.login_flag = '游客';
+                    unloginObj.payStatus(data.data.orderNo, visitorId);
+                    // 重新生成隐藏遮罩
+                    // $('.qrShadow').hide();
+                    // $('.shadowTip').hide()
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").hide();
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").hide();
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").hide();
+                } else {
+                    // $('.qrShadow').show();
+                    // $('.failTip').show()
+                    // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").show();
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").show();
+                    $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").show();
+                }
+            });
+        },
+        createdQrCode: function(oid) {
+            // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
+            // var url = location.protocol + "/pay/payment?orderNo=" + oid
+            // var url = location.origin + "/pay/qr?orderNo=" + oid;
+            //   var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
+            var url = urlConfig.payUrl + "/pay/qr?orderNo=" + oid;
+            console.log(url);
+            try {
+                // qr.createQrCode(url, 'payQrCode', 162, 162);
+                // qr.createdQrCode(url,'touristPayQrCode',162,162)
+                qr.createQrCode(url, "touristPayQrCode", 178, 178);
+            } catch (e) {
+                console.log("createdQrCode:", e);
+            }
+        },
+        /**
+         * 根据时间产生随机数
+         */
+        getVisitorId: function() {
+            // 从cookie中获取访客id
+            return method.getCookie("visitor_id");
+        },
+        /**
+         * 查询订单
+         * orderNo 订单
+         * visitorId 游客唯一id
+         * isClear 是否停止
+         */
+        payStatus: function(orderNo, visitorId) {
+            //    orderNo = 45432441372672
+            var params = JSON.stringify({
+                orderNo: orderNo
+            });
+            $.ajax({
+                type: "post",
+                url: api.order.getOrderInfo,
+                headers: {
+                    Authrization: method.getCookie("cuk")
+                },
+                // url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
+                contentType: "application/json;charset=utf-8",
+                data: params,
+                success: function(response) {
+                    if (response && response.code == 0 && response.data) {
+                        unloginObj.count++;
+                        var orderInfo = response.data;
+                        var fid = pageConfig.params.g_fileId;
+                        if (orderInfo.orderStatus == 0) {
+                            // 待支付
+                            if (unloginObj.count <= 30 && !unloginObj.isClear) {
+                                window.setTimeout(function() {
+                                    unloginObj.payStatus(orderNo, visitorId);
+                                }, 3e3);
+                            }
+                            if (unloginObj.count > 28) {
+                                // $('.qrShadow').show();
+                                // $('.failTip').show()
+                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
+                                $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip").show();
+                                $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip").show();
+                                $(".tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh").show();
+                            }
+                        } else if (orderInfo.orderStatus == 2) {
+                            // 成功
+                            try {
+                                //  report.docPaySuccess(gioPayDocReport);//GIO购买上报
+                                //  __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
+                                unloginObj.closeLoginWindon();
+                                var url = "/node/f/downsucc.html?fid=" + fid + "&unloginFlag=1&name=" + fileName.slice(0, 20) + "&format=" + format + "&visitorId=" + visitorId;
+                                method.compatibleIESkip(url, false);
+                                // 自由埋点
+                                payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, true);
+                            } catch (e) {}
+                        } else if (orderInfo.orderStatus == 3) {
+                            // 自由埋点
+                            payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, false);
+                        }
+                    } else {
+                        $.toast({
+                            text: response.message
+                        });
+                        unloginObj.closeLoginWindon();
+                    }
+                },
+                complete: function() {}
+            });
+        },
+        /**
+         * 关闭弹窗
+         */
+        closeLoginWindon: function() {
+            $(".buyUnloginWrap").remove();
+            $(".aiwen_login_model_div").remove();
+            // 停止支付查询
+            unloginObj.isClear = true;
+            unloginObj.count = 0;
+        }
+    };
+    unloginObj.init();
+});
+
+define("dist/pay/qr", [ "dist/cmd-lib/util", "dist/cmd-lib/qr/qrcode.min", "dist/cmd-lib/qr/jquery.qrcode.min" ], function(require, exports, moudle) {
+    // var $ = require("$");
+    var utils = require("dist/cmd-lib/util");
+    var QRCode = require("dist/cmd-lib/qr/qrcode.min");
+    var qrcode = require("dist/cmd-lib/qr/jquery.qrcode.min");
+    return {
+        /**
+         * 生成二维码
+         * @param cnt 内容
+         * @param id 填充元素id
+         * @param width 宽
+         * @param height 高
+         */
+        createQrCode: function(cnt, id, width, height) {
+            if (cnt) {
+                try {
+                    console.log("生成二维码start");
+                    $("#" + id).html("");
+                    var qrcode = new QRCode(document.getElementById(id), {
+                        width: width,
+                        height: height
+                    });
+                    qrcode.clear();
+                    qrcode.makeCode(cnt);
+                    console.log("生成二维码end");
+                    $("#" + id + " img").hide();
+                } catch (e) {
+                    console.info(cnt + ":生成二维码异常");
+                    if (!utils.validateIE9()) {
+                        console.info(cnt + ":生成二维码异常");
+                    }
+                }
+            }
+        },
+        /**
+         * IE8 以下
+         * @param url
+         * @param id  div id
+         * @param width
+         * @param height
+         */
+        generateIE8QRCode: function(url, id, width, height) {
+            $("#" + id).html("");
+            $("#" + id).qrcode({
+                render: "table",
+                // 渲染方式有table方式（IE兼容）和canvas方式
+                width: width,
+                //宽度
+                height: height,
+                //高度
+                text: url,
+                //内容id，id，
+                typeNumber: -1,
+                //计算模式
+                correctLevel: 2,
+                //二维码纠错级别
+                background: "#ffffff",
+                //背景颜色
+                foreground: "#000000"
+            });
+        }
+    };
+});
+
+define("dist/cmd-lib/qr/qrcode.min", [], function(require, exports, module) {
+    var QRCode;
+    !function() {
+        function a(a) {
+            this.mode = c.MODE_8BIT_BYTE, this.data = a, this.parsedData = [];
+            for (var b = [], d = 0, e = this.data.length; e > d; d++) {
+                var f = this.data.charCodeAt(d);
+                f > 65536 ? (b[0] = 240 | (1835008 & f) >>> 18, b[1] = 128 | (258048 & f) >>> 12, 
+                b[2] = 128 | (4032 & f) >>> 6, b[3] = 128 | 63 & f) : f > 2048 ? (b[0] = 224 | (61440 & f) >>> 12, 
+                b[1] = 128 | (4032 & f) >>> 6, b[2] = 128 | 63 & f) : f > 128 ? (b[0] = 192 | (1984 & f) >>> 6, 
+                b[1] = 128 | 63 & f) : b[0] = f, this.parsedData = this.parsedData.concat(b);
+            }
+            this.parsedData.length != this.data.length && (this.parsedData.unshift(191), this.parsedData.unshift(187), 
+            this.parsedData.unshift(239));
+        }
+        function b(a, b) {
+            this.typeNumber = a, this.errorCorrectLevel = b, this.modules = null, this.moduleCount = 0, 
+            this.dataCache = null, this.dataList = [];
+        }
+        function i(a, b) {
+            if (void 0 == a.length) throw new Error(a.length + "/" + b);
+            for (var c = 0; c < a.length && 0 == a[c]; ) c++;
+            this.num = new Array(a.length - c + b);
+            for (var d = 0; d < a.length - c; d++) this.num[d] = a[d + c];
+        }
+        function j(a, b) {
+            this.totalCount = a, this.dataCount = b;
+        }
+        function k() {
+            this.buffer = [], this.length = 0;
+        }
+        function m() {
+            return "undefined" != typeof CanvasRenderingContext2D;
+        }
+        function n() {
+            var a = !1, b = navigator.userAgent;
+            return /android/i.test(b) && (a = !0, aMat = b.toString().match(/android ([0-9]\.[0-9])/i), 
+            aMat && aMat[1] && (a = parseFloat(aMat[1]))), a;
+        }
+        function r(a, b) {
+            for (var c = 1, e = s(a), f = 0, g = l.length; g >= f; f++) {
+                var h = 0;
+                switch (b) {
+                  case d.L:
+                    h = l[f][0];
+                    break;
+
+                  case d.M:
+                    h = l[f][1];
+                    break;
+
+                  case d.Q:
+                    h = l[f][2];
+                    break;
+
+                  case d.H:
+                    h = l[f][3];
+                }
+                if (h >= e) break;
+                c++;
+            }
+            if (c > l.length) throw new Error("Too long data");
+            return c;
+        }
+        function s(a) {
+            var b = encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g, "a");
+            return b.length + (b.length != a ? 3 : 0);
+        }
+        a.prototype = {
+            getLength: function() {
+                return this.parsedData.length;
+            },
+            write: function(a) {
+                for (var b = 0, c = this.parsedData.length; c > b; b++) a.put(this.parsedData[b], 8);
+            }
+        }, b.prototype = {
+            addData: function(b) {
+                var c = new a(b);
+                this.dataList.push(c), this.dataCache = null;
+            },
+            isDark: function(a, b) {
+                if (0 > a || this.moduleCount <= a || 0 > b || this.moduleCount <= b) throw new Error(a + "," + b);
+                return this.modules[a][b];
+            },
+            getModuleCount: function() {
+                return this.moduleCount;
+            },
+            make: function() {
+                this.makeImpl(!1, this.getBestMaskPattern());
+            },
+            makeImpl: function(a, c) {
+                this.moduleCount = 4 * this.typeNumber + 17, this.modules = new Array(this.moduleCount);
+                for (var d = 0; d < this.moduleCount; d++) {
+                    this.modules[d] = new Array(this.moduleCount);
+                    for (var e = 0; e < this.moduleCount; e++) this.modules[d][e] = null;
+                }
+                this.setupPositionProbePattern(0, 0), this.setupPositionProbePattern(this.moduleCount - 7, 0), 
+                this.setupPositionProbePattern(0, this.moduleCount - 7), this.setupPositionAdjustPattern(), 
+                this.setupTimingPattern(), this.setupTypeInfo(a, c), this.typeNumber >= 7 && this.setupTypeNumber(a), 
+                null == this.dataCache && (this.dataCache = b.createData(this.typeNumber, this.errorCorrectLevel, this.dataList)), 
+                this.mapData(this.dataCache, c);
+            },
+            setupPositionProbePattern: function(a, b) {
+                for (var c = -1; 7 >= c; c++) if (!(-1 >= a + c || this.moduleCount <= a + c)) for (var d = -1; 7 >= d; d++) -1 >= b + d || this.moduleCount <= b + d || (this.modules[a + c][b + d] = c >= 0 && 6 >= c && (0 == d || 6 == d) || d >= 0 && 6 >= d && (0 == c || 6 == c) || c >= 2 && 4 >= c && d >= 2 && 4 >= d ? !0 : !1);
+            },
+            getBestMaskPattern: function() {
+                for (var a = 0, b = 0, c = 0; 8 > c; c++) {
+                    this.makeImpl(!0, c);
+                    var d = f.getLostPoint(this);
+                    (0 == c || a > d) && (a = d, b = c);
+                }
+                return b;
+            },
+            createMovieClip: function(a, b, c) {
+                var d = a.createEmptyMovieClip(b, c), e = 1;
+                this.make();
+                for (var f = 0; f < this.modules.length; f++) for (var g = f * e, h = 0; h < this.modules[f].length; h++) {
+                    var i = h * e, j = this.modules[f][h];
+                    j && (d.beginFill(0, 100), d.moveTo(i, g), d.lineTo(i + e, g), d.lineTo(i + e, g + e), 
+                    d.lineTo(i, g + e), d.endFill());
+                }
+                return d;
+            },
+            setupTimingPattern: function() {
+                for (var a = 8; a < this.moduleCount - 8; a++) null == this.modules[a][6] && (this.modules[a][6] = 0 == a % 2);
+                for (var b = 8; b < this.moduleCount - 8; b++) null == this.modules[6][b] && (this.modules[6][b] = 0 == b % 2);
+            },
+            setupPositionAdjustPattern: function() {
+                for (var a = f.getPatternPosition(this.typeNumber), b = 0; b < a.length; b++) for (var c = 0; c < a.length; c++) {
+                    var d = a[b], e = a[c];
+                    if (null == this.modules[d][e]) for (var g = -2; 2 >= g; g++) for (var h = -2; 2 >= h; h++) this.modules[d + g][e + h] = -2 == g || 2 == g || -2 == h || 2 == h || 0 == g && 0 == h ? !0 : !1;
+                }
+            },
+            setupTypeNumber: function(a) {
+                for (var b = f.getBCHTypeNumber(this.typeNumber), c = 0; 18 > c; c++) {
+                    var d = !a && 1 == (1 & b >> c);
+                    this.modules[Math.floor(c / 3)][c % 3 + this.moduleCount - 8 - 3] = d;
+                }
+                for (var c = 0; 18 > c; c++) {
+                    var d = !a && 1 == (1 & b >> c);
+                    this.modules[c % 3 + this.moduleCount - 8 - 3][Math.floor(c / 3)] = d;
+                }
+            },
+            setupTypeInfo: function(a, b) {
+                for (var c = this.errorCorrectLevel << 3 | b, d = f.getBCHTypeInfo(c), e = 0; 15 > e; e++) {
+                    var g = !a && 1 == (1 & d >> e);
+                    6 > e ? this.modules[e][8] = g : 8 > e ? this.modules[e + 1][8] = g : this.modules[this.moduleCount - 15 + e][8] = g;
+                }
+                for (var e = 0; 15 > e; e++) {
+                    var g = !a && 1 == (1 & d >> e);
+                    8 > e ? this.modules[8][this.moduleCount - e - 1] = g : 9 > e ? this.modules[8][15 - e - 1 + 1] = g : this.modules[8][15 - e - 1] = g;
+                }
+                this.modules[this.moduleCount - 8][8] = !a;
+            },
+            mapData: function(a, b) {
+                for (var c = -1, d = this.moduleCount - 1, e = 7, g = 0, h = this.moduleCount - 1; h > 0; h -= 2) for (6 == h && h--; ;) {
+                    for (var i = 0; 2 > i; i++) if (null == this.modules[d][h - i]) {
+                        var j = !1;
+                        g < a.length && (j = 1 == (1 & a[g] >>> e));
+                        var k = f.getMask(b, d, h - i);
+                        k && (j = !j), this.modules[d][h - i] = j, e--, -1 == e && (g++, e = 7);
+                    }
+                    if (d += c, 0 > d || this.moduleCount <= d) {
+                        d -= c, c = -c;
+                        break;
+                    }
+                }
+            }
+        }, b.PAD0 = 236, b.PAD1 = 17, b.createData = function(a, c, d) {
+            for (var e = j.getRSBlocks(a, c), g = new k(), h = 0; h < d.length; h++) {
+                var i = d[h];
+                g.put(i.mode, 4), g.put(i.getLength(), f.getLengthInBits(i.mode, a)), i.write(g);
+            }
+            for (var l = 0, h = 0; h < e.length; h++) l += e[h].dataCount;
+            if (g.getLengthInBits() > 8 * l) throw new Error("code length overflow. (" + g.getLengthInBits() + ">" + 8 * l + ")");
+            for (g.getLengthInBits() + 4 <= 8 * l && g.put(0, 4); 0 != g.getLengthInBits() % 8; ) g.putBit(!1);
+            for (;;) {
+                if (g.getLengthInBits() >= 8 * l) break;
+                if (g.put(b.PAD0, 8), g.getLengthInBits() >= 8 * l) break;
+                g.put(b.PAD1, 8);
+            }
+            return b.createBytes(g, e);
+        }, b.createBytes = function(a, b) {
+            for (var c = 0, d = 0, e = 0, g = new Array(b.length), h = new Array(b.length), j = 0; j < b.length; j++) {
+                var k = b[j].dataCount, l = b[j].totalCount - k;
+                d = Math.max(d, k), e = Math.max(e, l), g[j] = new Array(k);
+                for (var m = 0; m < g[j].length; m++) g[j][m] = 255 & a.buffer[m + c];
+                c += k;
+                var n = f.getErrorCorrectPolynomial(l), o = new i(g[j], n.getLength() - 1), p = o.mod(n);
+                h[j] = new Array(n.getLength() - 1);
+                for (var m = 0; m < h[j].length; m++) {
+                    var q = m + p.getLength() - h[j].length;
+                    h[j][m] = q >= 0 ? p.get(q) : 0;
+                }
+            }
+            for (var r = 0, m = 0; m < b.length; m++) r += b[m].totalCount;
+            for (var s = new Array(r), t = 0, m = 0; d > m; m++) for (var j = 0; j < b.length; j++) m < g[j].length && (s[t++] = g[j][m]);
+            for (var m = 0; e > m; m++) for (var j = 0; j < b.length; j++) m < h[j].length && (s[t++] = h[j][m]);
+            return s;
+        };
+        for (var c = {
+            MODE_NUMBER: 1,
+            MODE_ALPHA_NUM: 2,
+            MODE_8BIT_BYTE: 4,
+            MODE_KANJI: 8
+        }, d = {
+            L: 1,
+            M: 0,
+            Q: 3,
+            H: 2
+        }, e = {
+            PATTERN000: 0,
+            PATTERN001: 1,
+            PATTERN010: 2,
+            PATTERN011: 3,
+            PATTERN100: 4,
+            PATTERN101: 5,
+            PATTERN110: 6,
+            PATTERN111: 7
+        }, f = {
+            PATTERN_POSITION_TABLE: [ [], [ 6, 18 ], [ 6, 22 ], [ 6, 26 ], [ 6, 30 ], [ 6, 34 ], [ 6, 22, 38 ], [ 6, 24, 42 ], [ 6, 26, 46 ], [ 6, 28, 50 ], [ 6, 30, 54 ], [ 6, 32, 58 ], [ 6, 34, 62 ], [ 6, 26, 46, 66 ], [ 6, 26, 48, 70 ], [ 6, 26, 50, 74 ], [ 6, 30, 54, 78 ], [ 6, 30, 56, 82 ], [ 6, 30, 58, 86 ], [ 6, 34, 62, 90 ], [ 6, 28, 50, 72, 94 ], [ 6, 26, 50, 74, 98 ], [ 6, 30, 54, 78, 102 ], [ 6, 28, 54, 80, 106 ], [ 6, 32, 58, 84, 110 ], [ 6, 30, 58, 86, 114 ], [ 6, 34, 62, 90, 118 ], [ 6, 26, 50, 74, 98, 122 ], [ 6, 30, 54, 78, 102, 126 ], [ 6, 26, 52, 78, 104, 130 ], [ 6, 30, 56, 82, 108, 134 ], [ 6, 34, 60, 86, 112, 138 ], [ 6, 30, 58, 86, 114, 142 ], [ 6, 34, 62, 90, 118, 146 ], [ 6, 30, 54, 78, 102, 126, 150 ], [ 6, 24, 50, 76, 102, 128, 154 ], [ 6, 28, 54, 80, 106, 132, 158 ], [ 6, 32, 58, 84, 110, 136, 162 ], [ 6, 26, 54, 82, 110, 138, 166 ], [ 6, 30, 58, 86, 114, 142, 170 ] ],
+            G15: 1335,
+            G18: 7973,
+            G15_MASK: 21522,
+            getBCHTypeInfo: function(a) {
+                for (var b = a << 10; f.getBCHDigit(b) - f.getBCHDigit(f.G15) >= 0; ) b ^= f.G15 << f.getBCHDigit(b) - f.getBCHDigit(f.G15);
+                return (a << 10 | b) ^ f.G15_MASK;
+            },
+            getBCHTypeNumber: function(a) {
+                for (var b = a << 12; f.getBCHDigit(b) - f.getBCHDigit(f.G18) >= 0; ) b ^= f.G18 << f.getBCHDigit(b) - f.getBCHDigit(f.G18);
+                return a << 12 | b;
+            },
+            getBCHDigit: function(a) {
+                for (var b = 0; 0 != a; ) b++, a >>>= 1;
+                return b;
+            },
+            getPatternPosition: function(a) {
+                return f.PATTERN_POSITION_TABLE[a - 1];
+            },
+            getMask: function(a, b, c) {
+                switch (a) {
+                  case e.PATTERN000:
+                    return 0 == (b + c) % 2;
+
+                  case e.PATTERN001:
+                    return 0 == b % 2;
+
+                  case e.PATTERN010:
+                    return 0 == c % 3;
+
+                  case e.PATTERN011:
+                    return 0 == (b + c) % 3;
+
+                  case e.PATTERN100:
+                    return 0 == (Math.floor(b / 2) + Math.floor(c / 3)) % 2;
+
+                  case e.PATTERN101:
+                    return 0 == b * c % 2 + b * c % 3;
+
+                  case e.PATTERN110:
+                    return 0 == (b * c % 2 + b * c % 3) % 2;
+
+                  case e.PATTERN111:
+                    return 0 == (b * c % 3 + (b + c) % 2) % 2;
+
+                  default:
+                    throw new Error("bad maskPattern:" + a);
+                }
+            },
+            getErrorCorrectPolynomial: function(a) {
+                for (var b = new i([ 1 ], 0), c = 0; a > c; c++) b = b.multiply(new i([ 1, g.gexp(c) ], 0));
+                return b;
+            },
+            getLengthInBits: function(a, b) {
+                if (b >= 1 && 10 > b) switch (a) {
+                  case c.MODE_NUMBER:
+                    return 10;
+
+                  case c.MODE_ALPHA_NUM:
+                    return 9;
+
+                  case c.MODE_8BIT_BYTE:
+                    return 8;
+
+                  case c.MODE_KANJI:
+                    return 8;
+
+                  default:
+                    throw new Error("mode:" + a);
+                } else if (27 > b) switch (a) {
+                  case c.MODE_NUMBER:
+                    return 12;
+
+                  case c.MODE_ALPHA_NUM:
+                    return 11;
+
+                  case c.MODE_8BIT_BYTE:
+                    return 16;
+
+                  case c.MODE_KANJI:
+                    return 10;
+
+                  default:
+                    throw new Error("mode:" + a);
+                } else {
+                    if (!(41 > b)) throw new Error("type:" + b);
+                    switch (a) {
+                      case c.MODE_NUMBER:
+                        return 14;
+
+                      case c.MODE_ALPHA_NUM:
+                        return 13;
+
+                      case c.MODE_8BIT_BYTE:
+                        return 16;
+
+                      case c.MODE_KANJI:
+                        return 12;
+
+                      default:
+                        throw new Error("mode:" + a);
+                    }
+                }
+            },
+            getLostPoint: function(a) {
+                for (var b = a.getModuleCount(), c = 0, d = 0; b > d; d++) for (var e = 0; b > e; e++) {
+                    for (var f = 0, g = a.isDark(d, e), h = -1; 1 >= h; h++) if (!(0 > d + h || d + h >= b)) for (var i = -1; 1 >= i; i++) 0 > e + i || e + i >= b || (0 != h || 0 != i) && g == a.isDark(d + h, e + i) && f++;
+                    f > 5 && (c += 3 + f - 5);
+                }
+                for (var d = 0; b - 1 > d; d++) for (var e = 0; b - 1 > e; e++) {
+                    var j = 0;
+                    a.isDark(d, e) && j++, a.isDark(d + 1, e) && j++, a.isDark(d, e + 1) && j++, a.isDark(d + 1, e + 1) && j++, 
+                    (0 == j || 4 == j) && (c += 3);
+                }
+                for (var d = 0; b > d; d++) for (var e = 0; b - 6 > e; e++) a.isDark(d, e) && !a.isDark(d, e + 1) && a.isDark(d, e + 2) && a.isDark(d, e + 3) && a.isDark(d, e + 4) && !a.isDark(d, e + 5) && a.isDark(d, e + 6) && (c += 40);
+                for (var e = 0; b > e; e++) for (var d = 0; b - 6 > d; d++) a.isDark(d, e) && !a.isDark(d + 1, e) && a.isDark(d + 2, e) && a.isDark(d + 3, e) && a.isDark(d + 4, e) && !a.isDark(d + 5, e) && a.isDark(d + 6, e) && (c += 40);
+                for (var k = 0, e = 0; b > e; e++) for (var d = 0; b > d; d++) a.isDark(d, e) && k++;
+                var l = Math.abs(100 * k / b / b - 50) / 5;
+                return c += 10 * l;
+            }
+        }, g = {
+            glog: function(a) {
+                if (1 > a) throw new Error("glog(" + a + ")");
+                return g.LOG_TABLE[a];
+            },
+            gexp: function(a) {
+                for (;0 > a; ) a += 255;
+                for (;a >= 256; ) a -= 255;
+                return g.EXP_TABLE[a];
+            },
+            EXP_TABLE: new Array(256),
+            LOG_TABLE: new Array(256)
+        }, h = 0; 8 > h; h++) g.EXP_TABLE[h] = 1 << h;
+        for (var h = 8; 256 > h; h++) g.EXP_TABLE[h] = g.EXP_TABLE[h - 4] ^ g.EXP_TABLE[h - 5] ^ g.EXP_TABLE[h - 6] ^ g.EXP_TABLE[h - 8];
+        for (var h = 0; 255 > h; h++) g.LOG_TABLE[g.EXP_TABLE[h]] = h;
+        i.prototype = {
+            get: function(a) {
+                return this.num[a];
+            },
+            getLength: function() {
+                return this.num.length;
+            },
+            multiply: function(a) {
+                for (var b = new Array(this.getLength() + a.getLength() - 1), c = 0; c < this.getLength(); c++) for (var d = 0; d < a.getLength(); d++) b[c + d] ^= g.gexp(g.glog(this.get(c)) + g.glog(a.get(d)));
+                return new i(b, 0);
+            },
+            mod: function(a) {
+                if (this.getLength() - a.getLength() < 0) return this;
+                for (var b = g.glog(this.get(0)) - g.glog(a.get(0)), c = new Array(this.getLength()), d = 0; d < this.getLength(); d++) c[d] = this.get(d);
+                for (var d = 0; d < a.getLength(); d++) c[d] ^= g.gexp(g.glog(a.get(d)) + b);
+                return new i(c, 0).mod(a);
+            }
+        }, j.RS_BLOCK_TABLE = [ [ 1, 26, 19 ], [ 1, 26, 16 ], [ 1, 26, 13 ], [ 1, 26, 9 ], [ 1, 44, 34 ], [ 1, 44, 28 ], [ 1, 44, 22 ], [ 1, 44, 16 ], [ 1, 70, 55 ], [ 1, 70, 44 ], [ 2, 35, 17 ], [ 2, 35, 13 ], [ 1, 100, 80 ], [ 2, 50, 32 ], [ 2, 50, 24 ], [ 4, 25, 9 ], [ 1, 134, 108 ], [ 2, 67, 43 ], [ 2, 33, 15, 2, 34, 16 ], [ 2, 33, 11, 2, 34, 12 ], [ 2, 86, 68 ], [ 4, 43, 27 ], [ 4, 43, 19 ], [ 4, 43, 15 ], [ 2, 98, 78 ], [ 4, 49, 31 ], [ 2, 32, 14, 4, 33, 15 ], [ 4, 39, 13, 1, 40, 14 ], [ 2, 121, 97 ], [ 2, 60, 38, 2, 61, 39 ], [ 4, 40, 18, 2, 41, 19 ], [ 4, 40, 14, 2, 41, 15 ], [ 2, 146, 116 ], [ 3, 58, 36, 2, 59, 37 ], [ 4, 36, 16, 4, 37, 17 ], [ 4, 36, 12, 4, 37, 13 ], [ 2, 86, 68, 2, 87, 69 ], [ 4, 69, 43, 1, 70, 44 ], [ 6, 43, 19, 2, 44, 20 ], [ 6, 43, 15, 2, 44, 16 ], [ 4, 101, 81 ], [ 1, 80, 50, 4, 81, 51 ], [ 4, 50, 22, 4, 51, 23 ], [ 3, 36, 12, 8, 37, 13 ], [ 2, 116, 92, 2, 117, 93 ], [ 6, 58, 36, 2, 59, 37 ], [ 4, 46, 20, 6, 47, 21 ], [ 7, 42, 14, 4, 43, 15 ], [ 4, 133, 107 ], [ 8, 59, 37, 1, 60, 38 ], [ 8, 44, 20, 4, 45, 21 ], [ 12, 33, 11, 4, 34, 12 ], [ 3, 145, 115, 1, 146, 116 ], [ 4, 64, 40, 5, 65, 41 ], [ 11, 36, 16, 5, 37, 17 ], [ 11, 36, 12, 5, 37, 13 ], [ 5, 109, 87, 1, 110, 88 ], [ 5, 65, 41, 5, 66, 42 ], [ 5, 54, 24, 7, 55, 25 ], [ 11, 36, 12 ], [ 5, 122, 98, 1, 123, 99 ], [ 7, 73, 45, 3, 74, 46 ], [ 15, 43, 19, 2, 44, 20 ], [ 3, 45, 15, 13, 46, 16 ], [ 1, 135, 107, 5, 136, 108 ], [ 10, 74, 46, 1, 75, 47 ], [ 1, 50, 22, 15, 51, 23 ], [ 2, 42, 14, 17, 43, 15 ], [ 5, 150, 120, 1, 151, 121 ], [ 9, 69, 43, 4, 70, 44 ], [ 17, 50, 22, 1, 51, 23 ], [ 2, 42, 14, 19, 43, 15 ], [ 3, 141, 113, 4, 142, 114 ], [ 3, 70, 44, 11, 71, 45 ], [ 17, 47, 21, 4, 48, 22 ], [ 9, 39, 13, 16, 40, 14 ], [ 3, 135, 107, 5, 136, 108 ], [ 3, 67, 41, 13, 68, 42 ], [ 15, 54, 24, 5, 55, 25 ], [ 15, 43, 15, 10, 44, 16 ], [ 4, 144, 116, 4, 145, 117 ], [ 17, 68, 42 ], [ 17, 50, 22, 6, 51, 23 ], [ 19, 46, 16, 6, 47, 17 ], [ 2, 139, 111, 7, 140, 112 ], [ 17, 74, 46 ], [ 7, 54, 24, 16, 55, 25 ], [ 34, 37, 13 ], [ 4, 151, 121, 5, 152, 122 ], [ 4, 75, 47, 14, 76, 48 ], [ 11, 54, 24, 14, 55, 25 ], [ 16, 45, 15, 14, 46, 16 ], [ 6, 147, 117, 4, 148, 118 ], [ 6, 73, 45, 14, 74, 46 ], [ 11, 54, 24, 16, 55, 25 ], [ 30, 46, 16, 2, 47, 17 ], [ 8, 132, 106, 4, 133, 107 ], [ 8, 75, 47, 13, 76, 48 ], [ 7, 54, 24, 22, 55, 25 ], [ 22, 45, 15, 13, 46, 16 ], [ 10, 142, 114, 2, 143, 115 ], [ 19, 74, 46, 4, 75, 47 ], [ 28, 50, 22, 6, 51, 23 ], [ 33, 46, 16, 4, 47, 17 ], [ 8, 152, 122, 4, 153, 123 ], [ 22, 73, 45, 3, 74, 46 ], [ 8, 53, 23, 26, 54, 24 ], [ 12, 45, 15, 28, 46, 16 ], [ 3, 147, 117, 10, 148, 118 ], [ 3, 73, 45, 23, 74, 46 ], [ 4, 54, 24, 31, 55, 25 ], [ 11, 45, 15, 31, 46, 16 ], [ 7, 146, 116, 7, 147, 117 ], [ 21, 73, 45, 7, 74, 46 ], [ 1, 53, 23, 37, 54, 24 ], [ 19, 45, 15, 26, 46, 16 ], [ 5, 145, 115, 10, 146, 116 ], [ 19, 75, 47, 10, 76, 48 ], [ 15, 54, 24, 25, 55, 25 ], [ 23, 45, 15, 25, 46, 16 ], [ 13, 145, 115, 3, 146, 116 ], [ 2, 74, 46, 29, 75, 47 ], [ 42, 54, 24, 1, 55, 25 ], [ 23, 45, 15, 28, 46, 16 ], [ 17, 145, 115 ], [ 10, 74, 46, 23, 75, 47 ], [ 10, 54, 24, 35, 55, 25 ], [ 19, 45, 15, 35, 46, 16 ], [ 17, 145, 115, 1, 146, 116 ], [ 14, 74, 46, 21, 75, 47 ], [ 29, 54, 24, 19, 55, 25 ], [ 11, 45, 15, 46, 46, 16 ], [ 13, 145, 115, 6, 146, 116 ], [ 14, 74, 46, 23, 75, 47 ], [ 44, 54, 24, 7, 55, 25 ], [ 59, 46, 16, 1, 47, 17 ], [ 12, 151, 121, 7, 152, 122 ], [ 12, 75, 47, 26, 76, 48 ], [ 39, 54, 24, 14, 55, 25 ], [ 22, 45, 15, 41, 46, 16 ], [ 6, 151, 121, 14, 152, 122 ], [ 6, 75, 47, 34, 76, 48 ], [ 46, 54, 24, 10, 55, 25 ], [ 2, 45, 15, 64, 46, 16 ], [ 17, 152, 122, 4, 153, 123 ], [ 29, 74, 46, 14, 75, 47 ], [ 49, 54, 24, 10, 55, 25 ], [ 24, 45, 15, 46, 46, 16 ], [ 4, 152, 122, 18, 153, 123 ], [ 13, 74, 46, 32, 75, 47 ], [ 48, 54, 24, 14, 55, 25 ], [ 42, 45, 15, 32, 46, 16 ], [ 20, 147, 117, 4, 148, 118 ], [ 40, 75, 47, 7, 76, 48 ], [ 43, 54, 24, 22, 55, 25 ], [ 10, 45, 15, 67, 46, 16 ], [ 19, 148, 118, 6, 149, 119 ], [ 18, 75, 47, 31, 76, 48 ], [ 34, 54, 24, 34, 55, 25 ], [ 20, 45, 15, 61, 46, 16 ] ], 
+        j.getRSBlocks = function(a, b) {
+            var c = j.getRsBlockTable(a, b);
+            if (void 0 == c) throw new Error("bad rs block @ typeNumber:" + a + "/errorCorrectLevel:" + b);
+            for (var d = c.length / 3, e = [], f = 0; d > f; f++) for (var g = c[3 * f + 0], h = c[3 * f + 1], i = c[3 * f + 2], k = 0; g > k; k++) e.push(new j(h, i));
+            return e;
+        }, j.getRsBlockTable = function(a, b) {
+            switch (b) {
+              case d.L:
+                return j.RS_BLOCK_TABLE[4 * (a - 1) + 0];
+
+              case d.M:
+                return j.RS_BLOCK_TABLE[4 * (a - 1) + 1];
+
+              case d.Q:
+                return j.RS_BLOCK_TABLE[4 * (a - 1) + 2];
+
+              case d.H:
+                return j.RS_BLOCK_TABLE[4 * (a - 1) + 3];
+
+              default:
+                return void 0;
+            }
+        }, k.prototype = {
+            get: function(a) {
+                var b = Math.floor(a / 8);
+                return 1 == (1 & this.buffer[b] >>> 7 - a % 8);
+            },
+            put: function(a, b) {
+                for (var c = 0; b > c; c++) this.putBit(1 == (1 & a >>> b - c - 1));
+            },
+            getLengthInBits: function() {
+                return this.length;
+            },
+            putBit: function(a) {
+                var b = Math.floor(this.length / 8);
+                this.buffer.length <= b && this.buffer.push(0), a && (this.buffer[b] |= 128 >>> this.length % 8), 
+                this.length++;
+            }
+        };
+        var l = [ [ 17, 14, 11, 7 ], [ 32, 26, 20, 14 ], [ 53, 42, 32, 24 ], [ 78, 62, 46, 34 ], [ 106, 84, 60, 44 ], [ 134, 106, 74, 58 ], [ 154, 122, 86, 64 ], [ 192, 152, 108, 84 ], [ 230, 180, 130, 98 ], [ 271, 213, 151, 119 ], [ 321, 251, 177, 137 ], [ 367, 287, 203, 155 ], [ 425, 331, 241, 177 ], [ 458, 362, 258, 194 ], [ 520, 412, 292, 220 ], [ 586, 450, 322, 250 ], [ 644, 504, 364, 280 ], [ 718, 560, 394, 310 ], [ 792, 624, 442, 338 ], [ 858, 666, 482, 382 ], [ 929, 711, 509, 403 ], [ 1003, 779, 565, 439 ], [ 1091, 857, 611, 461 ], [ 1171, 911, 661, 511 ], [ 1273, 997, 715, 535 ], [ 1367, 1059, 751, 593 ], [ 1465, 1125, 805, 625 ], [ 1528, 1190, 868, 658 ], [ 1628, 1264, 908, 698 ], [ 1732, 1370, 982, 742 ], [ 1840, 1452, 1030, 790 ], [ 1952, 1538, 1112, 842 ], [ 2068, 1628, 1168, 898 ], [ 2188, 1722, 1228, 958 ], [ 2303, 1809, 1283, 983 ], [ 2431, 1911, 1351, 1051 ], [ 2563, 1989, 1423, 1093 ], [ 2699, 2099, 1499, 1139 ], [ 2809, 2213, 1579, 1219 ], [ 2953, 2331, 1663, 1273 ] ], o = function() {
+            var a = function(a, b) {
+                this._el = a, this._htOption = b;
+            };
+            return a.prototype.draw = function(a) {
+                function g(a, b) {
+                    var c = document.createElementNS("http://www.w3.org/2000/svg", a);
+                    for (var d in b) b.hasOwnProperty(d) && c.setAttribute(d, b[d]);
+                    return c;
+                }
+                var b = this._htOption, c = this._el, d = a.getModuleCount();
+                Math.floor(b.width / d), Math.floor(b.height / d), this.clear();
+                var h = g("svg", {
+                    viewBox: "0 0 " + String(d) + " " + String(d),
+                    width: "100%",
+                    height: "100%",
+                    fill: b.colorLight
+                });
+                h.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink"), 
+                c.appendChild(h), h.appendChild(g("rect", {
+                    fill: b.colorDark,
+                    width: "1",
+                    height: "1",
+                    id: "template"
+                }));
+                for (var i = 0; d > i; i++) for (var j = 0; d > j; j++) if (a.isDark(i, j)) {
+                    var k = g("use", {
+                        x: String(i),
+                        y: String(j)
+                    });
+                    k.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#template"), h.appendChild(k);
+                }
+            }, a.prototype.clear = function() {
+                for (;this._el.hasChildNodes(); ) this._el.removeChild(this._el.lastChild);
+            }, a;
+        }(), p = "svg" === document.documentElement.tagName.toLowerCase(), q = p ? o : m() ? function() {
+            function a() {
+                this._elImage.src = this._elCanvas.toDataURL("image/png"), this._elImage.style.display = "block", 
+                this._elCanvas.style.display = "none";
+            }
+            function d(a, b) {
+                var c = this;
+                if (c._fFail = b, c._fSuccess = a, null === c._bSupportDataURI) {
+                    var d = document.createElement("img"), e = function() {
+                        c._bSupportDataURI = !1, c._fFail && _fFail.call(c);
+                    }, f = function() {
+                        c._bSupportDataURI = !0, c._fSuccess && c._fSuccess.call(c);
+                    };
+                    return d.onabort = e, d.onerror = e, d.onload = f, d.src = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==", 
+                    void 0;
+                }
+                c._bSupportDataURI === !0 && c._fSuccess ? c._fSuccess.call(c) : c._bSupportDataURI === !1 && c._fFail && c._fFail.call(c);
+            }
+            if (this._android && this._android <= 2.1) {
+                var b = 1 / window.devicePixelRatio, c = CanvasRenderingContext2D.prototype.drawImage;
+                CanvasRenderingContext2D.prototype.drawImage = function(a, d, e, f, g, h, i, j) {
+                    if ("nodeName" in a && /img/i.test(a.nodeName)) for (var l = arguments.length - 1; l >= 1; l--) arguments[l] = arguments[l] * b; else "undefined" == typeof j && (arguments[1] *= b, 
+                    arguments[2] *= b, arguments[3] *= b, arguments[4] *= b);
+                    c.apply(this, arguments);
+                };
+            }
+            var e = function(a, b) {
+                this._bIsPainted = !1, this._android = n(), this._htOption = b, this._elCanvas = document.createElement("canvas"), 
+                this._elCanvas.width = b.width, this._elCanvas.height = b.height, a.appendChild(this._elCanvas), 
+                this._el = a, this._oContext = this._elCanvas.getContext("2d"), this._bIsPainted = !1, 
+                this._elImage = document.createElement("img"), this._elImage.style.display = "none", 
+                this._el.appendChild(this._elImage), this._bSupportDataURI = null;
+            };
+            return e.prototype.draw = function(a) {
+                var b = this._elImage, c = this._oContext, d = this._htOption, e = a.getModuleCount(), f = d.width / e, g = d.height / e, h = Math.round(f), i = Math.round(g);
+                b.style.display = "none", this.clear();
+                for (var j = 0; e > j; j++) for (var k = 0; e > k; k++) {
+                    var l = a.isDark(j, k), m = k * f, n = j * g;
+                    c.strokeStyle = l ? d.colorDark : d.colorLight, c.lineWidth = 1, c.fillStyle = l ? d.colorDark : d.colorLight, 
+                    c.fillRect(m, n, f, g), c.strokeRect(Math.floor(m) + .5, Math.floor(n) + .5, h, i), 
+                    c.strokeRect(Math.ceil(m) - .5, Math.ceil(n) - .5, h, i);
+                }
+                this._bIsPainted = !0;
+            }, e.prototype.makeImage = function() {
+                this._bIsPainted && d.call(this, a);
+            }, e.prototype.isPainted = function() {
+                return this._bIsPainted;
+            }, e.prototype.clear = function() {
+                this._oContext.clearRect(0, 0, this._elCanvas.width, this._elCanvas.height), this._bIsPainted = !1;
+            }, e.prototype.round = function(a) {
+                return a ? Math.floor(1e3 * a) / 1e3 : a;
+            }, e;
+        }() : function() {
+            var a = function(a, b) {
+                this._el = a, this._htOption = b;
+            };
+            return a.prototype.draw = function(a) {
+                for (var b = this._htOption, c = this._el, d = a.getModuleCount(), e = Math.floor(b.width / d), f = Math.floor(b.height / d), g = [ '<table style="border:0;border-collapse:collapse;">' ], h = 0; d > h; h++) {
+                    g.push("<tr>");
+                    for (var i = 0; d > i; i++) g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:' + e + "px;height:" + f + "px;background-color:" + (a.isDark(h, i) ? b.colorDark : b.colorLight) + ';"></td>');
+                    g.push("</tr>");
+                }
+                g.push("</table>"), c.innerHTML = g.join("");
+                var j = c.childNodes[0], k = (b.width - j.offsetWidth) / 2, l = (b.height - j.offsetHeight) / 2;
+                k > 0 && l > 0 && (j.style.margin = l + "px " + k + "px");
+            }, a.prototype.clear = function() {
+                this._el.innerHTML = "";
+            }, a;
+        }();
+        QRCode = function(a, b) {
+            if (this._htOption = {
+                width: 256,
+                height: 256,
+                typeNumber: 4,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: d.H
+            }, "string" == typeof b && (b = {
+                text: b
+            }), b) for (var c in b) this._htOption[c] = b[c];
+            "string" == typeof a && (a = document.getElementById(a)), this._android = n(), this._el = a, 
+            this._oQRCode = null, this._oDrawing = new q(this._el, this._htOption), this._htOption.text && this.makeCode(this._htOption.text);
+        }, QRCode.prototype.makeCode = function(a) {
+            this._oQRCode = new b(r(a, this._htOption.correctLevel), this._htOption.correctLevel), 
+            this._oQRCode.addData(a), this._oQRCode.make(), this._el.title = a, this._oDrawing.draw(this._oQRCode), 
+            this.makeImage();
+        }, QRCode.prototype.makeImage = function() {
+            "function" == typeof this._oDrawing.makeImage && (!this._android || this._android >= 3) && this._oDrawing.makeImage();
+        }, QRCode.prototype.clear = function() {
+            this._oDrawing.clear();
+        }, QRCode.CorrectLevel = d;
+    }();
+    module.exports = QRCode;
+});
+
+define("dist/cmd-lib/qr/jquery.qrcode.min", [], function(require, exports, module) {
+    //var jQuery = require("$");
+    (function(r) {
+        r.fn.qrcode = function(h) {
+            var s;
+            function u(a) {
+                this.mode = s;
+                this.data = a;
+            }
+            function o(a, c) {
+                this.typeNumber = a;
+                this.errorCorrectLevel = c;
+                this.modules = null;
+                this.moduleCount = 0;
+                this.dataCache = null;
+                this.dataList = [];
+            }
+            function q(a, c) {
+                if (void 0 == a.length) throw Error(a.length + "/" + c);
+                for (var d = 0; d < a.length && 0 == a[d]; ) d++;
+                this.num = Array(a.length - d + c);
+                for (var b = 0; b < a.length - d; b++) this.num[b] = a[b + d];
+            }
+            function p(a, c) {
+                this.totalCount = a;
+                this.dataCount = c;
+            }
+            function t() {
+                this.buffer = [];
+                this.length = 0;
+            }
+            u.prototype = {
+                getLength: function() {
+                    return this.data.length;
+                },
+                write: function(a) {
+                    for (var c = 0; c < this.data.length; c++) a.put(this.data.charCodeAt(c), 8);
+                }
+            };
+            o.prototype = {
+                addData: function(a) {
+                    this.dataList.push(new u(a));
+                    this.dataCache = null;
+                },
+                isDark: function(a, c) {
+                    if (0 > a || this.moduleCount <= a || 0 > c || this.moduleCount <= c) throw Error(a + "," + c);
+                    return this.modules[a][c];
+                },
+                getModuleCount: function() {
+                    return this.moduleCount;
+                },
+                make: function() {
+                    if (1 > this.typeNumber) {
+                        for (var a = 1, a = 1; 40 > a; a++) {
+                            for (var c = p.getRSBlocks(a, this.errorCorrectLevel), d = new t(), b = 0, e = 0; e < c.length; e++) b += c[e].dataCount;
+                            for (e = 0; e < this.dataList.length; e++) c = this.dataList[e], d.put(c.mode, 4), 
+                            d.put(c.getLength(), j.getLengthInBits(c.mode, a)), c.write(d);
+                            if (d.getLengthInBits() <= 8 * b) break;
+                        }
+                        this.typeNumber = a;
+                    }
+                    this.makeImpl(!1, this.getBestMaskPattern());
+                },
+                makeImpl: function(a, c) {
+                    this.moduleCount = 4 * this.typeNumber + 17;
+                    this.modules = Array(this.moduleCount);
+                    for (var d = 0; d < this.moduleCount; d++) {
+                        this.modules[d] = Array(this.moduleCount);
+                        for (var b = 0; b < this.moduleCount; b++) this.modules[d][b] = null;
+                    }
+                    this.setupPositionProbePattern(0, 0);
+                    this.setupPositionProbePattern(this.moduleCount - 7, 0);
+                    this.setupPositionProbePattern(0, this.moduleCount - 7);
+                    this.setupPositionAdjustPattern();
+                    this.setupTimingPattern();
+                    this.setupTypeInfo(a, c);
+                    7 <= this.typeNumber && this.setupTypeNumber(a);
+                    null == this.dataCache && (this.dataCache = o.createData(this.typeNumber, this.errorCorrectLevel, this.dataList));
+                    this.mapData(this.dataCache, c);
+                },
+                setupPositionProbePattern: function(a, c) {
+                    for (var d = -1; 7 >= d; d++) if (!(-1 >= a + d || this.moduleCount <= a + d)) for (var b = -1; 7 >= b; b++) -1 >= c + b || this.moduleCount <= c + b || (this.modules[a + d][c + b] = 0 <= d && 6 >= d && (0 == b || 6 == b) || 0 <= b && 6 >= b && (0 == d || 6 == d) || 2 <= d && 4 >= d && 2 <= b && 4 >= b ? !0 : !1);
+                },
+                getBestMaskPattern: function() {
+                    for (var a = 0, c = 0, d = 0; 8 > d; d++) {
+                        this.makeImpl(!0, d);
+                        var b = j.getLostPoint(this);
+                        if (0 == d || a > b) a = b, c = d;
+                    }
+                    return c;
+                },
+                createMovieClip: function(a, c, d) {
+                    a = a.createEmptyMovieClip(c, d);
+                    this.make();
+                    for (c = 0; c < this.modules.length; c++) for (var d = 1 * c, b = 0; b < this.modules[c].length; b++) {
+                        var e = 1 * b;
+                        this.modules[c][b] && (a.beginFill(0, 100), a.moveTo(e, d), a.lineTo(e + 1, d), 
+                        a.lineTo(e + 1, d + 1), a.lineTo(e, d + 1), a.endFill());
+                    }
+                    return a;
+                },
+                setupTimingPattern: function() {
+                    for (var a = 8; a < this.moduleCount - 8; a++) null == this.modules[a][6] && (this.modules[a][6] = 0 == a % 2);
+                    for (a = 8; a < this.moduleCount - 8; a++) null == this.modules[6][a] && (this.modules[6][a] = 0 == a % 2);
+                },
+                setupPositionAdjustPattern: function() {
+                    for (var a = j.getPatternPosition(this.typeNumber), c = 0; c < a.length; c++) for (var d = 0; d < a.length; d++) {
+                        var b = a[c], e = a[d];
+                        if (null == this.modules[b][e]) for (var f = -2; 2 >= f; f++) for (var i = -2; 2 >= i; i++) this.modules[b + f][e + i] = -2 == f || 2 == f || -2 == i || 2 == i || 0 == f && 0 == i ? !0 : !1;
+                    }
+                },
+                setupTypeNumber: function(a) {
+                    for (var c = j.getBCHTypeNumber(this.typeNumber), d = 0; 18 > d; d++) {
+                        var b = !a && 1 == (c >> d & 1);
+                        this.modules[Math.floor(d / 3)][d % 3 + this.moduleCount - 8 - 3] = b;
+                    }
+                    for (d = 0; 18 > d; d++) b = !a && 1 == (c >> d & 1), this.modules[d % 3 + this.moduleCount - 8 - 3][Math.floor(d / 3)] = b;
+                },
+                setupTypeInfo: function(a, c) {
+                    for (var d = j.getBCHTypeInfo(this.errorCorrectLevel << 3 | c), b = 0; 15 > b; b++) {
+                        var e = !a && 1 == (d >> b & 1);
+                        6 > b ? this.modules[b][8] = e : 8 > b ? this.modules[b + 1][8] = e : this.modules[this.moduleCount - 15 + b][8] = e;
+                    }
+                    for (b = 0; 15 > b; b++) e = !a && 1 == (d >> b & 1), 8 > b ? this.modules[8][this.moduleCount - b - 1] = e : 9 > b ? this.modules[8][15 - b - 1 + 1] = e : this.modules[8][15 - b - 1] = e;
+                    this.modules[this.moduleCount - 8][8] = !a;
+                },
+                mapData: function(a, c) {
+                    for (var d = -1, b = this.moduleCount - 1, e = 7, f = 0, i = this.moduleCount - 1; 0 < i; i -= 2) for (6 == i && i--; ;) {
+                        for (var g = 0; 2 > g; g++) if (null == this.modules[b][i - g]) {
+                            var n = !1;
+                            f < a.length && (n = 1 == (a[f] >>> e & 1));
+                            j.getMask(c, b, i - g) && (n = !n);
+                            this.modules[b][i - g] = n;
+                            e--;
+                            -1 == e && (f++, e = 7);
+                        }
+                        b += d;
+                        if (0 > b || this.moduleCount <= b) {
+                            b -= d;
+                            d = -d;
+                            break;
+                        }
+                    }
+                }
+            };
+            o.PAD0 = 236;
+            o.PAD1 = 17;
+            o.createData = function(a, c, d) {
+                for (var c = p.getRSBlocks(a, c), b = new t(), e = 0; e < d.length; e++) {
+                    var f = d[e];
+                    b.put(f.mode, 4);
+                    b.put(f.getLength(), j.getLengthInBits(f.mode, a));
+                    f.write(b);
+                }
+                for (e = a = 0; e < c.length; e++) a += c[e].dataCount;
+                if (b.getLengthInBits() > 8 * a) throw Error("code length overflow. (" + b.getLengthInBits() + ">" + 8 * a + ")");
+                for (b.getLengthInBits() + 4 <= 8 * a && b.put(0, 4); 0 != b.getLengthInBits() % 8; ) b.putBit(!1);
+                for (;!(b.getLengthInBits() >= 8 * a); ) {
+                    b.put(o.PAD0, 8);
+                    if (b.getLengthInBits() >= 8 * a) break;
+                    b.put(o.PAD1, 8);
+                }
+                return o.createBytes(b, c);
+            };
+            o.createBytes = function(a, c) {
+                for (var d = 0, b = 0, e = 0, f = Array(c.length), i = Array(c.length), g = 0; g < c.length; g++) {
+                    var n = c[g].dataCount, h = c[g].totalCount - n, b = Math.max(b, n), e = Math.max(e, h);
+                    f[g] = Array(n);
+                    for (var k = 0; k < f[g].length; k++) f[g][k] = 255 & a.buffer[k + d];
+                    d += n;
+                    k = j.getErrorCorrectPolynomial(h);
+                    n = new q(f[g], k.getLength() - 1).mod(k);
+                    i[g] = Array(k.getLength() - 1);
+                    for (k = 0; k < i[g].length; k++) h = k + n.getLength() - i[g].length, i[g][k] = 0 <= h ? n.get(h) : 0;
+                }
+                for (k = g = 0; k < c.length; k++) g += c[k].totalCount;
+                d = Array(g);
+                for (k = n = 0; k < b; k++) for (g = 0; g < c.length; g++) k < f[g].length && (d[n++] = f[g][k]);
+                for (k = 0; k < e; k++) for (g = 0; g < c.length; g++) k < i[g].length && (d[n++] = i[g][k]);
+                return d;
+            };
+            s = 4;
+            for (var j = {
+                PATTERN_POSITION_TABLE: [ [], [ 6, 18 ], [ 6, 22 ], [ 6, 26 ], [ 6, 30 ], [ 6, 34 ], [ 6, 22, 38 ], [ 6, 24, 42 ], [ 6, 26, 46 ], [ 6, 28, 50 ], [ 6, 30, 54 ], [ 6, 32, 58 ], [ 6, 34, 62 ], [ 6, 26, 46, 66 ], [ 6, 26, 48, 70 ], [ 6, 26, 50, 74 ], [ 6, 30, 54, 78 ], [ 6, 30, 56, 82 ], [ 6, 30, 58, 86 ], [ 6, 34, 62, 90 ], [ 6, 28, 50, 72, 94 ], [ 6, 26, 50, 74, 98 ], [ 6, 30, 54, 78, 102 ], [ 6, 28, 54, 80, 106 ], [ 6, 32, 58, 84, 110 ], [ 6, 30, 58, 86, 114 ], [ 6, 34, 62, 90, 118 ], [ 6, 26, 50, 74, 98, 122 ], [ 6, 30, 54, 78, 102, 126 ], [ 6, 26, 52, 78, 104, 130 ], [ 6, 30, 56, 82, 108, 134 ], [ 6, 34, 60, 86, 112, 138 ], [ 6, 30, 58, 86, 114, 142 ], [ 6, 34, 62, 90, 118, 146 ], [ 6, 30, 54, 78, 102, 126, 150 ], [ 6, 24, 50, 76, 102, 128, 154 ], [ 6, 28, 54, 80, 106, 132, 158 ], [ 6, 32, 58, 84, 110, 136, 162 ], [ 6, 26, 54, 82, 110, 138, 166 ], [ 6, 30, 58, 86, 114, 142, 170 ] ],
+                G15: 1335,
+                G18: 7973,
+                G15_MASK: 21522,
+                getBCHTypeInfo: function(a) {
+                    for (var c = a << 10; 0 <= j.getBCHDigit(c) - j.getBCHDigit(j.G15); ) c ^= j.G15 << j.getBCHDigit(c) - j.getBCHDigit(j.G15);
+                    return (a << 10 | c) ^ j.G15_MASK;
+                },
+                getBCHTypeNumber: function(a) {
+                    for (var c = a << 12; 0 <= j.getBCHDigit(c) - j.getBCHDigit(j.G18); ) c ^= j.G18 << j.getBCHDigit(c) - j.getBCHDigit(j.G18);
+                    return a << 12 | c;
+                },
+                getBCHDigit: function(a) {
+                    for (var c = 0; 0 != a; ) c++, a >>>= 1;
+                    return c;
+                },
+                getPatternPosition: function(a) {
+                    return j.PATTERN_POSITION_TABLE[a - 1];
+                },
+                getMask: function(a, c, d) {
+                    switch (a) {
+                      case 0:
+                        return 0 == (c + d) % 2;
+
+                      case 1:
+                        return 0 == c % 2;
+
+                      case 2:
+                        return 0 == d % 3;
+
+                      case 3:
+                        return 0 == (c + d) % 3;
+
+                      case 4:
+                        return 0 == (Math.floor(c / 2) + Math.floor(d / 3)) % 2;
+
+                      case 5:
+                        return 0 == c * d % 2 + c * d % 3;
+
+                      case 6:
+                        return 0 == (c * d % 2 + c * d % 3) % 2;
+
+                      case 7:
+                        return 0 == (c * d % 3 + (c + d) % 2) % 2;
+
+                      default:
+                        throw Error("bad maskPattern:" + a);
+                    }
+                },
+                getErrorCorrectPolynomial: function(a) {
+                    for (var c = new q([ 1 ], 0), d = 0; d < a; d++) c = c.multiply(new q([ 1, l.gexp(d) ], 0));
+                    return c;
+                },
+                getLengthInBits: function(a, c) {
+                    if (1 <= c && 10 > c) switch (a) {
+                      case 1:
+                        return 10;
+
+                      case 2:
+                        return 9;
+
+                      case s:
+                        return 8;
+
+                      case 8:
+                        return 8;
+
+                      default:
+                        throw Error("mode:" + a);
+                    } else if (27 > c) switch (a) {
+                      case 1:
+                        return 12;
+
+                      case 2:
+                        return 11;
+
+                      case s:
+                        return 16;
+
+                      case 8:
+                        return 10;
+
+                      default:
+                        throw Error("mode:" + a);
+                    } else if (41 > c) switch (a) {
+                      case 1:
+                        return 14;
+
+                      case 2:
+                        return 13;
+
+                      case s:
+                        return 16;
+
+                      case 8:
+                        return 12;
+
+                      default:
+                        throw Error("mode:" + a);
+                    } else throw Error("type:" + c);
+                },
+                getLostPoint: function(a) {
+                    for (var c = a.getModuleCount(), d = 0, b = 0; b < c; b++) for (var e = 0; e < c; e++) {
+                        for (var f = 0, i = a.isDark(b, e), g = -1; 1 >= g; g++) if (!(0 > b + g || c <= b + g)) for (var h = -1; 1 >= h; h++) 0 > e + h || c <= e + h || 0 == g && 0 == h || i == a.isDark(b + g, e + h) && f++;
+                        5 < f && (d += 3 + f - 5);
+                    }
+                    for (b = 0; b < c - 1; b++) for (e = 0; e < c - 1; e++) if (f = 0, a.isDark(b, e) && f++, 
+                    a.isDark(b + 1, e) && f++, a.isDark(b, e + 1) && f++, a.isDark(b + 1, e + 1) && f++, 
+                    0 == f || 4 == f) d += 3;
+                    for (b = 0; b < c; b++) for (e = 0; e < c - 6; e++) a.isDark(b, e) && !a.isDark(b, e + 1) && a.isDark(b, e + 2) && a.isDark(b, e + 3) && a.isDark(b, e + 4) && !a.isDark(b, e + 5) && a.isDark(b, e + 6) && (d += 40);
+                    for (e = 0; e < c; e++) for (b = 0; b < c - 6; b++) a.isDark(b, e) && !a.isDark(b + 1, e) && a.isDark(b + 2, e) && a.isDark(b + 3, e) && a.isDark(b + 4, e) && !a.isDark(b + 5, e) && a.isDark(b + 6, e) && (d += 40);
+                    for (e = f = 0; e < c; e++) for (b = 0; b < c; b++) a.isDark(b, e) && f++;
+                    a = Math.abs(100 * f / c / c - 50) / 5;
+                    return d + 10 * a;
+                }
+            }, l = {
+                glog: function(a) {
+                    if (1 > a) throw Error("glog(" + a + ")");
+                    return l.LOG_TABLE[a];
+                },
+                gexp: function(a) {
+                    for (;0 > a; ) a += 255;
+                    for (;256 <= a; ) a -= 255;
+                    return l.EXP_TABLE[a];
+                },
+                EXP_TABLE: Array(256),
+                LOG_TABLE: Array(256)
+            }, m = 0; 8 > m; m++) l.EXP_TABLE[m] = 1 << m;
+            for (m = 8; 256 > m; m++) l.EXP_TABLE[m] = l.EXP_TABLE[m - 4] ^ l.EXP_TABLE[m - 5] ^ l.EXP_TABLE[m - 6] ^ l.EXP_TABLE[m - 8];
+            for (m = 0; 255 > m; m++) l.LOG_TABLE[l.EXP_TABLE[m]] = m;
+            q.prototype = {
+                get: function(a) {
+                    return this.num[a];
+                },
+                getLength: function() {
+                    return this.num.length;
+                },
+                multiply: function(a) {
+                    for (var c = Array(this.getLength() + a.getLength() - 1), d = 0; d < this.getLength(); d++) for (var b = 0; b < a.getLength(); b++) c[d + b] ^= l.gexp(l.glog(this.get(d)) + l.glog(a.get(b)));
+                    return new q(c, 0);
+                },
+                mod: function(a) {
+                    if (0 > this.getLength() - a.getLength()) return this;
+                    for (var c = l.glog(this.get(0)) - l.glog(a.get(0)), d = Array(this.getLength()), b = 0; b < this.getLength(); b++) d[b] = this.get(b);
+                    for (b = 0; b < a.getLength(); b++) d[b] ^= l.gexp(l.glog(a.get(b)) + c);
+                    return new q(d, 0).mod(a);
+                }
+            };
+            p.RS_BLOCK_TABLE = [ [ 1, 26, 19 ], [ 1, 26, 16 ], [ 1, 26, 13 ], [ 1, 26, 9 ], [ 1, 44, 34 ], [ 1, 44, 28 ], [ 1, 44, 22 ], [ 1, 44, 16 ], [ 1, 70, 55 ], [ 1, 70, 44 ], [ 2, 35, 17 ], [ 2, 35, 13 ], [ 1, 100, 80 ], [ 2, 50, 32 ], [ 2, 50, 24 ], [ 4, 25, 9 ], [ 1, 134, 108 ], [ 2, 67, 43 ], [ 2, 33, 15, 2, 34, 16 ], [ 2, 33, 11, 2, 34, 12 ], [ 2, 86, 68 ], [ 4, 43, 27 ], [ 4, 43, 19 ], [ 4, 43, 15 ], [ 2, 98, 78 ], [ 4, 49, 31 ], [ 2, 32, 14, 4, 33, 15 ], [ 4, 39, 13, 1, 40, 14 ], [ 2, 121, 97 ], [ 2, 60, 38, 2, 61, 39 ], [ 4, 40, 18, 2, 41, 19 ], [ 4, 40, 14, 2, 41, 15 ], [ 2, 146, 116 ], [ 3, 58, 36, 2, 59, 37 ], [ 4, 36, 16, 4, 37, 17 ], [ 4, 36, 12, 4, 37, 13 ], [ 2, 86, 68, 2, 87, 69 ], [ 4, 69, 43, 1, 70, 44 ], [ 6, 43, 19, 2, 44, 20 ], [ 6, 43, 15, 2, 44, 16 ], [ 4, 101, 81 ], [ 1, 80, 50, 4, 81, 51 ], [ 4, 50, 22, 4, 51, 23 ], [ 3, 36, 12, 8, 37, 13 ], [ 2, 116, 92, 2, 117, 93 ], [ 6, 58, 36, 2, 59, 37 ], [ 4, 46, 20, 6, 47, 21 ], [ 7, 42, 14, 4, 43, 15 ], [ 4, 133, 107 ], [ 8, 59, 37, 1, 60, 38 ], [ 8, 44, 20, 4, 45, 21 ], [ 12, 33, 11, 4, 34, 12 ], [ 3, 145, 115, 1, 146, 116 ], [ 4, 64, 40, 5, 65, 41 ], [ 11, 36, 16, 5, 37, 17 ], [ 11, 36, 12, 5, 37, 13 ], [ 5, 109, 87, 1, 110, 88 ], [ 5, 65, 41, 5, 66, 42 ], [ 5, 54, 24, 7, 55, 25 ], [ 11, 36, 12 ], [ 5, 122, 98, 1, 123, 99 ], [ 7, 73, 45, 3, 74, 46 ], [ 15, 43, 19, 2, 44, 20 ], [ 3, 45, 15, 13, 46, 16 ], [ 1, 135, 107, 5, 136, 108 ], [ 10, 74, 46, 1, 75, 47 ], [ 1, 50, 22, 15, 51, 23 ], [ 2, 42, 14, 17, 43, 15 ], [ 5, 150, 120, 1, 151, 121 ], [ 9, 69, 43, 4, 70, 44 ], [ 17, 50, 22, 1, 51, 23 ], [ 2, 42, 14, 19, 43, 15 ], [ 3, 141, 113, 4, 142, 114 ], [ 3, 70, 44, 11, 71, 45 ], [ 17, 47, 21, 4, 48, 22 ], [ 9, 39, 13, 16, 40, 14 ], [ 3, 135, 107, 5, 136, 108 ], [ 3, 67, 41, 13, 68, 42 ], [ 15, 54, 24, 5, 55, 25 ], [ 15, 43, 15, 10, 44, 16 ], [ 4, 144, 116, 4, 145, 117 ], [ 17, 68, 42 ], [ 17, 50, 22, 6, 51, 23 ], [ 19, 46, 16, 6, 47, 17 ], [ 2, 139, 111, 7, 140, 112 ], [ 17, 74, 46 ], [ 7, 54, 24, 16, 55, 25 ], [ 34, 37, 13 ], [ 4, 151, 121, 5, 152, 122 ], [ 4, 75, 47, 14, 76, 48 ], [ 11, 54, 24, 14, 55, 25 ], [ 16, 45, 15, 14, 46, 16 ], [ 6, 147, 117, 4, 148, 118 ], [ 6, 73, 45, 14, 74, 46 ], [ 11, 54, 24, 16, 55, 25 ], [ 30, 46, 16, 2, 47, 17 ], [ 8, 132, 106, 4, 133, 107 ], [ 8, 75, 47, 13, 76, 48 ], [ 7, 54, 24, 22, 55, 25 ], [ 22, 45, 15, 13, 46, 16 ], [ 10, 142, 114, 2, 143, 115 ], [ 19, 74, 46, 4, 75, 47 ], [ 28, 50, 22, 6, 51, 23 ], [ 33, 46, 16, 4, 47, 17 ], [ 8, 152, 122, 4, 153, 123 ], [ 22, 73, 45, 3, 74, 46 ], [ 8, 53, 23, 26, 54, 24 ], [ 12, 45, 15, 28, 46, 16 ], [ 3, 147, 117, 10, 148, 118 ], [ 3, 73, 45, 23, 74, 46 ], [ 4, 54, 24, 31, 55, 25 ], [ 11, 45, 15, 31, 46, 16 ], [ 7, 146, 116, 7, 147, 117 ], [ 21, 73, 45, 7, 74, 46 ], [ 1, 53, 23, 37, 54, 24 ], [ 19, 45, 15, 26, 46, 16 ], [ 5, 145, 115, 10, 146, 116 ], [ 19, 75, 47, 10, 76, 48 ], [ 15, 54, 24, 25, 55, 25 ], [ 23, 45, 15, 25, 46, 16 ], [ 13, 145, 115, 3, 146, 116 ], [ 2, 74, 46, 29, 75, 47 ], [ 42, 54, 24, 1, 55, 25 ], [ 23, 45, 15, 28, 46, 16 ], [ 17, 145, 115 ], [ 10, 74, 46, 23, 75, 47 ], [ 10, 54, 24, 35, 55, 25 ], [ 19, 45, 15, 35, 46, 16 ], [ 17, 145, 115, 1, 146, 116 ], [ 14, 74, 46, 21, 75, 47 ], [ 29, 54, 24, 19, 55, 25 ], [ 11, 45, 15, 46, 46, 16 ], [ 13, 145, 115, 6, 146, 116 ], [ 14, 74, 46, 23, 75, 47 ], [ 44, 54, 24, 7, 55, 25 ], [ 59, 46, 16, 1, 47, 17 ], [ 12, 151, 121, 7, 152, 122 ], [ 12, 75, 47, 26, 76, 48 ], [ 39, 54, 24, 14, 55, 25 ], [ 22, 45, 15, 41, 46, 16 ], [ 6, 151, 121, 14, 152, 122 ], [ 6, 75, 47, 34, 76, 48 ], [ 46, 54, 24, 10, 55, 25 ], [ 2, 45, 15, 64, 46, 16 ], [ 17, 152, 122, 4, 153, 123 ], [ 29, 74, 46, 14, 75, 47 ], [ 49, 54, 24, 10, 55, 25 ], [ 24, 45, 15, 46, 46, 16 ], [ 4, 152, 122, 18, 153, 123 ], [ 13, 74, 46, 32, 75, 47 ], [ 48, 54, 24, 14, 55, 25 ], [ 42, 45, 15, 32, 46, 16 ], [ 20, 147, 117, 4, 148, 118 ], [ 40, 75, 47, 7, 76, 48 ], [ 43, 54, 24, 22, 55, 25 ], [ 10, 45, 15, 67, 46, 16 ], [ 19, 148, 118, 6, 149, 119 ], [ 18, 75, 47, 31, 76, 48 ], [ 34, 54, 24, 34, 55, 25 ], [ 20, 45, 15, 61, 46, 16 ] ];
+            p.getRSBlocks = function(a, c) {
+                var d = p.getRsBlockTable(a, c);
+                if (void 0 == d) throw Error("bad rs block @ typeNumber:" + a + "/errorCorrectLevel:" + c);
+                for (var b = d.length / 3, e = [], f = 0; f < b; f++) for (var h = d[3 * f + 0], g = d[3 * f + 1], j = d[3 * f + 2], l = 0; l < h; l++) e.push(new p(g, j));
+                return e;
+            };
+            p.getRsBlockTable = function(a, c) {
+                switch (c) {
+                  case 1:
+                    return p.RS_BLOCK_TABLE[4 * (a - 1) + 0];
+
+                  case 0:
+                    return p.RS_BLOCK_TABLE[4 * (a - 1) + 1];
+
+                  case 3:
+                    return p.RS_BLOCK_TABLE[4 * (a - 1) + 2];
+
+                  case 2:
+                    return p.RS_BLOCK_TABLE[4 * (a - 1) + 3];
+                }
+            };
+            t.prototype = {
+                get: function(a) {
+                    return 1 == (this.buffer[Math.floor(a / 8)] >>> 7 - a % 8 & 1);
+                },
+                put: function(a, c) {
+                    for (var d = 0; d < c; d++) this.putBit(1 == (a >>> c - d - 1 & 1));
+                },
+                getLengthInBits: function() {
+                    return this.length;
+                },
+                putBit: function(a) {
+                    var c = Math.floor(this.length / 8);
+                    this.buffer.length <= c && this.buffer.push(0);
+                    a && (this.buffer[c] |= 128 >>> this.length % 8);
+                    this.length++;
+                }
+            };
+            "string" === typeof h && (h = {
+                text: h
+            });
+            h = r.extend({}, {
+                render: "canvas",
+                width: 256,
+                height: 256,
+                typeNumber: -1,
+                correctLevel: 2,
+                background: "#ffffff",
+                foreground: "#000000"
+            }, h);
+            return this.each(function() {
+                var a;
+                if ("canvas" == h.render) {
+                    a = new o(h.typeNumber, h.correctLevel);
+                    a.addData(h.text);
+                    a.make();
+                    var c = document.createElement("canvas");
+                    c.width = h.width;
+                    c.height = h.height;
+                    for (var d = c.getContext("2d"), b = h.width / a.getModuleCount(), e = h.height / a.getModuleCount(), f = 0; f < a.getModuleCount(); f++) for (var i = 0; i < a.getModuleCount(); i++) {
+                        d.fillStyle = a.isDark(f, i) ? h.foreground : h.background;
+                        var g = Math.ceil((i + 1) * b) - Math.floor(i * b), j = Math.ceil((f + 1) * b) - Math.floor(f * b);
+                        d.fillRect(Math.round(i * b), Math.round(f * e), g, j);
+                    }
+                } else {
+                    a = new o(h.typeNumber, h.correctLevel);
+                    a.addData(h.text);
+                    a.make();
+                    c = r("<table></table>").css("width", h.width + "px").css("height", h.height + "px").css("border", "0px").css("border-collapse", "collapse").css("background-color", h.background);
+                    d = h.width / a.getModuleCount();
+                    b = h.height / a.getModuleCount();
+                    for (e = 0; e < a.getModuleCount(); e++) {
+                        f = r("<tr></tr>").css("height", b + "px").appendTo(c);
+                        for (i = 0; i < a.getModuleCount(); i++) r("<td></td>").css("width", d + "px").css("background-color", a.isDark(e, i) ? h.foreground : h.background).appendTo(f);
+                    }
+                }
+                a = c;
+                jQuery(a).appendTo(this);
+            });
+        };
+    })(jQuery);
+});
+
+// 网站url 配置
+define("dist/application/urlConfig", [], function(require, exports, module) {
+    // var envList = {
+    //     'local':'',
+    //     'dev':'',
+    //     'test':'',
+    //     'pre':'',
+    //     'prod':''
+    // }
+    var urlConfig = {
+        ajaxUrl: "",
+        payUrl: "",
+        loginUrl: ""
+    };
+    if (env == "local") {
+        urlConfig = {
+            ajaxUrl: "http://ishare.iask.sina.com.cn",
+            payUrl: "http://dev-open-ishare.iask.com.cn",
+            loginUrl: ""
+        };
+    }
+    if (env == "dev") {
+        urlConfig = {
+            ajaxUrl: "http://dev-ishare.iask.sina.com.cn",
+            payUrl: "http://dev-open-ishare.iask.com.cn",
+            loginUrl: ""
+        };
+    }
+    if (env == "test") {
+        urlConfig = {
+            ajaxUrl: "http://test-ishare.iask.sina.com.cn",
+            payUrl: "http://test-open-ishare.iask.com.cn",
+            loginUrl: ""
+        };
+    }
+    if (env == "pre") {
+        urlConfig = {
+            ajaxUrl: "http://pre-ishare.iask.sina.com.cn",
+            payUrl: "http://pre-open-ishare.iask.com.cn",
+            loginUrl: ""
+        };
+    }
+    if (env == "prod") {
+        urlConfig = {
+            ajaxUrl: "http://prod-ishare.iask.sina.com.cn",
+            payUrl: "http://prod-open-ishare.iask.com.cn",
+            loginUrl: ""
+        };
+    }
+    return urlConfig;
+});
+
+// 游客现金文档支付结果-自有埋点
+define("dist/common/bilog-module/payFileResultForVisit_bilog", [ "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/application/method", "dist/report/config" ], function(require, exports, module) {
+    var Bilog = require("dist/common/bilog");
+    var Method = require("dist/application/method");
+    // 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    var ProductTypeMap = {
+        1: "free",
+        3: "online",
+        4: "vipOnly",
+        5: "cost"
+    };
+    /**
+     * 上报数据
+     * @param orderInfo 订单数据
+     * @param fileInfo 文件详情
+     * @param isSuccess 支付结果
+     */
+    function reportResult(orderInfo, fileInfo, isSuccess) {
+        var commonData = Bilog.getBilogCommonData();
+        commonData.eventType = "page";
+        commonData.eventID = "SE009";
+        commonData.eventName = "payFileResult";
+        // 当前页面-游客购买
+        commonData.pageID = "PC-M-FD";
+        commonData.pageName = "资料详情页";
+        commonData.pageURL = window.location.href;
+        commonData.visitID = Method.getCookie("visitor_id");
+        var classIdStr = [ fileInfo.classid1, fileInfo.classid2, fileInfo.classid3 ].filter(function(item) {
+            return !!item;
+        }).join("||");
+        var classNameStr = [ fileInfo.classidName1, fileInfo.classidName2, fileInfo.classidName3 ].filter(function(item) {
+            return !!item;
+        }).join("||");
+        // 各页面独有数据填充
+        commonData.var = {
+            // 支付结果（0失败、1成功）
+            payResult: isSuccess ? 1 : 0,
+            // 订单id
+            orderID: orderInfo.orderNo,
+            // 支付方式
+            orderPayType: orderInfo.payType,
+            // 订单实付价格
+            orderPayPrice: orderInfo.payPrice,
+            // 选中的优惠券ID
+            couponID: orderInfo.vouchersId,
+            // 选中的优惠券名称
+            coupon: "",
+            // 资料ID
+            fileID: fileInfo.id,
+            // 资料名称
+            fileName: fileInfo.title,
+            // 资料分类ID
+            fileCategoryID: classIdStr,
+            // 资料分类名称
+            fileCategoryName: classNameStr,
+            // 资料付费类型
+            filePayType: ProductTypeMap[fileInfo.productType],
+            // 资料格式
+            fileFormat: fileInfo.format,
+            // 资料生产方式-用户上传/编辑上传等
+            fileProduceType: fileInfo.fileSourceChannel,
+            // 资料合作来源-在资料详情页时存入cookie中
+            fileCooType: Method.getCookie("bc") || "",
+            // 资料上传者ID
+            fileUploaderID: fileInfo.uid,
+            // 资料原价
+            filePrice: orderInfo.originalPrice,
+            // 资料划线后价格
+            fileSalePrice: orderInfo.payPrice
+        };
+        // 数据处理
+        Bilog.reportToBlack(commonData);
+    }
+    return {
+        reportResult: reportResult
+    };
+});
+
+define("dist/detail/template/buyUnlogin.html", [], '<div class="buyUnloginWrap">\n    <div class="switchNav">\n        <div class="navItem fl active">游客购买</div>\n        <div class="navItem fr">登录购买</div>\n        <div class="closeIcon"></div>\n    </div>\n    <div class="optionsContent">\n        <h2 class="papper-title">\n            <i class="ico-data "></i><span></span>\n        </h2>\n        <p class="shouldPayWrap">\n            应付金额: <span></span>元\n        </p>\n        <div class="qrcodeWrap">\n            <div id="payQrCode"></div>\n            <div class="qrShadow" style="display: none;">  \n            </div>\n            <p class="shadowTip riskTip" style="display: none;">请先阅读 <br>下载风险提示</p>\n            <p class="shadowTip failTip" style="display: none;">失败或失效 <br>请点击重新生成</p>\n        </div>\n        <p class="payTip">请使用微信或支付宝扫码支付</p>\n        <div class="payTypeWrap">\n           <img src="../../../../images/new_detail/payTypelogo.png" alt="">\n        </div>\n        <div class="downTerm">\n            <i class="selectIcon"></i>\n            我已阅读并接受<a style="text-decoration: underline;" target="_blank" href="//iask.sina.com.cn/helpCenter/5d8de2c0474e311ca8200e99.html">《下载风险提示》</a>\n        </div>\n        <div class="bottomTip">\n            <!-- 注：如你购买过该资料，下载未成功或需要重复下载，请联系客服. -->\n            注：如您已经购买过该文档，下载未成功或需要重复下载请<a style="color: #3C69A7;text-decoration: underline;" target="_blank" href="/node/queryOrder">点击此处</a>\n        </div>\n    </div>\n    <div class="optionsContent loginFrameWrap" style="display: none">\n\n    </div>\n</div>');
+
+/**
+ * 第四范式操作数据上报
+ */
+define("dist/detail/paradigm4", [ "dist/common/bilog", "base64", "dist/cmd-lib/util", "dist/application/method", "dist/report/config" ], function(require, exports, module) {
+    var clickEvent = require("dist/common/bilog").clickEvent;
+    if (window.paradigm4.paradigm4Guess || window.paradigm4.paradigm4Relevant) {
+        setTimeout(function() {
+            action();
+        });
+    }
+    // 行为上报方法
+    function action() {
+        var clientToken = "689a073a474249da8a7e7c04a3d7c7eb";
+        var date = new Date();
+        var year = date.getFullYear();
+        var mon = date.getMonth() + 1;
+        var month = mon > 9 ? mon : "0" + mon;
+        var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+        var time = date.toTimeString().split("GMT")[0].trim();
+        var dateParams = year + "-" + month + "-" + day + " " + time;
+        var paradigm4 = window.paradigm4 || {};
+        var paradigm4Guess = paradigm4.paradigm4Guess || [];
+        var requestID_rele = paradigm4.requestID_rele || "";
+        var requestID_guess = paradigm4.requestID_guess || "";
+        var paradigm4Relevant = paradigm4.paradigm4Relevant || [];
+        var recommendInfoData_rele = paradigm4.recommendInfoData_rele || {};
+        var recommendInfoData_guess = paradigm4.recommendInfoData_guess || {};
+        var sceneIDRelevant = recommendInfoData_rele.useId || "";
+        var sceneIDGuess = recommendInfoData_guess.useId || "";
+        var userId = paradigm4.userId;
+        // 相关推荐
+        var actionsRelevant = [];
+        if (paradigm4Relevant != "null" && paradigm4Relevant) {
+            paradigm4Relevant.forEach(function(item) {
+                actionsRelevant.push({
+                    itemId: item.item_id,
+                    actionTime: date.getTime(),
+                    action: "show",
+                    itemSetId: recommendInfoData_rele.materialId || "",
+                    sceneId: sceneIDRelevant,
+                    userId: userId,
+                    context: item.context,
+                    requestId: requestID_rele
+                });
+            });
+        }
+        // 猜你喜欢
+        var actionsGuess = [];
+        if (paradigm4Guess != "null" && paradigm4Guess) {
+            paradigm4Guess.forEach(function(item) {
+                actionsGuess.push({
+                    itemId: item.item_id,
+                    actionTime: date.getTime(),
+                    action: "show",
+                    itemSetId: recommendInfoData_guess.materialId || "",
+                    sceneId: sceneIDGuess,
+                    userId: userId,
+                    context: item.context,
+                    requestId: requestID_guess
+                });
+            });
+        }
+        var data = JSON.stringify({
+            date: dateParams,
+            actions: [].concat(actionsRelevant, actionsGuess)
+        });
+        $.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken=" + clientToken, data, function(data) {});
+        //猜你喜欢点击
+        $(".guessyoulike").find(".item").click(function() {
+            var itemId = $(this).data("id") || "";
+            clickEvent($(this));
+            var context = "";
+            for (var i = 0; i < paradigm4Guess.length; i++) {
+                if (paradigm4Guess[i].item_id == itemId) {
+                    context = paradigm4Guess[i].context;
+                    break;
+                }
+            }
+            var date = new Date();
+            var time = date.toTimeString().split("GMT")[0].trim();
+            var dateParams = year + "-" + month + "-" + day + " " + time;
+            var guessyoulikeData = JSON.stringify({
+                date: dateParams,
+                actions: [ {
+                    itemId: itemId,
+                    actionTime: date.getTime(),
+                    action: "detailPageShow",
+                    itemSetId: recommendInfoData_guess.materialId || "",
+                    sceneId: sceneIDGuess,
+                    userId: userId,
+                    context: context,
+                    requestId: requestID_guess
+                } ]
+            });
+            $.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken=" + clientToken, guessyoulikeData, function(data) {});
+        });
+        //相关推荐点击
+        $(".related-data-list").find("li").click(function() {
+            var itemId = $(this).data("id") || "";
+            clickEvent($(this));
+            var context = "";
+            for (var i = 0; i < paradigm4Relevant.length; i++) {
+                if (paradigm4Relevant[i].item_id == itemId) {
+                    context = paradigm4Relevant[i].context;
+                    break;
+                }
+            }
+            var date = new Date();
+            var time = date.toTimeString().split("GMT")[0].trim();
+            var dateParams = year + "-" + month + "-" + day + " " + time;
+            var paradigm4RelevantData = JSON.stringify({
+                date: dateParams,
+                actions: [ {
+                    itemId: itemId,
+                    actionTime: date.getTime(),
+                    action: "detailPageShow",
+                    itemSetId: recommendInfoData_rele.materialId || "",
+                    sceneId: sceneIDRelevant,
+                    userId: userId,
+                    context: context,
+                    requestId: requestID_rele
+                } ]
+            });
+            $.post("https://nbrecsys.4paradigm.com/action/api/log?clientToken=" + clientToken, paradigm4RelevantData, function(data) {});
+        });
+    }
+});
+
+define("dist/detail/banner", [ "swiper", "dist/application/method", "dist/application/api" ], function(require, exports, module) {
+    require("swiper");
+    var method = require("dist/application/method");
+    var api = require("dist/application/api");
+    var HotSpotSearch = require("dist/detail/template/HotSpotSearch.html");
+    new Swiper(".swiper-top-container", {
+        direction: "horizontal",
+        loop: $(".swiper-top-container .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    $(".close-swiper").on("click", function(e) {
+        e.stopPropagation();
+        $(".detail-topbanner").hide();
+        method.setCookieWithExpPath("isHideDetailTopbanner", 1);
+    });
+    // 左侧顶部的 banner 
+    new Swiper(".fix-right-swiperbannertop", {
+        direction: "horizontal",
+        loop: $(".fix-right-swiperbannertop .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    // 左侧底部banner
+    new Swiper(".fix-right-swiperbannerbottom", {
+        direction: "horizontal",
+        loop: $(".fix-right-swiperbannerbottom .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    // title底部banner
+    new Swiper(".swiper-titlebottom-container", {
+        direction: "horizontal",
+        loop: $(".swiper-titlebottom-container .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    new Swiper(".swiper-titlebottom-container", {
+        direction: "horizontal",
+        loop: $(".swiper-titlebottom-container .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    new Swiper(".swiper-turnPageOneBanner-container", {
+        direction: "horizontal",
+        loop: $(".swiper-turnPageOneBanner-container .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    new Swiper(".swiper-turnPageTwoBanner-container", {
+        direction: "horizontal",
+        loop: $(".swiper-turnPageTwoBanner-container .swiper-slide").length > 1 ? true : false,
+        autoplay: 3e3
+    });
+    var topicName = window.pageConfig.page && window.pageConfig.page.fileName;
+    getSpecialTopic();
+    function getSpecialTopic() {
+        $.ajax({
+            url: api.search.specialTopic,
+            type: "POST",
+            data: JSON.stringify({
+                currentPage: 1,
+                pageSize: 5,
+                topicName: topicName,
+                siteCode: "4"
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                    if (res.data.rows && res.data.rows.length) {
+                        var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({
+                            hotSpotSearchList: res.data.rows || []
+                        });
+                        $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                    }
+                }
+            }
+        });
+    }
+});
+
+define("dist/detail/template/HotSpotSearch.html", [], '<!--热点搜索-->\n<div class="hot-spot-search">\n    <h2 class="hot-spot-search-title">相关搜索<h2>\n    <ul class="hot-items">\n         {{each hotSpotSearchList}}\n             <li class="item">\n                <a  href="/node/s/{{hotSpotSearchList[$index].id}}.html"  target="_blank">{{hotSpotSearchList[$index].topicName}}</a>\n             </li>\n        {{/each}}  \n    </ul>\n</div>');
