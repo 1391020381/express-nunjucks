@@ -560,8 +560,8 @@ define(function (require, exports, module) {
                     'closeOnClickModal': false
                 }).open();
                 if(financeAccountInfo.userTypeName != '机构'){
-                    $('.withdrawal-application-dialog .invoice').hide()
-                    $('.withdrawal-application-dialog .img-preview').hide()
+                    // $('.withdrawal-application-dialog .invoice').hide()
+                    // $('.withdrawal-application-dialog .img-preview').hide()
                 }else{
                     uploadfile()
                 }

@@ -1,5 +1,6 @@
 define(function (require, exports, moudle) {
     // 自有埋点注入
+    
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
@@ -966,6 +967,7 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         //         }
         //     }
         // })
+        
         getFileDownLoadUrl(fid)
       
     }
@@ -990,17 +992,17 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
                         method.delCookie("event_data_down", "/");
                         if (browserEnv === 'IE' || browserEnv === 'Edge') {
                             // window.location.href = res.data;
-                            method.compatibleIESkip(res.data, false);
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
                         } else if (browserEnv === 'Firefox') {
-                            var downLoadURL = res.data;
-                            var sub = downLoadURL.lastIndexOf('&fn=');
-                            var sub_url1 = downLoadURL.substr(0, sub + 4);
-                            var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+                            // var downLoadURL = res.data;
+                            // var sub = downLoadURL.lastIndexOf('&fn=');
+                            // var sub_url1 = downLoadURL.substr(0, sub + 4);
+                            // var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
                             // window.location.href = sub_url1 + sub_ur2;
-                            method.compatibleIESkip(sub_url1 + sub_ur2, false);
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
                         } else {
                             // window.location.href = res.data;
-                            method.compatibleIESkip(res.data, false);
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
                         }
                     }else{
                         $.toast({

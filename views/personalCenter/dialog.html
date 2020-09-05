@@ -163,8 +163,13 @@
                     <p class="actual-receipt tax"><span>预计实际到账  :</span> <span class="receivedAmount">0</span>元 <span class="tax-explanation-icon"></span><a class="tax-explanation-desc" href="https://iask.sina.com.cn/helpCenter/5f45c81a474e31015362e2b6.html" target="_blank">税费说明</a></p>
                 </div>
                 <div class="invoice">
-                   <span class="invoice-title"><em></em>发票 :</span>
-                    <label class="electronic-invoice" for="electronic-invoice-radio">
+                   <div class="invoice-title"><em>*</em>发票 :</div>
+                    <p class="invoic-tip">
+                    <span class="invoic-tip-icon"></span>
+                    <a class="invoic-tip-desc" href="https://iask.sina.com.cn/helpCenter/5f448231474e31015362e189.html" target="_blank">开票须知</a>
+                    </p>
+                    <div class="invoice-label">
+                         <label class="electronic-invoice" for="electronic-invoice-radio">
                         <input id="electronic-invoice-radio" class="invoice-radio" checked name="invoice" type="radio" value="0"/>
                         <span class="invoice-icon"></span>电子发票 
                     </label>
@@ -172,6 +177,8 @@
                         <input id="paper-invoice-radio" class="invoice-radio" name="invoice" type="radio" value="1"/>
                         <span class="invoice-icon"></span>邮寄纸质发票（拍照后上传审核）<span></span>（查看邮寄地址)
                     </label>
+                    
+                    </div>
                 </div>
                 <div class="img-preview">
                     <img class="img"/>

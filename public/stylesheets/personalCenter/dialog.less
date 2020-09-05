@@ -498,14 +498,35 @@
 
             .invoice {
                 margin-top: 42px;
-
+                .invoic-tip{
+                    display: inline-block;
+                   .invoic-tip-icon{
+                    display: inline-block;
+                    width: 14px;
+                    height: 14px;
+                    background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+                    background-size: 100%;
+                   } 
+                   .invoic-tip-desc{
+                    margin-left: 5px;
+                    font-size: 14px;
+                    color: #F25226;
+                   }
+                }
                 .invoice-title {
                     display: inline-block;
                     width: 80px;
                     text-align: right;
                     vertical-align: top;
+                    em{
+                        margin-right: 2px;
+                        color: red; 
+                    }
                 }
-
+                .invoice-label{
+                    padding-left:80px;
+                    margin-top:28px;
+                }
                 input {
                     display: none;
                 }
@@ -533,7 +554,7 @@
                     color:#F25125;
                 }
                 .electronic-invoice {
-                    margin-left: 9px;
+                    // margin-left: 9px;
                     display: inline-block;
                     
 
