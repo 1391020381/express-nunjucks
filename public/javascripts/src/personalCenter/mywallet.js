@@ -240,7 +240,8 @@ define(function (require, exports, module) {
             type: "POST",
             data: JSON.stringify({
                 batchNo:id,
-                email: email
+                email: email,
+                sellerId:$('.personal-id .id').text().replace(/用户ID:/g,'')
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -590,7 +591,7 @@ define(function (require, exports, module) {
             'closeOnClickModal': false
         }).open();
     })
-    $(document).on('click', '.send-email-dialog .submit-btn', function (e) {
+    $(document).on('click', '.send-email-dialog .submit-btn', function (e) {  // 导出
         var email = $('.send-email-dialog .form-ipt').val()
         var regTestEmail = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
         if (!regTestEmail.test(email)) {
