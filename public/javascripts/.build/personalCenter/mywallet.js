@@ -48,8 +48,8 @@ define("dist/personalCenter/mywallet", [ "../cmd-lib/jquery.datepicker", "./home
     if (type == "mywallet") {
         isLogin(initCallback, true);
     }
-    function initCallback() {
-        getUserCentreInfo();
+    function initCallback(data) {
+        getUserCentreInfo(null, data);
         if (mywalletType == "1") {
             getMyWalletList(1);
             getAccountBalance();

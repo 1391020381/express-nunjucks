@@ -39,8 +39,8 @@ define("dist/personalCenter/myorder-debug", [ "../application/method-debug", "..
     if (type == "myorder") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         queryOrderlistByCondition();
     }
     $(".personal-center-myorder").click(".item-operation", function(event) {

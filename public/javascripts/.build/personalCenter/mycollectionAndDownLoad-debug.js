@@ -9,12 +9,12 @@ define("dist/personalCenter/mycollectionAndDownLoad-debug", [ "../application/me
     if (type == "mycollection" || type == "mydownloads") {
         isLogin(initData, true);
     }
-    function initData(userInfo) {
+    function initData(data) {
         if (type == "mycollection") {
-            getUserCentreInfo();
+            getUserCentreInfo(null, data);
             getUserFileList();
         } else if (type == "mydownloads") {
-            getUserCentreInfo();
+            getUserCentreInfo(null, data);
             getDownloadRecordList();
         }
     }

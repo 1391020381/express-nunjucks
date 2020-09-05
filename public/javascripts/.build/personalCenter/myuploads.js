@@ -11,8 +11,8 @@ define("dist/personalCenter/myuploads", [ "../application/method", "../applicati
     if (type == "myuploads") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         getMyUploadPage();
     }
     function getMyUploadPage(currentPage) {

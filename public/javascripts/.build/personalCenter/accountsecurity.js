@@ -20,8 +20,8 @@ define("dist/personalCenter/accountsecurity", [ "../cmd-lib/jqueryMd5", "../appl
     if (type == "accountsecurity") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         queryUserBindInfo();
     }
     function queryUserBindInfo() {

@@ -20,8 +20,8 @@ define("dist/personalCenter/accountsecurity-debug", [ "../cmd-lib/jqueryMd5-debu
     if (type == "accountsecurity") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         queryUserBindInfo();
     }
     function queryUserBindInfo() {

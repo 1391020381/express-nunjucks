@@ -8,8 +8,8 @@ define("dist/personalCenter/mycoupon-debug", [ "../application/api-debug", "../a
     if (type == "mycoupon") {
         isLogin(initData, true);
     }
-    function initData(userInfo) {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         rightsSaleQueryUsing();
     }
     function rightsSaleQueryUsing(pageNumber) {

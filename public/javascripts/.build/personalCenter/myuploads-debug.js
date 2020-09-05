@@ -11,8 +11,8 @@ define("dist/personalCenter/myuploads-debug", [ "../application/method-debug", "
     if (type == "myuploads") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo();
+    function initData(data) {
+        getUserCentreInfo(null, data);
         getMyUploadPage();
     }
     function getMyUploadPage(currentPage) {

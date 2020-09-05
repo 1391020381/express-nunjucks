@@ -13,8 +13,8 @@ define("dist/personalCenter/myvip", [ "../application/method", "../common/templa
     if (type == "myvip") {
         isLogin(initData, true);
     }
-    function initData() {
-        getUserCentreInfo(getUserCentreInfoCallback);
+    function initData(data) {
+        getUserCentreInfo(getUserCentreInfoCallback, data);
     }
     function getUserCentreInfoCallback(userInfo) {
         var myvip = require("./template/myvip.html");
