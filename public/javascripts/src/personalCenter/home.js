@@ -41,8 +41,8 @@ define(function(require , exports , module){
                     var isAuth = res.data.isAuth
                     var userTypeId = res.data.userTypeId
                     var authDesc = userTypeId==2?'个人认证':'机构认证'
-                    var endDateMaster = res.data.endDateMaster? new Date(res.data.endDateMaster).format("yyyy-MM-dd"):''
-                    var endDateOffice = res.data.endDateOffice? new Date(res.data.endDateOffice).format("yyyy-MM-dd"):''
+                    var endDateMaster = userInfo.expireTime? new Date(userInfo.expireTime).format("yyyy-MM-dd"):''
+                    var endDateOffice = userInfo.officeVipExpireTime? new Date(userInfo.officeVipExpireTime).format("yyyy-MM-dd"):''
                     // compilerTemplate(res.data)
                     var masterIcon = isMasterVip== 1?'<span class="whole-station-vip-icon"></span>':''
                     var officIcon = isOfficeVip ==1?'<span class="office-vip-icon"></span>':''
