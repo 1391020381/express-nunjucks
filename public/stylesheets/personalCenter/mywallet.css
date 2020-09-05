@@ -215,6 +215,7 @@
   margin-left: -158px;
 }
 .personal-center-mywallet .mywallet .survey-content .suervery-table-list .empty-data .go2upload {
+  display: block;
   margin-top: 37px;
   margin-left: 44px;
   width: 206px;

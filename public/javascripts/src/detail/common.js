@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     // 页面信息
    // productType  1  4  5 
     var initData = {
+        fileDiscount:'0.8',
         isDownload: pageConfig.page.isDownload,                   //仅在线阅读
         vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
         isVip: 0,                                                        //是否VIP
@@ -110,14 +111,16 @@ define(function (require, exports, module) {
             // if (fileDiscount && fileDiscount !== 80) {
             //     $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
             // }
-            $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
+            // $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
+            $('.vip-price').html('&yen;' + (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2));
         }
         if (initData.productType === '5'&& initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
             originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
            // originalPrice = initData.moneyPrice 
             $(".js-original-price").html(originalPrice);
           //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
-            var savePrice = (initData.moneyPrice *0.8).toFixed(2);
+            // var savePrice = (initData.moneyPrice *0.8).toFixed(2);
+            var savePrice = (initData.moneyPrice *initData.fileDiscount).toFixed(2);
             $('#vip-save-money').html(savePrice);
             $('.js-original-price').html(savePrice);
         }
@@ -238,6 +241,7 @@ define(function (require, exports, module) {
         afterLogin: function (data) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
+            initData.fileDiscount = data.fileDiscount
             reloadHeader(data);
             // queryStoreFlag();
             filePreview();

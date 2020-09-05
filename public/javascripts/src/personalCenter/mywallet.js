@@ -22,7 +22,10 @@ define(function (require, exports, module) {
     var financeAccountInfo = {}   // 财务信息
     var provinceList = []
     var cityList = []
+    var userInfo = {}
     var specialCity = ['北京市', '天津市', '重庆市', '上海市', '澳门', '香港']
+    var startTime = ''
+    var endTime = ''
     var userFinanceAccountInfo = {}
     var auditStatusList = {  // 提现记录审核状态
         0: '待审核',
@@ -44,7 +47,11 @@ define(function (require, exports, module) {
     }
 
    
-
+    var oneweekdate = new Date(new Date().getTime()-15*24*3600*1000);
+    var y = oneweekdate.getFullYear();
+    var m = oneweekdate.getMonth()+1;
+    var d = oneweekdate.getDate();
+    var formatwdate = y+'-'+m+'-'+d;
    
 
    
@@ -52,6 +59,7 @@ define(function (require, exports, module) {
         isLogin(initCallback, true)
     }
     function initCallback(data) {
+        userInfo = data
         getUserCentreInfo(null,data)
         if (mywalletType == '1') {
          
@@ -133,6 +141,9 @@ define(function (require, exports, module) {
     }
 
     function getMyWalletList(currentPage) { // 我的钱包收入
+       
+
+
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
@@ -140,10 +151,11 @@ define(function (require, exports, module) {
             url: api.mywallet.getMyWalletList,
             type: "POST",
             data: JSON.stringify({
+                sellerId:userInfo.id,
                 currentPage: currentPage,
                 pageSize: 20,
-                settleStartDate: $('.start-time-input').val(),
-                settleEndDate: $('.end-time-input').val()
+                settleStartDate: $('.start-time-input').val() ||new Date(new Date(formatwdate).getTime()).format("yyyy-MM-dd") ,
+                settleEndDate: $('.end-time-input').val() || new Date(new Date().getTime()).format("yyyy-MM-dd")
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -241,7 +253,7 @@ define(function (require, exports, module) {
             data: JSON.stringify({
                 batchNo:id,
                 email: email,
-                sellerId:$('.personal-id .id').text().replace(/用户ID:/g,'')
+                sellerId:userInfo.id
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -372,8 +384,9 @@ define(function (require, exports, module) {
         // var m = oneweekdate.getMonth()+1;
         // var d = oneweekdate.getDate();
         // var formatwdate = y+'-'+m+'-'+d;
-        $('.end-time-input').datePicker({ maxDate: currentDate });
-        $('.start-time-input').datePicker({ maxDate: currentDate});
+      
+        $('.end-time-input').datePicker({ maxDate: currentDate,currentDate: endTime||new Date(new Date().getTime()).format("yyyy-MM-dd") });
+        $('.start-time-input').datePicker({ maxDate: currentDate,currentDate:startTime||new Date(oneweekdate).format("yyyy-MM-dd")});
 
 
         handlePagination(res.data&&res.data.totalPages, res.data&&res.data.currentPage)
@@ -613,8 +626,8 @@ define(function (require, exports, module) {
     })
 
     $(document).on('click','.mywallet .survey-content-select .select-btn',function(e){
-        var startTime = $('.survey-content-select .start-time-input').val()
-        var endTime = $('.survey-content-select .end-time-input').val()
+         startTime = $('.survey-content-select .start-time-input').val()
+         endTime = $('.survey-content-select .end-time-input').val()
         // new Date(endTime)
         getMyWalletList(1)
     })

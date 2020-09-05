@@ -43,7 +43,9 @@ module.exports = {
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + api.coupon.getVipAllMemberDetail,
-                    body:JSON.stringify({}),
+                    body:JSON.stringify({
+                        memberCodeList:['PREVILEGE_NUM','PAY_DISCOUNT']
+                    }),
                     headers: {
                         'Content-Type': 'application/json',
                         'Authrization':req.cookies.cuk
@@ -92,7 +94,7 @@ module.exports = {
                       
                        if(item.memberPointList){
                            item.memberPointList.forEach(memberPoint=>{
-                                if(memberPoint.code == 'PAY_DISCOUNT'){ // 下载特权
+                                if(memberPoint.code == 'PAY_DISCOUNT'){ // 折扣
                                     fileDiscount  = memberPoint.value  
                                 }
                                
@@ -106,7 +108,7 @@ module.exports = {
 
                     if(item.memberPointList){
                         item.memberPointList.forEach(memberPoint=>{
-                             if(memberPoint.code == 'PAY_DISCOUNT'){ // 下载特权
+                             if(memberPoint.code == 'PAY_DISCOUNT'){ // 折扣
                                  fileDiscount  = memberPoint.value
                                  
                              }
