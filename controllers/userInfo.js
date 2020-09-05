@@ -114,7 +114,7 @@ module.exports = {
                         })
                     }
 
-                    officeRightsVipMemberDetail = Object.assign({},item,{fileDiscount:fileDiscount,isVip:item.vipStatus})
+                    officeRightsVipMemberDetail = Object.assign({},item,{fileDiscount:fileDiscount,isVip:item.vipStatus,expireTime: expireTime})
                   }
               })
                 // var fileDiscount = results.rightsVipMemberDetail.data.memberPoint&&results.rightsVipMemberDetail.data.memberPoint.value,

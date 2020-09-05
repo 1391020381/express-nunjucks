@@ -51,7 +51,7 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
                    
-                    if(isVipMaster){ 
+                    if(isVipMaster ==1){ 
                         // $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
                         $('.personal-center-home .opentvip').hide()
@@ -62,7 +62,7 @@ define(function(require , exports , module){
                         $('.personal-center-home .privileges').hide()
                         $('.personal-center-home .occupying-effect').show()
                     }
-                    if(isVipOffice){
+                    if(isOfficeVip == 1){
                         $('.personal-center-home .office-vip .office-vip-endtime').text(endDateOffice +'到期')
                     }else{
                         $('.personal-center-home .office-vip').hide()
