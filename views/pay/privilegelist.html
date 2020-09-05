@@ -24,7 +24,8 @@
             </ul>
             <div class="pay-privilege-text">{{results.list.data.packages[0].desc}}</div>
             {# <p class="pay-privilege-text"></p> #}
-            <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元<span id="discountPrice" class="original-text">{{ '（立省'+results.list.data.packages[0].discountPrice+'元）' if results.list.data.packages[0].discountPrice else 'display:none;'}}</span></p>
+            {# <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元<span id="discountPrice" class="original-text">{{ '（立省'+results.list.data.packages[0].discountPrice+'元）' if results.list.data.packages[0].discountPrice else 'display:none;'}}</span></p> #}
+            <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元 </p>
             <a href="javascript:;" data-page="privilege" class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payPrivilege">立即支付</a>
 
             <div class="pay-info-wrap">

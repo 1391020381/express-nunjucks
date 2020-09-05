@@ -421,6 +421,8 @@ define(function (require, exports, module) {
                                     .replace(/\$productPrice/, res.data.productPrice||0)
                                     .replace(/\$code/, res.data.status)
                             }).open();
+                          }else{
+                            bouncedType(res)
                           }
                         }else{
                             $.toast({
