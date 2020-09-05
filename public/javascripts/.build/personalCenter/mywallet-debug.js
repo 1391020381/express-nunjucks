@@ -499,7 +499,15 @@ define("dist/personalCenter/mywallet-debug", [ "../cmd-lib/jquery.datepicker-deb
             $(".withdrawal-application-dialog .withdrawal-amount .tax").hide();
             return;
         }
-        utils.debounce(getPersonalAccountTax(+withdrawPrice * 100), 1e3);
+        if (financeAccountInfo.userTypeName != "机构") {
+            utils.debounce(getPersonalAccountTax(+withdrawPrice * 100), 1e3);
+        }
+    });
+    $(document).on("click", ".withdrawal-application-dialog .full-withdrawal", function(e) {
+        balance && $(".withdrawal-application-dialog .amount").val(balance);
+        if (financeAccountInfo.userTypeName != "机构") {
+            getPersonalAccountTax(+balance * 100);
+        }
     });
     $(document).on("click", ".withdrawal-application-dialog .confirm-btn", function(e) {
         // 申请提现
