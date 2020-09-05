@@ -8,17 +8,20 @@ define(function(require , exports , module){
     var vipPrivilegeList = require('./template/vipPrivilegeList.html')
     var type = window.pageConfig&&window.pageConfig.page.type
     var isLogin = require('../application/effect.js').isLogin
+    var userInfo = {}
     if(type == 'home'){
         isLogin(initData,true)
     }
-    function initData(){
+    function initData(data){
+           userInfo = data
             getUserCentreInfo()  
             getFileBrowsePage()
             getDownloadRecordList()
             getBannerbyPosition()
             getMyVipRightsList()
     }
-    function getUserCentreInfo(callback) {  
+    function getUserCentreInfo(callback,data) { // data 用户等信息     用户中心其他页面调用传入
+        userInfo = data?data:userInfo
         $.ajax({
             headers:{
                 'Authrization':method.getCookie('cuk')
@@ -30,8 +33,8 @@ define(function(require , exports , module){
             success: function (res) {
                if(res.code == '0'){
                     console.log('getUserCentreInfo:',res)
-                    var isVipMaster = res.data.isVipMaster
-                    var isVipOffice = res.data.isVipOffice
+                    var isMasterVip = userInfo.isMasterVip
+                    var isOfficeVip = userInfo.isOfficeVip
                     var privilegeNum  = res.data.privilege   // 下载券数量
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
@@ -41,8 +44,8 @@ define(function(require , exports , module){
                     var endDateMaster = res.data.endDateMaster? new Date(res.data.endDateMaster).format("yyyy-MM-dd"):''
                     var endDateOffice = res.data.endDateOffice? new Date(res.data.endDateOffice).format("yyyy-MM-dd"):''
                     // compilerTemplate(res.data)
-                    var masterIcon = isVipMaster?'<span class="whole-station-vip-icon"></span>':''
-                    var officIcon = isVipOffice?'<span class="office-vip-icon"></span>':''
+                    var masterIcon = isMasterVip== 1?'<span class="whole-station-vip-icon"></span>':''
+                    var officIcon = isOfficeVip ==1?'<span class="office-vip-icon"></span>':''
                     $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
                     // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
                     $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span>'+ masterIcon + officIcon + '</p>')
@@ -51,7 +54,7 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
                    
-                    if(isVipMaster ==1){ 
+                    if(isMasterVip ==1){ 
                         // $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
                         $('.personal-center-home .opentvip').hide()
@@ -67,7 +70,7 @@ define(function(require , exports , module){
                     }else{
                         $('.personal-center-home .office-vip').hide()
                     }
-                    if(!isVipMaster && !isVipOffice){
+                    if(!isMasterVip && !isOfficeVip){
                         $('.personal-summarys .left-border').hide()
                     }
                     if(privilegeNum ){

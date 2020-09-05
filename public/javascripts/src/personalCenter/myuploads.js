@@ -11,8 +11,8 @@ define(function(require , exports , module){
     if(type == 'myuploads'){
         isLogin(initData,true)
     }
-    function initData(){
-            getUserCentreInfo()
+    function initData(data){
+        getUserCentreInfo(null,data) 
             getMyUploadPage()   
     }
        function getMyUploadPage(currentPage){  // 分页查询我的上传

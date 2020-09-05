@@ -40,8 +40,8 @@ define(function(require , exports , module){
         isLogin(initData,true) 
     }
     
-    function initData(){
-        getUserCentreInfo()
+    function initData(data){
+        getUserCentreInfo(null,data) 
         queryOrderlistByCondition()
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)

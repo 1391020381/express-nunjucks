@@ -51,8 +51,8 @@ define(function (require, exports, module) {
     if (type == 'mywallet') {
         isLogin(initCallback, true)
     }
-    function initCallback() {
-        getUserCentreInfo()
+    function initCallback(data) {
+        getUserCentreInfo(null,data)
         if (mywalletType == '1') {
          
             getMyWalletList(1)

@@ -13,8 +13,8 @@ define(function(require , exports , module){
     if(type == 'personalinformation'){
         isLogin(initData,true)
     }
-    function initData(){
-        getUserCentreInfo(getUserCentreInfoCallBack)
+    function initData(data){
+        getUserCentreInfo(getUserCentreInfoCallBack,data)
     }
     function getUserCentreInfoCallBack(userInfo,editUser){
        
