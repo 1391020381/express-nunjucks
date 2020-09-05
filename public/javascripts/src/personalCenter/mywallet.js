@@ -507,14 +507,17 @@ define(function (require, exports, module) {
             $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
             return
         }
-        utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
-        // if(withdrawPrice>800){
-        //     utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
-        // }else{
-        //     $('.withdrawal-application-dialog .receivedAmount').text(withdrawPrice)
-           
-        //     $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
-        // }
+        if(financeAccountInfo.userTypeName != '机构'){
+            utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
+        }
+      
+        
+    })
+    $(document).on('click','.withdrawal-application-dialog .full-withdrawal',function(e){
+        balance&&$('.withdrawal-application-dialog .amount').val(balance)
+        if(financeAccountInfo.userTypeName != '机构'){
+            getPersonalAccountTax(+balance*100)
+        }
     })
 
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
