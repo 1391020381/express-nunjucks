@@ -15,7 +15,7 @@ var classId = null;
 var title = null;
 var spcClassId = null;
 var isGetClassType = null;
-var fileAttr = 1; //1 普通文件 2 办公频道文件
+
 var format = '';
 var classid1 = '';
 var classid2 = ''
@@ -97,8 +97,8 @@ module.exports = {
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            if(fileInfo.fileAttr == 2){
+                         
+                            if(fileInfo.site == 0){
                                 // 跳转到办公携带参数修改
                                 // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
@@ -111,7 +111,7 @@ module.exports = {
                             title = fileInfo.title || "";   // 文件标题 (没有后缀格式)
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                          
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
@@ -290,11 +290,6 @@ module.exports = {
             },
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
-                // if (fileAttr == 1) {
-                //     server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
-                // } else {
-                //     callback(null, null);
-                // }
                 callback(null, null);
             },
 
@@ -302,7 +297,7 @@ module.exports = {
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
@@ -553,11 +548,7 @@ module.exports = {
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
             results.showFlag = true
-            // if (parseInt(fileAttr, 10) === 1) {
-            //     render("detail/index", results, req, res);
-            // } else {
-            //     render("officeDetail/index", results, req, res);
-            // }
+         
             results.isDetailRender = true
             render("detail/index", results, req, res);
 
@@ -591,22 +582,15 @@ module.exports = {
                         var tdk = data.data&&data.data.tdk
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            if(data.data.fileAttr == 2){
-                                // 跳转到办公携带参数修改
-                                //res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
-                                var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
-
-                                return
-                            }
+                           
+                            
 
                             fid = fileInfo.id;  // 文件id
                             classId = fileInfo.classid;  // 分类id
                             title = fileInfo.title || "";   // 文件标题 (没有后缀格式)
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                      
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
@@ -626,7 +610,7 @@ module.exports = {
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if ( perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
