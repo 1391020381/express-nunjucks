@@ -196,17 +196,78 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                req.body = req.query;
+                // req.body = req.query;
                 // callback(null,{});
-                server.get(appConfig.apiBasePath + api.pay.qr.replace(/\$orderNo/, req.query.orderNo), callback, req);
+                // server.get(appConfig.apiBasePath + api.pay.qr.replace(/\$orderNo/, req.query.orderNo), callback, req);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.status,
+                    body:JSON.stringify({
+                        orderNo:req.query.orderNo
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0 ) {
+                            req.query.fid = data.data.goodsId
+                            req.query.goodsType = data.data.goodsType
+                            callback(null, data); 
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
+            },
+            fileDetail: function (callback) {
+                if(req.query.goodsType == '1'){
+                    var opt = {
+                        method: 'POST',
+                        url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                        body:JSON.stringify({
+                            clientType: 0,
+                            fid: req.query.fid,  
+                            sourceType: 0
+                          }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                    request(opt,function(err,res1,body){
+                        if(body){
+                            var data = JSON.parse(body);
+                            console.log('请求地址post-------------------:',opt.url)
+                            console.log('请求参数-------------------:',opt.body)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                            if (data.code == 0 ){
+                                callback(null, data);
+                            }else{
+                                callback(null,null)
+                            }
+                        }else{
+                          callback(null,null)
+                        }
+                    })
+                }else{
+                    callback(null,{})
+                }
             }
         }, function (err, results) {
             // console.log(results);
             if(results.list.code != 0){
                 results.list.data = {}
             }
-            results.type = results.list.data.type;
+            // results.type = results.list.data.type;
             results.flag = 3;
+            results.list.data.payPrice = results.list.data.payPrice?(results.list.data.payPrice/100).toFixed(2):''
+            results.list.data.originalPrice = results.list.data.originalPrice?(results.list.data.originalPrice/100).toFixed(2):''
+            results.list.data.format = results.fileDetail.data&&results.fileDetail.data.fileInfo.format
+            results.list.data.fileSize = results.fileDetail.data&&results.fileDetail.data.fileInfo.fileSize
             // render("pay/index", results, req, res);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);

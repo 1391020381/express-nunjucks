@@ -1,10 +1,10 @@
-{% if results.list.data.type == 0%}
+{% if results.list.data.goodsType == 2%}
 <input type="hidden" id="ip-page-id" value="PC-M-PAY-VIP-QR">
 <input type="hidden" id="ip-page-name" value="支付页-VIP-支付页">
-{% elif results.list.data.type == 1 %}
+{% elif results.list.data.goodsType == 8 %}
 <input type="hidden" id="ip-page-id" value="PC-M-PAY-PRI-QR">
 <input type="hidden" id="ip-page-name" value="支付页-下载特权-支付页">
-{% elif results.list.data.type == 2 %}
+{% elif results.list.data.goodsType == 1 %}
 <input type="hidden" id="ip-page-id" value="PC-M-PAY-F-QR">
 <input type="hidden" id="ip-page-name" value="支付页-付费资料-支付页">
 {% endif %}
@@ -13,23 +13,23 @@
         <div class="carding-pay-main">
             <div class="carding-pay-item">
                 <a class="btn-back"><i class="icon-back"></i>返回</a>
-                {% if results.list.data.type == 0 or results.list.data.type == 1 %}
-                <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.price}}</strong>元</p>
+                {% if results.list.data.goodsType == 2 or results.list.data.goodsType == 8 %}
+                <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元</p>
                 <div class="pay-data-info">
 <!--                    <p class="order-num">订单号：<span class="oid">{{results.list.data.oid}}</span></p>-->
-                    <p class="order-name">购买商品：<span class="gname">{{results.list.data.name}}</span></p>
+                    <p class="order-name">购买商品：<span class="gname">{{results.list.data.goodsName}}</span></p>
                 </div>
-                {% elif results.list.data.type == 2 %}
-                    <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.price}}</strong>元
-                        {% if results.list.data.price and results.list.data.diffPrice%}
+                {% elif results.list.data.goodsType == 1 %}
+                    <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
+                        {% if results.list.data.payPrice and results.list.data.originalPrice%}
                         <span class="price-other price-discount">
-                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.price|number + results.list.data.diffPrice|number)|toFixed }}</strong>元</em>
+                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.originalPrice|number + results.list.data.payPrice|number)|toFixed }}</strong>元</em>
                             (您已是会员, 享受会员折扣价, 立省{{results.list.data.diffPrice}}元)</span>
                         {% endif%}
                     </p>
                     <div class="pay-data-info">
-                        <p class="data-info">购买文档：<span class="data-name"><i class="ico-data ico-{{results.list.data.fileType}}"></i>{{results.list.data.fileName}}</span></p>
-                        <p class="data-size">大小：<span>{{results.list.data.size}}</span></p>
+                        <p class="data-info">购买文档：<span class="data-name"><i class="ico-data ico-{{results.list.data.format}}"></i>{{results.list.data.goodsName}}</span></p>
+                        <p class="data-size">大小：<span>{{results.list.data.fileSize}}</span></p>
                     </div>
                 {% endif %}
             </div>
