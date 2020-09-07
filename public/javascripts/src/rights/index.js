@@ -10,6 +10,19 @@ define(function (require, exports, module) {
     var $JsPayOfficeVip = $('.JsPayOfficeVip');
     // 全站vip开通按钮
     var $JsPayMainVip = $('.JsPayMainVip');
+    // 全站vip图标
+    var $JsMainIcon = $('.JsMainIcon');
+    // 办公vip图标
+    var $JsOfficeIcon = $('.JsOfficeIcon');
+
+    // 登录类型map-对应在登陆时存储到本地cookie中的字段
+    var LoginTypeMap = {
+        wechat: '微信登陆',
+        weibo: '微博登陆',
+        qq: 'QQ登陆',
+        phonePw: '密码登陆',
+        phoneCode: '验证码登陆',
+    }
 
     initShow();
     bindEvent();
@@ -17,16 +30,19 @@ define(function (require, exports, module) {
     /** 初始化显示 */
     function initShow() {
         if (method.getCookie('cuk')) {
-            // todo 登录相关待修改
             login.getLoginData(function (data) {
                 effect.refreshTopBar(data);
                 refreshUserInfo(data);
-                // 区分站点显示不同文本 todo
-                if (data.isOfficeVip) {
+                // 区分站点显示不同文本
+                if (data.isOfficeVip === 1) {
                     $JsPayOfficeVip.html('立即续费');
+                } else {
+                    $JsPayOfficeVip.html('立即开通');
                 }
-                if (data.isMasterVip) {
+                if (data.isMasterVip === 1) {
                     $JsPayMainVip.html('立即续费');
+                } else {
+                    $JsPayMainVip.html('立即开通');
                 }
             });
         }
@@ -34,9 +50,29 @@ define(function (require, exports, module) {
 
     // 展示用户信息
     function refreshUserInfo(data) {
+        // 区分站点显示不同文本
+        if (data.isOfficeVip === 1) {
+            $JsPayOfficeVip.html('立即续费');
+            $JsOfficeIcon.addClass('i-vip-blue');
+            $JsOfficeIcon.removeClass('i-vip-gray2');
+        } else {
+            $JsOfficeIcon.removeClass('i-vip-blue');
+            $JsOfficeIcon.addClass('i-vip-gray2');
+        }
+        if (data.isMasterVip === 1) {
+            $JsPayMainVip.html('立即续费');
+            $JsMainIcon.addClass('i-vip-yellow');
+            $JsMainIcon.removeClass('i-vip-gray1');
+        } else {
+            $JsMainIcon.removeClass('i-vip-yellow');
+            $JsMainIcon.addClass('i-vip-gray1');
+        }
+
         $('.jsUserImage').attr('src', data.photoPicURL);
         $('.jsUserName').text(data.nickName);
-        $('.jsLoginType').text('微信登陆');
+        // 登录类型-对应在登陆时存储到本地cookie中的字段
+        var loginType = method.getCookie('login_type');
+        $('.jsLoginType').text(loginType ? '( ' + LoginTypeMap[loginType] + ' )' : '');
     }
 
     /** 事件绑定 */
