@@ -129,8 +129,12 @@ define(function (require, exports, module) {
     //     $(".article-mask").hide();
     // }
     
-    if(initReadPage>imgTotalPage){  // 用户没有设置试读,但是 node默认 4页 但是总页数只有 三页
+    if(initReadPage>imgTotalPage){  
         changeText()
+        var pageNum = $(".detail-pro-con div.article-page").length
+        if(pageNum == imgTotalPage){
+            $(".show-more-text .page-num").text(0);
+        }
     }
     $(function () {
         //默认隐藏
@@ -201,7 +205,7 @@ define(function (require, exports, module) {
                 }
             }
         } else {
-            restPage = totalPage - cPage;
+            restPage = totalPage - initReadPage;
             $articlePages.eq(2).hide();
             $articlePages.eq(3).hide();
             initStyle()
