@@ -117,7 +117,7 @@ module.exports = {
                             classid2 = fileInfo.classid2
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             productType = fileInfo.productType
-                            uid= fileInfo.uid || ''           // 上传者id
+                     //       uid= fileInfo.uid || ''           // 上传者id
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
