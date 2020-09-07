@@ -619,11 +619,12 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
                             "color": "#fff", 
                             "border-color": "#eee"
                         })
-                        authenticationCode.attr('data-authenticationCodeType',2) // 可以重新获取验证码
+                        authenticationCode.attr('data-authenticationCodeType',2) // 可以重新获取验证码 
                     }else{
                         authenticationCode.text(textNumber--)
                         authenticationCode.css({ 
-                            "color": "#fff", 
+                            "color": "#999999", 
+                            "background-color": "#E9E8E5",
                             "border-color": "#eee"
                         })
                         timer =  setTimeout(countdown, 1000);
