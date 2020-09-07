@@ -129,7 +129,7 @@ define(function (require, exports, module) {
     //     $(".article-mask").hide();
     // }
     
-    if(initReadPage>imgTotalPage){  // 用户没有设置试读,但是 node默认 4页
+    if(initReadPage>imgTotalPage){  // 用户没有设置试读,但是 node默认 4页 但是总页数只有 三页
         changeText()
     }
     $(function () {
