@@ -228,7 +228,13 @@
 
             <p class="label-item financial-records-btn">
             <span class="item-desc"><em></em></span> 
-             <span class="submit-btn">保存</span>
+             <span class="submit-btn">
+                {{if financeAccountInfo.isEdit}}
+                        保存
+                {{else}}
+                    修改
+                {{/if}}
+             </span>
             </p>
         </div>
       {{/if}}

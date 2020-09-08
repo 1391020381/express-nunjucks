@@ -420,6 +420,7 @@
   height: 14px;
   background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
   background-size: 100%;
+  vertical-align: middle;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice .invoic-tip .invoic-tip-desc {
   margin-left: 5px;
@@ -483,7 +484,6 @@
   margin-top: 13px;
   display: block;
   width: 120px;
-  text-align: center;
   font-size: 14px;
   color: #F25125;
   cursor: pointer;
