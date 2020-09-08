@@ -293,10 +293,12 @@ define(function (require, exports, module) {
                         handleFinanceAccountInfo(res)
                     }
                 } else {
-                    $.toast({
-                        text: res.msg,
-                        delay: 3000,
-                    })
+                    if(res.code !=='410010'){ // 410010
+                        $.toast({
+                            text: res.msg,
+                            delay: 3000,
+                        })
+                    }
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo({})
                     }
@@ -397,7 +399,7 @@ define(function (require, exports, module) {
        
         userFinanceAccountInfo = res.data || {}
       
-        userFinanceAccountInfo.isEdit = userFinanceAccountInfo.isEdit?userFinanceAccountInfo.isEdit:true
+        userFinanceAccountInfo.isEdit = (userFinanceAccountInfo.isEdit == true || userFinanceAccountInfo.isEdit == null) ?true:false
 
         getProvinceAndCityList(res.data||{})
         var _mywalletTemplate = template.compile(mywallet)({ financeAccountInfo: userFinanceAccountInfo || {}, provinceList: provinceList, cityList: cityList, bankList: bankData, mywalletType: mywalletType });

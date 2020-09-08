@@ -6,7 +6,7 @@ define(function (require, exports, module) {
   require('./login')
     window.template = require("./template");
     require("./helper");
-  
+    var api = require("./api");
 
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {
@@ -16,7 +16,7 @@ define(function (require, exports, module) {
             visitId = method.getCookie(name);
         // 过有效期-重新请求
         if (!visitId) {
-            method.get('http://ishare.iask.sina.com.cn/gateway/user/getVisitorId', function (response) {
+            method.get(api.user.getVisitorId, function (response) {
                 if (response.code == 0 && response.data) {
                     method.setCookieWithExp(name, response.data, expires, '/');
                 }

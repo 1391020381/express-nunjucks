@@ -90,7 +90,8 @@ module.exports = {
                         scope:4
                       }),
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authrization':req.cookies.cuk
                     },
                 };
                 request(opt, function (err, res, body) {

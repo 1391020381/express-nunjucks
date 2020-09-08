@@ -39,7 +39,8 @@ define(function (require, exports, module) {
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
             getMyUploadPage:gateway + '/content/getMyUploadPage',   // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
             getOtherUser:gateway+'/user/getOthersCentreInfo',//他人信息主页 
-            getSearchList:gateway+'/search/content/byCondition' //他人信息主页 热门与最新
+            getSearchList:gateway+'/search/content/byCondition', //他人信息主页 热门与最新
+            getVisitorId: gateway + '/user/getVisitorId'   // 获取游客id
         },
         normalFileDetail: {
             // 添加评论

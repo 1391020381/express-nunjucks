@@ -9,7 +9,7 @@
                 <a href="/node/personalCenter/mywallet.html?mywalletType=2">提现记录</a>
             </li>
             <li class="{{ mywalletType == '3' ? 'tab-active tab' :'tab'}}">
-                <a href="/node/personalCenter/mywallet.html?mywalletType=3">财务记录</a>
+                <a href="/node/personalCenter/mywallet.html?mywalletType=3">财务信息</a>
             </li>
         </ul>
         {{if mywalletType == '1'}}
@@ -211,7 +211,7 @@
                          {{/each}}
                     </option>
                 </select>
-                <input class="item-bank-name" placeholder="请输入收款银行名称" {{financeAccountInfo.isEdit?'':'disabled'}}/>
+                <input  class="item-bank-name" placeholder="请输入收款银行名称" {{financeAccountInfo.isEdit?'':'disabled'}}  />
             </p>
              <div class="label-item fullnameof-opening-bank">
                 <span class="item-desc required"><em>*</em>开户行全称 :</span> 

@@ -192,7 +192,7 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         var price = $(this).data('price');
         var activePrice = $(this).data('activeprice');
         var discountPrice = $(this).data('discountprice');
-        var giveDesc =  $this.find('.give-desc').html() || ''
+        var giveDesc =  $(this).find('.give-desc').html() || ''
         $(".pay-privilege-text").html(giveDesc)
         if (activePrice > 0) {
             $("#activePrice").html(activePrice);
