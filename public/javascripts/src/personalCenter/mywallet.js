@@ -60,7 +60,11 @@ define(function (require, exports, module) {
     }
     function initCallback(data) {
         userInfo = data
-        getUserCentreInfo(null,data)
+        getUserCentreInfo(function(data){
+            if(data.isAuth == '0'){
+                method.compatibleIESkip("/node/personalCenter/home.html",true);
+            }
+        },data)
         if (mywalletType == '1') {
          
             getMyWalletList(1)
@@ -261,6 +265,10 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     console.log('exportMyWalletDetail:', res)
                     closeRewardPop()
+                    $.toast({
+                        text: '发送邮箱成功!',
+                        delay: 3000,
+                    })
                 } else {
                     $.toast({
                         text: res.msg,
@@ -302,9 +310,7 @@ define(function (require, exports, module) {
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo({})
                     }
-                    if(res.code == '410008'){  // 认证用户 切换 非认证用户 在当前页面登录
-                        method.compatibleIESkip('/node/personalCenter/home.html', true);
-                    }
+                    
                 }
             },
             error: function (error) {

@@ -107,7 +107,7 @@ define(function (require, exports, module) {
         $hasLogin.find('.top-user-more .name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
         $hasLogin.show();
-        
+        $('.jsUserImage').attr('src', data.photoPicURL); // 权益落地页
         if(window.pageConfig.params){
             window.pageConfig.params.isVip = data.isVip;
         }
