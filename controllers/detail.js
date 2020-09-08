@@ -28,7 +28,7 @@ var recommendInfoData_rele = {}; //相关推荐数据 (相关资料)
 var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
-
+var defaultResultsData = {recommendInfoData_rele:{},recommendInfoData_guess:{},paradigm4Guess:{},paradigm4Relevant:{},list:{data:{svgFlag:true,supportSvg:true,fileContentList:[],svgPathList:[],isDownload:'no'}}} // 确保私有 删除  404 显示用户信息 用户可以登录
 module.exports = {
     render: function (req, res,next) {
         var _index = {
@@ -121,7 +121,7 @@ module.exports = {
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,statusCode:'404'}
+                                var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404'},defaultResultsData) 
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
@@ -131,7 +131,7 @@ module.exports = {
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,isPrivate:true,statusCode:'302'}
+                                var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302'},defaultResultsData)
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
@@ -141,7 +141,7 @@ module.exports = {
                              }
                         } else {
                             if(data.code == 'G-404'){ // 文件不存在
-                                var results = {showFlag:false}
+                                var results = Object.assign({},defaultResultsData,{showFlag:false})
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
