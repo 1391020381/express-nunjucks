@@ -491,7 +491,7 @@ define(function (require, exports, module) {
         var bankBranchName = $('.mywallet .item-openingbank-name').val()
 
         if (userFinanceAccountInfo.isEdit) {
-            if (!province && (errMsg = '请选择所在省') || !city && (errMsg = '请选择所在的市') || !bankName && (errMsg = '请选择银行') || !bankBranchName && (errMsg = '请填写开户行全称') || !bankAccountNo && (errMsg = '请填写收款银行卡号')) {
+            if (!bankAccountName (errMsg = '请填写开户名')||!province && (errMsg = '请选择所在省') || !city && (errMsg = '请选择所在的市') || !bankName && (errMsg = '请选择银行') || !bankBranchName && (errMsg = '请填写开户行全称') || !bankAccountNo && (errMsg = '请填写收款银行卡号')) {
                 $.toast({
                     text: errMsg,
                     delay: 3000,
@@ -507,6 +507,13 @@ define(function (require, exports, module) {
                 bankBranchName: bankBranchName,
             }
             editFinanceAccount(params)
+        }else{
+            $.toast({
+                text: '30天内仅能修改一次!',
+                icon: '',
+                delay: 2000,
+                callback: false
+            })
         }
     })
 

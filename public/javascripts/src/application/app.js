@@ -19,6 +19,8 @@ define(function (require, exports, module) {
             method.get(api.user.getVisitorId, function (response) {
                 if (response.code == 0 && response.data) {
                     method.setCookieWithExp(name, response.data, expires, '/');
+                }else{
+                   visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
                 }
             })
         }
