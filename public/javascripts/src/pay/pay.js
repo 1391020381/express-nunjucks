@@ -14,8 +14,7 @@ define(function (require, exports, moudle) {
     //var report = require("./report");
    var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
-    require("../common/coupon/couponOperate");
-    require("../common/coupon/couponIssue");
+ 
     require("../common/bilog");
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
@@ -27,8 +26,12 @@ define(function (require, exports, moudle) {
     var callback = null;
     isLogin(initPage,isAutoLogin,initPage);
 
+     // 优惠券相关需要在登录后执行
+    require("../common/coupon/couponOperate");
+    require("../common/coupon/couponIssue");
     //生成二维码
    function initPage(userInfo){
+    window.pageConfig.params.fileDiscount = userInfo.fileInfo  // 获取用户折扣 在优惠券使用
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
        // var uid = $("#ip-uid").val();    //  results.data.uid
@@ -772,7 +775,7 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
         // 携带参数,上报数据
         // var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
         var format = window.pageConfig&&window.pageConfig.params.format
-        var title = window.pageConfig&&window.pageConfig.params.title
+        var title = window.pageConfig&&window.pageConfig.params.title || $('.data-name').text()
         var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title),
             bilogResult = null;
         if (orderInfo.goodsType === 1) {

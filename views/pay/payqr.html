@@ -23,8 +23,8 @@
                     <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
                         {% if results.list.data.payPrice and results.list.data.originalPrice%}
                         <span class="price-other price-discount">
-                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.originalPrice|number + results.list.data.payPrice|number)|toFixed }}</strong>元</em>
-                            (您已是会员, 享受会员折扣价, 立省{{results.list.data.diffPrice}}元)</span>
+                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.originalPrice|number)|toFixed }}</strong>元</em>
+                            (您已是会员, 享受会员折扣价, 立省{{ (results.list.data.originalPrice|number - results.list.data.payPrice|number)|toFixed }}元)</span>
                         {% endif%}
                     </p>
                     <div class="pay-data-info">
