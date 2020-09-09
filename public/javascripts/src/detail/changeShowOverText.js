@@ -34,6 +34,16 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
        }else{
         login.notifyLoginInterface(function (data) {
             common.afterLogin(data);
+            if(productType==3){ // 发送邮箱
+                if(data.isVip == '1'){
+                    sentEmail()
+                }else{
+                    goPage('vip')
+                }
+              
+            }else{
+                downLoad()
+            }
          }) 
        }
     }

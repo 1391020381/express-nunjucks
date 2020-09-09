@@ -197,93 +197,10 @@ define(function (require, exports, module) {
       
         // 查找相关资料
         $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
-            $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-            // $("#dialog-box").dialog({
-            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
-            // }).open();
-            $("#dialog-box").dialog({
-                html: $('#reward-mission-pop').html(),
-            }).open();
-
-            setTimeout(bindEventPop,500)
+            sendEmail()
         });
-        //  $("#dialog-box").dialog({
-        //     html: $('#reward-mission-pop').html(),
-        // }).open();
 
-        function bindEventPop(){
-            console.log(6666)
-            // 绑定关闭悬赏任务弹窗pop
-            $('.m-reward-pop .close-btn').on('click',function(){
-                closeRewardPop();
-            })
-
-            // submit提交
-            $('.m-reward-pop .submit-btn').on('click',function(){
-                var userId = window.pageConfig.userId;
-                if(!userId){
-                    closeRewardPop();
-                    $.toast({
-                        text:'该功能仅对VIP用户开放',
-                        delay : 3000,
-                    })
-                    return
-                }
-                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
-                var mailVal = $('.m-reward-pop .form-ipt').val();
-                var tips = $('.m-reward-pop .form-verify-tips');
-                tips.hide();
-                if (!reg.test(mailVal)) {
-                    tips.show();
-                    return
-                }
-
-                var params = {
-                    userId:userId,
-                    fid:window.pageConfig.params.g_fileId,
-                    email:mailVal,
-                    channelSource:4,
-                }
-
-                $.ajax('/gateway/content/sendmail/findFile', {
-                    type: "POST",
-                    data: JSON.stringify(params),
-                    dataType: "json",
-                    contentType: 'application/json'
-                }).done(function (res) {
-                    if (res.code == 0) {
-                        closeRewardPop();
-                        $.toast({
-                            text:'发送成功',
-                            delay : 2000,
-                        })
-                    } else if(res.code == 401100){
-                        $.toast({
-                            text:'该功能仅对VIP用户开放',
-                            delay : 2000,
-                        })
-                    }else {
-                        $.toast({
-                            text: '发送失败，请重试',
-                            delay: 2000
-                        });
-                    }
-                }).fail(function (e) {
-                    $.toast({
-                        text: '发送失败，请重试',
-                        delay: 2000
-                    });
-                })
-            })
-
-            // 关闭任务pop
-            function closeRewardPop(){
-                $(".common-bgMask").hide();
-                $(".detail-bg-mask").hide();
-                $('#dialog-box').hide();
-            }        
-
-        }
+       
 
         // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
         $('body').on("click", ".js-buy-open", function (e) {  
@@ -307,6 +224,93 @@ define(function (require, exports, module) {
                 goPage(type);
             }
         });
+    }
+    
+    function sendEmail (){
+        $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+        // $("#dialog-box").dialog({
+        //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
+        // }).open();
+        $("#dialog-box").dialog({
+            html: $('#reward-mission-pop').html(),
+        }).open();
+
+        setTimeout(bindEventPop,500)
+    }
+    
+
+    function bindEventPop(){
+        console.log(6666)
+        // 绑定关闭悬赏任务弹窗pop
+        $('.m-reward-pop .close-btn').on('click',function(){
+            closeRewardPop();
+        })
+
+        // submit提交
+        $('.m-reward-pop .submit-btn').on('click',function(){
+            var userId = window.pageConfig.userId;
+            if(!userId){
+                closeRewardPop();
+                $.toast({
+                    text:'该功能仅对VIP用户开放',
+                    delay : 3000,
+                })
+                return
+            }
+            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+            var mailVal = $('.m-reward-pop .form-ipt').val();
+            var tips = $('.m-reward-pop .form-verify-tips');
+            tips.hide();
+            if (!reg.test(mailVal)) {
+                tips.show();
+                return
+            }
+
+            var params = {
+                userId:userId,
+                fid:window.pageConfig.params.g_fileId,
+                email:mailVal,
+                channelSource:4,
+            }
+
+            $.ajax('/gateway/content/sendmail/findFile', {
+                type: "POST",
+                data: JSON.stringify(params),
+                dataType: "json",
+                contentType: 'application/json'
+            }).done(function (res) {
+                if (res.code == 0) {
+                    closeRewardPop();
+                    $.toast({
+                        text:'发送成功',
+                        delay : 2000,
+                    })
+                } else if(res.code == 401100){
+                    $.toast({
+                        text:'该功能仅对VIP用户开放',
+                        delay : 2000,
+                    })
+                }else {
+                    $.toast({
+                        text: '发送失败，请重试',
+                        delay: 2000
+                    });
+                }
+            }).fail(function (e) {
+                $.toast({
+                    text: '发送失败，请重试',
+                    delay: 2000
+                });
+            })
+        })
+
+        // 关闭任务pop
+        function closeRewardPop(){
+            $(".common-bgMask").hide();
+            $(".detail-bg-mask").hide();
+            $('#dialog-box').hide();
+        }        
+
     }
 
     function fileBrowseReportBrowse() {
@@ -332,51 +336,8 @@ define(function (require, exports, module) {
             }
         })
     }
-    function receiveCoupon(type, source, userId) {
-        var data = { source: source, type: type };
-        data = JSON.stringify(data);
-        $('body').loading({ name: 'download', title: '请求中' });
-        $.ajax({
-            type: 'POST',
-            // url: api.vouchers,
-            url:api.coupon.rightsSaleVouchers,
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: function (res) {
-                if (res.code == 0) {
-                    if (res.data.list) {
-                        if (res.data.list.length > 0) {
-                            var headTip = require("./template/head_tip.html");
-                            var _html = template.compile(headTip)({ data: res.data });
-                            $('.coupon-info-top').html(_html);
-                            //第一次登录
-                            method.setCookieWithExpPath('_1st_l', userId, 30 * 24 * 60 * 60 * 1000, '/');
-                        } else {
-                            utils.showAlertDialog("温馨提示", res.msg);
-                        }
-                    }
-                } else {
-                    utils.showAlertDialog("温馨提示", res.msg);
-                }
-            },
-            complete: function () {
-                $('body').closeLoading("download");
-            }
-        })
-    }
-    // function appraiseStar(data) {
-    //     method.post(api.normalFileDetail.appraise, function (res) {
-    //         if (res.code == 0) {
-    //             var $dSuccess = $('.d-success');
-    //             $dSuccess.removeClass('hide');
-    //             setTimeout(function () {
-    //                 $dSuccess.addClass('hide')
-    //             }, 1500)
-    //         }
-    //     }, '', 'post', data);
-    // }
-
+   
+  
     //获取焦点
     function inputFocus(ele, focus, css) {
         $(ele).focus(function () {
@@ -682,8 +643,9 @@ define(function (require, exports, module) {
             // window.location.href = "/pay/payConfirm.html" + params;
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-            if(data&&!data.isVip==1){
-                return
+            if(data&&data.isVip==1){ // 
+                // $('.detail-fixed #searchRes').click()
+                sendEmail()
             }else{
 //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
