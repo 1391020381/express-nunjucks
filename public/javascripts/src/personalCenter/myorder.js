@@ -11,7 +11,11 @@ define(function(require , exports , module){
         1:'待支付',
         2:'交易成功',
         3:'支付失败',
-        4:'订单失效'
+        4:'订单失效',
+        7:'退款审核中',
+        8:'退款成功',
+        9:'退款失败',
+        10:'部份退款成功'
     }
     var refundStatusDescList = {
           0:'未申请退款',
@@ -102,11 +106,12 @@ define(function(require , exports , module){
                        $(res.data.rows).each(function(index,item){
                           item.payPrice = (item.payPrice/100).toFixed(2)
                           item.orderTime = new Date(item.orderTime).format("yyyy-MM-dd")
-                          if(item.refundStatus== 0 ||!item.refundStatus){
-                            item.orderStatusDesc = orderStatusList[item.orderStatus]  
-                          }else{
-                            item.orderStatusDesc = refundStatusDescList[item.refundStatus]  
-                          }
+                        //   if(item.refundStatus== 0 ||!item.refundStatus){
+                        //     item.orderStatusDesc = orderStatusList[item.orderStatus]  
+                        //   }else{
+                        //     item.orderStatusDesc = refundStatusDescList[item.refundStatus]  
+                        //   }
+                        item.orderStatusDesc = orderStatusList[item.orderStatus]
                          list.push(item) 
                        })
                    }
