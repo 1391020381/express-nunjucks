@@ -40,7 +40,7 @@ module.exports = {
         return async.series({
             list: function (callback) {
                 // picArr = [] // 清空保存的上一个蜘蛛模板的图片
-                id = req.params.id.replace('-zhizhu','')
+                id = req.params.id.replace('-nbhh','')
                 fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
                 var opt = {
                     method: 'POST',
