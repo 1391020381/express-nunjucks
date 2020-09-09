@@ -179,8 +179,12 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         if(preRead&&preRead!=50){
             pageText.show()
         }
-        if(pageNum.text() == -1){
-            pageNum.text(0)
+        var currentPage = pageNum.text().trim()
+        if(currentPage == -1 || currentPage == 0){
+            var totalPage = window.pageConfig.params.totalPage
+            var preRead =  window.pageConfig.page.preRead
+            var page = totalPage-preRead >=0?totalPage-preRead:0
+            pageNum.text(page)
         }
     }
 });

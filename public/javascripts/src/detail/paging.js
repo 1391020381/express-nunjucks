@@ -131,10 +131,7 @@ define(function (require, exports, module) {
     
     if(initReadPage>imgTotalPage){  
         changeText()
-        var pageNum = $(".detail-pro-con div.article-page").length
-        if(pageNum == imgTotalPage){
-            $(".show-more-text .page-num").text(0);
-        }
+       
     }
     $(function () {
         //默认隐藏
@@ -206,8 +203,8 @@ define(function (require, exports, module) {
             }
         } else {
             restPage = totalPage - initReadPage;
-            $articlePages.eq(2).hide();
-            $articlePages.eq(3).hide();
+            // $articlePages.eq(2).hide();
+            // $articlePages.eq(3).hide();
             initStyle()
         }
     });
