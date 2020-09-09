@@ -65,10 +65,12 @@ define(function(require , exports , module){
                 userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize/10000).toFixed(1)+'w+' : userData.fileSize
                 var _html = template.compile(require('./template/userPage/index.html'))({data: userData});
                 $(".container").html(_html); 
-                if(userInfo.isMasterVip!==1){
+                var isMasterVip =  userData.isVip && userData.vipSiteList.indexOf(4)>=0
+                var isOfficeVip = userData.isVip && userData.vipSiteList.indexOf(0)>=0
+                if(!isMasterVip){
                     $('.personal-header .person-info-left .whole-station-vip').hide()
                 }
-                if(userInfo.isOfficeVip!==1){
+                if(!isOfficeVip){
                     $('.personal-header .person-info-left .office-vip').hide()
                 }    
                 hotList();
