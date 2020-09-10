@@ -322,7 +322,8 @@ define(function (require, exports, module) {
             type: "POST",
             data: JSON.stringify({
                             terminal:'0',
-                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId
+                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId,
+                            fileUid: window.pageConfig.page&&window.pageConfig.page.uid
                         }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
