@@ -374,7 +374,7 @@ define(function (require, exports, module) {
             item.settleEndDate = new Date(item.settleEndDate).format("yyyy-MM-dd")
             item.statusDesc = myWalletStatusList[item.status]
             item.sellerTypeDesc = sellerTypeList[item.sellerType]
-            item.totalTransactionAmount = item.totalTransactionAmount ? (item.totalTransactionAmount / 100).toFixed(2) : '0'
+            item.sellerTotalRevenue   = item.sellerTotalRevenue   ? (item.sellerTotalRevenue   / 100).toFixed(2) : '0'
             item.batchNo = item.batchNo
             list.push(item)
         })
