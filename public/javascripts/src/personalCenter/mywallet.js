@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                 method.compatibleIESkip("/node/personalCenter/home.html",true);
             }
         },data)
-        if (mywalletType == '1') {
+        if (mywalletType == '1' || mywalletType == undefined) {
          
             getMyWalletList(1)
             getAccountBalance()
@@ -374,7 +374,7 @@ define(function (require, exports, module) {
             item.settleEndDate = new Date(item.settleEndDate).format("yyyy-MM-dd")
             item.statusDesc = myWalletStatusList[item.status]
             item.sellerTypeDesc = sellerTypeList[item.sellerType]
-            item.totalTransactionAmount = item.totalTransactionAmount ? (item.totalTransactionAmount / 100).toFixed(2) : ''
+            item.totalTransactionAmount = item.totalTransactionAmount ? (item.totalTransactionAmount / 100).toFixed(2) : '0'
             item.batchNo = item.batchNo
             list.push(item)
         })
@@ -449,8 +449,8 @@ define(function (require, exports, module) {
                 return
             }
 
-            if (mywalletType == '1') {
-                getWithdrawalRecord(paginationCurrentPage)
+            if (mywalletType == '1' || mywalletType == undefined) {
+                getMyWalletList(paginationCurrentPage)
             }
 
             if (mywalletType == '2') {
@@ -545,7 +545,7 @@ define(function (require, exports, module) {
     $(document).on('click','.withdrawal-application-dialog .full-withdrawal',function(e){
         balance&&$('.withdrawal-application-dialog .amount').val(balance-100)
         if(financeAccountInfo.userTypeName != '机构'){
-            getPersonalAccountTax(+balance*100)
+            getPersonalAccountTax((balance-100)*100)
         }
     })
 

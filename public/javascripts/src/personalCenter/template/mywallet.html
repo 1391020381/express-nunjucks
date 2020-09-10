@@ -79,7 +79,10 @@
                                 <td>{{list[$index].settleStartDate}}至{{list[$index].settleEndDate}}</td>
                                 <td>{{list[$index].statusDesc}}</td>
                                 <td>
-                                    <span class="export-details-btn" data-id={{list[$index].batchNo}}>导出明细</span></td>
+                                   {{if list[$index].status != '0'}}
+                                       <span class="export-details-btn" data-id={{list[$index].batchNo}}>导出明细</span></td>
+                                   {{/if}}
+                                   
                             </tr>
                         {{/each}}
                     {{else}}
