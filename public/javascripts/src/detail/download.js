@@ -422,7 +422,7 @@ define(function (require, exports, module) {
                                     .replace(/\$code/, res.data.status)
                             }).open();
                           }else{
-                            bouncedType(res)
+                            getFileDownLoadUrl()
                           }
                         }else{
                             $.toast({

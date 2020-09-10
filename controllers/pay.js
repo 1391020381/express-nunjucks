@@ -267,6 +267,7 @@ module.exports = {
             results.flag = 3;
             results.list.data.payPrice = results.list.data.payPrice?(results.list.data.payPrice/100).toFixed(2):''
             results.list.data.originalPrice = results.list.data.originalPrice?(results.list.data.originalPrice/100).toFixed(2):''
+            results.list.data.discountPrice  = results.list.data.originalPrice - results.list.data.payPrice >= 0? true :false
             results.list.data.format = results.fileDetail.data&&results.fileDetail.data.fileInfo.format
             results.list.data.fileSize = results.fileDetail.data&&results.fileDetail.data.fileInfo.fileSize
             // render("pay/index", results, req, res);
