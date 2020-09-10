@@ -121,7 +121,7 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     console.log('withdrawal:', res)
                     $.toast({
-                        text: '提现成功!',
+                        text: '提现申请成功!',
                         delay: 3000,
                     })
                     closeRewardPop()
