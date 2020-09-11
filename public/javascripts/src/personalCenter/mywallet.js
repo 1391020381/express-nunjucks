@@ -339,6 +339,7 @@ define(function (require, exports, module) {
                         text: res.msg,
                         delay: 3000,
                     })
+                    closeRewardPop()
                 }
             },
             error: function (error) {
