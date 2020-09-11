@@ -130,8 +130,10 @@ define(function (require, exports, module) {
     // }
     
     if(initReadPage>imgTotalPage){  
-        changeText()
-       
+        changeText() 
+    }
+    if($('.page-num').text().trim()){  //  totalPage < 4
+        $('.page-num').text(0)
     }
     $(function () {
         //默认隐藏

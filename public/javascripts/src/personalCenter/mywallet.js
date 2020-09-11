@@ -537,7 +537,7 @@ define(function (require, exports, module) {
             return
         }
         if(financeAccountInfo.userTypeName != '机构'){
-            utils.debounce(getPersonalAccountTax(+withdrawPrice*100), 1000)
+            utils.debounce(getPersonalAccountTax((withdrawPrice*100).toFixed(2)), 1000)
         }
       
         
