@@ -597,3 +597,17 @@
   color: #fff;
   cursor: pointer;
 }
+.personal-center-dialog .go2FinanceAccount-dialog .editFinanceAccount-btn {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  background-color: #ee4b28;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 4px;
+  margin: 0 auto;
+  margin-top: 30px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 62px;
+}

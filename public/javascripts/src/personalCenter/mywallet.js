@@ -332,6 +332,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 if (res.code == '0') {
                     console.log('editFinanceAccount:', res)
+                    closeRewardPop()
                     getFinanceAccountInfo()
                 } else {
                     $.toast({
@@ -489,38 +490,10 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        var bankAccountName = $('.mywallet .account-name .item-account-name').val()
-        var bankAccountNo = $('.mywallet .item-openingbank-num').val()
-        var province = $('.mywallet .item-province').val()
-        var city = $('.mywallet .item-city').val()
-        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('.mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
-        var bankBranchName = $('.mywallet .item-openingbank-name').val()
-
-        if (userFinanceAccountInfo.isEdit) {
-            if (!bankAccountName&&(errMsg = '请填写开户名')||!province && (errMsg = '请选择所在省') || !city && (errMsg = '请选择所在的市') || !bankName && (errMsg = '请选择银行') || !bankBranchName && (errMsg = '请填写开户行全称') || !bankAccountNo && (errMsg = '请填写收款银行卡号')) {
-                $.toast({
-                    text: errMsg,
-                    delay: 3000,
-                })
-                return
-            }
-            var params = {
-                bankAccountName: bankAccountName,
-                bankAccountNo: bankAccountNo,
-                province: province,
-                city: city,
-                bankName: bankName,
-                bankBranchName: bankBranchName,
-            }
-            editFinanceAccount(params)
-        }else{
-            $.toast({
-                text: '30天内仅能修改一次!',
-                icon: '',
-                delay: 2000,
-                callback: false
-            })
-        }
+        $("#dialog-box").dialog({
+            html: $('#editFinanceAccount-dialog').html(),
+            'closeOnClickModal': false
+        }).open(); 
     })
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
@@ -578,6 +551,35 @@ define(function (require, exports, module) {
     })
     $(document).on('click', '.withdrawal-application-dialog .cancel-btn', function (e) { // 隐藏dialog
         closeRewardPop()
+    })
+
+    $(document).on('click','.go2FinanceAccount-dialog .editFinanceAccount-cancel',function(e){
+        closeRewardPop()
+    })
+    $(document).on('click','.go2FinanceAccount-dialog .editFinanceAccount-confirm',function(e){
+        var bankAccountName = $('.mywallet .account-name .item-account-name').val()
+        var bankAccountNo = $('.mywallet .item-openingbank-num').val()
+        var province = $('.mywallet .item-province').val()
+        var city = $('.mywallet .item-city').val()
+        var bankName = $('.mywallet .item-bank').val() == '其他' ? $('.mywallet .item-bank-name').val() : $('.mywallet .item-bank').val()
+        var bankBranchName = $('.mywallet .item-openingbank-name').val()
+
+        if (!bankAccountName&&(errMsg = '请填写开户名')||!province && (errMsg = '请选择所在省') || !city && (errMsg = '请选择所在的市') || !bankName && (errMsg = '请选择银行') || !bankBranchName && (errMsg = '请填写开户行全称') || !bankAccountNo && (errMsg = '请填写收款银行卡号')) {
+                $.toast({
+                    text: errMsg,
+                    delay: 3000,
+                })
+                return
+            }
+            var params = {
+                bankAccountName: bankAccountName,
+                bankAccountNo: bankAccountNo,
+                province: province,
+                city: city,
+                bankName: bankName,
+                bankBranchName: bankBranchName,
+            }
+            editFinanceAccount(params)
     })
 
     $(document).on('click', '.balance-reflect', function (e) {
