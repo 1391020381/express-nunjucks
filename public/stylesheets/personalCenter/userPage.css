@@ -34,16 +34,6 @@
   font-size: 16px;
   line-height: 24px;
 }
-.personal-center-content .personal-header .person-info .person-info-left p:nth-of-type(1) i {
-  display: inline-block;
-  width: 19px;
-  height: 17px;
-  background: no-repeat center url('../../images/personalCenter/vip-icon.png');
-  background-size: 100%;
-  margin-left: 5px;
-  position: relative;
-  top: 2px;
-}
 .personal-center-content .personal-header .person-info .person-info-left p:nth-of-type(1) .whole-station-vip {
   margin-left: 6px;
   display: inline-block;

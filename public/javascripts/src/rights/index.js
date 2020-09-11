@@ -45,6 +45,8 @@ define(function (require, exports, module) {
                     $JsPayMainVip.html('立即开通');
                 }
             });
+        }else{
+            
         }
     }
 

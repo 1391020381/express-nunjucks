@@ -285,7 +285,7 @@ define(function (require, exports, module) {
             }
         })
     }
-    function getFinanceAccountInfo() { // 查询个人财务信息
+    function getFinanceAccountInfo(isGetEdit) { // 查询个人财务信息
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
@@ -299,6 +299,18 @@ define(function (require, exports, module) {
                     financeAccountInfo = res.data || {}
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo(res)
+                        if(isGetEdit&&res.data.isEdit){
+                            $("#dialog-box").dialog({
+                                html: $('#editFinanceAccount-dialog').html(),
+                                'closeOnClickModal': false
+                            }).open(); 
+                        }
+                        if(isGetEdit&&!res.data.isEdit){
+                            $.toast({
+                                text: '30天内只能修改一次!',
+                                delay: 3000,
+                            })
+                        }
                     }
                 } else {
                     if(res.code !=='410010'){ // 410010
@@ -491,10 +503,8 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        $("#dialog-box").dialog({
-            html: $('#editFinanceAccount-dialog').html(),
-            'closeOnClickModal': false
-        }).open(); 
+        var isGetEdit = true
+        getFinanceAccountInfo(isGetEdit)
     })
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
