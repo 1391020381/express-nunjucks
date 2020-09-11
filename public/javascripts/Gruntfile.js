@@ -67,6 +67,7 @@ module.exports = function (grunt) {
                     'dist/upload/init.js': ['.build/upload/init.js'],
                     'dist/feedback/init.js': ['.build/feedback/init.js'],
                     'dist/404/init.js': ['.build/404/init.js'],
+                    'dist/503/init.js': ['.build/503/init.js'],
                     'dist/personalCenter/init.js': ['.build/personalCenter/init.js'],
                     'dist/personalCenter/redirectionURL.js': ['.build/personalCenter/redirectionURL.js'],
                     'dist/personalCenter/userPage.js': ['.build/personalCenter/userPage.js'],

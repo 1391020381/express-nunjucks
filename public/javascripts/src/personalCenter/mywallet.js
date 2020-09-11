@@ -299,17 +299,16 @@ define(function (require, exports, module) {
                     financeAccountInfo = res.data || {}
                     if (mywalletType == '3') {
                         handleFinanceAccountInfo(res)
-                        if(isGetEdit&&res.data.isEdit){
-                            $("#dialog-box").dialog({
-                                html: $('#editFinanceAccount-dialog').html(),
-                                'closeOnClickModal': false
-                            }).open(); 
-                        }
-                        if(isGetEdit&&!res.data.isEdit){
-                            $.toast({
-                                text: '30天内只能修改一次!',
-                                delay: 3000,
-                            })
+                        if(res.data.isEdit||res.data.isEdit==null){ // 默认
+                            $('.financial-records-btn .submit-btn').attr('data-isedit',1) // 可以编辑
+                        }else{
+                            $('.financial-records-btn .submit-btn').attr('data-isedit',0)
+                            if(isGetEdit){
+                                $.toast({
+                                    text: '30天内只能修改一次!',
+                                    delay: 3000,
+                                })
+                            }
                         }
                     }
                 } else {
@@ -503,8 +502,15 @@ define(function (require, exports, module) {
         $('.mywallet .item-city').html(str);
     })
     $(document).on('click', '.mywallet .submit-btn', function (e) {
-        var isGetEdit = true
-        getFinanceAccountInfo(isGetEdit)
+        var  isEdit  = $(this).attr('data-isedit')
+        if(isEdit == 0){ // 不能编辑
+            var  isGetEdit = true
+            getFinanceAccountInfo(isGetEdit)
+        }
+        if(isEdit==1){
+            handleEditFinanceAccount()
+        }
+        
     })
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
@@ -568,6 +574,11 @@ define(function (require, exports, module) {
         closeRewardPop()
     })
     $(document).on('click','.go2FinanceAccount-dialog .editFinanceAccount-confirm',function(e){
+        var params = handleEditFinanceAccount()
+        editFinanceAccount(params)
+    })
+     
+    function handleEditFinanceAccount(){
         var bankAccountName = $('.mywallet .account-name .item-account-name').val()
         var bankAccountNo = $('.mywallet .item-openingbank-num').val()
         var province = $('.mywallet .item-province').val()
@@ -581,6 +592,11 @@ define(function (require, exports, module) {
                     delay: 3000,
                 })
                 return
+            }else{ // 
+                $("#dialog-box").dialog({
+                    html: $('#editFinanceAccount-dialog').html(),
+                    'closeOnClickModal': false
+                }).open(); 
             }
             var params = {
                 bankAccountName: bankAccountName,
@@ -590,9 +606,9 @@ define(function (require, exports, module) {
                 bankName: bankName,
                 bankBranchName: bankBranchName,
             }
-            editFinanceAccount(params)
-    })
-
+            return params
+          
+    }
     $(document).on('click', '.balance-reflect', function (e) {
         var financeaccountinfoIsComplete = financeAccountInfo.bankAccountName && financeAccountInfo.bankAccountNo && financeAccountInfo.province && financeAccountInfo.city && financeAccountInfo.bankName && financeAccountInfo.bankBranchName && financeAccountInfo.userTypeName ? true : false
         // balance = 200
