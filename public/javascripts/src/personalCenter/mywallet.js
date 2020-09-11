@@ -518,7 +518,7 @@ define(function (require, exports, module) {
         var withdrawPrice = +$(this).val()
         if(!reg.test(+withdrawPrice)){
             $.toast({
-                text: '请输入正确的提现金额!',
+                text: '请输入正确的提现金额(小数位只允许输入两位)',
                 icon: '',
                 delay: 2000,
                 callback: false
@@ -527,7 +527,7 @@ define(function (require, exports, module) {
             return
         }
         if(financeAccountInfo.userTypeName != '机构'){
-            utils.debounce(getPersonalAccountTax((withdrawPrice*100).toFixed(2)), 1000)
+            utils.debounce(getPersonalAccountTax((withdrawPrice*100), 1000))
         }
       
         
@@ -535,7 +535,7 @@ define(function (require, exports, module) {
     $(document).on('click','.withdrawal-application-dialog .full-withdrawal',function(e){
         balance&&$('.withdrawal-application-dialog .amount').val((balance-100).toFixed(2))
         if(financeAccountInfo.userTypeName != '机构'){
-            getPersonalAccountTax(((balance-100)*100).toFixed(2))
+            getPersonalAccountTax(balance*100-10000)
         }
     })
 
@@ -544,7 +544,7 @@ define(function (require, exports, module) {
         var invoicePicUrl =  invoicePicture.picKey
         var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/    // 校验金额
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
-        if (!withPrice && (errMsg = '请输入提现金额') || !reg.test(+withPrice)&&(errMsg='请输入正确的金额')|| (financeAccountInfo.userTypeName == '机构'&&!invoicePicUrl && (errMsg = '请上传发票图片'))) {
+        if (!withPrice && (errMsg = '请输入提现金额') || !reg.test(+withPrice)&&(errMsg='请输入正确的金额(小数位只允许输入两位)')|| (financeAccountInfo.userTypeName == '机构'&&!invoicePicUrl && (errMsg = '请上传发票图片'))) {
             $.toast({
                 text: errMsg,
                 delay: 3000,
@@ -554,11 +554,11 @@ define(function (require, exports, module) {
         var params = {}
         if(financeAccountInfo.userTypeName != '机构'){
              params = {
-                withPrice: (withPrice*100).toFixed(2)
+                withPrice: withPrice*100
             }
         }else{
             params = {
-                withPrice: (withPrice*100).toFixed(2),
+                withPrice: withPrice*100,
                 invoicePicUrl: invoicePicUrl,
                 invoiceType: invoiceType
             }  
