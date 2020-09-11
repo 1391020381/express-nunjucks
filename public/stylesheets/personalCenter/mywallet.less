@@ -96,7 +96,8 @@
                     display: inline-block;
                     font-size: 16px;
                     color: #656565;
-                    vertical-align: middle;
+                    vertical-align: bottom;
+                    margin-bottom: 4px;
                 }
 
                 .balance-icon {
@@ -105,7 +106,8 @@
                     height: 14px;
                     background: url("../../images/personalCenter/question-mark.png") no-repeat center;
                     background-size: 100%;
-                    vertical-align: sub;
+                    vertical-align: bottom;
+                    margin-bottom: 6px;
 
                     &:hover {
                         .bean-info {
@@ -126,6 +128,9 @@
                     font-size: 13px;
                     color: #212121;
                     vertical-align: bottom;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                    display: inline-block;
                 }
 
                 .balance-reflect {
@@ -330,11 +335,13 @@
                         background-size: 100%;
                         vertical-align: middle;
                     }
-                    &:hover{
-                        .audit-failed-reason{
+
+                    &:hover {
+                        .audit-failed-reason {
                             display: block;
                         }
                     }
+
                     .audit-failed-reason {
                         display: none;
                         position: absolute;
@@ -431,9 +438,10 @@
             }
 
             .account-name {
-                em{
+                em {
                     left: 46px;
                 }
+
                 .item-content {
                     font-size: 14px;
                     color: #222222;

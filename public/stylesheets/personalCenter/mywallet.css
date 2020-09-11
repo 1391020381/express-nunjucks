@@ -85,7 +85,8 @@
   display: inline-block;
   font-size: 16px;
   color: #656565;
-  vertical-align: middle;
+  vertical-align: bottom;
+  margin-bottom: 4px;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon {
   display: inline-block;
@@ -93,7 +94,8 @@
   height: 14px;
   background: url("../../images/personalCenter/question-mark.png") no-repeat center;
   background-size: 100%;
-  vertical-align: sub;
+  vertical-align: bottom;
+  margin-bottom: 6px;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon:hover .bean-info {
   display: block;
@@ -109,6 +111,9 @@
   font-size: 13px;
   color: #212121;
   vertical-align: bottom;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-reflect {
   margin-left: 18px;
