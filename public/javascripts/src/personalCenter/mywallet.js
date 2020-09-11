@@ -524,9 +524,9 @@ define(function (require, exports, module) {
     })
 
     $(document).on('input', '.withdrawal-application-dialog .amount', function (e) { // 查询个人提现扣税结算
-        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/    // 校验金额
+        var reg =  /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/     // 校验金额
         var withdrawPrice = +$(this).val()
-        if(!reg.test(+withdrawPrice) ||withdrawPrice == '' || withdrawPrice == '0' || withdrawPrice == '0.' || withdrawPrice == '0.0'){
+        if(!reg.test(+withdrawPrice)){
             $.toast({
                 text: '请输入正确的提现金额!',
                 icon: '',
@@ -543,17 +543,18 @@ define(function (require, exports, module) {
         
     })
     $(document).on('click','.withdrawal-application-dialog .full-withdrawal',function(e){
-        balance&&$('.withdrawal-application-dialog .amount').val(balance-100)
+        balance&&$('.withdrawal-application-dialog .amount').val((balance-100).toFixed(2))
         if(financeAccountInfo.userTypeName != '机构'){
-            getPersonalAccountTax((balance-100)*100)
+            getPersonalAccountTax(((balance-100)*100).toFixed(2))
         }
     })
 
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
         var withPrice = $('.withdrawal-application-dialog .amount').val()
         var invoicePicUrl =  invoicePicture.picKey
+        var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/    // 校验金额
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
-        if (!withPrice && (errMsg = '请输入提现金额') || (financeAccountInfo.userTypeName == '机构'&&!invoicePicUrl && (errMsg = '请上传发票图片'))) {
+        if (!withPrice && (errMsg = '请输入提现金额') || !reg.test(+withPrice)&&(errMsg='请输入正确的金额')|| (financeAccountInfo.userTypeName == '机构'&&!invoicePicUrl && (errMsg = '请上传发票图片'))) {
             $.toast({
                 text: errMsg,
                 delay: 3000,
@@ -563,11 +564,11 @@ define(function (require, exports, module) {
         var params = {}
         if(financeAccountInfo.userTypeName != '机构'){
              params = {
-                withPrice: withPrice*100
+                withPrice: (withPrice*100).toFixed(2)
             }
         }else{
             params = {
-                withPrice: withPrice*100,
+                withPrice: (withPrice*100).toFixed(2),
                 invoicePicUrl: invoicePicUrl,
                 invoiceType: invoiceType
             }  

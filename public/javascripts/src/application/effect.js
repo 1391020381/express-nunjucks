@@ -133,14 +133,14 @@ define(function (require, exports, module) {
                 refreshTopBar(data);
                
             });
-        }else if(!isAutoLogin){ // 当不用自动登录
-            callback&&callback()
-        } else if(method.getCookie('cuk')){
+        }else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
                 // callback2&&callback2()
                 callback&&callback(data)
                 refreshTopBar(data);
             });
+        }else if(!isAutoLogin){
+            callback&&callback()
         }
     }
     return {
