@@ -290,7 +290,7 @@
 .personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-reason {
   display: none;
   position: absolute;
-  left: 53px;
+  left: 10px;
   top: -50px;
   width: 190px;
   height: 40px;
@@ -308,7 +308,7 @@
   border-left: 8px solid transparent;
   position: absolute;
   bottom: -16px;
-  left: 15px;
+  left: 58px;
 }
 .personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-reason .after {
   width: 0;
@@ -319,7 +319,7 @@
   border-left: 8px solid transparent;
   position: absolute;
   bottom: -15px;
-  left: 15px;
+  left: 58px;
 }
 .personal-center-mywallet .mywallet .withdrawal-record-table-list .empty-data {
   position: absolute;
