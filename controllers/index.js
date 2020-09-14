@@ -189,6 +189,8 @@ module.exports = {
                         }else if(item.pageId == util.pageIds.index.friendLink){
                             // 友情链接
                             results.friendLink = util.dealHref(item).list || [];
+                        }else if(item.pageId == util.pageIds.index.vipqy){
+                            results.vipqy = util.dealHref(item).list || []
                         }
                     })
                      // VIP专区优先展示第四范式的数据，如果第四范式没有返回数据，则取自定义推荐位配置的数据*

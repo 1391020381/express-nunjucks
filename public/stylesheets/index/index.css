@@ -909,30 +909,29 @@
   overflow: hidden;
   margin-top: 5px;
 }
-.specail-area .user-state .inner-wrap .special-des ul li {
+.specail-area .user-state .inner-wrap .special-des ul .vipqy {
   float: left;
   color: #987C49;
   font-size: 12px;
-  padding-left: 30px;
   height: 21px;
   line-height: 21px;
-  width: 82px;
   margin-top: 18px;
 }
-.specail-area .user-state .inner-wrap .special-des ul li.special {
-  background: url(../../images/index/vip_down.png) left center no-repeat;
+.specail-area .user-state .inner-wrap .special-des ul .vipqy .vipqy-img {
+  display: inline-block;
+  vertical-align: middle;
 }
-.specail-area .user-state .inner-wrap .special-des ul li.discount {
-  background: url(../../images/index/discount_icon.png) left center no-repeat;
-}
-.specail-area .user-state .inner-wrap .special-des ul li.free {
-  background: url(../../images/index/free_icon.png) left 4px center no-repeat;
-}
-.specail-area .user-state .inner-wrap .special-des ul li.identical {
-  background: url(../../images/index/identical_icon.png) left center no-repeat;
-}
-.specail-area .user-state .inner-wrap .special-des ul li:nth-child(2n) {
+.specail-area .user-state .inner-wrap .special-des ul .vipqy .vipqy-desc {
   margin-left: 6px;
+  display: inline-block;
+  max-width: 72px;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.specail-area .user-state .inner-wrap .special-des ul .vipqy:nth-child(2n) {
+  margin-left: 16px;
 }
 .specail-area .user-state .inner-wrap .userOperateBtn {
   height: 44px;

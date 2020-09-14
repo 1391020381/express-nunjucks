@@ -239,10 +239,13 @@
                 </div>
                 <div class="special-des">
                     <ul>
-                        <li class="special">专享下载特权</li>
+                      {%for item in results.vipqy  %}
+                       <li class="vipqy"><img class="vipqy-img" src="{{item.imagUrl}}"/> <span class="vipqy-desc">{{item.copywriting1}}</span></li>
+                    {%endfor%}
+                        {# <li class="special">专享下载特权</li>
                         <li class="discount">付费资料折扣</li>
                         <li class="free">海量资料免费下</li>
-                        <li class="identical">专属身份标识</li>
+                        <li class="identical">专属身份标识</li> #}
                     </ul>
                 </div>
                 <a class="userOperateBtn hide gocenter" target="_blank" href="/node/personalCenter/vip.html">会员中心</a>
