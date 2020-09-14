@@ -418,7 +418,7 @@ define(function (require, exports, module) {
        
         userFinanceAccountInfo = res.data || {}
       
-        userFinanceAccountInfo.isEdit = (userFinanceAccountInfo.isEdit == true || userFinanceAccountInfo.isEdit == null) ?true:false
+        userFinanceAccountInfo.isEdit =  (userFinanceAccountInfo.isEdit == true || userFinanceAccountInfo.isEdit == null) ?true:false
 
         getProvinceAndCityList(res.data||{})
         var _mywalletTemplate = template.compile(mywallet)({ financeAccountInfo: userFinanceAccountInfo || {}, provinceList: provinceList, cityList: cityList, bankList: bankData, mywalletType: mywalletType });

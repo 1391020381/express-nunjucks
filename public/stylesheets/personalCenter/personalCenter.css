@@ -1295,12 +1295,12 @@
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   background: url("../../images/personalCenter/question-mark.png") no-repeat center;
   background-size: 100%;
   vertical-align: bottom;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon:hover .bean-info {
   display: block;
@@ -1344,7 +1344,8 @@
 .personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-icon {
   display: inline-block;
   width: 3px;
-  height: 13px;
+  height: 14px;
+  vertical-align: middle;
   background: #666666;
 }
 .personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-desc {
@@ -1444,14 +1445,13 @@
 }
 .personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-icon {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
   background-size: 100%;
   vertical-align: middle;
 }
 .personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-desc {
-  margin-left: 5px;
   margin-bottom: 38px;
   font-size: 14px;
   color: #656565;
@@ -1483,9 +1483,9 @@
 .personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-icon {
   margin-left: 2px;
   display: inline-block;
-  width: 14px;
-  height: 14px;
-  background: url('../../images/personalCenter/home-attion.png') no-repeat center;
+  width: 18px;
+  height: 18px;
+  background: url('../../images/personalCenter/home-attention.png') no-repeat center;
   background-size: 100%;
   vertical-align: middle;
 }
@@ -1536,11 +1536,14 @@
 }
 .personal-center-mywallet .mywallet .mywallet-financial-records .financial-records-icon {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   background: url(../../images/personalCenter/question-mark.png) no-repeat center;
   background-size: 100%;
   vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .mywallet-financial-records .financial-records-desc .qq {
+  color: #F25226;
 }
 .personal-center-mywallet .mywallet .financial-records-content {
   padding: 30px 60px 0 40px;
@@ -1653,6 +1656,11 @@
 }
 .personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number em {
   left: 0px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .item-disabled {
+  color: #999999 !important;
+  background: #F8F8F8 !important;
+  border: 1px solid #DDDDDD !important;
 }
 .personal-center-mywallet .mywallet .financial-records-btn {
   margin-top: 60px;
@@ -2013,7 +2021,7 @@
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-title .title-icon {
   display: inline-block;
   width: 4px;
-  height: 17px;
+  height: 18px;
   background: #F25226;
   vertical-align: middle;
 }
@@ -2024,9 +2032,12 @@
   font-weight: bold;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-title .title-subdesc {
-  margin-left: 6px;
-  font-size: 12px;
-  color: #9A9A9A;
+  margin-left: 5px;
+  font-size: 16px;
+  color: #222222;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from {
   margin-top: 33px;
@@ -2068,15 +2079,17 @@
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .actual-receipt .tax-explanation-icon {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
   background-size: 100%;
+  vertical-align: middle;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .withdrawal-amount .actual-receipt .tax-explanation-desc {
   margin-left: 5px;
   font-size: 14px;
   color: #F25226;
+  vertical-align: middle;
 }
 .personal-center-dialog .withdrawal-application-dialog .withdrawal-application-from .invoice {
   margin-top: 42px;
