@@ -827,7 +827,7 @@
 }
 .specail-area .user-state .inner-wrap .user-top {
   overflow: hidden;
-  padding-bottom: 24px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #F4F4F4;
 }
 .specail-area .user-state .inner-wrap .user-top .avatar-frame {
@@ -872,7 +872,7 @@
 .specail-area .user-state .inner-wrap .user-top .user-info .info-des {
   font-size: 12px;
   color: #888;
-  margin-top: 13px;
+  margin-top: 8px;
 }
 .specail-area .user-state .inner-wrap .user-top .user-info .info-des .whole-station-vip .whole-station-vip-icon {
   display: inline-block;

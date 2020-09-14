@@ -10,6 +10,7 @@
   color: #222222;
 }
 .personal-center-vip .myvip-top .not-vip {
+  margin-bottom: 10px;
   background: #fcfaf4;
   border: 1px solid #fae5a6;
   border-radius: 4px;
@@ -44,7 +45,7 @@
 .personal-center-vip .myvip-top .not-vip .not-vip-left .not-vip-top-left-subtitle {
   margin-top: 14px;
   font-size: 14px;
-  color: #9A9A9A;
+  color: #999999;
 }
 .personal-center-vip .myvip-top .not-vip .not-vip-right {
   margin-right: 40px;
@@ -73,6 +74,7 @@
   background-size: 100%;
 }
 .personal-center-vip .myvip-top .vip-summary {
+  margin-bottom: 10px;
   background: url('../../images/personalCenter/vip-bg.png') no-repeat center;
   background-size: cover;
   border: 1px solid #fae5a6;
@@ -80,7 +82,7 @@
 }
 .personal-center-vip .myvip-top .vip-summary .vip-summary-title {
   margin-left: 40px;
-  padding-top: 38px;
+  padding-top: 27px;
   font-size: 22px;
   color: #fff;
 }
@@ -144,7 +146,6 @@
 .personal-center-vip .my-vip-middle {
   width: 940px;
   border-top: solid 10px #fafafa;
-  height: 141px;
   background: #fff;
 }
 .personal-center-vip .my-vip-middle .personalCenter-myvip-swiper-container {
