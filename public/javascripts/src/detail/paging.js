@@ -132,7 +132,7 @@ define(function (require, exports, module) {
     if(initReadPage>imgTotalPage){  
         changeText() 
     }
-    if($('.page-num').text().trim()){  //  totalPage < 4
+    if($('.page-num').text().trim()<0){  //  totalPage < 4
         $('.page-num').text(0)
     }
     $(function () {
