@@ -533,14 +533,17 @@ define(function (require, exports, module) {
         
     })
     $(document).on('click','.withdrawal-application-dialog .full-withdrawal',function(e){
-        balance&&$('.withdrawal-application-dialog .amount').val((balance-100).toFixed(2))
+        fullWithdrawal()
+    })
+   
+    function fullWithdrawal(){
+        balance&&$('.withdrawal-application-dialog .amount').text((balance-100).toFixed(2))
         if(financeAccountInfo.userTypeName != '机构'){
             getPersonalAccountTax(balance*100-10000)
         }
-    })
-
+    }
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
-        var withPrice = $('.withdrawal-application-dialog .amount').val()
+        var withPrice = $('.withdrawal-application-dialog .amount').text()
         var invoicePicUrl =  invoicePicture.picKey
         var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/    // 校验金额
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
@@ -624,6 +627,7 @@ define(function (require, exports, module) {
                 }else{
                     uploadfile()
                 }
+                fullWithdrawal()
             } else {
                 $("#dialog-box").dialog({
                     html: $('#go2FinanceAccount-dialog').html(),
