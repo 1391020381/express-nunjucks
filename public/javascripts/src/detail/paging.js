@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     var loadMoreStyle = require('./changeDetailFooter').loadMoreStyle
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
-    var cPage = 2;
+    var cPage = 4;
     var restPage = 0;
     var imgTotalPage = window.pageConfig.imgUrl.length;
     var totalPage = window.pageConfig.params.totalPage;//最大页数
@@ -39,7 +39,7 @@ define(function (require, exports, module) {
                 $(".detail-pro-con div.article-page").eq(3).show();
             }
             //加载广告
-            createAd('a_6307747', 'a_page_con_3');
+         //   createAd('a_6307747', 'a_page_con_3');  现在一次性加载四页
             //保存当前渲染页面数
             var arr = [];
             var pageNum = $(".detail-pro-con div.article-page").length;
