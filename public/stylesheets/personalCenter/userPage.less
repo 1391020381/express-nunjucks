@@ -77,8 +77,16 @@
             font-size: 14px; 
             color: #999999;
             width: 450px;
+            max-height: 40px;
             margin: 12px auto 0 auto;
-            line-height:24px;
+            // line-height:24px;
+            text-overflow: -o-ellipsis-lastline;
+           overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+         -webkit-line-clamp: 2;
+          line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
     }
     .personal-container{
