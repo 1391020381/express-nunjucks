@@ -141,7 +141,7 @@ module.exports = {
                              }
                         } else {
                             if(data.code == 'G-404'){ // 文件不存在
-                                var results = Object.assign({},defaultResultsData,{showFlag:false})
+                                var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404'})
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
