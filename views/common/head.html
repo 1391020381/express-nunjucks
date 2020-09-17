@@ -10,10 +10,15 @@
 
 
 {%if results.isDetailRender%}
+   {% if results.statusCode == '404'%}
+     <title>404错误 - 爱问共享资料</title>
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/> 
+   {%else%}}
     <title>{{results.list.data.title}} - 爱问共享资料</title>
     <meta name="description" content="爱问共享资料提供优质的{{results.list.data.title}}下载，可编辑，可替换，更多{{results.list.data.title}}资料，快来爱问共享资料下载!" />
    <meta name="keywords" content="{{results.list.data.title}}" />
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/> 
+    {% if %}}
 {%else%}
     <title>{{ results.list.data.tdk.title if results.list.data.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
     <meta name="description" content="{{ results.list.data.tdk.description if results.list.data.tdk.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
