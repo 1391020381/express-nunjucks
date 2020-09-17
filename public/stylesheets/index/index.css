@@ -919,6 +919,8 @@
 }
 .specail-area .user-state .inner-wrap .special-des ul .vipqy .vipqy-img {
   display: inline-block;
+  width: 25px;
+  height: 21px;
   vertical-align: middle;
 }
 .specail-area .user-state .inner-wrap .special-des ul .vipqy .vipqy-desc {
