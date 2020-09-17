@@ -208,7 +208,7 @@
 .personal-center-home .opentvip {
   margin-top: 10px;
   text-align: center;
-  padding: 45px 100px 50px 100px;
+  padding: 45px 60px 50px 60px;
   background: #ffffff;
 }
 .personal-center-home .opentvip .opentvip-title {
@@ -242,8 +242,8 @@
 }
 .personal-center-home .opentvip .vip-privilege-items .item .item-img {
   display: inline-block;
-  width: 34px;
-  height: 34px;
+  width: 56px;
+  height: 56px;
 }
 .personal-center-home .opentvip .vip-privilege-items .item .item-desc {
   margin-top: 10px;

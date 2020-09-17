@@ -124,13 +124,13 @@
 .personal-center-vip .myvip-top .vip-privilege-items .item {
   float: left;
   text-align: center;
-  margin-right: 90px;
+  margin-right: 70px;
   font-size: 12px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item .item-img {
   display: inline-block;
-  width: 34px;
-  height: 34px;
+  width: 56px;
+  height: 56px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item .item-desc {
   margin-top: 10px;
