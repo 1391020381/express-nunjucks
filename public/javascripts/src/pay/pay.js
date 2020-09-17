@@ -16,6 +16,9 @@ define(function (require, exports, moudle) {
     var api = require('../application/api');
  
     require("../common/bilog");
+      // 优惠券相关需要在登录后执行
+      require("../common/coupon/couponOperate");
+      require("../common/coupon/couponIssue");
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
     var checkStatus =   window.pageConfig.params.checkStatus||'10'
@@ -26,12 +29,11 @@ define(function (require, exports, moudle) {
     var callback = null;
     isLogin(initPage,isAutoLogin,initPage);
 
-     // 优惠券相关需要在登录后执行
-    require("../common/coupon/couponOperate");
-    require("../common/coupon/couponIssue");
+   
     //生成二维码
    function initPage(userInfo){
-    window.pageConfig.params.fileDiscount = userInfo.fileInfo  // 获取用户折扣 在优惠券使用
+    window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
+    $('.pay-vip-list .active').trigger('click')
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
        // var uid = $("#ip-uid").val();    //  results.data.uid
