@@ -45,8 +45,8 @@ define(function (require, exports, module) {
 
     if (env == 'prod') {
         urlConfig = {
-            ajaxUrl: 'http://prod-ishare.iask.sina.com.cn',
-            payUrl: 'http://prod-open-ishare.iask.com.cn',
+            ajaxUrl: 'http://ishare.iask.sina.com.cn',
+            payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: ''
         }
     }
