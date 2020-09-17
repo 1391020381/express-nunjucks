@@ -245,7 +245,7 @@ define(function (require,exports,moudle) {
                 $('.js-vip-open').hide()
             }else{
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
-                $('.user-state .info-des').text('普通用户');
+                $('.user-state .info-des').text('你还不是VIP');
             }
         }
      }

@@ -93,7 +93,7 @@ define(function(require , exports , module){
                         ]
                         $('.js-organize span').text(organizeIndustryArr[data.data.organizeIndustryType].title);
                         $('.js-organlist').remove();
-                        $('.js-industry span').text(industryTypeArr[data.data.industryType].title);
+                        data.data.industryType?$('.js-industry span').text(industryTypeArr[data.data.industryType].title):"";
                         $('.js-industryTypeList').remove();
                         $('.js-organize-name').val(data.data.organizeName).attr('disabled','disabled');
                         $('.js-website').val(data.data.organizeWebsite).attr('disabled','disabled');

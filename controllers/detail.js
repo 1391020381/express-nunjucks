@@ -121,7 +121,7 @@ module.exports = {
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404'},defaultResultsData) 
+                                var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404',isDetailRender:true},defaultResultsData) 
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
@@ -131,7 +131,7 @@ module.exports = {
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302'},defaultResultsData)
+                                var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302',isDetailRender:true},defaultResultsData)
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
@@ -141,7 +141,7 @@ module.exports = {
                              }
                         } else {
                             if(data.code == 'G-404'){ // 文件不存在
-                                var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404'})
+                                var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404',isDetailRender:true})
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
