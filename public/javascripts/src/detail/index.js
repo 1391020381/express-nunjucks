@@ -131,13 +131,13 @@ define(function (require, exports, module) {
             }
             return true;
         });
-        $('.btn-new-search').on('click', function () {
-            var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-            // if (!_val) {
-            //     return
-            // }
-            searchFn(_val);
-        });
+        // $('.btn-new-search').on('click', function () {
+        //     var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
+        //     // if (!_val) {
+        //     //     return
+        //     // }
+        //     searchFn(_val);
+        // });
         $('.detail-search-info').on('click',function(){
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
             // if (!_val) {
