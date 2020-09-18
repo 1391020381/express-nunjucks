@@ -225,9 +225,9 @@ $(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
             activeClass: 'active',
             element: 'div',
             callback: function ($this) {
-                var price = $this.data('price');
-                var activePrice = $this.data('activeprice');
-                var discountPrice = $this.data('discountprice');
+                var price = $this.data('price').toFixed(2);
+                var activePrice = $this.data('activeprice').toFixed(2);
+                var discountPrice = $this.data('discountprice').toFixed(2);
                // class give-desc
                var giveDesc =  $this.find('.give-desc').html() || ''
                 $(".js-tab .gift-copy").html(giveDesc)
