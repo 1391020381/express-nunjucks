@@ -27,9 +27,7 @@ define(function (require, exports, module) {
             } else if (pageNum >= imgTotalPage) {
                $(".show-over-text").eq(1).show();
             }
-            // $(".show-more-text").hide();
-            // $(".btn-read-more").hide();
-            // $(".article-mask").hide();
+           
         },
         //加载渲染
         drawing: function (currentPage) {

@@ -131,13 +131,7 @@ define(function (require, exports, module) {
             }
             return true;
         });
-        // $('.btn-new-search').on('click', function () {
-        //     var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-        //     // if (!_val) {
-        //     //     return
-        //     // }
-        //     searchFn(_val);
-        // });
+       
         $('.detail-search-info').on('click',function(){
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
             // if (!_val) {
@@ -554,21 +548,7 @@ define(function (require, exports, module) {
 
    
 
-    // 评论
-    // function commentArticle() {
-    //     if (!method.getCookie('cuk')) {
-    //         login.notifyLoginInterface(function (data) {
-    //             common.afterLogin(data);
-    //         });
-    //     } else if (method.getCookie('cuk') && !common.userData) {
-    //         login.getLoginData(function (data) {
-    //             common.afterLogin(data);
-    //             commentContent();
-    //         })
-    //     } else {
-    //         commentContent();
-    //     }
-    // }
+  
 
     var commentContent = function () {
         var content = $('#commentTxt').val();

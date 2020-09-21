@@ -33,7 +33,7 @@ define(function (require, exports, module) {
             getDownloadRecordList:gateway + '/content/getDownloadRecordList', //用户下载记录接口
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
             getMyUploadPage:gateway + '/content/getMyUploadPage',   // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
-            getOtherUser:gateway+'/user/getOthersCentreInfo',//他人信息主页 
+            getOtherUser:gateway +'/user/getOthersCentreInfo',//他人信息主页 
             getSearchList:gateway+'/search/content/byCondition', //他人信息主页 热门与最新
             getVisitorId: gateway + '/user/getVisitorId'   // 获取游客id
         },

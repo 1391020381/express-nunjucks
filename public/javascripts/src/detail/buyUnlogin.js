@@ -1,18 +1,16 @@
 define(function (require, exports, module) {
-    // var $ = require("$");
+
     var api = require('../application/api');
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
-    // var report = require("../pay/report");
-    // var downLoadReport = $.extend({}, gioData);
+   
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
     var common = require('./common');
-    // downLoadReport.docPageType_var = pageConfig.page.ptype;
-    // downLoadReport.fileUid_var = pageConfig.params.file_uid;
+    
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
     // 资料详情数据-从全局window中获取
@@ -61,10 +59,6 @@ define(function (require, exports, module) {
                 unloginObj.closeLoginWindon()
             })
             //失败重新生产订单
-            // $('body').on('click', '.buyUnloginWrap .failTip', function () {
-            //     unloginObj.createOrder();
-            //     unloginObj.count = 0;
-            // })
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-refresh', function () {
                 unloginObj.createOrder();
                 unloginObj.count = 0;
@@ -121,21 +115,16 @@ define(function (require, exports, module) {
                     unloginObj.createdQrCode(data.data.orderNo);
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
-                    //     gioPayDocReport.orderId_var = data.data.orderNo;
-                    //    gioPayDocReport.buyer_uid = visitorId;
-                    //    gioPayDocReport.login_flag = '游客';
+                   
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
-                    // $('.qrShadow').hide();
-                    // $('.shadowTip').hide()
+                  
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
-                    // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').show()
+                    
                 } else {
-                    // $('.qrShadow').show();
-                    // $('.failTip').show()
-                    // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
+                    
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
@@ -144,15 +133,11 @@ define(function (require, exports, module) {
             });
         },
         createdQrCode: function (oid) {
-            // var url = location.protocol+'//'+location.hostname + "/notm/qr?oid=" + oid;
-            // var url = location.protocol + "/pay/payment?orderNo=" + oid
-            // var url = location.origin + "/pay/qr?orderNo=" + oid;
-         //   var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid ;
+        
             var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid
             console.log(url)
             try {
-                // qr.createQrCode(url, 'payQrCode', 162, 162);
-                // qr.createdQrCode(url,'touristPayQrCode',162,162)
+              
                 qr.createQrCode(url,'touristPayQrCode',178,178)
             } catch (e) {
                 console.log('createdQrCode:',e)
@@ -196,10 +181,7 @@ define(function (require, exports, module) {
                                 }, 3000);
                             }
                             if (unloginObj.count > 28) {
-                                // $('.qrShadow').show();
-                                // $('.failTip').show()
-                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr').hide()
-                                // $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
+                               
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
@@ -207,8 +189,7 @@ define(function (require, exports, module) {
                         } else if (orderInfo.orderStatus == 2) {
                             // 成功
                             try {
-                                //  report.docPaySuccess(gioPayDocReport);//GIO购买上报
-                                //  __pc__.gioTrack("docDLSuccess", downLoadReport);//GIO下载上报
+                               
                                 unloginObj.closeLoginWindon();
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
