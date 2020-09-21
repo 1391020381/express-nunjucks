@@ -21,7 +21,7 @@ var classId = null;
 var title = null;
 var spcClassId = null;
 var isGetClassType = null;
-var fileAttr = 1; //1 普通文件 2 办公频道文件
+
 var format = '';
 var classid1 = '';
 var productType = ''
@@ -64,9 +64,9 @@ module.exports = {
                         var fileInfo = data.data&&data.data.fileInfo;
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
+                       
                             fid = fileInfo.id;  // 文件id
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                          
                             classId = fileInfo.classid;  // 分类id
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
@@ -126,7 +126,7 @@ module.exports = {
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {

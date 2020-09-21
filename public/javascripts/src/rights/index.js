@@ -4,125 +4,100 @@
 define(function (require, exports, module) {
     var method = require("../application/method");
     var login = require("../application/checkLogin");
-    var $vipPrivilegeBtn = $('.vip-privilege-btn');
-    // var refreshTopBar = require('../application/effect').refreshTopBar
-    loginStatusQuery();
+    var effect = require("../application/effect");
 
-    $vipPrivilegeBtn.on('click', function () {
-        var dataStatus = $(this).attr('data-status');
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                login.getLoginData(function (res) {
-                    refreshTopBar(res);
-                    method.compatibleIESkip('/pay/vip.html', false);
-                })
-            });
-        } else {
-            method.compatibleIESkip('/pay/vip.html', false);
-        }
-    });
+    // 办公vip开通按钮
+    var $JsPayOfficeVip = $('.JsPayOfficeVip');
+    // 全站vip开通按钮
+    var $JsPayMainVip = $('.JsPayMainVip');
+    // 全站vip图标
+    var $JsMainIcon = $('.JsMainIcon');
+    // 办公vip图标
+    var $JsOfficeIcon = $('.JsOfficeIcon');
 
-    $('.menu-items-center div').on('click', function () {
-        var type = $(this).attr('data-type');
-        var scrollTop = 0;
-        if (type === 'privilege') {
-            scrollTop = 440;
-        } else if (type === 'material') {
-            scrollTop = 1150;
-        }
-        $(this).addClass('index').siblings('div').removeClass('index');
-        $('body,html').animate({scrollTop: scrollTop}, 200);
-    });
-
-    $('.vip-user-list .btn').on('click', function () {
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                login.getLoginData(function (res) {
-                    method.compatibleIESkip('/pay/vip.html', false);
-                })
-            });
-        } else {
-            method.compatibleIESkip('/pay/vip.html', false);
-        }
-    });
-
-    $('.zq-btn ').on('click','a', function () {
-        var $this = $(this);
-        var id = $this.attr('data-id');
-        var $target = $('#' + id);
-        $this.addClass('linkButton').siblings('a').removeClass('linkButton');
-        $target.removeClass('hide').siblings('.vip-img-list').addClass('hide');
-    });
-    // 开通或者续费VIP
-    $('.btn-user-more').on('click',function () {
-        method.compatibleIESkip('/pay/vip.html', false);
-    });
-    // 消息按钮
-    $('.message-btn').on('click', function() {
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                refreshTopBar(data);
-            });
-        }
-    })
-    // 登录
-    $('#rightVipUnLogin').on('click', function () {
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                refreshTopBar(data);
-            });
-        }
-    });
-
-    //退出登录
-    $(".js-logout").on("click", function () {
-        login.ishareLogout();
-    });
-
-     function  refreshTopBar(data) {
-        var $unLogin = $('#rightVipUnLogin');
-        var $hasLogin = $('#haveLogin');
-        var $btn_user_more = $('.btn-user-more');
-        var $vip_status = $('.vip-status');
-        var $top_user_more = $(".top-user-more");
-        $btn_user_more.text(data.isVip == 1 ? '续费VIP' : '开通VIP');
-        var $target = null;
-        $('#user-msg').text(data.msgCount);
-        $('.message-btn').attr('href', '/user/message/index?u=' + data.userId)
-        if (data.isVip == 1) {
-            $target = $vip_status.find('p[data-type="2"]');
-            $target.find('.expire_time').html(data.expireTime);
-            $target.show().siblings().hide();
-            $top_user_more.addClass('top-vip-more');
-            $vipPrivilegeBtn.html('立即续费');
-            //vip 已经 过期
-        } else if (data.userType == 1) {
-            $target = $vip_status.find('p[data-type="3"]');
-            $hasLogin.removeClass("user-con-vip");
-            $target.show().siblings().hide();
-        } else if (data.isVip == 0) {
-            $hasLogin.removeClass("user-con-vip");
-            // 续费vip
-        } else if (data.isVip == 2) {
-            // $('.vip-title').hide();
-        }
-        $unLogin.addClass('hide');
-        $hasLogin.removeClass('hide');
-        $hasLogin.find('.user-link .user-name').html(data.nickName);
-        $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
-        $hasLogin.find('.top-user-more .name').html(data.nickName);
-        $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
+    // 登录类型map-对应在登陆时存储到本地cookie中的字段
+    var LoginTypeMap = {
+        wechat: '微信登陆',
+        weibo: '微博登陆',
+        qq: 'QQ登陆',
+        phonePw: '密码登陆',
+        phoneCode: '验证码登陆',
     }
 
-    function loginStatusQuery() {
+    initShow();
+    bindEvent();
+
+    /** 初始化显示 */
+    function initShow() {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
-                refreshTopBar(data);
+                effect.refreshTopBar(data);
+                refreshUserInfo(data);
+                // 区分站点显示不同文本
+                if (data.isOfficeVip === 1) {
+                    $JsPayOfficeVip.html('立即续费');
+                } else {
+                    $JsPayOfficeVip.html('立即开通');
+                }
+                if (data.isMasterVip === 1) {
+                    $JsPayMainVip.html('立即续费');
+                } else {
+                    $JsPayMainVip.html('立即开通');
+                }
             });
+        }else{
+            
         }
     }
 
-    // 意见反馈的url
-    var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
-    $('.user-feedback').attr('href', url);
+    // 展示用户信息
+    function refreshUserInfo(data) {
+        // 区分站点显示不同文本
+        if (data.isOfficeVip === 1) {
+            $JsPayOfficeVip.html('立即续费');
+            $JsOfficeIcon.addClass('i-vip-blue');
+            $JsOfficeIcon.removeClass('i-vip-gray2');
+        } else {
+            $JsOfficeIcon.removeClass('i-vip-blue');
+            $JsOfficeIcon.addClass('i-vip-gray2');
+        }
+        if (data.isMasterVip === 1) {
+            $JsPayMainVip.html('立即续费');
+            $JsMainIcon.addClass('i-vip-yellow');
+            $JsMainIcon.removeClass('i-vip-gray1');
+        } else {
+            $JsMainIcon.removeClass('i-vip-yellow');
+            $JsMainIcon.addClass('i-vip-gray1');
+        }
+
+        $('.jsUserImage').attr('src', data.photoPicURL);
+        $('.jsUserName').text(data.nickName);
+        // 登录类型-对应在登陆时存储到本地cookie中的字段
+        var loginType = method.getCookie('login_type');
+        $('.jsLoginType').text(loginType ? '( ' + LoginTypeMap[loginType] + ' )' : '');
+    }
+
+    /** 事件绑定 */
+    function bindEvent() {
+        // 点立即开通
+        $JsPayMainVip.on('click', function () {
+            event.stopPropagation();
+            if (!method.getCookie('cuk')) {
+                // todo 登录相关待修改
+                login.notifyLoginInterface(function (data) {
+                    effect.refreshTopBar(data);
+                    refreshUserInfo(data);
+
+                    method.compatibleIESkip('/pay/vip.html', false);
+                });
+            } else {
+                method.compatibleIESkip('/pay/vip.html', false);
+            }
+        });
+
+        // 跳转到主站vip购买页
+        $JsPayOfficeVip.on('click', function () {
+            window.open('http://office.iask.com/pay/vip.html', '_blank');
+        });
+    }
 });

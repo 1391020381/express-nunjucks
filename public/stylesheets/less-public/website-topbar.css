@@ -348,8 +348,55 @@
 .new-detail-header .user-con:hover .user-link i {
   background-position: 0 -10px;
 }
+.new-detail-header .user-con:hover .user-more {
+  display: block;
+}
 .new-detail-header .user-con:hover .top-user-more {
   display: block;
+}
+.new-detail-header .user-more {
+  width: 104px;
+  position: absolute;
+  left: -35px;
+  top: 48px;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  line-height: 28px;
+  padding: 10px 0;
+  box-shadow: 0px 2px 4px 0px rgba(57, 0, 0, 0.09);
+  display: none;
+}
+.new-detail-header .user-more .before,
+.new-detail-header .user-more .after {
+  width: 0;
+  height: 0;
+  display: block;
+  overflow: hidden;
+  border-width: 6px;
+  border-style: dashed dashed solid dashed;
+  border-color: transparent transparent #fff transparent;
+  position: absolute;
+  left: 50%;
+  margin-left: -6px;
+  top: -11px;
+  z-index: 2;
+}
+.new-detail-header .user-more .after {
+  border-bottom-color: #e8e8e8;
+  top: -12px;
+  z-index: 1;
+}
+.new-detail-header .user-more a {
+  font-size: 15px;
+  display: block;
+  color: #666666;
+  text-align: center;
+  cursor: pointer;
+}
+.new-detail-header .user-more a:hover {
+  color: #f25125;
+  background-color: #fef6f4;
 }
 .new-detail-header .top-user-more {
   top: 45px;
@@ -379,46 +426,9 @@
   line-height: 16px;
   padding: 0 3px;
   font-size: 12px;
-  font-family: Arial, sans-serif;
   color: #fff;
   background-color: #d80000;
   border-radius: 8px;
-}
-.new-detail-header .user-more {
-  width: 100%;
-  position: absolute;
-  top: 42px;
-  left: 0;
-  background-color: #fff;
-  padding: 10px 0;
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
-  line-height: 28px;
-  display: none;
-}
-.new-detail-header .user-more a {
-  display: block;
-  font-size: 15px;
-  text-align: center;
-}
-.new-detail-header .user-more a:hover {
-  background-color: #fef6f4;
-  color: #f25125;
-}
-.new-detail-header .user-more a.exit {
-  height: 16px;
-  line-height: 16px;
-  padding: 6px 0;
-}
-.new-detail-header .user-more a.exit i {
-  width: 9px;
-  height: 11px;
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
-  vertical-align: middle;
-  background-position: -20px -20px;
-  margin-right: 4px;
 }
 .new-detail-header .header-btn-con {
   float: right;

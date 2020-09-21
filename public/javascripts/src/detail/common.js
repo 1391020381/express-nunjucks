@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     // 页面信息
    // productType  1  4  5 
     var initData = {
+        fileDiscount:'0.8',
         isDownload: pageConfig.page.isDownload,                   //仅在线阅读
         vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
         isVip: 0,                                                        //是否VIP
@@ -102,22 +103,23 @@ define(function (require, exports, module) {
      */
     var reSetOriginalPrice = function () {
         var originalPrice = 0;
-        if (initData.vipDiscountFlag == '1') { // initData.isVip == 1 && initData.vipDiscountFlag && initData.ownVipDiscountFlag
-            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2); // 8折
-           // originalPrice = initData.moneyPrice ;
+        if (initData.vipDiscountFlag == '1') { 
+            originalPrice =initData.isVip == 1? (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2):(initData.moneyPrice * (80 / 100)).toFixed(2); // 8折
+         
             $(".js-original-price").html(originalPrice);
-            // var fileDiscount = userData.fileDiscount;
-            // if (fileDiscount && fileDiscount !== 80) {
-            //     $('.vip-price').html('&yen;' + (initData.moneyPrice * (fileDiscount / 100)).toFixed(2));
-            // }
-            $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
+           
+            if(initData.isVip == 1){
+                $('.vip-price').html('&yen;' + (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2));
+            }else{
+                $('.vip-price').html('&yen;' + (initData.moneyPrice * (80 / 100)).toFixed(2));
+            }
+            
         }
-        if (initData.productType === '5'&& initData.vipDiscountFlag == '1') { // initData.perMin === '3' && initData.vipDiscountFlag && initData.ownVipDiscountFlag
-            originalPrice = ((initData.moneyPrice * 1000) / 1250).toFixed(2);
-           // originalPrice = initData.moneyPrice 
+        if (initData.productType === '5'&& initData.vipDiscountFlag == '1') { 
+            originalPrice = userData.isVip == 1?(initData.moneyPrice *(initData.fileDiscount/100)).toFixed(2):(initData.moneyPrice *(80/100)).toFixed(2);
+          
             $(".js-original-price").html(originalPrice);
-          //  var savePrice = (initData.moneyPrice - originalPrice).toFixed(2);
-            var savePrice = (initData.moneyPrice *0.8).toFixed(2);
+            var savePrice = userData.isVip == 1?(initData.moneyPrice *(initData.fileDiscount/100)).toFixed(2):(initData.moneyPrice *(80/100)).toFixed(2);
             $('#vip-save-money').html(savePrice);
             $('.js-original-price').html(savePrice);
         }
@@ -126,22 +128,22 @@ define(function (require, exports, module) {
     /**
      * 查询是否已经收藏
      */
-    var queryStoreFlag = function () {
-        method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
-            if (res.code == 0) {
-                var $btn_collect = $('#btn-collect');
-                if (res.data === 1) {
-                    $btn_collect.addClass('btn-collect-success');
-                } else {
-                    $btn_collect.removeClass('btn-collect-success')
-                }
-            } else if (res.code == 40001) {
-                setTimeout(function () {
-                    method.delCookie('cuk', "/", ".sina.com.cn");
-                }, 0)
-            }
-        });
-    };
+    // var queryStoreFlag = function () {
+    //     method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
+    //         if (res.code == 0) {
+    //             var $btn_collect = $('#btn-collect');
+    //             if (res.data === 1) {
+    //                 $btn_collect.addClass('btn-collect-success');
+    //             } else {
+    //                 $btn_collect.removeClass('btn-collect-success')
+    //             }
+    //         } else if (res.code == 40001) {
+    //             setTimeout(function () {
+    //                 method.delCookie('cuk', "/", ".sina.com.cn");
+    //             }, 0)
+    //         }
+    //     });
+    // };
 
 
     /**
@@ -151,38 +153,83 @@ define(function (require, exports, module) {
         var validateIE9 = method.validateIE9() ? 1 : 0;
         var pageConfig = window.pageConfig;
         var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
-        method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
-            if (res.code == 0) {
-                pageConfig.page.preRead = res.data.preRead || 50;
-                var num = method.getParam('page');
-                if (num > 0) {
-                    pageConfig.page.is360page = 'true';
-                    pageConfig.page.initReadPage = Math.min(num, 50);
-                }
-                pageConfig.page.status = initData.status = res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+        // method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
+        //     if (res.code == 0) {
+        //         pageConfig.page.preRead = res.data&&res.data.preRead || 50;
+        //         var num = method.getParam('page');
+        //         if (num > 0) {
+        //             pageConfig.page.is360page = 'true';
+        //             pageConfig.page.initReadPage = Math.min(num, 50);
+        //         }
+        //         pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
 
 
-                // 修改继续阅读文案要判断是否购买过
-                // changeText(res.data.status)
-                if (pageConfig.params.file_state === '3') {
-                    var content = res.data.url || pageConfig.imgUrl[0];
-                    var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
-                    var newimgUrl = [];
-                    for (var key in bytes) {
-                        var page = bytes[key];
-                        var param = page[0] + '-' + page[1];
-                        var newUrl = method.changeURLPar(content, 'range', param);
-                        newimgUrl.push(newUrl);
+        //         // 修改继续阅读文案要判断是否购买过
+        //         // changeText(res.data.status)
+        //         if (pageConfig.params.file_state === '3') {
+        //             var content = res.data.url || pageConfig.imgUrl[0];
+        //             var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
+        //             var newimgUrl = [];
+        //             for (var key in bytes) {
+        //                 var page = bytes[key];
+        //                 var param = page[0] + '-' + page[1];
+        //                 var newUrl = method.changeURLPar(content, 'range', param);
+        //                 newimgUrl.push(newUrl);
+        //             }
+        //             pageConfig.imgUrl = newimgUrl;
+        //         }
+        //         //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+        //         if (method.getCookie('cuk')) {
+        //             reloadingPartOfPage();
+        //         }
+        //         reSetOriginalPrice();
+        //     }
+        // })
+
+        $.ajax({
+            url: api.normalFileDetail.getPrePageInfo,
+            type: "POST",
+            data: JSON.stringify({
+                fid:pageConfig.params.g_fileId,
+                validateIE9:validateIE9  
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res.code == 0) {
+                    pageConfig.page.preRead = res.data&&res.data.preRead || 50;
+                    var num = method.getParam('page');
+                    if (num > 0) {
+                        pageConfig.page.is360page = 'true';
+                        pageConfig.page.initReadPage = Math.min(num, 50);
                     }
-                    pageConfig.imgUrl = newimgUrl;
+                    pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+    
+    
+                    // 修改继续阅读文案要判断是否购买过
+                    // changeText(res.data.status)
+                    if (pageConfig.params.file_state === '3') {
+                        var content = res.data.url || pageConfig.imgUrl[0];
+                        var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
+                        var newimgUrl = [];
+                        for (var key in bytes) {
+                            var page = bytes[key];
+                            var param = page[0] + '-' + page[1];
+                            var newUrl = method.changeURLPar(content, 'range', param);
+                            newimgUrl.push(newUrl);
+                        }
+                        pageConfig.imgUrl = newimgUrl;
+                    }
+                    //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+                    if (method.getCookie('cuk')) {
+                        reloadingPartOfPage();
+                    }
+                    reSetOriginalPrice();
                 }
-                //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
-                if (method.getCookie('cuk')) {
-                    reloadingPartOfPage();
-                }
-                reSetOriginalPrice();
             }
         })
+
+
     };
 
     return {
@@ -193,6 +240,8 @@ define(function (require, exports, module) {
         afterLogin: function (data) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
+            initData.fileDiscount = data.fileDiscount
+           window.pageConfig.page.fileDiscount = data.fileDiscount
             reloadHeader(data);
             // queryStoreFlag();
             filePreview();

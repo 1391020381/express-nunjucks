@@ -11,16 +11,16 @@ module.exports = {
         fileDetail: '/content/getFileDetail',
         getFileDetailNoTdk: '/content/getFileDetailNoTdk',
         // 文档详情扩展的信息（统计）
-        fileExternal: '/fileSync/statistics/$fid',
+        // fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
         navCategory:'/content/category/navCategory',
         // 相关资料 (右侧)
-        fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
+        // fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表
         commentList: '/file/getComments?fid=$fid',
         // 限制预读页数
-        preReadPageLimit: '/fileSync/prePageInfo?fid=$fid&validateIE9=$validateIE9',
+        preReadPageLimit: '/content/file/getPrePageInfo',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
         getUserFileZcState:'/comment/zc/getUserFileZcState',
@@ -31,7 +31,8 @@ module.exports = {
         rightsSaleVouchers:   "/rights/sale/vouchers",
         rightsSaleQueryPersonal:'/rights/sale/queryPersonal',
         querySeniority:  '/rights/sale/querySeniority',
-        getRightsVipMemberDetail:'/rights/vip/memberDetail'
+        getRightsVipMemberDetail:'/rights/vip/memberDetail',
+        getVipAllMemberDetail:'/rights/vip/allMemberDetail'
     },
     pay: {
         getVip: '/order/vipPackage',                //获取vip套餐列表(old)
@@ -42,11 +43,12 @@ module.exports = {
         orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
-        status: '/order/status/$orderNo',           //订单状态
+        // status: '/order/status/$orderNo',           //订单状态
+        status: '/order/get/orderInfo',           //订单状态
         orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
-        sms: '/usermanage/getSmsYzCode',            //发送验证码
-        bind: '/usermanage/bindMobile',              //绑定手机号
+        // sms: '/usermanage/getSmsYzCode',            //发送验证码
+        // bind: '/usermanage/bindMobile',              //绑定手机号
         bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
@@ -70,13 +72,13 @@ module.exports = {
         //搜索服务--API接口--条件搜索--同步
         byCondition: '/search/byCondition',
         //搜索服务--API接口--搜索页搜索关联词数据--同步
-        associatedWords: '/search/associatedWords'
+        // associatedWords: '/search/associatedWords'
     },
     user:{
        getUserInfo:'/user/getUserInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
-    queryOrderPc: '/order/bindOrderByOrderNo',
+    // queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     recommendConfigRuleInfo:'/recommend/config/ruleInfo',
     recommendConfigInfo:'/recommend/config/info',

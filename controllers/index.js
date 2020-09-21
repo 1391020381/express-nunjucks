@@ -26,52 +26,53 @@ module.exports = {
             },
              //第四范式 相关推荐
              paradigm4Relevant: function (callback) {
-                var pageIds = ['Q_M_FD_hot_home']
-                let url =  appConfig.newBasePath + '/gateway/recommend/config/info' 
-                let option = {
-                    url: url,
-                    method: 'POST',
-                    body: JSON.stringify(pageIds),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }
-                // callback(null, null);
-                request(option, function (err, res, body) {
-                    // console.log(JSON.stringify(body),'paradigm4Relevant--------------')
-                    if (body) {
-                        try {
-                            var resData = JSON.parse(body);
-                            console.log('请求地址post-------------------:',option.url)
-                            console.log('请求参数-------------------:',option.body)
-                            console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
-                            if (resData.code == 0) {
-                                var data = resData.data || [];
-                                var recommendInfoData_rele = data[0] || {}; //相关资料
-                                get4format(recommendInfoData_rele)
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
-                            callback(null, null);
-                            console.log("err=============", err)
-                        }
-                    } else {
-                        callback(null, null);
-                    }
-                })
-                function get4format(recommendInfoData_rele){
-                    var requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-                    var userID = Math.random().toString().slice(-15); //标注用户的ID，
-                    if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
-                        var sceneIDRelevant = recommendInfoData_rele.useId || '';
-                        req.body = { "page":0};
-                        server.post(`https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`, callback, req);
+                callback(null, null);
+                // var pageIds = ['Q_M_FD_hot_home']
+                // let url =  appConfig.newBasePath + '/gateway/recommend/config/info' 
+                // let option = {
+                //     url: url,
+                //     method: 'POST',
+                //     body: JSON.stringify(pageIds),
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                // }
+                // // callback(null, null);
+                // request(option, function (err, res, body) {
+                //     // console.log(JSON.stringify(body),'paradigm4Relevant--------------')
+                //     if (body) {
+                //         try {
+                //             var resData = JSON.parse(body);
+                //             console.log('请求地址post-------------------:',option.url)
+                //             console.log('请求参数-------------------:',option.body)
+                //             console.log('返回code------:'+resData.code,'返回msg-------:'+resData.msg)
+                //             if (resData.code == 0) {
+                //                 var data = resData.data || [];
+                //                 var recommendInfoData_rele = data[0] || {}; //相关资料
+                //                 get4format(recommendInfoData_rele)
+                //             } else {
+                //                 callback(null, null);
+                //             }
+                //         } catch (err) {
+                //             callback(null, null);
+                //             console.log("err=============", err)
+                //         }
+                //     } else {
+                //         callback(null, null);
+                //     }
+                // })
+                // function get4format(recommendInfoData_rele){
+                //     var requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+                //     var userID = Math.random().toString().slice(-15); //标注用户的ID，
+                //     if (recommendInfoData_rele.useId) {  // recommendInfo 接口中   recommendInfoData_rele = data[0] || {}; //相关资料  recommendInfoData_guess = data[1] || {}; // 个性化 猜你喜欢
+                //         var sceneIDRelevant = recommendInfoData_rele.useId || '';
+                //         req.body = { "page":0};
+                //         server.post(`https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`, callback, req);
                      
-                    } else {
-                        callback(null, null);
-                    }
-                }
+                //     } else {
+                //         callback(null, null);
+                //     }
+                // }
             },
             categoryList:function(callback) {
                 // console.log(appConfig.apiNewBaselPath+api.index.navList)
@@ -189,6 +190,8 @@ module.exports = {
                         }else if(item.pageId == util.pageIds.index.friendLink){
                             // 友情链接
                             results.friendLink = util.dealHref(item).list || [];
+                        }else if(item.pageId == util.pageIds.index.vipqy){
+                            results.vipqy = util.dealHref(item).list || []
                         }
                     })
                      // VIP专区优先展示第四范式的数据，如果第四范式没有返回数据，则取自定义推荐位配置的数据*

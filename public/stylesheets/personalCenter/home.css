@@ -1,6 +1,6 @@
 @charset "utf-8";
 .personal-center-home .personal-summarys {
-  padding: 56px 0;
+  padding-top: 49px;
   background: #ffffff;
   *zoom: 1;
 }
@@ -45,70 +45,23 @@
 .personal-center-home .personal-summarys .summary .summary-desc:hover .bean-info {
   display: block;
 }
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info {
-  display: none;
-  padding-top: 13px;
-  position: absolute;
-  width: 356px;
-  right: -20px;
-  top: 16px;
-  z-index: 10;
-  background-color: transparent;
-  cursor: default;
-}
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info .bean-info-con {
-  background-color: #f8f8f8;
-  padding: 10px 10px 10px 20px;
-  border: 1px solid #f7e9d5;
-  position: relative;
-  border-radius: 2px;
-}
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info .bean-info-con .before {
-  width: 0;
-  height: 0;
-  display: block;
-  overflow: hidden;
-  border-width: 6px;
-  border-style: dashed dashed solid dashed;
-  border-color: transparent transparent #f8f8f8 transparent;
-  position: absolute;
-  right: 22px;
-  top: -11px;
-  z-index: 2;
-}
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info .bean-info-con .after {
-  width: 0;
-  height: 0;
-  display: block;
-  overflow: hidden;
-  border-width: 6px;
-  border-style: dashed dashed solid dashed;
-  border-color: transparent transparent #f8f8f8 transparent;
-  position: absolute;
-  right: 22px;
-  top: -11px;
-  z-index: 2;
-  border-bottom-color: #f7e9d5;
-  z-index: 1;
-  top: -12px;
-}
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info .bean-info-con .bean-info-txt {
-  position: relative;
-  line-height: 20px;
-  padding-left: 12px;
+.personal-center-home .personal-summarys .summary .privileges {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 77px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border: 1px solid #F25226;
+  border-radius: 11px;
   font-size: 13px;
-  color: #666;
-  word-break: break-all;
-  word-wrap: break-word;
-  text-align: left;
+  color: #F25226;
+  cursor: pointer;
 }
-.personal-center-home .personal-summarys .summary .summary-desc .bean-info .bean-info-con .bean-info-txt .unit {
-  width: 12px;
-  height: 20px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
+.personal-center-home .personal-summarys .summary .occupying-effect {
+  display: none;
+  color: #fff;
+  border: 1px solid #fff;
 }
 .personal-center-home .personal-summarys .summary:nth-child(1) {
   margin-left: 63px;
@@ -116,13 +69,45 @@
 }
 .personal-center-home .personal-summarys .summary:nth-child(3) {
   margin-left: 95px;
-  margin-right: 212px;
+  margin-right: 60px;
 }
-.personal-center-home .personal-summarys .summary:last-child .go2vip {
+.personal-center-home .personal-summarys .summary:last-child {
+  position: relative;
+}
+.personal-center-home .personal-summarys .summary:last-child .left-border {
+  position: absolute;
+  left: 0;
+  top: -15px;
+  width: 1px;
+  height: 100px;
+  background: #f2f3f3;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip {
+  margin-left: 60px;
+  width: 138px;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip .whole-station-vip-img {
   display: block;
-  width: 272px;
-  height: 68px;
-  cursor: pointer;
+  width: 138px;
+  height: 31;
+}
+.personal-center-home .personal-summarys .summary:last-child .whole-station-vip .whole-station-vip-endtime {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #343434;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip {
+  margin-left: 50px;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip .office-vip-img {
+  display: block;
+  width: 138px;
+  height: 31;
+}
+.personal-center-home .personal-summarys .summary:last-child .office-vip .office-vip-endtime {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #343434;
 }
 .personal-center-home .advertisement {
   margin-top: 10px;
@@ -223,7 +208,7 @@
 .personal-center-home .opentvip {
   margin-top: 10px;
   text-align: center;
-  padding: 45px 100px 50px 100px;
+  padding: 45px 60px 50px 60px;
   background: #ffffff;
 }
 .personal-center-home .opentvip .opentvip-title {
@@ -257,8 +242,7 @@
 }
 .personal-center-home .opentvip .vip-privilege-items .item .item-img {
   display: inline-block;
-  width: 34px;
-  height: 34px;
+  width: 56px;
 }
 .personal-center-home .opentvip .vip-privilege-items .item .item-desc {
   margin-top: 10px;

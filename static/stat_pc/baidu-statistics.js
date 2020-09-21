@@ -45,7 +45,7 @@
     }
 
     if (ftype=='vipfree'||ftype=='volume'||ftype=='free'){//广告专用代码文统计代码
-        if(pageConfig.params&&pageConfig.params.fileAttr=="1"){
+        if(pageConfig.params&&pageConfig.params.site=="4"){
             handle("5b34d9c5f60b9ef8d04b9665ba6cfbed");
         }
     }

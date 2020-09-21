@@ -16,8 +16,8 @@ define(function(require , exports , module){
         isLogin(initData,true)
     }
 
-    function initData(){
-            getUserCentreInfo(getUserCentreInfoCallback)
+    function initData(data){
+            getUserCentreInfo(getUserCentreInfoCallback,data)
     }
 
 
@@ -27,6 +27,10 @@ define(function(require , exports , module){
         Date.prototype.format = formatDate
         userInfoValue = userInfo
         userInfo.endDateMaster = new Date(userInfo.endDateMaster).format("yyyy-MM-dd")
+
+        // userInfo.isVipMaster = '1'
+
+
         var _myvipTemplate = template.compile(myvip)({userInfo:userInfo,vipTableType:vipTableType});
         $(".personal-center-vip").html(_myvipTemplate);
         getBannerbyPosition()

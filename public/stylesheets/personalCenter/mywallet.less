@@ -1,0 +1,583 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+
+.personal-center-mywallet {
+
+    .mywallet {
+        .mywallet-summary {
+            padding: 30px 60px 0 40px;
+            background: #ffffff;
+
+            .mywallet-title {
+                margin-bottom: 20px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #222222;
+            }
+
+            .mywallet-tabs {
+                .cf();
+
+                .tab {
+                    float: left;
+                    margin-right: 30px;
+                    padding-bottom: 7px;
+                    cursor: pointer;
+                }
+
+                .tab-active {
+                    border-bottom: solid 2px #F25226;
+
+                    a {
+                        color: #222222;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .mywallet-balance {
+                margin-top: 36px;
+                margin-bottom: 42px;
+
+                .balance-summary {
+                    display: inline-block;
+                    position: relative;
+
+                    &:hover {
+                        .balance-summary-tip {
+                            display: block;
+                        }
+                    }
+
+                    .balance-summary-tip {
+                        display: none;
+                        position: absolute;
+                        left: 50px;
+                        top: -40px;
+                        width: 250px;
+                        height: 40px;
+                        line-height: 40px;
+                        text-align: center;
+                        border: 1px solid #f7e9d5;
+                        background-color: #f8f8f8;
+
+                        .balance-summary-tip-con {
+                            width: 100%;
+                            height: 100%;
+
+                            .before {
+                                width: 0;
+                                height: 0;
+                                border-top: 8px solid #f7e9d5;
+                                border-right: 8px solid transparent;
+                                border-bottom: 8px solid transparent;
+                                border-left: 8px solid transparent;
+                                position: absolute;
+                                bottom: -16px;
+                                left: 15px;
+                            }
+
+                            .after {
+                                width: 0;
+                                height: 0;
+                                border-top: 8px solid #f8f8f8;
+                                border-right: 8px solid transparent;
+                                border-bottom: 8px solid transparent;
+                                border-left: 8px solid transparent;
+                                position: absolute;
+                                bottom: -15px;
+                                left: 15px;
+                            }
+                        }
+                    }
+                }
+
+                .balance-title {
+                    display: inline-block;
+                    font-size: 16px;
+                    color: #656565;
+                    vertical-align: bottom;
+                    margin-bottom: 4px;
+                }
+
+                .balance-icon {
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    background: url("../../images/personalCenter/question-mark.png") no-repeat center;
+                    background-size: 100%;
+                    vertical-align: bottom;
+                    margin-bottom: 4px;
+
+                    &:hover {
+                        .bean-info {
+                            display: block;
+                        }
+                    }
+                }
+
+                .balance-sum {
+                    margin-left: 10px;
+                    display: inline-block;
+                    font-size: 30px;
+                    color: #212121;
+                    vertical-align: middle;
+                }
+
+                .balance-unit {
+                    font-size: 13px;
+                    color: #212121;
+                    vertical-align: bottom;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                    display: inline-block;
+                }
+
+                .balance-reflect {
+                    margin-left: 18px;
+                    display: inline-block;
+                    width: 72px;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: center;
+                    background: rgba(243, 91, 49, 1);
+                    border: 1px solid rgba(243, 91, 49, 1);
+                    border-radius: 2px;
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .mywallet-dividing-line {
+            width: 100%;
+            height: 10px;
+            background: #F2F3F3;
+        }
+
+        .survey-content {
+            padding: 30px 60px 0 40px;
+
+            .survey-tip {
+                .survey-tip-icon {
+                    display: inline-block;
+                    width: 3px;
+                    height: 14px;
+                    vertical-align: middle;
+                    background: rgba(102, 102, 102, 1);
+                }
+
+                .survey-tip-desc {
+                    margin-left: 6px;
+                    font-size: 14px;
+                    color: #333333;
+                }
+
+                .survey-tip-subdesc {
+                    margin-left: 10px;
+                    font-size: 12px;
+                    color: #ADADAD;
+                }
+            }
+
+            .survey-content-select {
+                margin-top: 14px;
+
+                .start-time {
+                    font-size: 14px;
+                    color: #555555;
+                }
+
+                .start-time-input {
+                    margin-left: 6px;
+                    display: inline-block;
+                    width: 128px;
+                    height: 24px;
+                }
+
+                .end-time {
+                    margin-left: 20px;
+                    font-size: 14px;
+                    color: #555555;
+                }
+
+                .end-time-input {
+                    margin-left: 6px;
+                    display: inline-block;
+                    width: 128px;
+                    height: 24px;
+                }
+
+                .select-btn {
+                    margin-left: 20px;
+                    display: inline-block;
+                    width: 80px;
+                    height: 35px;
+                    line-height: 35px;
+                    text-align: center;
+                    background: rgba(243, 91, 50, 1);
+                    border-radius: 2px;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                    cursor: pointer;
+                }
+            }
+
+            .suervery-table-list {
+                margin-top: 40px;
+                color: #666666;
+                position: relative;
+
+                .suervery-table-title {
+                    th {
+                        padding-bottom: 5px;
+                    }
+
+                    border-bottom: solid 1px rgba(244, 244, 244, 1);
+                }
+
+                .suervery-table-item {
+                    td {
+                        padding-top: 18px;
+                    }
+
+                    .export-details-btn {
+                        display: inline-block;
+                        width: 70px;
+                        height: 26px;
+                        line-height: 26px;
+                        text-align: center;
+                        border: 1px solid rgba(242, 81, 37, 1);
+                        border-radius: 2px;
+                        font-size: 12px;
+                        color: #F25125;
+                        cursor: pointer;
+                    }
+                }
+
+                .empty-data {
+                    position: absolute;
+                    margin-left: -158px;
+
+                    .go2upload {
+                        display: block;
+                        margin-top: 37px;
+                        margin-left: 44px;
+                        width: 206px;
+                        height: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        background: rgba(242, 81, 37, 1);
+                        border-radius: 4px;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .mywallet-withdrawal-record {
+            margin-top: 47px;
+            margin-bottom: 42px;
+
+            .withdrawal-record-icon {
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+                background-size: 100%;
+                vertical-align: middle;
+            }
+
+            .withdrawal-record-desc {
+
+                margin-bottom: 38px;
+                font-size: 14px;
+                color: #656565;
+                vertical-align: middle;
+            }
+        }
+
+        .withdrawal-record-table-list {
+            margin: 30px 60px 0 40px;
+            background: #ffffff;
+            position: relative;
+
+            .withdrawal-record-table-title {
+                th {
+                    padding-bottom: 5px;
+                }
+
+                border-bottom: solid 1px rgba(244, 244, 244, 1);
+            }
+
+            .withdrawal-record-table-item {
+                td {
+                    padding-top: 18px;
+                }
+
+                .audit-failed {
+                    position: relative;
+
+                    .audit-failed-desc {
+                        display: inline-block;
+                        font-size: 13px;
+                        color: #F25125;
+                        vertical-align: middle;
+                    }
+
+                    .audit-failed-icon {
+                        margin-left: 2px;
+                        display: inline-block;
+                        width: 18px;
+                        height: 18px;
+                        background: url('../../images/personalCenter/home-attention.png') no-repeat center;
+                        background-size: 100%;
+                        vertical-align: middle;
+                    }
+
+                    &:hover {
+                        .audit-failed-reason {
+                            display: block;
+                        }
+                    }
+
+                    .audit-failed-reason {
+                        display: none;
+                        position: absolute;
+                        left: 10px;
+                        top: -50px;
+                        width: 190px;
+                        height: 40px;
+                        line-height: 40px;
+                        text-align: center;
+                        border: 1px solid #f7e9d5;
+                        background-color: #f8f8f8;
+
+                        .before {
+                            width: 0;
+                            height: 0;
+                            border-top: 8px solid #f7e9d5;
+                            border-right: 8px solid transparent;
+                            border-bottom: 8px solid transparent;
+                            border-left: 8px solid transparent;
+                            position: absolute;
+                            bottom: -16px;
+                            left: 58px;
+                        }
+
+                        .after {
+                            width: 0;
+                            height: 0;
+                            border-top: 8px solid #f8f8f8;
+                            border-right: 8px solid transparent;
+                            border-bottom: 8px solid transparent;
+                            border-left: 8px solid transparent;
+                            position: absolute;
+                            bottom: -15px;
+                            left: 58px;
+                        }
+
+                        .audit-failed-reasondesc {}
+                    }
+                }
+            }
+
+            .empty-data {
+                position: absolute;
+                margin-left: -158px;
+            }
+        }
+
+        .mywallet-financial-records {
+            margin-top: 20px;
+            margin-bottom: 30px;
+
+            .financial-records-icon {
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                background: url(../../images/personalCenter/question-mark.png) no-repeat center;
+                background-size: 100%;
+                vertical-align: middle;
+            }
+
+            .financial-records-desc {
+                .qq {
+                    color: #F25226;
+                }
+            }
+        }
+
+        .financial-records-content {
+            padding: 30px 60px 0 40px;
+
+            .label-item {
+                margin-bottom: 16px;
+
+                .item-desc {
+                    margin-right: 10px;
+                    font-size: 14px;
+                    color: #666666;
+                    display: inline-block;
+                    width: 100px;
+                    text-align: right;
+                }
+
+                .required {
+                    position: relative;
+
+                    em {
+                        position: absolute;
+                        // left: 46px;
+                        // top: 4px;
+                        color: red;
+                    }
+                }
+            }
+
+            .certification-type {
+                .item-content {
+                    font-size: 14px;
+                    color: #222222;
+                }
+            }
+
+            .account-name {
+                em {
+                    left: 46px;
+                }
+
+                .item-content {
+                    font-size: 14px;
+                    color: #222222;
+                }
+
+                .item-account-name {
+                    display: inline-block;
+                    width: 330px;
+                    height: 32px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    vertical-align: middle;
+                    text-indent: 10px;
+                    color: #222222;
+                }
+            }
+
+            .placeof-account-opening {
+                .item-province {
+                    display: inline-block;
+                    width: 160px;
+                    height: 34px;
+                    color: #222222;
+                }
+
+                .item-city {
+                    margin-left: 10px;
+                    display: inline-block;
+                    width: 160px;
+                    height: 34px;
+                    color: #222222;
+                }
+
+                em {
+                    left: 40px;
+                }
+            }
+
+            .receiving-bank {
+                .item-bank {
+                    display: inline-block;
+                    width: 160px;
+                    height: 34px;
+                    color: #222222;
+                }
+
+                .item-bank-name {
+                    margin-left: 10px;
+                    display: inline-block;
+                    width: 160px;
+                    height: 30px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    vertical-align: middle;
+                    text-indent: 10px;
+                    color: #222222;
+                }
+
+                em {
+                    left: 27px;
+                }
+            }
+
+            .fullnameof-opening-bank {
+                .item-openingbank-name {
+                    display: inline-block;
+                    width: 330px;
+                    height: 32px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    vertical-align: middle;
+                    text-indent: 10px;
+                    color: #222222;
+                }
+
+                .openingbank-name-tip {
+                    margin-left: 30px;
+                    display: inline-block;
+                    width: 308px;
+                    vertical-align: middle;
+
+                    span {
+                        display: block;
+                    }
+                }
+
+                em {
+                    left: 13px;
+                }
+            }
+
+            .receiving-bank-card-number {
+                .item-openingbank-num {
+                    width: 330px;
+                    height: 30px;
+                    background: rgba(255, 255, 255, 1);
+                    border: 1px solid rgba(222, 222, 222, 1);
+                    border-radius: 2px;
+                    text-indent: 10px;
+                    color: #222222;
+                }
+
+                em {
+                    left: 0px;
+                }
+            }
+
+            .item-disabled {
+                color: #999999!important;
+                background: #F8F8F8!important;
+                border: 1px solid #DDDDDD!important;
+            }
+        }
+
+        .financial-records-btn {
+            margin-top: 60px;
+
+            .submit-btn {
+                display: inline-block;
+                width: 228px;
+                height: 64px;
+                line-height: 64px;
+                text-align: center;
+                background: rgba(242, 82, 38, 1);
+                border-radius: 3px;
+                font-size: 22px;
+                color: #FFFFFF;
+                cursor: pointer;
+            }
+        }
+    }
+}

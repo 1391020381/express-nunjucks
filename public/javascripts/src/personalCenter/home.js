@@ -8,17 +8,20 @@ define(function(require , exports , module){
     var vipPrivilegeList = require('./template/vipPrivilegeList.html')
     var type = window.pageConfig&&window.pageConfig.page.type
     var isLogin = require('../application/effect.js').isLogin
+    var userInfo = {}
     if(type == 'home'){
         isLogin(initData,true)
     }
-    function initData(){
+    function initData(data){
+           userInfo = data
             getUserCentreInfo()  
             getFileBrowsePage()
             getDownloadRecordList()
             getBannerbyPosition()
             getMyVipRightsList()
     }
-    function getUserCentreInfo(callback) {  
+    function getUserCentreInfo(callback,data) { // data 用户等信息     用户中心其他页面调用传入
+        userInfo = data?data:userInfo
         $.ajax({
             headers:{
                 'Authrization':method.getCookie('cuk')
@@ -30,25 +33,45 @@ define(function(require , exports , module){
             success: function (res) {
                if(res.code == '0'){
                     console.log('getUserCentreInfo:',res)
-                    // compilerTemplate(res.data)
-                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
-                    // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
-                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span> <span class="level-icon"></span></p>')
-                    // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
-                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
-                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
-                    var isVipMaster = res.data.isVipMaster
+                    var isMasterVip = userInfo.isMasterVip
+                    var isOfficeVip = userInfo.isOfficeVip
                     var privilegeNum  = res.data.privilege   // 下载券数量
                     var  couponNum = res.data.coupon
                     var aibeans = res.data.aibeans
                     var isAuth = res.data.isAuth
                     var userTypeId = res.data.userTypeId
                     var authDesc = userTypeId==2?'个人认证':'机构认证'
-                    if(isVipMaster){ 
-                        $('.personal-center-home .personal-summarys .go2vip').hide() 
+                    var endDateMaster = userInfo.expireTime? new Date(userInfo.expireTime).format("yyyy-MM-dd"):''
+                    var endDateOffice = userInfo.officeVipExpireTime? new Date(userInfo.officeVipExpireTime).format("yyyy-MM-dd"):''
+                    // compilerTemplate(res.data)
+                    var masterIcon = isMasterVip== 1?'<span class="whole-station-vip-icon"></span>':''
+                    var officIcon = isOfficeVip ==1?'<span class="office-vip-icon"></span>':''
+                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
+                    // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
+                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span>'+ masterIcon + officIcon + '</p>')
+                    // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
+                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
+                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
+                    // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
+                   
+                    if(isMasterVip ==1){ 
+                        // $('.personal-center-home .personal-summarys .go2vip').hide() 
+                        $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
                         $('.personal-center-home .opentvip').hide()
                     }else{
+                        $('.personal-center-home .whole-station-vip').hide()
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide() 
+
+                        $('.personal-center-home .privileges').hide()
+                        $('.personal-center-home .occupying-effect').show()
+                    }
+                    if(isOfficeVip == 1){
+                        $('.personal-center-home .office-vip .office-vip-endtime').text(endDateOffice +'到期')
+                    }else{
+                        $('.personal-center-home .office-vip').hide()
+                    }
+                    if(!isMasterVip && !isOfficeVip){
+                        $('.personal-summarys .left-border').hide()
                     }
                     if(privilegeNum ){
                         $(".personal-center-home .volume").text(privilegeNum ?privilegeNum :0)
@@ -228,6 +251,10 @@ define(function(require , exports , module){
             }
         })
     }
+
+    $(document).on('click','.personal-center-home .add-privileges',function(e){
+        method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
+    })
     return {
         getUserCentreInfo:getUserCentreInfo
     }

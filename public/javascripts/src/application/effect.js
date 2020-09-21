@@ -3,34 +3,15 @@
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
-    //登录
-    // $(".js-login").on("click", function () {
-    //     checkLogin.notifyLoginInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // });
+   
 
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
     });
-    // $('.login-text').on("click",function(){
-    //     checkLogin.notifyLoginInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // })
-    //透传
-    // $(".js-sync").on("click", function () {
-    //     checkLogin.syncUserInfoInterface(function (data) {
-    //         refreshTopBar(data);
-    //     });
-    // });
-    //退出登录
-    // $(".js-logout").on("click", function () {
-    //     checkLogin.ishareLogout();
-    // });
-    $(".btn-exit").on("click", function () {
+ 
+    $(".loginOut").on("click", function () {
         checkLogin.ishareLogout();
     });
     
@@ -86,39 +67,42 @@ define(function (require, exports, module) {
         var $hasLogin = $('#haveLogin');
         var $btn_user_more = $('.btn-user-more');
         var $vip_status = $('.vip-status');
-        var $icon_iShare = $(".icon-iShare");
+       
         var $top_user_more = $(".top-user-more");
 
-        $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
-        var $target = null;
+    
+
+
+        // $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
+        // var $target = null;
 
         //VIP专享资料
-        if (method.getCookie('file_state') === '6') {
-            $('.vip-title').eq(0).show();
-        }
+        // if (method.getCookie('file_state') === '6') {
+        //     $('.vip-title').eq(0).show();
+        // }
 
         //vip
-        if (data.isVip == 1) {
-            $target = $vip_status.find('p[data-type="2"]');
-            $target.find('.expire_time').html(data.expireTime);
-            $target.show().siblings().hide();
-            $top_user_more.addClass('top-vip-more');
-            $('.isVip-show').find('span').html(data.expireTime);
-            $('.isVip-show').removeClass('hide');
-            $('.vip-privilege-btn').html('立即续费')
-            //vip 已经 过期
-        } else if (data.userType == 1) {
-            $target = $vip_status.find('p[data-type="3"]');
-            $hasLogin.removeClass("user-con-vip");
-            $target.show().siblings().hide();
-            // 新用户
-        } else if (data.isVip == 0) {
-            $hasLogin.removeClass("user-con-vip");
-            // 续费vip
-        } else if (data.isVip == 2) {
-            console.log('data.isVip:',data.isVip)
-            // $('.vip-title').hide();
-        }
+        // if (data.isVip == 1) {
+        //     $target = $vip_status.find('p[data-type="2"]');
+        //     $target.find('.expire_time').html(data.expireTime);
+        //     $target.show().siblings().hide();
+        //     $top_user_more.addClass('top-vip-more');
+        //     $('.isVip-show').find('span').html(data.expireTime);
+        //     $('.isVip-show').removeClass('hide');
+        //     $('.vip-privilege-btn').html('立即续费')
+        //     //vip 已经 过期
+        // } else if (data.userType == 1) {
+        //     $target = $vip_status.find('p[data-type="3"]');
+        //     $hasLogin.removeClass("user-con-vip");
+        //     $target.show().siblings().hide();
+        //     // 新用户
+        // } else if (data.isVip == 0) {
+        //     $hasLogin.removeClass("user-con-vip");
+        //     // 续费vip
+        // } else if (data.isVip == 2) {
+        //     console.log('data.isVip:',data.isVip)
+        //     // $('.vip-title').hide();
+        // }
 
         $unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
@@ -126,7 +110,36 @@ define(function (require, exports, module) {
         $hasLogin.find('.top-user-more .name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
         $hasLogin.show();
-        
+
+          // 办公vip开通按钮
+    var $JsPayOfficeVip = $('.JsPayOfficeVip');
+    // 全站vip开通按钮
+    var $JsPayMainVip = $('.JsPayMainVip');
+    // 全站vip图标
+    var $JsMainIcon = $('.JsMainIcon');
+    // 办公vip图标
+    var $JsOfficeIcon = $('.JsOfficeIcon');
+
+    if (data.isOfficeVip === 1) {
+        $JsPayOfficeVip.html('立即续费');
+        $JsOfficeIcon.addClass('i-vip-blue');
+        $JsOfficeIcon.removeClass('i-vip-gray2');
+    } else {
+        $JsOfficeIcon.removeClass('i-vip-blue');
+        $JsOfficeIcon.addClass('i-vip-gray2');
+    }
+    if (data.isMasterVip === 1) {
+        $JsPayMainVip.html('立即续费');
+        $JsMainIcon.addClass('i-vip-yellow');
+        $JsMainIcon.removeClass('i-vip-gray1');
+    } else {
+        $JsMainIcon.removeClass('i-vip-yellow');
+        $JsMainIcon.addClass('i-vip-gray1');
+    }
+
+    $('.jsUserImage').attr('src', data.photoPicURL);
+    $('.jsUserName').text(data.nickName);
+    
         if(window.pageConfig.params){
             window.pageConfig.params.isVip = data.isVip;
         }
@@ -152,12 +165,14 @@ define(function (require, exports, module) {
                 refreshTopBar(data);
                
             });
-        } else if(method.getCookie('cuk')){
+        }else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
                 // callback2&&callback2()
                 callback&&callback(data)
                 refreshTopBar(data);
             });
+        }else if(!isAutoLogin){
+            callback&&callback()
         }
     }
     return {

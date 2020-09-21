@@ -9,7 +9,7 @@ var version = "";
 var url = "";
 var surl = "";
 
-if (process.env.NODE_ENV === 'dev'||process.env.NODE_ENV =='local') {
+if (process.env.NODE_ENV =='local') {
     return;
 } else if (data) {
     console.log('-----------data',data)

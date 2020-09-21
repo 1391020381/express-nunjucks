@@ -8,6 +8,7 @@
 @import "./mycoupon";
 @import "./accountsecurity";
 @import "./personalinformation";
+@import "./mywallet";
 @import "./dialog";
 .personal-center-content{
     display: table;
@@ -17,6 +18,7 @@
         background: #ffffff;
         border-radius: 4px;
         .personal-profile{
+            margin-bottom: 66px;
             width: 240px;
             padding-top: 48px;
             text-align: center;
@@ -33,17 +35,29 @@
                 font-weight:bold;
                 .nickname{
                     display: inline-block;
-                    width: 96px;
+                    max-width: 96px;
+                    margin-right: 10px;
+                 vertical-align: text-bottom;
                     .text-ellipsis();
                 }
-                .level-icon{
+                .whole-station-vip-icon{
                     display: inline-block;
                     width: 19px;
                     height: 17px;
-                    background: url("../../images/personalCenter/home-vip.png") no-repeat center;
+                    background: url("../../images/personalCenter/whole-station-vip-icon.png") no-repeat center;
                     background-size: 100%;
                 }
+                .office-vip-icon{
+                    margin-left:5px;
+                    display: inline-block;
+                    width: 19px;
+                    height: 17px;
+                    background: url("../../images/personalCenter/office-vip-icon.png") no-repeat center;
+                    background-size: 100%;
+                    vertical-align: baseline;
+                }
             }
+            
             .personal-isAuth{
                 margin-top:10px;
                 .auth-desc{
@@ -54,12 +68,12 @@
                   color: #9b7638;
                   line-height: 17px;
                   border: 1px solid #af8f5b;
-                  border-radius: 7px;
+                  border-radius: 4px;
                 }
             }
             .personal-id{
                 margin-top:16px;
-                margin-bottom: 52px;
+               
                 font-size: 12px;
                 color: #000033;
                 vertical-align: middle;
@@ -78,6 +92,13 @@
                    vertical-align: middle;
                    cursor: pointer;
                 }
+            }
+            .personal-brief{
+                margin-top:12px;
+                margin-bottom: 52px;
+                font-size:12px;
+                color:#9A9A9A;
+                .text-ellipsis();
             }
         }
         .personal-menu{
@@ -251,6 +272,71 @@
     }
     .td-bold{
         font-weight: bold;
+    }
+    .bean-info{
+        display: none;
+        padding-top: 13px;
+        position: absolute;
+        width: 356px;
+        right: -20px;
+        top: 16px;
+        z-index: 10;
+        background-color: transparent;
+        cursor: default;
+        .bean-info-con{
+            background-color: #f8f8f8;
+            padding: 10px 10px 10px 20px;
+            border: 1px solid #f7e9d5;
+           position: relative;
+           border-radius: 2px;
+           .before{
+            width: 0;
+            height: 0;
+            display: block;
+            overflow: hidden;
+            border-width: 6px;
+            border-style: dashed dashed solid dashed;
+            border-color: transparent transparent #f8f8f8 transparent;
+            position: absolute;
+            right: 22px;
+            top: -11px;
+            z-index: 2;
+           }
+           .after{
+            width: 0;
+            height: 0;
+            display: block;
+            overflow: hidden;
+            border-width: 6px;
+            border-style: dashed dashed solid dashed;
+            border-color: transparent transparent #f8f8f8 transparent;
+            position: absolute;
+            right: 22px;
+            top: -11px;
+            z-index: 2;
+            border-bottom-color: #f7e9d5;
+            z-index: 1;
+            top: -12px;
+           }
+           .bean-info-txt{
+            position: relative;
+            line-height: 20px;
+            padding-left: 12px;
+            font-size: 13px;
+            color: #666;
+            word-break: break-all;
+            word-wrap: break-word;
+            text-align: left;
+            .unit {
+                width: 12px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                display: block;
+            }
+           }
+        }
     }
 }
 

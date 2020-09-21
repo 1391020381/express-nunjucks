@@ -3,519 +3,115 @@
 <head>
     {% include "common/head.html" %}
     <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/ishare_rights.css">
-    
+    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/rights.css">
     <!-- 添加360统计代码1、PC端统计代码： -->
-<script>
-    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
-    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
-    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
-    })(window,document,"script","_qha",335601,false);
-</script> 
-
+    <script>
+        (function (b, a, e, h, f, c, g, s) {
+            b[h] = b[h] || function () {(b[h].c = b[h].c || []).push(arguments)};
+            b[h].s = !!c;
+            g = a.getElementsByTagName(e)[0];
+            s = a.createElement(e);
+            s.src = "//s.union.360.cn/" + f + ".js";
+            s.defer = !0;
+            s.async = !0;
+            g.parentNode.insertBefore(s, g)
+        })(window, document, "script", "_qha", 335601, false);
+    </script>
 </head>
 <script type="text/javascript">
     var _speedMark = +new Date(),
         _version = "{{version}}",
         _head = "{{cdnUrl}}";
-        var env = "{{env}}";
+    var env = "{{env}}";
 </script>
-
-<body class="rights-body">
-{# <div class="rights-wrap-top-bar">
-    <div class="top-bar cf">
-        <div class="top-bar-left fl">
-            <a href="//iask.sina.com.cn" target="_blank">爱问</a>
-            <i class="line"></i>
-            <a href="/" class="current">爱问共享资料</a>
-            <i class="line"></i>
-            <a href="//yyk.iask.sina.com.cn" target="_blank">医院库</a>
-        </div>
-        <div class="fr cf" style="margin-right: 90px;">
-            <div class="news fl">
-                <a class="message-btn" href="javascript:;">
-                    <i class="icon icon-news"></i>
-                    <span id="user-msg"></span>
-                </a>
-            </div>
-            <span class="top-service fl">
-                    <a class="user-feedback" target="_blank">意见反馈</a>
-                </span>
-        </div>
-    </div>
-</div> #}
-<div class="rights-header clearfix">
-    <div class="pw pw-v cf">
-        <a class="logo fl">
-            <img src="{{cdnUrl}}/images/rights/logo.png" alt="logo"/>
-        </a>
-        <div class="menu-items-center fl">
-            <div data-type="index" class="index">首页</div>
-            <div data-type="privilege">VIP特权</div>
-            <div data-type="material">VIP资料专区</div>
-        </div>
-<!--        <div class="open-vip fr" new-detail-header>开通VIP</div>-->
-        <div class="pay-top-bar  fr">
-            <div class="cf new-header-inter ">
-                <div class="user-con" id="rightVipUnLogin">
-                    <a class="user-link">
-                        <div class="user-img"><img src="{{cdnUrl}}/images/pic_detail_user_normall.jpg"></div>
-                        <span class="user-a pc_click js-login" pcTrackContent="payTopLogin">请登录</span>
-                        <span class="user-a js-sync hide">透传</span>
-                    </a>
-                </div>
-                <!-- 已登录vip 增加样式  user-con-vip-->
-                <div class="user-con user-con-vip hide" id="haveLogin">
-                    <a class="user-link" href="/node/personalCenter/mydownloads.html" target="_blank">
-                        <div class="user-img"><img></div>
-                        <span class="user-name fl"></span>
-                        <i class="icon-iShare icon-vip"></i>
-                    </a>
-                    <i class="icon-arrow"></i>
-                    <!--vip 增加样式  top-vip-more-->
-                    <div class="top-user-more">
-                        <div class="user-bar  ">
-                            <i class="before"></i>
-                            <i class="after"></i>
-                            <img class="user-img" src="">
-                            <div class="user-info">
-                                <div class="name-con cf">
-                                    <p class="fl name"></p>
-                                    <i class="icon-iShare icon-vip"></i>
-                                </div>
-                                <div class="vip-status">
-                                    <!--非vip 文字 -->
-                                    <p data-type="1" class="vip-text">开通VIP，会员享专属特权</p>
-                                    <!--vip 文字-->
-                                    <p data-type="2" class="vip-text" style="display: none;">您的VIP将于<span
-                                            class="expire_time">2020-3-12</span>到期</p>
-                                    <!--vip 已过期文字-->
-                                    <p data-type="3" class="vip-text" style="display: none;">
-                                        您的VIP权益已过期，再次开通</p>
-                                </div>
-                                <!--非vip 文字开通 vip 文字续费 -->
-                                <a class="btn-user-more js-buy-open pc_click" pcTrackContent="joinVip-9"
-                                   data-type="vip">续费</a>
-                            </div>
-                            <ul class="privilege-list">
-                                <li class="li-01"><i class="icon-privilege"></i>赠专享资料下载特权</li>
-                                <li class="li-02"><i class="icon-privilege"></i>付费资料8折起</li>
-                                <li class="li-03"><i class="icon-privilege"></i>海量资料免费下</li>
-                                <li class="li-04"><i class="icon-privilege"></i>专属身份标识</li>
-                            </ul>
+<body class="m-rights-body">
+{% include "common/websiteHeaderbar.html" %}
+<div class="m-rights">
+    <div class="header"></div>
+    <div class="main">
+        <div class="product-wrap">
+            <div class="product-item clear-fix">
+                <!-- 用户信息框 -->
+                <div class="user-wrap">
+                    <div class="user-top">
+                        <div class="t-image-bg i-default-portrait">
+                            <img class="t-image jsUserImage" src="{{cdnUrl}}/images/rights/image/default-portrait.png" alt="">
                         </div>
-                        <div class="top-entry">
-                            <a class="entry-ele center-ele" href="/node/personalCenter/home.html"
-                               target="_blank"><i class="icon-entry"></i>个人中心</a>
-                            <a class="entry-ele my-collect-ele" href="/node/personalCenter/mycollection.html"
-                               target="_blank"><i class="icon-entry"></i>我的收藏</a>
-                            <a class="entry-ele my-upload-ele" href="/node/personalCenter/myuploads.html"
-                               target="_blank"><i class="icon-entry"></i>我的上传</a>
-                            {# <a class="entry-ele my-task" href="/ucenter/sign?u={{results.list.data.userId}}"
-                               target="_blank"><i class="icon-entry"></i>我的任务</a> #}
-                            <a class="btn-exit js-logout">退出</a>
-                        </div>
+                        <p class="t-name jsUserName"></p>
+                        {# <p class="t-type">(&nbsp;<span class="jsLoginType">微信登陆</span>&nbsp;)</p> #}
                     </div>
+                    <ul class="user-bottom clear-fix">
+                        <li class="b-item">
+                            <div class="b-icon JsMainIcon i-vip-gray1"></div>
+                            <div>全站VIP</div>
+                        </li>
+                        <li class="b-item">
+                            <div class="b-icon JsOfficeIcon i-vip-gray2"></div>
+                            <div>办公VIP</div>
+                        </li>
+                    </ul>
                 </div>
-
+                <div class="left-side">
+                    <div class="left-side-icon i-main-vip"></div>
+                    <div class="left-side-btn is-yellow JsPayMainVip">立即开通</div>
+                </div>
+                <ul class="right-list clear-fix">
+                    <li class="list-item">
+                        <div class="list-item-icon i-down-privilege"></div>
+                        <p class="list-item-text">vip专享资料下载特权</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-discount"></div>
+                        <p class="list-item-text">付费资料折扣</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-vip-sign"></div>
+                        <p class="list-item-text">会员身份标识</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-multi-port"></div>
+                        <p class="list-item-text">多终端互通</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="product-item m-top10 clear-fix">
+                <div class="left-side">
+                    <div class="left-side-icon i-office-vip"></div>
+                    <div class="left-side-btn is-blue JsPayOfficeVip">立即开通</div>
+                </div>
+                <ul class="right-list clear-fix">
+                    <li class="list-item">
+                        <div class="list-item-icon i-down-privilege"></div>
+                        <p class="list-item-text">办公资料下载特权</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-vip-sign"></div>
+                        <p class="list-item-text">会员身份标识</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-multi-port"></div>
+                        <p class="list-item-text">多终端互通</p>
+                    </li>
+                    
+                    <li class="list-item">
+                        <div class="list-item-icon i-vip-activity"></div>
+                        <p class="list-item-text">会员专属活动</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
-<div class="vip-privilege pw pw-v cf">
-    <div class="vip-privilege-title pw pw-v cf">
-       <img src="{{cdnUrl}}/images/rights/vip_privilege.png">
-    </div>
-    <div class="vip-privilege-discount">
-        低至0.24元/天
-    </div>
-    <div class="vip-privilege-icon cf">
-        <ul class="privilege-icon-list">
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/vip_icon.png" alt="logo"/></div>
-                <div class="privilege-des">赠专享资料<br>下载特权</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/many_icon.png" alt="logo"/></div>
-                <div class="privilege-des">海量资料<br>免费下载</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/down_icon.png" alt="logo"/></div>
-                <div class="privilege-des">付费资料<br>8折起</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/client_icon.png" alt="logo"/></div>
-                <div class="privilege-des">多终端互通</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/bz_icon.png" alt="logo"/></div>
-                <div class="privilege-des">会员身份<br>标识</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/vip_active_icon.png" alt="logo"/></div>
-                <div class="privilege-des">会员专属活动</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/dz_icon.png" alt="logo"/></div>
-                <div class="privilege-des">定制推荐内容</div>
-            </li>
-            <li>
-                <div class="privilege-icon"><img src="{{cdnUrl}}/images/rights/kf_icon.png" alt="logo"/></div>
-                <div class="privilege-des">专属客服</div>
-            </li>
-        </ul>
-    </div>
-    <a class="vip-privilege-btn" data-status="unLogin">
-        立即开通
-    </a>
-</div>
-<div class="pw pw-v cf" id="privilege">
-    <div class="more-rights">更多VIP专属特权</div>
-    <div class="vip-items clearfix">
-        <ul>
-            <li>
-                <div class="vip-items-header">
-                    <div>下载特权</div>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img">
-                        <img src="{{cdnUrl}}/images/rights/1.png"/><span>赠送资料下载特权</span>
-                    </a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img">
-                        <img src="{{cdnUrl}}/images/rights/2.png"/><span>海量资料免费下载</span>
-                    </a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/3.png"/> <span>付费资料8折起</span></a>
-                </div>
-            </li>
-            <li>
-                <div class="vip-items-header">
-                    <div>阅读特权</div>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/4.png"/><span>文本资料可复制</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/5.png"/><span>爱问办公无广告阅读</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/6.png"/><span>资料预览页数增加</span></a>
-                </div>
-            </li>
-
-            <li>
-                <div class="vip-items-header">
-                    <div>服务特权</div>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/7.png"/><span>专属客服</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/8.png"/><span>多终端互通</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/9.png"/><span>VIP专享内容推荐</span></a>
-                </div>
-            </li>
-
-            <li>
-                <div class="vip-items-header">
-                    <div>优惠特权</div>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/10.png"/><span>会员专属活动</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/11.png"/><span>会员日活动</span></a>
-                </div>
-                <div class="vip-items-sub">
-                    <a class="sub-img"> <img src="{{cdnUrl}}/images/rights/12.png"/><span>会员生日礼物</span></a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="vip-privilege-zq" id="material">
-    <div class="zq-title">VIP资料专区</div>
-    <div class="zq-btn">
-        <a class="linkButton" data-id="linkButton1">VIP专享资料专区<span class="drop"></span></a>
-        <a data-id="linkButton2">付费资料折扣专区<span class="drop"></span></a>
-    </div>
-    <div id="linkButton1" class="vip-img-list pw">
-        <ul class="file-list cf">
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_1.png">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">绩效考核管理办法</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>13652</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>23529</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_2.png">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">职场礼仪PPT模板</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>21532</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>12432</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_3.png">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">分销渠道管理PPT</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>42311</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>63214</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_4.png">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">小学一年级数学上册总复...</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>31527</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>43127</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_5.png">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">初中班主任工作计划 </span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>52611</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>18924</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div id="linkButton2" class="vip-img-list pw hide">
-        <ul class="file-list cf">
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_6.jpg">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">绩效考核管理办法</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span id="num">55121</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span id="enshrineNum">32173</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_7.jpg">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">职场礼仪PPT模板</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>64327</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>21734</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_8.jpg">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">分销渠道管理PPT</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>18821</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>52731</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_9.jpg">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">小学一年级数学上册总复...</span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>12734</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>17622</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <div class="data-pic">
-                        <img src="{{cdnUrl}}/images/rights/vip_10.jpg">
-                    </div>
-                    <div class="data-text-con second-collect">
-                        <span class="data-name">初中班主任工作计划 </span>
-                        <div class="op-bar cf">
-                            <div class="op-con">
-                                <span class="btn-op btn-goods"><i class="icon-op"></i><span>19521</span></span>
-                                <span class="btn-op btn-xx btn-collect" data-id="1111"><i
-                                        class="icon-op"></i><span>22931</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="vip-privilege-middle">
-    <div class="vip-privilege-content pw pw-v cf">
-        <div class="vip-privilege-title">超过5000万用户共同选择的在线资料平台</div>
-        <div class="vip-user-list">
-            <ul>
-                <li>
-                    <div class="user-list-item">
-                        <div class="user-img">
-                            <img src="{{cdnUrl}}/images/rights/edu.png">
-                        </div>
-                        <div class="title">
-                            教育培训
-                        </div>
-                        <div class="des">
-                            提供小学、初中、高中、 大学教案课件，考试习题 等资料
-                        </div>
-                        <div class="btn">
-                            <a>立即开通</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-list-item">
-                        <div class="user-img">
-                            <img src="{{cdnUrl}}/images/rights/bl.png">
-                        </div>
-                        <div class="title">
-                            白领精英
-                        </div>
-                        <div class="des">
-                            提供简历模板、工作计划、
-                            总结报告、党团工作、PPT
-                            模板等资料
-                        </div>
-                        <div class="btn">
-                            <a>立即开通</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-list-item">
-                        <div class="user-img">
-                            <img src="{{cdnUrl}}/images/rights/pro.png">
-                        </div>
-                        <div class="title">
-                            专业人士
-                        </div>
-                        <div class="des">
-                            提供小学、初中、高中、 大学教案课件，考试习题 等资料
-                        </div>
-                        <div class="btn">
-                            <a>立即开通</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-list-item">
-                        <div class="user-img">
-                            <img src="{{cdnUrl}}/images/rights/stu.png">
-                        </div>
-                        <div class="title">
-                            学生
-                        </div>
-                        <div class="des">
-                            为在校学生提供课程所需 学习辅导材料、考试习 题、答辩论文、外语学习 等资料
-                        </div>
-                        <div class="btn">
-                            <a>立即开通</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-{# <div class="vip-privilege-bottom">
-    <p class="footer-nav">
-        <a href="/agreement.html" rel="nofollow" target="_blank">网站声明</a>
-        <span class="line"></span>
-        <a href="/infringement.html" rel="nofollow" target="_blank">侵权处理</a>
-        <span class="line"></span>
-        <a href="https://iask.sina.com.cn/helpCenter/ishare.html" rel="nofollow" target="_blank">帮助中心</a>
-        <span class="line"></span>
-        <a href="/">爱问首页</a>
-        <span class="line"></span>
-        <a href="/sitemap.html" rel="nofollow" target="_blank">网站地图</a>
-        <span class="line"></span>
-        <a href="/feedAndComp/userFeedback" rel="nofollow" target="_blank">意见反馈</a>
+    <p class="more">
+        <i class="more-icon i-more"></i>
+        <span>更多其它精品频道，敬请期待...</span>
     </p>
-    <div class="sm">
-        Copyright © 1996-2020 IASK Corporation, All Right Reserved
-    </div>
-</div> #}
-    <!-- 底部 start-->
+</div>
+<!-- 底部 start-->
 {% include "common/new/footer.html" %}
 {% include "common/js.html" %}
 <script type="text/javascript">
@@ -530,5 +126,4 @@
 <script src="{{staticUrl}}/baidu-statistics.js"></script>
 <script src="{{staticUrl}}/baidu-office.js"></script>
 </body>
-
 </html>

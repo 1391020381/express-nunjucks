@@ -88,6 +88,9 @@ html,body{
    }
 }
 
+.hide{
+    display: none;
+}
 
 @toastBg 					:rgba(0,0,0,.8);
 @toastFontColor 			:#fff;
@@ -105,7 +108,7 @@ html,body{
 	background:@toastBg;
 	border-radius:@toastRadius;
 	opacity:0;
-	transition:all .25s ease 0s;
+    transition:all .25s ease 0s;
 	transform:translate(-50%,-50%);
 	z-index: 10000;
 	&.show{

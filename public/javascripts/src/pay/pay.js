@@ -1,5 +1,6 @@
 define(function (require, exports, moudle) {
     // 自有埋点注入
+    
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
@@ -11,21 +12,28 @@ define(function (require, exports, moudle) {
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
     //var report = require("./report");
-    
+   var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
-    require("../common/coupon/couponOperate");
-    require("../common/coupon/couponIssue");
+ 
     require("../common/bilog");
+     
     var userInfo = method.getCookie('ui')?JSON.parse(method.getCookie('ui')):{}
     var renewalVIP =  window.pageConfig.params.isVip == '1' ? '1':'0'   // 标识是否是续费vip
     var checkStatus =   window.pageConfig.params.checkStatus||'10'
     var isLogin = require('../application/effect.js').isLogin;
+    var expires_in = 60 // 支付二维码过期时间
+    var timer = null   // 定时器
     var isAutoLogin = true;
     var callback = null;
     isLogin(initPage,isAutoLogin,initPage);
 
+    // 优惠券相关需要在登录后执行
+    require("../common/coupon/couponOperate");
+    require("../common/coupon/couponIssue");
     //生成二维码
    function initPage(userInfo){
+    window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
+   
     $(function () {  
         var flag = $("#ip-flag").val();  // result.flag
        // var uid = $("#ip-uid").val();    //  results.data.uid
@@ -57,12 +65,15 @@ define(function (require, exports, moudle) {
 
                 // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
           
-                var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
-
+            //    var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
+                  var url  = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&checkStatus='+checkStatus;
                 
                 try {
                     qr.createQrCode(url, 'pay-qr-code', 180, 180);
                     $(".btn-qr-show-success").click();
+                    $('.pay-qrcode-loading').hide()
+                    isShowQrInvalidtip(false)
+                    countdown()
                     // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
                 } catch (e) {
                     console.log("生成二维码异常");
@@ -76,7 +87,7 @@ define(function (require, exports, moudle) {
                 utils.showAlertDialog("温馨提示", '订单失效，请重新下单');
             }
         } else if (flag == "true" && uid) {//成功页面
-            var mobile = $("#ip-mobile").val();
+            var mobile =  userInfo.mobile||$("#ip-mobile").val();
             // mobile = false
             if (mobile) {//隐藏绑定手机号模块 公众号模块居中
                 $(".carding-info-bottom").addClass('carding-binding-ok');
@@ -91,6 +102,34 @@ define(function (require, exports, moudle) {
         }
     });
    }
+   
+   function countdown() {  // 二维码失效倒计时
+    if(expires_in <=0){
+        clearTimeout(timer)
+        expires_in = 60
+        $('.pic-pay-code .pay-qrcode-loading').hide()
+        isShowQrInvalidtip(true)
+    }else{
+        expires_in--
+        timer =  setTimeout(countdown, 1000);
+    }
+}
+
+function isShowQrInvalidtip(flag){ // 
+    if(flag){
+        $('.pic-pay-code .pay-qrcode-expire').show()
+        $('.pic-pay-code .pay-qrcode-invalidtip').show()
+        $('.pic-pay-code .pay-qrcode-refresh').show()
+    }else{
+        $('.pic-pay-code .pay-qrcode-expire').hide()
+        $('.pic-pay-code .pay-qrcode-invalidtip').hide()
+        $('.pic-pay-code .pay-qrcode-refresh').hide()   
+    }
+}
+
+$(document).on('click','.pic-pay-code .pay-qrcode-refresh',function(e){
+    initPage(userInfo)
+})
     var fid = window.pageConfig.params.g_fileId;
     if (!fid) {
         fid = method.getParam('fid');
@@ -104,7 +143,7 @@ define(function (require, exports, moudle) {
         fid: window.pageConfig.params.g_fileId || '',                            //文件id
         aid: '',                                                                 //活动id
         vid: '',                                                                 //vip套餐id
-        pid: '',                                                                 //特权id
+        pid: $('.pay-pri-list .active').attr('data-pid'),                                                                  //特权id
         oid: "",                                                                 //订单ID 获取旧订单
         type: window.pageConfig.params.checkStatus||'10',  // 用户search 续费vip进入                                                              //套餐类别 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
@@ -158,6 +197,8 @@ define(function (require, exports, moudle) {
         var price = $(this).data('price');
         var activePrice = $(this).data('activeprice');
         var discountPrice = $(this).data('discountprice');
+        var giveDesc =  $(this).find('.give-desc').html() || ''
+        $(".pay-privilege-text").html(giveDesc)
         if (activePrice > 0) {
             $("#activePrice").html(activePrice);
             if (discountPrice > 0) {
@@ -184,9 +225,9 @@ define(function (require, exports, moudle) {
             activeClass: 'active',
             element: 'div',
             callback: function ($this) {
-                var price = $this.data('price');
-                var activePrice = $this.data('activeprice');
-                var discountPrice = $this.data('discountprice');
+                var price = $this.data('price').toFixed(2);
+                var activePrice = $this.data('activeprice').toFixed(2);
+                var discountPrice = $this.data('discountprice').toFixed(2);
                // class give-desc
                var giveDesc =  $this.find('.give-desc').html() || ''
                 $(".js-tab .gift-copy").html(giveDesc)
@@ -344,6 +385,7 @@ define(function (require, exports, moudle) {
             ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
         }
+        console.log('temp:',JSON.stringify(temp))
         $.ajax({
             url: api.order.createOrderInfo,
             type: "POST",
@@ -684,13 +726,13 @@ define(function (require, exports, moudle) {
             data:JSON.stringify(params),
             dataType: "json",
             success: function (response) {
-               if(response && response.code == 0 && response.data){
+               if(response && response.code == 0 ){
                     // 缓存查询次数
                     order_count++;
-                    var data = response.data;
-                    // 防止空指针报错
-                    data.reportData = data.reportData || {};
-                    data.fid = data.fid || method.getParam('fid');
+                     var data = response.data;
+                    // // 防止空指针报错
+                     data.reportData = data.reportData || {};
+                     data.fid = data.fid || method.getParam('fid');
                     // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
                     if (data.orderStatus == 0) {
                         // 重新查询
@@ -733,7 +775,10 @@ define(function (require, exports, moudle) {
         // 移除cookie
         method.delCookie("br", "/");
         // 携带参数,上报数据
-        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+        // var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
+        var format = window.pageConfig&&window.pageConfig.params.format
+        var title = window.pageConfig&&window.pageConfig.params.title || $('.data-name').text()
+        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title),
             bilogResult = null;
         if (orderInfo.goodsType === 1) {
             // 购买文件成功
@@ -907,24 +952,68 @@ define(function (require, exports, moudle) {
         if (!method.getCookie('cuk')) return;
         var fid = window.pageConfig.params.g_fileId;
         if (!fid) return;
-        method.get(api.pay.successBuyDownLoad + '/' + fid, function (res) {
-            if (res.code == '0') {
-                var browserEnv = method.browserType();
-                method.delCookie("event_data_down", "/");
-                if (browserEnv === 'IE' || browserEnv === 'Edge') {
-                    // window.location.href = res.data;
-                    method.compatibleIESkip(res.data, false);
-                } else if (browserEnv === 'Firefox') {
-                    var downLoadURL = res.data;
-                    var sub = downLoadURL.lastIndexOf('&fn=');
-                    var sub_url1 = downLoadURL.substr(0, sub + 4);
-                    var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
-                    // window.location.href = sub_url1 + sub_ur2;
-                    method.compatibleIESkip(sub_url1 + sub_ur2, false);
-                } else {
-                    // window.location.href = res.data;
-                    method.compatibleIESkip(res.data, false);
-                }
+        // method.get(api.pay.successBuyDownLoad + '/' + fid, function (res) {
+        //     if (res.code == '0') {
+        //         var browserEnv = method.browserType();
+        //         method.delCookie("event_data_down", "/");
+        //         if (browserEnv === 'IE' || browserEnv === 'Edge') {
+        //             // window.location.href = res.data;
+        //             method.compatibleIESkip(res.data, false);
+        //         } else if (browserEnv === 'Firefox') {
+        //             var downLoadURL = res.data;
+        //             var sub = downLoadURL.lastIndexOf('&fn=');
+        //             var sub_url1 = downLoadURL.substr(0, sub + 4);
+        //             var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+        //             // window.location.href = sub_url1 + sub_ur2;
+        //             method.compatibleIESkip(sub_url1 + sub_ur2, false);
+        //         } else {
+        //             // window.location.href = res.data;
+        //             method.compatibleIESkip(res.data, false);
+        //         }
+        //     }
+        // })
+        
+        getFileDownLoadUrl(fid)
+      
+    }
+    function getFileDownLoadUrl(fid){
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.normalFileDetail.getFileDownLoadUrl,
+            type: "POST",
+            data: JSON.stringify({
+                "clientType": 0,
+                "fid": fid,  
+                "sourceType": 1
+              }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                    console.log(res)
+                    if (res.code == '0') {
+                        var browserEnv = method.browserType();
+                        method.delCookie("event_data_down", "/");
+                        if (browserEnv === 'IE' || browserEnv === 'Edge') {
+                            // window.location.href = res.data;
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
+                        } else if (browserEnv === 'Firefox') {
+                            // var downLoadURL = res.data;
+                            // var sub = downLoadURL.lastIndexOf('&fn=');
+                            // var sub_url1 = downLoadURL.substr(0, sub + 4);
+                            // var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
+                            // window.location.href = sub_url1 + sub_ur2;
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
+                        } else {
+                            // window.location.href = res.data;
+                            method.compatibleIESkip(res.data.fileDownUrl, false);
+                        }
+                    }else{
+                        $.toast({
+                            text: res.msg||'下载失败'
+                        })
+                    }
             }
         })
     }

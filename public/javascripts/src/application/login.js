@@ -31,7 +31,7 @@ define(function (require, exports, module) {
 
 
    var api = require("./api")
-//    var qr = require("../pay/qr");
+
    var method = require("./method");
    require("../cmd-lib/myDialog");
    require('../cmd-lib/toast');
@@ -78,46 +78,37 @@ $(document).on('click','#dialog-box .login-btn',function(e){ //  密码和验证
         var mobile = $('#dialog-box .verificationCode-login .telphone').val().trim()
         if(!method.testPhone(mobile)&&nationCode=='86'){
             showErrorTip('verificationCode-login',true,'手机号错误')
-           // $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+        
             return
         }
         if(!checkCode||checkCode&&checkCode.length!==4){
-          //  $('#dialog-box .verificationCode-login .code .verification-code-tip').show()
+         
           showErrorTip('verificationCode-login',true,'验证码错误')
             return
         }
-            // $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
-            // $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+            
             showErrorTip('verificationCode-login',false,'')
             loginByPsodOrVerCode('codeLogin',mobile,nationCode,smsId,checkCode,'') // mobile 在获取验证码时 在全局mobile保存
             return
     }
     if(logintype == 'password'){ // mobile
-        // var tempMobile = $('#dialog-box .password-login .input-moblie .telphone').val()
+      
         var nationCode = $('#dialog-box .password-login .phone-num').text().replace(/\+/,'').trim()
         var password = $('#dialog-box .password-login .password .login-password:visible').val().trim()
         var mobile = $('#dialog-box .password-login .telphone').val().trim()
         if(!method.testPhone(mobile)&&nationCode==86){
-         //   $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+     
          showErrorTip('password-login',true,'手机号错误')
             return
         }
-        // if(!password||password.length<6||password.length>8){
-           // $('#dialog-box .password-login .password .password-errortip').show()
-        //    showErrorTip('password-login',true,'密码错误')
-        //    return
-        // }else{
-        //   //  $('#dialog-box .password-login .password .password-errortip').hide()
-        //   showErrorTip('password-login',false,'')
-        // }
+     
         loginByPsodOrVerCode('ppLogin',mobile,nationCode,'','',password)
         return
     }
 })
 
    $(document).on('click','.qr-refresh',function(e){ // 刷新微信登录二维码   包括游客登录页面
-        //    getLoginQrcode(cid,fid,true)
-        // $('#dialog-box .qrcode-default').show()
+      
         getLoginQrcode('','',true)
    })
 
@@ -128,11 +119,11 @@ $(document).on('click','#dialog-box .getVerificationCode',function(e){  // 获�
     var nationCode = $('#dialog-box .verificationCode-login .phone-num').text().replace(/\+/,'').trim()
     if(nationCode=='86'){
         if(!method.testPhone(telphone)){
-            // $('#dialog-box .verificationCode-login .mobile .input-mobile .mobile-errortip').show()
+          
             showErrorTip('verificationCode-login',true,'手机号错误')
              return
          }else{
-           //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+           
            showErrorTip('verificationCode-login',false,'')
          }
          if(authenticationCodeType == 0 || authenticationCodeType == 2){  // 获取验证码 
@@ -158,7 +149,7 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
     }
     if(nationCode=='86'){ // 国内号码
         if(method.testPhone(mobile.slice(0,11))){
-            //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').hide()
+           
             showErrorTip('verificationCode-login',false,'')
               $('#dialog-box .getVerificationCode').addClass('getVerificationCode-active')
               if(verificationCode&&verificationCode.length>=4){
@@ -167,7 +158,7 @@ $(document).on('input','#dialog-box .verificationCode-login .telphone',function(
               }
           }else{
               if(mobile&&mobile.length>=11){
-                //  $('#dialog-box .verificationCode-login .input-mobile .mobile-errortip').show()
+               
                 showErrorTip('verificationCode-login',true,'手机号错误')
                 return
               }
@@ -200,7 +191,7 @@ $(document).on('input','#dialog-box .verification-code',function(e){ //
         $('#dialog-box .verification-code').val(verificationCode.slice(0,4))
     }
     if(verificationCode&&verificationCode.length>=4){
-      //  $('#dialog-box .verificationCode-login .code .verification-code-tip').hide()
+     
         showErrorTip('verificationCode-login',false,'')
     }
     if(nationCode=='86'){
@@ -230,7 +221,7 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
     }
     if(nationCode=='86'){
         if(method.testPhone(mobile.slice(0,11))){
-            // $('#dialog-box .password-login .input-mobile .mobile-errortip').hide()
+          
             showErrorTip('password-login',false,'')
              // 此时密码格式正确
              var loginPassword =$('#dialog-box .password-login .password .login-password:visible').val()
@@ -240,7 +231,7 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
              }
           }else{
               if(mobile&&mobile.length>=11){
-                 // $('#dialog-box .password-login .input-mobile .mobile-errortip').show()
+             
                  showErrorTip('password-login',true,'手机号错误')
                  return
               } 
@@ -255,7 +246,7 @@ $(document).on('input','#dialog-box .password-login .telphone',function(){ //
                 $('#dialog-box .password-login .login-btn').addClass('login-btn-active')
               }
         }else{
-            // showErrorTip('password-login',true,'手机号错误')
+           
             $('#dialog-box .password-login .login-btn').removeClass('login-btn-active')
             $('#dialog-box .password-login .login-btn').addClass('login-btn-disable')
         }
@@ -273,14 +264,7 @@ $(document).on('input','#dialog-box .password-login .login-password',function(){
     if(password.length>16){
         $('#dialog-box .password-login .login-password').val(password.slice(0,16))
      }
-    // if(!password||password.length>8){
-       // $('#dialog-box .password-login .password .password-errortip').show()
-    //    showErrorTip('password-login',true,'密码错误')
-    //    return 
-    // }else{
-    //     //$('#dialog-box .password-login .password .password-errortip').hide()
-    //     showErrorTip('password-login',false,'')
-    // }
+   
     if(nationCode == '86'){
         if(method.testPhone(telphone)&&password){
             $('#dialog-box .password-login .login-btn').removeClass('login-btn-disable')
@@ -455,7 +439,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
 function isShowQrInvalidtip(flag){ // 普通微信登录  游客微信登录
     
     if(flag){
-        // $('.login-qrContent .login-qr').hide()
+       
         $('.login-qrContent .login-qr-invalidtip').show()
         $('.login-qrContent .qr-invalidtip').show()
         $('.login-qrContent .qr-refresh').show()
@@ -472,7 +456,7 @@ function countdown() {  // 二维码失效倒计时
         clearInterval(setIntervalTimer)
         $('#dialog-box .qrcode-default').hide()
         isShowQrInvalidtip(true)
-        // getLoginQrcode()
+       
     }else{
         expires_in--
         timer =  setTimeout(countdown, 1000);
@@ -503,7 +487,7 @@ function countdown() {  // 二维码失效倒计时
                 loginCallback&&loginCallback()
                 touristLoginCallback&&touristLoginCallback()
                
-                // window.location.reload()
+               
                 $.ajaxSetup({
                     headers:{
                         'Authrization':method.getCookie('cuk')
@@ -534,13 +518,13 @@ function countdown() {  // 二维码失效倒计时
 
 
  function handleThirdCodelogin(loginType) {
-    // var clientCode = isTHirdAuthorization == 'bindWechatAuthorization'?'wechat':isTHirdAuthorization == 'bindWeiboAuthorization'?'weibo':'qq'
+ 
     var clientCode = loginType
     var channel = 1  // 使用渠道：1:登录；2:绑定
-//    var location =  'http://ishare.iask.sina.com.cn/node/redirectionURL.html' + '?clientCode=' + clientCode
+
    var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname
    var location =  locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-   // var url = 'http://ishare.iask.sina.com.cn' + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
+  
    var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
    openWindow(url)
 }
@@ -576,7 +560,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
            myWindow.close()
            
 
-        //    window.location.reload()
+        
         $.ajaxSetup({
             headers:{
                 'Authrization':method.getCookie('cuk')
@@ -635,11 +619,12 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
                             "color": "#fff", 
                             "border-color": "#eee"
                         })
-                        authenticationCode.attr('data-authenticationCodeType',2) // 可以重新获取验证码
+                        authenticationCode.attr('data-authenticationCodeType',2) // 可以重新获取验证码 
                     }else{
                         authenticationCode.text(textNumber--)
                         authenticationCode.css({ 
-                            "color": "#fff", 
+                            "color": "#999999", 
+                            "background-color": "#E9E8E5",
                             "border-color": "#eee"
                         })
                         timer =  setTimeout(countdown, 1000);
@@ -693,17 +678,14 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
             touristLoginCallback&&touristLoginCallback()
           
 
-            // window.location.reload()
+            
             $.ajaxSetup({
                 headers:{
                     'Authrization':method.getCookie('cuk')
                 }
              });
            }else{
-            // $.toast({
-            //     text:res.msg,
-            //     delay : 3000,
-            // })
+           
             if(checkCode){
                 showErrorTip('verificationCode-login',true,res.msg)
             }else{

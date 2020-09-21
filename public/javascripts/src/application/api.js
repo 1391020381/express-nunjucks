@@ -13,16 +13,15 @@ define(function (require, exports, module) {
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
-            login: router + '/usermanage/checkLogin',
+            // login: router + '/usermanage/checkLogin',
             // 登出
             loginOut: gateway + '/cas/login/logout',
             // 我的收藏
-            collect: router + '/usermanage/collect',
             newCollect:gateway+'/content/collect/getUserFileList',
             // 透传老系统web登录信息接口
-            getJessionId: router + '/usermanage/getJessionId',
+            // getJessionId: router + '/usermanage/getJessionId',
             //优惠券提醒
-            getSessionInfo: router + '/usermanage/getSessionInfo',
+            // getSessionInfo: router + '/usermanage/getSessionInfo',
             addFeedback:gateway+'/feedback/addFeedback', //新增反馈
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
@@ -40,48 +39,46 @@ define(function (require, exports, module) {
             getUserFileList:gateway + '/content/collect/getUserFileList', // 查询个人收藏列表
             getMyUploadPage:gateway + '/content/getMyUploadPage',   // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
             getOtherUser:gateway+'/user/getOthersCentreInfo',//他人信息主页 
-            getSearchList:gateway+'/search/content/byCondition' //他人信息主页 热门与最新
+            getSearchList:gateway+'/search/content/byCondition', //他人信息主页 热门与最新
+            getVisitorId: gateway + '/user/getVisitorId'   // 获取游客id
         },
-        // 查询用户发券资格接口
-        // sale: {
-        //     querySeniority: router + '/sale/querySeniority',
-        // },
         normalFileDetail: {
             // 添加评论
-            addComment: router + '/fileSync/addComment',
+            // addComment: router + '/fileSync/addComment',
             // 举报
-            reportContent: router + '/fileSync/addFeedback',
+            // reportContent: router + '/fileSync/addFeedback',
             // 是否已收藏
-            isStore: router + '/fileSync/getFileCollect',
+            // isStore: router + '/fileSync/getFileCollect',
             // 取消或者关注
-            collect: router + '/fileSync/collect',
+            // collect: router + '/fileSync/collect',
             // 文件预下载
             filePreDownLoad: gateway + '/content/getPreFileDownUrl',
             // 文件下载
-            fileDownLoad: router + '/action/downloadUrl',  
+            // fileDownLoad: router + '/action/downloadUrl',  
             // 下载获取地址接口
             getFileDownLoadUrl: gateway + '/content/getFileDownUrl',
             // 文件打分
-            appraise: router + '/fileSync/appraise',
+            // appraise: router + '/fileSync/appraise',
             // 文件预览判断接口
-            getPrePageInfo: router + '/fileSync/prePageInfo',
+            // getPrePageInfo: router + '/fileSync/prePageInfo',
+            getPrePageInfo:gateway + '/content/file/getPrePageInfo'
             // 文件是否已下载
-            hasDownLoad: router + '/fileSync/isDownload'
+            // hasDownLoad: router + '/fileSync/isDownload'
         },
         officeFileDetail: {},
         search: {
             //搜索服务--API接口--运营位数据--异步
-            byPosition: router + '/operating/byPosition',
+            // byPosition: router + '/operating/byPosition',
             specialTopic: gateway + '/search/specialTopic/lisPage'   // 专题热点查询
         },
         sms: {
             // 获取短信验证码
-            getCaptcha: router + '/usermanage/getSmsYzCode',
+            // getCaptcha: router + '/usermanage/getSmsYzCode',
             sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail'
         },
         pay: {
             // 购买成功后,在页面自动下载文档
-            successBuyDownLoad: router + '/action/downloadNow',
+            // successBuyDownLoad: router + '/action/downloadNow',
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo'
@@ -96,7 +93,8 @@ define(function (require, exports, module) {
         },
         // vouchers:router+'/sale/vouchers',
         order:{
-            bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+            // bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+            bindOrderByOrderNo:gateway +'/order/bind/byOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',
             rightsVipGetUserMember:gateway + "/rights/vip/getUserMember",
@@ -104,7 +102,8 @@ define(function (require, exports, module) {
             queryOrderlistByCondition:gateway  + '/order/query/listByCondition',
             getOrderInfo:gateway + '/order/get/orderInfo'
         },
-        getHotSearch:router+'/search/getHotSearch',
+        // getHotSearch:router+'/search/getHotSearch',
+        getHotSearch:gateway+'/cms/search/content/hotWords',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 收藏与取消收藏
             getCollectState:gateway+'/comment/zc/getUserFileZcState',  //获取收藏状态
@@ -123,6 +122,17 @@ define(function (require, exports, module) {
         },
         reportBrowse:{
             fileBrowseReportBrowse:gateway + '/content/fileBrowse/reportBrowse',
+        },
+        mywallet:{
+            getAccountBalance: gateway + '/account/balance/getGrossIncome', // 账户余额信息
+            withdrawal: gateway + '/account/with/apply', // 申请提现
+            getWithdrawalRecord:gateway + '/account/withd/getPersonList', // 查询用户提现记录
+            editFinanceAccount: gateway + '/account/finance/edit', // 编辑用户财务信息
+            getFinanceAccountInfo:gateway + '/account/finance/getInfo', // 查询用户财务信息
+           getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
+           getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
+           getMyWalletList: gateway + '/settlement/settle/getMyWalletList', // 我的钱包收入
+           exportMyWalletDetail:gateway + '/settlement/settle/exportMyWalletDetail'  // 我的钱包明细导出
         }
     }
 });

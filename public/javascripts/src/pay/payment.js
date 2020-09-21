@@ -1,15 +1,18 @@
 define(function(require , exports , module){
-    require("../cmd-lib/toast");
+    require("../cmd-lib/toast2");
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var api = require('../application/api');
     var method = require("../application/method");
     var code = method.getParam('code')
     var orderNo = method.getParam('orderNo');
+    var platformCode = method.getParam('platformCode');//平台编码
+    var host = method.getParam('host');//域名来源
     var checkStatus =  method.getParam('checkStatus')
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
 //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
    console.log('scanOrderInfo-start')
+ 
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -36,14 +39,18 @@ define(function(require , exports , module){
                 }
                 console.log('needRedirect:',res.data.needRedirect)
                   if(res.data.needRedirect){
-                      location.href = res.data.returnUrl
-                      return
+                      setTimeout(function(){
+                        location.href = res.data.returnUrl
+                        return
+                      },200)
+                  }else{
+                    $(".payment").removeClass('hide');
+                    if(isWeChat == 'true'){
+                        wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
+                    }else if(isAliPay == 'true'){
+                        aliPay(res.data.aliPayUrl)
+                    }
                   } 
-                  if(isWeChat == 'true'){
-                    wechatPay(res.data.appId,res.data.timeStamp,res.data.nonceStr,res.data.prepayId,res.data.paySign)
-                }else if(isAliPay == 'true'){
-                    aliPay(res.data.aliPayUrl)
-                }
                }else{
                 $.toast({
                     text:res.msg||'scanOrderInfo错误',
@@ -75,27 +82,15 @@ define(function(require , exports , module){
                function(res){
                    console.log('wechatPay:',res)
                if(res.err_msg == "get_brand_wcpay_request:ok"){ // 支付成功
-                // if(checkStatus == 8){
-                //     handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:'wechat'})
-                // }
-                // if(checkStatus == 10 || checkStatus == 13){
-                //     handleBaiduStatisticsPush('payVipResult',{payresult:1,orderid:orderNo,orderpaytype:'wechat'})
-                // }
                 getOrderStatus(orderNo)
                }else if(res.err_msg == "get_brand_wcpay_request:fail"){ // 支付失败
-            //    if(checkStatus == 8){
-            //     handleBaiduStatisticsPush('payFileResult',{payresult:0,orderid:orderNo,orderpaytype:'wechat'})
-            //    }
-            //    if(checkStatus ==10 || checkStatus==13){
-            //     handleBaiduStatisticsPush('payVipResult',{payresult:0,orderid:orderNo,orderpaytype:'wechat'})
-            //    }
-            console.log('wechatPay支付失败:',res)
-                $.toast({
-                    text:"支付失败",
-                    delay : 3000,
-                }) 
-                getOrderStatus(orderNo)
-               }
+                console.log('wechatPay支付失败:',res)
+                    $.toast({
+                        text:"支付失败",
+                        delay : 3000,
+                    }) 
+                    getOrderStatus(orderNo)
+                }
             }); 
          }
          if (typeof WeixinJSBridge == "undefined"){
@@ -116,7 +111,14 @@ define(function(require , exports , module){
         $('form').attr("target","_blank")
     }
     function getOrderStatus(orderNo){
-        location.href  = location.origin + '/pay/paymentresult?orderNo=' + orderNo
+        if(platformCode=='m'){ //m端跳转公共的支付空白页 然后跳相关的页面(m端付费文档微信浏览器)
+            var redirectUrl=host+"/node/payInfo?orderNo="+orderNo+"&mark=wx";
+            location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
+          
+        }else{ //直接跳结果
+            location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
+        }
+   
     }
   
     $(document).on('click','.pay-confirm',function(e){

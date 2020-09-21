@@ -11,14 +11,14 @@
             <div class="carding-success-item data-pay-success">
                 <!--详情页流量购买vip成功-->
                 {% if results.list.type == 0 and results.list.fid %}
-                    <h2 class="pay-ok-text"><i class="icon-pay-ok icon-pay-newok"></i><span>你已开通爱问共享资料VIP</span></h2>
-                    <p class="pay-bottom-text" style="text-indent: 30px;">相关的VIP专享权益与下载特权已发放至您的账户</p>
+                    <h2 class="pay-ok-text"><i class="icon-pay-ok icon-pay-newok"></i><span>你已开通全站VIP</span></h2>
+                    <p class="pay-bottom-text" style="text-indent: 30px;">相关的全站VIP专享权益已发放至你的账户</p>
 
                     <a class="btn-carding-back btn-carding-newback pc_click" bilogContent="paySuccessBacDown" href="/f/{{results.list.fid}}.html">返回下载</a>
                     <!--其他页流量购买vip成功-->
                 {% elif results.list.type == 0 %}
-                    <h2 class="pay-ok-text"><i class="icon-pay-ok icon-pay-newok"></i><span>你已开通爱问共享资料VIP</span></h2>
-                    <p class="pay-bottom-text" style="text-indent: 30px;">相关的VIP专享权益已发放至你的账户</p>
+                    <h2 class="pay-ok-text"><i class="icon-pay-ok icon-pay-newok"></i><span>你已开通全站VIP</span></h2>
+                    <p class="pay-bottom-text" style="text-indent: 30px;">相关的全站VIP专享权益已发放至你的账户</p>
                     <a class="btn-carding-back btn-carding-newback pc_click" bilogContent="paySuccessBacDown" href="/search/home.html">查找资料</a>
                 <!--详情页流量购买下载特权成功-->
                 {% elif results.list.type == 1 and results.list.fid %}

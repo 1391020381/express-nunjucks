@@ -11,7 +11,7 @@
                     {{results.list.data.title.substr(0,30)}}
                 </h2>
                   <div class="detail-user-bar cf">
-                    <span><em>{{results.fileExternal.data.readNum}}</em>人阅读</span>
+                    <span><em>{{results.list.data.readNum}}</em>人阅读</span>
                     <span class="line"></span>
                     <span><em>{{results.list.data.totalPage}}</em>页</span>
                     <span class="line"></span>
@@ -31,10 +31,9 @@
                     <span class="line"></span>
                     <span>{{results.list.data.createtime}}上传</span>
                     <span class="line"></span>
-                    {# <span><em>{{results.fileExternal.data.starScore}}</em>分</span>
-                    <span class="line"></span> #}
+                    
                     <a class="report-link"><i class="icon-report"></i>侵权/举报</a>
-                    {# <span class="line"></span> #}
+                  
 
                 </div>
             </div>
@@ -225,7 +224,7 @@
                                 {% endif %}
                             </div>
                             {% elif loop.index0 === 2 %}
-                            <div class="tui-detail hide-ad" style="display: none">
+                            <div class="tui-detail hide-ad">
                                 <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
                                 <script>
                                     (function () {
@@ -266,7 +265,7 @@
                 data-toggle="btnReadMore">
                 <p class="page-text"><em class="endof-trial-reading" style="display: none;">试读结束 </em>还剩<em class="page-num">{%if results.filePreview.data.is360page %}
                         {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
-                        {{results.list.data.totalPage - 2}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读 ></span></p>
+                        {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读 ></span></p>
                 {# <i class="icon-newdetail"></i> #}
             </a>
             {# {%if results.list.data.isDownload ==='y' %}

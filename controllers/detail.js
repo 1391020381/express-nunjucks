@@ -10,11 +10,12 @@ var Api = require("../api/api");
 var request = require('request');
 var appConfig = require("../config/app-config");
 var fid = null;
+
 var classId = null;
 var title = null;
 var spcClassId = null;
 var isGetClassType = null;
-var fileAttr = 1; //1 普通文件 2 办公频道文件
+
 var format = '';
 var classid1 = '';
 var classid2 = ''
@@ -27,7 +28,7 @@ var recommendInfoData_rele = {}; //相关推荐数据 (相关资料)
 var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
 var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
 var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
-
+var defaultResultsData = {recommendInfoData_rele:{},recommendInfoData_guess:{},paradigm4Guess:{},paradigm4Relevant:{},list:{data:{svgFlag:true,supportSvg:true,fileContentList:[],svgPathList:[],isDownload:'no'}}} // 确保私有 删除  404 显示用户信息 用户可以登录
 module.exports = {
     render: function (req, res,next) {
         var _index = {
@@ -87,7 +88,7 @@ module.exports = {
                             return;     
                     }
                     if (body) {
-                        var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
+                       var uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
                         var cuk = req.cookies.cuk
                         var data = JSON.parse(body);
                         console.log('请求地址post-------------------:',opt.url)
@@ -96,8 +97,8 @@ module.exports = {
                         var fileInfo = data.data&&data.data.fileInfo
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            if(fileInfo.fileAttr == 2){
+                         
+                            if(fileInfo.site == 0){
                                 // 跳转到办公携带参数修改
                                 // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
@@ -110,17 +111,17 @@ module.exports = {
                             title = fileInfo.title || "";   // 文件标题 (没有后缀格式)
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                          
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             productType = fileInfo.productType
-                            uid= fileInfo.uid || ''           // 上传者id
+                     //       uid= fileInfo.uid || ''           // 上传者id
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,statusCode:'404'}
+                                var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404',isDetailRender:true},defaultResultsData) 
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
@@ -130,7 +131,7 @@ module.exports = {
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-                                var results = {showFlag:false,searchQuery,isPrivate:true,statusCode:'302'}
+                                var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302',isDetailRender:true},defaultResultsData)
                                 res.status(302)
                                 render("detail/index", results, req, res);
                                 return   
@@ -140,7 +141,7 @@ module.exports = {
                              }
                         } else {
                             if(data.code == 'G-404'){ // 文件不存在
-                                var results = {showFlag:false}
+                                var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404',isDetailRender:true})
                                 res.status(404)
                                 render("detail/index", results, req, res);
                                 return
@@ -244,16 +245,17 @@ module.exports = {
                 
             },
             getUserFileZcState:function(callback){
-                if(req.cookies.ui){
-                    var uid=JSON.parse(req.cookies.ui).uid;
-                    server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
-                        console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
-                        console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
-                        callback(null,item)
-                    })
-                }else{
-                    callback(null,null)
-                }
+                // if(req.cookies.ui){
+                //     var uid=JSON.parse(req.cookies.ui).uid;
+                //     server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
+                //         console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
+                //         console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
+                //         callback(null,item)
+                //     })
+                // }else{
+                //     callback(null,null)
+                // }
+                callback(null,null)
             },
             // 面包屑导航
             crumbList: function (callback) {
@@ -288,18 +290,14 @@ module.exports = {
             },
             //相关资料   在最后被 第四范式 相关推荐 覆盖
             RelevantInformationList: function (callback) {
-                if (fileAttr == 1) {
-                    server.get(appConfig.apiBasePath + Api.file.fileList.replace(/\$fid/, fid).replace(/\$limit/, ''), callback, req)
-                } else {
-                    callback(null, null);
-                }
+                callback(null, null);
             },
 
             // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
@@ -443,16 +441,42 @@ module.exports = {
             },
 
             // 文档详情扩展的信息
-            fileExternal: function (callback) {
-                server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
-            },
+            // fileExternal: function (callback) {
+            //     server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
+            // },
             // 用户评论   用户评论被删除
             // commentList: function (callback) {
             //     server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
             // },
             filePreview: function (callback) {
-                var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
-                server.get(appConfig.apiBasePath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
+                // server.get(appConfig.apiNewBaselPath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + Api.file.preReadPageLimit,
+                    body:JSON.stringify({
+                        fid:fid,
+                        validateIE9:validateIE9  
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                request(opt,function(err,res1,body){
+                    if(body){
+                        var data = JSON.parse(body);
+                        console.log('请求地址post-------------------:',opt.url)
+                        console.log('请求参数-------------------:',opt.body)
+                        console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                        if (data.code == 0 ){
+                            callback(null, data);
+                        }else{
+                            callback(null,null)
+                        }
+                    }else{
+                      callback(null,null)
+                    }
+                })
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
@@ -481,9 +505,9 @@ module.exports = {
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
             results.crumbList.data.isGetClassType = isGetClassType || 0;
             getInitPage(req, results);
-            if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
-                results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
-            }
+            // if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
+            //     results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
+            // }
             // 如果有第四范式 相关
             if (results.paradigm4Relevant) {
                 var paradigm4RelevantMap = results.paradigm4Relevant.map(item => {
@@ -496,7 +520,8 @@ module.exports = {
                         item_read_cnt:item.item_read_cnt
                     }
                 })
-             //   results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
+                
+                results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
                 results.RelevantInformationList.data = paradigm4RelevantMap.slice(0,4) || [];
                 results.requestID_rele = requestID_rele;
                 results.userID = userID;
@@ -523,11 +548,7 @@ module.exports = {
             results.recommendInfoData_rele = recommendInfoData_rele || {};
             results.recommendInfoData_guess = recommendInfoData_guess || {};
             results.showFlag = true
-            // if (parseInt(fileAttr, 10) === 1) {
-            //     render("detail/index", results, req, res);
-            // } else {
-            //     render("officeDetail/index", results, req, res);
-            // }
+         
             results.isDetailRender = true
             render("detail/index", results, req, res);
 
@@ -561,22 +582,15 @@ module.exports = {
                         var tdk = data.data&&data.data.tdk
                         //console.warn('data----------------',data)
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
-                            if(data.data.fileAttr == 2){
-                                // 跳转到办公携带参数修改
-                                //res.redirect(`http://office.iask.com/f/${data.data.fileId}.html&form=ishare`);
-                                var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-                                res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
-
-                                return
-                            }
+                           
+                            
 
                             fid = fileInfo.id;  // 文件id
                             classId = fileInfo.classid;  // 分类id
                             title = fileInfo.title || "";   // 文件标题 (没有后缀格式)
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                      
                             format = fileInfo.format || '';   //  文件格式 txt,ppt,doc,xls（展示分为两种，txt为文本，其他图片格式展示）
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
@@ -596,7 +610,7 @@ module.exports = {
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if ( perMin != '2' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
@@ -751,6 +765,9 @@ function getInitPage(req, results) {
             results.list.data.fileContentList =newImgUrl;
         }
         // 接口限制可预览页数
+        if(!results.filePreview.data){
+            results.filePreview.data = {}
+        }
         let preRead = results.filePreview.data.preRead;
         if (!preRead) {
             preRead = results.filePreview.data.preRead = 50;

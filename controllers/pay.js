@@ -73,11 +73,12 @@ module.exports = {
         return async.series({
             // 全部分类
             category: function (callback) {
-                if ('office' == req.query.remark) {
-                    server.get(appConfig.apiBasePath + api.office.search.category, callback, req, true);
-                } else {
-                    callback(null, null);
-                }
+                // if ('office' == req.query.remark) {
+                //     server.get(appConfig.apiBasePath + api.office.search.category, callback, req, true);
+                // } else {
+                //     callback(null, null);
+                // }
+                callback(null, null);
             },
             list: function (callback) {
               //  server.get(appConfig.apiBasePath + api.pay.getPrivilege, callback, req);
@@ -89,7 +90,8 @@ module.exports = {
                         scope:4
                       }),
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authrization':req.cookies.cuk
                     },
                 };
                 request(opt, function (err, res, body) {
@@ -195,17 +197,79 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                req.body = req.query;
+                // req.body = req.query;
                 // callback(null,{});
-                server.get(appConfig.apiBasePath + api.pay.qr.replace(/\$orderNo/, req.query.orderNo), callback, req);
+                // server.get(appConfig.apiBasePath + api.pay.qr.replace(/\$orderNo/, req.query.orderNo), callback, req);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.status,
+                    body:JSON.stringify({
+                        orderNo:req.query.orderNo
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0 ) {
+                            req.query.fid = data.data.goodsId
+                            req.query.goodsType = data.data.goodsType
+                            callback(null, data); 
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
+            },
+            fileDetail: function (callback) {
+                if(req.query.goodsType == '1'){
+                    var opt = {
+                        method: 'POST',
+                        url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                        body:JSON.stringify({
+                            clientType: 0,
+                            fid: req.query.fid,  
+                            sourceType: 0
+                          }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                    request(opt,function(err,res1,body){
+                        if(body){
+                            var data = JSON.parse(body);
+                            console.log('请求地址post-------------------:',opt.url)
+                            console.log('请求参数-------------------:',opt.body)
+                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                            if (data.code == 0 ){
+                                callback(null, data);
+                            }else{
+                                callback(null,null)
+                            }
+                        }else{
+                          callback(null,null)
+                        }
+                    })
+                }else{
+                    callback(null,{})
+                }
             }
         }, function (err, results) {
             // console.log(results);
-            if(results.list.code != 0){
+            if(results.list&&results.list.code != 0){
                 results.list.data = {}
             }
-            results.type = results.list.data.type;
+            // results.type = results.list.data.type;
             results.flag = 3;
+            results.list.data.payPrice = results.list.data.payPrice?(results.list.data.payPrice/100).toFixed(2):''
+            results.list.data.originalPrice = results.list.data.originalPrice?(results.list.data.originalPrice/100).toFixed(2):''
+            results.list.data.discountPrice  = results.list.data.originalPrice - results.list.data.payPrice > 0? true :false
+            results.list.data.format = results.fileDetail.data&&results.fileDetail.data.fileInfo.format
+            results.list.data.fileSize = results.fileDetail.data&&results.fileDetail.data.fileInfo.fileSize
             // render("pay/index", results, req, res);
             if ('office' == req.query.remark) {
                 render("office/pay/index", results, req, res);
@@ -239,38 +303,45 @@ module.exports = {
     success: function (req, res) {
         return async.series({
             fileDetails: function (callback) {
-                var opt = {
-                    url: appConfig.apiBasePath + api.pay.orderPoint.replace(/\$orderNo/, req.query.orderNo),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authrization':req.cookies.cuk
-                    },
-                };
-                request(opt, function (err, res, body) {
-                    if (body) {
-                        try {
-                            var data = JSON.parse(body);
-                            console.log('请求地址post-------------------:',opt.url)
-                            console.log('请求参数-------------------:',opt.body)
-                            console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
-                            if (data.code == 0) {
-                                var backData = {
-                                    fileId: req.query.fid,
-                                    format: data.data.format || "",
-                                    title: data.data.title || "",
-                                    state: data.data.state || "",
-                                };
-                                callback(null, backData);
-                            } else {
-                                callback(null, null);
-                            }
-                        } catch (err) {
-                            callback(null, null);
-                        }
-                    } else {
-                        callback(null, null);
-                    }
-                })
+                // var opt = {
+                //     url: appConfig.apiBasePath + api.pay.orderPoint.replace(/\$orderNo/, req.query.orderNo),
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authrization':req.cookies.cuk
+                //     },
+                // };
+                // request(opt, function (err, res, body) {
+                //     if (body) {
+                //         try {
+                //             var data = JSON.parse(body);
+                //             console.log('请求地址post-------------------:',opt.url)
+                //             console.log('请求参数-------------------:',opt.body)
+                //             console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                //             if (data.code == 0) {
+                //                 var backData = {
+                //                     fileId: req.query.fid,
+                //                     format: data.data.format || "",
+                //                     title: data.data.title || "",
+                //                     state: data.data.state || "",
+                //                 };
+                //                 callback(null, backData);
+                //             } else {
+                //                 callback(null, null);
+                //             }
+                //         } catch (err) {
+                //             callback(null, null);
+                //         }
+                //     } else {
+                //         callback(null, null);
+                //     }
+                // })
+              var   backData = {
+                fileId: req.query.fid,
+                format: req.query.format || "",
+                title:req.query.title ?decodeURIComponent(req.query.title):'',
+                state:  "",
+              } 
+              callback(null, backData);
             },
             // 全部分类
             category: function (callback) {
@@ -399,7 +470,29 @@ module.exports = {
     orderStatus: function (req, res) {
         return async.series({
             list: function (callback) {
-                server.post(appConfig.apiBasePath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
+                // server.post(appConfig.apiNewBaselPath + api.pay.status.replace(/\$orderNo/, req.body.orderNo), callback, req);
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.status,
+                    body:JSON.stringify({
+                        orderNo:req.body.orderNo
+                      }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                };
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0 ) {
+                            callback(null, data); 
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
             }
         }, function (err, results) {
             console.log("订单状态============");
