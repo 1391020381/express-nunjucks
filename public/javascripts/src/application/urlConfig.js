@@ -8,22 +8,22 @@ define(function (require, exports, module) {
             loginUrl: ''
         },
         dev: {
-            ajaxUrl: 'http://dev-ishare.sina.com.cn',
+            ajaxUrl: 'http://dev-ishare.com.cn',
             payUrl: 'http://dev-open-ishare.iask.com.cn',
             loginUrl: ''
         },
         test: {
-            ajaxUrl: 'http://dev-ishare.sina.com.cn',
+            ajaxUrl: 'http://dev-ishare.com.cn',
             payUrl: 'http://test-open-ishare.iask.com.cn',
             loginUrl: ''
         },
         pre: {
-            ajaxUrl: 'http://pre-ishare.sina.com.cn',
+            ajaxUrl: 'http://pre-ishare.com.cn',
             payUrl: 'http://pre-open-ishare.iask.com.cn',
             loginUrl: ''
         },
         prod: {
-            ajaxUrl: 'http://dev-ishare.sina.com.cn',
+            ajaxUrl: 'http://dev-ishare.com.cn',
             payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: ''
         }
