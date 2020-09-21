@@ -4,6 +4,7 @@ define(function(require , exports , module){
     require("./fixedTopBar");
     require("./msgVer");
     require('../cmd-lib/toast');
+    var api = require('../application/api'); 
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
@@ -41,7 +42,7 @@ define(function(require , exports , module){
         },
          // 查询认证信息
          queryCerinfo:function(){
-            $.ajax('/gateway/user/certification/getPersonal', {
+            $.ajax(api.authentication.getPersonalCertification, { // /gateway/user/certification/getPersonal
                 type:"get"
             }).done(function(data){
                 if(data.code=="0"){
@@ -283,7 +284,7 @@ define(function(require , exports , module){
                 return false;
             }
             params = JSON.stringify(params)
-            $.ajax('/gateway/user/certification/personal', {
+            $.ajax(api.authentication.personalCertification, { // /gateway/user/certification/personal
                 type:"POST",
                 data:params,
                 contentType:'application/json'

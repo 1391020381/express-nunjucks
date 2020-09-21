@@ -171,7 +171,8 @@ define(function (require,exports,moudle) {
                         pageSize:12,
                         clientType:0
                     }
-                    url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
+                    // url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
+                    url = api.seo.listContentInfos
                     getData(url,data,dataType,$list)
                }else if(type == 'new'){
                     newIndex++;

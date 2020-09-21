@@ -525,7 +525,8 @@ function countdown() {  // 二维码失效倒计时
    var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname
    var location =  locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
   
-   var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
+//    var url = locationUrl + api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
+var url =  api.user.thirdCodelogin + '?clientCode='+ clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location='+ encodeURIComponent(location) 
    openWindow(url)
 }
  function openWindow(url){ // 第三方打开新的标签页

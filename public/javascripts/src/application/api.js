@@ -2,8 +2,9 @@
  * 前端交互性API
  **/
 define(function (require, exports, module) {
-    var router = "/gateway/pc";
-    var gateway = '/gateway'
+    var urlConfig = require('./urlConfig')
+    var router = urlConfig.ajaxUrl + "/gateway/pc";
+    var gateway = urlConfig.ajaxUrl + '/gateway'
     module.exports = {
         // 用户相关
         user: {
@@ -13,15 +14,9 @@ define(function (require, exports, module) {
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
             getUserInfo : '/node/api/getUserInfo',  // node聚合的接口获取用户信息
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
-            // login: router + '/usermanage/checkLogin',
-            // 登出
             loginOut: gateway + '/cas/login/logout',
             // 我的收藏
             newCollect:gateway+'/content/collect/getUserFileList',
-            // 透传老系统web登录信息接口
-            // getJessionId: router + '/usermanage/getJessionId',
-            //优惠券提醒
-            // getSessionInfo: router + '/usermanage/getSessionInfo',
             addFeedback:gateway+'/feedback/addFeedback', //新增反馈
             getFeedbackType:gateway + '/feedback/getFeedbackType', //获取反馈问题类型
             sendSms: gateway + '/cas/sms/sendSms', // 发送短信验证码
@@ -43,42 +38,27 @@ define(function (require, exports, module) {
             getVisitorId: gateway + '/user/getVisitorId'   // 获取游客id
         },
         normalFileDetail: {
-            // 添加评论
-            // addComment: router + '/fileSync/addComment',
-            // 举报
-            // reportContent: router + '/fileSync/addFeedback',
-            // 是否已收藏
-            // isStore: router + '/fileSync/getFileCollect',
-            // 取消或者关注
-            // collect: router + '/fileSync/collect',
             // 文件预下载
-            filePreDownLoad: gateway + '/content/getPreFileDownUrl',
-            // 文件下载
-            // fileDownLoad: router + '/action/downloadUrl',  
+            filePreDownLoad: gateway + '/content/getPreFileDownUrl', 
             // 下载获取地址接口
             getFileDownLoadUrl: gateway + '/content/getFileDownUrl',
             // 文件打分
-            // appraise: router + '/fileSync/appraise',
             // 文件预览判断接口
-            // getPrePageInfo: router + '/fileSync/prePageInfo',
-            getPrePageInfo:gateway + '/content/file/getPrePageInfo'
-            // 文件是否已下载
-            // hasDownLoad: router + '/fileSync/isDownload'
+            getPrePageInfo:gateway + '/content/file/getPrePageInfo',
+            sendmail: gateway +  '/content/sendmail/findFile',
+            getFileDetailNoTdk:gateway + '/content/getFileDetailNoTdk'
+        
         },
         officeFileDetail: {},
         search: {
-            //搜索服务--API接口--运营位数据--异步
-            // byPosition: router + '/operating/byPosition',
             specialTopic: gateway + '/search/specialTopic/lisPage'   // 专题热点查询
         },
         sms: {
             // 获取短信验证码
-            // getCaptcha: router + '/usermanage/getSmsYzCode',
             sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail'
         },
         pay: {
             // 购买成功后,在页面自动下载文档
-            // successBuyDownLoad: router + '/action/downloadNow',
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo'
@@ -91,9 +71,8 @@ define(function (require, exports, module) {
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
             getBuyRecord:gateway + '/rights/vip/getBuyRecord'
         },
-        // vouchers:router+'/sale/vouchers',
         order:{
-            // bindOrderByOrderNo:router+'/order/bindOrderByOrderNo',
+          
             bindOrderByOrderNo:gateway +'/order/bind/byOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',
@@ -102,7 +81,6 @@ define(function (require, exports, module) {
             queryOrderlistByCondition:gateway  + '/order/query/listByCondition',
             getOrderInfo:gateway + '/order/get/orderInfo'
         },
-        // getHotSearch:router+'/search/getHotSearch',
         getHotSearch:gateway+'/cms/search/content/hotWords',
         special:{
             fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 收藏与取消收藏
@@ -133,6 +111,15 @@ define(function (require, exports, module) {
            getPersonalAccountTax:gateway + '/account/tax/getPersonal', // 查询个人提现扣税结算
            getMyWalletList: gateway + '/settlement/settle/getMyWalletList', // 我的钱包收入
            exportMyWalletDetail:gateway + '/settlement/settle/exportMyWalletDetail'  // 我的钱包明细导出
+        },
+        authentication:{
+            getInstitutions:gateway +  '/user/certification/getInstitutions' ,
+            institutions : gateway + '/user/certification/institutions',
+            getPersonalCertification:gateway + '/gateway/user/certification/getPersonal',
+            personalCertification :gateway + '/gateway/user/certification/personal'
+        },
+        seo:{
+            listContentInfos: gateway + '/seo/exposeContent/contentInfo/listContentInfos' 
         }
     }
 });

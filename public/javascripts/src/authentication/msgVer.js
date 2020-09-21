@@ -1,5 +1,8 @@
+
+
 define(function(require , exports , module){
     require('../cmd-lib/toast');
+    var api = require('../application/api');
     var bindPhone = {
         validateFrom:/^1[3456789]\d{9}$/,
         phone:'',
@@ -54,7 +57,8 @@ define(function(require , exports , module){
         pictureVerify:function(appid,randstr,ticket,onoff){
             var params = {mobile:bindPhone.phone,nationCode:'86','businessCode':'6',terminal:'pc',appId:appid,randstr:randstr,ticket:ticket,onOff:onoff};
             params = JSON.stringify(params)
-            $.ajax('/gateway/cas/sms/sendSms', { 
+            
+            $.ajax(api.user.sendSms, {  // /gateway/cas/sms/sendSms
                 type:"POST",
                 data:params,
                 contentType:'application/json'

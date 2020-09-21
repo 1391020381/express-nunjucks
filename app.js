@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var useragent = require('express-useragent');
 let proxy = require('http-proxy-middleware');
-//var url = require('url');
+
 var session = require('express-session');
 //var redisStore = require('connect-redis')(session);
 var log4js = require('./lib/log4js').getLogger('APP');
@@ -81,30 +81,32 @@ app.use(function (req, res, next) {
 app.use('/', router);
 
 // //本地开发环境反向代理
-// if(process.env.NODE_ENV == 1){
-//     app.use('/', proxy({
-//         //目标后端服务地址
-//         // target: 'http://localhost:8082/',
-//         target: 'http://192.168.1.53:8082/',
-//         pathRewrite: {
-//           '^/' : ''
-//         },
-//         changeOrigin: true
-//     }))
-// }
 
+let  restream = function(proxyReq, req, res, options) {
+    if (req.body) {
+        let bodyData = JSON.stringify(req.body);
+        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+        proxyReq.setHeader('Content-Type','application/json');
+        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+        // stream the content
+        proxyReq.write(bodyData);
+    }
+}
 
-// catch 404 and forward to error handler
-//app.use(function (req, res, next) {
-    // var err = new Error('Not Found');
-    // err.status = 404;
-    // next(err);
-    // res.redirect('/node/404.html');
-//});
-
-// development error handler
-// will print stacktrace
-
+if(process.env.NODE_ENV == 'local'){
+    app.use('/gateway', proxy({
+        //目标后端服务地址
+        // target: 'http://localhost:8082/',
+        // target: 'http://ishare.iask.sina.com.cn',
+        // target:'http://192.168.1.50/',
+        target:'http://192.168.1.50:8769/',
+        // pathRewrite: {
+        //   '^/' : ''
+        // },
+        changeOrigin: true,
+        onProxyReq: restream
+    }))
+}
 
 app.use(function (err, req, res, next) {
     if (appConfig.env === 'dev'||appConfig.env === 'test') {
@@ -120,15 +122,6 @@ app.use(function (err, req, res, next) {
     
 });
 
-// production error handler
-// will print stacktrace
-// app.use(function (err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.send({
-//         status: 0,
-//         message: err.message,
-//         error: {}
-//     })
-// });
+
 
 module.exports = app;

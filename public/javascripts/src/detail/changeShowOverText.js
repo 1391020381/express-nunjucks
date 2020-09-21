@@ -1,14 +1,18 @@
+
+
 define(function (require, exports, module) { // 需要判断时候是否要登录 是否点击
     // 试读完毕后, 修改 继续阅读 按钮的文字 而且修改后 事件的逻辑 走下载逻辑
     var  downLoad =  require("./download").downLoad;
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var common = require('./common');
+    var api = require("../application/api");
     var goPage = require('./index').goPage
      var  readMore =  $('.red-color')
      var pageText = $('.page-text .endof-trial-reading')
      var pageNum = $('.page-num')
      var preRead = window.pageConfig.page&&window.pageConfig.page.preRead || 50
+     
      // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
      // 是否登录  method.getCookie('cuk')
      // 是否可以下载  window.pageConfig.page.isDownload
@@ -91,7 +95,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                     channelSource:4,
                 }
 
-                $.ajax('/gateway/content/sendmail/findFile', {
+                $.ajax(api.normalFileDetail.sendmail, { // /gateway/content/sendmail/findFile
                     type: "POST",
                     data: JSON.stringify(params),
                     dataType: "json",

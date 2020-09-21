@@ -374,19 +374,7 @@ define(function (require, exports, module) {
 
     };
 
-    // var downLoad = function () {
-    //     // 文件下载 /action/downloadUrl?fid=文件id&code=验证码,预下载返回需要验证码
-    //     var url = api.normalFileDetail.fileDownLoad + '?fid=' + window.pageConfig.params.g_fileId + "&code=" + (code ? code : '');
-    //     $.ajax({
-    //         async: false,
-    //         type: "GET",
-    //         url: url,
-    //         dataType: "json",
-    //         success: function (data) {
-    //             bouncedType(data);
-    //         }
-    //     });
-    // };
+   
     
    /**
     * 

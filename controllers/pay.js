@@ -414,8 +414,7 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + api.pay.orderUnlogin, callback, req);
             }
         }, function (err, results) {
-            // console.log("免登陆下单操作=================");
-            // console.log(appConfig.apiBasePath + api.pay.orderUnlogin);
+            console.log('免登陆下单:',JSON.stringify(results))
             res.send(results.list).end();
         })
     },

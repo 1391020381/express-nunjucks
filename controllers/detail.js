@@ -82,6 +82,8 @@ module.exports = {
                     },
                 };
                 request(opt, function (err, res1, body) {
+                    console.log('opt:',JSON.stringify(opt))
+                    
                     if(res1&&res1.statusCode == 503){ // http请求503
                             console.log('--------详情页503重定向到503页面-------------')
                             res.redirect(`/node/503.html?fid=${req.params.id}`);

@@ -95,18 +95,6 @@ define(function (require, exports, module) {
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
         var visitorId = getVisitIdByCookie();
-        // $.get(api.pay.bindUser, {
-        //     'visitorId': visitorId,
-        //     'userId': userId,
-        //     'nickName': nickName
-        // }, function (data) {
-        //     $.toast({
-        //         text: data.msg,
-        //         callback: function () {
-        //             location.reload()
-        //         }
-        //     })
-        // });
         $.ajax({
             url: api.pay.bindUser,
             type: "POST",
