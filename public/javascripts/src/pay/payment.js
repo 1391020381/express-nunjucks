@@ -10,13 +10,14 @@ define(function(require , exports , module){
     var checkStatus =  method.getParam('checkStatus')
     var isWeChat =  window.pageConfig.page&&window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
+    var urlConfig = require('../application/urlConfig')
 //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
    console.log('scanOrderInfo-start')
  
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
-            url:  'http://ishare.iask.sina.com.cn'+ api.pay.scanOrderInfo,
+            url:  api.pay.scanOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo:orderNo,
@@ -113,10 +114,11 @@ define(function(require , exports , module){
     function getOrderStatus(orderNo){
         if(platformCode=='m'){ //m端跳转公共的支付空白页 然后跳相关的页面(m端付费文档微信浏览器)
             var redirectUrl=host+"/node/payInfo?orderNo="+orderNo+"&mark=wx";
-            location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
-          
-        }else{ //直接跳结果
-            location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
+            // location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
+            location.href= urlConfig.ajaxUrl + '/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
+        }else{ //直接跳结果 urlConfig
+            // location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
+            location.href  = urlConfig.ajaxUrl +'/pay/paymentresult?orderNo=' + orderNo
         }
    
     }

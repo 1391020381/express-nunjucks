@@ -2,6 +2,11 @@
 define(function (require, exports, module) {
     var env = window.env
     var urlConfig = {
+        debug: {
+            ajaxUrl: 'http://localhost:3004',
+            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            loginUrl: ''
+        },
         local: {
             ajaxUrl: 'http://localhost:3004',
             payUrl: 'http://dev-open-ishare.iask.com.cn',
