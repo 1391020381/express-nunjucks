@@ -68,7 +68,7 @@ module.exports = {
                     }
                 })
             },
-            list: function (callback) {  // cookies.ui
+            list: function (callback) {  
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
@@ -102,7 +102,7 @@ module.exports = {
                          
                             if(fileInfo.site == 0){
                                 // 跳转到办公携带参数修改
-                                // res.redirect(`http://office.iask.com/f/${fileInfo.id}.html&form=ishare`);
+                             
                                 var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
                                 res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
                                 return
@@ -119,7 +119,7 @@ module.exports = {
                             classid2 = fileInfo.classid2
                             perMin = fileInfo.permin || '';  // 1:公开、2:私人 3:付费
                             productType = fileInfo.productType
-                     //       uid= fileInfo.uid || ''           // 上传者id
+                  
                             userID = fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
@@ -129,7 +129,7 @@ module.exports = {
                                 return
                             }
                              if(productType == 6){
-                                 if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ // 当有cuk,但是 fileInfo.ui  和 uid都是空
+                                 if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ 
                                     callback(null, data);
                                  }else{
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
@@ -247,21 +247,12 @@ module.exports = {
                 
             },
             getUserFileZcState:function(callback){
-                // if(req.cookies.ui){
-                //     var uid=JSON.parse(req.cookies.ui).uid;
-                //     server.$http(appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`,'get', req, res, true).then(item=>{
-                //         console.log('请求地址get-------------------:',appConfig.apiNewBaselPath + Api.file.getUserFileZcState+`?fid=${fid}&uid=${uid}`)
-                //         console.log('返回code------:'+item.code,'返回msg-------:'+item.msg)
-                //         callback(null,item)
-                //     })
-                // }else{
-                //     callback(null,null)
-                // }
+              
                 callback(null,null)
             },
             // 面包屑导航
             crumbList: function (callback) {
-               // server.get(appConfig.apiBasePath + Api.file.fileCrumb.replace(/\$isGetClassType/, isGetClassType).replace(/\$spcClassId/, spcClassId).replace(/\$classId/, classId), callback, req,true)
+      
                var opt = {
                 method: 'POST',
                 url: appConfig.apiNewBaselPath + Api.file.navCategory,
@@ -452,7 +443,7 @@ module.exports = {
             // },
             filePreview: function (callback) {
                  var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
-                // server.get(appConfig.apiNewBaselPath + Api.file.preReadPageLimit.replace(/\$fid/, fid).replace(/\$validateIE9/, validateIE9), callback, req, true);
+              
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.preReadPageLimit,
@@ -482,15 +473,10 @@ module.exports = {
             }
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
-          
-           
-                  // console.log('results:',JSON.stringify(results))
             if (!results.list || results.list.code == 40004 || !results.list.data) {
                 res.redirect('/node/404.html');
                 return;
             }
-           
-         
          // 转换新对象
              var list = Object.assign({},{data:Object.assign({},results.list.data.fileInfo,results.list.data.transcodeInfo)})
             if(!list.data.fileContentList){
@@ -507,9 +493,7 @@ module.exports = {
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
             results.crumbList.data.isGetClassType = isGetClassType || 0;
             getInitPage(req, results);
-            // if(results.RelevantInformationList.data&&results.RelevantInformationList.data){ // 产品需求取4个数字
-            //     results.RelevantInformationList.data = results.RelevantInformationList.data.slice(0,4)
-            // }
+          
             // 如果有第四范式 相关
             if (results.paradigm4Relevant) {
                 var paradigm4RelevantMap = results.paradigm4Relevant.map(item => {
@@ -552,8 +536,13 @@ module.exports = {
             results.showFlag = true
          
             results.isDetailRender = true
-            render("detail/index", results, req, res);
 
+            results.list.isDetailb = true
+            if(results.list.isDetailb){
+                render("detail-b/index", results, req, res);
+            }else{
+                render("detail/index", results, req, res);
+            }
             //释放 不然 会一直存在
             recommendInfoData_rele = {};
             recommendInfoData_guess = {};
@@ -565,7 +554,7 @@ module.exports = {
         var _index = {
             list: function (callback) {
                 var opt = {
-                    // url: appConfig.apiBasePath + Api.file.fileDetail.replace(/\$id/, req.params.id),
+                   
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.fileDetail,
                     body:JSON.stringify({
@@ -721,10 +710,7 @@ module.exports = {
         };
         return async.series(_index, function (err, results) { // async.series 串行无关联
 
-            // if (!results.list || results.list.code == 40004 || !results.list.data) {
-            //     res.redirect('/node/404.html');
-            //     return;
-            // }
+           
             // 如果有第四范式 猜你喜欢
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {

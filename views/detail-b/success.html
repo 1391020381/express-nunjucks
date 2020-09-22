@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/down-success.css">  
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
+    <!-- 添加360统计代码1、PC端统计代码： -->
+<script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",335601,false);
+</script> 
+
+</head>
+<script>
+    var _speedMark = +new Date(),
+        _version = "{{version}}",
+        _head = "{{cdnUrl}}";
+ var env = "{{env}}";
+</script>
+<body>
+{% if results.unloginFlag %}
+<input type="hidden" id="ip-page-id" value="PC-M-DOWN-SUC">
+<input type="hidden" id="ip-page-name" value="免登购买成功页">
+{% else %}
+<input type="hidden" id="ip-page-id" value="PC-M-DOWN-SUC">
+<input type="hidden" id="ip-page-name" value="下载成功页">
+{% endif%}
+
+{% include "common/js.html" %}
+{# {% include "detail/header.html" %} #}
+{% include "common/websiteHeaderbar.html" %}
+<!--遮罩层-->
+<div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
+{% include "common/dialog.html" %}
+{% include "./dialog.html" %}
+<div class="pw-down-success">
+    <div class="down-carding-main down-success">
+        <div class="carding-info-con">
+           
+            <div class="carding-success-item new-success-item">
+                <h2 class="pay-ok-text ">
+                    <a class="new-icon">
+                        <img src="{{cdnUrl}}/images/detail/pay_ok.png"/>
+                        <span class="gx">下载成功</span>
+                        <span class="no-find-text"> 找不到资料？
+                           <div class="no-found-tip">
+                                    <span></span>
+                                    <span></span>
+                                    <p>• 查看下载记录快捷键</p> 
+                                    <p class="win">Windows：Ctrl+J</p>   
+                                    <p class="mac">Mac：Command+Option+L</p>   
+                                    <p class="email">• 将资料<em class="js-sent-email">发送到邮箱</em>保存</p>
+                                </div>
+                        </span>
+                    </a>
+                </h2>
+                <p class="pay-ok-subtext">
+                    如果下载没有开始，请<span class="quick-down-a">点击此处</span>
+                </p>
+                {# <div class="unloginStatus unloginTop" style="display: none;">
+                    <div class="pay-success"><i class="icon-success"><img src="{{cdnUrl}}/images/detail/pay_ok.png"/></i>支付成功</div>
+                    <div class="quick-icon">你已成功获取：<span class="xbsd"><i></i><span id="filename"></span></span></div>
+                    <div class="quick-down">你的下载很快开始，如果没有<!--downloadBtn-->，请 <a class="quick-down-a">点击此处</a></div>
+                    <div class="not-found-res">找不到资料下载到哪里了？试试Ctrl+J </div>
+                </div> #}
+                {# <div class="carding-data-pay-con">
+                    <!-- vip & 特权用完提示文字 -->
+                    <p class="vip-state-text down-succ-title" style="display: none;"></p>
+                    <a data-type="default" style="display: none;" class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">开通VIP,千万文档免费下载</a>
+                    <a data-type="vip" style="display: none;"  class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessContinueVip">续费VIP</a>
+                    <a data-type="privilege" style="display: none;"  class="btn-join-vip down-succ-btn js-buy-open pc_click" pcTrackContent="joinPrivilege">购买特权包</a>
+                    <a class="btn-carding-back pc_click" bilogContent="downSuccessBacDetail" style="display: none;">返回详细页</a>
+
+                    <div class="bottom-privilege downSucc-privi hide">
+                        <div class="bottom-p-item">
+                            <i class="icon-p icon-p-01"></i>
+                            赠专享资料下载特权
+                        </div>
+                        <div class="bottom-p-item">
+                            <i class="icon-p icon-p-02"></i>
+                            付费资料8折起
+                        </div>
+                        <div class="bottom-p-item">
+                            <i class="icon-p icon-p-03"></i>
+                            海量资料免费下载
+                        </div>
+                        <div class="bottom-p-item">
+                            <i class="icon-p icon-p-04"></i>
+                            专属身份标识
+                        </div>
+                        <a style="display:none" data-type="vip" class="join-vip-link pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">立即开通VIP&gt;</a>
+                    </div>
+                </div> #}
+                <div class="qrcode-warpper">
+                    <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
+                    <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
+                </div>
+                {# <div  class="down-success-other">
+                    <div class="down-success-banner">
+                
+                    </div>
+                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
+                     {%if results.paradigm4GuessData.length>0 %}
+                      {% include "detail/guessYouLike.html" %}
+                     {%endif%}
+                    </div>
+                </div> #}
+            </div>
+             <!-- 下载成功页面不用绑定手机号 -->
+            {# {% include "common/card.html" %} #}
+            <!-- 首次下载送优惠券 -->
+            <div class="carding-info-bottom couponContainer carding-data-pay-con cf" style="display:none">
+                {% include "common/couponIssue.html" %}
+            </div>
+            <!-- 游客购买下载 -->
+            <div class="carding-info-bottom unloginStatus carding-data-pay-con cf" style="display:none;padding: 35px 0 0 ;">
+                <!--关注二维码 start -->
+                <div class="carding-er-code">
+                    <h3 class="bottom-title">扫码登录后，可保留购买记录，随时免费下载此资料</h3>
+                </div>
+                <div class="qrWrap" style="height: 360px;overflow: hidden;width: 100%">
+
+                </div>
+            </div>
+
+            <div  class="down-success-other">
+                    <div class="down-success-banner">
+                
+                    </div>
+                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
+                     {%if results.paradigm4GuessData.length>0 %}
+                      {% include "detail/guessYouLike.html" %}
+                     {%endif%}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% include "common/new/footer.html" %}
+
+<script type="text/javascript" charset="utf-8" src="{{staticUrl}}/bshareC0.js"></script>
+</body>
+<script>
+    window.pageConfig = {
+        report: {},
+        params:{
+            isVip:0,
+        }
+    }
+</script>
+<script>
+    seajs.use(["dist/application/app.js", "dist/detail/success.js"])
+</script>
+<!-- 百度统计代码 -->
+<script src="{{staticUrl}}/baidu-statistics.js"> </script>
+
+</html>

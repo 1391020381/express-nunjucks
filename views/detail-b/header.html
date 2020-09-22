@@ -1,0 +1,75 @@
+
+<div class="new-detail-header">
+    <div class="pw-detail">
+        <div class="new-header-inter">
+            <a class="logo fl" href="/"><img src="{{cdnUrl}}/images/new_detail_logo.jpg"></a>
+     
+            <div class="header-right fl">
+                <div class="new-search fl cf">
+                    <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
+                        placeholder="与人沟通的十大绝招">
+                    <a class="btn-new-search"><i class="icon-detail"></i>搜索资料</a>
+                    <div class="detail-lately">
+                        <ul class="lately-list">
+                        </ul>
+                    </div>
+                    <!--搜索小提示 -->
+                    <div class="detail-search-info">
+                        <i class="before"></i>
+                        <i class="after"></i>
+                        <p>没找到想要的资料？ 试一下搜索吧~</p>
+                        <div class="icon-search-hand">
+                            <div class="icon-an-circular"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="new-header-right fl">
+                <div class="vip-join-con">
+                    {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                        <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
+                    </a> #}
+                 {% if results.geSearchBannerList.list[0] %}   
+                   <a  href="{{results.geSearchBannerList.list[0].linkUrl}}" target="_blank" data-id="{{results.geSearchBannerList.list[0].id}}">
+                    <img class="img" src="{{results.geSearchBannerList.list[0].imagUrl}}">
+                  </a>
+                {% endif %}
+               </div>    
+            </div> 
+                   
+                <div class="user-info fr">
+                    <!--未登录 -->
+                    <div class="user-con" id="detail-unLogin">
+                        <a class="user-link user-login">
+                            <div class="user-img"></div>
+                            <span class="login-text pc_click" pcTrackContent="detailTopLogin">登录</span>
+                        </a>
+                    </div>
+                    <!--已登录 -->
+                    <div class="user-con" id="haveLogin" style="display: none;">
+                        <a class="user-link" href="/node/personalCenter/vip.html" target="_blank">
+                            <i class="icon-detail"></i>
+                            <div class="user-img">
+                                <img src="" alt="头像">
+                            </div>
+                        </a>
+                       
+                        <div class="user-more">
+                            <i class="before"></i>
+                            <i class="after"></i>
+                            {% if results.type %}
+
+                            {%else%}
+                           
+                                  <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                            {%endif%}
+                            <a class="loginOut">退出</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
