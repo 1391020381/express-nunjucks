@@ -11,7 +11,7 @@ var surl = "";
 
 
 
-if (process.env.NODE_ENV =='local') {
+if (process.env.NODE_ENV =='local' || process.env.NODE_ENV == 'debug') {
     return;
 } else if (data) {
     console.log('-----------data',data)

@@ -93,16 +93,12 @@ let  restream = function(proxyReq, req, res, options) {
     }
 }
 
-if(process.env.NODE_ENV == 'local'){
+if(appConfig.env == 'local'){
     app.use('/gateway', proxy({
         //目标后端服务地址
-        // target: 'http://localhost:8082/',
-        // target: 'http://ishare.iask.sina.com.cn',
-        // target:'http://192.168.1.50/',
-        target:'http://192.168.1.50:8769/',
-        // pathRewrite: {
-        //   '^/' : ''
-        // },
+       //  target: 'http://ishare.iask.sina.com.cn',
+       // target:'http://192.168.1.50:8769/',
+       target:appConfig.newBasePath,
         changeOrigin: true,
         onProxyReq: restream
     }))

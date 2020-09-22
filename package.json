@@ -11,6 +11,7 @@
         "test": "cross-env NODE_ENV=test  pm2 restart pm2.json && node --max_old_space_size=4096",
         "dev": "cross-env NODE_ENV=dev  pm2 restart pm2.json && node --max_old_space_size=4096",
         "local": "cross-env NODE_ENV=local  nodemon ./bin/www",
+        "debug": "cross-env NODE_ENV=debug  nodemon ./bin/www",
         "buildPage": "node ./build/build-page.js"
     },
     "dependencies": {

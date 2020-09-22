@@ -13,7 +13,7 @@ define(function (require, exports, module) {
             loginUrl: ''
         },
         test: {
-            ajaxUrl: 'http://dev-ishare.iask.com.cn',
+            ajaxUrl: 'http://test-ishare.iask.com.cn',
             payUrl: 'http://test-open-ishare.iask.com.cn',
             loginUrl: ''
         },
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
             loginUrl: ''
         },
         prod: {
-            ajaxUrl: 'http://dev-ishare.iask.com.cn',
+            ajaxUrl: 'http://ishare.iask.sina.com.cn/',
             payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: ''
         }
