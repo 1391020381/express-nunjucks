@@ -44,7 +44,7 @@ define(function (require, exports, module) {
         userID: '',//用户ID
         sessionID: sessionStorage.getItem('sessionID') || cid || '',//会话ID
         productName: 'ishare',//产品名称
-        productCode: '0',//产品代码
+        productCode: '0',//产品代码    详情A B 测试  B端 productCode 1
         productVer: 'V4.5.0',//产品版本
         pageID: '',//当前页面编号
         pageName: '',//当前页面的名称

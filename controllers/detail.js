@@ -432,15 +432,6 @@ module.exports = {
                     callback(null, null);
                 }
             },
-
-            // 文档详情扩展的信息
-            // fileExternal: function (callback) {
-            //     server.get(appConfig.apiBasePath + Api.file.fileExternal.replace(/\$fid/, fid), callback, req);
-            // },
-            // 用户评论   用户评论被删除
-            // commentList: function (callback) {
-            //     server.get(appConfig.apiBasePath + Api.file.commentList.replace(/\$fid/, fid), callback, req)
-            // },
             filePreview: function (callback) {
                  var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
               
