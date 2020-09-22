@@ -72,7 +72,7 @@ module.exports = {
         //搜索服务--API接口--条件搜索--同步
         byCondition: '/search/byCondition',
         //搜索服务--API接口--搜索页搜索关联词数据--同步
-        // associatedWords: '/search/associatedWords'
+        associatedWords: '/search/associatedWords'
     },
     user:{
        getUserInfo:'/user/getUserInfo'
