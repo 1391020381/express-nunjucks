@@ -1,6 +1,5 @@
 define(function(require, exports , module){
-    //用户信息上报 gio
-    // var $ = require("$");
+    
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
 

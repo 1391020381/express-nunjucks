@@ -125,25 +125,7 @@ define(function (require, exports, module) {
         }
     };
 
-    /**
-     * 查询是否已经收藏
-     */
-    // var queryStoreFlag = function () {
-    //     method.get(api.normalFileDetail.isStore + '?fid=' + initData.fid, function (res) {
-    //         if (res.code == 0) {
-    //             var $btn_collect = $('#btn-collect');
-    //             if (res.data === 1) {
-    //                 $btn_collect.addClass('btn-collect-success');
-    //             } else {
-    //                 $btn_collect.removeClass('btn-collect-success')
-    //             }
-    //         } else if (res.code == 40001) {
-    //             setTimeout(function () {
-    //                 method.delCookie('cuk', "/", ".sina.com.cn");
-    //             }, 0)
-    //         }
-    //     });
-    // };
+ 
 
 
     /**
@@ -173,8 +155,7 @@ define(function (require, exports, module) {
                     pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
     
     
-                    // 修改继续阅读文案要判断是否购买过
-                    // changeText(res.data.status)
+                    
                     if (pageConfig.params.file_state === '3') {
                         var content = res.data.url || pageConfig.imgUrl[0];
                         var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};

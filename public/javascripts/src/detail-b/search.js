@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    // var $ = require("$");
+ 
     var history_tmp = require("./template/history_tmp.html");
     var hot_search_tmp = require("./template/hot_search_tmp.html");
     var historyArr = JSON.parse(localStorage.getItem("lhistory"));

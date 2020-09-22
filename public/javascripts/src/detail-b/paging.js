@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    // var $ = require("$");
+    
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
     var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
