@@ -97,7 +97,6 @@ if(appConfig.env == 'local'){
     app.use('/gateway', proxy({
         //目标后端服务地址
        //  target: 'http://ishare.iask.sina.com.cn',
-       // target:'http://192.168.1.50:8769/',
        target:appConfig.newBasePath,
         changeOrigin: true,
         onProxyReq: restream

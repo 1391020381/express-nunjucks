@@ -12,18 +12,23 @@ const config = {
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:''
+        static3:'',
+        upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     local: {
         env: env,
         apiBasePath: 'http://192.168.1.50:8769/gateway/pc',
         apiNewBaselPath: 'http://192.168.1.50:8769/gateway',
         newBasePath: 'http://192.168.1.50:8769/',
+        // apiBasePath: 'http://dev-app-ishare-iask.com.cn/gateway/pc',
+        // apiNewBaselPath: 'http://dev-app-ishare-iask.com.cn/gateway',
+        // newBasePath: 'http://dev-app-ishare-iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:''
+        static3:'',
+        upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     dev: {
         env: env,
@@ -34,7 +39,8 @@ const config = {
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:'//dev-static3.iask.cn/'
+        static3:'//dev-static3.iask.cn/',
+        upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     test: {
         env: env,
@@ -45,7 +51,8 @@ const config = {
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:'//test-static3.iask.cn/'
+        static3:'//test-static3.iask.cn/',
+        upload:"http://test-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     pre: {
         env: env,
@@ -56,7 +63,8 @@ const config = {
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:'//pre-static3.iask.cn/'
+        static3:'//pre-static3.iask.cn/',
+        upload:"http://pre-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     prod: {
         env: env,
@@ -67,7 +75,8 @@ const config = {
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
-        static3:'//static3.iask.cn/'
+        static3:'//static3.iask.cn/',
+        upload:"http://prod-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     }
 }
 

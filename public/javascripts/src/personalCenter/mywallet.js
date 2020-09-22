@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var isLogin = require('../application/effect.js').isLogin
     var api = require('../application/api');
+    var urlConfig =  require('../application/urlConfig')
     var method = require("../application/method");
     var walletDetailsId = ''
     require("../cmd-lib/upload/Q");
@@ -684,7 +685,7 @@ define(function (require, exports, module) {
         var E = Q.event,
             Uploader = Q.Uploader;
         var uploader = new Uploader({
-            url: location.protocol + "//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
+            url:urlConfig.upload,
             target: [document.getElementById('upload-target')],
             upName: 'file',
             dataType: "application/json",

@@ -5,6 +5,7 @@ define(function(require , exports , module){
     require("./msgVer");
     require('../cmd-lib/toast');
     var api = require('../application/api'); 
+   var urlConfig =  require('../application/urlConfig')
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
@@ -141,7 +142,7 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:location.protocol+"//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
+                url:urlConfig.upload,
                 target: [document.getElementById("upload-target"),document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
