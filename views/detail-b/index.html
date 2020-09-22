@@ -59,15 +59,15 @@
         </div> 
         {% endif %}
 </div>
-{% include "detail/header.html" %}
+{% include "detail-b/header.html" %}
 
 {% if results.showFlag %}
   <div class="pw-detail bd-wrap cf">
     <!--面包屑导航-->
-    {% include "detail/crumb.html" %}
+    {% include "detail-b/crumb.html" %}
     <div class="cf">
-        {% include "detail/content.html" %}
-        {% include "detail/similar.html" %}
+        {% include "detail-b/content.html" %}
+        {% include "detail-b/similar.html" %}
     </div>
 </div>
 <!--底部悬浮工具栏-->
@@ -115,15 +115,15 @@
     </div>
 </div>
 {% else %}
-{% include "detail/error.html" %}
+{% include "detail-b/error.html" %}
 {% endif %}
 {% include "common/new/footer.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 <!--  弹出层 -->
-{% include "detail/dialog.html" %}
+{% include "detail-b/dialog.html" %}
 <!--  优惠券广告 -->
-{% include "detail/couponAD.html" %}
+{% include "detail-b/couponAD.html" %}
 <!--右侧悬浮工具栏 -->
 {% include "common/suspension.html" %}
 <script>
@@ -131,6 +131,7 @@
         page: {
             attr: 'other',
             type: 'detail',
+            abTest:'b',
             isDownload: '{{results.list.data.isDownload}}',
             owner: "{{results.list.data.owner.id}}",
             preRead: "{{results.filePreview.data.preRead}}",
