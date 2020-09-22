@@ -32,9 +32,12 @@ const config = {
     },
     dev: {
         env: env,
-        apiBasePath: 'http://ishare.gateway.api.pc:8769/gateway/pc',
-        apiNewBaselPath: 'http://ishare.gateway.api.pc:8769/gateway',
-        newBasePath: 'http://ishare.gateway.api.pc:8769',
+        apiBasePath: 'http://192.168.1.50:8769/gateway/pc',
+        apiNewBaselPath: 'http://192.168.1.50:8769/gateway',
+        newBasePath: 'http://192.168.1.50:8769/',
+        // apiBasePath: 'http://ishare.gateway.api.pc:8769/gateway/pc',
+        // apiNewBaselPath: 'http://ishare.gateway.api.pc:8769/gateway',
+        // newBasePath: 'http://ishare.gateway.api.pc:8769',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
