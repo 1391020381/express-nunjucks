@@ -15,6 +15,7 @@
              </div>
             {%endif%}    
         </div>
+
         {% if results.RelevantInformationList.data.length>0 %}
         <div class="related-data " pcTrackContent="relateFiles-new" >
             <h2 class="related-data-title  guess-you-like-title">
@@ -58,23 +59,11 @@
             </ul>
         </div>
         {% endif %}
+        
         <div class="hot-spot-search-warper">
        
        </div>
-        {# <div  class="fix-right-bannerbottom">
-          {%for item in  results.getBannerList.rightBottomBanner.list %}
-             <div class="swiper-container fix-right-bannerbottom">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide" >
-                    <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
-                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
-                    </a>
-                </div>
-             
-               </div>    
-             </div>  
-             {%endfor%}   
-        </div> #}
+      
 
 
          <div class="fix-right-bannerbottom">

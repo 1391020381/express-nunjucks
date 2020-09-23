@@ -2,7 +2,7 @@
  * 详情页首页
  */
 define(function (require, exports, module) {
-    
+
     require('../application/suspension');
    
     var api = require('../application/api');
@@ -88,8 +88,7 @@ define(function (require, exports, module) {
     function eventBinding() {
         var $more_nave = $('.more-nav'),
             $search_detail_input = $('#search-detail-input'),
-            $detail_lately = $('.detail-lately'),
-          ;
+            $detail_lately = $('.detail-lately');
 
         // 顶部分类
         $more_nave.on('mouseover', function () {
