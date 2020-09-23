@@ -2,7 +2,7 @@
  * 详情页首页
  */
 define(function (require, exports, module) {
-
+    
     require('../application/suspension');
    
     var api = require('../application/api');
