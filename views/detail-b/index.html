@@ -62,13 +62,17 @@
 {% include "detail-b/header.html" %}
 
 {% if results.showFlag %}
-  <div class="pw-detail bd-wrap cf">
+<div class="pw-detail bd-wrap cf">
     <!--面包屑导航-->
     {% include "detail-b/crumb.html" %}
     <div class="cf">
         {% include "detail-b/content.html" %}
         {% include "detail-b/similar.html" %}
     </div>
+     <!-- 第四范式 猜你喜欢 -->
+    {%if results.paradigm4GuessData.length>0 %}
+    {% include "detail-b/guessYouLike.html" %}
+    {%endif%}
 </div>
 <!--底部悬浮工具栏-->
 <div class="detail-fixed">

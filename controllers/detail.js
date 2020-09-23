@@ -703,6 +703,7 @@ module.exports = {
 
            
             // 如果有第四范式 猜你喜欢
+            console.log('paradigm4Guess--------:',JSON.stringify(results.paradigm4Guess))
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {
                     return {
