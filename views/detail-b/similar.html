@@ -6,16 +6,16 @@
              {% include "detail-b/fixed.html" %}
             </div>
            <ul class="file-other">
-                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">113480</span></li>
-                <li class="file-thumbsup file"> <span class="thumbsup-icon icon"></span> <span class="num">47855</span></li>
-                <li class="file-collection file"> <span class="collection-icon icon"></span> <span class="num">6877</span></li>
+                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">{{results.list.data.readTimes or 0}}</span></li>
+                <li class="file-thumbsup file"> <span class="thumbsup-icon icon"></span> <span class="num">{{results.list.data.praiseNum or 0}}</span></li>
+                <li class="file-collection btn-collect file"  data-fid="{{results.list.data.id}}"> <span class="collection-icon icon"></span> <span class="num">{{results.list.data.collectNum or 0}}</span></li>
            </ul>
         </div>
         <ul class="detail-summary-other">
              <li class="dividing-line"></li>
-             <li class="item"> <span class="file-type item-left">文件格式: ppt</span><span class="file-page item-right">页数; 21页</span></li>  
-             <li class="item"> <span class="file-size item-left">文件大小: 434MB</span><span class="file-software item-right">软件:  PowerPoint</span></li>    
-              <li class="item"> <span class="file-author item-left">上传者: 用户昵称...</span><span class="file-uploadtime item-right">上传时间: 2019-07-24</span></li>    
+             <li class="item"> <span class="file-type item-left">文件格式: {{results.list.data.format}}</span><span class="file-page item-right">页数: {{results.list.data.totalPage}}页</span></li>  
+             <li class="item"> <span class="file-size item-left">文件大小: {{results.list.data.fileSize}}</span><span class="file-software item-right">软件:  {{results.list.data.software}}</span></li>    
+              <li class="item"> <span class="file-author item-left">上传者: {{results.list.data.usernick}}</span><span class="file-uploadtime item-right">上传时间: {{results.list.data.createtime}}</span></li>    
         </ul>
     </div>
         <div class="fix-right-bannertop">

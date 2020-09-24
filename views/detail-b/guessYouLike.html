@@ -12,10 +12,11 @@
                         {% else %}
                         <img class="item-link-left-img"  src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt="{{item.name}}"/>
                        {% endif %}
+                 <p class="item-desc">{{item.name}}</p>
                   <div class="pic-mask"></div>
-                   <a class="pic-download" href="/f/{{item.id}}.html" target="_blank">立即下载</a> 
+                   <span class="pic-download">立即下载</span> 
                   </div>
-                <p class="item-desc">{{item.name}}</p>
+
             </a>
         </li>
         {%endfor%}

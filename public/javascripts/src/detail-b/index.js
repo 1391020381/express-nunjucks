@@ -169,7 +169,7 @@ define(function (require, exports, module) {
             method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
         });
         // 取消或者关注
-        $('#btn-collect').on('click', function () {
+        $('.btn-collect').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
@@ -439,7 +439,7 @@ define(function (require, exports, module) {
                     $.toast({
                         text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
                     })
-                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
+                    _this.hasClass("btn-collect-success") ? $('.btn-collect').removeClass('btn-collect-success') :$('.btn-collect').addClass('btn-collect-success')
                 }else{
                     $.toast({
                         text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
@@ -461,7 +461,35 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 if(res.code == '0'){
-                    res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success")
+                    res.data.hasCollect ? $(".btn-collect").addClass("btn-collect-success") : $(".btn-collect").removeClass("btn-collect-success")
+                    res.data.hasZan?'':''
+                }
+            }
+        })
+    } 
+    $('.file-thumbsup').on('click',function(e){
+        dianZan()
+    })
+    function dianZan(){
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.special.fileSaveOrupdate,
+            type: "post",
+            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid,source:0}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    $.toast({
+                        text: _this.hasClass("btn-dianZan-success")?"取消收藏成功":"收藏成功"
+                    })
+                    _this.hasClass("btn-dianZan-success") ? $('.file-thumbsup').removeClass('btn-dianZan-success') :$('.file-thumbsup').addClass('btn-dianZan-success')
+                }else{
+                    $.toast({
+                        text: _this.hasClass("btn-dianZan-success")?"取消收藏失败":"收藏失败"
+                    })
                 }
             }
         })

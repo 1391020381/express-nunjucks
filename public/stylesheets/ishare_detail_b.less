@@ -128,24 +128,7 @@ body {
 .icon-detail {
     .icon-detail();
 }
-.icon-newdetail{
-    display: inline-block;
-    width: 30px;
-    height: 28px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -15px;
-    margin-top: -14px;
-    background: url("../images/hasnotCollect.png") no-repeat center;
-    background-size: 100%;
-}
-.btn-collect-success{
-    .icon-newdetail{
-        background: url("../images/hasCollect.png") no-repeat center;
-        background-size: 100%; 
-    }
-}
+
 
 //原价样式
 .origin-price {
@@ -815,6 +798,7 @@ body {
         background: #FAFAFA;
         border: 1px solid #EAEAEA;
         border-radius: 18px;
+        cursor: pointer;
         .collect-icon{
             display: inline-block;
             width: 17px;
@@ -831,8 +815,16 @@ body {
             vertical-align: middle;
         }
    }
+   
 }
-
+.btn-collect-success{
+    .collect-icon{
+        background: url(../images/detail/collection-icon-active.png) no-repeat center !important;
+    }
+    .collection-icon{
+        background: url(../images/detail/collection-icon-active.png) no-repeat center!important;
+    }
+   }
 //用户信息栏
 .detail-user-bar {
     font-size: 12px;
@@ -2771,13 +2763,6 @@ body {
     }
 }
 
-
-
-
-
-
-
-
 .guess-you-like-warpper{
     width: 1213px;
     margin: 0 auto;
@@ -3119,12 +3104,14 @@ body {
                 }
                 .file-thumbsup{
                     margin:0 30px 0 32px;
+                    cursor: pointer;
                     .thumbsup-icon{
                         background: url(../images/detail/thumbsup-icon.png) no-repeat center;
                         background-size: 100% 100%;
                     }
                 }
                 .file-collection{
+                    cursor: pointer;
                     .collection-icon{
                         background: url(../images/detail/collection-icon.png) no-repeat center;
                         background-size: 100% 100%;

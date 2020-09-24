@@ -246,10 +246,6 @@ module.exports = {
                 })
                 
             },
-            getUserFileZcState:function(callback){
-              
-                callback(null,null)
-            },
             // 面包屑导航
             crumbList: function (callback) {
       
