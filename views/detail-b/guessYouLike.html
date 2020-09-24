@@ -6,11 +6,15 @@
       {%for item in  results.paradigm4GuessData.slice(0,4) %}
           <li class="item" bilogContent="underSimilarFileClick">
             <a class="item-link" href="/f/{{item.id}}.html" target="_blank">
-                 {% if item.cover_url %}
-                    <img class="img"  src="{{item.cover_url}}" alt="{{item.name}}"/>
-                  {% else %}
-                  <img class="item-link-left-img"  src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt="{{item.name}}"/>
-                  {% endif %}  
+                  <div class="item-content">
+                      {% if item.cover_url %}
+                         <img class="img"  src="{{item.cover_url}}" alt="{{item.name}}"/>
+                        {% else %}
+                        <img class="item-link-left-img"  src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt="{{item.name}}"/>
+                       {% endif %}
+                  <div class="pic-mask"></div>
+                   <a class="pic-download" href="/f/{{item.id}}.html" target="_blank">立即下载</a> 
+                  </div>
                 <p class="item-desc">{{item.name}}</p>
             </a>
         </li>

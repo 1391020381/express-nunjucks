@@ -737,16 +737,7 @@ body {
   position: relative;
   margin-top: 5px;
   z-index: 8;
-}
-.detail-top-box .tui-open-vip {
-  width: 137px;
-  height: 41px;
-  position: absolute;
-  right: 27px;
-  top: 29px;
-  display: block;
-  cursor: pointer;
-  z-index: 7;
+  overflow: hidden;
 }
 .detail-top-box .data-title {
   font-size: 26px;
@@ -759,6 +750,30 @@ body {
   text-overflow: ellipsis;
   color: #333333;
   position: relative;
+}
+.detail-top-box .btn-detail-collect {
+  width: 112px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #FAFAFA;
+  border: 1px solid #EAEAEA;
+  border-radius: 18px;
+}
+.detail-top-box .btn-detail-collect .collect-icon {
+  display: inline-block;
+  width: 17px;
+  height: 16px;
+  background: url(../images/detail/collection-icon.png) no-repeat center;
+  background-size: 100% 100%;
+  vertical-align: middle;
+}
+.detail-top-box .btn-detail-collect .cllect-desc {
+  margin-left: 7px;
+  display: inline-block;
+  font-size: 14px;
+  color: #666666;
+  vertical-align: middle;
 }
 .detail-user-bar {
   font-size: 12px;
@@ -2609,13 +2624,18 @@ body {
 .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link {
   display: block;
 }
-.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .img {
-  display: inline-block;
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content {
+  position: relative;
   margin: 10px;
   width: 254px;
   height: 387px;
 }
-.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-desc {
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content .img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content .item-desc {
   margin-top: 40px;
   margin-bottom: 40px;
   padding-left: 10px;
@@ -2623,6 +2643,40 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content .pic-mask {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: #000;
+  opacity: 0.35;
+}
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content .pic-download {
+  display: none;
+  text-align: center;
+  width: 188px;
+  height: 48px;
+  line-height: 48px;
+  background: #f25125;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  margin-left: -94px;
+  bottom: 66px;
+  z-index: 5;
+  border-radius: 4px;
+}
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content:hover .pic-mask {
+  display: block;
+}
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-content:hover .pic-download {
+  display: block;
 }
 .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item:hover {
   z-index: 10;

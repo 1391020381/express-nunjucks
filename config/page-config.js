@@ -4,6 +4,7 @@
 var fs = require("fs");
 var path = require("path");
 var static3 = require('./app-config').static3
+var env =  require('./app-config').env
 var data = fs.readFileSync(path.resolve(__dirname,'../config/version.properties.text'),'utf-8');
 var version = "";
 var url = "";
@@ -11,7 +12,7 @@ var surl = "";
 
 
 
-if (process.env.NODE_ENV =='local' || process.env.NODE_ENV == 'debug') {
+if (env=='local' ||env == 'debug') {
     return;
 } else if (data) {
     console.log('-----------data',data)
