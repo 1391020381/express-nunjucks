@@ -2835,40 +2835,46 @@ body {
   margin-left: 22px;
   padding-top: 26px;
 }
-.detail-w300 .deail-summary-price .price-desc {
+.detail-w300 .deail-summary-price .file-price .integral-con .price-desc {
+  display: inline-block;
   font-size: 15px;
   color: #666666;
+  vertical-align: middle;
 }
-.detail-w300 .deail-summary-price .price {
-  margin-left: 5px;
-  font-size: 18px;
-  color: #F04E2F;
+.detail-w300 .deail-summary-price .file-price .integral-con .price {
+  margin-left: 4px;
+  display: inline-block;
+  vertical-align: middle;
 }
-.detail-w300 .deail-summary-price .vip-sale-price {
+.detail-w300 .deail-summary-price .file-price .integral-con .vip-sale-price {
   margin-left: 10px;
-  padding: 0px 7px;
+  display: inline-block;
   height: 20px;
   line-height: 20px;
   text-align: center;
-  background: linear-gradient(-90deg, #FFE2A9, #FADC8C);
+  font-size: 12px;
+  color: #7A5232;
+  vertical-align: middle;
+  background: linear-gradient(-90deg, #FFE2A9, #FADD8D);
   border-radius: 2px;
 }
-.detail-w300 .deail-summary-price .vip-sale-price .js-original-price {
-  font-size: 12px;
-  color: #7A5231;
-}
-.detail-w300 .deail-summary-price .detail-download {
-  margin-top: 26px;
-  margin-bottom: 41px;
+.detail-w300 .deail-summary-price .file-price .btn-fix-bottom {
+  display: block;
+  margin-top: 23px;
+  margin-bottom: 40px;
   width: 270px;
   height: 50px;
   line-height: 50px;
   text-align: center;
+  background: #F25226;
+  border-radius: 2px;
   font-size: 16px;
   color: #FFFFFF;
-  background: #F25125;
-  border-radius: 2px;
   cursor: pointer;
+}
+.detail-w300 .deail-summary-price .file-price .btn-fix-bottom:hover {
+  background-color: #f7cec3;
+  color: #f25125;
 }
 .detail-w300 .deail-summary-price .file-other {
   margin-bottom: 24px;

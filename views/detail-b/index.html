@@ -74,50 +74,7 @@
     {% include "detail-b/guessYouLike.html" %}
     {%endif%}
 </div>
-<!--底部悬浮工具栏-->
-<div class="detail-fixed">
-    <div class="pw-detail pw-v cf">
-        <div class="detail-fixed-con cf fl">
-            <div class="operation fl">
-                <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
-               
-                <div class="collect-con fl pc" >
-           
-                    <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick">
-                        <em class="btn-line"></em>
-                       
-                        <i class="icon-newdetail"></i>
-                    </a>
-                    <div class="d-collect hide">
-                        <i class="before"></i>
-                        <i class="after"></i>
-                        <p><i class="icon-success"></i><em>已收藏至<a style="cursor: pointer;" href="/ucenter/vips"
-                                                                  target="_blank">个人中心</a></em></p>
-                        <p class="info mt10">点击个人中心可查看</p>
-                    </div>
-                </div>
-             
-              
-                {%if results.list.data.fileContentList and results.list.data.totalPage %}
-                <div class="fix-page-con">
-                    <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
-                    <div class="page-input-con">
-                               {# <input type="number" min="0" class="page-input"value="1">/<span>{{results.list.data.totalPage}}</span> #}
-                               <span class="page-input">1</span>/<span>{{results.list.data.totalPage}}</span>
-                    </div>
-                    <span class="btn-page page-next" data-type="add" title="下一页"></span>
-                    <div class="d-page-wrap hide">
-                        <i class="before"></i>
-                        <i class="after"></i>
-                        <p>最多预览50页</p>
-                    </div>
-                </div>
-                {%endif%}
-            </div>
-            {% include "detail/fixed.html" %}
-        </div>
-    </div>
-</div>
+
 {% else %}
 {% include "detail-b/error.html" %}
 {% endif %}
