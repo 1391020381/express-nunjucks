@@ -699,7 +699,7 @@ module.exports = {
 
            
             // 如果有第四范式 猜你喜欢
-            console.log('paradigm4Guess--------:',JSON.stringify(results.paradigm4Guess))
+          
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {
                     return {
@@ -714,7 +714,8 @@ module.exports = {
                 results.paradigm4GuessData = paradigm4Guess || [];
             }
             var list = Object.assign({},{data:Object.assign(results.list&&results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
-            var results = Object.assign({},results,{list:list})
+            var unloginFlag = req.query.unloginFlag
+            var results = Object.assign({},results,{list:list},{unloginFlag:unloginFlag})
             // 要在这里给默认值 不然报错
             render("detail/success", results, req, res);
         })

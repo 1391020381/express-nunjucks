@@ -60,54 +60,19 @@
                 <p class="pay-ok-subtext">
                     如果下载没有开始，请<span class="quick-down-a">点击此处</span>
                 </p>
-                {# <div class="unloginStatus unloginTop" style="display: none;">
-                    <div class="pay-success"><i class="icon-success"><img src="{{cdnUrl}}/images/detail/pay_ok.png"/></i>支付成功</div>
-                    <div class="quick-icon">你已成功获取：<span class="xbsd"><i></i><span id="filename"></span></span></div>
-                    <div class="quick-down">你的下载很快开始，如果没有<!--downloadBtn-->，请 <a class="quick-down-a">点击此处</a></div>
-                    <div class="not-found-res">找不到资料下载到哪里了？试试Ctrl+J </div>
-                </div> #}
-                {# <div class="carding-data-pay-con">
-                    <!-- vip & 特权用完提示文字 -->
-                    <p class="vip-state-text down-succ-title" style="display: none;"></p>
-                    <a data-type="default" style="display: none;" class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">开通VIP,千万文档免费下载</a>
-                    <a data-type="vip" style="display: none;"  class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessContinueVip">续费VIP</a>
-                    <a data-type="privilege" style="display: none;"  class="btn-join-vip down-succ-btn js-buy-open pc_click" pcTrackContent="joinPrivilege">购买特权包</a>
-                    <a class="btn-carding-back pc_click" bilogContent="downSuccessBacDetail" style="display: none;">返回详细页</a>
-
-                    <div class="bottom-privilege downSucc-privi hide">
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-01"></i>
-                            赠专享资料下载特权
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-02"></i>
-                            付费资料8折起
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-03"></i>
-                            海量资料免费下载
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-04"></i>
-                            专属身份标识
-                        </div>
-                        <a style="display:none" data-type="vip" class="join-vip-link pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">立即开通VIP&gt;</a>
+                 {%if results.unloginFlag %}
+                    <div class="qrcode-warpper">
+                       <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
+                      <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
                     </div>
-                </div> #}
-                <div class="qrcode-warpper">
-                    <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
-                    <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
+                 {%else%}
+                     <div class="qrcode-warpper">
+                        <div class="qrcode-content">
+                          <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
+                         </div>
+                         <p class="qrcode-desc">文档已同步至<span class="applet-name">“文件管理”</span>小程序， 使用微信扫码即可高效管理你的文件</p>
                 </div>
-                {# <div  class="down-success-other">
-                    <div class="down-success-banner">
-                
-                    </div>
-                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
-                     {%if results.paradigm4GuessData.length>0 %}
-                      {% include "detail/guessYouLike.html" %}
-                     {%endif%}
-                    </div>
-                </div> #}
+                 {%endif%} 
             </div>
              <!-- 下载成功页面不用绑定手机号 -->
             {# {% include "common/card.html" %} #}

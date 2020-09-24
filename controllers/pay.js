@@ -303,38 +303,6 @@ module.exports = {
     success: function (req, res) {
         return async.series({
             fileDetails: function (callback) {
-                // var opt = {
-                //     url: appConfig.apiBasePath + api.pay.orderPoint.replace(/\$orderNo/, req.query.orderNo),
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'Authrization':req.cookies.cuk
-                //     },
-                // };
-                // request(opt, function (err, res, body) {
-                //     if (body) {
-                //         try {
-                //             var data = JSON.parse(body);
-                //             console.log('请求地址post-------------------:',opt.url)
-                //             console.log('请求参数-------------------:',opt.body)
-                //             console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
-                //             if (data.code == 0) {
-                //                 var backData = {
-                //                     fileId: req.query.fid,
-                //                     format: data.data.format || "",
-                //                     title: data.data.title || "",
-                //                     state: data.data.state || "",
-                //                 };
-                //                 callback(null, backData);
-                //             } else {
-                //                 callback(null, null);
-                //             }
-                //         } catch (err) {
-                //             callback(null, null);
-                //         }
-                //     } else {
-                //         callback(null, null);
-                //     }
-                // })
               var   backData = {
                 fileId: req.query.fid,
                 format: req.query.format || "",

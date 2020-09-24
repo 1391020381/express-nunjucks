@@ -4,9 +4,9 @@ define(function (require, exports, module) {
     var urlConfig = {
         debug: {
             ajaxUrl: 'http://localhost:3004',
-            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: '',
-            upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+            upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
         },
         local: {
             ajaxUrl: 'http://localhost:3004',
