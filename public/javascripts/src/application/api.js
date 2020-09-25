@@ -121,6 +121,9 @@ define(function (require, exports, module) {
         },
         seo:{
             listContentInfos: gateway + '/seo/exposeContent/contentInfo/listContentInfos' 
+        },
+        wechat:{
+            getWechatSignature: gateway + '/message/wechat/info/getWechatSignature'
         }
     }
 });

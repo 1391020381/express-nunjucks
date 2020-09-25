@@ -71,6 +71,9 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.payment .order-list .orderTime {
+  margin-top: 0.96rem;
+}
 .payment .pay-confirm {
   position: absolute;
   left: 50%;

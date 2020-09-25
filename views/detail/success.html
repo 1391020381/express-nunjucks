@@ -68,7 +68,26 @@
                  {%else%}
                      <div class="qrcode-warpper">
                         <div class="qrcode-content">
-                          <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
+                          {% if results.consumeStatus == 7%}
+                                        {% if results.productType == 1 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/downloaded-document.png">
+                                      {% endif%}  
+                          {% else %}
+                                   {% if results.productType == 1 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/freebie-document.png">
+                                      {% endif%}
+
+                                      {% if results.productType == 3 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/online-documents.png">
+                                      {% endif%}
+                                      {% if results.productType == 4 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/vip-privilege-document.png">
+                                      {% endif%}
+                                       {% if results.productType == 5 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/paid-documents.png">
+                                      {% endif%}
+                          {%endif%}
+                         
                          </div>
                          <p class="qrcode-desc">文档已同步至<span class="applet-name">“文件管理”</span>小程序， 使用微信扫码即可高效管理你的文件</p>
                 </div>

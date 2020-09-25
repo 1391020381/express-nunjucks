@@ -715,7 +715,8 @@ module.exports = {
             }
             var list = Object.assign({},{data:Object.assign(results.list&&results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
             var unloginFlag = req.query.unloginFlag
-            var results = Object.assign({},results,{list:list},{unloginFlag:unloginFlag})
+            var consumeStatus = req.query.consumeStatus    // 7 已经下载过
+            var results = Object.assign({},results,{list:list},{unloginFlag:unloginFlag,consumeStatus:consumeStatus})
             // 要在这里给默认值 不然报错
             render("detail/success", results, req, res);
         })

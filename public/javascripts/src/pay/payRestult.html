@@ -22,7 +22,7 @@
             <span class="item-title">订单金额:</span>
             <span class="item-desc">¥ {{orderInfo.payPrice}}</span>
         </li>
-        <li class="list-item">
+        <li class="list-item orderTime">
             <span class="item-title">创建时间:</span>
             <span class="item-desc">{{orderInfo.orderTime}}</span>
         </li>
@@ -39,3 +39,26 @@
             <span class="item-desc">{{orderInfo.goodsName}}</span>
         </li>
 </ul> 
+
+
+<wx-open-launch-weapp
+                    id="launch-btn"
+                    username="gh_c6a9e426f251"
+                    path="pages/template/template.html">
+                    <template>
+                        <style>
+                        #launch-btn { 
+                            width: 100%;
+                            margin:0 auto;
+                            margin-top:1.45rem;
+                            width: 6.3rem;
+                            height: 0.9rem;
+                            line-height: 0.9rem;
+                            text-align: center;
+                            background: #F25226;
+                            border-radius: 0.45rem;
+                      }
+                      </style>
+                        <button class="btn">立即查看文件</button>
+                      </template>
+</wx-open-launch-weapp>
