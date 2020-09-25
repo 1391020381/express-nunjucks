@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'dist/application/app.js': ['.build/application/app.js'],
-                    'dist/detailB/init.js': ['.build/detailB/init.js'],
+                    'dist/detail-b/init.js': ['.build/detail-b/init.js'],
                     'dist/detail/init.js': ['.build/detail/init.js'],
                     'dist/detail/success.js': ['.build/detail/success.js'],
                     'dist/detail/fail.js': ['.build/detail/fail.js'],
@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "../stylesheets/ishare_public.css": "../stylesheets/ishare_public.less",
-                    "../stylesheets/ishare_detailB.css": "../stylesheets/ishare_detailB.less",
+                    "../stylesheets/ishare_detail-b.css": "../stylesheets/ishare_detail-b.less",
                     "../stylesheets/ishare_detail.css": "../stylesheets/ishare_detail.less",
                     "../stylesheets/pay/ishare_pay.css": "../stylesheets/pay/ishare_pay.less",
                     "../stylesheets/search/ishare_search.css": "../stylesheets/search/ishare_search.less",

@@ -2,7 +2,7 @@
 <html>
 <head>
     {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detailB.css">
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail-b.css">
 
      <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
 <!-- 添加360统计代码1、PC端统计代码： -->
@@ -59,32 +59,32 @@
         </div> 
         {% endif %}
 </div>
-{% include "detailb/header.html" %}
+{% include "detail-b/header.html" %}
 
 {% if results.showFlag %}
 <div class="pw-detail bd-wrap cf">
     <!--面包屑导航-->
-    {% include "detailb/crumb.html" %}
+    {% include "detail-b/crumb.html" %}
     <div class="cf">
-        {% include "detailb/content.html" %}
-        {% include "detailb/similar.html" %}
+        {% include "detail-b/content.html" %}
+        {% include "detail-b/similar.html" %}
     </div>
      <!-- 第四范式 猜你喜欢 -->
     {%if results.paradigm4GuessData.length>0 %}
-    {% include "detailb/guessYouLike.html" %}
+    {% include "detail-b/guessYouLike.html" %}
     {%endif%}
 </div>
 
 {% else %}
-{% include "detailb/error.html" %}
+{% include "detail-b/error.html" %}
 {% endif %}
 {% include "common/new/footer.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
 <!--  弹出层 -->
-{% include "detailb/dialog.html" %}
+{% include "detail-b/dialog.html" %}
 <!--  优惠券广告 -->
-{% include "detailb/couponAD.html" %}
+{% include "detail-b/couponAD.html" %}
 <!--右侧悬浮工具栏 -->
 {% include "common/suspension.html" %}
 <script>
@@ -183,7 +183,7 @@
     };
 </script>
 <script>
-    seajs.use(["dist/application/app.js", "dist/detailB/init.js"])
+    seajs.use(["dist/application/app.js", "dist/detail-b/init.js"])
 </script>
 
 <script type="text/javascript" charset="utf-8" src="{{staticUrl}}/bshareC0.js"></script>
