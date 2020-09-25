@@ -99,6 +99,7 @@ if(appConfig.env == 'local' || appConfig.env == 'debug'){
        //  target: 'http://ishare.iask.sina.com.cn',
        target:appConfig.newBasePath,
         changeOrigin: true,
+        secure: false,
         onProxyReq: restream
     }))
 }

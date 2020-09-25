@@ -29,6 +29,7 @@
                         <div class="integral-con ">
                             {{if data.status!=2}}
                                 <div class="price-con price-more ">
+                                    <span class="price-desc">售价:</span>
                                      <p class="price vip-price">¥{{data.productPrice}}</p>
                                     <p class="origin-price">原价&yen; {{data.productPrice}}</p>
                                 </div>
@@ -61,6 +62,7 @@
                             {{if data.status!=2}}
                                 <div class="price-con ">
                                     <!--现金文档价格 -->
+                                    <span class="price-desc">售价:</span>
                                      <p class="price" style="">¥{{data.productPrice}}</p>
                                 </div>
                                 <a class="btn-fix-bottom js-buy-open   pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" loginOffer="buyBtn-2" data-type="file">立即下载</a>
