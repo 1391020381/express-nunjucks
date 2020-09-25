@@ -12,7 +12,7 @@ define(function(require , exports , module){
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
     var urlConfig = require('../application/urlConfig')
 //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-     var env = env || 'prod'
+     var env = env 
      var urlList = {
          dev:'//dev-ishare.iask.com.cn',
          test:'//test-ishare.iask.com.cn',
