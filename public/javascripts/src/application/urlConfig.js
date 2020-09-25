@@ -7,7 +7,7 @@ define(function (require, exports, module) {
             payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog",
-            appId:'wxb8af2801b7be4c37',
+             appId:'wxb8af2801b7be4c37',
         },
         local: {
             ajaxUrl: 'http://localhost:3004',

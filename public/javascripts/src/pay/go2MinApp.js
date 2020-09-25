@@ -1,8 +1,10 @@
 define(function (require, exports, module) {
-    var $ = require("$");
+   
+    require('../cmd-lib/jweixin-1.6.0')
     var utils = require("../cmd-lib/util");
     var api = require("../application/api")
     var urlConfig = require('../application/urlConfig')
+  
     // 微信环境内
     if(utils.isWeChatBrow()){
         getWechatSignature()
