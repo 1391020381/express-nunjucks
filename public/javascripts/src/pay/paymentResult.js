@@ -9,9 +9,16 @@ define(function(require , exports , module){
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     getOrderInfo()
     require('./go2MinApp')
+    var env = env || 'prod'
+    var urlList = {
+        dev:'//dev-ishare.iask.com.cn',
+        test:'//test-ishare.iask.com.cn',
+        pre:'//pre-ishare.iask.com.cn',
+        prod:'//ishare.iask.sina.com.cn/'
+    }
     function getOrderInfo(){
         $.ajax({
-            url: api.order.getOrderInfo,
+            url: urlList[env]+api.order.getOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo:orderNo

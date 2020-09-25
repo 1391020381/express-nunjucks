@@ -12,12 +12,19 @@ define(function(require , exports , module){
     var isAliPay = window.pageConfig.page&&window.pageConfig.page.isAliPay
     var urlConfig = require('../application/urlConfig')
 //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+     var env = env || 'prod'
+     var urlList = {
+         dev:'//dev-ishare.iask.com.cn',
+         test:'//test-ishare.iask.com.cn',
+         pre:'//pre-ishare.iask.com.cn',
+         prod:'//ishare.iask.sina.com.cn/'
+     }
    console.log('scanOrderInfo-start')
  
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
-            url:  api.pay.scanOrderInfo,
+            url:  urlList[env] + api.pay.scanOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo:orderNo,
