@@ -1,6 +1,4 @@
 define(function (require, exports, module) {
-   
-    require('../cmd-lib/jweixin-1.6.0')
     var utils = require("../cmd-lib/util");
     var api = require("../application/api")
     var urlConfig = require('../application/urlConfig')
