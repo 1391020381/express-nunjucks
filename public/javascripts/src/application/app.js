@@ -33,7 +33,7 @@ define(function (require, exports, module) {
                 dataType: "json",
                 success: function (res) {
                    if(res.code == '0'){
-                    method.setCookieWithExp(name, response.data, expires, '/');
+                    method.setCookieWithExp(name, res.data, expires, '/');
                    }else{
                     visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
                    }

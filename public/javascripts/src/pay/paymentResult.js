@@ -7,19 +7,13 @@ define(function(require , exports , module){
     var orderNo = method.getParam('orderNo');
     var paymentRestult = require('./payRestult.html')
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+  
     getOrderInfo()
     require('./go2MinApp')
-    var env = window.env
-    var urlList = {
-        dev:'//dev-ishare.iask.com.cn',
-        test:'//test-ishare.iask.com.cn',
-        pre:'//pre-ishare.iask.com.cn',
-        prod:'//ishare.iask.sina.com.cn/'
-    }
-    console.log('env:',env,urlList[env])
+  
     function getOrderInfo(){
         $.ajax({
-            url: urlList[env]+api.order.getOrderInfo,
+            url: api.order.getOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo:orderNo
