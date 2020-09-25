@@ -526,7 +526,7 @@ module.exports = {
 
             results.list.isDetailb = true
             if(results.list.isDetailb){
-                render("detail-b/index", results, req, res);
+                render("detailb/index", results, req, res);
             }else{
                 render("detail/index", results, req, res);
             }
