@@ -122,10 +122,10 @@ define(function(require , exports , module){
         if(platformCode=='m'){ //m端跳转公共的支付空白页 然后跳相关的页面(m端付费文档微信浏览器)
             var redirectUrl=host+"/node/payInfo?orderNo="+orderNo+"&mark=wx";
             // location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
-            location.href= urlConfig.ajaxUrl + '/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
+            location.href= urlList[env] + '/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
         }else{ //直接跳结果 urlConfig
             // location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
-            location.href  = urlConfig.ajaxUrl +'/pay/paymentresult?orderNo=' + orderNo
+            location.href  = urlList[env] +'/pay/paymentresult?orderNo=' + orderNo
         }
    
     }

@@ -9,7 +9,7 @@ define(function(require , exports , module){
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     getOrderInfo()
     require('./go2MinApp')
-    var env = env || 'prod'
+    var env = window.env
     var urlList = {
         dev:'//dev-ishare.iask.com.cn',
         test:'//test-ishare.iask.com.cn',
