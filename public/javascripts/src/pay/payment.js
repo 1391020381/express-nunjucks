@@ -17,9 +17,9 @@ define(function(require , exports , module){
          dev:'//dev-ishare.iask.com.cn',
          test:'//test-ishare.iask.com.cn',
          pre:'//pre-ishare.iask.com.cn',
-         prod:'//ishare.iask.sina.com.cn/'
+         prod:'//ishare.iask.sina.com.cn'
      }
-   console.log('scanOrderInfo-start')
+   console.log('env:',env,urlList[env])
  
     scanOrderInfo()
     function scanOrderInfo() {
