@@ -16,6 +16,7 @@ define(function(require , exports , module){
         pre:'//pre-ishare.iask.com.cn',
         prod:'//ishare.iask.sina.com.cn/'
     }
+    console.log('env:',env,urlList[env])
     function getOrderInfo(){
         $.ajax({
             url: urlList[env]+api.order.getOrderInfo,
