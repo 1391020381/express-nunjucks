@@ -35,14 +35,14 @@ define(function (require, exports, module) {
             payUrl: 'http://pre-open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"http://pre-upload.ishare.iask.com/ishare-upload/picUploadCatalog",
-            appId: 'wxb78229eb7470875b'
+            appId: 'wxca8532521e94faf4'
         },
         prod: {
             ajaxUrl: '',
             payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog",
-            appId: 'wxb78229eb7470875b'
+            appId: 'wxca8532521e94faf4'
         }
     }
 
