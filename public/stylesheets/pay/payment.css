@@ -92,8 +92,8 @@ body {
   display: block;
   width: 315px;
   height: 45px;
-  margin-top: 75px;
   margin: 0 auto;
+  margin-top: 75px;
   text-align: center;
 }
 .hide {
