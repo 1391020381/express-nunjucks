@@ -89,9 +89,11 @@ body {
   color: #FFFFFF;
 }
 .payment #launch-btn {
-  height: 45px;
   display: block;
+  width: 315px;
+  height: 45px;
   margin-top: 75px;
+  margin: 0 auto;
   text-align: center;
 }
 .hide {
