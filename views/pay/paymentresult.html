@@ -45,6 +45,7 @@ fun(document, window)
    
 </div>
  {% include "common/js.html" %}
+ <script src="{{cdnUrl}}/javascripts/sea-modules/jsWeixin/jweixin-1.6.0.js"></script>
     <script type="text/javascript">
         window.pageConfig = {
             page:{
@@ -60,7 +61,6 @@ fun(document, window)
             gio:{
             }
         };
-   <script src="{{cdnUrl}}/javascripts/sea-modules/jsWeixin/jweixin-1.6.0.js"></script>     
         seajs.use(["dist/application/app.js","dist/pay/paymentResult.js"]);
     </script>
 </body>
