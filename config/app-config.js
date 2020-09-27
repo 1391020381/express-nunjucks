@@ -5,9 +5,9 @@ const env = process.env.NODE_ENV || 'prod'
 const config = {
     debug:{
         env: env,
-        apiBasePath: 'http://ishare.iask.sina.com.cn/gateway/pc',
-        apiNewBaselPath: 'http://ishare.iask.sina.com.cn/gateway',
-        newBasePath: 'http://ishare.iask.sina.com.cn',
+        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc'||'http://ishare.iask.sina.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway'||'http://ishare.iask.sina.com.cn/gateway',
+        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com'||'http://ishare.iask.sina.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义

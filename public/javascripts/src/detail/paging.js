@@ -80,7 +80,8 @@ define(function (require, exports, module) {
             $("img.lazy").lazyload({ effect: "fadeIn" });
 
             //剩余页数
-            var remainPage = restPage -= 5;
+            // var remainPage = restPage -= 5;
+            var remainPage = currentPage >= preRead? totalPage-preRead : restPage -= 5;
             if($('.page-text .endof-trial-reading').css('display') == 'none'){
                 $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
             }
