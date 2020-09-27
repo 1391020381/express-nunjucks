@@ -15,8 +15,6 @@ define(function (require, exports, module) {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             data:JSON.stringify({
-                // appId:'wxb78229eb7470875b',
-                // appId:'wxb8af2801b7be4c37',
                 appId:urlConfig.appId,
                 url:window.location.href
             }),
