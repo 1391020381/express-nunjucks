@@ -3,14 +3,14 @@ define(function (require, exports, module) {
     var env = window.env
     var urlConfig = {
         debug: {
-            ajaxUrl: 'http://localhost:3004',
+            ajaxUrl: 'http://192.168.100.222:3004',
             payUrl: 'http://open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog",
              appId:'wxb8af2801b7be4c37',
         },
         local: {
-            ajaxUrl: 'http://localhost:3004',
+            ajaxUrl: 'http://192.168.100.222:3004',
             payUrl: 'http://dev-open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog",

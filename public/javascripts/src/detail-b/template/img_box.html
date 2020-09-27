@@ -1,6 +1,6 @@
 {{each data as value i}}
 {{if ptype == 'txt'}}
-<div class="detail-con first-style  article-page source-link mt10" data-num="{{data[i].noPage}}">
+<div class="detail-con first-style  article-page source-link " data-num="{{data[i].noPage}}">
     <div class="detail-inner article-main">
         <div class="data-detail {{if ptype == 'ppt'}} ppt-format-style {{else}}  other-format-style  {{/if}}">
             {{#data[i].imgSrc}}
@@ -10,7 +10,7 @@
 {{else}}
 {{if ptype == 'svg'}}
 {{if data[i].svgSrc}}
-<div class="detail-con third-style   article-page source-link mt10" data-num="{{data[i].noPage}}">
+<div class="detail-con third-style   article-page source-link " data-num="{{data[i].noPage}}">
     <div class="detail-inner article-main">
         <div class="data-detail {{if ptype == 'ppt'}} ppt-format-style {{else}}  other-format-style  {{/if}}">
             <embed data-src="{{data[i].svgSrc}}" src="{{data[i].svgSrc}}" width="100%" height="100%"
@@ -21,7 +21,7 @@
 {{/if}}
 {{else}}
 {{if data[i].imgSrc }}
-<div class="detail-con second-style  article-page source-link mt10" data-num="{{data[i].noPage}}">
+<div class="detail-con second-style  article-page source-link " data-num="{{data[i].noPage}}">
     <div class="detail-inner article-main">
         <div class="data-detail {{if ptype == 'ppt'}} ppt-format-style {{else}}  other-format-style  {{/if}}">
             <img data-src="{{data[i].imgSrc}}" src="{{data[i].imgSrc}}" alt="" class="img-png lazy"

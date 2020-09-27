@@ -1035,15 +1035,6 @@ body {
   top: 24px;
   right: 24px;
 }
-.detail-con {
-  border: 0 none;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 5px rgba(44, 21, 24, 0.08);
-  margin-top: 0;
-  position: relative;
-  padding-bottom: 7px;
-}
 .search-sim-res {
   width: 492px;
   height: 470px;
@@ -2931,4 +2922,9 @@ body {
 }
 .detail-w300 .detail-summary-other .item:last-child {
   padding-bottom: 30px;
+}
+.footer-btn-fix {
+  position: fixed;
+  top: -20px;
+  z-index: 100;
 }

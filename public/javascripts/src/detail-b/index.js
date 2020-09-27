@@ -184,7 +184,7 @@ define(function (require, exports, module) {
         });
       
         // 查找相关资料
-        $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
+        $('#footer-btn').on('click','#searchRes', function () { // 寻找相关资料  
             sendEmail()
         });
 
@@ -369,40 +369,42 @@ define(function (require, exports, module) {
         if (fixEle.length) {
             var fixTop = fixEle.offset().top - headerHeight;
         }
-        // $(window).scroll(function () {
-        //     var detailTop = $(this).scrollTop();
-        //     var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
-        //     if (detailTop > headerHeight) {
-        //         $detailHeader.addClass("new-detail-header-fix");
-        //         $('.coupon-info-top').hide()//赠券提示框
-        //     } else {
-        //         $detailHeader.removeClass("new-detail-header-fix");
-        //         // 未登陆，且第一次弹出
-        //         if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
-        //             $('.coupon-info-top').show()//赠券提示框
-        //         }
+        $(window).scroll(function () {
+            var detailTop = $(this).scrollTop();
+            var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
+            // if (detailTop > headerHeight) {
+            //     $detailHeader.addClass("new-detail-header-fix");
+            //     $('.coupon-info-top').hide()//赠券提示框
+            // } else {
+            //     $detailHeader.removeClass("new-detail-header-fix");
+            //     // 未登陆，且第一次弹出
+            //     if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
+            //         $('.coupon-info-top').show()//赠券提示框
+            //     }
 
-        //     }
-        //     //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-        //     if (detailTop > fixHeight + fixEle.height()) {
-        //         $('.fix-right-bannertop').hide()
-        //         $('.fix-right-bannerbottom').hide()
-        //         fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-        //     } else {
-        //         fixEle.removeAttr("style");
-        //         $('.fix-right-bannertop').show()
-        //         $('.fix-right-bannerbottom').show()
-        //     }
-        //     //底部悬浮展示文档
-        //     if (detailTop > fixStart) {
-        //         $fixBar.find(".operation").hide();
-        //         $fixBar.find(".data-item").show();
-        //     } else {
-        //         $fixBar.find(".operation").show();
-        //         $fixBar.find(".data-item").hide();
-        //     }
+            // }
+            //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
+            if (detailTop >= fixHeight) {  // detailTop > fixHeight + fixEle.height()
+                // $('.fix-right-bannertop').hide()
+                // $('.fix-right-bannerbottom').hide()
+                // fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+                $('#footer-btn').addClass('footer-btn-fix')
+            } else {
+                // fixEle.removeAttr("style");
+                // $('.fix-right-bannertop').show()
+                // $('.fix-right-bannerbottom').show()
+                $('#footer-btn').removeClass('footer-btn-fix')
+            }
+            //底部悬浮展示文档
+            // if (detailTop > fixStart) {
+            //     $fixBar.find(".operation").hide();
+            //     $fixBar.find(".data-item").show();
+            // } else {
+            //     $fixBar.find(".operation").show();
+            //     $fixBar.find(".data-item").hide();
+            // }
         
-        // });
+        });
        
         //关闭头部优惠券赠送信息
         closeHeadCouponTip();

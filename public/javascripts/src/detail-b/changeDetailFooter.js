@@ -2,7 +2,7 @@ define(function (require, exports, module){
    var isConvert = window.pageConfig.page.isConvert
     var detailCon = $('.detail-reader-con').find(".detail-con:visible").length -2
    
-    var guessYouLikeHeight = $('.guess-you-like-warpper').height() || 0
+    var hotSpotSearch = $('.hot-spot-search-warper').height() || 0
    function initStyle(){
     if(isConvert ==1){ // 转码成功
       if(detailCon<=3){ // 只有3页
@@ -11,7 +11,7 @@ define(function (require, exports, module){
             'position': 'absolute',
             'left':'0px',
             'right':'0px',
-            'bottom':(113 + guessYouLikeHeight) + 'px',
+            'bottom':(140 + hotSpotSearch) + 'px',
             'width': '890px'
         })
       }else{
@@ -29,7 +29,7 @@ define(function (require, exports, module){
         'position': 'absolute',
         'left':'0px',
         'right':'0px',
-        'bottom':(0 + guessYouLikeHeight) + 'px',
+        'bottom':(0 + hotSpotSearch) + 'px',
         'width': '890px'
     })
    }
