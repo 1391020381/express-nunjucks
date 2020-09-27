@@ -44,6 +44,29 @@ fun(document, window)
 <div class="payment">
    
 </div>
+
+<wx-open-launch-weapp
+                    id="launch-btn"
+                    username="gh_c6a9e426f251"
+                    path="pages/template/template.html">
+                    <template>
+                        <style>
+                        .btn { 
+                            display:block;
+                            margin:0 auto;
+                            margin-top:72px;
+                            width: 315px;
+                            height: 45px;
+                            line-height: 45px;
+                            text-align: center;
+                            background: #F25226;
+                            border-radius: 4px;
+                      }
+                      </style>
+                        <button class="btn">立即查看文件</button>
+                      </template>
+</wx-open-launch-weapp>
+
  {% include "common/js.html" %}
  <script src="{{cdnUrl}}/javascripts/sea-modules/jsWeixin/jweixin-1.6.0.js"></script>
     <script type="text/javascript">
