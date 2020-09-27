@@ -65,8 +65,8 @@ const config = {
     },
     prod: {
         env: env,
-        apiBasePath: 'http://gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://gateway.pc.ishare.iasktest.com/gateway',
+        apiBasePath: 'http://gateway.pc.ishare.iaskonline.com/gateway/pc',
+        apiNewBaselPath: 'http://gateway.pc.ishare.iaskonline.com/gateway',
         newBasePath: 'http://gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
