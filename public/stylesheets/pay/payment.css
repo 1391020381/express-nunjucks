@@ -16,7 +16,7 @@ body {
   text-align: center;
 }
 .payment .payment-title {
-  padding-top: 82px;
+  padding-top: 42px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,7 +91,8 @@ body {
 .payment #launch-btn {
   height: 45px;
   display: block;
-  margin-top: 30px;
+  margin-top: 75px;
+  text-align: center;
 }
 .hide {
   display: none;
