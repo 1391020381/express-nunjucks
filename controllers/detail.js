@@ -524,7 +524,7 @@ module.exports = {
          
             results.isDetailRender = true
 
-            results.list.abTest = req.query.abTest || true
+            results.list.abTest = req.query.abTest 
             if(results.list.abTest){
                 render("detail-b/index", results, req, res);
             }else{
