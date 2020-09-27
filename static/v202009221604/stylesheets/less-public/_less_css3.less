@@ -1,0 +1,64 @@
+@charset "utf-8";
+.transform-scaleX(@scale){
+  -webkit-transform: scaleX(@scale);
+  transform: scaleX(@scale);
+}
+.transform-scaleY(@scale){
+  -webkit-transform: scaleY(@scale);
+  transform: scaleY(@scale);
+}
+//css3 居中
+.transform-t-center(@x,@y){
+  position: absolute;
+  left: 50%;
+  top:50%;
+  -webkit-transform:translate(-@x,-@y);
+  transform:translate(-@x,-@y);
+}
+//水平居中
+.transform-t-x(@x){
+  position: absolute;
+  left:50%;
+  -webkit-transform:translateX(-@x);
+  transform:translateX(-@x);
+}
+//垂直居中
+.transform-t-y(@y){
+  position: absolute;
+  top:50%;
+  -webkit-transform:translateY(-@y);
+  transform:translateY(-@y);
+}
+//css3透明
+.opacity(@num){
+  opacity: @num/100;
+  filter: alpha(opacity=@num);
+}
+//css 直线渐变
+.grad-liner(@angle:top,@color1,@color2){
+  background: -webkit-linear-gradient(@angle,@color1,@color2);
+  background: -moz-linear-gradient(@angle,@color1,@color2);
+  background: -o-linear-gradient(@angle,@color1,@color2);
+  background: linear-gradient(@angle,@color1,@color2);
+}
+//transition
+.transition(@name,@time,@timing){
+  -moz-transition:@name @time @timing;
+  -webkit-transition:@name @time @timing;
+  -o-transition: @name @time @timing;
+  transition: @name @time @timing;
+}
+.tranSize(@size){
+  -moz-transform: scale(@size);
+  -webkit-transform: scale(@size);
+  -o-transform: scale(@size);
+  transform: scale(@size);
+}
+//flex 布局
+.flex(){
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}

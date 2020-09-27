@@ -1,0 +1,127 @@
+@charset "utf-8";
+/**
+  @description 1818 搜索页
+  @time 2019-10-11
+  @auth heMing
+ */
+@import "common/office_header";
+@import "common/office_list";
+@import "common/office_footer";
+@import "common/office_right";
+
+
+body {
+  background-color: #f4f4f4;
+}
+
+@media screen and (min-width: 1600px) {
+  .screen-body .pw {
+    width: 1500px;
+  }
+}
+
+.office-association {
+  margin-top: 26px;
+  border-top: 1px solid #ececec;
+  padding: 16px 0 0 31px;
+  background-color: #fff;
+  line-height: 32px;
+  overflow: hidden;
+
+  .association-title {
+    color: #999;
+    float: left;
+  }
+
+  .association-list {
+    overflow: hidden;
+
+    li {
+      margin-right: 15px;
+      .fl();
+
+      a {
+        font-size: 12px;
+        color: #999;
+        display: block;
+        padding: 0 10px;
+        border-radius: 3px;
+        background-color: #f3f4f9;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(#f3f4f9, 2%);
+        }
+      }
+    }
+  }
+}
+
+.office-list-nav {
+  height: 28px;
+  line-height: 28px;
+  font-size: 0;
+  text-align: right;
+  padding-right: 11px;
+
+  .nav-ele {
+    .inline-block();
+    font-size: 16px;
+    vertical-align: middle;
+    cursor: pointer;
+    color: @gray;
+
+    &:hover {
+      color: @gray-dark;
+    }
+
+    &.current {
+      color: @blue;
+    }
+  }
+
+  .nav-line {
+    width: 1px;
+    height: 16px;
+    background-color: #ccc;
+    .inline-block();
+    vertical-align: middle;
+    margin: 0 34px;
+  }
+}
+/*办公频道分类列表响应式*/
+@media screen and (min-width: 1600px){
+  .screen-body{
+    min-width: 1500px;
+    .pw{
+      width: 1500px;
+    }
+
+    .office-header{
+      .search-bar{
+        margin-left:80px;
+        width: 682px;
+        .search-input{
+          width: 508px;
+        }
+      }
+      .detail-lately{
+        width: 546px;
+      }
+      .btn-back{
+        left: -80px;
+      }
+    }
+    .office-classify-item{
+      .office-list{
+        margin-top:-8px;
+        margin-left: -25px;
+        li{
+          width: 272px;
+          margin-top: 25px;
+          margin-left: 25px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+ <ul class="vip-privilege-items">
+            {{each list}}
+                <li class="item">
+                     <img class="item-img" src="{{list[$index].imagUrl}}"/>
+                     <p class="item-desc">{{list[$index].copywriting1}}</p>
+                </li>
+            {{/each}}    
+</ul>

@@ -1,0 +1,412 @@
+@charset "utf-8";
+/**
+  @description 办公频道 常用列表
+  @time 2019-10-11
+  @auth heMing
+ */
+@import "../../less-public/_less_mixin";
+@import "../../less-public/_ishare_setting";
+@import "office_bg";
+.office-list{
+  margin-top: -20px;
+  margin-left: -20px;
+  *position:relative;
+  *zoom:1;
+  li{
+    padding: 4px 4px 0;
+    width: 285-8px;
+    .fl();
+    background-color: #fff;
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 2px;
+
+    box-shadow: 0px 4px 7px 0px rgba( 57, 0, 0,.09);
+    position: relative;
+    .office-collect-info{
+      top:50%;
+      margin-top: -25px;
+    }
+    .icon-recommend{
+      .icon-office();
+      width: 82px;
+      height: 29px;
+      line-height: 29px;
+      position: absolute;
+      top:-4px;
+      left: 16px;
+      z-index: 15;
+      background-position: -120px 0;
+      color: #fff;
+      text-indent: 7px;
+      font-size: 14px;
+      font-style: normal;
+    }
+    .data-pic{
+      height: 384px;
+      overflow: hidden;
+      position: relative;
+      *zoom:1;
+      img{
+        .center(unknown);
+        max-width: 100%;
+      }
+      &:hover{
+        .data-pic-more{
+          display: block;
+        }
+      }
+    }
+
+
+    .data-pic-more{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top:0;
+      z-index: 10;
+      display: none;
+      .btn-pic-xx{
+        width: 34px;
+        height: 34px;
+        border-radius: 34px;
+        position: absolute;
+        top:26px;
+        right: 18px;
+        display: block;
+        overflow: hidden;
+        z-index: 5;
+        cursor: pointer;
+        .icon-xx{
+          .icon-office();
+          .center(know,22px,22px);
+          background-position: -20px -30px;
+          z-index: 4;
+        }
+      }
+      .btn-pic-xx-ok{
+        .icon-xx{
+          background-position: -20px -60px;
+        }
+      }
+      .mask-xx{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top:0;
+        z-index: 1;
+        background-color: #fff;
+        .opacity(95);
+      }
+    }
+    .btn-data-download{
+      .btn(188px,48px,@blue,#fff,16px);
+      position: absolute;
+      left: 50%;
+      margin-left: -188/2px;
+      bottom: 66px;
+      z-index: 5;
+      border-radius: 4px;
+    }
+    .pic-mask{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top:0;
+      z-index: 1;
+      background-color: #000;
+      .opacity(35);
+    }
+    .data-text-con{
+      padding: 0 20px 12px;
+    }
+    .data-name{
+      height: 46px;
+      line-height: 46px;
+      display: block;
+      .text-ellipsis();
+      font-size: 16px;
+      color: @gray-dark;
+      &:hover{
+        color: @primary-color;
+      }
+    }
+    .op-bar{
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      border-top:1px solid #f0f0f0;
+    }
+    .price-text{
+      color: @primary-color;
+    }
+    .op-con{
+      position: absolute;
+      right:0;
+      top:0;
+    }
+    .btn-op{
+      .fl();
+      display: block;
+      padding-left: 18px;
+      position: relative;
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+
+      .icon-op{
+        .icon-office();
+        width: 16px;
+        .center(known-y,16px);
+        left: 0;
+      }
+    }
+    .btn-goods{
+      margin-left: 10px;
+      .icon-op{
+        background-position: -50px 0;
+      }
+      &:hover{
+        .icon-op{
+          background-position: -50px -20px;
+        }
+      }
+    }
+    .btn-goods-ok{
+      color:@primary-color;
+      .icon-op{
+        background-position: -50px -40px;
+      }
+      &:hover{
+        .icon-op{
+          background-position: -50px -40px;
+        }
+      }
+    }
+    .btn-xx{
+      margin-left: 15px;
+      .icon-op{
+        background-position: -70px 0;
+      }
+      &:hover{
+        .icon-op{
+          background-position: -70px -20px;
+        }
+      }
+    }
+    .btn-xx-ok{
+      color: @primary-color;
+      .icon-op{
+        background-position: -70px -40px;
+      }
+      &:hover{
+        .icon-op{
+          background-position: -70px -40px;
+        }
+      }
+    }
+  }
+}
+.office-list-none {
+  background: #fff;
+  border: 1px solid #eee;
+  text-align: center;
+  padding: 80px 0 100px;
+  line-height: 28px;
+  font-size: 16px;
+  color: #444;
+  margin-top: 12px;
+  .none-img {
+    margin: 0 auto 10px;
+    width: 89px;
+  }
+  .none-text {
+    p{
+      span{
+        color: #f25125;
+      }
+    }
+  }
+  .none-btn{
+    .btn(206px, 50px, @blue, #fff, 16px);
+    border-radius: 4px;
+    margin: 24px auto 0;
+  }
+}
+.office-classify-item{
+  margin-top: 18px;
+  .office-list-nav{ text-align: left;}
+  .office-list{
+    margin-top:-7px;
+    margin-left: -24px;
+    li{
+      width:274px;
+      margin-left: 24px;
+      .transition(all,.2s,ease-out);
+      .data-text-con{padding-bottom: 0}
+      .data-pic{
+        height: 387px;
+      }
+      .btn-pic-op{
+        width: 31px;
+        height: 31px;
+        border-radius: 31px;
+        position: absolute;
+        bottom: 14px;
+        display: block;
+        visibility: hidden;
+        .opacity(0);
+        overflow: hidden;
+        cursor: pointer;
+        .transition(all,.2s,ease-out);
+        .bg-mask{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          right: 0;
+          background-color: #000;
+          .opacity(75);
+          z-index: 1;
+        }
+        .icon-pic-op{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top:0;
+          z-index: 2;
+          img{
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        &:hover{
+          .bg-mask{
+            .opacity(85);
+          }
+        }
+      }
+      .btn-pic-collect{
+        left: 20px;
+      }
+      .btn-pic-collect-ok{
+        .bg-mask{
+          background-color: #f25125;
+          .opacity(100);
+        }
+        &:hover{
+          .bg-mask{
+            .opacity(100);
+          }
+        }
+      }
+      .btn-pic-cart{
+        right: 20px;
+      }
+      .btn-pic-download{
+        right: 20px;
+      }
+      .op-con{
+        height: 52px;
+        line-height: 52px;
+        position: relative;
+      }
+      .btn-goods{
+        margin-left: 0;
+        float: left;
+      }
+      .btn-xx{
+        float: right;
+        margin-left: 0;
+      }
+      .ppt-pic-wrap{
+        height: 387px;
+        position: relative;
+        background-color: #f7f7f7;
+        img{
+          top:0;
+          margin: 0;
+          bottom: auto;
+          left: 0;
+          right: auto;
+          width: 100%;
+        }
+      }
+      .excel-pic-wrap{
+        padding-top: 25px;
+        background-color: #f7f7f7;
+        position: relative;
+        .excel-title{
+          height: 26px;
+          line-height: 26px;
+          padding: 0 24px 0 58px;
+          font-size: 16px;
+          color: #1e7e4c;
+          position: relative;
+          .text-ellipsis();
+        }
+        .icon-excel{
+          .icon-pic-data();
+          width: 25px;
+          height: 26px;
+          position: absolute;
+          left: 24px;
+          top:0;
+          background-position: 0 0;
+        }
+        .excel-pic-con{
+          height: 336px;
+          overflow: hidden;
+          position: relative;
+          img{
+            max-width: 100%;
+            .center(unknown);
+          }
+        }
+      }
+      &:hover{
+        z-index: 10;
+        .tranSize(1.06);
+        box-shadow: 0px 8px 16px 5px rgba( 63, 64, 69,.24);
+        .btn-pic-op{
+          visibility: visible;
+          .opacity(100);
+
+        }
+      }
+    }
+  }
+}
+.office-collect-info{
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  margin-left: -85px;
+  z-index: 50;
+  overflow: hidden;
+  border-radius: 5px;
+  display: none;
+  .bg-mask{
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    .opacity(70);
+    position: absolute;
+    left: 0;
+    top:0;
+  }
+  p{
+    position: relative;
+    z-index: 5;
+  }
+}

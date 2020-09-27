@@ -1,0 +1,1158 @@
+@charset "utf-8";
+.login-dialog {
+  width: 460px;
+  height: 530px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 99999;
+  margin-top: -265px;
+  margin-left: -230px;
+  background: #fbf9f5;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+}
+.login-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  background: url(../images/icon_iShare.png) no-repeat;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  background-position: -220px -20px;
+  cursor: pointer;
+}
+.login-dialog input::-webkit-input-safebox-button {
+  display: none;
+  /*去掉搜狗浏览器密码软盘*/
+}
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  /* 避免占用 input 元素额外的 padding，正常情况下存在 display: none!; 就可以了 */
+  right: 0;
+}
+.qrcode-default {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: -25px;
+  margin-top: -25px;
+  background: url(../images/login/loading.gif) no-repeat center;
+  background-size: 100%;
+}
+.login-content {
+  width: 100%;
+  height: 100%;
+}
+.login-content .login-title {
+  height: 79px;
+  position: relative;
+}
+.login-content .login-title .ishare-log {
+  position: absolute;
+  left: 89px;
+  top: 45px;
+  width: 152px;
+  height: 37px;
+}
+.login-content .login-title .login-desc {
+  position: absolute;
+  left: 270px;
+  top: 55px;
+  font-size: 17px;
+  color: #333;
+}
+.login-content .login-title .login-desc::after {
+  position: absolute;
+  content: '';
+  left: -16px;
+  top: 50%;
+  margin-top: -2.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #333;
+}
+.login-content .errortip {
+  display: none;
+  position: absolute;
+  left: 61px;
+  top: 100px;
+}
+.login-content .errortip .error-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('../images/login/warning.png') no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.login-content .errortip .error-tip {
+  margin-left: 5px;
+  width: 315px;
+  font-size: 15px;
+  color: #E53223;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.login-content .weixin-login .login-qrContent {
+  margin: 0 auto;
+  margin-top: 44px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.login-content .weixin-login .login-qrContent .login-qr {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  position: relative;
+}
+.login-content .weixin-login .login-qrContent .login-qr #login-qr {
+  width: 200px;
+  height: 200px;
+  display: none;
+}
+.login-content .weixin-login .login-qrContent .login-qr-invalidtip {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+}
+.login-content .weixin-login .login-qrContent .qr-invalidtip {
+  display: none;
+  position: absolute;
+  left: 56px;
+  top: 69px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.login-content .weixin-login .login-qrContent .qr-refresh {
+  display: none;
+  position: absolute;
+  top: 102px;
+  left: 45px;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.login-content .weixin-login .login-qrinfo {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 15px;
+  color: #656565;
+  text-align: center;
+}
+.login-content .weixin-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.login-content .weixin-login .login-info a {
+  color: inherit;
+}
+.login-content .weixin-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .weixin-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
+.login-content .weixin-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
+}
+.login-content .weixin-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
+}
+.login-content .weixin-login .login-type-list {
+  margin-top: 51px;
+  height: 64px;
+  line-height: 64px;
+  background: #f5f3ef;
+}
+.login-content .weixin-login .login-type-list li {
+  float: left;
+  cursor: pointer;
+}
+.login-content .weixin-login .login-type-list .icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+.login-content .weixin-login .login-type-list .login-desc {
+  display: inline-block;
+  vertical-align: middle;
+}
+.login-content .weixin-login .login-type-list .login-type-qq {
+  padding-left: 24px;
+}
+.login-content .weixin-login .login-type-list .login-type-qq .qq-icon {
+  background: url('../images/login/qq-active.png') no-repeat center;
+  background-size: contain;
+}
+.login-content .weixin-login .login-type-list .login-type-qq .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .weixin-login .login-type-list .login-type-weibo {
+  margin-left: 24px;
+  position: relative;
+}
+.login-content .weixin-login .login-type-list .login-type-weibo .weibo-icon {
+  background: url('../images/login/weibo-active.png') no-repeat center;
+  background-size: 100%;
+}
+.login-content .weixin-login .login-type-list .login-type-weibo .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .weixin-login .login-type-list .login-type-weibo::after {
+  content: '';
+  width: 1px;
+  height: 14px;
+  background: #d7d5d1;
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  margin-top: -7px;
+}
+.login-content .weixin-login .login-type-list .login-type-verificationCode {
+  margin-left: 121px;
+  font-size: 15px;
+  color: #999999;
+}
+.login-content .weixin-login .login-type-list .login-type-verificationCode:hover {
+  color: #1D739F;
+}
+.login-content .weixin-login .login-type-list .login-type-password {
+  margin-left: 24px;
+  font-size: 15px;
+  color: #999999;
+  position: relative;
+}
+.login-content .weixin-login .login-type-list .login-type-password:hover {
+  color: #1D739F;
+}
+.login-content .weixin-login .login-type-list .login-type-password::after {
+  content: '';
+  width: 1px;
+  height: 14px;
+  background: #d7d5d1;
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  margin-top: -7px;
+}
+.login-content .verificationCode-login {
+  display: none;
+}
+.login-content .verificationCode-login .login-item {
+  width: 338px;
+  height: 42px;
+  margin: 0 auto;
+}
+.login-content .verificationCode-login .mobile {
+  margin-top: 50px;
+  position: relative;
+}
+.login-content .verificationCode-login .mobile .phone-choice {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 42px;
+  line-height: 42px;
+  cursor: pointer;
+  background: #ffffff;
+  border-top: none;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-num {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  font-size: 15px;
+  color: #333333;
+  border: 1px solid #cccccc;
+  border-right: none;
+  border-radius: 4px;
+  position: relative;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-num .add {
+  margin-left: 4px;
+  font-style: normal;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-num .arrow-phone {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
+  top: 50%;
+  right: 5px;
+  position: absolute;
+  margin-top: -2px;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-more {
+  display: none;
+  width: 238px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+  z-index: 5;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  line-height: 30px;
+  font-size: 15px;
+  height: 150px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-more .phone-ele {
+  display: block;
+}
+.login-content .verificationCode-login .mobile .phone-choice .phone-more .phone-ele .number-con {
+  float: left;
+  width: 46px;
+  margin-left: 10px;
+}
+.login-content .verificationCode-login .mobile .phone-choice-show .phone-num {
+  border-bottom-color: #fff;
+  border-bottom-left-radius: 0;
+}
+.login-content .verificationCode-login .mobile .input-mobile {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 282px;
+  height: 42px;
+  border: 1px solid #cccccc;
+}
+.login-content .verificationCode-login .mobile .input-mobile input {
+  display: block;
+  padding: 0;
+  padding-left: 12px;
+  line-height: inherit;
+  width: 270px;
+  height: 42px;
+  border: none;
+}
+.login-content .verificationCode-login .mobile .input-mobile .mobile-errortip {
+  display: none;
+  position: absolute;
+  width: 75px;
+  height: 15px;
+  font-size: 15px;
+  color: #E63223;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+.login-content .verificationCode-login .code {
+  margin-top: 22px;
+  position: relative;
+}
+.login-content .verificationCode-login .code .verification-code {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 170px;
+  height: 42px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding-left: 8px;
+}
+.login-content .verificationCode-login .code .verification-code-tip {
+  display: none;
+  position: absolute;
+  top: 50%;
+  font-size: 15px;
+  height: 15px;
+  color: #E63223;
+  left: 96px;
+  margin-top: -9px;
+}
+.login-content .verificationCode-login .code .getVerificationCode {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 140px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 15px;
+  color: #999999;
+  text-align: center;
+  background: #e9e8e5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .code .getVerificationCode-active {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 140px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 15px;
+  color: #FFFFFF;
+  text-align: center;
+  background: #f25126;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.login-content .verificationCode-login .login-info a {
+  color: inherit;
+}
+.login-content .verificationCode-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
+.login-content .verificationCode-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
+}
+.login-content .verificationCode-login .login-btn {
+  margin-top: 32px;
+  width: 339px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  font-size: 15px;
+  color: #ffffff;
+  border-radius: 4px;
+}
+.login-content .verificationCode-login .login-btn:hover {
+  background: #EC3A22;
+}
+.login-content .verificationCode-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-type-list {
+  height: 64px;
+  line-height: 64px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #f5f3ef;
+}
+.login-content .verificationCode-login .login-type-list li {
+  float: left;
+  cursor: pointer;
+}
+.login-content .verificationCode-login .login-type-list .icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+.login-content .verificationCode-login .login-type-list .login-desc {
+  display: inline-block;
+  vertical-align: middle;
+}
+.login-content .verificationCode-login .login-type-list .login-type-weixin {
+  padding-left: 24px;
+}
+.login-content .verificationCode-login .login-type-list .login-type-weixin .weixin-icon {
+  background: url('../images/login/weixin.png') no-repeat center;
+  background-size: 100%;
+}
+.login-content .verificationCode-login .login-type-list .login-type-qq {
+  padding-left: 24px;
+}
+.login-content .verificationCode-login .login-type-list .login-type-qq .qq-icon {
+  background: url('../images/login/qq.png') no-repeat center;
+  background-size: contain;
+}
+.login-content .verificationCode-login .login-type-list .login-type-qq .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .verificationCode-login .login-type-list .login-type-weibo {
+  margin-left: 20px;
+  position: relative;
+}
+.login-content .verificationCode-login .login-type-list .login-type-weibo .weibo-icon {
+  background: url('../images/login/weibo.png') no-repeat center;
+  background-size: 100%;
+}
+.login-content .verificationCode-login .login-type-list .login-type-weibo .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .verificationCode-login .login-type-list .login-type-verificationCode {
+  margin-left: 121px;
+  font-size: 15px;
+  color: #999999;
+}
+.login-content .verificationCode-login .login-type-list .login-type-verificationCode:hover {
+  color: #1D739F;
+}
+.login-content .verificationCode-login .login-type-list .login-type-password {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  font-size: 15px;
+  color: #999999;
+}
+.login-content .verificationCode-login .login-type-list .login-type-password:hover {
+  color: #1D739F;
+}
+.login-content .password-login {
+  display: none;
+}
+.login-content .password-login .login-item {
+  width: 338px;
+  height: 42px;
+  margin: 0 auto;
+}
+.login-content .password-login .mobile {
+  margin-top: 50px;
+  position: relative;
+}
+.login-content .password-login .mobile .phone-choice {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 42px;
+  line-height: 42px;
+  cursor: pointer;
+  background: #ffffff;
+  border-top: none;
+}
+.login-content .password-login .mobile .phone-choice .phone-num {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  font-size: 15px;
+  color: #333333;
+  border: 1px solid #cccccc;
+  border-right: none;
+  border-radius: 4px;
+  position: relative;
+}
+.login-content .password-login .mobile .phone-choice .phone-num .add {
+  margin-left: 4px;
+  font-style: normal;
+}
+.login-content .password-login .mobile .phone-choice .phone-num .arrow-phone {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #A0A0A0;
+  top: 50%;
+  right: 5px;
+  position: absolute;
+  margin-top: -3px;
+}
+.login-content .password-login .mobile .phone-choice .phone-more {
+  display: none;
+  width: 238px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+  z-index: 5;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  line-height: 30px;
+  font-size: 15px;
+  height: 150px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.login-content .password-login .mobile .phone-choice .phone-more .phone-ele {
+  display: block;
+}
+.login-content .password-login .mobile .phone-choice .phone-more .phone-ele .number-con {
+  float: left;
+  width: 46px;
+  margin-left: 10px;
+}
+.login-content .password-login .mobile .phone-choice-show .phone-num {
+  border-bottom-color: #fff;
+  border-bottom-left-radius: 0;
+}
+.login-content .password-login .mobile .input-mobile {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 282px;
+  height: 42px;
+  border: 1px solid #cccccc;
+}
+.login-content .password-login .mobile .input-mobile input {
+  display: block;
+  padding: 0;
+  padding-left: 12px;
+  line-height: inherit;
+  width: 270px;
+  height: 42px;
+  border: none;
+}
+.login-content .password-login .mobile .input-mobile .mobile-errortip {
+  display: none;
+  position: absolute;
+  width: 75px;
+  height: 15px;
+  font-size: 15px;
+  color: #E63223;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+.login-content .password-login .password {
+  position: relative;
+}
+.login-content .password-login .password .login-password {
+  display: block;
+  width: 326px;
+  margin-top: 22px;
+  padding: 0;
+  padding-left: 12px;
+  line-height: 42px;
+  height: 42px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+.login-content .password-login .password .close-eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: url('../images/login/close-eye.png');
+  background-size: 100%;
+  cursor: pointer;
+}
+.login-content .password-login .password .eye {
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 20px;
+  height: 15px;
+  margin-top: -7.5px;
+  background: url('../images/login/eye.png');
+  background-size: 100%;
+  cursor: pointer;
+}
+.login-content .password-login .password .password-errortip {
+  display: none;
+  position: absolute;
+  width: 120px;
+  height: 15px;
+  font-size: 15px;
+  color: #E63223;
+  right: 26px;
+  top: 50%;
+  margin-top: -10px;
+}
+.login-content .password-login .login-btn {
+  margin-top: 32px;
+  width: 339px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.login-content .password-login .login-btn:hover {
+  background: #EC3A22;
+}
+.login-content .password-login .login-btn-disable {
+  background: #f25126;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.login-content .password-login .login-btn-active {
+  background: #f25126;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.login-content .password-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.login-content .password-login .login-info a {
+  color: inherit;
+}
+.login-content .password-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.login-content .password-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
+.login-content .password-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
+}
+.login-content .password-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
+}
+.login-content .password-login .login-type-list {
+  height: 64px;
+  line-height: 64px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #f5f3ef;
+}
+.login-content .password-login .login-type-list li {
+  float: left;
+  cursor: pointer;
+}
+.login-content .password-login .login-type-list .icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+.login-content .password-login .login-type-list .login-desc {
+  display: inline-block;
+  vertical-align: middle;
+}
+.login-content .password-login .login-type-list .login-type-weixin {
+  padding-left: 24px;
+}
+.login-content .password-login .login-type-list .login-type-weixin .weixin-icon {
+  background: url('../images/login/weixin.png') no-repeat center;
+  background-size: 100%;
+}
+.login-content .password-login .login-type-list .login-type-qq {
+  padding-left: 24px;
+}
+.login-content .password-login .login-type-list .login-type-qq .qq-icon {
+  background: url('../images/login/qq.png') no-repeat center;
+  background-size: contain;
+}
+.login-content .password-login .login-type-list .login-type-qq .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .password-login .login-type-list .login-type-weibo {
+  margin-left: 20px;
+  position: relative;
+}
+.login-content .password-login .login-type-list .login-type-weibo .weibo-icon {
+  background: url('../images/login/weibo.png') no-repeat center;
+  background-size: 100%;
+}
+.login-content .password-login .login-type-list .login-type-weibo .login-desc {
+  margin-left: 7px;
+  font-size: 13px;
+  color: #656565;
+}
+.login-content .password-login .login-type-list .login-type-verificationCode {
+  font-size: 15px;
+  position: absolute;
+  right: 24px;
+  color: #999999;
+}
+.login-content .password-login .login-type-list .login-type-verificationCode:hover {
+  color: #1D739F;
+}
+.tourist-purchase-dialog {
+  width: 460px;
+  height: 603px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 99999;
+  margin-top: -265px;
+  margin-left: -230px;
+  background: #fbf9f5;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+}
+.tourist-purchase-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  background: url(../images/icon_iShare.png) no-repeat;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  background-position: -220px -20px;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .login-content {
+  display: none;
+}
+.tourist-purchase-dialog .tourist-purchase-container {
+  width: 100%;
+  height: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs {
+  height: 71px;
+  line-height: 71px;
+  border-bottom: 1px solid #efeee8;
+  position: relative;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab {
+  position: absolute;
+  font-size: 22px;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .border-bottom {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -25px;
+  width: 50px;
+  height: 4px;
+  background: #f25125;
+  border-radius: 2px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab-active {
+  color: #333333;
+  font-weight: 500;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tab-active .border-bottom {
+  display: block;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .tourist-purchase {
+  left: 93px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tabs .login-purchase {
+  left: 280px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip {
+  display: none;
+  position: absolute;
+  left: 61px;
+  top: 170px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip .error-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('../images/login/warning.png') no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.tourist-purchase-dialog .tourist-purchase-container .errortip .error-tip {
+  margin-left: 5px;
+  width: 315px;
+  font-size: 15px;
+  color: #E53223;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
+  margin-top: 40px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary {
+  font-size: 14px;
+  height: 14px;
+  line-height: 14px;
+  color: #666666;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary .file-icon {
+  margin-right: 4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: static;
+  vertical-align: middle;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-summary .file-desc {
+  display: inline-block;
+  max-width: 332px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-price-summary {
+  text-align: center;
+  margin-top: 22px;
+  height: 24px;
+  line-height: 24px;
+  color: #333333;
+}
+.tourist-purchase-dialog .tourist-purchase-container .file-price-summary .price {
+  font-size: 24px;
+  color: #F25125;
+  font-weight: bold;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent {
+  margin: 0 auto;
+  margin-top: 23px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr #touristPayQrCode {
+  padding: 11px;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-invalidtip {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip {
+  display: none;
+  position: absolute;
+  left: 56px;
+  top: 69px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-refresh {
+  display: none;
+  position: absolute;
+  top: 102px;
+  left: 45px;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.tourist-purchase-dialog .tourist-purchase-container .qrcode-tip {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 15px;
+  color: #666666;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon {
+  height: 28px;
+  margin-top: 15px;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon .wei-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url("../images/login/weixin-active.png") no-repeat center;
+  background-size: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .paytype-icon .alipay-icon {
+  margin-left: 34px;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url("../images/login/alipay-active.png") no-repeat center;
+  background-size: 100%;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-tip {
+  margin: 0 auto;
+  margin-top: 32px;
+  font-size: 14px;
+  height: 14px;
+  line-height: 14px;
+  color: #999999;
+  text-align: center;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-tip a:hover {
+  color: #1d73a0;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer {
+  margin-top: 20px;
+  width: 100%;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  background: #f5f4f0;
+  color: #999999;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-footer .tourist-purchase-download {
+  color: #1d73a0;
+  cursor: pointer;
+}
+.tourist-login .login-qrContent {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.tourist-login .login-qrContent .login-qr {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+}
+.tourist-login .login-qrContent .login-qr #login-qr {
+  width: 200px;
+  height: 200px;
+  display: none;
+}
+.tourist-login .login-qrContent .login-qr-invalidtip {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #666364;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+}
+.tourist-login .login-qrContent .qr-invalidtip {
+  display: none;
+  position: absolute;
+  left: 56px;
+  top: 69px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+}
+.tourist-login .login-qrContent .qr-refresh {
+  display: none;
+  position: absolute;
+  top: 102px;
+  left: 45px;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+  color: #ffffff;
+  background: #f15125;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.tourist-login .login-qrinfo {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 15px;
+  color: #656565;
+  text-align: center;
+}
+.tourist-login .login-qrinfo .wechat-icon {
+  margin-right: 8px;
+  display: inline-block;
+  width: 23px;
+  height: 20px;
+  vertical-align: middle;
+  background: url('../images/login/tourist-wechat-login.png') no-repeat center;
+  background-size: 100%;
+}
+.tourist-login .login-info {
+  margin: 24px auto 0 auto;
+  width: 336px;
+  height: 34px;
+  line-height: 24px;
+  font-size: 14px;
+  color: #9999;
+}
+.tourist-login .login-info a {
+  color: inherit;
+}
+.tourist-login .login-info .service-agreement {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.tourist-login .login-info .service-agreement:hover {
+  color: #1d73a0;
+}
+.tourist-login .login-info .privacy-pooptioncy {
+  cursor: pointer;
+}
+.tourist-login .login-info .privacy-pooptioncy:hover {
+  color: #1d73a0;
+}
+.tourist-login a:hover {
+  color: #1d73a0;
+}

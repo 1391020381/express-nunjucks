@@ -383,7 +383,7 @@ function showErrorTip(type,isShow,msg){
 
  
 // 微信登录
-function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
+function getLoginQrcode(cid, fid, isqrRefresh, isTouristLogin, callback){  // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
     $.ajax({
         url: api.user.getLoginQrcode,
         type: "POST",
@@ -392,7 +392,7 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             site:'1',
             fid:fid||'',
             sceneId:sceneId,
-            domain:encodeURIComponent(document.domain)
+            domain: encodeURIComponent(document.domain)
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -403,11 +403,12 @@ function getLoginQrcode(cid,fid,isqrRefresh,isTouristLogin,callback){  // 生成
             expires_in = res.data&&res.data.expires_in
             sceneId = res.data&&res.data.sceneId
             countdown()
-            if(isTouristLogin||isqrRefresh){
+            // 如果是游客登录
+            if(isTouristLogin || isqrRefresh){
                 $('.tourist-login .qrcode-default').hide()
                 $('.tourist-login #login-qr').attr('src',res.data.url)
                 $('.tourist-login #login-qr').show()
-                if(callback){
+                if( callback ){
                     touristLoginCallback = callback
                 }
             }else{
@@ -710,16 +711,16 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
     normalPageView('loginResultPage')
     $("#dialog-box").dialog({
         html: loginDialog.html(),
-        'closeOnClickModal':false
+        'closeOnClickModal': false
     }).open(getLoginQrcode(params.clsId,params.fid));
   }
-  function showTouristPurchaseDialog(params,callback){ // 游客购买的回调函数
+  function showTouristPurchaseDialog(params, callback){ // 游客购买的回调函数
     touristLoginCallback = callback
     var touristPurchaseDialog = $('#tourist-purchase-dialog')
     $("#dialog-box").dialog({
         html: touristPurchaseDialog.html(),
-        'closeOnClickModal':false
-    }).open(getLoginQrcode(params.clsId,params.fid)); 
+        'closeOnClickModal': false
+    }).open(getLoginQrcode(params.clsId, params.fid)); 
   }
   return {
     showLoginDialog:showLoginDialog,

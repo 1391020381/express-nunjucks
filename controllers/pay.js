@@ -55,8 +55,9 @@ module.exports = {
                     })
                     tempListData.push(Object.assign({},item,{members:tempMembers}))
                 })
-                results.list.data = tempListData
+                results.list.data = tempListData;
             }
+            console.log('拿到vip套餐列表：' + JSON.stringify(results))
             // console.log("vip list------------");
             // console.log('后台返回的套餐列表:'+JSON.stringify(results));
             // req.query.remark = 'office'

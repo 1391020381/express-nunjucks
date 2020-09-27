@@ -1,0 +1,181 @@
+@charset "utf-8";
+@import url(_less_css3.less);
+// 盒子宽高
+.size(@w,@h){
+  width: @w;
+  height: @h;
+}
+//内联块级元素
+.inline-block(){
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+}
+//文字图片居中
+.center(text-x){
+  text-align: center;
+}
+.center(text-y){
+  display: table-cell;
+  vertical-align: middle;
+}
+
+// 块级元素水平居中
+.center(auto-x){
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// 居中, 不确定尺寸, 不兼容 IE6
+.center(unknown){
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.center(unknown-x){
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center(unknown-y){
+  position: absolute;
+  top:0;
+  bottom:0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+// 居中, 确定尺寸, 兼容 IE6
+.center(know,@w,@h){
+  .size(@w,@h);
+  position: absolute;
+  top:50%;
+  left: 50%;
+  margin-top: -(@h/2);
+  margin-left: -(@w/2);
+}
+.center(known-x, @w) {
+  width: @w;
+  position: absolute;
+  left: 50%;
+  margin-left: -(@w/2);
+}
+.center(known-y, @h) {
+  height: @h;
+  position: absolute;
+  top: 50%;
+  margin-top: -(@h/2);
+}
+//清楚浮动
+.cf(){
+  *zoom:1;
+  &:after{
+    display: block;
+    clear: both;
+    content: '';
+    visibility: hidden;
+    height: 0;
+  }
+  .cf(table){
+    &:before,&:after{
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+}
+
+//浮动
+.fl(){
+  float:left;
+  *display: inline;
+}
+.fr(){
+  float: right;
+  *display:inline;
+}
+
+// 禁用元素事件
+.pointer-events() { pointer-events: none; }
+
+//文字截取 省略号
+.text-ellipsis(){
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.text-ellipsis(@w){
+  .inline-block();
+  max-width: @w;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+//文字截取
+.text-clip(@w){
+ text-overflow: clip;
+}
+.arrow-style(){
+  width: 0;
+  height: 0;
+  display: block;
+  overflow: hidden;
+}
+//三角形
+.arrow-top(@w,@color){
+  .arrow-style();
+  border-width: @w;
+  border-style: solid dashed dashed dashed;
+  border-color: @color transparent transparent transparent;
+}
+.arrow-bottom(@w,@color){
+  .arrow-style();
+  border-width: @w;
+  border-style: dashed dashed solid dashed;
+  border-color: transparent transparent @color transparent;
+}
+.arrow-left(@w,@color){
+  .arrow-style();
+  border-width: @w;
+  border-style: dashed dashed dashed solid;
+  border-color: transparent transparent transparent @color;
+}
+.arrow-right(@w,@color){
+  .arrow-style();
+  border-width: @w;
+  border-style: dashed  solid dashed dashed;
+  border-color: transparent  @color transparent transparent;
+}
+//按钮
+.btn(@w,@h,@bg,@fontColor,@fontSize,@center:center){
+  display: block;
+  text-align:@center;
+  .size(@w,@h);
+  line-height: @h;
+  background-color: @bg;
+  color: @fontColor;
+  font-size: @fontSize;
+  cursor: pointer;
+  &:hover{
+    color: @fontColor;
+    background-color: darken(@bg,7%);
+  }
+}
+//弹出层
+.dialog(@w,@h){
+  width: @w;
+  height: @h;
+  position: fixed;
+  left: 50%;
+  top:50%;
+  margin: -@h/2 0 0 -@w/2;
+  // z-index: 9999;
+  z-index: 999999
+}
+//ishare背景
+@import "_ishare_bg";

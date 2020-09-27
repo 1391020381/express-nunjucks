@@ -1,0 +1,23 @@
+<ul class="date-con-first">
+    {{each data as item index}}
+    <li   >
+        <a href="javascript:;" cid="{{item.id}}" name ="{{item.name}}">{{item.name}}</a>
+        <ul class="date-con-sec"  style="display: none;">
+            {{if item.categoryList && item.categoryList.length>0}}
+            {{each item.categoryList as ctn num}}
+            <li >
+                    <a href="javascript:;" cid="{{ctn.id}}" name ="{{ctn.name}}">{{ctn.name}}</a>
+                    <ul class="date-con-third" style="display: none;">
+                        {{if ctn.categoryList && ctn.categoryList.length>0 }}
+                        {{each ctn.categoryList as item3 index3}}
+                        <li  ><a href="javascript:;" cid="{{item3.id}}" name ="{{item3.name}}">{{item3.name}}</a></li>
+                        {{/each}}
+                        {{/if}}
+                    </ul>
+            </li>
+            {{/each}}
+            {{/if}}
+        </ul>
+    </li>
+    {{/each}}
+</ul>

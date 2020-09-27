@@ -74,11 +74,11 @@
                             </span>
                             {%endif%}
 
-                            {% if item.highQuality %}
+                            {% if item.isExcellent == 0 %}
                             <span class="icon-selected"></span>
                             {%endif%}
 
-                            {% if item.vipExclusive %}
+                            {% if item.productType == 4 %}
                             <span class="icon-vip"></span>
                             {%endif%}
                         </a>
