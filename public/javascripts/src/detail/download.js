@@ -110,7 +110,11 @@ define(function (require, exports, module) {
              //   docDLSuccess(res.data.consume, true);
                 if (browserEnv === 'IE' || browserEnv === 'Edge') {
                     // window.location.href = res.data.downloadURL;
-                    method.compatibleIESkip(res.data.fileDownUrl,false);
+                    // method.compatibleIESkip(res.data.fileDownUrl,false);
+                    var fid = window.pageConfig.params.g_fileId;
+                    var consumeStatus = res.data.consumeStatus
+                    var url = '/node/f/downsucc.html?fid=' + fid  + '&consumeStatus='+ consumeStatus + '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                    goNewTab(url)
                 } else if (browserEnv === 'Firefox') {
                     // window.location.href = decodeURIComponent(res.data.downloadURL);
                     var fileDownUrl = res.data.fileDownUrl;
@@ -120,7 +124,7 @@ define(function (require, exports, module) {
                     var fid = window.pageConfig.params.g_fileId;
                     var consumeStatus = res.data.consumeStatus
                     // window.location.href = sub_url1 + sub_ur2;
-                    method.compatibleIESkip(sub_url1 + sub_ur2,false);
+                   // method.compatibleIESkip(sub_url1 + sub_ur2,false);
                     var url = '/node/f/downsucc.html?fid=' + fid  + '&consumeStatus='+ consumeStatus + '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 } else {

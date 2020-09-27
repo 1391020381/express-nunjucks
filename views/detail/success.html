@@ -69,21 +69,21 @@
                      <div class="qrcode-warpper">
                         <div class="qrcode-content">
                           {% if results.consumeStatus == 7%}
-                                        {% if results.productType == 1 %}
+                                        {% if results.list.data.productType == 1 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/downloaded-document.png">
                                       {% endif%}  
                           {% else %}
-                                   {% if results.productType == 1 %}
+                                   {% if results.list.data.productType == 1 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/freebie-document.png">
                                       {% endif%}
 
-                                      {% if results.productType == 3 %}
+                                      {% if results.list.data.productType == 3 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/online-documents.png">
                                       {% endif%}
-                                      {% if results.productType == 4 %}
+                                      {% if results.list.data.productType == 4 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/vip-privilege-document.png">
                                       {% endif%}
-                                       {% if results.productType == 5 %}
+                                       {% if results.list.data.productType == 5 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/paid-documents.png">
                                       {% endif%}
                           {%endif%}
