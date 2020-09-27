@@ -53,9 +53,9 @@ const config = {
     },
     pre: {
         env: env,
-        apiBasePath: 'http://pre-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://pre-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://pre-gateway.pc.ishare.iasktest.com',
+        apiBasePath: 'http://pre-gateway.pc.ishare.iaskonline.com/gateway/pc',
+        apiNewBaselPath: 'http://pre-gateway.pc.ishare.iaskonline.com/gateway',
+        newBasePath: 'http://pre-gateway.pc.ishare.iaskonline.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
