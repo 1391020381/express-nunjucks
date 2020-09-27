@@ -483,9 +483,9 @@ define(function (require, exports, module) {
             success: function (res) {
                 if(res.code == '0'){
                     $.toast({
-                        text: _this.hasClass("btn-dianZan-success")?"取消点赞成功":"点赞成功"
+                        text: $('.file-thumbsup').hasClass("btn-dianZan-success")?"取消点赞成功":"点赞成功"
                     })
-                    _this.hasClass("btn-dianZan-success") ? $('.file-thumbsup').removeClass('btn-dianZan-success') :$('.file-thumbsup').addClass('btn-dianZan-success')
+                    $('.file-thumbsup').hasClass("btn-dianZan-success") ? $('.file-thumbsup').removeClass('btn-dianZan-success') :$('.file-thumbsup').addClass('btn-dianZan-success')
                 }else{
                     $.toast({
                         text: _this.hasClass("btn-dianZan-success")?"取消点赞失败":"点赞失败"

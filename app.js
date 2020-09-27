@@ -44,6 +44,32 @@ var helper = require('./helper/helper')(env);
 // set favicon.ico
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 
+
+
+let  restream = function(proxyReq, req, res, options) {
+    if (req.body) {
+        let bodyData = JSON.stringify(req.body);
+        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+        proxyReq.setHeader('Content-Type','application/json');
+        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+        // stream the content
+        proxyReq.write(bodyData);
+    }
+}
+
+if(appConfig.env == 'local' || appConfig.env == 'debug'){
+    app.use('/gateway', proxy({
+        //目标后端服务地址
+       //  target: 'http://ishare.iask.sina.com.cn',
+       target:appConfig.newBasePath,
+        changeOrigin: true,
+        secure: false,
+        onProxyReq: restream
+    }))
+}
+
+
+
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -82,27 +108,7 @@ app.use('/', router);
 
 // //本地开发环境反向代理
 
-let  restream = function(proxyReq, req, res, options) {
-    if (req.body) {
-        let bodyData = JSON.stringify(req.body);
-        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
-        proxyReq.setHeader('Content-Type','application/json');
-        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
-        // stream the content
-        proxyReq.write(bodyData);
-    }
-}
 
-if(appConfig.env == 'local' || appConfig.env == 'debug'){
-    app.use('/gateway', proxy({
-        //目标后端服务地址
-       //  target: 'http://ishare.iask.sina.com.cn',
-       target:appConfig.newBasePath,
-        changeOrigin: true,
-        secure: false,
-        onProxyReq: restream
-    }))
-}
 
 app.use(function (err, req, res, next) {
     if (appConfig.env === 'dev'||appConfig.env === 'test') {
