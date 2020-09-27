@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var api = require("../application/api")
     var urlConfig = require('../application/urlConfig')
-  
+    require("../cmd-lib/toast2");
     // 微信环境内
     if(utils.isWeChatBrow()){
         getWechatSignature()
@@ -21,6 +21,7 @@ define(function (require, exports, module) {
                 url:window.location.href
             }),
             success: function (res) { 
+                console.log('getWechatSignature:',res)
                 if (res.code == 0) {
                     wxAPI(res.data)
                 }else{
@@ -29,6 +30,13 @@ define(function (require, exports, module) {
                         delay: 2000
                     });
                 }
+            },
+            error:function(error){
+                console.log('getWechatSignature:',error)
+                $.toast({
+                    text:error.msg||'getWechatSignature错误',
+                    delay : 3000,
+                }) 
             }
         })
     }
