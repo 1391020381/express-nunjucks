@@ -88,6 +88,11 @@ body {
   font-size: 0.32rem;
   color: #FFFFFF;
 }
+.payment #launch-btn {
+  height: 45px;
+  display: block;
+  margin-top: 30px;
+}
 .hide {
   display: none;
 }
