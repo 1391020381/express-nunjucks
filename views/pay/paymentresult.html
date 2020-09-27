@@ -42,9 +42,8 @@ fun(document, window)
 </script>
 <body>
 <div class="payment">
-   
-</div>
 
+<div class="payment-content"></div>
 <wx-open-launch-weapp
                     id="launch-btn"
                     username="gh_c6a9e426f251"
@@ -54,18 +53,23 @@ fun(document, window)
                         .btn { 
                             display:block;
                             margin:0 auto;
-                            margin-top:72px;
+                            margin-top:30px;
                             width: 315px;
                             height: 45px;
                             line-height: 45px;
                             text-align: center;
                             background: #F25226;
                             border-radius: 4px;
+                            font-size:32px;
+                            color:#FFFFFF
                       }
                       </style>
                         <button class="btn">立即查看文件</button>
                       </template>
-</wx-open-launch-weapp>
+</wx-open-launch-weapp> 
+</div>
+
+
 
  {% include "common/js.html" %}
 

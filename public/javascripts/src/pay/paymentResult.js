@@ -29,7 +29,7 @@ define(function(require , exports , module){
                 res.data.payPrice = (res.data.payPrice/100).toFixed(2) 
                 res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
                 var _paymentRestultTemplate = template.compile(paymentRestult)({orderInfo:res.data});
-                $(".payment").html(_paymentRestultTemplate) 
+                $(".payment .payment-content").html(_paymentRestultTemplate) 
                   if(res.goodsType == 1){
                     handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:res.data.payType})
                 }
