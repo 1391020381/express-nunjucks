@@ -147,7 +147,7 @@ define(function (require, exports, moudle) {
                 success: function (res) {
                     if (res && res.code == '0') {
                         couponList = res.data && res.data.list ? res.data.list : [];
-                        initCouponReceive([...couponList]);
+                        initCouponReceive([].slice.call(couponList));
                     }
                 }
             });
