@@ -1,0 +1,6 @@
+{{each data as value i}}
+<li>
+    <a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>
+    <a href="javascript:;" class="btn-delete" data-html="{{value}}"></a>
+</li>
+{{/each}}

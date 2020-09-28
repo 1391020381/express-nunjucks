@@ -16,36 +16,49 @@ module.exports = {
     //搜索服务--API接口--条件搜索--同步
 
     getData: function (req, res) {
-
         // console.log(req,'req======')
         // console.log(req.query,'req.query======')
-
         return async.series({
             list: function (callback) {
-
-                server.get(appConfig.apiBasePath + Api.search.byCondition, callback, req);
-
+                var filePage = req.query.filePage || '';
+                var filePages = filePage ? filePage.split('-') : [];
+                req.body = {
+                    ...req.query,
+                    currentPage: req.query.pageIndex || 1,
+                    pageSize: 10, //每页10条数据固定
+                    sortField: req.query.sequence,
+                    totalPageStart: filePages[0],
+                    totalPageEnd: filePages[1],
+                    searchKey: decodeURIComponent(decodeURIComponent(req.query.cond)).trim() || ''
+                }
+                server.post(appConfig.apiNewBaselPath + Api.search.byCondition, callback, req);
             },
             words: function (callback) {
-
-                var newReq = {};
-                for (var key in req) {
-                    newReq[key] = req[key];
-                }
-                newReq.query = { cond: newReq.query.cond };
-
+                var cond = "";
                 if (req.query.cond) {
-                    req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
+                    cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
                 }
-                var cond = req.query.cond || ''
-                // console.log('cond:',cond)
-                req.query = Object.assign({},req.query,{ cond: cond });
-                server.get(appConfig.apiBasePath + Api.search.associatedWords, callback, req);
+                req.body = {
+                    currentPage: 1,
+                    pageSize: 15,
+                    topicName: cond,
+                    siteCode: 4
+                }
+                server.post(appConfig.apiNewBaselPath + Api.search.associatedWords, callback, req);
             }
 
         }, function (err, results) {
             // console.log(req.query, 'req.query');
             // console.warn(results, 'results');
+            // 是否是vip
+            var isVip = req.cookies && req.cookies.ui ? req.cookies.ui.isVip : 0;
+            var fileTypeList = [
+                { code: '', des: '全部', active: (req.query.fileType === '' || req.query.fileType == undefined) ? true : false },
+                { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
+                { code: 'vipExclusive', des: 'VIP专享', active: req.query.fileType === 'vipExclusive' ? true : false },
+                { code: 'pay', des: '付费', active: req.query.fileType === 'pay' ? true : false },
+                { code: 'free', des: '免费', active: req.query.fileType === 'free' ? true : false }
+            ]
             var results = results || {};
             results.condition = [
                 {
@@ -63,12 +76,7 @@ module.exports = {
                 {
                     title: '范围',
                     code: 'fileType',
-                    content: [
-                        { code: '', des: '全部', active: (req.query.fileType === '' || req.query.fileType == undefined) ? true : false },
-                        { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
-                        { code: 'vipExclusive', des: 'VIP专享', active: req.query.fileType === 'vipExclusive' ? true : false },
-                        { code: 'pay', des: '付费', active: req.query.fileType === 'pay' ? true : false }
-                    ]
+                    content: isVip == 1 ? fileTypeList : fileTypeList.slice(0, 4) 
                 },
                 {
                     title: '页数',
@@ -97,7 +105,7 @@ module.exports = {
             //最大20页
             var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-            if (results.list.data&&results.list.data.totalPages < 20) {
+            if (results.list.data && results.list.data.totalPages < 20) {
                 pageIndexArr.length = results.list.data.totalPages;
             }
             results.pageIndexArr = pageIndexArr;
@@ -136,12 +144,15 @@ module.exports = {
                 }
             };
 
+            results.words.data = {
+                rightSearch: results.words.data.rows.slice(0, 10).map(item => item.topicName),
+                bottomSearch: results.words.data.rows.slice(10, 15).map(item => item.topicName)
+            }
 
+            
             if (req.query.cond) {
                 req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
             };
-    
-            // console.warn(JSON.stringify(results),'results-------------')
             render("search/home", results, req, res);
         })
 

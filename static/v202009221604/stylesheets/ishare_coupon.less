@@ -1,0 +1,174 @@
+@import "less-public/_ishare_setting";
+@import "less-public/_less_mixin";
+//优惠券模块
+.icon-pc-coupon(){
+  overflow: hidden;
+  display: block;
+  background: url(../../images/icon_pc_coupon.png) no-repeat;
+}
+.pay-coupon-wrap{
+  margin-top: 40px;
+  padding-bottom:5px;
+  font-size: 14px;
+  .coupon-select{
+    height: 40px;
+    position: relative;
+    padding-left: 91px;
+    font-size: 14px;
+  }
+  .coupon-title{
+    width: 90px;
+    position: absolute;
+    left:0;
+    top:0;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #e5e5e5;
+    border-right: 0 none;
+    border-radius: 3px 0 0 3px;
+    z-index: 2;
+    .title-text{
+      padding-left: 36px;
+      color: @gray;
+    }
+  }
+  .icon-title{
+    .icon-pc-coupon();
+    .center(known-y,12px);
+    width: 17px;
+    left: 13px;
+    background-position: -40px -100px;
+  }
+  .select-wrap{
+    position: relative;
+    z-index: 5;
+    width:318px;
+    border: 1px solid #e5e5e5;
+    border-left: 0 none;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    .line-select{
+      width: 1px;
+      display: block;
+      .center(known-y,16px);
+      left: 0;
+      background-color: #e5e5e5;
+    }
+    .select-text{
+      line-height: 39px;
+      color: #f00;
+      .chose-ele{
+        padding-left: 15px;
+        .time-text{
+          color: @gray-lighter;
+        }
+        .no-user{
+          color: @gray-lighter;
+        }
+      }
+    }
+    .arrow-select{
+      .icon-pc-coupon();
+      width: 13px;
+      .center(known-y,7px);
+      right: 14px;
+      z-index: 30;
+      background-position: -60px -100px;
+    }
+
+  }
+  .no-user-wrap{
+    cursor: default;
+    .select-text{
+      .chose-ele{
+        color: @gray-lighter;
+      }
+    }
+  }
+  .select-wrap-down{
+    border-color: #ccc;
+    border-bottom-right-radius: 0;
+    .arrow-select{
+      background-position:-80px -100px;
+    }
+    .line-select{
+      height:38px;
+      margin-top: 0;
+      background-color: #ccc;
+      top:0;
+    }
+  }
+  .coupon-down{
+    width: 317px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    left: 0;
+    top:38px;
+    z-index: 20;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    .select-text{
+      line-height: 40px;
+      .select-ele{
+        padding-left: 15px;
+        color: #f00;
+        &:hover{
+          background-color: #fffcf5;
+        }
+        .time-text{
+          color: @gray-lighter;
+        }
+      }
+      .no-user{
+        display: block;
+        color: @gray-dark;
+      }
+    }
+
+  }
+}
+.pay-coupon-item{
+  background-color: #fff;
+  border-bottom: 0 none;
+  padding-bottom: 153px;
+  .pay-data-info{
+    text-align: left;
+    height: auto;
+    padding-top: 56px;
+    padding-left: 186px;
+    .data-info{
+      .data-name{
+        padding-left: 23px;
+        a{
+          text-decoration: none;
+          color: @gray;
+          &:hover{
+            color: @primary-color;
+          }
+        }
+      }
+    }
+    .data-size{
+      font-size: 14px;
+      color: @gray;
+      margin-left: 16px;
+    }
+  }
+  .vip-share-text{
+    margin-top: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    a{
+      color:#765f32;
+      &:hover{
+        color: darken(#765f32,7%);
+      }
+    }
+  }
+  .price-text-con{
+    font-size: 14px;
+  }
+
+}

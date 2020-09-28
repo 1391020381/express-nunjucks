@@ -3,20 +3,23 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-   var clickEvent = require('../common/bilog').clickEvent
-    cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
-   if(cond){
-    cond = cond.length>12?cond.slice(0,12) + '...':cond
-}
-$('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招')
+    var clickEvent = require('../common/bilog').clickEvent,
+        cond = decodeURIComponent(decodeURIComponent(method.getParam('cond'))),
+        userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
+    if (cond) {
+        cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
+    }
+
+    $('#search-detail-input').attr('placeholder', cond || '与人沟通的十大绝招')
+
     //页面级埋点
-   // var gioPageSet = require('../common/gioPageSet');
+    // var gioPageSet = require('../common/gioPageSet');
 
-  //  gioReport();
+    //  gioReport();
 
- //   setInputValue();
+    //   setInputValue();
 
-   // gebyPosition();
+    // gebyPosition();
 
     conditionChange();
 
@@ -24,16 +27,14 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
 
     sort();
 
-   // headerFixed();
+    // headerFixed();
 
     relatedSearchClick();
 
     pageIndexChange();
 
     //参数 数据
-    var data = {
-
-    };
+    var data = {};
 
     // gio 埋点上报 页面级
     // function gioReport() {
@@ -44,13 +45,13 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
     //     })
     // }
 
-  
+
 
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
     function setInputValue() {
         // var sconditionInput = $('#scondition');
-        var sconditionInput   = $('.new-input')
+        var sconditionInput = $('.new-input')
         // var searchBtn = $('#searchBtn');
         var searchBtn = $('.btn-new-search')
         //点击搜索按钮时
@@ -59,7 +60,7 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
                 clickEvent($(this))
-              btnHrefChange('cond', inputValue);
+                btnHrefChange('cond', inputValue);
             }
         })
         //搜索输入框按下enter键
@@ -105,6 +106,7 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
                 $(item).on('click', function () {
                     $(item).addClass('active').siblings().removeClass('active');
                     var title = $searchItem.eq(index).find('.search-title').attr('value');
+                    console.log
                     var code = $(item).attr('value');
                     data[title] = code;
                     data.pageIndex = 1;
@@ -141,7 +143,7 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
     // 页面滚动头部搜索固定
     function headerFixed() {
         var element = $('.header-box');
-        var top = $(element).offset()&&$(element).offset().top;
+        var top = $(element).offset() && $(element).offset().top;
         $(window).on('scroll', function () {
             var p = $(window).scrollTop();
             $(element).css('position', (p > top) ? 'fixed' : 'static');
@@ -278,7 +280,5 @@ $('#search-detail-input').attr('placeholder',cond||'与人沟通的十大绝招'
 
         })
     }
-    
-    
 
 });

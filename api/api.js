@@ -70,9 +70,9 @@ module.exports = {
     },
     search: {
         //搜索服务--API接口--条件搜索--同步
-        byCondition: '/search/byCondition',
+        byCondition: '/search/content/byCondition',
         //搜索服务--API接口--搜索页搜索关联词数据--同步
-        associatedWords: '/search/associatedWords'
+        associatedWords: '/search/specialTopic/lisPage'
     },
     user:{
        getUserInfo:'/user/getUserInfo'

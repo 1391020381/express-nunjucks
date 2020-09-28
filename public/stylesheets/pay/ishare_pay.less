@@ -553,7 +553,7 @@ body {
   color: #f00;
 }
 
-.carding-vip-list li.active .pay-carding-item .vip-price strong {
+.carding-vip-list li.active .pay-carding-item .vip-price .price-discount {
   color: #f00;
 }
 
@@ -593,16 +593,26 @@ body {
   font-size: 24px;
   height: 48px;
   line-height: 48px;
-  color: #333;
-  
+  color: #222;
   padding-top: 0;
+  .price-discount {
+    font-size: 40px;
+    color: #222;
+    font-weight: normal;
+  }
+  .price-origin {
+    font-size: 18px;
+    color: #666;
+    font-weight: normal;
+    text-decoration: line-through;
+  }
 }
 
-.carding-vip-list li .pay-carding-item .vip-price strong {
-  font-size: 40px;
-  color: #444;
-  font-weight: normal;
-}
+// .carding-vip-list li .pay-carding-item .vip-price .price-discount {
+//   font-size: 40px;
+//   color: #222;
+//   font-weight: normal;
+// }
 
 .carding-vip-list li .pay-carding-item .font-red {
   color: #fe0000;
@@ -987,6 +997,17 @@ body {
   margin: 0 auto;
   border-radius: 4px;
   position: relative;
+}
+
+.carding-pay-main .pay-info-link {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #F25227;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  visibility: visible;
 }
 
 .carding-pay-main {

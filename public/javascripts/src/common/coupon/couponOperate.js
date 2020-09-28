@@ -36,7 +36,7 @@ define(function (require, exports, module) {
                     couponObj.isVip = 0;
                 }
                 var fileDiscount = window.pageConfig.params.fileDiscount;
-                couponObj.fileDiscount = fileDiscount || 0.8;
+                couponObj.fileDiscount = fileDiscount || 0.8; // 原本的折扣为0.8，是VIP的话就有动态折扣
                 //获取数据
                 couponObj.getCouponData(couponObj.couponType);
                 // 优惠券选择点击
@@ -62,9 +62,10 @@ define(function (require, exports, module) {
          */
         getOrderPrice: function () {
             var oprice = 0;
-            if (couponObj.couponType == 1) {
+            if (couponObj.couponType == 1) { // 如果是VIP购买场景
+                // 当前选择选择态的套餐【活动价/原价】
                 if ($('.js-tab').find('.ui-tab-nav-item.active').data('activeprice') > 0) {
-                    oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice')
+                    oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice') 
                 } else {
                     oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price')
                 }
@@ -80,8 +81,8 @@ define(function (require, exports, module) {
          */
         queryPageType: function () {
             var pathName = location.pathname;
-            if (pathName == "/pay/vip.html") {
-                couponObj.couponType = 1;
+            if (pathName == "/pay/vip.html") { 
+                couponObj.couponType = 1; // vip购买页
             } else if (pathName == "/pay/payConfirm.html") {
                 couponObj.couponType = 0;
                 $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')

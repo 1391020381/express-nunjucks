@@ -53,13 +53,13 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if ((params.productType == '4'||params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4'|| params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
                 // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
-                var savePrice = (params.moneyPrice *0.8).toFixed(2);
+                var savePrice = (params.moneyPrice * 0.8).toFixed(2);
                 $('.vip-save-money').html(savePrice)
                 $('.js-original-price').html(savePrice);
             }
@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
-
+                    
                 } else {
                     login.notifyLoginInterface(function (data) {
                         common.afterLogin(data);
@@ -607,7 +607,7 @@ define(function (require, exports, module) {
 
     };
 
-    function goPage(type,data) { // data 登录后用户信息
+    function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -617,7 +617,6 @@ define(function (require, exports, module) {
         // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-
         if (type === 'file') {
             // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;

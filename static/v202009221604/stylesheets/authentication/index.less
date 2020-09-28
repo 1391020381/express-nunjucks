@@ -1,0 +1,186 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+@import "../less-public/_less_css3";
+.auth-body {
+    background: rgba(246,245,248);
+}
+.auth-content {
+    .slogan-con {
+        text-align: center;
+        padding-top: 90px;
+        .main-logan{
+            font-size:48px;
+            color: #222222;
+            
+        }
+        .sec-slogan{
+            font-size:24px;
+          
+            color: #666666;
+            margin-top: 10px;
+        }
+    }
+    .auth-entrance{
+        overflow: hidden;
+        width: 1708px;
+        margin: 0 auto;
+        margin-top: 60px;
+        .auth-item {
+            width: 844px;
+            height: 406px;
+            float: left;
+            color: #fff;
+            text-align: center;
+            .auth-name{
+                font-size: 48px;
+                margin-top: 98px;
+            }
+            .slogan-advise {
+                font-size:26px;
+              
+                margin-top: 20px;
+                letter-spacing: 3px;
+            }
+            .join-btn{
+                display: inline-block;
+                width: 214px;
+                height: 64px;
+                line-height: 64px;
+                text-align: center;
+                color: #fff;
+                font-size:24px;
+                margin-top: 30px;
+                border-radius: 4px;
+            }
+            
+            &.org-side {
+                background: url(../../images/auth/banner1.png);
+                margin-right: 20px;
+                .join-btn {
+                    background: #16C96F;
+                }
+            }
+            &.user-side {
+                background: url(../../images/auth/banner2.png);
+                .join-btn {
+                    background: #F25126;
+                }
+            }
+        }
+    }
+    .slogan-private {
+
+        .privileges-list {
+            margin: 0 auto;
+            margin-top: 66px;
+            width: 1130px;
+            padding-bottom: 120px;
+            li {
+                width: 25%;
+                float: left;
+                display: inline;
+                font-size: 18px;
+                line-height: 30px;
+                color: #90959f;
+                text-align: center;
+                .list-item {
+                    width: 230px;
+                    margin: 0 auto;
+                    .icon-rz {
+                        display: block;
+                        width: 140px;
+                        height: 128px;
+                        margin: 0 auto 15px;
+                        background-image: url(../../images/auth/icon_rz.png);
+                        background-repeat: no-repeat;
+                    }
+                    &.list-item-01 {
+                        .icon-rz {
+                            background-position: 0 0;
+                        }
+                    }
+                    &.list-item-02 {
+                        .icon-rz {
+                            background-position: -140px 0;
+                        }
+                    }
+                    &.list-item-03 {
+                        .icon-rz {
+                            background-position: 0 -130px;
+                        }
+                    }
+                    &.list-item-04 {
+                        .icon-rz {
+                            background-position: -140px -130px;
+                        }
+                    }
+                    .list-title {
+                        height: 56px;
+                        line-height: 56px;
+                        color: #292d34;
+                        font-size: 26px;
+                    }
+                }
+            }
+        }
+    }
+    .auth-process {
+        padding-top: 35px;
+        background: #fff;
+        .rz-process {
+            height: 700px;
+            background: #38363c url(../../images/auth/bg_rz_process.jpg) center top no-repeat;
+            text-align: center;
+            .pw {
+                padding-top: 102px;
+                .rz-process-title {
+                    height: 62px;
+                    line-height: 62px;
+                    color: #fff;
+                    font-size: 48px;
+                }
+                .rz-process-text {
+                    line-height: 38px;
+                    font-size: 24px;
+                    color: #bdbdbd;
+                   
+                }
+                .rz-process-list {
+                    padding-left: 128px;
+                    margin-top: 66px;
+                    li {
+                        float: left;
+                        display: inline;
+                        .process-item {
+                            width: 146px;
+                            font-size: 16px;
+                            line-height: 30px;
+                            color: #fff;
+                            .num {
+                                font-size: 80px;
+                                line-height: 110px;
+                                height: 110px;
+                            }
+                            .state {
+                                height: 51px;
+                                line-height: 51px;
+                                font-size: 30px;
+                                color: #ffa701;
+                                margin-bottom: 21px;
+                            }
+                        }
+                        .process-arrow {
+                            display: block;
+                            overflow: hidden;
+                            background-image: url(../../images/auth/icon_rz.png);
+                            width: 186px;
+                            height: 27px;
+                            background-position: 0 -260px;
+                            margin: 122px 36px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
