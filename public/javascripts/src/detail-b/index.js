@@ -363,48 +363,26 @@ define(function (require, exports, module) {
         inputFocus(".evaluate-textarea textarea", "evaluate-textarea-focus", ".evaluate-textarea");
         //详情页头部悬浮
         var fixEle = $("#fix-right");
-        var $fixBar = $(".detail-fixed-con");
-        var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
-        if (fixEle.length) {
-            var fixTop = fixEle.offset().top - headerHeight;
-        }
+        
+       
         $(window).scroll(function () {
+            var pwDetail = $('.doc-main-br').height()
             var detailTop = $(this).scrollTop();
-            var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
-            // if (detailTop > headerHeight) {
-            //     $detailHeader.addClass("new-detail-header-fix");
-            //     $('.coupon-info-top').hide()//赠券提示框
-            // } else {
-            //     $detailHeader.removeClass("new-detail-header-fix");
-            //     // 未登陆，且第一次弹出
-            //     if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
-            //         $('.coupon-info-top').show()//赠券提示框
-            //     }
-
-            // }
+          
+             console.log(detailTop,pwDetail,detailTop-pwDetail)
             //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop >= fixHeight) {  // detailTop > fixHeight + fixEle.height()
-                // $('.fix-right-bannertop').hide()
-                // $('.fix-right-bannerbottom').hide()
-                // fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-                $('.integral-con .price-more').hide()
-                $('#footer-btn').addClass('footer-btn-fix')
+            if (detailTop > fixHeight ) {  
+                 fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" }); 
             } else {
-                // fixEle.removeAttr("style");
-                // $('.fix-right-bannertop').show()
-                // $('.fix-right-bannerbottom').show()
-                $('.integral-con .price-more').show()
-                $('#footer-btn').removeClass('footer-btn-fix')
+                 fixEle.removeAttr("style");
+                 $('#footer-btn').removeClass('footer-btn-fix')
             }
-            //底部悬浮展示文档
-            // if (detailTop > fixStart) {
-            //     $fixBar.find(".operation").hide();
-            //     $fixBar.find(".data-item").show();
-            // } else {
-            //     $fixBar.find(".operation").show();
-            //     $fixBar.find(".data-item").hide();
-            // }
+            if(detailTop > pwDetail){
+                 fixEle.removeAttr("style");
+                 $('#footer-btn').addClass('footer-btn-fix')
+            }
+           
         
         });
        
