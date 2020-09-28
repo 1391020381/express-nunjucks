@@ -388,11 +388,13 @@ define(function (require, exports, module) {
                 // $('.fix-right-bannertop').hide()
                 // $('.fix-right-bannerbottom').hide()
                 // fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+                $('.integral-con .price-more').hide()
                 $('#footer-btn').addClass('footer-btn-fix')
             } else {
                 // fixEle.removeAttr("style");
                 // $('.fix-right-bannertop').show()
                 // $('.fix-right-bannerbottom').show()
+                $('.integral-con .price-more').show()
                 $('#footer-btn').removeClass('footer-btn-fix')
             }
             //底部悬浮展示文档

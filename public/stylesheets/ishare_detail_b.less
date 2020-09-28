@@ -1107,13 +1107,13 @@ body {
 }
 
 .detail-con {
-    // border: 0 none;
-    // background-color: #fff;
-    // border-radius: 2px;
-    // box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    // margin-top: 0;
-    // position: relative;
-    // padding-bottom: 7px;
+    border: 0 none;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(44, 21, 24, .08);
+    margin-top: 0;
+    position: relative;
+    padding-bottom: 7px;
 }
 
 
@@ -3058,6 +3058,15 @@ body {
                        background: linear-gradient(-90deg, #FFE2A9, #FADD8D);
                        border-radius: 2px;
                    }
+                   .origin-price{
+                    margin-left: 8px;
+                    display: inline-block;
+                    font-size: 13px;
+                    color: #999999;
+                    text-decoration: line-through;
+                    line-height: 20px;
+                   
+                   }
                 }
                 .btn-fix-bottom{
                     display: block;
@@ -3144,7 +3153,8 @@ body {
                font-size: 12px;
                .item-left{
                    float: left;
-               }
+                   max-width: 145px;
+                   .text-ellipsis();               }
                .item-right{
                    float: right;
                }
