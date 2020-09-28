@@ -45,10 +45,11 @@
                             {{if data.status!=2}}
                                 <div class="price-con price-more ">
                                     <!--现金文档价格 -->
+                                     <span class="price-desc">售价:</span>
                                     <p class="price" style="">&yen;{{data.productPrice}}</p>
                                     <!--现金文档 有折扣 非vip会员 -->
                                   
-                                      <p class="vip-sale-price">会员价&yen;<span class="js-original-price">{{data.productPrice}}</span></p>
+                                      <p class="vip-sale-price">VIP价&yen;<span class="js-original-price">{{data.productPrice}}</span></p>
                                 </div>
                                 <a class="btn-fix-bottom btn-fix-border js-buy-open  pc_click" pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy" data-type="file">立即下载</a>
                             {{else}}

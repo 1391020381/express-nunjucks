@@ -633,13 +633,13 @@ define(function (require, exports, module) {
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             // window.open("/pay/vip.html" + params);
-            method.compatibleIESkip('/pay/vip.html' + params,true);
+            method.compatibleIESkip('/pay/vip.html' + params,false);
             }
         } else if (type === 'privilege') {
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // window.open("/pay/privilege.html" + params);
-            method.compatibleIESkip('/pay/privilege.html' + params,true);
+            method.compatibleIESkip('/pay/privilege.html' + params,false);
         }
     }
 

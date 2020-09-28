@@ -86,14 +86,14 @@ define(function (require, exports, module) {
                 $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
             }
             //滚动到指定位置
-            if (currentPage <= imgTotalPage) {
-                // var index = $('.page-input').val();
-                var index = $('.page-input').text();
-                var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
-                if (position) {
-                    $('body,html').animate({scrollTop: position.top}, 200);
-                }
-            }
+            // if (currentPage <= imgTotalPage) {
+            //     // var index = $('.page-input').val();
+            //     var index = $('.page-input').text();
+            //     var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
+            //     if (position) {
+            //         $('body,html').animate({scrollTop: position.top}, 200);
+            //     }
+            // }
         },
 
         //判断地址是否有效

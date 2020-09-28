@@ -559,13 +559,13 @@ define(function (require, exports, module) {
 
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             
-            method.compatibleIESkip('/pay/vip.html' + params,true);
+            method.compatibleIESkip('/pay/vip.html' + params,false);
             }
         } else if (type === 'privilege') {
            
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
            
-            method.compatibleIESkip('/pay/privilege.html' + params,true);
+            method.compatibleIESkip('/pay/privilege.html' + params,false);
         }
     }
 

@@ -55,7 +55,7 @@ define(function (require, exports, module) {
                     userData = data;
                 });
             } else if (res.code == 42011) {
-                method.compatibleIESkip("/pay/vip.html",true);
+                method.compatibleIESkip("/pay/vip.html",false);
             } else {
                 $("#dialog-box").dialog({
                     html: $tpl_down_text.html().replace(/\$msg/, res.msg),
