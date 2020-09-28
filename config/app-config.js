@@ -1,7 +1,7 @@
 /**
 * 系统配置
 */
-const env = process.env.NODE_ENV || 'local'
+const env = process.env.NODE_ENV || 'prod'
 const config = {
     debug:{
         env: env,
@@ -17,9 +17,9 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com:8769/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com:8769/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com:8769',
+        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
@@ -29,9 +29,9 @@ const config = {
     },
     dev: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com:8769/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com:8769/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com:8769',
+        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
@@ -41,9 +41,9 @@ const config = {
     },
     test: {
         env: env,
-        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com:8769/gateway/pc',
-        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com:8769/gateway',
-        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com:8769',
+        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
@@ -53,9 +53,9 @@ const config = {
     },
     pre: {
         env: env,
-        apiBasePath: 'http://pre-gateway.pc.ishare.iasktest.com:8769/gateway/pc',
-        apiNewBaselPath: 'http://pre-gateway.pc.ishare.iasktest.com:8769/gateway',
-        newBasePath: 'http://pre-gateway.pc.ishare.iasktest.com:8769',
+        apiBasePath: 'http://pre-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://pre-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://pre-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
@@ -65,9 +65,9 @@ const config = {
     },
     prod: {
         env: env,
-        apiBasePath: 'http://gateway.pc.ishare.iasktest.com:8769/gateway/pc',
-        apiNewBaselPath: 'http://gateway.pc.ishare.iasktest.com:8769/gateway',
-        newBasePath: 'http://gateway.pc.ishare.iasktest.com:8769',
+        apiBasePath: 'http://gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义

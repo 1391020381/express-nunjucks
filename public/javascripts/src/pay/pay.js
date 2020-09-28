@@ -23,13 +23,14 @@ define(function (require, exports, moudle) {
     var isLogin = require('../application/effect.js').isLogin;
     var expires_in = 60 // 支付二维码过期时间
     var timer = null   // 定时器
+    var couponList = []; // 优惠券列表
     var couponTimer = null; // 领取优惠券弹窗
     var isAutoLogin = true;
     var switchCount = 0; // 切换次数
     var curActive = 0; // 当前激活套餐
     var callback = null;
     isLogin(initPage, isAutoLogin, initPage);
-    initCouponReceive();
+    fetchCouponReceiveList();
 
     // 优惠券相关需要在登录后执行
     require("../common/coupon/couponOperate");
@@ -128,30 +129,48 @@ define(function (require, exports, moudle) {
         }
     }
 
+    // 获取发卷列表接口
+    function fetchCouponReceiveList() {
+        // 用户是VIP才会获取
+        if (userInfo.isVip == 0) {
+            // 参数
+            var params = {
+                type: 2,
+                site: 4
+            }
+            $.ajax({
+                url: api.coupon.rightsSaleVouchers,
+                type: "GET",
+                data: params,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    if (res && res.code == '0') {
+                        couponList = res.data && res.data.list ? res.data.list : [];
+                        initCouponReceive([...couponList]);
+                    }
+                }
+            });
+        }
+    }
+
     // 计时弹出优惠券
-    function initCouponReceive() {
+    function initCouponReceive(couponList) {
+        if (!couponList.length) return;
         if (couponTimer) clearTimeout(couponTimer);
         couponTimer = setTimeout(function() {
-            startCouponReceive(function() {
+            startCouponReceive(couponList, function() {
                 clearTimeout(couponTimer);
             })
         }, 5000);
     }
 
     // 开始弹出领取优惠券的弹窗
-    function startCouponReceive(callback) {
+    function startCouponReceive(couponList, callback) {
+        if (!couponList.length) return;
         var data = {
-            list: [
-                {
-                    price: 40,
-                    content: '满40元减5元'
-                },
-                {
-                    price: 1,
-                    content: '满1.0元减1元'
-                },
-            ]
-        }
+            list: couponList
+        };
         var _html = template.compile(couponReceive)({data: data});
         if (!$("#receive-coupon-box").html()) {
             $("#receive-coupon-box").html(_html); 
@@ -170,7 +189,27 @@ define(function (require, exports, moudle) {
 
     // 绑定立即领取按钮回调
     $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-footer', function(e) {
-       console.log('领取成功')
+        var parmas = {
+            type: 2,
+            source: 1,
+            site: 4
+        };
+        $.ajax({
+            url: api.coupon.rightsSaleVouchers,
+            type: "POST",
+            data: JSON.stringify(parmas),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res && res.code == '0') {
+                    // 重新刷新页面
+                    window.location.reload();
+                } else {
+                    utils.showAlertDialog("温馨提示", res.msg || res.message || '领取失败');
+                }
+            }
+        })
+
     });
 
     $(document).on('click', '.pic-pay-code .pay-qrcode-refresh', function (e) {
@@ -306,10 +345,9 @@ define(function (require, exports, moudle) {
                     curActive = $this.data('index');
                     switchCount++; 
                 }
-                console.log(switchCount);
                 // 当切换套餐两次，触发弹窗
                 if (switchCount >= 2) {
-                    startCouponReceive(function() {
+                    startCouponReceive(couponList, function() {
                         switchCount = 0;
                     });
                 }
@@ -522,6 +560,7 @@ define(function (require, exports, moudle) {
         // window.location.href = target+"orderNo=" + orderNo + "&fid=" + fileId;
         method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId, false);
     }
+
     //网页支付宝
     function alipayClick(oid) {
         $(".web-alipay").bind('click', function () {
@@ -541,6 +580,61 @@ define(function (require, exports, moudle) {
             }
         });
     }
+
+    /**
+     * 点击获取支付结果
+     * */ 
+    $(document).on("click", ".pay-info-link", function (e) {
+        var orderNo = method.getParam("orderNo");
+        var params = { orderNo: orderNo };
+        var url = '/pay/orderStatus?ts=' + new Date().getTime();  // node接口
+        $.ajax({
+            headers: {
+                'Authrization': method.getCookie('cuk')
+            },
+            url: url,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            dataType: "json",
+            success: function (response) {
+                if (response && response.code == 0) {
+                    // 缓存查询次数
+                    var data = response.data;
+                    // // 防止空指针报错
+                    data.reportData = data.reportData || {};
+                    data.fid = data.fid || method.getParam('fid');
+                    // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
+                    if (data.orderStatus == 0) {
+                        // 重新查询
+                        $.toast({
+                            text: '请先完成支付',
+                            delay: 1000,
+                        })
+                    } else if (data.orderStatus == 2) {
+                        goodsPaySuccess(data, orderNo)
+                    } else if (data.orderStatus == 3) {
+                        goodsPayFail(data, orderNo);
+                    }
+
+
+                } else {
+                    $.toast({
+                        text: response.msg,
+                        delay: 3000,
+                    })
+
+                }
+            },
+            error: function (error) {
+                $.toast({
+                    text: error.msg,
+                    delay: 3000,
+                })
+            }
+        })
+    });
+    
     /**
      * 获取文件详细信息
      * @param id 文件id

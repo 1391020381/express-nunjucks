@@ -1,5 +1,23 @@
 <div class="detail-w300 fr">
     <div id="fix-right">
+    <div class="deail-summary">
+        <div class="deail-summary-price">
+           <div class="file-price"> 
+             {% include "detail-b/fixed.html" %}
+            </div>
+           <ul class="file-other">
+                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">{{results.list.data.readTimes or 0}}</span></li>
+                <li class="file-thumbsup file"> <span class="thumbsup-icon icon"></span> <span class="num">{{results.list.data.praiseNum or 0}}</span></li>
+                <li class="file-collection btn-collect file"  data-fid="{{results.list.data.id}}"> <span class="collection-icon icon"></span> <span class="num">{{results.list.data.collectNum or 0}}</span></li>
+           </ul>
+        </div>
+        <ul class="detail-summary-other">
+             <li class="dividing-line"></li>
+             <li class="item"> <span class="file-type item-left">文件格式: {{results.list.data.format}}</span><span class="file-page item-right">页数: {{results.list.data.totalPage}}页</span></li>  
+             <li class="item"> <span class="file-size item-left">文件大小: {{results.list.data.fileSize}}</span><span class="file-software item-right">软件:  {{results.list.data.software}}</span></li>    
+              <li class="item"> <span class="file-author item-left">上传者: {{results.list.data.usernick}}</span><span class="file-uploadtime item-right">上传时间: {{results.list.data.createtime}}</span></li>    
+        </ul>
+    </div>
         <div class="fix-right-bannertop">
             {% if results.getBannerList.rightTopBanner.list.length>0 %}
              <div class="swiper-container  fix-right-swiperbannertop">
@@ -15,99 +33,29 @@
              </div>
             {%endif%}    
         </div>
+
         {% if results.RelevantInformationList.data.length>0 %}
         <div class="related-data " pcTrackContent="relateFiles-new" >
-            <h2 class="related-data-title  guess-you-like-title">
-                相关资料
-                <span class="slider-control">
-                    {% if results.RelevantInformationList.data.length >16 and results.list.data.perMin == '3' %}
-                    <a class="btn-c btn-prev btn-disable"></a>
-                    <a class="btn-c btn-next"></a>
-                    {% endif %}
-                    {% if results.RelevantInformationList.data.length >12 and results.list.data.perMin != '3' %}
-                    <a class="btn-c btn-prev btn-disable"></a>
-                    <a class="btn-c btn-next"></a>
-                    {% endif %}
-
-                </span>
-            </h2>
-            <ul class="related-data-list guess-you-like-itmes">
+            <h2 class="related-data-title">相关推荐</h2>
+            <ul class="related-data-list">
                 {% for item in results.RelevantInformationList.data%}
                  <li  class="item" data-id="{{item.id}}" bilogContent="similarFileClick" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
                 <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
-                <div class="item-link-left fr">
                     {% if item.cover_url %}
-                     <img class="item-link-left-img" src="{{item.cover_url}}" alt="{{item.name}}"/>
+                     <img class="img" src="{{item.cover_url}}" alt="{{item.name}}"/>
                     {% else %}
-                     <img class="item-link-left-img" src="{{cdnUrl}}/images/default-picture.png" alt="{{item.name}}"/>
+                     <img class="img" src="{{cdnUrl}}/images/default-picture.png" alt="{{item.name}}"/>
                     {% endif%}
-                    <span  class="item-link-left-icon ico-data ico-{{item.format}}"><span>
-                </div>
-                <div class="item-link-right fl">
-                    <p class="item-link-right-desc">{{item.name}}</p>
-                    <p class="item-link-right-other">
-                      {% if  item.item_read_cnt %}
-                    <span class="other-read">{{item.item_read_cnt}}阅读</span>
-                      {% endif %}
-                        {# <span class="other-page">25页</span> #}
-                    </p>
-                </div>
+                      <p class="item-name">{{item.name}}</p>
             </a>
              </li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
-        <div class="hot-spot-search-warper">
-       
-       </div>
-        {# <div  class="fix-right-bannerbottom">
-          {%for item in  results.getBannerList.rightBottomBanner.list %}
-             <div class="swiper-container fix-right-bannerbottom">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide" >
-                    <a  href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}">
-                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
-                    </a>
-                </div>
-             
-               </div>    
-             </div>  
-             {%endfor%}   
-        </div> #}
-
-
-         <div class="fix-right-bannerbottom">
-            {% if results.getBannerList.rightBottomBanner.list.length>0 %}
-             <div class="swiper-container  fix-right-swiperbannerbottom">
-               <div class="swiper-wrapper">
-           {%for item in  results.getBannerList.rightBottomBanner.list %}
-            <div class="swiper-slide" >
-               <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
-                 <img class="swiper-slide-img" src="{{item.imagUrl}}">
-               </a>
+        
+        
             </div>
-           {%endfor%}
-               </div> 
-             {%else%}
-              <div class="tui-box-shadow" id="ag-rh-04">
-            <!--  广告位：PC端-ishare-详细页-右边第一个方块300*350-0620  -->
-            <script>
-                (function () {
-                    var s = "_" + Math.random().toString(36).slice(2);
-                    document.write('<div id="' + s + '"></div>');
-                    (window.slotbydup = window.slotbydup || []).push({
-                        id: '6307759',
-                        container: s,
-                        size: '300,350',
-                        display: 'inlay-fix'
-                    });
-                    _dpData[9] = 1;
-                })();
-            </script>
-        </div>
-        {%endif%}     
-             </div>
         </div>
     </div>
 </div>

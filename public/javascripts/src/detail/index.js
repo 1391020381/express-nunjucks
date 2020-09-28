@@ -323,10 +323,10 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                if(res.data.rows&&res.data.rows.length){
-                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
-                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
-                }
+                // if(res.data.rows&&res.data.rows.length){
+                //   var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+                //   $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                // }
                }
             }
         })

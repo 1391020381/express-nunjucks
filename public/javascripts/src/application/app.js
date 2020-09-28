@@ -16,13 +16,35 @@ define(function (require, exports, module) {
             visitId = method.getCookie(name);
         // 过有效期-重新请求
         if (!visitId) {
-            method.get(api.user.getVisitorId, function (response) {
-                if (response.code == 0 && response.data) {
-                    method.setCookieWithExp(name, response.data, expires, '/');
-                }else{
-                   visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+            // method.get(api.user.getVisitorId, function (response) {
+            //     if (response.code == 0 && response.data) {
+            //         method.setCookieWithExp(name, response.data, expires, '/');
+            //     }else{
+            //        visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+            //     }
+            // })
+            $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
+                url: api.user.getVisitorId,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                   if(res.code == '0'){
+                    method.setCookieWithExp(name, res.data, expires, '/');
+                   }else{
+                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+                   }
+                },
+                error:function(error){
+                    console.log('getVisitUserId:',error)
+                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+                    method.setCookieWithExp(name, visitId, expires, '/');
                 }
             })
+            
         }
     }
     getVisitUserId();

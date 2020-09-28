@@ -12,13 +12,13 @@ define(function (require, exports, module) {
     require('swiper');
     var refreshTopBar = require('../application/effect.js').refreshTopBar
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
-    var swiperTemplate = require("../common/template/swiper_tmp.html");
+  
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var getLoginQrcode = require('../application/login').getLoginQrcode
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
-    // require("../common/baidu-statistics");
+   
     var userData = null, initData = {};
     eventBinding();
    

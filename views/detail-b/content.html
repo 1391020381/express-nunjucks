@@ -2,40 +2,11 @@
     <div class="doc-main">
         <div class="detail-box">
             <div class="detail-top-box">
-                {% if results.list.data.owner.perMin !== '3' %}
-                <a class="tui-open-vip js-buy-open pc_click" pcTrackContent="joinVip-0" data-type="vip"><img
-                        src="{{cdnUrl}}/images/tui_open.gif"></a>
-                {% endif %}
-                <h2 class="data-title">
+                <h2 class="data-title fl">
                     <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>
                     {{results.list.data.title.substr(0,30)}}
                 </h2>
-                  <div class="detail-user-bar cf">
-                    <span><em>{{results.list.data.readNum}}</em>人阅读</span>
-                    <span class="line"></span>
-                    <span><em>{{results.list.data.totalPage}}</em>页</span>
-                    <span class="line"></span>
-                     <span><em>{{results.list.data.fileSize}}</em></span>
-                     <span class="line"></span>
-                    <a class="user-name" href="/node/userPage.html?uid={{results.list.data.uid}}" target="_blank">
-                        <div class="user-pic">
-                            {%if results.list.data.owner.photoPicURL%}
-                            <img src="{{results.list.data.owner.photoPicURL}}">
-                            {%else%}
-                            <img src="{{cdnUrl}}/images/new_detail/pic_detail_no_login.jpg" />
-                            {%endif%}
-                        </div>
-                        <span class="user-text">{{results.list.data.usernick}}</span>
-                        <i class="icon-q-v"></i>
-                    </a>
-                    <span class="line"></span>
-                    <span>{{results.list.data.createtime}}上传</span>
-                    <span class="line"></span>
-                    
-                    <a class="report-link"><i class="icon-report"></i>侵权/举报</a>
-                  
-
-                </div>
+                 <p class="btn-detail-collect btn-collect fr"  data-fid="{{results.list.data.id}}"><span class="collect-icon"  class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick"></span><span class="cllect-desc">收藏</span></p>
             </div>
     
             <!--文章内容模块 start-->
@@ -141,9 +112,11 @@
         </div>
           {%endif%}
     </div>
-    <!-- 第四范式 猜你喜欢 -->
-    {%if results.paradigm4GuessData.length>0 %}
-    {% include "detail/guessYouLike.html" %}
-    {%endif%}
-    {# <div class="guess-you-like-warpper"></div> #}
+
+    <!-- 相关搜索 -->
+    <div class="hot-spot-search-warper">
+       
+    </div>
+   
+  
 </div>

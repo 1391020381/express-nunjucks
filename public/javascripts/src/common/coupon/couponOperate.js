@@ -82,7 +82,7 @@ define(function (require, exports, module) {
         queryPageType: function () {
             var pathName = location.pathname;
             if (pathName == "/pay/vip.html") { 
-                couponObj.couponType = 1;
+                couponObj.couponType = 1; // vip购买页
             } else if (pathName == "/pay/payConfirm.html") {
                 couponObj.couponType = 0;
                 $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')

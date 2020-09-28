@@ -34,9 +34,9 @@ define(function(require , exports , module){
    function fileSaveOrupdate(fid,uid,addActiveClass,_this) {
     var fn = addActiveClass
     $.ajax({
-        url: api.special.fileSaveOrupdate,
-        type: "POST",
-        data: JSON.stringify({ fid:fid,uid:uid,source:0,channel:0 }),
+        url: api.special.setCollect,
+        type: "post",
+        data: JSON.stringify({ fid:fid,source:0}),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {

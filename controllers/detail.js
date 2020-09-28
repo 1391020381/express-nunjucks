@@ -246,10 +246,6 @@ module.exports = {
                 })
                 
             },
-            getUserFileZcState:function(callback){
-              
-                callback(null,null)
-            },
             // 面包屑导航
             crumbList: function (callback) {
       
@@ -703,6 +699,7 @@ module.exports = {
 
            
             // 如果有第四范式 猜你喜欢
+          
             if (results.paradigm4Guess) {
                 var paradigm4Guess = results.paradigm4Guess.map(item => {
                     return {
@@ -717,7 +714,9 @@ module.exports = {
                 results.paradigm4GuessData = paradigm4Guess || [];
             }
             var list = Object.assign({},{data:Object.assign(results.list&&results.list.data.fileInfo,results.list.data.tdk,results.list.data.transcodeInfo,{title:results.list.data.fileInfo.title})})
-            var results = Object.assign({},results,{list:list})
+            var unloginFlag = req.query.unloginFlag
+            var consumeStatus = req.query.consumeStatus    // 7 已经下载过
+            var results = Object.assign({},results,{list:list},{unloginFlag:unloginFlag,consumeStatus:consumeStatus})
             // 要在这里给默认值 不然报错
             render("detail/success", results, req, res);
         })

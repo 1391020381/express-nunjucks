@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>订单详情</title>
+
+ <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
+<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<script>
+  // 初始化
+  var vConsole = new VConsole();
+</script>
+
+
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/pay/payment.css"/>
 <script>
@@ -32,9 +42,38 @@ fun(document, window)
 </script>
 <body>
 <div class="payment">
-   
+
+<div class="payment-content"></div>
+<wx-open-launch-weapp
+                    id="launch-btn"
+                    username="gh_c6a9e426f251"
+                    path="pages/template/template.html">
+                    <template>
+                        <style>
+                        .btn { 
+                            display:inline-block;
+                            margin:0 auto;
+                            margin-top:30px;
+                            width: 315px;
+                            height: 45px;
+                            line-height: 45px;
+                            text-align: center;
+                            background: #F25226;
+                            border-radius: 4px;
+                            border:none;
+                            font-size:16px;
+                            color:#FFFFFF
+                      }
+                      </style>
+                        <button class="btn">立即查看文件</button>
+                      </template>
+</wx-open-launch-weapp> 
 </div>
+
+
+
  {% include "common/js.html" %}
+
     <script type="text/javascript">
         window.pageConfig = {
             page:{

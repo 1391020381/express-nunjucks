@@ -88,8 +88,7 @@ define(function (require, exports, module) {
     function eventBinding() {
         var $more_nave = $('.more-nav'),
             $search_detail_input = $('#search-detail-input'),
-            $detail_lately = $('.detail-lately'),
-          ;
+            $detail_lately = $('.detail-lately');
 
         // 顶部分类
         $more_nave.on('mouseover', function () {
@@ -170,7 +169,7 @@ define(function (require, exports, module) {
             method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
         });
         // 取消或者关注
-        $('#btn-collect').on('click', function () {
+        $('.btn-collect').on('click', function () {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
@@ -318,10 +317,10 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                if(res.data.rows&&res.data.rows.length){
-                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
-                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
-                }
+                // if(res.data.rows&&res.data.rows.length){
+                //   var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+                //   $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                // }
                }
             }
         })
@@ -370,40 +369,40 @@ define(function (require, exports, module) {
         if (fixEle.length) {
             var fixTop = fixEle.offset().top - headerHeight;
         }
-        $(window).scroll(function () {
-            var detailTop = $(this).scrollTop();
-            var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
-            if (detailTop > headerHeight) {
-                $detailHeader.addClass("new-detail-header-fix");
-                $('.coupon-info-top').hide()//赠券提示框
-            } else {
-                $detailHeader.removeClass("new-detail-header-fix");
-                // 未登陆，且第一次弹出
-                if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
-                    $('.coupon-info-top').show()//赠券提示框
-                }
+        // $(window).scroll(function () {
+        //     var detailTop = $(this).scrollTop();
+        //     var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
+        //     if (detailTop > headerHeight) {
+        //         $detailHeader.addClass("new-detail-header-fix");
+        //         $('.coupon-info-top').hide()//赠券提示框
+        //     } else {
+        //         $detailHeader.removeClass("new-detail-header-fix");
+        //         // 未登陆，且第一次弹出
+        //         if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
+        //             $('.coupon-info-top').show()//赠券提示框
+        //         }
 
-            }
-            //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop > fixHeight + fixEle.height()) {
-                $('.fix-right-bannertop').hide()
-                $('.fix-right-bannerbottom').hide()
-                fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-            } else {
-                fixEle.removeAttr("style");
-                $('.fix-right-bannertop').show()
-                $('.fix-right-bannerbottom').show()
-            }
-            //底部悬浮展示文档
-            if (detailTop > fixStart) {
-                $fixBar.find(".operation").hide();
-                $fixBar.find(".data-item").show();
-            } else {
-                $fixBar.find(".operation").show();
-                $fixBar.find(".data-item").hide();
-            }
+        //     }
+        //     //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
+        //     if (detailTop > fixHeight + fixEle.height()) {
+        //         $('.fix-right-bannertop').hide()
+        //         $('.fix-right-bannerbottom').hide()
+        //         fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+        //     } else {
+        //         fixEle.removeAttr("style");
+        //         $('.fix-right-bannertop').show()
+        //         $('.fix-right-bannerbottom').show()
+        //     }
+        //     //底部悬浮展示文档
+        //     if (detailTop > fixStart) {
+        //         $fixBar.find(".operation").hide();
+        //         $fixBar.find(".data-item").show();
+        //     } else {
+        //         $fixBar.find(".operation").show();
+        //         $fixBar.find(".data-item").hide();
+        //     }
         
-        });
+        // });
        
         //关闭头部优惠券赠送信息
         closeHeadCouponTip();
@@ -440,7 +439,7 @@ define(function (require, exports, module) {
                     $.toast({
                         text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
                     })
-                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
+                    _this.hasClass("btn-collect-success") ? $('.btn-collect').removeClass('btn-collect-success') :$('.btn-collect').addClass('btn-collect-success')
                 }else{
                     $.toast({
                         text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
@@ -462,7 +461,35 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 if(res.code == '0'){
-                    res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success")
+                    res.data.hasCollect ? $(".btn-collect").addClass("btn-collect-success") : $(".btn-collect").removeClass("btn-collect-success")
+                    res.data.hasZan?'':''
+                }
+            }
+        })
+    } 
+    $('.file-thumbsup').on('click',function(e){
+        dianZan()
+    })
+    function dianZan(){
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.special.fileSaveOrupdate,
+            type: "post",
+            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid,source:0}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if(res.code == '0'){
+                    $.toast({
+                        text: _this.hasClass("btn-dianZan-success")?"取消点赞成功":"点赞成功"
+                    })
+                    _this.hasClass("btn-dianZan-success") ? $('.file-thumbsup').removeClass('btn-dianZan-success') :$('.file-thumbsup').addClass('btn-dianZan-success')
+                }else{
+                    $.toast({
+                        text: _this.hasClass("btn-dianZan-success")?"取消点赞失败":"点赞失败"
+                    })
                 }
             }
         })

@@ -11,7 +11,7 @@
         <div class="search-condition">
             {% for item in results.condition%}
             <!-- <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}"> -->
-            <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}">
+            <div class="search-item {{'hide' if loop.index0 === 2 or  loop.index0===3}}">
 
                 <span class="search-title" value="{{item.code}}">{{item.title}}: </span>
                 {% for value in item.content%}

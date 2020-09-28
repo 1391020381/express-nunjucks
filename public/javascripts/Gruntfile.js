@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "../stylesheets/ishare_public.css": "../stylesheets/ishare_public.less",
-                    "../stylesheets/ishare_detail_b.css": "../stylesheets/ishare_detail_b.less",
+                    "../stylesheets/ishare_detail-b.css": "../stylesheets/ishare_detail-b.less",
                     "../stylesheets/ishare_detail.css": "../stylesheets/ishare_detail.less",
                     "../stylesheets/pay/ishare_pay.css": "../stylesheets/pay/ishare_pay.less",
                     "../stylesheets/search/ishare_search.css": "../stylesheets/search/ishare_search.less",

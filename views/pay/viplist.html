@@ -34,7 +34,9 @@
                             <p class="vip-price">
                                 <span class="price-unit">&yen; </span>
                                 <span class="price-discount">{{item.sellPrice/100}}</span>
-                                <span class="price-origin">&yen;{{item.sellPrice}}</span>
+                                {% if item.sellPrice != item.origPrice %}
+                                  <span class="price-origin">&yen;{{item.origPrice/100}}</span>
+                                {% endif %}
                             </p>
                             <p>{{item.subtitle}}</p>
                             <i class="icon-active"></i>
@@ -79,9 +81,8 @@
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum---------------' == member.code %}
+                            {% elif 'freeDownloadNum' == member.code %}
                             <li>
-                                需求是删除 freeDownloadNum判断,为了不最小程度修改代码,添加------使条件不成立
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
                                 </div>
@@ -209,7 +210,7 @@
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum---------------' == member.code %}
+                            {% elif 'freeDownloadNum' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
@@ -337,7 +338,7 @@
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum---------------' == member.code %}
+                            {% elif 'freeDownloadNum' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">
@@ -465,7 +466,7 @@
                                     </div>
                                 </div>
                             </li>
-                            {% elif 'freeDownloadNum---------------' == member.code %}
+                            {% elif 'freeDownloadNum' == member.code %}
                             <li>
                                 <div class="picture">
                                     <img src="{{cdnUrl}}/images/rights/2.png">

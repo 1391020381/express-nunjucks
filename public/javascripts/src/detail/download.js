@@ -118,13 +118,15 @@ define(function (require, exports, module) {
                     var sub_url1 = fileDownUrl.substr(0, sub + 4);
                     var sub_ur2 = decodeURIComponent(fileDownUrl.substr(sub + 4, fileDownUrl.length));
                     var fid = window.pageConfig.params.g_fileId;
+                    var consumeStatus = res.data.consumeStatus
                     // window.location.href = sub_url1 + sub_ur2;
                     method.compatibleIESkip(sub_url1 + sub_ur2,false);
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                    var url = '/node/f/downsucc.html?fid=' + fid  + '&consumeStatus='+ consumeStatus + '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 } else {
                     var fid = window.pageConfig.params.g_fileId;
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                    var consumeStatus = res.data.consumeStatus
+                    var url = '/node/f/downsucc.html?fid=' + fid + '&consumeStatus='+ consumeStatus  + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 }
                 break;
