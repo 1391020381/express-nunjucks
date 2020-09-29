@@ -39,6 +39,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         login.notifyLoginInterface(function (data) {
             common.afterLogin(data);
             if(productType==3){ // 发送邮箱
+                window.pageConfig.userId = data.userId;
                 if(data.isVip == '1'){
                     sentEmail()
                 }else{
