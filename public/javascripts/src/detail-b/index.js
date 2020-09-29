@@ -364,24 +364,32 @@ define(function (require, exports, module) {
         //详情页头部悬浮
         var fixEle = $("#fix-right");
         var fixHeight = $detailHeader.height();
-        
-       
+        var crumbHeight = $('.crumb').outerHeight(true)
+        var documentInnerHeight = $(window).height()
+        var hotSpotSearch = $('.hot-spot-search-warper').height()
+        var fixRight = $('#fix-right').height()
         $(window).scroll(function () {
             var pwDetail = $('.doc-main-br').height()
             var detailTop = $(this).scrollTop();
           
-             console.log(detailTop,pwDetail,detailTop-pwDetail)
-            //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop > fixHeight ) {  
-                 fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" }); 
+            //  console.log(detailTop,pwDetail,detailTop-pwDetail, 'pwDetail -900',pwDetail -900)
+            
+            if (detailTop >= fixHeight ) {  
+                  fixEle.css({ "position": "fixed", "top": headerHeight}); 
+
+                 if(detailTop > pwDetail -documentInnerHeight -hotSpotSearch){
+                    var tempHeight  = pwDetail + crumbHeight + fixHeight - fixRight
+                    $('#footer-btn').addClass('footer-btn-fix') 
+                    fixEle.css({ "position": "absolute", "top": tempHeight }); 
+                  
+                }else{
+                    $('#footer-btn').removeClass('footer-btn-fix')
+                }
             } else {
                  fixEle.removeAttr("style");
-                 $('#footer-btn').removeClass('footer-btn-fix')
+                
             }
-            if(detailTop > pwDetail){
-                 fixEle.removeAttr("style");
-                 $('#footer-btn').addClass('footer-btn-fix')
-            }
+            
            
         
         });
