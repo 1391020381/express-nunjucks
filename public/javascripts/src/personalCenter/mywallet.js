@@ -37,8 +37,8 @@ define(function (require, exports, module) {
 
     var myWalletStatusList = {
         0: '系统自动确认',
-        1: '审待确认',
-        2: '审核待确认',
+        1: '一审待确认',
+        2: '二审核待确认',
         3: '已确认',
         4: '已挂起'
     }

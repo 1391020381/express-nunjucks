@@ -2679,6 +2679,9 @@ body {
   transform: scale(1.06);
   box-shadow: 0 8px 16px 5px rgba(63, 64, 69, 0.24);
 }
+.guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item:first-child {
+  margin-left: 0;
+}
 .related-data {
   background-color: #fff;
   border-radius: 2px;
