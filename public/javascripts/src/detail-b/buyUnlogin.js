@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
-   
+   var goPage = require('./index').goPage
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
     var common = require('./common');
@@ -77,6 +77,7 @@ define(function (require, exports, module) {
                             viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data);
+                                goPage('file',data);
                             });
                         })
                         var className = 'ico-' + pageConfig.params.file_format;
