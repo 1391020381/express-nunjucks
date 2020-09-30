@@ -93,6 +93,8 @@ define(function (require, exports, module) {
             createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
             getFolder:gateway + '/content/getUserFolders', // 获取所有分类
             saveUploadFile:gateway + '/content/webUploadFile',
+            picUploadCatalog: '/ishare-upload/picUploadCatalog',
+            fileUpload: '/ishare-upload/fileUpload',
             batchDeleteUserFile:gateway + '/content/batchDeleteUserFile',//用户批量删除自己文件接口
         },
         recommend:{

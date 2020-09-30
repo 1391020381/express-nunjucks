@@ -110,7 +110,7 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:urlConfig.upload,
+                url:urlConfig.upload + api.upload.picUploadCatalog,
                 target: [$('#js-id-front')[0],$('#js-id-back')[0],$('#js-id-hand')[0],$('#js-cer')[0]],
                 upName:'file',
                 dataType: "application/json",
