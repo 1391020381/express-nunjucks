@@ -192,7 +192,7 @@ define(function (require, exports, moudle) {
         var parmas = {
             type: 2,
             source: 1,
-            site: 4
+            site: 4,
         };
         $.ajax({
             url: api.coupon.rightsSaleVouchers,
