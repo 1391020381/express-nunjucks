@@ -12,7 +12,7 @@ define(function(require , exports , module){
     var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
-   
+    var urlConfig = require('../application/urlConfig')
     var uploadObj = {
         uploadFiles:[],
         permin:1, //1:公开、2:私密
