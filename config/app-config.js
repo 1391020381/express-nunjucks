@@ -13,7 +13,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     local: {
         env: env,
@@ -25,7 +25,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     dev: {
         env: env,
@@ -37,7 +37,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//dev-static3.iask.cn/',
-        upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://dev-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     test: {
         env: env,
@@ -49,7 +49,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//test-static3.iask.cn/',
-        upload:"http://test-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://test-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     pre: {
         env: env,
@@ -61,7 +61,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//pre-static3.iask.cn/',
-        upload:"http://pre-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://pre-upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     },
     prod: {
         env: env,
@@ -73,7 +73,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//static3.iask.cn/',
-        upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
+        // upload:"http://upload.ishare.iask.com/ishare-upload/picUploadCatalog"
     }
 }
 
