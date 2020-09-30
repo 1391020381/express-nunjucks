@@ -368,7 +368,7 @@ define(function (require, exports, module) {
         var crumbHeight = $('.crumb').outerHeight(true)
         var documentInnerHeight = $(window).height()
         var hotSpotSearch = $('.hot-spot-search-warper').height()
-        var fixRight = $('#fix-right').height()
+        var fixRight = 981   //  $('#fix-right').height()
         $(window).scroll(function () {
             var pwDetail = $('.doc-main-br').height()
             var detailTop = $(this).scrollTop();
