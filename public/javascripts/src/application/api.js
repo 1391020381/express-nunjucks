@@ -116,8 +116,8 @@ define(function (require, exports, module) {
         authentication:{
             getInstitutions:gateway +  '/user/certification/getInstitutions' ,
             institutions : gateway + '/user/certification/institutions',
-            getPersonalCertification:gateway + '/gateway/user/certification/getPersonal',
-            personalCertification :gateway + '/gateway/user/certification/personal'
+            getPersonalCertification:gateway + '/user/certification/getPersonal',
+            personalCertification :gateway + '/user/certification/personal'
         },
         seo:{
             listContentInfos: gateway + '/seo/exposeContent/contentInfo/listContentInfos' 

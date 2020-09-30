@@ -204,6 +204,7 @@ define(function (require, exports, module) {
 
                 } else {
                     login.notifyLoginInterface(function (data) {
+                        window.pageConfig.userId = data.userId;
                         common.afterLogin(data);
                         goPage(type,data);
                     });
@@ -363,48 +364,34 @@ define(function (require, exports, module) {
         inputFocus(".evaluate-textarea textarea", "evaluate-textarea-focus", ".evaluate-textarea");
         //详情页头部悬浮
         var fixEle = $("#fix-right");
-        var $fixBar = $(".detail-fixed-con");
-        var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
-        if (fixEle.length) {
-            var fixTop = fixEle.offset().top - headerHeight;
-        }
+        var crumbHeight = $('.crumb').outerHeight(true)
+        var documentInnerHeight = $(window).height()
+        var hotSpotSearch = $('.hot-spot-search-warper').height()
+        var fixRight = 981   //  $('#fix-right').height()
         $(window).scroll(function () {
+            var pwDetail = $('.doc-main-br').height()
             var detailTop = $(this).scrollTop();
-            var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
-            // if (detailTop > headerHeight) {
-            //     $detailHeader.addClass("new-detail-header-fix");
-            //     $('.coupon-info-top').hide()//赠券提示框
-            // } else {
-            //     $detailHeader.removeClass("new-detail-header-fix");
-            //     // 未登陆，且第一次弹出
-            //     if (!localStorage.getItem('firstCoupon') && method.getCookie("cuk")) {
-            //         $('.coupon-info-top').show()//赠券提示框
-            //     }
+          
+            //  console.log(detailTop,pwDetail,detailTop-pwDetail, 'pwDetail -900',pwDetail -900)
+            
+            if (detailTop >= fixHeight ) {  
+                  fixEle.css({ "position": "fixed", "top": headerHeight}); 
 
-            // }
-            //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
-            if (detailTop >= fixHeight) {  // detailTop > fixHeight + fixEle.height()
-                // $('.fix-right-bannertop').hide()
-                // $('.fix-right-bannerbottom').hide()
-                // fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-                $('.integral-con .price-more').hide()
-                $('#footer-btn').addClass('footer-btn-fix')
+                 if(detailTop > pwDetail -documentInnerHeight -hotSpotSearch){
+                    var tempHeight  = pwDetail + crumbHeight + fixHeight - fixRight
+                    $('#footer-btn').addClass('footer-btn-fix') 
+                    fixEle.css({ "position": "absolute", "top": tempHeight }); 
+                  
+                }else{
+                    $('#footer-btn').removeClass('footer-btn-fix')
+                }
             } else {
-                // fixEle.removeAttr("style");
-                // $('.fix-right-bannertop').show()
-                // $('.fix-right-bannerbottom').show()
-                $('.integral-con .price-more').show()
-                $('#footer-btn').removeClass('footer-btn-fix')
+                 fixEle.removeAttr("style");
+                
             }
-            //底部悬浮展示文档
-            // if (detailTop > fixStart) {
-            //     $fixBar.find(".operation").hide();
-            //     $fixBar.find(".data-item").show();
-            // } else {
-            //     $fixBar.find(".operation").show();
-            //     $fixBar.find(".data-item").hide();
-            // }
+            
+           
         
         });
        
@@ -472,7 +459,15 @@ define(function (require, exports, module) {
         })
     } 
     $('.file-thumbsup').on('click',function(e){
-        dianZan()
+        if (!method.getCookie('cuk')) {
+            login.notifyLoginInterface(function (data) {
+                common.afterLogin(data);
+            });
+            return;
+        }else{
+            dianZan()
+        }
+        
     })
     function dianZan(){
         $.ajax({
