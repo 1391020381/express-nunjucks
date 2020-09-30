@@ -459,7 +459,15 @@ define(function (require, exports, module) {
         })
     } 
     $('.file-thumbsup').on('click',function(e){
-        dianZan()
+        if (!method.getCookie('cuk')) {
+            login.notifyLoginInterface(function (data) {
+                common.afterLogin(data);
+            });
+            return;
+        }else{
+            dianZan()
+        }
+        
     })
     function dianZan(){
         $.ajax({

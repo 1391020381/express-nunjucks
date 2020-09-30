@@ -69,9 +69,7 @@
                      <div class="qrcode-warpper">
                         <div class="qrcode-content">
                           {% if results.consumeStatus == 7%}
-                                        {% if results.list.data.productType == 1 %}
-                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/downloaded-document.png">
-                                      {% endif%}  
+                                       <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/downloaded-document.png">  
                           {% else %}
                                    {% if results.list.data.productType == 1 %}
                                         <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/freebie-document.png">
