@@ -26,6 +26,7 @@ define(function (require, exports, moudle) {
     var couponList = []; // 优惠券列表
     var couponTimer = null; // 领取优惠券弹窗
     var isAutoLogin = true;
+    var switchCancel = false;
     var switchCount = 0; // 切换次数
     var curActive = 0; // 当前激活套餐
     var callback = null;
@@ -167,7 +168,7 @@ define(function (require, exports, moudle) {
 
     // 开始弹出领取优惠券的弹窗
     function startCouponReceive(couponList, callback) {
-        if (!couponList.length) return;
+        if (!couponList.length || switchCancel) return;
         var data = {
             list: couponList
         };
@@ -181,6 +182,7 @@ define(function (require, exports, moudle) {
     // 绑定定时弹窗关闭按钮
     $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-close', function(e) {
         // 判断如果弹窗出现
+        switchCancel = true;
         switchCount = 0;
         if ($("#receive-coupon-box").html()) {
             $("#receive-coupon-box").empty(); 
@@ -196,6 +198,9 @@ define(function (require, exports, moudle) {
         };
         $.ajax({
             url: api.coupon.rightsSaleVouchers,
+            headers: {
+                'Authrization': method.getCookie('cuk')
+            },
             type: "POST",
             data: JSON.stringify(parmas),
             contentType: "application/json; charset=utf-8",
@@ -616,14 +621,11 @@ define(function (require, exports, moudle) {
                     } else if (data.orderStatus == 3) {
                         goodsPayFail(data, orderNo);
                     }
-
-
                 } else {
                     $.toast({
                         text: response.msg,
                         delay: 3000,
-                    })
-
+                    });
                 }
             },
             error: function (error) {
