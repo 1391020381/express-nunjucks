@@ -79,11 +79,12 @@ define(function(require , exports , module){
         })
 
          $(document).on('click','.js-tab-page',function(){  //直接替换页数
-              var page=$(this).attr('value')  
+            var currentPage = $('.office-page-paging .active').attr('value')  
+              var nextpage=$(this).attr('value')  
               var url=window.location.pathname;
               var i= url.indexOf('_');
               if(i>-1){
-                url=changeStr(url,i+1,page);
+                url=changeStr(url,i+1,nextpage,currentPage);
               }else{  //默认情况下
                   url='/node/s/'+pageConfig.urlParams.specialTopicId+'_'+ page + '_' + pageConfig.urlParams.sortFlag + '.html'
               }
@@ -91,8 +92,8 @@ define(function(require , exports , module){
          })
     }
 
-    function changeStr(str,index,changeStr){
-        return str.substr(0, index) + changeStr+ str.substr(index + changeStr.length);
+    function changeStr(str,index,changeStr,currentPage){
+        return str.substr(0, index) + changeStr+ str.substr(index + currentPage.length);
     }
 
     function searchTab(){
