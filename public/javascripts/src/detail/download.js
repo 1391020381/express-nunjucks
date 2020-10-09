@@ -489,7 +489,7 @@ define(function (require, exports, module) {
             html: tpl_android,
         }).open();
     });
-    
+    window.downLoad = handleFileDownUrl  // js-buy-open
    module.exports = {
     downLoad:handleFileDownUrl
    }

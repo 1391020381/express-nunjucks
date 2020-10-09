@@ -131,11 +131,14 @@ define(function (require, exports, module) {
     /**
      * 文件预览判断接口
      */
-    var filePreview = function () {
+    var filePreview = function (obj) {
         var validateIE9 = method.validateIE9() ? 1 : 0;
         var pageConfig = window.pageConfig;
         var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.normalFileDetail.getPrePageInfo,
             type: "POST",
             data: JSON.stringify({
@@ -173,6 +176,13 @@ define(function (require, exports, module) {
                         reloadingPartOfPage();
                     }
                     reSetOriginalPrice();
+                    if(obj){ // js-buy-open
+                        if(res.data&&res.data.status == 2){
+                            window.downLoad ()
+                        } else{
+                           obj.callback(obj.type,obj.data)
+                        }
+                    }
                 }
             }
         })
@@ -185,14 +195,14 @@ define(function (require, exports, module) {
         userData: userData,
         beforeLogin: function () {
         },
-        afterLogin: function (data) {
+        afterLogin: function (data,obj) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
             initData.fileDiscount = data.fileDiscount
            window.pageConfig.page.fileDiscount = data.fileDiscount
             reloadHeader(data);
             // queryStoreFlag();
-            filePreview();
+            filePreview(obj);
         }
     }
 });

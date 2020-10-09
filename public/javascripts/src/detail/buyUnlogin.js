@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
-   
+    var goPage = require('./index').goPage
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
     var common = require('./common');
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
                         showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
                             viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
-                                common.afterLogin(data);
+                                common.afterLogin(data,{type:'file',data,callback:goPage});
                             });
                         })
                         var className = 'ico-' + pageConfig.params.file_format;
