@@ -226,6 +226,7 @@ module.exports = {
                 // console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
                 // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
                 // console.log(results,'index***************************')
+                results.officeUrl = appConfig.officeUrl
                 render("index/index",results,req,res,next);  
             }catch(e){
                 console.log('e:',e)
