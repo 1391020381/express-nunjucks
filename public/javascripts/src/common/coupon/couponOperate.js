@@ -85,7 +85,9 @@ define(function (require, exports, module) {
                 couponObj.couponType = 1; // vip购买页
             } else if (pathName == "/pay/payConfirm.html") {
                 couponObj.couponType = 0;
-                $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')
+                var referrerHref = document.referrer
+                $('.btn-back').attr('href', referrerHref)
+                // $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')
             }
         },
         /**

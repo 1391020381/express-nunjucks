@@ -206,7 +206,7 @@ define(function (require, exports, module) {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
                         common.afterLogin(data);
-                        goPage(type,data);
+                      //  goPage(type,data);
                     });
                 }
             } else {
