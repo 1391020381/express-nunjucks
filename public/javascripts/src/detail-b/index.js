@@ -388,7 +388,7 @@ define(function (require, exports, module) {
                 }
             } else {
                  fixEle.removeAttr("style");
-                
+                 $('#footer-btn').removeClass('footer-btn-fix')
             }
             
            

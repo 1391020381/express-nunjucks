@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var pay_btn_tmp = require("./template/pay_btn_tmp.html");
     var pay_middle_tmp = require("./template/pay_middle_tmp.html");
     var pay_header_tmp = require("./template/pay_header.tmp.html");
-    // var changeText = require('./changeShowOverText.js').changeText
+   
     var userData = null;
  
     var pageConfig = window.pageConfig&&window.pageConfig 
@@ -13,7 +13,7 @@ define(function (require, exports, module) {
     // 页面信息
    // productType  1  4  5 
     var initData = {
-        fileDiscount:'0.8',
+        fileDiscount:'80',
         isDownload: pageConfig.page.isDownload,                   //仅在线阅读
         vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
         isVip: 0,                                                        //是否VIP
@@ -177,7 +177,7 @@ define(function (require, exports, module) {
     
     
                     // 修改继续阅读文案要判断是否购买过
-                    // changeText(res.data.status)
+                    window.changeText()
                     if (pageConfig.params.file_state === '3') {
                         var content = res.data.url || pageConfig.imgUrl[0];
                         var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
