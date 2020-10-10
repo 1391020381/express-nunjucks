@@ -51,7 +51,8 @@ module.exports = {
             // console.log(req.query, 'req.query');
             // console.warn(results, 'results');
             // 是否是vip
-            var isVip = req.cookies && req.cookies.ui ? req.cookies.ui.isVip : 0;
+            var userinfo = req.cookies && req.cookies.ui ? JSON.parse(req.cookies.ui) : {};
+
             var fileTypeList = [
                 { code: '', des: '全部', active: (req.query.fileType === '' || req.query.fileType == undefined) ? true : false },
                 { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
@@ -76,7 +77,7 @@ module.exports = {
                 {
                     title: '范围',
                     code: 'fileType',
-                    content: isVip == 1 ? fileTypeList : fileTypeList.slice(0, 4) 
+                    content: userinfo.isVip == 1 ? fileTypeList : fileTypeList.slice(0, 4) 
                 },
                 {
                     title: '页数',
@@ -105,7 +106,7 @@ module.exports = {
             //最大20页
             var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-            if (results.list.data && results.list.data.totalPages < 20) {
+            if (results.list && results.list.data && results.list.data.totalPages < 20) {
                 pageIndexArr.length = results.list.data.totalPages;
             }
             results.pageIndexArr = pageIndexArr;

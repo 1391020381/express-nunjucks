@@ -23,6 +23,7 @@ define(function (require, exports, moudle) {
     var isLogin = require('../application/effect.js').isLogin;
     var expires_in = 60 // 支付二维码过期时间
     var timer = null   // 定时器
+    var timerFlag = false; // 二维码是否过期 
     var couponList = []; // 优惠券列表
     var couponTimer = null; // 领取优惠券弹窗
     var isAutoLogin = true;
@@ -76,7 +77,7 @@ define(function (require, exports, moudle) {
                         $(".btn-qr-show-success").click();
                         $('.pay-qrcode-loading').hide()
                         isShowQrInvalidtip(false)
-                        countdown()
+                        countdown(); // 计算二维码失效时间
                         // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
                     } catch (e) {
                         console.log("生成二维码异常");
@@ -119,6 +120,7 @@ define(function (require, exports, moudle) {
     }
 
     function isShowQrInvalidtip(flag) { // 
+        timerFlag = flag;
         if (flag) {
             $('.pic-pay-code .pay-qrcode-expire').show()
             $('.pic-pay-code .pay-qrcode-invalidtip').show()
@@ -133,7 +135,7 @@ define(function (require, exports, moudle) {
     // 获取发卷列表接口
     function fetchCouponReceiveList() {
         // 用户是VIP才会获取
-        if (userInfo.isVip == 0) {
+        if (userInfo.isVip != 1) {
             // 参数
             var params = {
                 type: 2,
@@ -170,7 +172,7 @@ define(function (require, exports, moudle) {
     function startCouponReceive(couponList, callback) {
         if (!couponList.length || switchCancel) return;
         var data = {
-            list: couponList
+            list: couponList.slice(0, 2)
         };
         var _html = template.compile(couponReceive)({data: data});
         if (!$("#receive-coupon-box").html()) {
@@ -487,7 +489,6 @@ define(function (require, exports, moudle) {
             ref: utils.getPageRef(window.pageConfig.params.g_fileId),                //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
         }
-        console.log('temp:', JSON.stringify(temp))
         $.ajax({
             url: api.order.createOrderInfo,
             type: "POST",
@@ -700,7 +701,7 @@ define(function (require, exports, moudle) {
                     // 订单状态 0-待支付 1-支付进行中 2-支付成功 3-支付失败 4-订单取消
                     if (data.orderStatus == 0) {
                         // 重新查询
-                        if (order_count <= 30 * 5) {
+                        if (!!!timerFlag) {
                             window.setTimeout(function () {
                                 getOrderInfo(orderNo);
                             }, 4000);

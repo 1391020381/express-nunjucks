@@ -36,7 +36,7 @@ define(function (require, exports, module) {
                     couponObj.isVip = 0;
                 }
                 var fileDiscount = window.pageConfig.params.fileDiscount;
-                couponObj.fileDiscount = fileDiscount || 0.8; // 原本的折扣为0.8，是VIP的话就有动态折扣
+                couponObj.fileDiscount = fileDiscount || 0.8; // 是VIP的话就有动态折扣
                 //获取数据
                 couponObj.getCouponData(couponObj.couponType);
                 // 优惠券选择点击
@@ -50,13 +50,14 @@ define(function (require, exports, module) {
                 //     $('.vip-share-text').show();
                 //     couponObj.vipDiscountFreeAmount();
                 // }
-                
-                if (pageConfig.params.vipDiscountFlag == 1  && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
+
+                if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
                     $('.vip-share-text').show();
                     couponObj.vipDiscountFreeAmount();
                 }
             }
         },
+
         /**
          * 获取订单价格
          */
@@ -65,7 +66,7 @@ define(function (require, exports, module) {
             if (couponObj.couponType == 1) { // 如果是VIP购买场景
                 // 当前选择选择态的套餐【活动价/原价】
                 if ($('.js-tab').find('.ui-tab-nav-item.active').data('activeprice') > 0) {
-                    oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice') 
+                    oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice')
                 } else {
                     oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price')
                 }
@@ -76,12 +77,13 @@ define(function (require, exports, module) {
             }
             return oprice;
         },
+
         /**
          * 确定页面
          */
         queryPageType: function () {
             var pathName = location.pathname;
-            if (pathName == "/pay/vip.html") { 
+            if (pathName == "/pay/vip.html") {
                 couponObj.couponType = 1; // vip购买页
             } else if (pathName == "/pay/payConfirm.html") {
                 couponObj.couponType = 0;
@@ -90,6 +92,7 @@ define(function (require, exports, module) {
                 // $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')
             }
         },
+
         /**
          * 获取优惠券数据
          */
@@ -106,19 +109,21 @@ define(function (require, exports, module) {
                     if (res.data) {
                         if (res.data.list) {
                             if (res.data.list.length > 0) {
-                                var data = JSON.parse(JSON.stringify(res.data.list))
+                                var data = JSON.parse(JSON.stringify(res.data.list));
+                                // 删除大于订单金额的优惠券
                                 dataList = couponObj.delInvalidData(data, oprice);
                             }
                             couponObj.useCouponFlag = 1;//初始化
                         }
                     }
                 }
-                var _html = template.compile(couponOptions)({data: dataList});
+                var _html = template.compile(couponOptions)({ data: dataList });
                 $('.coupon-down .select-text').html(_html);
                 couponObj.data = dataList;
                 couponObj.updateCouponOption(0);
             })
         },
+
         /**
          * 获得vip 8折省多少元
          */
@@ -127,6 +132,7 @@ define(function (require, exports, module) {
             var Freeprice = ((couponObj.price * 100 - discountPrice * 100) / 100).toFixed(2);
             $('#vipDiscountFreeAmount').text(Freeprice)
         },
+
         /**
          * 点击选择框展开或收拢优惠券弹窗
          */
@@ -139,6 +145,7 @@ define(function (require, exports, module) {
                 }
             })
         },
+
         /**
          * 点击选择优惠券
          */
@@ -151,9 +158,9 @@ define(function (require, exports, module) {
                 couponObj._index = _index;
                 couponObj.useCouponFlag = 1;//初始化
                 couponObj.updateCouponOption(_index);
-
-            })
+            });
         },
+
         /**
          * 更新选择框提示
          */
@@ -188,6 +195,7 @@ define(function (require, exports, module) {
             }
             couponObj.updatePrice()
         },
+
         /**
          * 放弃优惠券使用
          */
@@ -198,6 +206,7 @@ define(function (require, exports, module) {
             $('.price-text-con #discountPrice').text(tips);
             couponObj.updatePrice()
         },
+
         /**
          * 更新价钱优惠说明提示
          */
@@ -234,7 +243,7 @@ define(function (require, exports, module) {
                 //     vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元;'
                 //     isVipDiscount = true;
                 // }
-                if (pageConfig.params.vipDiscountFlag == 1  && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
+                if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - couponAmount * 100) / 100).toFixed(2);
                     var vipDiscount = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                     vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元;'
@@ -258,6 +267,7 @@ define(function (require, exports, module) {
                 $('.price-text-con #discountPrice').show()
             }
         },
+
         /**
          * 切换vip套餐
          */
@@ -271,6 +281,7 @@ define(function (require, exports, module) {
                 // console.log(couponObj.price)
             })
         },
+
         /**
          * 更新支付价钱
          */
@@ -278,7 +289,7 @@ define(function (require, exports, module) {
             // debugger
             var discountNum;
             if (couponObj.useCouponFlag == 0) {
-                // 如果flag = 0，表示不使用优惠券或者没有优惠券//
+                // 如果flag = 0，表示不使用优惠券或者没有优惠券
                 discountNum = 0;
             } else {
                 discountNum = couponObj.getDiscountPrice();
@@ -300,7 +311,7 @@ define(function (require, exports, module) {
                 //     var afterCouponPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
                 //     var vipDiscountPrice = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                 // }
-                if (params.vipDiscountFlag == 1  && params.g_permin == 3 && couponObj.isVip == 1) {
+                if (params.vipDiscountFlag == 1 && params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
                     var vipDiscountPrice = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                 }
@@ -314,6 +325,7 @@ define(function (require, exports, module) {
             }
             couponObj.updatePriceTip()
         },
+
         /**
          * 计算优惠金额
          */
@@ -326,9 +338,9 @@ define(function (require, exports, module) {
             if (couponObj.useCouponFlag == 0) {
                 couponAmount = 0;
             } else {
-                if (data[_index].type == 1) {
+                if (data[_index].type == 1) { // 如果是满减券
                     var couponAmount = data[_index].couponAmount;
-                } else {
+                } else { // 如果是折扣卷
                     var discount = data[_index].discount;
                     var discountPrice = (oprice * discount * 0.1).toFixed(2);
                     couponAmount = ((oprice * 100 - discountPrice * 100) / 100).toFixed(2);
@@ -339,6 +351,7 @@ define(function (require, exports, module) {
             }
             return couponAmount;
         },
+
         /**
          * 删选大于订单金额的优惠券
          */
