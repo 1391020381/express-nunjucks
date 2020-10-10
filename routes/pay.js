@@ -122,7 +122,6 @@ router.post('/pay/orderStatus',function(req , res , next){
         return;
     }
 });
-
 //免登陆下载
 router.post('/pay/paperDown',function(req , res , next){
     try{
