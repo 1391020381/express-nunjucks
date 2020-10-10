@@ -172,7 +172,7 @@ define(function (require, exports, moudle) {
     function startCouponReceive(couponList, callback) {
         if (!couponList.length || switchCancel) return;
         var data = {
-            list: couponList
+            list: couponList.slice(0, 2)
         };
         var _html = template.compile(couponReceive)({data: data});
         if (!$("#receive-coupon-box").html()) {
