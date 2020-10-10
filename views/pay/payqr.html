@@ -16,7 +16,7 @@
                 {% if results.list.data.goodsType == 2 or results.list.data.goodsType == 8 %}
                     <p class="all-price-text">
                       支付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
-                      {% if (results.list.data.originalPrice|number - results.list.data.payPrice|number) > 0 %}
+                      {% if (results.list.data.goodsType == 2) and (results.list.data.originalPrice|number - results.list.data.payPrice|number) > 0 %}
                         <span class="preferential-price">
                           已优惠：
                           {{ (results.list.data.originalPrice|number - results.list.data.payPrice|number)|toFixed }}元
