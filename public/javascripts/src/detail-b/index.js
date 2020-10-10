@@ -205,8 +205,8 @@ define(function (require, exports, module) {
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
-                        common.afterLogin(data);
-                        goPage(type,data);
+                        common.afterLogin(data,{type:type,data:data,callback:goPage});
+                      //  goPage(type,data);
                     });
                 }
             } else {

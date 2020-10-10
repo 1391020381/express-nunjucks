@@ -348,6 +348,7 @@ define(function (require, exports, module) {
         }).open();
     });
     
+    window.downLoad = handleFileDownUrl  // js-buy-open
    module.exports = {
     downLoad:handleFileDownUrl
    }

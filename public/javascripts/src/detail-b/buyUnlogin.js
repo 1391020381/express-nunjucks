@@ -76,8 +76,8 @@ define(function (require, exports, module) {
                         showTouristPurchaseDialog({clsId:clsId,fid:fid},function(){ // 游客登录后刷新头部和其他数据
                             viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
-                                common.afterLogin(data);
-                                goPage('file',data);
+                                common.afterLogin(data,{type:'file',data:data,callback:goPage});
+                                // goPage('file',data);
                             });
                         })
                         var className = 'ico-' + pageConfig.params.file_format;

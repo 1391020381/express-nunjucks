@@ -210,8 +210,9 @@ define(function (require, exports, module) {
                     
                 } else {
                     login.notifyLoginInterface(function (data) {
-                        common.afterLogin(data);
-                        goPage(type,data);
+                        window.pageConfig.userId = data.userId;
+                        common.afterLogin(data,{type:type,data:data,callback:goPage})
+                      //  goPage(type,data);
                     });
                 }
             } else {

@@ -142,7 +142,9 @@
                {% if results.urlParams.currentPage <= results.pageIndexArr.length-3 %}
                <a class="page-more">...</a>
                {% endif %}
-               <a class="btn-page-long js-tab-page" href="javascript:;" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
+              {% if results.urlParams.currentPage < results.pageIndexArr.length %}
+                      <a class="btn-page-long js-tab-page" href="javascript:;" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
+              {%endif%}
                <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="javascript:;" value='{{results.pageIndexArr.length}}'>尾页</a>
                {%endif%}
            </div>
