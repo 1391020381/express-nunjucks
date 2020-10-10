@@ -51,6 +51,7 @@ module.exports = {
         // bind: '/usermanage/bindMobile',              //绑定手机号
         bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
+        downloadVisitor: '/content/download/visitorDow', // 免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
     },
     office: {

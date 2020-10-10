@@ -14,17 +14,25 @@
             <div class="carding-pay-item">
                 <a class="btn-back"><i class="icon-back"></i>返回</a>
                 {% if results.list.data.goodsType == 2 or results.list.data.goodsType == 8 %}
-                <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元</p>
-                <div class="pay-data-info">
-<!--                    <p class="order-num">订单号：<span class="oid">{{results.list.data.oid}}</span></p>-->
-                    <p class="order-name">购买商品：<span class="gname">{{results.list.data.goodsName}}</span></p>
-                </div>
+                    <p class="all-price-text">
+                      支付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
+                      {% if (results.list.data.originalPrice|number - results.list.data.payPrice|number) > 0 %}
+                        <span class="preferential-price">
+                          已优惠：
+                          {{ (results.list.data.originalPrice|number - results.list.data.payPrice|number)|toFixed }}元
+                        </span> 
+                      {% endif %}
+                    </p>
+                    <div class="pay-data-info">
+                        <p class="order-num">订单号：<span class="oid">{{results.list.data.oid}}</span></p>
+                        <p class="order-name">购买商品：<span class="gname">{{results.list.data.goodsName}}</span></p>
+                    </div>
                 {% elif results.list.data.goodsType == 1 %}
-                    <p class="all-price-text">应付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
-                        {% if results.list.data.discountPrice%}
-                        <span class="price-other price-discount">
-                            <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.originalPrice|number)|toFixed }}</strong>元</em>
-                            (您已是会员, 享受会员折扣价, 立省{{ (results.list.data.originalPrice|number - results.list.data.payPrice|number)|toFixed }}元)</span>
+                    <p class="all-price-text">支付金额：<strong class="price">{{results.list.data.payPrice}}</strong>元
+                        {% if results.list.data.discountPrice %}
+                            <span class="price-other price-discount">
+                                <em class="original-text">原价<strong class="cost-price">{{ (results.list.data.originalPrice|number)|toFixed }}</strong>元</em>
+                                (您已是会员, 享受会员折扣价, 立省{{ (results.list.data.originalPrice|number - results.list.data.payPrice|number)|toFixed }}元)</span>
                         {% endif%}
                     </p>
                     <div class="pay-data-info">

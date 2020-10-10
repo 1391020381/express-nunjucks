@@ -105,7 +105,7 @@ module.exports = {
             //最大20页
             var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-            if (results.list.data && results.list.data.totalPages < 20) {
+            if (results.list && results.list.data && results.list.data.totalPages < 20) {
                 pageIndexArr.length = results.list.data.totalPages;
             }
             results.pageIndexArr = pageIndexArr;
