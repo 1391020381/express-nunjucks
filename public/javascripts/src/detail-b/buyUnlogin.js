@@ -1,3 +1,5 @@
+// const { order } = require('../application/api');
+
 define(function (require, exports, module) {
 
     var api = require('../application/api');
@@ -6,7 +8,7 @@ define(function (require, exports, module) {
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
-   var goPage = require('./index').goPage
+    var goPage = require('./index').goPage
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
     var common = require('./common');
@@ -36,9 +38,10 @@ define(function (require, exports, module) {
     var  getIds = require('../application/checkLogin').getIds
     var unloginObj = {
         count: 0,
+        orderNo: '',
         isClear: false,//是否清除支付查询
         init: function () {
-            this.bindClick()
+            this.bindClick();
         },
         bindClick: function () {
             //切换购买方式（游客购买或登陆购买）
@@ -63,6 +66,12 @@ define(function (require, exports, module) {
                 unloginObj.createOrder();
                 unloginObj.count = 0;
             })
+            // 查询已支付按钮回调
+            $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-btn', function () {
+                var visitorId = unloginObj.getVisitorId();
+                var orderNo = unloginObj.orderNo;
+                unloginObj.freshOrder(orderNo, visitorId);
+            });
 
             //弹出未登录购买弹窗
             var unloginBuyHtml = require('./template/buyUnlogin.html')
@@ -71,28 +80,70 @@ define(function (require, exports, module) {
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
                     if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
-                        var clsId = getIds().clsId
-                        var fid  = getIds().fid
-                        showTouristPurchaseDialog({clsId:clsId,fid:fid},function(){ // 游客登录后刷新头部和其他数据
+                        var clsId = getIds().clsId;
+                        var fid  = getIds().fid;
+                        showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
                             viewExposure($(this),'noLgFPayCon')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data,{type:'file',data:data,callback:goPage});
-                                // goPage('file',data);
                             });
                         })
                         var className = 'ico-' + pageConfig.params.file_format;
                         $('.tourist-purchase-content .ico-data').addClass(className)
                         $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title)
                         $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
-                       unloginObj.createOrder()
-                       
+                        unloginObj.createOrder() // 生成订单
                     }
                 }
             })
         },
+        // 刷新订单
+        freshOrder: function(orderNo, visitorId) {
+            var params = JSON.stringify({orderNo: orderNo});
+            $.ajax({
+                type: 'post',
+                url: api.order.getOrderInfo,
+                headers:{
+                    'Authrization': method.getCookie('cuk')
+                },
+                contentType: "application/json;charset=utf-8",
+                data: params,
+                success: function (response) {
+                    if (response && response.code == 0 && response.data) {
+                        var orderInfo = response.data;
+                        var fid = pageConfig.params.g_fileId;
+                        if (orderInfo.orderStatus == 2) {  // 支付成功
+                            try {
+                                unloginObj.closeLoginWindon();
+                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) 
+                                  + '&format=' + format + '&visitorId=' + visitorId;
+                                method.compatibleIESkip(url, false);
+                                // 自由埋点
+                                payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, true)
+                            } catch (e) {
+
+                            }
+                        } else {
+                            $.toast({
+                                text: '订单未支付，请重新支付',
+                            });
+                            // unloginObj.count = 0;
+                            // unloginObj.createOrder() // 生成订单
+                        }
+                    } else {
+                        $.toast({
+                            text: response.message,
+                        })
+                        unloginObj.closeLoginWindon();
+                    }
+                },
+                complete: function () {
+
+                }
+            })   
+        },
         createOrder: function () {
             var visitorId = unloginObj.getVisitorId();
-
             var params = {
                 fid: pageConfig.params.g_fileId,
                 goodsId: pageConfig.params.g_fileId,
@@ -122,24 +173,24 @@ define(function (require, exports, module) {
                   
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').hide()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
                     
                 } else {
                     
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
+                    $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                     
                 }
             });
         },
         createdQrCode: function (oid) {
-        
+            unloginObj.orderNo = oid || '';
             var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid
-            console.log(url)
             try {
-              
-                qr.createQrCode(url,'touristPayQrCode',178,178)
+                qr.createQrCode(url,'touristPayQrCode', 178, 178);
             } catch (e) {
                 console.log('createdQrCode:',e)
             }
@@ -185,6 +236,7 @@ define(function (require, exports, module) {
                                
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
+                                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show();
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                             }
                         } else if (orderInfo.orderStatus == 2) {
