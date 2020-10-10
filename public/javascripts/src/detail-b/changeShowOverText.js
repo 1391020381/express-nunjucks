@@ -12,7 +12,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var pageText = $('.page-text .endof-trial-reading')
      var pageNum = $('.page-num')
      var preRead = window.pageConfig.page&&window.pageConfig.page.preRead || 50
-     
+     var totalPage = window.pageConfig.params.totalPage
      // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
      // 是否登录  method.getCookie('cuk')
      // 是否可以下载  window.pageConfig.page.isDownload
@@ -136,6 +136,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
 
         }
     }
+    window.changeText = changeReadMoreText
     module.exports = {
         changeText:changeReadMoreText,
         readMoreTextEvent:readMoreTextEvent
@@ -146,18 +147,20 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     function changeReadMoreText(status){
      var status = window.pageConfig.page.status 
      var fileDiscount =  window.pageConfig.page.fileDiscount 
+     var currentPage = $('.detail-con').length
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
            if(ui.isVip =='1' && vipDiscountFlag =='1'){
             // textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
             textContent =  '¥'+ (productPrice*(fileDiscount/100)).toFixed(2) +'获取该资料'
-           } if(status == 2){
-            textContent =  '下载到本地阅读'   
-           }else{
+           } else{
             textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
            }
-       
+           
+           if(status == 2){
+            textContent =  currentPage>= preRead? '下载到本地阅读' :textContent
+           }
            break
            case '1' :
            textContent = '下载到本地阅读'
@@ -186,8 +189,6 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         }
         var currentPage = pageNum.text().trim()
         if(currentPage == -1 || currentPage == 0){
-            var totalPage = window.pageConfig.params.totalPage
-            var preRead =  window.pageConfig.page.preRead
             var page = totalPage-preRead >=0?totalPage-preRead:0
             pageNum.text(page)
         }
