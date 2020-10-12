@@ -39,8 +39,12 @@ define(function (require, exports, moudle) {
     require("../common/coupon/couponIssue");
     //生成二维码
     function initPage(userInfo) {
+       
         window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
-        
+        if(userInfo.isVip == 1){
+            $('.isVip-show').find('span').html(userInfo.expireTime);
+            $('.isVip-show').removeClass('hide');
+        }
         $(function () {
             var flag = $("#ip-flag").val();  // result.flag
             // var uid = $("#ip-uid").val();    //  results.data.uid
