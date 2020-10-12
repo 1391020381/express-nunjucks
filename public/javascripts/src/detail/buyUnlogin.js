@@ -127,8 +127,8 @@ define(function (require, exports, module) {
                             $.toast({
                                 text: '订单未支付，请重新支付',
                             });
-                            unloginObj.count = 0;
-                            unloginObj.createOrder() // 生成订单
+                            // unloginObj.count = 0;
+                            // unloginObj.createOrder() // 生成订单
                         }
                     } else {
                         $.toast({
