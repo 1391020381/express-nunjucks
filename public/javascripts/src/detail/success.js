@@ -453,11 +453,41 @@ define(function (require, exports, module) {
                 }
             })
         }else{
-            login.notifyLoginInterface(function (data) {
-               // common.afterLogin(data);
-             //  refreshDomTree(data)
-             refreshTopBar(data)
-            }); 
+            // login.notifyLoginInterface(function (data) {
+            //    // common.afterLogin(data);
+            //  //  refreshDomTree(data)
+            //  refreshTopBar(data)
+            // }); 
+            console.log(method.getCookie('ui'))
+            var email = $('#dialog-box .form-ipt').val()
+            $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
+                url: api.sms.fileSendEmailVisitor,
+                type: "POST",
+                data: JSON.stringify({
+                    "email": email,
+                    "fid": fid,
+                    "visitorId": getVisitIdByCookie()
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code == '0'){
+                            $.toast({
+                                text: '发送邮箱成功!',
+                                })
+                          var $dialogBox = $('#dialog-box');
+                            $dialogBox.dialog({}).close();
+                        }else{
+                            $.toast({
+                                text: '发送邮箱失败!',
+                                })
+                        }
+                }
+            })
         }
     })
     

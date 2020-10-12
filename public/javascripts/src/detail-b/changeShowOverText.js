@@ -36,21 +36,26 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 downLoad()
             }
        }else{
-        login.notifyLoginInterface(function (data) {
-            common.afterLogin(data);
-            if(productType==3){ // 发送邮箱
-                window.pageConfig.userId = data.userId;
-                if(data.isVip == '1'){
-                    sentEmail()
+        if(productType == 5){  
+            $("#footer-btn .js-buy-open").trigger("click")
+        }else{
+            login.notifyLoginInterface(function (data) {
+                common.afterLogin(data);
+                if(productType==3){ // 发送邮箱
+                    window.pageConfig.userId = data.userId;
+                    if(data.isVip == '1'){
+                        sentEmail()
+                    }else{
+                        goPage('vip')
+                    }
+                  
                 }else{
-                    goPage('vip')
+                    downLoad()
                 }
-              
-            }else{
-                downLoad()
-            }
-         }) 
-       }
+             }) 
+           }
+        }    
+       
     }
     
     function sentEmail(){
