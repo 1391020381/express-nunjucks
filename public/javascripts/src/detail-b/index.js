@@ -380,15 +380,15 @@ define(function (require, exports, module) {
 
                  if(detailTop > pwDetail -documentInnerHeight -hotSpotSearch){
                     var tempHeight  = pwDetail + crumbHeight + fixHeight - fixRight
-                    $('#footer-btn').addClass('footer-btn-fix') 
+                    $('#footer-btn .btn-fix-bottom').addClass('footer-btn-fix') 
                     fixEle.css({ "position": "absolute", "top": tempHeight }); 
                   
                 }else{
-                    $('#footer-btn').removeClass('footer-btn-fix')
+                    $('#footer-btn .btn-fix-bottom').removeClass('footer-btn-fix')
                 }
             } else {
                  fixEle.removeAttr("style");
-                 $('#footer-btn').removeClass('footer-btn-fix')
+                 $('#footer-btn .btn-fix-bottom').removeClass('footer-btn-fix')
             }
             
            
