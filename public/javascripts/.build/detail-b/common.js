@@ -139,8 +139,10 @@ define("dist/detail-b/common", [ "../application/method", "../application/api", 
                     }
                     pageConfig.page.status = initData.status = res.data && res.data.status;
                     // 0 未登录、转化失败、未购买 2 已购买、本人文件
-                    // 修改继续阅读文案要判断是否购买过
-                    window.changeText();
+                    // 修改继续阅读文案要判断是否购买过  
+                    if (initData.productType == "5" || initData.productType == "3") {
+                        window.changeText();
+                    }
                     if (pageConfig.params.file_state === "3") {
                         var content = res.data.url || pageConfig.imgUrl[0];
                         var bytes = res.data.pinfo && res.data.pinfo.bytes || {};
