@@ -169,11 +169,15 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
            textContent = '下载到本地阅读'
            break
            case '3':
-             if(ui.isVip !='1'){
-                textContent = '开通VIP寻找资料'
+            if(currentPage >=preRead){
+                if(ui.isVip !='1'){
+                    textContent = '开通VIP寻找资料'
+                 }else{
+                    textContent = '寻找资料'
+                 } 
              }else{
-                textContent = '寻找资料'
-             }  
+                 textContent = '下载到本地阅读'
+             } 
              break
              case '4':
                if(isDownload=='n'){
