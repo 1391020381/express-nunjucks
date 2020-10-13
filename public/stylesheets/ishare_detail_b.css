@@ -2866,7 +2866,6 @@ body {
 }
 .detail-w300 .deail-summary-price .file-price .btn-fix-bottom {
   display: block;
-  margin-top: 23px;
   margin-bottom: 40px;
   width: 270px;
   height: 50px;
@@ -2881,6 +2880,9 @@ body {
 .detail-w300 .deail-summary-price .file-price .btn-fix-bottom:hover {
   background-color: #f7cec3;
   color: #f25125;
+}
+.detail-w300 .deail-summary-price .file-price .integral-con .price-con {
+  margin-bottom: 23px;
 }
 .detail-w300 .deail-summary-price .file-other {
   margin-bottom: 24px;
