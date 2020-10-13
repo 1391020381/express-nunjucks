@@ -119,7 +119,7 @@ module.exports = {
             // 文章详情
             fileDetailTxt:function(callback){
                 req.body = {
-                    fid:id
+                    fid:req.params.id.replace('-nbhh','')
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.fileDetailTxt, callback, req);
             },            // 动态获取第四范式 场景id 物料库id
