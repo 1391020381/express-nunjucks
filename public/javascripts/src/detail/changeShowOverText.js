@@ -155,28 +155,33 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
-           if(ui.isVip =='1' && vipDiscountFlag =='1'){
-            textContent =  '¥'+ (productPrice*(fileDiscount/100)).toFixed(2) +'获取该资料'
-           } else{
-            textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
-           }
-           
-           if(status == 2){
-            textContent =  currentPage>=preRead? '下载到本地阅读' :textContent  
+           if(currentPage >=preRead || currentPage >= totalPage){
+            if(ui.isVip =='1' && vipDiscountFlag =='1'){
+                // textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
+                textContent =  '¥'+ (productPrice*(fileDiscount/100)).toFixed(2) +'获取该资料'
+               } else{
+                textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
+               }
+               
+               if(status == 2){
+                textContent =  currentPage>= preRead? '下载到本地阅读' :textContent
+               }
+           }else{
+            textContent = '点击可继续阅读 >' 
            }
            break
            case '1' :
            textContent = '下载到本地阅读'
            break
            case '3':
-            if(currentPage >=preRead){
+            if(currentPage >=preRead || currentPage >= totalPage){
                 if(ui.isVip !='1'){
                     textContent = '开通VIP寻找资料'
                  }else{
                     textContent = '寻找资料'
                  } 
              }else{
-                 textContent = '下载到本地阅读'
+                 textContent = '点击可继续阅读 >'
              } 
              break
              case '4':
