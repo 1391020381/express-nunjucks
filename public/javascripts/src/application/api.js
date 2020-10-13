@@ -84,7 +84,7 @@ define(function (require, exports, module) {
         },
         getHotSearch:gateway+'/cms/search/content/hotWords',
         special:{
-            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 点赞
+            fileSaveOrupdate:gateway + '/comment/zan/fileSaveOrupdate', // 点赞
             getCollectState:gateway+'/comment/zc/getUserFileZcState',  //获取收藏状态
             setCollect:gateway+'/content/collect/file',  //新的收藏接口
            
