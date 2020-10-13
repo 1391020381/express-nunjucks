@@ -167,10 +167,14 @@ define("dist/detail-b/changeShowOverText-debug", [ "./download-debug", "../appli
             break;
 
           case "3":
-            if (ui.isVip != "1") {
-                textContent = "开通VIP寻找资料";
+            if (currentPage >= preRead) {
+                if (ui.isVip != "1") {
+                    textContent = "开通VIP寻找资料";
+                } else {
+                    textContent = "寻找资料";
+                }
             } else {
-                textContent = "寻找资料";
+                textContent = "下载到本地阅读";
             }
             break;
 
