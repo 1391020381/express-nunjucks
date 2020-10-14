@@ -115,18 +115,8 @@ define(function (require, exports, module) {
     };
     //滚动监听页数
     $(window).on('scroll', getPage);
-    //总页面
-    // if (totalPage <= 2) {
-    //     $(".show-more-text").hide();
-    //     $(".show-over-text").eq(1).show();
-    //     $(".btn-read-more").hide();
-    //     $(".article-mask").hide();
-    // } else if (limitPage <= 2) {
-    //     $(".show-more-text").hide();
-    //     $(".show-over-text").eq(0).show();
-    //     $(".btn-read-more").hide();
-    //     $(".article-mask").hide();
-    // }
+  
+  
     
     if(initReadPage>imgTotalPage){  
         changeText() 
