@@ -257,7 +257,7 @@
             {% if results.list.data.isConvert == 0  %}
             <div class="detail-footer-info">转码失败，如需要继续阅读，敬请下载！</div>
             {%endif%}
-            {# {% include "detail/middleBtn.html" %} #}
+          
         </div>
    {% if results.list.data.isConvert !== 0 %}
         <div class="state-bottom">
@@ -268,10 +268,7 @@
                         {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读 ></span></p>
                 {# <i class="icon-newdetail"></i> #}
             </a>
-            {# {%if results.list.data.isDownload ==='y' %}
-            <p class="detail-footer-info show-over-text" style="display:none;">试读结束，下载后阅读全文</p>
-            <p class="detail-footer-info show-over-text" style="display:none;">阅读结束，下载到本地随时阅读</p>
-            {%endif%} #}
+           
         </div>
           {%endif%}
     </div>

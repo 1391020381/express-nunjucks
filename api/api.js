@@ -89,7 +89,7 @@ module.exports = {
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
     },
     tdk:{
-        getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
+        getTdkByUrl:'/gateway/seo/tdkmanage/findByUrl?url=$url',
     },
     category:{//分类页
         list:'/search/content/byCondition', //查询列表

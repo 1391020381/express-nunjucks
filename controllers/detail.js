@@ -34,6 +34,7 @@ module.exports = {
         var _index = {
              // 查询是否重定向
              redirectUrl:function(callback) {
+                 console.log('req.headersuser-agent', req.headers['user-agent'])
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.redirectUrl,
@@ -429,7 +430,7 @@ module.exports = {
                 }
             },
             filePreview: function (callback) {
-                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
+                 var validateIE9 = req.headers['user-agent']? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1:0;
               
                 var opt = {
                     method: 'POST',
@@ -465,6 +466,8 @@ module.exports = {
                 return;
             }
          // 转换新对象
+         let fileInfo =  results.list.data.fileInfo
+         fileInfo.readTimes = Math.ceil((fileInfo.praiseNum + fileInfo.collectNum) * 1.9)
              var list = Object.assign({},{data:Object.assign({},results.list.data.fileInfo,results.list.data.transcodeInfo)})
             if(!list.data.fileContentList){
                 list.data.fileContentList = []
@@ -474,6 +477,7 @@ module.exports = {
                 list.data.svgPathList = []
                 list.data.isConvert = 0
             }
+            
              var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
             results.list.data.supportSvg = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1;
@@ -746,12 +750,14 @@ function getInitPage(req, results) {
         if(!results.filePreview.data){
             results.filePreview.data = {}
         }
+        let fileContentList = results.list.data&&results.list.data.fileContentList 
         let preRead = results.filePreview.data.preRead;
         if (!preRead) {
             preRead = results.filePreview.data.preRead = 50;
         }
         // 页面默认初始渲染页数
-        let initReadPage = 4;
+        
+        let initReadPage = Math.min(fileContentList.length,preRead,4);
         // 360传递页数
         let pageFrom360 = req.query.page || 0;
         if (pageFrom360 > 0) {

@@ -97,7 +97,7 @@ define(function (require, exports, module) {
 
         // 跳转到主站vip购买页
         $JsPayOfficeVip.on('click', function () {
-            window.open(urlConfig.officUrl + '/pay/vip.html', '_blank');
+            window.open(urlConfig.officeUrl + '/pay/vip.html', '_blank');
         });
     }
 });

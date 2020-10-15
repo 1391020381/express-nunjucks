@@ -67,7 +67,7 @@ const config = {
         env: env,
         apiBasePath: 'http://gateway.pc.ishare.iaskonline.com/gateway/pc',
         apiNewBaselPath: 'http://gateway.pc.ishare.iaskonline.com/gateway',
-        newBasePath: 'http://gateway.pc.ishare.iasktest.com',
+        newBasePath: 'http://gateway.pc.ishare.iaskonline.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
