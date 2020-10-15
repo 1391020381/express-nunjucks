@@ -131,6 +131,9 @@
   width: 256px;
   font-size: 16px;
 }
+.down-success .qrcode-warpper .qrcode-desc .applet-name {
+  color: #F25126;
+}
 .down-success .down-success-banner {
   width: 1200px;
   margin: 0 auto;

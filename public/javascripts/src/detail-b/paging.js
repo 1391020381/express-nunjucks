@@ -117,7 +117,7 @@ define(function (require, exports, module) {
     $(window).on('scroll', getPage);
   
     
-    if(initReadPage>=preRead){  
+    if(initReadPage>=preRead||initReadPage>=imgTotalPage){  
         changeText() 
     }
     if($('.page-num').text().trim()<0){  //  totalPage < 4

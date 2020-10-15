@@ -34,6 +34,7 @@ module.exports = {
         var _index = {
              // 查询是否重定向
              redirectUrl:function(callback) {
+                 console.log('req.headersuser-agent', req.headers['user-agent'])
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.redirectUrl,
@@ -429,7 +430,7 @@ module.exports = {
                 }
             },
             filePreview: function (callback) {
-                 var validateIE9 = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1;
+                 var validateIE9 = req.headers['user-agent']? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1:0;
               
                 var opt = {
                     method: 'POST',
