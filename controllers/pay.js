@@ -53,10 +53,20 @@ module.exports = {
                             tempMembers[3] = member
                         }
                     })
-                    tempListData.push(Object.assign({}, item, { members: tempMembers }))
+                    tempListData.push(Object.assign({}, item, { 
+                        members: tempMembers,
+                        subtitle: item.subtitle ? item.subtitle.replace(/<\/?[^>]*>/g, "") : ''
+                    }))
                 })
                 results.list.data = tempListData;
             }
+            // 处理富文本
+            // results.list.data = results.list.data.map(item => {
+            //     return {
+            //         ...item, subTitle: item.subTitle.replace(/<\/?[^>]*>/g, "")
+            //     };
+            // })
+            
             // console.log('拿到vip套餐列表：' + JSON.stringify(results))
             // console.log("vip list------------");
             // console.log('后台返回的套餐列表:'+JSON.stringify(results));
