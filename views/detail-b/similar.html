@@ -6,7 +6,7 @@
              {% include "detail-b/fixed.html" %}
             </div>
            <ul class="file-other">
-                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">{{results.list.data.readNum or 0}}</span></li>
+                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">{{results.list.data.readTimes or 0}}</span></li>
                 <li class="file-thumbsup file"> <span class="thumbsup-icon icon"></span> <span class="num">{{results.list.data.praiseNum or 0}}</span></li>
                 <li class="file-collection btn-collect file"  data-fid="{{results.list.data.id}}"> <span class="collection-icon icon"></span> <span class="num">{{results.list.data.collectNum or 0}}</span></li>
            </ul>
