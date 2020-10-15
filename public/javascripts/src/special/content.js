@@ -86,7 +86,7 @@ define(function(require , exports , module){
               if(i>-1){
                 url=changeStr(url,i+1,nextpage,currentPage);
               }else{  //默认情况下
-                  url='/node/s/'+pageConfig.urlParams.specialTopicId+'_'+ page + '_' + pageConfig.urlParams.sortFlag + '.html'
+                  url='/node/s/'+pageConfig.urlParams.specialTopicId+'_'+ nextpage + '_' + pageConfig.urlParams.sortFlag + '.html'
               }
               location.href=url;
          })
