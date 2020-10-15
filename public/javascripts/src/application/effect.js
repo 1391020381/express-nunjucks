@@ -103,7 +103,7 @@ define(function (require, exports, module) {
         //     console.log('data.isVip:',data.isVip)
         //     // $('.vip-title').hide();
         // }
-
+        
         $unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
         $hasLogin.find('.user-link img').attr('src', data.photoPicURL);

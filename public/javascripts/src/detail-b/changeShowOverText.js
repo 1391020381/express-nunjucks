@@ -12,7 +12,8 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var pageText = $('.page-text .endof-trial-reading')
      var pageNum = $('.page-num')
      var preRead = window.pageConfig.page&&window.pageConfig.page.preRead || 50
-     var totalPage = window.pageConfig.params.totalPage
+    
+     var imgTotalPage = window.pageConfig.imgUrl.length
      // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
      // 是否登录  method.getCookie('cuk')
      // 是否可以下载  window.pageConfig.page.isDownload
@@ -36,21 +37,26 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 downLoad()
             }
        }else{
-        login.notifyLoginInterface(function (data) {
-            common.afterLogin(data);
-            if(productType==3){ // 发送邮箱
-                window.pageConfig.userId = data.userId;
-                if(data.isVip == '1'){
-                    sentEmail()
+        if(productType == 5){  
+            $("#footer-btn .js-buy-open").trigger("click")
+        }else{
+            login.notifyLoginInterface(function (data) {
+                common.afterLogin(data);
+                if(productType==3){ // 发送邮箱
+                    window.pageConfig.userId = data.userId;
+                    if(data.isVip == '1'){
+                        sentEmail()
+                    }else{
+                        goPage('vip')
+                    }
+                  
                 }else{
-                    goPage('vip')
+                    downLoad()
                 }
-              
-            }else{
-                downLoad()
-            }
-         }) 
-       }
+             }) 
+           }
+        }    
+       
     }
     
     function sentEmail(){
@@ -151,25 +157,33 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
      var    textContent = ''
         switch (productType) {
            case '5' : // 付费
-           if(ui.isVip =='1' && vipDiscountFlag =='1'){
-            // textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
-            textContent =  '¥'+ (productPrice*(fileDiscount/100)).toFixed(2) +'获取该资料'
-           } else{
-            textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
-           }
-           
-           if(status == 2){
-            textContent =  currentPage>= preRead? '下载到本地阅读' :textContent
+           if(currentPage >=preRead|| currentPage >= imgTotalPage){
+            if(ui.isVip =='1' && vipDiscountFlag =='1'){
+                // textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
+                textContent =  '¥'+ (productPrice*(fileDiscount/100)).toFixed(2) +'获取该资料'
+               } else{
+                textContent =  '¥'+ (+productPrice).toFixed(2) +'获取该资料'  
+               }
+               
+               if(status == 2){
+                textContent =  currentPage >=preRead|| currentPage >= imgTotalPage? '下载到本地阅读' :textContent
+               }
+           }else{
+            textContent = '点击可继续阅读 >' 
            }
            break
            case '1' :
            textContent = '下载到本地阅读'
            break
            case '3':
-             if(ui.isVip !='1'){
-                textContent = '开通VIP寻找资料'
+             if(currentPage >=preRead|| currentPage >= imgTotalPage){
+                if(ui.isVip !='1'){
+                    textContent = '开通VIP寻找资料'
+                 }else{
+                    textContent = '寻找资料'
+                 } 
              }else{
-                textContent = '寻找资料'
+                 textContent = '点击可继续阅读 >'
              }  
              break
              case '4':
@@ -184,12 +198,13 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         }
         readMore.text(textContent)
        
-        if(preRead&&preRead!=50){
+       
+        if(currentPage >=preRead||currentPage>=imgTotalPage){
             pageText.show()
         }
         var currentPage = pageNum.text().trim()
         if(currentPage == -1 || currentPage == 0){
-            var page = totalPage-preRead >=0?totalPage-preRead:0
+            var page = imgTotalPage-preRead >=0?imgTotalPage-preRead:0
             pageNum.text(page)
         }
     }

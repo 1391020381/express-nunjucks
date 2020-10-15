@@ -380,15 +380,15 @@ define(function (require, exports, module) {
 
                  if(detailTop > pwDetail -documentInnerHeight -hotSpotSearch){
                     var tempHeight  = pwDetail + crumbHeight + fixHeight - fixRight
-                    $('#footer-btn').addClass('footer-btn-fix') 
+                    $('#footer-btn .btn-fix-bottom').addClass('footer-btn-fix') 
                     fixEle.css({ "position": "absolute", "top": tempHeight }); 
                   
                 }else{
-                    $('#footer-btn').removeClass('footer-btn-fix')
+                    $('#footer-btn .btn-fix-bottom').removeClass('footer-btn-fix')
                 }
             } else {
                  fixEle.removeAttr("style");
-                 $('#footer-btn').removeClass('footer-btn-fix')
+                 $('#footer-btn .btn-fix-bottom').removeClass('footer-btn-fix')
             }
             
            
@@ -453,7 +453,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 if(res.code == '0'){
                     res.data.hasCollect ? $(".btn-collect").addClass("btn-collect-success") : $(".btn-collect").removeClass("btn-collect-success")
-                    res.data.hasZan?'':''
+                    res.data.hasZan?$('.file-thumbsup').addClass('btn-dianZan-success'):$('.file-thumbsup').removeClass('btn-dianZan-success')
                 }
             }
         })
@@ -476,7 +476,7 @@ define(function (require, exports, module) {
             },
             url: api.special.fileSaveOrupdate,
             type: "post",
-            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid,source:0}),
+            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.userId,source:0}),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {

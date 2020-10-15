@@ -54,8 +54,9 @@ define(function (require, exports, module) {
             specialTopic: gateway + '/search/specialTopic/lisPage'   // 专题热点查询
         },
         sms: {
-            // 获取短信验证码
-            sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail'
+            // 登录用户发送邮箱
+            sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail',
+            fileSendEmailVisitor:gateway + '/fileSendEmail/visitor'   // 游客发送邮箱
         },
         pay: {
             // 购买成功后,在页面自动下载文档
@@ -83,7 +84,7 @@ define(function (require, exports, module) {
         },
         getHotSearch:gateway+'/cms/search/content/hotWords',
         special:{
-            fileSaveOrupdate:gateway + '/comment/collect/fileSaveOrupdate', // 点赞
+            fileSaveOrupdate:gateway + '/comment/zan/fileSaveOrupdate', // 点赞
             getCollectState:gateway+'/comment/zc/getUserFileZcState',  //获取收藏状态
             setCollect:gateway+'/content/collect/file',  //新的收藏接口
            

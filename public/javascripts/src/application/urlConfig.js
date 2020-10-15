@@ -8,7 +8,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//upload-ishare.iask.com",
              appId:'wxb8af2801b7be4c37',
-             bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data="
+             bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
+             officeUrl:'http://office.iask.com' 
         },
         local: {
             ajaxUrl: '',
@@ -16,7 +17,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
-            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data="
+            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://dev-office.iask.com' 
         },
         dev: {
             ajaxUrl: '',
@@ -24,7 +26,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
-            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data="
+            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://dev-office.iask.com' 
         },
         test: {
             ajaxUrl: '',
@@ -32,7 +35,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//test-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
-            bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data="
+            bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://test-office.iask.com' 
         },
         pre: {
             ajaxUrl: '',
@@ -40,7 +44,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//pre-upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
-            bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data="
+            bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://pre-office.iask.com'
         },
         prod: {
             ajaxUrl: '',
@@ -48,7 +53,8 @@ define(function (require, exports, module) {
             loginUrl: '',
             upload:"//upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
-            bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data="
+            bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://office.iask.com'
         }
     }
 
