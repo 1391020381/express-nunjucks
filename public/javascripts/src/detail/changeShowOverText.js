@@ -198,10 +198,9 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         readMore.text(textContent)
        
         
-        if(currentPage>=imgTotalPage){
+        if(currentPage >=preRead||currentPage>=imgTotalPage){
             pageText.show()
         }
-        
         var currentPage = pageNum.text().trim()
         if(currentPage == -1 || currentPage == 0){
            

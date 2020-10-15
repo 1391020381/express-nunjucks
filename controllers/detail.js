@@ -746,12 +746,14 @@ function getInitPage(req, results) {
         if(!results.filePreview.data){
             results.filePreview.data = {}
         }
+        let fileContentList = results.list.data&&results.list.data.fileContentList 
         let preRead = results.filePreview.data.preRead;
         if (!preRead) {
             preRead = results.filePreview.data.preRead = 50;
         }
         // 页面默认初始渲染页数
-        let initReadPage = 4;
+        
+        let initReadPage = Math.min(fileContentList.length,preRead,4);
         // 360传递页数
         let pageFrom360 = req.query.page || 0;
         if (pageFrom360 > 0) {

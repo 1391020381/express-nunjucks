@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     var loadMoreStyle = require('./changeDetailFooter').loadMoreStyle
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
-    var cPage = 4;
+    var cPage = +window.pageConfig.page.initReadPage;
     var restPage = 0;
     var imgTotalPage = window.pageConfig.imgUrl.length;
     var totalPage = window.pageConfig.params.totalPage;//最大页数
@@ -117,7 +117,7 @@ define(function (require, exports, module) {
     $(window).on('scroll', getPage);
   
     
-    if(initReadPage>imgTotalPage){  
+    if(initReadPage>=preRead){  
         changeText() 
     }
     if($('.page-num').text().trim()<0){  //  totalPage < 4
