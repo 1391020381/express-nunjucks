@@ -586,6 +586,10 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData);
         }else if(cnt == 'follow'){
             clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData);
+        }else if(cnt == 'getCoupons'){
+            clickCenter('NE002', 'normalClick', 'getCoupons', '领取优惠券按钮', customData);
+        }else if(cnt == 'closeCoupon'){
+            clickCenter('NE002', 'normalClick', 'closeCoupon', '关闭优惠券按钮', customData);
         }
     }
     function getSearchEngine(){
