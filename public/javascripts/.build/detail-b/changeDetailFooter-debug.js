@@ -12,7 +12,7 @@ define("dist/detail-b/changeDetailFooter-debug", [], function(require, exports, 
                     position: "absolute",
                     left: "0px",
                     right: "0px",
-                    bottom: 140 + hotSpotSearch + "px",
+                    bottom: 140 + 102 + hotSpotSearch + "px",
                     width: "890px"
                 });
             } else {

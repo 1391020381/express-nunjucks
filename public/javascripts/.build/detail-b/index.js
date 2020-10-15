@@ -335,7 +335,8 @@ define("dist/detail-b/index", [ "../application/suspension", "../application/met
                     top: headerHeight
                 });
                 if (detailTop > pwDetail - documentInnerHeight - hotSpotSearch) {
-                    var tempHeight = pwDetail + crumbHeight + fixHeight - fixRight;
+                    // var tempHeight  = pwDetail + crumbHeight + fixHeight - fixRight
+                    var tempHeight = pwDetail - fixRight - 15;
                     $("#footer-btn .btn-fix-bottom").addClass("footer-btn-fix");
                     fixEle.css({
                         position: "absolute",
