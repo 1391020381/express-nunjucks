@@ -57,6 +57,7 @@ module.exports = {
                 request(opt, function (err, res1, body) {
                     // console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
+                        try{
                         var data = JSON.parse(body);
                         console.log('请求地址post-------------------:',opt.url)
                         console.log('请求参数-------------------:', opt.body)
@@ -95,6 +96,11 @@ module.exports = {
                             }
                             callback(null, null);
                         }
+                    } catch (err) {
+                        console.log('详情页数据error')
+                        callback(null, null);
+                        console.log("err=============", err)
+                    }
                     } else {
                         callback(null, null);
                     }
