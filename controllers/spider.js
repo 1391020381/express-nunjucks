@@ -329,7 +329,7 @@ module.exports = {
             }
             
             //对正文进行处理
-            var textString =  results.fileDetailTxt.data||'';
+            var textString =  results.fileDetailTxt&&results.fileDetailTxt.data||'';
             // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
             var picArr = results.list&&results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList || ''
             if(picArr&&picArr.length>6) {
