@@ -13,13 +13,12 @@ define(function (require, exports, module) {
     module.exports = {
         getIds: function () {
             // 详情页
+            console.log('生成详情页信息：' + window.pageConfig);
             var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
             
             var classArr = []
-          
-
-            var clsId = params?params.classid:'' 
+            var clsId = params ? params.classid : '' 
 
             var fid = access ? (access.fileId || params.g_fileId || '') : '';
 

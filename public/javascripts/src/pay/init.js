@@ -10,6 +10,7 @@ define(function(require , exports , module){
   // isLogin(null,false)
   //  require("./report");  
     require("./pay");
+    
     // require('./banner')
     // require("../common/bindphone");
     // require("../common/bilog");

@@ -74,7 +74,7 @@ define(function (require, exports, module) {
         params = JSON.stringify(params);
         $.ajax({
             type: 'get',
-            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),
+            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),   // node接口
             contentType: "application/json;charset=utf-8",
             data: params,
             success: function (data) {

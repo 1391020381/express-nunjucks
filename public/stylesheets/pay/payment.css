@@ -16,7 +16,7 @@ body {
   text-align: center;
 }
 .payment .payment-title {
-  padding-top: 82px;
+  padding-top: 42px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,6 +71,9 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.payment .order-list .orderTime {
+  margin-top: 0.96rem;
+}
 .payment .pay-confirm {
   position: absolute;
   left: 50%;
@@ -84,6 +87,14 @@ body {
   border-radius: 0.45rem;
   font-size: 0.32rem;
   color: #FFFFFF;
+}
+.payment #launch-btn {
+  display: block;
+  width: 315px;
+  height: 45px;
+  margin: 0 auto;
+  margin-top: 75px;
+  text-align: center;
 }
 .hide {
   display: none;

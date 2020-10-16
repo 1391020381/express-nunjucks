@@ -11,7 +11,7 @@
         <div class="search-condition">
             {% for item in results.condition%}
             <!-- <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}"> -->
-            <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}">
+            <div class="search-item {{'hide' if loop.index0 === 2 or  loop.index0===3}}">
 
                 <span class="search-title" value="{{item.code}}">{{item.title}}: </span>
                 {% for value in item.content%}
@@ -74,11 +74,11 @@
                             </span>
                             {%endif%}
 
-                            {% if item.highQuality %}
+                            {% if item.isExcellent == 0 %}
                             <span class="icon-selected"></span>
                             {%endif%}
 
-                            {% if item.vipExclusive %}
+                            {% if item.productType == 4 %}
                             <span class="icon-vip"></span>
                             {%endif%}
                         </a>

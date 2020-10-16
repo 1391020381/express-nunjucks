@@ -503,38 +503,9 @@
 
                <div class="tourist-purchase-container">
                     <ul class="tabs">
-                         <li class="tab tourist-purchase tab-active" data-type="tourist-purchase">游客购买 <span class="border-bottom"></span></li>
-                         <li class="tab login-purchase" data-type="login-purchase">登录购买 <span class="border-bottom"></span></li>
+                         <li class="tab login-purchase tab-active" data-type="login-purchase">登录购买 <span class="border-bottom"></span></li>
+                         <li class="tab tourist-purchase" data-type="tourist-purchase">游客购买 <span class="border-bottom"></span></li>
                     </ul>
-                    <div class="tourist-purchase-content">
-                         <div class="file-summary">
-                              <span class="file-icon icon ico-data"></span>
-                              <span class="file-desc"></span>
-                         </div>
-                         <div class="file-price-summary">
-                              <span class="file-price">应付金额：<em class="price"></em>
-                              </span>元
-                                    </div>
-                         <div class="tourist-purchase-qrContent">
-                              <div class="tourist-purchase-qr">
-                                   <div id="touristPayQrCode"></div>
-                              </div>
-                              <div class="tourist-purchase-invalidtip"></div>
-                              <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
-                                   <p class="tourist-purchase-refresh">刷新</p>
-
-                         </div>
-                         <div class="qrcode-tip">请使用微信或支付宝扫描支付</div>
-                         <div class="paytype-icon">
-                              <span class="wei-icon"></span>
-                              <span class="alipay-icon"></span>
-                         </div>
-                         <div class="tourist-purchase-tip">扫码即代表已阅读并同意<a href="https://iask.sina.com.cn/helpCenter/5d8de2c0474e311ca8200e99.html" target="_blank">《下载风险提示》</a></div>
-                         <div class="tourist-purchase-footer">
-                                        如您已经购买过该文档，下载未成功或需要重复下载请<a class="tourist-purchase-download" target="_blank" href="/node/queryOrder">点击此处</a>
-                         </div>
-                    </div>
-
                     <div class="login-content">
 
                          <div class="weixin-login">
@@ -1024,6 +995,36 @@
                          </div>
                     </div>
 
+                    <div class="tourist-purchase-content">
+                         <div class="file-summary">
+                              <span class="file-icon icon ico-data"></span>
+                              <span class="file-desc"></span>
+                         </div>
+                         <div class="file-price-summary">
+                              <span class="file-price">应付金额：<em class="price"></em>
+                              </span>元
+                                    </div>
+                         <div class="tourist-purchase-qrContent">
+                              <div class="tourist-purchase-qr">
+                                   <div id="touristPayQrCode"></div>
+                              </div>
+                              <div class="tourist-purchase-invalidtip"></div>
+                              <p class="tourist-purchase-qr-invalidtip">二维码已失效</p>
+                              <p class="tourist-purchase-btn">已支付</p>
+                              <p class="tourist-purchase-refresh">刷新二维码</p>
+                         </div>
+                         <div class="qrcode-tip">请使用微信或支付宝扫描支付</div>
+                         <div class="tourist-purchase-tip">
+                           <span class="tourist-purchase-text">已支付无法下载</span>
+                           <a class="tourist-purchase-download" target="_blank" href="/node/queryOrder">点击获取资料</a>
+                         </div>
+
+                         <div class="tourist-purchase-footer">
+                           扫码即代表已阅读并同意<a href="https://iask.sina.com.cn/helpCenter/5d8de2c0474e311ca8200e99.html" target="_blank">《下载风险提示》</a>
+                         </div>
+                    </div>
+
+                    
                </div>
           </div>
      </script>

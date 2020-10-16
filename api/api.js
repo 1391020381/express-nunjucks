@@ -51,6 +51,7 @@ module.exports = {
         // bind: '/usermanage/bindMobile',              //绑定手机号
         bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
+        downloadVisitor: '/content/download/visitorDow', // 免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
     },
     office: {
@@ -70,9 +71,9 @@ module.exports = {
     },
     search: {
         //搜索服务--API接口--条件搜索--同步
-        byCondition: '/search/byCondition',
+        byCondition: '/search/content/byCondition',
         //搜索服务--API接口--搜索页搜索关联词数据--同步
-        // associatedWords: '/search/associatedWords'
+        associatedWords: '/search/specialTopic/lisPage'
     },
     user:{
        getUserInfo:'/user/getUserInfo'
@@ -88,7 +89,7 @@ module.exports = {
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
     },
     tdk:{
-        getTdkByUrl:'/gateway/content/tdkmanage/findByUrl?url=$url',
+        getTdkByUrl:'/gateway/seo/tdkmanage/findByUrl?url=$url',
     },
     category:{//分类页
         list:'/search/content/byCondition', //查询列表

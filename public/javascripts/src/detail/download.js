@@ -71,7 +71,7 @@ define(function (require, exports, module) {
                     userData = data;
                 });
             } else if (res.code == 42011) {
-                method.compatibleIESkip("/pay/vip.html",true);
+                method.compatibleIESkip("/pay/vip.html",false);
             } else {
                 $("#dialog-box").dialog({
                     html: $tpl_down_text.html().replace(/\$msg/, res.msg),
@@ -80,26 +80,7 @@ define(function (require, exports, module) {
         }, '')
     };
 
-    //上报数据处理-下载成功
-    var docDLSuccess = function (consume, flag) {
-        //消费类型
-        downLoadReport.expendType_var = gioInfo.downloadConsumeMap[consume];
-
-        //如果不是下载过添加这2个字段
-        if (flag) {
-            //消耗的积分数量
-            downLoadReport.expendScoreNum_var = expendScoreNum_var;
-            //消耗的消耗下载券数量
-            downLoadReport.expendNum_var = expendNum_var;
-        }
-
-        //防止上报字段错误
-        if (downLoadReport.downloadLimited_var) {
-            delete downLoadReport.downloadLimited_var
-        }
-
-        __pc__.gioTrack("docDLSuccess", downLoadReport);
-    };
+  
 
     //上报数据处理-下载受限
     var docDLFail = function (status) {
@@ -129,7 +110,11 @@ define(function (require, exports, module) {
              //   docDLSuccess(res.data.consume, true);
                 if (browserEnv === 'IE' || browserEnv === 'Edge') {
                     // window.location.href = res.data.downloadURL;
-                    method.compatibleIESkip(res.data.fileDownUrl,false);
+                    // method.compatibleIESkip(res.data.fileDownUrl,false);
+                    var fid = window.pageConfig.params.g_fileId;
+                    var consumeStatus = res.data.consumeStatus
+                    var url = '/node/f/downsucc.html?fid=' + fid  + '&consumeStatus='+ consumeStatus + '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                    goNewTab(url)
                 } else if (browserEnv === 'Firefox') {
                     // window.location.href = decodeURIComponent(res.data.downloadURL);
                     var fileDownUrl = res.data.fileDownUrl;
@@ -137,15 +122,15 @@ define(function (require, exports, module) {
                     var sub_url1 = fileDownUrl.substr(0, sub + 4);
                     var sub_ur2 = decodeURIComponent(fileDownUrl.substr(sub + 4, fileDownUrl.length));
                     var fid = window.pageConfig.params.g_fileId;
+                    var consumeStatus = res.data.consumeStatus
                     // window.location.href = sub_url1 + sub_ur2;
-                    method.compatibleIESkip(sub_url1 + sub_ur2,false);
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                   // method.compatibleIESkip(sub_url1 + sub_ur2,false);
+                    var url = '/node/f/downsucc.html?fid=' + fid  + '&consumeStatus='+ consumeStatus + '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 } else {
-                    // window.location.href = res.data.downloadURL;
-                    // method.compatibleIESkip(res.data.fileDownUrl,false);
                     var fid = window.pageConfig.params.g_fileId;
-                    var url = '/node/f/downsucc.html?fid=' + fid + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
+                    var consumeStatus = res.data.consumeStatus
+                    var url = '/node/f/downsucc.html?fid=' + fid + '&consumeStatus='+ consumeStatus  + '&title='+ encodeURIComponent(file_title) +  '&url=' + encodeURIComponent(res.data.fileDownUrl);
                     goNewTab(url);
                 }
                 break;
@@ -374,19 +359,7 @@ define(function (require, exports, module) {
 
     };
 
-    // var downLoad = function () {
-    //     // 文件下载 /action/downloadUrl?fid=文件id&code=验证码,预下载返回需要验证码
-    //     var url = api.normalFileDetail.fileDownLoad + '?fid=' + window.pageConfig.params.g_fileId + "&code=" + (code ? code : '');
-    //     $.ajax({
-    //         async: false,
-    //         type: "GET",
-    //         url: url,
-    //         dataType: "json",
-    //         success: function (data) {
-    //             bouncedType(data);
-    //         }
-    //     });
-    // };
+   
     
    /**
     * 
@@ -476,27 +449,11 @@ define(function (require, exports, module) {
      * @param href
      */
     var goNewTab = function (href) {
-        // var $a = $("#ishare-h-tab-a");
-        // if ($a.length > 0) {
-        //     $a.attr("href", href);
-        // } else {
-        //     var referLink = "<a id='ishare-h-tab-a' class='ishare-h-tab-a' style='display: none;' target='_blank' href='" + href + "'><p>.</p></a>";
-        //     $('body').append(referLink);
-        // }
-        // $('#ishare-h-tab-a p').trigger('click');
-        method.compatibleIESkip(href,true);
+        
+        method.compatibleIESkip(href,false);
     };
 
     var goLocalTab = function (href) {
-        // var $a = $("#ishare-h-tab-a");
-        // if ($a.length > 0) {
-        //     $a.attr("href", href);
-        // } else {
-        //     var referLink = "<a id='ishare-h-tab-a' class='ishare-h-tab-a' style='display: none;'  href='" + href + "'><p>.</p></a>";
-        //     $('body').append(referLink);
-        // }
-        // $('#ishare-h-tab-a p').trigger('click');
-        // window.open(href);
         method.compatibleIESkip(href,false);
     };
 
@@ -519,20 +476,11 @@ define(function (require, exports, module) {
 
         }
     });
-    // 跳转VIP,或者特权页面
-    // $dialogBox.on('click', '.dialog-btn-joinVip', function () {
-    //     var type = $(this).attr('data-type');
-    //     if (type === 'vip') {
-    //         goLocalTab('/pay/vip.html');
-    //     } else if (type === 'privilege') {
-    //         goLocalTab('/pay/privilege.html');
-    //     }
-    // });
+ 
 
     //点击预下载按钮
     $(document).on("click", '[data-toggle="download"]', function (e) {
-      //  preDownLoad();
-    //   debugger
+    
     handleFileDownUrl()
     })
     //用app保存
@@ -541,7 +489,7 @@ define(function (require, exports, module) {
             html: tpl_android,
         }).open();
     });
-    
+    window.downLoad = handleFileDownUrl  // js-buy-open
    module.exports = {
     downLoad:handleFileDownUrl
    }

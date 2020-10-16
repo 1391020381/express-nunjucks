@@ -1,13 +1,17 @@
 define(function(require , exports , module){
     console.log('聚合支付码')
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    require("../cmd-lib/toast");
+    // require("../cmd-lib/toast");
+    require("../cmd-lib/toast2");
     var api = require('../application/api');
     var method = require("../application/method");
     var orderNo = method.getParam('orderNo');
     var paymentRestult = require('./payRestult.html')
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+  
     getOrderInfo()
+   // require('./go2MinApp')
+  
     function getOrderInfo(){
         $.ajax({
             url: api.order.getOrderInfo,
@@ -25,7 +29,7 @@ define(function(require , exports , module){
                 res.data.payPrice = (res.data.payPrice/100).toFixed(2) 
                 res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
                 var _paymentRestultTemplate = template.compile(paymentRestult)({orderInfo:res.data});
-                $(".payment").html(_paymentRestultTemplate) 
+                $(".payment .payment-content").html(_paymentRestultTemplate) 
                   if(res.goodsType == 1){
                     handleBaiduStatisticsPush('payFileResult',{payresult:1,orderid:orderNo,orderpaytype:res.data.payType})
                 }

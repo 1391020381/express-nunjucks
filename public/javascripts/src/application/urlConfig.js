@@ -1,54 +1,63 @@
 // 网站url 配置
 define(function (require, exports, module) {
-    // var envList = {
-    //     'local':'',
-    //     'dev':'',
-    //     'test':'',
-    //     'pre':'',
-    //     'prod':''
-    // }
+    var env = window.env
     var urlConfig = {
-        ajaxUrl: '',
-        payUrl: '',
-        loginUrl: ''
-    }
-    if (env == 'local') {
-        urlConfig = {
-            ajaxUrl: 'http://ishare.iask.sina.com.cn',
-            payUrl: 'http://dev-open-ishare.iask.com.cn',
-            loginUrl: ''
-        }
-    }
-
-    if (env == 'dev') {
-        urlConfig = {
-            ajaxUrl: 'http://dev-ishare.iask.sina.com.cn',
-            payUrl: 'http://dev-open-ishare.iask.com.cn',
-            loginUrl: ''
-        }
-    }
-    if (env == 'test') {
-        urlConfig = {
-            ajaxUrl: 'http://test-ishare.iask.sina.com.cn',
-            payUrl: 'http://test-open-ishare.iask.com.cn',
-            loginUrl: ''
-        }
-    }
-
-    if (env == 'pre') {
-        urlConfig = {
-            ajaxUrl: 'http://pre-ishare.iask.sina.com.cn',
-            payUrl: 'http://pre-open-ishare.iask.com.cn',
-            loginUrl: ''
-        }
-    }
-
-    if (env == 'prod') {
-        urlConfig = {
-            ajaxUrl: 'http://ishare.iask.sina.com.cn',
+        debug: {
+            ajaxUrl: '',
             payUrl: 'http://open-ishare.iask.com.cn',
-            loginUrl: ''
+            loginUrl: '',
+            upload:"//upload-ishare.iask.com",
+             appId:'wxb8af2801b7be4c37',
+             bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
+             officeUrl:'http://office.iask.com' 
+        },
+        local: {
+            ajaxUrl: '',
+            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            loginUrl: '',
+            upload:"//dev-upload-ishare.iask.com",
+            appId:'wxb8af2801b7be4c37',
+            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://dev-office.iask.com' 
+        },
+        dev: {
+            ajaxUrl: '',
+            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            loginUrl: '',
+            upload:"//dev-upload-ishare.iask.com",
+            appId:'wxb8af2801b7be4c37',
+            bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://dev-office.iask.com' 
+        },
+        test: {
+            ajaxUrl: '',
+            payUrl: 'http://test-open-ishare.iask.com.cn',
+            loginUrl: '',
+            upload:"//test-upload-ishare.iask.com",
+            appId:'wxb8af2801b7be4c37',
+            bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://test-office.iask.com' 
+        },
+        pre: {
+            ajaxUrl: '',
+            payUrl: 'http://pre-open-ishare.iask.com.cn',
+            loginUrl: '',
+            upload:"//pre-upload-ishare.iask.com",
+            appId: 'wxca8532521e94faf4',
+            bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://pre-office.iask.com'
+        },
+        prod: {
+            ajaxUrl: '',
+            payUrl: 'http://open-ishare.iask.com.cn',
+            loginUrl: '',
+            upload:"//upload-ishare.iask.com",
+            appId: 'wxca8532521e94faf4',
+            bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl:'http://office.iask.com'
         }
     }
-    return urlConfig
+
+
+    return urlConfig[env]
 });

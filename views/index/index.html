@@ -64,7 +64,7 @@
                              {% if item.id == '1818'%}
                              <div class="category-item-inter">
                                 <div class="item-title">
-                                    <h4 class="title-text"><a href="https://office.iask.com/" target="_blank">{{item.name}}</a></h4>
+                                    <h4 class="title-text"><a href="{{results.officeUrl}}" target="_blank">{{item.name}}</a></h4>
                                     {% if item.categoryList.length>0 %}
                                     <i class="icon-ele-arrow"></i>
                                     {% endif %}
@@ -89,7 +89,7 @@
                                 <div class="more-inter">
                                     <ul class="more-list cf">
                                         {%for label in item.categoryList  %}
-                                        <li><a href="https://office.iask.com/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        <li><a href="{{results.officeUrl}}/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
                                         {%endfor%}
                                     </ul>
                                 </div>

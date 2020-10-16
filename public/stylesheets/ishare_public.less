@@ -778,6 +778,7 @@ a{ color: @gray-light;
     width: 332px;
     position: relative;
     padding-bottom: 12px;
+    margin-right: 120px;
     .er-line{
       width: 1px;
       .center(known-y,230px);
@@ -786,13 +787,25 @@ a{ color: @gray-light;
       background-color: #f4f4f4;
     }
     .er-pic{
-      padding: 9px;
       margin:12px auto ;
-      width: 150px;
-      height: 150px;
-      border: 1px solid #efefef;
-
+      margin-top:50px;
+      .img{
+        display: inline-block;
+        padding: 9px;
+        width: 152px;
+        height: 152px;
+        border: 1px solid #efefef;
+      }
+      .qrcode-desc{
+        margin: 0 auto;
+        width: 256px;
+        font-size: 16ppx;
+        .applet-name{
+            color: #F25126;
+        }
+     }
     }
+   
   }
 .carding-binding-ok{
   padding-left: 0;
@@ -840,7 +853,6 @@ a{ color: @gray-light;
 }
 .pay-data-info{
   font-size: 0;
-  height: 30px;
   line-height: 30px;
   text-align: center;
   .data-info{
@@ -876,7 +888,6 @@ a{ color: @gray-light;
     }
   }
   .order-num,.order-name{
-    .inline-block();
     margin-left: 8px;
     padding-left: 8px;
     position: relative;

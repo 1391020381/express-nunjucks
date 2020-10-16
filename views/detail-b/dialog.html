@@ -1,0 +1,350 @@
+<!--弹框-->
+<div class="dialog" id="dialog-box">
+<!--遮罩层 start-->
+<div id="bgMask" class="common-bgMask"></div></div>
+<!--举报弹窗-->
+<script type="text/template" id="report-file-box">
+    <div class="pc-dialog report-dialog-main report-dialogue">
+    <a href="javascript:;" class="close" title="关闭"></a>
+    <div class="dialog-con">
+        <h2 class="dialog-title">举报</h2>
+        <form>
+            <ul class="report-dialog-ul">
+                <li>
+                    <label><input type="radio" name="radio1" checked value="1">侵权或盗版</label>
+                    <p class="report-dialog-test">*若权利人发现爱问平台上用户上传内容侵犯了其作品的信息网络传播权等合法权益时，请按照平台<a
+                            href="/infringement.html">侵权处理</a>要求书面通知爱问！</p>
+                </li>
+                <li><label><input type="radio" name="radio1" value="2">政治类</label></li>
+                <li><label><input type="radio" name="radio1" value="3">色情类</label></li>
+                <li><label><input type="radio" name="radio1" value="4">赌博犯罪类</label></li>
+                <li><label><input type="radio" name="radio1" value="5">诽谤类</label></li>
+                <li><label><input type="radio" name="radio1" value="6">谣言类</label></li>
+                <li><label><input type="radio" name="radio1" value="7">广告类</label></li>
+            </ul>
+            <div class="report-text-box">
+                <textarea id="report-content" class="report-text-area" placeholder="请输入您的反馈和联系方式！"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="btn-dialog-wrap">
+        <a class="btn-dialog btn-red report-as">提交资料</a>
+        <a class="btn-dialog btn-normal cancel">取消</a>
+    </div>
+</div>
+</script>
+<!--查找相关资料-->
+<script type="text/template" id="search-file-box">
+    <div class="pc-dialog search-sim-res">
+        <a class="close" title="关闭"></a>
+        <div class="search-sim-container">
+            <p class="search-sim-text1">本资料仅支持在线阅读，VIP可扫码寻找。</p>
+            <div class="search-sim-img">
+                <img src="//pic.iask.com.cn/mini/qrc_$fileId.png" alt="小程序码">
+                <p>资料小程序码</p>
+            </div>
+            <div class="search-sim-text2">
+                使用微信“扫一扫”扫码寻找资料
+            </div>
+        </div>
+        <div class="search-sim-step">
+            <div class="search-sim-step-list cf">
+                <div class="step-num">
+                    <p>1</p>
+                    <p class="step-num-text">打开微信</p>
+                </div>
+                <i class="step-arrow"></i>
+                <div class="step-num">
+                    <p>2</p>
+                    <p class="step-num-text">扫描小程序码</p>
+                </div>
+                <i class="step-arrow"></i>
+                <div class="step-num">
+                    <p>3</p>
+                    <p class="step-num-text">发布寻找信息</p>
+                </div>
+                <i class="step-arrow"></i>
+                <div class="step-num">
+                    <p>4</p>
+                    <p class="step-num-text">等待寻找结果</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</script>
+<!--详情页下载异常信息弹窗-->
+<script type="text/template" id="tpl-down-text">
+    <div class="pc-dialog">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <h2 class="dialog-title">温馨提示</h2>
+            <div class="info-text-wrap">
+                <p class="success-text"><i class="icon-info icon-success"></i>$msg</p>
+                <!--            <p class="error-text"><i class="icon-info icon-error"></i>$errorMsg</p>-->
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green cancel">知道了</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="download-join-vip">
+    <div class="pc-dialog">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <h2 class="dialog-title">温馨提示</h2>
+            <div class="info-text-wrap">
+                <p class="success-text"><i class="icon-info icon-success"></i>$msg</p>
+                <!--            <p class="error-text"><i class="icon-info icon-error"></i>$errorMsg</p>-->
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green js-buy-open pc_click" pcTrackContent="joinVip-6" data-type="vip">开通VIP</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 已下载-->
+<script type="text/template" id="tpl-down-finished">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p>您已下载过该资料，本次下载免费</p>
+                <p class="dialog-small-text">可以在“个人中心-下载记录”查看所有已下载文档 <a href="/node/personalCenter/mydownloads.html" class="look-link">去看看</a>
+                </p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-4"  data-code="$code">立即下载</a>
+                <a class="btn-dialog btn-dialog-cancel btn-normal cancel">取消</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!--vip 积分下载-->
+<script type="text/template" id="integral-download-vip">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-con">
+                <div class="dialog-text-wrap">
+                    <p>您的下载特权剩余数为<strong class="num">0</strong>，下载该资料需要消耗<strong class="num">$volume</strong>下载券</p>
+                </div>
+                <div class="btn-dialog-wrap">
+                    <a class="btn-dialog  btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-5"  data-code="$code">使用积分兑换下载</a>
+                    <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinPrivilege" data-type="privilege">补充下载特权</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!--  普通用户 积分下载-->
+<script type="text/template" id="integral-download-normal">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p>你有<strong class="num">$ovolume</strong>下载券，下载该资料需要消耗<strong class="num">$evolume</strong>下载券</p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-5" data-code="$code">使用积分兑换下载</a>
+                <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinVip-7" data-type="vip">开通VIP免券下载</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!--vip 下载券下载-->
+<script type="text/template" id="volume-download-vip">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-con">
+                <div class="dialog-text-wrap">
+                    <p>下载特权剩余：<strong class="num">0</strong>次</p>
+                    <p>您有<strong class="num">$ovolume</strong>下载券，下载该资料需消耗<strong class="num">$volume</strong>下载券</p>
+                </div>
+                <div class="btn-dialog-wrap">
+                    <a class="btn-dialog  btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-6" data-code="$code">使用下载券下载</a>
+                    <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinPrivilege" data-type="privilege">补充下载特权</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 普通用户下载券下载-->
+<script type="text/template" id="volume-download-normal">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p >您有<strong class="num">$ovolume</strong>下载券，下载该资料需消耗<strong class="num">$volume</strong>下载券</p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-6" data-code="$code">使用下载券下载</a>
+                <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinVip-8" data-type="vip">开通VIP免券下载</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- 有下载特权下载-->
+<script type="text/template" id="have_privilege">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p>您的下载特权剩余：<strong class="num">$privilege</strong></p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click" pcTrackContent="downloadBtn-4" data-code="$code">立即下载</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- code 12 vip专享下载 扣除下载特权 -->
+<script type="text/template" id="permanent_privilege">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p>当前剩余数量为：<strong class="num">$privilege</strong>个全站特权，本次下载需要消耗$productPrice个</p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green btn-dialog-download cancel pc_click"  style="background-color: #f25125;" pcTrackContent="downloadBtn-4" data-code="$code">全站特权下载</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- code 13 vip专享下载 扣除下载特权 但不够扣 -->
+<script type="text/template" id="permanent_privilege_not">
+    <div class="pc-dialog dialog-carding">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <div class="data-con">
+                <span class="data-name">$title</span>
+                <span class="data-size">($fileSize)</span>
+            </div>
+            <div class="dialog-text-wrap">
+                <p>当前剩余数量为：<strong class="num">$privilege</strong>个全站特权，本次下载需要消耗$productPrice个特权</p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-red js-buy-open pc_click" pcTrackContent="joinPrivilege" data-type="privilege">补充下载特权</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- code 15 免费下载文档次数  非VIP-->
+<script type="text/template" id="freeDownCounts">
+    <div class="pc-dialog">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <h2 class="dialog-title">温馨提示</h2>
+            <div class="info-text-wrap">
+                <p class="success-text"><i class="icon-info icon-success"></i>今天的免费资料下载次数已达上限，开通VIP获取下载特权 </p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green js-buy-open pc_click" pcTrackContent="joinVip-6" data-type="vip">开通VIP</a>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- code 15 免费下载文档次数  是VIP-->
+<script type="text/template" id="vipFreeDownCounts">
+    <div class="pc-dialog">
+        <a href="javascript:;" class="close" title="关闭"></a>
+        <div class="dialog-con">
+            <h2 class="dialog-title">温馨提示</h2>
+            <div class="info-text-wrap">
+                <p class="success-text"><i class="icon-info icon-success"></i>今天的免费资料下载次数已达上限，明天再来吧</p>
+            </div>
+            <div class="btn-dialog-wrap">
+                <a class="btn-dialog btn-green cancel">知道了</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- 悬赏任务弹窗 -->
+<script type="text/template" id="reward-mission-pop">
+    <div class="m-reward-pop">
+        <i class="close-btn"></i>
+
+        <div class="container">
+            <div class="title">
+                发布悬赏任务寻找资料，并发送到我的邮箱
+            </div>
+
+            <div class="form-list">
+                <div class="form-verify-tips">
+                    <span class="text">
+                        *请检查邮箱地址
+                    </span>
+                </div>
+                <input type="text" class="form-ipt" placeholder="请填写邮箱地址...">
+                <div class="tips-text">
+                    <!-- 发送后资料也将同步保存到“个人中心-下载记录”中，你可以随时查看 -->
+                </div>
+            </div>
+        </div>
+        <div class="submit-btn">
+            确认发送
+        </div>
+    </div>
+</script>
+
+<!-- 下载页面发送邮箱 -->
+<script type="text/template" id="send-email">
+     <div class="m-reward-pop">
+        <i class="close-btn"></i>
+
+        <div class="container">
+            <div class="title">
+                将资料发送到邮箱
+            </div>
+
+            <div class="form-list">
+                <div class="form-verify-tips">
+                    <span class="text">
+                        *请检查邮箱地址
+                    </span>
+                </div>
+                <input type="text" class="form-ipt" placeholder="请填写邮箱地址...">
+            </div>
+        </div>
+        <div class="submit-btn">
+            确认发送
+        </div>
+    </div>
+</script>
+

@@ -53,13 +53,13 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if ((params.productType == '4'||params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4'|| params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
                 // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
                 // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
-                var savePrice = (params.moneyPrice *0.8).toFixed(2);
+                var savePrice = (params.moneyPrice * 0.8).toFixed(2);
                 $('.vip-save-money').html(savePrice)
                 $('.js-original-price').html(savePrice);
             }
@@ -131,13 +131,7 @@ define(function (require, exports, module) {
             }
             return true;
         });
-        // $('.btn-new-search').on('click', function () {
-        //     var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-        //     // if (!_val) {
-        //     //     return
-        //     // }
-        //     searchFn(_val);
-        // });
+       
         $('.detail-search-info').on('click',function(){
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
             // if (!_val) {
@@ -213,11 +207,12 @@ define(function (require, exports, module) {
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
-
+                    
                 } else {
                     login.notifyLoginInterface(function (data) {
-                        common.afterLogin(data);
-                        goPage(type,data);
+                        window.pageConfig.userId = data.userId;
+                        common.afterLogin(data,{type:type,data:data,callback:goPage})
+                      //  goPage(type,data);
                     });
                 }
             } else {
@@ -329,10 +324,10 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                if(res.data.rows&&res.data.rows.length){
-                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
-                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
-                }
+                // if(res.data.rows&&res.data.rows.length){
+                //   var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
+                //   $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
+                // }
                }
             }
         })
@@ -554,21 +549,7 @@ define(function (require, exports, module) {
 
    
 
-    // 评论
-    // function commentArticle() {
-    //     if (!method.getCookie('cuk')) {
-    //         login.notifyLoginInterface(function (data) {
-    //             common.afterLogin(data);
-    //         });
-    //     } else if (method.getCookie('cuk') && !common.userData) {
-    //         login.getLoginData(function (data) {
-    //             common.afterLogin(data);
-    //             commentContent();
-    //         })
-    //     } else {
-    //         commentContent();
-    //     }
-    // }
+  
 
     var commentContent = function () {
         var content = $('#commentTxt').val();
@@ -627,7 +608,7 @@ define(function (require, exports, module) {
 
     };
 
-    function goPage(type,data) { // data 登录后用户信息
+    function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -637,7 +618,6 @@ define(function (require, exports, module) {
         // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-
         if (type === 'file') {
             // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
@@ -653,13 +633,13 @@ define(function (require, exports, module) {
             // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
             var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
             // window.open("/pay/vip.html" + params);
-            method.compatibleIESkip('/pay/vip.html' + params,true);
+            method.compatibleIESkip('/pay/vip.html' + params,false);
             }
         } else if (type === 'privilege') {
             // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             // window.open("/pay/privilege.html" + params);
-            method.compatibleIESkip('/pay/privilege.html' + params,true);
+            method.compatibleIESkip('/pay/privilege.html' + params,false);
         }
     }
 

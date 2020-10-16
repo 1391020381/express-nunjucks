@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var isLogin = require('../application/effect.js').isLogin
     var api = require('../application/api');
+    var urlConfig =  require('../application/urlConfig')
     var method = require("../application/method");
     var walletDetailsId = ''
     require("../cmd-lib/upload/Q");
@@ -36,8 +37,8 @@ define(function (require, exports, module) {
 
     var myWalletStatusList = {
         0: '系统自动确认',
-        1: '审待确认',
-        2: '审核待确认',
+        1: '一审待确认',
+        2: '二审核待确认',
         3: '已确认',
         4: '已挂起'
     }
@@ -684,7 +685,7 @@ define(function (require, exports, module) {
         var E = Q.event,
             Uploader = Q.Uploader;
         var uploader = new Uploader({
-            url: location.protocol + "//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
+            url:urlConfig.upload + api.upload.picUploadCatalog,
             target: [document.getElementById('upload-target')],
             upName: 'file',
             dataType: "application/json",

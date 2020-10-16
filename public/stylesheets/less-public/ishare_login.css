@@ -44,8 +44,6 @@ input::-webkit-credentials-auto-fill-button {
   height: 50px;
   margin-left: -25px;
   margin-top: -25px;
-  background: url(../images/login/loading.gif) no-repeat center;
-  background-size: 100%;
 }
 .login-content {
   width: 100%;

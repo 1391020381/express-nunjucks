@@ -3,19 +3,22 @@
 */
 var fs = require("fs");
 var path = require("path");
-
+var static3 = require('./app-config').static3
+var env =  require('./app-config').env
 var data = fs.readFileSync(path.resolve(__dirname,'../config/version.properties.text'),'utf-8');
 var version = "";
 var url = "";
 var surl = "";
 
-if (process.env.NODE_ENV =='local') {
+
+
+if (env=='local' ||env == 'debug') {
     return;
 } else if (data) {
     console.log('-----------data',data)
     version = data.split("=")[1].replace(/^\s*/, "").replace(/\s*$/, "");
-    url = '//static3.iask.cn/' + version;
-    surl = '//static3.iask.cn/stat_pc';
+    url = static3 + version;
+    surl = static3 + 'stat_pc';
 }
 
 module.exports = {

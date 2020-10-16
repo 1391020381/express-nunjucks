@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     var loadMoreStyle = require('./changeDetailFooter').loadMoreStyle
     if (!window.pageConfig.imgUrl) return;
     //启始页 默认的情况
-    var cPage = 4;
+    var cPage = +window.pageConfig.page.initReadPage;
     var restPage = 0;
     var imgTotalPage = window.pageConfig.imgUrl.length;
     var totalPage = window.pageConfig.params.totalPage;//最大页数
@@ -27,9 +27,7 @@ define(function (require, exports, module) {
             } else if (pageNum >= imgTotalPage) {
                $(".show-over-text").eq(1).show();
             }
-            // $(".show-more-text").hide();
-            // $(".btn-read-more").hide();
-            // $(".article-mask").hide();
+           
         },
         //加载渲染
         drawing: function (currentPage) {
@@ -82,7 +80,8 @@ define(function (require, exports, module) {
             $("img.lazy").lazyload({ effect: "fadeIn" });
 
             //剩余页数
-            var remainPage = restPage -= 5;
+            // var remainPage = restPage -= 5;
+            var remainPage = currentPage >= preRead? totalPage-preRead : restPage -= 5;
             if($('.page-text .endof-trial-reading').css('display') == 'none'){
                 $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
             }
@@ -116,20 +115,10 @@ define(function (require, exports, module) {
     };
     //滚动监听页数
     $(window).on('scroll', getPage);
-    //总页面
-    // if (totalPage <= 2) {
-    //     $(".show-more-text").hide();
-    //     $(".show-over-text").eq(1).show();
-    //     $(".btn-read-more").hide();
-    //     $(".article-mask").hide();
-    // } else if (limitPage <= 2) {
-    //     $(".show-more-text").hide();
-    //     $(".show-over-text").eq(0).show();
-    //     $(".btn-read-more").hide();
-    //     $(".article-mask").hide();
-    // }
+  
+  
     
-    if(initReadPage>imgTotalPage){  
+    if(initReadPage>=preRead||initReadPage>=imgTotalPage){  
         changeText() 
     }
     if($('.page-num').text().trim()<0){  //  totalPage < 4

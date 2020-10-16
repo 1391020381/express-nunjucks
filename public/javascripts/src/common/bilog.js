@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     var util = require("../cmd-lib/util");
     var method = require("../application/method");
     var config = require('./../report/config');//参数配置
+    var urlConfig = require('../application/urlConfig')
     // var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP特权'];
     // var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
     var payTypeMapping = ['', 'free', '', 'online', 'vipOnly', 'cost']; //productType=1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
@@ -44,7 +45,7 @@ define(function (require, exports, module) {
         userID: '',//用户ID
         sessionID: sessionStorage.getItem('sessionID') || cid || '',//会话ID
         productName: 'ishare',//产品名称
-        productCode: '0',//产品代码
+        productCode: window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.abTest?'1':'0',//产品代码    详情A B 测试  B端 productCode 1
         productVer: 'V4.5.0',//产品版本
         pageID: '',//当前页面编号
         pageName: '',//当前页面的名称
@@ -213,7 +214,7 @@ define(function (require, exports, module) {
     function push(params) {
         setTimeout(function () {
             console.log(params,'页面上报');
-            $.getJSON("https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function (data) {
+            $.getJSON(urlConfig.bilogUrl + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function (data) {
                 console.log(data);
             });
         })
@@ -585,6 +586,10 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'downApp', '侧边栏-下载APP', customData);
         }else if(cnt == 'follow'){
             clickCenter('NE002', 'normalClick', 'follow', '侧边栏-关注领奖', customData);
+        }else if(cnt == 'getCoupons'){
+            clickCenter('NE002', 'normalClick', 'getCoupons', '领取优惠券按钮', customData);
+        }else if(cnt == 'closeCoupon'){
+            clickCenter('NE002', 'normalClick', 'closeCoupon', '关闭优惠券按钮', customData);
         }
     }
     function getSearchEngine(){
@@ -632,7 +637,7 @@ define(function (require, exports, module) {
         console.log('自有埋点上报结果', result);
         setTimeout(function () {
             $.getJSON(
-                "https://dw.iask.com.cn/ishare/jsonp?data=" + base64.encode(JSON.stringify(result)) + "&jsoncallback=?",
+               urlConfig.bilogUrl + base64.encode(JSON.stringify(result)) + "&jsoncallback=?",
                 function (data) {
                     // console.log();
                 }

@@ -1,0 +1,133 @@
+<div class="doc-main-br w890 deatil-mr10 fl">
+    <div class="doc-main">
+        <div class="detail-box">
+            <div class="detail-top-box">
+                <h2 class="data-title fl">
+                    <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>
+                    {{results.list.data.title.substr(0,30)}}
+                </h2>
+                 <p class="btn-detail-collect btn-collect fr"  data-fid="{{results.list.data.id}}"><span class="collect-icon"  class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick"></span><span class="cllect-desc">收藏</span></p>
+            </div>
+    
+            <!--文章内容模块 start-->
+            <div class="detail-main">
+                <div class="detail-reader">
+                 
+                    <div class="detail-reader-con detail-pro-con">
+                        <!--付费文档图标 -->
+                        {% if results.list.data.perMin == 3%}
+                        <div class="icon-detail-wrap">
+                            <p class="icon-text">付费资料</p>
+                            <div class="icon-detail-more">
+                                <div class="icon-detail-inter">
+                                    <i class="before"></i>
+                                    <i class="after"></i>
+                                    <p>付费资料是一类需要单独购买的资料。非VIP用户原价购买，VIP用户可以享受8折的优惠价格。</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif%}
+
+                        {% if results.list.data.isConvert !== 0 %}
+                        <div class="{{ 'font-detail-con' if results.list.data.format === 'txt' else 'ppt-pic-con'}}">
+                            {% for item in results.list.data.fileContentList.slice(0,results.filePreview.data.initReadPage) %}
+                            {%if results.list.data.format === 'txt' %}
+                            <div class="detail-con first-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if loop.index === 1 %} other-format-style-first {%else%} other-format-style {%endif%}">
+                                        {{item | safe}}
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            {%if results.list.data.svgFlag%}
+                            {%if results.list.data.supportSvg%}
+                            <div class="detail-con third-style  article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <embed src="{{results.list.data.svgPathList[loop.index0]}}" width="100%"
+                                            height="100%" type="image/svg+xml"
+                                            pluginspage="//www.adobe.com/svg/viewer/install/" />
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div
+                                class="detail-con second-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <img class="img-png lazy" src="{{item}}" style="width: 100%;height: 100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            {%else%}
+                            <div class="detail-con second-style article-page source-link {% if loop.index != 1 %}mt4{%endif%}"
+                                data-num="{{loop.index}}">
+                                <div class="detail-inner article-main">
+                                    <div
+                                        class="data-detail {% if results.list.data.format === 'ppt' %} ppt-format-style {% if loop.index === 1 %} ppt-format-style-first {%endif%} {%else%} other-format-style {% if loop.index === 1 %} other-format-style-first {%endif%} {%endif%}">
+                                        <img class="img-png lazy" src="{{item}}" style="width: 100%;height: 100%"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--文章内容模块 end-->
+        </div>
+
+          <div class="detail-guide-wrap">
+                    <p class="text">
+                        本文档为【{{results.list.data.title}}】，请使用软件OFFICE或WPS软件打开。作品中的文字与图均可以修改和编辑，
+                        图片更改请在作品中右键图片并更换，文字修改请直接点击文字进行修改，也可以新增和删除文档中的内容。
+                    </p>
+                    <p class="text">
+                        该文档来自用户分享，如有侵权行为请发邮件ishare@vip.sina.com联系网站客服，我们会及时删除。
+                    </p>
+</div>
+
+    </div>
+    <!--底部购买信息 start -->
+    <div class="detail-footer" id="littleApp">
+
+        <div class="detail-state">
+            {% if results.list.data.isConvert == 0  %}
+            <div class="detail-footer-info">转码失败，如需要继续阅读，敬请下载！</div>
+            {%endif%}
+            
+        </div>
+   {% if results.list.data.isConvert !== 0 %}
+        <div class="state-bottom">
+            <a class="data-page show-more-text btn-read-more pc_click" pcTrackContent="pageTurning-1"
+                data-toggle="btnReadMore">
+                <p class="page-text"><em class="endof-trial-reading" style="display: none;">试读结束 </em>还剩<em class="page-num">{%if results.filePreview.data.is360page %}
+                        {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%else%}
+                        {{results.list.data.totalPage - results.filePreview.data.initReadPage}} {%endif%}</em>页未读，<span class="red-color">点击可继续阅读 ></span></p>
+               
+            </a>
+            
+        </div>
+          {%endif%}
+    </div>
+
+    <!-- 相关搜索 -->
+    <div class="hot-spot-search-warper">
+       
+    </div>
+   
+  
+</div>

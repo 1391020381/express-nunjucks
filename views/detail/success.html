@@ -39,22 +39,7 @@
 <div class="pw-down-success">
     <div class="down-carding-main down-success">
         <div class="carding-info-con">
-            <!-- <a class="btn-back" onclick="history.go(-1)"><i class="icon-back"></i>返回</a> -->
-            {# <div class="carding-share">
-                <span class="share-text fl">分享到</span>
-                <div class="bshare-custom cf">
-                    <div class="bsPromo bsPromo2"></div>
-                    <div class="share-item">
-                        <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
-                    </div>
-                    <div class="share-item">
-                        <a title="分享到微信" class="bshare-weixin"></a>
-                    </div>
-                    <div class="share-item">
-                        <a title="分享到QQ空间" class="bshare-qzone"></a>
-                    </div>
-                </div>
-            </div>  #}
+           
             <div class="carding-success-item new-success-item">
                 <h2 class="pay-ok-text ">
                     <a class="new-icon">
@@ -75,54 +60,36 @@
                 <p class="pay-ok-subtext">
                     如果下载没有开始，请<span class="quick-down-a">点击此处</span>
                 </p>
-                {# <div class="unloginStatus unloginTop" style="display: none;">
-                    <div class="pay-success"><i class="icon-success"><img src="{{cdnUrl}}/images/detail/pay_ok.png"/></i>支付成功</div>
-                    <div class="quick-icon">你已成功获取：<span class="xbsd"><i></i><span id="filename"></span></span></div>
-                    <div class="quick-down">你的下载很快开始，如果没有<!--downloadBtn-->，请 <a class="quick-down-a">点击此处</a></div>
-                    <div class="not-found-res">找不到资料下载到哪里了？试试Ctrl+J </div>
-                </div> #}
-                {# <div class="carding-data-pay-con">
-                    <!-- vip & 特权用完提示文字 -->
-                    <p class="vip-state-text down-succ-title" style="display: none;"></p>
-                    <a data-type="default" style="display: none;" class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">开通VIP,千万文档免费下载</a>
-                    <a data-type="vip" style="display: none;"  class="btn-join-vip down-succ-btn pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessContinueVip">续费VIP</a>
-                    <a data-type="privilege" style="display: none;"  class="btn-join-vip down-succ-btn js-buy-open pc_click" pcTrackContent="joinPrivilege">购买特权包</a>
-                    <a class="btn-carding-back pc_click" bilogContent="downSuccessBacDetail" style="display: none;">返回详细页</a>
+                 {%if results.unloginFlag %}
+                    <div class="qrcode-warpper">
+                       <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
+                      <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
+                    </div>
+                 {%else%}
+                     <div class="qrcode-warpper">
+                        <div class="qrcode-content">
+                          {% if results.consumeStatus == 7%}
+                                       <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/downloaded-document.png">  
+                          {% else %}
+                                   {% if results.list.data.productType == 1 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/freebie-document.png">
+                                      {% endif%}
 
-                    <div class="bottom-privilege downSucc-privi hide">
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-01"></i>
-                            赠专享资料下载特权
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-02"></i>
-                            付费资料8折起
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-03"></i>
-                            海量资料免费下载
-                        </div>
-                        <div class="bottom-p-item">
-                            <i class="icon-p icon-p-04"></i>
-                            专属身份标识
-                        </div>
-                        <a style="display:none" data-type="vip" class="join-vip-link pc_click js-buy-open" pcTrackContent="joinVip-4" bilogContent="downSuccessOpenVip">立即开通VIP&gt;</a>
-                    </div>
-                </div> #}
-                <div class="qrcode-warpper">
-                    <img class="qrcode" src="{{cdnUrl}}/images/app-qrcode.png">
-                    <p class="qrcode-desc"><span class="scan-icon"></span>下载APP查看该资料</p>
+                                      {% if results.list.data.productType == 3 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/online-documents.png">
+                                      {% endif%}
+                                      {% if results.list.data.productType == 4 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/vip-privilege-document.png">
+                                      {% endif%}
+                                       {% if results.list.data.productType == 5 %}
+                                        <img class="qrcode" src="{{cdnUrl}}/images/applet-qrcode/paid-documents.png">
+                                      {% endif%}
+                          {%endif%}
+                         
+                         </div>
+                         <p class="qrcode-desc">文档已同步至<span class="applet-name">“文件管理”</span>小程序， 使用微信扫码即可高效管理你的文件</p>
                 </div>
-                {# <div  class="down-success-other">
-                    <div class="down-success-banner">
-                
-                    </div>
-                    <div class="guess-you-like-warpper pc_click"  bilogContent="downSucSimilarFileClick">
-                     {%if results.paradigm4GuessData.length>0 %}
-                      {% include "detail/guessYouLike.html" %}
-                     {%endif%}
-                    </div>
-                </div> #}
+                 {%endif%} 
             </div>
              <!-- 下载成功页面不用绑定手机号 -->
             {# {% include "common/card.html" %} #}
@@ -179,8 +146,7 @@
 
 {# {% include "../common/footer.html" %} #}
 {% include "common/new/footer.html" %}
-<script type="text/javascript" charset="utf-8"
-        src="{{staticUrl}}/buttonLite.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="{{staticUrl}}/bshareC0.js"></script>
 </body>
 <script>

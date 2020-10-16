@@ -327,13 +327,15 @@ body {
 .privilege-img{
   margin-left:34px;
   margin-top:34px;
-   display: block;
-   width: 305px;
-   height: 43px;
+  display: block;
+  width: 305px;
+  height: 43px;
 }
 .carding-vip-main {
+  margin-top: 40px;
   background-color: #fff;
-  padding-bottom: 60px;
+  padding-bottom: 286px;
+  border: 10px solid #F0EADF;
 }
 
 .vip-privilege-con {
@@ -553,7 +555,7 @@ body {
   color: #f00;
 }
 
-.carding-vip-list li.active .pay-carding-item .vip-price strong {
+.carding-vip-list li.active .pay-carding-item .vip-price .price-discount {
   color: #f00;
 }
 
@@ -593,16 +595,38 @@ body {
   font-size: 24px;
   height: 48px;
   line-height: 48px;
-  color: #333;
-  
+  color: #222;
   padding-top: 0;
+  .price-discount {
+    font-size: 40px;
+    color: #222;
+    font-weight: normal;
+  }
+  .price-origin {
+    font-size: 18px;
+    color: #666;
+    font-weight: normal;
+    text-decoration: line-through;
+  }
 }
 
-.carding-vip-list li .pay-carding-item .vip-price strong {
-  font-size: 40px;
-  color: #444;
-  font-weight: normal;
+.carding-vip-list li .pay-carding-item .vip-subtitle {
+  display: inline-block; 
+  height: 24px;
+  color: #fff;
+  background: #DCB77A;
+  line-height: 24px;
+  font-size: 15px;
+  text-align: center;
+  padding: 0 10px;
+  border-radius: 12px 0px 12px 0px;
 }
+
+// .carding-vip-list li .pay-carding-item .vip-price .price-discount {
+//   font-size: 40px;
+//   color: #222;
+//   font-weight: normal;
+// }
 
 .carding-vip-list li .pay-carding-item .font-red {
   color: #fe0000;
@@ -989,6 +1013,17 @@ body {
   position: relative;
 }
 
+.carding-pay-main .pay-info-link {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #F25227;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  visibility: visible;
+}
+
 .carding-pay-main {
   .pic-pay-code {
     .pay-qrcode-expire {
@@ -1039,8 +1074,6 @@ body {
       height: 50px;
       margin-left: -25px;
       margin-top: -25px;
-      // background: url(../images/login/loading.gif) no-repeat center;
-      // background-size: 100%;
     }
   }
 }
@@ -1126,10 +1159,23 @@ body {
 }
 
 .carding-pay-item .all-price-text .price {
-  
   font-size: 24px;
   color: #f00;
   font-weight: normal;
+}
+
+.carding-pay-item .all-price-text .preferential-price {
+  display: inline-block;
+  line-height: 20px;
+  background: linear-gradient(-90deg, #FFE2A9, #FADC8C);
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #7A5231;
+  padding: 0 8px;
+  text-align: center;
+  margin-left: 8px;
 }
 
 .carding-pay-item .price-other {
@@ -1476,23 +1522,11 @@ body {
   position: relative;
 
   .carding-binding {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 50px;
+    margin-left: 241px;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
   }
-
-  // .btn-binging{
-  //   display: inline-block !important;
-  //   width: 48% !important;
-  // }
-  // .btn-binging:nth-child(1){
-  //   color: #F25125;
-  //   background:rgba(255,255,255,1);
-  //  border:1px solid rgba(242, 81, 37, 1);
-  //  border-radius:4px;
-  // }
-  // .btn-binging:nth-child(3){
-  //   display:none !important;
-  // }
 }

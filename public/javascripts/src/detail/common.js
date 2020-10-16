@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var pay_btn_tmp = require("./template/pay_btn_tmp.html");
     var pay_middle_tmp = require("./template/pay_middle_tmp.html");
     var pay_header_tmp = require("./template/pay_header.tmp.html");
-    // var changeText = require('./changeShowOverText.js').changeText
+   
     var userData = null;
  
     var pageConfig = window.pageConfig&&window.pageConfig 
@@ -13,7 +13,7 @@ define(function (require, exports, module) {
     // 页面信息
    // productType  1  4  5 
     var initData = {
-        fileDiscount:'0.8',
+        fileDiscount:'80',
         isDownload: pageConfig.page.isDownload,                   //仅在线阅读
         vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
         isVip: 0,                                                        //是否VIP
@@ -149,44 +149,14 @@ define(function (require, exports, module) {
     /**
      * 文件预览判断接口
      */
-    var filePreview = function () {
+    var filePreview = function (obj) {
         var validateIE9 = method.validateIE9() ? 1 : 0;
         var pageConfig = window.pageConfig;
         var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
-        // method.get(api.normalFileDetail.getPrePageInfo + params, function (res) {
-        //     if (res.code == 0) {
-        //         pageConfig.page.preRead = res.data&&res.data.preRead || 50;
-        //         var num = method.getParam('page');
-        //         if (num > 0) {
-        //             pageConfig.page.is360page = 'true';
-        //             pageConfig.page.initReadPage = Math.min(num, 50);
-        //         }
-        //         pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
-
-
-        //         // 修改继续阅读文案要判断是否购买过
-        //         // changeText(res.data.status)
-        //         if (pageConfig.params.file_state === '3') {
-        //             var content = res.data.url || pageConfig.imgUrl[0];
-        //             var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
-        //             var newimgUrl = [];
-        //             for (var key in bytes) {
-        //                 var page = bytes[key];
-        //                 var param = page[0] + '-' + page[1];
-        //                 var newUrl = method.changeURLPar(content, 'range', param);
-        //                 newimgUrl.push(newUrl);
-        //             }
-        //             pageConfig.imgUrl = newimgUrl;
-        //         }
-        //         //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
-        //         if (method.getCookie('cuk')) {
-        //             reloadingPartOfPage();
-        //         }
-        //         reSetOriginalPrice();
-        //     }
-        // })
-
         $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
             url: api.normalFileDetail.getPrePageInfo,
             type: "POST",
             data: JSON.stringify({
@@ -206,8 +176,11 @@ define(function (require, exports, module) {
                     pageConfig.page.status = initData.status = res.data&&res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
     
     
-                    // 修改继续阅读文案要判断是否购买过
-                    // changeText(res.data.status)
+                    // 修改继续阅读文案要判断是否购买过  
+                    if(initData.productType == '5' || initData.productType == '3'){
+                        window.changeText()
+                    }
+                
                     if (pageConfig.params.file_state === '3') {
                         var content = res.data.url || pageConfig.imgUrl[0];
                         var bytes = res.data.pinfo&&res.data.pinfo.bytes || {};
@@ -225,6 +198,14 @@ define(function (require, exports, module) {
                         reloadingPartOfPage();
                     }
                     reSetOriginalPrice();
+
+                    if(obj){ // js-buy-open
+                        if(res.data&&res.data.status == 2){
+                            window.downLoad ()
+                        } else{
+                           obj.callback(obj.type,obj.data)
+                        }
+                    }
                 }
             }
         })
@@ -237,14 +218,14 @@ define(function (require, exports, module) {
         userData: userData,
         beforeLogin: function () {
         },
-        afterLogin: function (data) {
+        afterLogin: function (data,obj) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
             initData.fileDiscount = data.fileDiscount
            window.pageConfig.page.fileDiscount = data.fileDiscount
             reloadHeader(data);
             // queryStoreFlag();
-            filePreview();
+            filePreview(obj);
         }
     }
 });
