@@ -39,6 +39,7 @@ module.exports = {
         }
         return async.series({
             list: function (callback) {
+                console.log('req.headers[user-agent]:',req.headers['user-agent'])
                 // picArr = [] // 清空保存的上一个蜘蛛模板的图片
                 id = req.params.id.replace('-nbhh','')
                 fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
@@ -57,6 +58,7 @@ module.exports = {
                 request(opt, function (err, res1, body) {
                     // console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
+                        try{
                         var data = JSON.parse(body);
                         console.log('请求地址post-------------------:',opt.url)
                         console.log('请求参数-------------------:', opt.body)
@@ -94,6 +96,11 @@ module.exports = {
                                 return
                             }
                             callback(null, null);
+                        }
+                        } catch (err) {
+                            console.log('详情页数据error')
+                            callback(null, null);
+                            console.log("err=============", err)
                         }
                     } else {
                         callback(null, null);
@@ -316,15 +323,15 @@ module.exports = {
                 txt:'记事本',
                 pdf:'在线阅读'
             }
-            if(results.list.data && results.list.data.fileInfo) {
+            if(results.list&&results.list.data && results.list.data.fileInfo) {
                 results.list.data.fileInfo.readTool = readTool;
                 results.list.data.fileInfo.moduleType = moduleType;
             }
             
             //对正文进行处理
-            var textString =  results.fileDetailTxt.data||'';
+            var textString =  results.fileDetailTxt&&results.fileDetailTxt.data||'';
             // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
-            var picArr = results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList
+            var picArr = results.list&&results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList || ''
             if(picArr&&picArr.length>6) {
                  picArr = picArr.slice(0,6)
             }

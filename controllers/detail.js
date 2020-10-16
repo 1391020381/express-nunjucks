@@ -34,7 +34,7 @@ module.exports = {
         var _index = {
              // 查询是否重定向
              redirectUrl:function(callback) {
-                 console.log('req.headersuser-agent', req.headers['user-agent'])
+                 
                 var opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.file.redirectUrl,
@@ -480,7 +480,7 @@ module.exports = {
             
              var results = Object.assign({},results,{list:list})
             var svgPathList = results.list.data.svgPathList;
-            results.list.data.supportSvg = ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1;
+            results.list.data.supportSvg = req.headers['user-agent']?['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1:false;
             results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
             results.crumbList.data.isGetClassType = isGetClassType || 0;
             getInitPage(req, results);
