@@ -111,7 +111,11 @@ app.use('/', router);
 
 
 app.use(function (err, req, res, next) {
-    if (appConfig.env === 'dev'||appConfig.env === 'test') {
+    if(res.headersSent){
+        return next(err)
+    }
+    if (appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
+        console.log(err.message)
         res.status(err.status || 500);
         res.send({
             status: 0,
@@ -119,11 +123,16 @@ app.use(function (err, req, res, next) {
             error: err
         })
     }else{
-        log4js.info(err);
+        log4js.info(err.message);
+        res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
 });
 
-
+process.on('uncaughtException',(err)=>{
+    console.log('uncaughtException:',err.message)
+    process.exit(1)
+    
+})
 
 module.exports = app;

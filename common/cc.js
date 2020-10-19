@@ -3,6 +3,7 @@ module.exports = function callBackCatch(callback){
         try{
             await callback(req,res,next)
         }catch(e){
+            console.log(e.message)
             next(e)
         }
     }

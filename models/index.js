@@ -88,16 +88,16 @@ module.exports = {
             var opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
+                // console.log('$http---------:',opt.url,error,body)
+                let is4paradigm = opt.url.includes('https://nbrecsys.4paradigm.com/')
                 if (body) {
                     try {
                         var data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if(data.code==='G-500'){
-                            console.error(data);
-                            res.redirect('/node/404.html')
-                            return
+                        if(data.code!='0'&&!is4paradigm){
+                            reject(body)
                         }else{
                             resolve(data)   
                         }
@@ -106,7 +106,7 @@ module.exports = {
                         reject(err)
                     }
                 } else {
-                    reject()
+                    reject(body)
                 }
             })
         })
