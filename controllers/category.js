@@ -93,7 +93,7 @@ var list = function (req) {
             server.post(appConfig.apiNewBaselPath+api.category.list, callback, req);
         },
         tdk:function(callback){
-            server.get(appConfig.newBasePath + api.tdk.getTdkByUrl.replace(/\$url/, '/c/'+categoryId+'.html'), callback, req);
+            server.get(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/c/'+categoryId+'.html'), callback, req);
         },
         words: function (callback) {
             let params= {
