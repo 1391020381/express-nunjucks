@@ -97,12 +97,13 @@ module.exports = {
                             data = JSON.parse(body);
                         }
                         if(data.code!='0'&&!is4paradigm){
+                            console.log('$http---------:',opt.url,error,body)
                             reject(body)
                         }else{
                             resolve(data)   
                         }
                     } catch (err) {
-                        console.error(err);
+                        console.log('$http---------:',opt.url,err,body)
                         reject(err)
                     }
                 } else {
