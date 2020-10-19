@@ -1,41 +1,30 @@
 /**
  * @Description: 详情页
  */
-var async = require("async");
-var render = require("../common/render");
-var server = require("../models/index");
-var util = require('../common/util');
+const async = require("async");
+const render = require("../common/render");
+const server = require("../models/index");
+const util = require('../common/util');
 const cc = require('../common/cc')
-var recommendConfigInfo = require('../common/recommendConfigInfo')
-var Api = require("../api/api");
-var request = require('request');
-var appConfig = require("../config/app-config");
-var fid = null;
+const recommendConfigInfo = require('../common/recommendConfigInfo')
+const Api = require("../api/api");
+const appConfig = require("../config/app-config");
 
-var classId = null;
-var title = null;
-var spcClassId = null;
-var isGetClassType = null;
-
-var format = '';
-var classid1 = '';
-var classid2 = ''
-var perMin = '';
-var productType = ''
-var userID = Math.random().toString().slice(-15); //标注用户的ID，
-var sceneIDRelevant = ''; //场景的ID
-var sceneIDGuess = ''; //场景的ID
-var recommendInfoData_rele = {}; //相关推荐数据 (相关资料)
-var recommendInfoData_guess = {}; //个性化数据(猜你喜欢)
-var requestID_rele = '';  //  相关推荐数据 (相关资料)requestID
-var requestID_guess = '';  //  个性化数据(猜你喜欢) requestID
-var defaultResultsData = {recommendInfoData_rele:{},recommendInfoData_guess:{},paradigm4Guess:{},paradigm4Relevant:{},list:{data:{svgFlag:true,supportSvg:true,fileContentList:[],svgPathList:[],isDownload:'no'}}} // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = {recommendInfoData_rele:{},recommendInfoData_guess:{},paradigm4Guess:{},paradigm4Relevant:{},list:{data:{svgFlag:true,supportSvg:true,fileContentList:[],svgPathList:[],isDownload:'no'}}} // 确保私有 删除  404 显示用户信息 用户可以登录
 
 render = cc(async(req,res)=>{
     console.log('render-------------------------------------------')
+    let userID = Math.random().toString().slice(-15); //标注用户的ID，
     const flag = req.params.id.includes('-nbhh')
     const redirectUrl = await getRedirectUrl(req,res) 
     const list   =  await getList(req,res)
+    userID = list.fileInfo.uid&&fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
+    const topBannerList = await getTopBannerList(req,res)
+    const searchBannerList = await getSearchBannerList(req,res)
+    const bannerList = await getBannerList(req,res)
+    const crumbList  = await getCrumbList(req,res)
+    const recommendInfo = await getRecommendInfo(req,res) 
+    const paradigm4Relevant = await getParadigm4Relevant(req,res)
     console.log('redirectUrl:',JSON.stringify(redirectUrl),'list:',JSON.stringify(list))
 })
 
@@ -59,6 +48,120 @@ function getList(req,res){
         sourceType: 0
     }
    return server.$http(appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,'post', req,res,true)
+}
+function getTopBannerList(req,res){
+    req.body = recommendConfigInfo.details.topBanner.pageId
+    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo,'post', req,res,true)
+}
+
+function getSearchBannerList(req,res){
+    req.body =  recommendConfigInfo.details.searchBanner.pageId
+    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo,'post', req,res,true)
+}
+
+function getBannerList(req,res){
+    let format = list.data.fileInfo.format
+    let classid1 = list.data.fileInfo.classid1
+    let classid2 = list.data.fileInfo.classid2
+    req.body =  dealParam(format,classid1,classid2)
+    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo,'post', req,res,true)
+}
+
+function getCrumbList(req,res){
+    let classId = list.fileInfo.classId
+    let spcClassId = list.fileInfo.spcClassId
+    let isGetClassType = list.fileInfo.isGetClassType
+    req.body = {
+        classId: classId,
+        spcClassId: spcClassId,  
+        isGetClassType: isGetClassType
+      }
+    return server.$http(appConfig.apiNewBaselPath + Api.file.navCategory,'post', req,res,true)
+}
+
+function getRecommendInfo(req,res){
+        const productType = list.fileInfo.productType
+        const classid1 = list.fileInfo.classid1
+
+        // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
+        if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+              //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
+              const pageIdsConfig_jy_rele = {
+                'doc': 'doc_jy_20200220_001',
+                'txt': 'doc_jy_20200220_001',
+                'pdf': 'doc_jy_20200220_001',
+                'xls': 'xls_jy_20200220_001',
+                'ppt': 'ppt_jy_20200220_001',
+            }
+
+            //个性化推荐 教育类型
+            const pageIdsConfig_jy_guess = {
+                'doc': 'doc_jy_20200220_002',
+                'txt': 'doc_jy_20200220_002',
+                'pdf': 'doc_jy_20200220_002',
+                'xls': 'xls_jy_20200220_002',
+                'ppt': 'ppt_jy_20200220_002',
+            }
+                   //关联推荐(相关资料)
+            const rele_pageId = pageIdsConfig_jy_rele[format];
+                   //个性化推荐(猜你喜欢)
+            const guess_pageId = pageIdsConfig_jy_guess[format];
+            let pageIds = [];
+            switch (classid1) {
+                case '1816': // 教育类
+                    pageIds = [rele_pageId, guess_pageId];
+                    break;
+                case '1820': // 专业资料
+                    pageIds = [rele_pageId.replace('jy', 'zyzl'), guess_pageId.replace('jy', 'zyzl')];
+                    break;
+                case '1821': // 经济管理
+                    pageIds = [rele_pageId.replace('jy', 'jjgl'), guess_pageId.replace('jy', 'jjgl')];
+                    break;
+                case '1819': // 生活休闲
+                    pageIds = [rele_pageId.replace('jy', 'shxx'), guess_pageId.replace('jy', 'shxx')];
+                    break;
+                case '1818': // 办公频道  1818  生产预发环境。测试开发环境8038 
+                    pageIds = [rele_pageId.replace('jy', 'zzbg'), guess_pageId.replace('jy', 'zzbg')];
+                    break;
+                default:
+            }
+            req.body = pageIds
+            // '/gateway/recommend/config/info' 
+            return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo,'post', req,res,true) 
+        }else{
+            return null
+        }    
+   
+}
+
+function getParadigm4Relevant(req,res){
+    let requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+    let recommendInfoData_rele = recommendInfo.data[0] || {} //相关资料
+    
+    if(recommendInfoData_rele.useId){
+       let sceneIDRelevant = recommendInfoData_rele.useId || '';
+       req.body = { "itemID": list.fileInfo.fid, "itemTitle": title }
+      
+       let url = `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`
+       return server.$http(url,'post', req,res,true)
+    }else{
+        return null
+    }
+}
+
+function getParadigm4Guess(req,res){
+    let recommendInfoData_guess = recommendInfo.data[1] || {}; // 个性化 猜你喜欢
+    let requestID_guess = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+    if (recommendInfoData_guess.useId) {
+        let sceneIDGuess = recommendInfoData_guess.useId || '';
+        req.body = { "itemID": fid, "itemTitle": title }
+        let url = `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_guess}&sceneID=${sceneIDGuess}&userID=${userID}`
+    }else{
+        return null
+    }
+}
+function getFilePreview(req,res){
+    
 }
 
 // 初始页数 计算页数,去缓存
@@ -104,6 +207,8 @@ function getInitPage(req, results) {
         results.filePreview.data.initReadPage = initReadPage;
     }
 }
+
+
 
 // 修改参数 有参数则修改 无则加
 function changeURLPar(url, arg, arg_val) {
