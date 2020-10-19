@@ -22,7 +22,7 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath+api.index.recommendList, callback, req);
             },
             tdk:function(callback){
-                server.get(appConfig.newBasePath +api.tdk.getTdkByUrl.replace(/\$url/, '/'), callback, req);
+                server.get(appConfig.apiNewBaselPath +api.tdk.getTdkByUrl.replace(/\$url/, '/'), callback, req);
             },
              //第四范式 相关推荐
              paradigm4Relevant: function (callback) {
