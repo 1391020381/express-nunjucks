@@ -44,7 +44,7 @@ var helper = require('./helper/helper')(env);
 // set favicon.ico
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 
-
+//本地开发环境反向代理
 
 let  restream = function(proxyReq, req, res, options) {
     if (req.body) {
@@ -106,7 +106,7 @@ app.use(function (req, res, next) {
 //首页
 app.use('/', router);
 
-// //本地开发环境反向代理
+
 
 
 
