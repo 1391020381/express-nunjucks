@@ -208,6 +208,7 @@
 .personal-center-vip .my-vip-bottom .table {
   margin-top: 30px;
   width: 100%;
+  position: relative;
 }
 .personal-center-vip .my-vip-bottom .table .table-head th {
   padding-bottom: 18px;

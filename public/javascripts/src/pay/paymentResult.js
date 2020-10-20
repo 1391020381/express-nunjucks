@@ -10,7 +10,7 @@ define(function(require , exports , module){
     var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
   
     getOrderInfo()
-   // require('./go2MinApp')
+   
   
     function getOrderInfo(){
         $.ajax({

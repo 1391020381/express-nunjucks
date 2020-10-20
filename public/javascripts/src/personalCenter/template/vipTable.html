@@ -2,6 +2,7 @@
           <ul class="myvip-tabs" >
            <li class="{{vipTableType == '0'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=0">我的下载特权</a></li>
            <li  class="{{vipTableType == '1'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=1">会员充值记录</a></li>
+           <li  class="{{vipTableType == '2'?'tab tab-active':'tab'}}"><a href="/node/personalCenter/vip.html?vipTableType=2">管理自动续费</a></li>
         </ul>  
 
 
@@ -128,5 +129,78 @@
               </table>
          {{/if}}
          
+
+         {{if vipTableType == '2'}}
+               <table class="privilege-table table" style="position: relative;">
+                      <tr class="privilege-table-title table-head">
+                         <th style="width:150px;">
+                                  <span>使用范围</span>
+                                  <span style="display:block;text-indent: 18px;color: #fff;">（元）</span>
+                         </th>
+                         <th style="width:100px;">
+                                <span>续费套餐</span>
+                                  <span style="display:block;text-indent: 18px;color: #fff;">（元）</span>
+                         </th>
+                         <th style="width:100px;">
+                               <span>续费金额</span>  
+                               <span style="display:block;">（元）</span>  
+                         </th>
+                        <th style="width:100px;">
+                                <span>扣款日期</span>
+                               
+                        </th>
+                        <th style="width:100px;">
+                            <span>支付方式</span>
+                             <span style="display:block;text-indent: 18px;color: #fff;">（元）</span>
+                        </th>
+                        <th style="width:100px;">
+                                <span>管理</span>
+                                 <span style="display:block;text-indent: 18px;color: #fff;">（元）</span>
+                        </th>
+                 </tr> 
+                 {{ if list.length>0}}
+                        {{each list}}
+                       <tr>
+                             <td class="td-text">
+                                {{if list[$index].site  == '0'}}
+                                        <span>爱问办公</span>                                        
+                                {{/if}}
+
+                                {{if list[$index].site =='3'}}
+                                        <span>爱问办公;爱问共享资料</span>
+                                {{/if}}
+
+                                {{if list[$index].site == '4'}}
+                                        <span>爱问共享资料</span>
+                                {{/if}}
+                               </td> 
+
+                               <td>{{list[$index].goodName}}</td>
+                               <td>{{list[$index].price}}</td>
+                               <td>{{list[$index].nextPayTime}}</td>
+                               <td>
+                                     {{ if list[$index].payType == 'ali'}}
+                                         <span>支付宝</span>
+                                     {{/if}}
+                                     {{ if list[$index].payType == 'wechat'}}
+                                         <span>支付宝</span>
+                                     {{/if}}
+                               </td>
+                               <td>
+                                     <span data-id={{list[$index].id}} class="renew-btn" style=" color: #333333;cursor: pointer;">自动续费</span>
+                               </td>
+                       </tr> 
+                      {{/each}}
+                 {{else}}
+                        <tr class="empty-data" style=" top: 88px;margin-left: -120px;">
+                             <td>
+                                <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
+                                <p class="empty-desc">您当前未开通自动续费服务～</p>
+                             </td>
+                         </tr>
+                 {{/if}}
+               
+               </table>
+         {{/if}}
  
 </div>
