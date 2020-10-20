@@ -253,16 +253,7 @@ define(function(require, exports, moudle) {
         vipMemberId: '' //权益套餐ID
     };
 
-    //从详情页进入vip所需要来源
-    // if (method.getParam("remark") === "office") { 
-    //     params.remark = "office";
-    //     window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
-    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";
-    // } else {
-    //     params.remark = "other";
-    //     window.pageConfig.gio.reportVipData.channelName_var = "其他";
-    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "其他";
-    // }
+   
 
     if (method.getParam("ref")) {
         params.ref = utils.getPageRef(fid);
@@ -278,10 +269,10 @@ define(function(require, exports, moudle) {
         var mark = $(this).data('type');
         var type = params.type
         if (type == 10) { // mark == 'vip'
-            // window.open('/pay/vip.html' + params);
+         
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
         } else if (type == '13') { // mark == 'privilege'
-            // window.open('/pay/privilege.html' + params);
+           
             method.compatibleIESkip('/pay/privilege.html' + urlQuery, true);
         } else if (type == '8') {
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
@@ -373,7 +364,7 @@ define(function(require, exports, moudle) {
         e && e.preventDefault();
         //是否登录
         if (!method.getCookie('cuk')) {
-            // $(".js-login").click();
+           
             $("#unLogin").click();
             return;
         }
@@ -441,18 +432,7 @@ define(function(require, exports, moudle) {
         _MEIQIA('init');
     });
 
-    var clickPay = function(checkStatus) {
-        // params.isVip = window.pageConfig.params.isVip;
-        // params.isVip = userInfo.isVip    // 在用户信息里面获取
-        // if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
-        //     if (params.isVip == '2') {//判断vip状态
-        //         utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
-        //         return;
-        //     } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
-        //         utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
-        //         return;
-        //     }
-        // }
+    var clickPay = function() {
         handleOrderResultInfo();
     };
 
@@ -476,7 +456,7 @@ define(function(require, exports, moudle) {
             goodsId = params.pid
         }
         // 组装创建订单的参数
-        var temp = { //  params.vouchersId = $('.pay-coupon-wrap').attr('vid')params.suvid = $('.pay-coupon-wrap').attr('svuid')
+        var temp = { //  
             aid: params.aid,
             goodsId: goodsId, // 文件id  vip套餐id
             goodsType: goodsType, // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
@@ -515,17 +495,7 @@ define(function(require, exports, moudle) {
         })
 
 
-        // $.post('/pay/order?ts=' + new Date().getTime(), params, function (data, status) {
-        //     if (data && data.code == '0') {
-        //         console.log("下单返回的数据：" + data);
-        //         data['remark'] = params.remark;
-        //         openWin(data);
-        //     } else {
-        //         // __pc__.push(['pcTrackEvent','orderFail']);
-        //         $(".btn-vip-order-fail").click();
-        //         utils.showAlertDialog("温馨提示", '下单失败');
-        //     }
-        // });
+        
     }
 
     /**
@@ -541,26 +511,26 @@ define(function(require, exports, moudle) {
             fileId = fid;
         }
 
-        //(orderNo, name, price * 100, '二维码合一', type);
+   
         var target = "/pay/payQr.html?"; //   0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         if (type == 10) { // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买             
-            // target = target + "type=0&";
+           
             target = target + "type=10&";
-            // report.vipPayClick(window.pageConfig.gio.reportVipData);
+          
             $(".btn-vip-order-done").click();
-            // __pc__.push(['pcTrackEvent','orderDone']);
+            
         } else if (type == 13) {
-            // target = target + "type=1&";
+           
             target = target + "type=13&";
-            //  report.privilegePayClick(window.pageConfig.gio.reportPrivilegeData);
+            
         } else if (type == 8) {
-            // target = target + "type=2&";
+           
             target = target + "type=8&";
             var rf = method.getCookie('rf');
             if (rf) {
                 rf = JSON.parse(rf);
                 rf.orderId_var = orderNo;
-                // report.filePayClick(rf);
+               
             }
         }
         if (method.getParam('fid')) {
@@ -569,7 +539,7 @@ define(function(require, exports, moudle) {
             fileId = pageConfig.params.g_fileId;
         }
         method.delCookie("br", "/");
-        // window.location.href = target+"orderNo=" + orderNo + "&fid=" + fileId;
+      
         method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId, false);
     }
 

@@ -568,6 +568,14 @@
                 <!-- 赠送文案 -->
                 <div class="gift-copy">{{results.list.data[0].giveDesc}}</div>
                 {# <div class="gift-copy">使用范围：仅限爱问共享资料站，不适用于其他垂直频道</div> #}
+                <!-- 续费单选框 -->
+                <div class="renewal-radio">
+                    <label for="renewal" class="renewal-label">
+                        <input id="renewal" type="checkbox" name="renewal"/>
+                        <span class="renewal-icon"></span>
+                        <span class="renewal-desc">开通自动续费，首月XX元，可随时取消</span>
+                    </label>
+                </div>
                 <!-- 优惠券 -->
                 {% include "common/couponOperate.html" %}
             </div>

@@ -1530,3 +1530,32 @@ body {
     // transform: translate(-50%, -50%);
   }
 }
+.renewal-radio{ // /pay/vip.html 续费
+  margin-top:13px;
+  input{
+    display: none;
+  }
+  .renewal-label{
+    input+.renewal-icon{
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+        background: url(../../images/pay/renewal-radio.png) no-repeat center;
+        background-size: 100%;
+    }
+    input:checked + .renewal-icon{
+      background: url(../../images/pay/renewal-checked-radio.png) no-repeat center;
+      background-size: 100%;
+    }
+    .renewal-desc{
+       margin-left:6px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+  }
+  
+}
+.pay-coupon-wrap{
+  margin-top:16px;
+}

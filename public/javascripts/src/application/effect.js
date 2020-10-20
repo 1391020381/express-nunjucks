@@ -65,45 +65,6 @@ define(function (require, exports, module) {
     var refreshTopBar = function (data) {
         var $unLogin = $('#unLogin');
         var $hasLogin = $('#haveLogin');
-        var $btn_user_more = $('.btn-user-more');
-        var $vip_status = $('.vip-status');
-       
-        var $top_user_more = $(".top-user-more");
-
-    
-
-
-        // $btn_user_more.text(data.isVip == 1 ? '续费' : '开通');
-        // var $target = null;
-
-        //VIP专享资料
-        // if (method.getCookie('file_state') === '6') {
-        //     $('.vip-title').eq(0).show();
-        // }
-
-        //vip
-        // if (data.isVip == 1) {
-        //     $target = $vip_status.find('p[data-type="2"]');
-        //     $target.find('.expire_time').html(data.expireTime);
-        //     $target.show().siblings().hide();
-        //     $top_user_more.addClass('top-vip-more');
-        //     $('.isVip-show').find('span').html(data.expireTime);
-        //     $('.isVip-show').removeClass('hide');
-        //     $('.vip-privilege-btn').html('立即续费')
-        //     //vip 已经 过期
-        // } else if (data.userType == 1) {
-        //     $target = $vip_status.find('p[data-type="3"]');
-        //     $hasLogin.removeClass("user-con-vip");
-        //     $target.show().siblings().hide();
-        //     // 新用户
-        // } else if (data.isVip == 0) {
-        //     $hasLogin.removeClass("user-con-vip");
-        //     // 续费vip
-        // } else if (data.isVip == 2) {
-        //     console.log('data.isVip:',data.isVip)
-        //     // $('.vip-title').hide();
-        // }
-        
         $unLogin.hide();
         $hasLogin.find('.user-link .user-name').html(data.nickName);
         $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
@@ -167,7 +128,6 @@ define(function (require, exports, module) {
             });
         }else if(method.getCookie('cuk')){
             checkLogin.getLoginData(function (data) {
-                // callback2&&callback2()
                 callback&&callback(data)
                 refreshTopBar(data);
             });

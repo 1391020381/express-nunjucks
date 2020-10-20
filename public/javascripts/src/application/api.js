@@ -71,6 +71,7 @@ define(function (require, exports, module) {
             queryUsing:gateway + '/rights/sale/queryUsing',
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
             getBuyRecord:gateway + '/rights/vip/getBuyRecord',
+            getSpecialUserIds:gateway + '/special/userIds'
         },
         order:{
           
