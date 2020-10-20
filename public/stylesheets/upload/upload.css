@@ -1263,3 +1263,25 @@ i {
   position: absolute;
   overflow: hidden;
 }
+.upload-banner {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.upload-banner .myUploadBannber-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 90px;
+  border-radius: 4px;
+  position: relative;
+}
+.upload-banner .myUploadBannber-container .swiper-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.upload-banner .myUploadBannber-container .swiper-slide-img {
+  width: 100%;
+  height: 90px;
+}
