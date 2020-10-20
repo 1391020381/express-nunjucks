@@ -258,7 +258,8 @@ define(function (require, exports, module) {
             data: JSON.stringify({
                 batchNo:id,
                 email: email,
-                sellerId:userInfo.id
+                sellerId:userInfo.id,
+                limit:1
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
