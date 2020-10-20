@@ -18,9 +18,58 @@ const renderPage = cc(async(req,res)=>{
     let userID = Math.random().toString().slice(-15); //标注用户的ID，
     const flag = req.params.id.includes('-nbhh')
     const redirectUrl = await getRedirectUrl(req,res) 
+
+    if (redirectUrl.data) { 
+        if(redirectUrl.data.targetLink) {
+            var  url =redirectUrl.data.type ==1? req.protocol+'://'+redirectUrl.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+redirectUrl.data.targetLink+'.html';
+            res.redirect(url);
+        }
+    }
     const list   =  await getList(req,res)
-    
-    userID = list.data.fileInfo.uid&&list.data.fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
+    if(list.code == 'G-404'){ // 文件不存在
+        var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404',isDetailRender:true})
+        res.status(404)
+        render("detail/index", results, req, res);
+        return
+    }
+    if(list.data){
+        userID = list.data.fileInfo.uid&&list.data.fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
+        let uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
+        let cuk = req.cookies.cuk
+        let data = list.data;
+        let fileInfo = data.fileInfo
+        if(fileInfo.site == 0){
+            // 跳转到办公携带参数修改
+         
+            var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
+            res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
+            return
+        }
+        if(fileInfo.showflag !=='y'){ // 文件删除
+            var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+            var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404',isDetailRender:true},defaultResultsData) 
+            res.status(404)
+            render("detail/index", results, req, res);
+            return
+        }
+        if(fileInfo.productType == 6){
+            if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ 
+         
+            }else{
+           var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+           var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302',isDetailRender:true},defaultResultsData)
+           res.status(302)
+           render("detail/index", results, req, res);
+           return   
+            }
+        }
+
+       
+    }
+
+
+
+
     const topBannerList = await getTopBannerList(req,res)
     const searchBannerList = await getSearchBannerList(req,res)
     const bannerList = await getBannerList(req,res,list)
@@ -182,51 +231,7 @@ function getFilePreview(req,res,list){
 
 function handleDetalData(req,res,redirectUrl,list,topBannerList,searchBannerList,bannerListData,recommendInfo,paradigm4Relevant,paradigm4Guess,filePreview,crumbList,userID){
     
-    if (redirectUrl.data) { 
-        if(redirectUrl.data.targetLink) {
-            var  url =redirectUrl.data.type ==1? req.protocol+'://'+redirectUrl.data.targetLink:req.protocol+'://'+req.hostname+'/f/'+redirectUrl.data.targetLink+'.html';
-            res.redirect(url);
-        }
-    }
-    if(list.data){
-        let uid = req.cookies.ui?JSON.parse(req.cookies.ui).uid:''
-        let cuk = req.cookies.cuk
-        let data = list.data;
-        let fileInfo = data.fileInfo
-      
-        if(fileInfo.site == 0){
-            // 跳转到办公携带参数修改
-         
-            var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-            res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?`+officeParams);
-            return
-        }
-        if(fileInfo.showflag !=='y'){ // 文件删除
-            var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-            var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404',isDetailRender:true},defaultResultsData) 
-            res.status(404)
-            render("detail/index", results, req, res);
-            return
-        }
-        if(fileInfo.productType == 6){
-            if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ 
-         
-            }else{
-           var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
-           var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302',isDetailRender:true},defaultResultsData)
-           res.status(302)
-           render("detail/index", results, req, res);
-           return   
-            }
-        }
-
-        if(list.code == 'G-404'){ // 文件不存在
-            var results = Object.assign({},defaultResultsData,{showFlag:false,statusCode:'404',isDetailRender:true})
-            res.status(404)
-            render("detail/index", results, req, res);
-            return
-        }
-    }
+   
 
     if(topBannerList.data){
         if(req.cookies.isHideDetailTopbanner){

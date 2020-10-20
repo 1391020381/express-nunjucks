@@ -15,6 +15,19 @@ const renderPage = cc(async(req,res,next)=>{
     let id = req.params.id.replace('-nbhh','')
     let fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
     const list = await getList(req,res,id)
+    if(list.code == 'G-404'){ // 文件不存在
+        var results = {showFlag:false}
+        res.status(404)
+        render("detail/index", results, req, res);
+        return
+    }
+    if(list.data.fileInfo.showflag !=='y'){ // 文件删除
+        var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+        var results = {showFlag:false,searchQuery,statusCode:'404'}
+        res.status(404)
+        render("detail/index", results, req, res);
+        return
+    }
     const crumbList = await getCrumbList(req,res,list)
     const editorInfo = await getEditorInfo(req,res,list)
     const fileDetailTxt = await getFileDetailTxt(req,res)
@@ -196,6 +209,7 @@ function getHotRecData(req,res){
 }
 
 function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recommendInfo,paradigm4Relevant,hotpotSearch,hotTopicSearch,hotTopicSeo,newsRec,hotRecData,type,fileurl}){
+    
     let results = Object.assign({},{list,crumbList,editorInfo,fileDetailTxt,recommendInfo,paradigm4Relevant,hotpotSearch,hotTopicSearch,hotTopicSeo,newsRec,hotRecData})
     
       // doc对应Word、ppt对应PowerPoint、xls对应Excel、txt对应记事本、pdf对应PDF阅读器

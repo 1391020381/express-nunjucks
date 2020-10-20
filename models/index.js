@@ -90,13 +90,14 @@ module.exports = {
             request(opt, (error, response, body) => {
                 // console.log('$http---------:',opt.url,error,body)
                 let is4paradigm = opt.url.includes('https://nbrecsys.4paradigm.com/')
+                let isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk')
                 if (body) {
                     try {
                         var data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if(data.code!='0'&&!is4paradigm){
+                        if(data.code!='0'&&!is4paradigm&!isGetFileDetailNoTdk){
                             console.log('$http---------:',opt.url,error,body)
                             reject(body)
                         }else{
