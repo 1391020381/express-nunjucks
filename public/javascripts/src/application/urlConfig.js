@@ -13,7 +13,7 @@ define(function (require, exports, module) {
         },
         local: {
             ajaxUrl: '',
-            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            payUrl: 'http://test-open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',

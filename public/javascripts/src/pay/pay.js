@@ -39,7 +39,7 @@ define(function(require, exports, moudle) {
     require("../common/coupon/couponIssue");
     //生成二维码
     function initPage(userInfo) {
-       
+        console.log('userInfo: ', userInfo);
         window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
         if(userInfo.isVip == 1){
             $('.isVip-show').find('span').html(userInfo.expireTime);

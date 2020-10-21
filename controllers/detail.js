@@ -528,8 +528,8 @@ module.exports = {
          
             results.isDetailRender = true
 
-           
-            if(results.list.data&&results.list.data.abTest ){
+            // console.log('详情页面数据：' + JSON.stringify(results))             
+            if(results.list.data && results.list.data.abTest ){
                 render("detail-b/index", results, req, res);
             }else{
                 render("detail/index", results, req, res);
