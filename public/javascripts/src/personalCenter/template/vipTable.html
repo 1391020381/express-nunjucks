@@ -60,7 +60,7 @@
 
                                <td class="td-text">
                                 {{if list[$index].site  == '0'}}
-                                        <span>爱问办公</span>                                        
+                                        <span><a href={{list[$index].officeUrl}} target="_blank">爱问办公</a></span>                                        
                                 {{/if}}
 
                                 {{if list[$index].site =='3'}}
@@ -68,7 +68,10 @@
                                 {{/if}}
 
                                 {{if list[$index].site == '4'}}
-                                        <span>爱问共享资料</span>
+                                        <span><a href='/' target="_blank">爱问共享资料</a></span>
+                                {{/if}}
+                                {{if list[$index].site == '5'}}
+                                        <span><a href={{list[$index].ejunshi}} target="_blank">超级合同</a></span>
                                 {{/if}}
                                </td> 
                      </tr> 
@@ -122,6 +125,9 @@
                                        {{if list[$index].site == '4'}}
                                         <span>爱问共享资料</span>
                                       {{/if}} 
+                                      {{if list[$index].site == '5'}}
+                                        <span>超级合同</span>
+                                      {{/if}}
                                     </td>
                                     <td class="td-text">{{list[$index].memberContent}}</td>
                                    </tr>

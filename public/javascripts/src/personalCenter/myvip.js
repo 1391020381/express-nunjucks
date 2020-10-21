@@ -12,6 +12,7 @@ define(function(require , exports , module){
     var api = require('../application/api');
     var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
+    var urlConfig = require('../application/urlConfig')
     var userInfoValue = {}
     if(type == 'myvip'){
         isLogin(initData,true)
@@ -69,6 +70,8 @@ define(function(require , exports , module){
                         var effectiveEndDate =   new Date(item.effectiveEndDate).format("yyyy-MM-dd")
                         item.effectiveStartDate = effectiveStartDate
                         item.effectiveEndDate = effectiveEndDate
+                        item.officeUrl = urlConfig.officeUrl
+                        item.ejunshi = urlConfig.ejunshi
                         list.push(item)
                     })
                     
