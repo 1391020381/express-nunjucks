@@ -42,6 +42,14 @@ body {
   color: #222222;
   font-weight: bold;
 }
+.payment .payment-info {
+  font-size: 0.3rem;
+  font-weight: 400;
+  color: #666666;
+  line-height: 0.45rem;
+  text-align: center;
+  margin-top: 0.5rem;
+} 
 .payment .order-list {
   margin-top: 0.66rem;
   display: flex;

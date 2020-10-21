@@ -10,11 +10,12 @@
         </div>
     {%else%}
             <!-- VIP文档.results.list.data.productType-->
-            {% if results.list.data.productType == 4%}
+            {% if results.list.data.productType == "4" %}
                 <div class="data-item fl">
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
                 </div>
                 <div class="integral-con fr">
+                   <span style="float:left;margin-right:15px;">{{ results.list.data.productPrice }}个下载特权</span>
                    <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
             {%else%}
