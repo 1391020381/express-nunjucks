@@ -3,6 +3,7 @@
 define(function(require , exports , module){
     var type = window.pageConfig&&window.pageConfig.page.type
     var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
+    var closeRewardPop = require("./dialog.js").closeRewardPop
     var method = require("../application/method"); 
     var bannerTemplate = require("../common/template/swiper_tmp.html");
     var vipPrivilegeList = require("./template/vipPrivilegeList.html")
@@ -37,8 +38,10 @@ define(function(require , exports , module){
         getMyVipRightsList()
         if(vipTableType == '0'){
             getMemberPointRecord()
-        }else{
+        }else if(vipTableType == '1'){
             getBuyRecord() 
+        }else if(vipTableType == '2'){
+            getBuyAutoRenewList()
         }
     }
     function getMemberPointRecord(currentPage){  // 查询用户特权等记录流水
@@ -129,6 +132,50 @@ define(function(require , exports , module){
         })
     }
 
+    function getBuyAutoRenewList(currentPage){ // 查询用户自动续费列表
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+              },
+            url: 'http://yapi.ishare.iasktest.com/mock/107/buy/autoRenewList'||api.pay.getBuyAutoRenewList,
+            type: "POST",
+            data: JSON.stringify({
+                currentPage:currentPage||1,
+                pageSize:20,
+                userId:userInfoValue.userId
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    console.log('getBuyAutoRenewList:',res)  
+                  var vipTable = require('./template/vipTable.html')
+                  var vipTableType = window.pageConfig.page&&window.pageConfig.page.vipTableType || 0
+                  var list = res.data&&res.data.rows || []
+
+                //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice 
+                var list =  []
+                $(res.data.rows).each(function(index,item){
+                    item.nextPayTime =   new Date(item.nextPayTime).format("yyyy-MM-dd")
+                    item.price = item.price ? (item.price / 100).toFixed(2) : 0
+                    list.push(item)
+                })
+                  var _vipTableTemplate = template.compile(vipTable)({list:list,vipTableType:vipTableType});
+                   $(".vip-table-wrapper").html(_vipTableTemplate) 
+                    handlePagination(res.data.totalPages,res.data.currentPage)  
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+               }
+            },
+            error:function(error){
+                console.log('getBuyRecord:',error)
+            }
+        })
+    }
+
     function handlePagination(totalPages,currentPage){
         var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:currentPage});
         $(".pagination-wrapper").html(_simplePaginationTemplate)
@@ -139,8 +186,10 @@ define(function(require , exports , module){
             }
             if(vipTableType == '0'){
                 getMemberPointRecord(paginationCurrentPage)
-            }else{
+            }else if(vipTableType == '1'){
                 getBuyRecord(paginationCurrentPage)
+            }else if(vipTableType=='2'){
+                getBuyAutoRenewList(paginationCurrentPage)
             }
         })
     }
@@ -212,8 +261,49 @@ define(function(require , exports , module){
             }
         })
     }
-
+    function cancelAutoRenew(id){
+        $.ajax({
+            headers:{
+                'Authrization':method.getCookie('cuk')
+            },
+            url: api.pay.cancelAutoRenew+id,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+               if(res.code == '0'){
+                    console.log('cancelAutoRenew:',res)
+                    $.toast({
+                        text:res.msg||'取消自动续费成功!',
+                        delay : 3000,
+                    })
+                    closeRewardPop()
+               }else{
+                $.toast({
+                    text:res.msg,
+                    delay : 3000,
+                })
+               }
+            },
+            error:function(error){
+                console.log('cancelAutoRenew:',error)
+            }
+        })
+    }
     $(document).on('click','.personal-center-vip .close-swiper',function(e){
         $('.my-vip-middle.advertisement').hide()
+    })
+    $(document).on('click','.personal-center-vip .renew-btn',function(e){
+        var id = $(this).attr("data-id")
+        $("#dialog-box").dialog({
+            html: $('#cancelAutomaticRenewal-dialog').html().replace(/\$$id/, id),
+        }).open();
+    })
+    $(document).on('click','.cancelAutomaticRenewal-confirm',function(e){
+        closeRewardPop()
+    })
+    $(document).on('click','.cancelAutomaticRenewal-cancel',function(e){
+         var id = $('#dialog-box .cancelAutomaticRenewal-dialog .title').attr('data-id')
+         cancelAutoRenew(id)
     })
 });

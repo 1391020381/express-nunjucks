@@ -17,9 +17,9 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc'|| 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway'||'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com'||'http://dev-gateway.pc.ishare.iasktest.com',
+        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义

@@ -4,6 +4,7 @@
     {% include "common/head.html" %}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/upload/upload.css"/>
+     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
     <style>
     </style>
 </head>
@@ -19,7 +20,7 @@ var env = "{{env}}";
 
     <!-- 搜索头部 -->
     {% include "common/websiteHeaderbar.html" %}
-
+    <div class="upload-banner"></div>  
     {% include "upload/uploadIndex.html" %}
     {% include "upload/uploadSecond.html" %}
     {% include "upload/success.html" %}

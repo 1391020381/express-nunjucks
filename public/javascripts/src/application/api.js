@@ -62,7 +62,9 @@ define(function (require, exports, module) {
             // 购买成功后,在页面自动下载文档
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
-            scanOrderInfo: gateway + '/order/scan/orderInfo'
+            scanOrderInfo: gateway + '/order/scan/orderInfo',
+            getBuyAutoRenewList:gateway + '/buy/autoRenewList',
+            cancelAutoRenew:gateway + '/cancel/autoRenew/'
         },
         coupon:{
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",

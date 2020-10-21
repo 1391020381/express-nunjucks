@@ -46,16 +46,16 @@ define(function(require, exports, moudle) {
             $('.isVip-show').removeClass('hide');
         }
         $(function () {
-            var flag = $("#ip-flag").val();  // result.flag
-            // var uid = $("#ip-uid").val();    //  results.data.uid
+            var flag = $("#ip-flag").val();  
+          
             var uid = $("#ip-uid").val() || userInfo.userId
-            var type = $("#ip-type").val(); // results.type
-            var isVip = $("#ip-isVip").val(); //   results.data.isVip  获取保存在input的数据
+            var type = $("#ip-type").val(); 
+            var isVip = $("#ip-isVip").val(); 
             if (flag == 3 && uid) { //二维码页面
                 if (type == 0) { //vip购买
                     if (method.getCookie('cuk')) {
                         $(".btn-vip-login-arrive").click();
-                        // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveVipPage']);
+                        
                     }
                 } else if (type == 2) { //文件购买
                     if (isVip != 1) {
@@ -65,15 +65,14 @@ define(function(require, exports, moudle) {
                     }
                     if (method.getCookie('cuk')) {
                         $(".btn-file-login-arrive").click();
-                        // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
+                       
                     }
                 }
-                // var oid = $("#ip-oid").val() ||method.getParam('orderNo'); // 订单号 orderNo
+               
                 var oid = method.getParam('orderNo');
                 if (oid) {
                     $(".carding-pay-item .oid").text(oid);
-                    // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
-                    // var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
+                   
                     var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&checkStatus=' + checkStatus;
 
                     try {
@@ -82,11 +81,11 @@ define(function(require, exports, moudle) {
                         $('.pay-qrcode-loading').hide()
                         isShowQrInvalidtip(false)
                         countdown(); // 计算二维码失效时间
-                        // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
+                      
                     } catch (e) {
                         console.log("生成二维码异常");
                         $(".btn-qr-show-fail").click();
-                        // __pc__.push(['pcTrackEvent',' qrCodeFail']);
+                        
                     }
                     alipayClick(oid);
                     // 获取支付状态结果
@@ -96,7 +95,7 @@ define(function(require, exports, moudle) {
                 }
             } else if (flag == "true" && uid) { //成功页面
                 var mobile = userInfo.mobile || $("#ip-mobile").val();
-                // mobile = false
+                
                 if (mobile) { //隐藏绑定手机号模块 公众号模块居中
                     $(".carding-info-bottom").addClass('carding-binding-ok');
                 }
@@ -106,7 +105,7 @@ define(function(require, exports, moudle) {
             } else if (flag == "false" && uid) { //失败页面
 
             } else if (flag == "0") {
-                // $(".carding-vip-con .vip-title").show();
+               
             }
         });
     }
@@ -407,25 +406,18 @@ define(function(require, exports, moudle) {
     });
 
     try { //引入美洽客服
-        (function(m, ei, q, i, a, j, s) {
-            m[i] = m[i] || function() {
-                (m[i].a = m[i].a || []).push(arguments)
+        (function(a, b, c, d, e, j, s) {
+            a[d] = a[d] || function() {
+                (a[d].a = a[d].a || []).push(arguments)
             };
-            j = ei.createElement(q),
-                s = ei.getElementsByTagName(q)[0];
+            j = b.createElement(c),
+                s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
-            j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+            j.src = 'https://static.meiqia.com/widget/loader.js';
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
-        _MEIQIA('entId', '149498');
-        // 初始化成功后调用美洽 showPanel
-        _MEIQIA('allSet', function() {
-            _MEIQIA('showPanel');
-        });
-        // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-        _MEIQIA('manualInit');
-        /*_MEIQIA('init');*/
+        _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
