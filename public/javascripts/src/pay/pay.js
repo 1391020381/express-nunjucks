@@ -4,14 +4,12 @@ define(function(require, exports, moudle) {
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-    // ==== end ====
-    //所有支付引用办公频道支付js
-    // var $ = require("$");
+    
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
-    //var report = require("./report");
+   
     var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
@@ -48,8 +46,8 @@ define(function(require, exports, moudle) {
     
     // 
     // 优惠券相关需要在登录后执行
-    require("../common/coupon/couponOperate");
-    require("../common/coupon/couponIssue");
+   var couponObj =  require("../common/coupon/couponOperate");
+     require("../common/coupon/couponIssue");
     function getSpecialUserIds(userInfo){ // 获取vip列表页面展示 续费的 userIds
         $.ajax({
             url: api.coupon.getSpecialUserIds,
@@ -401,7 +399,11 @@ define(function(require, exports, moudle) {
             }
         })
     });
-
+     
+    $('.renewal-label').on('change',function(e){
+        console.log($('.renewal-label #renewal').val())
+        couponObj.updatePrice()
+    })
     //支付 生成二维码
     $(document).on("click", ".btn-buy-bar", function(e) {
         e && e.preventDefault();

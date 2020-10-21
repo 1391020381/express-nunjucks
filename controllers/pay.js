@@ -21,10 +21,15 @@ module.exports = {
                 }
             },
             list: function (callback) {
+                var productType = req.query.productType
+                var userFileType = req.query.userFileType
+                var userFilePrice = req.query.userFilePrice
                 req.body = {
                     size: 4,
                     platform: 0,
-                    scope: 4
+                    scope: 4,
+                    userFileType:userFileType,
+                    userFilePrice:userFilePrice
                 };
                 server.post(appConfig.apiNewBaselPath + api.pay.getVipList, callback, req);
             }

@@ -317,11 +317,22 @@ define(function (require, exports, module) {
                 }
                 lastedPrice = ((couponObj.price * 100 - discountNum * 100 - vipDiscountPrice * 100) / 100).toFixed(2);
             }
-
+            var isRenewal =  $('.renewal-radio #renewal').val()
+            var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
             if (couponObj.couponType == 1) {
-                $('#activePrice').text(lastedPrice);
+               
+                if(isRenewal){
+                    $('#activePrice').text(renewalPrice);
+                }else{
+                    $('#activePrice').text(lastedPrice);
+                }
             } else {
-                $('.price-text-con .price').text(lastedPrice);
+                if(isRenewal){
+                    $('.price-text-con .price').text(renewalPrice);
+                }else{
+                    $('.price-text-con .price').text(lastedPrice);
+                }
+               
             }
             couponObj.updatePriceTip()
         },
@@ -376,4 +387,5 @@ define(function (require, exports, module) {
 
     }
     couponObj.initial();
+    return couponObj
 })

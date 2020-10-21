@@ -1581,6 +1581,7 @@ body {
 }
 .renewal-radio .renewal-label {
   display: inline-block;
+  cursor: pointer;
 }
 .renewal-radio .renewal-label input + .renewal-icon {
   display: inline-block;
