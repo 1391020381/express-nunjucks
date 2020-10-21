@@ -105,6 +105,9 @@
 .personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .end-date-master {
   margin-left: 20px;
 }
+.personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .isRenew {
+  margin-left: 20px;
+}
 .personal-center-vip .myvip-top .vip-summary .vip-summary-subtitle .privilege em {
   font-size: 14px;
   font-weight: 800;

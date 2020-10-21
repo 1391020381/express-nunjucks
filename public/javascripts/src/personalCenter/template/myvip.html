@@ -22,7 +22,10 @@
                   {{else}}
                           <span class="privilege">剩余<em>0</em>个特权 </span>
                   {{/if}}
-                   <span class="end-date-master">{{userInfo.endDateMaster}}到期</span>
+                 <span class="end-date-master">{{userInfo.endDateMaster}}到期</span>
+                 {{if userInfo.isRenew}}
+                      <span class="isRenew">已开通自动续费</span>
+                 {{/if}}
               </p>
            </div>
             {{/if}}
