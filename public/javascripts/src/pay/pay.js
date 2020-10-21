@@ -33,13 +33,45 @@ define(function(require, exports, moudle) {
     var callback = null;
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
-
+    var  isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') ||  method.getParam('isRenew')
+    if(location.pathname == '/pay/vip.html'){
+        if(!isAutoRenew){ //  
+            $('.icon-pay-style').hide()
+        }
+    }
+    if(location.pathname == '/pay/payQr.html'){
+        if(isAutoRenew==12){ //  
+            $('.icon-pay-style').css("background-position","-172px -200px")
+        }
+    }
+    
+    
+    // 
     // 优惠券相关需要在登录后执行
     require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
+    function getSpecialUserIds(userInfo){ // 获取vip列表页面展示 续费的 userIds
+        $.ajax({
+            url: api.coupon.getSpecialUserIds,
+            type: "GET",
+            data: params,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                   var userId = userInfo.userId 
+                   var userIds = res.data.userIds || []
+                   if(userIds&&userIds.indexOf(userId)!=-1) {
+                       $('.renewal-radio').hide()  
+                   }
+                    
+                }
+            }
+        })
+    }
     //生成二维码
     function initPage(userInfo) {
-       
+        getSpecialUserIds(userInfo)
         window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
         if(userInfo.isVip == 1){
             $('.isVip-show').find('span').html(userInfo.expireTime);
@@ -110,6 +142,7 @@ define(function(require, exports, moudle) {
         });
     }
 
+   
     function countdown() { // 二维码失效倒计时
         if (expires_in <= 0) {
             clearTimeout(timer)
@@ -128,10 +161,12 @@ define(function(require, exports, moudle) {
             $('.pic-pay-code .pay-qrcode-expire').show()
             $('.pic-pay-code .pay-qrcode-invalidtip').show()
             $('.pic-pay-code .pay-qrcode-refresh').show()
+            $('.pay-info-link').show()
         } else {
             $('.pic-pay-code .pay-qrcode-expire').hide()
             $('.pic-pay-code .pay-qrcode-invalidtip').hide()
             $('.pic-pay-code .pay-qrcode-refresh').hide()
+            $('.pay-info-link').hide()
         }
     }
 
@@ -309,6 +344,7 @@ define(function(require, exports, moudle) {
     });
 
     //vip套餐切换
+    
     $(".js-tab").each(function() {
         $(this).tab({
             activeClass: 'active',
@@ -316,10 +352,18 @@ define(function(require, exports, moudle) {
             callback: function($this) {
                 var price = $this.data('price').toFixed(2); // 价格
                 var activePrice = $this.data('activeprice').toFixed(2); // 活动价
-                var discountPrice = $this.data('discountprice') ? $this.data('discountprice').toFixed(2) : 0; // 折扣价
-                // class give-desc
+              //  var discountPrice = $this.data('discountprice') ? $this.data('discountprice').toFixed(2) : 0; // 折扣价
                 var giveDesc = $this.find('.give-desc').html() || ''
+                var discountPrice = $this.data('discountPrice')?$this.data('discountPrice')/100:0
+                var isAutoRenew = $this.data('isAutoRenew')
                 $(".js-tab .gift-copy").html(giveDesc)
+                if(isAutoRenew){
+                    $('.renewal-radio .renewal-desc .price').text(discountPrice/100)
+                    $('.renewal-radio #renewal').attr('checked')
+                }else{
+                    $('.renewal-radio').hide()
+                }
+                if(isAutoRenew)
                 if (activePrice > 0) {
                     $("#activePrice").html(activePrice);
                     if (discountPrice > 0) {
@@ -447,6 +491,9 @@ define(function(require, exports, moudle) {
             goodsType = '8'
             goodsId = params.pid
         }
+
+     //   goodsType = $('.renewal-radio #renewal').val() == 1?12:goodsType  // 续费
+
         // 组装创建订单的参数
         var temp = { //  
             aid: params.aid,
@@ -531,8 +578,8 @@ define(function(require, exports, moudle) {
             fileId = pageConfig.params.g_fileId;
         }
         method.delCookie("br", "/");
-      
-        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId, false);
+        isRenew = $('.renewal-radio #renewal').val() == 1?12:goodsType  // 续费
+        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId+ "&isRenew=" + isRenew, false);
     }
 
     //网页支付宝

@@ -62,7 +62,7 @@ if(appConfig.env == 'local' || appConfig.env == 'debug'){
         //目标后端服务地址
        //  target: 'http://ishare.iask.sina.com.cn',
        target:appConfig.newBasePath,
-        changeOrigin: true,
+       changeOrigin: true,
         secure: false,
         onProxyReq: restream
     }))

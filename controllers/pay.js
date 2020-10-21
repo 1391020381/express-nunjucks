@@ -275,11 +275,12 @@ module.exports = {
                 }
             }
         }, function (err, results) {
-            // console.log(results);
+            
             if (results.list && results.list.code != 0) {
                 results.list.data = {}
             }
-            // results.type = results.list.data.type;
+            
+            results.isRenew = req.query.isRenew  // 12 续费
             results.flag = 3;
             results.list.data.payPrice = results.list.data.payPrice ? (results.list.data.payPrice / 100).toFixed(2) : ''
             results.list.data.originalPrice = results.list.data.originalPrice ? (results.list.data.originalPrice / 100).toFixed(2) : ''

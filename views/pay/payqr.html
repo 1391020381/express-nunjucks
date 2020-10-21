@@ -53,11 +53,16 @@
                     <p class="pay-qrcode-invalidtip">二维码已失效</p>
                     <p class="pay-qrcode-refresh">刷新</p>
                 </div>
-                <p class="pay-code-text">请使用微信或支付宝扫码支付</p>
+                {% if results.isRenew == 12%}
+                    <p class="pay-code-text">请使用支付宝扫码支付</p>
+                {%else%}
+                   <p class="pay-code-text">请使用微信或支付宝扫码支付</p>
+                {%endif%}
+                
                 <i class="icon-pay-style"></i>
                 <p class="pay-info-text hide">无法扫描？<a class="link web-alipay" style="cursor:pointer;">打开网页支付宝支付</a></p>
             </div>
-            <p class="pay-info-link">支付未跳转？点击获取支付结果 ></p>
+            <p class="pay-info-link hide">支付未跳转？点击获取支付结果 ></p>
         </div>
     </div>
 </div>

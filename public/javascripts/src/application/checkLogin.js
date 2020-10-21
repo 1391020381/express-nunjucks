@@ -44,7 +44,7 @@ define(function (require, exports, module) {
                 var fid  = this.getIds().fid
                 showLoginDialog({clsId:clsId,fid:fid},function(){
                     console.log('loginCallback')
-                    _self.getLoginData(callback)
+                    _self.getLoginData(callback,'isFirstLogin')
                 })
             }
         },
@@ -81,13 +81,17 @@ define(function (require, exports, module) {
          * 获取用户信息
          * @param callback 回调函数
          */
-        getLoginData: function (callback) {
+        getLoginData: function (callback,isFirstLogin) {
             var _self = this;
             try{
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,loginResult:"1"})
                         handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
+                        
+                        if(isFirstLogin){
+                            window.location.href = window.location.href;
+                        }
                         if (callback && typeof callback == "function") {
                             callback(res.data);
                             try {

@@ -1,7 +1,7 @@
 /**
 * 系统配置
 */
-const env = process.env.NODE_ENV  || 'prod'
+const env = process.env.NODE_ENV  || 'local'
 const config = {
     debug:{
         env: env,
@@ -19,7 +19,7 @@ const config = {
         env: env,
         apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
         apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
+        newBasePath: 'http://dev-ishare.iask.com.cn'||'http://dev-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
