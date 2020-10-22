@@ -38,7 +38,7 @@ define(function(require, exports, moudle) {
         }
     }
     if(location.pathname == '/pay/payQr.html'){
-        if(isAutoRenew==12){ //  
+        if(isAutoRenew==1){ //  
             $('.icon-pay-style').css("background-position","-172px -200px")
         }
     }
