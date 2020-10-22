@@ -317,7 +317,7 @@ define(function (require, exports, module) {
                 }
                 lastedPrice = ((couponObj.price * 100 - discountNum * 100 - vipDiscountPrice * 100) / 100).toFixed(2);
             }
-            var isRenewal =  $('.renewal-radio #renewal').val()
+            var isRenewal =  $('.renewal-radio #renewal').attr('checked')
             var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
             if (couponObj.couponType == 1) {
                

@@ -401,7 +401,6 @@ define(function(require, exports, moudle) {
     });
      
     $('.renewal-label').on('change',function(e){
-        console.log($('.renewal-label #renewal').val())
         couponObj.updatePrice()
     })
     //支付 生成二维码
