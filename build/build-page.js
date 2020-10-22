@@ -6,6 +6,7 @@ var fs = require("fs");
 var path = require("path");
 var config = require("../config/page-config");
 var stat=fs.stat;
+console.log('config.version:',config.version)
 if(!config.version) return;
 var directoryArr = ["node_modules","data","test",config.version];
 var fileArr = ["Gruntfile.js","package-lock.json","package.json","yarn.lock"];

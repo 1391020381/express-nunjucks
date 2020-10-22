@@ -216,10 +216,10 @@ define(function (require, exports, module) {
             var tips = '';
             if (couponObj.couponType == 1) {
                 // 购买vip
-                var activePrice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice');
+                var activePrice = 0 // $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice');
                 var activeTip = '';
                 if (activePrice > 0) {
-                    var activeDiscout = $('.js-tab').find('.ui-tab-nav-item.active').data('discountprice');
+                    var activeDiscout = $('.js-tab').find('.ui-tab-nav-item.active').data('discountprice')?$('.js-tab').find('.ui-tab-nav-item.active').data('discountprice')/100:0;
                     activeTip = '活动优惠' + activeDiscout + '元;'
                 }
                 //放弃使用优惠券
@@ -296,12 +296,12 @@ define(function (require, exports, module) {
             }
             var lastedPrice = 0;
             if (couponObj.couponType == 1) { // vip
-                var activePrice = $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice');
+                var activePrice = 0  // $('.js-tab').find('.ui-tab-nav-item.active').data('activeprice');
                 var oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price');
                 var activeDiscout = 0;
                 if (activePrice > 0) {
                     // 存在活动价格
-                    activeDiscout = $('.js-tab').find('.ui-tab-nav-item.active').data('discountprice');
+                    activeDiscout = $('.js-tab').find('.ui-tab-nav-item.active').data('discountprice')?$('.js-tab').find('.ui-tab-nav-item.active').data('discountprice')/100:0;
                 }
                 lastedPrice = ((oprice * 100 - discountNum * 100 - activeDiscout * 100) / 100).toFixed(2);
             } else if (couponObj.couponType == 0) {  //现金
