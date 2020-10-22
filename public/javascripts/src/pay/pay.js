@@ -31,10 +31,10 @@ define(function(require, exports, moudle) {
     var callback = null;
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
-    var  isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') ||  method.getParam('isRenew')
+    var  isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') ||  method.getParam('isAutoRenew')
     if(location.pathname == '/pay/vip.html'){
-        if(!isAutoRenew){ //  
-            $('.icon-pay-style').hide()
+        if(isAutoRenew!=1){ //  
+            $('.renewal-radio').hide()
         }
     }
     if(location.pathname == '/pay/payQr.html'){
@@ -317,7 +317,7 @@ define(function(require, exports, moudle) {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
         var price = $(this).data('price');
-        var activePrice = $(this).data('activeprice');
+        var activePrice = 0 // $(this).data('activeprice');
         var discountPrice = $(this).data('discountprice');
         var giveDesc = $(this).find('.give-desc').html() || ''
         $(".pay-privilege-text").html(giveDesc)
@@ -349,19 +349,19 @@ define(function(require, exports, moudle) {
             element: 'div',
             callback: function($this) {
                 var price = $this.data('price').toFixed(2); // 价格
-                var activePrice = $this.data('activeprice').toFixed(2); // 活动价
+                var activePrice = 0 // $this.data('activeprice').toFixed(2); // 活动价
               //  var discountPrice = $this.data('discountprice') ? $this.data('discountprice').toFixed(2) : 0; // 折扣价
                 var giveDesc = $this.find('.give-desc').html() || ''
-                var discountPrice = $this.data('discountPrice')?$this.data('discountPrice')/100:0
-                var isAutoRenew = $this.data('isAutoRenew')
-                $(".js-tab .gift-copy").html(giveDesc)
-                if(isAutoRenew){
-                    $('.renewal-radio .renewal-desc .price').text(discountPrice/100)
-                    $('.renewal-radio #renewal').attr('checked')
+                var discountPrice = $this.data('discountprice')?$this.data('discountprice')/100:0
+                var isAutoRenew = $this.data('isautorenew')
+                if(isAutoRenew == '1'){
+                   $('.renewal-radio').show() 
+                   $('.renewal-radio #renewal').attr('checked','checked') 
+                   $('.renewal-radio .renewal-desc .price').text(discountPrice) 
                 }else{
                     $('.renewal-radio').hide()
                 }
-                if(isAutoRenew)
+                $(".js-tab .gift-copy").html(giveDesc)
                 if (activePrice > 0) {
                     $("#activePrice").html(activePrice);
                     if (discountPrice > 0) {
@@ -492,8 +492,11 @@ define(function(require, exports, moudle) {
             goodsType = '8'
             goodsId = params.pid
         }
-
-     //   goodsType = $('.renewal-radio #renewal').val() == 1?12:goodsType  // 续费
+       var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
+       if(isAutoRenew){
+        goodsType =  $('.renewal-radio #renewal').attr('checked')?12:goodsType  // 续费
+       }
+      
 
         // 组装创建订单的参数
         var temp = { //  
@@ -579,8 +582,9 @@ define(function(require, exports, moudle) {
             fileId = pageConfig.params.g_fileId;
         }
         method.delCookie("br", "/");
-        isRenew = $('.renewal-radio #renewal').val() == 1?12:goodsType  // 续费
-        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId+ "&isRenew=" + isRenew, false);
+
+        var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
+        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId+ "&isAutoRenew=" + isAutoRenew, false);
     }
 
     //网页支付宝

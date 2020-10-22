@@ -147,13 +147,18 @@ define(function (require, exports, module) {
                 break;
             case 10:
                 var fid = window.pageConfig.params.g_fileId;
-               
                 var showTips = 1;
-              
                 var format = window.pageConfig.params.file_format;
                 var title = window.pageConfig.params.file_title;
+                var productType = window.pageConfig.params.productType
+                var userFileType = window.pageConfig.params.userFileType
+                var userFilePrice = window.pageConfig.params.userFilePrice
                 method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + res.data.checkStatus +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+                if(productType == '4'){
+                    var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + res.data.checkStatus +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips+'&productType='+productType+'&userFileType='+userFileType+'&userFilePrice='+userFilePrice;
+                }else{
+                    var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + res.data.checkStatus +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+                }
                 goLocalTab('/pay/vip.html' + params);
                 break; 
             case 13:

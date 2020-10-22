@@ -1600,6 +1600,9 @@ body {
   display: inline-block;
   vertical-align: middle;
 }
+.renewal-radio .renewal-label .renewal-desc .price {
+  font-style: normal;
+}
 .renewal-radio .question-mark {
   display: inline-block;
   width: 18px;

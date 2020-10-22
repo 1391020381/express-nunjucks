@@ -21,7 +21,7 @@ module.exports = {
                 }
             },
             list: function (callback) {
-                var productType = req.query.productType
+              
                 var userFileType = req.query.userFileType
                 var userFilePrice = req.query.userFilePrice
                 req.body = {
@@ -43,7 +43,7 @@ module.exports = {
                 checkStatus: req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
             }
             // 排序每个套餐的权益
-            if (results.list.data.length) {
+            if (results.list.data&&results.list.data.length) {
                 var tempListData = []
                 results.list.data.forEach(item => {
                     var tempMembers = []
@@ -285,7 +285,7 @@ module.exports = {
                 results.list.data = {}
             }
             
-            results.isRenew = req.query.isRenew  // 12 续费
+            results.isAutoRenew = req.query.isAutoRenew  
             results.flag = 3;
             results.list.data.payPrice = results.list.data.payPrice ? (results.list.data.payPrice / 100).toFixed(2) : ''
             results.list.data.originalPrice = results.list.data.originalPrice ? (results.list.data.originalPrice / 100).toFixed(2) : ''

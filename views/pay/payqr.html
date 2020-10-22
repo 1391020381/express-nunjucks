@@ -53,7 +53,7 @@
                     <p class="pay-qrcode-invalidtip">二维码已失效</p>
                     <p class="pay-qrcode-refresh">刷新</p>
                 </div>
-                {% if results.isRenew == 12%}
+                {% if results.isAutoRenew == 1%}
                     <p class="pay-code-text">请使用支付宝扫码支付</p>
                 {%else%}
                    <p class="pay-code-text">请使用微信或支付宝扫码支付</p>
