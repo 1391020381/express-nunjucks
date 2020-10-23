@@ -9,6 +9,14 @@ define("dist/pay/paymentResult", [ "../common/baidu-statistics", "../application
     var paymentRestult = require("./payRestult.html");
     var handleBaiduStatisticsPush = require("../common/baidu-statistics").handleBaiduStatisticsPush;
     getOrderInfo();
+    // 绑定重新付费
+    $(document).on("click", ".btn-wrap", function(e) {
+        console.log("重新支付");
+        $.toast({
+            text: "请重新扫码支付",
+            delay: 3e3
+        });
+    });
     function getOrderInfo() {
         $.ajax({
             url: api.order.getOrderInfo,

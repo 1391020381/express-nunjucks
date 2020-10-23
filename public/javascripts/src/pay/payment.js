@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     var isWeChat = window.pageConfig.page && window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page && window.pageConfig.page.isAliPay
     var isAutoRenew = window.pageConfig.page && window.pageConfig.page.isAutoRenew
-   
+   console.log('isAutoRenew:',isAutoRenew,method.getParam('isAutoRenew'))
     //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     var env = window.env
     var urlList = {
@@ -65,12 +65,7 @@ define(function (require, exports, module) {
                                 wechatPay(res.data.appId, res.data.timeStamp, res.data.nonceStr, res.data.prepayId, res.data.paySign)
                             }
                         } else if (isAliPay == 'true') {
-                             if(isAutoRenew == '1'){
-                                alipayRenewalPayment(res.data.aliPayUrl)
-                             }else{
-                                aliPay(res.data.aliPayUrl)
-                             }
-                            
+                             aliPay(res.data.aliPayUrl) 
                         }
                     }
                 } else {
@@ -129,10 +124,14 @@ define(function (require, exports, module) {
     }
 
     function aliPay(aliString) {
-        // sessionStorage.setItem("aliString", aliString);
-        // location.href = location.origin + '/pay/aliPayMidPage'
-        $('.payment').html(aliString)
-        $('form').attr("target", "_blank")
+       console.log('aliPay:',aliString)
+        if(isAutoRenew == '1'){
+            alipayRenewalPayment(aliString)
+        }else{
+            $('.payment').html(aliString)
+            $('form').attr("target", "_blank")
+        }
+       
     }
 
     function getOrderStatus(orderNo) {
