@@ -11,6 +11,14 @@ define(function (require, exports, module) {
 
     getOrderInfo()
 
+    // 绑定重新付费
+    $(document).on('click', '.btn-wrap', function (e) {
+        console.log('重新支付')
+        $.toast({
+            text: '请重新扫码支付',
+            delay: 3000,
+        });
+    });
 
     function getOrderInfo() {
         $.ajax({

@@ -38,6 +38,10 @@
 <div class="payment-info">
     请截图保存订单详情，以便查询使用
 </div>
-
+{{ if orderInfo.orderStatus == 3 }}
+    <div class="btn-wrap">
+        <div class="payment-btn">重新支付</div>
+    </div>
+{{ /if }}
 
 
