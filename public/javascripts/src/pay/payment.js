@@ -124,7 +124,7 @@ define(function (require, exports, module) {
     }
 
     function aliPay(aliString) {
-       console.log('aliPay:',aliString)
+       console.log('aliPay:',aliString,isAutoRenew == '1',isAutoRenew)
         if(isAutoRenew == '1'){
             alipayRenewalPayment(aliString)
         }else{
@@ -150,6 +150,7 @@ define(function (require, exports, module) {
         ap.tradePay({
             orderStr: orderStr
           }, function(res){
+            console.log(res)
             ap.alert(res.resultCode);
           })
     }
