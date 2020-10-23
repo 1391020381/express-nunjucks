@@ -281,7 +281,7 @@ define(function(require , exports , module){
                         delay : 3000,
                     })
                     closeRewardPop()
-                    getMyVipRightsList()
+                    getBuyAutoRenewList()
                }else{
                 $.toast({
                     text:res.msg,
@@ -300,7 +300,7 @@ define(function(require , exports , module){
     $(document).on('click','.personal-center-vip .renew-btn',function(e){
         var id = $(this).attr("data-id")
         $("#dialog-box").dialog({
-            html: $('#cancelAutomaticRenewal-dialog').html().replace(/\$$id/, id),
+            html: $('#cancelAutomaticRenewal-dialog').html().replace(/\$id/, id),
         }).open();
     })
     $(document).on('click','.cancelAutomaticRenewal-confirm',function(e){

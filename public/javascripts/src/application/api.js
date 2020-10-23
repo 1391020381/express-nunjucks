@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo',
             getBuyAutoRenewList:gateway + '/order/buy/autoRenewList',
-            cancelAutoRenew:gateway + '/cancel/autoRenew/'
+            cancelAutoRenew:gateway + '/order/cancel/autoRenew/'
         },
         coupon:{
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
