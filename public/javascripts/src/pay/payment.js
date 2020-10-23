@@ -7,10 +7,11 @@ define(function (require, exports, module) {
     var orderNo = method.getParam('orderNo');
     var platformCode = method.getParam('platformCode');//平台编码
     var host = method.getParam('host');//域名来源
-    var checkStatus = method.getParam('checkStatus')
+  
     var isWeChat = window.pageConfig.page && window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page && window.pageConfig.page.isAliPay
-    var urlConfig = require('../application/urlConfig')
+    var isAutoRenew = window.pageConfig.page && window.pageConfig.page.isAutoRenew
+   
     //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     var env = window.env
     var urlList = {
@@ -64,7 +65,12 @@ define(function (require, exports, module) {
                                 wechatPay(res.data.appId, res.data.timeStamp, res.data.nonceStr, res.data.prepayId, res.data.paySign)
                             }
                         } else if (isAliPay == 'true') {
-                            aliPay(res.data.aliPayUrl)
+                             if(isAutoRenew == '1'){
+                                alipayRenewalPayment(res.data.aliPayUrl)
+                             }else{
+                                aliPay(res.data.aliPayUrl)
+                             }
+                            
                         }
                     }
                 } else {
@@ -140,10 +146,17 @@ define(function (require, exports, module) {
         }
 
     }
-
+    function  alipayRenewalPayment(orderStr){
+        ap.tradePay({
+            orderStr: orderStr
+          }, function(res){
+            ap.alert(res.resultCode);
+          })
+    }
     $(document).on('click', '.pay-confirm', function (e) {
         console.log('pay-confirm-start')
         scanOrderInfo()
         console.log('pay-confirm-end')
     })
+
 });

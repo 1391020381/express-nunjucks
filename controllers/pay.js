@@ -598,6 +598,7 @@ module.exports = {
             // var isOther = false 
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
+            results.isAutoRenew = req.query.isAutoRenew
             if (isOther) {
                 res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });//设置response编码
                 res.end('请使用微信或者支付扫码支付!')

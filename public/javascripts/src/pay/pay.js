@@ -102,8 +102,8 @@ define(function(require, exports, moudle) {
                 var oid = method.getParam('orderNo');
                 if (oid) {
                     $(".carding-pay-item .oid").text(oid);
-                   
-                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&checkStatus=' + checkStatus;
+                    var isAutoRenew = method.getParam('isAutoRenew')
+                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid +  '&isAutoRenew='+isAutoRenew;
 
                     try {
                         qr.createQrCode(url, 'pay-qr-code', 180, 180);
