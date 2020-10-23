@@ -275,7 +275,7 @@ define(function (require, exports, module) {
                 discountNum = couponObj.getDiscountPrice();
             }
             var lastedPrice = 0;
-            var isRenewal =  $('.renewal-radio #renewal').attr('checked')
+            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):''
             var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
             if (couponObj.couponType == 1) { // vip
                 var oprice = isRenewal?renewalPrice:couponObj.price 
@@ -303,7 +303,7 @@ define(function (require, exports, module) {
          */
         getDiscountPrice: function () {
             //如果flag==0；不适用优惠券
-            var isRenewal =  $('.renewal-radio #renewal').attr('checked')
+            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):''
             var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
             var _index = couponObj._index;
             var data = couponObj.data;

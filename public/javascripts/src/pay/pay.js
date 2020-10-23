@@ -29,6 +29,8 @@ define(function(require, exports, moudle) {
     var switchCount = 0; // 切换次数
     var curActive = 0; // 当前激活套餐
     var callback = null;
+    var userId = ''
+    var userIds = []
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
     var  isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') ||  method.getParam('isAutoRenew')
@@ -57,10 +59,10 @@ define(function(require, exports, moudle) {
             dataType: "json",
             success: function(res) {
                 if (res && res.code == '0') {
-                   var userId = userInfo.userId 
-                   var userIds = res.data.userIds || []
-                   if(userIds&&userIds.indexOf(userId)!=-1) {
-                       $('.renewal-radio').hide()  
+                   userId = userInfo.userId 
+                   userIds = res.data.userIds || []
+                   if(userIds&&userIds.indexOf(userId)==-1) {
+                       $('.renewal-radio').remove()
                    }
                     
                 }
@@ -335,6 +337,7 @@ define(function(require, exports, moudle) {
             activeClass: 'active',
             element: 'div',
             callback: function($this) {
+                
                 var price = $this.data('price').toFixed(2); // 价格
             
                 var giveDesc = $this.find('.give-desc').html() || ''
@@ -471,7 +474,7 @@ define(function(require, exports, moudle) {
             goodsId = params.pid
         }
        var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
-       if(isAutoRenew){
+       if(isAutoRenew =='1'){
         goodsType =  $('.renewal-radio #renewal').attr('checked')?12:goodsType  // 续费
        }
       
@@ -561,7 +564,10 @@ define(function(require, exports, moudle) {
         }
         method.delCookie("br", "/");
 
-        var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
+        
+        if($('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew') =='1'){
+            var isAutoRenew =  $('.renewal-radio #renewal').attr('checked')?'1':'0'
+        }
         method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId+ "&isAutoRenew=" + isAutoRenew, false);
     }
 
