@@ -147,6 +147,7 @@ define(function (require, exports, module) {
 
     }
     function  alipayRenewalPayment(orderStr){
+        console.log('ap:',ap)
         ap.tradePay({
             orderStr: orderStr
           }, function(res){
