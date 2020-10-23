@@ -42,12 +42,12 @@ fun(document, window)
 <body>
 <div class="payment hide">
  <div class="pay-price">
-    ¥ <span class="price"></span>
+    ¥ <span class="price">{{ results.payPrice}}</span>
  </div>
 <ul class="order-list">
         <li class="list-item">
         <p class="item-title">商品名称:</p>
-        <span class="item-desc goodsName"></span>
+        <span class="item-desc goodsName">{{ results.goodsName}}</span>
     </li>
 </ul>
 <div class="pay-confirm">继续支付</div>

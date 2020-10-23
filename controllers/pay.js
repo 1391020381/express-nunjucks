@@ -586,8 +586,29 @@ module.exports = {
     // 聚合支付二维码
     payment: function (req, res) {
         return async.series({
-            getPayment: function (callback) {
-                callback(null, null);
+            getOrderInfo: function (callback) {
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiBasePath + api.pay.status,
+                    body: JSON.stringify({
+                        orderNo: req.query.orderNo
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0) {
+                            callback(null, data);
+                        } else {
+                            callback(null, null);
+                        }
+                    } else {
+                        callback(null, null);
+                    }
+                })
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
             var source = req.useragent.source
@@ -596,6 +617,8 @@ module.exports = {
             var isAliPay = source.indexOf("AlipayClient") !== -1
             var isOther = !isWeChat && !isAliPay
             // var isOther = false 
+            results.goodsName = results.getOrderInfo.data.goodsName
+            results.payPrice = results.getOrderInfo.data.payPrice/100
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
             results.isAutoRenew = req.query.isAutoRenew

@@ -140,7 +140,7 @@ define(function(require , exports , module){
             headers:{
                 'Authrization':method.getCookie('cuk')
               },
-            url: 'http://yapi.ishare.iasktest.com/mock/107/buy/autoRenewList'||api.pay.getBuyAutoRenewList,
+            url: api.pay.getBuyAutoRenewList,
             type: "POST",
             data: JSON.stringify({
                 currentPage:currentPage||1,
@@ -281,6 +281,7 @@ define(function(require , exports , module){
                         delay : 3000,
                     })
                     closeRewardPop()
+                    getMyVipRightsList()
                }else{
                 $.toast({
                     text:res.msg,

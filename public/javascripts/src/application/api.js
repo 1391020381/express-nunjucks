@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
             scanOrderInfo: gateway + '/order/scan/orderInfo',
-            getBuyAutoRenewList:gateway + '/buy/autoRenewList',
+            getBuyAutoRenewList:gateway + '/order/buy/autoRenewList',
             cancelAutoRenew:gateway + '/cancel/autoRenew/'
         },
         coupon:{

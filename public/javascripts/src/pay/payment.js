@@ -38,14 +38,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 console.log('scanOrderInfo:', res)
                 if (res.code == '0') {
-                    var payPrice = (method.getParam('payPrice') / 100).toFixed(2)
-                    var goodsName = method.getParam('goodsName')
-                    if (payPrice !== '0.00') {
-                        $('.pay-price .price').text(payPrice)
-                    }
-                    if (goodsName) {
-                        $('.goodsName').text(goodsName)
-                    }
+                   
                     console.log('needRedirect:', res.data.needRedirect)
                     if (res.data.needRedirect) {
                         setTimeout(function () {
@@ -151,7 +144,12 @@ define(function (require, exports, module) {
             orderStr: orderStr
           }, function(res){
             console.log(res)
-            ap.alert(res.resultCode);
+            // ap.alert(res.resultCode);
+            if(res.resultCode == '9000'){
+                getOrderStatus(orderNo)
+            }else{
+
+            }
           })
     }
     $(document).on('click', '.pay-confirm', function (e) {
