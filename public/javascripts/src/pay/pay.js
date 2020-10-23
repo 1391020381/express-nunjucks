@@ -61,7 +61,7 @@ define(function(require, exports, moudle) {
                 if (res && res.code == '0') {
                    userId = userInfo.userId 
                    userIds = res.data.userIds || []
-                   if(userIds&&userIds.indexOf(userId)==-1) {
+                   if(userIds&&userIds.indexOf(userId)==-1&&userIds.length!=0) {
                        $('.renewal-radio').remove()
                    }
                     
