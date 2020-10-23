@@ -589,7 +589,7 @@ module.exports = {
             getOrderInfo: function (callback) {
                 var opt = {
                     method: 'POST',
-                    url: appConfig.apiBasePath + api.pay.status,
+                    url: appConfig.apiNewBaselPath + api.pay.status,
                     body: JSON.stringify({
                         orderNo: req.query.orderNo
                     }),
