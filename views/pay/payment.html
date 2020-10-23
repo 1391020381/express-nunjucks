@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <title>订单详情</title>
-
+<script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
 <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 <script>
   // 初始化
   var vConsole = new VConsole();
+  console.log('ap',ap)
 </script>
 
 
@@ -53,13 +54,11 @@ fun(document, window)
 </div>
 {% include "common/js.html" %}
 
-{# {% if results.isWeChat %}
-   <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-{% endif %} #}
 
-{% if results.isAliPay %}
+
+{# {% if results.isAliPay %}
 <script src="//gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
-{% endif %}
+{% endif %} #}
     <script type="text/javascript">
         window.pageConfig = {
             page:{
