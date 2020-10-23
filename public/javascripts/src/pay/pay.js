@@ -317,23 +317,10 @@ define(function(require, exports, moudle) {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
         var price = $(this).data('price');
-        var activePrice = 0 // $(this).data('activeprice');
-        var discountPrice = $(this).data('discountprice');
         var giveDesc = $(this).find('.give-desc').html() || ''
         $(".pay-privilege-text").html(giveDesc)
-        if (activePrice > 0) {
-            $("#activePrice").html(activePrice);
-            if (discountPrice > 0) {
-                $("#discountPrice").html("（立省" + discountPrice + "元）");
-                $("#discountPrice").show();
-            } else {
-                $("#discountPrice").hide();
-            }
-        } else {
             $("#activePrice").html(price);
             $("#discountPrice").hide();
-        }
-
         if ($(this).data('pid')) {
             params.pid = $(this).data('pid');
             params.aid = $(this).data('actids');
@@ -349,8 +336,7 @@ define(function(require, exports, moudle) {
             element: 'div',
             callback: function($this) {
                 var price = $this.data('price').toFixed(2); // 价格
-                var activePrice = 0 // $this.data('activeprice').toFixed(2); // 活动价
-              //  var discountPrice = $this.data('discountprice') ? $this.data('discountprice').toFixed(2) : 0; // 折扣价
+            
                 var giveDesc = $this.find('.give-desc').html() || ''
                 var discountPrice = $this.data('discountprice')?$this.data('discountprice')/100:0
                 var isAutoRenew = $this.data('isautorenew')
@@ -362,18 +348,10 @@ define(function(require, exports, moudle) {
                     $('.renewal-radio').hide()
                 }
                 $(".js-tab .gift-copy").html(giveDesc)
-                if (activePrice > 0) {
-                    $("#activePrice").html(activePrice);
-                    if (discountPrice > 0) {
-                        $("#discountPrice").html("（立省" + discountPrice + "元）");
-                        $("#discountPrice").show();
-                    } else {
-                        $("#discountPrice").hide();
-                    }
-                } else {
-                    $("#activePrice").html(price);
-                    $("#discountPrice").hide();
-                }
+                 
+                $("#activePrice").html(price);
+                $("#discountPrice").hide();
+                
                 if ($this.data('vid')) {
                     params.vid = $this.data('vid');
                     params.type = "10";
