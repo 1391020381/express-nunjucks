@@ -603,10 +603,10 @@ module.exports = {
                         if (data.code == 0) {
                             callback(null, data);
                         } else {
-                            callback(null, null);
+                            callback(null, {});
                         }
                     } else {
-                        callback(null, null);
+                        callback(null, {});
                     }
                 })
             },
