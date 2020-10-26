@@ -596,7 +596,7 @@ define(function (require, exports, module) {
             var fileCategoryID = params.classid1 + '||' + params.classid2 + '||' + params.classid3
             var fileCategoryName = params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
             $.extend(customData, {fileName:page.fileName,fileID:params.g_fileId,filePayType:page.productType,fileCategoryID:fileCategoryID,fileCategoryName:fileCategoryName});
-            clickCenter('NE014', 'continueClick', 'loadMore', '加载更多', customData);
+            clickCenter('SE040', 'continueClick', 'loadMore', '加载更多', customData);
         }
     }
     function getSearchEngine(){
