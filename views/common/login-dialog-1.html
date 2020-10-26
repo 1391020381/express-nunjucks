@@ -1,0 +1,31 @@
+<!--弹框-->
+<div class="dialog" id="dialog-box">
+     <!--遮罩层 start-->
+     <div id="bgMask" class="common-bgMask"></div>
+</div>
+
+
+<!-- 登录dialog -->
+<script type="text/template" id="login-dialog">
+     <div class="login-dialog">
+          <i class="close-btn"></i>
+          <iframe id="I_SHARE" class="login-form" src="{{loginUrl}}/login.html"></iframe>
+     </div>     
+</script>
+
+
+<!-- 游客购买dialog -->
+ <script type="text/template" id="tourist-purchase-dialog">
+          <div class="tourist-purchase-dialog">
+             <i class="close-btn"></i>
+
+             <iframe id="I_SHARE_T0URIST_PURCHASE" class="login-form" src="{{loginUrl}}/tourist-purchase.html"></iframe>
+          </div>
+</script>
+
+
+
+<!-- 游客登录dialog -->
+  <div  id="tourist-login" style="display:none;">
+        <iframe id="I_SHARE_T0URIST_LOGIN" class="login-form" src="{{loginUrl}}/tourist-login.html"></iframe>  
+  </div>  

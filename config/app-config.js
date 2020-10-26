@@ -13,7 +13,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl :'http://office.iask.com'
+        officeUrl :'http://office.iask.com',
+        loginUrl:'http://login-ishare.iask.com.cn'
     },
     local: {
         env: env,
@@ -25,7 +26,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl :'http://test-office.iask.com'||'http://dev-office.iask.com'
+        officeUrl :'http://test-office.iask.com'||'http://dev-office.iask.com',
+        loginUrl:'http://dev-login-ishare.iask.com.cn'
     },
     dev: {
         env: env,
@@ -37,7 +39,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//dev-static3.iask.cn/',
-        officeUrl :'http://dev-office.iask.com'
+        officeUrl :'http://dev-office.iask.com',
+        loginUrl:'http://dev-login-ishare.iask.com.cn'
     },
     test: {
         env: env,
@@ -49,7 +52,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//test-static3.iask.cn/',
-        officeUrl :'http://test-office.iask.com'
+        officeUrl :'http://test-office.iask.com',
+        loginUrl:'http://test-login-ishare.iask.com.cn'
     },
     pre: {
         env: env,
@@ -61,7 +65,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//pre-static3.iask.cn/',
-        officeUrl :'http://pre-office.iask.com'
+        officeUrl :'http://pre-office.iask.com',
+        loginUrl:'http://pre-login-ishare.iask.com.cn'
     },
     prod: {
         env: env,
@@ -73,7 +78,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'//static3.iask.cn/',
-        officeUrl :'http://office.iask.com'
+        officeUrl :'http://office.iask.com',
+        loginUrl:'http://login-ishare.iask.com.cn'
     }
 }
 

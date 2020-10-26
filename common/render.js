@@ -18,6 +18,7 @@ module.exports = (path, results, req, res) => {
         apiBasePath: appConfig.apiBasePath,
         cdnUrl: pageConfig.cdn,
         staticUrl: pageConfig.staticUrl,
-        version: pageConfig.version
+        version: pageConfig.version,
+        loginUrl:appConfig.loginUrl
     })
 };

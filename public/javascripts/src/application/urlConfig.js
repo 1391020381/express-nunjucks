@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         debug: {
             ajaxUrl: '',
             payUrl: 'http://open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://login-ishare.iask.com.cn',
             upload:"//upload-ishare.iask.com",
              appId:'wxb8af2801b7be4c37',
              bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         local: {
             ajaxUrl: '',
             payUrl: 'http://dev-open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://localhost:8085',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
         dev: {
             ajaxUrl: '',
             payUrl: 'http://dev-open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://dev-login-ishare.iask.com.cn',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
@@ -32,7 +32,7 @@ define(function (require, exports, module) {
         test: {
             ajaxUrl: '',
             payUrl: 'http://test-open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://test-login-ishare.iask.com.cn',
             upload:"//test-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data=",
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
         pre: {
             ajaxUrl: '',
             payUrl: 'http://pre-open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://pre-login-ishare.iask.com.cn',
             upload:"//pre-upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
             bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data=",
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
         prod: {
             ajaxUrl: '',
             payUrl: 'http://open-ishare.iask.com.cn',
-            loginUrl: '',
+            loginUrl: 'http://login-ishare.iask.com.cn',
             upload:"//upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
             bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
