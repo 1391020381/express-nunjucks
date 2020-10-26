@@ -11,6 +11,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     var readMore = $('.red-color')
     var pageText = $('.page-text .endof-trial-reading')
     var pageNum = $('.page-num')
+    
     var preRead = window.pageConfig.page && window.pageConfig.page.preRead || 50
 
     var imgTotalPage = window.pageConfig.imgUrl.length
@@ -25,6 +26,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
     var isDownload = window.pageConfig.page.isDownload  // 'n' 屏蔽下载
     var ui = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     function readMoreTextEvent() { // 文件下载接口的返回数据
+        
         if (method.getCookie('cuk')) {
             if (productType == 3) { // 发送邮箱
                 if (ui.isVip == '1') {
@@ -55,6 +57,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 })
             }
         }
+       
     }
 
     function sentEmail() {

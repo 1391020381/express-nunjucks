@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     // var $ = require("$");
+    var clickEvent = require('../common/bilog').clickEvent
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
     var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
@@ -449,6 +450,7 @@ define(function (require, exports, module) {
             changeText()
         }
         loadMoreStyle()
+        clickEvent($('.state-bottom .page-text'))
     }
 
     function mouseScroll() {
