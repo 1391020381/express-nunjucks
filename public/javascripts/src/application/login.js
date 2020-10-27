@@ -105,6 +105,19 @@ define(function (require, exports, module) {
     $('#dialog-box').on('click', '.close-btn', function (e) {
         closeRewardPop();
     })
+    $(document).on('click', '.tourist-purchase-dialog .tabs .tab', function (e) {
+        var dataType = $(this).attr('data-type')
+        $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
+        $(this).addClass('tab-active')
+        if (dataType == 'tourist-purchase') {
+            $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
+            $('.tourist-purchase-dialog .tourist-purchase-content').show()
+        }
+        if (dataType == 'login-purchase') {
+            $('.tourist-purchase-dialog .tourist-purchase-content').hide()
+            $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
+        }
+    })
     return {
         showLoginDialog: showLoginDialog,
         showTouristPurchaseDialog: showTouristPurchaseDialog
