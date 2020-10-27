@@ -558,11 +558,11 @@ define(function (require, exports, module) {
         var params = {}
         if(financeAccountInfo.userTypeName != '机构'){
              params = {
-                withPrice: withPrice*100
+                withPrice: (withPrice*100).toFixed()
             }
         }else{
             params = {
-                withPrice: withPrice*100,
+                withPrice: (withPrice*100).toFixed(),
                 invoicePicUrl: invoicePicUrl,
                 invoiceType: invoiceType
             }  
