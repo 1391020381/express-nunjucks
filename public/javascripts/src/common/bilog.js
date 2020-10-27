@@ -590,6 +590,13 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'getCoupons', '领取优惠券按钮', customData);
         }else if(cnt == 'closeCoupon'){
             clickCenter('NE002', 'normalClick', 'closeCoupon', '关闭优惠券按钮', customData);
+        }else if(cnt=='loadMore'){
+            var page = window.pageConfig.page
+            var params = window.pageConfig.params
+            var fileCategoryID = params.classid1 + '||' + params.classid2 + '||' + params.classid3
+            var fileCategoryName = params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+            $.extend(customData, {fileName:page.fileName,fileID:params.g_fileId,filePayType:page.productType,fileCategoryID:fileCategoryID,fileCategoryName:fileCategoryName});
+            clickCenter('SE040', 'continueClick', 'loadMore', '加载更多', customData);
         }
     }
     function getSearchEngine(){
