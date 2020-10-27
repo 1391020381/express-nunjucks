@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
     var touristLoginCallback = null // 保存游客登录的传入的回调函数
     var IframeMessenger = require('./iframe/iframe-messenger');
+    
     var IframeMessengerList = {
         I_SHARE: new IframeMessenger({
             clientId: 'MAIN_I_SHARE_LOGIN',
@@ -31,11 +32,6 @@ define(function (require, exports, module) {
 
         // 建立通信
         IframeMessengerList[iframeId].addTarget($iframe);
-
-        setTimeout(function () {
-            IframeMessengerList[iframeId].send({a: '123123123'})
-        }, 1000)
-
         // 发送初始数据
         $iframe.onload = function () {
             console.log(11111111, IframeMessengerList[iframeId])
@@ -55,9 +51,9 @@ define(function (require, exports, module) {
         IframeMessengerList[iframeId].listen(function (res) {
             console.log('客户端监听-数据', res);
             if (res.userData) {
-                //   loginInSuccess(res.userData, res.formData, successFun)
+                loginInSuccess(res.userData, res.formData, successFun)
             } else {
-                // loginInFail(res.formData);
+                loginInFail(res.formData);
             }
         })
 
@@ -94,7 +90,14 @@ define(function (require, exports, module) {
         $(".detail-bg-mask").hide();
         $('#dialog-box').hide();
     }
-
+    function loginInSuccess(userData, loginType, successFun){
+        method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
+        successFun&&successFun()
+        closeRewardPop()
+    }
+    function loginInFail(loginType){
+        closeRewardPop()
+    }
     $('#dialog-box').on('click', '.close-btn', function (e) {
         closeRewardPop();
     })
