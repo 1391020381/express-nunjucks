@@ -528,7 +528,7 @@ define(function (require, exports, module) {
             return
         }
         if(financeAccountInfo.userTypeName != '机构'){
-            utils.debounce(getPersonalAccountTax((withdrawPrice*100), 1000))
+            utils.debounce(getPersonalAccountTax((withdrawPrice*100).toFixed(), 1000))
         }
       
         
@@ -540,7 +540,7 @@ define(function (require, exports, module) {
     function fullWithdrawal(){
         balance&&$('.withdrawal-application-dialog .amount').text((balance-100).toFixed(2))
         if(financeAccountInfo.userTypeName != '机构'){
-            getPersonalAccountTax(balance*100-10000)
+            getPersonalAccountTax((balance*100).toFixed()-10000)
         }
     }
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
@@ -558,11 +558,11 @@ define(function (require, exports, module) {
         var params = {}
         if(financeAccountInfo.userTypeName != '机构'){
              params = {
-                withPrice: withPrice*100
+                withPrice: (withPrice*100).toFixed()
             }
         }else{
             params = {
-                withPrice: withPrice*100,
+                withPrice: (withPrice*100).toFixed(),
                 invoicePicUrl: invoicePicUrl,
                 invoiceType: invoiceType
             }  
