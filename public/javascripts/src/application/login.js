@@ -1,7 +1,6 @@
 define(function (require, exports, module) {
     
     var method = require("./method");
-    var urlConfig = require('./urlConfig')
     var normalPageView = require('../common/bilog').normalPageView
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
@@ -10,30 +9,31 @@ define(function (require, exports, module) {
     var IframeMessenger = require('./iframe/iframe-messenger');
    var IframeMessengerList = {
     I_SHARE: new IframeMessenger({
-        id: 'MAIN_I_SHARE',
+        clientId: 'MAIN_I_SHARE_LOGIN',
         projectName: 'I_SHARE',
-        ssoId: 'I_SHARE_SSO',
-        ssoUrl: urlConfig.loginUrl + '/login.html'
+        ssoId: 'I_SHARE_SSO_LOGIN',
     }),
     I_SHARE_T0URIST_PURCHASE:new IframeMessenger({
-        id: 'MAIN_I_SHARE',
+        clientId: 'MAIN_I_SHARE_T0URIST_PURCHASE',
         projectName: 'I_SHARE',
-        ssoId: 'I_SHARE_SSO',
-        ssoUrl: urlConfig.loginUrl + '/tourist-purchase.html'
+        ssoId: 'I_SHARE_SSO_T0URIST_PURCHASE',
 }),
 I_SHARE_T0URIST_LOGIN:new IframeMessenger({
-    id: 'MAIN_I_SHARE',
+    clientId: 'MAIN_I_SHARE_T0URIST_LOGIN',
     projectName: 'I_SHARE',
-    ssoId: 'I_SHARE_SSO',
-    ssoUrl: urlConfig.loginUrl + '/tourist-login.html'
+    ssoId: 'I_SHARE_SSO_T0URIST_LOGIN'
 })
    }
+
     function initIframeParams(successFun,iframeId,params){
        
         // 操作需等iframe加载完毕
         var $iframe =  $('#'+iframeId)[0]    
         // 建立通信
         IframeMessengerList[iframeId].addTarget($iframe);
+       setTimeout(function(){
+        IframeMessengerList[iframeId].send({a:'123123123'})
+       },1000)
         // 发送初始数据
         $iframe.onload = function () {
             IframeMessengerList[iframeId].send({
@@ -43,6 +43,7 @@ I_SHARE_T0URIST_LOGIN:new IframeMessenger({
                 cid: params.clsId,
                 // 资料id
                 fid: params.fid,
+                callback:params.callback
             });
         }
 
@@ -67,10 +68,7 @@ I_SHARE_T0URIST_LOGIN:new IframeMessenger({
         loginCallback = callback
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
-        // $("#dialog-box").dialog({
-        //     html: loginDialog.html(),
-        //     'closeOnClickModal': false
-        // }).open(getLoginQrcode(params.clsId,params.fid));
+        
         $("#dialog-box").dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
@@ -79,10 +77,6 @@ I_SHARE_T0URIST_LOGIN:new IframeMessenger({
       function showTouristPurchaseDialog(params, callback){ // 游客购买的回调函数
         touristLoginCallback = callback
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
-        // $("#dialog-box").dialog({
-        //     html: touristPurchaseDialog.html(),
-        //     'closeOnClickModal': false
-        // }).open(getLoginQrcode(params.clsId, params.fid)); 
         $("#dialog-box").dialog({
             html: touristPurchaseDialog.html(),
             'closeOnClickModal': false
