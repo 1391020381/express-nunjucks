@@ -160,7 +160,7 @@ define(function (require, exports, module) {
     
                     
                     // 修改继续阅读文案要判断是否购买过  
-                    if(initData.productType == '5' || initData.productType == '3'){
+                    if(initData.productType == '5' || initData.productType == '4' || initData.productType == '3'){
                         window.changeText()
                     }
                    
