@@ -7,11 +7,11 @@ define(function (require) {
     // 通信sso
     function IframeMessenger(config) {
         // 当前窗口id
-        this.id = config.id;
-        // ssoId
+        this.clientId = config.clientId;
+        // sso登录页id
         this.ssoId = config.ssoId;
         // 实例化消息中心
-        this.messenger = new Messenger(config.id, config.projectName);
+        this.messenger = new Messenger(config.clientId, config.projectName);
     }
 
     /** 添加iframe */
@@ -21,12 +21,12 @@ define(function (require) {
 
     // 监听消息
     IframeMessenger.prototype.listen = function (callback) {
-        var self = this;
+        var that = this;
         this.messenger.listen(function (res) {
             if (res) {
                 res = JSON.parse(res);
                 // 只接收对应窗口数据
-                if (res.id === self.ssoId && typeof callback === "function") {
+                if (res.id === that.ssoId && typeof callback === "function") {
                     callback(res);
                 }
             }
@@ -35,21 +35,25 @@ define(function (require) {
 
     // 推送数据
     IframeMessenger.prototype.send = function (data) {
-        var self = this;
-        this.messenger.targets[this.ssoId].send(JSON.stringify({
-            id: self.id,
+        var that = this;
+        that.messenger.targets[that.ssoId].send(JSON.stringify({
+            id: that.clientId,
             data: data
         }));
     }
 
     // 在此处实例化-防止外部重复实例
-    // new IframeMessenger({
-    //     id: 'MAIN_I_SHARE',
+    // return new IframeMessenger({
+    //     // 项目id--与登录页需对应
     //     projectName: 'I_SHARE',
+    //     // 登录页id--与登录页需对应
     //     ssoId: 'I_SHARE_SSO',
-    //     ssoUrl: 'http://dev-login-ishare.iask.com.cn/office-login.html'
+    //     // 登录页url
+    //     // ssoUrl: 'http://127.0.0.1:8085/office-login.html'
+    //     // 客户端id
+    //     id: 'OFFICE_I_SHARE',
     // });
-    return IframeMessenger 
 
-   
+
+    return IframeMessenger;
 })
