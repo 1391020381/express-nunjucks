@@ -4,12 +4,12 @@ define(function(require, exports, moudle) {
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-    
+
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
-   
+
     var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
@@ -33,24 +33,25 @@ define(function(require, exports, moudle) {
     var userIds = []
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
-    var  isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') ||  method.getParam('isAutoRenew')
-    if(location.pathname == '/pay/vip.html'){
-        if(isAutoRenew!=1){ //  
+    var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
+    if (location.pathname == '/pay/vip.html') {
+        if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
-    if(location.pathname == '/pay/payQr.html'){
-        if(isAutoRenew==1){ //  
-            $('.icon-pay-style').css("background-position","-172px -200px")
+    if (location.pathname == '/pay/payQr.html') {
+        if (isAutoRenew == 1) { //  
+            $('.icon-pay-style').css("background-position", "-172px -200px")
         }
     }
-    
-    
+
+
     // 
     // 优惠券相关需要在登录后执行
-   var couponObj =  require("../common/coupon/couponOperate");
-     require("../common/coupon/couponIssue");
-    function getSpecialUserIds(userInfo){ // 获取vip列表页面展示 续费的 userIds
+    var couponObj = require("../common/coupon/couponOperate");
+    require("../common/coupon/couponIssue");
+
+    function getSpecialUserIds(userInfo) { // 获取vip列表页面展示 续费的 userIds
         $.ajax({
             url: api.coupon.getSpecialUserIds,
             type: "GET",
@@ -59,12 +60,12 @@ define(function(require, exports, moudle) {
             dataType: "json",
             success: function(res) {
                 if (res && res.code == '0') {
-                   userId = userInfo.userId 
-                   userIds = res.data.userIds || []
-                   if(userIds&&userIds.indexOf(userId)==-1&&userIds.length!=0) {
-                       $('.renewal-radio').remove()
-                   }
-                    
+                    userId = userInfo.userId
+                    userIds = res.data.userIds || []
+                    if (userIds && userIds.indexOf(userId) == -1 && userIds.length != 0) {
+                        $('.renewal-radio').remove()
+                    }
+
                 }
             }
         })
@@ -72,22 +73,22 @@ define(function(require, exports, moudle) {
     //生成二维码
     function initPage(userInfo) {
         getSpecialUserIds(userInfo)
-        window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
-        if(userInfo.isVip == 1){
+        window.pageConfig.params.fileDiscount = userInfo.fileDiscount // 获取用户折扣 在优惠券使用
+        if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
         }
-        $(function () {
-            var flag = $("#ip-flag").val();  
-          
+        $(function() {
+            var flag = $("#ip-flag").val();
+
             var uid = $("#ip-uid").val() || userInfo.userId
-            var type = $("#ip-type").val(); 
-            var isVip = $("#ip-isVip").val(); 
+            var type = $("#ip-type").val();
+            var isVip = $("#ip-isVip").val();
             if (flag == 3 && uid) { //二维码页面
                 if (type == 0) { //vip购买
                     if (method.getCookie('cuk')) {
                         $(".btn-vip-login-arrive").click();
-                        
+
                     }
                 } else if (type == 2) { //文件购买
                     if (isVip != 1) {
@@ -97,15 +98,15 @@ define(function(require, exports, moudle) {
                     }
                     if (method.getCookie('cuk')) {
                         $(".btn-file-login-arrive").click();
-                       
+
                     }
                 }
-               
+
                 var oid = method.getParam('orderNo');
                 if (oid) {
                     $(".carding-pay-item .oid").text(oid);
                     var isAutoRenew = method.getParam('isAutoRenew')
-                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid +  '&isAutoRenew='+isAutoRenew;
+                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&isAutoRenew=' + isAutoRenew;
 
                     try {
                         qr.createQrCode(url, 'pay-qr-code', 180, 180);
@@ -113,11 +114,11 @@ define(function(require, exports, moudle) {
                         $('.pay-qrcode-loading').hide()
                         isShowQrInvalidtip(false)
                         countdown(); // 计算二维码失效时间
-                      
+
                     } catch (e) {
                         console.log("生成二维码异常");
                         $(".btn-qr-show-fail").click();
-                        
+
                     }
                     alipayClick(oid);
                     // 获取支付状态结果
@@ -127,7 +128,7 @@ define(function(require, exports, moudle) {
                 }
             } else if (flag == "true" && uid) { //成功页面
                 var mobile = userInfo.mobile || $("#ip-mobile").val();
-                
+
                 if (mobile) { //隐藏绑定手机号模块 公众号模块居中
                     $(".carding-info-bottom").addClass('carding-binding-ok');
                 }
@@ -137,12 +138,12 @@ define(function(require, exports, moudle) {
             } else if (flag == "false" && uid) { //失败页面
 
             } else if (flag == "0") {
-               
+
             }
         });
     }
 
-   
+
     function countdown() { // 二维码失效倒计时
         if (expires_in <= 0) {
             clearTimeout(timer)
@@ -287,7 +288,7 @@ define(function(require, exports, moudle) {
         vipMemberId: '' //权益套餐ID
     };
 
-   
+
 
     if (method.getParam("ref")) {
         params.ref = utils.getPageRef(fid);
@@ -303,10 +304,10 @@ define(function(require, exports, moudle) {
         var mark = $(this).data('type');
         var type = params.type
         if (type == 10) { // mark == 'vip'
-         
+
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
         } else if (type == '13') { // mark == 'privilege'
-           
+
             method.compatibleIESkip('/pay/privilege.html' + urlQuery, true);
         } else if (type == '8') {
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
@@ -321,8 +322,8 @@ define(function(require, exports, moudle) {
         var price = $(this).data('price');
         var giveDesc = $(this).find('.give-desc').html() || ''
         $(".pay-privilege-text").html(giveDesc)
-            $("#activePrice").html(price);
-            $("#discountPrice").hide();
+        $("#activePrice").html(price);
+        $("#discountPrice").hide();
         if ($(this).data('pid')) {
             params.pid = $(this).data('pid');
             params.aid = $(this).data('actids');
@@ -331,30 +332,30 @@ define(function(require, exports, moudle) {
     });
 
     //vip套餐切换
-    
+
     $(".js-tab").each(function() {
         $(this).tab({
             activeClass: 'active',
             element: 'div',
             callback: function($this) {
-                
+
                 var price = $this.data('price').toFixed(2); // 价格
-            
+
                 var giveDesc = $this.find('.give-desc').html() || ''
-                var discountPrice = $this.data('discountprice')?$this.data('discountprice')/100:0
+                var discountPrice = $this.data('discountprice') ? $this.data('discountprice') / 100 : 0
                 var isAutoRenew = $this.data('isautorenew')
-                if(isAutoRenew == '1'){
-                   $('.renewal-radio').show() 
-                   $('.renewal-radio #renewal').attr('checked','checked') 
-                   $('.renewal-radio .renewal-desc .price').text(discountPrice) 
-                }else{
+                if (isAutoRenew == '1') {
+                    $('.renewal-radio').show()
+                    $('.renewal-radio #renewal').attr('checked', 'checked')
+                    $('.renewal-radio .renewal-desc .price').text(discountPrice)
+                } else {
                     $('.renewal-radio').hide()
                 }
                 $(".js-tab .gift-copy").html(giveDesc)
-                 
+
                 $("#activePrice").html(price);
                 $("#discountPrice").hide();
-                
+
                 if ($this.data('vid')) {
                     params.vid = $this.data('vid');
                     params.type = "10";
@@ -380,16 +381,16 @@ define(function(require, exports, moudle) {
             }
         })
     });
-     
-    $('.renewal-label').on('change',function(e){
-        couponObj.updatePrice()
-    })
-    //支付 生成二维码
+
+    $('.renewal-label').on('change', function(e) {
+            couponObj.updatePrice()
+        })
+        //支付 生成二维码
     $(document).on("click", ".btn-buy-bar", function(e) {
         e && e.preventDefault();
         //是否登录
         if (!method.getCookie('cuk')) {
-           
+
             $("#unLogin").click();
             return;
         }
@@ -473,11 +474,11 @@ define(function(require, exports, moudle) {
             goodsType = '8'
             goodsId = params.pid
         }
-       var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
-       if(isAutoRenew =='1'){
-        goodsType =  $('.renewal-radio #renewal').attr('checked')?12:goodsType  // 续费
-       }
-      
+        var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
+        if (isAutoRenew == '1') {
+            goodsType = $('.renewal-radio #renewal').attr('checked') ? 12 : goodsType // 续费
+        }
+
 
         // 组装创建订单的参数
         var temp = { //  
@@ -519,7 +520,7 @@ define(function(require, exports, moudle) {
         })
 
 
-        
+
     }
 
     /**
@@ -535,26 +536,26 @@ define(function(require, exports, moudle) {
             fileId = fid;
         }
 
-   
+
         var target = "/pay/payQr.html?"; //   0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         if (type == 10) { // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买             
-           
+
             target = target + "type=10&";
-          
+
             $(".btn-vip-order-done").click();
-            
+
         } else if (type == 13) {
-           
+
             target = target + "type=13&";
-            
+
         } else if (type == 8) {
-           
+
             target = target + "type=8&";
             var rf = method.getCookie('rf');
             if (rf) {
                 rf = JSON.parse(rf);
                 rf.orderId_var = orderNo;
-               
+
             }
         }
         if (method.getParam('fid')) {
@@ -564,11 +565,11 @@ define(function(require, exports, moudle) {
         }
         method.delCookie("br", "/");
 
-        
-        if($('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew') =='1'){
-            var isAutoRenew =  $('.renewal-radio #renewal').attr('checked')?'1':'0'
+
+        if ($('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew') == '1') {
+            var isAutoRenew = $('.renewal-radio #renewal').attr('checked') ? '1' : '0'
         }
-        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId+ "&isAutoRenew=" + isAutoRenew, false);
+        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId + "&isAutoRenew=" + isAutoRenew, false);
     }
 
     //网页支付宝

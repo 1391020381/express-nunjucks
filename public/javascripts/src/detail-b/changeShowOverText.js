@@ -190,7 +190,11 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 if (isDownload == 'n') {
                     textContent = '开通VIP 下载资料'
                 } else {
-                    textContent = productPrice + '个下载特权，下载到本地阅读'
+                    if (status != 2) {
+                        textContent = productPrice + '个下载特权，下载到本地阅读'
+                    } else {
+                        textContent = '下载到本地阅读'
+                    }
                 }
                 break
             default:

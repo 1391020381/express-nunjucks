@@ -228,7 +228,6 @@ function getFilePreview(req,res,list){
     return server.$http(appConfig.apiNewBaselPath + Api.file.preReadPageLimit,'post', req,res,true)
 }
 
-
 function handleDetalData(req,res,redirectUrl,list,topBannerList,searchBannerList,bannerListData,recommendInfo,paradigm4Relevant,paradigm4Guess,filePreview,crumbList,userID){
     
    
@@ -326,6 +325,7 @@ function handleDetalData(req,res,redirectUrl,list,topBannerList,searchBannerList
     results.recommendInfoData_guess = req.recommendInfoData_guess || {};
     results.showFlag = true    
     results.isDetailRender = true
+    // console.log('获取详情数据：', JSON.stringify(results))
     if(results.list.data&&results.list.data.abTest ){
         render("detail-b/index", results, req, res);
     }else{
