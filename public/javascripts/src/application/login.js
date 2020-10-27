@@ -4,8 +4,8 @@ define(function (require, exports, module) {
     var normalPageView = require('../common/bilog').normalPageView
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-    var loginCallback = null   // 保存调用登录dialog 时传入的函数 并在 登录成功后调用
-    var touristLoginCallback = null // 保存游客登录的传入的回调函数
+    
+    
     var IframeMessenger = require('./iframe/iframe-messenger');
     
     var IframeMessengerList = {
@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         IframeMessengerList[iframeId].addTarget($iframe);
         // 发送初始数据
         $iframe.onload = function () {
-            console.log(11111111, IframeMessengerList[iframeId])
+            console.log('$iframe.onload:', IframeMessengerList[iframeId])
 
             IframeMessengerList[iframeId].send({
                 // 窗口打开
@@ -42,8 +42,7 @@ define(function (require, exports, module) {
                 // 分类id
                 cid: params.clsId,
                 // 资料id
-                fid: params.fid,
-                callback: params.callback
+                fid: params.fid
             });
         }
 
@@ -66,7 +65,7 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-        loginCallback = callback
+        
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
 
@@ -77,7 +76,7 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        touristLoginCallback = callback
+        
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
         $("#dialog-box").dialog({
             html: touristPurchaseDialog.html(),
@@ -92,6 +91,11 @@ define(function (require, exports, module) {
     }
     function loginInSuccess(userData, loginType, successFun){
         method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
+        $.ajaxSetup({
+            headers: {
+                'Authrization': method.getCookie('cuk')
+            }
+        });
         successFun&&successFun()
         closeRewardPop()
     }
