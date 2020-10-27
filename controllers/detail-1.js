@@ -326,6 +326,7 @@ function handleDetalData(req,res,redirectUrl,list,topBannerList,searchBannerList
     results.showFlag = true    
     results.isDetailRender = true
     // console.log('获取详情数据：', JSON.stringify(results))
+    results.list.data.abTest = true
     if(results.list.data&&results.list.data.abTest ){
         render("detail-b/index", results, req, res);
     }else{
