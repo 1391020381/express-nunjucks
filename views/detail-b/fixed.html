@@ -8,6 +8,9 @@
             <!-- VIP文档.results.list.data.productType-->
             {% if results.list.data.productType == 4%}
                 <div class="integral-con ">
+                    <div class="integral-info">
+                        <span class="info-privilege">下载特权：<a>{{results.list.data.productPrice}}</a></span>
+                    </div>
                    <a class="btn-fix-bottom  pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
             {%else%}
