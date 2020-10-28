@@ -775,7 +775,7 @@ define(function(require, exports, moudle) {
                 payFileResult_bilog.reportResult(orderInfo, fileInfo, true);
             })
 
-        } else if (orderInfo.goodsType === 2) {
+        } else if (orderInfo.goodsType === 2||orderInfo.goodsType === 12) {
             // 购买vip成功
             href += '&type=0' + '&renewalVIP=' + renewalVIP;
             var rv = method.getCookie('rv');

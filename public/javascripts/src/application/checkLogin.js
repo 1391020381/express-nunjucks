@@ -46,7 +46,7 @@ define(function (require, exports, module) {
                     console.log('loginCallback')
                     _self.getLoginData(callback,'isFirstLogin')
                 })
-                require('../common/baidu-statistics.js').initBaiduStatistics('ef5af5aa035c01f19814c6311cefbd17')
+               
             }
         },
         listenLoginStatus: function (callback) {

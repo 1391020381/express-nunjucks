@@ -595,8 +595,9 @@ define(function (require, exports, module) {
             var params = window.pageConfig.params
             var fileCategoryID = params.classid1 + '||' + params.classid2 + '||' + params.classid3
             var fileCategoryName = params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
-            $.extend(customData, {fileName:page.fileName,fileID:params.g_fileId,filePayType:page.productType,fileCategoryID:fileCategoryID,fileCategoryName:fileCategoryName});
-            clickCenter('SE040', 'continueClick', 'loadMore', '加载更多', customData);
+            var temp = {}
+            $.extend(temp, {fileName:page.fileName,fileID:params.g_fileId,filePayType: payTypeMapping[page.productType],fileCategoryID:fileCategoryID,fileCategoryName:fileCategoryName});
+            clickCenter('SE040', 'continueClick', '', '', temp);
         }
     }
     function getSearchEngine(){
