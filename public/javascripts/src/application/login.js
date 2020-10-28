@@ -84,6 +84,12 @@ define(function (require, exports, module) {
         }).open(initIframeParams(callback, 'I_SHARE_T0URIST_PURCHASE', params));
     }
 
+    function showTouristLogin(params,callback){
+        var loginDom = $('#tourist-login').html()
+        $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+        $('#tourist-login').remove()
+        initIframeParams(callback, 'I_SHARE_T0URIST_LOGIN', params)
+    }
     function closeRewardPop() {
         $(".common-bgMask").hide();
         $(".detail-bg-mask").hide();
@@ -120,6 +126,7 @@ define(function (require, exports, module) {
     })
     return {
         showLoginDialog: showLoginDialog,
-        showTouristPurchaseDialog: showTouristPurchaseDialog
+        showTouristPurchaseDialog: showTouristPurchaseDialog,
+        showTouristLogin:showTouristLogin
     }
 });
