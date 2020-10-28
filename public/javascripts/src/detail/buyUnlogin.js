@@ -79,21 +79,27 @@ define(function (require, exports, module) {
             $('body').on("click", ".js-buy-open", function (e) {
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
-                    if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
-                        var clsId = getIds().clsId;
-                        var fid  = getIds().fid;
-                        showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
-                            viewExposure($(this),'noLgFPayCon')
-                            login.getLoginData(function (data) {
-                                common.afterLogin(data,{type:'file',data:data,callback:goPage});
-                            });
-                        })
-                        var className = 'ico-' + pageConfig.params.file_format;
-                        $('.tourist-purchase-content .ico-data').addClass(className)
-                        $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title)
-                        $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
-                        unloginObj.createOrder() // 生成订单
-                    }
+                    // if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
+                    //     var clsId = getIds().clsId;
+                    //     var fid  = getIds().fid;
+                    //     showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
+                    //         viewExposure($(this),'noLgFPayCon')
+                    //         login.getLoginData(function (data) {
+                    //             common.afterLogin(data,{type:'file',data:data,callback:goPage});
+                    //         });
+                    //     })
+                    //     var className = 'ico-' + pageConfig.params.file_format;
+                    //     $('.tourist-purchase-content .ico-data').addClass(className)
+                    //     $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title)
+                    //     $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
+                    //     unloginObj.createOrder() // 生成订单
+                    // }
+                    login.notifyLoginInterface(function (data) {
+                        window.pageConfig.userId = data.userId;
+                        common.afterLogin(data,{type:'file',data:data,callback:goPage})
+                    })
+                }else{
+                    goPage('file');
                 }
             })
         },
