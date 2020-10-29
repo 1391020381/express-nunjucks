@@ -2,11 +2,13 @@
     {{ if orderInfo.orderStatus == 2}}
     <span class="payment-title-icon success"></span>
     <span class="payment-title-desc">支付成功</span>
+    <span class="payment-title-info">请在电脑网站完成后续操作</span>
     {{/if}}
     {{ if orderInfo.orderStatus == 3}}
     <span class="payment-title-icon error"></span>
     <span class="payment-title-desc">支付失败</span>
     {{/if}}
+
 </div>
 <ul class="order-list">
     <li class="list-item">

@@ -51,6 +51,15 @@ body {
   font-weight: bold;
 }
 
+.payment .payment-title .payment-title-info {
+  flex: 1;
+  margin-top: 0.24rem;
+  height: 0.26rem;
+  font-size: 0.28rem;
+  font-weight: 400;
+  color: #666666;
+}
+
 .payment .payment-info {
   font-size: 0.3rem;
   font-weight: 400;
