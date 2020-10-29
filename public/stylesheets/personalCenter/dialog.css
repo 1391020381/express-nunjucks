@@ -622,6 +622,7 @@
 }
 .personal-center-dialog .cancelAutomaticRenewal-dialog {
   width: 447px;
+  text-align: center;
 }
 .personal-center-dialog .cancelAutomaticRenewal-dialog .title {
   margin-top: 60px;
@@ -647,7 +648,6 @@
   cursor: pointer;
 }
 .personal-center-dialog .cancelAutomaticRenewal-dialog .cancelAutomaticRenewal-cancel {
-  margin-left: 73px;
   font-size: 15px;
   color: #999999;
   background: #FFFFFF;
