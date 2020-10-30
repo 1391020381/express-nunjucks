@@ -53,7 +53,7 @@ define(function(require, exports, moudle) {
   
     //生成二维码
     function initPage(userInfo) {
-        getSpecialUserIds(userInfo)
+       
         window.pageConfig.params.fileDiscount = userInfo.fileDiscount // 获取用户折扣 在优惠券使用
         if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
