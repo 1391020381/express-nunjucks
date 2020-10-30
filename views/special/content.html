@@ -15,6 +15,7 @@
    </div>
    {% endif %}
     <!-- 筛选条件 -->
+    {% if results.data.dimensionStatus===0 or results.data.dimensionStatus==1 and results.specialTopic.length>0%}
     <div class="search-all-container">
         <!--dimensionStatus=0 开启维度 -->
         {% if results.data.dimensionStatus===0 %}  
@@ -72,7 +73,8 @@
             </div>
         </div>
         {% endif %}
-    </div>     
+    </div>  
+    {%endif%}   
     <!--筛选列表  -->
     <div class="search-list-section">
         <div class="search-list-tab">

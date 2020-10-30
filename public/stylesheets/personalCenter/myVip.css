@@ -127,12 +127,12 @@
 .personal-center-vip .myvip-top .vip-privilege-items .item {
   float: left;
   text-align: center;
-  margin-right: 70px;
+  margin-right: 90px;
   font-size: 12px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item .item-img {
   display: inline-block;
-  width: 56px;
+  width: 38px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item .item-desc {
   margin-top: 10px;
@@ -140,7 +140,7 @@
   color: #A17E4A;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item:first-child {
-  margin-left: 30px;
+  margin-left: 33px;
 }
 .personal-center-vip .myvip-top .vip-privilege-items .item:last-child {
   margin-right: 0;

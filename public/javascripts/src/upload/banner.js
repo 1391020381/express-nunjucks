@@ -34,6 +34,7 @@ define(function (require, exports, module){
                                 loop: k.list.length>1 ? true : false,
                                 autoplay: 3000,
                             })
+                            $('.wrapCenter').css('margin-top','0')
                         }
                     }
                 })
