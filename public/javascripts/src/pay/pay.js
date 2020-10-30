@@ -29,8 +29,7 @@ define(function(require, exports, moudle) {
     var switchCount = 0; // 切换次数
     var curActive = 0; // 当前激活套餐
     var callback = null;
-    var userId = ''
-    var userIds = []
+ 
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
@@ -51,25 +50,7 @@ define(function(require, exports, moudle) {
     var couponObj = require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
 
-    function getSpecialUserIds(userInfo) { // 获取vip列表页面展示 续费的 userIds
-        $.ajax({
-            url: api.coupon.getSpecialUserIds,
-            type: "GET",
-            data: params,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(res) {
-                if (res && res.code == '0') {
-                    userId = userInfo.userId
-                    userIds = res.data.userIds || []
-                    if (userIds && userIds.indexOf(userId) == -1 && userIds.length != 0) {
-                        $('.renewal-radio').remove()
-                    }
-
-                }
-            }
-        })
-    }
+  
     //生成二维码
     function initPage(userInfo) {
         getSpecialUserIds(userInfo)
