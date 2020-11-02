@@ -32,8 +32,13 @@ const renderPage = cc(async(req,res,next)=>{
     const editorInfo = await getEditorInfo(req,res,list)
     const fileDetailTxt = await getFileDetailTxt(req,res)
     const recommendInfo = await getRecommendInfo(req,res,list) 
-    const paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
-    const hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
+    if(recommendInfo){
+        var paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+    }
+    if(paradigm4Relevant){
+        var hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
+    }
+  
     const  hotTopicSearch = await getHotTopicSearch(req,res,list)
     const hotTopicSeo  = await getHotTopicSeo(req,res)
     const hotRecData =  await getHotRecData(req,res)

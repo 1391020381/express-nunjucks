@@ -75,10 +75,12 @@ const renderPage = cc(async(req,res)=>{
     const bannerList = await getBannerList(req,res,list)
     const crumbList  = await getCrumbList(req,res,list)
    const recommendInfo = await getRecommendInfo(req,res,list) 
-    const paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
-    const paradigm4Guess = await getParadigm4Guess(req,res,list,recommendInfo,userID)
+    if(recommendInfo){
+        var paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+        var paradigm4Guess = await getParadigm4Guess(req,res,list,recommendInfo,userID)
+    }
     const filePreview = await getFilePreview(req,res,list)
- 
+   
     handleDetalData(req,res,redirectUrl,list,topBannerList,searchBannerList,bannerList,recommendInfo,paradigm4Relevant,paradigm4Guess,filePreview,crumbList,userID)
 })
 

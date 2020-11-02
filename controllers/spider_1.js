@@ -33,7 +33,10 @@ const renderPage = cc(async(req,res,next)=>{
     const editorInfo = await getEditorInfo(req,res,list)
     const fileDetailTxt = await getFileDetailTxt(req,res)
     const recommendInfo = await getRecommendInfo(req,res,list) 
-    const paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+    if(recommendInfo){
+        var paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+    }
+    
     const hotRecData =  await getHotRecData(req,res)
     handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recommendInfo,paradigm4Relevant,hotRecData,type,fileurl})
 })
