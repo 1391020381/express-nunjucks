@@ -34,8 +34,9 @@ const renderPage = cc(async(req,res,next)=>{
     const editorInfo = await getEditorInfo(req,res,list)
     const fileDetailTxt = await getFileDetailTxt(req,res)
     const recommendInfo = await getRecommendInfo(req,res,list) 
+    let paradigm4Relevant = []
     if(recommendInfo){
-        var paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+         paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
     }
     
     const hotRecData =  await getHotRecData(req,res)

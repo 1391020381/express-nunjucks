@@ -46,7 +46,7 @@ const renderPage = cc(async(req,res)=>{
             return
         }
         if(fileInfo.showflag !=='y'){ // 文件删除
-            var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+            var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(fileInfo.title))}` 
             var results = Object.assign({},{showFlag:false,searchQuery,statusCode:'404',isDetailRender:true},defaultResultsData) 
             res.status(404)
             render("detail/index", results, req, res);
@@ -56,7 +56,7 @@ const renderPage = cc(async(req,res)=>{
             if(cuk&&fileInfo.uid&&fileInfo.uid == uid){ 
          
             }else{
-           var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+           var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(fileInfo.title))}` 
            var results = Object.assign({},{showFlag:false,searchQuery,isPrivate:true,statusCode:'302',isDetailRender:true},defaultResultsData)
            res.status(302)
            render("detail/index", results, req, res);
@@ -75,9 +75,11 @@ const renderPage = cc(async(req,res)=>{
     const bannerList = await getBannerList(req,res,list)
     const crumbList  = await getCrumbList(req,res,list)
    const recommendInfo = await getRecommendInfo(req,res,list) 
+   let  paradigm4Guess = []
+   let  paradigm4Relevant = []
     if(recommendInfo){
-        var paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
-        var paradigm4Guess = await getParadigm4Guess(req,res,list,recommendInfo,userID)
+         paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
+         paradigm4Guess = await getParadigm4Guess(req,res,list,recommendInfo,userID)
     }
     const filePreview = await getFilePreview(req,res,list)
    
