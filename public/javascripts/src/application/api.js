@@ -56,7 +56,7 @@ define(function (require, exports, module) {
         sms: {
             // 登录用户发送邮箱
             sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail',
-            fileSendEmailVisitor:gateway + '/fileSendEmail/visitor'   // 游客发送邮箱
+            fileSendEmailVisitor:gateway + '/content/fileSendEmail/visitor'   // 游客发送邮箱
         },
         pay: {
             // 购买成功后,在页面自动下载文档
