@@ -22,7 +22,7 @@ const renderPage = cc(async(req,res,next)=>{
         return
     }
     if(list.data.fileInfo.showflag !=='y'){ // 文件删除
-        var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
+        var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(list.data.fileInfo.title))}` 
         var results = {showFlag:false,searchQuery,statusCode:'404'}
         res.status(404)
         render("detail/index", results, req, res);
