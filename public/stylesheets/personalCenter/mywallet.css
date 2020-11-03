@@ -153,6 +153,10 @@
   font-size: 12px;
   color: #ADADAD;
 }
+.personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-subdesc .qq {
+  color: #707070;
+  font-style: normal;
+}
 .personal-center-mywallet .mywallet .survey-content .survey-content-select {
   margin-top: 14px;
 }

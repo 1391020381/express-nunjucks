@@ -44,7 +44,7 @@ var helper = require('./helper/helper')(env);
 // set favicon.ico
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 
-
+//本地开发环境反向代理
 
 let  restream = function(proxyReq, req, res, options) {
     if (req.body) {
@@ -62,7 +62,7 @@ if(appConfig.env == 'local' || appConfig.env == 'debug'){
         //目标后端服务地址
        //  target: 'http://ishare.iask.sina.com.cn',
        target:appConfig.newBasePath,
-        changeOrigin: true,
+       changeOrigin: true,
         secure: false,
         onProxyReq: restream
     }))
@@ -106,12 +106,16 @@ app.use(function (req, res, next) {
 //首页
 app.use('/', router);
 
-// //本地开发环境反向代理
+
 
 
 
 app.use(function (err, req, res, next) {
-    if (appConfig.env === 'dev'||appConfig.env === 'test') {
+    if(res.headersSent){
+        return next(err)
+    }
+    if (appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
+        console.log(err.message)
         res.status(err.status || 500);
         res.send({
             status: 0,
@@ -119,11 +123,16 @@ app.use(function (err, req, res, next) {
             error: err
         })
     }else{
-        log4js.info(err);
+        log4js.info(err.message);
+        res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
 });
 
-
+process.on('uncaughtException',(err)=>{
+    console.log('uncaughtException:',err.message)
+    process.exit(1)
+    
+})
 
 module.exports = app;

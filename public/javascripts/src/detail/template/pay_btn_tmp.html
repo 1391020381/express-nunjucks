@@ -26,6 +26,9 @@
                     <h2 class="data-title fl"><i class="ico-big-data ico-big-{{data.format}}"></i>{{data.title}}</h2>
                 </div>
                 <div class="integral-con fr">
+                    {{ if data.status != 2 }}
+                        <span style="float:left;margin-right:15px;">{{ data.productPrice }}个下载特权</span>
+                    {{ /if }}
                     <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3" bilogContent="fileDetailBottomDown" data-toggle="download">立即下载</a>
                 </div>
             {{else}}

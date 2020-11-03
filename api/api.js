@@ -6,17 +6,12 @@ console.log(process.env.NODE_ENV, 'process.env.NODE_ENV');
 // dev 本地开发环境 test 测试 、预发环境 prod  生产环境  
 module.exports = {
     file: {
-        // 文件详情 (正文)
-        // fileDetail: '/file/$id',
+        
         fileDetail: '/content/getFileDetail',
         getFileDetailNoTdk: '/content/getFileDetailNoTdk',
-        // 文档详情扩展的信息（统计）
-        // fileExternal: '/fileSync/statistics/$fid',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
         navCategory:'/content/category/navCategory',
-        // 相关资料 (右侧)
-        // fileList: '/file/getRelateFiles?fid=$fid&limit=$limit',
         // 评论列表
         commentList: '/file/getComments?fid=$fid',
         // 限制预读页数
@@ -35,20 +30,16 @@ module.exports = {
         getVipAllMemberDetail:'/rights/vip/allMemberDetail'
     },
     pay: {
-        getVip: '/order/vipPackage',                //获取vip套餐列表(old)
         getVipList:'/rights/vip/getVipPacks',          //获取VIP套餐列表(new)
-        // getPrivilege: '/order/privilegePackage',    //获取下载特权列表
+       
         getPrivilege: '/rights/vip/getPrivilegePacks',    //获取下载特权列表
         order: '/order/create',                     //下单
         orderUnlogin: '/order/create/orderInfo',        //免登陆下单
         qr: '/order/check/$orderNo',                //生成二维码
         handle: '/pay/handleQr',                    //处理二维码
-        // status: '/order/status/$orderNo',           //订单状态
         status: '/order/get/orderInfo',           //订单状态
         orderStatusUlogin: '/order/get/orderStatus', //订单状态
         webAlipay: '/pay/createAliQr',              //网页支付宝支付
-        // sms: '/usermanage/getSmsYzCode',            //发送验证码
-        // bind: '/usermanage/bindMobile',              //绑定手机号
         bindUnlogin: '/order/bindUser',               //免登陆绑定手机号
         visitorDownload: '/visitor/download',   //免登下载
         downloadVisitor: '/content/download/visitorDow', // 免登下载
@@ -79,7 +70,6 @@ module.exports = {
        getUserInfo:'/user/getUserInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
-    // queryOrderPc: '/order/bindOrderByOrderNo',
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     recommendConfigRuleInfo:'/recommend/config/ruleInfo',
     recommendConfigInfo:'/recommend/config/info',
@@ -89,7 +79,7 @@ module.exports = {
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
     },
     tdk:{
-        getTdkByUrl:'/seo/tdkmanage/findByUrl?url=$url'
+        getTdkByUrl:'/seo/tdkmanage/findByUrl?url=$url',
     },
     category:{//分类页
         list:'/search/content/byCondition', //查询列表

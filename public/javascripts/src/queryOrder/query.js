@@ -33,35 +33,12 @@ define(function (require, exports, module) {
         // loginPopShow();
     }
 
-    /**
-     * 获取用户信息
-     */
-    // function getUserInfos() {
-    //     if (!method.getCookie('cuk')) {
-    //         return;
-    //     }
-    //     method.get('/gateway/pc/usermanage/checkLogin?channelSource=4', function (res) {
-    //         console.log(res, '用户信息')
-    //         if (res.code == 0 && res.data) {
-    //             userInfo = res.data;
-    //         }else {
-    //             userInfo = null;
-    //         }
-    //     });
-    // };
+    
     
     function loginPopShow() {
         login.notifyLoginInterface(function (data) {
-            // common.afterLogin(data);
             refreshTopBar(data)
             userInfo = data
-            // 登陆后判断是否第一次登陆
-            // getUserInfos();
-            // login.getUserData(function (res) {
-            //     if (res.loginStatus == 1 && res && method.getCookie('_1st_l') != res.userId) {
-            //         receiveCoupon(0, 2, res.userIdres && res.userIdres.userId);
-            //     }
-            // })
         });
     }
     

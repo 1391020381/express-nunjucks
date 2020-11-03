@@ -617,6 +617,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
                         clearTimeout(timer)
                         authenticationCode.text('重新获取验证码')
                         authenticationCode.css({ 
+                            'background': '#f25126',
                             'font-size':'13px',
                             "color": "#fff", 
                             "border-color": "#eee"

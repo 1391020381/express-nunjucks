@@ -2,13 +2,13 @@
  * 登录相关
  */
 define(function (require, exports, module) {
-   
+
     var api = require('./api');
     var method = require("./method");
     var api = require("./api");
     var showLoginDialog = require('./login').showLoginDialog
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     var loginResult = require('../common/bilog').loginResult
     module.exports = {
         getIds: function () {
@@ -16,14 +16,14 @@ define(function (require, exports, module) {
             console.log('生成详情页信息：' + window.pageConfig);
             var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
-            
+
             var classArr = []
-            var clsId = params ? params.classid : '' 
+            var clsId = params ? params.classid : ''
 
             var fid = access ? (access.fileId || params.g_fileId || '') : '';
 
             // 类目页
-            var classIds = params&&params.classIds ? params.classIds : '';
+            var classIds = params && params.classIds ? params.classIds : '';
             !clsId && (clsId = classIds)
 
             return {
@@ -38,30 +38,31 @@ define(function (require, exports, module) {
         notifyLoginInterface: function (callback) {
             var _self = this;
             if (!method.getCookie('cuk')) {
-              
+
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 var clsId = this.getIds().clsId
-                var fid  = this.getIds().fid
-                showLoginDialog({clsId:clsId,fid:fid},function(){
+                var fid = this.getIds().fid
+                showLoginDialog({ clsId: clsId, fid: fid }, function () {
                     console.log('loginCallback')
-                    _self.getLoginData(callback)
+                    _self.getLoginData(callback,'isFirstLogin')
                 })
+               
             }
         },
         listenLoginStatus: function (callback) {
             var _self = this;
-            $.loginPop('login_wx_code', { 
-                "terminal": "PC", 
-                "businessSys": "ishare", 
-                'domain': document.domain, 
-                "ptype": "ishare", 
+            $.loginPop('login_wx_code', {
+                "terminal": "PC",
+                "businessSys": "ishare",
+                'domain': document.domain,
+                "ptype": "ishare",
                 "popup": "hidden",
                 "clsId": this.getIds().clsId,
                 "fid": this.getIds().fid
             }, function () {
-               
+
                 _self.getLoginData(callback);
-               
+
             })
         },
         /**
@@ -81,22 +82,26 @@ define(function (require, exports, module) {
          * 获取用户信息
          * @param callback 回调函数
          */
-        getLoginData: function (callback) {
+        getLoginData: function (callback,isFirstLogin) {
             var _self = this;
-            try{
+            try {
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,loginResult:"1"})
                         handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
+                        
+                        if(isFirstLogin){
+                            window.location.href = window.location.href;
+                        }
                         if (callback && typeof callback == "function") {
                             callback(res.data);
                             try {
                                 window.pageConfig.params.isVip = res.data.isVip;
                                 window.pageConfig.page.uid = res.data.userId;
-                               
+
                             } catch (err) { }
                         }
-    
+
                         try {
                             var userInfo = {
                                 uid: res.data.userId,
@@ -106,18 +111,18 @@ define(function (require, exports, module) {
                             method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
                         } catch (e) {
                         }
-                       
-                    } else  {
-                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: '',loginResult:"0"})
-                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:'',userid: res.data.userId,loginResult:"0"})
+
+                    } else {
+                        loginResult('', 'loginResult', { loginType: window.loginType && window.loginType.type, phone: '', userid: '', loginResult: "0" })
+                        handleBaiduStatisticsPush('loginResult', { loginType: window.loginType && window.loginType.type, phone: '', userid: res.data.userId, loginResult: "0" })
                         _self.ishareLogout();
                     }
 
                 });
-            }catch(e){
+            } catch (e) {
                 console.log(e)
             }
-  
+
         },
         /**
          * 退出
@@ -128,7 +133,7 @@ define(function (require, exports, module) {
             method.delCookie("cuk", "/", ".iask.com.cn");
             method.delCookie("cuk", "/", ".iask.com");
 
-           
+
             method.delCookie("cuk", "/");
 
             method.delCookie("sid", "/", ".iask.sina.com.cn");
@@ -144,15 +149,15 @@ define(function (require, exports, module) {
             //删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
-            
+
             $.get(api.user.loginOut, function (res) {
-                console.log('loginOut:',res)
-                if(res.code == 0){
+                console.log('loginOut:', res)
+                if (res.code == 0) {
                     window.location.href = window.location.href;
-                }else{
+                } else {
                     $.toast({
-                        text:res.msg,
-                        delay : 3000,
+                        text: res.msg,
+                        delay: 3000,
                     })
                 }
             });

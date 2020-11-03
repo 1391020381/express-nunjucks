@@ -55,7 +55,8 @@ define(function(require , exports , module){
             var fid = $(event.target).attr('data-fid')
             var orderNo = $(event.target).attr('data-orderno')
             var checkStatus = goodsTypeList[goodsType]&&goodsTypeList[goodsType].checkStatus
-            method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid,true);
+            var isAutoRenew= goodsType == '12'? '1':'0'
+            method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid + '&isAutoRenew=' + isAutoRenew,true);
         } 
     })
 

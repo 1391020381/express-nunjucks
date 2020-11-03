@@ -56,13 +56,15 @@ define(function (require, exports, module) {
         sms: {
             // 登录用户发送邮箱
             sendCorpusDownloadMail: gateway + '/content/fileSendEmail/sendCorpusDownloadMail',
-            fileSendEmailVisitor:gateway + '/fileSendEmail/visitor'   // 游客发送邮箱
+            fileSendEmailVisitor:gateway + '/content/fileSendEmail/visitor'   // 游客发送邮箱
         },
         pay: {
             // 购买成功后,在页面自动下载文档
             // 绑定订单
             bindUser: gateway + '/order/bind/loginUser',
-            scanOrderInfo: gateway + '/order/scan/orderInfo'
+            scanOrderInfo: gateway + '/order/scan/orderInfo',
+            getBuyAutoRenewList:gateway + '/order/buy/autoRenewList',
+            cancelAutoRenew:gateway + '/order/cancel/autoRenew/'
         },
         coupon:{
             rightsSaleVouchers:  gateway + "/rights/sale/vouchers",
@@ -70,7 +72,7 @@ define(function (require, exports, module) {
             querySeniority: gateway + '/rights/sale/querySeniority',
             queryUsing:gateway + '/rights/sale/queryUsing',
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
-            getBuyRecord:gateway + '/rights/vip/getBuyRecord',
+            getBuyRecord:gateway + '/rights/vip/getBuyRecord'
         },
         order:{
           

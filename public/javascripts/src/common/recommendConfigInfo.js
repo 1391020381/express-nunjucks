@@ -60,6 +60,16 @@ define(function (require, exports, module) {
             ],
             pageIds:['PC_M_USER_VIP_banner'] 
         },
+        myUploadBanner:{
+            descs:[
+                {
+                    desc:'我的上传',
+                    pageId:'PC_M_UPLOAD_banner',
+                    list:[] 
+                }
+            ],
+            pageIds:['PC_M_UPLOAD_banner'] 
+        },
         myVipRightsList:{
             descs:[
                 {

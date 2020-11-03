@@ -252,25 +252,18 @@ define(function (require, exports, module) {
     });
 
     try {//引入美洽客服
-        (function (m, ei, q, i, a, j, s) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
+        (function(a, b, c, d, e, j, s) {
+            a[d] = a[d] || function() {
+                (a[d].a = a[d].a || []).push(arguments)
             };
-            j = ei.createElement(q),
-                s = ei.getElementsByTagName(q)[0];
+            j = b.createElement(c),
+                s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
-            j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+            j.src = 'https://static.meiqia.com/widget/loader.js';
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
-        _MEIQIA('entId', '149498');
-        // 初始化成功后调用美洽 showPanel
-        _MEIQIA('allSet', function () {
-            _MEIQIA('showPanel');
-        });
-        // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-        _MEIQIA('manualInit');
-        /*_MEIQIA('init');*/
+        _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
     } catch (e) { }
 
     // 联系客服

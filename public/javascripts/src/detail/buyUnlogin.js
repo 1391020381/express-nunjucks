@@ -94,6 +94,7 @@ define(function (require, exports, module) {
                         $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
                         unloginObj.createOrder() // 生成订单
                     }
+                    
                 }
             })
         },

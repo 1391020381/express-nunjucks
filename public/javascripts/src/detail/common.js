@@ -7,7 +7,6 @@ define(function (require, exports, module) {
     var pay_header_tmp = require("./template/pay_header.tmp.html");
    
     var userData = null;
- 
     var pageConfig = window.pageConfig&&window.pageConfig 
    
     // 页面信息
@@ -26,6 +25,7 @@ define(function (require, exports, module) {
         title: pageConfig.page.fileName,
         format: pageConfig.params.file_format,
         cdnUrl: _head,
+        cuk: method.getCookie('cuk'), // 判断是否登录
         productType:pageConfig.page.productType,  // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
         productPrice:pageConfig.page.productPrice  // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
     };
@@ -177,7 +177,7 @@ define(function (require, exports, module) {
     
     
                     // 修改继续阅读文案要判断是否购买过  
-                    if(initData.productType == '5' || initData.productType == '3'){
+                    if(initData.productType == '5' || initData.productType == '4' || initData.productType == '3') {
                         window.changeText()
                     }
                 
@@ -201,7 +201,7 @@ define(function (require, exports, module) {
 
                     if(obj){ // js-buy-open
                         if(res.data&&res.data.status == 2){
-                            window.downLoad ()
+                            window.downLoad()
                         } else{
                            obj.callback(obj.type,obj.data)
                         }

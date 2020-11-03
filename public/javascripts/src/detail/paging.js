@@ -1,5 +1,6 @@
-define(function (require, exports, module) {
+define(function(require, exports, module) {
     // var $ = require("$");
+    var clickEvent = require('../common/bilog').clickEvent
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
     var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
@@ -10,34 +11,34 @@ define(function (require, exports, module) {
     var cPage = +window.pageConfig.page.initReadPage;
     var restPage = 0;
     var imgTotalPage = window.pageConfig.imgUrl.length;
-    var totalPage = window.pageConfig.params.totalPage;//最大页数
+    var totalPage = window.pageConfig.params.totalPage; //最大页数
     var ptype = window.pageConfig.params.g_fileExtension || '';
-    var preRead = window.pageConfig.page.preRead || 50;
+    var preRead = window.pageConfig.page.preRead || 50; // 预览页数
     var limitPage = Math.min(preRead, 50); //最大限制阅读页数
     var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
-    var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
+    var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4; // 网页可见区域高度
     var hash = window.location.hash;
 
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
-        isHideMore: function (pageNum) {   // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
+        isHideMore: function(pageNum) { // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
             if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {
-               $(".show-over-text").eq(1).show();
+                $(".show-over-text").eq(1).show();
             }
-           
+
         },
         //加载渲染
-        drawing: function (currentPage) {
+        drawing: function(currentPage) {
             if (imgTotalPage <= 2) return;
             $(".detail-pro-con div.article-page").eq(2).show();
             if (limitPage >= 4) {
                 $(".detail-pro-con div.article-page").eq(3).show();
             }
             //加载广告
-         //   createAd('a_6307747', 'a_page_con_3');  现在一次性加载四页
+            //   createAd('a_6307747', 'a_page_con_3');  现在一次性加载四页
             //保存当前渲染页面数
             var arr = [];
             var pageNum = $(".detail-pro-con div.article-page").length;
@@ -81,8 +82,8 @@ define(function (require, exports, module) {
 
             //剩余页数
             // var remainPage = restPage -= 5;
-            var remainPage = currentPage >= preRead? totalPage-preRead : restPage -= 5;
-            if($('.page-text .endof-trial-reading').css('display') == 'none'){
+            var remainPage = currentPage >= preRead ? totalPage - preRead : restPage -= 5;
+            if ($('.page-text .endof-trial-reading').css('display') == 'none') {
                 $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
             }
             //滚动到指定位置
@@ -91,20 +92,20 @@ define(function (require, exports, module) {
                 var index = $('.page-input').text();
                 var position = $(".detail-pro-con").find('div.article-page').eq(index).position();
                 if (position) {
-                    $('body,html').animate({scrollTop: position.top}, 200);
+                    $('body,html').animate({ scrollTop: position.top }, 200);
                 }
             }
         },
 
         //判断地址是否有效
-        handleHtmlExpireUrl: function () {
+        handleHtmlExpireUrl: function() {
             var isoverdue = 0;
             var pageHtmlUrl = window.pageConfig.imgUrl[0];
             var st = pageHtmlUrl.indexOf('?Expires=');
             var ft = pageHtmlUrl.indexOf('&KID=sina');
             var strDate = parseInt(pageHtmlUrl.substring(st + 9, ft)) * 1000;
-            var sdate = +new Date(strDate);//有效日期
-            var date = +new Date();//获取当前时间
+            var sdate = +new Date(strDate); //有效日期
+            var date = +new Date(); //获取当前时间
             //过期
             if (sdate < date || pageHtmlUrl.indexOf("sinacloud.net") > -1) {
                 isoverdue = 1;
@@ -115,16 +116,16 @@ define(function (require, exports, module) {
     };
     //滚动监听页数
     $(window).on('scroll', getPage);
-  
-  
-    
-    if(initReadPage>=preRead||initReadPage>=imgTotalPage){  
-        changeText() 
+
+    if (initReadPage >= preRead || initReadPage >= imgTotalPage) {
+        changeText()
     }
-    if($('.page-num').text().trim()<0){  //  totalPage < 4
+
+    if ($('.page-num').text().trim() < 0) { //  totalPage < 4
         $('.page-num').text(0)
     }
-    $(function () {
+
+    $(function() {
         //默认隐藏
         var $articlePages = $(".detail-pro-con div.article-page");
         //360
@@ -141,11 +142,11 @@ define(function (require, exports, module) {
                 } else if (hashPage <= 7) {
                     restPage = totalPage - 2;
                     loadMore();
-                    setTimeout(function () {
-                        var top = $(".detail-pro-con").find('div.article-page').eq(hashPage - 1).offset().top;
-                        $('body,html').animate({ scrollTop: top });
-                    }, 2000)
-                    //只加载指定页图片
+                    setTimeout(function() {
+                            var top = $(".detail-pro-con").find('div.article-page').eq(hashPage - 1).offset().top;
+                            $('body,html').animate({ scrollTop: top });
+                        }, 2000)
+                        //只加载指定页图片
                 } else {
                     restPage = totalPage - hashPage + 5;
                     // limitPage = imgTotalPage;
@@ -163,7 +164,8 @@ define(function (require, exports, module) {
 
                     var $last = $(".article-page[data-num='" + hashPage + "']");
                     var imgUrl = window.pageConfig.imgUrl;
-                    var startIndex = 7, subUrl = imgUrl.slice(startIndex, hashPage - 1);
+                    var startIndex = 7,
+                        subUrl = imgUrl.slice(startIndex, hashPage - 1);
                     var list = [];
                     var count = 8;
                     for (var t = 0; t < subUrl.length; t++) {
@@ -181,7 +183,7 @@ define(function (require, exports, module) {
                     }
                     $last.before(str);
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         $('body,html').animate({ scrollTop: $last.offset().top });
                     }, 2000);
                     if (parseInt(hashArr[1]) >= preRead) {
@@ -201,7 +203,7 @@ define(function (require, exports, module) {
     });
 
     //给页面绑定滑轮滚动事件
-    if (document.addEventListener) {//firefox
+    if (document.addEventListener) { //firefox
         document.addEventListener('DOMMouseScroll', scrollFunc, false);
     }
     //滚动滑轮触发scrollFunc方法 //ie 谷歌
@@ -209,12 +211,12 @@ define(function (require, exports, module) {
 
 
     //点击加载更多
-    $(document).on('click', '[data-toggle="btnReadMore"]', function () {
+    $(document).on('click', '[data-toggle="btnReadMore"]', function() {
         loadMore();
     });
 
     //点击下一页 >
-    $('.page-next').on('click', function () {
+    $('.page-next').on('click', function() {
 
         // var index = $('.page-input').val() - 0;
         var index = $('.page-input').text() - 0;
@@ -253,7 +255,7 @@ define(function (require, exports, module) {
 
                 $('body,html').animate({ scrollTop: position }, 200);
 
-                setTimeout(function () {
+                setTimeout(function() {
                     // $('.page-input').val(index + 1);
                     $('.page-input').text(index + 1);
                 }, 100)
@@ -278,7 +280,7 @@ define(function (require, exports, module) {
     });
 
     // 点击上一页 <
-    $('.page-prev').on('click', function () {
+    $('.page-prev').on('click', function() {
 
         // var index = $('.page-input').val() - 0;
         var index = $('.page-input').text() - 0;
@@ -290,7 +292,7 @@ define(function (require, exports, module) {
         if (position) {
             $('body,html').animate({ scrollTop: position }, 200);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 // $('.page-input').val(index - 1);
                 $('.page-input').text(index - 1);
             }, 100)
@@ -298,14 +300,14 @@ define(function (require, exports, module) {
     });
 
     //enter键盘 按下事件
-    $(".page-input").keydown(function (event) {
+    $(".page-input").keydown(function(event) {
         if (event.keyCode === 13) {
             // var index = $('.page-input').val() - 0;
             var index = $('.page-input').text() - 0;
             if (index > limitPage) {
                 var $d_page_wrap = $('.d-page-wrap');
                 $d_page_wrap.removeClass('hide');
-                setTimeout(function () {
+                setTimeout(function() {
                     $d_page_wrap.addClass('hide');
                 }, 1500);
                 return;
@@ -325,7 +327,7 @@ define(function (require, exports, module) {
     });
 
     //点击展开
-    $(document).on('click', '[data-toggle="btnExpandMore"]', function () {
+    $(document).on('click', '[data-toggle="btnExpandMore"]', function() {
         //移除固定高度
         $(".ppt-pic-con").css("height", "auto");
         $(this).parent().remove();
@@ -334,7 +336,7 @@ define(function (require, exports, module) {
     });
 
     //点击大图预览
-    $('div.detail-pro-con').delegate(".article-page", "click", function () {
+    $('div.detail-pro-con').delegate(".article-page", "click", function() {
         if (ptype === 'txt') {
             return
         }
@@ -344,11 +346,11 @@ define(function (require, exports, module) {
     });
 
     //点击隐藏大图
-    $(".code-source").click(function () {
+    $(".code-source").click(function() {
         $(".code-source").css("visibility", "hidden");
     });
 
-    $(function () {
+    $(function() {
         var iframeId = 'iframeu4078296_0';
         if ($.browser.msie && $.browser.version <= 9) {
             $('#' + iframeId).parent().hide();
@@ -371,17 +373,16 @@ define(function (require, exports, module) {
                     div.appendChild(ad);
                 }
             }
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
     //节流函数
     function throttle(fn) {
         var canRun = true; // 通过闭包保存一个标记
-        return function () {
+        return function() {
             if (!canRun) return; // 在函数开头判断标记是否为true，不为true则return
             canRun = false; // 立即设置为false
-            setTimeout(function () { // 将外部传入的函数的执行放在setTimeout中
+            setTimeout(function() { // 将外部传入的函数的执行放在setTimeout中
                 fn.apply(this, arguments);
                 // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。当定时器没有执行的时候标记永远是false，在开头被return掉
                 canRun = true;
@@ -436,19 +437,20 @@ define(function (require, exports, module) {
         //如果已经到最后了
         if (loadedPage - limitPage >= 0) {
             action.isHideMore(loadedPage);
-            if($('.red-color').text()!=='点击可继续阅读 >'){ 
+            if ($('.red-color').text() !== '点击可继续阅读 >') {
                 readMoreTextEvent()
             }
-            changeText()  
+            changeText()
         }
         if (loadedPage == totalPage) {
             action.isHideMore(loadedPage);
-             if($('.red-color').text()!=='点击可继续阅读 >'){
+            if ($('.red-color').text() !== '点击可继续阅读 >') {
                 readMoreTextEvent()
             }
             changeText()
         }
         loadMoreStyle()
+        clickEvent($('.state-bottom .page-text'))
     }
 
     function mouseScroll() {
@@ -493,15 +495,16 @@ define(function (require, exports, module) {
     }
 
     function addItem(src, num) {
-        var $item = '', padding = '';
+        var $item = '',
+            padding = '';
         var ptype = window.pageConfig.params.g_fileExtension || '';
         var supportSvg = window.pageConfig.supportSvg;
         var svgFlag = window.pageConfig.svgFlag;
         if (ptype === 'txt') {
             $item += "<div class='detail-con first-style article-page source-link' data-num='" + num + "'>" +
                 "<div class='detail-inner article-main'>" +
-                "<div class='data-detail other-format-style'>"
-                + src +
+                "<div class='data-detail other-format-style'>" +
+                src +
                 "</div>" +
                 "</div>" +
                 "</div>"
@@ -537,7 +540,8 @@ define(function (require, exports, module) {
     }
 
     function addItemLoading(src, num) {
-        var $item = '', padding = '';
+        var $item = '',
+            padding = '';
         var ptype = window.pageConfig.params.g_fileExtension || '';
         var supportSvg = window.pageConfig.supportSvg;
         var svgFlag = window.pageConfig.svgFlag;
@@ -579,7 +583,4 @@ define(function (require, exports, module) {
         }
         return $item;
     }
-
-
-
 });

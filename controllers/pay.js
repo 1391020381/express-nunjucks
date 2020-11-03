@@ -21,10 +21,15 @@ module.exports = {
                 }
             },
             list: function (callback) {
+              
+                var userFileType = req.query.userFileType
+                var userFilePrice = req.query.userFilePrice
                 req.body = {
                     size: 4,
                     platform: 0,
-                    scope: 4
+                    scope: 4,
+                    userFileType:userFileType,
+                    userFilePrice:userFilePrice
                 };
                 server.post(appConfig.apiNewBaselPath + api.pay.getVipList, callback, req);
             }
@@ -38,7 +43,7 @@ module.exports = {
                 checkStatus: req.query.checkStatus  // pay.js中不同支付状态判断都通过 获取下载url接口为准
             }
             // 排序每个套餐的权益
-            if (results.list.data.length) {
+            if (results.list.data&&results.list.data.length) {
                 var tempListData = []
                 results.list.data.forEach(item => {
                     var tempMembers = []
@@ -275,11 +280,12 @@ module.exports = {
                 }
             }
         }, function (err, results) {
-            // console.log(results);
+            
             if (results.list && results.list.code != 0) {
                 results.list.data = {}
             }
-            // results.type = results.list.data.type;
+            
+            results.isAutoRenew = req.query.isAutoRenew  
             results.flag = 3;
             results.list.data.payPrice = results.list.data.payPrice ? (results.list.data.payPrice / 100).toFixed(2) : ''
             results.list.data.originalPrice = results.list.data.originalPrice ? (results.list.data.originalPrice / 100).toFixed(2) : ''
@@ -580,8 +586,29 @@ module.exports = {
     // 聚合支付二维码
     payment: function (req, res) {
         return async.series({
-            getPayment: function (callback) {
-                callback(null, null);
+            getOrderInfo: function (callback) {
+                var opt = {
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.pay.status,
+                    body: JSON.stringify({
+                        orderNo: req.query.orderNo
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }
+                request(opt, function (err, res1, body) {
+                    var data = JSON.parse(body);
+                    if (body) {
+                        if (data.code == 0) {
+                            callback(null, data);
+                        } else {
+                            callback(null, {});
+                        }
+                    } else {
+                        callback(null, {});
+                    }
+                })
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
             var source = req.useragent.source
@@ -590,8 +617,11 @@ module.exports = {
             var isAliPay = source.indexOf("AlipayClient") !== -1
             var isOther = !isWeChat && !isAliPay
             // var isOther = false 
+            results.goodsName = results.getOrderInfo.data.goodsName
+            results.payPrice = results.getOrderInfo.data.payPrice/100
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
+            results.isAutoRenew = req.query.isAutoRenew
             if (isOther) {
                 res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });//设置response编码
                 res.end('请使用微信或者支付扫码支付!')

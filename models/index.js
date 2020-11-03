@@ -88,25 +88,27 @@ module.exports = {
             var opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
+                // console.log('$http---------:',opt.url,error,body)
+                let is4paradigm = opt.url.includes('https://nbrecsys.4paradigm.com/')
+                let isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk')
                 if (body) {
                     try {
                         var data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if(data.code==='G-500'){
-                            console.error(data);
-                            res.redirect('/node/404.html')
-                            return
+                        if(data.code!='0'&&!is4paradigm&!isGetFileDetailNoTdk){
+                            console.log('$http---------:',opt.url,error,body)
+                            reject(body)
                         }else{
                             resolve(data)   
                         }
                     } catch (err) {
-                        console.error(err);
+                        console.log('$http---------:',opt.url,err,body)
                         reject(err)
                     }
                 } else {
-                    reject()
+                    reject(body)
                 }
             })
         })

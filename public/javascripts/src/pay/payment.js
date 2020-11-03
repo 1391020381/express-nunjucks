@@ -7,24 +7,25 @@ define(function (require, exports, module) {
     var orderNo = method.getParam('orderNo');
     var platformCode = method.getParam('platformCode');//平台编码
     var host = method.getParam('host');//域名来源
-    var checkStatus = method.getParam('checkStatus')
+  
     var isWeChat = window.pageConfig.page && window.pageConfig.page.isWeChat
     var isAliPay = window.pageConfig.page && window.pageConfig.page.isAliPay
-    var urlConfig = require('../application/urlConfig')
-//    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-     var env = window.env 
-     var urlList = {
-         dev:'//dev-ishare.iask.com.cn',
-         test:'//test-ishare.iask.com.cn',
-         pre:'//pre-ishare.iask.com.cn',
-         prod:'//ishare.iask.sina.com.cn'
-     }
-   console.log('env:',env,urlList[env])
- 
+    var isAutoRenew = window.pageConfig.page && window.pageConfig.page.isAutoRenew
+   console.log('isAutoRenew:',isAutoRenew,method.getParam('isAutoRenew'))
+    //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
+    var env = window.env
+    var urlList = {
+        dev: '//dev-ishare.iask.com.cn',
+        test: '//test-ishare.iask.com.cn',
+        pre: '//pre-ishare.iask.com.cn',
+        prod: '//ishare.iask.sina.com.cn'
+    }
+    console.log('env:', env, urlList[env])
+
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
-            url:  urlList[env] + api.pay.scanOrderInfo,
+            url: urlList[env] + api.pay.scanOrderInfo,
             type: "POST",
             data: JSON.stringify({
                 orderNo: orderNo,
@@ -37,14 +38,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 console.log('scanOrderInfo:', res)
                 if (res.code == '0') {
-                    var payPrice = (method.getParam('payPrice') / 100).toFixed(2)
-                    var goodsName = method.getParam('goodsName')
-                    if (payPrice !== '0.00') {
-                        $('.pay-price .price').text(payPrice)
-                    }
-                    if (goodsName) {
-                        $('.goodsName').text(goodsName)
-                    }
+                   
                     console.log('needRedirect:', res.data.needRedirect)
                     if (res.data.needRedirect) {
                         setTimeout(function () {
@@ -54,9 +48,17 @@ define(function (require, exports, module) {
                     } else {
                         $(".payment").removeClass('hide');
                         if (isWeChat == 'true') {
-                            wechatPay(res.data.appId, res.data.timeStamp, res.data.nonceStr, res.data.prepayId, res.data.paySign)
+                            if (method.getParam('goodsType') == 12) {
+                                $.toast({
+                                    text: '当前仅支持支付宝支付开通自动续费！',
+                                    delay: 3000,
+                                })
+                                return false;
+                            } else {
+                                wechatPay(res.data.appId, res.data.timeStamp, res.data.nonceStr, res.data.prepayId, res.data.paySign)
+                            }
                         } else if (isAliPay == 'true') {
-                            aliPay(res.data.aliPayUrl)
+                             aliPay(res.data.aliPayUrl) 
                         }
                     }
                 } else {
@@ -75,6 +77,7 @@ define(function (require, exports, module) {
             }
         })
     }
+
     function wechatPay(appId, timeStamp, nonceStr, package, paySign) {  // prepayId 对应 package
         console.log('wechatPay:', appId, timeStamp, nonceStr, package, paySign)
         function onBridgeReady() {
@@ -112,27 +115,47 @@ define(function (require, exports, module) {
             onBridgeReady();
         }
     }
+
     function aliPay(aliString) {
-        // sessionStorage.setItem("aliString", aliString);
-        // location.href = location.origin + '/pay/aliPayMidPage'
-        $('.payment').html(aliString)
-        $('form').attr("target", "_blank")
+       console.log('aliPay:',aliString,isAutoRenew == '1',isAutoRenew)
+        if(isAutoRenew == '1'){
+            alipayRenewalPayment(aliString)
+        }else{
+            $('.payment').html(aliString)
+            $('form').attr("target", "_blank")
+        }
+       
     }
+
     function getOrderStatus(orderNo) {
         if (platformCode == 'm') { //m端跳转公共的支付空白页 然后跳相关的页面(m端付费文档微信浏览器)
             var redirectUrl = host + "/node/payInfo?orderNo=" + orderNo + "&mark=wx";
             // location.href='http://ishare.iask.sina.com.cn/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
-            location.href= urlList[env] + '/pay/payRedirect?redirectUrl='+encodeURIComponent(redirectUrl); 
-        }else{ //直接跳结果 urlConfig
+            location.href = urlList[env] + '/pay/payRedirect?redirectUrl=' + encodeURIComponent(redirectUrl);
+        } else { //直接跳结果 urlConfig
             // location.href  ='http://ishare.iask.sina.com.cn/pay/paymentresult?orderNo=' + orderNo
-            location.href  = urlList[env] +'/pay/paymentresult?orderNo=' + orderNo
+            location.href = urlList[env] + '/pay/paymentresult?orderNo=' + orderNo
         }
 
     }
+    function  alipayRenewalPayment(orderStr){
+        console.log('ap:',ap)
+        ap.tradePay({
+            orderStr: orderStr
+          }, function(res){
+            console.log(res)
+            // ap.alert(res.resultCode);
+            if(res.resultCode == '9000'){
+                getOrderStatus(orderNo)
+            }else{
 
+            }
+          })
+    }
     $(document).on('click', '.pay-confirm', function (e) {
         console.log('pay-confirm-start')
         scanOrderInfo()
         console.log('pay-confirm-end')
     })
+
 });

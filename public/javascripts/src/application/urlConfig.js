@@ -9,16 +9,18 @@ define(function (require, exports, module) {
             upload:"//upload-ishare.iask.com",
              appId:'wxb8af2801b7be4c37',
              bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
-             officeUrl:'http://office.iask.com' 
+             officeUrl:'http://office.iask.com',
+             ejunshi:'http://dev.ejunshi.com' 
         },
         local: {
             ajaxUrl: '',
-            payUrl: 'http://dev-open-ishare.iask.com.cn',
+            payUrl: 'http://test-open-ishare.iask.com.cn',
             loginUrl: '',
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
-            officeUrl:'http://dev-office.iask.com' 
+            officeUrl:'http://dev-office.iask.com',
+            ejunshi:'http://dev.ejunshi.com'  
         },
         dev: {
             ajaxUrl: '',
@@ -27,7 +29,8 @@ define(function (require, exports, module) {
             upload:"//dev-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",
-            officeUrl:'http://dev-office.iask.com' 
+            officeUrl:'http://dev-office.iask.com',
+            ejunshi:'http://dev.ejunshi.com'  
         },
         test: {
             ajaxUrl: '',
@@ -36,7 +39,8 @@ define(function (require, exports, module) {
             upload:"//test-upload-ishare.iask.com",
             appId:'wxb8af2801b7be4c37',
             bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data=",
-            officeUrl:'http://test-office.iask.com' 
+            officeUrl:'http://test-office.iask.com',
+            ejunshi:'http://test.ejunshi.com'  
         },
         pre: {
             ajaxUrl: '',
@@ -45,7 +49,8 @@ define(function (require, exports, module) {
             upload:"//pre-upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
             bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data=",
-            officeUrl:'http://pre-office.iask.com'
+            officeUrl:'http://pre-office.iask.com',
+            ejunshi:'http://pre.ejunshi.com'  
         },
         prod: {
             ajaxUrl: '',
@@ -54,7 +59,8 @@ define(function (require, exports, module) {
             upload:"//upload-ishare.iask.com",
             appId: 'wxca8532521e94faf4',
             bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",
-            officeUrl:'http://office.iask.com'
+            officeUrl:'http://office.iask.com',
+            ejunshi:'http://ejunshi.com'  
         }
     }
 

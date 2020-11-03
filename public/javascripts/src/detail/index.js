@@ -11,9 +11,6 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var common = require('./common');
     var clickEvent = require('../common/bilog').clickEvent
-    var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-    //  var entryName_var = payTypeMapping[pageConfig.params.file_state];
-    // var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
     var fileName = window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
@@ -55,17 +52,17 @@ define(function (require, exports, module) {
             var params = window.pageConfig.params;
             if ((params.productType == '4'|| params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
-                // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+            
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
-                // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
+              
                 var savePrice = (params.moneyPrice * 0.8).toFixed(2);
                 $('.vip-save-money').html(savePrice)
                 $('.js-original-price').html(savePrice);
             }
         }
         // 意见反馈的url
-        // var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+       
         var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
@@ -83,10 +80,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        // setTimeout(function () {
-        //     $('.detail-search-info').show();
-        // }, 30000)
-        // $('.detail-search-info').show();
+       
     }
 
     // 事件绑定
@@ -134,9 +128,7 @@ define(function (require, exports, module) {
        
         $('.detail-search-info').on('click',function(){
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-            // if (!_val) {
-            //     return
-            // }
+            
             searchFn(_val);
         })
         $(document).on('click', ':not(.new-search)', function (event) {
@@ -223,9 +215,7 @@ define(function (require, exports, module) {
     
     function sendEmail (){
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-        // $("#dialog-box").dialog({
-        //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
-        // }).open();
+        
         $("#dialog-box").dialog({
             html: $('#reward-mission-pop').html(),
         }).open();
@@ -324,10 +314,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                // if(res.data.rows&&res.data.rows.length){
-                //   var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
-                //   $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
-                // }
+                 
                }
             }
         })
@@ -361,7 +348,7 @@ define(function (require, exports, module) {
 
     $(function () {
         ////详情页用户展开
-        //elementHover(".new-detail-header .user-con",null,"hover");
+      
         //详情页获取焦点
         var $detailHeader = $(".new-detail-header");
         var headerHeight = $detailHeader.height();
@@ -408,12 +395,6 @@ define(function (require, exports, module) {
                 $fixBar.find(".operation").show();
                 $fixBar.find(".data-item").hide();
             }
-            //滚动超过600展示优惠券广告
-            // if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
-            //     $('.pc-tui-coupon').show();
-            //     localStorage.setItem('loginCouponAd', 1);
-            //     closeCouponAD()
-            // }
         });
         // 关闭底部优惠券弹窗
         function closeCouponAD() {
@@ -438,32 +419,7 @@ define(function (require, exports, module) {
 
 
 
-    // 添加取消收藏
-    // function collectFile(cond) {
-    //     method.post(api.normalFileDetail.collect, function (res) {
-    //         if (res.code == 0) {
-    //             var $btn_collect = $('#btn-collect');
-    //             if (cond === 3) {
-    //                 var $dCollect = $('.d-collect');
-    //                 $dCollect.removeClass('hide');
-    //                 setTimeout(function () {
-    //                     $dCollect.addClass('hide');
-    //                 }, 2000);
-    //                 $btn_collect.addClass('btn-collect-success');
-    //             } else {
-    //                 $btn_collect.removeClass('btn-collect-success')
-    //             }
-    //         } else if (res.code == 40001) {
-    //             setTimeout(function () {
-    //                 method.delCookie('cuk', "/", ".sina.com.cn");
-    //             }, 0)
-    //         }
-    //     }, '', 'post', {
-    //         fid: pageConfig.params.g_fileId,
-    //         cond: cond,
-    //         flag: 'y'
-    //     });
-    // }
+  
 
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
@@ -551,62 +507,7 @@ define(function (require, exports, module) {
 
   
 
-    var commentContent = function () {
-        var content = $('#commentTxt').val();
-        var fid = pageConfig.params.g_fileId;
-        var type = '1';
-        var anonymous = $('#commentCheckbox .check-con').hasClass('checked');
-
-        if (content.length < 1 || content.length > 200) {
-            $('.error-info').text('评论内容长度必须在1~200个字符之间');
-            return false;
-        }
-
-        method.get(api.normalFileDetail.hasDownLoad + '?fid=' + window.pageConfig.params.g_fileId, function (res) {
-            if (res.code == 0) {
-                if (res.data) {
-                    method.post(api.normalFileDetail.addComment, function (res) {
-                        if (res.code == 0) {
-                            if (res.data === 0) {
-                                var showName = anonymous ? '匿名用户' : common.userData.nickName;
-                                var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + '</a>' : '<a href="/n/' + common.userData.userId + '.html" class="user-name-con">' + showName + '</a>';
-                                $('.evaluate-list').prepend('<li class="cf">' +
-                                    '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' +
-                                    '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content +
-                                    '</p></div></li>');
-                                $('#commentTxt').val('');
-                            } else if (res.data === 2) {
-                                $('.error-info').text('一天最多评论15条');
-                            } else if (res.data === 3) {
-                                $('.error-info').text('一分钟之内提交过于频繁');
-                            } else if (res.data === 5) {
-                                $('.error-info').text('您经评论过');
-                            } else if (res.data === 4) {
-                                $('.error-info').text('*您的评论包含敏感词,请修改再发布!');
-                            }
-                        } else if (res.code == 40001) {
-                            setTimeout(function () {
-                                method.delCookie('cuk', "/", ".sina.com.cn");
-                            }, 0)
-                        } else {
-                            $('.error-info').text(res.msg);
-                        }
-                    }, '', '', {
-                        content: content,
-                        fid: fid,
-                        type: type,
-                        anonymous: anonymous ? 1 : 0
-                    });
-                } else {
-                    $("#dialog-box").dialog({
-                        html: $('#tpl-down-text').html()
-                            .replace(/\$msg/, '您还未获取该资料,先要获取资料后才可以评论哦!')
-                    }).open();
-                }
-            }
-        }, '');
-
-    };
+  
 
     function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
@@ -614,31 +515,36 @@ define(function (require, exports, module) {
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
-        //文件信息存入cookie方便gio上报
-        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+      
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
         if (type === 'file') {
-            // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+          
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
-            // window.location.href = "/pay/payConfirm.html" + params;
+         
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
             if(data&&data.isVip==1){ // 
-                // $('.detail-fixed #searchRes').click()
+             
                 sendEmail()
             }else{
-//  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
-            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
-            var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
-            // window.open("/pay/vip.html" + params);
+            var params =  window.pageConfig.params
+            var productType = params.productType
+            var userFileType = params.userFileType
+            var userFilePrice = params.userFilePrice
+            if(productType == '4'){
+                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref +'&productType='+productType+'&userFileType='+userFileType+'&userFilePrice='+userFilePrice
+            }else{
+                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+            }
+            
+        
             method.compatibleIESkip('/pay/vip.html' + params,false);
             }
         } else if (type === 'privilege') {
-            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+           
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // window.open("/pay/privilege.html" + params);
+           
             method.compatibleIESkip('/pay/privilege.html' + params,false);
         }
     }
@@ -671,7 +577,7 @@ define(function (require, exports, module) {
     //搜索
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
-        // window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+      
         method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),false);
     }
     module.exports = {

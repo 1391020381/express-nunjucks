@@ -4,14 +4,12 @@ define(function(require, exports, moudle) {
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-    // ==== end ====
-    //所有支付引用办公频道支付js
-    // var $ = require("$");
+
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
     var qr = require("./qr");
-    //var report = require("./report");
+
     var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
@@ -31,31 +29,47 @@ define(function(require, exports, moudle) {
     var switchCount = 0; // 切换次数
     var curActive = 0; // 当前激活套餐
     var callback = null;
+ 
     isLogin(initPage, isAutoLogin, initPage);
     fetchCouponReceiveList();
+    var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
+    if (location.pathname == '/pay/vip.html') {
+        if (isAutoRenew != 1) { //  
+            $('.renewal-radio').hide()
+        }
+    }
+    if (location.pathname == '/pay/payQr.html') {
+        if (isAutoRenew == 1) { //  
+            $('.icon-pay-style').css("background-position", "-172px -200px")
+        }
+    }
 
+
+    // 
     // 优惠券相关需要在登录后执行
-    require("../common/coupon/couponOperate");
+    var couponObj = require("../common/coupon/couponOperate");
     require("../common/coupon/couponIssue");
+
+  
     //生成二维码
     function initPage(userInfo) {
        
-        window.pageConfig.params.fileDiscount = userInfo.fileDiscount  // 获取用户折扣 在优惠券使用
-        if(userInfo.isVip == 1){
+        window.pageConfig.params.fileDiscount = userInfo.fileDiscount // 获取用户折扣 在优惠券使用
+        if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
         }
-        $(function () {
-            var flag = $("#ip-flag").val();  // result.flag
-            // var uid = $("#ip-uid").val();    //  results.data.uid
+        $(function() {
+            var flag = $("#ip-flag").val();
+
             var uid = $("#ip-uid").val() || userInfo.userId
-            var type = $("#ip-type").val(); // results.type
-            var isVip = $("#ip-isVip").val(); //   results.data.isVip  获取保存在input的数据
+            var type = $("#ip-type").val();
+            var isVip = $("#ip-isVip").val();
             if (flag == 3 && uid) { //二维码页面
                 if (type == 0) { //vip购买
                     if (method.getCookie('cuk')) {
                         $(".btn-vip-login-arrive").click();
-                        // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveVipPage']);
+
                     }
                 } else if (type == 2) { //文件购买
                     if (isVip != 1) {
@@ -65,16 +79,15 @@ define(function(require, exports, moudle) {
                     }
                     if (method.getCookie('cuk')) {
                         $(".btn-file-login-arrive").click();
-                        // __pc__.push(['pcTrackEvent','pcLoginSuccessArriveFilePage']);
+
                     }
                 }
-                // var oid = $("#ip-oid").val() ||method.getParam('orderNo'); // 订单号 orderNo
+
                 var oid = method.getParam('orderNo');
                 if (oid) {
                     $(".carding-pay-item .oid").text(oid);
-                    // var url = "http://ishare.iask.sina.com.cn/notm/qr?oid=" + oid;
-                    // var url = "http://ishare.iask.sina.com.cn/pay/qr?orderNo=" + oid + '&checkStatus='+checkStatus;
-                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&checkStatus=' + checkStatus;
+                    var isAutoRenew = method.getParam('isAutoRenew')
+                    var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid + '&isAutoRenew=' + isAutoRenew;
 
                     try {
                         qr.createQrCode(url, 'pay-qr-code', 180, 180);
@@ -82,11 +95,11 @@ define(function(require, exports, moudle) {
                         $('.pay-qrcode-loading').hide()
                         isShowQrInvalidtip(false)
                         countdown(); // 计算二维码失效时间
-                        // __pc__.push(['pcTrackEvent',' qrCodeSuccess']);
+
                     } catch (e) {
                         console.log("生成二维码异常");
                         $(".btn-qr-show-fail").click();
-                        // __pc__.push(['pcTrackEvent',' qrCodeFail']);
+
                     }
                     alipayClick(oid);
                     // 获取支付状态结果
@@ -96,7 +109,7 @@ define(function(require, exports, moudle) {
                 }
             } else if (flag == "true" && uid) { //成功页面
                 var mobile = userInfo.mobile || $("#ip-mobile").val();
-                // mobile = false
+
                 if (mobile) { //隐藏绑定手机号模块 公众号模块居中
                     $(".carding-info-bottom").addClass('carding-binding-ok');
                 }
@@ -106,10 +119,11 @@ define(function(require, exports, moudle) {
             } else if (flag == "false" && uid) { //失败页面
 
             } else if (flag == "0") {
-                // $(".carding-vip-con .vip-title").show();
+
             }
         });
     }
+
 
     function countdown() { // 二维码失效倒计时
         if (expires_in <= 0) {
@@ -129,10 +143,12 @@ define(function(require, exports, moudle) {
             $('.pic-pay-code .pay-qrcode-expire').show()
             $('.pic-pay-code .pay-qrcode-invalidtip').show()
             $('.pic-pay-code .pay-qrcode-refresh').show()
+            $('.pay-info-link').show()
         } else {
             $('.pic-pay-code .pay-qrcode-expire').hide()
             $('.pic-pay-code .pay-qrcode-invalidtip').hide()
             $('.pic-pay-code .pay-qrcode-refresh').hide()
+            $('.pay-info-link').hide()
         }
     }
 
@@ -253,16 +269,7 @@ define(function(require, exports, moudle) {
         vipMemberId: '' //权益套餐ID
     };
 
-    //从详情页进入vip所需要来源
-    // if (method.getParam("remark") === "office") { 
-    //     params.remark = "office";
-    //     window.pageConfig.gio.reportVipData.channelName_var = "办公频道";
-    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "办公频道";
-    // } else {
-    //     params.remark = "other";
-    //     window.pageConfig.gio.reportVipData.channelName_var = "其他";
-    //     window.pageConfig.gio.reportPrivilegeData.channelName_var = "其他";
-    // }
+
 
     if (method.getParam("ref")) {
         params.ref = utils.getPageRef(fid);
@@ -278,10 +285,10 @@ define(function(require, exports, moudle) {
         var mark = $(this).data('type');
         var type = params.type
         if (type == 10) { // mark == 'vip'
-            // window.open('/pay/vip.html' + params);
+
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
         } else if (type == '13') { // mark == 'privilege'
-            // window.open('/pay/privilege.html' + params);
+
             method.compatibleIESkip('/pay/privilege.html' + urlQuery, true);
         } else if (type == '8') {
             method.compatibleIESkip('/pay/vip.html' + urlQuery, true);
@@ -294,23 +301,10 @@ define(function(require, exports, moudle) {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
         var price = $(this).data('price');
-        var activePrice = $(this).data('activeprice');
-        var discountPrice = $(this).data('discountprice');
         var giveDesc = $(this).find('.give-desc').html() || ''
         $(".pay-privilege-text").html(giveDesc)
-        if (activePrice > 0) {
-            $("#activePrice").html(activePrice);
-            if (discountPrice > 0) {
-                $("#discountPrice").html("（立省" + discountPrice + "元）");
-                $("#discountPrice").show();
-            } else {
-                $("#discountPrice").hide();
-            }
-        } else {
-            $("#activePrice").html(price);
-            $("#discountPrice").hide();
-        }
-
+        $("#activePrice").html(price);
+        $("#discountPrice").hide();
         if ($(this).data('pid')) {
             params.pid = $(this).data('pid');
             params.aid = $(this).data('actids');
@@ -319,29 +313,30 @@ define(function(require, exports, moudle) {
     });
 
     //vip套餐切换
+
     $(".js-tab").each(function() {
         $(this).tab({
             activeClass: 'active',
             element: 'div',
             callback: function($this) {
+
                 var price = $this.data('price').toFixed(2); // 价格
-                var activePrice = $this.data('activeprice').toFixed(2); // 活动价
-                var discountPrice = $this.data('discountprice') ? $this.data('discountprice').toFixed(2) : 0; // 折扣价
-                // class give-desc
+
                 var giveDesc = $this.find('.give-desc').html() || ''
-                $(".js-tab .gift-copy").html(giveDesc)
-                if (activePrice > 0) {
-                    $("#activePrice").html(activePrice);
-                    if (discountPrice > 0) {
-                        $("#discountPrice").html("（立省" + discountPrice + "元）");
-                        $("#discountPrice").show();
-                    } else {
-                        $("#discountPrice").hide();
-                    }
+                var discountPrice = $this.data('discountprice') ? $this.data('discountprice') / 100 : 0
+                var isAutoRenew = $this.data('isautorenew')
+                if (isAutoRenew == '1') {
+                    $('.renewal-radio').show()
+                    $('.renewal-radio #renewal').attr('checked', 'checked')
+                    $('.renewal-radio .renewal-desc .price').text(discountPrice)
                 } else {
-                    $("#activePrice").html(price);
-                    $("#discountPrice").hide();
+                    $('.renewal-radio').hide()
                 }
+                $(".js-tab .gift-copy").html(giveDesc)
+
+                $("#activePrice").html(price);
+                $("#discountPrice").hide();
+
                 if ($this.data('vid')) {
                     params.vid = $this.data('vid');
                     params.type = "10";
@@ -368,12 +363,15 @@ define(function(require, exports, moudle) {
         })
     });
 
-    //支付 生成二维码
+    $('.renewal-label').on('change', function(e) {
+            couponObj.updatePrice()
+        })
+        //支付 生成二维码
     $(document).on("click", ".btn-buy-bar", function(e) {
         e && e.preventDefault();
         //是否登录
         if (!method.getCookie('cuk')) {
-            // $(".js-login").click();
+
             $("#unLogin").click();
             return;
         }
@@ -416,43 +414,25 @@ define(function(require, exports, moudle) {
     });
 
     try { //引入美洽客服
-        (function(m, ei, q, i, a, j, s) {
-            m[i] = m[i] || function() {
-                (m[i].a = m[i].a || []).push(arguments)
+        (function(a, b, c, d, e, j, s) {
+            a[d] = a[d] || function() {
+                (a[d].a = a[d].a || []).push(arguments)
             };
-            j = ei.createElement(q),
-                s = ei.getElementsByTagName(q)[0];
+            j = b.createElement(c),
+                s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
-            j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+            j.src = 'https://static.meiqia.com/widget/loader.js';
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
-        _MEIQIA('entId', '149498');
-        // 初始化成功后调用美洽 showPanel
-        _MEIQIA('allSet', function() {
-            _MEIQIA('showPanel');
-        });
-        // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-        _MEIQIA('manualInit');
-        /*_MEIQIA('init');*/
+        _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
         _MEIQIA('init');
     });
 
-    var clickPay = function(checkStatus) {
-        // params.isVip = window.pageConfig.params.isVip;
-        // params.isVip = userInfo.isVip    // 在用户信息里面获取
-        // if (checkStatus == '10'||checkStatus =='13') {  // ptype == 'vip' || ptype == 'privilege'
-        //     if (params.isVip == '2') {//判断vip状态
-        //         utils.showAlertDialog("温馨提示", '你的VIP退款申请正在审核中，审核结束后，才能继续购买哦^_^');
-        //         return;
-        //     } else if (checkStatus =='13' && params.isVip != '1') {//用户非vip // ptype == 'privilege' && params.isVip != '1'
-        //         utils.showAlertDialog("温馨提示", '购买下载特权需要开通vip哦^_^');
-        //         return;
-        //     }
-        // }
+    var clickPay = function() {
         handleOrderResultInfo();
     };
 
@@ -475,8 +455,14 @@ define(function(require, exports, moudle) {
             goodsType = '8'
             goodsId = params.pid
         }
+        var isAutoRenew = $('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew')
+        if (isAutoRenew == '1') {
+            goodsType = $('.renewal-radio #renewal').attr('checked') ? 12 : goodsType // 续费
+        }
+
+
         // 组装创建订单的参数
-        var temp = { //  params.vouchersId = $('.pay-coupon-wrap').attr('vid')params.suvid = $('.pay-coupon-wrap').attr('svuid')
+        var temp = { //  
             aid: params.aid,
             goodsId: goodsId, // 文件id  vip套餐id
             goodsType: goodsType, // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
@@ -515,17 +501,7 @@ define(function(require, exports, moudle) {
         })
 
 
-        // $.post('/pay/order?ts=' + new Date().getTime(), params, function (data, status) {
-        //     if (data && data.code == '0') {
-        //         console.log("下单返回的数据：" + data);
-        //         data['remark'] = params.remark;
-        //         openWin(data);
-        //     } else {
-        //         // __pc__.push(['pcTrackEvent','orderFail']);
-        //         $(".btn-vip-order-fail").click();
-        //         utils.showAlertDialog("温馨提示", '下单失败');
-        //     }
-        // });
+
     }
 
     /**
@@ -541,26 +517,26 @@ define(function(require, exports, moudle) {
             fileId = fid;
         }
 
-        //(orderNo, name, price * 100, '二维码合一', type);
+
         var target = "/pay/payQr.html?"; //   0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         if (type == 10) { // checkStatus   10 资料是vip 用户不是vip   13 资料时vip 用户是vip特权不够  8 资料是付费 用户未购买             
-            // target = target + "type=0&";
+
             target = target + "type=10&";
-            // report.vipPayClick(window.pageConfig.gio.reportVipData);
+
             $(".btn-vip-order-done").click();
-            // __pc__.push(['pcTrackEvent','orderDone']);
+
         } else if (type == 13) {
-            // target = target + "type=1&";
+
             target = target + "type=13&";
-            //  report.privilegePayClick(window.pageConfig.gio.reportPrivilegeData);
+
         } else if (type == 8) {
-            // target = target + "type=2&";
+
             target = target + "type=8&";
             var rf = method.getCookie('rf');
             if (rf) {
                 rf = JSON.parse(rf);
                 rf.orderId_var = orderNo;
-                // report.filePayClick(rf);
+
             }
         }
         if (method.getParam('fid')) {
@@ -569,8 +545,12 @@ define(function(require, exports, moudle) {
             fileId = pageConfig.params.g_fileId;
         }
         method.delCookie("br", "/");
-        // window.location.href = target+"orderNo=" + orderNo + "&fid=" + fileId;
-        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId, false);
+
+
+        if ($('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew') == '1') {
+            var isAutoRenew = $('.renewal-radio #renewal').attr('checked') ? '1' : '0'
+        }
+        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId + "&isAutoRenew=" + isAutoRenew, false);
     }
 
     //网页支付宝
@@ -776,7 +756,7 @@ define(function(require, exports, moudle) {
                 payFileResult_bilog.reportResult(orderInfo, fileInfo, true);
             })
 
-        } else if (orderInfo.goodsType === 2) {
+        } else if (orderInfo.goodsType === 2||orderInfo.goodsType === 12) {
             // 购买vip成功
             href += '&type=0' + '&renewalVIP=' + renewalVIP;
             var rv = method.getCookie('rv');
