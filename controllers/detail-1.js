@@ -358,7 +358,8 @@ function getInitPage(req, results) {
             results.filePreview.data = {}
         }
         let fileContentList = results.list.data&&results.list.data.fileContentList 
-        let preRead = results.filePreview.data.preRead;
+         let preRead = results.filePreview.data.preRead = results.list.data.preRead
+        
         if (!preRead) {
             preRead = results.filePreview.data.preRead = 50;
         }
