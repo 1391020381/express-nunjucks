@@ -141,11 +141,15 @@
         <!--分页-->
         {%if results.reqParams.pageIndexArr.length>1%}
         <div class="office-page mt40">
-            <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType}}-p1-{{results.reqParams.sortField}}.html" class="btn-page-long js-first-page {{'hide' if results.reqParams.currentPage==1}}">首页</a>
+            <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p1-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
             <a class="btn-page js-previous-btn {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
             <span>
                 {%for item in results.reqParams.pageIndexArr  %}
-                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField}}.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
+                   {% if item == '···'%}
+                    <span  class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</span>
+                   {%else%}
+                     <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
+                   {%endif%}
                 {%endfor%}
             </span>
             {%if  results.reqParams.pageIndexArr.length>1 %}
