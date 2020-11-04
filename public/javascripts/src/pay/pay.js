@@ -426,10 +426,11 @@ define(function(require, exports, moudle) {
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
+        _MEIQIA('manualInit');
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
-        _MEIQIA('manualInit');
+        _MEIQIA('init');
     });
 
     var clickPay = function() {
