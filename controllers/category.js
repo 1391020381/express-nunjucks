@@ -160,10 +160,10 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
     results.words.data && results.words.data.rows.map(item=>{
         item.linkurl = '/node/s/'+item.specialTopicId+'.html'
     })
-    // console.log(JSON.stringify(results.list), 'results.list');
-    //tkd 后端部分接口写的是tkd字段
-    // 遍历classId
-    var classArr = []
+    
     results.categoryId = categoryId   // 登录时传入当前分类id
     render("category/home", results, req, res);
 }
+
+
+

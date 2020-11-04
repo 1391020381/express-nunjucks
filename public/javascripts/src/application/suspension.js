@@ -268,7 +268,7 @@ define(function (require, exports, module) {
 
     // 联系客服
     $('.btn-mui-contact').on('click', function () {
-        _MEIQIA('init');
+        _MEIQIA('manualInit');
     });
     function collectRender(list) {
         var $myCollect = $('#myCollect'), arr = [];

@@ -429,7 +429,7 @@ define(function(require, exports, moudle) {
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
-        _MEIQIA('init');
+        _MEIQIA('manualInit');
     });
 
     var clickPay = function() {
