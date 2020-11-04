@@ -17,6 +17,7 @@ define(function (require, exports, module) {
             this.pageOperate();
             this.fomatSelect();
             this.sortSelect();
+            this.fixRight()
         },
         selectMenu:function(){
             $('.js-nav-menu').click(function(event){
@@ -77,6 +78,22 @@ define(function (require, exports, module) {
             var sortField =obj.reqParams.sortField?'-'+obj.reqParams.sortField:'';
             var pageUrl = location.origin +'/c/'+ obj.reqParams.cid+'-'+fomat+'-'+page+sortField+'.html';
             location.href = pageUrl;
+        },
+        fixRight:function(){
+            var rightHeight = $('.landing-right').height()
+            var searchHeader = $(".new-detail-header").height()
+            var bannerHeight = $('.search-all-main-topbanner').height()
+                $(window).on('scroll', function () {
+                    var $this = $(this);
+                    var scrollTop = $this.scrollTop();
+                    if (scrollTop >= rightHeight+searchHeader+bannerHeight) {
+                        
+                        $('.landing-right').css({ "position": "fixed", "top": searchHeader, right: '358px',"z-index": "75" });
+                    } else {
+                        $('.landing-right').removeAttr("style");
+                    }
+                });
+            
         }
     }
     obj.init()
