@@ -337,23 +337,133 @@
                 <div class="upload-title" type ="rectopic">推荐信息</div>
                 <div class="upload-title" type ="topic">热门专题</div>
             </div>
-            <div class="fresh-con fr js-fresh">
+            {# <div class="fresh-con fr js-fresh">
                 换一换
-            </div>
+            </div> #}
+        </div>
+        <div class="tab-list">
+            <ul class="tab active">
+             {%for item in  results.newsRec.data %}
+                {% if loop.index0 +1 ==20 %}
+                     <li class="tab-item item-active"><span>1-20</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >21 and loop.index0 +1 ==40 %}
+                     <li class="tab-item"><i class="icon"></i><span>21-40</span></li>
+                {% endif%}
+                {% if loop.index0+1 >41 and loop.index0 +1 ==60 %}
+                     <li class="tab-item"><i class="icon"></i><span>41-60</span></li>
+                {% endif%}
+                {% if loop.index0+1 >61 and loop.index0 +1 ==80 %}
+                     <li class="tab-item"><i class="icon"></i><span>61-80</span></li>
+                {% endif%}
+                {% if loop.index0+1 >81 and loop.index0 +1 ==100 %}
+                     <li class="tab-item"><i class="icon"></i><span>81-100</span></li>
+                {% endif%}
+                {% if loop.index0+1 >101 and loop.index0 +1 ==120 %}
+                     <li class="tab-item"><i class="icon"></i><span>101-120</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >121 and loop.index0 +1 ==140 %}
+                     <li class="tab-item"><i class="icon"></i><span>121-140</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >141 and loop.index0 +1 ==160 %}
+                     <li class="tab-item"><i class="icon"></i><span>141-160</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >161 and loop.index0 +1 ==180 %}
+                    <li class="tab-item"><i class="icon"></i><span>161-180</span></li>
+                {% endif%}
+                   {% if loop.index0+1 >181 and loop.index0 +1 ==200 %}
+                     <li class="tab-item"><i class="icon"></i><span>181-200</span></li>
+                {% endif%}
+            
+             {%endfor%}
+        </ul>
+        <ul class="tab">
+             {%for item in  results.hotRecData.data %}
+               
+                {% if loop.index0 +1 ==20 %}
+                     <li class="tab-item item-active"><span>1-20</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >21 and loop.index0 +1 ==40 %}
+                     <li class="tab-item"><i class="icon"></i><span>21-40</span></li>
+                {% endif%}
+                {% if loop.index0+1 >41 and loop.index0 +1 ==60 %}
+                     <li class="tab-item"><i class="icon"></i><span>41-60</span></li>
+                {% endif%}
+                {% if loop.index0+1 >61 and loop.index0 +1 ==80 %}
+                     <li class="tab-item"><i class="icon"></i><span>61-80</span></li>
+                {% endif%}
+                {% if loop.index0+1 >81 and loop.index0 +1 ==100 %}
+                     <li class="tab-item"><i class="icon"></i><span>81-100</span></li>
+                {% endif%}
+                {% if loop.index0+1 >101 and loop.index0 +1 ==120 %}
+                     <li class="tab-item"><i class="icon"></i><span>101-120</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >121 and loop.index0 +1 ==140 %}
+                     <li class="tab-item"><i class="icon"></i><span>121-140</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >141 and loop.index0 +1 ==160 %}
+                     <li class="tab-item"><i class="icon"></i><span>141-160</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >161 and loop.index0 +1 ==180 %}
+                     <li class="tab-item"><i class="icon"></i><span>161-180</span></li>
+                {% endif%}
+                   {% if loop.index0+1 >181 and loop.index0 +1 ==200 %}
+                      <li class="tab-item"><i class="icon"></i><span>181-200</span></li>
+                {% endif%}
+            </li>
+             {%endfor%}
+        </ul>
+        <ul class="tab">
+             {%for item in  results.hotTopicSeo.data %}
+               
+                {% if loop.index0 +1 ==20 %}
+                     <li class="tab-item item-active"><span>1-20</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >21 and loop.index0 +1 ==40 %}
+                     <li class="tab-item"><i class="icon"></i><span>21-40</span></li>
+                {% endif%}
+                {% if loop.index0+1 >41 and loop.index0 +1 ==60 %}
+                     <li class="tab-item"><i class="icon"></i><span>41-60</span></li>
+                {% endif%}
+                {% if loop.index0+1 >61 and loop.index0 +1 ==80 %}
+                     <li class="tab-item"><i class="icon"></i><span>61-80</span></li>
+                {% endif%}
+                {% if loop.index0+1 >81 and loop.index0 +1 ==100 %}
+                     <li class="tab-item"><i class="icon"></i><span>81-100</span></li>
+                {% endif%}
+                {% if loop.index0+1 >101 and loop.index0 +1 ==120 %}
+                     <li class="tab-item"><i class="icon"></i><span>101-120</span></li>
+                {% endif%}
+                 {% if loop.index0+1 >121 and loop.index0 +1 ==140 %}
+                     <li class="tab-item"><i class="icon"></i><span>121-140</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >141 and loop.index0 +1 ==160 %}
+                     <li class="tab-item"><i class="icon"></i><span>141-160</span></li>
+                {% endif%}
+                  {% if loop.index0+1 >161 and loop.index0 +1 ==180 %}
+                     <li class="tab-item"><i class="icon"></i><span>161-180</span></li>
+                {% endif%}
+                   {% if loop.index0+1 >181 and loop.index0 +1 ==200 %}
+                     <li class="tab-item"><i class="icon"></i><span>181-200</span></li>
+                {% endif%}
+            </li>
+             {%endfor%}
+        </ul>
         </div>
         <ul class="upload-list current cf" >
             {%for item in  results.newsRec.data %}
-            <li class="{%if loop.index0 > 11 %}hide{%endif%}"><a href="/f/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            
+            <li class="{%if loop.index0 > 19 %}hide{%endif%}"><a href="/f/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
             {%endfor%}
         </ul>
         <ul class="upload-list cf" >
             {%for item in  results.hotRecData.data %}
-            <li><a href="{{item.contentUrl}}" target="_blank">{{item.contentName}}</a></li>
+            <li class="{%if loop.index0 > 19 %}hide{%endif%}"><a href="{{item.contentUrl}}" target="_blank">{{item.contentName}}</a></li>
             {%endfor%}
         </ul>
         <ul class="upload-list cf" >
             {%for item in  results.hotTopicSeo.data %}
-            <li class="{%if loop.index0 >11 %}hide{%endif%}"><a href="/node/s/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
+            <li class="{%if loop.index0 >19 %}hide{%endif%}"><a href="/node/s/{{item.id}}.html" target="_blank">{{item.title}}</a></li>
             {%endfor%}
         </ul>
        
@@ -370,7 +480,7 @@
 <script>
     var pageConfig = {
         report:{
-
+           
         }
     };
     seajs.use(["dist/application/app.js","dist/index/init.js"])

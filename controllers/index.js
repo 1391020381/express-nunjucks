@@ -85,7 +85,7 @@ module.exports = {
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:48,
+                    pageSize:200,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
@@ -95,7 +95,7 @@ module.exports = {
                 req.body = {
                     type: 'new',
                     currentPage:1,
-                    pageSize:48,
+                    pageSize:200,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
@@ -105,14 +105,14 @@ module.exports = {
                 req.body = {
                     contentType: 100,
                     clientType:0,
-                    pageSize:12,
+                    pageSize:200,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }
 
         } , function(err, results){
-            // console.log(JSON.stringify(results),'results')
+           
             if(err){
                 next(err)
             }
@@ -221,11 +221,7 @@ module.exports = {
     
                     results.recfileArr = recfileArr;
                 }  
-                // console.log(JSON.stringify(results),'results--------------------------end---------------')
-                // console.warn(JSON.stringify(results.friendLink),'friendLink')
-                // console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
-                // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
-                // console.log(results,'index***************************')
+              
                 results.officeUrl = appConfig.officeUrl
                 render("index/index",results,req,res,next);  
             }catch(e){
