@@ -430,6 +430,7 @@ define(function(require, exports, moudle) {
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
+        _MEIQIA('init');
          // 初始化成功后调用美洽 showPanel
     _MEIQIA('allSet', function(){
         _MEIQIA('showPanel');
