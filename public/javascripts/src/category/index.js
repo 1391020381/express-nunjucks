@@ -16,7 +16,7 @@ define(function (require, exports, module) {
             this.selectMenu();
           //  this.pageOperate();
             this.fomatSelect();
-            this.sortSelect();
+           // this.sortSelect();
             this.fixRight()
         },
         selectMenu:function(){
@@ -63,15 +63,15 @@ define(function (require, exports, module) {
             })
            
         },
-        sortSelect:function(){
-            $('.js-sort').on('click','.screen-ele',function(){
-                $(this).addClass('current').siblings().removeClass('current');
-                var sortField =$(this).attr('value')?'-'+$(this).attr('value'):'';
-                var fomat = obj.reqParams.fileType?obj.reqParams.fileType:'all';
-                var pageUrl = location.origin +'/c/'+ obj.reqParams.cid+'-'+fomat+'-p1'+sortField+'.html';
-                location.href = pageUrl;
-            })
-        },
+        // sortSelect:function(){
+        //     $('.js-sort').on('click','.screen-ele',function(){
+        //         $(this).addClass('current').siblings().removeClass('current');
+        //         var sortField =$(this).attr('value')?'-'+$(this).attr('value'):'';
+        //         var fomat = obj.reqParams.fileType?obj.reqParams.fileType:'all';
+        //         var pageUrl = location.origin +'/c/'+ obj.reqParams.cid+'-'+fomat+'-p1'+sortField+'.html';
+        //         location.href = pageUrl;
+        //     })
+        // },
         pageNavigate:function(page) {
             var fomat = obj.reqParams.fileType?obj.reqParams.fileType:'all';
             var page = 'p'+page;
