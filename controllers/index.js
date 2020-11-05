@@ -103,10 +103,8 @@ module.exports = {
             // 推荐信息（晒内容）
             hotRecData:function(callback){
                 req.body = {
-                    contentType: 100,
                     clientType:0,
-                    pageSize:200,
-                    siteCode:4
+                    pageSize:200
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }
