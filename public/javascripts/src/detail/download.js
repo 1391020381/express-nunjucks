@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var login = require('../application/checkLogin');
     var api = require('../application/api');
   
-  
+    var clickEvent = require('../common/bilog').clickEvent
     var fid = window.pageConfig.params.g_fileId; // 文件id
     var tpl_android = $("#tpl-down-android").html();    //下载app  项目全局 没有 这个 classId
     var  file_title = window.pageConfig.params.file_title
@@ -294,6 +294,9 @@ define(function (require, exports, module) {
             success: function (res) {
                     console.log(res)
                     if(res.code == '0'){
+                        if(res.data.productType == '4' && res.data.orderNo){
+                            clickEvent('createOrder',{orderID:res.data.orderNo})
+                        }
                         bouncedType(res);
                     }else{
                         $.toast({

@@ -493,6 +493,7 @@ define(function(require, exports, moudle) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
+             
                 if (data && data.code == '0') {
                     console.log("下单返回的数据：" + data);
                     data['remark'] = temp.remark;
@@ -513,6 +514,7 @@ define(function(require, exports, moudle) {
      * 支付跳转到新页面
      */
     function openWin(data) {
+        clickEvent('createOrder',{orderID:data.data.orderNo})
         var orderNo = data.data.orderNo;
         var price = data.data.payPrice;
         var name = data.data.name;
