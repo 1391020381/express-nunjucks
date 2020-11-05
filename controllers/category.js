@@ -162,6 +162,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
     })
     
     results.categoryId = categoryId   // 登录时传入当前分类id
+    results.isCategoryRender = true
     render("category/home", results, req, res);
 }
 
