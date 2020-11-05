@@ -70,7 +70,7 @@ function getList(req,res,categoryId,sortField,format,currentPage){
         sortField: sortField,
         format: format=='all'?'':format,
         currentPage:currentPage,
-        pageSize:16
+        pageSize:40
     };
     return server.$http(appConfig.apiNewBaselPath+api.category.list,'post', req,res,true)
 }
@@ -100,7 +100,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
         var totalPages = pageObj.totalPages;
         totalPages = totalPages>20?20:totalPages;
         if(pageObj.rows.length>0) {
-            if(currentPage>4) {
+            if(currentPage>5) {
                 pageArr_f = [1,'···'];
                 pageArr_f.push(currentPage-2)
                 pageArr_f.push(currentPage-1)
@@ -110,9 +110,12 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
                     pageArr_f.push(i+1);
                 }
             }
-            if(totalPages-3>currentPage){
+            if(totalPages-5>currentPage){
                 pageArr_b.push(currentPage+1)
                 pageArr_b.push(currentPage+2)
+                pageArr_b.push(currentPage+3)
+                pageArr_b.push(currentPage+4)
+                pageArr_b.push(currentPage+5)
                 pageArr_b.push('···')
                 pageArr_b.push(totalPages)
             }else {
