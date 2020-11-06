@@ -47,10 +47,10 @@ module.exports = {
 
 
 function getCategoryTitle(req,res,categoryId){
-    req.body = {
-        classId:categoryId
-    }
-    return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
+   
+    const url= appConfig.apiNewBaselPath+api.category.navForCpage.replace(/\$nodeCode/, categoryId);
+  
+    return server.$http(url,'get', req,res,true)
 }
 
 function getRecommendList(req,res,navFatherId){

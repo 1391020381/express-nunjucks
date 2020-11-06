@@ -59,25 +59,25 @@
                 <!-- 首页分类模块 -->
                 <div class="office-category fl">
                     <div class="category-inter cf">
-                        {%for item in results.categoryList.data.categoryList  %}
+                        {%for item in results.categoryList.data  %}
                         <div class="category-item fl" >
                             <div class="category-item-inter">
                                 <div class="item-title" >
-                                    <h4 class="title-text" style={{item.style}}><a href="/c/{{item.id}}.html" target="_blank">{{item.name}}</a></h4>
-                                    {% if item.categoryList.length>0 %}
+                                    <h4 class="title-text" style={{item.style}}><a href="/c/{{item.url if item.url else item.nodeCode}}.html" target="_blank">{{item.name}}</a></h4>
+                                    {% if item.frontAllCategoryVOList.length>0 %}
                                     <i class="icon-ele-arrow"></i>
                                     {% endif %}
                                 </div>
                             </div>
                           
-                            {% if item.categoryList.length>0 %}
+                            {% if item.frontAllCategoryVOList.length>0 %}
                                 <div class="category-more">
                                 <span></span>
                                 <span></span>
                                 <div class="more-inter">
                                     <ul class="more-list cf">
-                                        {%for label in item.categoryList  %}
-                                        <li><a href="/c/{{label.id}}.html" target="_blank">{{label.name}}</a></li>
+                                        {%for label in item.frontAllCategoryVOList  %}
+                                        <li><a href="/c/{{label.nodeCode}}.html" target="_blank">{{label.name}}</a></li>
                                         {%endfor%}
                                     </ul>
                                 </div>
