@@ -111,14 +111,16 @@
             {% endif %}
             
             {% if results.categoryTitle.data.specificsInfos.length %}
+            {% for item in results.categoryTitle.data.specificsInfos %}
             <div class="search-item">
-                    {% for item in results.categoryTitle.data.specificsInfos %}
-                        <span class="search-title">{{item.name}}</span>
-                        {% for subitem item.subSpecificsList%}
-                            <a class="search-ele {%if item.select %} active {%endif%}" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}.html">{{item.name}}</a>
-                        {%endif%}
-                    {%endif%}
+                       <span class="search-title">{{item.name}}: </span>
+                        <span class="search-ele {%if item.select !=1 %} active {%endif%}">全部</span>
+                        {% for subitem in item.subSpecificsList%}
+                              <a class="search-ele {%if subitem.select ==1 %} active {%endif%}" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}.html">{{subitem.name}}</a>
+                        {%endfor%}
+                   
             </div>
+             {%endfor%}
             {%endif%}
             {# <div class="search-item js-fomat">
                 <span class="search-title">格式：</span>
@@ -131,12 +133,12 @@
             </div> #}
             <div class="search-item ">
                 <span class="search-title">格式：</span>
-                <span class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all" href="/c/{{results.reqParams.cid}}-all-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">全部</span>
-                <span class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" href="/c/{{results.reqParams.cid}}-doc-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">Word</span>
-                <span class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" href="/c/{{results.reqParams.cid}}-ppt-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">PPT</span>
-                <span class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" href="/c/{{results.reqParams.cid}}-pdf-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">PDF</span>
-                <span class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" href="/c/{{results.reqParams.cid}}-xls-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">Excel</span>
-                <span class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" href="/c/{{results.reqParams.cid}}-txt-{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">TXT</span>
+                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all" href="/c/{{results.reqParams.cid}}-all-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">全部</a>
+                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" href="/c/{{results.reqParams.cid}}-doc-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">Word</a>
+                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" href="/c/{{results.reqParams.cid}}-ppt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">PPT</a>
+                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" href="/c/{{results.reqParams.cid}}-pdf-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">PDF</a>
+                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" href="/c/{{results.reqParams.cid}}-xls-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">Excel</a>
+                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" href="/c/{{results.reqParams.cid}}-txt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{results.reqParams.attributeGroupId}}-{{results.reqParams.attributeId}}.html">TXT</a>
             </div>
             <!-- 筛选内容切换 -->
             <!-- <div class="search-screen">

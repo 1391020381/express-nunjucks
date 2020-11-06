@@ -22,7 +22,7 @@ const getData = cc(async (req,res)=>{
     let sortField = urlobj[3]||'';  // 排序
     let attributeGroupId = urlobj[4]
     let attributeId = urlobj[5]
-    let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeId,attributeGroupId)
+    let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId)
    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
@@ -47,11 +47,10 @@ module.exports = {
 }
 
 
-function getCategoryTitle(req,res,categoryId,attributeId,attributeGroupId){
+function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId){
     req.body = {
-        categoryId,
-        attributeId,
-        attributeGroupId
+        nodeCode:categoryId,
+        attributeGroupList:attributeGroupId&&attributeId?[{attributeGroupId,attributeId}]:[]
     }
     return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
@@ -91,7 +90,7 @@ function getWords(req,res){
     return server.$http(appConfig.apiNewBaselPath+api.category.words,'post', req,res,true)
 }
 
-function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId){
+function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId){
    
     var results =  Object.assign({categoryTitle,recommendList,list,tdk,words},) || {};
     var pageObj = {};
