@@ -70,6 +70,119 @@ const renderPage = cc(async (req, res) => {
     const bannerList = await getBannerList(req, res, list)
     const crumbList = await getCrumbList(req, res, list)
     const memberList = await getUserVipRights(req, res); // 权益列表
+    const cateList = await getCategoryList(req, res);  
+    // [
+    //     {
+    //         name: '爱问办公',
+    //         nodeCode: '1',
+    //         frontAllCategoryVOList: [
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '10'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '11'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '12'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '13'
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         name: '爱问办公',
+    //         nodeCode: '1',
+    //         frontAllCategoryVOList: [
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '10'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '11'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '12'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '13'
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         name: '爱问办公',
+    //         nodeCode: '1',
+    //         frontAllCategoryVOList: [
+    //             {
+    //                 name: '简历asasdasdasd',
+    //                 nodeCode: '10'
+    //             },
+    //             {
+    //                 name: '简历asdasdasdasdasdas',
+    //                 nodeCode: '11'
+    //             },
+    //             {
+    //                 name: '简历asdgfagfafdg',
+    //                 nodeCode: '12'
+    //             },
+    //             {
+    //                 name: '简历asgfdfa',
+    //                 nodeCode: '13'
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         name: '爱问办公',
+    //         nodeCode: '1',
+    //         frontAllCategoryVOList: [
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '10'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '11'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '12'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '13'
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         name: '爱问办公',
+    //         nodeCode: '1',
+    //         frontAllCategoryVOList: [
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '10'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '11'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '12'
+    //             },
+    //             {
+    //                 name: '简历',
+    //                 nodeCode: '13'
+    //             },
+    //         ]
+    //     }
+    // ] // 分类列表
     const recommendInfo = await getRecommendInfo(req, res, list)
     let paradigm4Guess = []
     let paradigm4Relevant = []
@@ -88,6 +201,7 @@ const renderPage = cc(async (req, res) => {
         searchBannerList,
         bannerList,
         memberList,
+        cateList,
         recommendInfo,
         paradigm4Relevant,
         paradigm4Guess,
@@ -238,12 +352,22 @@ function getParadigm4Guess(req, res, list, recommendInfo, userID) {
 function getUserVipRights(req, res) {
     if (req.cookies.cuk) {
         req.body = {
-            memberCodeList: ['COPY', 'FREE_ADV']
+            memberCodeList: ['COPY', 'FREE_ADV', 'REWARD']
         };
         return server.$http(appConfig.apiNewBaselPath + Api.coupon.getVipAllMemberDetail, 'post', req, res, true)
     } else {
         return null;
     }
+}
+
+// 获取页面分类列表
+function getCategoryList(req, res) {
+    req.body = {
+        level: 2,
+        site: 4,
+        terminal: 0
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.index.navList, 'post', req, res, true)
 }
 
 function getFilePreview(req, res, list) {
@@ -264,6 +388,7 @@ function handleDetalData(
     searchBannerList,
     bannerListData,
     memberList,
+    cateList,
     recommendInfo,
     paradigm4Relevant,
     paradigm4Guess,
@@ -307,18 +432,22 @@ function handleDetalData(
         list.data.svgPathList = []
         list.data.isConvert = 0
     }
+
+    console.log('ccateList', JSON.stringify(cateList))
     var results = Object.assign({}, {
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,
         getBannerList: bannerListData,
         crumbList,
+        cateList: cateList.data && cateList.data.length ? cateList.data : [],
         recommendInfo,
         paradigm4Relevant,
         paradigm4Guess,
         filePreview,
         freeAdv: false,
-        copy: false
+        copy: false,
+        reward: {unit: 1, value: '0'}
     }, { list: list });
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
@@ -367,8 +496,10 @@ function handleDetalData(
         const { isVip = false, memberPointList = [] } = memberCode;
         const freeAdv = memberPointList.find(item => item.code == 'FREE_ADV');
         const copy = memberPointList.find(item => item.code == 'COPY');
+        const reward = memberPointList.find(item => item.code == 'REWARD');
         results.freeAdv = isVip && freeAdv.value == '1' ? true : false;
         results.copy = isVip && copy.value == '1' ? true : false;
+        results.reward = isVip ? {...reward} : {unit: 1, value: '0'};
     }
 
     results.recommendInfoData_rele = req.recommendInfoData_rele || {};

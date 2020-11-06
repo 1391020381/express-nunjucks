@@ -25,9 +25,9 @@ define(function (require, exports, module) {
             if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {
-               $(".show-over-text").eq(1).show();
+                $(".show-over-text").eq(1).show();
             }
-           
+
         },
         //加载渲染
         drawing: function (currentPage) {
@@ -37,7 +37,7 @@ define(function (require, exports, module) {
                 $(".detail-pro-con div.article-page").eq(3).show();
             }
             //加载广告
-         //   createAd('a_6307747', 'a_page_con_3');  现在一次性加载四页
+            //   createAd('a_6307747', 'a_page_con_3');  现在一次性加载四页
             //保存当前渲染页面数
             var arr = [];
             var pageNum = $(".detail-pro-con div.article-page").length;
@@ -48,6 +48,7 @@ define(function (require, exports, module) {
             // }
             var supportSvg = window.pageConfig.supportSvg;
             var svgFlag = window.pageConfig.svgFlag;
+            var copy = window.pageConfig.copy;
             if (supportSvg == true && svgFlag == true) {
                 ptype = 'svg';
             }
@@ -71,7 +72,7 @@ define(function (require, exports, module) {
                 arr.push(item);
             }
             //拿到数据进行渲染
-            var _html = template.compile(img_tmp)({ data: arr, ptype: ptype });
+            var _html = template.compile(img_tmp)({ data: arr, ptype: ptype, copy: copy });
             if (ptype === 'txt') {
                 $(".font-detail-con").append(_html);
             } else {
@@ -80,9 +81,9 @@ define(function (require, exports, module) {
             $("img.lazy").lazyload({ effect: "fadeIn" });
 
             //剩余页数
-          
-            var remainPage = currentPage >= preRead? totalPage-preRead : restPage -= 5;
-            if($('.page-text .endof-trial-reading').css('display') == 'none'){
+
+            var remainPage = currentPage >= preRead ? totalPage - preRead : restPage -= 5;
+            if ($('.page-text .endof-trial-reading').css('display') == 'none') {
                 $(".show-more-text .page-num").text(remainPage >= 0 ? remainPage : 0);
             }
             //滚动到指定位置
@@ -115,12 +116,12 @@ define(function (require, exports, module) {
     };
     //滚动监听页数
     $(window).on('scroll', getPage);
-  
-    
-    if(initReadPage>=preRead||initReadPage>=imgTotalPage){  
-        changeText() 
+
+
+    if (initReadPage >= preRead || initReadPage >= imgTotalPage) {
+        changeText()
     }
-    if($('.page-num').text().trim()<0){  //  totalPage < 4
+    if ($('.page-num').text().trim() < 0) {  //  totalPage < 4
         $('.page-num').text(0)
     }
     $(function () {
@@ -193,9 +194,64 @@ define(function (require, exports, module) {
             }
         } else {
             restPage = totalPage - initReadPage;
-           
+
             initStyle()
         }
+    });
+
+     // 创建选择框元素
+    // 创建选择框元素
+    function createSelectorElement() {
+        let selDiv = document.createElement("div");
+        // 添加样式
+        selDiv.style.position = 'absolute';
+        selDiv.style.width = '0px';
+        selDiv.style.height = '0px';
+        selDiv.style.fontSize = '0px';
+        selDiv.style.margin = '0px';
+        selDiv.style.padding = '0px';
+        selDiv.style.border = '1px dashed #0099FF';
+        selDiv.style.backgroundColor = '#C3D5ED';
+        selDiv.style.zIndex = 10;
+        selDiv.style.filter = 'alpha(opacity:60)';
+        selDiv.style.opacity = '0.6';
+        selDiv.style.display = 'none';
+        selDiv.id = "selectDiv";
+        return selDiv;
+    }
+
+    // 绑定svgDom复制事件
+    $(document).on('click', '.detail-holder', function (e) {
+        var holder = $(this).context;
+        holder.onmousedown = function (ev) {
+            var disX = ev.clientX - holder.offsetLeft;                
+            var disY = ev.clientY - holder.offsetTop; 
+            var l, t;       
+            // 创建选择框
+            // var selectDiv = document.getElementById('selectDiv');
+            // if (selectDiv) holder.removeChild(selectDiv);
+            // var selDiv = createSelectorElement();
+            // holder.appendChild(selDiv);      
+            holder.onmousemove = function (ev) {
+                l = ev.clientX - disX;                               
+                t = ev.clientY - disY;   
+                // selDiv.style.display = "";                        
+                // selDiv.style.width = Math.abs(l) + "px";
+                // selDiv.style.height = Math.abs(t) + 38 + "px";
+            };
+            holder.onmouseup = function () {
+                if (Math.abs(l) > 50 || Math.abs(t) > 50) {
+                    $.toast({
+                        text: '开通VIP可复制文本内容',
+                        icon: '',
+                        delay: 2000,
+                        callback: false
+                    })
+                }
+                holder.onmousemove = null;
+            };
+            return false;                     //阻止默认事件的发生       
+        };
     });
 
     //给页面绑定滑轮滚动事件
@@ -434,14 +490,14 @@ define(function (require, exports, module) {
         //如果已经到最后了
         if (loadedPage - limitPage >= 0) {
             action.isHideMore(loadedPage);
-            if($('.red-color').text()!=='点击可继续阅读 >'){ 
+            if ($('.red-color').text() !== '点击可继续阅读 >') {
                 readMoreTextEvent()
             }
-            changeText()  
+            changeText()
         }
         if (loadedPage == totalPage) {
             action.isHideMore(loadedPage);
-             if($('.red-color').text()!=='点击可继续阅读 >'){
+            if ($('.red-color').text() !== '点击可继续阅读 >') {
                 readMoreTextEvent()
             }
             changeText()

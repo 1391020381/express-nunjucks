@@ -41,6 +41,7 @@ define(function (require, exports, module) {
             login.getLoginData(function (data) {
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
+                window.pageConfig.email = data.email || "";
                 //已经登录 并且有触发支付点击
                 if (method.getCookie('event_data')) {
                     //唤起支付弹框
@@ -88,7 +89,23 @@ define(function (require, exports, module) {
         var $more_nave = $('.more-nav'),
             $search_detail_input = $('#search-detail-input'),
             $detail_lately = $('.detail-lately'),
+            $cate_inner = $('.header-cate'),
             $slider_control = $('.slider-control');
+        // 头部分类
+        $cate_inner.on('mouseover', function() {
+            var $this = $('.cate-menu');
+            if (!$this.hasClass('hover')) {
+                $this.addClass('hover');
+            }
+        });
+
+        $cate_inner.on('mouseleave', function () {
+            var $this = $('.cate-menu');
+            if ($this.hasClass('hover')) {
+                $this.removeClass('hover');
+            }
+        });
+
 
         // 顶部分类
         $more_nave.on('mouseover', function () {
@@ -215,10 +232,25 @@ define(function (require, exports, module) {
 
     function sendEmail() {
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-
-        $("#dialog-box").dialog({
-            html: $('#reward-mission-pop').html(),
-        }).open();
+        var reward = window.pageConfig.reward;
+        if (reward.value == "-1") { // 老用户VIP正常弹起
+            $("#dialog-box").dialog({
+                html: $('#reward-mission-pop').html(),
+            }).open();
+        } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
+            $("#dialog-box").dialog({
+                html: $('#reward-error-pop').html(),
+            }).open();
+        } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
+            $("#dialog-box").dialog({
+                html: $('#reward-error1-pop').html(),
+            }).open();
+        } else if (reward.value > 0) { // 正常弹起
+            $("#dialog-box").dialog({
+                html: $('#reward-success-pop').html()
+                  .replace(/\$value/, reward.value),
+            }).open();
+        }
 
         setTimeout(bindEventPop, 500)
     }
@@ -226,10 +258,21 @@ define(function (require, exports, module) {
 
     function bindEventPop() {
         console.log(6666)
+
+        // 绑定邮箱的值
+        if ($('.m-reward-pop #email')) {
+            $('.m-reward-pop #email').val(window.pageConfig.email);
+        }
+
         // 绑定关闭悬赏任务弹窗pop
         $('.m-reward-pop .close-btn').on('click', function () {
             closeRewardPop();
-        })
+        });
+
+        // 绑定我明白了按钮回调
+        $('.m-reward-pop .understand-btn').on('click', function () {
+            closeRewardPop();
+        });
 
         // submit提交
         $('.m-reward-pop .submit-btn').on('click', function () {
