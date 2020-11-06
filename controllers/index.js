@@ -114,7 +114,592 @@ module.exports = {
             if(err){
                 next(err)
             }
-            try{
+            try{ 
+                console.log('results.categoryList.data.categoryList:',JSON.stringify(results.categoryList.data.categoryList))
+                if(results.categoryList&&results.categoryList.data.categoryList){
+                     results.categoryList.data.categoryList = [
+                        {
+                          "id": "1818",
+                          "name": "办公频道",
+                          "father": "0",
+                          "select": null,
+                          "categoryList": [
+                            {
+                              "id": "9006",
+                              "name": "求职/职场",
+                              "father": "1818",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9009",
+                              "name": "党团工作",
+                              "father": "1818",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9011",
+                              "name": "职业岗位",
+                              "father": "1818",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "8037",
+                              "name": "表格模板",
+                              "father": "1818",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "8080",
+                              "name": "PPT模板",
+                              "father": "1818",
+                              "select": null,
+                              "categoryList": null
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1819",
+                          "name": "生活休闲",
+                          "father": "0",
+                          "select": null,
+                          "categoryList": [
+                            {
+                              "id": "1863",
+                              "name": "娱乐时尚",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1864",
+                              "name": "幽默滑稽",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1867",
+                              "name": "影视/动漫",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1869",
+                              "name": "保健养生",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1872",
+                              "name": "音乐",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9012",
+                              "name": "饮食",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9013",
+                              "name": "旅游购物",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9014",
+                              "name": "美容化妆",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "8002",
+                              "name": "综合",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9015",
+                              "name": "随笔",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9016",
+                              "name": "家具家电",
+                              "father": "1819",
+                              "select": null,
+                              "categoryList": null
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1816",
+                          "name": "教育资料",
+                          "father": "0",
+                          "select": null,
+                          "categoryList": [
+                            {
+                              "id": "1817",
+                              "name": "高等教育",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1823",
+                              "name": "考试题库",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "2791",
+                              "name": "高中教育",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1825",
+                              "name": "外语资料",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "6658",
+                              "name": "初中教育",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "2792",
+                              "name": "小学教育",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "8022",
+                              "name": "幼儿教育",
+                              "father": "1816",
+                              "select": null,
+                              "categoryList": null
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1821",
+                          "name": "经济管理",
+                          "father": "0",
+                          "select": null,
+                          "categoryList": [
+                            {
+                              "id": "1899",
+                              "name": "战略管理",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1900",
+                              "name": "市场营销",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1902",
+                              "name": "行业分析",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1905",
+                              "name": "财会税务",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1887",
+                              "name": "经济金融",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1907",
+                              "name": "专利",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1886",
+                              "name": "贸易",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1903",
+                              "name": "人  力资源",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1901",
+                              "name": "企业制度",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1906",
+                              "name": "项目管理",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "1904",
+                              "name": "生产运营",
+                              "father": "1821",
+                              "select": null,
+                              "categoryList": null
+                            }
+                          ]
+                        },
+                        {
+                          "id": "1820",
+                          "name": "专业资料",
+                          "father": "0",
+                          "select": null,
+                          "categoryList": [
+                            {
+                              "id": "1822",
+                              "name": "IT/计算机",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9001",
+                              "name": "人文社科",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9002",
+                              "name": "工程科技",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9003",
+                              "name": "自然科学 ",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9004",
+                              "name": "医药卫生",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            },
+                            {
+                              "id": "9005",
+                              "name": "农林牧渔",
+                              "father": "1820",
+                              "select": null,
+                              "categoryList": null
+                            }
+                          ]
+                        },
+                        {
+                            "id": "1820",
+                            "name": "专业资料",
+                            "father": "0",
+                            "select": null,
+                            "categoryList": [
+                              {
+                                "id": "1822",
+                                "name": "IT/计算机",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9001",
+                                "name": "人文社科",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9002",
+                                "name": "工程科技",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9003",
+                                "name": "自然科学 ",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9004",
+                                "name": "医药卫生",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9005",
+                                "name": "农林牧渔",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              }
+                            ]
+                          },
+                          {
+                            "id": "1820",
+                            "name": "专业资料",
+                            "father": "0",
+                            "select": null,
+                            "categoryList": [
+                              {
+                                "id": "1822",
+                                "name": "IT/计算机",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9001",
+                                "name": "人文社科",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9002",
+                                "name": "工程科技",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9003",
+                                "name": "自然科学 ",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9004",
+                                "name": "医药卫生",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9005",
+                                "name": "农林牧渔",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              }
+                            ]
+                          },
+                          {
+                            "id": "1820",
+                            "name": "专业资料",
+                            "father": "0",
+                            "select": null,
+                            "categoryList": [
+                              {
+                                "id": "1822",
+                                "name": "IT/计算机",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9001",
+                                "name": "人文社科",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9002",
+                                "name": "工程科技",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9003",
+                                "name": "自然科学 ",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9004",
+                                "name": "医药卫生",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9005",
+                                "name": "农林牧渔",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              }
+                            ]
+                          },
+                          {
+                            "id": "1820",
+                            "name": "专业资料",
+                            "father": "0",
+                            "select": null,
+                            "categoryList": [
+                              {
+                                "id": "1822",
+                                "name": "IT/计算机",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9001",
+                                "name": "人文社科",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9002",
+                                "name": "工程科技",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9003",
+                                "name": "自然科学 ",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9004",
+                                "name": "医药卫生",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9005",
+                                "name": "农林牧渔",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              }
+                            ]
+                          },
+                          {
+                            "id": "1820",
+                            "name": "专业资料",
+                            "father": "0",
+                            "select": null,
+                            "categoryList": [
+                              {
+                                "id": "1822",
+                                "name": "IT/计算机",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9001",
+                                "name": "人文社科",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9002",
+                                "name": "工程科技",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9003",
+                                "name": "自然科学 ",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9004",
+                                "name": "医药卫生",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              },
+                              {
+                                "id": "9005",
+                                "name": "农林牧渔",
+                                "father": "1820",
+                                "select": null,
+                                "categoryList": null
+                              }
+                            ]
+                          }
+                      ]
+                    var  preContent = results.categoryList.data.categoryList.slice(0,6)
+                    var temp = results.categoryList.data.categoryList.slice(6)
+                    var nextContent = {id:'', "name": "更多",style:'width:90px;text-indent:-25px;margin-right:0;',categoryList:[]}
+                    temp.forEach(item=>{
+                        nextContent.categoryList.push({
+                            id:item.id,
+                            name:item.name
+                        })
+                    })
+                     results.categoryList.data.categoryList =  preContent.concat([nextContent])
+                }
                 if(results.hotTopicSeo && results.hotTopicSeo.data){
                     results.topicPagtotal = results.hotTopicSeo.data.length
                 }
