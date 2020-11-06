@@ -206,7 +206,12 @@
         imgUrl: {{results.list.data.fileContentList | dump | safe}},
         svgUrl: {{ results.list.data.svgPathList | dump | safe}},
         freeAdv: {{ results.freeAdv }},
-        copy: {{ results.copy }}
+        copy: {{ results.copy }},
+        reward: {
+            unit: '{{ results.reward.unit }}',
+            value: '{{ results.reward.value }}'
+        },
+        email: ""
     };
 
 

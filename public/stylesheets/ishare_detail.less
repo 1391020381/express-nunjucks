@@ -305,8 +305,119 @@ body {
 
     .header-right {
         padding-top: 10px;
-        margin-left: 100px;
+        margin-left: 30px;
         line-height: 30px;
+    }
+
+    // 分类展示
+    .header-cate {
+       padding-top: 10px;
+       padding-bottom: 11px;
+       line-height: 30px;
+       margin-left: 30px;
+       .cate-inner {
+            img {
+                display: inline-block;
+                width: 16px;
+                height: 12px;
+                vertical-align: baseline;
+                margin-right: 4px;
+                font-size: 0;
+            }
+            a {
+                font-size: 15px;
+                font-weight: 400;
+                color: #555555;
+                line-height: 36px;
+                cursor: pointer;
+                &:hover {
+                    color: #f25125;
+                }
+            }
+       }
+       .cate-menu {
+           position: absolute;
+           z-index: 100;
+           top: 57px;
+           display: none;
+           opacity: 0;
+           &.hover {
+               display: block;
+               opacity: 1;
+               -webkit-transition: opacity .15s linear;
+                -o-transition: opacity .15s linear;
+                transition: opacity .15s linear;
+           }
+           .cate-menu-content {
+                background-color: #fff;
+                border: 1px solid #eee;
+                border-radius: 4px;
+                box-sizing: border-box;
+                .menu-content-item {
+                    display: table;
+                    overflow: hidden;
+                    z-index: 1;
+                    zoom: 1;
+                    font-size: 0;
+                    visibility: visible;
+                    box-sizing: border-box;
+                    .item-title {
+                        display: table-cell;
+                        background: #F3F3F3;
+                        padding: 16px 28px;
+                        width: 66px;
+                        height: 100%;
+                        .item-title-icon {
+                            display: block;
+                            width: 22px;
+                            height: 22px;
+                            background-image: url(../images/detail/file_icon.png);
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            margin: 0 auto;
+                        }
+                        .item-title-text {
+                            display: inline-block;
+                            height: 16px;
+                            line-height: 16px;
+                            margin-top: 10px;
+                            cursor: pointer;
+                            font-size: 15px;
+                            font-weight: bold;
+                            color: #333333;
+                            overflow: hidden; 
+                            text-overflow: ellipsis;
+                            width: 66px; 
+                            white-space: nowrap;
+                            &:hover {
+                                color: #f25125;
+                            }
+                        }
+                    }
+                    .item-content {
+                        display: table-cell;
+                        padding: 12px 19px;
+                        width: 280px;
+                        height: 100%;
+                        vertical-align: top;
+                        .item-content-link {
+                            display: inline-block;
+                            font-size: 13px;
+                            font-weight: bold;
+                            color: #666666;
+                            height: 14px;
+                            line-height: 14px;
+                            cursor: pointer;
+                            margin: 9px;
+                            &:hover {
+                                color: #f25125;
+                            }
+                        }
+                    }
+                }
+           }
+       }
+       
     }
 
     .new-search {
@@ -3183,7 +3294,16 @@ body {
             margin-bottom: 25px;
             color: #333;
 
+        }
 
+        .sub-title {
+            
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            text-align: center;
+            line-height: 24px;
+            margin-bottom: 29px;
         }
 
         .form-list {
@@ -3210,6 +3330,18 @@ body {
             color: #999;
             line-height: 24px;
         }
+    }
+
+    .understand-btn {
+        width: 150px;
+        height: 40px;
+        background-color: #ee4b28;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        color: #fff;
+        cursor: pointer;
     }
 
     .submit-btn {

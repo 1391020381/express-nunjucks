@@ -3,6 +3,36 @@
     <div class="pw-detail">
         <div class="new-header-inter">
             <a class="logo fl" href="/"><img src="{{cdnUrl}}/images/new_detail_logo.jpg"></a>
+            <!-- 全部分类展示 --> 
+            <div class="header-cate fl ">
+                <div class="cate-inner">
+                    <img src="{{cdnUrl}}/images/detail/cate_icon.png">
+                    <a>全部分类</a>
+                </div>
+                <div class="cate-menu">
+                    {% if results.cateList.length > 0 %}
+                    <div class="cate-menu-content">
+                        {% for item in results.cateList %}
+                        <div class="menu-content-item">
+                            <div class="item-title">
+                                <span class="item-title-icon"></span>
+                                <a class="item-title-text" title="{{ item.name }}"
+                                    href="/c/{{item.url if item.url else item.nodeCode}}.html" target="_blank">{{ item.name }}</a>
+                            </div> 
+                            {% if item.frontAllCategoryVOList and item.frontAllCategoryVOList.length %}
+                            <div class="item-content">
+                                {% for menu in item.frontAllCategoryVOList %}
+                                <a class="item-content-link" title="{{ menu.name }}"
+                                    href="/c/{{menu.nodeCode}}.html" target="_blank">{{ menu.name }}</a>
+                                {% endfor %}
+                            </div>    
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>   
+                    {% endif %}
+                </div>
+            </div>
      
             <div class="header-right fl">
                 <div class="new-search fl cf">
