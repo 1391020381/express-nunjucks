@@ -29,7 +29,7 @@
     <div class="search-all-left fl">
         <!-- 搜索条件 -->
         <div class="search-condition">
-            <!-- <div class="search-item {{'hide' if loop.index0===2 or  loop.index0===3}}"> -->
+          <!--一级分类-->
             <div class="category-select-con">
                <div class="select-val-con js-nav-menu">
                     {%for item in results.categoryTitle.data.level1%}
@@ -41,10 +41,11 @@
                </div>
                <ul class="category-list-con">
                 {%for item in results.categoryTitle.data.level1%}
-                   <li><a href="/c/{{item.id}}.html">{{item.name}}</a></li>
+                   <li><a href="/c/{{item.nodeCode}}.html">{{item.name}}</a></li>
                 {% endfor %}
                </ul>
             </div>
+         <!--二级分类-->
             <div class="search-item ">
                 {% if results.categoryTitle.data.level2.length%}
                     <span class="search-title">分类：</span>
@@ -57,6 +58,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
+         <!--三级分类-->
             {%if results.categoryTitle.data.level3.length%}
             <div class="search-item ">
                 {%for item in results.categoryTitle.data.level2%}
@@ -67,12 +69,47 @@
                 {% for item in results.categoryTitle.data.level3 %}
                     {%if loop.index ==1 %}
                     <a href="/c/{{item.fatherCode}}.html"
-                            class="search-ele {%if item.father== results.reqParams.cid%} active {%endif%} ">全部</a>
+                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
                     {%endif%}
                 <a href="/c/{{item.nodeCode}}.html" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
                 {% endfor %}
             </div>
             {% endif %}
+               <!--四级分类-->
+             {%if results.categoryTitle.data.level4.length%}
+            <div class="search-item ">
+                {%for item in results.categoryTitle.data.level3%}
+                {%if item.select ==1 %}
+                <span class="search-title">{{item.name}}：</span>
+                {%endif%}
+                {% endfor %}
+                {% for item in results.categoryTitle.data.level4 %}
+                    {%if loop.index ==1 %}
+                    <a href="/c/{{item.fatherCode}}.html"
+                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
+                    {%endif%}
+                <a href="/c/{{item.nodeCode}}.html" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+             <!--五级分类-->
+             {%if results.categoryTitle.data.level5.length%}
+            <div class="search-item ">
+                {%for item in results.categoryTitle.data.level4%}
+                {%if item.select ==1 %}
+                <span class="search-title">{{item.name}}：</span>
+                {%endif%}
+                {% endfor %}
+                {% for item in results.categoryTitle.data.level5 %}
+                    {%if loop.index ==1 %}
+                    <a href="/c/{{item.fatherCode}}.html"
+                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
+                    {%endif%}
+                <a href="/c/{{item.nodeCode}}.html" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
             <div class="search-item js-fomat">
                 <span class="search-title">格式：</span>
                 <span class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all">全部</span>
