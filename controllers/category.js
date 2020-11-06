@@ -19,9 +19,10 @@ const getData = cc(async (req,res)=>{
     format =format?format.toLowerCase():'all';
     let currentPage =urlobj[2];
     currentPage = currentPage?Number(currentPage.replace('p','')):1;
-    let sortField = urlobj[3]||'';
-
-    let categoryTitle = await getCategoryTitle(req,res,categoryId)
+    let sortField = urlobj[3]||'';  // 排序
+    let attributeGroupId = urlobj[4]
+    let attributeId = urlobj[5]
+    let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeId,attributeGroupId)
    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
@@ -37,7 +38,7 @@ const getData = cc(async (req,res)=>{
     let list = await getList(req,res,categoryId,sortField,format,currentPage)
     let tdk = await getTdk(req,res,categoryId)
     let words = await getWords(req,res)
-    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId)
+    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId)
 })
 
 
@@ -46,11 +47,13 @@ module.exports = {
 }
 
 
-function getCategoryTitle(req,res,categoryId){
-   
-    const url= appConfig.apiNewBaselPath+api.category.navForCpage.replace(/\$nodeCode/, categoryId);
-  
-    return server.$http(url,'get', req,res,true)
+function getCategoryTitle(req,res,categoryId,attributeId,attributeGroupId){
+    req.body = {
+        categoryId,
+        attributeId,
+        attributeGroupId
+    }
+    return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
 
 function getRecommendList(req,res,navFatherId){
@@ -136,7 +139,9 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
         totalPages:totalPages,
         fileType: format,
         sortField: sortField,
-        pageIndexArr: pageIndexArr
+        pageIndexArr: pageIndexArr,
+        attributeGroupId,
+        attributeId
     };
 
    // 推荐位 banner
