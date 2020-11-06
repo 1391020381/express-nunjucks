@@ -4,7 +4,7 @@
         <img  class="vip-btn" src="{{cdnUrl}}/images/special/vip-btn.png">
         {# <img class="vip-img" src="{{cdnUrl}}/images/special/open-vip-1.jpg"> #}
     </a>
-    {% if results.specialTopic.slice(10)>0 %}
+    {% if results.specialTopic.length>10 %}
     <div class="hot-spot-search">
         <div class="title">
             <span class="title-left">热点搜索</span>
@@ -12,7 +12,7 @@
         </div>
         <ul class="hot-list">
             {% for item in results.specialTopic.slice(10) %}
-            <li class="hot-items">
+            <li  class="hot-items {%if loop.index0 > 9 %} hide {%endif%}">
                 <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
             </li>
             {% endfor %}

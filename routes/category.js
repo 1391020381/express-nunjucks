@@ -4,11 +4,12 @@ var categoryController = require("../controllers/category");
 var error = require('../common/error');
 
 //分类页
-router.get('/c/:id*.html', function (req, res, next) {
-    try {
-        categoryController.getData(req, res);
-    } catch (e) {
-        error(req, res, next);
-    }
-});
+// router.get('/c/:id*.html', function (req, res, next) {
+//     try {
+//         categoryController.getData(req, res);
+//     } catch (e) {
+//         error(req, res, next);
+//     }
+// });
+router.get('/c/:id*.html', categoryController.getData);
 module.exports = router;

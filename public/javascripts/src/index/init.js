@@ -1,3 +1,5 @@
+
+
 define(function (require,exports,moudle) {
     require('../application/suspension')
     var slider = require('../common/slider');//轮播插件
@@ -144,8 +146,39 @@ define(function (require,exports,moudle) {
             // 晒内容专区切换
             $('.seo-upload-new').find('.upload-title').on('click',function(){
                 $(this).addClass('active').siblings().removeClass('active');
+              
                 var _index = $(this).index();
+                $(".seo-upload-new .tab-list .tab").each(function(index,element){
+                    if(index == _index){
+                        $(element).addClass('active')
+                        $(element).first().addClass('item-active')
+                    }else{
+                        $(element).removeClass('active')
+                    }
+                })
                $(this).parents('.seo-upload-new').find('.upload-list').eq(_index).addClass('current').siblings().removeClass('current');
+            })
+            $('.seo-upload-new .tab-list .tab .tab-item').on('hover',function(){
+                $(this).addClass('item-active').siblings().removeClass('item-active');
+                var _index = $(this).index()
+                var range = { // slice
+                    0:{start:0,end:20},
+                    1:{start:20,end:40},
+                    2:{start:40,end:60},
+                    3:{start:60,end:80},
+                    4:{start:80,end:100},
+                    5:{start:100,end:120},
+                    6:{start:120,end:140},
+                    7:{start:140,end:160},
+                    8:{start:160,end:180},
+                    9:{start:180,end:200}
+                }
+                changeItem(_index)
+                function changeItem(index){
+                    $('.seo-upload-new .current li').hide()
+                   
+                    $('.seo-upload-new .current li').slice(range[index].start,range[index].end).show()
+                }
             })
         },
         //换一换
@@ -159,62 +192,62 @@ define(function (require,exports,moudle) {
                 var dataType = 1;
                 var newIndex = 0;
                 var topicndex = 0;
-            $('.js-fresh').click(function(){
-                var type = $('.seo-upload-new .active').attr('type');
-                var $list = $('.seo-upload-new .upload-list')
-               if(type == 'rectopic') {
-                    dataType =2;
-                    $list = $list[1]
-                    data = {
-                        contentType: 100,
-                        clientType:1,
-                        pageSize:12,
-                        clientType:0
-                    }
-                    // url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
-                    url = api.seo.listContentInfos
-                    getData(url,data,dataType,$list)
-               }else if(type == 'new'){
-                    newIndex++;
-                    newIndex = newIndex>3?0:newIndex;
-                    var start = newIndex*12;
-                    var end = (newIndex+1)*12;
-                    $('.upload-list').eq(0).find('li').addClass('hide')
-                   for(var i=start;i<end;i++) {
-                       $('.upload-list').eq(0).find('li').eq(i).removeClass('hide')
-                   }
-               }else if(type == 'topic'){
-                    topicndex++;
-                    topicndex = topicndex>3?0:topicndex;
-                    var start = topicndex*12;
-                    var end = (topicndex+1)*12;
-                    $('.upload-list').eq(2).find('li').addClass('hide')
-                    for(var i=start;i<end;i++) {
-                        $('.upload-list').eq(2).find('li').eq(i).removeClass('hide')
-                    }
-               }
+            // $('.js-fresh').click(function(){
+            //     var type = $('.seo-upload-new .active').attr('type');
+            //     var $list = $('.seo-upload-new .upload-list')
+            //    if(type == 'rectopic') {
+            //         dataType =2;
+            //         $list = $list[1]
+            //         data = {
+            //             contentType: 100,
+            //             clientType:1,
+            //             pageSize:12,
+            //             clientType:0
+            //         }
+            //         // url = '/gateway/seo/exposeContent/contentInfo/listContentInfos';
+            //         url = api.seo.listContentInfos
+            //         getData(url,data,dataType,$list)
+            //    }else if(type == 'new'){
+            //         newIndex++;
+            //         newIndex = newIndex>3?0:newIndex;
+            //         var start = newIndex*12;
+            //         var end = (newIndex+1)*12;
+            //         $('.upload-list').eq(0).find('li').addClass('hide')
+            //        for(var i=start;i<end;i++) {
+            //            $('.upload-list').eq(0).find('li').eq(i).removeClass('hide')
+            //        }
+            //    }else if(type == 'topic'){
+            //         topicndex++;
+            //         topicndex = topicndex>3?0:topicndex;
+            //         var start = topicndex*12;
+            //         var end = (topicndex+1)*12;
+            //         $('.upload-list').eq(2).find('li').addClass('hide')
+            //         for(var i=start;i<end;i++) {
+            //             $('.upload-list').eq(2).find('li').eq(i).removeClass('hide')
+            //         }
+            //    }
                
-            })
+            // })
             
-            function getData(url,data,dataType,$list){
-                data = JSON.stringify(data);
-                $.ajax({
-                    async: false,
-                    type: "post",
-                    url: url,
-                    data:data,
-                    dataType: "json",
-                    contentType:'application/json',
-                    success: function (data) {
-                       if(data.code =="0") {
-                        data.data.type = dataType;
-                        var _html = template.compile(headTip)({ data: data.data });
-                        $($list).html(_html)
+            // function getData(url,data,dataType,$list){
+            //     data = JSON.stringify(data);
+            //     $.ajax({
+            //         async: false,
+            //         type: "post",
+            //         url: url,
+            //         data:data,
+            //         dataType: "json",
+            //         contentType:'application/json',
+            //         success: function (data) {
+            //            if(data.code =="0") {
+            //             data.data.type = dataType;
+            //             var _html = template.compile(headTip)({ data: data.data });
+            //             $($list).html(_html)
                         
-                       }
-                    }
-                });
-            }
+            //            }
+            //         }
+            //     });
+            // }
         },
         //刷新topbar
         refreshTopBar:function (data) {

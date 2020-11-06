@@ -426,10 +426,15 @@ define(function(require, exports, moudle) {
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
+        _MEIQIA('manualInit');
     } catch (e) {}
     // 联系客服
     $('.connect-ser').on('click', function() {
         _MEIQIA('init');
+         // 初始化成功后调用美洽 showPanel
+    _MEIQIA('allSet', function(){
+        _MEIQIA('showPanel');
+      });
     });
 
     var clickPay = function() {
@@ -488,6 +493,7 @@ define(function(require, exports, moudle) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
+             
                 if (data && data.code == '0') {
                     console.log("下单返回的数据：" + data);
                     data['remark'] = temp.remark;
@@ -508,6 +514,7 @@ define(function(require, exports, moudle) {
      * 支付跳转到新页面
      */
     function openWin(data) {
+        clickEvent('createOrder',{orderID:data.data.orderNo})
         var orderNo = data.data.orderNo;
         var price = data.data.payPrice;
         var name = data.data.name;

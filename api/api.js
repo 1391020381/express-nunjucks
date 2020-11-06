@@ -106,7 +106,8 @@ module.exports = {
         recommendList:'/recommend/config/info', //推荐位
         navList:'/content/category/getSimplenessInfo',
         randomRecommend:'/search/content/randomRecommend',
-        listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
+        // listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
+        listContentInfos:'/seo/exposeContent/contentInfo/listContents'
     },
     order:{
       getOrderInfo: "/gateway/order/get/orderInfo"

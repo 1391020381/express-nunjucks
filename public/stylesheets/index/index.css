@@ -140,6 +140,7 @@
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-item:hover .category-more {
   display: block;
+  max-height: 274px;
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-item:hover .icon-ele-arrow {
   transform: rotate(180deg);
@@ -1197,12 +1198,39 @@
   cursor: pointer;
   margin-top: 13px;
 }
+.seo-upload-new .tab-list .tab {
+  display: none;
+  border-bottom: 1px solid #DDDDDD;
+}
+.seo-upload-new .tab-list .tab .tab-item {
+  display: inline-block;
+  padding: 10px 23px;
+  color: #999999;
+  cursor: pointer;
+  position: relative;
+}
+.seo-upload-new .tab-list .tab .tab-item .icon {
+  position: absolute;
+  left: 0;
+  top: 12;
+  width: 1px;
+  height: 12px;
+  background: #DDDDDD;
+}
+.seo-upload-new .tab-list .tab .item-active {
+  color: #F25125;
+  border-bottom: 2px solid #F25125;
+}
+.seo-upload-new .tab-list .active {
+  display: block;
+}
 .seo-upload-new .upload-list {
   overflow: hidden;
   margin-left: -24px;
   display: none;
 }
 .seo-upload-new .upload-list.current {
+  margin-top: 28px;
   display: block;
 }
 .seo-upload-new .upload-list li {

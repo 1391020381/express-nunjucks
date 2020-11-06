@@ -176,6 +176,7 @@
               }
               .category-more {
                 display: block;
+                max-height: 274px;
               }
               .icon-ele-arrow {
                 transform: rotate(180deg);
@@ -1219,12 +1220,42 @@
         margin-top: 13px;
       }
 	}
-  
+   .tab-list{
+     .tab{
+       display: none;
+       border-bottom: 1px solid #DDDDDD;
+          .tab-item{
+             display: inline-block;
+             padding:10px 23px;
+             color: #999999;
+             cursor: pointer;
+             position: relative;
+             .icon{
+               position: absolute;
+               left:0;
+               top:12;
+               width: 1px;
+               height: 12px;
+                 background: #DDDDDD;
+             }
+          }
+          .item-active{
+            color: #F25125;
+            border-bottom: 2px solid #F25125;
+          }
+     }
+     .active{
+       display: block;
+      
+
+     }
+   }
   .upload-list {
     overflow: hidden;
     margin-left: -24px;
     display: none;
     &.current {
+      margin-top:28px;
       display: block;
     }
     li {

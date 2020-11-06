@@ -92,7 +92,7 @@ define(function (require, exports, module) {
            
         },
         upload:{
-            getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类
+            getWebAllFileCategory: gateway + '/content/fileCategory/getWebAll', 
             createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
             getFolder:gateway + '/content/getUserFolders', // 获取所有分类
             saveUploadFile:gateway + '/content/webUploadFile',
