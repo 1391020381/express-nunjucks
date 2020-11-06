@@ -85,7 +85,7 @@ module.exports = {
         list:'/search/content/byCondition', //查询列表
         words:'/search/specialTopic/lisPage', //热点搜索
         recommendList:'/recommend/config/info', //推荐位
-        navForCpage:'/market/nodeManage/getLevelNodeByNodeCode/$nodeCode', //分类导航
+        navForCpage:'/market/nodeManage/getLevelNodeByNodeCode', //分类导航
     },
     map:{//地图
         list:'/search/content/setmap',
@@ -96,7 +96,7 @@ module.exports = {
         crumbList:'/content/category/navCategory',
         editorInfo:'/user/getOthersCentreInfo?uid=$uid',
         fileDetailTxt:'/content/file/getFileBody',
-        hotpotSearch:'/search/content/byCondition',
+        hotpotSearch:'/search/content/getSimilar',
         hotTopicSearch:'/search/specialTopic/lisPage',
         newRecData:'/search/content/randomRecommend',
         hotRecData:'/seo/exposeContent/contentInfo/listContentInfos',

@@ -1,7 +1,7 @@
 /**
 * 系统配置
 */
-const env = process.env.NODE_ENV  || 'prod'
+const env = process.env.NODE_ENV  || 'local'
 const config = {
     debug:{
         env: env,

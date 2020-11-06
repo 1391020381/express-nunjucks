@@ -102,13 +102,13 @@ module.exports = {
                             data = JSON.parse(body);
                         }
                         if (data.code != '0' && !is4paradigm & !isGetFileDetailNoTdk) {
-                            console.log('$http---------:', opt.url, error, body)
+                            console.log('$http---------:', opt, error, body)
                             reject(body)
                         } else {
                             resolve(data)
                         }
                     } catch (err) {
-                        console.log('$http---------:', opt.url, err, body)
+                        console.log('$http---------:', opt, err, body)
                         reject(err)
                     }
                 } else {

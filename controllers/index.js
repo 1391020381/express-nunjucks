@@ -76,7 +76,7 @@ module.exports = {
             },
             categoryList:function(callback) {
               
-                req.body = {"site":4,"terminal":0};
+                req.body = {"site":4,"terminal":0,level:2};
                 server.post(appConfig.apiNewBaselPath+api.index.navList, callback, req);
             },
             // 热门专题（晒内容）

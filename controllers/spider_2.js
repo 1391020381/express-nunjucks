@@ -162,9 +162,11 @@ function getParadigm4Relevant(req,res,list,recommendInfo,userID){
 function getHotpotSearch(req,res,list,paradigm4Relevant){
     let recRelateArrNum = paradigm4Relevant.length
     req.body = {
-        searchKey: list.data.fileInfo.title,
         currentPage:1,
-        pageSize:40
+        pageSize:40,
+        site:4,
+        classIds:[list.data.fileInfo.classid2,list.data.fileInfo.classid3].filter(item=> { return !!item}),
+        title:list.data.fileInfo.title
     }
     if(recRelateArrNum<31){
         return server.$http(appConfig.apiNewBaselPath+Api.spider.hotpotSearch,'post', req,res,true)
