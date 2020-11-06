@@ -20,9 +20,12 @@ const getData = cc(async (req,res)=>{
     let currentPage =urlobj[2];
     currentPage = currentPage?Number(currentPage.replace('p','')):1;
     let sortField = urlobj[3]||'';  // 排序
-    let attributeGroupId = urlobj[4]
+    let attributeGroupId = urlobj[4]   
     let attributeId = urlobj[5]
-    let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId)
+    let urlSelectId = urlobj[6]?JSON.parse(decodeURIComponent(urlobj[6])):[]  
+    var deleteAttributeGroupId = urlobj[7]
+    console.log('urlSelectId:',urlSelectId)
+    let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
@@ -31,6 +34,24 @@ const getData = cc(async (req,res)=>{
             }
         })
     }
+    // 获取 属性组和id
+    let selectId  = []
+    if(categoryTitle.data&&categoryTitle.data.specificsInfos){
+        categoryTitle.data.specificsInfos.forEach(item=>{
+             if(item.select == '1'){
+                 item.subSpecificsList.forEach(k=>{
+                     if(k.select == '1'){
+                        let m = {
+                            attributeGroupId:item.id,
+                            attributeId:k.id
+                         }
+                         selectId.push(m)
+                     }
+                 })
+             }
+        })
+    }
+    console.log('selectId:',selectId)
     let recommendList = {}
     if(navFatherId){
         recommendList  =  await getRecommendList(req,res,navFatherId)
@@ -38,7 +59,7 @@ const getData = cc(async (req,res)=>{
     let list = await getList(req,res,categoryId,sortField,format,currentPage)
     let tdk = await getTdk(req,res,categoryId)
     let words = await getWords(req,res)
-    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId)
+    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId)
 })
 
 
@@ -47,10 +68,21 @@ module.exports = {
 }
 
 
-function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId){
+function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId){
+    let addId = attributeGroupId&&attributeId?{attributeGroupId,attributeId}:''
+    if(addId){
+        urlSelectId.push(addId)
+    }
+   let temp = []
+   urlSelectId.forEach(item=>{
+       if(item.attributeGroupId!=deleteAttributeGroupId){
+           temp.push(item)
+       }
+   }) 
+  console.log('urlSelectId:',temp)
     req.body = {
         nodeCode:categoryId,
-        attributeGroupList:attributeGroupId&&attributeId?[{attributeGroupId,attributeId}]:[]
+        attributeGroupList:temp
     }
     return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
@@ -90,7 +122,7 @@ function getWords(req,res){
     return server.$http(appConfig.apiNewBaselPath+api.category.words,'post', req,res,true)
 }
 
-function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId){
+function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId){
    
     var results =  Object.assign({categoryTitle,recommendList,list,tdk,words},) || {};
     var pageObj = {};
@@ -139,8 +171,9 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
         fileType: format,
         sortField: sortField,
         pageIndexArr: pageIndexArr,
-        attributeGroupId,
-        attributeId
+        attributeGroupId:attributeGroupId,
+        attributeId,
+        selectId:encodeURIComponent(JSON.stringify(selectId))
     };
 
    // 推荐位 banner
