@@ -2,13 +2,13 @@
  *
  */
 
-const async = require("async");
+
 const render = require("../common/render");
 const server = require("../models/index");
 const api = require("../api/api");
 const appConfig = require("../config/app-config");
 const util = require("../common/util");
-const request = require('request');
+
 const cc = require('../common/cc')
 
 const getData = cc(async (req,res)=>{
@@ -22,7 +22,7 @@ const getData = cc(async (req,res)=>{
     let sortField = urlobj[3]||'';
 
     let categoryTitle = await getCategoryTitle(req,res,categoryId)
-
+   console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {

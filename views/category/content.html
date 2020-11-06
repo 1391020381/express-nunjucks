@@ -50,10 +50,10 @@
                     <span class="search-title">分类：</span>
                     {%for item in results.categoryTitle.data.level2%}
                     {%if loop.index ==1 %}
-                    <a href="/c/{{item.father}}.html"
-                            class="search-ele {%if item.father== results.reqParams.cid%} active {%endif%} ">全部</a>
+                    <a href="/c/{{item.fatherCode}}.html"
+                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
                     {%endif%}
-                    <a href="/c/{{item.id}}.html" class="search-ele  {{ 'active' if item.select==1 }}">{{item.name}}</a>
+                    <a href="/c/{{item.nodeCode}}.html" class="search-ele  {{ 'active' if item.select==1 }}">{{item.name}}</a>
                     {% endfor %}
                 {% endif %}
             </div>
@@ -66,10 +66,10 @@
                 {% endfor %}
                 {% for item in results.categoryTitle.data.level3 %}
                     {%if loop.index ==1 %}
-                    <a href="/c/{{item.father}}.html"
+                    <a href="/c/{{item.fatherCode}}.html"
                             class="search-ele {%if item.father== results.reqParams.cid%} active {%endif%} ">全部</a>
                     {%endif%}
-                <a href="/c/{{item.id}}.html" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
+                <a href="/c/{{item.nodeCode}}.html" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
                 {% endfor %}
             </div>
             {% endif %}
