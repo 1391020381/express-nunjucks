@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
     // var $ = require("$");
+    require('../cmd-lib/toast');
     var clickEvent = require('../common/bilog').clickEvent
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
@@ -49,6 +50,7 @@ define(function(require, exports, module) {
             // }
             var supportSvg = window.pageConfig.supportSvg;
             var svgFlag = window.pageConfig.svgFlag;
+            var copy = window.pageConfig.copy;
             if (supportSvg == true && svgFlag == true) {
                 ptype = 'svg';
             }
@@ -72,11 +74,12 @@ define(function(require, exports, module) {
                 arr.push(item);
             }
             //拿到数据进行渲染
-            var _html = template.compile(img_tmp)({ data: arr, ptype: ptype });
+            var _html = template.compile(img_tmp)({ data: arr, ptype: ptype, copy: copy });
             if (ptype === 'txt') {
                 $(".font-detail-con").append(_html);
             } else {
                 $(".ppt-pic-con").append(_html);
+
             }
             $("img.lazy").lazyload({ effect: "fadeIn" });
 
@@ -200,6 +203,62 @@ define(function(require, exports, module) {
             // $articlePages.eq(3).hide();
             initStyle()
         }
+
+    });
+
+    // 创建选择框元素
+    // 创建选择框元素
+    function createSelectorElement() {
+        let selDiv = document.createElement("div");
+        // 添加样式
+        selDiv.style.position = 'absolute';
+        selDiv.style.width = '0px';
+        selDiv.style.height = '0px';
+        selDiv.style.fontSize = '0px';
+        selDiv.style.margin = '0px';
+        selDiv.style.padding = '0px';
+        selDiv.style.border = '1px dashed #0099FF';
+        selDiv.style.backgroundColor = '#C3D5ED';
+        selDiv.style.zIndex = 10;
+        selDiv.style.filter = 'alpha(opacity:60)';
+        selDiv.style.opacity = '0.6';
+        selDiv.style.display = 'none';
+        selDiv.id = "selectDiv";
+        return selDiv;
+    }
+
+    // 绑定svgDom复制事件
+    $(document).on('click', '.detail-holder', function (e) {
+        var holder = $(this).context;
+        holder.onmousedown = function (ev) {
+            var disX = ev.clientX - holder.offsetLeft;                
+            var disY = ev.clientY - holder.offsetTop; 
+            var l, t;       
+            // 创建选择框
+            // var selectDiv = document.getElementById('selectDiv');
+            // if (selectDiv) holder.removeChild(selectDiv);
+            // var selDiv = createSelectorElement();
+            // holder.appendChild(selDiv);      
+            holder.onmousemove = function (ev) {
+                l = ev.clientX - disX;                               
+                t = ev.clientY - disY;   
+                // selDiv.style.display = "";                        
+                // selDiv.style.width = Math.abs(l) + "px";
+                // selDiv.style.height = Math.abs(t) + 38 + "px";
+            };
+            holder.onmouseup = function () {
+                if (Math.abs(l) > 50 || Math.abs(t) > 50) {
+                    $.toast({
+                        text: '开通VIP可复制文本内容',
+                        icon: '',
+                        delay: 2000,
+                        callback: false
+                    })
+                }
+                holder.onmousemove = null;
+            };
+            return false;                     //阻止默认事件的发生       
+        };
     });
 
     //给页面绑定滑轮滚动事件
@@ -208,7 +267,6 @@ define(function(require, exports, module) {
     }
     //滚动滑轮触发scrollFunc方法 //ie 谷歌
     window.onmousewheel = document.onmousewheel = scrollFunc;
-
 
     //点击加载更多
     $(document).on('click', '[data-toggle="btnReadMore"]', function() {

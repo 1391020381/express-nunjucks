@@ -106,6 +106,10 @@
                 display: inline;
                 color: #666;
                 text-align: right;
+                &.protocol-text {
+                    opacity: 0;
+                    visibility: hidden;
+                }
                 .import {
                     color: #f22929;
                     margin-right: 3px;
@@ -117,6 +121,7 @@
                 float: left;
                 width: 896px;
                 display: inline;
+                position: relative;
                 .rz-input-con {
                     float: left;
                     width: 206px;
@@ -124,6 +129,38 @@
                     padding: 0 10px;
                     line-height: 32px;
                     border: 1px solid #ddd;
+                }
+                // 新增昵称说明
+                .rz-input-label {
+                    float: left;
+                    margin-left: 10px;
+                    font-size: 0;
+                    span {
+                        display: inline-block;
+                        vertical-align: middle;
+                        &.label-link {
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #F25125;
+                            line-height: 24px;
+                            margin-left: 4px;
+                            cursor: pointer;
+                            a {
+                                color: #F25125;
+                            }
+                        }
+                    }
+                }
+                // 新增昵称提示
+                .rz-input-info {
+                    position: absolute;
+                    left: 4px;
+                    margin-left: 10px;
+                    font-size: 13px;
+                    font-weight: 400;
+                    color: #999999;
+                    line-height: 34px;
+                    bottom: -34px;
                 }
                 .gray-text {
                     float: left;
@@ -247,8 +284,14 @@
                             font-weight: bold;
                             margin: 5px 0;
                         }
+                        .rz-indent {
+                            text-indent: 28px;
+                        }
                         .third-txt {
                             padding-left: 23px;
+                        }
+                        .forth-txt {
+                            padding-left: 34px;
                         }
                     }
                 }
@@ -298,7 +341,8 @@
                 }
             }
         }
-        &.rz-main-contact{
+        &.rz-main-validate {
+            border-bottom: none;
             .rz-input-con {
                 &.nofloat {
                     float: none!important;
@@ -456,3 +500,149 @@
     display: none;
 }
 .upload-input { position: absolute; overflow: hidden; }
+
+// 弹出框制作
+#authentication-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    .modal-dialog {
+        left: 50%;
+        top: 50%;
+        width: 477px;
+        position: relative;
+        z-index: 9999;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 0;
+            border-radius: 2px;
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            padding: 42px 24px;
+            text-align: center;
+            .modal-header {
+                font-size: 22px;
+                font-weight: 400;
+                color: #222222;
+                line-height: 30px;
+                margin-bottom: 30px;
+                .modal-close {
+                    display: block;
+                    overflow: hidden;
+                    background: url(../../images/icon_iShare.png) no-repeat;
+                    width: 18px;
+                    height: 18px;
+                    position: absolute;
+                    top: 15px;
+                    right: -32px;
+                    background-position: -220px -20px;
+                    cursor: pointer;
+                }
+                .img-icon {
+                    width: 42px;
+                    height: 42px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 10px;
+                    &.icon-success {
+                        background-image: url(../../images/auth/authen_success.png);
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
+                    &.icon-error {
+                        background-image: url(../../images/auth/authen_error.png);
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                    }
+                }
+            }
+            .modal-body {
+                font-size: 20px;
+                font-weight: 400;
+                color: #666666;
+                line-height: 34px;
+                .wechat-qrcode {
+                    width: 134px;
+                    height: 134px;
+                    padding: 3px;
+                    display: inline-block;
+                    text-align: center;
+                    background: url(../../images/auth/wechat.png) no-repeat;
+                    background-size: contain;
+                    margin-bottom: 10px;
+                }
+                .body-text {
+                    p {
+                        &:first-of-type {
+                            line-height: 20px;
+                        }
+                        &:nth-of-type(2) {
+                            line-height: 38px;
+                        }
+                        &:last-of-type {
+                            line-height: 20px;
+                        }
+                    }
+                    a {
+                        color: #333;
+                        cursor: pointer;
+                        &:hover {
+                            color: #f25125;
+                        }
+                    }
+                }
+            }
+            .modal-footer {
+                margin-top: 30px;
+                .btn {
+                    width: 150px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    font-size: 15px;
+                    display: inline-block;
+                    *display: inline;
+                    *zoom: 1;
+                    vertical-align: top;
+                    margin: 0 10px;
+                    border-radius: 3px;
+                    border: 1px solid #d9d9d9;
+                    cursor: pointer;
+                    &.btn-normal{
+                        background-color: #f6f6f6;
+                        color: #333;
+                    }
+                    &.btn-color {
+                        background-color: #f25125;
+                        border-color: #f25125;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1040;
+        background-color: #000;
+        opacity: .65;
+        filter: alpha(opacity=65);
+    }
+}

@@ -1344,7 +1344,7 @@ body {
     line-height: 36px;
     color: @gray-dark;
     margin: 0 auto;
-
+    position: relative;
     .loading {
         width: 100%;
         height: 800px;
@@ -1353,6 +1353,18 @@ body {
 
     .img-png {
         width: 890px;
+    }
+    
+    // 占位符
+    .detail-holder {
+        position: absolute;
+        width: 100%;
+        height: ~"calc(100% - 12px)";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        -webkit-user-drag: none; 
     }
 }
 

@@ -502,13 +502,7 @@ define(function (require, exports, module) {
         }
         return fileArr;
     }
-
    
-
-  
-
-  
-
     function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;

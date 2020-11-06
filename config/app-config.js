@@ -26,8 +26,8 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl :'http://test-office.iask.com'||'http://dev-office.iask.com',
-        loginUrl:'http://localhost:8085'
+        officeUrl: 'http://dev-office.iask.com'||'http://dev-office.iask.com',
+        loginUrl: 'http://dev-login-ishare.iask.com.cn'
     },
     dev: {
         env: env,

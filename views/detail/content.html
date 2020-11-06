@@ -41,7 +41,7 @@
             <!--左侧标题下方广告位-->
             <!--  广告位：PC端-ishare-详细页-左侧标题下870*95-0620  -->
             <div class="tui-detail-02 tui-detail02-first">
-             {% if results.getBannerList.titleBottomBanner.list.length>0 %}
+             {% if results.getBannerList.titleBottomBanner.list.length > 0 %}
                      <div class="swiper-container swiper-titlebottom-container ">
                        <div class="swiper-wrapper">
                       {%for item in  results.getBannerList.titleBottomBanner.list %}
@@ -54,20 +54,21 @@
                     </div>    
                   </div>   
              {% else %}
-                <script>
-                    (function () {
-                        var s = "_" + Math.random().toString(36).slice(2);
-                        document.write('<div  id="' + s + '"></div>');
-                        (window.slotbydup = window.slotbydup || []).push({
-                            id: '6307538',
-                            container: s,
-                            size: '870,95',
-                            display: 'inlay-fix'
-                        });
-                        _dpData[0] = 1;
-                    })();
-                </script>
-
+                {% if not results.freeAdv %}
+                    <script>
+                        (function () {
+                            var s = "_" + Math.random().toString(36).slice(2);
+                            document.write('<div  id="' + s + '"></div>');
+                            (window.slotbydup = window.slotbydup || []).push({
+                                id: '6307538',
+                                container: s,
+                                size: '870,95',
+                                display: 'inlay-fix'
+                            });
+                            _dpData[0] = 1;
+                        })();
+                    </script>
+                {% endif %}
              {% endif %}
             </div>
             {% endif %}
@@ -126,6 +127,9 @@
                                         <embed src="{{results.list.data.svgPathList[loop.index0]}}" width="100%"
                                             height="100%" type="image/svg+xml"
                                             pluginspage="//www.adobe.com/svg/viewer/install/" />
+                                        {% if not results.copy %}
+                                        <div class="detail-holder"></div>
+                                        {% endif %}    
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +166,7 @@
                             {% if loop.index0 === 0  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处1-890*100-0620  -->
-                                {% if results.getBannerList.turnPageOneBanner.list.length>0 %}
+                                {% if results.getBannerList.turnPageOneBanner.list.length > 0 or results.freeAdv %}
                                  <div class="swiper-container swiper-turnPageOneBanner-container ">
                                     <div class="swiper-wrapper">
                                {%for item in  results.getBannerList.turnPageOneBanner.list %}
@@ -175,7 +179,7 @@
                               </div>    
                              </div> 
                             {% else%}
-                                     <script>
+                                <script>
                                     (function () {
                                         var s = "_" + Math.random().toString(36).slice(2);
                                         document.write('<div  id="' + s + '"></div>');
@@ -195,16 +199,16 @@
                             {% elif loop.index0 === 1  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
-                                   {% if results.getBannerList.turnPageTwoBanner.list.length>0 %}
+                               {% if results.getBannerList.turnPageTwoBanner.list.length > 0 or results.freeAdv %}
                                  <div class="swiper-container swiper-turnPageTwoBanner-container ">
                                     <div class="swiper-wrapper">
-                               {%for item in  results.getBannerList.turnPageTwoBanner.list %}
+                                  {%for item in  results.getBannerList.turnPageTwoBanner.list %}
                                     <div class="swiper-slide" >
                                       <a  href="/f/{{item.linkUrl}}.html" target="_blank" data-id="{{item.id}}">
                                        <img class="swiper-slide-img" src="{{item.imagUrl}}">
                                       </a>
                                   </div>
-                               {%endfor%}
+                                 {%endfor%}
                               </div>    
                              </div> 
                             {% else%}
@@ -225,19 +229,23 @@
                             </div>
                             {% elif loop.index0 === 2 %}
                             <div class="tui-detail hide-ad">
-                                <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
-                                <script>
-                                    (function () {
-                                        var s = "_" + Math.random().toString(36).slice(2);
-                                        document.write('<div  id="' + s + '"></div>');
-                                        (window.slotbydup = window.slotbydup || []).push({
-                                            id: '6307747',
-                                            container: s,
-                                            size: '886,100',
-                                            display: 'inlay-fix'
-                                        });
-                                    })();
-                                </script>
+                                {% if not results.freeAdv %}
+                                <div>
+                                    <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
+                                    <script>
+                                        (function () {
+                                            var s = "_" + Math.random().toString(36).slice(2);
+                                            document.write('<div  id="' + s + '"></div>');
+                                            (window.slotbydup = window.slotbydup || []).push({
+                                                id: '6307747',
+                                                container: s,
+                                                size: '886,100',
+                                                display: 'inlay-fix'
+                                            });
+                                        })();
+                                    </script>
+                                </div>
+                                {% endif %}
                             </div>
                             {%endif%}
                             {%endif%}
