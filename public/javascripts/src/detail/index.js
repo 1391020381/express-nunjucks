@@ -11,20 +11,20 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var common = require('./common');
     var clickEvent = require('../common/bilog').clickEvent
-    var fileName = window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName
+    var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
     handleBaiduStatisticsPush('fileDetailPageView')
-    
+
     // 初始化显示
     initShow();
     // 初始化绑定
     eventBinding();
     function initShow() {
-        if(fileName){
-            fileName = fileName.length>12?fileName.slice(0,12) + '...':fileName
+        if (fileName) {
+            fileName = fileName.length > 12 ? fileName.slice(0, 12) + '...' : fileName
         }
-        $('#search-detail-input').attr('placeholder',fileName||'与人沟通的十大绝招')
+        $('#search-detail-input').attr('placeholder', fileName || '与人沟通的十大绝招')
         // 初始化显示
         pageInitShow();
         // 访问记录
@@ -50,19 +50,19 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if ((params.productType == '4'|| params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4' || params.productType == '5') && params.vipDiscountFlag == '1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
-            
+
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
-              
+
                 var savePrice = (params.moneyPrice * 0.8).toFixed(2);
                 $('.vip-save-money').html(savePrice)
                 $('.js-original-price').html(savePrice);
             }
         }
         // 意见反馈的url
-       
+
         var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
@@ -80,7 +80,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-       
+
     }
 
     // 事件绑定
@@ -125,10 +125,10 @@ define(function (require, exports, module) {
             }
             return true;
         });
-       
-        $('.detail-search-info').on('click',function(){
+
+        $('.detail-search-info').on('click', function () {
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-            
+
             searchFn(_val);
         })
         $(document).on('click', ':not(.new-search)', function (event) {
@@ -150,7 +150,7 @@ define(function (require, exports, module) {
             }
         });
 
-   
+
         // 退出
         $('.btn-exit').on('click', function () {
             login.ishareLogout();
@@ -164,7 +164,7 @@ define(function (require, exports, module) {
         });
         // 显示举报窗口
         $('.report-link').on('click', function () {
-            method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
+            method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href, true);
         });
         // 取消或者关注
         $('#btn-collect').on('click', function () {
@@ -173,23 +173,23 @@ define(function (require, exports, module) {
                     common.afterLogin(data);
                 });
                 return;
-            }else{
-                var fid=$(this).attr('data-fid');
+            } else {
+                var fid = $(this).attr('data-fid');
                 clickEvent($(this))
                 setCollect($(this))
             }
-           
+
         });
-      
+
         // 查找相关资料
-        $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
+        $('.detail-fixed').on('click', '#searchRes', function () { // 寻找相关资料  
             sendEmail()
         });
 
-       
+
 
         // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
-        $('body').on("click", ".js-buy-open", function (e) {  
+        $('body').on("click", ".js-buy-open", function (e) {
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
                 //上报数据相关
@@ -199,12 +199,12 @@ define(function (require, exports, module) {
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
-                    
+
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
-                        common.afterLogin(data,{type:type,data:data,callback:goPage})
-                      //  goPage(type,data);
+                        common.afterLogin(data, { type: type, data: data, callback: goPage })
+                        //  goPage(type,data);
                     });
                 }
             } else {
@@ -212,50 +212,50 @@ define(function (require, exports, module) {
             }
         });
     }
-    
-    function sendEmail (){
+
+    function sendEmail() {
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-        
+
         $("#dialog-box").dialog({
             html: $('#reward-mission-pop').html(),
         }).open();
 
-        setTimeout(bindEventPop,500)
+        setTimeout(bindEventPop, 500)
     }
-    
 
-    function bindEventPop(){
+
+    function bindEventPop() {
         console.log(6666)
         // 绑定关闭悬赏任务弹窗pop
-        $('.m-reward-pop .close-btn').on('click',function(){
+        $('.m-reward-pop .close-btn').on('click', function () {
             closeRewardPop();
         })
 
         // submit提交
-        $('.m-reward-pop .submit-btn').on('click',function(){
+        $('.m-reward-pop .submit-btn').on('click', function () {
             var userId = window.pageConfig.userId;
-            if(!userId){
+            if (!userId) {
                 closeRewardPop();
                 $.toast({
-                    text:'该功能仅对VIP用户开放',
-                    delay : 3000,
+                    text: '该功能仅对VIP用户开放',
+                    delay: 3000,
                 })
                 return
             }
-            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
             var mailVal = $('.m-reward-pop .form-ipt').val();
             var tips = $('.m-reward-pop .form-verify-tips');
             tips.hide();
-            if (!reg.test(mailVal)) {
+            if (!reg.test(mailVal)) {
                 tips.show();
                 return
-            }
+            }
 
             var params = {
-                userId:userId,
-                fid:window.pageConfig.params.g_fileId,
-                email:mailVal,
-                channelSource:4,
+                userId: userId,
+                fid: window.pageConfig.params.g_fileId,
+                email: mailVal,
+                channelSource: 4,
             }
 
             $.ajax('/gateway/content/sendmail/findFile', {
@@ -267,15 +267,15 @@ define(function (require, exports, module) {
                 if (res.code == 0) {
                     closeRewardPop();
                     $.toast({
-                        text:'发送成功',
-                        delay : 2000,
+                        text: '发送成功',
+                        delay: 2000,
                     })
-                } else if(res.code == 401100){
+                } else if (res.code == 401100) {
                     $.toast({
-                        text:'该功能仅对VIP用户开放',
-                        delay : 2000,
+                        text: '该功能仅对VIP用户开放',
+                        delay: 2000,
                     })
-                }else {
+                } else {
                     $.toast({
                         text: '发送失败，请重试',
                         delay: 2000
@@ -290,37 +290,37 @@ define(function (require, exports, module) {
         })
 
         // 关闭任务pop
-        function closeRewardPop(){
+        function closeRewardPop() {
             $(".common-bgMask").hide();
             $(".detail-bg-mask").hide();
             $('#dialog-box').hide();
-        }        
+        }
 
     }
 
     function fileBrowseReportBrowse() {
         $.ajax({
-            headers:{
-                'Authrization':method.getCookie('cuk')
+            headers: {
+                'Authrization': method.getCookie('cuk')
             },
             url: api.reportBrowse.fileBrowseReportBrowse,
             type: "POST",
             data: JSON.stringify({
-                            terminal:'0',
-                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId,
-                            fileUid: window.pageConfig.page&&window.pageConfig.page.uid
-                        }),
+                terminal: '0',
+                fid: window.pageConfig.params && window.pageConfig.params.g_fileId,
+                fileUid: window.pageConfig.page && window.pageConfig.page.uid
+            }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-               if(res.code == '0'){
-                 
-               }
+                if (res.code == '0') {
+
+                }
             }
         })
     }
-   
-  
+
+
     //获取焦点
     function inputFocus(ele, focus, css) {
         $(ele).focus(function () {
@@ -348,7 +348,7 @@ define(function (require, exports, module) {
 
     $(function () {
         ////详情页用户展开
-      
+
         //详情页获取焦点
         var $detailHeader = $(".new-detail-header");
         var headerHeight = $detailHeader.height();
@@ -417,53 +417,49 @@ define(function (require, exports, module) {
         elementHover($detailHeader.find(".more-nav"), null, "hover");
     });
 
-
-
-  
-
-       // 新收藏或取消收藏接口
-   function setCollect(_this) { 
+    // 新收藏或取消收藏接口
+    function setCollect(_this) {
         $.ajax({
-            headers:{
-                'Authrization':method.getCookie('cuk')
+            headers: {
+                'Authrization': method.getCookie('cuk')
             },
             url: api.special.setCollect,
             type: "post",
-            data: JSON.stringify({ fid:window.pageConfig.params.g_fileId,source:0}),
+            data: JSON.stringify({ fid: window.pageConfig.params.g_fileId, source: 0 }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if(res.code == '0'){
+                if (res.code == '0') {
                     $.toast({
-                        text: _this.hasClass("btn-collect-success")?"取消收藏成功":"收藏成功"
+                        text: _this.hasClass("btn-collect-success") ? "取消收藏成功" : "收藏成功"
                     })
-                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') :_this.addClass('btn-collect-success')
-                }else{
+                    _this.hasClass("btn-collect-success") ? _this.removeClass('btn-collect-success') : _this.addClass('btn-collect-success')
+                } else {
                     $.toast({
-                        text: _this.hasClass("btn-collect-success")?"取消收藏失败":"收藏失败"
+                        text: _this.hasClass("btn-collect-success") ? "取消收藏失败" : "收藏失败"
                     })
                 }
             }
         })
     }
 
-    function getCollectState(){//获取收藏的状态
+    function getCollectState() {//获取收藏的状态
         $.ajax({
-            headers:{
-                'Authrization':method.getCookie('cuk')
+            headers: {
+                'Authrization': method.getCookie('cuk')
             },
             url: api.special.getCollectState,
             type: "get",
-            data: { fid:window.pageConfig.params.g_fileId,uid:window.pageConfig.page.uid },
+            data: { fid: window.pageConfig.params.g_fileId, uid: window.pageConfig.page.uid },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
-                if(res.code == '0'){
+                if (res.code == '0') {
                     res.data.hasCollect ? $("#btn-collect").addClass("btn-collect-success") : $("#btn-collect").removeClass("btn-collect-success")
                 }
             }
         })
-    } 
+    }
 
     // 搜集访问记录
     function storeAccessRecord() {
@@ -502,44 +498,44 @@ define(function (require, exports, module) {
         }
         return fileArr;
     }
-   
+
     function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
-      
+
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
         if (type === 'file') {
-          
-            params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
-         
-            method.compatibleIESkip("/pay/payConfirm.html" + params,false);
+
+            params = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
+
+            method.compatibleIESkip("/pay/payConfirm.html" + params, false);
         } else if (type === 'vip') {
-            if(data&&data.isVip==1){ // 
-             
+            if (data && data.isVip == 1) { // 
+
                 sendEmail()
-            }else{
-            var params =  window.pageConfig.params
-            var productType = params.productType
-            var userFileType = params.userFileType
-            var userFilePrice = params.userFilePrice
-            if(productType == '4'){
-                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref +'&productType='+productType+'&userFileType='+userFileType+'&userFilePrice='+userFilePrice
-            }else{
-                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
-            }
-            
-        
-            method.compatibleIESkip('/pay/vip.html' + params,false);
+            } else {
+                var params = window.pageConfig.params
+                var productType = params.productType
+                var userFileType = params.userFileType
+                var userFilePrice = params.userFilePrice
+                if (productType == '4') {
+                    var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&productType=' + productType + '&userFileType=' + userFileType + '&userFilePrice=' + userFilePrice
+                } else {
+                    var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+                }
+
+
+                method.compatibleIESkip('/pay/vip.html' + params, false);
             }
         } else if (type === 'privilege') {
-           
-            var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-           
-            method.compatibleIESkip('/pay/privilege.html' + params,false);
+
+            var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+
+            method.compatibleIESkip('/pay/privilege.html' + params, false);
         }
     }
 
@@ -571,10 +567,10 @@ define(function (require, exports, module) {
     //搜索
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
-      
-        method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),false);
+
+        method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), false);
     }
     module.exports = {
-        goPage:goPage
+        goPage: goPage
     }
 });
