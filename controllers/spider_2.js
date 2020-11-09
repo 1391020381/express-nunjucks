@@ -93,7 +93,8 @@ function getRecommendInfo(req,res,list){
     const classid1 = list.data.fileInfo.classid1
     let format = list.data.fileInfo.format
     // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
-    if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+    // && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')
+    if ( productType != '6') {
           //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
           const pageIdsConfig_jy_rele = {
             'doc': 'doc_jy_20200220_001',
@@ -116,6 +117,12 @@ function getRecommendInfo(req,res,list){
                //个性化推荐(猜你喜欢)
         const guess_pageId = pageIdsConfig_jy_guess[format];
         let pageIds = [];
+        if(classid1 == '10339'){
+            classid1 = '1819'
+        }
+        if(classid1 == '1823'){
+            classid1 = '1821'
+        }
         switch (classid1) {
             case '1816': // 教育类
                 pageIds = [rele_pageId, guess_pageId];
@@ -132,7 +139,7 @@ function getRecommendInfo(req,res,list){
             case '1818': // 办公频道  1818  生产预发环境。测试开发环境8038 
                 pageIds = [rele_pageId.replace('jy', 'zzbg'), guess_pageId.replace('jy', 'zzbg')];
                 break;
-            default:
+            default:   pageIds = [rele_pageId.replace('jy', 'shxx'), guess_pageId.replace('jy', 'shxx')];
         }
         req.body = pageIds
         // '/gateway/recommend/config/info' 

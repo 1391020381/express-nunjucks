@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
 var detailController = require('../controllers/detail')
+var detailController_1 = require('../controllers/detail_1')
 var spiderController_1 = require("../controllers/spider_1");
 var spiderController_2 = require("../controllers/spider_2")
 var queryOrderController = require("../controllers/queryOrder");
@@ -27,7 +27,7 @@ router.get('/node/f/downfail.html',function(req , res , next){
 //资料详情页
 
 
-router.get('/f/:id*.html*',detailController.render)
+router.get('/f/:id*.html*',detailController_1.render)
 router.get('/zhizhu/:id*.html*',spiderController_1.index)
 
 router.get('/z/:id*.html*', spiderController_2.index);
