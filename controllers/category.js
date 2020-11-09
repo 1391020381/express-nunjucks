@@ -26,7 +26,7 @@ const getData = cc(async (req,res)=>{
     var deleteAttributeGroupId = urlobj[7]
     console.log('urlSelectId:',urlSelectId)
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
-   console.log('categoryTitle:',JSON.stringify(categoryTitle))
+//    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
