@@ -123,7 +123,7 @@ app.use(function (err, req, res, next) {
             error: err
         })
     }else{
-        log4js.info(err);
+        log4js.info(err.message);
         res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
