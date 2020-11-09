@@ -25,7 +25,6 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     var ui = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
 
     function readMoreTextEvent() { // 文件下载接口的返回数据
-        
         if (method.getCookie('cuk')) {
             if (productType == 3) { // 发送邮箱
                 if (ui.isVip == '1') {
@@ -59,22 +58,75 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
        
     }
 
+    // 查询单个站点单个权限信息
+    function getWebsitVipRightInfo() {
+        var params = {
+            site: 4,
+            memberCode: "REWARD"
+        }; 
+        $.ajax('/gateway/rights/vip/memberDetail', {
+            type: "POST",
+            data: JSON.stringify(params),
+            dataType: "json",
+            contentType: 'application/json'
+        }).done(function (res) {
+            if (res.code == 0) {
+                window.pageConfig.reward = {
+                    unit: res.data.memberPoint ? res.data.memberPoint.unit : 1,
+                    value: res.data.memberPoint ? res.data.memberPoint.value : 0
+                } 
+            } 
+        }).fail(function (e) {
+            $.toast({
+                text: '发送失败，请重试',
+                delay: 2000
+            });
+        })
+    }
+
     function sentEmail() {
         // 寻找相关资料  
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
 
-        $("#dialog-box").dialog({
-            html: $('#reward-mission-pop').html(),
-        }).open();
+        var reward = window.pageConfig.reward;
+        if (reward.value == "-1") { // 老用户VIP正常弹起
+            $("#dialog-box").dialog({
+                html: $('#reward-mission-pop').html(),
+            }).open();
+        } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
+            $("#dialog-box").dialog({
+                html: $('#reward-error-pop').html(),
+            }).open();
+        } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
+            $("#dialog-box").dialog({
+                html: $('#reward-error1-pop').html(),
+            }).open();
+        } else if (reward.value > 0) { // 正常弹起
+            $("#dialog-box").dialog({
+                html: $('#reward-success-pop').html()
+                  .replace(/\$value/, reward.value),
+            }).open();
+        }
 
         setTimeout(bindEventPop, 500)
 
         function bindEventPop() {
             console.log(6666)
                 // 绑定关闭悬赏任务弹窗pop
-            $('.m-reward-pop .close-btn').on('click', function() {
+             // 绑定邮箱的值
+            if ($('.m-reward-pop #email')) {
+                $('.m-reward-pop #email').val(window.pageConfig.email);
+            }
+
+            // 绑定关闭悬赏任务弹窗pop
+            $('.m-reward-pop .close-btn').on('click', function () {
                 closeRewardPop();
-            })
+            });
+
+            // 绑定我明白了按钮回调
+            $('.m-reward-pop .understand-btn').on('click', function () {
+                closeRewardPop();
+            });
 
             // submit提交
             $('.m-reward-pop .submit-btn').on('click', function() {
@@ -115,6 +167,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                             text: '发送成功',
                             delay: 2000,
                         })
+                        getWebsitVipRightInfo();
                     } else if (res.code == 401100) {
                         $.toast({
                             text: '该功能仅对VIP用户开放',
