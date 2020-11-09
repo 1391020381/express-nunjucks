@@ -78,7 +78,7 @@ define(function (require, exports, module) {
             $.ajax(api.authentication.getInstitutions, { // /gateway/user/certification/getInstitutions
                 type: "get"
             }).done(function (data) {
-                if (data.code == "0" && data.data) {
+                if (data.data && data.data.auditStatus != 3) {
                     if (data.data.auditStatus == 0 || data.data.auditStatus == 1) {
                         $('.header-title').text('信息审核中，请耐心等候');
                         $('.header-process .process-item').eq(1).addClass('step-now').siblings().removeClass('step-now')
@@ -87,9 +87,7 @@ define(function (require, exports, module) {
                         $('.header-title').text('你已完成机构认证');
                         $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now')
                         orgObj.dialogSuccess();
-                    } else if (data.data.auditStatus == 3) {
-                        orgObj.dialogError();
-                    }
+                    } 
                     
                     $('.js-nickName').val(data.data.nickName).attr('disabled', 'disabled');
                     $('.js-realName').val(data.data.realName).attr('disabled', 'disabled');
@@ -148,7 +146,9 @@ define(function (require, exports, module) {
                     $('.js-msg').attr('disabled', 'disabled');
                     $('.js-edit').hide()
 
-                }
+                } else if (data.data && data.data.auditStatus == 3) {
+                    userObj.dialogError();
+                } 
 
             }).fail(function (e) {
                 console.log("error===" + e);
