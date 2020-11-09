@@ -26,7 +26,7 @@ const getData = cc(async (req,res)=>{
     var deleteAttributeGroupId = urlobj[7]
     console.log('urlSelectId:',urlSelectId)
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
-   console.log('categoryTitle:',JSON.stringify(categoryTitle))
+//    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
@@ -36,6 +36,7 @@ const getData = cc(async (req,res)=>{
     }
     // 获取 属性组和id
     let selectId  = []
+    let specificsIdList = []
     if(categoryTitle.data&&categoryTitle.data.specificsInfos){
         categoryTitle.data.specificsInfos.forEach(item=>{
              if(item.select == '1'){
@@ -46,6 +47,7 @@ const getData = cc(async (req,res)=>{
                             attributeId:k.id
                          }
                          selectId.push(m)
+                         specificsIdList.push(k.id)
                      }
                  })
              }
@@ -56,7 +58,7 @@ const getData = cc(async (req,res)=>{
     if(navFatherId){
         recommendList  =  await getRecommendList(req,res,navFatherId)
     } 
-    let list = await getList(req,res,categoryId,sortField,format,currentPage)
+    let list = await getList(req,res,categoryId,sortField,format,currentPage,specificsIdList)
     let tdk = await getTdk(req,res,categoryId)
     let words = await getWords(req,res)
     handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId)
@@ -70,19 +72,18 @@ module.exports = {
 
 function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId){
     let addId = attributeGroupId&&attributeId?{attributeGroupId,attributeId}:''
+    // 先删除选中的同级属性
+    urlSelectId =   urlSelectId.filter(item=>{
+        return item.attributeGroupId!= attributeGroupId &&item.attributeGroupId!=deleteAttributeGroupId
+    })
+    
     if(addId){
         urlSelectId.push(addId)
     }
-   let temp = []
-   urlSelectId.forEach(item=>{
-       if(item.attributeGroupId!=deleteAttributeGroupId){
-           temp.push(item)
-       }
-   }) 
-  console.log('urlSelectId:',temp)
+  console.log('urlSelectId:',urlSelectId)
     req.body = {
         nodeCode:categoryId,
-        attributeGroupList:temp
+        attributeGroupList:urlSelectId
     }
     return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
@@ -98,13 +99,14 @@ function getRecommendList(req,res,navFatherId){
     return server.$http(appConfig.apiNewBaselPath+api.category.recommendList,'post', req,res,true)
 }
 
-function getList(req,res,categoryId,sortField,format,currentPage){
+function getList(req,res,categoryId,sortField,format,currentPage,specificsIdList){
     req.body = {
         nodeCode: categoryId,
         sortField: sortField,
         format: format=='all'?'':format,
         currentPage:currentPage,
-        pageSize:40
+        pageSize:40,
+        specificsIdList:specificsIdList
     };
     return server.$http(appConfig.apiNewBaselPath+api.category.list,'post', req,res,true)
 }
