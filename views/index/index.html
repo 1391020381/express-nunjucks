@@ -65,7 +65,7 @@
                                 <div class="item-title" >
                                     <h4 class="title-text" style={{item.style}}>
                                       {% if item.url%}
-                                        <a href="{{item.url}}.html" target="_blank">{{item.name}}</a>
+                                        <a href="{{item.url}}" target="_blank">{{item.name}}</a>
                                       {%else%}
                                        <a href="/c/{{item.nodeCode}}.html" target="_blank">{{item.name}}</a>
                                       {%endif%}
@@ -86,7 +86,7 @@
                                         {%for label in item.frontAllCategoryVOList  %}
                                         <li>
                                             {% if label.url%}
-                                              <a href="{{label.url}}.html" target="_blank">{{label.name}}</a>
+                                              <a href="{{label.url}}" target="_blank">{{label.name}}</a>
                                              {%else%}
                                               <a href="/c/{{label.nodeCode}}.html" target="_blank">{{label.name}}</a>
                                              {%endif%}
