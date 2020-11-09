@@ -71,118 +71,6 @@ const renderPage = cc(async (req, res) => {
     const crumbList = await getCrumbList(req, res, list)
     const memberList = await getUserVipRights(req, res); // 权益列表
     const cateList = await getCategoryList(req, res);  
-    // [
-    //     {
-    //         name: '爱问办公',
-    //         nodeCode: '1',
-    //         frontAllCategoryVOList: [
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '10'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '11'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '12'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '13'
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         name: '爱问办公',
-    //         nodeCode: '1',
-    //         frontAllCategoryVOList: [
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '10'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '11'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '12'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '13'
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         name: '爱问办公',
-    //         nodeCode: '1',
-    //         frontAllCategoryVOList: [
-    //             {
-    //                 name: '简历asasdasdasd',
-    //                 nodeCode: '10'
-    //             },
-    //             {
-    //                 name: '简历asdasdasdasdasdas',
-    //                 nodeCode: '11'
-    //             },
-    //             {
-    //                 name: '简历asdgfagfafdg',
-    //                 nodeCode: '12'
-    //             },
-    //             {
-    //                 name: '简历asgfdfa',
-    //                 nodeCode: '13'
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         name: '爱问办公',
-    //         nodeCode: '1',
-    //         frontAllCategoryVOList: [
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '10'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '11'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '12'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '13'
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         name: '爱问办公',
-    //         nodeCode: '1',
-    //         frontAllCategoryVOList: [
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '10'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '11'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '12'
-    //             },
-    //             {
-    //                 name: '简历',
-    //                 nodeCode: '13'
-    //             },
-    //         ]
-    //     }
-    // ] // 分类列表
     const recommendInfo = await getRecommendInfo(req, res, list)
     let paradigm4Guess = []
     let paradigm4Relevant = []
@@ -442,7 +330,7 @@ function handleDetalData(
         list.data.isConvert = 0
     }
 
-    console.log('ccateList', JSON.stringify(cateList))
+    // console.log('ccateList', JSON.stringify(cateList))
     var results = Object.assign({}, {
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
@@ -515,7 +403,7 @@ function handleDetalData(
     results.recommendInfoData_guess = req.recommendInfoData_guess || {};
     results.showFlag = true
     results.isDetailRender = true
-    console.log('获取详情数据：', JSON.stringify(results))
+    // console.log('获取详情数据：', JSON.stringify(results))
     if (results.list.data && results.list.data.abTest) {
         render("detail-b/index", results, req, res);
     } else {
