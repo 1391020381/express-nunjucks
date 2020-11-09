@@ -70,19 +70,18 @@ module.exports = {
 
 function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId){
     let addId = attributeGroupId&&attributeId?{attributeGroupId,attributeId}:''
+    // 先删除选中的同级属性
+    urlSelectId =   urlSelectId.filter(item=>{
+        return item.attributeGroupId!= attributeGroupId &&item.attributeGroupId!=deleteAttributeGroupId
+    })
+    
     if(addId){
         urlSelectId.push(addId)
     }
-   let temp = []
-   urlSelectId.forEach(item=>{
-       if(item.attributeGroupId!=deleteAttributeGroupId){
-           temp.push(item)
-       }
-   }) 
-  console.log('urlSelectId:',temp)
+  console.log('urlSelectId:',urlSelectId)
     req.body = {
         nodeCode:categoryId,
-        attributeGroupList:temp
+        attributeGroupList:urlSelectId
     }
     return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
