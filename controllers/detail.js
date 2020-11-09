@@ -227,7 +227,8 @@ function getList(req, res) {
     req.body = {
         clientType: 0,
         fid: req.params.id,
-        sourceType: 0
+        sourceType: 0,
+        site:4
     }
     return server.$http(appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk, 'post', req, res, true)
 }

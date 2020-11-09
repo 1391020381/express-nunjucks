@@ -123,7 +123,7 @@ function getWords(req,res){
 }
 
 function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId){
-   
+   xxxxxx
     var results =  Object.assign({categoryTitle,recommendList,list,tdk,words},) || {};
     var pageObj = {};
     var pageArr_f = [];

@@ -254,7 +254,8 @@ module.exports = {
                         body: JSON.stringify({
                             clientType: 0,
                             fid: req.query.fid,
-                            sourceType: 0
+                            sourceType: 0,
+                            site:4
                         }),
                         headers: {
                             'Content-Type': 'application/json'
