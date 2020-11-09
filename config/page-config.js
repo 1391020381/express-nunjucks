@@ -12,7 +12,7 @@ var surl = "";
 
 
 
-if (env=='local' ||env == 'debug') {
+if (env=='local') {
     return;
 } else if (data) {
     console.log('-----------data',data)
