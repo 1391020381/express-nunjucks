@@ -464,6 +464,7 @@ define(function (require, exports, module) {
         var ptype = window.pageConfig.params.g_fileExtension || '';
         var supportSvg = window.pageConfig.supportSvg;
         var svgFlag = window.pageConfig.svgFlag;
+        var copy = window.pageConfig.copy;
         var $detail = $target.find('.data-detail');
         if ($detail.length) {
             var srcArr = window.pageConfig.imgUrl;
@@ -471,7 +472,11 @@ define(function (require, exports, module) {
             var src = srcArr[num];
             if (svgFlag && supportSvg) {
                 src = this.window.pageConfig.svgUrl[num];
-                $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/><article class='detail-holder'></article>");
+                if (copy) {
+                    $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>");
+                } else {
+                    $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/><article class='detail-holder'></article>");
+                }
             } else if (ptype === 'txt') {
                 $detail.html(src);
             } else {
@@ -551,6 +556,7 @@ define(function (require, exports, module) {
         var ptype = window.pageConfig.params.g_fileExtension || '';
         var supportSvg = window.pageConfig.supportSvg;
         var svgFlag = window.pageConfig.svgFlag;
+        var copy = window.pageConfig.copy;
         if (ptype === 'txt') {
             $item += "<div class='detail-con first-style article-page source-link' data-num='" + num + "'>" +
                 "<div class='detail-inner article-main'>" +
@@ -570,7 +576,7 @@ define(function (require, exports, module) {
                 "<div class='detail-inner article-main'>" +
                 "<div class='data-detail " + padding + "'>" +
                 "<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>" +
-                "<article class='detail-holder'></article>" +
+                (copy ? "" : "<article class='detail-holder'></article>") +
                 "</div>" +
                 "</div>" +
                 "</div>"

@@ -381,7 +381,7 @@ define(function (require, exports, module) {
             }
 
             var params = {
-                nickName: orgObj.nickName,
+                nickName: $('.js-nickName').val().trim(),
                 organizeIndustryType: $('.js-organize').attr('authtype'),
                 industryType: $('.js-industry').attr('authtype'),
                 organizeName: $('.js-organize-name').val().trim(),
