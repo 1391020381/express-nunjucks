@@ -323,7 +323,6 @@ function handleDetalData(
         list.data.isConvert = 0
     }
 
-    console.log('ccateList', JSON.stringify(cateList))
     var results = Object.assign({}, {
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
@@ -396,7 +395,7 @@ function handleDetalData(
     results.recommendInfoData_guess = req.recommendInfoData_guess || {};
     results.showFlag = true
     results.isDetailRender = true
-    console.log('获取详情数据：', JSON.stringify(results))
+    // console.log('获取详情数据：', JSON.stringify(results))
     if (results.list.data && results.list.data.abTest) {
         render("detail-b/index", results, req, res);
     } else {
