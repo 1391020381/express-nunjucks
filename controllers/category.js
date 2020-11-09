@@ -100,7 +100,7 @@ function getRecommendList(req,res,navFatherId){
 
 function getList(req,res,categoryId,sortField,format,currentPage){
     req.body = {
-        categoryId: categoryId,
+        nodeCode: categoryId,
         sortField: sortField,
         format: format=='all'?'':format,
         currentPage:currentPage,

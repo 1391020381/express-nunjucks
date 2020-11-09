@@ -84,7 +84,7 @@ var list = function (req) {
         list: function (callback) {
             
             req.body = {
-                categoryId: categoryId,
+                nodeCode: categoryId,
                 sortField: sortField,
                 format: format=='all'?'':format,
                 currentPage:currentPage,
