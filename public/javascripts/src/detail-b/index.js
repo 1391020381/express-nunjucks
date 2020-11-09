@@ -257,6 +257,32 @@ define(function (require, exports, module) {
 
         setTimeout(bindEventPop, 500)
     }
+
+    // 查询单个站点单个权限信息
+    function getWebsitVipRightInfo() {
+        var params = {
+            site: 4,
+            memberCode: "REWARD"
+        }; 
+        $.ajax('/gateway/rights/vip/memberDetail', {
+            type: "POST",
+            data: JSON.stringify(params),
+            dataType: "json",
+            contentType: 'application/json'
+        }).done(function (res) {
+            if (res.code == 0) {
+                window.pageConfig.reward = {
+                    unit: res.data.memberPoint ? res.data.memberPoint.unit : 1,
+                    value: res.data.memberPoint ? res.data.memberPoint.value : 0
+                } 
+            } 
+        }).fail(function (e) {
+            $.toast({
+                text: '发送失败，请重试',
+                delay: 2000
+            });
+        })
+    }
     
 
     function bindEventPop(){
@@ -315,6 +341,7 @@ define(function (require, exports, module) {
                         text:'发送成功',
                         delay : 2000,
                     })
+                    getWebsitVipRightInfo();
                 } else if(res.code == 401100){
                     $.toast({
                         text:'该功能仅对VIP用户开放',

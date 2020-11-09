@@ -268,8 +268,10 @@ define(function (require, exports, module) {
             contentType: 'application/json'
         }).done(function (res) {
             if (res.code == 0) {
+                console.log(res.data)
                 window.pageConfig.reward = {
-                    
+                    unit: res.data.memberPoint ? res.data.memberPoint.unit : 1,
+                    value: res.data.memberPoint ? res.data.memberPoint.value : 0
                 } 
             } 
         }).fail(function (e) {
