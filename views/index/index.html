@@ -77,7 +77,7 @@
                                 <div class="more-inter">
                                     <ul class="more-list cf">
                                         {%for label in item.frontAllCategoryVOList  %}
-                                        <li><a href="/c/{{label.nodeCode}}.html" target="_blank">{{label.name}}</a></li>
+                                        <li><a href="/c/{{label.url if label.url else label.nodeCode}}.html" target="_blank">{{label.name}}</a></li>
                                         {%endfor%}
                                     </ul>
                                 </div>

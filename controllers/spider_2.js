@@ -57,7 +57,8 @@ function getList(req,res,id){
     req.body = {
         clientType: 0,
         fid: id,  
-        sourceType: 1
+        sourceType: 1,
+        site:4
       }
     return server.$http(appConfig.apiNewBaselPath+Api.spider.details,'post', req,res,true) 
 }

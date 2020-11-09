@@ -641,7 +641,8 @@ define(function(require, exports, moudle) {
         var params = {
             clientType: 0,
             fid: id,
-            sourceType: 2
+            sourceType: 2,
+            site:4
         }
         $.ajax({
             type: 'POST',
