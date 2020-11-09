@@ -251,15 +251,16 @@ function getBannerList(req, res, list) {
 }
 
 function getCrumbList(req, res, list) {
-    let classId = list.data.fileInfo.classId
-    let spcClassId = list.data.fileInfo.spcClassId
-    let isGetClassType = list.data.fileInfo.isGetClassType
-    req.body = {
-        classId: classId,
-        spcClassId: spcClassId,
-        isGetClassType: isGetClassType
-    }
-    return server.$http(appConfig.apiNewBaselPath + Api.file.navCategory, 'post', req, res, true)
+    // let classId = list.data.fileInfo.classId
+    // let spcClassId = list.data.fileInfo.spcClassId
+    // let isGetClassType = list.data.fileInfo.isGetClassType
+    // req.body = {
+    //     classId: classId,
+    //     spcClassId: spcClassId,
+    //     isGetClassType: isGetClassType
+    // }
+    // return server.$http(appConfig.apiNewBaselPath + Api.file.navCategory, 'post', req, res, true)
+    return { data: [] };
 }
 
 function getRecommendInfo(req, res, list) {

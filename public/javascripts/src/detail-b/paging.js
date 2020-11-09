@@ -202,7 +202,7 @@ define(function (require, exports, module) {
      // 创建选择框元素
     // 创建选择框元素
     function createSelectorElement() {
-        let selDiv = document.createElement("div");
+        var selDiv = document.createElement("div");
         // 添加样式
         selDiv.style.position = 'absolute';
         selDiv.style.width = '0px';
@@ -220,38 +220,37 @@ define(function (require, exports, module) {
         return selDiv;
     }
 
-    // 绑定svgDom复制事件
-    $(document).on('click', '.detail-holder', function (e) {
-        var holder = $(this).context;
-        holder.onmousedown = function (ev) {
-            var disX = ev.clientX - holder.offsetLeft;                
-            var disY = ev.clientY - holder.offsetTop; 
-            var l, t;       
-            // 创建选择框
-            // var selectDiv = document.getElementById('selectDiv');
-            // if (selectDiv) holder.removeChild(selectDiv);
-            // var selDiv = createSelectorElement();
-            // holder.appendChild(selDiv);      
-            holder.onmousemove = function (ev) {
-                l = ev.clientX - disX;                               
-                t = ev.clientY - disY;   
-                // selDiv.style.display = "";                        
-                // selDiv.style.width = Math.abs(l) + "px";
-                // selDiv.style.height = Math.abs(t) + 38 + "px";
-            };
-            holder.onmouseup = function () {
-                if (Math.abs(l) > 50 || Math.abs(t) > 50) {
-                    $.toast({
-                        text: '开通VIP可复制文本内容',
-                        icon: '',
-                        delay: 2000,
-                        callback: false
-                    })
-                }
-                holder.onmousemove = null;
-            };
-            return false;                     //阻止默认事件的发生       
+     // 绑定svgDom复制事件
+     $(document).on('mousedown', '.detail-holder', function (e) {
+        var holder = e.currentTarget;
+        holder.style.cursor = 'text';
+        var disX = e.clientX - holder.offsetLeft;                
+        var disY = e.clientY - holder.offsetTop;
+        var l, t;       
+        // 创建选择框
+        // var selectDiv = document.getElementById('selectDiv');
+        // if (selectDiv) holder.removeChild(selectDiv);
+        // var selDiv = createSelectorElement();
+        // holder.appendChild(selDiv);      
+        holder.onmousemove = function (ev) {
+            l = ev.clientX - disX;                               
+            t = ev.clientY - disY;   
+            // selDiv.style.display = "";                        
+            // selDiv.style.width = Math.abs(l) + "px";
+            // selDiv.style.height = Math.abs(t) + 38 + "px";
         };
+        holder.onmouseup = function () {
+            if (Math.abs(l) > 50 || Math.abs(t) > 50) {
+                $.toast({
+                    text: '开通VIP可复制文本内容',
+                    icon: '',
+                    delay: 2000,
+                    callback: false
+                })
+            }
+            holder.onmousemove = null;
+        };
+        return false;                     //阻止默认事件的发生       
     });
 
     //给页面绑定滑轮滚动事件
@@ -472,7 +471,7 @@ define(function (require, exports, module) {
             var src = srcArr[num];
             if (svgFlag && supportSvg) {
                 src = this.window.pageConfig.svgUrl[num];
-                $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>");
+                $detail.html("<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/><article class='detail-holder'></article>");
             } else if (ptype === 'txt') {
                 $detail.html(src);
             } else {
@@ -571,6 +570,7 @@ define(function (require, exports, module) {
                 "<div class='detail-inner article-main'>" +
                 "<div class='data-detail " + padding + "'>" +
                 "<embed src='" + src + "' width='100%' height='100%' type='image/svg+xml' pluginspage ='//www.adobe.com/svg/viewer/install/'/>" +
+                "<article class='detail-holder'></article>" +
                 "</div>" +
                 "</div>" +
                 "</div>"
