@@ -118,19 +118,20 @@ module.exports = {
                 console.log('results.categoryList.data:',JSON.stringify(results.categoryList))
                 if(results.categoryList&&results.categoryList.data){
                    
-                    var  preContent = results.categoryList.data.slice(0,6)
-                    var temp = results.categoryList.data.slice(6)
+                    var  preContent = results.categoryList.data.slice(0,5)
+                    var temp = results.categoryList.data.slice(5)
                     var nextContent = {id:'', "name": "更多",style:'width:90px;text-indent:-25px;margin-right:0;',frontAllCategoryVOList:[]}
                     temp.forEach(item=>{
                         nextContent.frontAllCategoryVOList.push({
-                            id:item.id,
+                            nodeCode:item.nodeCode,
                             name:item.name
                         })
                     })
                     if(nextContent.frontAllCategoryVOList.length){
-                      results.categoryList.data =  preContent
+                        results.categoryList.data =  preContent.concat([nextContent])
+                      
                     }else{
-                      results.categoryList.data =  preContent.concat([nextContent])
+                        results.categoryList.data =  preContent
                     }
                      
                 }
