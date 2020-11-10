@@ -19,7 +19,7 @@ define(function(require, exports, module) {
     var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4; // 网页可见区域高度
     var hash = window.location.hash;
-
+  
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
