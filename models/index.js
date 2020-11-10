@@ -101,7 +101,10 @@ module.exports = {
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if (!is4paradigm && data.code != '0'&&!isGetFileDetailNoTdk) {
+                        if (isGetFileDetailNoTdk&&data.code !='0'&&data.code!='G-404') { // 详情接口
+                            console.log('$http---------:', JSON.stringify(opt), error, body)
+                            reject(body)
+                        } if(!is4paradigm &&  data.code != '0'){
                             console.log('$http---------:', JSON.stringify(opt), error, body)
                             reject(body)
                         } else {
