@@ -17,16 +17,6 @@ define(function (require, exports, module) {
     var errorTemplate = require('./template/error.html');
     var authenticationBox = $('#authentication-box');
 
-    isLogin(function (data) {
-        if (data.mobile) {
-            $('.js-phone').text(data.mobile);
-        } else {
-            var _html = template.compile(phoneTemplate)();
-            authenticationBox.html(_html).show();
-        }
-    }, isAutoLogin, function () {
-        location.reload()
-    });
     var orgObj = {
         nickName: '',
         validateFrom: /^1[3456789]\d{9}$/,
@@ -436,5 +426,17 @@ define(function (require, exports, module) {
             })
         }
     }
-    orgObj.init();
+
+    isLogin(function (data) {
+        if (data.mobile) {
+            $('.js-phone').text(data.mobile);
+            orgObj.init();
+        } else {
+            var _html = template.compile(phoneTemplate)();
+            authenticationBox.html(_html).show();
+        }
+    }, isAutoLogin, function () {
+        location.reload()
+    });
+    
 });

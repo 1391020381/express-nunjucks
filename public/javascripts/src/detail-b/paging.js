@@ -17,7 +17,7 @@ define(function (require, exports, module) {
     var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
     var hash = window.location.hash;
-
+    console.log('limitPage', limitPage)
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
@@ -248,6 +248,7 @@ define(function (require, exports, module) {
                     callback: false
                 })
             }
+            holder.style.cursor = '';
             holder.onmousemove = null;
         };
         return false;                     //阻止默认事件的发生       
