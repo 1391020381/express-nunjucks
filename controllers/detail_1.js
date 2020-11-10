@@ -223,9 +223,8 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
     if (recommendInfoData_rele.useId) {
         let sceneIDRelevant = recommendInfoData_rele.useId || '';
         req.body = { "itemID": list.data.fileInfo.fid, "itemTitle": list.data.fileInfo.title }
-
         let url = `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`
-        return server.$http(url, 'post', req, res, true)
+        return server.$http(url, 'post', req, res, true);
     } else {
         return null
     }

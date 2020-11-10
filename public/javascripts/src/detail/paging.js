@@ -1,3 +1,5 @@
+const { try } = require('bluebird');
+
 define(function(require, exports, module) {
     // var $ = require("$");
     require('../cmd-lib/toast');
@@ -226,6 +228,21 @@ define(function(require, exports, module) {
         selDiv.id = "selectDiv";
         return selDiv;
     }
+
+    // // 获取svg元素
+    // function getSubDocument(embed_element) {
+    //     if (embed_element.contentDocument) {
+    //         return embed_element.contentDocument;
+    //     } else {
+    //         var subdoc = null;
+    //         try {
+    //             subdoc = embed_element.getSVGDocument(); 
+    //         } catch(e) {
+    //             console.log('获取svg元素出错');
+    //         }
+    //         return subdoc;
+    //     }
+    // }
 
     // 绑定svgDom复制事件
     $(document).on('mousedown', '.detail-holder', function (e) {
