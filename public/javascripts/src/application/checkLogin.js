@@ -155,7 +155,7 @@ define(function (require, exports, module) {
                 if (res.code == 0) {
             
             // 根据环境读取登录页url
-            var javaPath = loginUrl  + '?redirectUrl=';
+            var javaPath = loginUrl + '/login-common.html?redirectUrl=';
             var params = encodeURIComponent(window.location.href) + '&loginType=loginOut';
             method.saveLocalRedirect(true);
             window.location.href = javaPath + params;
