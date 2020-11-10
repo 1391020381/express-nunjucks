@@ -7,7 +7,8 @@ define(function (require, exports, module) {
     window.template = require("./template");
     require("./helper");
     var api = require("./api");
-
+     var singleLogin = require('./single-login').init
+     singleLogin()
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {
         // 访客id-有效时间和name在此处写死

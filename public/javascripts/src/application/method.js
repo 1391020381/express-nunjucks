@@ -332,6 +332,10 @@ define(function (require, exports, module) {
                 }
             }
             return ishareBilog
-        }
+        },
+         // 登陆重定向装填保存
+         saveLocalRedirect: function (val) {
+            this.setCookieWithExpPath('local_redirect', val, 24 * 3600 * 1000, '/');
+        },
     }
 });
