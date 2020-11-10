@@ -1,5 +1,3 @@
-const { try } = require('bluebird');
-
 define(function(require, exports, module) {
     // var $ = require("$");
     require('../cmd-lib/toast');
@@ -229,7 +227,7 @@ define(function(require, exports, module) {
         return selDiv;
     }
 
-    // // 获取svg元素
+    // 获取svg元素
     // function getSubDocument(embed_element) {
     //     if (embed_element.contentDocument) {
     //         return embed_element.contentDocument;

@@ -15,17 +15,6 @@ define(function (require, exports, module) {
     var successTemplate = require('./template/success.html');
     var errorTemplate = require('./template/error.html');  
     var authenticationBox = $('#authentication-box');
-  
-    isLogin(function (data) {
-        if (data.mobile) {
-            $('.js-phone').text(data.mobile);
-        } else {
-            var _html = template.compile(phoneTemplate)();
-            authenticationBox.html(_html).show();
-        }
-    }, isAutoLogin, function () {
-        location.reload()
-    });
 
     var userObj = {
         nickName: '',
@@ -408,5 +397,17 @@ define(function (require, exports, module) {
             })
         }
     }
-    userObj.init();
+
+    isLogin(function (data) {
+        if (data.mobile) {
+            $('.js-phone').text(data.mobile);
+            userObj.init();
+        } else {
+            var _html = template.compile(phoneTemplate)();
+            authenticationBox.html(_html).show();
+        }
+    }, isAutoLogin, function () {
+        location.reload()
+    });
+    
 });
