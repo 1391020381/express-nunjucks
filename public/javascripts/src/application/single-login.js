@@ -15,7 +15,7 @@ define(function (require) {
                     'Authrization':method.getCookie('cuk')
                 },
                 url: api.user.checkSso,
-                type: "POST",
+                type: "GET",
                 async:true,
                 data: JSON.stringify({
                     jsId: loginSessionId
@@ -46,7 +46,7 @@ define(function (require) {
                         'Authrization':method.getCookie('cuk')
                     },
                     url: api.user.checkSso,
-                    type: "POST",
+                    type: "GET",
                     async:true,
                     data: JSON.stringify({
                         jsId: loginSessionId
