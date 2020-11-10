@@ -337,5 +337,43 @@ define(function (require, exports, module) {
          saveLocalRedirect: function (val) {
             this.setCookieWithExpPath('local_redirect', val, 24 * 3600 * 1000, '/');
         },
+        // 登录状态保存 默认30天
+        saveLoginToken: function (token, timeout) {
+            timeout = timeout || 2592000000;
+            this.setCookieWithExpPath('cuk', token, timeout, '/');
+        },
+        // 获取
+        getLoginToken: function () {
+            return this.getCookie('cuk') || '';
+        },
+        // 清除
+        delLoginToken: function () {
+            this.delCookie('cuk', '/');
+        },
+        // 登录id保存 默认30天
+        saveLoginSessionId: function (token, timeout) {
+            timeout = timeout || 2592000000;
+            this.setCookieWithExpPath('loginSid', token, timeout, '/');
+        },
+        // 获取
+        getLoginSessionId: function () {
+            return this.getCookie('loginSid') || '';
+        },
+        // 清除
+        delLoginSessionId: function () {
+            this.delCookie('loginSid', '/');
+        },
+        // 登陆重定向装填保存
+        saveLocalRedirect: function (val) {
+            this.setCookieWithExpPath('local_redirect', val, 24 * 3600 * 1000, '/');
+        },
+        // 获取
+        getLocalRedirect: function () {
+            return this.getCookie('local_redirect') || '';
+        },
+        // 清除
+        delLocalRedirect: function () {
+            this.delCookie('local_redirect', '/');
+        },
     }
 });
