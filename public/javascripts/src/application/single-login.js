@@ -1,37 +1,71 @@
 define(function (require) {
     var method = require("./method");
-   
+    var api = require("./api");
     // 根据环境读取登录页url
     var javaPath = loginUrl + '/login-common.html?redirectUrl=';
 
-   
-
     // 通过每次进中间页读取cookie获取登录态
     function init() {
-        // // 获取用户token
-        var href = window.location.href;
-        var jsCode = getParamsByUrl(href, 'ishare_jscode');
-        var originUrl = duplicateToUrl(href);
-        
-        console.log('获取url上携带数据', href, jsCode, originUrl);
-        if (jsCode) {
-            if (jsCode === 'false') {
-                console.error('sso重定向回来-未登录');
-                method.delLoginToken();
-            } else {
-                console.error('sso重定向回来-登录');
-                method.saveLoginToken(jsCode);
-            }
-            method.saveLocalRedirect(true);
-            window.location.href = originUrl;
+        // var loginToken = method.getLoginToken();
+        var loginSessionId = method.getLoginSessionId();
+        if (loginSessionId) {
+            // 调取接口-获取token
+            $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
+                url: api.user.checkSso,
+                type: "POST",
+                async:true,
+                data: JSON.stringify({
+                    jsId: loginSessionId
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code == '0'&& res.data && res.data.access_token){
+                            method.saveLoginToken(res.data.access_token);
+                        }else{
+                            method.delLoginToken();
+                        }
+                }
+            })
+
         } else {
-            // 本地触发-非登录中心触发的重定向
+            // 重定向回传触发
             if (method.getLocalRedirect()) {
-                console.error('是本地主动触发-为移除url后面多余参数');
+                console.error('重定向回传');
                 method.delLocalRedirect();
+                var href = window.location.href;
+                var jsId = getParamsByUrl(href, 'ishare_jssid');
+                method.saveLoginSessionId(jsId);
+                // 调取接口-获取token
+                $.ajax({
+                    headers:{
+                        'Authrization':method.getCookie('cuk')
+                    },
+                    url: api.user.checkSso,
+                    type: "POST",
+                    async:true,
+                    data: JSON.stringify({
+                        jsId: loginSessionId
+                      }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res) {
+                            console.log(res)
+                            if(res.code == '0'&& res.data && res.data.access_token){
+                                method.saveLoginToken(res.data.access_token);
+                            }else{
+                                method.delLoginToken();
+                            }
+                    }
+                })
             } else {
                 console.error('触发sso重定向');
-                var params = encodeURIComponent(window.location.href) + '&loginType=checkLogin';
+                method.saveLocalRedirect(true);
+                var params = encodeURIComponent(window.location.href);
                 window.location.href = javaPath + params;
             }
         }

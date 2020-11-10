@@ -153,13 +153,7 @@ define(function (require, exports, module) {
             $.get(api.user.loginOut, function (res) {
                 console.log('loginOut:', res)
                 if (res.code == 0) {
-            
-            // 根据环境读取登录页url
-            var javaPath = loginUrl + '/login-common.html?redirectUrl=';
-            var params = encodeURIComponent(window.location.href) + '&loginType=loginOut';
-            method.saveLocalRedirect(true);
-            window.location.href = javaPath + params;
-                    //window.location.href = window.location.href;
+                   window.location.href = window.location.href;
                 } else {
                     $.toast({
                         text: res.msg,
