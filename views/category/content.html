@@ -114,9 +114,9 @@
             {% for item in results.categoryTitle.data.specificsInfos %}
             <div class="search-item">
                        <span class="search-title">{{item.name}}：</span>
-                       <a class="search-ele {%if item.select !=1 %} active {%endif%}" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}-{{results.reqParams.selectId}}-{{item.id}}.html" style="margin-left:15px;">全部</a>
+                       <a class="search-ele {%if item.select !=1 %} active {%endif%}" rel="nofollow" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}-{{results.reqParams.selectId}}-{{item.id}}.html" style="margin-left:15px;">全部</a>
                         {% for subitem in item.subSpecificsList%}
-                              <a class="search-ele {%if subitem.select ==1 %} active {%endif%}" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}-{{results.reqParams.selectId}}.html">{{subitem.name}}</a>
+                              <a class="search-ele {%if subitem.select ==1 %} active {%endif%}" rel="nofollow" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}-{{item.id}}-{{subitem.id}}-{{results.reqParams.selectId}}.html">{{subitem.name}}</a>
                         {%endfor%}
                    
             </div>
@@ -125,12 +125,12 @@
             
             <div class="search-item ">
                 <span class="search-title">格式：</span>
-                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all" href="/c/{{results.reqParams.cid}}-all-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">全部</a>
-                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" href="/c/{{results.reqParams.cid}}-doc-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">Word</a>
-                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" href="/c/{{results.reqParams.cid}}-ppt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">PPT</a>
-                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" href="/c/{{results.reqParams.cid}}-pdf-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">PDF</a>
-                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" href="/c/{{results.reqParams.cid}}-xls-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">Excel</a>
-                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" href="/c/{{results.reqParams.cid}}-txt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">TXT</a>
+                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all"rel="nofollow" href="/c/{{results.reqParams.cid}}-all-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">全部</a>
+                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" rel="nofollow" href="/c/{{results.reqParams.cid}}-doc-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">Word</a>
+                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" rel="nofollow"   href="/c/{{results.reqParams.cid}}-ppt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">PPT</a>
+                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" rel="nofollow"   href="/c/{{results.reqParams.cid}}-pdf-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">PDF</a>
+                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" rel="nofollow"   href="/c/{{results.reqParams.cid}}-xls-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">Excel</a>
+                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" rel="nofollow"  href="/c/{{results.reqParams.cid}}-txt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html">TXT</a>
             </div>
             <!-- 筛选内容切换 -->
             <!-- <div class="search-screen">
@@ -191,22 +191,22 @@
         <!--分页-->
         {%if results.reqParams.pageIndexArr.length>1%}
         <div class="office-page mt40">
-            <a rel="canonical" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p1-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
-            <a rel="canonical" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage-1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html"  class="btn-page  {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p1-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage-1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html"  class="btn-page  {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
             <span>
                 {%for item in results.reqParams.pageIndexArr  %}
                    {% if item == '···'%}
                     <span  class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</span>
                    {%else%}
-                     <a rel="canonical" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{item}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
+                     <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{item}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
                    {%endif%}
                 {%endfor%}
             </span>
             {%if  results.reqParams.pageIndexArr.length>1 %}
-            <a rel="canonical" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage+1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html"  class="btn-page-long js-next-btn {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage+1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html"  class="btn-page-long js-next-btn {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
                 下一页
             </a>
-            <a rel="canonical" href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.totalPages}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="btn-page  {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.totalPages}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---{{results.reqParams.selectId}}.html" class="btn-page  {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
                 尾页
             </a>
             {%endif%}
