@@ -16,7 +16,7 @@ define(function (require) {
                 },
                 url: api.user.checkSso+'?jsId=' + loginSessionId,
                 type: "GET",
-                async:true,
+                async:false,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
@@ -44,7 +44,7 @@ define(function (require) {
                     },
                     url: api.user.checkSso+'?jsId=' + loginSessionId,
                     type: "GET",
-                    async:true,
+                    async:false,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
