@@ -1,6 +1,0 @@
-define("dist/upload/init-debug", [ "./fixedTopBar-debug", "./upload-debug", "../application/suspension-debug", "../application/method-debug", "../application/checkLogin-debug", "../application/api-debug", "../application/urlConfig-debug", "../application/login-debug", "../common/bilog-debug", "base64-debug", "../cmd-lib/util-debug", "../report/config-debug", "../cmd-lib/myDialog-debug", "../cmd-lib/toast-debug", "../application/iframe/iframe-messenger-debug", "../application/iframe/messenger-debug", "../common/baidu-statistics-debug", "../application/app-debug", "../application/element-debug", "../application/template-debug", "../application/extend-debug", "../application/effect-debug", "../application/helper-debug", "../application/single-login-debug", "../cmd-lib/upload/Q-debug", "../cmd-lib/upload/Q.Uploader-debug", "./template/list-debug.html", "./template/list_pravite-debug.html", "./banner-debug", "swiper-debug", "../common/template/swiper_tmp-debug.html", "../common/recommendConfigInfo-debug" ], function(require, exports, module) {
-    require("./fixedTopBar-debug");
-    require("./upload-debug");
-    require("../application/suspension-debug");
-    require("./banner-debug");
-});
