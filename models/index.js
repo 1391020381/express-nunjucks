@@ -101,12 +101,11 @@ module.exports = {
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if (data.code != '0') { 
-                            if(!is4paradigm ||isGetFileDetailNoTdk&&data.code!='G-404'){
-                              console.log('$http---------:', JSON.stringify(opt), error, body)
-                             reject(body)
-                            }
+                        if (!is4paradigm && data.code != '0'&&!isGetFileDetailNoTdk) {
+                            console.log('$http---------:', JSON.stringify(opt), error, body)
+                            reject(body)
                         } else {
+                              console.log('$http---------:', JSON.stringify(opt), error, body)
                             resolve(data)
                         }
                     } catch (err) {
