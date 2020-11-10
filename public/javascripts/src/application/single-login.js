@@ -14,12 +14,9 @@ define(function (require) {
                 headers:{
                     'Authrization':method.getCookie('cuk')
                 },
-                url: api.user.checkSso,
+                url: api.user.checkSso+'?jsId=' + loginSessionId,
                 type: "GET",
                 async:true,
-                data: JSON.stringify({
-                    jsId: loginSessionId
-                  }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
@@ -45,12 +42,9 @@ define(function (require) {
                     headers:{
                         'Authrization':method.getCookie('cuk')
                     },
-                    url: api.user.checkSso,
+                    url: api.user.checkSso+'?jsId=' + loginSessionId,
                     type: "GET",
                     async:true,
-                    data: JSON.stringify({
-                        jsId: loginSessionId
-                      }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (res) {
