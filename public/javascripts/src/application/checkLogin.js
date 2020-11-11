@@ -42,11 +42,11 @@ define(function (require, exports, module) {
                 var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
                 var clsId = this.getIds().clsId
                 var fid = this.getIds().fid
-                showLoginDialog({ clsId: clsId, fid: fid }, function () {
+                showLoginDialog({clsId: clsId, fid: fid}, function () {
                     console.log('loginCallback')
-                    _self.getLoginData(callback,'isFirstLogin')
+                    _self.getLoginData(callback, 'isFirstLogin')
                 })
-               
+
             }
         },
         listenLoginStatus: function (callback) {
@@ -66,9 +66,9 @@ define(function (require, exports, module) {
             })
         },
         /**
-        * description  优惠券提醒 查询用户发券资格-pc
-        * @param callback 回调函数
-        */
+         * description  优惠券提醒 查询用户发券资格-pc
+         * @param callback 回调函数
+         */
         getUserData: function (callback) {
             if (method.getCookie('cuk')) {
                 method.get(api.coupon.querySeniority, function (res) {
@@ -82,15 +82,24 @@ define(function (require, exports, module) {
          * 获取用户信息
          * @param callback 回调函数
          */
-        getLoginData: function (callback,isFirstLogin) {
+        getLoginData: function (callback, isFirstLogin) {
             var _self = this;
             try {
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
-                        loginResult('','loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,loginResult:"1"})
-                        handleBaiduStatisticsPush('loginResult',{loginType:window.loginType&&window.loginType.type,phone:res.data.mobile,userid: res.data.userId,loginResult:"1"})
-                        
-                        if(isFirstLogin){
+                        loginResult('', 'loginResult', {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: res.data.mobile,
+                            loginResult: "1"
+                        })
+                        handleBaiduStatisticsPush('loginResult', {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: res.data.mobile,
+                            userid: res.data.userId,
+                            loginResult: "1"
+                        })
+
+                        if (isFirstLogin) {
                             window.location.href = window.location.href;
                         }
                         if (callback && typeof callback == "function") {
@@ -113,8 +122,18 @@ define(function (require, exports, module) {
                         }
 
                     } else {
-                        loginResult('', 'loginResult', { loginType: window.loginType && window.loginType.type, phone: '', userid: '', loginResult: "0" })
-                        handleBaiduStatisticsPush('loginResult', { loginType: window.loginType && window.loginType.type, phone: '', userid: res.data.userId, loginResult: "0" })
+                        loginResult('', 'loginResult', {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: '',
+                            userid: '',
+                            loginResult: "0"
+                        })
+                        handleBaiduStatisticsPush('loginResult', {
+                            loginType: window.loginType && window.loginType.type,
+                            phone: '',
+                            userid: res.data.userId,
+                            loginResult: "0"
+                        })
                         _self.ishareLogout();
                     }
 
@@ -128,6 +147,20 @@ define(function (require, exports, module) {
          * 退出
          */
         ishareLogout: function () {
+            $.get(api.user.loginOut, {
+                jsId: method.getLoginSessionId()
+            }, function (res) {
+                console.log('loginOut:', res)
+                if (res.code == 0) {
+                    window.location.href = window.location.href;
+                } else {
+                    $.toast({
+                        text: res.msg,
+                        delay: 3000,
+                    })
+                }
+            });
+
             //删域名cookie
             method.delCookie("cuk", "/", ".sina.com.cn");
             method.delCookie("cuk", "/", ".iask.com.cn");
@@ -149,18 +182,6 @@ define(function (require, exports, module) {
             //删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
-
-            $.get(api.user.loginOut, function (res) {
-                console.log('loginOut:', res)
-                if (res.code == 0) {
-                   window.location.href = window.location.href;
-                } else {
-                    $.toast({
-                        text: res.msg,
-                        delay: 3000,
-                    })
-                }
-            });
         }
     }
 

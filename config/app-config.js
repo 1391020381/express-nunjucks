@@ -27,7 +27,8 @@ const config = {
         port: 3004,
         static3:'',
         officeUrl: 'http://dev-office.iask.com'||'http://dev-office.iask.com',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn'
+        // loginUrl: 'http://dev-login-ishare.iask.com.cn'
+        loginUrl: 'http://127.0.0.1:8085'
     },
     dev: {
         env: env,

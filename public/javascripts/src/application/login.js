@@ -4,10 +4,10 @@ define(function (require, exports, module) {
     var normalPageView = require('../common/bilog').normalPageView
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-    
-    
+
+
     var IframeMessenger = require('./iframe/iframe-messenger');
-    
+
     var IframeMessengerList = {
         I_SHARE: new IframeMessenger({
             clientId: 'MAIN_I_SHARE_LOGIN',
@@ -65,7 +65,7 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-        
+
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
 
@@ -76,7 +76,7 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        
+
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
         $("#dialog-box").dialog({
             html: touristPurchaseDialog.html(),
@@ -98,7 +98,6 @@ define(function (require, exports, module) {
     function loginInSuccess(userData, loginType, successFun){
         window.loginType = loginType  // 获取用户信息时埋点需要
         method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
-        method.saveLoginSessionId(userData.jsId);
         $.ajaxSetup({
             headers: {
                 'Authrization': method.getCookie('cuk')

@@ -4,9 +4,10 @@ define(function (require) {
     // 根据环境读取登录页url
     var javaPath = loginUrl + '/login-common.html?redirectUrl=';
 
-    // 获取参数中字段 // ?a=2&b=3#jsCode =111&jsId=2222
-    function getParamsByUrl(url, name) {
-        var strArr = url.split(name);
+    // 获取参数中字段
+    function getParamsByUrl(href, name) {
+        href = href || '';
+        var strArr = href.split(name);
         var jsCode = strArr[1];
         if (jsCode) {
             // 优先截取& 其次截取#
@@ -22,29 +23,11 @@ define(function (require) {
     }
 
     // 通过每次进中间页读取cookie获取登录态
-    function init1() {
+    function init() {
         var loginSessionId = method.getLoginSessionId();
         if (loginSessionId) {
             // 调取接口-获取token
-            $.ajax({
-                headers: {
-                    'Authrization': method.getCookie('cuk')
-                },
-                url: api.user.checkSso + '?jsId=' + loginSessionId,
-                type: "GET",
-                async: false,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    console.log(res)
-                    if (res.code == '0' && res.data && res.data.access_token) {
-                        method.saveLoginToken(res.data.access_token);
-                    } else {
-                        method.delLoginToken();
-                    }
-                }
-            })
-
+            updateLoginToken(loginSessionId);
         } else {
             // 重定向回传触发
             if (method.getLocalRedirect()) {
@@ -54,24 +37,7 @@ define(function (require) {
                 var jsId = getParamsByUrl(href, 'ishare_jssid');
                 method.saveLoginSessionId(jsId);
                 // 调取接口-获取token
-                $.ajax({
-                    headers: {
-                        'Authrization': method.getCookie('cuk')
-                    },
-                    url: api.user.checkSso + '?jsId=' + loginSessionId,
-                    type: "GET",
-                    async: false,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (res) {
-                        console.log(res)
-                        if (res.code == '0' && res.data && res.data.access_token) {
-                            method.saveLoginToken(res.data.access_token);
-                        } else {
-                            method.delLoginToken();
-                        }
-                    }
-                })
+                updateLoginToken(jsId);
             } else {
                 console.error('触发sso重定向');
                 method.saveLocalRedirect(true);
@@ -81,8 +47,27 @@ define(function (require) {
         }
     }
 
+    // 获取并且更新token
+    function updateLoginToken(loginSessionId) {
+        $.ajax({
+            url: api.user.checkSso + '?jsId=' + loginSessionId,
+            type: "GET",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                console.log(res)
+                if (res.code == '0' && res.data && res.data.access_token) {
+                    method.saveLoginToken(res.data.access_token);
+                } else {
+                    method.delLoginToken();
+                }
+            }
+        })
+    }
+
     // 通过每次进中间页读取cookie获取登录态
-    function init() {
+    function init1() {
         /// 获取用户token
         var loginToken = method.getLoginToken();
         if (loginToken) {
