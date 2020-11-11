@@ -42,7 +42,8 @@ define(function (require, exports, module) {
                 // 分类id
                 cid: params.clsId,
                 // 资料id
-                fid: params.fid
+                fid: params.fid,
+                jsId:params.jsId
             });
         }
 
@@ -68,7 +69,7 @@ define(function (require, exports, module) {
 
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
-
+        $.extend(params, {jsId:method.getLoginSessionId()||'xxxxxxxxxxxxxxxxx'});
         $("#dialog-box").dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
