@@ -124,7 +124,8 @@ module.exports = {
                     temp.forEach(item=>{
                         nextContent.frontAllCategoryVOList.push({
                             nodeCode:item.nodeCode,
-                            name:item.name
+                            name:item.name,
+                            url:item.url
                         })
                     })
                     if(nextContent.frontAllCategoryVOList.length){
