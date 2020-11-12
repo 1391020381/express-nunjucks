@@ -108,7 +108,7 @@ module.exports = {
                             console.log('$http---------:', JSON.stringify(opt), error, body)
                             reject(body)
                         } else {
-                              console.log('$http---------:', JSON.stringify(opt), error, body)
+                            //   console.log('$http---------:', JSON.stringify(opt), error, body)
                             resolve(data)
                         }
                     } catch (err) {

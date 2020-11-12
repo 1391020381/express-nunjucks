@@ -41,7 +41,8 @@
                 sortField: "{{results.reqParams.sortField}}"
             },
             params:{
-                classIds:"{{results.categoryId}}"
+                classIds:"{{results.categoryId}}",
+                tdk:{{results.tdk | dump | safe}}
             },
             report: {
 
