@@ -11,7 +11,7 @@ const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
 
-const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = { freeAdv:false,copy:false,reward:{},recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
 

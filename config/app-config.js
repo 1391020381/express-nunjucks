@@ -1,7 +1,7 @@
 /**
 * 系统配置
 */
-const env = process.env.NODE_ENV  || 'prod'
+const env = process.env.NODE_ENV  || 'local'
 const config = {
     debug:{
         env: env,
@@ -14,13 +14,16 @@ const config = {
         port: 3004,
         static3:'',
         officeUrl :'http://office.iask.com',
-        loginUrl:'http://login-ishare.iask.com.cn'
+        loginUrl:'//login-ishare.iask.com.cn'
     },
     local: {
         env: env,
-        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        // apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
+        // apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
+        // newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        apiBasePath: 'http://test-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://test-ishare.iask.com.cn/gateway',
+        newBasePath: 'http://test-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
@@ -28,7 +31,7 @@ const config = {
         static3:'',
         officeUrl: 'http://dev-office.iask.com'||'http://dev-office.iask.com',
         // loginUrl: 'http://dev-login-ishare.iask.com.cn'
-        loginUrl: 'http://127.0.0.1:8085'
+        loginUrl: '//127.0.0.1:8085'
     },
     dev: {
         env: env,
@@ -41,7 +44,7 @@ const config = {
         port: 3004,
         static3:'//dev-static3.iask.cn/',
         officeUrl :'http://dev-office.iask.com',
-        loginUrl:'http://dev-login-ishare.iask.com.cn'
+        loginUrl:'//dev-login-ishare.iask.com.cn'
     },
     test: {
         env: env,
@@ -54,7 +57,7 @@ const config = {
         port: 3004,
         static3:'//test-static3.iask.cn/',
         officeUrl :'http://test-office.iask.com',
-        loginUrl:'http://test-login-ishare.iask.com.cn'
+        loginUrl:'//test-login-ishare.iask.com.cn'
     },
     pre: {
         env: env,
@@ -67,7 +70,7 @@ const config = {
         port: 3004,
         static3:'//pre-static3.iask.cn/',
         officeUrl :'http://pre-office.iask.com',
-        loginUrl:'http://pre-login-ishare.iask.com.cn'
+        loginUrl:'//pre-login-ishare.iask.com.cn'
     },
     prod: {
         env: env,
@@ -80,7 +83,7 @@ const config = {
         port: 3004,
         static3:'//static3.iask.cn/',
         officeUrl :'http://office.iask.com',
-        loginUrl:'http://login-ishare.iask.com.cn'
+        loginUrl:'//login-ishare.iask.com.cn'
     }
 }
 

@@ -12,7 +12,10 @@ const renderPage = cc(async (req,res)=>{
      let  paramsObj = util.getSpecialParams(req.url)
      let detail = await getFindSpecialTopic(req,res,paramsObj)
     let  specialList = []
-    let uid = req.cookies.ui ?  uid=JSON.parse(req.cookies.ui).uid : ''
+    let uid = ''
+    if(req.cookies.ui){
+        uid = JSON.parse(req.cookies.ui).uid
+    }
      if(detail.data.templateCode!=='ishare_zt_model1' || !detail.data){
         res.redirect('/node/404.html')
         return

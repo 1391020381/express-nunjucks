@@ -32,11 +32,12 @@ module.exports = {
                 var opt = {
 
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.file.fileDetail,
+                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
                     body: JSON.stringify({
                         clientType: 0,
                         fid: req.query.fid,
-                        sourceType: 1
+                        sourceType: 1,
+                        site:4
                     }),
                     headers: {
                         'Content-Type': 'application/json'

@@ -153,11 +153,12 @@ module.exports = {
             fileDetails: function (callback) {
                 var opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + api.file.fileDetail,
+                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
                     body: JSON.stringify({
                         clientType: 0,
                         fid: req.query.orderNo,
-                        sourceType: 1
+                        sourceType: 1,
+                        site:4
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -552,8 +553,21 @@ module.exports = {
     getFileType: function (req, res) {
         return async.series({
             list: function (callback) {
+                // var opt = {
+                //     url: appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.id),
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                // };
                 var opt = {
-                    url: appConfig.apiBasePath + api.file.fileDetail.replace(/\$id/, req.query.id),
+                    method: 'POST',
+                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                    body: JSON.stringify({
+                        clientType: 0,
+                        fid: req.query.id,
+                        sourceType: 1,
+                        site:4
+                    }),
                     headers: {
                         'Content-Type': 'application/json'
                     },
