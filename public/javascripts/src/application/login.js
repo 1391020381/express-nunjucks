@@ -43,7 +43,7 @@ define(function (require, exports, module) {
                 cid: params.clsId,
                 // 资料id
                 fid: params.fid,
-                jsId:params.jsId
+                jsId: params.jsId
             });
         }
 
@@ -66,10 +66,10 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
-        $.extend(params, {jsId:method.getLoginSessionId()||'xxxxxxxxxxxxxxxxx'});
+        var jsId = method.formatLoginSessionId(method.getLoginSessionId());
+        $.extend(params, {jsId: jsId || 'xxxxxxxxxxxxxxxxx'});
         $("#dialog-box").dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
@@ -85,18 +85,20 @@ define(function (require, exports, module) {
         }).open(initIframeParams(callback, 'I_SHARE_T0URIST_PURCHASE', params));
     }
 
-    function showTouristLogin(params,callback){
+    function showTouristLogin(params, callback) {
         var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
         $('#tourist-login').remove()
         initIframeParams(callback, 'I_SHARE_T0URIST_LOGIN', params)
     }
+
     function closeRewardPop() {
         $(".common-bgMask").hide();
         $(".detail-bg-mask").hide();
         $('#dialog-box').hide();
     }
-    function loginInSuccess(userData, loginType, successFun){
+
+    function loginInSuccess(userData, loginType, successFun) {
         window.loginType = loginType  // 获取用户信息时埋点需要
         method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
         $.ajaxSetup({
@@ -104,12 +106,14 @@ define(function (require, exports, module) {
                 'Authrization': method.getCookie('cuk')
             }
         });
-        successFun&&successFun()
+        successFun && successFun()
         closeRewardPop()
     }
-    function loginInFail(loginType){
+
+    function loginInFail(loginType) {
         closeRewardPop()
     }
+
     $('#dialog-box').on('click', '.close-btn', function (e) {
         closeRewardPop();
     })
@@ -129,6 +133,6 @@ define(function (require, exports, module) {
     return {
         showLoginDialog: showLoginDialog,
         showTouristPurchaseDialog: showTouristPurchaseDialog,
-        showTouristLogin:showTouristLogin
+        showTouristLogin: showTouristLogin
     }
 });

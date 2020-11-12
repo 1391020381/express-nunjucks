@@ -360,17 +360,12 @@ define(function (require, exports, module) {
         delLoginSessionId: function () {
             this.delCookie('loginSid', '/');
         },
-        // 登陆重定向装填保存
-        saveLocalRedirect: function (val) {
-            this.setCookieWithExpPath('localRedirect', val, 24 * 3600 * 1000, '/');
-        },
-        // 获取
-        getLocalRedirect: function () {
-            return this.getCookie('localRedirect') || '';
-        },
-        // 清除
-        delLocalRedirect: function () {
-            this.delCookie('localRedirect', '/');
+        // 传给后端的‘cukjssid’，做一次截取，取其中前半段字符-做一点安全措施
+        // 约定规则---其他项目使用需保持一致
+        formatLoginSessionId(id) {
+            id = id || '';
+            return id.substring(0, 18);
         }
     }
 });
+

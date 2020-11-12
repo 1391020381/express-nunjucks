@@ -147,37 +147,24 @@ define(function (require, exports, module) {
          * 退出
          */
         ishareLogout: function () {
-            // $.get(api.user.loginOut, {
-            //     jsId: method.getLoginSessionId()
-            // }, function (res) {
-            //     console.log('loginOut:', res)
-            //     if (res.code == 0) {
-            //         window.location.href = window.location.href;
-            //     } else {
-            //         $.toast({
-            //             text: res.msg,
-            //             delay: 3000,
-            //         })
-            //     }
-            // });
             $.ajax({
                 url: api.user.loginOut,
                 type: "GET",
-                headers:{
-                    jsId:method.getLoginSessionId()
+                headers: {
+                    jsId: method.formatLoginSessionId(method.getLoginSessionId())
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
                     console.log('loginOut:', res)
-                if (res.code == 0) {
-                    window.location.href = window.location.href;
-                } else {
-                    $.toast({
-                        text: res.message,
-                        delay: 3000,
-                    })
-                }
+                    if (res.code == 0) {
+                        window.location.href = window.location.href;
+                    } else {
+                        $.toast({
+                            text: res.message,
+                            delay: 3000,
+                        })
+                    }
                 }
             })
 
@@ -185,8 +172,6 @@ define(function (require, exports, module) {
             method.delCookie("cuk", "/", ".sina.com.cn");
             method.delCookie("cuk", "/", ".iask.com.cn");
             method.delCookie("cuk", "/", ".iask.com");
-
-
             method.delCookie("cuk", "/");
 
             method.delCookie("sid", "/", ".iask.sina.com.cn");
