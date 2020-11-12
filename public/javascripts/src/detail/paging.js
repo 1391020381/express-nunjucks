@@ -19,7 +19,7 @@ define(function(require, exports, module) {
     var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4; // 网页可见区域高度
     var hash = window.location.hash;
-
+  
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
@@ -228,19 +228,19 @@ define(function(require, exports, module) {
     }
 
     // 获取svg元素
-    // function getSubDocument(embed_element) {
-    //     if (embed_element.contentDocument) {
-    //         return embed_element.contentDocument;
-    //     } else {
-    //         var subdoc = null;
-    //         try {
-    //             subdoc = embed_element.getSVGDocument(); 
-    //         } catch(e) {
-    //             console.log('获取svg元素出错');
-    //         }
-    //         return subdoc;
-    //     }
-    // }
+    function getSubDocument(embed_element) {
+        if (embed_element.contentDocument) {
+            return embed_element.contentDocument;
+        } else {
+            var subdoc = null;
+            try {
+                subdoc = embed_element.getSVGDocument(); 
+            } catch(e) {
+                console.log('获取svg元素出错');
+            }
+            return subdoc;
+        }
+    }
 
     // 绑定svgDom复制事件
     $(document).on('mousedown', '.detail-holder', function (e) {

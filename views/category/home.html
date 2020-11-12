@@ -24,7 +24,12 @@
     <!-- 搜索头部 -->
     {% include "common/websiteHeaderbar.html" %}
     <!-- 搜索内容主体 -->
-    {% include "category/content.html" %}
+    {% if results.iszhizhuC%}
+     {% include "category/zhizhu-content.html" %}
+    {% else %}
+      {% include "category/content.html" %}
+    {%endif%}
+    
 
     <!-- 底部声明 -->
     {% include "common/new/footer.html" %}
@@ -42,7 +47,8 @@
                 sortField: "{{results.reqParams.sortField}}"
             },
             params:{
-                classIds:"{{results.categoryId}}"
+                classIds:"{{results.categoryId}}",
+                tdk:{{results.tdk | dump | safe}}
             },
             report: {
 
