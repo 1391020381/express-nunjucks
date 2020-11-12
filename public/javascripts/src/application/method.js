@@ -347,11 +347,20 @@ define(function (require, exports, module) {
         delLoginToken: function () {
             this.delCookie('cuk', '/');
         },
-        // 登录id保存 默认6小时
-        // 解决同个浏览器特殊操作存在两个有效的id时，长时间不能同步登录状态
-        saveLoginSessionId: function (id, timeout) {
-            timeout = timeout || 21600000;
-            this.setCookieWithExpPath('ish_jssid', id, timeout, '/');
+        // 登录id保存
+        saveLoginSessionId: function (id) {
+            // 当前时间
+            var currentTime = new Date().getTime();
+            var idArr = id.split('_');
+            // 先截取时间戳-登陆中间页保存时间为120000毫秒 本地保存时间30000毫秒
+            var jsId = idArr[0] || '';
+            // 保存时的时间戳
+            var timeStamp = idArr[1] || 0;
+            // 登录页保存时间
+            var logTimeout = idArr[2] || 0;
+            // 减去时间差
+            var locTimeout = logTimeout - (currentTime - timeStamp);
+            this.setCookieWithExpPath('ish_jssid', jsId, locTimeout, '/');
         },
         // 获取
         getLoginSessionId: function () {
