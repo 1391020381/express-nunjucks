@@ -102,7 +102,7 @@ function getRecommendList(req,res,navFatherId){
 function getList(req,res,categoryId,sortField,format,currentPage,specificsIdList){
     req.body = {
         nodeCode: categoryId,
-        sortField: sortField,
+        sortField: sortField == 'default'?'':sortField,
         format: format=='all'?'':format,
         currentPage:currentPage,
         pageSize:40,
@@ -171,7 +171,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
         currentPage: currentPage,
         totalPages:totalPages,
         fileType: format,
-        sortField: sortField,
+        sortField: sortField|| 'default',
         pageIndexArr: pageIndexArr,
         attributeGroupId:attributeGroupId,
         attributeId,

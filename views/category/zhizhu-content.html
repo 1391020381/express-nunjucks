@@ -104,12 +104,12 @@
             
             <div class="search-item ">
                 <span class="search-title">格式：</span>
-                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all"rel="nofollow" href="/c/{{results.reqParams.cid}}-all-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">全部</a>
-                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" rel="nofollow" href="/c/{{results.reqParams.cid}}-doc-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">Word</a>
-                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" rel="nofollow"   href="/c/{{results.reqParams.cid}}-ppt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">PPT</a>
-                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" rel="nofollow"   href="/c/{{results.reqParams.cid}}-pdf-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">PDF</a>
-                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" rel="nofollow"   href="/c/{{results.reqParams.cid}}-xls-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">Excel</a>
-                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" rel="nofollow"  href="/c/{{results.reqParams.cid}}-txt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html">TXT</a>
+                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all"rel="nofollow" href="/c/{{results.reqParams.cid}}-all-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">全部</a>
+                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" rel="nofollow" href="/c/{{results.reqParams.cid}}-doc-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">Word</a>
+                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" rel="nofollow"   href="/c/{{results.reqParams.cid}}-ppt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">PPT</a>
+                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" rel="nofollow"   href="/c/{{results.reqParams.cid}}-pdf-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">PDF</a>
+                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" rel="nofollow"   href="/c/{{results.reqParams.cid}}-xls-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">Excel</a>
+                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" rel="nofollow"  href="/c/{{results.reqParams.cid}}-txt-p{{results.reqParams.currentPage}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html">TXT</a>
             </div>
             <!-- 筛选内容切换 -->
             <!-- <div class="search-screen">
@@ -121,10 +121,10 @@
         <!-- 搜索列表内容-->
         <div class="search-list-con">
             <div class="search-result js-sort">
-                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}---.html" class="screen-ele {{'current' if  results.reqParams.sortField=='' or results.reqParams.sortField==undefined }} "
+                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}.html" class="screen-ele {{'current' if  results.reqParams.sortField=='' or results.reqParams.sortField==undefined }} "
                     value="">综合</a>
-                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-downNum---.html" class="screen-ele {{'current' if results.reqParams.sortField=='downNum' }}" value="downNum">热门</a>
-                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-createtime---.html"  class="screen-ele {{'current' if results.reqParams.sortField=='createtime' }}" value="createtime">最新</a>
+                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-downNum.html" class="screen-ele {{'current' if results.reqParams.sortField=='downNum' }}" value="downNum">热门</a>
+                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-createtime.html"  class="screen-ele {{'current' if results.reqParams.sortField=='createtime' }}" value="createtime">最新</a>
             </div>
             <ul class="landing-txt-list">
                 {% for item in results.list.data.rows or []  %}
@@ -170,22 +170,22 @@
         <!--分页-->
         {%if results.reqParams.pageIndexArr.length>1%}
         <div class="office-page mt40">
-            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p1-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
-            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage-1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html"  class="btn-page  {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p1-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage-1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html"  class="btn-page  {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
             <span>
                 {%for item in results.reqParams.pageIndexArr  %}
                    {% if item == '···'%}
                     <span  class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</span>
                    {%else%}
-                     <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{item}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
+                     <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{item}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
                    {%endif%}
                 {%endfor%}
             </span>
             {%if  results.reqParams.pageIndexArr.length>1 %}
-            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage+1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html"  class="btn-page-long js-next-btn {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage+1}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html"  class="btn-page-long js-next-btn {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
                 下一页
             </a>
-            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.totalPages}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}---.html" class="btn-page  {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
+            <a  href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.totalPages}}-{{results.reqParams.sortField if results.reqParams.sortField else ''}}.html" class="btn-page  {{'hide' if results.reqParams.currentPage==results.reqParams.totalPages}}">
                 尾页
             </a>
             {%endif%}
