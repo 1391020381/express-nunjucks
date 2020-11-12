@@ -9,7 +9,7 @@
 <script type="text/template" id="login-dialog">
      <div class="login-dialog">
           <i class="close-btn"></i>
-          <iframe id="I_SHARE" class="login-form" src="{{loginUrl}}/login.html"></iframe>
+          <iframe id="I_SHARE" class="login-form" src="{{loginUrl}}/login.html?{{version}}"></iframe>
      </div>     
 </script>
 
@@ -25,7 +25,7 @@
                          <li class="tab tourist-purchase" data-type="tourist-purchase">游客购买 <span class="border-bottom"></span></li>
                     </ul>
                     
-                    <iframe id="I_SHARE_T0URIST_PURCHASE" class="login-form" src="{{loginUrl}}/tourist-purchase.html"></iframe>
+                    <iframe id="I_SHARE_T0URIST_PURCHASE" class="login-form" src="{{loginUrl}}/tourist-purchase.html?{{version}}"></iframe>
                     <div class="tourist-purchase-content">
                          <div class="file-summary">
                               <span class="file-icon icon ico-data"></span>
@@ -64,5 +64,5 @@
 
 <!-- 游客登录dialog -->
   <div  id="tourist-login" style="display:none;">
-        <iframe id="I_SHARE_T0URIST_LOGIN" class="login-form" src="{{loginUrl}}/tourist-login.html"></iframe>  
+        <iframe id="I_SHARE_T0URIST_LOGIN" class="login-form" src="{{loginUrl}}/tourist-login.html?{{version}}"></iframe>
   </div>  
