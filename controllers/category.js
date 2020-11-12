@@ -205,7 +205,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
     
     results.categoryId = categoryId   // 登录时传入当前分类id
     results.isCategoryRender = true
-    console.log('results:category',JSON.stringify(results))
+    results.iszhizhuC = req.url.includes('zhizhuc')
     render("category/home", results, req, res);
 }
 

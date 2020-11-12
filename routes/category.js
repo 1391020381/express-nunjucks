@@ -12,4 +12,5 @@ var error = require('../common/error');
 //     }
 // });
 router.get('/c/:id*.html', categoryController.getData);
+router.get('/zhizhuc/:id*.html', categoryController.getData);
 module.exports = router;
