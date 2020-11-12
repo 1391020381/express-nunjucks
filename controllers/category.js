@@ -12,6 +12,7 @@ const util = require("../common/util");
 const cc = require('../common/cc')
 
 const getData = cc(async (req,res)=>{
+    let iszhizhuC = req.url.includes('zhizhuc')
     let navFatherId = ''
     let urlobj = req.params.id.split('-');
     let  categoryId = urlobj[0];
@@ -61,7 +62,7 @@ const getData = cc(async (req,res)=>{
     let list = await getList(req,res,categoryId,sortField,format,currentPage,specificsIdList)
     let tdk = await getTdk(req,res,categoryId)
     let words = await getWords(req,res)
-    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId)
+    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC)
 })
 
 
@@ -124,7 +125,7 @@ function getWords(req,res){
     return server.$http(appConfig.apiNewBaselPath+api.category.words,'post', req,res,true)
 }
 
-function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId){
+function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC){
    
     var results =  Object.assign({categoryTitle,recommendList,list,tdk,words},) || {};
     var pageObj = {};
@@ -171,7 +172,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
         currentPage: currentPage,
         totalPages:totalPages,
         fileType: format,
-        sortField: sortField|| 'default',
+        sortField: iszhizhuC?(sortField|| 'default'):sortField,
         pageIndexArr: pageIndexArr,
         attributeGroupId:attributeGroupId,
         attributeId,
@@ -205,7 +206,7 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
     
     results.categoryId = categoryId   // 登录时传入当前分类id
     results.isCategoryRender = true
-    results.iszhizhuC = req.url.includes('zhizhuc')
+    results.iszhizhuC = iszhizhuC
     render("category/home", results, req, res);
 }
 

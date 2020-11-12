@@ -121,7 +121,7 @@
         <!-- 搜索列表内容-->
         <div class="search-list-con">
             <div class="search-result js-sort">
-                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}.html" class="screen-ele {{'current' if  results.reqParams.sortField=='' or results.reqParams.sortField==undefined }} "
+                <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}.html" class="screen-ele {{'current' if  results.reqParams.sortField=='default' or results.reqParams.sortField==undefined }} "
                     value="">综合</a>
                 <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-downNum.html" class="screen-ele {{'current' if results.reqParams.sortField=='downNum' }}" value="downNum">热门</a>
                 <a href="/c/{{results.reqParams.cid}}-{{results.reqParams.fileType if results.reqParams.fileType else "all"}}-p{{results.reqParams.currentPage}}-createtime.html"  class="screen-ele {{'current' if results.reqParams.sortField=='createtime' }}" value="createtime">最新</a>
