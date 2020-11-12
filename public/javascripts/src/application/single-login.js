@@ -53,6 +53,9 @@ define(function (require) {
             url: api.user.checkSso + '?jsId=' + loginSessionId,
             type: "GET",
             async: false,
+            headers:{
+                jsId:method.getLoginSessionId()
+            },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
@@ -75,7 +78,8 @@ define(function (require) {
             // 调取接口-获取token
             $.ajax({
                 headers: {
-                    'Authrization': loginToken
+                    'Authrization': loginToken,
+                    jsId:method.getLoginSessionId()
                 },
                 url: api.user.getUserInfo,
                 type: "GET",
