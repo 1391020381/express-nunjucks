@@ -12,7 +12,7 @@ define(function (require, exports, module) {
     var gioInfo = require("../cmd-lib/gioInfo");
     var viewExposure = require('../common/bilog').viewExposure
     var common = require('./common');
-    
+    var clickEvent = require('../common/bilog').clickEvent
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
     // 资料详情数据-从全局window中获取
@@ -165,6 +165,7 @@ define(function (require, exports, module) {
                 if (data && data.code == '0') {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
+                    clickEvent('createOrder',{orderID:data.data.orderNo})
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
                    
