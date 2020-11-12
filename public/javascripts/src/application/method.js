@@ -356,16 +356,6 @@ define(function (require, exports, module) {
         // 获取
         getLoginSessionId: function () {
             return this.getCookie('ish_jssid') || '';
-        },
-        // 清除
-        delLoginSessionId: function () {
-            this.delCookie('ish_jssid', '/');
-        },
-        // 传给后端时做一次截取，取其中前半段字符-做一点安全措施
-        // 约定规则取前18位---其他项目使用需保持一致
-        formatLoginSessionId(id) {
-            id = id || '';
-            return id.substring(0, 18);
         }
     }
 });

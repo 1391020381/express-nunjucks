@@ -68,7 +68,7 @@ define(function (require, exports, module) {
     function showLoginDialog(params, callback) {
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
-        var jsId = method.formatLoginSessionId(method.getLoginSessionId());
+        var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId || 'xxxxxxxxxxxxxxxxx'});
         $("#dialog-box").dialog({
             html: loginDialog.html(),

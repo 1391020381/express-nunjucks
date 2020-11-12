@@ -54,7 +54,7 @@ define(function (require) {
             type: "GET",
             async: false,
             headers: {
-                jsId: method.formatLoginSessionId(loginSessionId)
+                jsId: loginSessionId
             },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

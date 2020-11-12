@@ -151,7 +151,7 @@ define(function (require, exports, module) {
                 url: api.user.loginOut,
                 type: "GET",
                 headers: {
-                    jsId: method.formatLoginSessionId(method.getLoginSessionId())
+                    jsId: method.getLoginSessionId()
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
