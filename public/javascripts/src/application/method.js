@@ -347,18 +347,19 @@ define(function (require, exports, module) {
         delLoginToken: function () {
             this.delCookie('cuk', '/');
         },
-        // 登录id保存 默认30天
-        saveLoginSessionId: function (token, timeout) {
-            timeout = timeout || 2592000000;
-            this.setCookieWithExpPath('loginSid', token, timeout, '/');
+        // 登录id保存 默认6小时
+        // 解决同个浏览器特殊操作存在两个有效的id时，长时间不能同步登录状态
+        saveLoginSessionId: function (id, timeout) {
+            timeout = timeout || 21600000;
+            this.setCookieWithExpPath('ish_jssid', id, timeout, '/');
         },
         // 获取
         getLoginSessionId: function () {
-            return this.getCookie('loginSid') || '';
+            return this.getCookie('ish_jssid') || '';
         },
         // 清除
         delLoginSessionId: function () {
-            this.delCookie('loginSid', '/');
+            this.delCookie('ish_jssid', '/');
         },
         // 传给后端的‘cukjssid’，做一次截取，取其中前半段字符-做一点安全措施
         // 约定规则---其他项目使用需保持一致
