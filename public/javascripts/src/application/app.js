@@ -8,7 +8,24 @@ define(function (require, exports, module) {
     require("./helper");
     var api = require("./api");
      var singleLogin = require('./single-login').init
-     singleLogin()
+     var url = api.user.dictionaryData.replace('$code', 'singleLogin');
+     $.ajax({
+        url: url,
+        type: "GET",
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            console.log(res)
+            if (res.code == 0 && res.data && res.data.length) {
+                var item = res.data[0];
+                if (item.pcode == 1) {
+                    singleLogin()
+                }
+            }
+        }
+    })
+
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {
         // 访客id-有效时间和name在此处写死

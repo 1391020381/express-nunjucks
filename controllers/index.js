@@ -115,7 +115,7 @@ module.exports = {
                 next(err)
             }
             try{ 
-                console.log('results.categoryList.data:',JSON.stringify(results.categoryList))
+              
                 if(results.categoryList&&results.categoryList.data){
                    
                     var  preContent = results.categoryList.data.slice(0,5)

@@ -10,7 +10,8 @@ define(function (require, exports, module) {
         user: {
             // 登录
              // 检测单点登录状态
-             checkSso: gateway + '/cas/login/checkSso',
+            dictionaryData: gateway + '/market/dictionaryData/$code',
+            checkSso: gateway + '/cas/login/checkSso',
             loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
