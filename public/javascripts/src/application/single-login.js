@@ -52,7 +52,7 @@ define(function (require) {
             // 添加时间戳或者唯一标识，通过返回的url是否携带标识来判断是否是对应触发返回
             if (localRedtId && localRedtId === redtObj.val) {
                 // 重定向回传触发
-                method.delCookie('ish_redirect');
+                method.delCookie('ish_redirect', '/');
                 var jsId = getParamsByUrl(href, 'ishare_jssid');
                 if (jsId) {
                     method.saveLoginSessionId(jsId);
