@@ -41,7 +41,7 @@ var list = function (req) {
                 console.log('请求参数-------------------:',JSON.stringify({classId:categoryId}))
                 if (body) {
                     var data = JSON.parse(body);
-                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                    console.log('返回code------:'+data.code,'返回message-------:'+data.message)
                     if (data.data&&data.data.level1){
                         data.data.level1.forEach(item=>{
                             if(item.select==1) {
@@ -66,7 +66,7 @@ var list = function (req) {
                         console.log('请求地址post-------------------:',appConfig.apiNewBaselPath+api.category.recommendList)
                         console.log('请求参数-------------------:',JSON.stringify(params))
                        var results = JSON.parse(body1)
-                        console.log('返回code------:'+results.code,'返回msg-------:'+results.msg)
+                        console.log('返回code------:'+results.code,'返回message-------:'+results.message)
                        if(results) {
                             data.recommendList = results;
                             callback(null, data);
