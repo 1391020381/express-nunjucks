@@ -100,7 +100,7 @@ define(function (require, exports, module) {
                         })
 
                         if (isFirstLogin) {
-                            window.location.href = window.location.href;
+                            window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
                             callback(res.data);
@@ -147,6 +147,7 @@ define(function (require, exports, module) {
          * 退出
          */
         ishareLogout: function () {
+            var that = this;
             $.ajax({
                 url: api.user.loginOut,
                 type: "GET",
@@ -158,7 +159,7 @@ define(function (require, exports, module) {
                 success: function (res) {
                     console.log('loginOut:', res)
                     if (res.code == 0) {
-                        window.location.href = window.location.href;
+                        window.location.reload();
                     } else {
                         $.toast({
                             text: res.message,
@@ -167,8 +168,7 @@ define(function (require, exports, module) {
                     }
                 }
             })
-
-            //删域名cookie
+            // 删域名cookie
             method.delCookie("cuk", "/", ".sina.com.cn");
             method.delCookie("cuk", "/", ".iask.com.cn");
             method.delCookie("cuk", "/", ".iask.com");
@@ -184,7 +184,7 @@ define(function (require, exports, module) {
             method.delCookie("sid_ishare", "/", ".iask.com.cn");
             method.delCookie("sid_ishare", "/", ".sina.com.cn");
             method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
-            //删除第一次登录标识
+            // 删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
         }
