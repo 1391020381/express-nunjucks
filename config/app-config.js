@@ -18,16 +18,16 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
+        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl: 'http://dev-office.iask.com'||'http://dev-office.iask.com',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn'
+        officeUrl: 'http://test-office.iask.com'||'http://dev-office.iask.com',
+        loginUrl: 'http://test-login-ishare.iask.com.cn'
     },
     dev: {
         env: env,
