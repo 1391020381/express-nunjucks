@@ -248,7 +248,7 @@ function getParadigm4Guess(req, res, list, recommendInfo, userID) {
 function getUserVipRights(req, res) {
     if (req.cookies.cuk) {
         req.body = {
-            memberCodeList: ['COPY', 'FREE_ADV', 'REWARD']
+            memberCodeList: ['COPY', 'FREE_ADV'] // ['COPY', 'FREE_ADV', 'REWARD']
         };
         return server.$http(appConfig.apiNewBaselPath + Api.coupon.getVipAllMemberDetail, 'post', req, res, true)
     } else {
@@ -392,10 +392,10 @@ function handleDetalData(
         const { isVip = false, memberPointList = [] } = memberCode;
         const freeAdv = memberPointList.find(item => item.code == 'FREE_ADV');
         const copy = memberPointList.find(item => item.code == 'COPY');
-        const reward = memberPointList.find(item => item.code == 'REWARD');
+        // const reward = memberPointList.find(item => item.code == 'REWARD');
         results.freeAdv = isVip && freeAdv.value == '1' ? true : false;
         results.copy = isVip && copy.value == '1' ? true : false;
-        results.reward = isVip ? {...reward} : {unit: 1, value: '0'};
+        results.reward = {unit: 1, value: '0'}; // isVip ? {...reward} : {unit: 1, value: '0'};
     }
 
     results.recommendInfoData_rele = req.recommendInfoData_rele || {};
