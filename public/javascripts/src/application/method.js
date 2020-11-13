@@ -333,7 +333,18 @@ define(function (require, exports, module) {
             }
             return ishareBilog
         },
-
+        // 随机数
+        randomString: function (len) {
+            len = len || 4;
+            var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+            /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+            var maxPos = $chars.length;
+            var pwd = '';
+            for (var i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        },
         // 登录状态保存 默认30天
         saveLoginToken: function (token, timeout) {
             timeout = timeout || 2592000000;
@@ -352,15 +363,11 @@ define(function (require, exports, module) {
             // 当前时间
             var currentTime = new Date().getTime();
             var idArr = id.split('_');
-            // 先截取时间戳-登陆中间页保存时间为120000毫秒 本地保存时间30000毫秒
-            var jsId = idArr[0] || '';
-            // 保存时的时间戳
-            var timeStamp = idArr[1] || 0;
-            // 登录页保存时间
-            var logTimeout = idArr[2] || 0;
-            // 减去时间差
-            var locTimeout = logTimeout - (currentTime - timeStamp);
-            this.setCookieWithExpPath('ish_jssid', jsId, locTimeout, '/');
+            // 有效期截止时间戳
+            var timeEnd = idArr[1] || 0;
+            // 计算剩余有效时间
+            var locTimeout = timeEnd - currentTime;
+            this.setCookieWithExpPath('ish_jssid', id, locTimeout, '/');
         },
         // 获取
         getLoginSessionId: function () {

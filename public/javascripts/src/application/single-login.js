@@ -22,6 +22,22 @@ define(function (require) {
         return jsCode;
     }
 
+    // 携带数据时，链接上已存在相关字段，进行去重处理
+    function duplicateToUrl(href, name1, name2) {
+        var hasIt = false;
+        var val = '';
+        if (href.match(name1)) {
+            hasIt = true;
+            val = getParamsByUrl(href, name1);
+            href = href.replace(name2 + val, '');
+        }
+        return {
+            originUrl: href,
+            hasIt: hasIt,
+            val: val
+        };
+    }
+
     // 通过每次进中间页读取cookie获取登录态
     function init() {
         var loginSessionId = method.getLoginSessionId();
@@ -30,31 +46,37 @@ define(function (require) {
             updateLoginToken(loginSessionId);
         } else {
             var href = window.location.href;
-            var jsId = getParamsByUrl(href, 'ishare_jssid');
-            var urlObj = duplicateToUrl(href);
-            // url中存在ishare_jssid--表明是单点登录回传触发
-            if (urlObj.isSSO && jsId) {
-                console.error('重定向回传数据');
-                method.saveLoginSessionId(jsId);
-                // 调取接口-获取token
-                updateLoginToken(jsId);
-                window.location.href = urlObj.originUrl;
+            var localRedtId = method.getCookie('ish_redirect');
+            var redtObj = duplicateToUrl(href, 'ish_redtid', '#ish_redtid=');
+            // 此种方式-通过在cookie中存储跳转标识，但不保证当次一定为重定向回传过来
+            // 添加时间戳或者唯一标识，通过返回的url是否携带标识来判断是否是对应触发返回
+            if (localRedtId && localRedtId === redtObj.val) {
+                // 重定向回传触发
+                method.delCookie('ish_redirect');
+                var jsId = getParamsByUrl(href, 'ishare_jssid');
+                if (jsId) {
+                    method.saveLoginSessionId(jsId);
+                    // 调取接口-获取token
+                    updateLoginToken(jsId);
+                }
             } else {
-                console.error('触发sso重定向');
-                var params = encodeURIComponent(window.location.href);
+                var redtid = method.randomString(6);
+                // 保存重定向触发标识保存半小时
+                method.setCookieWithExpPath('ish_redirect', redtid, 1800000, '/');
+                var params = encodeURIComponent(redtObj.originUrl + '#ish_redtid=' + redtid);
                 window.location.href = javaPath + params;
             }
         }
     }
 
     // 获取并且更新token
-    function updateLoginToken(loginSessionId) {
+    function updateLoginToken(jsId) {
         $.ajax({
             url: api.user.checkSso,
             type: "GET",
             async: false,
             headers: {
-                jsId: loginSessionId
+                jsId: jsId
             },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -67,20 +89,6 @@ define(function (require) {
                 }
             }
         })
-    }
-
-    // 携带数据时，链接上已存在相关字段，进行去重处理
-    function duplicateToUrl(href) {
-        var isSSO = false;
-        if (href.match('ishare_jssid')) {
-            isSSO = true;
-            var jsSid = getParamsByUrl(href, 'ishare_jssid');
-            href = href.replace('#ishare_jssid=' + jsSid, '');
-        }
-        return {
-            originUrl: href,
-            isSSO: isSSO
-        };
     }
 
     return {
