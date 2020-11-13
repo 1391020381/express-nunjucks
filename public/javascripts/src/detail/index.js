@@ -106,7 +106,6 @@ define(function (require, exports, module) {
             }
         });
 
-
         // 顶部分类
         $more_nave.on('mouseover', function () {
             var $this = $(this);
