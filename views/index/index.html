@@ -61,10 +61,10 @@
                 <div class="office-category fl">
                     <div class="category-inter cf">
                         {%for item in results.categoryList.data  %}
-                        <div class="category-item fl" >
+                        <div class="category-item fl {{item.class if item.class else ""}}" >
                             <div class="category-item-inter">
                                 <div class="item-title" >
-                                    <h4 class="title-text" style={{item.style}}>
+                                    <h4 class="title-text">
                                       {% if item.url%}
                                         <a href="{{item.url}}" target="_blank">{{item.name}}</a>
                                       {%else%}
@@ -79,7 +79,7 @@
                             </div>
                           
                             {% if item.frontAllCategoryVOList.length>0 %}
-                                <div class="category-more">
+                                <div   class="category-more">
                                 <span></span>
                                 <span></span>
                                 <div class="more-inter">
