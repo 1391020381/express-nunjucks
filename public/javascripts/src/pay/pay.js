@@ -234,7 +234,7 @@ define(function(require, exports, moudle) {
                     // 重新刷新页面
                     window.location.reload();
                 } else {
-                    utils.showAlertDialog("温馨提示", res.msg || res.message || '领取失败');
+                    utils.showAlertDialog("温馨提示",  res.message || '领取失败');
                 }
             }
         })
@@ -617,14 +617,14 @@ define(function(require, exports, moudle) {
                     }
                 } else {
                     $.toast({
-                        text: response.msg,
+                        text: response.message,
                         delay: 3000,
                     });
                 }
             },
             error: function(error) {
                 $.toast({
-                    text: error.msg,
+                    text: error.message,
                     delay: 3000,
                 })
             }
@@ -709,7 +709,7 @@ define(function(require, exports, moudle) {
 
                 } else {
                     $.toast({
-                        text: response.msg,
+                        text: response.message,
                         delay: 3000,
                     })
 
@@ -717,7 +717,7 @@ define(function(require, exports, moudle) {
             },
             error: function(error) {
                 $.toast({
-                    text: error.msg,
+                    text: error.message,
                     delay: 3000,
                 })
             }
@@ -950,7 +950,7 @@ define(function(require, exports, moudle) {
                     }
                 } else {
                     $.toast({
-                        text: res.msg || '下载失败'
+                        text: res.message || '下载失败'
                     })
                 }
             }

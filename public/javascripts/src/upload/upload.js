@@ -260,7 +260,7 @@ define(function(require , exports , module){
                         uploadObj.Allcategory = res.data;
                         console.log(uploadObj.Allcategory)
                     } else {
-                        utils.showAlertDialog("温馨提示", res.msg);
+                        utils.showAlertDialog("温馨提示", res.message);
                     }
                 },
                 complete: function () {
@@ -579,7 +579,7 @@ define(function(require , exports , module){
                         $('#bgMask').hide()
                     } else {
                         $.toast({
-                            text: res.msg
+                            text: res.message
                         })
                     }
                 },
@@ -786,7 +786,7 @@ define(function(require , exports , module){
 
                             } else {
                                 $.toast({
-                                    text: res.msg
+                                    text: res.message
                                 })
                             }
                         },

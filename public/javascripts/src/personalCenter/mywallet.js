@@ -98,7 +98,7 @@ define(function (require, exports, module) {
                 } else {
                     $('.mywallet .balance-sum').text(0)
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                 }
@@ -130,7 +130,7 @@ define(function (require, exports, module) {
                     getMyWalletList(1)
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                 }
@@ -138,7 +138,7 @@ define(function (require, exports, module) {
             error: function (error) {
 
                 $.toast({
-                    text: error.msg || '提现失败',
+                    text: error.message || '提现失败',
                     delay: 3000,
                 })
             }
@@ -170,7 +170,7 @@ define(function (require, exports, module) {
                     handleMyWalletListData(res)
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                     handleMyWalletListData({})
@@ -179,7 +179,7 @@ define(function (require, exports, module) {
             error: function (error) {
 
                 $.toast({
-                    text: error.msg || 'getMyWalletList',
+                    text: error.message || 'getMyWalletList',
                     delay: 3000,
                 })
                 handleMyWalletListData({})
@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                     $('.withdrawal-application-dialog .withdrawal-amount .tax').show()
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                 }
@@ -233,7 +233,7 @@ define(function (require, exports, module) {
                     handleWithdrawalRecordData(res)
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                     handleWithdrawalRecordData({})
@@ -242,7 +242,7 @@ define(function (require, exports, module) {
             error: function (error) {
 
                 $.toast({
-                    text: error.msg || '查询提现记录失败',
+                    text: error.message || '查询提现记录失败',
                     delay: 3000,
                 })
             }
@@ -273,7 +273,7 @@ define(function (require, exports, module) {
                     })
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                 }
@@ -281,7 +281,7 @@ define(function (require, exports, module) {
             error: function (error) {
 
                 $.toast({
-                    text: error.msg || '我的钱包明细导出失败',
+                    text: error.message || '我的钱包明细导出失败',
                     delay: 3000,
                 })
             }
@@ -316,7 +316,7 @@ define(function (require, exports, module) {
                 } else {
                     if(res.code !=='410010'){ // 410010
                         $.toast({
-                            text: res.msg,
+                            text: res.message,
                             delay: 3000,
                         })
                     }
@@ -349,7 +349,7 @@ define(function (require, exports, module) {
                     getFinanceAccountInfo()
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     })
                     closeRewardPop()
@@ -358,7 +358,7 @@ define(function (require, exports, module) {
             error: function (error) {
 
                 $.toast({
-                    text: error.msg || '编辑用户财务信息失败',
+                    text: error.message || '编辑用户财务信息失败',
                     delay: 3000,
                 })
             }

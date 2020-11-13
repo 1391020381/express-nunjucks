@@ -414,7 +414,7 @@ define(function (require, exports, module) {
                     })
                 } else {
                     $.toast({
-                        text: data.msg,
+                        text: data.message,
                         icon: '',
                         delay: 2000,
 

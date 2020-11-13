@@ -111,7 +111,7 @@ define(function (require, exports, module) {
             success: function (res) {
                if(res.code == '0'){
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         callback: function () {
                             location.reload()
                         }
@@ -169,11 +169,11 @@ define(function (require, exports, module) {
                 location.href = data.data.dowUrl
             } else if (data.code == 41003) {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             } else {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             }
         });

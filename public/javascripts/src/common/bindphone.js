@@ -127,7 +127,7 @@ define(function (require, exports, moudle) {
                         $(".binging-main").hide();
                         $(".binging-success").show();
                        }else{
-                        $loginError.text(res.msg).parent().show();
+                        $loginError.text(res.message).parent().show();
                         $(".carding-error").show();
                        }
                     },
@@ -205,7 +205,7 @@ define(function (require, exports, moudle) {
                             //图形验证码错误
                             $loginError.text("图形验证码错误").parent().show();
                         } else {
-                            $loginError.text(data.msg).parent().show();
+                            $loginError.text(data.message).parent().show();
                         }
                     } else {
                         $loginError.text("发送短信失败").parent().show();

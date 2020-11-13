@@ -90,7 +90,7 @@ define(function(require , exports , module){
                     callback&&callback(res.data)
                }else{
                 $.toast({
-                    text:res.msg||'查询用户信息失败',
+                    text:res.message||'查询用户信息失败',
                     delay : 3000,
                 })
                }
@@ -126,7 +126,7 @@ define(function(require , exports , module){
                }else{
                 $(".recently-see").hide()
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -173,7 +173,7 @@ define(function(require , exports , module){
                }else{
                 $(".recently-downloads").hide()
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }

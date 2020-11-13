@@ -227,7 +227,7 @@ define(function (require, exports, module) {
              }else{
                 var $seenRecord = $('#seenRecord')
                 $seenRecord.hide().siblings('.mui-data-null').show();
-               console.log(res.msg)
+               console.log(res.message)
              }
           },
           error:function(error){

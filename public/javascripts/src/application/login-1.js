@@ -423,14 +423,14 @@ function getLoginQrcode(cid, fid, isqrRefresh, isTouristLogin, callback){  // �
            }else{
             clearInterval(setIntervalTimer)
             $.toast({
-                text:res.msg,
+                text:res.message,
                 delay : 3000,
             })
            }
         },
         error:function(error){
             $.toast({
-                text:error.msg||'生成二维码接口错误',
+                text:error.message||'生成二维码接口错误',
                 delay : 3000,
             })
           
@@ -498,7 +498,7 @@ function countdown() {  // 二维码失效倒计时
             if(res.code !='411046'){ //  411046 用户未登录
                 clearInterval(setIntervalTimer)
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
             }
@@ -506,7 +506,7 @@ function countdown() {  // 二维码失效倒计时
         },
         error:function(error){
             $.toast({
-                text:error.msg||'公众号登录二维码',
+                text:error.message||'公众号登录二维码',
                 delay : 3000,
             })
            
@@ -570,7 +570,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
          });
           }else{
            $.toast({
-               text:res.msg,
+               text:res.message,
                delay : 3000,
            })
            myWindow.close()
@@ -580,7 +580,7 @@ function thirdLoginRedirect(code,channel,clientCode){ // 根据授权code 获取
            myWindow.close()
          
            $.toast({
-               text:error.msg,
+               text:error.message,
                delay : 3000,
            }) 
        }
@@ -641,7 +641,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
             }) 
            }else{
             $.toast({
-                text:res.msg,
+                text:res.message,
                 delay : 3000,
             })
            }
@@ -649,7 +649,7 @@ function sendSms(appId,randstr,ticket,onOff){ // 发送短信验证码
         error:function(error){
            
             $.toast({
-                text:error.msg||'获取验证码错误',
+                text:error.message||'获取验证码错误',
                 delay : 3000,
             }) 
         }
@@ -689,16 +689,16 @@ function loginByPsodOrVerCode(loginType,mobile,nationCode,smsId,checkCode,passwo
            }else{
            
             if(checkCode){
-                showErrorTip('verificationCode-login',true,res.msg)
+                showErrorTip('verificationCode-login',true,res.message)
             }else{
-                showErrorTip('password-login',true,res.msg)
+                showErrorTip('password-login',true,res.message)
             }
           
            }
         },
         error:function(error){
             $.toast({
-                text:error.msg||'验证码或密码登录错误',
+                text:error.message||'验证码或密码登录错误',
                 delay : 3000,
             })
            

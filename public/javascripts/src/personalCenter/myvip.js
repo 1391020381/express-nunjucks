@@ -82,7 +82,7 @@ define(function(require , exports , module){
                     handlePagination(res.data.totalPages,res.data.currentPage) 
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -124,7 +124,7 @@ define(function(require , exports , module){
                     handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -168,7 +168,7 @@ define(function(require , exports , module){
                     handlePagination(res.data.totalPages,res.data.currentPage)  
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -277,14 +277,14 @@ define(function(require , exports , module){
                if(res.code == '0'){
                     console.log('cancelAutoRenew:',res)
                     $.toast({
-                        text:res.msg||'取消自动续费成功!',
+                        text:res.message||'取消自动续费成功!',
                         delay : 3000,
                     })
                     closeRewardPop()
                     getBuyAutoRenewList()
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }

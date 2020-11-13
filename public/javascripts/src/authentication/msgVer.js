@@ -89,7 +89,7 @@ define(function (require, exports, module) {
                     bindPhone.showCaptchaProcess(bindPhone.pictureVerify)
                 } else {
                     $.toast({
-                        text: data.msg,
+                        text: data.message,
                         icon: '',
                         delay: 2000,
                         callback: false
