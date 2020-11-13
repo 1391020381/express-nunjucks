@@ -14,11 +14,11 @@
                     <div class="cate-menu-content">
                         {% for item in results.cateList %}
                         <div class="menu-content-item">
-                            <div class="item-title">
+                            <a class="item-title" title="{{ item.name }}" 
+                                href="/c/{{item.url if item.url else item.nodeCode}}.html" target="_blank">
                                 <span class="item-title-icon"></span>
-                                <a class="item-title-text" title="{{ item.name }}"
-                                    href="/c/{{item.url if item.url else item.nodeCode}}.html" target="_blank">{{ item.name }}</a>
-                            </div> 
+                                <span class="item-title-text">{{ item.name }}</span>
+                            </a> 
                             {% if item.frontAllCategoryVOList and item.frontAllCategoryVOList.length %}
                             <div class="item-content">
                                 {% for menu in item.frontAllCategoryVOList %}
