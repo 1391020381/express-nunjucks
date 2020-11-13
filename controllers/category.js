@@ -27,7 +27,7 @@ const getData = cc(async (req,res)=>{
     var deleteAttributeGroupId = urlobj[7]
     console.log('urlSelectId:',urlSelectId)
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
-    // console.log('categoryTitle:',JSON.stringify(categoryTitle))
+    console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
@@ -196,13 +196,13 @@ var topbannerId = 'topbanner';
    results.recommendList.data && results.recommendList.data.map(item=>{
         if(item.pageId == categoryPage[topbannerId]){
             //顶部banner
-            results.topbannerList=util.handleRecommendData(item.list).list || [];  //
+            results.topbannerList=util.handleRecommendData(item.list||[]).list || [];  //
         }else if(item.pageId == categoryPage[rightbannerId]){
             // 右上banner
-            results.rightBannerList=util.handleRecommendData(item.list).list || [];
+            results.rightBannerList=util.handleRecommendData(item.list||[]).list || [];
         }else if(item.pageId == categoryPage[zhuantiId]){
             // 专题
-            results.zhuantiList=util.handleRecommendData(item.list).list || [];
+            results.zhuantiList=util.handleRecommendData(item.list||[]).list || [];
         } else if(item.pageId == categoryPage.friendLink){
             // 友情链接
             results.friendLink = util.dealHref(item).list || [];
