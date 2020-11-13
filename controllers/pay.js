@@ -117,7 +117,7 @@ module.exports = {
                             var data = JSON.parse(body);
                             console.log('请求地址post-------------------:', opt.url)
                             console.log('请求参数-------------------:', opt.body)
-                            console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                            console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                             if (data.code == 0) {
 
                                 callback(null, data);
@@ -171,7 +171,7 @@ module.exports = {
                             var data = JSON.parse(body);
                             console.log('请求地址post-------------------:', opt.url)
                             console.log('请求参数-------------------:', opt.body)
-                            console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                            console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                             if (data.code == 0) {
                                 var backData = {};
                                 backData.checkStatus = req.query.checkStatus[0]
@@ -267,7 +267,7 @@ module.exports = {
                             var data = JSON.parse(body);
                             console.log('请求地址post-------------------:', opt.url)
                             console.log('请求参数-------------------:', opt.body)
-                            console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                            console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                             if (data.code == 0) {
                                 callback(null, data);
                             } else {
@@ -577,7 +577,7 @@ module.exports = {
                         try {
                             var data = JSON.parse(body);
                             console.log('请求地址get-------------------:', opt.url)
-                            console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                            console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                             if (data.code == 0) {
                                 callback(null, { fileType: data.data.payType, code: 0 });
                             } else {

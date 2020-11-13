@@ -16,7 +16,7 @@ module.exports = {
                         callback(null, null);
                     }
                     console.log('请求地址get-------------------:', opt.url)
-                    console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -43,7 +43,7 @@ module.exports = {
                     }
                     console.log('请求地址post-------------------:', opt.url)
                     console.log('请求参数-------------------:', req.body)
-                    console.log('返回code------:' + data.code, '返回msg-------:' + data.msg)
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
