@@ -27,11 +27,11 @@ const getData = cc(async (req,res)=>{
     var deleteAttributeGroupId = urlobj[7]
     console.log('urlSelectId:',urlSelectId)
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
-//    console.log('categoryTitle:',JSON.stringify(categoryTitle))
+    // console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
-                navFatherId = item.id;
+                navFatherId = item.nodeCode;
             }
         })
     }
@@ -54,15 +54,24 @@ const getData = cc(async (req,res)=>{
              }
         })
     }
-    console.log('selectId:',selectId)
+    console.log('selectId:',selectId,navFatherId)
     let recommendList = {}
+    let categoryPage = {}
     if(navFatherId){
-        recommendList  =  await getRecommendList(req,res,navFatherId)
+        
+        categoryPage = { //分类页
+            topbanner:`PC_M_FC_all_${navFatherId}_topbanner`,//顶部banner图
+            rightbanner:`PC_M_FC_all_${navFatherId}_rightbanner`,//分类页-右侧banner
+            zhuanti:`PC_M_FC_all_${navFatherId}_zhuanti`,//分类页-右侧专题
+            friendLink:'PC_M_FC_yqlj' //友情链接
+        }
+        recommendList  =  await getRecommendList(req,res,categoryPage)
+        console.log('recommendList:',JSON.stringify(recommendList))
     } 
     let list = await getList(req,res,categoryId,sortField,format,currentPage,specificsIdList)
     let tdk = await getTdk(req,res,categoryId)
     let words = await getWords(req,res)
-    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC)
+    handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC,categoryPage)
 })
 
 
@@ -89,12 +98,10 @@ function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSel
     return server.$http(appConfig.apiNewBaselPath+api.category.navForCpage,'post', req,res,true)
 }
 
-function getRecommendList(req,res,navFatherId){
+function getRecommendList(req,res,categoryPage){
     let params=[];
-    for (let k in util.pageIds.categoryPage){
-        if (k.includes(navFatherId)||k=='friendLink') {
-            params.push(util.pageIds.categoryPage[k])
-        }
+    for (let k in categoryPage){
+        params.push(categoryPage[k])
     }
     req.body = params
     return server.$http(appConfig.apiNewBaselPath+api.category.recommendList,'post', req,res,true)
@@ -125,7 +132,7 @@ function getWords(req,res){
     return server.$http(appConfig.apiNewBaselPath+api.category.words,'post', req,res,true)
 }
 
-function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC){
+function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC,categoryPage){
    
     var results =  Object.assign({categoryTitle,recommendList,list,tdk,words},) || {};
     var pageObj = {};
@@ -180,20 +187,23 @@ function handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,cat
     };
 
    // 推荐位 banner
-   var topbannerId = 'topbanner_'+navFatherId;
-   var rightbannerId = 'rightbanner_'+navFatherId;
-   var zhuantiId = 'zhuanti_'+navFatherId;
+//    var topbannerId = 'topbanner_'+navFatherId;
+//    var rightbannerId = 'rightbanner_'+navFatherId;
+//    var zhuantiId = 'zhuanti_'+navFatherId;
+var topbannerId = 'topbanner';
+   var rightbannerId = 'rightbanner';
+   var zhuantiId = 'zhuanti';
    results.recommendList.data && results.recommendList.data.map(item=>{
-        if(item.pageId == util.pageIds.categoryPage[topbannerId]){
+        if(item.pageId == categoryPage[topbannerId]){
             //顶部banner
             results.topbannerList=util.handleRecommendData(item.list).list || [];  //
-        }else if(item.pageId == util.pageIds.categoryPage[rightbannerId]){
+        }else if(item.pageId == categoryPage[rightbannerId]){
             // 右上banner
             results.rightBannerList=util.handleRecommendData(item.list).list || [];
-        }else if(item.pageId == util.pageIds.categoryPage[zhuantiId]){
+        }else if(item.pageId == categoryPage[zhuantiId]){
             // 专题
             results.zhuantiList=util.handleRecommendData(item.list).list || [];
-        } else if(item.pageId == util.pageIds.categoryPage.friendLink){
+        } else if(item.pageId == categoryPage.friendLink){
             // 友情链接
             results.friendLink = util.dealHref(item).list || [];
         }
