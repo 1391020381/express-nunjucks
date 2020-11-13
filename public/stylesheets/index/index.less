@@ -183,6 +183,7 @@
               }
             }
           }
+          
           .item-title {
             height: 28px;
             line-height: 28px;
@@ -320,6 +321,87 @@
                 }
 
                
+              }
+            }
+          }
+          .loadMore{
+            .category-more {
+              display: none;
+              // width: 100%;
+              max-width: 360px;
+              width: 280px;
+              position: absolute;
+              background-color: #fff;
+              border: 1px solid #eee;
+              border-radius: 4px;
+              box-sizing: border-box;
+              .more-inter {
+                padding: 18px 20px;
+                // box-shadow: 0 0 8px rgba(204, 204, 204, .5);
+              }
+              span:nth-child(1) {
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 5px solid rgba(204, 204, 204, 0);
+                position: absolute;
+                top: -7px;
+                left: 65px;
+              }
+              span:nth-child(2) {
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 5px solid #fff;
+                position: absolute;
+                top: -5px;
+                left: 34px;
+              }
+              .more-title {
+                height: 54px;
+                line-height: 54px;
+                font-size: 16px;
+                font-weight: bold;
+                color: @gray-darker;
+                border-bottom: 1px solid #eee;
+                padding-left: 14px;
+                position: relative;
+  
+                .b-title {
+                  width: 4px;
+                  .center(known-y, 14px);
+                  display: block;
+                  left: 0;
+                  background-color: @blue;
+                }
+              }
+  
+              .more-list {
+                font-size: 13px;
+                line-height: 30px;
+                
+                li {
+                  .fl();
+                  border-radius: 3px;
+                  width: 112px;
+                  max-width: 160px;
+                  box-sizing: border-box;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  a {
+                    color: #888;
+                    padding: 3px 8px;
+                    &:hover {
+                      background-color:#f25125;
+                      color: #fff;
+                    }
+                  }
+  
+                 
+                }
               }
             }
           }

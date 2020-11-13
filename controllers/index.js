@@ -120,7 +120,7 @@ module.exports = {
                    
                     var  preContent = results.categoryList.data.slice(0,5)
                     var temp = results.categoryList.data.slice(5)
-                    var nextContent = {id:'', "name": "更多",style:'width:90px;text-indent:-25px;margin-right:0;',frontAllCategoryVOList:[]}
+                    var nextContent = {id:'', "name": "更多", class:'loadMore',frontAllCategoryVOList:[]}
                     temp.forEach(item=>{
                         nextContent.frontAllCategoryVOList.push({
                             nodeCode:item.nodeCode,
