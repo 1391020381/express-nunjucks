@@ -291,10 +291,14 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
          results.relevantList=results.paradigm4Relevant.slice(0,10)
          results.guessLikeList=results.paradigm4Relevant.slice(10,21)
     }else {
-         if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
-             results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
-             results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
-         }
+        //  if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
+        //      results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
+        //      results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
+        //  }
+        if(results.hotpotSearch.data&&results.hotpotSearch.data){
+            results.relevantList=results.hotpotSearch.data.slice(0,10)
+            results.guessLikeList=results.hotpotSearch.data.slice(10,31)
+        }
          // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
     }
     // 对最新资料  推荐专题数据处理

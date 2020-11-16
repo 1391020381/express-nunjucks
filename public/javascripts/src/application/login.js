@@ -69,7 +69,7 @@ define(function (require, exports, module) {
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
         var jsId = method.getLoginSessionId();
-        $.extend(params, {jsId: jsId || 'xxxxxxxxxxxxxxxxx'});
+        $.extend(params, {jsId: jsId });
         $("#dialog-box").dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
@@ -77,7 +77,8 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-
+        var jsId = method.getLoginSessionId();
+        $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
         $("#dialog-box").dialog({
             html: touristPurchaseDialog.html(),
@@ -86,6 +87,8 @@ define(function (require, exports, module) {
     }
 
     function showTouristLogin(params, callback) {
+        var jsId = method.getLoginSessionId();
+        $.extend(params, {jsId: jsId });
         var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
         $('#tourist-login').remove()
