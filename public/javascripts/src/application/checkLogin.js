@@ -158,6 +158,7 @@ define(function (require, exports, module) {
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                cache: false,
                 data: null,
                 success: function (res) {
                     console.log('loginOut:', res)

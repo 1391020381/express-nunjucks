@@ -80,6 +80,7 @@ define(function (require) {
                 'Pragma': 'no-cache',
                 'jsId': jsId
             },
+            cache: false,
             data: null,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
