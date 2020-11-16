@@ -76,8 +76,11 @@ define(function (require) {
             type: "GET",
             async: false,
             headers: {
-                jsId: jsId
+                'cache-control': 'no-cache',
+                'Pragma': 'no-cache',
+                'jsId': jsId
             },
+            data: null,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
