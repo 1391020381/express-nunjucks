@@ -228,7 +228,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            console.log('埋点参数:',resultData)
+            // console.log('埋点参数:',resultData)
             push(resultData);
         }
     }
