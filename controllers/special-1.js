@@ -29,13 +29,23 @@ const renderPage = cc(async (req,res)=>{
     }
     let listData = await getListTopicContents(req,res,paramsObj)
     // tdk
-   let tdkData = await getTdkByUrl(req,res,paramsObj)
-   let topicName = detail.data.topicName;
-   let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
-   if(tdkData.data&&tdkData.data.title){
-    tdkData.data.title = tdkData.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
-    tdkData=data.data
-   }
+//    let tdkData = await getTdkByUrl(req,res,paramsObj)
+
+      let topicName = detail.data.topicName;
+      let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
+      let tdkData = {
+        pageTable: '专题页',
+        url: '/node/s/'+ paramsObj.specialTopicId +'.html',
+        title: paramsObj.currentPage>1? topicName+'_'+topicName + '下载 _第' + paramsObj.currentPage + '页_爱问共享资料':str + '下载 - 爱问共享资料',
+        description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName+'资料，快来爱问共享资料下载!',
+        keywords:  (topicName + "," +topicName) + '下载',
+    }
+//    let topicName = detail.data.topicName;
+//    let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
+//    if(tdkData.data&&tdkData.data.title){
+//     tdkData.data.title = tdkData.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
+//     tdkData=data.data
+//    }
    
   
   
