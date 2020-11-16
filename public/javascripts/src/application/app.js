@@ -2,19 +2,20 @@ define(function (require, exports, module) {
     var method = require("./method");
     require("./element");
     require("./extend");
-  require('./effect.js')
-  require('./login')
+    require('./effect.js')
+    require('./login')
     window.template = require("./template");
     require("./helper");
     var api = require("./api");
-     var singleLogin = require('./single-login').init
-     var url = api.user.dictionaryData.replace('$code', 'singleLogin');
-     $.ajax({
+    var singleLogin = require('./single-login').init
+    var url = api.user.dictionaryData.replace('$code', 'singleLogin');
+    $.ajax({
         url: url,
         type: "GET",
         async: false,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        cache: false,
         success: function (res) {
             console.log(res)
             if (res.code == 0 && res.data && res.data.length) {
@@ -38,58 +39,58 @@ define(function (require, exports, module) {
             //     if (response.code == 0 && response.data) {
             //         method.setCookieWithExp(name, response.data, expires, '/');
             //     }else{
-            //        visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
-            //     }
-            // })
+            //        visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() +
+            // '000000000000000000').substring(0, 18)  } })
             $.ajax({
-                headers:{
-                    'Authrization':method.getCookie('cuk')
+                headers: {
+                    'Authrization': method.getCookie('cuk')
                 },
                 url: api.user.getVisitorId,
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (res) {
-                   if(res.code == '0'){
-                    method.setCookieWithExp(name, res.data, expires, '/');
-                   }else{
-                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
-                   }
+                    if (res.code == '0') {
+                        method.setCookieWithExp(name, res.data, expires, '/');
+                    } else {
+                        visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                    }
                 },
-                error:function(error){
-                    console.log('getVisitUserId:',error)
-                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+                error: function (error) {
+                    console.log('getVisitUserId:', error)
+                    visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
                     method.setCookieWithExp(name, visitId, expires, '/');
                 }
             })
-            
+
         }
     }
+
     getVisitUserId();
 
     $.ajaxSetup({
-        headers:{
-            'Authrization':method.getCookie('cuk')
+        headers: {
+            'Authrization': method.getCookie('cuk')
         },
-        complete:function(XMLHttpRequest,textStatus){
+        complete: function (XMLHttpRequest, textStatus) {
         },
         statusCode: {
-            401: function() { 
+            401: function () {
                 method.delCookie("cuk", "/");
                 $.toast({
-                    text:'请重新登录',
-                    delay : 2000
+                    text: '请重新登录',
+                    delay: 2000
                 })
             }
         }
-     });
-     
-    var bilog=require("../common/bilog");
+    });
+
+    var bilog = require("../common/bilog");
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;
     return {
         method: method,
         v: "1.0.1",
-        bilog:bilog
+        bilog: bilog
     }
 });
