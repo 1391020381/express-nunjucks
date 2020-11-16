@@ -152,10 +152,14 @@ define(function (require, exports, module) {
                 url: api.user.loginOut,
                 type: "GET",
                 headers: {
-                    jsId: method.getLoginSessionId()
+                    'cache-control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    'jsId': method.getLoginSessionId()
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                cache: false,
+                data: null,
                 success: function (res) {
                     console.log('loginOut:', res)
                     if (res.code == 0) {
