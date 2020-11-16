@@ -80,15 +80,24 @@ define(function (require, exports, module) {
             location.href = pageUrl;
         },
         fixRight:function(){
+            var leftHeifht = $('.search-all-left').height()
             var rightHeight = $('.landing-right').height()
             var searchHeader = $(".new-detail-header").height()
             var bannerHeight = $('.search-all-main-topbanner').height()
+            var documentInnerHeight = $(window).height()
+            var fixRight = 980 
                 $(window).on('scroll', function () {
                     var $this = $(this);
                     var scrollTop = $this.scrollTop();
                     if (scrollTop >= rightHeight+searchHeader+bannerHeight) {
                         
-                        $('.landing-right').css({ "position": "fixed", "top": searchHeader, right: '358px',"z-index": "75" });
+                        $('.landing-right').css({ "position": "fixed", "top": searchHeader,"z-index": "75" });
+                        if(scrollTop > leftHeifht -documentInnerHeight){
+                            var tempHeight  = leftHeifht  - fixRight -15
+                            $('.landing-right').css({ "position": "absolute", "top": tempHeight }); 
+                        }else{
+        
+                        }
                     } else {
                         $('.landing-right').removeAttr("style");
                     }

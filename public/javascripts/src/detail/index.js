@@ -434,10 +434,13 @@ define(function (require, exports, module) {
         var $fixBar = $(".detail-fixed-con");
         var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
+        var documentInnerHeight = $(window).height()
+        var fixRight = 1113 
         if (fixEle.length) {
             var fixTop = fixEle.offset().top - headerHeight;
         }
         $(window).scroll(function () {
+            var pwDetail = $('.doc-main-br').height()
             var detailTop = $(this).scrollTop();
             var fixStart = $dFooter.offset().top - fixHeight - $dFooter.height();
             if (detailTop > headerHeight) {
@@ -453,13 +456,19 @@ define(function (require, exports, module) {
             }
             //右侧悬浮   右侧过长悬浮 样式很怪 先暂时注释
             if (detailTop > fixHeight + fixEle.height()) {
-                $('.fix-right-bannertop').hide()
-                $('.fix-right-bannerbottom').hide()
+                // $('.fix-right-bannertop').hide()
+                // $('.fix-right-bannerbottom').hide()
                 fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
+                if(detailTop > pwDetail -documentInnerHeight){
+                    var tempHeight  = pwDetail  - fixRight -15
+                    fixEle.css({ "position": "absolute", "top": tempHeight }); 
+                }else{
+
+                }
             } else {
                 fixEle.removeAttr("style");
-                $('.fix-right-bannertop').show()
-                $('.fix-right-bannerbottom').show()
+                // $('.fix-right-bannertop').show()
+                // $('.fix-right-bannerbottom').show()
             }
             //底部悬浮展示文档
             if (detailTop > fixStart) {
