@@ -26,6 +26,17 @@ const getData = cc(async (req,res)=>{
     let urlSelectId = urlobj[6]?JSON.parse(decodeURIComponent(urlobj[6])):[]  
     var deleteAttributeGroupId = urlobj[7]
     console.log('urlSelectId:',urlSelectId)
+    
+    const redirectUrl = await getRedirectUrl(req, res)
+    // console.log('redirectUrl:',JSON.stringify(redirectUrl))
+    if (redirectUrl.data) {
+        if (redirectUrl.data.targetLink) {
+            var url = redirectUrl.data.type == 1 ? req.protocol + '://' + redirectUrl.data.targetLink : req.protocol + '://' + req.hostname + '/c/' + redirectUrl.data.targetLink + '.html';
+            res.redirect(url);
+        }
+    }
+
+
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
     console.log('categoryTitle:',JSON.stringify(categoryTitle))
     if (categoryTitle.data&&categoryTitle.data.level1){
@@ -120,6 +131,14 @@ function getList(req,res,categoryId,sortField,format,currentPage,specificsIdList
 }
 function getTdk(req,res,categoryId){
     return server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/c/'+categoryId+'.html'), 'get',req,res,true);
+}
+
+function getRedirectUrl(req, res) {
+    req.body = {
+        sourceLink: req.protocol + '://' + req.hostname + req.url
+    }
+    console.log('getRedirectUrl:',JSON.stringify(req.body))
+    return server.$http(appConfig.apiNewBaselPath + api.file.redirectUrl, 'post', req, res, true)
 }
 
 function getWords(req,res){

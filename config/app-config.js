@@ -18,9 +18,9 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
+        newBasePath: 'http://pre-ishare.iask.com.cn',
         // apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
         // apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
         // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
