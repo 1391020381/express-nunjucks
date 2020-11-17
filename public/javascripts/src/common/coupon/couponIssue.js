@@ -189,12 +189,12 @@ define(function (require, exports, module) {
                             if (res.data.list.length > 0) {
                                 utils.showAlertDialog("温馨提示", '领取成功！');
                             } else {
-                                utils.showAlertDialog("温馨提示", res.msg);
+                                utils.showAlertDialog("温馨提示", res.message);
 
                             }
                         }
                     } else {
-                        utils.showAlertDialog("温馨提示", res.msg);
+                        utils.showAlertDialog("温馨提示", res.message);
                     }
                 },
                 complete: function () {

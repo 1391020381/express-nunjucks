@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var login = require('../application/checkLogin');
     var api = require('../application/api');
   
-  
+    var clickEvent = require('../common/bilog').clickEvent
     var fid = window.pageConfig.params.g_fileId; // 文件id
     var tpl_android = $("#tpl-down-android").html();    //下载app  项目全局 没有 这个 classId
     var  file_title = window.pageConfig.params.file_title
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                 // 42000  42001 42002  私有文件禁止下载 ,文件禁止下载,下载过于频繁,您已被限制下载，
             } else if (res.code == 42000 || res.code == 42001 || res.code == 42002 || res.code == 42003) {
                 $("#dialog-box").dialog({
-                    html: $tpl_down_text.html().replace(/\$msg/, res.msg),
+                    html: $tpl_down_text.html().replace(/\$msg/, res.message),
                 }).open();
             } else if (res.code == 40001) {
                 login.notifyLoginInterface(function (data) {
@@ -60,7 +60,7 @@ define(function (require, exports, module) {
                 method.compatibleIESkip("/pay/vip.html",false);
             } else {
                 $("#dialog-box").dialog({
-                    html: $tpl_down_text.html().replace(/\$msg/, res.msg),
+                    html: $tpl_down_text.html().replace(/\$msg/, res.message),
                 }).open();
             }
         }, '')
@@ -259,7 +259,7 @@ define(function (require, exports, module) {
                           }
                         }else{
                             $.toast({
-                                text:res.msg||'预下载失败',
+                                text:res.message||'预下载失败',
                                 delay : 2000,
                             })
                         }
@@ -294,10 +294,13 @@ define(function (require, exports, module) {
             success: function (res) {
                     console.log(res)
                     if(res.code == '0'){
+                        if(res.data.productType == '4' && res.data.orderNo){
+                            clickEvent('createOrder',{orderID:res.data.orderNo})
+                        }
                         bouncedType(res);
                     }else{
                         $.toast({
-                            text:res.msg||'下载失败',
+                            text:res.message||'下载失败',
                             delay : 2000,
                         })
                     }

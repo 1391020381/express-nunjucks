@@ -74,6 +74,10 @@
         handle("6512a66181dbb2ea03b2b8fc4648babc");
     } else if (classid1 == '1820') {//PC-ishare专业资料
         handle("8412afc511d2600dd3f1e2646e4770c3");
+    }else if (classid1 == '10339') {// 其他
+        handle("3424aee254a20527e13edf981b9d372d");
+    }else if (classid1 == '1823') {// 考试资料
+        handle("a5ae466b793ddf36f52bcc1577f1bd3f");
     }
 
     //js 数组是否包含字符串

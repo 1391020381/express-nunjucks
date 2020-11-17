@@ -643,6 +643,9 @@ i {
   border: 0 none;
   color: #666;
   background-color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .date-con-in .date-con-first li .date-con-sec li.active a {
   color: #fff;

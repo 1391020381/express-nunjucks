@@ -62,7 +62,7 @@ define(function(require , exports , module){
                    handlePagination(res.data.totalPages,res.data.currentPage) 
               }else{
                $.toast({
-                   text:res.msg,
+                   text:res.message,
                    delay : 3000,
                })
               }
@@ -179,7 +179,7 @@ define(function(require , exports , module){
                     getMyUploadPage()
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 }) 
                }

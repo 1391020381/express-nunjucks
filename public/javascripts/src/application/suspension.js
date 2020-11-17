@@ -227,7 +227,7 @@ define(function (require, exports, module) {
              }else{
                 var $seenRecord = $('#seenRecord')
                 $seenRecord.hide().siblings('.mui-data-null').show();
-               console.log(res.msg)
+               console.log(res.message)
              }
           },
           error:function(error){
@@ -264,11 +264,16 @@ define(function (require, exports, module) {
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
+        _MEIQIA('manualInit');
     } catch (e) { }
 
     // 联系客服
     $('.btn-mui-contact').on('click', function () {
         _MEIQIA('init');
+           // 初始化成功后调用美洽 showPanel
+    _MEIQIA('allSet', function(){
+        _MEIQIA('showPanel');
+      });
     });
     function collectRender(list) {
         var $myCollect = $('#myCollect'), arr = [];

@@ -229,7 +229,7 @@ define(function (require, exports, module) {
                 if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - couponAmount * 100) / 100).toFixed(2);
                     var vipDiscount = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
-                    vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元;'
+                    vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元'
                     isVipDiscount = true;
                 }
                 if (couponAmount == 0) {

@@ -277,9 +277,127 @@ body {
 
     .header-right {
         padding-top: 10px;
-        margin-left: 100px;
+        margin-left: 30px;
         line-height: 30px;
     }
+
+     // 分类展示
+    .header-cate {
+        padding-top: 10px;
+        padding-bottom: 11px;
+        line-height: 30px;
+        margin-left: 30px;
+        .cate-inner {
+             img {
+                 display: inline-block;
+                 width: 16px;
+                 height: 12px;
+                 vertical-align: baseline;
+                 margin-right: 4px;
+                 font-size: 0;
+             }
+             a {
+                 font-size: 15px;
+                 font-weight: 400;
+                 color: #555555;
+                 line-height: 36px;
+                 cursor: pointer;
+             }
+        }
+        .cate-menu {
+            position: absolute;
+            z-index: 100;
+            top: 57px;
+            display: none;
+            opacity: 0;
+            &.hover {
+                display: block;
+                opacity: 1;
+                -webkit-transition: opacity .15s linear;
+                 -o-transition: opacity .15s linear;
+                 transition: opacity .15s linear;
+            }
+            .cate-menu-content {
+                 box-sizing: border-box;
+                 height: 550px;
+                 overflow-y: auto;
+                 position: relative;
+                 border: 1px solid #eee;
+                 background-color: #fff;
+                 border-radius: 2px;
+                 box-shadow: 2px 3.464px 10px 0 rgba(44, 21, 24, 0.13);
+                 .menu-content-item {
+                     display: table;
+                     overflow: hidden;
+                     z-index: 1;
+                     zoom: 1;
+                     font-size: 0;
+                     visibility: visible;
+                     box-sizing: border-box;
+                     .item-title {
+                         display: table-cell;
+                         background: #F3F3F3;
+                         padding: 17px 27px;
+                         width: 66px;
+                         height: 100%;
+                         vertical-align: top;
+                         text-align: center;
+                         .item-title-icon {
+                             display: block;
+                             width: 22px;
+                             height: 22px;
+                             background-image: url(../images/detail/file_icon.png);
+                             background-repeat: no-repeat;
+                             background-size: contain;
+                             margin: 0 auto;
+                         }
+                         .item-title-text {
+                             display: inline-block;
+                             height: 16px;
+                             line-height: 16px;
+                             margin-top: 10px;
+                             cursor: pointer;
+                             font-size: 15px;
+                             color: #222222;
+                             width: 66px; 
+                             overflow: hidden; 
+                             text-overflow: ellipsis;
+                             white-space: nowrap;
+                         }
+                         &:hover {
+                             .item-title-text {
+                                 color: #f25125;
+                             }
+                         }
+                     }
+                     .item-content {
+                         display: table-cell;
+                         padding: 10px 13px 20px 20px;
+                         width: 303px;
+                         height: 100%;
+                         line-height: 20px;
+                         .item-content-link {
+                             float: left;
+                             *display: inline;
+                             margin-top: 2px;
+                             margin-right: 10px;
+                             display: block;
+                             font-size: 13px;
+                             padding: 0 5px;
+                             border-radius: 2px;
+                             color: #666;
+                             &:hover {
+                                 color: #fff;
+                                 background-color: #f25125;
+                             }
+                         }
+                     }
+                 }
+            }
+        }
+        
+     }
+ 
 
     .new-search {
         // width: 404px;
@@ -1310,6 +1428,7 @@ body {
     line-height: 36px;
     color: @gray-dark;
     margin: 0 auto;
+    position: relative;
 
     .loading {
         width: 100%;
@@ -1319,6 +1438,18 @@ body {
 
     .img-png {
         width: 890px;
+    }
+
+     // 占位符
+     .detail-holder {
+        position: absolute;
+        width: 100%;
+        height: ~"calc(100% - 12px)";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        -webkit-user-drag: none; 
     }
 }
 
@@ -3013,6 +3144,16 @@ body {
 
         }
 
+        .sub-title {
+            
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            text-align: center;
+            line-height: 24px;
+            margin-bottom: 29px;
+        }
+
         .form-list {
             width: 340px;
             margin: 0 auto;
@@ -3050,6 +3191,19 @@ body {
         color: #fff;
         cursor: pointer;
     }
+
+    .understand-btn {
+        width: 150px;
+        height: 40px;
+        background-color: #ee4b28;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        color: #fff;
+        cursor: pointer;
+    }
+
 }
 
 .detail-error-container {

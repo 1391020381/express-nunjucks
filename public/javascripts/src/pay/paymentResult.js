@@ -46,7 +46,7 @@ define(function (require, exports, module) {
                     }
                 } else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         delay: 3000,
                     });
                 }

@@ -9,6 +9,9 @@ define(function (require, exports, module) {
         // 用户相关
         user: {
             // 登录
+             // 检测单点登录状态
+            dictionaryData: gateway + '/market/dictionaryData/$code',
+            checkSso: gateway + '/cas/login/checkSso',
             loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
             getLoginQrcode:gateway + '/cas/login/qrcode', // 生成公众号登录二维码
             loginByWeChat:gateway + '/cas/login/gzhScan', // 公众号扫码登录
@@ -92,7 +95,7 @@ define(function (require, exports, module) {
            
         },
         upload:{
-            getCategory:gateway + '/content/category/getSimplenessInfo', // 获取所有分类
+            getWebAllFileCategory: gateway + '/content/fileCategory/getWebAll', 
             createFolder:gateway + '/content/saveUserFolder', // 获取所有分类
             getFolder:gateway + '/content/getUserFolders', // 获取所有分类
             saveUploadFile:gateway + '/content/webUploadFile',
