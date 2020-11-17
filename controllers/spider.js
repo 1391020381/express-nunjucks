@@ -14,14 +14,14 @@ var id = '';
 var classId = '';
 var spcClassId	= '';
 var isGetClassType = '';
-var picArr = [];
+// var picArr = [];
 var fid = null;
 var type = 'new'
 var classId = null;
 var title = null;
 var spcClassId = null;
 var isGetClassType = null;
-var fileAttr = 1; //1 普通文件 2 办公频道文件
+
 var format = '';
 var classid1 = '';
 var productType = ''
@@ -39,6 +39,8 @@ module.exports = {
         }
         return async.series({
             list: function (callback) {
+                console.log('req.headers[user-agent]:',req.headers['user-agent'])
+                // picArr = [] // 清空保存的上一个蜘蛛模板的图片
                 id = req.params.id.replace('-nbhh','')
                 fileurl ="https://ishare.iask.sina.com.cn/f/"+id+'.html'
                 var opt = {
@@ -56,6 +58,7 @@ module.exports = {
                 request(opt, function (err, res1, body) {
                     // console.log('detail-list-------------------:',JSON.parse(body))
                     if (body) {
+                        try{
                         var data = JSON.parse(body);
                         console.log('请求地址post-------------------:',opt.url)
                         console.log('请求参数-------------------:', opt.body)
@@ -63,9 +66,9 @@ module.exports = {
                         var fileInfo = data.data&&data.data.fileInfo;
                         var tdk = data.data&&data.data.tdk
                         if (data.code == 0 && data.data) {
-                            // fileAttr ==  文件分类类型 1普通文件 2办公频道
+                            
                             fid = fileInfo.id;  // 文件id
-                            fileAttr = fileInfo.fileAttr || 1;   // 文件分类类型 1普通文件 2办公频道
+                           
                             classId = fileInfo.classid;  // 分类id
                             classid1 = fileInfo.classid1;    
                             classid2 = fileInfo.classid2
@@ -75,8 +78,8 @@ module.exports = {
                             isGetClassType = fileInfo.isGetClassType; // 分类类型 :0-读取平台分类 1-读取专题分类
                             spcClassId = fileInfo.spcClassId;   // 专题分类ID(最后一级)
                             uid= fileInfo.uid || ''           // 上传者id
-                            var transcodeInfo = data.data&&data.data.transcodeInfo;
-                            picArr = transcodeInfo?transcodeInfo.fileContentList:[];
+                            // var transcodeInfo = data.data&&data.data.transcodeInfo;
+                            // picArr = transcodeInfo?transcodeInfo.fileContentList:[];
                             if(fileInfo.showflag !=='y'){ // 文件删除
                                 var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(title))}` 
                                 var results = {showFlag:false,searchQuery,statusCode:'404'}
@@ -93,6 +96,11 @@ module.exports = {
                                 return
                             }
                             callback(null, null);
+                        }
+                        } catch (err) {
+                            console.log('详情页数据error')
+                            callback(null, null);
+                            console.log("err=============", err)
                         }
                     } else {
                         callback(null, null);
@@ -118,14 +126,14 @@ module.exports = {
             // 文章详情
             fileDetailTxt:function(callback){
                 req.body = {
-                    fid:id
+                    fid:req.params.id.replace('-nbhh','')
                 };
                 server.post(appConfig.apiNewBaselPath+Api.spider.fileDetailTxt, callback, req);
             },            // 动态获取第四范式 场景id 物料库id
             recommendInfo: function (callback) {
                 // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
                 //  classid1 =  '1820'                       
-                if (fileAttr == 1 && productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+                if (productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
 
                     //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
                     var pageIdsConfig_jy_rele = {
@@ -315,17 +323,18 @@ module.exports = {
                 txt:'记事本',
                 pdf:'在线阅读'
             }
-            if(results.list.data && results.list.data.fileInfo) {
+            if(results.list&&results.list.data && results.list.data.fileInfo) {
                 results.list.data.fileInfo.readTool = readTool;
                 results.list.data.fileInfo.moduleType = moduleType;
             }
             
             //对正文进行处理
-            var textString =  results.fileDetailTxt.data||'';
+            var textString =  results.fileDetailTxt&&results.fileDetailTxt.data||'';
             // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
-           if(picArr.length>6) {
-                picArr = picArr.slice(0,6)
-           }
+            var picArr = results.list&&results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList || ''
+            if(picArr&&picArr.length>6) {
+                 picArr = picArr.slice(0,6)
+            }
            var sliceNum = Math.ceil(textString.length/picArr.length);
            var newTextArr = [];
            for(var i =0; i<picArr.length; i++) {

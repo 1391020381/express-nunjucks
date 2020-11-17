@@ -139,3 +139,128 @@
     </div>
 </script>
 
+
+
+<!-- 个人中心 我的钱包提现申请dialog -->
+
+<script type="text/template" id="withdrawal-application-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="withdrawal-application-dialog">
+             <div class="withdrawal-application-title">
+                 <span class="title-icon"></span>
+                 <span class="title-desc">提现申请</span>
+                 <span class="title-subdesc">提现审核通过后次月初打款</span>
+             </div>
+             <div class="withdrawal-application-from">
+                <div class="withdrawal-amount">
+                    <span class="withdrawal-amount-title"><em>*</em>提现金额 :</span>
+                    {# <input class="amount" type="text" disabled/> #}
+                      <span class="amount"></span>
+                    {# <span class="full-withdrawal">全部提现</span> #}
+                    <span class="full-withdrawal-tip">（不含退款保证金）</span>
+                    <p class="withholding-tax tax" ><span>代扣税  :</span> <span class="holdingTaxPrice">0</span>元</p>
+                    <p class="turnover-tax tax"><span>流转税  :</span> <span class="transferTax">0</span>元</p>
+                    <p class="actual-receipt tax"><span>预计实际到账  :</span> <span class="receivedAmount">0</span>元 <span class="tax-explanation-icon"></span><a class="tax-explanation-desc" href="https://iask.sina.com.cn/helpCenter/5f45c81a474e31015362e2b6.html" target="_blank">税费说明</a></p>
+                </div>
+                <div class="invoice">
+                   <div class="invoice-title"><em>*</em>发票 :</div>
+                    <p class="invoic-tip">
+                    <span class="invoic-tip-icon"></span>
+                    <a class="invoic-tip-desc" href="https://iask.sina.com.cn/helpCenter/5f448231474e31015362e189.html" target="_blank">开票须知</a>
+                    </p>
+                    <div class="invoice-label">
+                         <label class="electronic-invoice" for="electronic-invoice-radio">
+                        <input id="electronic-invoice-radio" class="invoice-radio" checked name="invoice" type="radio" value="0"/>
+                        <span class="invoice-icon"></span>电子发票 
+                    </label>
+                    <label class="paper-invoice" for="paper-invoice-radio">
+                        <input id="paper-invoice-radio" class="invoice-radio" name="invoice" type="radio" value="1"/>
+                        <span class="invoice-icon"></span>邮寄纸质发票（先拍照后上传后邮寄）
+                    </label>
+                    
+                    </div>
+                </div>
+                <div class="img-preview">
+                    <img class="img"/>
+                    <span class="re-upload pic-upload" id="upload-target">上传</span>
+                </div>
+                <div class="submit-btn">
+                    <span class="confirm-btn">确认</span>
+                    <span class="cancel-btn">取消</span>
+                </div>
+                <p class="withdrawal-application-dialog-tip">请务必提供提现金额所对应的发票信息，否则将无法进行提现</p>
+             </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+<!-- 我的钱包导出明细 -->
+<script type="text/template" id="send-email-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+
+        <div class="container send-email-dialog">
+            <div class="title">
+               填写接收邮箱
+            </div>
+ <div class="sub-title">
+                明细将在几分钟内发送到你的邮箱
+            </div>
+            <div class="form-list">
+                <div class="form-verify-tips">
+                    <span class="text">
+                        *请检查邮箱地址
+                    </span>
+                </div>
+                <input type="text" class="form-ipt" placeholder="请填写邮箱地址...">
+            </div>
+            <div class="submit-btn">
+            确认发送
+        </div>
+        </div>
+    </div>
+</script>
+<!--个人中心 请先完善财务信息dialog -->
+<script type="text/template" id="go2FinanceAccount-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="go2FinanceAccount-dialog">
+            <div class="title">请先完善财务信息</div>
+            <a class="go2FinanceAccount-btn" href="/node/personalCenter/mywallet.html?mywalletType=3">去填写</a>
+        </div>
+    </div>
+</script>
+
+
+
+<!--个人中心 编辑财务信息dialog -->
+<script type="text/template" id="editFinanceAccount-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="go2FinanceAccount-dialog">
+            <div class="title">30天内只能修改一次，确定要保存吗</div>
+            <span class="editFinanceAccount-btn editFinanceAccount-confirm" data-isedit="0">确认</span>
+            <span class="editFinanceAccount-btn editFinanceAccount-cancel">取消</span>
+        </div>
+    </div>
+</script>
+
+<!-- 我的VIP取消自动续费 -->
+<script type="text/template" id="cancelAutomaticRenewal-dialog">
+     <div class="personal-center-dialog">
+        <i class="close-btn"></i>
+        <div class="cancelAutomaticRenewal-dialog">
+            <div class="title" data-id="$id"><span class="title-desc desc">会员到期后您将失去专属特权，</span><span class="title-subdesc desc">确定取消自动续费吗 ？</span></div>
+            <span class="cancelAutomaticRenewal-btn cancelAutomaticRenewal-cancel">残忍取消</span>
+            <span class="cancelAutomaticRenewal-btn cancelAutomaticRenewal-confirm">保留续费</span>
+        </div>
+    </div>
+</script>
+
+
+

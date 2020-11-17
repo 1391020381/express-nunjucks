@@ -2,12 +2,11 @@ define(function (require, exports, module) {
     var method = require("./method");
     require("./element");
     require("./extend");
-   // require('../report/init');
   require('./effect.js')
   require('./login')
     window.template = require("./template");
     require("./helper");
-   // require('//static3.iask.cn/resource/js/plugins/pc.iask.login.min.js');
+    var api = require("./api");
 
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {
@@ -17,11 +16,35 @@ define(function (require, exports, module) {
             visitId = method.getCookie(name);
         // 过有效期-重新请求
         if (!visitId) {
-            method.get('/gateway/user/getVisitorId', function (response) {
-                if (response.code == 0 && response.data) {
-                    method.setCookieWithExp(name, response.data, expires, '/');
+            // method.get(api.user.getVisitorId, function (response) {
+            //     if (response.code == 0 && response.data) {
+            //         method.setCookieWithExp(name, response.data, expires, '/');
+            //     }else{
+            //        visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+            //     }
+            // })
+            $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
+                url: api.user.getVisitorId,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                   if(res.code == '0'){
+                    method.setCookieWithExp(name, res.data, expires, '/');
+                   }else{
+                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+                   }
+                },
+                error:function(error){
+                    console.log('getVisitUserId:',error)
+                    visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() + '000000000000000000').substring(0, 18) 
+                    method.setCookieWithExp(name, visitId, expires, '/');
                 }
             })
+            
         }
     }
     getVisitUserId();

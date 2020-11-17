@@ -1,0 +1,38 @@
+<!-- 
+    name：优惠券弹窗
+    author：limeng
+    date：2020-09-23
+    descroiption: A12需求新增
+ -->
+<!-- 领券弹窗 -->
+<div class="coupon-dialog-wrap">
+    <div class="coupon-dialog-main">
+        <div class="coupon-dialog-header">
+          <a class="coupon-dialog-close" href="javascript:void(0);" bilogContent="closeCoupon">
+            <img src="../../../images/pay/coupon_close.png" /> 
+          </a>
+        </div>
+        <div class="coupon-dialog-body">
+            <div class="coupon-dialog-content">
+                {{each data.list as v i}}
+                <div class="coupon-item">
+                    <div class="coupon-item-price">
+                        {{ if v.type == 1 }} 
+                            <span style="font-size:17px;">&yen;</span> 
+                            <span>{{v.couponAmount}}</span>
+                        {{ /if }}
+                        {{ if v.type == 2}}
+                            <span style="font-size:17px;"></span>
+                            <span>{{v.discount}}折</span>
+                        {{ /if }}
+                    </div>
+                    <div class="coupon-item-text" title="{{v.name}}">{{v.name}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="coupon-dialog-footer" bilogContent="getCoupons">
+            <a class="btn-dialog coupon-dialog-btn"></a>
+        </div>
+    </div>
+</div>

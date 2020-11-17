@@ -11,9 +11,6 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var common = require('./common');
     var clickEvent = require('../common/bilog').clickEvent
-    var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-    //  var entryName_var = payTypeMapping[pageConfig.params.file_state];
-    // var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
     var fileName = window.pageConfig&&window.pageConfig.page&&window.pageConfig.page.fileName
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
@@ -35,11 +32,12 @@ define(function (require, exports, module) {
 
         // 获取收藏的状态
         getCollectState()
+
+        fileBrowseReportBrowse()  // 资料详情上报服务端
     }
     // 页面加载
     function pageInitShow() {
         if (method.getCookie('cuk')) {
-            fileBrowseReportBrowse()
             login.getLoginData(function (data) {
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
@@ -52,19 +50,19 @@ define(function (require, exports, module) {
             });
         } else {
             var params = window.pageConfig.params;
-            if ((params.productType == '4'||params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
+            if ((params.productType == '4'|| params.productType == '5') && params.vipDiscountFlag =='1') { // params.g_permin === '3' && params.vipDiscountFlag && params.ownVipDiscountFlag
                 // 如果没有登陆情况，且文档是付费文档且支持打折，更改页面价格
-                // var originalPrice = ((params.moneyPrice * 1000) / 1250).toFixed(2);
+            
                 var originalPrice = params.moneyPrice
                 $(".js-original-price").html(originalPrice);
-                // var savePrice = (params.moneyPrice - originalPrice).toFixed(2);
-                var savePrice = (params.moneyPrice *0.8).toFixed(2);
+              
+                var savePrice = (params.moneyPrice * 0.8).toFixed(2);
                 $('.vip-save-money').html(savePrice)
                 $('.js-original-price').html(savePrice);
             }
         }
         // 意见反馈的url
-        // var url = '/feedAndComp/userFeedback?url=' + encodeURIComponent(location.href);
+       
         var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
 
@@ -82,10 +80,7 @@ define(function (require, exports, module) {
                 }
             });
         }
-        // setTimeout(function () {
-        //     $('.detail-search-info').show();
-        // }, 30000)
-        // $('.detail-search-info').show();
+       
     }
 
     // 事件绑定
@@ -130,18 +125,10 @@ define(function (require, exports, module) {
             }
             return true;
         });
-        $('.btn-new-search').on('click', function () {
-            var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-            // if (!_val) {
-            //     return
-            // }
-            searchFn(_val);
-        });
+       
         $('.detail-search-info').on('click',function(){
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-            // if (!_val) {
-            //     return
-            // }
+            
             searchFn(_val);
         })
         $(document).on('click', ':not(.new-search)', function (event) {
@@ -159,51 +146,14 @@ define(function (require, exports, module) {
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
-                    // 登陆后判断是否第一次登陆
-                    // login.getUserData(function (res) { // 新人优惠券已下架
-                    //     if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-                    //      //   receiveCoupon(0, 2, res.userId)
-                    //     }
-                    // })
                 });
             }
         });
 
-        // 优惠券发放
-        // if (method.getCookie('cuk')) {
-        //     login.getUserData(function (res) {
-        //         if (res.loginStatus == 1 && method.getCookie('_1st_l') != res.userId) {
-        //             receiveCoupon(0, 2, res.userId);
-        //         }
-        //     })
-        // }
-
+   
         // 退出
         $('.btn-exit').on('click', function () {
             login.ishareLogout();
-        });
-        // 相关推荐—下一页按钮事件
-        $slider_control.find(".btn-next").on('click', function () {
-            $(".btn-prev").removeClass("btn-disable");
-            $(this).addClass("btn-disable");
-            relatedPage();
-        });
-        //关推荐—上一页按钮事件
-        $slider_control.find(".btn-prev").on('click', function () {
-            $(".btn-next").removeClass("btn-disable");
-            $(this).addClass("btn-disable");
-            relatedPage();
-        });
-        // 评论框获得焦点
-        $('#commentTxt').on('focus', function () {
-            if (method.getCookie('cuk')) {
-                login.getLoginData(function (data) {
-                    common.userData = data;
-                    if (!data.mobile) {
-                        login.notifyCheckInterface();
-                    }
-                });
-            }
         });
         $('#search-detail-input').on('focus', function () {
             $('.detail-search-info').hide();
@@ -215,40 +165,6 @@ define(function (require, exports, module) {
         // 显示举报窗口
         $('.report-link').on('click', function () {
             method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href,true);
-            // $("#dialog-box").dialog({
-            //     html: $('#report-file-box').html(),
-            // }).open();
-        });
-        // 提交举报内容
-        $('#dialog-box').on('click', '.report-as', function () {
-            var type = $("input[name='radio1']:checked").val();
-            if (type === '1') {
-                // window.location.href = '/feedAndComp/tort?type=1&pageUrl=' + window.location.href;
-                method.compatibleIESkip('/feedAndComp/tort?type=1&pageUrl=' + window.location.href,false);
-            } else {
-                if (!method.getCookie('cuk')) {
-                    $('#bgMask').hide();
-                    $('#dialog-box').hide();
-                    login.notifyLoginInterface(null);
-                } else {
-                    var content = $('#report-content').val();
-                    method.post(api.normalFileDetail.reportContent, function (res) {
-                        if (res.code == 0) {
-                            $("#dialog-box").dialog({
-                                html: $("#tpl-down-text").html().replace(/\$msg/, '举报成功'),
-                            }).open();
-                        }
-                    }, '', '', {
-                        type: type,
-                        content: content,
-                        pageUrl: window.location.href
-                    })
-                }
-            }
-        });
-        // 发表评论
-        $('#comment').on('click', function () {
-            commentArticle()
         });
         // 取消或者关注
         $('#btn-collect').on('click', function () {
@@ -260,131 +176,17 @@ define(function (require, exports, module) {
             }else{
                 var fid=$(this).attr('data-fid');
                 clickEvent($(this))
-                // if ($(this).hasClass('btn-collect-success')) {
-                //     collectFile(4)
-                // } else {
-                //     collectFile(3)
-                // }
-    
-                //fileSaveOrupdate(fid,window.pageConfig.page.uid,$(this))
                 setCollect($(this))
             }
            
         });
-        // 文件评分
-        $('.star-list').on('click', function (e) {
-            if (!method.getCookie('cuk')) {
-                login.notifyLoginInterface(function (data) {
-                    common.afterLogin(data);
-                });
-            } else {
-                method.get(api.normalFileDetail.hasDownLoad + '?fid=' + window.pageConfig.params.g_fileId, function (res) {
-                    if (res.code == 0) {
-                        if (res.data) {
-                            var data = {
-                                fid: pageConfig.params.g_fileId,
-                                score: $(this).find('li.on').length
-                            };
-                            appraiseStar(data)
-                        } else {
-                            $("#dialog-box").dialog({
-                                html: $('#tpl-down-text').html()
-                                    .replace(/\$msg/, '您还未获取该资料,先要获取资料后才可以评分哦!')
-                            }).open();
-                        }
-                    }
-                });
-            }
-        });
+      
         // 查找相关资料
         $('.detail-fixed').on('click','#searchRes', function () { // 寻找相关资料  
-            $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
-            // $("#dialog-box").dialog({
-            //     html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId),
-            // }).open();
-            $("#dialog-box").dialog({
-                html: $('#reward-mission-pop').html(),
-            }).open();
-
-            setTimeout(bindEventPop,500)
+            sendEmail()
         });
-        //  $("#dialog-box").dialog({
-        //     html: $('#reward-mission-pop').html(),
-        // }).open();
 
-        function bindEventPop(){
-            console.log(6666)
-            // 绑定关闭悬赏任务弹窗pop
-            $('.m-reward-pop .close-btn').on('click',function(){
-                closeRewardPop();
-            })
-
-            // submit提交
-            $('.m-reward-pop .submit-btn').on('click',function(){
-                var userId = window.pageConfig.userId;
-                if(!userId){
-                    closeRewardPop();
-                    $.toast({
-                        text:'该功能仅对VIP用户开放',
-                        delay : 3000,
-                    })
-                    return
-                }
-                var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
-                var mailVal = $('.m-reward-pop .form-ipt').val();
-                var tips = $('.m-reward-pop .form-verify-tips');
-                tips.hide();
-                if (!reg.test(mailVal)) {
-                    tips.show();
-                    return
-                }
-
-                var params = {
-                    userId:userId,
-                    fid:window.pageConfig.params.g_fileId,
-                    email:mailVal,
-                    channelSource:4,
-                }
-
-                $.ajax('/gateway/content/sendmail/findFile', {
-                    type: "POST",
-                    data: JSON.stringify(params),
-                    dataType: "json",
-                    contentType: 'application/json'
-                }).done(function (res) {
-                    if (res.code == 0) {
-                        closeRewardPop();
-                        $.toast({
-                            text:'发送成功',
-                            delay : 2000,
-                        })
-                    } else if(res.code == 401100){
-                        $.toast({
-                            text:'该功能仅对VIP用户开放',
-                            delay : 2000,
-                        })
-                    }else {
-                        $.toast({
-                            text: '发送失败，请重试',
-                            delay: 2000
-                        });
-                    }
-                }).fail(function (e) {
-                    $.toast({
-                        text: '发送失败，请重试',
-                        delay: 2000
-                    });
-                })
-            })
-
-            // 关闭任务pop
-            function closeRewardPop(){
-                $(".common-bgMask").hide();
-                $(".detail-bg-mask").hide();
-                $('#dialog-box').hide();
-            }        
-
-        }
+       
 
         // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
         $('body').on("click", ".js-buy-open", function (e) {  
@@ -397,17 +199,103 @@ define(function (require, exports, module) {
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
-
+                    
                 } else {
                     login.notifyLoginInterface(function (data) {
-                        common.afterLogin(data);
-                        goPage(type,data);
+                        window.pageConfig.userId = data.userId;
+                        common.afterLogin(data,{type:type,data:data,callback:goPage})
+                      //  goPage(type,data);
                     });
                 }
             } else {
                 goPage(type);
             }
         });
+    }
+    
+    function sendEmail (){
+        $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+        
+        $("#dialog-box").dialog({
+            html: $('#reward-mission-pop').html(),
+        }).open();
+
+        setTimeout(bindEventPop,500)
+    }
+    
+
+    function bindEventPop(){
+        console.log(6666)
+        // 绑定关闭悬赏任务弹窗pop
+        $('.m-reward-pop .close-btn').on('click',function(){
+            closeRewardPop();
+        })
+
+        // submit提交
+        $('.m-reward-pop .submit-btn').on('click',function(){
+            var userId = window.pageConfig.userId;
+            if(!userId){
+                closeRewardPop();
+                $.toast({
+                    text:'该功能仅对VIP用户开放',
+                    delay : 3000,
+                })
+                return
+            }
+            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+            var mailVal = $('.m-reward-pop .form-ipt').val();
+            var tips = $('.m-reward-pop .form-verify-tips');
+            tips.hide();
+            if (!reg.test(mailVal)) {
+                tips.show();
+                return
+            }
+
+            var params = {
+                userId:userId,
+                fid:window.pageConfig.params.g_fileId,
+                email:mailVal,
+                channelSource:4,
+            }
+
+            $.ajax('/gateway/content/sendmail/findFile', {
+                type: "POST",
+                data: JSON.stringify(params),
+                dataType: "json",
+                contentType: 'application/json'
+            }).done(function (res) {
+                if (res.code == 0) {
+                    closeRewardPop();
+                    $.toast({
+                        text:'发送成功',
+                        delay : 2000,
+                    })
+                } else if(res.code == 401100){
+                    $.toast({
+                        text:'该功能仅对VIP用户开放',
+                        delay : 2000,
+                    })
+                }else {
+                    $.toast({
+                        text: '发送失败，请重试',
+                        delay: 2000
+                    });
+                }
+            }).fail(function (e) {
+                $.toast({
+                    text: '发送失败，请重试',
+                    delay: 2000
+                });
+            })
+        })
+
+        // 关闭任务pop
+        function closeRewardPop(){
+            $(".common-bgMask").hide();
+            $(".detail-bg-mask").hide();
+            $('#dialog-box').hide();
+        }        
+
     }
 
     function fileBrowseReportBrowse() {
@@ -419,65 +307,20 @@ define(function (require, exports, module) {
             type: "POST",
             data: JSON.stringify({
                             terminal:'0',
-                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId
+                            fid:window.pageConfig.params&&window.pageConfig.params.g_fileId,
+                            fileUid: window.pageConfig.page&&window.pageConfig.page.uid
                         }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                if(res.data.rows&&res.data.rows.length){
-                  var _hotSpotSearchTemplate = template.compile(HotSpotSearch)({hotSpotSearchList:res.data.rows||[]});
-                  $(".hot-spot-search-warper").html(_hotSpotSearchTemplate);
-                }
+                 
                }
             }
         })
     }
-    function receiveCoupon(type, source, userId) {
-        var data = { source: source, type: type };
-        data = JSON.stringify(data);
-        $('body').loading({ name: 'download', title: '请求中' });
-        $.ajax({
-            type: 'POST',
-            // url: api.vouchers,
-            url:api.coupon.rightsSaleVouchers,
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: function (res) {
-                if (res.code == 0) {
-                    if (res.data.list) {
-                        if (res.data.list.length > 0) {
-                            var headTip = require("./template/head_tip.html");
-                            var _html = template.compile(headTip)({ data: res.data });
-                            $('.coupon-info-top').html(_html);
-                            //第一次登录
-                            method.setCookieWithExpPath('_1st_l', userId, 30 * 24 * 60 * 60 * 1000, '/');
-                        } else {
-                            utils.showAlertDialog("温馨提示", res.msg);
-                        }
-                    }
-                } else {
-                    utils.showAlertDialog("温馨提示", res.msg);
-                }
-            },
-            complete: function () {
-                $('body').closeLoading("download");
-            }
-        })
-    }
-    function appraiseStar(data) {
-        method.post(api.normalFileDetail.appraise, function (res) {
-            if (res.code == 0) {
-                var $dSuccess = $('.d-success');
-                $dSuccess.removeClass('hide');
-                setTimeout(function () {
-                    $dSuccess.addClass('hide')
-                }, 1500)
-            }
-        }, '', 'post', data);
-    }
-
+   
+  
     //获取焦点
     function inputFocus(ele, focus, css) {
         $(ele).focus(function () {
@@ -505,7 +348,7 @@ define(function (require, exports, module) {
 
     $(function () {
         ////详情页用户展开
-        //elementHover(".new-detail-header .user-con",null,"hover");
+      
         //详情页获取焦点
         var $detailHeader = $(".new-detail-header");
         var headerHeight = $detailHeader.height();
@@ -552,12 +395,6 @@ define(function (require, exports, module) {
                 $fixBar.find(".operation").show();
                 $fixBar.find(".data-item").hide();
             }
-            //滚动超过600展示优惠券广告
-            // if (detailTop > 400 && !localStorage.getItem('loginCouponAd') && !method.getCookie("cuk")) {
-            //     $('.pc-tui-coupon').show();
-            //     localStorage.setItem('loginCouponAd', 1);
-            //     closeCouponAD()
-            // }
         });
         // 关闭底部优惠券弹窗
         function closeCouponAD() {
@@ -582,32 +419,7 @@ define(function (require, exports, module) {
 
 
 
-    // 添加取消收藏
-    function collectFile(cond) {
-        method.post(api.normalFileDetail.collect, function (res) {
-            if (res.code == 0) {
-                var $btn_collect = $('#btn-collect');
-                if (cond === 3) {
-                    var $dCollect = $('.d-collect');
-                    $dCollect.removeClass('hide');
-                    setTimeout(function () {
-                        $dCollect.addClass('hide');
-                    }, 2000);
-                    $btn_collect.addClass('btn-collect-success');
-                } else {
-                    $btn_collect.removeClass('btn-collect-success')
-                }
-            } else if (res.code == 40001) {
-                setTimeout(function () {
-                    method.delCookie('cuk', "/", ".sina.com.cn");
-                }, 0)
-            }
-        }, '', 'post', {
-            fid: pageConfig.params.g_fileId,
-            cond: cond,
-            flag: 'y'
-        });
-    }
+  
 
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
@@ -691,124 +503,49 @@ define(function (require, exports, module) {
         return fileArr;
     }
 
-    /**
-     * 相关推荐翻页
-     */
-    function relatedPage() {
-        $(".related-data-list").find("li").each(function () {
-            if ($(this).is(":hidden")) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    }
+   
 
-    // 评论
-    function commentArticle() {
-        if (!method.getCookie('cuk')) {
-            login.notifyLoginInterface(function (data) {
-                common.afterLogin(data);
-            });
-        } else if (method.getCookie('cuk') && !common.userData) {
-            login.getLoginData(function (data) {
-                common.afterLogin(data);
-                commentContent();
-            })
-        } else {
-            commentContent();
-        }
-    }
+  
 
-    var commentContent = function () {
-        var content = $('#commentTxt').val();
-        var fid = pageConfig.params.g_fileId;
-        var type = '1';
-        var anonymous = $('#commentCheckbox .check-con').hasClass('checked');
+  
 
-        if (content.length < 1 || content.length > 200) {
-            $('.error-info').text('评论内容长度必须在1~200个字符之间');
-            return false;
-        }
-
-        method.get(api.normalFileDetail.hasDownLoad + '?fid=' + window.pageConfig.params.g_fileId, function (res) {
-            if (res.code == 0) {
-                if (res.data) {
-                    method.post(api.normalFileDetail.addComment, function (res) {
-                        if (res.code == 0) {
-                            if (res.data === 0) {
-                                var showName = anonymous ? '匿名用户' : common.userData.nickName;
-                                var hrefFlag = anonymous ? '<a class="user-name-con">' + showName + '</a>' : '<a href="/n/' + common.userData.userId + '.html" class="user-name-con">' + showName + '</a>';
-                                $('.evaluate-list').prepend('<li class="cf">' +
-                                    '<div class="user-img fl"><img src="' + common.userData.photoPicURL + '" alt="头像"></div>' +
-                                    '<div class="user-evaluate cf"><p class="evaluate-txt">' + hrefFlag + content +
-                                    '</p></div></li>');
-                                $('#commentTxt').val('');
-                            } else if (res.data === 2) {
-                                $('.error-info').text('一天最多评论15条');
-                            } else if (res.data === 3) {
-                                $('.error-info').text('一分钟之内提交过于频繁');
-                            } else if (res.data === 5) {
-                                $('.error-info').text('您经评论过');
-                            } else if (res.data === 4) {
-                                $('.error-info').text('*您的评论包含敏感词,请修改再发布!');
-                            }
-                        } else if (res.code == 40001) {
-                            setTimeout(function () {
-                                method.delCookie('cuk', "/", ".sina.com.cn");
-                            }, 0)
-                        } else {
-                            $('.error-info').text(res.msg);
-                        }
-                    }, '', '', {
-                        content: content,
-                        fid: fid,
-                        type: type,
-                        anonymous: anonymous ? 1 : 0
-                    });
-                } else {
-                    $("#dialog-box").dialog({
-                        html: $('#tpl-down-text').html()
-                            .replace(/\$msg/, '您还未获取该资料,先要获取资料后才可以评论哦!')
-                    }).open();
-                }
-            }
-        }, '');
-
-    };
-
-    function goPage(type,data) { // data 登录后用户信息
+    function goPage(type, data) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
-        //文件信息存入cookie方便gio上报
-        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+      
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-
         if (type === 'file') {
-            // params = '?orderNo=' + fid + '&referrer=' + document.referrer;
+          
             params = '?orderNo=' + fid + '&checkStatus='+ '8' + '&referrer=' + document.referrer;
-            // window.location.href = "/pay/payConfirm.html" + params;
+         
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-            if(data&&!data.isVip==1){
-                return
+            if(data&&data.isVip==1){ // 
+             
+                sendEmail()
             }else{
-//  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
-            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
-            var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
-            // window.open("/pay/vip.html" + params);
-            method.compatibleIESkip('/pay/vip.html' + params,true);
+            var params =  window.pageConfig.params
+            var productType = params.productType
+            var userFileType = params.userFileType
+            var userFilePrice = params.userFilePrice
+            if(productType == '4'){
+                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref +'&productType='+productType+'&userFileType='+userFileType+'&userFilePrice='+userFilePrice
+            }else{
+                var params = '?fid=' + fid + '&ft=' + format +  '&checkStatus=' + '10' +'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+            }
+            
+        
+            method.compatibleIESkip('/pay/vip.html' + params,false);
             }
         } else if (type === 'privilege') {
-            // var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
+           
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13'+'&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // window.open("/pay/privilege.html" + params);
-            method.compatibleIESkip('/pay/privilege.html' + params,true);
+           
+            method.compatibleIESkip('/pay/privilege.html' + params,false);
         }
     }
 
@@ -840,7 +577,7 @@ define(function (require, exports, module) {
     //搜索
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
-        // window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
+      
         method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)),false);
     }
     module.exports = {

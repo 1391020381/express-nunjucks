@@ -11,7 +11,11 @@ define(function(require , exports , module){
         1:'待支付',
         2:'交易成功',
         3:'支付失败',
-        4:'订单失效'
+        4:'订单失效',
+        7:'退款审核中',
+        8:'退款成功',
+        9:'退款失败',
+        10:'部份退款成功'
     }
     var refundStatusDescList = {
           0:'未申请退款',
@@ -40,8 +44,8 @@ define(function(require , exports , module){
         isLogin(initData,true) 
     }
     
-    function initData(){
-        getUserCentreInfo()
+    function initData(data){
+        getUserCentreInfo(null,data) 
         queryOrderlistByCondition()
     }
     $('.personal-center-myorder').click('.item-operation',function(event){ // 需要根据 goodsType 转换为 checkStatus(下载接口)
@@ -51,7 +55,8 @@ define(function(require , exports , module){
             var fid = $(event.target).attr('data-fid')
             var orderNo = $(event.target).attr('data-orderno')
             var checkStatus = goodsTypeList[goodsType]&&goodsTypeList[goodsType].checkStatus
-            method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid,true);
+            var isAutoRenew= goodsType == '12'? '1':'0'
+            method.compatibleIESkip("/pay/payQr.html?type=" + checkStatus+ "&orderNo="+ orderNo+"&fid="+ fid + '&isAutoRenew=' + isAutoRenew,true);
         } 
     })
 
@@ -102,11 +107,12 @@ define(function(require , exports , module){
                        $(res.data.rows).each(function(index,item){
                           item.payPrice = (item.payPrice/100).toFixed(2)
                           item.orderTime = new Date(item.orderTime).format("yyyy-MM-dd")
-                          if(item.refundStatus== 0 ||!item.refundStatus){
-                            item.orderStatusDesc = orderStatusList[item.orderStatus]  
-                          }else{
-                            item.orderStatusDesc = refundStatusDescList[item.refundStatus]  
-                          }
+                        //   if(item.refundStatus== 0 ||!item.refundStatus){
+                        //     item.orderStatusDesc = orderStatusList[item.orderStatus]  
+                        //   }else{
+                        //     item.orderStatusDesc = refundStatusDescList[item.refundStatus]  
+                        //   }
+                        item.orderStatusDesc = orderStatusList[item.orderStatus]
                          list.push(item) 
                        })
                    }

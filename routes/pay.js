@@ -244,6 +244,16 @@ router.get('/pay/paymentresult',function(req , res , next){ // 微信公众号�
     }
 });
 
+// m端统一支付成功的空白页
+router.get('/pay/payRedirect',function(req , res , next){ // m端支付成功页的空白页
+    try{
+        render("pay/payRedirect", {}, req, res); 
+    }catch(e){
+        error(req , res , next);
+        return;
+    }
+});
+
 
 router.get('/pay/aliPayMidPage',function(req , res , next){ 
     try{

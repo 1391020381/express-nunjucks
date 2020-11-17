@@ -1,0 +1,60 @@
+<!--页面默认展示-->
+<div id="middle-btn">
+    {% if results.list.data.isDownload == "n" %}
+        <div class="btn-data-con">
+            <p>仅供在线阅读</p>
+            <div class="btn-con mt18">
+                <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVipPr" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP，享更多特权</a>
+            </div>
+        </div>
+    {% else %}
+    <div class="btn-data-con direct-dowonload-01">
+        {% if results.list.data.vipFreeFlag === 1%}
+            <div class="btn-con mt18">
+                <a class="btn-state-red pc_click" pcTrackContent="downloadBtn-2" bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>
+            </div>
+        {% else %}
+            {% if results.list.data.perMin == "3" %}
+                <!-- 现金文档,且支持打折 -->
+                {% if results.list.data.vipDiscountFlag and results.list.data.ownVipDiscountFlag%}
+                    <div class="price-item">
+                        <p class="price-text">¥{{results.list.data.moneyPrice}}</p>
+                        <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span>起</p>
+                    </div>
+
+                  <div class="btn-con mt18">
+                      <a class="btn-state-red  js-buy-open btn-buy-solid btn-buy-border pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
+                      <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVip8" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP, 8折起</a>
+                   </div>
+                {%else%}
+
+                 <!-- 现金文档 不支持打折 -->
+                    <div class="price-item">
+                        <div class="price-item">
+                            <p class="price-text">&yen;{{results.list.data.moneyPrice}}</p>
+                        </div>
+                    </div>
+
+                    <div class="btn-con mt18">
+                        <a class="btn-state-red js-buy-open btn-buy-solid pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
+                    </div>
+
+                {% endif %}
+            {% else %}
+                    <!-- 下载券下载 -->
+                {% if results.list.data.volume >0 %}
+                    <p class="ticket-num"><i class="icon-detail"></i>{{results.list.data.volume}}下载券</p>
+                    <div class="btn-con mt18">
+                        <a class="btn-state-red pc_click" pcTrackContent="downloadBtn-2" bilogContent="fileDetailMiddleDown"  data-toggle="download" loginOffer="downloadBtn-2"><i class="icon-detail"></i>立即下载</a>
+                    </div>
+                {% else %}
+                     <!-- 免费下载 -->
+                    <div class="btn-con mt18">
+                        <a class="btn-state-red pc_click" pcTrackContent="downloadBtn-2" bilogContent="fileDetailMiddleDown" data-toggle="download" loginOffer="downloadBtn-2"><i class="icon-detail"></i>立即下载</a>
+                    </div>
+                {% endif %}
+            {%endif%}
+        {% endif%}
+    </div>
+    {% endif %}
+</div>

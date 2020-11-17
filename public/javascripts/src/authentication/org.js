@@ -4,6 +4,8 @@ define(function(require , exports , module){
     require("./fixedTopBar");
     require("./msgVer");
     require('../cmd-lib/toast');
+    var api = require('../application/api'); 
+   var urlConfig =  require('../application/urlConfig')
     var utils = require("../cmd-lib/util");
     var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
@@ -41,7 +43,7 @@ define(function(require , exports , module){
         },
         // 查询认证信息
         queryCerinfo:function(){
-            $.ajax('/gateway/user/certification/getInstitutions', {
+            $.ajax(api.authentication.getInstitutions, { // /gateway/user/certification/getInstitutions
                 type:"get"
             }).done(function(data){
                 if(data.code=="0"){
@@ -93,7 +95,7 @@ define(function(require , exports , module){
                         ]
                         $('.js-organize span').text(organizeIndustryArr[data.data.organizeIndustryType].title);
                         $('.js-organlist').remove();
-                        $('.js-industry span').text(industryTypeArr[data.data.industryType].title);
+                        data.data.industryType?$('.js-industry span').text(industryTypeArr[data.data.industryType].title):"";
                         $('.js-industryTypeList').remove();
                         $('.js-organize-name').val(data.data.organizeName).attr('disabled','disabled');
                         $('.js-website').val(data.data.organizeWebsite).attr('disabled','disabled');
@@ -140,7 +142,7 @@ define(function(require , exports , module){
             var E = Q.event,
             Uploader = Q.Uploader;
             var uploader = new Uploader({
-                url:location.protocol+"//upload.ishare.iask.com/ishare-upload/picUploadCatalog",
+                url:urlConfig.upload + api.upload.picUploadCatalog,
                 target: [document.getElementById("upload-target"),document.getElementById("upload-target2")],
                 upName:'file',
                 dataType: "application/json",
@@ -337,7 +339,7 @@ define(function(require , exports , module){
             }
             params = JSON.stringify(params);
 
-            $.ajax('/gateway/user/certification/institutions', {
+            $.ajax(api.authentication.institutions, { // /gateway/user/certification/institutions
                 type:"POST",
                 data:params,
                 contentType:'application/json'

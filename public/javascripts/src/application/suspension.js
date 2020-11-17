@@ -30,26 +30,21 @@ define(function (require, exports, module) {
                 $anWrap.animate({ "right": "-307px" }, 200);
             }
             if (start && index === 0) {
-                // $(".mui-user-wrap").css("visibility", "visible");
-                // $(".mui-sel-wrap").css("visibility", "hidden");
-                // $(".mui-collect-wrap").css("visibility", "hidden");
+                
                 if (method.getCookie('cuk')) {
                     window.open('/node/rights/vip.html','target');
                 } else {
-                    // login.notifyLoginInterface(function (data) {
-                    //     refreshDomTree(null, index, data);
-                    //     window.open('/node/rights/vip.html','target');
-                    // });
+                    
                     window.open('/node/rights/vip.html','target');
                 }
             } else if (index === 1) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "visible");
-             //   $(".mui-collect-wrap").css("visibility", "hidden");
+           
             } else if (index === 2) {
                 $(".mui-user-wrap").css("visibility", "hidden");
                 $(".mui-sel-wrap").css("visibility", "hidden");
-              //  $(".mui-collect-wrap").css("visibility", "visible");
+            
               method.compatibleIESkip('/node/upload.html',true);
 
             } else if (index === 4 || index === 6) {
@@ -76,7 +71,7 @@ define(function (require, exports, module) {
         });
         // 开通vip
         $fixFull.on('click','.js-buy-open',function(){
-            // window.open('/pay/vip.html');
+           
             method.compatibleIESkip('/pay/vip.html',true);
         })
         $(".op-menu-wrap").click(function (e) {
@@ -175,32 +170,11 @@ define(function (require, exports, module) {
      * 我看过的
      */
     function accessList() {
-        // var accessKey = method.keyMap.ishare_detail_access;
-        // var list = method.getLocalData(accessKey);
+      
         getFileBrowsePage()
     }
 
-    /**
-     * 我的收藏
-     */
-    // function myCollect() {
-    //     var params = {
-    //         pageNum: 1,
-    //         pageSize: 20
-    //     };
-    //     $.ajax(api.user.collect, {
-    //         type: "get",
-    //         async: false,
-    //         data: params,
-    //         dataType: "json"
-    //     }).done(function (res) {
-    //         if (res.code == 0) {
-    //             collectRender(res.data)
-    //         }
-    //     }).fail(function (e) {
-    //         console.log("error===" + e);
-    //     })
-    // }
+   
 
     //新的我的收藏列表
     function myCollect() { // 右侧栏的我的收藏下架
@@ -269,9 +243,7 @@ define(function (require, exports, module) {
      */
     $('.op-feedback').on('click', function () {
         var curr = window.location.href;
-        // window.open('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr));
-        // method.compatibleIESkip('/feedAndComp/userFeedback?url=' + encodeURIComponent(curr),true);
-        // window.location.href = '/feedAndComp/userFeedback?url='+encodeURIComponent(curr);
+       
         method.compatibleIESkip('/node/feedback/feedback.html?url=' + encodeURIComponent(curr),true);
     });
 
@@ -280,25 +252,18 @@ define(function (require, exports, module) {
     });
 
     try {//引入美洽客服
-        (function (m, ei, q, i, a, j, s) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
+        (function(a, b, c, d, e, j, s) {
+            a[d] = a[d] || function() {
+                (a[d].a = a[d].a || []).push(arguments)
             };
-            j = ei.createElement(q),
-                s = ei.getElementsByTagName(q)[0];
+            j = b.createElement(c),
+                s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
-            j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+            j.src = 'https://static.meiqia.com/widget/loader.js';
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
-        _MEIQIA('entId', '149498');
-        // 初始化成功后调用美洽 showPanel
-        _MEIQIA('allSet', function () {
-            _MEIQIA('showPanel');
-        });
-        // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
-        _MEIQIA('manualInit');
-        /*_MEIQIA('init');*/
+        _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
     } catch (e) { }
 
     // 联系客服

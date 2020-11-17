@@ -11,7 +11,8 @@ module.exports = {
             recfile5:'PC_M_H_bjtj5',//首页精选资料-编辑推荐5
             organize:'PC_M_H_qwjg', // 首页权威机构
             hotSearchWord:'PC_M_H_rmss', //热门搜索词
-            friendLink:'PC_M_H_yqlj' //友情链接
+            friendLink:'PC_M_H_yqlj', //友情链接
+            vipqy:'PC_M_H_vipqy'
         },
         categoryPage:{ //分类页
             topbanner_1816:'PC_M_FC_all_1816_topbanner',//顶部banner图

@@ -76,14 +76,12 @@
         <div class="detail-fixed-con cf fl">
             <div class="operation fl">
                 <a class="operation-item reader-fullScreen" title="全屏浏览"><i class="icon-detail"></i></a>
-                {# <a class="operation-item zoom-decrease" title="缩小"><i class="icon-detail"></i></a>
-                <a class="operation-item zoom-add" title="放大"><i class="icon-detail"></i></a> #}
+               
                 <div class="collect-con fl pc" >
-                    <!--收藏 已收藏增加样式 btn-collect-success  title="已收藏"-->
-                    <!-- <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.getUserFileZcState.data.hasCollect}}" title="点击收藏"> -->
+           
                     <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick">
                         <em class="btn-line"></em>
-                        {# <i class="icon-detail"></i> #}
+                       
                         <i class="icon-newdetail"></i>
                     </a>
                     <div class="d-collect hide">
@@ -94,41 +92,8 @@
                         <p class="info mt10">点击个人中心可查看</p>
                     </div>
                 </div>
-                <!--分享 -->
-                <div class="share-con fl">
-                    <div class="share-more">
-                        <span class="arrow"></span>
-                        <span class="arrow-gray"></span>
-                        <div class="bshare-custom cf">
-                            <div class="share-item">
-                                <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
-                            </div>
-                            <div class="share-item">
-                                <a title="分享到微信" class="bshare-weixin"></a>
-                            </div>
-                            <div class="share-item">
-                                <a title="分享到QQ空间" class="bshare-qzone"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="operation-item btn-share" title="分享"><i class="icon-detail"></i></a>
-                </div>
-                <!--评分 -->
-                {# <div class="score-con fl pc_click" bilogContent="fileDetailScore" id="star">
-                    <span class="fl">评分：</span>
-                    <ul class="star-list fl">
-                        <li><a>1</a></li>
-                        <li><a>2</a></li>
-                        <li><a>3</a></li>
-                        <li><a>4</a></li>
-                        <li><a>5</a></li>
-                    </ul>
-                    <div class="d-success hide">
-                        <i class="before"></i>
-                        <i class="after"></i>
-                        <p><i class="icon-success"></i>评分成功</p>
-                    </div>
-                </div> #}
+             
+              
                 {%if results.list.data.fileContentList and results.list.data.totalPage %}
                 <div class="fix-page-con">
                     <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
@@ -172,11 +137,12 @@
             is360page:"{{results.filePreview.data.is360page}}",
             initReadPage: "{{results.filePreview.data.initReadPage}}",
             status:'{{results.filePreview.data.status}}',
+            fileDiscount:'80',
             fileSourceChannel: '{{results.list.data.fileSourceChannel}}',
             old: '{{results.list.data.old}}',
             userTypeId: '{{results.list.data.owner.userTypeId}}',
             fileName: "{{results.list.data.title}}",
-            uid: "{{results.userInfo.data.userId}}",//每个页面必须存在
+            uid: "{{results.list.data.uid}}",//每个页面必须存在
             ptype: 'pindex',
             productType:"{{results.list.data.productType}}",
             productPrice:"{{results.list.data.productPrice}}",
@@ -184,7 +150,6 @@
         },
         params: {
             g_fileExtension: '{{results.list.data.format}}',
-            {# g_fileId: '{{results.list.data.fileId}}',  #}
             g_fileId: '{{results.list.data.id}}',
             g_permin: '{{results.list.data.permin}}',
             file_title: "{{results.list.data.title}}",//需要双引号
@@ -209,9 +174,11 @@
             classidName2: '{{results.list.data.classidName2}}',
             classidName3: '{{results.list.data.classidName3}}',
             is360: '{{results.list.data.is360}}',
-            fileAttr: '{{results.list.data.fileAttr}}',
+            site: '{{results.list.data.site}}',
             isVip:0,
             productType:"{{results.list.data.productType}}",
+            userFileType:"{{results.list.data.userFileType}}",
+            userFilePrice:"{{results.list.data.userFilePrice}}",
             productPrice:"{{results.list.data.productPrice}}"
         },
         report: {
@@ -257,9 +224,7 @@
 <script>
     seajs.use(["dist/application/app.js", "dist/detail/init.js"])
 </script>
-<!--分享插件-->
-<script type="text/javascript" charset="utf-8"
-        src="{{staticUrl}}/buttonLite.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="{{staticUrl}}/bshareC0.js"></script>
 <!-- 百度统计代码 -->
 <script src="{{staticUrl}}/baidu-statistics.js"></script>

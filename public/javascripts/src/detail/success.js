@@ -12,13 +12,13 @@ define(function (require, exports, module) {
     require('swiper');
     var refreshTopBar = require('../application/effect.js').refreshTopBar
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
-    var swiperTemplate = require("../common/template/swiper_tmp.html");
+  
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var getLoginQrcode = require('../application/login').getLoginQrcode
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
-    // require("../common/baidu-statistics");
+   
     var userData = null, initData = {};
     eventBinding();
    
@@ -53,13 +53,6 @@ define(function (require, exports, module) {
             });
         } else {
             unloginBuyStatus();
-            // login.listenLoginStatus(function (res) {
-            //     initData.isVip = parseInt(res.isVip, 10);
-            //     userData = res;
-            //     // 登陆成功绑定userid
-            //     bindOrder(res.userId, res.nickName);
-
-            // });
             // 轮询登录状态
             setTimeout(function () {
               //  getDownUrl()
@@ -102,18 +95,6 @@ define(function (require, exports, module) {
     //游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
         var visitorId = getVisitIdByCookie();
-        // $.get(api.pay.bindUser, {
-        //     'visitorId': visitorId,
-        //     'userId': userId,
-        //     'nickName': nickName
-        // }, function (data) {
-        //     $.toast({
-        //         text: data.msg,
-        //         callback: function () {
-        //             location.reload()
-        //         }
-        //     })
-        // });
         $.ajax({
             url: api.pay.bindUser,
             type: "POST",
@@ -207,17 +188,6 @@ define(function (require, exports, module) {
         var classid3 = qrCodeparams && qrCodeparams.classid3 ? '-' + qrCodeparams.classid3 + '' : '';
         var clsId = classid1 + classid2 + classid3;
         var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
-        // var loginUrl = $.loginPop('login_wx_code', {
-        //     "terminal": "PC",
-        //     "businessSys": "ishare",
-        //     'domain': document.domain,
-        //     "ptype": "ishare",
-        //     "popup": "hidden",
-        //     "clsId": clsId,
-        //     "fid": fid
-        // });
-        // var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
-        // $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
         var loginDom = $('#tourist-login').html()
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
          function touristLoginCallback(res) {
@@ -290,76 +260,6 @@ define(function (require, exports, module) {
             method.compatibleIESkip('/pay/privilege.html' + params,true);
         }
     });
-
-    /**
-     * 刷新顶部状态
-     * @param data
-     */
-    function refreshDomTree(data) {
-        var $unLogin = $('#unLogin'),
-            $hasLogin = $('#haveLogin'),
-            $top_user_more = $('.top-user-more'),
-            $icon_iShare_text = $('.icon-iShare-text'),
-            $btn_user_more = $('.btn-user-more'),
-            $vip_status = $('.vip-status'),
-            $btn_join_vip = $('.btn-join-vip'),
-            $icon_iShare = $(".icon-iShare");
-
-        $icon_iShare_text.html(data.isVip === '1' ? '续费VIP' : '开通VIP');
-        $btn_user_more.text(data.isVip === '1' ? '续费' : '开通');
-
-        if (data.isVip == '0') {
-            $('.open-vip').show().siblings('a').hide();
-        } else {
-            $('.xf-open-vip').show().siblings('a').hide();
-        }
-        var $target = null;
-        //vip
-        if (data.isVip == 1) {
-            $target = $vip_status.find('p[data-type="2"]');
-            $target.find('.expire_time').html(data.expireTime);
-            $target.show().siblings().hide();
-            $top_user_more.addClass('top-vip-more');
-            //vip 已经 过期
-        } else if (data.userType == 1) {
-            $target = $vip_status.find('p[data-type="3"]');
-            $target.show().siblings().hide();
-            // 新用户
-        } else if (data.isVip == 0) {
-            $icon_iShare.removeClass("icon-vip");
-        }
-
-
-        $unLogin.hide();
-        $hasLogin.find('.icon-detail').html(data.nickName);
-        $hasLogin.find('img').attr('src', data.photoPicURL);
-        $top_user_more.find('img').attr('src', data.photoPicURL);
-        $top_user_more.find('#userName').html(data.nickName);
-        $hasLogin.show();
-
-        //右侧导航栏.
-        /* ==>头像,昵称 是否会员文案提示.*/
-        $('.user-avatar img').attr('src', data.photoPicURL);
-        $('.name-wrap .name-text').html(data.nickName);
-        if (data.isVip == '1') {
-            var txt = '您的VIP将于' + data.expireTime + '到期,剩余' + data.privilege + '次下载特权';
-            $('.detail-right-normal-wel').html(txt);
-            $('.detail-right-vip-wel').html('会员尊享权益');
-            $('.btn-mui').hide();
-            $('#memProfit').html('VIP权益');
-            $('.expire-time').show().find('span').html(data.expireTime);
-            $btn_join_vip.find('p[data-type="2"]').show().siblings('a').hide();
-            $('.vip-expire-time').show().find('span').html(data.expireTime);
-            if (data.privilege && data.privilege < 0) {
-                $btn_join_vip.find('p[data-type="3"]').show().siblings('a').hide();
-            }
-        } else {
-            $('.mui-privilege-list li').removeClass('hide');
-            $btn_join_vip.find('p[data-type="1"]').show().siblings('a').hide();
-        }
-
-    }
-
     function eventBinding() {
         var $more_nave = $('.more-nav'),
             $search_detail_input = $('#search-detail-input'),
@@ -553,11 +453,41 @@ define(function (require, exports, module) {
                 }
             })
         }else{
-            login.notifyLoginInterface(function (data) {
-               // common.afterLogin(data);
-             //  refreshDomTree(data)
-             refreshTopBar(data)
-            }); 
+            // login.notifyLoginInterface(function (data) {
+            //    // common.afterLogin(data);
+            //  //  refreshDomTree(data)
+            //  refreshTopBar(data)
+            // }); 
+            console.log(method.getCookie('ui'))
+            var email = $('#dialog-box .form-ipt').val()
+            $.ajax({
+                headers:{
+                    'Authrization':method.getCookie('cuk')
+                },
+                url: api.sms.fileSendEmailVisitor,
+                type: "POST",
+                data: JSON.stringify({
+                    "email": email,
+                    "fid": fid,
+                    "visitorId": getVisitIdByCookie()
+                  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                        console.log(res)
+                        if(res.code == '0'){
+                            $.toast({
+                                text: '发送邮箱成功!',
+                                })
+                          var $dialogBox = $('#dialog-box');
+                            $dialogBox.dialog({}).close();
+                        }else{
+                            $.toast({
+                                text: '发送邮箱失败!',
+                                })
+                        }
+                }
+            })
         }
     })
     

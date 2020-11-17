@@ -153,7 +153,6 @@ body {
   display: inline-block;
   text-align: center;
   font-size: 16px;
-  font-family: Microsoft YaHei;
   font-weight: 400;
   color: #666666;
   line-height: 20px;
@@ -456,7 +455,6 @@ body {
 }
 .search-all-main .search-list-section .search-list-tab a {
   font-size: 16px;
-  font-family: Microsoft YaHei;
   font-weight: 400;
   color: #666666;
 }

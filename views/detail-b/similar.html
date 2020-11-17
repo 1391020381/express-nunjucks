@@ -1,0 +1,62 @@
+<div class="detail-w300 fr">
+    <div id="fix-right">
+    <div class="deail-summary">
+        <div class="deail-summary-price">
+           <div class="file-price"> 
+             {% include "detail-b/fixed.html" %}
+            </div>
+           <ul class="file-other">
+                <li class="file-browse file"> <span class="browse-icon icon"></span> <span class="num">{{results.list.data.readTimes or 0}}</span></li>
+                <li class="file-thumbsup file"> <span class="thumbsup-icon icon"></span> <span class="num">{{results.list.data.praiseNum or 0}}</span></li>
+                <li class="file-collection btn-collect file"  data-fid="{{results.list.data.id}}"> <span class="collection-icon icon"></span> <span class="num">{{results.list.data.collectNum or 0}}</span></li>
+           </ul>
+        </div>
+        <ul class="detail-summary-other">
+             <li class="dividing-line"></li>
+             <li class="item"> <span class="file-type item-left">文件格式: {{results.list.data.format}}</span><span class="file-page item-right">页数: {{results.list.data.totalPage}}页</span></li>  
+             <li class="item"> <span class="file-size item-left">文件大小: {{results.list.data.fileSize}}</span><span class="file-software item-right">软件:  {{results.list.data.software}}</span></li>    
+            <li class="item"> <span class="file-author item-left">上传者: {{results.list.data.usernick}}</span><span class="file-uploadtime item-right">上传时间: {{results.list.data.createtime}}</span></li> 
+            <li class="item report-link"><span class="infringement-report-icon"></span> <span class="infringement-report-desc">侵权/举报 ></span></li>   
+        </ul>
+    </div>
+        <div class="fix-right-bannertop">
+            {% if results.getBannerList.rightTopBanner.list.length>0 %}
+             <div class="swiper-container  fix-right-swiperbannertop">
+               <div class="swiper-wrapper">
+           {%for item in  results.getBannerList.rightTopBanner.list %}
+            <div class="swiper-slide" >
+               <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
+                 <img class="swiper-slide-img" src="{{item.imagUrl}}">
+               </a>
+            </div>
+           {%endfor%}
+               </div>  
+             </div>
+            {%endif%}    
+        </div>
+
+        {% if results.RelevantInformationList.data.length>0 %}
+        <div class="related-data " pcTrackContent="relateFiles-new" >
+            <h2 class="related-data-title">相关推荐</h2>
+            <ul class="related-data-list">
+                {% for item in results.RelevantInformationList.data%}
+                 <li  class="item" data-id="{{item.id}}" bilogContent="similarFileClick" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
+                <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
+                    {% if item.cover_url %}
+                     <img class="img" src="{{item.cover_url}}" alt="{{item.name}}"/>
+                    {% else %}
+                     <img class="img" src="{{cdnUrl}}/images/default-picture.png" alt="{{item.name}}"/>
+                    {% endif%}
+                      <p class="item-name">{{item.name}}</p>
+            </a>
+             </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,478 @@
+@charset "utf-8";
+.personal-center-mywallet .mywallet .mywallet-summary {
+  padding: 30px 60px 0 40px;
+  background: #ffffff;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-title {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-tabs {
+  *zoom: 1;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-tabs:after {
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-tabs .tab {
+  float: left;
+  margin-right: 30px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-tabs .tab-active {
+  border-bottom: solid 2px #F25226;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-tabs .tab-active a {
+  color: #222222;
+  font-weight: bold;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance {
+  margin-top: 36px;
+  margin-bottom: 42px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary {
+  display: inline-block;
+  position: relative;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary:hover .balance-summary-tip {
+  display: block;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip {
+  display: none;
+  position: absolute;
+  left: 50px;
+  top: -40px;
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #f7e9d5;
+  background-color: #f8f8f8;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con {
+  width: 100%;
+  height: 100%;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con .before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid #f7e9d5;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  position: absolute;
+  bottom: -16px;
+  left: 15px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-summary .balance-summary-tip .balance-summary-tip-con .after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid #f8f8f8;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  position: absolute;
+  bottom: -15px;
+  left: 15px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-title {
+  display: inline-block;
+  font-size: 16px;
+  color: #656565;
+  vertical-align: bottom;
+  margin-bottom: 4px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url("../../images/personalCenter/question-mark.png") no-repeat center;
+  background-size: 100%;
+  vertical-align: bottom;
+  margin-bottom: 4px;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-icon:hover .bean-info {
+  display: block;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-sum {
+  margin-left: 10px;
+  display: inline-block;
+  font-size: 30px;
+  color: #212121;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-unit {
+  font-size: 13px;
+  color: #212121;
+  vertical-align: bottom;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.personal-center-mywallet .mywallet .mywallet-summary .mywallet-balance .balance-reflect {
+  margin-left: 18px;
+  display: inline-block;
+  width: 72px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #f35b31;
+  border: 1px solid #f35b31;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+}
+.personal-center-mywallet .mywallet .mywallet-dividing-line {
+  width: 100%;
+  height: 10px;
+  background: #F2F3F3;
+}
+.personal-center-mywallet .mywallet .survey-content {
+  padding: 30px 60px 0 40px;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-icon {
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  vertical-align: middle;
+  background: #666666;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-desc {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #333333;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-subdesc {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #ADADAD;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-tip .survey-tip-subdesc .qq {
+  color: #707070;
+  font-style: normal;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select {
+  margin-top: 14px;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select .start-time {
+  font-size: 14px;
+  color: #555555;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select .start-time-input {
+  margin-left: 6px;
+  display: inline-block;
+  width: 128px;
+  height: 24px;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select .end-time {
+  margin-left: 20px;
+  font-size: 14px;
+  color: #555555;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select .end-time-input {
+  margin-left: 6px;
+  display: inline-block;
+  width: 128px;
+  height: 24px;
+}
+.personal-center-mywallet .mywallet .survey-content .survey-content-select .select-btn {
+  margin-left: 20px;
+  display: inline-block;
+  width: 80px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #f35b32;
+  border-radius: 2px;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list {
+  margin-top: 40px;
+  color: #666666;
+  position: relative;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .suervery-table-title {
+  border-bottom: solid 1px #f4f4f4;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .suervery-table-title th {
+  padding-bottom: 5px;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .suervery-table-item td {
+  padding-top: 18px;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .suervery-table-item .export-details-btn {
+  display: inline-block;
+  width: 70px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  border: 1px solid #f25125;
+  border-radius: 2px;
+  font-size: 12px;
+  color: #F25125;
+  cursor: pointer;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .empty-data {
+  position: absolute;
+  margin-left: -158px;
+}
+.personal-center-mywallet .mywallet .survey-content .suervery-table-list .empty-data .go2upload {
+  display: block;
+  margin-top: 37px;
+  margin-left: 44px;
+  width: 206px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: #f25125;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record {
+  margin-top: 47px;
+  margin-bottom: 42px;
+}
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url("../../images/personalCenter/question-mark-yellow.png") no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .mywallet-withdrawal-record .withdrawal-record-desc {
+  margin-bottom: 38px;
+  font-size: 14px;
+  color: #656565;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list {
+  margin: 30px 60px 0 40px;
+  background: #ffffff;
+  position: relative;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-title {
+  border-bottom: solid 1px #f4f4f4;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-title th {
+  padding-bottom: 5px;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item td {
+  padding-top: 18px;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed {
+  position: relative;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-desc {
+  display: inline-block;
+  font-size: 13px;
+  color: #F25125;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-icon {
+  margin-left: 2px;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('../../images/personalCenter/home-attention.png') no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed:hover .audit-failed-reason {
+  display: block;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-reason {
+  display: none;
+  position: absolute;
+  left: 10px;
+  top: -50px;
+  width: 190px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #f7e9d5;
+  background-color: #f8f8f8;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-reason .before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid #f7e9d5;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  position: absolute;
+  bottom: -16px;
+  left: 58px;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .withdrawal-record-table-item .audit-failed .audit-failed-reason .after {
+  width: 0;
+  height: 0;
+  border-top: 8px solid #f8f8f8;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+  position: absolute;
+  bottom: -15px;
+  left: 58px;
+}
+.personal-center-mywallet .mywallet .withdrawal-record-table-list .empty-data {
+  position: absolute;
+  margin-left: -158px;
+}
+.personal-center-mywallet .mywallet .mywallet-financial-records {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.personal-center-mywallet .mywallet .mywallet-financial-records .financial-records-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url(../../images/personalCenter/question-mark.png) no-repeat center;
+  background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .mywallet-financial-records .financial-records-desc .qq {
+  color: #F25226;
+}
+.personal-center-mywallet .mywallet .financial-records-content {
+  padding: 30px 60px 0 40px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .label-item {
+  margin-bottom: 16px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .label-item .item-desc {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #666666;
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+.personal-center-mywallet .mywallet .financial-records-content .label-item .required {
+  position: relative;
+}
+.personal-center-mywallet .mywallet .financial-records-content .label-item .required em {
+  position: absolute;
+  color: red;
+}
+.personal-center-mywallet .mywallet .financial-records-content .certification-type .item-content {
+  font-size: 14px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .account-name em {
+  left: 46px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .account-name .item-content {
+  font-size: 14px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .account-name .item-account-name {
+  display: inline-block;
+  width: 330px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-province {
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening .item-city {
+  margin-left: 10px;
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .placeof-account-opening em {
+  left: 40px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank .item-bank {
+  display: inline-block;
+  width: 160px;
+  height: 34px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank .item-bank-name {
+  margin-left: 10px;
+  display: inline-block;
+  width: 160px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank em {
+  left: 27px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .item-openingbank-name {
+  display: inline-block;
+  width: 330px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+  text-indent: 10px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .openingbank-name-tip {
+  margin-left: 30px;
+  display: inline-block;
+  width: 308px;
+  vertical-align: middle;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank .openingbank-name-tip span {
+  display: block;
+}
+.personal-center-mywallet .mywallet .financial-records-content .fullnameof-opening-bank em {
+  left: 13px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number .item-openingbank-num {
+  width: 330px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+  text-indent: 10px;
+  color: #222222;
+}
+.personal-center-mywallet .mywallet .financial-records-content .receiving-bank-card-number em {
+  left: 0px;
+}
+.personal-center-mywallet .mywallet .financial-records-content .item-disabled {
+  color: #999999 !important;
+  background: #F8F8F8 !important;
+  border: 1px solid #DDDDDD !important;
+}
+.personal-center-mywallet .mywallet .financial-records-btn {
+  margin-top: 60px;
+}
+.personal-center-mywallet .mywallet .financial-records-btn .submit-btn {
+  display: inline-block;
+  width: 228px;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  background: #f25226;
+  border-radius: 3px;
+  font-size: 22px;
+  color: #FFFFFF;
+  cursor: pointer;
+}

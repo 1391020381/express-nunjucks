@@ -61,14 +61,6 @@ define(function (require, exports, module) {
                 successReload(data);
             });
         }
-        // if (!method.getCookie('cuk') && !userData) {
-        //     login.notifyLoginInterface(function (data) {
-        //         userData = data;
-        //         initData.isVip = parseInt(data.isVip, 10);
-        //         refreshDomTree(data);
-        //         successReload(data);
-        //     })
-        // }
     }
 
     //游客购买成功绑定购买记录
@@ -82,7 +74,7 @@ define(function (require, exports, module) {
         params = JSON.stringify(params);
         $.ajax({
             type: 'get',
-            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),
+            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),   // node接口
             contentType: "application/json;charset=utf-8",
             data: params,
             success: function (data) {

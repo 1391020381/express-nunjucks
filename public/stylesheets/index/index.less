@@ -326,7 +326,7 @@
 
         .top-bar-right {
           position: absolute;
-          right: 0px;
+          right: 90px;
           top: 12px;
           height: 30px;
           line-height: 30px;
@@ -889,7 +889,7 @@
 			padding:34px 30px 43px;
 			.user-top{
 				overflow: hidden;
-				padding-bottom: 24px;
+				padding-bottom: 8px;
 				border-bottom: 1px solid #F4F4F4;
 				.avatar-frame {
 					width: 56px;
@@ -934,7 +934,40 @@
 					.info-des{
 						font-size: 12px;
 						color: #888;
-						margin-top: 5px;
+            margin-top: 8px;
+            .whole-station-vip{
+              .whole-station-vip-icon{
+                 display: inline-block;
+                 width: 18px;
+                 height: 16px;
+                 background:url("../../images/personalCenter/whole-station-vip-icon.png") no-repeat center;
+                 background-size: 100%;
+                 vertical-align: middle;
+              }
+              .endtime{
+                  margin-left:4px;
+                  font-size: 12px;
+                  color: #888888;
+                  vertical-align: middle;
+              }
+            }
+            .office-vip{
+              margin-top:8px;
+              .office-vip-icon{
+                 display: inline-block;
+                 width: 18px;
+                 height: 16px;
+                 background:url("../../images/personalCenter/office-vip-icon.png") no-repeat center;
+                 background-size: 100%;
+                 vertical-align: middle;
+              }
+              .endtime{
+                margin-left:4px;
+                font-size: 12px;
+                color: #888888;
+                vertical-align: middle;
+            }
+            }
 					}
 				}
 			}
@@ -942,29 +975,42 @@
 				ul{
 					overflow: hidden;
 					margin-top: 5px;
-					li{
+					.vipqy{
 						float: left;
 						color: #987C49;
 						font-size: 12px;
-						padding-left: 30px;
+						// padding-left: 30px;
 						height: 21px;
 						line-height: 21px;
-						width: 82px;
-						margin-top: 18px;
-						&.special{
-							background: url(../../images/index/vip_down.png) left center no-repeat;
-						}
-						&.discount{
-							background: url(../../images/index/discount_icon.png) left center no-repeat;
-						}
-						&.free{
-							background: url(../../images/index/free_icon.png) left 4px center no-repeat;
-						}
-						&.identical{
-							background: url(../../images/index/identical_icon.png) left center no-repeat;
-						}
+						// width: 82px;
+            margin-top: 18px;
+            .vipqy-img{
+              display: inline-block;
+              width: 25px;
+              height: 21px;
+              vertical-align: middle;
+            }
+            .vipqy-desc{
+              margin-left:6px;
+              display: inline-block;
+              max-width: 72px;
+              vertical-align: middle;
+              .text-ellipsis();
+            }
+						// &.special{
+						// 	background: url(../../images/index/vip_down.png) left center no-repeat;
+						// }
+						// &.discount{
+						// 	background: url(../../images/index/discount_icon.png) left center no-repeat;
+						// }
+						// &.free{
+						// 	background: url(../../images/index/free_icon.png) left 4px center no-repeat;
+						// }
+						// &.identical{
+						// 	background: url(../../images/index/identical_icon.png) left center no-repeat;
+						// }
 						&:nth-child(2n) {
-							margin-left: 6px;
+							margin-left: 16px;
 						}
 					}
 				

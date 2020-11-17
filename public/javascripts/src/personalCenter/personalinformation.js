@@ -13,11 +13,11 @@ define(function(require , exports , module){
     if(type == 'personalinformation'){
         isLogin(initData,true)
     }
-    function initData(){
-        getUserCentreInfo(getUserCentreInfoCallBack)
+    function initData(data){
+        getUserCentreInfo(getUserCentreInfoCallBack,data)
     }
     function getUserCentreInfoCallBack(userInfo,editUser){
-        console.log('userInfo:',userInfo)
+       
         getProvinceAndCityList(userInfo)
         var personalinformation = require("./template/personalinformation.html")
         // userInfo.prov = '北京市'
@@ -56,7 +56,7 @@ define(function(require , exports , module){
                 })
             }
         })
-        console.log('provinceList:',provinceList,'cityList:',cityList)
+       
     }
    
     function editUser(gender,birthday,prov,city,email){
@@ -77,7 +77,7 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                console.log('editUser:',res)
+              
                 initData()
                }else{
                 $.toast({
@@ -87,7 +87,7 @@ define(function(require , exports , module){
                }
             },
             error:function(error){
-                console.log('editUser:',error)
+               
             }
         })
     }

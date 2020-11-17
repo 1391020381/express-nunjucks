@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/head.html" %}
+    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_detail.css">
+    
+</head>
+<script>
+    var _speedMark = +new Date(),
+        _version = "{{version}}",
+        _head = "{{cdnUrl}}";
+</script>
+<body>
+<input type="hidden" id="ip-page-id" value="PC-M-DOWN-FAIL">
+<input type="hidden" id="ip-page-name" value="下载失败页">
+{% include "common/js.html" %}
+{% include "detail/header.html" %}
+
+<div class="pw">
+    <div class="down-carding-main">
+        <div class="carding-info-con">
+            <a  href="javascript:window.history.go(-1)" class="btn-back"><i class="icon-back"></i>返回</a>
+            <div class="carding-fail-item">
+                <h2 class="pay-fail-text"><i class="icon-fail"></i>对不起，您本次下载失败</h2>
+                <div class="btn-carding-more">
+                    <a href="javascript:window.history.go(-1)" class="btn-carding-info">重新下载</a>
+                </div>
+            </div>
+            <div class="carding-contact-con">
+                <div class="carding-contact-item">
+                    <i class="icon-contact"></i>
+                    <div class="contact-text">
+                        <h2 class="contact-title">如果还存在问题，请联系我们</h2>
+                        <p><span class="gray-color">Q Q：</span>51211212</p>
+                        <p><span class="gray-color">微信：</span>9925234790</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-con">
+    <div class="pw footer">
+        <div class="copy-con">
+            <p class="footer-nav">
+                <a href="/agreement.html" rel="nofollow" target="_blank">网站声明</a>
+                <span class="line"></span>
+                <a href="/infringement.html" rel="nofollow" target="_blank">侵权处理</a>
+                <span class="line"></span>
+                <a href="//iask.sina.com.cn/helpCenter/ishare.html" rel="nofollow" target="_blank">帮助中心</a>
+                <span class="line"></span>
+                <a href="//iask.sina.com.cn" rel="nofollow" target="_blank">爱问首页</a>
+                <span class="line"></span>
+                <a href="/sitemap.html" rel="nofollow" target="_blank">网站地图</a>
+                <span class="line"></span>
+                <a href="/feedAndComp/userFeedback" rel="nofollow" target="_blank">意见反馈</a>
+            </p>
+            <p class="copy-txt">Copyright &copy; 1996-2020 IASK Corporation, All Right Reserved</p>
+        </div>
+    </div>
+</div>
+<script>
+    window.pageConfig = {
+        report: {},
+        params:{
+            isVip:0,
+        }
+    }
+</script>
+<script>
+    seajs.use(["dist/application/app.js", "dist/detail/fail.js"])
+</script>
+<!-- 百度统计代码 -->
+<script src="{{staticUrl}}/baidu-statistics.js"> </script>
+</body>
+</html>

@@ -36,7 +36,7 @@
         {% include "pay/header.html" %}
     {% endif %} #}
 
-{% include "common/websiteHeaderbar.html" %}
+    {% include "common/websiteHeaderbar.html" %}
     {% if results.flag === 'true' %}
         {% include "pay/success.html" %}
     {% elif results.flag === 'false'%}
@@ -77,6 +77,7 @@
                 ownVipDiscountFlag:"{{results.fileDetails.ownVipDiscountFlag}}",
                 ftype:'{{results.fileDetails.payType}}',                    
                 format:"{{results.fileDetails.format}}",
+                title:"{{results.fileDetails.title}}",
                 fileSize:"{{results.fileDetails.fileSize}}",
                 referrer:"{{results.fileDetails.referrer}}",
                 g_permin:"{{results.fileDetails.g_permin}}" ,

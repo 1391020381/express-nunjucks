@@ -1,0 +1,47 @@
+<!--已绑定增加样式  carding-binding-ok 移除绑定模块 -->
+<div class="carding-info-bottom previousContainer cf">
+    <div class="carding-binding fl">
+        <!--绑定信息 start -->
+        <div class="binging-main">
+            <p class="carding-error hide"><i class="icon-error"></i><span>错误提示</span></p>
+            {# <h3 class="bottom-title">绑定手机号<span class="bottom-zs">送1下载券</span></h3> #}
+            <div class="binding-item binding-number-item">
+                {% include "./phonechoice.html" %}
+            </div>
+            <div class="binding-item binding-code-item cf">
+                <div class="binding-input-con fl">
+                    <input type="text" id="ip-checkCode" class="text-input" placeholder="请输入验证码">
+                </div>
+                <input type="hidden" name="businessCode" value="5">
+                <!--不可点击增加样式 btn-code-no -->
+                <a class="btn-binding-code btn-code-no fr yz-link">获取验证码</a>
+                <p class="btn-binding-code btn-code-no fr yz-time" style="display: none;">60秒后重发</p>
+            </div>
+            <!--不可点击增加样式 btn-binging-no -->
+            <div class="binding-item">
+            {# <a class="btn-binging btn-none-bind f1">返回下载</a> #}
+            <a class="btn-binging btn-none-bind btn-binging-no">立即绑定</a>
+            <a class="btn-binging btn-bind pc_click" bilogContent="downSuccessBindPhone" style="display: none;">立即绑定</a>
+            </div>
+        </div>
+        <!--绑定信息 end-->
+        <!--绑定成功 start -->
+        <div class="binging-success hide">
+            <i class="icon-b-success"></i>
+            <p>绑定成功!</p>
+        </div>
+        <!--绑定成功 end -->
+    </div>
+    <!--关注二维码 start -->
+    <div class="carding-er-code fr">
+        <div class="er-line"></div>
+        <h3 class="bottom-title">扫码关注微信服务号</h3>
+        <p class="bottom-zs">更多福利优先领取</p>
+        <div class="er-pic">
+            <img src="{{cdnUrl}}/images/pic_code_150x150.jpg">
+        </div>
+    </div>
+    <!--关注二维码 end -->
+</div>
+{# <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script> #}
+{# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}

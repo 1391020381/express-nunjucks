@@ -2,7 +2,7 @@
 @import "../less-public/_less_mixin";
 .personal-center-home{
     .personal-summarys{
-        padding:56px 0;
+        padding-top:49px;
         background: #ffffff;
         .cf();
         .summary{
@@ -39,71 +39,25 @@
                     display: block;
                 }
               }
-            .bean-info{
-                display: none;
-                padding-top: 13px;
-                position: absolute;
-                width: 356px;
-                right: -20px;
-                top: 16px;
-                z-index: 10;
-                background-color: transparent;
-                cursor: default;
-                .bean-info-con{
-                    background-color: #f8f8f8;
-                    padding: 10px 10px 10px 20px;
-                    border: 1px solid #f7e9d5;
-                   position: relative;
-                   border-radius: 2px;
-                   .before{
-                    width: 0;
-                    height: 0;
-                    display: block;
-                    overflow: hidden;
-                    border-width: 6px;
-                    border-style: dashed dashed solid dashed;
-                    border-color: transparent transparent #f8f8f8 transparent;
-                    position: absolute;
-                    right: 22px;
-                    top: -11px;
-                    z-index: 2;
-                   }
-                   .after{
-                    width: 0;
-                    height: 0;
-                    display: block;
-                    overflow: hidden;
-                    border-width: 6px;
-                    border-style: dashed dashed solid dashed;
-                    border-color: transparent transparent #f8f8f8 transparent;
-                    position: absolute;
-                    right: 22px;
-                    top: -11px;
-                    z-index: 2;
-                    border-bottom-color: #f7e9d5;
-                    z-index: 1;
-                    top: -12px;
-                   }
-                   .bean-info-txt{
-                    position: relative;
-                    line-height: 20px;
-                    padding-left: 12px;
-                    font-size: 13px;
-                    color: #666;
-                    word-break: break-all;
-                    word-wrap: break-word;
-                    text-align: left;
-                    .unit {
-                        width: 12px;
-                        height: 20px;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        display: block;
-                    }
-                   }
-                }
-            }
+            
+          }
+          .privileges{
+            margin-top:10px;
+            margin-bottom: 20px;
+            width: 77px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            border: 1px solid #F25226;
+            border-radius: 11px; 
+            font-size:13px;
+             color:#F25226;
+             cursor: pointer;
+          }
+          .occupying-effect{
+              display: none;
+              color:#fff;
+              border: 1px solid #fff;
           }
         } 
         .summary:nth-child(1){
@@ -112,21 +66,51 @@
         }
         .summary:nth-child(3){
             margin-left:95px;
-            margin-right: 212px;
+            margin-right: 60px;
         }
         .summary:last-child{
-            .go2vip{
-               display: block;
-               width: 272px;
-               height: 68px;
-               cursor: pointer;
+           position: relative;
+           .left-border{
+               position: absolute;
+               left:0;
+               top:-15px;
+               width:1px;
+               height:100px;
+               background:rgba(242,243,243,1);
+           }
+           .whole-station-vip{
+               margin-left:60px;
+               width:138px;
+               .whole-station-vip-img{
+                   display: block;
+                   width: 138px;
+                   height: 31;
+               }
+               .whole-station-vip-endtime{
+                    margin-top:20px;
+                    font-size:16px;
+                    color: #343434;
+               }
+           }
+           .office-vip{
+               margin-left:50px;
+            .office-vip-img{
+                display: block;
+                width: 138px;
+                height: 31;
             }
+            .office-vip-endtime{
+                 margin-top:20px;
+                 font-size:16px;
+                 color: #343434;
+            }
+           }
         }
     }
     .advertisement{
         margin-top:10px;
         width: 940px;
-        height: 142px;
+        // height: 142px;
         .personalCenter-home-swiper-container{
             margin: 0 auto;
             // margin-top: 20px;
@@ -212,7 +196,7 @@
     .opentvip{
         margin-top:10px;
         text-align: center;
-        padding:45px 100px 50px 100px;
+        padding:45px 60px 50px 60px;
         background: #ffffff;
         .opentvip-title{
             font-size: 16px;
@@ -236,8 +220,8 @@
                font-size: 12px;
                .item-img{
                  display: inline-block;
-                  width: 34px;
-                  height: 34px; 
+                  width: 56px;
+                //   height: 56px; 
                }
                .item-desc{
                    margin-top: 10px;

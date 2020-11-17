@@ -15,8 +15,8 @@ define(function(require , exports , module){
     if(type == 'accountsecurity'){
         isLogin(initData,true)
     }
-    function initData(){
-        getUserCentreInfo()
+    function initData(data){
+        getUserCentreInfo(null,data) 
         queryUserBindInfo()
     }
     function queryUserBindInfo() {  // 查询用户绑定信息

@@ -37,6 +37,7 @@ module.exports = {
             },
         } , function(err, results){
             // console.log(results)
+            res.status(404)
             render("404", results, req, res);
         })
     }
