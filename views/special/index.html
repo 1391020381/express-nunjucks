@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    {% if results.tdk.canonicalUrl %}
-    <link rel="canonical" href="{{results.tdk.canonicalUrl}}" />
-    {% endif%}
+  
     {% include "common/head.html" %}
+    {% if results.tdk.canonicalUrl %}
+    <link rel="canonical" href="https://ishare.iask.sina.com.cn{{results.tdk.canonicalUrl}}" />
+    {% endif%}
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css" />
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/ishare_special.css" />
 </head>
@@ -13,6 +14,7 @@
     var _version = "{{version}}";
     var _head = "{{cdnUrl}}";
     var env = "{{env}}";
+    var loginUrl = "{{loginUrl}}"
 </script>
 <body>
  {% include "common/js.html" %}

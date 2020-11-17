@@ -47,7 +47,7 @@ define(function(require , exports , module){
                     handlePagination(res.data.totalPages,res.data.pageNumber) 
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }

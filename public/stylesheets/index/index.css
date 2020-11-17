@@ -7,7 +7,6 @@
   height: 330px;
   position: relative;
   border-radius: 2px;
-  overflow: hidden;
 }
 .index-header .index-banner:hover .btn-banner {
   display: block;
@@ -140,6 +139,7 @@
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-item:hover .category-more {
   display: block;
+  max-height: 274px;
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-item:hover .icon-ele-arrow {
   transform: rotate(180deg);
@@ -230,6 +230,10 @@
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-more .more-inter {
   padding: 18px 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 .index-header .index-banner .banner-container .banner-wraper .office-category .category-more span:nth-child(1) {
   width: 0;
@@ -294,9 +298,85 @@
   background-color: #f25125;
   color: #fff;
 }
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more {
+  display: none;
+  max-width: 360px;
+  width: 280px;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-inter {
+  padding: 18px 20px;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more span:nth-child(1) {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 5px solid rgba(204, 204, 204, 0);
+  position: absolute;
+  top: -7px;
+  left: 65px;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more span:nth-child(2) {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 5px solid #fff;
+  position: absolute;
+  top: -5px;
+  left: 34px;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-title {
+  height: 54px;
+  line-height: 54px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222222;
+  border-bottom: 1px solid #eee;
+  padding-left: 14px;
+  position: relative;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-title .b-title {
+  width: 4px;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  display: block;
+  left: 0;
+  background-color: #4c8de6;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-list {
+  font-size: 13px;
+  line-height: 30px;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-list li {
+  float: left;
+  *display: inline;
+  border-radius: 3px;
+  width: 112px;
+  max-width: 160px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-list li a {
+  color: #888;
+  padding: 3px 8px;
+}
+.index-header .index-banner .banner-container .banner-wraper .office-category .loadMore .category-more .more-list li a:hover {
+  background-color: #f25125;
+  color: #fff;
+}
 .index-header .index-banner .banner-container .banner-wraper .top-bar-right {
   position: absolute;
-  right: 90px;
+  right: 80px;
   top: 12px;
   height: 30px;
   line-height: 30px;
@@ -1197,12 +1277,39 @@
   cursor: pointer;
   margin-top: 13px;
 }
+.seo-upload-new .tab-list .tab {
+  display: none;
+  border-bottom: 1px solid #DDDDDD;
+}
+.seo-upload-new .tab-list .tab .tab-item {
+  display: inline-block;
+  padding: 10px 23px;
+  color: #999999;
+  cursor: pointer;
+  position: relative;
+}
+.seo-upload-new .tab-list .tab .tab-item .icon {
+  position: absolute;
+  left: 0;
+  top: 12;
+  width: 1px;
+  height: 12px;
+  background: #DDDDDD;
+}
+.seo-upload-new .tab-list .tab .item-active {
+  color: #F25125;
+  border-bottom: 2px solid #F25125;
+}
+.seo-upload-new .tab-list .active {
+  display: block;
+}
 .seo-upload-new .upload-list {
   overflow: hidden;
   margin-left: -24px;
   display: none;
 }
 .seo-upload-new .upload-list.current {
+  margin-top: 28px;
   display: block;
 }
 .seo-upload-new .upload-list li {

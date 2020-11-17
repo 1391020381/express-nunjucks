@@ -37,7 +37,7 @@ define(function(require , exports , module){
                     $(".personal-center-accountsecurity").html(_accountsecurityTemplate);
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 }) 
                }
@@ -70,7 +70,7 @@ define(function(require , exports , module){
                   queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -113,7 +113,7 @@ define(function(require , exports , module){
                 }
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 }) 
                }
@@ -146,7 +146,7 @@ define(function(require , exports , module){
                 }
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -211,7 +211,7 @@ define(function(require , exports , module){
                 }) 
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }
@@ -219,7 +219,7 @@ define(function(require , exports , module){
             error:function(error){
                 console.log('sendSms:',error)
                 $.toast({
-                    text:error.msg||'获取验证码错误',
+                    text:error.message||'获取验证码错误',
                     delay : 3000,
                 }) 
             }
@@ -252,7 +252,7 @@ define(function(require , exports , module){
                   queryUserBindInfo()  
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 }) 
                }
@@ -328,7 +328,7 @@ define(function(require , exports , module){
                 queryUserBindInfo()  // 当用户绑定信息修改后, 请求接口刷新
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                 myWindow.close()
@@ -338,7 +338,7 @@ define(function(require , exports , module){
                 myWindow.close()
                 console.log('userBindThird:',error)
                 $.toast({
-                    text:error.msg,
+                    text:error.message,
                     delay : 3000,
                 }) 
             }

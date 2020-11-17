@@ -50,7 +50,7 @@ define(function(require , exports , module){
                   handlePagination(res.data.totalPages,res.data.currentPage,'mydownloads')
              }else{
               $.toast({
-                  text:res.msg,
+                  text:res.message,
                   delay : 3000,
               })
              }
@@ -95,7 +95,7 @@ define(function(require , exports , module){
               handlePagination(res.data.totalPages,res.data.currentPage,'mycollection') 
          }else{
           $.toast({
-              text:res.msg,
+              text:res.message,
               delay : 3000,
           })
          }

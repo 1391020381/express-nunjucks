@@ -80,14 +80,14 @@ define(function (require, exports, module) {
             success: function (data) {
                 if (data && data.code == 0) {
                     $.toast({
-                        text: data.msg,
+                        text: data.message,
                         callback: function () {
                             location.reload()
                         }
                     })
                 } else {
                     $.toast({
-                        text: data.msg,
+                        text: data.message,
                     })
                 }
             },
@@ -126,11 +126,11 @@ define(function (require, exports, module) {
                 location.href = data.data.dowUrl
             } else if (data.code == 41003) {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             } else {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             }
         });

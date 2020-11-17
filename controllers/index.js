@@ -75,8 +75,8 @@ module.exports = {
                 // }
             },
             categoryList:function(callback) {
-                // console.log(appConfig.apiNewBaselPath+api.index.navList)
-                req.body = {"site":4,"deeplevel":2};
+              
+                req.body = {"site":4,"terminal":0,level:2};
                 server.post(appConfig.apiNewBaselPath+api.index.navList, callback, req);
             },
             // 热门专题（晒内容）
@@ -85,7 +85,7 @@ module.exports = {
                 req.body = {
                     type: 'topic',
                     currentPage:1,
-                    pageSize:48,
+                    pageSize:200,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
@@ -95,7 +95,7 @@ module.exports = {
                 req.body = {
                     type: 'new',
                     currentPage:1,
-                    pageSize:48,
+                    pageSize:200,
                     siteCode:4
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.randomRecommend, callback, req);
@@ -103,20 +103,39 @@ module.exports = {
             // 推荐信息（晒内容）
             hotRecData:function(callback){
                 req.body = {
-                    contentType: 100,
                     clientType:0,
-                    pageSize:12,
-                    siteCode:4
+                    pageSize:200
                 };
                 server.post(appConfig.apiNewBaselPath+api.index.listContentInfos, callback, req);
             }
 
         } , function(err, results){
-            // console.log(JSON.stringify(results),'results')
+           
             if(err){
                 next(err)
             }
-            try{
+            try{ 
+              
+                if(results.categoryList&&results.categoryList.data){
+                   
+                    var  preContent = results.categoryList.data.slice(0,5)
+                    var temp = results.categoryList.data.slice(5)
+                    var nextContent = {id:'', "name": "更多", class:'loadMore',frontAllCategoryVOList:[]}
+                    temp.forEach(item=>{
+                        nextContent.frontAllCategoryVOList.push({
+                            nodeCode:item.nodeCode,
+                            name:item.name,
+                            url:item.url
+                        })
+                    })
+                    if(nextContent.frontAllCategoryVOList.length){
+                        results.categoryList.data =  preContent.concat([nextContent])
+                      
+                    }else{
+                        results.categoryList.data =  preContent
+                    }
+                     
+                }
                 if(results.hotTopicSeo && results.hotTopicSeo.data){
                     results.topicPagtotal = results.hotTopicSeo.data.length
                 }
@@ -221,11 +240,7 @@ module.exports = {
     
                     results.recfileArr = recfileArr;
                 }  
-                // console.log(JSON.stringify(results),'results--------------------------end---------------')
-                // console.warn(JSON.stringify(results.friendLink),'friendLink')
-                // console.warn(JSON.stringify(results.recfileArr),'----------------results.recfileArr')
-                // console.warn(JSON.stringify(results.paradigm4Relevant),'paradigm4Relevant')
-                // console.log(results,'index***************************')
+              
                 results.officeUrl = appConfig.officeUrl
                 render("index/index",results,req,res,next);  
             }catch(e){

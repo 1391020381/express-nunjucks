@@ -15,8 +15,8 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
-                    console.log('请求地址get-------------------:',opt.url)
-                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                    console.log('请求地址get-------------------:', opt.url)
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -26,6 +26,7 @@ module.exports = {
             }
         })
     },
+    
     post: function (url, callback, req) {
         var opt = this.postPaymentType(req, url, '');
         request(opt, (error, response, body) => {
@@ -40,9 +41,9 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
-                    console.log('请求地址post-------------------:',opt.url)
-                    console.log('请求参数-------------------:',req.body)
-                    console.log('返回code------:'+data.code,'返回msg-------:'+data.msg)
+                    console.log('请求地址post-------------------:', opt.url)
+                    console.log('请求参数-------------------:', req.body)
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -52,6 +53,7 @@ module.exports = {
             }
         })
     },
+
     getPaymentType: function (req, url, id, append) {
         if (id) {
             url = url.replace(/\$id/, id);
@@ -65,10 +67,11 @@ module.exports = {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization':req.cookies.cuk
+                'Authrization': req.cookies.cuk
             }
         };
     },
+
     postPaymentType: function (req, url, id) {
         return {
             url: id ? url.replace(/\$id/, id) : url,
@@ -78,13 +81,14 @@ module.exports = {
                 "content-type": "application/json",
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization':req.cookies.cuk
+                'Authrization': req.cookies.cuk
             },
             body: req.body
         };
     },
-    $http: function (url,method, req,res,append) {
-        return new Promise((resolve,reject)=>{
+    
+    $http: function (url, method, req, res, append) {
+        return new Promise((resolve, reject) => {
             var opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
@@ -97,14 +101,18 @@ module.exports = {
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if(data.code!='0'&&!is4paradigm&!isGetFileDetailNoTdk){
-                            console.log('$http---------:',opt,body)
+                        if (isGetFileDetailNoTdk&&data.code !='0'&&data.code!='G-404') { // 详情接口
+                            console.log('$http---------:', JSON.stringify(opt), error, body)
                             reject(body)
-                        }else{
-                            resolve(data)   
+                        } if(!is4paradigm &&  data.code != '0'){
+                            console.log('$http---------:', JSON.stringify(opt), error, body)
+                            reject(body)
+                        } else {
+                            //   console.log('$http---------:', JSON.stringify(opt), error, body)
+                            resolve(data)
                         }
                     } catch (err) {
-                        console.log('$http---------:',opt,body)
+                        console.log('$http---------:', opt, err, body)
                         reject(err)
                     }
                 } else {

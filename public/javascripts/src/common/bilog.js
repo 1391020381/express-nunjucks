@@ -5,15 +5,9 @@ define(function (require, exports, module) {
     var method = require("../application/method");
     var config = require('./../report/config');//参数配置
     var urlConfig = require('../application/urlConfig')
-    // var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP特权'];
-    // var payTypeMapping = ['', 'free', 'down', 'cost', 'online', 'vipFree', 'vipOnly'];
+   
     var payTypeMapping = ['', 'free', '', 'online', 'vipOnly', 'cost']; //productType=1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-    // var fsourceEnum = {
-    //     user: '用户上传', editor: '编辑上传', history: '历史资料1', history2: '历史资料2',
-    //     other_collection_site: '外包采集站点', ishare_collection_site: '自行采集站点',
-    //     other_collection_keyword: '外包采集关键字', ishare_collection_keyword: '自行采集关键字',
-    //     baiduwenku_collection_site: '百度文库采集源', ishare_collection_microdisk: '自行采集微盘',
-    // };
+   
     var ip = method.getCookie('ip') || getIpAddress();
     var cid = method.getCookie('cid');
     if (!cid) {
@@ -234,7 +228,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            console.log('埋点参数:',resultData)
+            // console.log('埋点参数:',resultData)
             push(resultData);
         }
     }
@@ -393,10 +387,10 @@ define(function (require, exports, module) {
         }
     });
 
-    function clickCenter(eventID, eventName, domId, domName, customData) {
+    function clickCenter(eventID,eventName, domId, domName, customData,eventType) {
         var commonData = JSON.parse(JSON.stringify(initData));
         setPreInfo(document.referrer, commonData);
-        commonData.eventType = 'click';
+        commonData.eventType = eventType ||'click';
         commonData.eventID = eventID;
         commonData.eventName = eventName;
         if(eventID=='SE001'){
@@ -598,6 +592,10 @@ define(function (require, exports, module) {
             var temp = {}
             $.extend(temp, {fileName:page.fileName,fileID:params.g_fileId,filePayType: payTypeMapping[page.productType],fileCategoryID:fileCategoryID,fileCategoryName:fileCategoryName});
             clickCenter('SE040', 'continueClick', '', '', temp);
+        }else if(cnt == 'createOrder'){
+            var temp = {}
+            $.extend(temp, params);
+            clickCenter('SE033', 'createOrder', '', '', temp,'query');
         }
     }
     function getSearchEngine(){
@@ -657,12 +655,12 @@ define(function (require, exports, module) {
         normalPageView:function(loginResult){
             normalPageView(loginResult)
         },
-        clickEvent:function($this){
-            var cnt = $this.attr(config.BILOG_CONTENT_NAME)
+        clickEvent:function($this,params){   // 有些埋点不需要在domid
+            var cnt = typeof $this == 'string'? $this: $this.attr(config.BILOG_CONTENT_NAME)
             console.log('cnt-导出的:',cnt)
             if(cnt){
-                setTimeout(function(){
-                    clickEvent(cnt,$this)
+                setTimeout(function(){ // cnt, that,moduleID,params
+                    clickEvent(cnt,$this,'',params)
                 })
             }
         },

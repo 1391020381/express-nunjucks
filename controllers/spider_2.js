@@ -57,7 +57,8 @@ function getList(req,res,id){
     req.body = {
         clientType: 0,
         fid: id,  
-        sourceType: 1
+        sourceType: 1,
+        site:4
       }
     return server.$http(appConfig.apiNewBaselPath+Api.spider.details,'post', req,res,true) 
 }
@@ -92,7 +93,8 @@ function getRecommendInfo(req,res,list){
     const classid1 = list.data.fileInfo.classid1
     let format = list.data.fileInfo.format
     // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
-    if ( productType != '6' && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')) {
+    // && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')
+    if ( productType != '6') {
           //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
           const pageIdsConfig_jy_rele = {
             'doc': 'doc_jy_20200220_001',
@@ -115,6 +117,12 @@ function getRecommendInfo(req,res,list){
                //个性化推荐(猜你喜欢)
         const guess_pageId = pageIdsConfig_jy_guess[format];
         let pageIds = [];
+        if(classid1 == '10339'){
+            classid1 = '1819'
+        }
+        if(classid1 == '1823'){
+            classid1 = '1821'
+        }
         switch (classid1) {
             case '1816': // 教育类
                 pageIds = [rele_pageId, guess_pageId];
@@ -131,7 +139,7 @@ function getRecommendInfo(req,res,list){
             case '1818': // 办公频道  1818  生产预发环境。测试开发环境8038 
                 pageIds = [rele_pageId.replace('jy', 'zzbg'), guess_pageId.replace('jy', 'zzbg')];
                 break;
-            default:
+            default:   pageIds = [rele_pageId.replace('jy', 'shxx'), guess_pageId.replace('jy', 'shxx')];
         }
         req.body = pageIds
         // '/gateway/recommend/config/info' 
@@ -162,9 +170,11 @@ function getParadigm4Relevant(req,res,list,recommendInfo,userID){
 function getHotpotSearch(req,res,list,paradigm4Relevant){
     let recRelateArrNum = paradigm4Relevant.length
     req.body = {
-        searchKey: list.data.fileInfo.title,
         currentPage:1,
-        pageSize:40
+        pageSize:40,
+        site:4,
+        classIds:[list.data.fileInfo.classid2,list.data.fileInfo.classid3].filter(item=> { return !!item}),
+        title:list.data.fileInfo.title
     }
     if(recRelateArrNum<31){
         return server.$http(appConfig.apiNewBaselPath+Api.spider.hotpotSearch,'post', req,res,true)
@@ -281,10 +291,14 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
          results.relevantList=results.paradigm4Relevant.slice(0,10)
          results.guessLikeList=results.paradigm4Relevant.slice(10,21)
     }else {
-         if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
-             results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
-             results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
-         }
+        //  if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
+        //      results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
+        //      results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
+        //  }
+        if(results.hotpotSearch.data&&results.hotpotSearch.data){
+            results.relevantList=results.hotpotSearch.data.slice(0,10)
+            results.guessLikeList=results.hotpotSearch.data.slice(10,31)
+        }
          // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
     }
     // 对最新资料  推荐专题数据处理

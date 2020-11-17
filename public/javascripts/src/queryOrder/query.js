@@ -82,7 +82,7 @@ define(function (require, exports, module) {
                     $(".wrong-search-words").css("display","block");
                     $(".table-box-outside").css("display","none");
                     $.toast({
-                        text: res.msg
+                        text: res.message
                     })
                 }
             }
@@ -173,7 +173,7 @@ define(function (require, exports, module) {
                     window.location = url
                 }else {
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                     })
                 }
             }

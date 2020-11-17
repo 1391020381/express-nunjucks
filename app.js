@@ -114,7 +114,7 @@ app.use(function (err, req, res, next) {
     if(res.headersSent){
         return next(err)
     }
-    if (appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
+    if (appConfig.env === 'local'||appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
         console.log(err.message)
         res.status(err.status || 500);
         res.send({
