@@ -1,8 +1,11 @@
+
+
 define(function(require , exports , module){
    var method = require("../application/method");
    var api = require('../application/api');
    var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html')
    var simplePagination = require("./template/simplePagination.html")
+   var closeRewardPop = require('./dialog').closeRewardPop
    var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
@@ -106,8 +109,19 @@ define(function(require , exports , module){
   })
   }
     
-
-
+  $(document).on('click','.personal-center-mydownloads .evaluate-btn',function(event){
+      console.log('evaluate-btn')
+      var format = $(this).attr("data-format")
+      var title = $(this).attr('data-format')
+      $("#dialog-box").dialog({
+        html: $('#evaluation-dialog').html().replace(/\$format/, format),
+    }).open();
+  })
+  $(document).on('click','.personal-center-mydownloads .evaluation-confirm',function(event){
+       closeRewardPop()
+       
+  }).open();
+})
 
   // 分页
   function handlePagination(totalPages,currentPage,flag){

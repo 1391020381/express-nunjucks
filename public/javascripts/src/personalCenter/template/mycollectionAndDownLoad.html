@@ -15,7 +15,8 @@
             <th  class="action-time" style="width:100px;">收藏时间</th>
          {{else if type =='mydownloads'}}
             <th  class="file-title">资料标题</th>
-            <th  class="action-time" style="width:100px;">下载时间</th>
+            <th  class="action-time" style="width:150px;">下载时间</th>
+             <th  class="action-time"></th>
          {{/if}}
       </tr>
 
@@ -34,6 +35,11 @@
                <td class="operation-time">
                   <span>{{list[$index].downloadTime}}</span>
                </td>
+               {{if type == 'mydownloads'}}
+                <td class="operation-btn">
+                  <span class="evaluate-btn" data-format="{{list[$index].format}}">填写评价</span>
+               </td>
+               {{/if}}
             </tr>
 
          {{/each}}
