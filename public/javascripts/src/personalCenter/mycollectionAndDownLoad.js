@@ -9,6 +9,31 @@ define(function(require , exports , module){
    var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
+   var clickEvent = require('../common/bilog').clickEvent
+   var receiveCoupon = require('./template/receiveCoupon.html')
+   var couponList = [{
+    vid: "5d56657b114fe82e087dac47",
+    type: 1,
+    content: "限购买VIP-12个月",
+    timeval: null,
+    couponAmount: 15,
+    dateNumber: 7,
+    appointType: 2,
+    manCouponAmount: null,
+    discount:null
+},
+{
+    vid: "5d56645e114fe8247c8c6a03",
+    type: 1,
+    content: "适用全部类型VIP；满0元可用",
+    timeval: null,
+    couponAmount: 5,
+    dateNumber: 7,
+    appointType: 2,
+    manCouponAmount: null,
+    discount:null
+}
+]
    if(type =='mycollection'||type =='mydownloads'){
       isLogin(initData,true)
    }
@@ -113,16 +138,86 @@ define(function(require , exports , module){
       console.log('evaluate-btn')
       var format = $(this).attr("data-format")
       var title = $(this).attr('data-format')
-      $("#dialog-box").dialog({
+    $("#dialog-box").dialog({
         html: $('#evaluation-dialog').html().replace(/\$format/, format),
     }).open();
   })
-  $(document).on('click','.personal-center-mydownloads .evaluation-confirm',function(event){
-       closeRewardPop()
-       
-  }).open();
+
+  $(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
+      closeRewardPop()
+     // fetchCouponReceiveList()
+     startCouponReceive(couponList)
 })
 
+
+// 获取发卷列表接口
+function fetchCouponReceiveList() {
+      var params = {
+          type: 2,
+          site: 4
+      }
+      $.ajax({
+          url: api.coupon.rightsSaleVouchers,
+          type: "GET",
+          data: params,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(res) {
+              if (res && res.code == '0') {
+                  couponList = res.data && res.data.list ? res.data.list : [];
+                  startCouponReceive(couponList)
+              }
+          }
+      });
+  
+}
+
+    // 开始弹出领取优惠券的弹窗
+    function startCouponReceive(couponList) {
+      if (!couponList.length) return;
+      var data = {
+          list: couponList.slice(0, 2)
+      };
+      var _html = template.compile(receiveCoupon)({ data: data });
+      $("#dialog-box").dialog({
+        html: $('#getcoupon-dialog').html().replace(/\$content/, _html),
+    }).open();
+  }
+
+  // 绑定定时弹窗关闭按钮
+
+  $('#dialog-box').on('click','.close-btn',function(e){
+    clickEvent($(this))
+    closeRewardPop();
+})
+  // 绑定立即领取按钮回调
+  $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-footer', function(e) {
+      var parmas = {
+          type: 2,
+          source: 1,
+          site: 4,
+      };
+      clickEvent($(this))
+      $.ajax({
+          url: api.coupon.rightsSaleVouchers,
+          headers: {
+              'Authrization': method.getCookie('cuk')
+          },
+          type: "POST",
+          data: JSON.stringify(parmas),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(res) {
+              if (res && res.code == '0') {
+                  // 重新刷新页面
+                //  window.location.reload();
+              } else {
+                  utils.showAlertDialog("温馨提示",  res.message || '领取失败');
+              }
+          }
+      })
+
+  });
   // 分页
   function handlePagination(totalPages,currentPage,flag){
     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:currentPage});
