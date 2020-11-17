@@ -25,10 +25,10 @@ const getData = cc(async (req,res)=>{
     let attributeId = urlobj[5]
     let urlSelectId = urlobj[6]?JSON.parse(decodeURIComponent(urlobj[6])):[]  
     var deleteAttributeGroupId = urlobj[7]
-    console.log('urlSelectId:',urlSelectId)
+   
     
     const redirectUrl = await getRedirectUrl(req, res)
-    // console.log('redirectUrl:',JSON.stringify(redirectUrl))
+ 
     if (redirectUrl.data) {
         if (redirectUrl.data.targetLink) {
             var url = redirectUrl.data.type == 1 ? req.protocol + '://' + redirectUrl.data.targetLink : req.protocol + '://' + req.hostname + '/c/' + redirectUrl.data.targetLink + '.html';
@@ -38,7 +38,7 @@ const getData = cc(async (req,res)=>{
 
 
     let categoryTitle = await getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSelectId,deleteAttributeGroupId)
-    console.log('categoryTitle:',JSON.stringify(categoryTitle))
+    
     if (categoryTitle.data&&categoryTitle.data.level1){
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
@@ -65,7 +65,7 @@ const getData = cc(async (req,res)=>{
              }
         })
     }
-    console.log('selectId:',selectId,navFatherId)
+    
     let recommendList = {}
     let categoryPage = {}
     if(navFatherId){
@@ -77,7 +77,7 @@ const getData = cc(async (req,res)=>{
             friendLink:'PC_M_FC_yqlj' //友情链接
         }
         recommendList  =  await getRecommendList(req,res,categoryPage)
-        console.log('recommendList:',JSON.stringify(recommendList))
+        
     } 
     let list = await getList(req,res,categoryId,sortField,format,currentPage,specificsIdList)
     let tdk = await getTdk(req,res,categoryId)
@@ -101,7 +101,7 @@ function getCategoryTitle(req,res,categoryId,attributeGroupId,attributeId,urlSel
     if(addId){
         urlSelectId.push(addId)
     }
-  console.log('urlSelectId:',urlSelectId)
+  
     req.body = {
         nodeCode:categoryId,
         attributeGroupList:urlSelectId
@@ -137,7 +137,7 @@ function getRedirectUrl(req, res) {
     req.body = {
         sourceLink: req.protocol + '://' + req.hostname + req.url
     }
-    console.log('getRedirectUrl:',JSON.stringify(req.body))
+    
     return server.$http(appConfig.apiNewBaselPath + api.file.redirectUrl, 'post', req, res, true)
 }
 
