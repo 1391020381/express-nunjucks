@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-   
+
     return {
         // 常量映射表
         keyMap: {
@@ -16,7 +16,7 @@ define(function (require, exports, module) {
                 headers: {
                     'cache-control': 'no-cache',
                     'Pragma': 'no-cache',
-                    'Authrization':this.getCookie('cuk')
+                    'Authrization': this.getCookie('cuk')
                 }
             }).done(function (data) {
                 callback && callback(data);
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
             })
         },
         get: function (u, c, m) {
-            $.ajaxSetup({ cache: false });
+            $.ajaxSetup({cache: false});
             this.async(u, c, m, 'get');
         },
         post: function (u, c, m, g, d) {
@@ -225,36 +225,36 @@ define(function (require, exports, module) {
             document.body.appendChild(referLink);
             referLink.click();
         },
-        testEmail:function(val){
+        testEmail: function (val) {
             var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-            if(reg.test(val)){
-               return true    //正确
-            }else{
-               return false
+            if (reg.test(val)) {
+                return true    //正确
+            } else {
+                return false
             }
         },
-        testPhone:function(val){
-            if(/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)){ 
-                return true; 
-            }else{
+        testPhone: function (val) {
+            if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)) {
+                return true;
+            } else {
                 return false
-            } 
+            }
         },
-        handleRecommendData:function(list){
+        handleRecommendData: function (list) {
             var arr = []
-            $(list).each(function(index,item){
+            $(list).each(function (index, item) {
                 var temp = {}
-                if(item.type == 1){ // 资料 
+                if (item.type == 1) { // 资料
                     // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
-                    item.linkUrl = '/f/'+ item.tprId+'.html'
+                    item.linkUrl = '/f/' + item.tprId + '.html'
                     temp = item
                 }
-                if(item.type == 2){ // 链接
+                if (item.type == 2) { // 链接
                     temp = item
                 }
-                if(item.type == 3){ // 专题页
+                if (item.type == 3) { // 专题页
                     // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
-                    item.linkUrl = '/node/s/'+ item.tprId + '.html'
+                    item.linkUrl = '/node/s/' + item.tprId + '.html'
                     temp = item
                 }
                 arr.push(temp)
@@ -262,7 +262,7 @@ define(function (require, exports, module) {
             console.log(arr)
             return arr
         },
-        formatDate:function(fmt){
+        formatDate: function (fmt) {
             var o = {
                 "M+": this.getMonth() + 1, //月份
                 "d+": this.getDate(), //日
@@ -291,7 +291,7 @@ define(function (require, exports, module) {
             }
             return res;
         },
-         judgeSource:function(ishareBilog) {
+        judgeSource: function (ishareBilog) {
             if (!ishareBilog) {
                 ishareBilog = {};
             }
@@ -324,14 +324,55 @@ define(function (require, exports, module) {
                     }
                 }
                 if (!referrer || !ishareBilog.source) {
-                    if(utils.isWeChatBrow()){
+                    if (utils.isWeChatBrow()) {
                         ishareBilog.source = 'wechat';
-                    }else{
+                    } else {
                         ishareBilog.source = 'outLink';
                     }
                 }
             }
             return ishareBilog
+        },
+        // 随机数
+        randomString: function (len) {
+            len = len || 4;
+            var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+            /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+            var maxPos = $chars.length;
+            var pwd = '';
+            for (var i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        },
+        // 登录状态保存 默认30天
+        saveLoginToken: function (token, timeout) {
+            timeout = timeout || 2592000000;
+            this.setCookieWithExpPath('cuk', token, timeout, '/');
+        },
+        // 获取
+        getLoginToken: function () {
+            return this.getCookie('cuk') || '';
+        },
+        // 清除
+        delLoginToken: function () {
+            this.delCookie('cuk', '/');
+        },
+        // 登录id保存
+        saveLoginSessionId: function (id) {
+            // 当前时间
+            var currentTime = new Date().getTime();
+            var idArr = id.split('_');
+            // 有效期截止时间戳
+            var timeEnd = idArr[1] || 0;
+            // 计算剩余有效时间
+            var locTimeout = timeEnd - currentTime;
+            this.setCookieWithExpPath('ish_jssid', id, locTimeout, '/');
+        },
+        // 获取
+        getLoginSessionId: function () {
+            return this.getCookie('ish_jssid') || '';
         }
     }
 });
+

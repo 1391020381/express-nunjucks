@@ -63,7 +63,7 @@ define(function (require, exports, module) {
                     }
                 } else {
                     $.toast({
-                        text: res.msg || 'scanOrderInfo错误',
+                        text: res.message || 'scanOrderInfo错误',
                         delay: 3000,
                     })
                 }
@@ -71,7 +71,7 @@ define(function (require, exports, module) {
             error: function (error) {
                 console.log('scanOrderInfo:', error)
                 $.toast({
-                    text: error.msg || 'scanOrderInfo错误',
+                    text: error.message || 'scanOrderInfo错误',
                     delay: 3000,
                 })
             }

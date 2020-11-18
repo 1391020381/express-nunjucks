@@ -81,7 +81,7 @@ define(function(require , exports , module){
                 initData()
                }else{
                 $.toast({
-                    text:res.msg,
+                    text:res.message,
                     delay : 3000,
                 })
                }

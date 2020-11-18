@@ -228,8 +228,7 @@ define(function(require , exports , module){
         },
         getAllcategory:function(){
             var params = {
-                deeplevel: 3,
-                    id:"0"
+                type:'0'
             }
             params = JSON.stringify(params)
             $.ajax({
@@ -237,30 +236,31 @@ define(function(require , exports , module){
                     'Authrization':method.getCookie('cuk')
                 },
                 type: 'post',
-                url: api.upload.getCategory,
+                url: api.upload.getWebAllFileCategory,
                 contentType: "application/json;charset=utf-8",
                 data: params,
                 success: function (res) {
                     if (res.code == 0) {
-                        res.data.categoryList.forEach(function(layer1){
-                            if(layer1.categoryList && layer1.categoryList.length>0) {
-                                layer1.categoryList.forEach(function(layer2){
-                                    if(layer2.categoryList && layer2.categoryList.length>0) {
-                                        layer2.categoryList.forEach(function(layer3){
+                        res.data.forEach(function(layer1){
+                            if(layer1.subList && layer1.subList.length>0) {
+                                layer1.subList.forEach(function(layer2){
+                                    if(layer2.subList && layer2.subList.length>0) {
+                                        layer2.subList.forEach(function(layer3){
                                             layer3.last = 1
                                         })
                                     }else {
-                                        layer2.last = 1
+                                        layer2.last = 0
                                     }
                                 })
                             }else {
-                                layer1.last = 1
+                                layer1.last = 0
                             }
                         })
-                        uploadObj.Allcategory = res.data.categoryList;
-                        // console.log(uploadObj.Allcategory)
+                        // uploadObj.Allcategory = res.data.categoryList;
+                        uploadObj.Allcategory = res.data;
+                        console.log(uploadObj.Allcategory)
                     } else {
-                        utils.showAlertDialog("温馨提示", res.msg);
+                        utils.showAlertDialog("温馨提示", res.message);
                     }
                 },
                 complete: function () {
@@ -579,7 +579,7 @@ define(function(require , exports , module){
                         $('#bgMask').hide()
                     } else {
                         $.toast({
-                            text: res.msg
+                            text: res.message
                         })
                     }
                 },
@@ -786,7 +786,7 @@ define(function(require , exports , module){
 
                             } else {
                                 $.toast({
-                                    text: res.msg
+                                    text: res.message
                                 })
                             }
                         },

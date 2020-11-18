@@ -114,23 +114,29 @@ app.use(function (err, req, res, next) {
     if(res.headersSent){
         return next(err)
     }
-    if (appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
+    if (appConfig.env === 'local'||appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
         console.log(err.message)
         res.status(err.status || 500);
         res.send({
             status: 0,
             message: err.message,
-            error: err
+            error: err,
+            statck:err.stack
         })
     }else{
-        log4js.info(err.message);
+        log4js.info({
+            status: 0,
+            message: err.message,
+            error: err,
+            statck:err.stack
+        });
         res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
 });
 
 process.on('uncaughtException',(err)=>{
-    console.log('uncaughtException:',err.message)
+    console.log('uncaughtException:',err.message,err.stack)
     process.exit(1)
     
 })

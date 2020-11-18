@@ -72,20 +72,21 @@ class specialModule{
                 console.log('请求参数-------------------:', this.state.req.body)
                 console.log('返回code------:'+this.state.listData.code,'返回msg-------:'+this.state.listData.msg)
             },
-            specialTopic:async ()=> {
-                let { req,res,detail }=this.state;
-                req.body = {
-                    currentPage:1,
-                    pageSize:30,
-                    siteCode:"4",
-                    name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
-                }
-                let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
-                this.state.specialTopic = specialData.data && specialData.data.rows || [];
-                console.log('请求地址post-------------------:',appConfig.apiNewBaselPath + api.special.specialTopic)
-                console.log('请求参数-------------------:',req.body)
-                console.log('返回code------:'+specialData.code,'返回msg-------:'+specialData.msg)
-            },
+            // specialTopic:async ()=> {
+            //     let { req,res,detail }=this.state;
+            //     req.body = {
+            //         currentPage:1,
+            //         pageSize:30,
+            //         siteCode:"4",
+            //         name: detail.data && detail.data.topicName   // 需要依赖 专题的名称
+            //     }
+            //     let specialData=await server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req,res);
+            //     this.state.specialTopic = specialData.data && specialData.data.rows || [];
+            //     console.log('请求地址post-------------------:',appConfig.apiNewBaselPath + api.special.specialTopic)
+            //     console.log('请求参数-------------------:',req.body)
+            //     console.log('返回code------:'+specialData.code,'返回msg-------:'+specialData.msg)
+            //     console.log('specialData:',JSON.stringify(specialData))
+            // },
             getTdkByUrl:async()=>{ //tdk
                 let { paramsObj,req,res }=this.state;
                 let data=await server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/'+ paramsObj.specialTopicId + '.html'), 'get', req,res,true)
@@ -221,7 +222,7 @@ class specialModule{
             }, 
             friendLink:this.state.recommendList
         };
-        
+       
     render("special/index", results, this.state.req, this.state.res);  
        
     }

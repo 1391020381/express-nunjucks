@@ -14,7 +14,7 @@ define(function (require, exports, module) {
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
   
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
-    var getLoginQrcode = require('../application/login').getLoginQrcode
+    var showTouristLogin = require('../application/login').showTouristLogin
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
@@ -111,7 +111,7 @@ define(function (require, exports, module) {
             success: function (res) {
                if(res.code == '0'){
                     $.toast({
-                        text: res.msg,
+                        text: res.message,
                         callback: function () {
                             location.reload()
                         }
@@ -169,11 +169,11 @@ define(function (require, exports, module) {
                 location.href = data.data.dowUrl
             } else if (data.code == 41003) {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             } else {
                 $.toast({
-                    text: data.msg,
+                    text: data.message,
                 })
             }
         });
@@ -188,8 +188,6 @@ define(function (require, exports, module) {
         var classid3 = qrCodeparams && qrCodeparams.classid3 ? '-' + qrCodeparams.classid3 + '' : '';
         var clsId = classid1 + classid2 + classid3;
         var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
-        var loginDom = $('#tourist-login').html()
-        $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
          function touristLoginCallback(res) {
             login.getLoginData(function (data) {
                 initData.isVip = parseInt(data.isVip, 10);
@@ -201,10 +199,7 @@ define(function (require, exports, module) {
                 bindOrder(data.userId, data.nickName);
             });
         }
-        
-        getLoginQrcode('','',false,true,function(res){
-            touristLoginCallback(res)
-        })
+        showTouristLogin({cid:clsId,fid:fid},touristLoginCallback)
     }
 
     function successReload(data) {
