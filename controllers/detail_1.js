@@ -22,6 +22,7 @@ const renderPage = cc(async (req, res) => {
     if (redirectUrl.data) {
         if (redirectUrl.data.targetLink) {
             var url = redirectUrl.data.type == 1 ? req.protocol + '://' + redirectUrl.data.targetLink : req.protocol + '://' + req.hostname + '/f/' + redirectUrl.data.targetLink + '.html';
+            res.status(301)
             res.redirect(url);
         }
     }
@@ -42,6 +43,7 @@ const renderPage = cc(async (req, res) => {
             // 跳转到办公携带参数修改
 
             var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
+            res.status(301)
             res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?` + officeParams);
             return
         }
