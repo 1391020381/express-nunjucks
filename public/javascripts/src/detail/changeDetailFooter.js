@@ -5,7 +5,7 @@ define(function (require, exports, module){
    
     var guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
     var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
-    var bottomHeight = $('.doc-main').outerHeight()   // guessYouLikeHeight + userEvaluation
+    var bottomHeight =  guessYouLikeHeight + userEvaluation
    function initStyle(){
     if(isConvert ==1){ // 转码成功
       // if(detailCon<=3){ // 只有3页
@@ -33,8 +33,7 @@ define(function (require, exports, module){
         'position': 'absolute',
         'left':'0px',
         'right':'0px',
-        // 'bottom':(0 + bottomHeight) + 'px',
-        'top':(bottomHeight - 229) + 'px',
+        'bottom':(10 + bottomHeight) + 'px',
         'width': '890px'
     })
    }

@@ -2,17 +2,17 @@ define(function (require, exports, module) {
     require("../cmd-lib/lazyload");
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
-   
-    require("../detail-b/index");
-    require("../detail-b/search");
-    require("../detail-b/download");
-    require("../detail-b/paging");
-    require('../detail-b/expand');
+   require("./userComments.js")
+    require("./index");
+    require("./search");
+    require("./download");
+    require("./paging");
+    require('./expand');
     
-    require("../detail-b/buyUnlogin");
+    require("./buyUnlogin");
     require("../common/bilog");
-    require('../detail-b/paradigm4');
-    require('../detail-b/banner.js')
+    require('./paradigm4');
+    require('./banner.js')
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')
     var productType = window.pageConfig.params&&window.pageConfig.params.productType

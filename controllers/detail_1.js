@@ -64,7 +64,7 @@ const renderPage = cc(async (req, res) => {
             }
         }
     }
-
+    const specialTopic  = await getSpecialTopic(req,res,list)
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
@@ -96,6 +96,7 @@ const renderPage = cc(async (req, res) => {
         filePreview,
         crumbList,
         userID,
+        specialTopic
     )
 })
 
@@ -150,6 +151,16 @@ function getCrumbList(req, res, list) {
     // }
     // return server.$http(appConfig.apiNewBaselPath + Api.file.navCategory, 'post', req, res, true)
     return { data: [] };
+}
+
+function getSpecialTopic(req,res,list){
+    req.body = {
+        currentPage:1,
+        pageSize:5,
+        topicName: list.data.fileInfo.title,
+        siteCode:'4' 
+    }
+    return server.$http(appConfig.apiNewBaselPath + Api.search.associatedWords, 'post', req, res, true)
 }
 
 function getRecommendInfo(req, res, list) {
@@ -290,7 +301,8 @@ function handleDetalData(
     paradigm4Guess,
     filePreview,
     crumbList,
-    userID
+    userID,
+    specialTopic
 ) {
 
     if (topBannerList.data) {
@@ -343,8 +355,11 @@ function handleDetalData(
         filePreview,
         freeAdv: false,
         copy: false,
-        reward: {unit: 1, value: '0'}
+        reward: {unit: 1, value: '0'},
+        specialTopic:specialTopic.data.rows
     }, { list: list });
+    
+    console.log('results:',JSON.stringify(results))
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
     results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
