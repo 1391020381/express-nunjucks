@@ -167,14 +167,7 @@ body {
     }
 }
 
-.collect-con {
-    // &:hover{
-    //     .icon-newdetail{
-    //         background: url("../images/hasColectHover.png") no-repeat center;
-    //         background-size: 100%; 
-    //     }
-    // }
-}
+
 
 //原价样式
 .origin-price {
@@ -1512,16 +1505,18 @@ body {
 //详情页底部购买信息
 .detail-footer {
     // margin-top: -120px;
+    // width: 890px;
+    // margin: 0 auto;
+    // padding-top: 34px;
+    // padding-bottom: 40px;
+    // border: 0 none;
+    // box-shadow: 0 0 5px rgba(44, 21, 24, .08);
+    // border-radius: 4px;
+    // color: @gray-dark;
+    // background-color: #fff;
+    // position: relative;
     width: 890px;
-    margin: 0 auto;
-    padding-top: 34px;
-    padding-bottom: 40px;
-    border: 0 none;
-    box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    border-radius: 4px;
-    color: @gray-dark;
-    background-color: #fff;
-    position: relative;
+    height: 229px;
 }
 
 .detail-newfooter {
@@ -3179,9 +3174,6 @@ body {
 .related-data {
     background-color: #fff;
     border-radius: 2px;
-
-    // box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    // margin-top: 10px;
     .guess-you-like-title {
         height: 52px;
         line-height: 52px;
@@ -3399,6 +3391,90 @@ body {
                 border-radius: 4px;
                 font-size: 16px;
                 color: #F25125;
+            }
+        }
+    }
+}
+
+// 评价
+
+.user-comments-container{
+    .user-evaluation{
+        margin-top:10px;
+        padding:30px 38px;
+        background: #FFFFFF;
+        border-radius: 4px;
+        .evaluation-tags{
+            margin-bottom: 20px;
+            .tag{
+                margin-right: 20px;
+                display: inline-block;
+                padding: 4px 12px;
+                background: #FCE8E2;
+                border-radius: 14px;
+                font-size: 13px;
+                color: #222222;
+                cursor: pointer;
+            }
+            .all{
+                float: right;
+            }
+        }
+        .evaluation-list{
+            .evaluation-item{
+                border-bottom: solid 1px #F2F2F2;
+                margin-top:30px;
+               .evaluation-user-summary{
+                .cf();
+                   .evaluation-user-avatar{
+                       float: left;
+                       margin-right: 20px;
+                       width: 30px;
+                       height: 30px;
+                   }
+               } 
+               .evaluation-desc{
+                   margin-top:20px;
+                   padding-left:50px;
+                   padding-bottom: 23px;
+               }
+            }
+            .evaluation-item:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+    .pagination-wrapper{
+        padding-top:20px;
+        padding-bottom:50px;
+        text-align: center;
+        background: #fff;
+        .pagination{
+            margin: 0 auto;
+            display: inline-block;
+            // margin-left: 155px;
+            .cf();
+            .page-item{
+                float: left;
+                margin-right: 8px;
+                height: 30px;
+                line-height: 30px;
+                padding:0 11px;
+                color: #555555;
+                background:rgba(255,255,255,1);
+                border:1px solid rgba(230, 230, 230, 1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .first,.prev,.next,.last{
+                padding: 0 17px;
+            }
+            .active{
+                background: #F25125;
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
             }
         }
     }
