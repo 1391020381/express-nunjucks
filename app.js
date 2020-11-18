@@ -120,10 +120,11 @@ app.use(function (err, req, res, next) {
         res.send({
             status: 0,
             message: err.message,
-            error: err
+            error: err,
+            stack:err.stack
         })
     }else{
-        log4js.info(err.message);
+        log4js.info(err.message,err.stack);
         res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
