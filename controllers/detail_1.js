@@ -359,7 +359,7 @@ function handleDetalData(
         specialTopic:specialTopic.data.rows
     }, { list: list });
     
-    console.log('results:',JSON.stringify(results))
+   
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
     results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
