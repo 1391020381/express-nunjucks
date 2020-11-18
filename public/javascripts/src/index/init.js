@@ -80,6 +80,7 @@ define(function (require,exports,moudle) {
                 }
                
             })
+            this.signDialog()
         },
         beforeInit:function(){
             if (utils.getCookie('cuk')) {
@@ -248,6 +249,14 @@ define(function (require,exports,moudle) {
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 $('.user-state .info-des').text('你还不是VIP');
             }
+        },
+        signDialog:function(){
+            $('.sign-btn').click(function(){
+                $("#dialog-box").dialog({
+                    html: $('#Sign-dialog').html(),
+                }).open();
+            })
+            
         }
      }
      indexObject.initial()

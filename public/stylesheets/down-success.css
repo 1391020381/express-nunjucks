@@ -1,4 +1,67 @@
 @charset "utf-8";
+.review-dialog {
+  width: 316px;
+  height: 207px;
+  position: fixed;
+  right: 80px;
+  top: 320px;
+  z-index: 999999;
+  background: #FFFFFF;
+  box-shadow: 0px 3px 8px 0px rgba(59, 17, 7, 0.18);
+  border-radius: 10px;
+}
+.review-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  background: url(../../images/icon_iShare.png) no-repeat;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  background-position: -220px -20px;
+  cursor: pointer;
+}
+.review-dialog .dialog-con .topImg {
+  width: 82px;
+  height: 82px;
+  background: url(../../images/ishare_docIcon.png) no-repeat;
+  position: absolute;
+  top: -21px;
+  left: 50%;
+  margin-left: -41px;
+}
+.review-dialog .dialog-con .titleBg {
+  width: 209px;
+  height: 85px;
+  background: url(../../images/colorBelt.png) no-repeat;
+  margin: 38px 0 0 59px;
+}
+.review-dialog .dialog-con .titleBg h2 {
+  display: inline-block;
+  margin: 40px 0 0 55px;
+  font-size: 22px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+.review-dialog .dialog-con .bottom-text {
+  text-align: center;
+  height: 42px;
+  font-size: 18px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+  line-height: 24px;
+  margin: 13px auto 0;
+}
+.review-dialog .reviewLink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
 .pw-down-success {
   width: 100%;
   height: 100%;

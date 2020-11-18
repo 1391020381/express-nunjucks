@@ -1,6 +1,7 @@
 @import "../less-public/_ishare_setting";
 @import "../less-public/_less_mixin";
 @import "../less-public/_less_css3";
+@import "../ishare-wechatSign";
 .screen-body {
 	background: #f4f4f4;
 }
@@ -886,11 +887,13 @@
       background:#FFFFFF url(../../images/index/vipBg.png) right top no-repeat;
     }
 		.inner-wrap {
-			padding:34px 30px 43px;
+      padding:34px 30px 43px;
+      position: relative;
 			.user-top{
 				overflow: hidden;
 				padding-bottom: 8px;
-				border-bottom: 1px solid #F4F4F4;
+        border-bottom: 1px solid #F4F4F4;
+       
 				.avatar-frame {
 					width: 56px;
 					height: 56px;
@@ -929,7 +932,7 @@
 							&.vip-avaliable{
 								background-position: -210px -170px;
 							}
-						}
+            }
 					}
 					.info-des{
 						font-size: 12px;
@@ -969,7 +972,16 @@
             }
             }
 					}
-				}
+        }
+        .sign-btn {
+          position: absolute;
+          left: 225px;
+          top: 40px;
+          width: 52px;
+          height: 24px;
+          background:url(../../images/signIcon.png) no-repeat;
+          cursor: pointer;
+        }
 			}
 			.special-des{
 				ul{

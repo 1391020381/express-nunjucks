@@ -50,4 +50,7 @@ define(function(require , exports , module){
             false
         }
     }
+    $("#dialog-box").dialog({
+        html: $('#Sign-dialog').html(),
+    }).open();
 });
