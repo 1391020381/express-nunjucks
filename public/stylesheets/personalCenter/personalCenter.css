@@ -2422,6 +2422,7 @@
 }
 .personal-center-dialog .evaluation-dialog .evaluation-desc .desc-input {
   width: 100%;
+  display: block;
   border: none;
 }
 .personal-center-dialog .evaluation-dialog .evaluation-confirm {

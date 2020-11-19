@@ -134,7 +134,8 @@ define(function (require, exports, module) {
             getWechatSignature: gateway + '/message/wechat/info/getWechatSignature'
         },
         comment:{
-           getLableList: gateway + '/comment/lable/dataList' 
+           getLableList: gateway + '/comment/lable/dataList',
+           addComment:gateway + '/comment/eval/add'
         }
     }
 });

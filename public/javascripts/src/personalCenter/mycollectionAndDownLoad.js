@@ -11,8 +11,11 @@ define(function(require , exports , module){
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
    var clickEvent = require('../common/bilog').clickEvent
+   var utils = require("../cmd-lib/util");
    var receiveCoupon = require('./template/receiveCoupon.html')
    var labelList = require('./template/labelList.html')
+   var score = 0
+   var tagList = []  // 评论标签
    var couponList = [{
     vid: "5d56657b114fe82e087dac47",
     type: 1,
@@ -136,32 +139,7 @@ define(function(require , exports , module){
   })
   }
     
-  $(document).on('click','.personal-center-mydownloads .evaluate-btn',function(event){
-      console.log('evaluate-btn')
-      var format = $(this).attr("data-format")
-      var title = $(this).attr('data-title')
-      var fid = $(this).attr('data-fid')
-      var isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
-      getLabelList(fid,format,title,isAppraise)
-  })
-
-  $(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
-      closeRewardPop()
-     // fetchCouponReceiveList()
-     startCouponReceive(couponList)
-})
-
-$(document).on('click','.personal-center-dialog .file-rates .start',function(e){
-    var isAppraise  = $(this).attr('data-isappraise')
-    var  starts = $('.personal-center-dialog .file-rates .start')
-    var index = $(this).index()
-    if(isAppraise!=1){  // 未评论  也就是评论
-        starts.removeClass('start-active')
-        starts.slice(0,index+1).addClass('start-active')
-        $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
-    }
-})
-
+ 
 // 获取评价标签
 function getLabelList(fid,format,title,isAppraise) { 
     $.ajax({
@@ -174,9 +152,10 @@ function getLabelList(fid,format,title,isAppraise) {
         dataType: "json",
         success: function (res) {
             if (res.code == '0') {
+                 tagList = res.data
                  var tags = template.compile(labelList)({labelList:res.data,isAppraise:isAppraise})
                 $("#dialog-box").dialog({
-                    html: $('#evaluation-dialog').html().replace(/\$format/, format).replace(/\$title/, title).replace(/\$tags/, tags).replace(/\$$isAppraise/,isAppraise),
+                    html: $('#evaluation-dialog').html().replace(/\$format/, format).replace(/\$title/, title).replace(/\$tags/, tags).replace(/\$$isAppraise/,isAppraise).replace(/\$fid/,fid),
                 }).open();
             } else {
                 $.toast({
@@ -190,7 +169,40 @@ function getLabelList(fid,format,title,isAppraise) {
         }
     })
 }
+// 添加评论 
 
+function addComment(params){
+    $.ajax({
+        headers:{
+           'Authrization':method.getCookie('cuk')
+        },
+         url:  'http://yapi.ishare.iasktest.com/mock/79/eval/add', //api.comment.addComment,
+         type: "POST",
+         data: JSON.stringify(params),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+         success: function (res) {
+            if(res.code == '0'){
+                $.toast({
+                    text:'评价成功',
+                    delay : 3000,
+                })
+                score = 0
+                closeRewardPop()
+                // fetchCouponReceiveList()
+                startCouponReceive(couponList)
+            }else{
+             $.toast({
+                 text:res.message,
+                 delay : 3000,
+             })
+            }
+         },
+         error:function(error){
+             console.log('getDownloadRecordList:',error)
+         }
+     })
+}
 
 // 获取发卷列表接口
 function fetchCouponReceiveList() {
@@ -215,7 +227,7 @@ function fetchCouponReceiveList() {
 }
 
     // 开始弹出领取优惠券的弹窗
-    function startCouponReceive(couponList) {
+function startCouponReceive(couponList) {
       if (!couponList.length) return;
       var data = {
           list: couponList.slice(0, 2)
@@ -225,6 +237,59 @@ function fetchCouponReceiveList() {
         html: $('#getcoupon-dialog').html().replace(/\$content/, _html),
     }).open();
   }
+
+
+  $(document).on('click','.personal-center-mydownloads .evaluate-btn',function(event){
+    console.log('evaluate-btn')
+    var format = $(this).attr("data-format")
+    var title = $(this).attr('data-title')
+    var fid = $(this).attr('data-id')
+    var isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
+    getLabelList(fid,format,title,isAppraise)
+})
+
+$(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
+    if(score>0){
+        var  labels = []
+        $.each($('.evaluation-dialog input:checkbox:checked'),function(){
+                 var id = $(this).val()
+                $(tagList).each(function(index,item){
+                    if(item.id == id){
+                        labels.push({
+                            id:id,
+                            name:item.name
+                        })
+                    }
+                })
+        });
+        var params = {
+            content:$('.evaluation-dialog .evaluation-desc').text(),
+            fid:$('.evaluation-dialog .file-title').attr('data-fid'),
+            labels:labels,
+            score:score,
+            site:0,
+            terminal:0
+         }
+         addComment(params)
+    }else{
+        $.toast({
+            text:'请选择评分',
+            delay : 3000,
+        })
+    }
+})
+
+$(document).on('click','.personal-center-dialog .file-rates .start',function(e){
+  var isAppraise  = $(this).attr('data-isappraise')
+  var  starts = $('.personal-center-dialog .file-rates .start')
+       score = $(this).index()
+  if(isAppraise!=1){  // 未评论  也就是评论
+      starts.removeClass('start-active')
+      starts.slice(0,score+1).addClass('start-active')
+      $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
+  }
+})
+
 
   // 绑定定时弹窗关闭按钮
 
@@ -250,6 +315,7 @@ function fetchCouponReceiveList() {
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function(res) {
+              closeRewardPop()
               if (res && res.code == '0') {
                   // 重新刷新页面
                 //  window.location.reload();
