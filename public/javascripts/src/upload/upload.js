@@ -263,7 +263,7 @@ define(function(require , exports , module){
                 $('.date-con-second').show()
                 var cid  =$(this).find('a').attr('cid')
                 $('.date-con-second').find('.a'+cid).show()
-                $(this).parents('.date-con-in').css('width','370px')
+                $(this).parents('.date-con-in').css('width','390px')
               
             })
            
@@ -273,7 +273,7 @@ define(function(require , exports , module){
                 $('.date-con-third').show()
                 var id2  =$(this).find('a').attr('cid')
                 $('.date-con-third').find('.a'+id2).show()
-                $(this).parents('.date-con-in').css('width','560px')
+                $(this).parents('.date-con-in').css('width','580px')
             })
           
             $('.doc-list').on('click','.date-con-in li',function(event) {
@@ -485,7 +485,6 @@ define(function(require , exports , module){
                     $(this).val(val) 
                 }
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
-                console.log(itemIndex,'itemIndexitemIndex')
                 uploadObj.uploadFiles[itemIndex].description = $(this).val();
             })
          },

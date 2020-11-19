@@ -428,7 +428,6 @@ i {
   left: 11px;
   top: 33px;
   z-index: 20;
-  background-color: #fff;
   display: none;
 }
 .doc-list .doc-li .doc-top-tt .doc-mid .data-must .date-con.fenlei {
@@ -607,6 +606,7 @@ i {
   height: 220px;
   overflow-x: hidden;
   overflow-y: auto;
+  background: #ffffff;
 }
 .date-con-in .selectItem li {
   width: 180px;
@@ -832,7 +832,6 @@ i {
   top: auto;
   bottom: 33px;
   z-index: 20;
-  background-color: #fff;
   display: none;
 }
 .doc-batch-inter .doc-list .doc-li .fix-upload-right {
