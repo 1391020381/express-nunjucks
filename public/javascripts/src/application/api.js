@@ -136,7 +136,9 @@ define(function (require, exports, module) {
         },
         comment:{
            getLableList: gateway + '/comment/lable/dataList',
-           addComment:gateway + '/comment/eval/add'
+           addComment:gateway + '/comment/eval/add',
+           getHotLableDataList:gateway + '/comment/lable/hotDataList',
+           getFileComment:gateway + '/comment/eval/persoDataInfo'
         }
     }
 });

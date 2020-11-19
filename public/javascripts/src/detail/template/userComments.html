@@ -1,28 +1,21 @@
 <div class="user-comments">
      <div class="user-evaluation">
         <div class="evaluation-tags">
-            <span class="tag">评价标签</span>
-            <span class="tag">评价标签</span>
-            <span class="tag all">全部</span>
+            {{each tagsList as item}}
+                 <span class="tag tag-active" data-id="{{item.id}}">{{item.name}}</span>
+           {{/each}}  
+            <span class="tag tag-active" data-id="all">全部</span>
         </div>
         <ul class="evaluation-list">
+            {{each userComments as comment}}
               <li class="evaluation-item">
                     <p class="evaluation-user-summary"> 
-                       <img class="evaluation-user-avatar" src=""/> 
-                       <span class="evaluation-user-name">善良的一二三</span>
+                       <img class="evaluation-user-avatar" src="{{comment.userAvatar}}"/> 
+                       <span class="evaluation-user-name">{{comment.content}}</span>
                        <span class="start"></span> 
-                       <span class="evaluation-time">2020-10-01</span>
+                       <span class="evaluation-time">{{comment.createTime}}</span>
                     </p>
-                    <p class="evaluation-desc">很实用，爱问共享资料的内容越来越好了。</p>
-              </li>
-              <li class="evaluation-item">
-                    <p class="evaluation-user-summary"> 
-                       <img class="evaluation-user-avatar" src=""/> 
-                       <span class="evaluation-user-name">善良的一二三</span>
-                       <span class="start"></span> 
-                       <span class="evaluation-time">2020-10-01</span>
-                    </p>
-                    <p class="evaluation-desc">很实用，爱问共享资料的内容越来越好了。</p>
+                    <p class="evaluation-desc">{{comment.content}}</p>
               </li>
         </ul>
     </div>
