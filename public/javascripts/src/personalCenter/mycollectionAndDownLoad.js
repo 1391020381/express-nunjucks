@@ -16,29 +16,7 @@ define(function(require , exports , module){
    var labelList = require('./template/labelList.html')
    var score = 0
    var tagList = []  // 评论标签
-   var couponList = [{
-    vid: "5d56657b114fe82e087dac47",
-    type: 1,
-    content: "限购买VIP-12个月",
-    timeval: null,
-    couponAmount: 15,
-    dateNumber: 7,
-    appointType: 2,
-    manCouponAmount: null,
-    discount:null
-},
-{
-    vid: "5d56645e114fe8247c8c6a03",
-    type: 1,
-    content: "适用全部类型VIP；满0元可用",
-    timeval: null,
-    couponAmount: 5,
-    dateNumber: 7,
-    appointType: 2,
-    manCouponAmount: null,
-    discount:null
-}
-]
+   var taskList = []
    if(type =='mycollection'||type =='mydownloads'){
       isLogin(initData,true)
    }
@@ -189,8 +167,7 @@ function addComment(params){
                 })
                 score = 0
                 closeRewardPop()
-                // fetchCouponReceiveList()
-                startCouponReceive(couponList)
+                getTaskList(params.fid)
             }else{
              $.toast({
                  text:res.message,
@@ -205,21 +182,22 @@ function addComment(params){
 }
 
 // 获取发卷列表接口
-function fetchCouponReceiveList() {
-      var params = {
-          type: 2,
-          site: 4
-      }
+function getTaskList(fid) { // todo
       $.ajax({
-          url: api.coupon.rightsSaleVouchers,
+          url: 'http://yapi.ishare.iasktest.com/mock/142/task/get', //api.coupon.getTask,
           type: "GET",
           data: params,
+          type: "POST",
+          data: JSON.stringify({
+              key:fid,
+              taskCode:'evaluate'
+          }),
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function(res) {
               if (res && res.code == '0') {
-                  couponList = res.data && res.data.list ? res.data.list : [];
-                  startCouponReceive(couponList)
+                  taskList = res.data && res.data.list ? res.data.list : [];
+                  startTaskReceive(taskList)
               }
           }
       });
@@ -227,10 +205,10 @@ function fetchCouponReceiveList() {
 }
 
     // 开始弹出领取优惠券的弹窗
-function startCouponReceive(couponList) {
-      if (!couponList.length) return;
+function startTaskReceive(taskList) {
+      if (!taskList.length) return;
       var data = {
-          list: couponList.slice(0, 2)
+          list: taskList.slice(0, 2)
       };
       var _html = template.compile(receiveCoupon)({ data: data });
       $("#dialog-box").dialog({

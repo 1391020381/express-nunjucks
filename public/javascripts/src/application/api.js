@@ -75,7 +75,8 @@ define(function (require, exports, module) {
             querySeniority: gateway + '/rights/sale/querySeniority',
             queryUsing:gateway + '/rights/sale/queryUsing',
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
-            getBuyRecord:gateway + '/rights/vip/getBuyRecord'
+            getBuyRecord:gateway + '/rights/vip/getBuyRecord',
+            getTask: gateway + '/task/get'
         },
         order:{
           
