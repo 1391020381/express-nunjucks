@@ -1,5 +1,3 @@
-// const { doUntil } = require('async');
-
 define(function(require , exports , module){
     require('../application/suspension');
     require('./fixedTopBar')
@@ -39,7 +37,6 @@ define(function(require , exports , module){
             uploadObj. priceSelect();
             uploadObj.saveFolderOption();
             uploadObj.delete();
-            // uploadObj.beforeInit();
             setTimeout(function(){
                 uploadObj.upload();
             },500)
@@ -49,23 +46,6 @@ define(function(require , exports , module){
                 $('.permin').hide();
                 $('.money').hide();
             })
-        },
-        beforeInit:function(){
-            // if (!utils.getCookie('cuk')) {
-            //     login.notifyLoginInterface(function (data) {
-            //        if (data) {
-            //             uploadObj.isAuth = data.isAuth =="0" ? false: true;
-            //             uploadObj.refreshTopBar(data);
-            //        }
-            //     });
-            // }else {
-            //     login.getLoginData(function (data) {
-            //         if (data) {
-            //             uploadObj.isAuth = data.isAuth =="0" ? false: true;
-            //             uploadObj.refreshTopBar(data);
-            //        }
-            //     });
-            // }
         },
         checkHook:function(){
             // 勾选上传编辑文件
@@ -152,12 +132,8 @@ define(function(require , exports , module){
                         var ext = task.ext.split('.')[1];
                         var obj = {ext:ext,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
-                       
                         $('.secondStep').show();
                         $('.firstStep').hide();
-                        // console.log(uploadObj.uploadFiles);
-                        // console.log(task)
-                        // console.log('&&&&&&&&&&&&&&&&&&&')
                         uploadObj.publicFileRener()
                     },
                     //任务移除后触发
@@ -168,7 +144,6 @@ define(function(require , exports , module){
                     upload: function (task) {
                         //exe文件可以添加，但不会上传
                         if (task.ext == ".exe") return false;
-                       
                     },
                     // 上传进度
                     progress:function(task){
@@ -258,9 +233,7 @@ define(function(require , exports , module){
                                 layer1.last = 0
                             }
                         })
-                        // uploadObj.Allcategory = res.data.categoryList;
                         uploadObj.Allcategory = res.data;
-                        console.log(uploadObj.Allcategory)
                     } else {
                         utils.showAlertDialog("温馨提示", res.message);
                     }
@@ -269,9 +242,6 @@ define(function(require , exports , module){
                     
                 }
             })
-        },
-        categorySelect:function(id,id){
-
         },
         // 分类选择
         categoryOption:function(){
@@ -356,6 +326,7 @@ define(function(require , exports , module){
         typeSelect: function(){
             $('.doc-list').on('click','.js-type',function(e){
                 if(!uploadObj.isAuth) {
+                    // 机构才能选择付费 非机构只能免费
                     return false;
                 }
                 e.stopPropagation()
@@ -514,6 +485,7 @@ define(function(require , exports , module){
                     $(this).val(val) 
                 }
                 var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                console.log(itemIndex,'itemIndexitemIndex')
                 uploadObj.uploadFiles[itemIndex].description = $(this).val();
             })
          },
@@ -545,7 +517,6 @@ define(function(require , exports , module){
                             item.folderId = id
                             item.folderName = text;
                         }
-                        
                     })
                 }
                 uploadObj.publicFileRener()  
