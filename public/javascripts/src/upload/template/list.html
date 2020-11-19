@@ -88,11 +88,11 @@
                         </div>
                         <div class="date-con fenlei">
                             <div class="date-con-in" >
-                                <ul class="date-con-first">
+                                <ul class="selectItem date-con-first">
                                     {{each Allcategory as item index}}
                                     <li>
                                         <a href="javascript:;" cid="{{item.id}}" last="{{item.last}}" name ="{{item.name}}">{{item.name}}</a>
-                                        <ul class="date-con-sec"  style="display: none;">
+                                        <!-- <ul class="date-con-sec"  style="display: none;">
                                             {{if item.subList}}
                                             {{each item.subList as ctn num}}
                                             <li >
@@ -107,8 +107,34 @@
                                             </li>
                                             {{/each}}
                                             {{/if}}
-                                        </ul>
+                                        </ul> -->
                                     </li>
+                                    {{/each}}
+                                </ul>
+                                <ul class="selectItem date-con-second">
+                                    {{each Allcategory as item index}}
+                                        {{if item.subList}}
+                                            {{each item.subList as ctn num}}
+                                            <li class="a{{item.id}} hide">
+                                                <a href="javascript:;" cid="{{ctn.id}}" last="{{ctn.last}}" name ="{{ctn.name}}">{{ctn.name}}</a>
+                                            </li>
+                                            {{/each}}
+                                        {{/if}}
+                                    {{/each}}
+                                </ul>
+                                <ul class="selectItem date-con-third">
+                                    {{each Allcategory as item index}}
+                                        {{if item.subList}} 
+                                        {{each item.subList as ctn num}}
+                                            {{if ctn.subList}} 
+                                            {{each ctn.subList as item3 index3}}
+                                            <li   class="a{{ctn.id}} hide">
+                                                <a href="javascript:;" cid="{{item3.id}}" last="{{item3.last}}" name ="{{item3.name}}">{{item3.name}}</a>
+                                            </li>
+                                            {{/each}}
+                                            {{/if}}
+                                        {{/each}}
+                                        {{/if}}
                                     {{/each}}
                                 </ul>
                             </div>
