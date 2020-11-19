@@ -108,13 +108,11 @@
     </div>
     <!--底部购买信息 start -->
     <div class="detail-footer" id="littleApp">
-
-        <div class="detail-state">
             {% if results.list.data.isConvert == 0  %}
-            <div class="detail-footer-info">转码失败，如需要继续阅读，敬请下载！</div>
+              <div class="detail-state">
+                 <div class="detail-footer-info">转码失败，如需要继续阅读，敬请下载！</div>
+             </div>
             {%endif%}
-            
-        </div>
    {% if results.list.data.isConvert !== 0 %}
         <div class="state-bottom">
             <a class="data-page show-more-text btn-read-more pc_click" pcTrackContent="pageTurning-1"
@@ -131,8 +129,18 @@
 
     <!-- 相关搜索 -->
     <div class="hot-spot-search-warper">
-       
-    </div>
+         <div class="hot-spot-search">
+            <h2 class="hot-spot-search-title">相关搜索<h2>
+            <ul class="hot-items">
+                  {% for item in results.specialTopic%}
+                   <li class="item">
+                     <a  href="/node/s/{{item.id}}.html"  target="_blank">{{item.topicName}}</a>
+                  </li>
+                {%endfor%}
+          </ul>
+        </div>
+   </div>
    
-  
+    <!--评价-->
+    <div class="user-comments-container"></div>
 </div>
