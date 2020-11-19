@@ -1,0 +1,27 @@
+
+  <!--我的下载评价标签 -->
+{{each labelList as v i}}
+    {{if isAppraise == 1}}
+       <label  class="tag"><span class="tag-desc">{{v.name}}</span></label>
+    {{else}}
+        <label class="tag" for="{{v.id}}">
+             <input type="checkbox" name="tag" value="{{v.id}}" id="{{v.id}}" class="label-input"/>
+             <span class="tag-desc">{{v.name}}</span>
+        </label>   
+    {{/if}}            
+{{/each}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

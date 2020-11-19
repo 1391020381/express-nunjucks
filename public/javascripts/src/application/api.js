@@ -132,6 +132,9 @@ define(function (require, exports, module) {
         },
         wechat:{
             getWechatSignature: gateway + '/message/wechat/info/getWechatSignature'
+        },
+        comment:{
+           getLableList: gateway + '/comment/lable/dataList' 
         }
     }
 });

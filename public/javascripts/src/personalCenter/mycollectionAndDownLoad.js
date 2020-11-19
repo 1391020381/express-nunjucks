@@ -1,5 +1,6 @@
 
 
+
 define(function(require , exports , module){
    var method = require("../application/method");
    var api = require('../application/api');
@@ -11,6 +12,7 @@ define(function(require , exports , module){
    var type = window.pageConfig&&window.pageConfig.page.type
    var clickEvent = require('../common/bilog').clickEvent
    var receiveCoupon = require('./template/receiveCoupon.html')
+   var labelList = require('./template/labelList.html')
    var couponList = [{
     vid: "5d56657b114fe82e087dac47",
     type: 1,
@@ -137,10 +139,10 @@ define(function(require , exports , module){
   $(document).on('click','.personal-center-mydownloads .evaluate-btn',function(event){
       console.log('evaluate-btn')
       var format = $(this).attr("data-format")
-      var title = $(this).attr('data-format')
-    $("#dialog-box").dialog({
-        html: $('#evaluation-dialog').html().replace(/\$format/, format),
-    }).open();
+      var title = $(this).attr('data-title')
+      var fid = $(this).attr('data-fid')
+      var isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
+      getLabelList(fid,format,title,isAppraise)
   })
 
   $(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
@@ -148,6 +150,46 @@ define(function(require , exports , module){
      // fetchCouponReceiveList()
      startCouponReceive(couponList)
 })
+
+$(document).on('click','.personal-center-dialog .file-rates .start',function(e){
+    var isAppraise  = $(this).attr('data-isappraise')
+    var  starts = $('.personal-center-dialog .file-rates .start')
+    var index = $(this).index()
+    if(isAppraise!=1){  // 未评论  也就是评论
+        starts.removeClass('start-active')
+        starts.slice(0,index+1).addClass('start-active')
+        $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
+    }
+})
+
+// 获取评价标签
+function getLabelList(fid,format,title,isAppraise) { 
+    $.ajax({
+        headers: {
+            'Authrization': method.getCookie('cuk')
+        },
+        url:   'http://yapi.ishare.iasktest.com/mock/79/lable/dataList' ,  // api.comment.getLableList + '?fid=' + fid
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            if (res.code == '0') {
+                 var tags = template.compile(labelList)({labelList:res.data,isAppraise:isAppraise})
+                $("#dialog-box").dialog({
+                    html: $('#evaluation-dialog').html().replace(/\$format/, format).replace(/\$title/, title).replace(/\$tags/, tags).replace(/\$$isAppraise/,isAppraise),
+                }).open();
+            } else {
+                $.toast({
+                    text: res.message,
+                    delay: 3000,
+                })    
+            }
+        },
+        error: function (error) {
+            console.log('queryUserBindInfo:', error)
+        }
+    })
+}
 
 
 // 获取发卷列表接口

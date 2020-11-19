@@ -817,24 +817,37 @@
         .evaluation-tags{
             margin-top:25px;
             .tag {
-                margin-top:25px;
-                margin-right: 20px;
-                display: inline-block;
-                padding:7px 12px;
-                background: #FFFFFF;
-                border-radius: 2px;
-                cursor: pointer;
-                font-size: 13px;
-                color: #222222;
+                 display: inline-block;
+                 margin-right: 20px;
+                 margin-top:25px;
+                .label-input{
+                    display: none;
+                }
+                .tag-desc{
+                  display: inline-block;
+                   padding: 6px 12px;
+                   background: #FFFFFF;
+                   border-radius: 2px;
+                   cursor: pointer;
+                   font-size: 13px;
+                   color: #333333;
+                   background: #F4F4F4;
+                   border-radius: 14px;
+                }
+                .label-input:checked + span{ 
+                    background: #FCE8E2;
+                    color: #222222;
+                 }
             }
         }
         .evaluation-desc{
             margin-top:40px;
             padding:12px;
             height: 90px;
+            border: solid 1px #eee;
             .desc-input{
                 width: 100%;
-                height: 100%;            
+                border: none;           
             }
         }
         .evaluation-confirm{
@@ -844,11 +857,11 @@
             height: 40px;
             line-height: 40px;
             text-align: center;
-            background: #F25125;
             border-radius: 4px;
            font-size: 15px;
-           color: #FFFFFF;
            cursor: pointer;
+           color: #999;
+           background: #e9e8e5;
         }
     }
     // 领取优惠券弹窗

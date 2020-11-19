@@ -37,7 +37,12 @@
                </td>
                {{if type == 'mydownloads'}}
                 <td class="operation-btn">
-                  <span class="evaluate-btn" data-format="{{list[$index].format}}">填写评价</span>
+                  {{ if list[$index].isAppraise == 1}}
+                        <span class="evaluate-btn" data-isappraise ="{{list[$index].isappraise}}" data-format="{{list[$index].format}}" data-fid="{{list[$index].fid}}" data-title="{{list[$index].title}}">查看评价</span>
+                  {{else}}
+                       <span class="evaluate-btn" data-format="{{list[$index].format}}" data-fid="{{list[$index].fid}}" data-title="{{list[$index].title}}">填写评价</span>
+                  {{/if}}
+                 
                </td>
                {{/if}}
             </tr>
