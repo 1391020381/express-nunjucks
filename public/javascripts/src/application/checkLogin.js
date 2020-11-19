@@ -103,6 +103,7 @@ define(function (require, exports, module) {
                             window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
+                           
                             callback(res.data);
                             try {
                                 window.pageConfig.params.isVip = res.data.isVip;
