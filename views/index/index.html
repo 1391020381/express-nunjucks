@@ -66,9 +66,9 @@
                                 <div class="item-title" >
                                     <h4 class="title-text">
                                       {% if item.url%}
-                                        <a href="{{item.url}}" target="_blank">{{item.name}}</a>
+                                        <a href="{{item.url}}" target="_blank">{{item.name.slice(0,5)}}</a>
                                       {%else%}
-                                       <a href="/c/{{item.nodeCode}}.html" target="_blank">{{item.name}}</a>
+                                       <a href="/c/{{item.nodeCode}}.html" target="_blank">{{item.name.slice(0,5)}}</a>
                                       {%endif%}
                                      
                                     </h4>
@@ -129,7 +129,6 @@
                         </a>
                     </div>
                 </div>
-                <a style="position: absolute;top: 12px;height: 30px;line-height: 30px;right:0px;color: #ffffff;font-weight: bold;" target="_blank" href="/node/auth/index.html">申请认证</a>
             </div>
         
         </div>
@@ -467,6 +466,9 @@
 <!-- 底部 end-->
 <!--悬浮工具栏 start-->
 {% include "common/suspension.html" %}
+
+<!--立即认证 start-->
+<a class="authentication" target="_blank" href="/node/auth/index.html"></a>
 <!--悬浮工具栏 end-->
 <script>
     var pageConfig = {

@@ -50,7 +50,9 @@ define(function(require , exports , module){
             false
         }
     }
-    $("#dialog-box").dialog({
-        html: $('#Sign-dialog').html(),
-    }).open();
+    $(document).on('click','.personal-center-content .personal-center-menu .signIn',function(){
+        $("#dialog-box").dialog({
+            html: $('#Sign-dialog').html(),
+        }).open();
+    })
 });
