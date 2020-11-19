@@ -449,7 +449,7 @@
 }
 .index-header .index-banner .banner-container .banner-wraper .top-bar-right {
   position: absolute;
-  right: 80px;
+  right: 0;
   top: 12px;
   height: 30px;
   line-height: 30px;
@@ -1407,4 +1407,14 @@
 }
 .seo-upload-new .upload-list li a {
   color: #555;
+}
+.authentication {
+  position: fixed;
+  top: 738px;
+  right: 84px;
+  width: 120px;
+  height: 120px;
+  background: url("../../images/index/authentication.png") no-repeat center;
+  background-size: 100%;
+  cursor: pointer;
 }

@@ -118,8 +118,8 @@ module.exports = {
               
                 if(results.categoryList&&results.categoryList.data){
                    
-                    var  preContent = results.categoryList.data.slice(0,5)
-                    var temp = results.categoryList.data.slice(5)
+                    var  preContent = results.categoryList.data.slice(0,8)
+                    var temp = results.categoryList.data.slice(8)
                     var nextContent = {id:'', "name": "更多", class:'loadMore',frontAllCategoryVOList:[]}
                     temp.forEach(item=>{
                         nextContent.frontAllCategoryVOList.push({
