@@ -79,7 +79,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
     }
     const filePreview = await getFilePreview(req, res, list)
-
+    const commentDataList = await getFileComment(req,res,list.data.fileInfo.fid)
     handleDetalData(
         req,
         res,
@@ -96,7 +96,8 @@ const renderPage = cc(async (req, res) => {
         filePreview,
         crumbList,
         userID,
-        specialTopic
+        specialTopic,
+        commentDataList
     )
 })
 
@@ -286,6 +287,12 @@ function getFilePreview(req, res, list) {
     return server.$http(appConfig.apiNewBaselPath + Api.file.preReadPageLimit, 'post', req, res, true)
 }
 
+// 获取详情评论  用于加载更多定位
+function getFileComment(req,res,fid){
+    const url = 'http://yapi.ishare.iasktest.com/mock/79/eval/dataList'
+ //   const url=  appConfig.apiNewBaselPath + Api.comment.getFileComment + '?fid='+ fid + '&currentPage=1&pageSize=15' ;
+    return server.$http(url,'get', req, res, true);
+}
 function handleDetalData(
     req,
     res,
@@ -302,7 +309,8 @@ function handleDetalData(
     filePreview,
     crumbList,
     userID,
-    specialTopic
+    specialTopic,
+    commentDataList
 ) {
 
     if (topBannerList.data) {
@@ -343,6 +351,7 @@ function handleDetalData(
 
     // console.log('ccateList', JSON.stringify(cateList))
     var results = Object.assign({}, {
+        isHasComment:commentDataList.data.totalPages>0?1:0,
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,

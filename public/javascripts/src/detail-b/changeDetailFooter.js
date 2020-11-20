@@ -2,6 +2,7 @@ define(function (require, exports, module){
    var isConvert = window.pageConfig.page.isConvert
     // var detailCon = $('.detail-reader-con').find(".detail-con:visible").length -2
     var detailCon = $('.detail-reader-con').find(".detail-con:visible").length 
+    var isHasComment = window.pageConfig.params.isHasComment
     var detailGuide = $('.detail-guide-wrap').outerHeight(true) || 0
     var hotSpotSearch = $('.hot-spot-search-warper').outerHeight(true) || 0
     var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
@@ -33,7 +34,7 @@ define(function (require, exports, module){
         'position': 'absolute',
         'left':'0px',
         'right':'0px',
-        'bottom':(10 + bottomHeight) + 'px',
+        'bottom':isHasComment?(10 + bottomHeight + 549) + 'px':(10 + bottomHeight ) + 'px',
         'width': '890px'
     })
    }

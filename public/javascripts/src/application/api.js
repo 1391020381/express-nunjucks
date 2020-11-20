@@ -137,8 +137,9 @@ define(function (require, exports, module) {
         comment:{
            getLableList: gateway + '/comment/lable/dataList',
            addComment:gateway + '/comment/eval/add',
-           getHotLableDataList:gateway + '/comment/lable/hotDataList',
-           getFileComment:gateway + '/comment/eval/persoDataInfo'
+           getHotLableDataList:gateway + '/comment/lable/hotDataList',// 详情热评标签
+           getFileComment:gateway + '/comment/eval/dataList', // 详情评论
+           getPersoDataInfo:gateway + '/comment/eval/persoDataInfo'  // 个人中心我的下载 查询评论
         }
     }
 });

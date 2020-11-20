@@ -3102,8 +3102,9 @@ body {
   color: #222222;
   cursor: pointer;
 }
-.user-comments-container .user-evaluation .evaluation-tags .all {
+.user-comments-container .user-evaluation .evaluation-tags .tag-all {
   float: right;
+  margin-right: 0;
 }
 .user-comments-container .user-evaluation .evaluation-list .evaluation-item {
   border-bottom: solid 1px #F2F2F2;
@@ -3124,6 +3125,22 @@ body {
   margin-right: 20px;
   width: 30px;
   height: 30px;
+}
+.user-comments-container .user-evaluation .evaluation-list .evaluation-item .evaluation-user-summary .evaluation-user-name {
+  float: left;
+  margin-right: 20px;
+}
+.user-comments-container .user-evaluation .evaluation-list .evaluation-item .evaluation-user-summary .start {
+  float: left;
+  margin-right: 5px;
+  width: 17px;
+  height: 18px;
+  background: url('../images/detail/start.png') no-repeat center;
+  background-size: 100%;
+}
+.user-comments-container .user-evaluation .evaluation-list .evaluation-item .evaluation-user-summary .evaluation-time {
+  float: right;
+  margin-right: 5px;
 }
 .user-comments-container .user-evaluation .evaluation-list .evaluation-item .evaluation-desc {
   margin-top: 20px;
