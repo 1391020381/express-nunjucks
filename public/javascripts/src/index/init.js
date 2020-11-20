@@ -9,7 +9,7 @@ define(function (require,exports,moudle) {
     var login = require("../application/checkLogin");
     var api = require("../application/api");
     var headTip = require("./template/saiTemplate.html");
-                            
+    var clickEvent = require('../common/bilog').clickEvent                      
     // require('../common/bilog');
     /**
      * 推荐多图点击轮播
@@ -124,13 +124,15 @@ define(function (require,exports,moudle) {
         // 点击搜索
         searchWordHook:function(){
             var searVal = '';
-            $('.search-container .icon-search').click(function(){
+            $('.search-container .icon-search').click(function(){  
                 searVal = $('.search-container .search-input').val();
+                clickEvent('searchBtnClick',{keyWords:searVal})
                 window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
             })
             $('.search-container .search-input').keydown(function(e) {  
                 if (e.keyCode == 13) {  
                     searVal = $('.search-container .search-input').val();
+                    clickEvent('searchBtnClick',{keyWords:searVal})
                     window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
                 }  
             });  

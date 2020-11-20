@@ -4,7 +4,7 @@ define(function(require, exports, moudle) {
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-
+    var viewExposure = require('../common/bilog').viewExposure
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -15,6 +15,7 @@ define(function(require, exports, moudle) {
     var couponReceive = require('./couponReceive.html')
     require("../common/bilog");
     var clickEvent = require('../common/bilog').clickEvent
+    var viewExposure = require('../common/bilog').viewExposure
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     var renewalVIP = window.pageConfig.params.isVip == '1' ? '1' : '0' // 标识是否是续费vip
     var checkStatus = window.pageConfig.params.checkStatus || '10'
@@ -34,11 +35,13 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
+        viewExposure($(this),'vipPayList','VIP套餐列表弹窗')
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
     if (location.pathname == '/pay/payQr.html') {
+        viewExposure($(this),'filePay','资料支付弹窗')
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }

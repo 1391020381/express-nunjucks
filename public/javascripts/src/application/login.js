@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var normalPageView = require('../common/bilog').normalPageView
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-
+    var viewExposure = require('../common/bilog').viewExposure
 
     var IframeMessenger = require('./iframe/iframe-messenger');
 
@@ -66,6 +66,7 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
+        viewExposure($(this),'login','登录弹窗')
         var loginDialog = $('#login-dialog')
         normalPageView('loginResultPage')
         var jsId = method.getLoginSessionId();
