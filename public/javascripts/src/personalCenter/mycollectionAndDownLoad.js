@@ -181,7 +181,7 @@ function addComment(params){
      })
 }
 
-// 获取发卷列表接口
+// 获取任务列表接口
 function getTaskList(fid) { // todo
       $.ajax({
           url: 'http://yapi.ishare.iasktest.com/mock/142/task/get', //api.coupon.getTask,
