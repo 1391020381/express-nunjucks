@@ -7,16 +7,16 @@
                 {{each data.list as v i}}
                 <div class="coupon-item">
                     <div class="coupon-item-price">
-                        {{ if v.type == 1 }} 
+                        {{ if v.voucherType == 1 }} 
                             <span style="font-size:17px;">&yen;</span> 
-                            <span>{{v.couponAmount}}</span>
+                            <span>{{v.content1}}</span>
                         {{ /if }}
-                        {{ if v.type == 2}}
+                        {{ if v.voucherType == 2}}
                             <span style="font-size:17px;"></span>
                             <span>{{v.discount}}折</span>
                         {{ /if }}
                     </div>
-                    <div class="coupon-item-text" title="{{v.name}}">{{v.name}}</div>
+                    <div class="coupon-item-text" title="{{v.content2}}">{{v.content2}}</div>
                 </div>
                 {{/each}}
             </div>

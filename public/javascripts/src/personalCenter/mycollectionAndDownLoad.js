@@ -13,10 +13,11 @@ define(function(require , exports , module){
    var clickEvent = require('../common/bilog').clickEvent
    var utils = require("../cmd-lib/util");
    var receiveCoupon = require('./template/receiveCoupon.html')
-   var labelList = require('./template/labelList.html')
+   var commentDialogContent= require('./template/commentDialogContent.html')
    var score = 0
+   var isAppraise = 0
    var tagList = []  // 评论标签
-   var taskList = []
+   var taskList = {}
    if(type =='mycollection'||type =='mydownloads'){
       isLogin(initData,true)
    }
@@ -131,9 +132,10 @@ function getLabelList(fid,format,title,isAppraise) {
         success: function (res) {
             if (res.code == '0') {
                  tagList = res.data
-                 var tags = template.compile(labelList)({labelList:res.data,isAppraise:isAppraise})
+                 var data = { format:format,title:title,labelList:res.data,isAppraise:isAppraise }
+                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                 $("#dialog-box").dialog({
-                    html: $('#evaluation-dialog').html().replace(/\$format/, format).replace(/\$title/, title).replace(/\$tags/, tags).replace(/\$$isAppraise/,isAppraise).replace(/\$fid/,fid),
+                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
                 }).open();
             } else {
                 $.toast({
@@ -180,13 +182,31 @@ function addComment(params){
          }
      })
 }
+// 获取文件评论
+
+function getFileComment(title,format) { 
+    $.ajax({
+        url: 'http://yapi.ishare.iasktest.com/mock/79/eval/persoDataInfo', //api.comment.getPersoDataInfo + '?fid=' + fid,
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(res) {
+            if (res && res.code == '0') {
+                var data = { format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content}
+                var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
+               $("#dialog-box").dialog({
+                   html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
+               }).open();
+            }
+        }
+    });
+
+}
 
 // 获取任务列表接口
-function getTaskList(fid) { // todo
+function getTaskList(fid) { 
       $.ajax({
           url: 'http://yapi.ishare.iasktest.com/mock/142/task/get', //api.coupon.getTask,
-          type: "GET",
-          data: params,
           type: "POST",
           data: JSON.stringify({
               key:fid,
@@ -196,7 +216,8 @@ function getTaskList(fid) { // todo
           dataType: "json",
           success: function(res) {
               if (res && res.code == '0') {
-                  taskList = res.data && res.data.list ? res.data.list : [];
+                  taskList = res.data ||{};
+                  taskList.fid = fid
                   startTaskReceive(taskList)
               }
           }
@@ -206,9 +227,12 @@ function getTaskList(fid) { // todo
 
     // 开始弹出领取优惠券的弹窗
 function startTaskReceive(taskList) {
-      if (!taskList.length) return;
+      if (!taskList.rewardContent.length) return;
       var data = {
-          list: taskList.slice(0, 2)
+          code:taskList.code,
+          id:taskList.id,
+          rewardType:taskList.rewardType,
+          list: taskList.rewardContent.slice(0, 2)
       };
       var _html = template.compile(receiveCoupon)({ data: data });
       $("#dialog-box").dialog({
@@ -221,12 +245,23 @@ function startTaskReceive(taskList) {
     console.log('evaluate-btn')
     var format = $(this).attr("data-format")
     var title = $(this).attr('data-title')
-    var fid = $(this).attr('data-id')
-    var isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
-    getLabelList(fid,format,title,isAppraise)
+    var fid = $(this).attr('data-fid')
+    isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
+    // isAppraise = 1
+    if(isAppraise==1){
+        getFileComment(title,format)
+    }else{
+        getLabelList(fid,format,title,isAppraise)
+    }
+    
 })
 
 $(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
+    if(isAppraise == 1){
+        closeRewardPop()
+        isAppraise = 0
+        return
+    }
     if(score>0){
         var  labels = []
         $.each($('.evaluation-dialog input:checkbox:checked'),function(){
@@ -269,7 +304,6 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
 })
 
 
-  // 绑定定时弹窗关闭按钮
 
   $('#dialog-box').on('click','.close-btn',function(e){
     clickEvent($(this))
@@ -278,13 +312,12 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
   // 绑定立即领取按钮回调
   $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-footer', function(e) {
       var parmas = {
-          type: 2,
-          source: 1,
-          site: 4,
+          key:taskList.fid,
+          taskCode:taskList.code
       };
       clickEvent($(this))
       $.ajax({
-          url: api.coupon.rightsSaleVouchers,
+          url: 'http://yapi.ishare.iasktest.com/mock/142/task/receive', // api.coupon.receiveTask,
           headers: {
               'Authrization': method.getCookie('cuk')
           },
@@ -294,11 +327,18 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
           dataType: "json",
           success: function(res) {
               closeRewardPop()
+              taskList = {}
               if (res && res.code == '0') {
                   // 重新刷新页面
-                //  window.location.reload();
+                  $.toast({
+                    text:'领取任务成功',
+                    delay : 3000,
+                })
               } else {
-                  utils.showAlertDialog("温馨提示",  res.message || '领取失败');
+                $.toast({
+                    text:res.message,
+                    delay : 3000,
+                })
               }
           }
       })
