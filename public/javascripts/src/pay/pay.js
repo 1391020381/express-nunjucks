@@ -448,6 +448,16 @@ define(function(require, exports, moudle) {
      * 下单处理
      */
     function handleOrderResultInfo() {
+        // 加油包判断是否是vip
+        if(location.pathname == "/pay/privilege.html"){
+            if(userInfo.isVip != 1){
+                $.toast({
+                    text: '非会员无法购买下载特权加油包',
+                    delay: 3000,
+                })
+                method.compatibleIESkip('/pay/vip.html', true);
+            }
+        }
         var type = params.type // 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         var goodsType = ''
         var goodsId = ''
