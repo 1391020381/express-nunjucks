@@ -1034,4 +1034,27 @@ define(function(require, exports, moudle) {
             })
         }
     }
+
+    getTaskList()
+    function getTaskList() { 
+        $.ajax({
+            url: api.coupon.getTask,
+            type: "POST",
+            data: JSON.stringify({
+                key:method.getParam("fid"),
+                taskCode:'evaluate'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                    if(!res.data){
+                        $('#review-dialog').hide()
+                    }
+
+                }
+            }
+        });
+    
+  }
 });
