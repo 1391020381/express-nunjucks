@@ -209,7 +209,7 @@ define(function (require, exports, module) {
         setTimeout(function () {
             console.log(params,'页面上报');
             $.getJSON(urlConfig.bilogUrl + base64.encode(JSON.stringify(params)) + "&jsoncallback=?", function (data) {
-                console.log(data);
+                console.log('bilogUrl-result:',data);
             });
         })
     }
@@ -228,7 +228,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            // console.log('埋点参数:',resultData)
+           
             push(resultData);
         }
     }
@@ -382,7 +382,7 @@ define(function (require, exports, module) {
         // debugger
         var that = $(this);
         var cnt = that.attr(config.BILOG_CONTENT_NAME);//上报事件类型
-        console.log('cnt:',cnt)
+        
         if (cnt) {
             setTimeout(function () {
                 clickEvent(cnt, that);
@@ -573,7 +573,7 @@ define(function (require, exports, module) {
         
             clickCenter('NE006', 'modelView', '', '', customData);
         }else if(cnt == 'similarFileClick'){
-            console.log(that,that.index())
+            
             customData={
                 moduleID:'guesslike',
                 moduleName:'猜你喜欢',
@@ -636,7 +636,7 @@ define(function (require, exports, module) {
                     fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
                     fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
                 }
-                clickCenter('SE035', 'searchBtnClick', '', '', temp);
+                clickCenter('SE035', 'fileDetailBottomDownClick', '', '', m);
             }else{
                 var page = window.pageConfig.page
                 var params = window.pageConfig.params
@@ -654,7 +654,7 @@ define(function (require, exports, module) {
             var temp = {}
             $.extend(temp, params);
             clickCenter('SE033', 'createOrder', '', '', temp,'query');
-        }else if(cnt == 'SE036'){
+        }else if(cnt == 'searchBtnClick'){
             clickCenter('SE036', 'searchBtnClick', '', '', {keyWords:params.keyWords});
         }
     }
@@ -705,7 +705,7 @@ define(function (require, exports, module) {
             $.getJSON(
                urlConfig.bilogUrl + base64.encode(JSON.stringify(result)) + "&jsoncallback=?",
                 function (data) {
-                    // console.log();
+                   
                 }
             );
         })
@@ -717,7 +717,7 @@ define(function (require, exports, module) {
         },
         clickEvent:function($this,params){   // 有些埋点不需要在domid
             var cnt = typeof $this == 'string'? $this: $this.attr(config.BILOG_CONTENT_NAME)
-            console.log('cnt-导出的:',cnt)
+           
             if(cnt){
                 setTimeout(function(){ // cnt, that,moduleID,params
                     clickEvent(cnt,$this,'',params)

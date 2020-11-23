@@ -284,7 +284,8 @@ define(function(require, exports, module) {
     window.onmousewheel = document.onmousewheel = scrollFunc;
 
     //点击加载更多
-    $(document).on('click', '[data-toggle="btnReadMore"]', function() {
+    $(document).on('click', '[data-toggle="btnReadMore"]', function(e) {
+        e.stopPropagation()
         loadMore();
     });
 
@@ -528,7 +529,9 @@ define(function(require, exports, module) {
             changeText()
         }
         loadMoreStyle()
-        clickEvent($('.state-bottom .page-text'))
+        if(loadedPage-limitPage <0 || loadedPage!=totalPage){
+            clickEvent('loadMore',{loadMoreDown:0})
+        }
     }
 
     function mouseScroll() {

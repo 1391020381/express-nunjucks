@@ -33,7 +33,7 @@ define(function (require, exports, module){
         'position': 'absolute',
         'left':'0px',
         'right':'0px',
-        'bottom':isHasComment?(10 + bottomHeight + 549) + 'px':(10 + bottomHeight + 549) + 'px',
+        'bottom':isHasComment==1?(10 + bottomHeight + 549) + 'px':(10 + bottomHeight) + 'px',
         'width': '890px'
     })
    }

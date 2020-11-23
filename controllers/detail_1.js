@@ -289,8 +289,7 @@ function getFilePreview(req, res, list) {
 
 // 获取详情评论  用于加载更多定位
 function getFileComment(req,res,fid){
-    const url = 'http://yapi.ishare.iasktest.com/mock/79/eval/dataList'
- //   const url=  appConfig.apiNewBaselPath + Api.comment.getFileComment + '?fid='+ fid + '&currentPage=1&pageSize=15' ;
+    const url=  appConfig.apiNewBaselPath + Api.comment.getFileComment + '?fid='+ fid + '&currentPage=1&pageSize=15' ;
     return server.$http(url,'get', req, res, true);
 }
 function handleDetalData(

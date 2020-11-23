@@ -127,7 +127,7 @@ define(function (require,exports,moudle) {
             $('.search-container .icon-search').click(function(){  
                 searVal = $('.search-container .search-input').val();
                 clickEvent('searchBtnClick',{keyWords:searVal})
-                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+               window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
             })
             $('.search-container .search-input').keydown(function(e) {  
                 if (e.keyCode == 13) {  
