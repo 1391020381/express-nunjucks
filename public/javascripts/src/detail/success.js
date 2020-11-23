@@ -396,6 +396,28 @@ define(function (require, exports, module) {
             }
         })
     }
+    getTaskList()
+    function getTaskList() { 
+        $.ajax({
+            url: api.coupon.getTask,
+            type: "POST",
+            data: JSON.stringify({
+                key:fid,
+                taskCode:'evaluate'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                    if(!res.data){
+                        $('#review-dialog').hide()
+                    }
+
+                }
+            }
+        });
+    
+  }
     // 发送邮箱
     $('.js-sent-email').click(function(){
     //          $("#dialog-box").dialog({
