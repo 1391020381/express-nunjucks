@@ -218,8 +218,8 @@ function getTaskList(fid) {
               if (res && res.code == '0') {
                   taskList = res.data ||{};
                   taskList.fid = fid
-                  if(tagList.fid){
-                    startTaskReceive(taskList.rewardContent||[])
+                  if(taskList.id){
+                    startTaskReceive(taskList||{rewardContent:[]})
                   }else{
                        getDownloadRecordList()
                   } 
@@ -231,7 +231,7 @@ function getTaskList(fid) {
 
     // 开始弹出领取优惠券的弹窗
 function startTaskReceive(taskList) {
-      if (!rewardContent.length) return;
+      if (!taskList.rewardContent.length) return;
       var data = {
           code:taskList.code,
           id:taskList.id,
@@ -280,7 +280,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
                 })
         });
         var params = {
-            content:$('.evaluation-dialog .evaluation-desc').text(),
+            content:$('.evaluation-dialog .evaluation-desc .desc-input').val(),
             fid:$('.evaluation-dialog .file-title').attr('data-fid'),
             labels:labels,
             score:score,
@@ -321,7 +321,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
       };
       clickEvent($(this))
       $.ajax({
-          url: 'api.coupon.receiveTask', //
+          url: api.coupon.receiveTask, //
           headers: {
               'Authrization': method.getCookie('cuk')
           },

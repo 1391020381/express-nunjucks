@@ -8,7 +8,7 @@ define(function (require, exports, module){
     getHotLableDataList(fid)
     function getHotLableDataList(fid) {
         $.ajax({
-            url: 'http://yapi.ishare.iasktest.com/mock/79/lable/hotDataList',// api.comment.getHotLableDataList + '?fid=' + fid,
+            url: api.comment.getHotLableDataList + '?fid=' + fid,//
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -24,7 +24,7 @@ define(function (require, exports, module){
                                               
     function getUserComments(currentPage,lableId) { 
         $.ajax({
-            url:  'http://yapi.ishare.iasktest.com/mock/79/eval/dataList',        // api.comment.getFileComment + '?fid='+ fid + '&lableId='+lableId + '&currentPage='+currentPage +'&pageSize=15'    
+            url:  api.comment.getFileComment + '?fid='+ fid + '&lableId='+lableId + '&currentPage='+currentPage +'&pageSize=15',     
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
