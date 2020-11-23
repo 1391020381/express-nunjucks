@@ -627,12 +627,12 @@ define(function (require, exports, module) {
             clickCenter('NE002', 'normalClick', 'closeCoupon', '关闭优惠券按钮', customData);
         }else if(cnt=='loadMore'){
             // 判断继续阅读是否下载
-            if(params.loadMoreDown == '1'){
+            if(params&&params.loadMoreDown == '1'){
                 var m = {
                     fileID:params.g_fileId,
-                    fileName:page.fileName,
-                    salePrice:page.productPrice,
-                    saleType:page.productType,
+                    fileName:params.file_title,
+                    salePrice:params.productPrice,
+                    saleType:params.productType,
                     fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
                     fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
                 }

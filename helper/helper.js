@@ -111,12 +111,17 @@ module.exports = function(env){
         })
         //去掉标题格式
         .addFilter('delType',function(value){
-            var index = value.lastIndexOf(".");
-            if(index !=-1) {
-                return value.substr(0,index)
+            if(value){
+                var index = value.lastIndexOf(".");
+                if(index !=-1) {
+                    return value.substr(0,index)
+                }else{
+                    return value
+                } 
             }else{
                 return value
-            } 
+            }
+            
         })
         // 过滤字符串中的html标签
         .addFilter('replaceHtml',function(value){

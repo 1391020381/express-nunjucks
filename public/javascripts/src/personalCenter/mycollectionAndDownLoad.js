@@ -125,7 +125,7 @@ function getLabelList(fid,format,title,isAppraise) {
         headers: {
             'Authrization': method.getCookie('cuk')
         },
-        url:   'http://yapi.ishare.iasktest.com/mock/79/lable/dataList' ,  // api.comment.getLableList + '?fid=' + fid
+        url:  api.comment.getLableList + '?fid=' + fid ,  // 
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -156,7 +156,7 @@ function addComment(params){
         headers:{
            'Authrization':method.getCookie('cuk')
         },
-         url:  'http://yapi.ishare.iasktest.com/mock/79/eval/add', //api.comment.addComment,
+         url:  'api.comment.addComment', //
          type: "POST",
          data: JSON.stringify(params),
          contentType: "application/json; charset=utf-8",
@@ -186,7 +186,7 @@ function addComment(params){
 
 function getFileComment(title,format) { 
     $.ajax({
-        url: 'http://yapi.ishare.iasktest.com/mock/79/eval/persoDataInfo', //api.comment.getPersoDataInfo + '?fid=' + fid,
+        url: api.comment.getPersoDataInfo + '?fid=' + fid, //,
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -206,7 +206,7 @@ function getFileComment(title,format) {
 // 获取任务列表接口
 function getTaskList(fid) { 
       $.ajax({
-          url: 'http://yapi.ishare.iasktest.com/mock/142/task/get', //api.coupon.getTask,
+          url: api.coupon.getTask,
           type: "POST",
           data: JSON.stringify({
               key:fid,
@@ -317,7 +317,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
       };
       clickEvent($(this))
       $.ajax({
-          url: 'http://yapi.ishare.iasktest.com/mock/142/task/receive', // api.coupon.receiveTask,
+          url: 'api.coupon.receiveTask', //
           headers: {
               'Authrization': method.getCookie('cuk')
           },
