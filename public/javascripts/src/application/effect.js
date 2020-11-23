@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
     var clickEvent = require('../common/bilog').clickEvent  
-
+    var loginTypeContent = require('../common/loginType')
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
@@ -71,6 +71,9 @@ define(function (require, exports, module) {
         $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
         $hasLogin.find('.top-user-more .name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
+        $hasLogin.find('.user-link .user-name').text(data.nickName);
+        var temp = loginTypeContent[method.getCookie('loginType')]
+        $hasLogin.find('.user-link .user-loginType').text(temp?temp+'登录':'');
         $hasLogin.show();
 
         // 办公vip开通按钮

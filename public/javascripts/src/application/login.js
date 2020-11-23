@@ -106,6 +106,7 @@ define(function (require, exports, module) {
     function loginInSuccess(userData, loginType, successFun) {
         window.loginType = loginType  // 获取用户信息时埋点需要
         method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
+        method.setCookieWithExpPath("loginType", loginType, userData.expires_in * 1000, "/");
         $.ajaxSetup({
             headers: {
                 'Authrization': method.getCookie('cuk')

@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var pay_btn_tmp = require("./template/pay_btn_tmp.html");
     var pay_middle_tmp = require("./template/pay_middle_tmp.html");
     var pay_header_tmp = require("./template/pay_header.tmp.html");
-   
+    var loginTypeContent = require('../common/loginType')
     var userData = null;
     var pageConfig = window.pageConfig&&window.pageConfig 
    
@@ -69,6 +69,9 @@ define(function (require, exports, module) {
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
         $hasLogin.find('img').attr('src', data.photoPicURL);
+        $hasLogin.find('.user-link .user-name').text(data.nickName);
+        var temp = loginTypeContent[method.getCookie('loginType')]
+        $hasLogin.find('.user-link .user-loginType').text(temp?temp+'登录':'');
         $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();

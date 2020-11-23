@@ -202,7 +202,7 @@
   *display: inline;
   width: 129px;
   height: 42px;
-  margin-left: 100px;
+  margin-left: 56px;
   margin-top: 8px;
   line-height: 18px;
   font-size: 12px;
@@ -292,9 +292,19 @@
   height: 8px;
   position: absolute;
   margin-top: 0;
-  right: 50px;
-  top: 17px;
+  right: 26px;
+  top: 22px;
   background-position: 0 0;
+}
+.new-detail-header .user-link .user-name {
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+.new-detail-header .user-link .user-loginType {
+  position: absolute;
+  left: 0;
+  top: 22px;
 }
 .new-detail-header .user-login {
   display: block;
@@ -307,6 +317,16 @@
   left: 0;
   top: 6px;
   background-image: url(../images/pic_detail_user_normall.jpg);
+}
+.new-detail-header .user-login .user-name {
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+.new-detail-header .user-login .user-loginType {
+  position: absolute;
+  left: 0;
+  top: 22px;
 }
 .new-detail-header .user-login .login-text {
   color: #333333;
@@ -321,8 +341,8 @@
   width: 30px;
   height: 30px;
   position: absolute;
-  left: 0;
-  top: 6px;
+  left: -44px;
+  top: 12px;
   margin-top: 0;
   border-radius: 30px;
 }
