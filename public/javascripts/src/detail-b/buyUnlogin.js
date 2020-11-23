@@ -178,7 +178,9 @@ define(function (require, exports, module) {
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
                     
                 } else {
-                    
+                    var url = location.href
+                    var message  = JSON.stringify(params) + JSON.stringify(data.message)
+                    unloginObj.reportOrderError(url,message)
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show()
@@ -277,6 +279,27 @@ define(function (require, exports, module) {
             // 停止支付查询
             unloginObj.isClear = true;
             unloginObj.count = 0;
+        },
+        reportOrderError:function (url,message) {
+            $.ajax({
+                type: 'post',
+                url: api.order.reportOrderError,
+                headers:{
+                    'Authrization': method.getCookie('cuk')
+                },
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    url:url,
+                    message:message,
+                    userId:''
+                }),
+                success: function (response) {
+                   console.log('reportOrderError:',response)
+                },
+                complete: function () {
+
+                }
+            })  
         }
     }
     unloginObj.init()

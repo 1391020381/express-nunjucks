@@ -505,6 +505,10 @@ define(function(require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent','orderFail']);
                     $(".btn-vip-order-fail").click();
                     utils.showAlertDialog("温馨提示", '下单失败');
+
+                    var url = location.href
+                    var message  = JSON.stringify(temp) + JSON.stringify(data.message)
+                    reportOrderError(url,message)
                 }
             }
         })
@@ -512,6 +516,29 @@ define(function(require, exports, moudle) {
 
 
     }
+
+    function reportOrderError(url,message) { // 上报错误
+        $.ajax({
+            type: 'post',
+            url: api.order.reportOrderError,
+            headers:{
+                'Authrization': method.getCookie('cuk')
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url:url,
+                message:message,
+                userId:''
+            }),
+            success: function (response) {
+               console.log('reportOrderError:',response)
+            },
+            complete: function () {
+
+            }
+        })  
+    }
+
 
     /**
      * 支付跳转到新页面

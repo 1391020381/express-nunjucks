@@ -80,7 +80,7 @@ define(function (require, exports, module) {
             receiveTask:gateway + '/rights/task/receive'
         },
         order:{
-          
+            reportOrderError:gateway + '/order/message/save',
             bindOrderByOrderNo:gateway +'/order/bind/byOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',

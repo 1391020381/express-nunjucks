@@ -589,14 +589,27 @@ define(function (require, exports, module) {
             clickCenter('NE017', 'fileListNormalClick', 'guesslike', '猜你喜欢', customData);
             
         }else if(cnt =='underSimilarFileClick'){
+            // customData={
+            //     fileID: window.pageConfig.params.g_fileId,
+            //     fileName: window.pageConfig.params.file_title,
+            //     fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
+            //     fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
+            //     filePayType: payTypeMapping[window.pageConfig.params.file_state]
+            // }
+            // clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
             customData={
+                moduleID:'guesslike',
+                moduleName:'猜你喜欢',
+                filePostion:that.index()+1,
                 fileID: window.pageConfig.params.g_fileId,
                 fileName: window.pageConfig.params.file_title,
+                saleType:window.pageConfig.page.productType,
                 fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
                 fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
-                filePayType: payTypeMapping[window.pageConfig.params.file_state]
+                filePayType: window.pageConfig.params.file_state
             }
-            clickCenter('SE017', 'fileListNormalClick', 'underSimilarFileClick', '点击底部猜你喜欢内容时', customData);
+        //    clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
+            clickCenter('NE017', 'fileListNormalClick', 'guesslike', '猜你喜欢', customData);
         }else if(cnt == 'downSucSimilarFileClick'){
             clickCenter('SE017', 'fileListNormalClick', 'downSucSimilarFileClick', '下载成功页猜你喜欢内容时', customData);
         }else if(cnt == 'markFileClick'){
