@@ -125,14 +125,14 @@ function getLabelList(fid,format,title,isAppraise) {
         headers: {
             'Authrization': method.getCookie('cuk')
         },
-        url:  api.comment.getLableList + '?fid=' + fid ,  // 
+        url:  api.comment.getLableList + '?pageSize=15&fid=' + fid ,  // 
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (res) {
             if (res.code == '0') {
                  tagList = res.data
-                 var data = { format:format,title:title,labelList:res.data,isAppraise:isAppraise }
+                 var data = { fid:fid,format:format,title:title,labelList:res.data,isAppraise:isAppraise }
                  var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                 $("#dialog-box").dialog({
                     html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
@@ -156,7 +156,7 @@ function addComment(params){
         headers:{
            'Authrization':method.getCookie('cuk')
         },
-         url:  'api.comment.addComment', //
+         url:  api.comment.addComment, //
          type: "POST",
          data: JSON.stringify(params),
          contentType: "application/json; charset=utf-8",
@@ -184,7 +184,7 @@ function addComment(params){
 }
 // 获取文件评论
 
-function getFileComment(title,format) { 
+function getFileComment(fid,title,format) { 
     $.ajax({
         url: api.comment.getPersoDataInfo + '?fid=' + fid, //,
         type: "GET",
@@ -192,7 +192,7 @@ function getFileComment(title,format) {
         dataType: "json",
         success: function(res) {
             if (res && res.code == '0') {
-                var data = { format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content}
+                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content}
                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                $("#dialog-box").dialog({
                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
@@ -218,7 +218,11 @@ function getTaskList(fid) {
               if (res && res.code == '0') {
                   taskList = res.data ||{};
                   taskList.fid = fid
-                  startTaskReceive(taskList)
+                  if(tagList.fid){
+                    startTaskReceive(taskList.rewardContent||[])
+                  }else{
+                       getDownloadRecordList()
+                  } 
               }
           }
       });
@@ -227,7 +231,7 @@ function getTaskList(fid) {
 
     // 开始弹出领取优惠券的弹窗
 function startTaskReceive(taskList) {
-      if (!taskList.rewardContent.length) return;
+      if (!rewardContent.length) return;
       var data = {
           code:taskList.code,
           id:taskList.id,
@@ -249,7 +253,7 @@ function startTaskReceive(taskList) {
     isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
     // isAppraise = 1
     if(isAppraise==1){
-        getFileComment(title,format)
+        getFileComment(fid,title,format)
     }else{
         getLabelList(fid,format,title,isAppraise)
     }
@@ -334,6 +338,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
                     text:'领取任务成功',
                     delay : 3000,
                 })
+                getDownloadRecordList()
               } else {
                 $.toast({
                     text:res.message,
