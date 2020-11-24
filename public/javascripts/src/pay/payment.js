@@ -67,12 +67,12 @@ define(function (require, exports, module) {
                         delay: 3000,
                     })
                     var url = location.href
-                    var message  = JSON.stringify(JSON.stringify({
+                    var message  = JSON.stringify({
                         orderNo: orderNo,
                         code: code,
                         payType: isWeChat == 'true' ? 'wechat' : 'alipay',
                         host: location.origin
-                    })) + JSON.stringify(data)
+                    }) + JSON.stringify(data)
                     reportOrderError(url,message)
                 }
             },
@@ -83,7 +83,12 @@ define(function (require, exports, module) {
                     delay: 3000,
                 })
                 var url = location.href
-                var message  = JSON.stringify(params) + JSON.stringify(data)
+                var message  = JSON.stringify({
+                    orderNo: orderNo,
+                    code: code,
+                    payType: isWeChat == 'true' ? 'wechat' : 'alipay',
+                    host: location.origin
+                }) + JSON.stringify(data)
                 reportOrderError(url,message)
             }
         })
