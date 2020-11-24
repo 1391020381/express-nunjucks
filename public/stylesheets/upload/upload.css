@@ -608,6 +608,15 @@ i {
   overflow-y: auto;
   background: #ffffff;
 }
+.date-con-in .selectItem.date-con-first li {
+  width: 110px;
+}
+.date-con-in .selectItem.date-con-second li {
+  width: 220px;
+}
+.date-con-in .selectItem.date-con-third li {
+  width: 200px;
+}
 .date-con-in .selectItem li {
   width: 180px;
   margin: 0;
