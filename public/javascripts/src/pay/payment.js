@@ -162,7 +162,7 @@ define(function (require, exports, module) {
     function reportOrderError(url,message) {
         $.ajax({
             type: 'post',
-            url: api.order.reportOrderError,
+            url:  urlList[env] + api.order.reportOrderError,
             headers:{
                 'Authrization': method.getCookie('cuk')
             },
