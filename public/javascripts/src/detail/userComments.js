@@ -38,8 +38,26 @@ define(function (require, exports, module){
                             createTime:new Date(item.createTime).formatDate("yyyy-MM-dd")
                         }
                         temp.push(m)
-                  })  
-                  var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:tagsList||[]});
+                  }) 
+                  var list = []
+                  if(lableId){ // 单个筛选
+                     $(tagsList).each(function(index,item){
+                         if(item.id == lableId){
+                             list.push({
+                                id:item.id,
+                                name:item.name,
+                                active:true
+                             })
+                         }else{
+                            list.push({
+                                id:item.id,
+                                name:item.name,
+                                active:false
+                             }) 
+                         }
+                     })
+                  } 
+                  var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[]});
                   $(".user-comments-container").html(_userCommentsTemplate);
                   handlePagination(res.data.totalPages,res.data.currentPage)  
                 }
