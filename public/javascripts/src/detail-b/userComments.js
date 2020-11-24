@@ -37,6 +37,7 @@ define(function (require, exports, module){
                             photoPicURL:item.photoPicURL,
                             nickName:item.nickName,
                             score:item.score,
+                            content:item.content?item.content:'该用户暂无评论',
                             createTime:new Date(item.createTime).formatDate("yyyy-MM-dd")
                         }
                         temp.push(m)
@@ -83,8 +84,6 @@ define(function (require, exports, module){
 
     $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags .tag',function(){
         var id = $(this).attr('data-id')
-        if(id != 'all'){
-            getUserComments(1,id)
-        }
+        getUserComments(1,id)
     })   
 })

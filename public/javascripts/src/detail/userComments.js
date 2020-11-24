@@ -82,8 +82,6 @@ define(function (require, exports, module){
 
     $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags .tag',function(){
         var id = $(this).attr('data-id')
-        if(id != 'all'){
-            getUserComments(1,id)
-        }
+        getUserComments(1,id)
     })   
 })
