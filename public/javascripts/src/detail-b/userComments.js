@@ -59,7 +59,7 @@ define(function (require, exports, module){
                          }
                      })
                   } 
-                  var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[]});
+                  var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[],lableId:lableId});
                   $(".user-comments-container").html(_userCommentsTemplate);
                   handlePagination(res.data.totalPages,res.data.currentPage)  
                 }

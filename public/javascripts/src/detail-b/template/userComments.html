@@ -2,9 +2,17 @@
      <div class="user-evaluation">
         <div class="evaluation-tags">
             {{each tagsList as item }}
-                 <span class="tag" data-id="{{item.id}}">{{item.name}}</span>
+                  {{if item.active}}
+                  <span class="tag tag-active" data-id="{{item.id}}">{{item.name}}</span>
+                 {{else}}
+                  <span class="tag" data-id="{{item.id}}">{{item.name}}</span>
+                 {{/if}}
            {{/each}}  
+              {{if lableId}}
+            <span class="tag tag-all " data-id="all">全部</span>
+           {{else}}
             <span class="tag tag-all tag-active" data-id="all">全部</span>
+           {{/if}}
         </div>
         <ul class="evaluation-list">
             {{each userComments as comment }}
