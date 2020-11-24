@@ -1,6 +1,8 @@
 
 
 define(function (require,exports,moudle) {
+    require('swiper');
+    var bannerTemplate = require("../common/template/swiper_tmp.html");
     require('../application/suspension')
     var slider = require('../common/slider');//轮播插件
     var login = require("../application/checkLogin");
@@ -53,6 +55,7 @@ define(function (require,exports,moudle) {
             },1000)
             //banner轮播图
             new slider("J_office_banner","J_office_focus","J_office_prev","J_office_next");
+         
             this.tabswitchFiles();
             this.tabswitchSeo();
             this.beforeInit();
@@ -83,6 +86,7 @@ define(function (require,exports,moudle) {
                
             })
             this.signDialog()
+            this.getBannerbyPosition()
         },
         beforeInit:function(){
             if (utils.getCookie('cuk')) {
@@ -294,6 +298,29 @@ define(function (require,exports,moudle) {
                 }).open();
             })
             
+        },
+        getBannerbyPosition:function() { // 
+            $.ajax({
+                url: api.recommend.recommendConfigInfo,
+                type: "POST",
+                data: JSON.stringify(['PC_M_H_xfbanner']),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                   if(res.code == '0'){
+                     console.log('getBannerbyPosition:',res)
+                     var list  = method.handleRecommendData(res.data[0].list)
+                     var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list ,className:'authentication-container',hasDeleteIcon:false});
+                     $(".authentication-banner").html(_bannerTemplate);
+                     var mySwiper = new Swiper('.authentication-container', {
+                         direction: 'horizontal',
+                         loop: true,
+                         loop: list.length>1 ? true : false,
+                         autoplay: 3000,
+                     })
+                   }
+                }
+            })
         }
      }
      indexObject.initial()

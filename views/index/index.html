@@ -12,6 +12,7 @@
     })();
 </script>
     <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/index/index.css">
+      <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
     <script type="text/javascript">
         var _speedMark = +new Date(),
             _version = "{{version}}",
@@ -468,7 +469,8 @@
 {% include "common/suspension.html" %}
 
 <!--立即认证 start-->
-<a class="authentication" target="_blank" href="/node/auth/index.html"></a>
+{# <a class="authentication" target="_blank" href="/node/auth/index.html"></a> #}
+<div class="authentication authentication-banner"></div>
 <!--悬浮工具栏 end-->
 <script>
     var pageConfig = {
