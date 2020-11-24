@@ -21,18 +21,18 @@ define(function (require, exports, module) {
         prod: '//ishare.iask.sina.com.cn'
     }
     console.log('env:', env, urlList[env])
-
+    var params = {
+        orderNo: orderNo,
+        code: code,
+        payType: isWeChat == 'true' ? 'wechat' : 'alipay',
+        host: location.origin
+    }
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
             url: urlList[env] + api.pay.scanOrderInfo,
             type: "POST",
-            data: JSON.stringify({
-                orderNo: orderNo,
-                code: code,
-                payType: isWeChat == 'true' ? 'wechat' : 'alipay',
-                host: location.origin
-            }),
+            data: JSON.stringify(params),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
@@ -67,12 +67,7 @@ define(function (require, exports, module) {
                         delay: 3000,
                     })
                     var url = location.href
-                    var message  = JSON.stringify({
-                        orderNo: orderNo,
-                        code: code,
-                        payType: isWeChat == 'true' ? 'wechat' : 'alipay',
-                        host: location.origin
-                    }) + JSON.stringify(data)
+                    var message  = JSON.stringify(params) + JSON.stringify(data)
                     reportOrderError(url,message)
                 }
             },
@@ -83,12 +78,7 @@ define(function (require, exports, module) {
                     delay: 3000,
                 })
                 var url = location.href
-                var message  = JSON.stringify({
-                    orderNo: orderNo,
-                    code: code,
-                    payType: isWeChat == 'true' ? 'wechat' : 'alipay',
-                    host: location.origin
-                }) + JSON.stringify(data)
+                var message  = JSON.stringify(params) + JSON.stringify(data)
                 reportOrderError(url,message)
             }
         })
