@@ -61,8 +61,16 @@ define(function(require, exports, moudle) {
         if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
+        }else{
+            // 加油包判断是否是vip
+        if(location.pathname == "/pay/privilege.html"){
+             method.compatibleIESkip('/pay/vip.html', true);
+        }
         }
         $(function() {
+
+  
+
             var flag = $("#ip-flag").val();
 
             var uid = $("#ip-uid").val() || userInfo.userId
@@ -448,16 +456,7 @@ define(function(require, exports, moudle) {
      * 下单处理
      */
     function handleOrderResultInfo() {
-        // 加油包判断是否是vip
-        if(location.pathname == "/pay/privilege.html"){
-            if(userInfo.isVip != 1){
-                $.toast({
-                    text: '非会员无法购买下载特权加油包',
-                    delay: 3000,
-                })
-                method.compatibleIESkip('/pay/vip.html', true);
-            }
-        }
+        
         var type = params.type // 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         var goodsType = ''
         var goodsId = ''
@@ -1034,8 +1033,10 @@ define(function(require, exports, moudle) {
             })
         }
     }
-
-    getTaskList()
+    if(method.getParam("fid")){
+        getTaskList()
+    }
+    
     function getTaskList() { 
         $.ajax({
             url: api.coupon.getTask,
