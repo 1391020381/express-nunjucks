@@ -132,7 +132,7 @@ function getLabelList(fid,format,title,isAppraise) {
         success: function (res) {
             if (res.code == '0') {
                  tagList = res.data
-                 var data = { fid:fid,format:format,title:title,labelList:res.data,isAppraise:isAppraise }
+                 var data = {fid:fid,format:format,title:title,labelList:res.data,isAppraise:isAppraise }
                  var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                 $("#dialog-box").dialog({
                     html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
@@ -192,7 +192,7 @@ function getFileComment(fid,title,format) {
         dataType: "json",
         success: function(res) {
             if (res && res.code == '0') {
-                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content}
+                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:res.data.score}
                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                $("#dialog-box").dialog({
                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
@@ -283,8 +283,8 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
             content:$('.evaluation-dialog .evaluation-desc .desc-input').val(),
             fid:$('.evaluation-dialog .file-title').attr('data-fid'),
             labels:labels,
-            score:score,
-            site:0,
+            score:score+1,
+            site:4,
             terminal:0
          }
          addComment(params)

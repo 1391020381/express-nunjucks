@@ -25,7 +25,7 @@ const getData = cc(async (req,res)=>{
     let attributeId = urlobj[5]
     let urlSelectId = urlobj[6]?JSON.parse(decodeURIComponent(urlobj[6])):[]  
     var deleteAttributeGroupId = urlobj[7]
-   
+    var categoryName = ''
     
     const redirectUrl = await getRedirectUrl(req, res)
  
@@ -43,6 +43,7 @@ const getData = cc(async (req,res)=>{
         categoryTitle.data.level1.forEach(item=>{
             if(item.select==1) {
                 navFatherId = item.nodeCode;
+                categoryName = item.name
             }
         })
     }
@@ -81,7 +82,7 @@ const getData = cc(async (req,res)=>{
     } 
     let list = await getList(req,res,categoryId,sortField,format,currentPage,specificsIdList)
     let tdk = await getTdk(req,res,categoryId)
-    let words = await getWords(req,res)
+    let words = await getWords(req,res,categoryName)
     handleResultData(req,res,categoryTitle,recommendList,list,tdk,words,categoryId,currentPage,format,sortField,navFatherId,attributeGroupId,attributeId,selectId,iszhizhuC,categoryPage)
 })
 
@@ -141,12 +142,13 @@ function getRedirectUrl(req, res) {
     return server.$http(appConfig.apiNewBaselPath + api.file.redirectUrl, 'post', req, res, true)
 }
 
-function getWords(req,res){
+function getWords(req,res,categoryName){
   
     req.body = {
         currentPage:1,
         pageSize:6,
-        siteCode:4
+        siteCode:4,
+        topicName:categoryName
     }
     return server.$http(appConfig.apiNewBaselPath+api.category.words,'post', req,res,true)
 }

@@ -4,7 +4,9 @@
              </p>
              {{if data.isAppraise == 1}}
                        <div class="file-rates">
-                          <span class="start start-active" data-isappraise="1"></span>
+                           {{each data.scores as m}}
+                               <span class="start start-active" data-isappraise="1"></span>
+                           {{/each}}
                       </div>
              {{else}}
                 <div class="file-rates"> 
