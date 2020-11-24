@@ -79,7 +79,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
     }
     const filePreview = await getFilePreview(req, res, list)
-    const commentDataList = await getFileComment(req,res,list.data.fileInfo.fid)
+    const commentDataList = await getFileComment(req,res)
     handleDetalData(
         req,
         res,
@@ -288,7 +288,8 @@ function getFilePreview(req, res, list) {
 }
 
 // 获取详情评论  用于加载更多定位
-function getFileComment(req,res,fid){
+function getFileComment(req,res){ 
+    let fid = req.params.id
     const url=  appConfig.apiNewBaselPath + Api.comment.getFileComment + '?fid='+ fid + '&currentPage=1&pageSize=15' ;
     return server.$http(url,'get', req, res, true);
 }
@@ -348,7 +349,7 @@ function handleDetalData(
         list.data.isConvert = 0
     }
 
-    // console.log('ccateList', JSON.stringify(cateList))
+    
     var results = Object.assign({}, {
         isHasComment:commentDataList.data.totalPages>0?1:0,
         redirectUrl: redirectUrl,
@@ -426,7 +427,6 @@ function handleDetalData(
     results.showFlag = true
     results.isDetailRender = true
     // console.log('获取详情数据：', JSON.stringify(results))
-    results.list.data.abTest = false
     if (results.list.data && results.list.data.abTest) {
         render("detail-b/index", results, req, res);
     } else {
