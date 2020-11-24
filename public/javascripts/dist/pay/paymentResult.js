@@ -1,3 +1,896 @@
-/*! ishare_pc_website
-*author:Jersey */
-define("dist/pay/paymentResult",["../common/baidu-statistics","../application/method","../cmd-lib/toast2","../application/api","../application/urlConfig","./payRestult.html"],function(a,b,c){function d(){$.ajax({url:e.order.getOrderInfo,type:"POST",data:JSON.stringify({orderNo:g}),contentType:"application/json; charset=utf-8",dataType:"json",success:function(a){console.log("getOrderInfo:",a);var b=f.formatDate;if(Date.prototype.format=b,"0"==a.code){a.data.payPrice=(a.data.payPrice/100).toFixed(2),a.data.orderTime=new Date(a.data.orderTime).format("yyyy-MM-dd");var c=template.compile(h)({orderInfo:a.data});$(".payment .payment-content").html(c),1==a.goodsType&&i("payFileResult",{payresult:1,orderid:g,orderpaytype:a.data.payType}),2==a.goodsType&&i("payVipResult",{payresult:1,orderid:g,orderpaytype:a.data.payType})}else{$.toast({text:a.message,delay:3e3});var d=location.href,e=JSON.stringify({orderNo:g})+JSON.stringify(data.message);unloginObj.reportOrderError(d,e)}},error:function(a){console.log("getOrderInfo:",a)}})}console.log("聚合支付码"),a("../common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66"),a("../cmd-lib/toast2");var e=a("../application/api"),f=a("../application/method"),g=f.getParam("orderNo"),h=a("./payRestult.html"),i=a("../common/baidu-statistics").handleBaiduStatisticsPush;d(),$(document).on("click",".btn-wrap",function(a){console.log("重新支付"),$.toast({text:"请重新扫码支付",delay:3e3})})});var _hmt=_hmt||[];define("dist/common/baidu-statistics",["dist/application/method"],function(a,b,c){function d(a){if(a)try{!function(){var b=document.createElement("script");b.src="https://hm.baidu.com/hm.js?"+a;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}()}catch(b){console.error(a,b)}}function e(a,b){var c=h[a];"fileDetailPageView"==a&&(b=c),"payFileResult"==a&&(b=$.extend(c,{payresult:b.payresult,orderid:b.orderNo,orderpaytype:b.orderpaytype})),"payVipResult"==a&&(b=$.extend(c,{payresult:b.payresult,orderid:b.orderNo,orderpaytype:b.orderpaytype})),"loginResult"==a&&(b=$.extend(c,{loginType:b.loginType,userid:b.userid,loginResult:b.loginResult})),_hmt.push(["_trackCustomEvent",a,b]),console.log("百度统计:",a,b)}var f=a("dist/application/method"),g=window.pageConfig&&window.pageConfig.params,h={fileDetailPageView:{loginstatus:f.getCookie("cuk")?1:0,userid:window.pageConfig&&window.pageConfig.userId||"",pageid:"PC-M-FD",fileid:g&&g.g_fileId,filecategoryname:g&&g.classidName1+"||"+g&&g.classidName2+"||"+g&&g.classidName3,filepaytype:g&&g.productType||"",filecootype:"",fileformat:g&&g.file_format||""},payFileResult:{loginstatus:f.getCookie("cuk")?1:0,userid:window.pageConfig&&window.pageConfig.userId||"",pageid:"PC-M-FD",pagename:"",payresult:"",orderid:"",orderpaytype:"",orderpayprice:"",fileid:"",filename:"",fileprice:"",filecategoryname:"",fileformat:"",filecootype:"",fileuploaderid:""},payVipResult:{loginstatus:f.getCookie("cuk")?1:0,userid:"",pageid:"PC-M-FD",pagename:"",payresult:"",orderid:"",orderpaytype:"",orderpayprice:"",fileid:"",filename:"",fileprice:"",filecategoryname:"",fileformat:"",filecootype:"",fileuploaderid:""},loginResult:{pagename:$("#ip-page-id").val(),pageid:$("#ip-page-name").val(),loginType:"",userid:"",loginResult:""}};return{initBaiduStatistics:d,handleBaiduStatisticsPush:e}}),define("dist/application/method",[],function(require,exports,module){return{keyMap:{ishare_detail_access:"ISHARE_DETAIL_ACCESS",ishare_office_detail_access:"ISHARE_OFFICE_DETAIL_ACCESS"},async:function(a,b,c,d,e){$.ajax(a,{type:d||"post",data:e,async:!1,dataType:"json",headers:{"cache-control":"no-cache",Pragma:"no-cache",Authrization:this.getCookie("cuk")}}).done(function(a){b&&b(a)}).fail(function(a){console.log("error==="+c)})},get:function(a,b,c){$.ajaxSetup({cache:!1}),this.async(a,b,c,"get")},post:function(a,b,c,d,e){this.async(a,b,c,d,e)},postd:function(a,b,c){this.async(a,b,!1,!1,c)},random:function(a,b){return Math.floor(Math.random()*(b-a))+a},setCookieWithExpPath:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString()},setCookieWithExp:function(a,b,c,d){var e=new Date;e.setTime(e.getTime()+c),d?document.cookie=a+"="+escape(b)+";path="+d+";expires="+e.toGMTString():document.cookie=a+"="+escape(b)+";expires="+e.toGMTString()},getCookie:function(a){var b=document.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!==b?unescape(b[2]):null},delCookie:function(a,b,c){var d=new Date;d.setTime(d.getTime()-1);var e=this.getCookie(a);null!=e&&(b&&c?document.cookie=a+"= '' ;domain="+c+";expires="+d.toGMTString()+";path="+b:b?document.cookie=a+"= '' ;expires="+d.toGMTString()+";path="+b:document.cookie=a+"="+e+";expires="+d.toGMTString())},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},url2Obj:function(a){for(var b={},c=a.split("?"),d=c[1].split("&"),e=0;e<d.length;e++){var f=d[e].split("=");b[f[0]]=f[1]}return b},getParam:function(a){a=a.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var b="[\\?&]"+a+"=([^&#]*)",c=new RegExp(b),d=c.exec(window.location.href);return null==d?"":decodeURIComponent(d[1].replace(/\+/g," "))},getLocalData:function(a){try{if(localStorage&&localStorage.getItem){var b=localStorage.getItem(a);return null===b?null:JSON.parse(b)}return console.log("浏览器不支持html localStorage getItem"),null}catch(c){return null}},setLocalData:function(a,b){localStorage&&localStorage.setItem?(localStorage.removeItem(a),localStorage.setItem(a,JSON.stringify(b))):console.log("浏览器不支持html localStorage setItem")},browserType:function(){var a=navigator.userAgent,b=a.indexOf("Opera")>-1;return b?"Opera":a.indexOf("compatible")>-1&&a.indexOf("MSIE")>-1&&!b?"IE":a.indexOf("Edge")>-1?"Edge":a.indexOf("Firefox")>-1?"Firefox":a.indexOf("Safari")>-1&&-1===a.indexOf("Chrome")?"Safari":a.indexOf("Chrome")>-1&&a.indexOf("Safari")>-1?"Chrome":void 0},validateIE9:function(){return!(!$.browser.msie||"9.0"!==$.browser.version&&"8.0"!==$.browser.version&&"7.0"!==$.browser.version&&"6.0"!==$.browser.version)},compareTime:function(a,b){return a&&b?Math.abs((b-a)/1e3/60/60/24):""},changeURLPar:function(url,arg,arg_val){var pattern=arg+"=([^&]*)",replaceText=arg+"="+arg_val;if(url.match(pattern)){var tmp="/("+arg+"=)([^&]*)/gi";return tmp=url.replace(eval(tmp),replaceText)}return url.match("[?]")?url+"&"+replaceText:url+"?"+replaceText},getUrlAllParams:function(a){if("undefined"==typeof a)var b=decodeURI(location.search);else var b="?"+a.split("?")[1];var c=new Object;if(-1!=b.indexOf("?"))for(var d=b.substr(1),e=d.split("&"),f=0;f<e.length;f++)c[e[f].split("=")[0]]=decodeURI(e[f].split("=")[1]);return c},getQueryString:function(a){var b=new RegExp("(^|&)"+a+"=([^&]*)(&|$)","i"),c=window.location.search.substr(1).match(b);return null!=c?unescape(c[2]):null},compatibleIESkip:function(a,b){var c=document.createElement("a");c.href=a,c.style.display="none",b&&(c.target="_blank"),document.body.appendChild(c),c.click()},testEmail:function(a){var b=/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;return b.test(a)?!0:!1},testPhone:function(a){return/^1(3|4|5|6|7|8|9)\d{9}$/.test(a)?!0:!1},handleRecommendData:function(a){var b=[];return $(a).each(function(a,c){var d={};1==c.type&&(c.linkUrl="/f/"+c.tprId+".html",d=c),2==c.type&&(d=c),3==c.type&&(c.linkUrl="/node/s/"+c.tprId+".html",d=c),b.push(d)}),console.log(b),b},formatDate:function(a){var b={"M+":this.getMonth()+1,"d+":this.getDate(),"h+":this.getHours(),"m+":this.getMinutes(),"s+":this.getSeconds(),"q+":Math.floor((this.getMonth()+3)/3),S:this.getMilliseconds()};/(y+)/.test(a)&&(a=a.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length)));for(var c in b)new RegExp("("+c+")").test(a)&&(a=a.replace(RegExp.$1,1==RegExp.$1.length?b[c]:("00"+b[c]).substr((""+b[c]).length)));return a},getReferrer:function(){var a=document.referrer,b="";return/https?\:\/\/[^\s]*so.com.*$/g.test(a)?b="360":/https?\:\/\/[^\s]*baidu.com.*$/g.test(a)?b="baidu":/https?\:\/\/[^\s]*sogou.com.*$/g.test(a)?b="sogou":/https?\:\/\/[^\s]*sm.cn.*$/g.test(a)&&(b="sm"),b},judgeSource:function(a){a||(a={}),a.searchEngine="";var b="";if(b=utils.getQueryVariable("from"),b||(b=sessionStorage.getItem("webWxFrom")||utils.getCookie("webWxFrom")),b)a.source=b,sessionStorage.setItem("webWxFrom",b),sessionStorage.removeItem("webReferrer");else{var c=sessionStorage.getItem("webReferrer")||utils.getCookie("webReferrer");if(c||(c=document.referrer),c){sessionStorage.setItem("webReferrer",c),sessionStorage.removeItem("webWxFrom"),c=c.toLowerCase();for(var d=new Array("google.","baidu.","360.","sogou.","shenma.","bing."),e=new Array("google","baidu","360","sogou","shenma","bing"),f=0,g=d.length;g>f;f++)c.indexOf(d[f])>=0&&(a.source="searchEngine",a.searchEngine=e[f])}c&&a.source||(utils.isWeChatBrow()?a.source="wechat":a.source="outLink")}return a},randomString:function(a){a=a||4;for(var b="ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",c=b.length,d="",e=0;a>e;e++)d+=b.charAt(Math.floor(Math.random()*c));return d},saveLoginToken:function(a,b){b=b||2592e6,this.setCookieWithExpPath("cuk",a,b,"/")},getLoginToken:function(){return this.getCookie("cuk")||""},delLoginToken:function(){this.delCookie("cuk","/")},saveLoginSessionId:function(a){var b=(new Date).getTime(),c=a.split("_"),d=c[1]||0,e=d-b;this.setCookieWithExpPath("ish_jssid",a,e,"/")},getLoginSessionId:function(){return this.getCookie("ish_jssid")||""}}}),define("dist/cmd-lib/toast2",[],function(a,b,c){!function(a,b,c){function d(b){this.options={text:"我是toast提示",icon:"",delay:3e3,callback:!1},b&&a.isPlainObject(b)&&a.extend(!0,this.options,b),this.init()}d.prototype.init=function(){var b=this;b.body=a("body"),b.toastWrap=a('<div class="ui-toast" style="position:fixed;min-width:200px;padding:0 10px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:50%;left:50%;border-radius:4px;z-index:99999999">'),b.toastIcon=a('<i class="icon"></i>'),b.toastText=a('<span class="ui-toast-text" style="color:#fff">'+b.options.text+"</span>"),b._creatDom(),b.show(),b.hide()},d.prototype._creatDom=function(){var a=this;a.options.icon&&a.toastWrap.append(a.toastIcon.addClass(a.options.icon)),a.toastWrap.append(a.toastText),a.body.append(a.toastWrap)},d.prototype.show=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("hide").addClass("show")},50)},d.prototype.hide=function(){var a=this;setTimeout(function(){a.toastWrap.removeClass("show").addClass("hide"),a.toastWrap.remove(),a.options.callback&&a.options.callback()},a.options.delay)},a.toast=function(a){return new d(a)}}($,window,document)}),define("dist/application/api",["dist/application/urlConfig"],function(a,b,c){var d=a("dist/application/urlConfig"),e=d.ajaxUrl+"/gateway/pc",f=d.ajaxUrl+"/gateway";c.exports={user:{dictionaryData:f+"/market/dictionaryData/$code",checkSso:f+"/cas/login/checkSso",loginByPsodOrVerCode:f+"/cas/login/authorize",getLoginQrcode:f+"/cas/login/qrcode",loginByWeChat:f+"/cas/login/gzhScan",getUserInfo:"/node/api/getUserInfo",thirdLoginRedirect:f+"/cas/login/redirect",loginOut:f+"/cas/login/logout",newCollect:f+"/content/collect/getUserFileList",addFeedback:f+"/feedback/addFeedback",getFeedbackType:f+"/feedback/getFeedbackType",sendSms:f+"/cas/sms/sendSms",queryBindInfo:f+"/cas/user/queryBindInfo",thirdCodelogin:f+"/cas/login/thirdCode",userBindMobile:f+"/cas/user/bindMobile",checkIdentity:f+"/cas/sms/checkIdentity",userBindThird:f+"/cas/user/bindThird",untyingThird:f+"/cas/user/untyingThird",setUpPassword:f+"/cas/user/setUpPassword",getUserCentreInfo:f+"/user/getUserCentreInfo",editUser:f+"/user/editUser",getFileBrowsePage:f+"/content/fileBrowse/getFileBrowsePage",getDownloadRecordList:f+"/content/getDownloadRecordList",getUserFileList:f+"/content/collect/getUserFileList",getMyUploadPage:f+"/content/getMyUploadPage",getOtherUser:f+"/user/getOthersCentreInfo",getSearchList:f+"/search/content/byCondition",getVisitorId:f+"/user/getVisitorId"},normalFileDetail:{filePreDownLoad:f+"/content/getPreFileDownUrl",getFileDownLoadUrl:f+"/content/getFileDownUrl",getPrePageInfo:f+"/content/file/getPrePageInfo",sendmail:f+"/content/sendmail/findFile",getFileDetailNoTdk:f+"/content/getFileDetailNoTdk"},officeFileDetail:{},search:{specialTopic:f+"/search/specialTopic/lisPage"},sms:{sendCorpusDownloadMail:f+"/content/fileSendEmail/sendCorpusDownloadMail",fileSendEmailVisitor:f+"/content/fileSendEmail/visitor"},pay:{bindUser:f+"/order/bind/loginUser",scanOrderInfo:f+"/order/scan/orderInfo",getBuyAutoRenewList:f+"/order/buy/autoRenewList",cancelAutoRenew:f+"/order/cancel/autoRenew/"},coupon:{rightsSaleVouchers:f+"/rights/sale/vouchers",rightsSaleQueryPersonal:f+"/rights/sale/queryPersonal",querySeniority:f+"/rights/sale/querySeniority",queryUsing:f+"/rights/sale/queryUsing",getMemberPointRecord:f+"/rights/vip/getMemberPointRecord",getBuyRecord:f+"/rights/vip/getBuyRecord",getTask:f+"/rights/task/get",receiveTask:f+"/rights/task/receive"},order:{reportOrderError:f+"/order/message/save",bindOrderByOrderNo:f+"/order/bind/byOrderNo",unloginOrderDown:e+"/order/unloginOrderDown",createOrderInfo:f+"/order/create/orderInfo",rightsVipGetUserMember:f+"/rights/vip/getUserMember",getOrderStatus:f+"/order/get/orderStatus",queryOrderlistByCondition:f+"/order/query/listByCondition",getOrderInfo:f+"/order/get/orderInfo"},getHotSearch:f+"/cms/search/content/hotWords",special:{fileSaveOrupdate:f+"/comment/zan/fileSaveOrupdate",getCollectState:f+"/comment/zc/getUserFileZcState",setCollect:f+"/content/collect/file"},upload:{getWebAllFileCategory:f+"/content/fileCategory/getWebAll",createFolder:f+"/content/saveUserFolder",getFolder:f+"/content/getUserFolders",saveUploadFile:f+"/content/webUploadFile",picUploadCatalog:"/ishare-upload/picUploadCatalog",fileUpload:"/ishare-upload/fileUpload",batchDeleteUserFile:f+"/content/batchDeleteUserFile"},recommend:{recommendConfigInfo:f+"/recommend/config/info",recommendConfigRuleInfo:f+"/recommend/config/ruleInfo"},reportBrowse:{fileBrowseReportBrowse:f+"/content/fileBrowse/reportBrowse"},mywallet:{getAccountBalance:f+"/account/balance/getGrossIncome",withdrawal:f+"/account/with/apply",getWithdrawalRecord:f+"/account/withd/getPersonList",editFinanceAccount:f+"/account/finance/edit",getFinanceAccountInfo:f+"/account/finance/getInfo",getPersonalAccountTax:f+"/account/tax/getPersonal",getPersonalAccountTax:f+"/account/tax/getPersonal",getMyWalletList:f+"/settlement/settle/getMyWalletList",exportMyWalletDetail:f+"/settlement/settle/exportMyWalletDetail"},authentication:{getInstitutions:f+"/user/certification/getInstitutions",institutions:f+"/user/certification/institutions",getPersonalCertification:f+"/user/certification/getPersonal",personalCertification:f+"/user/certification/personal"},seo:{listContentInfos:f+"/seo/exposeContent/contentInfo/listContentInfos"},wechat:{getWechatSignature:f+"/message/wechat/info/getWechatSignature"},comment:{getLableList:f+"/comment/lable/dataList",addComment:f+"/comment/eval/add",getHotLableDataList:f+"/comment/lable/hotDataList",getFileComment:f+"/comment/eval/dataList",getPersoDataInfo:f+"/comment/eval/persoDataInfo"}}}),define("dist/application/urlConfig",[],function(a,b,c){var d=window.env,e={debug:{ajaxUrl:"",payUrl:"http://open-ishare.iask.com.cn",upload:"//upload-ishare.iask.com",appId:"wxb8af2801b7be4c37",bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://office.iask.com",ejunshi:"http://dev.ejunshi.com"},local:{ajaxUrl:"",payUrl:"http://dev-open-ishare.iask.com.cn",upload:"//dev-upload-ishare.iask.com",appId:"wxb8af2801b7be4c37",bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://dev-office.iask.com",ejunshi:"http://dev.ejunshi.com"},dev:{ajaxUrl:"",payUrl:"http://dev-open-ishare.iask.com.cn",upload:"//dev-upload-ishare.iask.com",appId:"wxb8af2801b7be4c37",bilogUrl:"https://dev-dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://dev-office.iask.com",ejunshi:"http://dev.ejunshi.com"},test:{ajaxUrl:"",payUrl:"http://test-open-ishare.iask.com.cn",upload:"//test-upload-ishare.iask.com",appId:"wxb8af2801b7be4c37",bilogUrl:"https://test-dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://test-office.iask.com",ejunshi:"http://test.ejunshi.com"},pre:{ajaxUrl:"",payUrl:"http://pre-open-ishare.iask.com.cn",upload:"//pre-upload-ishare.iask.com",appId:"wxca8532521e94faf4",bilogUrl:"https://pre-dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://pre-office.iask.com",ejunshi:"http://pre.ejunshi.com"},prod:{ajaxUrl:"",payUrl:"http://open-ishare.iask.com.cn",upload:"//upload-ishare.iask.com",appId:"wxca8532521e94faf4",bilogUrl:"https://dw.iask.com.cn/ishare/jsonp?data=",officeUrl:"http://office.iask.com",ejunshi:"http://ejunshi.com"}};return e[d]}),define("dist/pay/payRestult.html",[],'<div class="payment-title">\n    {{ if orderInfo.orderStatus == 2}}\n    <span class="payment-title-icon success"></span>\n    <span class="payment-title-desc">支付成功</span>\n    <span class="payment-title-info">请在电脑网站完成后续操作</span>\n    {{/if}}\n    {{ if orderInfo.orderStatus == 3}}\n    <span class="payment-title-icon error"></span>\n    <span class="payment-title-desc">支付失败</span>\n    {{/if}}\n\n</div>\n<ul class="order-list">\n    <li class="list-item">\n        <span class="item-title">支付方式:</span>\n        {{ if orderInfo.payType == \'wechat\'}}\n            <span class="item-desc">微信支付</span>\n        {{/if}}\n            {{ if orderInfo.payType == \'alipay\'}}\n            <span class="item-desc">支付宝支付</span>\n        {{/if}}\n    </li>\n    <li class="list-item">\n        <span class="item-title">订单金额:</span>\n        <span class="item-desc">¥ {{orderInfo.payPrice}}</span>\n    </li>\n    <li class="list-item orderTime">\n        <span class="item-title">创建时间:</span>\n        <span class="item-desc">{{orderInfo.orderTime}}</span>\n    </li>\n    <li class="list-item">\n        <span class="item-title">商户单号:</span>\n        <span class="item-desc">{{orderInfo.payNo}}</span>\n    </li>\n    <li class="list-item">\n        <span class="item-title">商品名称:</span>\n        <span class="item-desc">{{orderInfo.goodsName}}</span>\n    </li>\n</ul> \n<div class="payment-info">\n    请截图保存订单详情，以便查询使用\n</div>\n{{ if orderInfo.orderStatus == 3 }}\n    <div class="btn-wrap">\n        <div class="payment-btn">重新支付</div>\n    </div>\n{{ /if }}\n\n\n');
+define("dist/pay/paymentResult", [ "../common/baidu-statistics", "../application/method", "../cmd-lib/toast2", "../application/api", "../application/urlConfig", "./payRestult.html" ], function(require, exports, module) {
+    console.log("聚合支付码");
+    require("../common/baidu-statistics").initBaiduStatistics("17cdd3f409f282dc0eeb3785fcf78a66");
+    // require("../cmd-lib/toast");
+    require("../cmd-lib/toast2");
+    var api = require("../application/api");
+    var method = require("../application/method");
+    var orderNo = method.getParam("orderNo");
+    var paymentRestult = require("./payRestult.html");
+    var handleBaiduStatisticsPush = require("../common/baidu-statistics").handleBaiduStatisticsPush;
+    getOrderInfo();
+    // 绑定重新付费
+    $(document).on("click", ".btn-wrap", function(e) {
+        console.log("重新支付");
+        $.toast({
+            text: "请重新扫码支付",
+            delay: 3e3
+        });
+    });
+    function getOrderInfo() {
+        $.ajax({
+            url: api.order.getOrderInfo,
+            type: "POST",
+            data: JSON.stringify({
+                orderNo: orderNo
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                console.log("getOrderInfo:", res);
+                var formatDate = method.formatDate;
+                Date.prototype.format = formatDate;
+                if (res.code == "0") {
+                    // 支付成功
+                    res.data.payPrice = (res.data.payPrice / 100).toFixed(2);
+                    res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd");
+                    var _paymentRestultTemplate = template.compile(paymentRestult)({
+                        orderInfo: res.data
+                    });
+                    $(".payment .payment-content").html(_paymentRestultTemplate);
+                    if (res.goodsType == 1) {
+                        handleBaiduStatisticsPush("payFileResult", {
+                            payresult: 1,
+                            orderid: orderNo,
+                            orderpaytype: res.data.payType
+                        });
+                    }
+                    if (res.goodsType == 2) {
+                        handleBaiduStatisticsPush("payVipResult", {
+                            payresult: 1,
+                            orderid: orderNo,
+                            orderpaytype: res.data.payType
+                        });
+                    }
+                } else {
+                    $.toast({
+                        text: res.message,
+                        delay: 3e3
+                    });
+                    var url = location.href;
+                    var message = JSON.stringify({
+                        orderNo: orderNo
+                    }) + JSON.stringify(data.message);
+                    unloginObj.reportOrderError(url, message);
+                }
+            },
+            error: function(error) {
+                console.log("getOrderInfo:", error);
+            }
+        });
+    }
+    function reportOrderError(url, message) {
+        // 上报错误
+        $.ajax({
+            type: "post",
+            url: api.order.reportOrderError,
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url: url,
+                message: message,
+                userId: ""
+            }),
+            success: function(response) {
+                console.log("reportOrderError:", response);
+            },
+            complete: function() {}
+        });
+    }
+});
+
+// 百度统计 自定义数据上传
+var _hmt = _hmt || [];
+
+//此变量百度统计需要  需全局变量
+define("dist/common/baidu-statistics", [ "dist/application/method" ], function(require, exports, moudle) {
+    var method = require("dist/application/method");
+    var fileParams = window.pageConfig && window.pageConfig.params;
+    var eventNameList = {
+        fileDetailPageView: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: window.pageConfig && window.pageConfig.userId || "",
+            pageid: "PC-M-FD",
+            fileid: fileParams && fileParams.g_fileId,
+            filecategoryname: fileParams && fileParams.classidName1 + "||" + fileParams && fileParams.classidName2 + "||" + fileParams && fileParams.classidName3,
+            filepaytype: fileParams && fileParams.productType || "",
+            // 文件类型
+            filecootype: "",
+            // 文件来源   
+            fileformat: fileParams && fileParams.file_format || ""
+        },
+        payFileResult: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: window.pageConfig && window.pageConfig.userId || "",
+            pageid: "PC-M-FD",
+            pagename: "",
+            payresult: "",
+            orderid: "",
+            orderpaytype: "",
+            orderpayprice: "",
+            fileid: "",
+            filename: "",
+            fileprice: "",
+            filecategoryname: "",
+            fileformat: "",
+            filecootype: "",
+            fileuploaderid: ""
+        },
+        payVipResult: {
+            loginstatus: method.getCookie("cuk") ? 1 : 0,
+            userid: "",
+            pageid: "PC-M-FD",
+            pagename: "",
+            payresult: "",
+            orderid: "",
+            orderpaytype: "",
+            orderpayprice: "",
+            fileid: "",
+            filename: "",
+            fileprice: "",
+            filecategoryname: "",
+            fileformat: "",
+            filecootype: "",
+            fileuploaderid: ""
+        },
+        loginResult: {
+            pagename: $("#ip-page-id").val(),
+            pageid: $("#ip-page-name").val(),
+            loginType: "",
+            userid: "",
+            loginResult: ""
+        }
+    };
+    function handle(id) {
+        if (id) {
+            try {
+                (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?" + id;
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            } catch (e) {
+                console.error(id, e);
+            }
+        }
+    }
+    function handleBaiduStatisticsPush(eventName, params) {
+        // vlaue是对象
+        var temp = eventNameList[eventName];
+        if (eventName == "fileDetailPageView") {
+            params = temp;
+        }
+        if (eventName == "payFileResult") {
+            params = $.extend(temp, {
+                payresult: params.payresult,
+                orderid: params.orderNo,
+                orderpaytype: params.orderpaytype
+            });
+        }
+        if (eventName == "payVipResult") {
+            params = $.extend(temp, {
+                payresult: params.payresult,
+                orderid: params.orderNo,
+                orderpaytype: params.orderpaytype
+            });
+        }
+        if (eventName == "loginResult") {
+            params = $.extend(temp, {
+                loginType: params.loginType,
+                userid: params.userid,
+                loginResult: params.loginResult
+            });
+        }
+        _hmt.push([ "_trackCustomEvent", eventName, params ]);
+        console.log("百度统计:", eventName, params);
+    }
+    return {
+        initBaiduStatistics: handle,
+        handleBaiduStatisticsPush: handleBaiduStatisticsPush
+    };
+});
+
+define("dist/application/method", [], function(require, exports, module) {
+    return {
+        // 常量映射表
+        keyMap: {
+            // 访问详情页 localStorage
+            ishare_detail_access: "ISHARE_DETAIL_ACCESS",
+            ishare_office_detail_access: "ISHARE_OFFICE_DETAIL_ACCESS"
+        },
+        async: function(url, callback, msg, method, data) {
+            $.ajax(url, {
+                type: method || "post",
+                data: data,
+                async: false,
+                dataType: "json",
+                headers: {
+                    "cache-control": "no-cache",
+                    Pragma: "no-cache",
+                    Authrization: this.getCookie("cuk")
+                }
+            }).done(function(data) {
+                callback && callback(data);
+            }).fail(function(e) {
+                console.log("error===" + msg);
+            });
+        },
+        get: function(u, c, m) {
+            $.ajaxSetup({
+                cache: false
+            });
+            this.async(u, c, m, "get");
+        },
+        post: function(u, c, m, g, d) {
+            this.async(u, c, m, g, d);
+        },
+        postd: function(u, c, d) {
+            this.async(u, c, false, false, d);
+        },
+        //随机数
+        random: function(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        },
+        // 写cookie（过期时间）
+        setCookieWithExpPath: function(name, value, timeOut, path) {
+            var now = new Date();
+            now.setTime(now.getTime() + timeOut);
+            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + now.toGMTString();
+        },
+        //提供360结算方法
+        setCookieWithExp: function(name, value, timeOut, path) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + timeOut);
+            if (path) {
+                document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+            } else {
+                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+            }
+        },
+        //读 cookie
+        getCookie: function(name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
+                return unescape(arr[2]);
+            }
+            return null;
+        },
+        //删除cookie
+        delCookie: function(name, path, domain) {
+            var now = new Date();
+            now.setTime(now.getTime() - 1);
+            var cval = this.getCookie(name);
+            if (cval != null) {
+                if (path && domain) {
+                    document.cookie = name + "= '' " + ";domain=" + domain + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else if (path) {
+                    document.cookie = name + "= '' " + ";expires=" + now.toGMTString() + ";path=" + path;
+                } else {
+                    document.cookie = name + "=" + cval + ";expires=" + now.toGMTString();
+                }
+            }
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        url2Obj: function(url) {
+            var obj = {};
+            var arr1 = url.split("?");
+            var arr2 = arr1[1].split("&");
+            for (var i = 0; i < arr2.length; i++) {
+                var res = arr2[i].split("=");
+                obj[res[0]] = res[1];
+            }
+            return obj;
+        },
+        //获取url中参数的值
+        getParam: function(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.href);
+            if (results == null) {
+                return "";
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        },
+        // 获取本地 localStorage 数据
+        getLocalData: function(key) {
+            try {
+                if (localStorage && localStorage.getItem) {
+                    var val = localStorage.getItem(key);
+                    return val === null ? null : JSON.parse(val);
+                } else {
+                    console.log("浏览器不支持html localStorage getItem");
+                    return null;
+                }
+            } catch (e) {
+                return null;
+            }
+        },
+        // 获取本地 localStorage 数据
+        setLocalData: function(key, val) {
+            if (localStorage && localStorage.setItem) {
+                localStorage.removeItem(key);
+                localStorage.setItem(key, JSON.stringify(val));
+            } else {
+                console.log("浏览器不支持html localStorage setItem");
+            }
+        },
+        // 浏览器环境判断
+        browserType: function() {
+            var userAgent = navigator.userAgent;
+            //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1;
+            if (isOpera) {
+                //判断是否Opera浏览器
+                return "Opera";
+            }
+            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+                //判断是否IE浏览器
+                return "IE";
+            }
+            if (userAgent.indexOf("Edge") > -1) {
+                //判断是否IE的Edge浏览器
+                return "Edge";
+            }
+            if (userAgent.indexOf("Firefox") > -1) {
+                //判断是否Firefox浏览器
+                return "Firefox";
+            }
+            if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) {
+                //判断是否Safari浏览器
+                return "Safari";
+            }
+            if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1) {
+                //判断Chrome浏览器
+                return "Chrome";
+            }
+        },
+        //判断IE9以下浏览器
+        validateIE9: function() {
+            return !!($.browser.msie && ($.browser.version === "9.0" || $.browser.version === "8.0" || $.browser.version === "7.0" || $.browser.version === "6.0"));
+        },
+        // 计算两个2个时间相差的天数
+        compareTime: function(startTime, endTime) {
+            if (!startTime || !endTime) return "";
+            return Math.abs((endTime - startTime) / 1e3 / 60 / 60 / 24);
+        },
+        // 修改参数 有参数则修改 无则加
+        changeURLPar: function(url, arg, arg_val) {
+            var pattern = arg + "=([^&]*)";
+            var replaceText = arg + "=" + arg_val;
+            if (url.match(pattern)) {
+                var tmp = "/(" + arg + "=)([^&]*)/gi";
+                tmp = url.replace(eval(tmp), replaceText);
+                return tmp;
+            } else {
+                if (url.match("[?]")) {
+                    return url + "&" + replaceText;
+                } else {
+                    return url + "?" + replaceText;
+                }
+            }
+        },
+        //获取url全部参数
+        getUrlAllParams: function(urlStr) {
+            if (typeof urlStr == "undefined") {
+                var url = decodeURI(location.search);
+            } else {
+                var url = "?" + urlStr.split("?")[1];
+            }
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        },
+        //获取 url 参数值
+        getQueryString: function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        },
+        /**
+         * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
+         * @param url
+         * @param flag 是否新窗口打开
+         */
+        compatibleIESkip: function(url, flag) {
+            var referLink = document.createElement("a");
+            referLink.href = url;
+            referLink.style.display = "none";
+            if (flag) {
+                referLink.target = "_blank";
+            }
+            document.body.appendChild(referLink);
+            referLink.click();
+        },
+        testEmail: function(val) {
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if (reg.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        testPhone: function(val) {
+            if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        handleRecommendData: function(list) {
+            var arr = [];
+            $(list).each(function(index, item) {
+                var temp = {};
+                if (item.type == 1) {
+                    // 资料
+                    // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
+                    item.linkUrl = "/f/" + item.tprId + ".html";
+                    temp = item;
+                }
+                if (item.type == 2) {
+                    // 链接
+                    temp = item;
+                }
+                if (item.type == 3) {
+                    // 专题页
+                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
+                    item.linkUrl = "/node/s/" + item.tprId + ".html";
+                    temp = item;
+                }
+                arr.push(temp);
+            });
+            console.log(arr);
+            return arr;
+        },
+        formatDate: function(fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                //月份
+                "d+": this.getDate(),
+                //日
+                "h+": this.getHours(),
+                //小时
+                "m+": this.getMinutes(),
+                //分
+                "s+": this.getSeconds(),
+                //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                //季度
+                S: this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            return fmt;
+        },
+        getReferrer: function() {
+            var referrer = document.referrer;
+            var res = "";
+            if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+                res = "360";
+            } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
+                res = "baidu";
+            } else if (/https?\:\/\/[^\s]*sogou.com.*$/g.test(referrer)) {
+                res = "sogou";
+            } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
+                res = "sm";
+            }
+            return res;
+        },
+        judgeSource: function(ishareBilog) {
+            if (!ishareBilog) {
+                ishareBilog = {};
+            }
+            ishareBilog.searchEngine = "";
+            var from = "";
+            from = utils.getQueryVariable("from");
+            if (!from) {
+                from = sessionStorage.getItem("webWxFrom") || utils.getCookie("webWxFrom");
+            }
+            if (from) {
+                ishareBilog.source = from;
+                sessionStorage.setItem("webWxFrom", from);
+                sessionStorage.removeItem("webReferrer");
+            } else {
+                var referrer = sessionStorage.getItem("webReferrer") || utils.getCookie("webReferrer");
+                if (!referrer) {
+                    referrer = document.referrer;
+                }
+                if (referrer) {
+                    sessionStorage.setItem("webReferrer", referrer);
+                    sessionStorage.removeItem("webWxFrom");
+                    referrer = referrer.toLowerCase();
+                    //转为小写
+                    var webSites = new Array("google.", "baidu.", "360.", "sogou.", "shenma.", "bing.");
+                    var searchEngineArr = new Array("google", "baidu", "360", "sogou", "shenma", "bing");
+                    for (var i = 0, l = webSites.length; i < l; i++) {
+                        if (referrer.indexOf(webSites[i]) >= 0) {
+                            ishareBilog.source = "searchEngine";
+                            ishareBilog.searchEngine = searchEngineArr[i];
+                        }
+                    }
+                }
+                if (!referrer || !ishareBilog.source) {
+                    if (utils.isWeChatBrow()) {
+                        ishareBilog.source = "wechat";
+                    } else {
+                        ishareBilog.source = "outLink";
+                    }
+                }
+            }
+            return ishareBilog;
+        },
+        // 随机数
+        randomString: function(len) {
+            len = len || 4;
+            var $chars = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";
+            /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+            var maxPos = $chars.length;
+            var pwd = "";
+            for (var i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        },
+        // 登录状态保存 默认30天
+        saveLoginToken: function(token, timeout) {
+            timeout = timeout || 2592e6;
+            this.setCookieWithExpPath("cuk", token, timeout, "/");
+        },
+        // 获取
+        getLoginToken: function() {
+            return this.getCookie("cuk") || "";
+        },
+        // 清除
+        delLoginToken: function() {
+            this.delCookie("cuk", "/");
+        },
+        // 登录id保存
+        saveLoginSessionId: function(id) {
+            // 当前时间
+            var currentTime = new Date().getTime();
+            var idArr = id.split("_");
+            // 有效期截止时间戳
+            var timeEnd = idArr[1] || 0;
+            // 计算剩余有效时间
+            var locTimeout = timeEnd - currentTime;
+            this.setCookieWithExpPath("ish_jssid", id, locTimeout, "/");
+        },
+        // 获取
+        getLoginSessionId: function() {
+            return this.getCookie("ish_jssid") || "";
+        }
+    };
+});
+
+/**
+ * @Description: toast.js
+ *
+ */
+define("dist/cmd-lib/toast2", [], function(require, exports, module) {
+    //var $ = require("$");
+    (function($, win, doc) {
+        function Toast(options) {
+            this.options = {
+                text: "我是toast提示",
+                icon: "",
+                delay: 3e3,
+                callback: false
+            };
+            //默认参数扩展
+            if (options && $.isPlainObject(options)) {
+                $.extend(true, this.options, options);
+            }
+            this.init();
+        }
+        Toast.prototype.init = function() {
+            var that = this;
+            that.body = $("body");
+            that.toastWrap = $('<div class="ui-toast" style="position:fixed;min-width:200px;padding:0 10px;height:60px;line-height:60px;text-align:center;background:#000;opacity:0.8;filter:alpha(opacity=80);top:50%;left:50%;border-radius:4px;z-index:99999999">');
+            that.toastIcon = $('<i class="icon"></i>');
+            that.toastText = $('<span class="ui-toast-text" style="color:#fff">' + that.options.text + "</span>");
+            that._creatDom();
+            that.show();
+            that.hide();
+        };
+        Toast.prototype._creatDom = function() {
+            var that = this;
+            if (that.options.icon) {
+                that.toastWrap.append(that.toastIcon.addClass(that.options.icon));
+            }
+            that.toastWrap.append(that.toastText);
+            that.body.append(that.toastWrap);
+        };
+        Toast.prototype.show = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("hide").addClass("show");
+            }, 50);
+        };
+        Toast.prototype.hide = function() {
+            var that = this;
+            setTimeout(function() {
+                that.toastWrap.removeClass("show").addClass("hide");
+                that.toastWrap.remove();
+                that.options.callback && that.options.callback();
+            }, that.options.delay);
+        };
+        $.toast = function(options) {
+            return new Toast(options);
+        };
+    })($, window, document);
+});
+
+/**
+ * 前端交互性API
+ **/
+define("dist/application/api", [ "dist/application/urlConfig" ], function(require, exports, module) {
+    var urlConfig = require("dist/application/urlConfig");
+    var router = urlConfig.ajaxUrl + "/gateway/pc";
+    var gateway = urlConfig.ajaxUrl + "/gateway";
+    module.exports = {
+        // 用户相关
+        user: {
+            // 登录
+            // 检测单点登录状态
+            dictionaryData: gateway + "/market/dictionaryData/$code",
+            checkSso: gateway + "/cas/login/checkSso",
+            loginByPsodOrVerCode: gateway + "/cas/login/authorize",
+            // 通过密码和验证码登录
+            getLoginQrcode: gateway + "/cas/login/qrcode",
+            // 生成公众号登录二维码
+            loginByWeChat: gateway + "/cas/login/gzhScan",
+            // 公众号扫码登录
+            getUserInfo: "/node/api/getUserInfo",
+            // node聚合的接口获取用户信息
+            thirdLoginRedirect: gateway + "/cas/login/redirect",
+            // 根据第三方授权的code,获取 access_token
+            loginOut: gateway + "/cas/login/logout",
+            // 我的收藏
+            newCollect: gateway + "/content/collect/getUserFileList",
+            addFeedback: gateway + "/feedback/addFeedback",
+            //新增反馈
+            getFeedbackType: gateway + "/feedback/getFeedbackType",
+            //获取反馈问题类型
+            sendSms: gateway + "/cas/sms/sendSms",
+            // 发送短信验证码
+            queryBindInfo: gateway + "/cas/user/queryBindInfo",
+            // 查询用户绑定信息
+            thirdCodelogin: gateway + "/cas/login/thirdCode",
+            // /cas/login/thirdCode 第三方授权
+            userBindMobile: gateway + "/cas/user/bindMobile",
+            // 绑定手机号接口
+            checkIdentity: gateway + "/cas/sms/checkIdentity",
+            // 身份验证账号
+            userBindThird: gateway + "/cas/user/bindThird",
+            // 绑定第三方账号接口
+            untyingThird: gateway + "/cas/user/untyingThird",
+            // 解绑第三方
+            setUpPassword: gateway + "/cas/user/setUpPassword",
+            // 设置密码
+            getUserCentreInfo: gateway + "/user/getUserCentreInfo",
+            editUser: gateway + "/user/editUser",
+            // 编辑用户信息
+            getFileBrowsePage: gateway + "/content/fileBrowse/getFileBrowsePage",
+            //分页获取用户的历史浏览记录
+            getDownloadRecordList: gateway + "/content/getDownloadRecordList",
+            //用户下载记录接口
+            getUserFileList: gateway + "/content/collect/getUserFileList",
+            // 查询个人收藏列表
+            getMyUploadPage: gateway + "/content/getMyUploadPage",
+            // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
+            getOtherUser: gateway + "/user/getOthersCentreInfo",
+            //他人信息主页 
+            getSearchList: gateway + "/search/content/byCondition",
+            //他人信息主页 热门与最新
+            getVisitorId: gateway + "/user/getVisitorId"
+        },
+        normalFileDetail: {
+            // 文件预下载
+            filePreDownLoad: gateway + "/content/getPreFileDownUrl",
+            // 下载获取地址接口
+            getFileDownLoadUrl: gateway + "/content/getFileDownUrl",
+            // 文件打分
+            // 文件预览判断接口
+            getPrePageInfo: gateway + "/content/file/getPrePageInfo",
+            sendmail: gateway + "/content/sendmail/findFile",
+            getFileDetailNoTdk: gateway + "/content/getFileDetailNoTdk"
+        },
+        officeFileDetail: {},
+        search: {
+            specialTopic: gateway + "/search/specialTopic/lisPage"
+        },
+        sms: {
+            // 登录用户发送邮箱
+            sendCorpusDownloadMail: gateway + "/content/fileSendEmail/sendCorpusDownloadMail",
+            fileSendEmailVisitor: gateway + "/content/fileSendEmail/visitor"
+        },
+        pay: {
+            // 购买成功后,在页面自动下载文档
+            // 绑定订单
+            bindUser: gateway + "/order/bind/loginUser",
+            scanOrderInfo: gateway + "/order/scan/orderInfo",
+            getBuyAutoRenewList: gateway + "/order/buy/autoRenewList",
+            cancelAutoRenew: gateway + "/order/cancel/autoRenew/"
+        },
+        coupon: {
+            rightsSaleVouchers: gateway + "/rights/sale/vouchers",
+            rightsSaleQueryPersonal: gateway + "/rights/sale/queryPersonal",
+            querySeniority: gateway + "/rights/sale/querySeniority",
+            queryUsing: gateway + "/rights/sale/queryUsing",
+            getMemberPointRecord: gateway + "/rights/vip/getMemberPointRecord",
+            getBuyRecord: gateway + "/rights/vip/getBuyRecord",
+            getTask: gateway + "/rights/task/get",
+            receiveTask: gateway + "/rights/task/receive"
+        },
+        order: {
+            reportOrderError: gateway + "/order/message/save",
+            bindOrderByOrderNo: gateway + "/order/bind/byOrderNo",
+            unloginOrderDown: router + "/order/unloginOrderDown",
+            createOrderInfo: gateway + "/order/create/orderInfo",
+            rightsVipGetUserMember: gateway + "/rights/vip/getUserMember",
+            getOrderStatus: gateway + "/order/get/orderStatus",
+            queryOrderlistByCondition: gateway + "/order/query/listByCondition",
+            getOrderInfo: gateway + "/order/get/orderInfo"
+        },
+        getHotSearch: gateway + "/cms/search/content/hotWords",
+        special: {
+            fileSaveOrupdate: gateway + "/comment/zan/fileSaveOrupdate",
+            // 点赞
+            getCollectState: gateway + "/comment/zc/getUserFileZcState",
+            //获取收藏状态
+            setCollect: gateway + "/content/collect/file"
+        },
+        upload: {
+            getWebAllFileCategory: gateway + "/content/fileCategory/getWebAll",
+            createFolder: gateway + "/content/saveUserFolder",
+            // 获取所有分类
+            getFolder: gateway + "/content/getUserFolders",
+            // 获取所有分类
+            saveUploadFile: gateway + "/content/webUploadFile",
+            picUploadCatalog: "/ishare-upload/picUploadCatalog",
+            fileUpload: "/ishare-upload/fileUpload",
+            batchDeleteUserFile: gateway + "/content/batchDeleteUserFile"
+        },
+        recommend: {
+            recommendConfigInfo: gateway + "/recommend/config/info",
+            recommendConfigRuleInfo: gateway + "/recommend/config/ruleInfo"
+        },
+        reportBrowse: {
+            fileBrowseReportBrowse: gateway + "/content/fileBrowse/reportBrowse"
+        },
+        mywallet: {
+            getAccountBalance: gateway + "/account/balance/getGrossIncome",
+            // 账户余额信息
+            withdrawal: gateway + "/account/with/apply",
+            // 申请提现
+            getWithdrawalRecord: gateway + "/account/withd/getPersonList",
+            // 查询用户提现记录
+            editFinanceAccount: gateway + "/account/finance/edit",
+            // 编辑用户财务信息
+            getFinanceAccountInfo: gateway + "/account/finance/getInfo",
+            // 查询用户财务信息
+            getPersonalAccountTax: gateway + "/account/tax/getPersonal",
+            // 查询个人提现扣税结算
+            getPersonalAccountTax: gateway + "/account/tax/getPersonal",
+            // 查询个人提现扣税结算
+            getMyWalletList: gateway + "/settlement/settle/getMyWalletList",
+            // 我的钱包收入
+            exportMyWalletDetail: gateway + "/settlement/settle/exportMyWalletDetail"
+        },
+        authentication: {
+            getInstitutions: gateway + "/user/certification/getInstitutions",
+            institutions: gateway + "/user/certification/institutions",
+            getPersonalCertification: gateway + "/user/certification/getPersonal",
+            personalCertification: gateway + "/user/certification/personal"
+        },
+        seo: {
+            listContentInfos: gateway + "/seo/exposeContent/contentInfo/listContentInfos"
+        },
+        wechat: {
+            getWechatSignature: gateway + "/message/wechat/info/getWechatSignature"
+        },
+        comment: {
+            getLableList: gateway + "/comment/lable/dataList",
+            addComment: gateway + "/comment/eval/add",
+            getHotLableDataList: gateway + "/comment/lable/hotDataList",
+            // 详情热评标签
+            getFileComment: gateway + "/comment/eval/dataList",
+            // 详情评论
+            getPersoDataInfo: gateway + "/comment/eval/persoDataInfo"
+        }
+    };
+});
+
+// 网站url 配置
+define("dist/application/urlConfig", [], function(require, exports, module) {
+    var env = window.env;
+    var urlConfig = {
+        debug: {
+            ajaxUrl: "",
+            payUrl: "http://open-ishare.iask.com.cn",
+            upload: "//upload-ishare.iask.com",
+            appId: "wxb8af2801b7be4c37",
+            bilogUrl: "https://dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://office.iask.com",
+            ejunshi: "http://dev.ejunshi.com"
+        },
+        local: {
+            ajaxUrl: "",
+            payUrl: "http://dev-open-ishare.iask.com.cn",
+            upload: "//dev-upload-ishare.iask.com",
+            appId: "wxb8af2801b7be4c37",
+            bilogUrl: "https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://dev-office.iask.com",
+            ejunshi: "http://dev.ejunshi.com"
+        },
+        dev: {
+            ajaxUrl: "",
+            payUrl: "http://dev-open-ishare.iask.com.cn",
+            upload: "//dev-upload-ishare.iask.com",
+            appId: "wxb8af2801b7be4c37",
+            bilogUrl: "https://dev-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://dev-office.iask.com",
+            ejunshi: "http://dev.ejunshi.com"
+        },
+        test: {
+            ajaxUrl: "",
+            payUrl: "http://test-open-ishare.iask.com.cn",
+            upload: "//test-upload-ishare.iask.com",
+            appId: "wxb8af2801b7be4c37",
+            bilogUrl: "https://test-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://test-office.iask.com",
+            ejunshi: "http://test.ejunshi.com"
+        },
+        pre: {
+            ajaxUrl: "",
+            payUrl: "http://pre-open-ishare.iask.com.cn",
+            upload: "//pre-upload-ishare.iask.com",
+            appId: "wxca8532521e94faf4",
+            bilogUrl: "https://pre-dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://pre-office.iask.com",
+            ejunshi: "http://pre.ejunshi.com"
+        },
+        prod: {
+            ajaxUrl: "",
+            payUrl: "http://open-ishare.iask.com.cn",
+            upload: "//upload-ishare.iask.com",
+            appId: "wxca8532521e94faf4",
+            bilogUrl: "https://dw.iask.com.cn/ishare/jsonp?data=",
+            officeUrl: "http://office.iask.com",
+            ejunshi: "http://ejunshi.com"
+        }
+    };
+    return urlConfig[env];
+});
+
+define("dist/pay/payRestult.html", [], '<div class="payment-title">\n    {{ if orderInfo.orderStatus == 2}}\n    <span class="payment-title-icon success"></span>\n    <span class="payment-title-desc">支付成功</span>\n    <span class="payment-title-info">请在电脑网站完成后续操作</span>\n    {{/if}}\n    {{ if orderInfo.orderStatus == 3}}\n    <span class="payment-title-icon error"></span>\n    <span class="payment-title-desc">支付失败</span>\n    {{/if}}\n\n</div>\n<ul class="order-list">\n    <li class="list-item">\n        <span class="item-title">支付方式:</span>\n        {{ if orderInfo.payType == \'wechat\'}}\n            <span class="item-desc">微信支付</span>\n        {{/if}}\n            {{ if orderInfo.payType == \'alipay\'}}\n            <span class="item-desc">支付宝支付</span>\n        {{/if}}\n    </li>\n    <li class="list-item">\n        <span class="item-title">订单金额:</span>\n        <span class="item-desc">¥ {{orderInfo.payPrice}}</span>\n    </li>\n    <li class="list-item orderTime">\n        <span class="item-title">创建时间:</span>\n        <span class="item-desc">{{orderInfo.orderTime}}</span>\n    </li>\n    <li class="list-item">\n        <span class="item-title">商户单号:</span>\n        <span class="item-desc">{{orderInfo.payNo}}</span>\n    </li>\n    <li class="list-item">\n        <span class="item-title">商品名称:</span>\n        <span class="item-desc">{{orderInfo.goodsName}}</span>\n    </li>\n</ul> \n<div class="payment-info">\n    请截图保存订单详情，以便查询使用\n</div>\n{{ if orderInfo.orderStatus == 3 }}\n    <div class="btn-wrap">\n        <div class="payment-btn">重新支付</div>\n    </div>\n{{ /if }}\n\n\n');
