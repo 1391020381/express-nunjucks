@@ -66,6 +66,9 @@ define(function (require, exports, module) {
                         text: res.message || 'scanOrderInfo错误',
                         delay: 3000,
                     })
+                    var url = location.href
+                    var message  = JSON.stringify(params) + JSON.stringify(data.message)
+                    unloginObj.reportOrderError(url,message)
                 }
             },
             error: function (error) {
@@ -151,6 +154,28 @@ define(function (require, exports, module) {
 
             }
           })
+    }
+
+    function reportOrderError(url,message) {
+        $.ajax({
+            type: 'post',
+            url: api.order.reportOrderError,
+            headers:{
+                'Authrization': method.getCookie('cuk')
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url:url,
+                message:message,
+                userId:''
+            }),
+            success: function (response) {
+               console.log('reportOrderError:',response)
+            },
+            complete: function () {
+
+            }
+        })  
     }
     $(document).on('click', '.pay-confirm', function (e) {
         console.log('pay-confirm-start')
