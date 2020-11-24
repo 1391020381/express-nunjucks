@@ -67,7 +67,7 @@ define(function (require, exports, module) {
                         delay: 3000,
                     })
                     var url = location.href
-                    var message  = JSON.stringify(params) + JSON.stringify(res.data)
+                    var message  = JSON.stringify(params) + JSON.stringify(res)
                     reportOrderError(url,message)
                 }
             },
