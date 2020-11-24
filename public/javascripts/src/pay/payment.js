@@ -68,7 +68,7 @@ define(function (require, exports, module) {
                     })
                     var url = location.href
                     var message  = JSON.stringify(params) + JSON.stringify(data.message)
-                    unloginObj.reportOrderError(url,message)
+                    reportOrderError(url,message)
                 }
             },
             error: function (error) {
