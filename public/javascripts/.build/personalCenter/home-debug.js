@@ -56,7 +56,7 @@ define("dist/personalCenter/home-debug", [ "swiper-debug", "../common/recommendC
                     $(".personal-center-menu .personal-profile .personal-id .copy").attr("data-clipboard-text", res.data.id);
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
                     if (!userInfo.isWxAuth) {
-                        $(".signIn").hide();
+                        $(".signIn").removeClass("signIn-hide");
                     }
                     if (isMasterVip == 1) {
                         // $('.personal-center-home .personal-summarys .go2vip').hide() 
