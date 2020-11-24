@@ -35,12 +35,13 @@ define(function (require, exports, module){
                             photoPicURL:item.photoPicURL,
                             nickName:item.nickName,
                             score:item.score,
+                            content:item.content?item.content:'该用户暂无评论',
                             createTime:new Date(item.createTime).formatDate("yyyy-MM-dd")
                         }
                         temp.push(m)
                   }) 
                   var list = []
-                  if(lableId){ // 单个筛选
+                  if(lableId&&lableId!=undefined){ // 单个筛选
                      $(tagsList).each(function(index,item){
                          if(item.id == lableId){
                              list.push({
@@ -56,6 +57,8 @@ define(function (require, exports, module){
                              }) 
                          }
                      })
+                  }else{
+                      list = tagsList
                   } 
                   var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[],lableId:lableId});
                   $(".user-comments-container").html(_userCommentsTemplate);
@@ -77,7 +80,7 @@ define(function (require, exports, module){
         })
        }
 
-    $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags',function(){
+    $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags .tag',function(){
         var id = $(this).attr('data-id')
         if(id != 'all'){
             getUserComments(1,id)

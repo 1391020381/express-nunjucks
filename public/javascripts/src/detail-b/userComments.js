@@ -42,7 +42,7 @@ define(function (require, exports, module){
                         temp.push(m)
                   })  
                   var list = []
-                  if(lableId){ // 单个筛选
+                  if(lableId&&lableId!=undefined){ // 单个筛选
                      $(tagsList).each(function(index,item){
                          if(item.id == lableId){
                              list.push({
@@ -58,7 +58,9 @@ define(function (require, exports, module){
                              }) 
                          }
                      })
-                  } 
+                  } else{
+                    list = tagsList
+                } 
                   var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[],lableId:lableId});
                   $(".user-comments-container").html(_userCommentsTemplate);
                   handlePagination(res.data.totalPages,res.data.currentPage)  
@@ -79,7 +81,7 @@ define(function (require, exports, module){
         })
        }
 
-    $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags',function(){
+    $(document).on('click','.doc-main-br .user-comments-container .evaluation-tags .tag',function(){
         var id = $(this).attr('data-id')
         if(id != 'all'){
             getUserComments(1,id)
