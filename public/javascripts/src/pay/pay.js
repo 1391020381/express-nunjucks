@@ -516,7 +516,7 @@ define(function(require, exports, moudle) {
                     utils.showAlertDialog("温馨提示", '下单失败');
 
                     var url = location.href
-                    var message  = JSON.stringify(temp) + JSON.stringify(data.message)
+                    var message  = JSON.stringify(temp) + JSON.stringify(data)
                     reportOrderError(url,message)
                 }
             }

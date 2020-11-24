@@ -67,7 +67,7 @@ define(function (require, exports, module) {
                         delay: 3000,
                     })
                     var url = location.href
-                    var message  = JSON.stringify(params) + JSON.stringify(data.message)
+                    var message  = JSON.stringify(params) + JSON.stringify(data)
                     reportOrderError(url,message)
                 }
             },
@@ -77,6 +77,9 @@ define(function (require, exports, module) {
                     text: error.message || 'scanOrderInfo错误',
                     delay: 3000,
                 })
+                var url = location.href
+                var message  = JSON.stringify(params) + JSON.stringify(data)
+                reportOrderError(url,message)
             }
         })
     }

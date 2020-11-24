@@ -179,7 +179,7 @@ define(function (require, exports, module) {
                     
                 } else {
                     var url = location.href
-                    var message  = JSON.stringify(params) + JSON.stringify(data.message)
+                    var message  = JSON.stringify(params) + JSON.stringify(data)
                     unloginObj.reportOrderError(url,message)
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
