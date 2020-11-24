@@ -2,10 +2,11 @@ define(function (require, exports, module){
    var isConvert = window.pageConfig.page.isConvert
     // var detailCon = $('.detail-reader-con').find(".detail-con:visible").length -2
     var detailCon = $('.detail-reader-con').find(".detail-con:visible").length 
-    var isHasComment = window.pageConfig.params.isHasComment
+    var commentTotalPages = window.pageConfig.params.isHasComment
     var guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
     var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
-    var bottomHeight =  guessYouLikeHeight + userEvaluation
+    var bottomHeight =  guessYouLikeHeight + userEvaluation +30
+    bottomHeight =  commentTotalPages >1 ?bottomHeight + 549:bottomHeight+258
    function initStyle(){
     if(isConvert ==1){ // 转码成功
       // if(detailCon<=3){ // 只有3页
@@ -33,7 +34,7 @@ define(function (require, exports, module){
         'position': 'absolute',
         'left':'0px',
         'right':'0px',
-        'bottom':isHasComment==1?(10 + bottomHeight + 549) + 'px':(10 + bottomHeight) + 'px',
+        'bottom':(bottomHeight ) + 'px',
         'width': '890px'
     })
    }

@@ -351,7 +351,7 @@ function handleDetalData(
 
     
     var results = Object.assign({}, {
-        isHasComment:commentDataList.data.totalPages>0?1:0,
+        commentTotalPages:commentDataList.data.totalPages,
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,
