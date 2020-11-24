@@ -19,9 +19,7 @@ define(function (require, exports, module){
                }
             }
         })
-    }
-    
-                                              
+    }                                          
     function getUserComments(currentPage,lableId) { 
         $.ajax({
             url:  api.comment.getFileComment + '?fid='+ fid + '&lableId='+lableId + '&currentPage='+currentPage +'&pageSize=15',     
