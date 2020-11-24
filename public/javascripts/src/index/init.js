@@ -275,7 +275,7 @@ define(function (require,exports,moudle) {
             var officeVip = data.isOfficeVip==1?'<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">'+ data.officeVipExpireTime +'到期</span></p>':''
             var infoDescContent = wholeStationVip + officeVip
             if(!data.isWxAuth){
-                $('.sign-btn').hide()
+                $('.sign-btn').removeClass('.hide')
             }
             if(data.isMasterVip == 1 || data.isOfficeVip == 1) {  
                 $('.user-state .vip-icon').addClass('vip-avaliable')
