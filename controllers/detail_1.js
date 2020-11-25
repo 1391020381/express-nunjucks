@@ -11,7 +11,7 @@ const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
 
-const defaultResultsData = { freeAdv:false,copy:false,reward:{},recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
 
@@ -69,7 +69,6 @@ const renderPage = cc(async (req, res) => {
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
     const crumbList = await getCrumbList(req, res, list)
-    const memberList = await getUserVipRights(req, res); // 权益列表
     const cateList = await getCategoryList(req, res);  
     const recommendInfo = await getRecommendInfo(req, res, list)
     let paradigm4Guess = []
@@ -88,7 +87,6 @@ const renderPage = cc(async (req, res) => {
         topBannerList,
         searchBannerList,
         bannerList,
-        memberList,
         cateList,
         recommendInfo,
         paradigm4Relevant,
@@ -244,18 +242,6 @@ function getParadigm4Guess(req, res, list, recommendInfo, userID) {
     }
 }
 
-// 进入页面获取该用户VIP权益点
-function getUserVipRights(req, res) {
-    if (req.cookies.cuk) {
-        req.body = {
-            memberCodeList: ['COPY', 'FREE_ADV'] // ['COPY', 'FREE_ADV', 'REWARD']
-        };
-        return server.$http(appConfig.apiNewBaselPath + Api.coupon.getVipAllMemberDetail, 'post', req, res, true)
-    } else {
-        return null;
-    }
-}
-
 // 获取页面分类列表
 function getCategoryList(req, res) {
     req.body = {
@@ -283,7 +269,6 @@ function handleDetalData(
     topBannerList,
     searchBannerList,
     bannerListData,
-    memberList,
     cateList,
     recommendInfo,
     paradigm4Relevant,
@@ -341,9 +326,6 @@ function handleDetalData(
         paradigm4Relevant,
         paradigm4Guess,
         filePreview,
-        freeAdv: false,
-        copy: false,
-        reward: {unit: 1, value: '0'}
     }, { list: list });
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
@@ -384,18 +366,6 @@ function handleDetalData(
         results.paradigm4GuessData = paradigm4Guess || [];
         results.requestID_guess = req.requestID_guess;
         results.userID = userID;
-    }
-
-    // 获取主站是否可以复制SVG，展示广告的功能
-    if (memberList && memberList.data) {
-        const memberCode = memberList.data.find(item => item.site == 4);
-        const { isVip = false, memberPointList = [] } = memberCode;
-        const freeAdv = memberPointList.find(item => item.code == 'FREE_ADV');
-        const copy = memberPointList.find(item => item.code == 'COPY');
-        // const reward = memberPointList.find(item => item.code == 'REWARD');
-        results.freeAdv = isVip && freeAdv.value == '1' ? true : false;
-        results.copy = isVip && copy.value == '1' ? true : false;
-        results.reward = {unit: 1, value: '0'}; // isVip ? {...reward} : {unit: 1, value: '0'};
     }
 
     results.recommendInfoData_rele = req.recommendInfoData_rele || {};

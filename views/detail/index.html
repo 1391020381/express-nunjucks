@@ -176,7 +176,7 @@
             classidName3: '{{results.list.data.classidName3}}',
             is360: '{{results.list.data.is360}}',
             site: '{{results.list.data.site}}',
-            isVip:0,
+            isVip: 0,
             productType:"{{results.list.data.productType}}",
             userFileType:"{{results.list.data.userFileType}}",
             userFilePrice:"{{results.list.data.userFilePrice}}",
@@ -206,11 +206,11 @@
         supportSvg: {{ results.list.data.supportSvg}},
         imgUrl: {{results.list.data.fileContentList | dump | safe}},
         svgUrl: {{ results.list.data.svgPathList | dump | safe}},
-        freeAdv: {{ results.freeAdv }},
-        copy: {{ results.copy }},
+        freeAdv: false,
+        copy: false,
         reward: {
-            unit: '{{ results.reward.unit }}',
-            value: '{{ results.reward.value }}'
+            unit: 1,
+            value: '0'
         },
         email: ""
     };

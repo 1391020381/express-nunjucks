@@ -54,7 +54,7 @@
                     </div>    
                   </div>   
              {% else %}
-                {% if not results.freeAdv %}
+                <div class="adv-container">
                     <script>
                         (function () {
                             var s = "_" + Math.random().toString(36).slice(2);
@@ -68,7 +68,7 @@
                             _dpData[0] = 1;
                         })();
                     </script>
-                {% endif %}
+                </div>
              {% endif %}
             </div>
             {% endif %}
@@ -127,9 +127,7 @@
                                         <embed src="{{results.list.data.svgPathList[loop.index0]}}" width="100%"
                                             height="100%" type="image/svg+xml"
                                             pluginspage="//www.adobe.com/svg/viewer/install/" />
-                                        {% if not results.copy %}
                                         <article class="detail-holder"></article>
-                                        {% endif %}    
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +164,7 @@
                             {% if loop.index0 === 0  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处1-890*100-0620  -->
-                                {% if results.getBannerList.turnPageOneBanner.list.length > 0 or results.freeAdv %}
+                                {% if results.getBannerList.turnPageOneBanner.list.length > 0 %}
                                  <div class="swiper-container swiper-turnPageOneBanner-container ">
                                     <div class="swiper-wrapper">
                                {%for item in  results.getBannerList.turnPageOneBanner.list %}
@@ -179,27 +177,28 @@
                               </div>    
                              </div> 
                             {% else%}
-                                <script>
-                                    (function () {
-                                        var s = "_" + Math.random().toString(36).slice(2);
-                                        document.write('<div  id="' + s + '"></div>');
-                                        (window.slotbydup = window.slotbydup || []).push({
-                                            id: '6307742',
-                                            container: s,
-                                            size: '890,100',
-                                            display: 'inlay-fix'
-                                        });
-                                        _dpData[1] = 1;
-                                    })();
-                                </script>
-
+                                <div class="adv-container">
+                                    <script>
+                                        (function () {
+                                            var s = "_" + Math.random().toString(36).slice(2);
+                                            document.write('<div  id="' + s + '"></div>');
+                                            (window.slotbydup = window.slotbydup || []).push({
+                                                id: '6307742',
+                                                container: s,
+                                                size: '890,100',
+                                                display: 'inlay-fix'
+                                            });
+                                            _dpData[1] = 1;
+                                        })();
+                                    </script>
+                                </div>
                                 {% endif %} 
                                
                             </div>
                             {% elif loop.index0 === 1  %}
                             <div class="tui-detail">
                                 <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
-                               {% if results.getBannerList.turnPageTwoBanner.list.length > 0 or results.freeAdv %}
+                               {% if results.getBannerList.turnPageTwoBanner.list.length > 0 %}
                                  <div class="swiper-container swiper-turnPageTwoBanner-container ">
                                     <div class="swiper-wrapper">
                                   {%for item in  results.getBannerList.turnPageTwoBanner.list %}
@@ -212,25 +211,26 @@
                               </div>    
                              </div> 
                             {% else%}
-                                <script>
-                                    (function () {
-                                        var s = "_" + Math.random().toString(36).slice(2);
-                                        document.write('<div  id="' + s + '"></div>');
-                                        (window.slotbydup = window.slotbydup || []).push({
-                                            id: '6307745',
-                                            container: s,
-                                            size: '886,100',
-                                            display: 'inlay-fix'
-                                        });
-                                        _dpData[2] = 1;
-                                    })();
-                                </script>
+                                <div class="adv-container">
+                                    <script>
+                                        (function () {
+                                            var s = "_" + Math.random().toString(36).slice(2);
+                                            document.write('<div  id="' + s + '"></div>');
+                                            (window.slotbydup = window.slotbydup || []).push({
+                                                id: '6307745',
+                                                container: s,
+                                                size: '886,100',
+                                                display: 'inlay-fix'
+                                            });
+                                            _dpData[2] = 1;
+                                        })();
+                                    </script>
+                                </div>
                                 {% endif %}
                             </div>
                             {% elif loop.index0 === 2 %}
                             <div class="tui-detail hide-ad">
-                                {% if not results.freeAdv %}
-                                <div>
+                                <div class="adv-container">
                                     <!--  广告位：PC端-ishare-详细页-翻页处2-886*100-0620  -->
                                     <script>
                                         (function () {
@@ -245,7 +245,6 @@
                                         })();
                                     </script>
                                 </div>
-                                {% endif %}
                             </div>
                             {%endif%}
                             {%endif%}
