@@ -27,7 +27,7 @@ const renderPage = cc(async (req,res)=>{
     }else{// 无维度的情况
         specialList= detail.data.specialTopicPropertyGroupDOList; //
     }
-    let listData = await getListTopicContents(req,res,paramsObj)
+    let listData = await getListTopicContents(req,res,paramsObj,specialList)
     // tdk
 //    let tdkData = await getTdkByUrl(req,res,paramsObj)
 
@@ -66,7 +66,7 @@ function getFindSpecialTopic(req,res,paramsObj){
     return server.$http(url,'get', req, res, true);
 }
 
-function getListTopicContents(req,res,paramsObj){
+function getListTopicContents(req,res,paramsObj,specialList){
     let arr=[];  
     let uid = ''      
     if((paramsObj.topicPropertyQueryDTOList.length>0)){

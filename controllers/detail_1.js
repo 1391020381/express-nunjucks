@@ -22,7 +22,8 @@ const renderPage = cc(async (req, res) => {
     if (redirectUrl.data) {
         if (redirectUrl.data.targetLink) {
             var url = redirectUrl.data.type == 1 ? req.protocol + '://' + redirectUrl.data.targetLink : req.protocol + '://' + req.hostname + '/f/' + redirectUrl.data.targetLink + '.html';
-            res.redirect(url);
+            
+            res.redirect(301,url);
         }
     }
     const list = await getList(req, res)
@@ -42,7 +43,8 @@ const renderPage = cc(async (req, res) => {
             // 跳转到办公携带参数修改
 
             var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-            res.redirect(`https://office.iask.com/f/${fileInfo.id}.html?` + officeParams);
+            
+            res.redirect(301,`https://office.iask.com/f/${fileInfo.id}.html?` + officeParams);
             return
         }
         if (fileInfo.showflag !== 'y') { // 文件删除
