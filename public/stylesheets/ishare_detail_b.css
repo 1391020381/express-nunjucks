@@ -2940,6 +2940,7 @@ body {
 }
 .detail-error-container .detail-error .img {
   margin: 0 auto;
+  margin-left: 468px;
   padding-top: 194px;
   padding-bottom: 30px;
 }
