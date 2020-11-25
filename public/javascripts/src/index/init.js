@@ -274,7 +274,7 @@ define(function (require,exports,moudle) {
             var wholeStationVip = data.isMasterVip == 1?'<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">'+ data.expireTime +'到期</span></p>':''    
             var officeVip = data.isOfficeVip==1?'<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">'+ data.officeVipExpireTime +'到期</span></p>':''
             var infoDescContent = wholeStationVip + officeVip
-            if(!data.isWxAuth){
+            if(data.isWxAuth){
                 $('.sign-btn').removeClass('hide')
             }
             if(data.isMasterVip == 1 || data.isOfficeVip == 1) {  

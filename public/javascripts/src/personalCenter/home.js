@@ -53,7 +53,7 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
-                    if(!userInfo.isWxAuth){
+                    if(userInfo.isWxAuth){
                        $('.signIn').removeClass('signIn-hide')
                     }
                     if(isMasterVip ==1){ 
