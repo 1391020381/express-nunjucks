@@ -219,7 +219,7 @@ function getTaskList(fid) {
                   taskList = res.data ||{};
                   taskList.fid = fid
                   if(taskList.id){
-                    startTaskReceive(taskList||{rewardContent:[]})
+                    startTaskReceive(taskList||{rewardContent:[],rewardType:tagList.rewardType})
                   }else{
                        getDownloadRecordList()
                   } 
