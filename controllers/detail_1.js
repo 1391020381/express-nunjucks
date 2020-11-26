@@ -66,7 +66,7 @@ const renderPage = cc(async (req, res) => {
             }
         }
     }
-    const specialTopic  = await getSpecialTopic(req,res,list)
+    // const specialTopic  = await getSpecialTopic(req,res,list)
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
@@ -80,7 +80,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
     }
     const filePreview = await getFilePreview(req, res, list)
-    const commentDataList = await getFileComment(req,res)
+   
     handleDetalData(
         req,
         res,
@@ -95,9 +95,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess,
         filePreview,
         crumbList,
-        userID,
-        specialTopic,
-        commentDataList
+        userID
     )
 })
 
@@ -295,9 +293,7 @@ function handleDetalData(
     paradigm4Guess,
     filePreview,
     crumbList,
-    userID,
-    specialTopic,
-    commentDataList
+    userID
 ) {
 
     if (topBannerList.data) {
@@ -338,7 +334,6 @@ function handleDetalData(
 
     
     var results = Object.assign({}, {
-        commentTotalPages:commentDataList.data.totalPages,
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,

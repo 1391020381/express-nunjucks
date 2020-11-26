@@ -64,6 +64,20 @@ define(function (require, exports, module){
                 } 
                   var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[],lableId:lableId});
                   $(".user-comments-container").html(_userCommentsTemplate);
+
+                  var userCommentsContainer  =$('.user-comments-container').outerHeight(true)||0
+                  var detailGuide = $('.detail-guide-wrap').outerHeight(true) || 0
+                  var hotSpotSearch = $('.hot-spot-search-warper').outerHeight(true) || 0
+                  var bottomHeight = userCommentsContainer + detailGuide + hotSpotSearch  + 28
+                  
+                  $('.detail-footer').css({
+                    'position': 'absolute',
+                    'left':'0px',
+                    'right':'0px',
+                    'bottom':(bottomHeight) + 'px',
+                    'width': '890px'
+                })
+
                   handlePagination(res.data.totalPages,res.data.currentPage)  
                 }
                }

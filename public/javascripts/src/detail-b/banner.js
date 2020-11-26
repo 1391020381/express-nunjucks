@@ -51,7 +51,7 @@ new Swiper('.swiper-turnPageTwoBanner-container',{
     autoplay: 3000,
 })
 var topicName = window.pageConfig.page&&window.pageConfig.page.fileName
-// getSpecialTopic()
+ getSpecialTopic()
 
 function getSpecialTopic() {
     $.ajax({
