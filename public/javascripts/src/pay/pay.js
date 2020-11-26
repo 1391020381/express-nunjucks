@@ -1034,12 +1034,12 @@ define(function(require, exports, moudle) {
         }
     }
     if(method.getParam("fid")){
-        getTaskList()
+        taskHasEnable()
     }
     
-    function getTaskList() { 
+    function taskHasEnable() { 
         $.ajax({
-            url: api.coupon.getTask,
+            url: api.coupon.taskHasEnable,
             type: "POST",
             data: JSON.stringify({
                 key:method.getParam("fid"),
@@ -1049,8 +1049,8 @@ define(function(require, exports, moudle) {
             dataType: "json",
             success: function(res) {
                 if (res && res.code == '0') {
-                    if(!res.data){
-                        $('#review-dialog').hide()
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
                     }
 
                 }

@@ -77,7 +77,8 @@ define(function (require, exports, module) {
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
             getBuyRecord:gateway + '/rights/vip/getBuyRecord',
             getTask: gateway + '/rights/task/get',
-            receiveTask:gateway + '/rights/task/receive'
+            receiveTask:gateway + '/rights/task/receive',
+            taskHasEnable:gateway + '/task/hasEnable'
         },
         order:{
             reportOrderError:gateway + '/order/message/save',
