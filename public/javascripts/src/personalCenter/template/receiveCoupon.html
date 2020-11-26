@@ -5,21 +5,17 @@
         <div class="coupon-dialog-body">
             <div class="coupon-dialog-content">
                 {{each data.list as v i}}
-                <div class="coupon-item">
+                <div class="coupon-item $rewardType">
                     <div class="coupon-item-price">
-                       {{if rewardType == 1}}
-                            <span style="font-size:17px;">&yen;</span> 
-                            <span>{{v.content1/100}}</span>
-                       {{else}}
                             {{ if v.voucherType == 1 }} 
                             <span style="font-size:17px;">&yen;</span> 
                             <span>{{v.content1/100}}</span>
-                            {{ /if }}
-                           {{ if v.voucherType == 2}}
+                           {{ else if v.voucherType == 2}}
                               <span style="font-size:17px;"></span>
                               <span>{{v.discount}}折</span>
-                           {{ /if }}
-                       {{/if}}
+                           {{ else }}
+                            <span >{{v.content1}}</span>
+                           {{/if}}
                     </div>
                     <div class="coupon-item-text" title="{{v.content2}}">{{v.content2}}</div>
                 </div>

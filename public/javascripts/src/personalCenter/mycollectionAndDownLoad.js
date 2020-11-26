@@ -239,8 +239,10 @@ function startTaskReceive(taskList) {
           list: taskList.rewardContent.slice(0, 2)
       };
       var _html = template.compile(receiveCoupon)({ data: data });
+      var isVip = taskList.rewardType == 1?true:false
+      var vipClass = isVip?'coupon-item-vip':''
       $("#dialog-box").dialog({
-        html: $('#getcoupon-dialog').html().replace(/\$content/, _html),
+        html: $('#getcoupon-dialog').html().replace(/\$content/, _html).replace(/\$rewardType/,vipClass),
     }).open();
   }
 
@@ -261,6 +263,7 @@ function startTaskReceive(taskList) {
 })
 
 $(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
+   
     if(isAppraise == 1){
         closeRewardPop()
         isAppraise = 0
@@ -310,7 +313,11 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
 
 
   $('#dialog-box').on('click','.close-btn',function(e){
-    clickEvent($(this))
+    var  bilogContent = $(this).attr('bilogContent')
+    if(bilogContent){
+        clickEvent($(this))
+        getDownloadRecordList()
+    }
     closeRewardPop();
 })
   // 绑定立即领取按钮回调

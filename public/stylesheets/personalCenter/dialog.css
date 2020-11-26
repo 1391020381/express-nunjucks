@@ -812,6 +812,28 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.personal-center-dialog .getcoupon-dialog .coupon-dialog-wrap .coupon-dialog-main .coupon-dialog-body .coupon-dialog-content .coupon-item-vip {
+  display: inline-block;
+  width: 227px;
+  height: 64px;
+  padding: 8px 7px 9px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-image: url(../../images/personalCenter/coupon_vipcontent.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  cursor: pointer;
+}
+.personal-center-dialog .getcoupon-dialog .coupon-dialog-wrap .coupon-dialog-main .coupon-dialog-body .coupon-dialog-content .coupon-item-vip .coupon-item-price {
+  font-size: 16px;
+  text-align: center;
+}
+.personal-center-dialog .getcoupon-dialog .coupon-dialog-wrap .coupon-dialog-main .coupon-dialog-body .coupon-dialog-content .coupon-item-vip .coupon-item-text {
+  margin-top: 8px;
+  text-align: center;
+}
 .personal-center-dialog .getcoupon-dialog .coupon-dialog-wrap .coupon-dialog-main .coupon-dialog-footer {
   position: absolute;
   width: 206px;
