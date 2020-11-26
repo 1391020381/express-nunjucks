@@ -34,7 +34,7 @@ define(function (require, exports, module){
                         var m = {
                             photoPicURL:item.photoPicURL,
                             nickName:item.nickName,
-                            score:item.score,
+                            score:new Array(+item.score),
                             content:item.content?item.content:'该用户暂无评论',
                             createTime:new Date(item.createTime).formatDate("yyyy-MM-dd")
                         }
