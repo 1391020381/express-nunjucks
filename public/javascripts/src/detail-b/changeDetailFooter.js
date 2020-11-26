@@ -5,7 +5,8 @@ define(function (require, exports, module){
     
     var detailGuide = $('.detail-guide-wrap').outerHeight(true) || 0
     var hotSpotSearch = $('.hot-spot-search-warper').outerHeight(true) || 0
-    var bottomHeight =  hotSpotSearch  +  detailGuide + 10
+    var userCommentsContainer  =$('.user-comments-container').outerHeight(true)||0
+    var bottomHeight =  hotSpotSearch  +  detailGuide + userCommentsContainer + 10
   
    function initStyle(){
     if(isConvert ==1){ // 转码成功
@@ -29,6 +30,10 @@ define(function (require, exports, module){
    initStyle()
    }
    function commStyle(){
+     detailGuide = $('.detail-guide-wrap').outerHeight(true) || 0
+     hotSpotSearch = $('.hot-spot-search-warper').outerHeight(true) || 0
+     userCommentsContainer  =$('.user-comments-container').outerHeight(true)||0
+     bottomHeight =  hotSpotSearch  +  detailGuide + userCommentsContainer + 10
     $('.deatil-mr10').css('position','relative')
     $('.detail-footer').css({
         'position': 'absolute',

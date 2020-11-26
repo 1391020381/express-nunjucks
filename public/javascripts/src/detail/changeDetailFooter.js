@@ -27,6 +27,9 @@ define(function (require, exports, module){
    initStyle()
    }
    function commStyle(){
+       guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
+       userEvaluation = $('.user-comments-container').outerHeight(true) || 0
+       bottomHeight =  guessYouLikeHeight + userEvaluation +30
     $('.deatil-mr10').css('position','relative')
     $('.detail-footer').css({
         'position': 'absolute',
