@@ -35,7 +35,7 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
-        viewExposure($(this),'vipPayList','VIP套餐列表弹窗')
+        viewExposure($(this),'vipPayCon','VIP套餐列表弹窗')
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
