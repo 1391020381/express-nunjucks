@@ -604,8 +604,7 @@ define(function (require, exports, module) {
                 fileName: window.pageConfig.params.file_title,
                 saleType:window.pageConfig.page.productType,
                 fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
-                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
-                
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
             }
         //    clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
             clickCenter('NE017', 'fileListNormalClick', 'guesslike', '猜你喜欢', customData);
