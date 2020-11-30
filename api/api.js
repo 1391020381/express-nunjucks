@@ -67,7 +67,8 @@ module.exports = {
         associatedWords: '/search/specialTopic/lisPage'
     },
     user:{
-       getUserInfo:'/user/getUserInfo'
+       getUserInfo:'/user/getUserInfo',
+       getUserCentreInfo:'/user/getUserCentreInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id

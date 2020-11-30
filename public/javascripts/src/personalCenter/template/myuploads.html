@@ -4,11 +4,11 @@
         <span class="file-num">{{totalPages}}篇</span>
     </p>
     <ul class="myuploads-tabs tabs" >
-        <li  class="{{ myuploadType == '1' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=1">公开资料</a></li>
-        <li class="{{ myuploadType == '2' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=2">付费资料</a></li>
-        <li class="{{ myuploadType == '3' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=3">私有资料</a></li>
-        <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=4">审核中</a></li>
-        <li class="{{ myuploadType == '5' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=5">未通过</a></li>
+        <li  class="{{ myuploadType == '1' ? 'tab-active tab':'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=1&type=myuploads">公开资料</a></li>
+        <li class="{{ myuploadType == '2' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=21&type=myuploads">付费资料</a></li>
+        <li class="{{ myuploadType == '3' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=31&type=myuploads">私有资料</a></li>
+        <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=41&type=myuploads">审核中</a></li>
+        <li class="{{ myuploadType == '5' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=51&type=myuploads">未通过</a></li>
     </ul>
     {{ if list.length}}
         
