@@ -34,7 +34,7 @@ define(function (require, exports, module){
        userEvaluation = $('.user-comments-container').outerHeight(true) || 0
       currentPage = $('.detail-con').length
       temp = guessYouLikeHeight + userEvaluation +30
-      bottomHeight =  (currentPage == 1||currentPage == 2)?temp+123:temp
+      bottomHeight =  (currentPage == 1||currentPage == 2||currentPage==3)?temp+123:temp
     $('.deatil-mr10').css('position','relative')
     $('.detail-footer').css({
         'position': 'absolute',
