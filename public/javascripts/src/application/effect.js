@@ -38,6 +38,7 @@ define(function (require, exports, module) {
         }
     })
     $('.new-input').on('keydown', function (e) {
+        clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
         if (new RegExp('/search/home.html').test(location.href) && e.keyCode === 13) {
             var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
             var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');

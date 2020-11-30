@@ -40,8 +40,8 @@ define(function(require, exports, moudle) {
             $('.renewal-radio').hide()
         }
     }
-    if (location.pathname == '/pay/payQr.html') {
-        viewExposure($(this),'filePay','资料支付弹窗')
+    if (location.pathname == '/pay/payConfirm.html') {
+        viewExposure($(this),'filePayCon','资料支付弹窗')
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
