@@ -66,14 +66,16 @@ define(function (require, exports, module) {
 
     //刷新topbar
     var refreshTopBar = function (data) {
+        var nickName = data.nickName&&data.nickName.length>4?data.nickName.slice(0,4)+'...':data.nickName
         var $unLogin = $('#unLogin');
         var $hasLogin = $('#haveLogin');
         $unLogin.hide();
-        $hasLogin.find('.user-link .user-name').html(data.nickName);
+        $hasLogin.find('.user-link .user-name').html(nickName);
         $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
-        $hasLogin.find('.top-user-more .name').html(data.nickName);
+       
+        $hasLogin.find('.top-user-more .name').html(nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
-        $hasLogin.find('.user-link .user-name').text(data.nickName);
+        $hasLogin.find('.user-link .user-name').text(nickName);
         var temp = loginTypeContent[method.getCookie('loginType')]
         $hasLogin.find('.user-link .user-loginType').text(temp?temp+'登录':'');
         $hasLogin.show();
