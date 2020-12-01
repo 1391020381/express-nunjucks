@@ -28,10 +28,10 @@ define(function (require, exports, module) {
     var env = window.env
     var urlList = {
         local:'http://127.0.0.1:8085',
-        dev: '//dev-ishare.iask.com.cn',
-        test: '//test-ishare.iask.com.cn',
-        pre: '//pre-ishare.iask.com.cn',
-        prod: '//ishare.iask.sina.com.cn'
+        dev: 'http://dev-ishare.iask.com.cn',
+        test: 'http://test-ishare.iask.com.cn',
+        pre: 'http://pre-ishare.iask.com.cn',
+        prod: 'http://ishare.iask.sina.com.cn'
     }
     function initIframeParams(successFun, iframeId, params) {
         // 操作需等iframe加载完毕
