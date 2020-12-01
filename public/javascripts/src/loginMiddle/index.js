@@ -1,0 +1,56 @@
+define(function (require, exports, module) {
+      // 登录 第三方授权回调页面
+      var api = require('../application/api');
+      var method = require("../application/method");
+      var redirectUrl = method.getParam('redirectUrl')
+      var code = method.getParam('code')
+      var channel = method.getParam('channel') // 使用渠道：1:登录；2:绑定
+      var clientCode = method.getParam('clientCode')
+      var jsId = method.getLoginSessionId();
+      thirdLoginRedirect(code,channel,clientCode)
+
+      
+      function thirdLoginRedirect(code, channel, clientCode) { // 根据授权code 获取 access_token
+            $.ajax({
+                headers: {
+                    jsId:jsId
+                },
+                url: api.user.thirdLoginRedirect,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    terminal: '0',
+                    thirdType: clientCode,
+                    code: code,
+                    businessSys: 'ishare'
+                }),
+                dataType: "json",
+                success: function (res) {
+                    if (res.code == '0') {
+                        window.loginType = clientCode  // 获取用户信息时埋点需要
+                        method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in * 1000, "/");
+                        method.setCookieWithExpPath("loginType", loginType, res.data.expires_in * 1000, "/");
+                        $.ajaxSetup({
+                            headers: {
+                                'Authrization': method.getCookie('cuk')
+                            }
+                        });
+                        window.location.href = redirectUrl
+                    } else {
+                        $.toast({
+                            text:res.message,
+                            delay : 3000,
+                        })
+                        
+                    }
+                },
+                error: function (error) {
+                    $.toast({
+                        text:res.message,
+                        delay : 3000,
+                    })
+                    
+                }
+            })
+        }
+});

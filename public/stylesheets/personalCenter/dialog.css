@@ -689,9 +689,23 @@
 .personal-center-dialog .evaluation-dialog .file-rates .start-active {
   background: url(../../images/personalCenter/star-active.png) no-repeat;
   background-size: 100%;
+  vertical-align: middle;
+}
+.personal-center-dialog .evaluation-dialog .file-rates .start-title {
+  margin-right: 20px;
+  font-size: 15px;
+  color: #666666;
+  vertical-align: middle;
+}
+.personal-center-dialog .evaluation-dialog .file-rates-isAppraise {
+  text-align: left;
 }
 .personal-center-dialog .evaluation-dialog .evaluation-tags {
   margin-top: 25px;
+}
+.personal-center-dialog .evaluation-dialog .evaluation-tags .tags-title {
+  font-size: 15px;
+  color: #666666;
 }
 .personal-center-dialog .evaluation-dialog .evaluation-tags .tag {
   display: inline-block;
@@ -715,6 +729,12 @@
 .personal-center-dialog .evaluation-dialog .evaluation-tags .tag .label-input:checked + span {
   background: #FCE8E2;
   color: #222222;
+}
+.personal-center-dialog .evaluation-dialog .evaluation-desc-title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #666666;
 }
 .personal-center-dialog .evaluation-dialog .evaluation-desc {
   margin-top: 40px;

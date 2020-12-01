@@ -43,7 +43,8 @@ define(function (require, exports, module) {
                 cid: params.clsId,
                 // 资料id
                 fid: params.fid,
-                jsId: params.jsId
+                jsId: params.jsId,
+                url:window.location.href
             });
         }
 
