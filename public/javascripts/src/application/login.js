@@ -44,7 +44,8 @@ define(function (require, exports, module) {
                 // 资料id
                 fid: params.fid,
                 jsId: params.jsId,
-                url:window.location.href
+                redirectUrl:window.location.href,
+                originUrl:window.location.origin
             });
         }
 
