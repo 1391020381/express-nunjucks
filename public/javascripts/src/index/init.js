@@ -61,6 +61,7 @@ define(function (require,exports,moudle) {
             this.beforeInit();
             this.freshSeoData();
             this.searchWordHook();
+            this.userWxAuthState()
              // 登录
              $('.notLogin').on('click', function () {
                 if (!utils.getCookie('cuk')) {
@@ -274,9 +275,7 @@ define(function (require,exports,moudle) {
             var wholeStationVip = data.isMasterVip == 1?'<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">'+ data.expireTime +'到期</span></p>':''    
             var officeVip = data.isOfficeVip==1?'<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">'+ data.officeVipExpireTime +'到期</span></p>':''
             var infoDescContent = wholeStationVip + officeVip
-            if(data.isWxAuth){
-                $('.sign-btn').removeClass('hide')
-            }
+           
             if(data.isMasterVip == 1 || data.isOfficeVip == 1) {  
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
@@ -321,6 +320,32 @@ define(function (require,exports,moudle) {
                    }
                 }
             })
+        },
+        userWxAuthState:function(){
+            $.ajax({
+                headers: {
+                    Authrization: method.getCookie("cuk")
+                },
+                url: api.user.userWxAuthState,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(res) {
+                    if (res.code == "0") {
+                          if(res.data.isWxAuth){
+                               $('.sign-btn').removeClass('hide')
+                          }
+                    } else {
+                        $.toast({
+                            text: res.message,
+                            delay: 3e3
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log("queryUserBindInfo:", error);
+                }
+            });
         }
      }
      indexObject.initial()
