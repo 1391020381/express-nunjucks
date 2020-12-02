@@ -87,7 +87,8 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        viewExposure($(this),'visitLogin','游客支付弹窗')
+        // viewExposure($(this),'visitLogin','游客支付弹窗')
+        viewExposure($(this),'login','登录弹窗')
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
@@ -137,10 +138,12 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
+            viewExposure($(this),'visitLogin','游客支付弹窗')
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
+            viewExposure($(this),'login','登录弹窗')
             $('.tourist-purchase-dialog .tourist-purchase-content').hide()
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
         }

@@ -83,7 +83,7 @@ define(function (require, exports, module) {
                         var clsId = getIds().clsId;
                         var fid  = getIds().fid;
                         showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
-                            viewExposure($(this),'visitLogin','游客支付弹窗')
+                            viewExposure($(this),'login','登录弹窗')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data,{type:'file',data:data,callback:goPage});
                             });
