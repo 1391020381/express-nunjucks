@@ -318,6 +318,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
         clickEvent($(this))
         getDownloadRecordList()
     }
+    score = 0
     closeRewardPop();
 })
   // 绑定立即领取按钮回调
