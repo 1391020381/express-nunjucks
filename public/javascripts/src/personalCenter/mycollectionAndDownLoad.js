@@ -343,7 +343,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
               if (res && res.code == '0') {
                   // 重新刷新页面
                   $.toast({
-                    text:'领取任务成功',
+                    text:'领取成功',
                     delay : 3000,
                 })
                 getDownloadRecordList()
