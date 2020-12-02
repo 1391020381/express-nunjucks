@@ -279,14 +279,15 @@ define(function (require, exports, module) {
                         }
                     }
                     if (memberList && memberList.length) {
-                        memberList.forEach(function(item) {
+                        for (var i = 0, len = memberList.length; i < len; i++) {
+                            var item = memberList[i];
                             if (item.code == 'FREE_ADV') { // 是否免广告
                                 freeAdv = isVip && item.value == '1';
                             }
                             if (item.code == 'COPY') { // 是否可复制
                                 copy = isVip && item.value == '1';
                             }
-                        })
+                        }
                     }
                     window.pageConfig.freeAdv = freeAdv;
                     window.pageConfig.copy = copy;
