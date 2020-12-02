@@ -269,7 +269,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
         isAppraise = 0
         return
     }
-    if(score>0){
+    if(score + 1>0){
         var  labels = []
         $.each($('.evaluation-dialog input:checkbox:checked'),function(){
                  var id = $(this).val()
