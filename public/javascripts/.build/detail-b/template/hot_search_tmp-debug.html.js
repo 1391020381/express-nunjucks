@@ -1,1 +1,0 @@
-define("dist/detail-b/template/hot_search_tmp-debug.html", [], '{{each data as value i}}\n<a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n{{/each}}');
