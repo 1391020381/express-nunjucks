@@ -41,11 +41,12 @@
                {{if data.isAppraise == 1}}
                  <span>{{data.content}}</span>
                {{else}}
-                 <input type="textarea" class="desc-input" placeholder="其他想说的" maxlength='500'/>
+                <textarea class="desc-input" placeholder="其他想说的" maxlength='500'></textarea>
+                
                {{/if}}
              </div>
           {{if data.isAppraise == 1}}
            <div class="evaluation-confirm" style="background: rgb(242, 81, 37);color: rgb(255, 255, 255);">关闭</div>
          {{else}}
-        <div class="evaluation-confirm" >提交评论</div>
+        <div class="evaluation-confirm" >提交评价</div>
         {{/if}}

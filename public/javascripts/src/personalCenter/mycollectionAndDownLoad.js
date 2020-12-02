@@ -125,7 +125,7 @@ function getLabelList(fid,format,title,isAppraise) {
         headers: {
             'Authrization': method.getCookie('cuk')
         },
-        url:  api.comment.getLableList + '?pageSize=15&fid=' + fid ,  // 
+        url:  api.comment.getLableList + '?pageSize=12&fid=' + fid ,  // 
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
