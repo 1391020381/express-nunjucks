@@ -35,13 +35,13 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
-        viewExposure($(this),'vipPayList','VIP套餐列表弹窗')
+        viewExposure($(this),'vipPayCon','VIP套餐列表弹窗')
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
-    if (location.pathname == '/pay/payQr.html') {
-        viewExposure($(this),'filePay','资料支付弹窗')
+    if (location.pathname == '/pay/payConfirm.html') {
+        viewExposure($(this),'filePayCon','资料支付弹窗')
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
@@ -64,7 +64,7 @@ define(function(require, exports, moudle) {
         }else{
             // 加油包判断是否是vip
         if(location.pathname == "/pay/privilege.html"){
-             method.compatibleIESkip('/pay/vip.html', true);
+             method.compatibleIESkip('/pay/vip.html', false);
         }
         }
         $(function() {
@@ -1034,12 +1034,12 @@ define(function(require, exports, moudle) {
         }
     }
     if(method.getParam("fid")){
-        getTaskList()
+        taskHasEnable()
     }
     
-    function getTaskList() { 
+    function taskHasEnable() { 
         $.ajax({
-            url: api.coupon.getTask,
+            url: api.coupon.taskHasEnable,
             type: "POST",
             data: JSON.stringify({
                 key:method.getParam("fid"),
@@ -1049,8 +1049,8 @@ define(function(require, exports, moudle) {
             dataType: "json",
             success: function(res) {
                 if (res && res.code == '0') {
-                    if(!res.data){
-                        $('#review-dialog').hide()
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
                     }
 
                 }

@@ -66,7 +66,7 @@ const renderPage = cc(async (req, res) => {
             }
         }
     }
-    const specialTopic  = await getSpecialTopic(req,res,list)
+    // const specialTopic  = await getSpecialTopic(req,res,list)
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
@@ -80,7 +80,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
     }
     const filePreview = await getFilePreview(req, res, list)
-    const commentDataList = await getFileComment(req,res)
+   
     handleDetalData(
         req,
         res,
@@ -95,9 +95,7 @@ const renderPage = cc(async (req, res) => {
         paradigm4Guess,
         filePreview,
         crumbList,
-        userID,
-        specialTopic,
-        commentDataList
+        userID
     )
 })
 
@@ -166,7 +164,7 @@ function getSpecialTopic(req,res,list){
 
 function getRecommendInfo(req, res, list) {
     const productType = list.data.fileInfo.productType
-    const classid1 = list.data.fileInfo.classid1
+    let classid1 = list.data.fileInfo.classid1
     let format = list.data.fileInfo.format
     // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
     // (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')
@@ -295,9 +293,7 @@ function handleDetalData(
     paradigm4Guess,
     filePreview,
     crumbList,
-    userID,
-    specialTopic,
-    commentDataList
+    userID
 ) {
 
     if (topBannerList.data) {
@@ -338,7 +334,6 @@ function handleDetalData(
 
     
     var results = Object.assign({}, {
-        commentTotalPages:commentDataList.data.totalPages,
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,

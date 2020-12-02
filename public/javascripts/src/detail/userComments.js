@@ -34,7 +34,7 @@ define(function (require, exports, module){
                         var m = {
                             photoPicURL:item.photoPicURL,
                             nickName:item.nickName,
-                            score:item.score,
+                            score:new Array(+item.score),
                             content:item.content?item.content:'该用户暂无评论',
                             createTime:new Date(item.createTime).formatDate("yyyy-MM-dd")
                         }
@@ -62,6 +62,22 @@ define(function (require, exports, module){
                   } 
                   var _userCommentsTemplate = template.compile(userComments)({userComments:temp||[],tagsList:list||[],lableId:lableId});
                   $(".user-comments-container").html(_userCommentsTemplate);
+
+                  var guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
+                  var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
+                  var currentPage = $('.detail-con').length
+                  var temp = guessYouLikeHeight + userEvaluation +30
+                  var bottomHeight =  (currentPage == 1||currentPage == 2)?temp+123:temp
+                
+                  $('.detail-footer').css({
+                    'position': 'absolute',
+                    'left':'0px',
+                    'right':'0px',
+                    'bottom':(bottomHeight) + 'px',
+                    'width': '890px'
+                })
+
+
                   handlePagination(res.data.totalPages,res.data.currentPage)  
                 }
                }
@@ -76,7 +92,8 @@ define(function (require, exports, module){
             if(!paginationCurrentPage){
                 return
             }
-            getUserComments(paginationCurrentPage)
+            var lableId = $('.evaluation-tags .tag-active').attr('data-id')
+            getUserComments(paginationCurrentPage,lableId)
         })
        }
 

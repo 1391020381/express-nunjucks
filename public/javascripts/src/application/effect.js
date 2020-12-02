@@ -38,6 +38,7 @@ define(function (require, exports, module) {
         }
     })
     $('.new-input').on('keydown', function (e) {
+     
         if (new RegExp('/search/home.html').test(location.href) && e.keyCode === 13) {
             var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
             var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
@@ -46,6 +47,7 @@ define(function (require, exports, module) {
             if (e.keyCode === 13) {
                 var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
                 if (sword) {
+                    clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
                     method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
                 }
             }
@@ -64,14 +66,16 @@ define(function (require, exports, module) {
 
     //刷新topbar
     var refreshTopBar = function (data) {
+        var nickName = data.nickName&&data.nickName.length>4?data.nickName.slice(0,4)+'...':data.nickName
         var $unLogin = $('#unLogin');
         var $hasLogin = $('#haveLogin');
         $unLogin.hide();
-        $hasLogin.find('.user-link .user-name').html(data.nickName);
+        $hasLogin.find('.user-link .user-name').html(nickName);
         $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
-        $hasLogin.find('.top-user-more .name').html(data.nickName);
+       
+        $hasLogin.find('.top-user-more .name').html(nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
-        $hasLogin.find('.user-link .user-name').text(data.nickName);
+        $hasLogin.find('.user-link .user-name').text(nickName);
         var temp = loginTypeContent[method.getCookie('loginType')]
         $hasLogin.find('.user-link .user-loginType').text(temp?temp+'登录':'');
         $hasLogin.show();

@@ -299,12 +299,12 @@ define(function (require, exports, module) {
                     window.pageConfig.copy = copy;
                     if (freeAdv) { // 如果去广告
                         $('.adv-container').each(function($index, $element) {
-                            $element.remove();
+                            $($element).remove();
                         })
                     }
                     if (copy) { // 如果可以复制
                         $('.detail-holder').each(function($index, $element) {
-                            $element.remove();
+                            $($element).remove();
                         })
                     }
                 } 

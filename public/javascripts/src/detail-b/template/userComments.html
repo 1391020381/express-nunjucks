@@ -20,10 +20,10 @@
                     <p class="evaluation-user-summary"> 
                        <img class="evaluation-user-avatar" src="{{comment.photoPicURL}}"/> 
                        <span class="evaluation-user-name">{{comment.nickName}}</span>
-                          {{ each comment.score as score}}
+                          {{ each comment.score }}
                                  <span class="start"></span> 
                           {{/each}}
-                       <span class="evaluation-time">{{comment.createTime}}</span>
+                       <span class="evaluation-time fr">{{comment.createTime}}</span>
                     </p>
                     <p class="evaluation-desc">{{comment.content}}</p>
               </li>

@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         user: {
             // 登录
              // 检测单点登录状态
+            userWxAuthState:gateway + '/cas/user/wxAuthState',
             dictionaryData: gateway + '/market/dictionaryData/$code',
             checkSso: gateway + '/cas/login/checkSso',
             loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
@@ -77,7 +78,8 @@ define(function (require, exports, module) {
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
             getBuyRecord:gateway + '/rights/vip/getBuyRecord',
             getTask: gateway + '/rights/task/get',
-            receiveTask:gateway + '/rights/task/receive'
+            receiveTask:gateway + '/rights/task/receive',
+            taskHasEnable:gateway + '/rights/task/hasEnable'
         },
         order:{
             reportOrderError:gateway + '/order/message/save',

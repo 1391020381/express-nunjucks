@@ -396,10 +396,11 @@ define(function (require, exports, module) {
             }
         })
     }
-    getTaskList()
-    function getTaskList() { 
+    taskHasEnable()
+    taskHasEnable()
+    function taskHasEnable() { 
         $.ajax({
-            url: api.coupon.getTask,
+            url: api.coupon.taskHasEnable,
             type: "POST",
             data: JSON.stringify({
                 key:fid,
@@ -409,8 +410,8 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function(res) {
                 if (res && res.code == '0') {
-                    if(!res.data){
-                        $('#review-dialog').hide()
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
                     }
 
                 }
