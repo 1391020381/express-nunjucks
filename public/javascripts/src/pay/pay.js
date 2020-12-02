@@ -64,7 +64,7 @@ define(function(require, exports, moudle) {
         }else{
             // 加油包判断是否是vip
         if(location.pathname == "/pay/privilege.html"){
-             method.compatibleIESkip('/pay/vip.html', true);
+             method.compatibleIESkip('/pay/vip.html', false);
         }
         }
         $(function() {

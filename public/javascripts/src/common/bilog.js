@@ -505,7 +505,7 @@ define(function (require, exports, module) {
             var customData = {
                 vipID: $(".ui-tab-nav-item.active").data('vid'),
                 vipName: $(".ui-tab-nav-item.active p.vip-time").text() || '',
-                vipPrice: $(".ui-tab-nav-item.active p.vip-price strong").text() || '',
+                vipPrice: $(".ui-tab-nav-item.active p.vip-price .price-discount").text() || '',
                 couponID: $(".pay-coupon-wrap").attr("vid") || '',
                 coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
             };
@@ -574,7 +574,7 @@ define(function (require, exports, module) {
             customData.moduleID = moduleID
             customData.moduleName = params.moduleName
         
-            clickCenter('NE006', 'modelView', '', '', customData);
+            clickCenter('NE006', 'modelView', '', '', customData,'view');
         }else if(cnt == 'similarFileClick'){
             
             customData={
