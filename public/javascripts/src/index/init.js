@@ -61,7 +61,6 @@ define(function (require,exports,moudle) {
             this.beforeInit();
             this.freshSeoData();
             this.searchWordHook();
-            this.userWxAuthState()
              // 登录
              $('.notLogin').on('click', function () {
                 if (!utils.getCookie('cuk')) {
@@ -289,6 +288,7 @@ define(function (require,exports,moudle) {
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 $('.user-state .info-des').text('你还不是VIP');
             }
+            this.userWxAuthState()
         },
         signDialog:function(){
             $('.sign-btn').click(function(){

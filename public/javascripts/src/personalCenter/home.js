@@ -53,9 +53,7 @@ define(function(require , exports , module){
                     $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
                     $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
-                    // if(userInfo.isWxAuth){
-                    //    $('.signIn').removeClass('signIn-hide')
-                    // }
+                  
                     if(isMasterVip ==1){ 
                         // $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
@@ -95,6 +93,7 @@ define(function(require , exports , module){
                         $('.personal-menu .mywallet').css('display','block')
                     }
                     callback&&callback(res.data)
+                    userWxAuthState()
                }else{
                 $.toast({
                     text:res.message||'查询用户信息失败',
@@ -106,7 +105,7 @@ define(function(require , exports , module){
                 console.log('getUserCentreInfo:',error)
             }
         })}
-        userWxAuthState()
+        
 
     function getFileBrowsePage(){ //分页获取用户的历史浏览记录
         $.ajax({
