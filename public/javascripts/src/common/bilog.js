@@ -442,11 +442,14 @@ define(function (require, exports, module) {
                 clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
                 // delete customData.downType;
             } else if (cnt == 'fileDetailUpBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailUpBuy', '资料详情页顶部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailUpBuy', '资料详情页顶部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailMiddleBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailMiddleBuy', '资料详情页中部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailMiddleBuy', '资料详情页中部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailBottomBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailBottomBuy', '资料详情页底部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailBottomBuy', '资料详情页底部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailMiddleOpenVip8') {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailMiddleOpenVip8', '资料详情页中部开通vip，8折购买', customData);
             } else if (cnt == 'fileDetailBottomOpenVip8') {

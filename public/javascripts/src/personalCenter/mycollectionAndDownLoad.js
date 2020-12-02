@@ -269,7 +269,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
         isAppraise = 0
         return
     }
-    if(score + 1>0){
+    if(score>=1){
         var  labels = []
         $.each($('.evaluation-dialog input:checkbox:checked'),function(){
                  var id = $(this).val()
@@ -286,7 +286,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
             content:$('.evaluation-dialog .evaluation-desc .desc-input').val(),
             fid:$('.evaluation-dialog .file-title').attr('data-fid'),
             labels:labels,
-            score:score+1,
+            score:score,
             site:4,
             terminal:0
          }
@@ -302,10 +302,10 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
 $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
   var isAppraise  = $(this).attr('data-isappraise')
   var  starts = $('.personal-center-dialog .file-rates .start')
-       score = $(this).index()
+       score = $(this).index() + 1
   if(isAppraise!=1){  // 未评论  也就是评论
       starts.removeClass('start-active')
-      starts.slice(0,score+1).addClass('start-active')
+      starts.slice(0,score).addClass('start-active')
       $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
   }
 })
