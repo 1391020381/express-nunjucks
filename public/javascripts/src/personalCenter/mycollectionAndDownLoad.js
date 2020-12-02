@@ -192,7 +192,7 @@ function getFileComment(fid,title,format) {
         dataType: "json",
         success: function(res) {
             if (res && res.code == '0') {
-                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:res.data.score}
+                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:new Array(+res.data.score)}
                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                $("#dialog-box").dialog({
                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
