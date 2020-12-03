@@ -49,11 +49,36 @@ define(function (require, exports, module) {
                         text: res.message,
                         delay: 3000,
                     });
+                    var url = location.href
+                    var message  = JSON.stringify({orderNo:orderNo}) + JSON.stringify(data.message)
+                    unloginObj.reportOrderError(url,message)
                 }
             },
             error: function (error) {
                 console.log('getOrderInfo:', error)
             }
         })
+    }
+
+    function reportOrderError(url,message) { // 上报错误
+        $.ajax({
+            type: 'post',
+            url: api.order.reportOrderError,
+            headers:{
+                'Authrization': method.getCookie('cuk')
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url:url,
+                message:message,
+                userId:''
+            }),
+            success: function (response) {
+               console.log('reportOrderError:',response)
+            },
+            complete: function () {
+
+            }
+        })  
     }
 });

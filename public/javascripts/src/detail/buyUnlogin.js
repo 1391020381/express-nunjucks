@@ -83,7 +83,7 @@ define(function (require, exports, module) {
                         var clsId = getIds().clsId;
                         var fid  = getIds().fid;
                         showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
-                            viewExposure($(this),'noLgFPayCon')
+                            viewExposure($(this),'login','登录弹窗')
                             login.getLoginData(function (data) {
                                 common.afterLogin(data,{type:'file',data:data,callback:goPage});
                             });
@@ -148,7 +148,7 @@ define(function (require, exports, module) {
             var params = {
                 fid: pageConfig.params.g_fileId,
                 goodsId: pageConfig.params.g_fileId,
-                goodsType: 1,
+                goodsType: 1 ,
                 ref: utils.getPageRef(window.pageConfig.params.g_fileId),
                 referrer: pageConfig.params.referrer,
                 remark: 'other',
@@ -179,7 +179,9 @@ define(function (require, exports, module) {
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
                     
                 } else {
-                    
+                    var url = location.href
+                    var message  = JSON.stringify(params) + JSON.stringify(data)
+                    unloginObj.reportOrderError(url,message)
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show()
@@ -279,6 +281,27 @@ define(function (require, exports, module) {
             // 停止支付查询
             unloginObj.isClear = true;
             unloginObj.count = 0;
+        },
+        reportOrderError:function (url,message) {
+            $.ajax({
+                type: 'post',
+                url: api.order.reportOrderError,
+                headers:{
+                    'Authrization': method.getCookie('cuk')
+                },
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    url:url,
+                    message:message,
+                    userId:''
+                }),
+                success: function (response) {
+                   console.log('reportOrderError:',response)
+                },
+                complete: function () {
+
+                }
+            })  
         }
     }
     unloginObj.init()

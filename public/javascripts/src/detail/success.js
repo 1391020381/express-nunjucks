@@ -396,6 +396,29 @@ define(function (require, exports, module) {
             }
         })
     }
+    taskHasEnable()
+    taskHasEnable()
+    function taskHasEnable() { 
+        $.ajax({
+            url: api.coupon.taskHasEnable,
+            type: "POST",
+            data: JSON.stringify({
+                key:fid,
+                taskCode:'evaluate'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
+                    }
+
+                }
+            }
+        });
+    
+  }
     // 发送邮箱
     $('.js-sent-email').click(function(){
     //          $("#dialog-box").dialog({
@@ -502,4 +525,5 @@ define(function (require, exports, module) {
         }
         return visitId;
     }
+   
 });

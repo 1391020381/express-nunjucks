@@ -115,7 +115,10 @@ module.exports = {
     auth:{
         user:'/user/certification/getPersonal',
         org:'/user/certification/getInstitutions'
-    }
+    },
+    comment:{
+        getFileComment:  '/comment/eval/dataList' // 详情评论
+     }
 };
 
 

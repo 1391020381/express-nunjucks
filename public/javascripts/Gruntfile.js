@@ -82,7 +82,8 @@ module.exports = function (grunt) {
                     'dist/authentication/org.js': ['.build/authentication/org.js'],
                     'dist/authentication/user.js': ['.build/authentication/user.js'],
                     'dist/category/index.js': ['.build/category/index.js'],
-                    'dist/login/loginMiddle.js': ['.build/login/loginMiddle.js']
+                    'dist/login/loginMiddle.js': ['.build/login/loginMiddle.js'],
+                    'dist/loginMiddle/index.js': ['.build/loginMiddle/index.js'],
                     
                 }
             }

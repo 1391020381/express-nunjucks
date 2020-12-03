@@ -121,17 +121,22 @@ app.use(function (err, req, res, next) {
             status: 0,
             message: err.message,
             error: err,
-            stack:err.stack
+            statck:err.stack
         })
     }else{
-        log4js.info(err.message,err.stack);
+        log4js.info({
+            status: 0,
+            message: err.message,
+            error: err,
+            statck:err.stack
+        });
         res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
     
 });
 
 process.on('uncaughtException',(err)=>{
-    console.log('uncaughtException:',err.message)
+    console.log('uncaughtException:',err.message,err.stack)
     process.exit(1)
     
 })

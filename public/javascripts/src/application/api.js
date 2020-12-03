@@ -10,6 +10,7 @@ define(function (require, exports, module) {
         user: {
             // 登录
              // 检测单点登录状态
+            userWxAuthState:gateway + '/cas/user/wxAuthState',
             dictionaryData: gateway + '/market/dictionaryData/$code',
             checkSso: gateway + '/cas/login/checkSso',
             loginByPsodOrVerCode:gateway + '/cas/login/authorize', // 通过密码和验证码登录
@@ -75,10 +76,13 @@ define(function (require, exports, module) {
             querySeniority: gateway + '/rights/sale/querySeniority',
             queryUsing:gateway + '/rights/sale/queryUsing',
             getMemberPointRecord:gateway + '/rights/vip/getMemberPointRecord',
-            getBuyRecord:gateway + '/rights/vip/getBuyRecord'
+            getBuyRecord:gateway + '/rights/vip/getBuyRecord',
+            getTask: gateway + '/rights/task/get',
+            receiveTask:gateway + '/rights/task/receive',
+            taskHasEnable:gateway + '/rights/task/hasEnable'
         },
         order:{
-          
+            reportOrderError:gateway + '/order/message/save',
             bindOrderByOrderNo:gateway +'/order/bind/byOrderNo',
             unloginOrderDown:router+'/order/unloginOrderDown',
             createOrderInfo: gateway + '/order/create/orderInfo',
@@ -132,6 +136,13 @@ define(function (require, exports, module) {
         },
         wechat:{
             getWechatSignature: gateway + '/message/wechat/info/getWechatSignature'
+        },
+        comment:{
+           getLableList: gateway + '/comment/lable/dataList',
+           addComment:gateway + '/comment/eval/add',
+           getHotLableDataList:gateway + '/comment/lable/hotDataList',// 详情热评标签
+           getFileComment:gateway + '/comment/eval/dataList', // 详情评论
+           getPersoDataInfo:gateway + '/comment/eval/persoDataInfo'  // 个人中心我的下载 查询评论
         }
     }
 });

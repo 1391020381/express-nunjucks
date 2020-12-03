@@ -35,6 +35,8 @@ define(function (require, exports, module) {
         getCollectState()
 
         fileBrowseReportBrowse()  // 资料详情上报服务端
+        // 初始化权益
+        getUserVipRights();
     }
     // 页面加载
     function pageInitShow() {
@@ -260,6 +262,57 @@ define(function (require, exports, module) {
         }).open();
 
         setTimeout(bindEventPop, 500)
+    }
+
+     // 进入页面获取该用户VIP权益点
+     function getUserVipRights() {
+        if (method.getCookie('cuk')) {
+            var params = {
+                memberCodeList: ['COPY', 'FREE_ADV']
+            };
+            $.ajax('/gateway/rights/vip/allMemberDetail', {
+                type: "POST",
+                data: JSON.stringify(params),
+                dataType: "json",
+                contentType: 'application/json'
+            }).done(function (res) {
+                if (res.code == 0) {
+                    // 获取主站是否可以复制SVG，展示广告的功能
+                    var memberList = [], isVip = false, freeAdv = false, copy = false;
+                    for (var i = 0, len = res.data.length; i < len; i++) {
+                        if (res.data[i].site == 4) {
+                            memberList = res.data[i].memberPointList;
+                            isVip = res.data[i].isVip;
+                        }
+                    }
+                    if (memberList && memberList.length) {
+                        for (var i = 0, len = memberList.length; i < len; i++) {
+                            var item = memberList[i];
+                            if (item.code == 'FREE_ADV') { // 是否免广告
+                                freeAdv = isVip && item.value == '1';
+                            }
+                            if (item.code == 'COPY') { // 是否可复制
+                                copy = isVip && item.value == '1';
+                            }
+                        }
+                    }
+                    window.pageConfig.freeAdv = freeAdv;
+                    window.pageConfig.copy = copy;
+                    if (freeAdv) { // 如果去广告
+                        $('.adv-container').each(function($index, $element) {
+                            $($element).remove();
+                        })
+                    }
+                    if (copy) { // 如果可以复制
+                        $('.detail-holder').each(function($index, $element) {
+                            $($element).remove();
+                        })
+                    }
+                } 
+            }).fail(function (e) {
+                console.error(JSON.stringify(e));
+            });
+        } 
     }
 
     // 查询单个站点单个权限信息

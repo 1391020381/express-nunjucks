@@ -428,7 +428,6 @@ i {
   left: 11px;
   top: 33px;
   z-index: 20;
-  background-color: #fff;
   display: none;
 }
 .doc-list .doc-li .doc-top-tt .doc-mid .data-must .date-con.fenlei {
@@ -584,107 +583,61 @@ i {
   padding: 4px 0;
   color: #333;
 }
-.date-con-in::-webkit-scrollbar {
+.date-con-in .selectItem::-webkit-scrollbar {
   width: 5px;
 }
-.date-con-in::-webkit-scrollbar-thumb {
+.date-con-in .selectItem::-webkit-scrollbar-thumb {
   border-radius: 5px;
   width: 5px;
   background: #c1c1c1;
 }
-.date-con-in::-webkit-scrollbar-track {
+.date-con-in .selectItem::-webkit-scrollbar-track {
   border-radius: 0;
   background: #ececec;
 }
 .date-con-in {
   position: relative;
+  height: 150px;
+  clear: both;
+}
+.date-con-in .selectItem {
+  float: left;
   border: 1px solid #ddd;
-  box-shadow: 0 1px 4px rgba(4, 0, 0, 0.18);
-  height: 150px;
+  height: 220px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ffffff;
 }
-.date-con-in .date-con-first {
-  z-index: 1;
-  min-height: 150px;
+.date-con-in .selectItem.date-con-first li {
+  width: 110px;
 }
-.date-con-in .date-con-first li {
-  width: 140px;
+.date-con-in .selectItem.date-con-second li {
+  width: 220px;
+}
+.date-con-in .selectItem.date-con-third li {
+  width: 200px;
+}
+.date-con-in .selectItem li {
+  width: 180px;
   margin: 0;
-  padding: 0;
   border: 0 none;
 }
-.date-con-in .date-con-first li.active a {
+.date-con-in .selectItem li.active a {
   color: #fff;
   background-color: #2d67c8;
 }
-.date-con-in .date-con-first li.active .date-con-sec {
+.date-con-in .selectItem li.active .date-con-sec {
   display: block!important;
 }
-.date-con-in .date-con-first li a {
+.date-con-in .selectItem li a {
   display: block;
-  width: 120px;
+  width: 180px;
   padding: 0 10px;
   height: 30px;
   line-height: 30px;
   color: #666;
   background-color: #fff;
-}
-.date-con-in .date-con-first li .date-con-sec {
-  border-left: 1px solid #ededed;
-  position: absolute;
-  left: 140px;
-  top: 0;
-  z-index: 2;
-  height: 150px;
-}
-.date-con-in .date-con-first li .date-con-sec li {
-  width: 140px;
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-  color: #666;
-  background-color: #fff;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.date-con-in .date-con-first li .date-con-sec li.active a {
-  color: #fff;
-  background-color: #2d67c8;
-}
-.date-con-in .date-con-first li .date-con-sec li.active .date-con-third {
-  display: block!important;
-}
-.date-con-in .date-con-first li .date-con-sec li a {
-  display: block;
-  width: 120px;
-  padding: 0 10px;
-  height: 30px;
-  line-height: 30px;
-  color: #666;
-  background-color: #fff;
-}
-.date-con-in .date-con-first li .date-con-sec li .date-con-third {
-  border-left: 1px solid #ededed;
-  position: absolute;
-  left: 140px;
-  top: 0;
-  z-index: 3;
-  height: 150px;
-  overflow-y: hidden scroll;
-}
-.date-con-in .date-con-first li .date-con-sec li .date-con-third li {
-  width: 140px;
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-}
-.date-con-in .date-con-first li .date-con-sec li .date-con-third li.active a {
-  color: #fff;
-  background-color: #2d67c8;
-}
-.date-con-in .date-con-first li .date-con-sec li .date-con-third li a {
-  color: #666;
-  background-color: #fff;
 }
 .doc-pay-input {
   width: 57px;
@@ -888,7 +841,6 @@ i {
   top: auto;
   bottom: 33px;
   z-index: 20;
-  background-color: #fff;
   display: none;
 }
 .doc-batch-inter .doc-list .doc-li .fix-upload-right {

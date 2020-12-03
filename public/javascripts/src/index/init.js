@@ -1,6 +1,8 @@
 
 
 define(function (require,exports,moudle) {
+    require('swiper');
+    var bannerTemplate = require("../common/template/swiper_tmp.html");
     require('../application/suspension')
     var slider = require('../common/slider');//轮播插件
     var login = require("../application/checkLogin");
@@ -9,7 +11,7 @@ define(function (require,exports,moudle) {
     var login = require("../application/checkLogin");
     var api = require("../application/api");
     var headTip = require("./template/saiTemplate.html");
-                            
+    var clickEvent = require('../common/bilog').clickEvent                      
     // require('../common/bilog');
     /**
      * 推荐多图点击轮播
@@ -53,6 +55,7 @@ define(function (require,exports,moudle) {
             },1000)
             //banner轮播图
             new slider("J_office_banner","J_office_focus","J_office_prev","J_office_next");
+         
             this.tabswitchFiles();
             this.tabswitchSeo();
             this.beforeInit();
@@ -82,6 +85,8 @@ define(function (require,exports,moudle) {
                 }
                
             })
+            this.signDialog()
+            this.getBannerbyPosition()
         },
         beforeInit:function(){
             if (utils.getCookie('cuk')) {
@@ -123,13 +128,15 @@ define(function (require,exports,moudle) {
         // 点击搜索
         searchWordHook:function(){
             var searVal = '';
-            $('.search-container .icon-search').click(function(){
+            $('.search-container .icon-search').click(function(){  
                 searVal = $('.search-container .search-input').val();
-                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
+                clickEvent('searchBtnClick',{keyWords:searVal})
+               window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
             })
             $('.search-container .search-input').keydown(function(e) {  
                 if (e.keyCode == 13) {  
                     searVal = $('.search-container .search-input').val();
+                    clickEvent('searchBtnClick',{keyWords:searVal})
                     window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
                 }  
             });  
@@ -267,7 +274,7 @@ define(function (require,exports,moudle) {
             var wholeStationVip = data.isMasterVip == 1?'<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">'+ data.expireTime +'到期</span></p>':''    
             var officeVip = data.isOfficeVip==1?'<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">'+ data.officeVipExpireTime +'到期</span></p>':''
             var infoDescContent = wholeStationVip + officeVip
-
+           
             if(data.isMasterVip == 1 || data.isOfficeVip == 1) {  
                 $('.user-state .vip-icon').addClass('vip-avaliable')
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
@@ -281,6 +288,64 @@ define(function (require,exports,moudle) {
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 $('.user-state .info-des').text('你还不是VIP');
             }
+            this.userWxAuthState()
+        },
+        signDialog:function(){
+            $('.sign-btn').click(function(){
+                $("#dialog-box").dialog({
+                    html: $('#Sign-dialog').html(),
+                }).open();
+            })
+            
+        },
+        getBannerbyPosition:function() { // 
+            $.ajax({
+                url: api.recommend.recommendConfigInfo,
+                type: "POST",
+                data: JSON.stringify(['PC_M_H_xfbanner']),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                   if(res.code == '0'){
+                     console.log('getBannerbyPosition:',res)
+                     var list  = method.handleRecommendData(res.data[0].list)
+                     var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list ,className:'authentication-container',hasDeleteIcon:false});
+                     $(".authentication-banner").html(_bannerTemplate);
+                     var mySwiper = new Swiper('.authentication-container', {
+                         direction: 'horizontal',
+                         loop: true,
+                         loop: list.length>1 ? true : false,
+                         autoplay: 3000,
+                     })
+                   }
+                }
+            })
+        },
+        userWxAuthState:function(){
+            $.ajax({
+                headers: {
+                    Authrization: method.getCookie("cuk")
+                },
+                url: api.user.userWxAuthState,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(res) {
+                    if (res.code == "0") {
+                          if(res.data.isWxAuth){
+                               $('.sign-btn').removeClass('hide')
+                          }
+                    } else {
+                        $.toast({
+                            text: res.message,
+                            delay: 3e3
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.log("queryUserBindInfo:", error);
+                }
+            });
         }
      }
      indexObject.initial()

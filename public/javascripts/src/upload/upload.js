@@ -37,7 +37,6 @@ define(function(require , exports , module){
             uploadObj. priceSelect();
             uploadObj.saveFolderOption();
             uploadObj.delete();
-            // uploadObj.beforeInit();
             setTimeout(function(){
                 uploadObj.upload();
             },500)
@@ -47,23 +46,14 @@ define(function(require , exports , module){
                 $('.permin').hide();
                 $('.money').hide();
             })
+            uploadObj.handleDatainput()
         },
-        beforeInit:function(){
-            // if (!utils.getCookie('cuk')) {
-            //     login.notifyLoginInterface(function (data) {
-            //        if (data) {
-            //             uploadObj.isAuth = data.isAuth =="0" ? false: true;
-            //             uploadObj.refreshTopBar(data);
-            //        }
-            //     });
-            // }else {
-            //     login.getLoginData(function (data) {
-            //         if (data) {
-            //             uploadObj.isAuth = data.isAuth =="0" ? false: true;
-            //             uploadObj.refreshTopBar(data);
-            //        }
-            //     });
-            // }
+        handleDatainput:function(){
+            $(document).on('blur','.data-filename',function(e){
+                var value = $(this).val()
+                var index = $(this).attr('index')
+                uploadObj.uploadFiles[index].fileName = value
+            })
         },
         checkHook:function(){
             // 勾选上传编辑文件
@@ -150,12 +140,8 @@ define(function(require , exports , module){
                         var ext = task.ext.split('.')[1];
                         var obj = {ext:ext,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
-                       
                         $('.secondStep').show();
                         $('.firstStep').hide();
-                        // console.log(uploadObj.uploadFiles);
-                        // console.log(task)
-                        // console.log('&&&&&&&&&&&&&&&&&&&')
                         uploadObj.publicFileRener()
                     },
                     //任务移除后触发
@@ -166,7 +152,6 @@ define(function(require , exports , module){
                     upload: function (task) {
                         //exe文件可以添加，但不会上传
                         if (task.ext == ".exe") return false;
-                       
                     },
                     // 上传进度
                     progress:function(task){
@@ -256,9 +241,7 @@ define(function(require , exports , module){
                                 layer1.last = 0
                             }
                         })
-                        // uploadObj.Allcategory = res.data.categoryList;
                         uploadObj.Allcategory = res.data;
-                        console.log(uploadObj.Allcategory)
                     } else {
                         utils.showAlertDialog("温馨提示", res.message);
                     }
@@ -273,41 +256,34 @@ define(function(require , exports , module){
             $('.doc-list').on('click','.js-fenlei',function(e){
                 e.stopPropagation()
                 $(this).siblings('.fenlei').toggle()
-                $(this).siblings('.fenlei').find('.date-con-in').css({width:'140px',overflow: 'hidden scroll'})
+                $(this).parents('.date-con-in').css('width','180px')
+                $('.date-con-second').hide()
+                $('.date-con-third').hide()
             })
-            // $('.doc-list').on('hover','li',function(){
-            //     $(this).addClass('active').siblings('li').removeClass('active');
-            //     // $(this).find('ul li').removeClass('active');
-            //     $(this).parents('.date-con-in').css({overflowY:'auto'})
-               
-            // })
+            $('.doc-list').on('hover','.selectItem li',function(){
+                $(this).addClass('active').siblings('li').removeClass('active');    
+            })
             $('.doc-list').on('hover','.date-con-first>li',function(){
-                $(this).addClass('active').siblings('li').removeClass('active');
-                $('.date-con-sec>li').removeClass('active');
-                $(this).parents('.date-con-in').css({overflowY:'auto'})
-                $(this).parents('.date-con-in').css({width:'282px',overflow: 'hidden scroll'})
-            })
-            $('.doc-list').on('hover','.date-con-first',function(){
-                $(this).parents('.date-con-in').css({width:'282px',overflow: 'hidden scroll'})
-            })
-            $('.doc-list').on('hover','.date-con-sec>li',function(){
-                $(this).addClass('active').siblings('li').removeClass('active');
+                $('.date-con-second>li').removeClass('active');
                 $('.date-con-third>li').removeClass('active');
-                var itemWidth = '282px';
-               if($(this).find('a').attr('last')){
-                    itemWidth = '282px';
-               }else{
-                    itemWidth = '423px';
-                    var height = $('.date-con-sec').height();
-                    $('.date-con-third').height('210px')
-               }
-                $(this).parents('.date-con-in').css({width:itemWidth,overflow: 'hidden scroll'})
+                $('.date-con-second>li').hide()
+                $('.date-con-third').hide()
+                $('.date-con-second').show()
+                var cid  =$(this).find('a').attr('cid')
+                $('.date-con-second').find('.a'+cid).show()
+                $(this).parents('.date-con-in').css('width','390px')
+              
             })
-            $('.doc-list').on('hover','.date-con-third li',function(){
-                $(this).addClass('active').siblings('li').removeClass('active');
-                $(this).parents('.date-con-in').css({width:'423px',overflow: 'hidden scroll'})
+           
+            $('.doc-list').on('hover','.date-con-second>li',function(){
+                $('.date-con-third>li').removeClass('active');
+                $('.date-con-third>li').hide()
+                $('.date-con-third').show()
+                var id2  =$(this).find('a').attr('cid')
+                $('.date-con-third').find('.a'+id2).show()
+                $(this).parents('.date-con-in').css('width','580px')
             })
-            
+          
             $('.doc-list').on('click','.date-con-in li',function(event) {
                 event.stopPropagation()
                 if(!$(this).find('a').attr('last')){
@@ -321,10 +297,10 @@ define(function(require , exports , module){
                     text += $('.date-con-first>li.active a').attr('name');
                     classname = $('.date-con-first>li.active a').attr('name')
                     classid = $('.date-con-first>li.active a').attr('cid')
-                    if ($('.date-con-sec>li.active a').attr('cid')) {
-                        text += '>'+$('.date-con-sec>li.active a').attr('name')
-                        classname = $('.date-con-sec>li.active a').attr('name')
-                        classid = $('.date-con-sec>li.active a').attr('cid')
+                    if ($('.date-con-second>li.active a').attr('cid')) {
+                        text += '>'+$('.date-con-second>li.active a').attr('name')
+                        classname = $('.date-con-second>li.active a').attr('name')
+                        classid = $('.date-con-second>li.active a').attr('cid')
                         if ($('.date-con-third>li.active a').attr('cid')) {
                             text += '>'+$('.date-con-third>li.active a').attr('name')
                             classname = $('.date-con-third>li.active a').attr('name')
@@ -358,6 +334,7 @@ define(function(require , exports , module){
         typeSelect: function(){
             $('.doc-list').on('click','.js-type',function(e){
                 if(!uploadObj.isAuth) {
+                    // 机构才能选择付费 非机构只能免费
                     return false;
                 }
                 e.stopPropagation()
@@ -547,7 +524,6 @@ define(function(require , exports , module){
                             item.folderId = id
                             item.folderName = text;
                         }
-                        
                     })
                 }
                 uploadObj.publicFileRener()  

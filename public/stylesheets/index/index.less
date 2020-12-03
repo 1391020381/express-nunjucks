@@ -1,6 +1,7 @@
 @import "../less-public/_ishare_setting";
 @import "../less-public/_less_mixin";
 @import "../less-public/_less_css3";
+@import "../ishare-wechatSign";
 .screen-body {
 	background: #f4f4f4;
 }
@@ -176,7 +177,7 @@
               }
               .category-more {
                 display: block;
-                max-height: 274px;
+                // max-height: 274px;
               }
               .icon-ele-arrow {
                 transform: rotate(180deg);
@@ -413,7 +414,7 @@
 
         .top-bar-right {
           position: absolute;
-          right: 80px;
+          right: 0;
           top: 12px;
           height: 30px;
           line-height: 30px;
@@ -728,6 +729,7 @@
   position: relative;
   width: 1236px;
   margin: 0 auto;
+  margin-top:30px;
   .preArrow {
     width: 36px;
     height: 36px;
@@ -973,11 +975,13 @@
       background:#FFFFFF url(../../images/index/vipBg.png) right top no-repeat;
     }
 		.inner-wrap {
-			padding:34px 30px 43px;
+      padding:34px 30px 43px;
+      position: relative;
 			.user-top{
 				overflow: hidden;
 				padding-bottom: 8px;
-				border-bottom: 1px solid #F4F4F4;
+        border-bottom: 1px solid #F4F4F4;
+       
 				.avatar-frame {
 					width: 56px;
 					height: 56px;
@@ -1016,7 +1020,7 @@
 							&.vip-avaliable{
 								background-position: -210px -170px;
 							}
-						}
+            }
 					}
 					.info-des{
 						font-size: 12px;
@@ -1056,7 +1060,16 @@
             }
             }
 					}
-				}
+        }
+        .sign-btn {
+          position: absolute;
+          left: 225px;
+          top: 40px;
+          width: 52px;
+          height: 24px;
+          background:url(../../images/signIcon.png) no-repeat;
+          cursor: pointer;
+        }
 			}
 			.special-des{
 				ul{
@@ -1358,5 +1371,31 @@
         color: #555;
       }
     }
+  }
+}
+.authentication{
+  position: fixed;
+  top:738px;
+  right: 84px;
+  width: 120px;
+  height: 120px;
+  // background: url("../../images/index/authentication.png") no-repeat center;
+  // background-size:100%;
+  cursor: pointer;
+  .authentication-container{
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+    position: relative;
+    .swiper-container{
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+  .swiper-slide-img{
+    width: 100%;
+    height: 120px;
+  }
   }
 }

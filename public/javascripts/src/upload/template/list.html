@@ -16,7 +16,7 @@
                     <span class="lable-name">标题:</span>
                     <div class="data-name">
                         <i class="ico-data ico-{{value.ext}}"></i>
-                        <input type="text" maxlength="64" class="data-input" name="fileName" value="{{value.fileName}}" index="{{i}}" >
+                        <input type="text" maxlength="64" class="data-input data-filename"  name="fileName" value="{{value.fileName}}" index="{{i}}" >
                     </div>
                     <div class="warn-tip">
                         <span>标题字数不能超过36个字</span>
@@ -88,27 +88,37 @@
                         </div>
                         <div class="date-con fenlei">
                             <div class="date-con-in" >
-                                <ul class="date-con-first">
+                                <ul class="selectItem date-con-first">
                                     {{each Allcategory as item index}}
                                     <li>
                                         <a href="javascript:;" cid="{{item.id}}" last="{{item.last}}" name ="{{item.name}}">{{item.name}}</a>
-                                        <ul class="date-con-sec"  style="display: none;">
-                                            {{if item.subList}}
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                                <ul class="selectItem date-con-second">
+                                    {{each Allcategory as item index}}
+                                        {{if item.subList}}
                                             {{each item.subList as ctn num}}
-                                            <li >
-                                                    <a href="javascript:;" cid="{{ctn.id}}" last="{{ctn.last}}" name ="{{ctn.name}}">{{ctn.name}}</a>
-                                                    <ul class="date-con-third" style="display: none;">
-                                                        {{if ctn.subList}}
-                                                        {{each ctn.subList as item3 index3}}
-                                                        <li  ><a href="javascript:;" last="{{item3.last}}" cid="{{item3.id}}" name ="{{item3.name}}">{{item3.name}}</a></li>
-                                                        {{/each}}
-                                                        {{/if}}
-                                                    </ul>
+                                            <li class="a{{item.id}} hide">
+                                                <a href="javascript:;" cid="{{ctn.id}}" last="{{ctn.last}}" name ="{{ctn.name}}">{{ctn.name}}</a>
+                                            </li>
+                                            {{/each}}
+                                        {{/if}}
+                                    {{/each}}
+                                </ul>
+                                <ul class="selectItem date-con-third">
+                                    {{each Allcategory as item index}}
+                                        {{if item.subList}} 
+                                        {{each item.subList as ctn num}}
+                                            {{if ctn.subList}} 
+                                            {{each ctn.subList as item3 index3}}
+                                            <li   class="a{{ctn.id}} hide">
+                                                <a href="javascript:;" cid="{{item3.id}}" last="{{item3.last}}" name ="{{item3.name}}">{{item3.name}}</a>
                                             </li>
                                             {{/each}}
                                             {{/if}}
-                                        </ul>
-                                    </li>
+                                        {{/each}}
+                                        {{/if}}
                                     {{/each}}
                                 </ul>
                             </div>

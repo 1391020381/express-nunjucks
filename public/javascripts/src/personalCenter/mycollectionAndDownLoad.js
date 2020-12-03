@@ -1,11 +1,23 @@
+
+
+
 define(function(require , exports , module){
    var method = require("../application/method");
    var api = require('../application/api');
    var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html')
    var simplePagination = require("./template/simplePagination.html")
+   var closeRewardPop = require('./dialog').closeRewardPop
    var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
+   var clickEvent = require('../common/bilog').clickEvent
+   var utils = require("../cmd-lib/util");
+   var receiveCoupon = require('./template/receiveCoupon.html')
+   var commentDialogContent= require('./template/commentDialogContent.html')
+   var score = 0
+   var isAppraise = 0
+   var tagList = []  // 评论标签
+   var taskList = {}
    if(type =='mycollection'||type =='mydownloads'){
       isLogin(initData,true)
    }
@@ -106,9 +118,245 @@ define(function(require , exports , module){
   })
   }
     
+ 
+// 获取评价标签
+function getLabelList(fid,format,title,isAppraise) { 
+    $.ajax({
+        headers: {
+            'Authrization': method.getCookie('cuk')
+        },
+        url:  api.comment.getLableList + '?pageSize=12&fid=' + fid ,  // 
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            if (res.code == '0') {
+                 tagList = res.data
+                 var data = {fid:fid,format:format,title:title,labelList:res.data,isAppraise:isAppraise }
+                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
+                $("#dialog-box").dialog({
+                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
+                }).open();
+            } else {
+                $.toast({
+                    text: res.message,
+                    delay: 3000,
+                })    
+            }
+        },
+        error: function (error) {
+            console.log('queryUserBindInfo:', error)
+        }
+    })
+}
+// 添加评论 
+
+function addComment(params){
+    $.ajax({
+        headers:{
+           'Authrization':method.getCookie('cuk')
+        },
+         url:  api.comment.addComment, //
+         type: "POST",
+         data: JSON.stringify(params),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+         success: function (res) {
+            if(res.code == '0'){
+                $.toast({
+                    text:'评价成功',
+                    delay : 3000,
+                })
+                score = 0
+                closeRewardPop()
+                getTaskList(params.fid)
+            }else{
+             $.toast({
+                 text:res.message,
+                 delay : 3000,
+             })
+            }
+         },
+         error:function(error){
+             console.log('getDownloadRecordList:',error)
+         }
+     })
+}
+// 获取文件评论
+
+function getFileComment(fid,title,format) { 
+    $.ajax({
+        url: api.comment.getPersoDataInfo + '?fid=' + fid, //,
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(res) {
+            if (res && res.code == '0') {
+                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:new Array(+res.data.score)}
+                var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
+               $("#dialog-box").dialog({
+                   html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
+               }).open();
+            }
+        }
+    });
+
+}
+
+// 获取任务列表接口
+function getTaskList(fid) { 
+      $.ajax({
+          url: api.coupon.getTask,
+          type: "POST",
+          data: JSON.stringify({
+              key:fid,
+              taskCode:'evaluate'
+          }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(res) {
+              if (res && res.code == '0') {
+                  taskList = res.data ||{};
+                  taskList.fid = fid
+                  if(taskList.id){
+                    startTaskReceive(taskList||{rewardContent:[],rewardType:tagList.rewardType})
+                  }else{
+                       getDownloadRecordList()
+                  } 
+              }
+          }
+      });
+  
+}
+
+    // 开始弹出领取优惠券的弹窗
+function startTaskReceive(taskList) {
+      if (!taskList.rewardContent.length) return;
+      var data = {
+          code:taskList.code,
+          id:taskList.id,
+          rewardType:taskList.rewardType,
+          list: taskList.rewardContent.slice(0, 2)
+      };
+      var _html = template.compile(receiveCoupon)({ data: data });
+      var isVip = taskList.rewardType == 1?true:false
+      var vipClass = isVip?'coupon-item-vip':''
+      $("#dialog-box").dialog({
+        html: $('#getcoupon-dialog').html().replace(/\$content/, _html).replace(/\$rewardType/,vipClass),
+    }).open();
+  }
+
+
+  $(document).on('click','.personal-center-mydownloads .evaluate-btn',function(event){
+    console.log('evaluate-btn')
+    var format = $(this).attr("data-format")
+    var title = $(this).attr('data-title')
+    var fid = $(this).attr('data-fid')
+    isAppraise = $(this).attr('data-isappraise')   // 1 此文件评价过
+    // isAppraise = 1
+    if(isAppraise==1){
+        getFileComment(fid,title,format)
+    }else{
+        getLabelList(fid,format,title,isAppraise)
+    }
+    
+})
+
+$(document).on('click','.personal-center-dialog .evaluation-confirm',function(event){
+   
+    if(isAppraise == 1){
+        closeRewardPop()
+        isAppraise = 0
+        return
+    }
+    if(score>=1){
+        var  labels = []
+        $.each($('.evaluation-dialog input:checkbox:checked'),function(){
+                 var id = $(this).val()
+                $(tagList).each(function(index,item){
+                    if(item.id == id){
+                        labels.push({
+                            id:id,
+                            name:item.name
+                        })
+                    }
+                })
+        });
+        var params = {
+            content:$('.evaluation-dialog .evaluation-desc .desc-input').val(),
+            fid:$('.evaluation-dialog .file-title').attr('data-fid'),
+            labels:labels,
+            score:score,
+            site:4,
+            terminal:0
+         }
+         addComment(params)
+    }else{
+        $.toast({
+            text:'请选择评分',
+            delay : 3000,
+        })
+    }
+})
+
+$(document).on('click','.personal-center-dialog .file-rates .start',function(e){
+  var isAppraise  = $(this).attr('data-isappraise')
+  var  starts = $('.personal-center-dialog .file-rates .start')
+       score = $(this).index() + 1
+  if(isAppraise!=1){  // 未评论  也就是评论
+      starts.removeClass('start-active')
+      starts.slice(0,score).addClass('start-active')
+      $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
+  }
+})
 
 
 
+  $('#dialog-box').on('click','.close-btn',function(e){
+    var  bilogContent = $(this).attr('bilogContent')
+    if(bilogContent){
+        clickEvent($(this))
+        getDownloadRecordList()
+    }
+    score = 0
+    closeRewardPop();
+})
+  // 绑定立即领取按钮回调
+  $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-footer', function(e) {
+      var parmas = {
+          key:taskList.fid,
+          taskCode:taskList.code
+      };
+      clickEvent($(this))
+      $.ajax({
+          url: api.coupon.receiveTask, //
+          headers: {
+              'Authrization': method.getCookie('cuk')
+          },
+          type: "POST",
+          data: JSON.stringify(parmas),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(res) {
+              closeRewardPop()
+              taskList = {}
+              if (res && res.code == '0') {
+                  // 重新刷新页面
+                  $.toast({
+                    text:'领取成功',
+                    delay : 3000,
+                })
+                getDownloadRecordList()
+              } else {
+                $.toast({
+                    text:res.message,
+                    delay : 3000,
+                })
+              }
+          }
+      })
+
+  });
   // 分页
   function handlePagination(totalPages,currentPage,flag){
     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:currentPage});

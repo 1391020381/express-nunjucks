@@ -475,7 +475,7 @@ body {
         color: #987c49;
         margin-right: 27px;
         margin-top: 0;
-        margin-left: 143px;
+        margin-left: 120px;
         padding: 6px 0 5px;
         cursor: pointer;
         height: 44px;
@@ -576,8 +576,19 @@ body {
             position: absolute;
             margin-top: 0;
             right: 0;
-            top: 17px;
+            top: 20px;
             background-position: 0 0;
+        }
+        .user-name{
+            position: absolute;
+           left: -28px;
+            top: 0px;
+            
+        }
+        .user-loginType{
+            position: absolute;
+           left: -29px;
+           top: 20px;
         }
     }
 
@@ -612,8 +623,8 @@ body {
     .user-img {
         .size(30px, 30px);
         position: absolute;
-        left: 0;
-        top: 6px;
+        left: -68px;
+        top: 12px;
         margin-top: 0;
         border-radius: 30px;
 
@@ -1476,16 +1487,18 @@ body {
 //详情页底部购买信息
 .detail-footer {
     // margin-top: -120px;
+    // width: 890px;
+    // margin: 0 auto;
+    // padding-top: 34px;
+    // padding-bottom: 40px;
+    // border: 0 none;
+    // box-shadow: 0 0 5px rgba(44, 21, 24, .08);
+    // border-radius: 4px;
+    // color: @gray-dark;
+    // background-color: #fff;
+    // position: relative;
     width: 890px;
-    margin: 0 auto;
-    padding-top: 34px;
-    padding-bottom: 40px;
-    border: 0 none;
-    box-shadow: 0 0 5px rgba(44, 21, 24, .08);
-    border-radius: 4px;
-    color: @gray-dark;
-    background-color: #fff;
-    position: relative;
+    height: 229px;
 }
 
 .detail-newfooter {
@@ -3217,6 +3230,7 @@ body {
 
         .img {
             margin: 0 auto;
+            margin-left: 468px;
             padding-top: 194px;
             padding-bottom: 30px;
         }
@@ -3473,5 +3487,114 @@ body {
         line-height: 24px;
         font-size: 12px;
         color: #999;
+    }
+}
+
+// 评价
+
+.user-comments-container{
+    .user-evaluation{
+        margin-top:10px;
+        padding:30px 38px;
+        background: #FFFFFF;
+        border-radius: 4px;
+        .evaluation-tags{
+            margin-bottom: 20px;
+            .tag{
+                margin-right: 20px;
+                display: inline-block;
+                padding: 4px 12px;       
+                background: #EAEAEA;
+                border-radius: 14px;
+                font-size: 13px;
+                color: #222222;
+                cursor: pointer;
+            }
+            .all{
+                float: right;
+            }
+            .tag-all{
+                float: right;
+                margin-right: 0;
+            }
+            .tag-active{
+                background: #FCE8E2;
+            }
+        }
+        .evaluation-list{
+            .evaluation-item{
+                border-bottom: solid 1px #F2F2F2;
+                margin-top:30px;
+               .evaluation-user-summary{
+                .cf();
+                   .evaluation-user-avatar{
+                       float: left;
+                       margin-right: 20px;
+                       width: 30px;
+                       height: 30px;
+                       border-radius: 50%;
+                   }
+                   .evaluation-user-name{
+                    float: left;
+                    margin-right: 20px;
+                }
+                   .start{
+                    float: left;
+                    margin-right: 5px;
+                    width: 17px;
+                    height: 18px;
+                    background: url('../images/detail/start.png') no-repeat center;
+                    background-size: 100%;
+                }
+                .evaluation-time{
+                    float: right;
+                    margin-right: 5px;
+                    color: #999999;
+                }
+               } 
+               .evaluation-desc{
+                   margin-top:8px;
+                   padding-left:50px;
+                   padding-bottom: 23px;
+               }
+            }
+            .evaluation-item:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+    .pagination-wrapper{
+        padding-top:20px;
+        padding-bottom:50px;
+        text-align: center;
+        background: #fff;
+        .pagination{
+            margin: 0 auto;
+            display: inline-block;
+            // margin-left: 155px;
+            .cf();
+            .page-item{
+                float: left;
+                margin-right: 8px;
+                height: 30px;
+                line-height: 30px;
+                padding:0 11px;
+                color: #555555;
+                background:rgba(255,255,255,1);
+                border:1px solid rgba(230, 230, 230, 1);
+                border-radius:2px;
+                cursor: pointer;
+            }
+            .first,.prev,.next,.last{
+                padding: 0 17px;
+            }
+            .active{
+                background: #F25125;
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
+            }
+        }
     }
 }

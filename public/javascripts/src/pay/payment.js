@@ -21,18 +21,18 @@ define(function (require, exports, module) {
         prod: '//ishare.iask.sina.com.cn'
     }
     console.log('env:', env, urlList[env])
-
+    var params = {
+        orderNo: orderNo,
+        code: code,
+        payType: isWeChat == 'true' ? 'wechat' : 'alipay',
+        host: location.origin
+    }
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
             url: urlList[env] + api.pay.scanOrderInfo,
             type: "POST",
-            data: JSON.stringify({
-                orderNo: orderNo,
-                code: code,
-                payType: isWeChat == 'true' ? 'wechat' : 'alipay',
-                host: location.origin
-            }),
+            data: JSON.stringify(params),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
@@ -66,6 +66,9 @@ define(function (require, exports, module) {
                         text: res.message || 'scanOrderInfo错误',
                         delay: 3000,
                     })
+                    var url = location.href
+                    var message  = JSON.stringify(params) + JSON.stringify(res)
+                    reportOrderError(url,message)
                 }
             },
             error: function (error) {
@@ -74,6 +77,9 @@ define(function (require, exports, module) {
                     text: error.message || 'scanOrderInfo错误',
                     delay: 3000,
                 })
+                var url = location.href
+                var message  = JSON.stringify(params) + JSON.stringify(error)
+                reportOrderError(url,message)
             }
         })
     }
@@ -151,6 +157,28 @@ define(function (require, exports, module) {
 
             }
           })
+    }
+
+    function reportOrderError(url,message) {
+        $.ajax({
+            type: 'post',
+            url:  urlList[env] + api.order.reportOrderError,
+            headers:{
+                'Authrization': method.getCookie('cuk')
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url:url,
+                message:message,
+                userId:''
+            }),
+            success: function (response) {
+               console.log('reportOrderError:',response)
+            },
+            complete: function () {
+
+            }
+        })  
     }
     $(document).on('click', '.pay-confirm', function (e) {
         console.log('pay-confirm-start')

@@ -1,0 +1,52 @@
+<p class="evaluation-title">
+                 <span class="file-type ico-data ico-{{data.format}}"></span>
+                 <span class="file-title" data-fid="{{data.fid}}">{{data.title}}</span>
+             </p>
+             {{if data.isAppraise == 1}}
+                       <div class="file-rates file-rates-isAppraise">
+                           <span class="start-title">您的评分</span>
+                           {{each data.scores as m}}
+                               <span class="start start-active" data-isappraise="1"></span>
+                           {{/each}}
+                      </div>
+             {{else}}
+                <div class="file-rates"> 
+                <span class="start" data-isappraise="0"></span>
+                <span class="start" data-isappraise="0"></span>
+                <span class="start" data-isappraise="0"></span>
+                <span class="start" data-isappraise="0"></span>
+                <span class="start" data-isappraise="0"></span>
+             </div>
+             {{/if}}
+             
+             <div class="evaluation-tags">
+                    {{ if data.isAppraise == 1}}
+                      <p class="tags-title">评价标签</p>
+                    {{/if}}
+                    {{each data.labelList as v i}}
+                           {{if data.isAppraise == 1}}
+                            <label  class="tag"><span class="tag-desc" style=" background: #FCE8E2;color: #222222;">{{v.name}}</span></label>
+                           {{else}}
+                         <label class="tag" for="{{v.id}}">
+                         <input type="checkbox" name="tag" value="{{v.id}}" id="{{v.id}}" class="label-input"/>
+                          <span class="tag-desc">{{v.name}}</span>
+                        </label>   
+                        {{/if}}            
+                     {{/each}}                                 
+             </div>
+              {{if data.isAppraise == 1}}
+             <p class="evaluation-desc-title">评价内容</p>
+             {{/if}}
+             <div class="evaluation-desc">
+               {{if data.isAppraise == 1}}
+                 <span>{{data.content}}</span>
+               {{else}}
+                <textarea class="desc-input" placeholder="其他想说的" maxlength='500'></textarea>
+                
+               {{/if}}
+             </div>
+          {{if data.isAppraise == 1}}
+           <div class="evaluation-confirm" style="background: rgb(242, 81, 37);color: rgb(255, 255, 255);">关闭</div>
+         {{else}}
+        <div class="evaluation-confirm" >提交评价</div>
+        {{/if}}

@@ -4,7 +4,7 @@ define(function(require, exports, moudle) {
     var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
     var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
     var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-
+    var viewExposure = require('../common/bilog').viewExposure
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -15,6 +15,7 @@ define(function(require, exports, moudle) {
     var couponReceive = require('./couponReceive.html')
     require("../common/bilog");
     var clickEvent = require('../common/bilog').clickEvent
+    var viewExposure = require('../common/bilog').viewExposure
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     var renewalVIP = window.pageConfig.params.isVip == '1' ? '1' : '0' // 标识是否是续费vip
     var checkStatus = window.pageConfig.params.checkStatus || '10'
@@ -34,11 +35,13 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
+        viewExposure($(this),'vipPayCon','VIP套餐列表弹窗')
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
-    if (location.pathname == '/pay/payQr.html') {
+    if (location.pathname == '/pay/payConfirm.html') {
+        viewExposure($(this),'filePayCon','资料支付弹窗')
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
@@ -58,8 +61,16 @@ define(function(require, exports, moudle) {
         if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
+        }else{
+            // 加油包判断是否是vip
+        if(location.pathname == "/pay/privilege.html"){
+             method.compatibleIESkip('/pay/vip.html', false);
+        }
         }
         $(function() {
+
+  
+
             var flag = $("#ip-flag").val();
 
             var uid = $("#ip-uid").val() || userInfo.userId
@@ -445,6 +456,7 @@ define(function(require, exports, moudle) {
      * 下单处理
      */
     function handleOrderResultInfo() {
+        
         var type = params.type // 0: VIP套餐， 1:特权套餐 ， 2: 文件下载
         var goodsType = ''
         var goodsId = ''
@@ -502,6 +514,10 @@ define(function(require, exports, moudle) {
                     // __pc__.push(['pcTrackEvent','orderFail']);
                     $(".btn-vip-order-fail").click();
                     utils.showAlertDialog("温馨提示", '下单失败');
+
+                    var url = location.href
+                    var message  = JSON.stringify(temp) + JSON.stringify(data)
+                    reportOrderError(url,message)
                 }
             }
         })
@@ -509,6 +525,29 @@ define(function(require, exports, moudle) {
 
 
     }
+
+    function reportOrderError(url,message) { // 上报错误
+        $.ajax({
+            type: 'post',
+            url: api.order.reportOrderError,
+            headers:{
+                'Authrization': method.getCookie('cuk')
+            },
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                url:url,
+                message:message,
+                userId:''
+            }),
+            success: function (response) {
+               console.log('reportOrderError:',response)
+            },
+            complete: function () {
+
+            }
+        })  
+    }
+
 
     /**
      * 支付跳转到新页面
@@ -994,4 +1033,29 @@ define(function(require, exports, moudle) {
             })
         }
     }
+    if(method.getParam("fid")){
+        taskHasEnable()
+    }
+    
+    function taskHasEnable() { 
+        $.ajax({
+            url: api.coupon.taskHasEnable,
+            type: "POST",
+            data: JSON.stringify({
+                key:method.getParam("fid"),
+                taskCode:'evaluate'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
+                    }
+
+                }
+            }
+        });
+    
+  }
 });

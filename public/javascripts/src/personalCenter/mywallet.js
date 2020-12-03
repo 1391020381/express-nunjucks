@@ -125,6 +125,7 @@ define(function (require, exports, module) {
                         text: '提现申请成功!',
                         delay: 3000,
                     })
+                    invoicePicture = {}
                     closeRewardPop()
                     getAccountBalance()
                     getMyWalletList(1)
@@ -136,11 +137,11 @@ define(function (require, exports, module) {
                 }
             },
             error: function (error) {
-
                 $.toast({
                     text: error.message || '提现失败',
                     delay: 3000,
                 })
+                invoicePicture = {}
             }
         })
     }
@@ -528,6 +529,16 @@ define(function (require, exports, module) {
             $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
             return
         }
+        if(balance && withdrawPrice>balance-100){
+            $.toast({
+                text: '可提现金额不足，请重新输入',
+                icon: '',
+                delay: 2000,
+                callback: false
+            })
+            $('.withdrawal-application-dialog .withdrawal-amount .tax').hide()
+            return
+        }
         if(financeAccountInfo.userTypeName != '机构'){
             utils.debounce(getPersonalAccountTax((withdrawPrice*100).toFixed(), 1000))
         }
@@ -539,13 +550,13 @@ define(function (require, exports, module) {
     })
    
     function fullWithdrawal(){
-        balance&&$('.withdrawal-application-dialog .amount').text((balance-100).toFixed(2))
+        balance&&$('.withdrawal-application-dialog .amount').val((balance-100).toFixed(2))
         if(financeAccountInfo.userTypeName != '机构'){
             getPersonalAccountTax((balance*100).toFixed()-10000)
         }
     }
     $(document).on('click', '.withdrawal-application-dialog .confirm-btn', function (e) { // 申请提现
-        var withPrice = $('.withdrawal-application-dialog .amount').text()
+        var withPrice = $('.withdrawal-application-dialog .amount').val()
         var invoicePicUrl =  invoicePicture.picKey
         var reg = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/    // 校验金额
         var invoiceType = $(".withdrawal-application-dialog .invoice input:checked").val()
