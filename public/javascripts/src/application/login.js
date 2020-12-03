@@ -25,7 +25,14 @@ define(function (require, exports, module) {
             ssoId: 'I_SHARE_SSO_T0URIST_LOGIN'
         })
     }
-
+    var env = window.env
+    var urlList = {
+        local:'http://127.0.0.1:8085',
+        dev: 'http://dev-ishare.iask.com.cn',
+        test: 'http://test-ishare.iask.com.cn',
+        pre: 'http://pre-ishare.iask.com.cn',
+        prod: 'http://ishare.iask.sina.com.cn'
+    }
     function initIframeParams(successFun, iframeId, params) {
         // 操作需等iframe加载完毕
         var $iframe = $('#' + iframeId)[0]
@@ -43,7 +50,9 @@ define(function (require, exports, module) {
                 cid: params.clsId,
                 // 资料id
                 fid: params.fid,
-                jsId: params.jsId
+                jsId: params.jsId,
+                redirectUrl:window.location.href,
+                originUrl:urlList[env]
             });
         }
 
@@ -78,7 +87,8 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        viewExposure($(this),'visitLogin','游客支付弹窗')
+        // viewExposure($(this),'visitLogin','游客支付弹窗')
+        viewExposure($(this),'login','登录弹窗')
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
@@ -128,10 +138,12 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
+            viewExposure($(this),'visitLogin','游客支付弹窗')
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
+            viewExposure($(this),'login','登录弹窗')
             $('.tourist-purchase-dialog .tourist-purchase-content').hide()
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
         }

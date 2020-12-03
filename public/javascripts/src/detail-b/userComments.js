@@ -92,7 +92,8 @@ define(function (require, exports, module){
             if(!paginationCurrentPage){
                 return
             }
-            getUserComments(paginationCurrentPage)
+            var lableId = $('.evaluation-tags .tag-active').attr('data-id')
+            getUserComments(paginationCurrentPage,lableId)
         })
        }
 

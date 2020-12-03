@@ -69,7 +69,8 @@ define(function (require, exports, module) {
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
         $hasLogin.find('img').attr('src', data.photoPicURL);
-        $hasLogin.find('.user-link .user-name').text(data.nickName);
+        var nickName = data.nickName&&data.nickName.length>4?data.nickName.slice(0,4)+'...':data.nickName
+        $hasLogin.find('.user-link .user-name').text(nickName);
         var temp = loginTypeContent[method.getCookie('loginType')]
         $hasLogin.find('.user-link .user-loginType').text(temp?temp+'登录':'');
         $top_user_more.find('img').attr('src', data.photoPicURL);

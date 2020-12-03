@@ -53,24 +53,27 @@ define(function(require , exports , module){
                     // $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
                     // $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
-                    // if(userInfo.isWxAuth){
-                    //    $('.signIn').removeClass('signIn-hide')
-                    // }
+                  
                     if(isMasterVip ==1){ 
                         // $('.personal-center-home .personal-summarys .go2vip').hide() 
                         $('.personal-center-home .whole-station-vip .whole-station-vip-endtime').text(endDateMaster +'到期')
+                        $('.personal-center-home .whole-station-vip').removeClass('hide')
                         $('.personal-center-home .opentvip').hide()
+
+                        $('.personal-center-home .privileges').removeClass('hide')
+                        $('.personal-center-home .occupying-effect').hide()
                     }else{
-                        $('.personal-center-home .whole-station-vip').hide()
+                        // $('.personal-center-home .whole-station-vip').hide()
                         $('.personal-center-menu .personal-profile .personal-nickname .level-icon').hide() 
 
-                        $('.personal-center-home .privileges').hide()
-                        $('.personal-center-home .occupying-effect').show()
+                        // $('.personal-center-home .privileges').hide()
+                        // $('.personal-center-home .occupying-effect').show()
                     }
                     if(isOfficeVip == 1){
                         $('.personal-center-home .office-vip .office-vip-endtime').text(endDateOffice +'到期')
+                        $('.personal-center-home .office-vip').removeClass('hide')
                     }else{
-                        $('.personal-center-home .office-vip').hide()
+                        // $('.personal-center-home .office-vip').hide()
                     }
                     if(!isMasterVip && !isOfficeVip){
                         $('.personal-summarys .left-border').hide()
@@ -90,6 +93,7 @@ define(function(require , exports , module){
                     //     $('.personal-menu .mywallet').css('display','block')
                     // }
                     callback&&callback(res.data)
+                    userWxAuthState()
                }else{
                 $.toast({
                     text:res.message||'查询用户信息失败',
@@ -101,6 +105,7 @@ define(function(require , exports , module){
                 console.log('getUserCentreInfo:',error)
             }
         })}
+        
 
     function getFileBrowsePage(){ //分页获取用户的历史浏览记录
         $.ajax({
@@ -253,7 +258,32 @@ define(function(require , exports , module){
             }
         })
     }
-
+    function userWxAuthState(){
+        $.ajax({
+            headers: {
+                Authrization: method.getCookie("cuk")
+            },
+            url: api.user.userWxAuthState,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res.code == "0") {
+                      if(res.data.isWxAuth){
+                        $('.signIn').removeClass('signIn-hide')
+                      }
+                } else {
+                    $.toast({
+                        text: res.message,
+                        delay: 3e3
+                    });
+                }
+            },
+            error: function(error) {
+                console.log("queryUserBindInfo:", error);
+            }
+        });
+    }
     $(document).on('click','.personal-center-home .add-privileges',function(e){
         method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
     })

@@ -125,7 +125,7 @@ function getLabelList(fid,format,title,isAppraise) {
         headers: {
             'Authrization': method.getCookie('cuk')
         },
-        url:  api.comment.getLableList + '?pageSize=15&fid=' + fid ,  // 
+        url:  api.comment.getLableList + '?pageSize=12&fid=' + fid ,  // 
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -192,7 +192,7 @@ function getFileComment(fid,title,format) {
         dataType: "json",
         success: function(res) {
             if (res && res.code == '0') {
-                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:res.data.score}
+                var data = { fid:fid, format:format,title:title,labelList:res.data.labels,isAppraise:1,content:res.data.content,scores:new Array(+res.data.score)}
                 var evaluationDialogContent = template.compile(commentDialogContent)({data:data})
                $("#dialog-box").dialog({
                    html: $('#evaluation-dialog').html().replace(/\$content/,evaluationDialogContent),
@@ -269,7 +269,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
         isAppraise = 0
         return
     }
-    if(score>0){
+    if(score>=1){
         var  labels = []
         $.each($('.evaluation-dialog input:checkbox:checked'),function(){
                  var id = $(this).val()
@@ -286,7 +286,7 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
             content:$('.evaluation-dialog .evaluation-desc .desc-input').val(),
             fid:$('.evaluation-dialog .file-title').attr('data-fid'),
             labels:labels,
-            score:score+1,
+            score:score,
             site:4,
             terminal:0
          }
@@ -302,10 +302,10 @@ $(document).on('click','.personal-center-dialog .evaluation-confirm',function(ev
 $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
   var isAppraise  = $(this).attr('data-isappraise')
   var  starts = $('.personal-center-dialog .file-rates .start')
-       score = $(this).index()
+       score = $(this).index() + 1
   if(isAppraise!=1){  // 未评论  也就是评论
       starts.removeClass('start-active')
-      starts.slice(0,score+1).addClass('start-active')
+      starts.slice(0,score).addClass('start-active')
       $('.evaluation-dialog .evaluation-confirm').css({ background: '#F25125',color: '#FFFFFF'}) //  $('.evaluation-dialog .evaluation-confirm').removeAttr("style");
   }
 })
@@ -318,6 +318,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
         clickEvent($(this))
         getDownloadRecordList()
     }
+    score = 0
     closeRewardPop();
 })
   // 绑定立即领取按钮回调
@@ -342,7 +343,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
               if (res && res.code == '0') {
                   // 重新刷新页面
                   $.toast({
-                    text:'领取任务成功',
+                    text:'领取成功',
                     delay : 3000,
                 })
                 getDownloadRecordList()

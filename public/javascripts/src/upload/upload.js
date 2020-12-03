@@ -46,6 +46,14 @@ define(function(require , exports , module){
                 $('.permin').hide();
                 $('.money').hide();
             })
+            uploadObj.handleDatainput()
+        },
+        handleDatainput:function(){
+            $(document).on('blur','.data-filename',function(e){
+                var value = $(this).val()
+                var index = $(this).attr('index')
+                uploadObj.uploadFiles[index].fileName = value
+            })
         },
         checkHook:function(){
             // 勾选上传编辑文件

@@ -286,25 +286,26 @@ define(function (require, exports, module) {
                         }
                     }
                     if (memberList && memberList.length) {
-                        memberList.forEach(function(item) {
+                        for (var i = 0, len = memberList.length; i < len; i++) {
+                            var item = memberList[i];
                             if (item.code == 'FREE_ADV') { // 是否免广告
                                 freeAdv = isVip && item.value == '1';
                             }
                             if (item.code == 'COPY') { // 是否可复制
                                 copy = isVip && item.value == '1';
                             }
-                        })
+                        }
                     }
                     window.pageConfig.freeAdv = freeAdv;
                     window.pageConfig.copy = copy;
                     if (freeAdv) { // 如果去广告
                         $('.adv-container').each(function($index, $element) {
-                            $element.remove();
+                            $($element).remove();
                         })
                     }
                     if (copy) { // 如果可以复制
                         $('.detail-holder').each(function($index, $element) {
-                            $element.remove();
+                            $($element).remove();
                         })
                     }
                 } 

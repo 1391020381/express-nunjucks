@@ -442,11 +442,14 @@ define(function (require, exports, module) {
                 clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
                 // delete customData.downType;
             } else if (cnt == 'fileDetailUpBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailUpBuy', '资料详情页顶部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailUpBuy', '资料详情页顶部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailMiddleBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailMiddleBuy', '资料详情页中部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailMiddleBuy', '资料详情页中部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailBottomBuy') {
-                clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailBottomBuy', '资料详情页底部立即购买', customData);
+               // clickCenter('SE004', 'fileDetailBuyClick', 'fileDetailBottomBuy', '资料详情页底部立即购买', customData);
+               clickCenter('SE003', 'fileDetailDownClick', 'fileDetailDownClick', '资料详情页立即下载点击时', customData);
             } else if (cnt == 'fileDetailMiddleOpenVip8') {
                 clickCenter('SE005', 'fileDetailOpenVipClick', 'fileDetailMiddleOpenVip8', '资料详情页中部开通vip，8折购买', customData);
             } else if (cnt == 'fileDetailBottomOpenVip8') {
@@ -502,7 +505,7 @@ define(function (require, exports, module) {
             var customData = {
                 vipID: $(".ui-tab-nav-item.active").data('vid'),
                 vipName: $(".ui-tab-nav-item.active p.vip-time").text() || '',
-                vipPrice: $(".ui-tab-nav-item.active p.vip-price strong").text() || '',
+                vipPrice: $(".ui-tab-nav-item.active p.vip-price .price-discount").text() || '',
                 couponID: $(".pay-coupon-wrap").attr("vid") || '',
                 coupon: $(".pay-coupon-wrap p.chose-ele").text() || '',
             };
@@ -571,7 +574,7 @@ define(function (require, exports, module) {
             customData.moduleID = moduleID
             customData.moduleName = params.moduleName
         
-            clickCenter('NE006', 'modelView', '', '', customData);
+            clickCenter('NE006', 'modelView', '', '', customData,'view');
         }else if(cnt == 'similarFileClick'){
             
             customData={
@@ -582,8 +585,7 @@ define(function (require, exports, module) {
                 fileName: window.pageConfig.params.file_title,
                 saleType:window.pageConfig.page.productType,
                 fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
-                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
-                filePayType: window.pageConfig.params.file_state
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
             }
         //    clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
             clickCenter('NE017', 'fileListNormalClick', 'guesslike', '猜你喜欢', customData);
@@ -605,8 +607,7 @@ define(function (require, exports, module) {
                 fileName: window.pageConfig.params.file_title,
                 saleType:window.pageConfig.page.productType,
                 fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
-                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3,
-                filePayType: window.pageConfig.params.file_state
+                fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
             }
         //    clickCenter('SE017', 'fileListNormalClick', 'similarFileClick', '资料列表常规点击', customData);
             clickCenter('NE017', 'fileListNormalClick', 'guesslike', '猜你喜欢', customData);
@@ -642,24 +643,22 @@ define(function (require, exports, module) {
             // 判断继续阅读是否下载
             if(params&&params.loadMoreDown == '1'){
                 var m = {
-                    fileID:params.g_fileId,
-                    fileName:params.file_title,
-                    salePrice:params.productPrice,
-                    saleType:params.productType,
+                    fileID:window.pageConfig.params.g_fileId,
+                    fileName:window.pageConfig.params.file_title,
+                    salePrice:window.pageConfig.params.productPrice,
+                    saleType:window.pageConfig.params.productType,
                     fileCategoryID: window.pageConfig.params.classid1 + '||' + window.pageConfig.params.classid2 + '||' + window.pageConfig.params.classid3,
                     fileCategoryName: window.pageConfig.params.classidName1 + '||' + window.pageConfig.params.classidName2 + '||' + window.pageConfig.params.classidName3
                 }
                 clickCenter('SE035', 'fileDetailBottomDownClick', '', '', m);
             }else{
-                var page = window.pageConfig.page
-                var params = window.pageConfig.params
                 var temp = {}
                 $.extend(temp, {
                     domID:'continueRead',
                     domName:'继续阅读',
-                    fileName:page.fileName,
-                    fileID:params.g_fileId,
-                    saleType: page.productType
+                    fileName:window.pageConfig.page.fileName,
+                    fileID:window.pageConfig.params.g_fileId,
+                    saleType: window.pageConfig.page.productType
                 });
                 clickCenter('NE029', 'fileNomalClick', 'continueRead', '继续阅读', temp);
             }
