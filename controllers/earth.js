@@ -74,7 +74,7 @@ module.exports = {
             resultdata.inialPrex = prex.toUpperCase()=='09'?'0-9':prex.toUpperCase();
             resultdata.type = type;
            
-            console.log(" resultdata ::"+ JSON.stringify(resultdata))
+           
             render("earth/index", resultdata, req, res);
         })
     }

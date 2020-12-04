@@ -85,7 +85,7 @@ function getFileDetailTxt(req,res){
 
 function getRecommendInfo(req,res,list){
     const productType = list.data.fileInfo.productType
-    const classid1 = list.data.fileInfo.classid1
+    let classid1 = list.data.fileInfo.classid1
     let format = list.data.fileInfo.format
     // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
     // && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')

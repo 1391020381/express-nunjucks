@@ -101,18 +101,28 @@ module.exports = {
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
                         }
-                        if (isGetFileDetailNoTdk&&data.code !='0'&&data.code!='G-404') { // 详情接口
-                            console.log('$http---------:', JSON.stringify(opt), error, body)
-                            reject(body)
-                        } if(!is4paradigm &&  data.code != '0'){
-                            console.log('$http---------:', JSON.stringify(opt), error, body)
-                            reject(body)
-                        } else {
-                            //   console.log('$http---------:', JSON.stringify(opt), error, body)
-                            resolve(data)
+                        // if (isGetFileDetailNoTdk&&data.code !='0'&&data.code!='G-404') { // 详情接口
+                        //     console.log('$http---------:', JSON.stringify(opt), error, body)
+                        //     reject(body)
+                        // } if(!is4paradigm &&  data.code != '0'){
+                        //     console.log('$http---------:', JSON.stringify(opt), error, body)
+                        //     reject(body)
+                        // } else {
+                        //     //   console.log('$http---------:', JSON.stringify(opt), error, body)
+                        //     resolve(data)
+                        // }
+                        if((isGetFileDetailNoTdk&&data.code=='G-404')||is4paradigm){ // 非标准判断
+                            resolve(body)
+                        }else{
+                            if(data.code==0){
+                                resolve(body)
+                            }else{
+                                console.log('$http---------:', JSON.stringify(opt), body)
+                                reject(body)
+                            }
                         }
                     } catch (err) {
-                        console.log('$http---------:', opt, err, body)
+                        console.log('$http---------:', opt, body)
                         reject(err)
                     }
                 } else {
