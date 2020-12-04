@@ -35,10 +35,6 @@
 {%endif%}
 
 
-
-
-
-
 <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
 <!--百度广告sdk 请置于所有广告位代码之前-->
 <script src="//dup.baidustatic.com/js/ds.js"></script>
@@ -50,4 +46,14 @@
         c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
         return c;
     })();
+</script>
+
+
+<script type="text/javascript">
+        var _speedMark = +new Date()
+        var   _version = "{{version}}"
+        var   _head = "{{cdnUrl}}";
+        var _dpData = [];//广告测试
+        var env = "{{env}}";
+        var loginUrl = "{{loginUrl}}"
 </script>
