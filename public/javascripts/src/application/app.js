@@ -9,6 +9,19 @@ define(function (require, exports, module) {
     var api = require("./api");
     var singleLogin = require('./single-login').init
     var url = api.user.dictionaryData.replace('$code', 'singleLogin');
+    var urlConfig=require('./urlConfig');
+    new ISHARE_WEB_SDK({  //埋点初始化
+        PRODUCT_CONFIG:{
+            TERMINAL_TYPE: '0',        // 终端类型
+            PRODUCT_NAME: 'ishare',    // 产品名称
+            SITE_TYPE: 'ishare',       // 站点类型
+            PRODUCT_CODE: '0',         // 产品代码
+            PRODUCT_VER: 'V1.0.0',     // 产品版本
+        },
+        TRACK_TYPE:'get',//请求方式post get(目前m端是post,pc端是get)
+        TRACK_URL:urlConfig.bilogUrl   //上报服务器地址
+    })
+
     $.ajax({
         url: url,
         type: "GET",
@@ -32,38 +45,44 @@ define(function (require, exports, module) {
         // 访客id-有效时间和name在此处写死
         var name = 'visitor_id',
             expires = 30 * 24 * 60 * 60 * 1000,
-            visitId = method.getCookie(name);
-        // 过有效期-重新请求
-        if (!visitId) {
-            // method.get(api.user.getVisitorId, function (response) {
-            //     if (response.code == 0 && response.data) {
-            //         method.setCookieWithExp(name, response.data, expires, '/');
-            //     }else{
-            //        visitId =  (Math.floor(Math.random()*100000) + new Date().getTime() +
-            // '000000000000000000').substring(0, 18)  } })
-            $.ajax({
-                headers: {
-                    'Authrization': method.getCookie('cuk')
+            visitId = method.getCookie(name),
+            sdk_token = 'iask_web';
+            iask_web.init(sdk_token,{
+                local_storage:{
+                    type: 'localStorage'
                 },
-                url: api.user.getVisitorId,
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (res) {
-                    if (res.code == '0') {
-                        method.setCookieWithExp(name, res.data, expires, '/');
-                    } else {
-                        visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                    }
-                },
-                error: function (error) {
-                    console.log('getVisitUserId:', error)
-                    visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                    method.setCookieWithExp(name, visitId, expires, '/');
+                loaded:function(sdk){
+                      // 过有效期-重新请求
+                     if (!visitId) {
+                        $.ajax({
+                            headers: {
+                                'Authrization': method.getCookie('cuk')
+                            },
+                            url: api.user.getVisitorId,
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.code == '0') {
+                                    method.setCookieWithExp(name, res.data, expires, '/');
+                                    sdk.set_visit_id(res.data); //设置visitID
+                                } else {
+                                    visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                                    sdk.set_visit_id(visitId); //设置visitID
+                                }
+                            },
+                            error: function (error) {
+                                console.log('getVisitUserId:', error)
+                                visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                                method.setCookieWithExp(name, visitId, expires, '/');
+                                sdk.set_visit_id(visitId); //设置visitID
+                            }
+                        })
+                   }else{
+                    sdk.set_visit_id(visitId); //设置visitID
+                   }
                 }
             })
-
-        }
     }
 
     getVisitUserId();
