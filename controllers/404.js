@@ -25,7 +25,7 @@ module.exports = {
                     if(body){
                         var data = JSON.parse(body);
                         if (data.code == 0 ){
-                            // console.log('getTopBannerList:',data)
+                            
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
                             callback(null,null)

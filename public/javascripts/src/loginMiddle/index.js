@@ -35,14 +35,9 @@ define(function (require, exports, module) {
                                 'Authrization': method.getCookie('cuk')
                             }
                         });
-                        // window.location.href = redirectUrl
                         window.open(redirectUrl,'_self')
                     } else {
-                        $.toast({
-                            text:res.message,
-                            delay : 3000,
-                        })
-                        
+                        window.open(redirectUrl,'_self')  
                     }
                 },
                 error: function (error) {
