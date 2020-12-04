@@ -9,7 +9,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     var readMore = $('.red-color')
     var pageText = $('.page-text .endof-trial-reading')
     var pageNum = $('.page-num')
-    var clickEvent = require('../common/bilog').clickEvent
+   
     var preRead = window.pageConfig.page && window.pageConfig.page.preRead || 50
 
     var imgTotalPage = window.pageConfig.imgUrl.length
@@ -35,7 +35,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
 
             } else {
                 downLoad()
-                clickEvent('loadMore',{loadMoreDown:1})
+                
             }
         } else {
             if (productType == 5) {
@@ -52,7 +52,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
 
                     } else {
                         downLoad()
-                        clickEvent('loadMore',{loadMoreDown:1})
+                        
                     }
                 })
             }

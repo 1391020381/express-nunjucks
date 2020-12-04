@@ -3,9 +3,8 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-    var clickEvent = require('../common/bilog').clickEvent,
-        cond = decodeURIComponent(decodeURIComponent(method.getParam('cond'))),
-        userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
+    var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
+    var   userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
     if (cond) {
         cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
     }
@@ -59,7 +58,7 @@ define(function (require, exports, moudle) {
             var inputValue = sconditionInput.val().trim() || '';
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
-                clickEvent($(this))
+                
                 btnHrefChange('cond', inputValue);
             }
         })

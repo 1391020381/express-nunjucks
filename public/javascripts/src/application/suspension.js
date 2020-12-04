@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     // 右侧滚动
     var app = require("../application/app");
     var api = require("./api");
-    var clickEvent = require('../common/bilog').clickEvent
+
     scrollMenu();
 
     function scrollMenu() {
@@ -80,9 +80,7 @@ define(function (require, exports, module) {
 
         $fixBtn.on("click", function () {
             var index = $(this).index();
-            if($(this).attr('bilogContent')){  // 侧边栏数据上报
-                clickEvent($(this)) 
-            }
+         
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
                 fixAn(false,$(this));

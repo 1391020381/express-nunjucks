@@ -14,7 +14,7 @@ define(function(require, exports, moudle) {
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
     require("../common/bilog");
-    var clickEvent = require('../common/bilog').clickEvent
+    
     var viewExposure = require('../common/bilog').viewExposure
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     var renewalVIP = window.pageConfig.params.isVip == '1' ? '1' : '0' // 标识是否是续费vip
@@ -215,7 +215,7 @@ define(function(require, exports, moudle) {
     // 绑定定时弹窗关闭按钮
     $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-close', function(e) {
         // 判断如果弹窗出现
-        clickEvent($(this))
+        
         switchCancel = true;
         switchCount = 0;
         if ($("#receive-coupon-box").html()) {
@@ -230,7 +230,7 @@ define(function(require, exports, moudle) {
             source: 1,
             site: 4,
         };
-        clickEvent($(this))
+        
         $.ajax({
             url: api.coupon.rightsSaleVouchers,
             headers: {
@@ -553,7 +553,7 @@ define(function(require, exports, moudle) {
      * 支付跳转到新页面
      */
     function openWin(data) {
-        clickEvent('createOrder',{orderID:data.data.orderNo})
+     
         var orderNo = data.data.orderNo;
         var price = data.data.payPrice;
         var name = data.data.name;

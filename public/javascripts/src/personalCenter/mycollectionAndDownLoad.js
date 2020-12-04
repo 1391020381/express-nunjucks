@@ -10,7 +10,7 @@ define(function(require , exports , module){
    var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
-   var clickEvent = require('../common/bilog').clickEvent
+   
    var utils = require("../cmd-lib/util");
    var receiveCoupon = require('./template/receiveCoupon.html')
    var commentDialogContent= require('./template/commentDialogContent.html')
@@ -315,7 +315,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
   $('#dialog-box').on('click','.close-btn',function(e){
     var  bilogContent = $(this).attr('bilogContent')
     if(bilogContent){
-        clickEvent($(this))
+       
         getDownloadRecordList()
     }
     score = 0
@@ -327,7 +327,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
           key:taskList.fid,
           taskCode:taskList.code
       };
-      clickEvent($(this))
+    
       $.ajax({
           url: api.coupon.receiveTask, //
           headers: {

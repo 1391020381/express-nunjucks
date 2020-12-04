@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var login = require("../application/checkLogin");
     var common = require('./common');
-    var clickEvent = require('../common/bilog').clickEvent
+    
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
@@ -192,7 +192,7 @@ define(function (require, exports, module) {
                 return;
             } else {
                 var fid = $(this).attr('data-fid');
-                clickEvent($(this))
+                
                 setCollect($(this))
             }
 

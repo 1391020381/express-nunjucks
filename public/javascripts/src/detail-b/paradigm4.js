@@ -2,7 +2,7 @@
  * 第四范式操作数据上报
  */
 define(function (require, exports, module) {
-    var clickEvent = require('../common/bilog').clickEvent
+   
 
     if (window.paradigm4.paradigm4Guess || window.paradigm4.paradigm4Relevant) {
         setTimeout(function () {
@@ -78,7 +78,7 @@ define(function (require, exports, module) {
         //猜你喜欢点击
         $('.guessyoulike').find('.item').click(function () {
             var itemId = $(this).data('id') || '';
-            clickEvent($(this))
+            
             var context = '';
             for (var i = 0; i < paradigm4Guess.length; i++) {
                 if (paradigm4Guess[i].item_id == itemId) {
@@ -109,7 +109,7 @@ define(function (require, exports, module) {
         //相关推荐点击
         $('.related-data-list').find('li').click(function () {
             var itemId = $(this).data('id') || '';
-            clickEvent($(this))
+           
             var context = '';
             for (var i = 0; i < paradigm4Relevant.length; i++) {
                 if (paradigm4Relevant[i].item_id == itemId) {

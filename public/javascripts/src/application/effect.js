@@ -3,7 +3,7 @@
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
-    var clickEvent = require('../common/bilog').clickEvent  
+    
     var loginTypeContent = require('../common/loginType')
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
         method.compatibleIESkip("/node/rights/vip.html", true);
     })
     $('.btn-new-search').click(function () {
-        clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
+       
         if (new RegExp('/search/home.html').test(location.href)) {
             var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
             var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
@@ -47,7 +47,7 @@ define(function (require, exports, module) {
             if (e.keyCode === 13) {
                 var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
                 if (sword) {
-                    clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
+                    
                     method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
                 }
             }
