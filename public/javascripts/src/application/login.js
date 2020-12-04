@@ -1,10 +1,10 @@
 define(function (require, exports, module) {
 
     var method = require("./method");
-    var normalPageView = require('../common/bilog').normalPageView
+    
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-    var viewExposure = require('../common/bilog').viewExposure
+    
 
     var IframeMessenger = require('./iframe/iframe-messenger');
 
@@ -75,9 +75,9 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-        viewExposure($(this),'login','登录弹窗')
+      
         var loginDialog = $('#login-dialog')
-        normalPageView('loginResultPage')
+        
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         $("#dialog-box").dialog({
@@ -87,8 +87,7 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        // viewExposure($(this),'visitLogin','游客支付弹窗')
-        viewExposure($(this),'login','登录弹窗')
+       
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
@@ -138,12 +137,12 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
-            viewExposure($(this),'visitLogin','游客支付弹窗')
+           
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
-            viewExposure($(this),'login','登录弹窗')
+           
             $('.tourist-purchase-dialog .tourist-purchase-content').hide()
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
         }

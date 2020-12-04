@@ -1,10 +1,10 @@
 define(function(require, exports, moudle) {
     // 自有埋点注入
 
-    var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
-    var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
-    var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-    var viewExposure = require('../common/bilog').viewExposure
+    
+    
+    
+   
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -15,7 +15,7 @@ define(function(require, exports, moudle) {
     var couponReceive = require('./couponReceive.html')
     require("../common/bilog");
     
-    var viewExposure = require('../common/bilog').viewExposure
+    
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     var renewalVIP = window.pageConfig.params.isVip == '1' ? '1' : '0' // 标识是否是续费vip
     var checkStatus = window.pageConfig.params.checkStatus || '10'
@@ -35,13 +35,13 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
-        viewExposure($(this),'vipPayCon','VIP套餐列表弹窗')
+        
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
     if (location.pathname == '/pay/payConfirm.html') {
-        viewExposure($(this),'filePayCon','资料支付弹窗')
+        
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
@@ -670,35 +670,7 @@ define(function(require, exports, moudle) {
         })
     });
 
-    /**
-     * 获取文件详细信息
-     * @param id 文件id
-     * @param callback 回调携带返回数据
-     */
-    function getFileInfoById(id, callback) {
-        // 获取资料详细信息
-        var params = {
-            clientType: 0,
-            fid: id,
-            sourceType: 2,
-            site:4
-        }
-        $.ajax({
-            type: 'POST',
-            url: api.normalFileDetail.getFileDetailNoTdk, // '/gateway/content/getFileDetailNoTdk'
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function(response) {
-                console.error('获取资料详情数据', response.data)
-                var fileInfo = {};
-                if (response && response.data && response.data.fileInfo) {
-                    fileInfo = response.data.fileInfo;
-                }
-                callback(fileInfo)
-            }
-        });
-    }
+   
 
     /**
      * 只用于订单结果轮询用
@@ -797,11 +769,7 @@ define(function(require, exports, moudle) {
                 coupon: '',
             };
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payFileResult_bilog.reportResult(orderInfo, fileInfo, true);
-            })
+           
 
         } else if (orderInfo.goodsType === 2||orderInfo.goodsType === 12) {
             // 购买vip成功
@@ -823,8 +791,7 @@ define(function(require, exports, moudle) {
                 vipPrice: orderInfo.reportData.payPrice || '',
             };
 
-            // 自有埋点
-            payVipResult_bilog.reportResult(orderInfo, true);
+          
 
             //透传用户信息 更新isVip字段
             $(".js-sync").trigger('click');
@@ -849,11 +816,7 @@ define(function(require, exports, moudle) {
                 privilegePrice: orderInfo.reportData.payPrice || '',
             };
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, true);
-            })
+            
         }
 
         // 自有埋点用到
@@ -883,11 +846,7 @@ define(function(require, exports, moudle) {
                 coupon: '',
             };
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payFileResult_bilog.reportResult(orderInfo, fileInfo, false);
-            })
+           
 
         } else if (orderInfo.goodsType == 2) {
             // 购买vip失败
@@ -903,8 +862,7 @@ define(function(require, exports, moudle) {
                 vipPrice: orderInfo.reportData.payPrice || '',
             };
 
-            // 自有埋点
-            payVipResult_bilog.reportResult(orderInfo, false);
+         
 
         } else if (orderInfo.goodsType == 8) {
             // 购买下载特权失败
@@ -920,11 +878,7 @@ define(function(require, exports, moudle) {
                 privilegePrice: orderInfo.reportData.payPrice || '',
             };
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, false);
-            })
+           
         }
 
         // 自由埋点用到

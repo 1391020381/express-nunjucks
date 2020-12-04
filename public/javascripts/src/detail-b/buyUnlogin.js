@@ -9,8 +9,8 @@ define(function (require, exports, module) {
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
     var goPage = require('./index').goPage
-    var gioInfo = require("../cmd-lib/gioInfo");
-    var viewExposure = require('../common/bilog').viewExposure
+    
+    
     var common = require('./common');
     
     var fileName = pageConfig.page.fileName;
@@ -30,9 +30,7 @@ define(function (require, exports, module) {
         classidName2: pageConfig.params.classidName2,
         classidName3: pageConfig.params.classidName3,
     }
-    // 自有埋点注入
-    var payFileResultForVisit_bilog = require("../common/bilog-module/payFileResultForVisit_bilog");
-    // ==== end ====
+   
 
     var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
     var  getIds = require('../application/checkLogin').getIds
@@ -83,7 +81,7 @@ define(function (require, exports, module) {
                         var clsId = getIds().clsId;
                         var fid  = getIds().fid;
                         showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
-                            viewExposure($(this),'login','登录弹窗')
+                            
                             login.getLoginData(function (data) {
                                 common.afterLogin(data,{type:'file',data:data,callback:goPage});
                             });
@@ -118,8 +116,7 @@ define(function (require, exports, module) {
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) 
                                   + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
-                                // 自由埋点
-                                payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, true)
+                              
                             } catch (e) {
 
                             }
@@ -250,13 +247,11 @@ define(function (require, exports, module) {
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
 
-                                // 自由埋点
-                                payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, true)
+                               
                             } catch (e) {
                             }
                         } else if (orderInfo.orderStatus == 3) {
-                            // 自由埋点
-                            payFileResultForVisit_bilog.reportResult(orderInfo, fileInfo, false)
+                            
                         }
                     } else {
                         $.toast({

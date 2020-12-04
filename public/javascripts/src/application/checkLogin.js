@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var showLoginDialog = require('./login').showLoginDialog
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-    var loginResult = require('../common/bilog').loginResult
+   
     module.exports = {
         getIds: function () {
             // 详情页
@@ -88,11 +88,7 @@ define(function (require, exports, module) {
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         if (isFirstLogin) {
-                            loginResult('', 'loginResult', {
-                                loginType: window.loginType && window.loginType.type,
-                                phone: res.data.mobile,
-                                loginResult: "1"
-                            })
+                           
                             handleBaiduStatisticsPush('loginResult', {
                                 loginType: window.loginType && window.loginType.type,
                                 phone: res.data.mobile,
@@ -122,12 +118,7 @@ define(function (require, exports, module) {
                         }
 
                     } else {
-                        loginResult('', 'loginResult', {
-                            loginType: window.loginType && window.loginType.type,
-                            phone: '',
-                            userid: '',
-                            loginResult: "0"
-                        })
+                        
                         handleBaiduStatisticsPush('loginResult', {
                             loginType: window.loginType && window.loginType.type,
                             phone: '',
