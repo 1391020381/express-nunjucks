@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    // var $ = require('$');
+    require('swiper');
     require("../cmd-lib/myDialog");
     var method = require("../application/method");
     var login = require('../application/checkLogin');
@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var format = method.getParam('format');
     var api = require('../application/api');
     var userId;
-    require('swiper');
+   
     var refreshTopBar = require('../application/effect.js').refreshTopBar
     var  recommendConfigInfo = require('../common/recommendConfigInfo.js')
   
@@ -242,14 +242,13 @@ define(function (require, exports, module) {
     $(".js-buy-open").click(function () {
 
         var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-        var entryName_var = payTypeMapping[method.getCookie('file_state')];
-        var entryType_var = method.getCookie('isVip') == 1 ? '续费' : '充值';//充值 or 续费
+        
 
         var mark = $(this).data('type');
         var ref = utils.getPageRef(fid);      //用户来源
         var params = '?fid=' + fid + '&ref=' + ref;
         if (mark === 'vip' || mark === 'default') {
-            __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+           
             method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (mark === 'privilege') {
             method.compatibleIESkip('/pay/privilege.html' + params,true);

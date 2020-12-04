@@ -12,7 +12,6 @@ define(function (require, exports, module) {
     var isAliPay = window.pageConfig.page && window.pageConfig.page.isAliPay
     var isAutoRenew = window.pageConfig.page && window.pageConfig.page.isAutoRenew
    console.log('isAutoRenew:',isAutoRenew,method.getParam('isAutoRenew'))
-    //    var  handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
     var env = window.env
     var urlList = {
         dev: '//dev-ishare.iask.com.cn',

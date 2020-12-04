@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    // var $ = require('$');
+    
     var method = require("../application/method");
     var login = require('../application/checkLogin');
     var utils = require("../cmd-lib/util");
@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
     require("../common/bilog");
-    // require("../common/baidu-statistics");
+    
 
     var userData = null, initData = {};
     eventBinding();
@@ -192,25 +192,7 @@ define(function (require, exports, module) {
     });
 
 
-    // 购买跳转
-    $(".js-buy-open").click(function () {
-
-        var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-        var entryName_var = payTypeMapping[method.getCookie('file_state')];
-        var entryType_var = method.getCookie('isVip') == 1 ? '续费' : '充值';//充值 or 续费
-
-        var mark = $(this).data('type');
-        var ref = utils.getPageRef(fid);      //用户来源
-        var params = '?fid=' + fid + '&ref=' + ref;
-        if (mark === 'vip' || mark === 'default') {
-          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
-            // window.open('/pay/vip.html' + params);
-            // method.compatibleIESkip('/pay/vip.html' + params,true);
-        } else if (mark === 'privilege') {
-            // window.open("/pay/privilege.html" + params);
-            // method.compatibleIESkip('/pay/privilege.html' + params,true);
-        }
-    });
+ 
 
     /**
      * 刷新顶部状态
@@ -342,19 +324,7 @@ define(function (require, exports, module) {
         $detail_lately.on('click', function (event) {
             event.stopPropagation();
         });
-        // 登陆登出在query.js已写 这里重复了
-        // // 登录
-        // $('.user-login,.login-open-vip').on('click', function () {
-        //     if (!method.getCookie('cuk')) {
-        //         login.notifyLoginInterface(function (data) {
-        //             refreshDomTree(data);
-        //         });
-        //     }
-        // });
-        // 登出
-        // $('.btn-exit').on('click', function () {
-        //     login.ishareLogout();
-        // });
+        
     }
 
     //获取百度数据

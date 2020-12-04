@@ -54,7 +54,6 @@ module.exports = function (grunt) {
                     'dist/detail/init.js': ['.build/detail/init.js'],
                     'dist/detail/success.js': ['.build/detail/success.js'],
                     'dist/detail/fail.js': ['.build/detail/fail.js'],
-                    'dist/report/init.js': ['.build/report/init.js'],
                     'dist/pay/init.js': ['.build/pay/init.js'],
                     'dist/pay/cashbar.js': ['.build/pay/cashbar.js'],
                     'dist/search/init.js': ['.build/search/init.js'],

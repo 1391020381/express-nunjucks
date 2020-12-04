@@ -209,7 +209,7 @@ define(function (require, exports, module) {
         } else if (method.getCookie("cuk") && userData) {
             publicDownload();
         }
-        __pc__.gioTrack("docDetailDLClick", downLoadReport);
+        
 
     };
 

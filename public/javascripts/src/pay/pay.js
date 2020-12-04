@@ -1,10 +1,5 @@
 define(function(require, exports, moudle) {
-    // 自有埋点注入
-
     
-    
-    
-   
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -386,30 +381,29 @@ define(function(require, exports, moudle) {
             $("#unLogin").click();
             return;
         }
-        // var ptype = $(this).data("page");  
+      
         var checkStatus = params.type
-        if (checkStatus == '10') { // ptype == 'vip'
+        if (checkStatus == '10') { 
             params.type = '10';
             if ($(".js-tab ul.pay-vip-list").find("li.active").data("vid")) {
                 params.vipMemberId = params.vid = $(".js-tab ul.pay-vip-list").find("li.active").data("vid");
             }
             params.aid = $(".js-tab ul.pay-vip-list").find("li.active").data("actids");
-            //    report.price = $(".js-tab ul.pay-vip-list").find("li.active").data("price");
-            //  report.name = $(".js-tab ul.pay-vip-list").find("li.active").data("month");
+           
             // 带优惠券id
             params.vouchersId = $('.pay-coupon-wrap').attr('vid')
             params.suvid = $('.pay-coupon-wrap').attr('svuid')
             $(".btn-vip-item-selected").attr("pcTrackContent", 'payVip-' + params.vid);
             $(".btn-vip-item-selected").click();
-            // __pc__.push(['pcTrackEvent','payVip-'+params.vid]);
-        } else if (checkStatus == '13') { //  ptype == 'privilege' 
+            
+        } else if (checkStatus == '13') { 
             params.type = '13';
             if ($("ul.pay-pri-list").find("li.active").data("pid")) {
                 params.pid = $("ul.pay-pri-list").find("li.active").data("pid");
                 params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             }
             params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
-            //     report.price = $("ul.pay-pri-list").find("li.active").data("price");
+            
         } else if (checkStatus == '8') { // ptype === 'file'
             params = {
                 fid: pageConfig.params.g_fileId,
@@ -511,7 +505,7 @@ define(function(require, exports, moudle) {
                     data['remark'] = temp.remark;
                     openWin(data);
                 } else {
-                    // __pc__.push(['pcTrackEvent','orderFail']);
+                  
                     $(".btn-vip-order-fail").click();
                     utils.showAlertDialog("温馨提示", '下单失败');
 

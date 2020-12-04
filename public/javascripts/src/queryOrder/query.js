@@ -4,7 +4,7 @@
 define(function (require, exports, module) {
     // var $ = require('$');
     require('../application/suspension');
-    var app = require("../application/app");
+   
     var api = require('../application/api');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -12,9 +12,7 @@ define(function (require, exports, module) {
     var common = require('../detail/common');
     require("../common/coupon/couponIssue");
     var refreshTopBar = require('../application/effect.js').refreshTopBar
-    var payTypeMapping = ['', '免费', '下载券', '现金', '仅供在线阅读', 'VIP免费', 'VIP专享'];
-    var entryName_var = payTypeMapping[pageConfig.params.file_state];
-    var entryType_var = window.pageConfig.params.isVip == 1 ? '续费' : '充值';//充值 or 续费
+    
     /** 用户信息 */
     var userInfo = null;
     /** 文件信息 */
@@ -28,9 +26,7 @@ define(function (require, exports, module) {
         pageInitShow();
         // 访问记录
         storeAccessRecord()
-      //  getUserInfos();
-        // // 进入页面判断是否登陆 否 - 弹出登录弹窗
-        // loginPopShow();
+     
     }
 
     
@@ -519,22 +515,21 @@ define(function (require, exports, module) {
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
-        //文件信息存入cookie方便gio上报
-        // method.setCookieWithExpPath('rf', JSON.stringify(gioPayDocReport), 5 * 60 * 1000, '/');
+        
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
 
         if (type === 'file') {
             params = '?orderNo=' + fid + '&referrer=' + document.referrer;
-            // window.location.href = "/pay/payConfirm.html" + params;
+            
             method.compatibleIESkip("/pay/payConfirm.html" + params,false);
         } else if (type === 'vip') {
-          //  __pc__.gioTrack("vipRechargeEntryClick", { 'entryName_var': entryName_var, 'entryType_var': entryType_var });
+         
             var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // window.open("/pay/vip.html" + params);
+           
             method.compatibleIESkip('/pay/vip.html' + params,true);
         } else if (type === 'privilege') {
             var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-            // window.open("/pay/privilege.html" + params);
+          
             method.compatibleIESkip('/pay/privilege.html' + params,true);
         }
     }
