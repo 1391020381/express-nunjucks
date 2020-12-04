@@ -95,30 +95,22 @@ module.exports = {
                 // console.log('$http---------:',opt.url,error,body)
                 let is4paradigm = opt.url.includes('https://nbrecsys.4paradigm.com/')
                 let isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk')
+               
                 if (body) {
                     try {
                         var data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
+                           
                         }
-                        // if (isGetFileDetailNoTdk&&data.code !='0'&&data.code!='G-404') { // 详情接口
-                        //     console.log('$http---------:', JSON.stringify(opt), error, body)
-                        //     reject(body)
-                        // } if(!is4paradigm &&  data.code != '0'){
-                        //     console.log('$http---------:', JSON.stringify(opt), error, body)
-                        //     reject(body)
-                        // } else {
-                        //     //   console.log('$http---------:', JSON.stringify(opt), error, body)
-                        //     resolve(data)
-                        // }
                         if((isGetFileDetailNoTdk&&data.code=='G-404')||is4paradigm){ // 非标准判断
-                            resolve(body)
+                            resolve(data)
                         }else{
                             if(data.code==0){
-                                resolve(body)
+                                resolve(data)
                             }else{
-                                console.log('$http---------:', JSON.stringify(opt), body)
-                                reject(body)
+                                console.log('$http---------:', JSON.stringify(opt), data)
+                                reject(data)
                             }
                         }
                     } catch (err) {
