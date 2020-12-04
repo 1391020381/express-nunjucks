@@ -2,7 +2,7 @@
  * 办公频道 类目/搜索页
  */
 define(function (require, exports, module) {
-    // require("../../common/baidu-statistics");
+  
     var suspension = require('../common/suspension');
     var app = require("../../application/app");
     var method = require("../../application/method");
