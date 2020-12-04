@@ -8,7 +8,7 @@ define(function(require, exports, moudle) {
     var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
-    require("../common/bilog");
+    
     
     
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
@@ -742,8 +742,7 @@ define(function(require, exports, moudle) {
         // var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
         var format = window.pageConfig && window.pageConfig.params.format
         var title = window.pageConfig && window.pageConfig.params.title || $('.data-name').text()
-        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title),
-            bilogResult = null;
+        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title)
         if (orderInfo.goodsType === 1) {
             // 购买文件成功
             href += '&type=2';
@@ -754,14 +753,7 @@ define(function(require, exports, moudle) {
                 //  report.docPaySuccess(rf);
                 method.delCookie('rf', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-            };
+            
 
            
 
@@ -773,17 +765,7 @@ define(function(require, exports, moudle) {
                 // report.vipPaySuccess(JSON.parse(rv));
                 method.delCookie('rv', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                vipID: orderInfo.reportData.id,
-                vipName: orderInfo.reportData.name,
-                vipPrice: orderInfo.reportData.payPrice || '',
-            };
+            
 
           
 
@@ -798,24 +780,12 @@ define(function(require, exports, moudle) {
                 // report.privilegePaySuccess(JSON.parse(rp));
                 method.delCookie('rp', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                privilegeID: orderInfo.reportData.id,
-                privilegeName: orderInfo.reportData.name,
-                privilegePrice: orderInfo.reportData.payPrice || '',
-            };
+            
 
             
         }
 
-        // 自有埋点用到
-        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-        // window.location.href = href;
+       
         method.compatibleIESkip(href, false);
     }
 
@@ -827,69 +797,29 @@ define(function(require, exports, moudle) {
      */
     function goodsPayFail(orderInfo, orderNo) {
         // 携带参数,上报数据
-        var href = '/pay/fail.htm' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
-            bilogResult = null;
+        var href = '/pay/fail.htm' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid;
         if (orderInfo.goodsType == 1) {
             // 购买文件失败
             href += "&type=2";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-            };
-
-           
-
         } else if (orderInfo.goodsType == 2) {
             // 购买vip失败
             href += "&type=0";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                vipID: orderInfo.reportData.id,
-                vipName: orderInfo.reportData.name,
-                vipPrice: orderInfo.reportData.payPrice || '',
-            };
-
-         
-
         } else if (orderInfo.goodsType == 8) {
             // 购买下载特权失败
-            href += "&type=1";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice || '',
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                privilegeID: orderInfo.reportData.id,
-                privilegeName: orderInfo.reportData.name,
-                privilegePrice: orderInfo.reportData.payPrice || '',
-            };
-
-           
+            href += "&type=1";   
         }
-
-        // 自由埋点用到
-        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-        // window.location.href = href;
         method.compatibleIESkip(href, false);
     }
 
-    // ===== end ====
+  
 
     $(".btn-back").click(function() {
         var referrer = document.referrer;
         if (referrer) {
-            // window.location.href = referrer;
+           
             method.compatibleIESkip(referrer, false);
         } else {
-            // window.location.href = "/";
+           
             method.compatibleIESkip("/", false);
         }
     });
@@ -922,17 +852,13 @@ define(function(require, exports, moudle) {
                     var browserEnv = method.browserType();
                     method.delCookie("event_data_down", "/");
                     if (browserEnv === 'IE' || browserEnv === 'Edge') {
-                        // window.location.href = res.data;
+                       
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     } else if (browserEnv === 'Firefox') {
-                        // var downLoadURL = res.data;
-                        // var sub = downLoadURL.lastIndexOf('&fn=');
-                        // var sub_url1 = downLoadURL.substr(0, sub + 4);
-                        // var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
-                        // window.location.href = sub_url1 + sub_ur2;
+                        
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     } else {
-                        // window.location.href = res.data;
+                        
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     }
                 } else {

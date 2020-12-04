@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     require("./paging");
     require('./expand');
     require("./buyUnlogin");
-    require("../common/bilog");
+    
     require('../detail/paradigm4');
     require('./banner.js')
    

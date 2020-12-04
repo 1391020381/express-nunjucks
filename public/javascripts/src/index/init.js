@@ -12,7 +12,7 @@ define(function (require,exports,moudle) {
     var api = require("../application/api");
     
                          
-    // require('../common/bilog');
+    
     /**
      * 推荐多图点击轮播
      * @type {{moreIndex: number, init: init, distance: number, domRend: domRend, index: number, slideLeft: slideLeft, slideRight: slideRight}}

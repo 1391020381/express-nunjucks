@@ -17,7 +17,7 @@ define(function (require, exports, module) {
     var showTouristLogin = require('../application/login').showTouristLogin
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
-    require("../common/bilog");
+    
    
     var userData = null, initData = {};
     eventBinding();

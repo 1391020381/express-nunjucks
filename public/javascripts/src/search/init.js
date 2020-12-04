@@ -5,7 +5,7 @@ define(function(require , exports , module){
     isLogin(callback,isAutoLogin)
     require('./search');
     require('./banner')
-    require('../common/bilog')
+    
     require('../application/suspension')
     
 });

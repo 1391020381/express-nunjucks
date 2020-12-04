@@ -104,12 +104,11 @@ define(function (require, exports, module) {
         }
     });
 
-    var bilog = require("../common/bilog");
+    
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;
     return {
         method: method,
-        v: "1.0.1",
-        bilog: bilog
+        v: "1.0.1"
     }
 });

@@ -42,7 +42,7 @@
 <div class="btn-data-con">
     <p>仅供在线阅读</p>
     <div class="btn-con mt18">
-        <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVipPr" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP，享更多特权</a>
+        <a class="btn-detail-vip js-buy-open " pcTrackContent="joinVip-1"  loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP，享更多特权</a>
     </div>
 </div>
 {{/if}}
@@ -51,7 +51,7 @@
     <!--VIP免费-->
     {{if data.vipFreeFlag == 1}}
         <div class="btn-con mt18">
-            <a class="btn-state-red pc_click" pcTrackContent='downloadBtn-2' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>
+            <a class="btn-state-red " pcTrackContent='downloadBtn-2'  data-toggle="download"><i class="icon-detail"></i>立即下载</a>
         </div>
     {{else}}
     {{if data.perMin == "3"}}
@@ -64,11 +64,11 @@
                 <p class="origin-price">原价&yen; {{data.moneyPrice}}</p>
             </div>
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid js-buy-open  pc_click"  pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" data-type="file">立即购买</a>
+                <a class="btn-state-red btn-buy-solid js-buy-open  "  pcTrackContent="buyBtn-2"  data-type="file">立即购买</a>
             </div>
         {{else}}
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
+                <a class="btn-state-red btn-buy-solid " pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
             </div>
         {{/if}}
 
@@ -80,12 +80,12 @@
                 <p class="vip-sale-price">会员价&yen;{{(data.moneyPrice*1000/1250).toFixed(2)}}起</p>
             </div>
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid btn-buy-border js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
-                <a class="btn-detail-vip js-buy-open pc_click" pcTrackContent="joinVip-1" bilogContent="fileDetailMiddleOpenVip8" loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP, 8折起</a>
+                <a class="btn-state-red btn-buy-solid btn-buy-border js-buy-open " pcTrackContent="buyBtn-2"  loginOffer="buyBtn-2" data-type="file">立即购买</a>
+                <a class="btn-detail-vip js-buy-open " pcTrackContent="joinVip-1"  loginOffer="joinVip-1" data-type="vip"><i class="icon-detail"></i>开通VIP, 8折起</a>
             </div>
         {{else}}
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
+                <a class="btn-state-red btn-buy-solid " pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
             </div>
         {{/if}}
 
@@ -97,11 +97,11 @@
                 </div>
             </div>
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid js-buy-open pc_click" pcTrackContent="buyBtn-2" bilogContent="fileDetailMiddleBuy" loginOffer="buyBtn-2" data-type="file">立即购买</a>
+                <a class="btn-state-red btn-buy-solid js-buy-open " pcTrackContent="buyBtn-2"  loginOffer="buyBtn-2" data-type="file">立即购买</a>
             </div>
         {{else}}
             <div class="btn-con mt18">
-                <a class="btn-state-red btn-buy-solid pc_click" pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
+                <a class="btn-state-red btn-buy-solid " pcTrackContent='downloadBtn-2' data-toggle="download" loginOffer="downloadBtn-2">立即下载</a>
             </div>
         {{/if}}
     {{/if}}
@@ -111,7 +111,7 @@
             <p class="ticket-num"><i class="icon-detail"></i>{{data.volume}}下载券</p>
         {{/if}}
         <div class="btn-con mt18">
-            <a class="btn-state-red pc_click" pcTrackContent='downloadBtn-2' bilogContent="fileDetailMiddleDown" data-toggle="download"><i class="icon-detail"></i>立即下载</a>
+            <a class="btn-state-red " pcTrackContent='downloadBtn-2'  data-toggle="download"><i class="icon-detail"></i>立即下载</a>
         </div>
     {{/if}}
     {{/if}}

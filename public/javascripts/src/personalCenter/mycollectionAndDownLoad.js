@@ -312,12 +312,11 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
 
 
 
-  $('#dialog-box').on('click','.close-btn',function(e){
-    var  bilogContent = $(this).attr('bilogContent')
-    if(bilogContent){
-       
+  $('#dialog-box').on('click','.close-btn',function(e){  
+    if(isAppraise!=1){
         getDownloadRecordList()
     }
+ 
     score = 0
     closeRewardPop();
 })
@@ -373,8 +372,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
             getDownloadRecordList(paginationCurrentPage)
         }
        
-    //     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:paginationCurrentPage});
-    //   $(".pagination-wrapper").html(_simplePaginationTemplate)
+    
     })
   } 
 });

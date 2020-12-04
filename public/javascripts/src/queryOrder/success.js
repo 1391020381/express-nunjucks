@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var userId;
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
-    require("../common/bilog");
+   
     
 
     var userData = null, initData = {};

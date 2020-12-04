@@ -44,7 +44,7 @@ define(function (require, exports, module) {
        
         method.get(api.normalFileDetail.filePreDownLoad + '?fid=' + fid, function (res) {
             if (res.code == 0) {
-                //阻塞下载gio上报
+               
                 bouncedType(res);
             
                 // 42000  42001 42002  私有文件禁止下载 ,文件禁止下载,下载过于频繁,您已被限制下载，
@@ -186,7 +186,7 @@ define(function (require, exports, module) {
      * 预下载
      */
     var preDownLoad = function () {
-        //gio上报-下载按钮点击
+       
         if (!method.getCookie("cuk")) {
 
             login.notifyLoginInterface(function (data) {
