@@ -3,7 +3,7 @@
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
-    
+    var api = require("./api");
     var loginTypeContent = require('../common/loginType')
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
@@ -143,16 +143,55 @@ define(function (require, exports, module) {
             callback && callback()
         }
     }
-
+    isHasPcMLogin()
     // 首页 详情 登录领取红包
     $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
+       var   abTest = window.pageConfig.page.abTest
+       if(abTest =='a'){
+            method.setCookieWithExpPath('isShowDetailALoginRedPacket',1)
+       }else if(abTest =='b'){
+           method.setCookieWithExpPath('isShowDetailBLoginRedPacket',1)
+       }else{
+           method.setCookieWithExpPath('isShowIndexLoginRedPacket',1)
+       }
         $('.loginRedPacket-dialog').hide()
     })
     $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
         $('.detail-unLogin').trigger('click')
         $('.notLogin').trigger('click')
-        $('.loginRedPacket-dialog').hide()
+      //  $('.loginRedPacket-dialog').hide()
     })
+
+    
+    function isHasPcMLogin(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'PC-M-Login'),
+            type: "GET",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                console.log(res)
+                if (res.code == 0 && res.data && res.data.length) {
+                    var item = res.data[0];
+                    if (item.pcode == 'PC-M-Login') {
+                        var   abTest = window.pageConfig.page.abTest
+                        if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
+                            $('.loginRedPacket-dialog').removeClass('hide')
+                        }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
+                            $('.loginRedPacket-dialog').removeClass('hide')
+                        }else if(!abTest&&!method.getCookie('isShowIndexLoginRedPacket')){
+                            $('.loginRedPacket-dialog').removeClass('hide')
+                        }
+                        
+                    }
+                }
+            }
+        })
+    }
+    
+
     return {
         refreshTopBar: refreshTopBar,
         isLogin: isLogin
