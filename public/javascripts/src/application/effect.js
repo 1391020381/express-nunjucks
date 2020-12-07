@@ -146,7 +146,7 @@ define(function (require, exports, module) {
     isHasPcMLogin()
     // 首页 详情 登录领取红包
     $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
-       var   abTest = window.pageConfig.page.abTest
+        var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
        if(abTest =='a'){
             method.setCookieWithExpPath('isShowDetailALoginRedPacket',1)
        }else if(abTest =='b'){
@@ -176,7 +176,7 @@ define(function (require, exports, module) {
                 if (res.code == 0 && res.data && res.data.length) {
                     var item = res.data[0];
                     if (item.pcode == 'PC-M-Login') {
-                        var   abTest = window.pageConfig.page.abTest
+                        var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
                         if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
                             $('.loginRedPacket-dialog').removeClass('hide')
                         }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
