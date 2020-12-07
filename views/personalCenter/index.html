@@ -84,9 +84,15 @@
                {% endif %}
         </div>  
    </div>
-    {# {% include "../common/footer.html" %} #}
+   
     <!-- 签到弹窗 -->
     {% include "common/wechatSign-dialog.html" %}
+
+    <!-- 评价有礼弹窗 -->
+<div class="reviewGift-dialog-wrap" style="display:none;">
+   {% include "detail/reviewGift-dialog.html" %}
+</div>
+
     <!-- 底部 start-->
 {% include "common/new/footer.html" %}
     {% include "common/js.html" %}
@@ -95,11 +101,9 @@
 {% include "common/suspension.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
-{# {% include "common/dialog.html" %} #}
+
   {% if results.type == 'accountsecurity' %}
-    <!--天御图形验证码 -->
-{# <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script> #}
-{# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}
+
   {% endif %}
 {% include "./dialog.html" %}
     <script type="text/javascript">
