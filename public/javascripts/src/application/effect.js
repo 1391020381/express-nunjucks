@@ -143,6 +143,16 @@ define(function (require, exports, module) {
             callback && callback()
         }
     }
+
+    // 首页 详情 登录领取红包
+    $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
+        $('.loginRedPacket-dialog').hide()
+    })
+    $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
+        $('.detail-unLogin').trigger('click')
+        $('.notLogin').trigger('click')
+        $('.loginRedPacket-dialog').hide()
+    })
     return {
         refreshTopBar: refreshTopBar,
         isLogin: isLogin
