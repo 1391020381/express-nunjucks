@@ -85,7 +85,7 @@
             <ul>
                 {% for item in results.list.data.rows %}
                <li>
-                   <div class="search-img-box" contentId="{{item.contentId}}">
+                   <div class="search-img-box" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
                         <img src="{{item.fileSmallPic}}" alt="">
                         <div class="mask-container">
                             <div class="bg-mask"></div>
@@ -97,7 +97,7 @@
                         <div class="title-hover"><span>{{item.contentName}}</span></div>
                    </div>
                  
-                   <div class="search-list-info">
+                   <div class="search-list-info"  contentId="{{item.contentId}}" fileName="{{item.contentName}}">
                         <a href="/f/{{item.contentId}}.html" target="_blank">{{item.contentName}}</a>
                         <div class="search-info-state">
                             <div class="search-info-state-item">

@@ -60,6 +60,11 @@ define(function (require, exports, module) {
         IframeMessengerList[iframeId].listen(function (res) {
             console.log('客户端监听-数据', res);
             if (res.userData) {
+                iask_web.track_event('SE001', "loginResult", 'query', {
+                    loginResult:'1',
+                    failMsg:'',
+                    loginType: res.formData
+                });
                 loginInSuccess(res.userData, res.formData, successFun)
             } else {
                 loginInFail(res.formData);
@@ -75,9 +80,11 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-      
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:'login',
+            moduleName:'登录弹窗'
+        });
         var loginDialog = $('#login-dialog')
-        
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         $("#dialog-box").dialog({
@@ -87,7 +94,10 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-       
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:'login',
+            moduleName:'登录弹窗'
+        });
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
