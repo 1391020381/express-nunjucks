@@ -16,22 +16,56 @@
             color: #9A9A9A;
         }
     }
-    .myuploads-tabs{
+    .myuploads-select{
         .cf();
-        .tab{
+        .myuploads-tabs{
             float: left;
-            margin-right: 30px;
-            padding-bottom: 7px;
-            cursor: pointer;
-        }
-        .tab-active{
-            border-bottom: solid 2px #F25226;
-            a{
-                color: #222222;
-                font-weight: bold;
+            margin-top:5px;
+            .cf();
+            .tab{
+                float: left;
+                margin-right: 30px;
+                padding-bottom: 7px;
+                cursor: pointer;
+            }
+            .tab-active{
+                border-bottom: solid 2px #F25226;
+                a{
+                    color: #222222;
+                    font-weight: bold;
+                }
             }
         }
+        .select-list{
+            .cf();
+            float: right;
+            .list-item{
+                margin-left: 15px;
+                margin-right: 15px;
+                font-size: 14px;
+                color: #666666;
+            }
+            .list-select{
+                height: 34px;
+                line-height: normal;
+                color: #333333;
+                padding-left: 10px;
+                padding-right: 30px;
+                position: relative;
+                &::after{
+                    content: "";
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    left:0;
+                    top: 0;
+                    background: red;
+                  }
+            }
+            
+        }
     }
+    
     .table-title{
         margin-top:10px;
         margin-bottom: 0px;

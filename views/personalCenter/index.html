@@ -56,6 +56,10 @@
               {% if results.type =='myorder' %}
                <input type="hidden" id="ip-page-id" value="PC-M-USER-ORD">
              <input type="hidden" id="ip-page-name" value="个人中心-我的订单">
+                   <!-- 评价有礼弹窗 -->
+               <div class="reviewGift-dialog-wrap" style="display:none;">
+                 {% include "detail/reviewGift-dialog.html" %}
+              </div>
                {% include "personalCenter/myorder.html" %}
              {% endif %}
 
@@ -88,10 +92,7 @@
     <!-- 签到弹窗 -->
     {% include "common/wechatSign-dialog.html" %}
 
-    <!-- 评价有礼弹窗 -->
-<div class="reviewGift-dialog-wrap" style="display:none;">
-   {% include "detail/reviewGift-dialog.html" %}
-</div>
+
 
     <!-- 底部 start-->
 {% include "common/new/footer.html" %}
