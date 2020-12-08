@@ -153,12 +153,28 @@ define(function (require, exports, module) {
            method.setCookieWithExpPath('isShowDetailBLoginRedPacket',1)
        }else{
            method.setCookieWithExpPath('isShowIndexLoginRedPacket',1)
+           iask_web.track_event('NE002', "normalClick", 'click', {
+            domID:'close',
+            domName:'关闭'
+        });
        }
         $('.loginRedPacket-dialog').hide()
     })
     $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
-        $('.detail-unLogin').trigger('click')
-        $('.notLogin').trigger('click')
+        var abTest = window.pageConfig.page&&window.pageConfig.page.abTest
+        if(abTest == 'a'){
+            $('.detail-unLogin').trigger('click')
+        }else if(abTest == 'b'){
+            $('.detail-unLogin').trigger('click')
+        }else{
+            $('.notLogin').trigger('click')
+            iask_web.track_event('NE002', "normalClick", 'click', {
+                domID:'confirm',
+                domName:'确定'
+            });
+        }
+    
+       
       //  $('.loginRedPacket-dialog').hide()
     })
 
@@ -183,6 +199,10 @@ define(function (require, exports, module) {
                             $('.loginRedPacket-dialog').removeClass('hide')
                         }else if(!abTest&&!method.getCookie('isShowIndexLoginRedPacket')){
                             $('.loginRedPacket-dialog').removeClass('hide')
+                            iask_web.track_event('NE006', "modelView", 'view', {
+                                moduleID:'activityFloat',
+                                moduleName:'活动浮层'
+                            });
                         }
                         
                     }

@@ -1,15 +1,7 @@
 define(function (require, exports, module) {
     var method = require("./method");
-    require("./element");
-    require("./extend");
-    require('./effect.js')
-    require('./login')
-    window.template = require("./template");
-    require("./helper");
-    var api = require("./api");
-    var singleLogin = require('./single-login').init
-    var url = api.user.dictionaryData.replace('$code', 'singleLogin');
     var urlConfig=require('./urlConfig');
+    var api = require("./api");
     new ISHARE_WEB_SDK({  //埋点初始化
         PRODUCT_CONFIG:{
             TERMINAL_TYPE: '0',        // 终端类型
@@ -21,7 +13,21 @@ define(function (require, exports, module) {
         TRACK_TYPE:'get',//请求方式post get(目前m端是post,pc端是get)
         TRACK_URL:urlConfig.bilogUrl   //上报服务器地址
     })
+    getVisitUserId();
 
+
+    
+    require("./element");
+    require("./extend");
+    require('./effect.js')
+    require('./login')
+    window.template = require("./template");
+    require("./helper");
+    
+    var singleLogin = require('./single-login').init
+    var url = api.user.dictionaryData.replace('$code', 'singleLogin');
+   
+  
     $.ajax({
         url: url,
         type: "GET",
@@ -85,7 +91,7 @@ define(function (require, exports, module) {
             })
     }
 
-    getVisitUserId();
+    
 
     $.ajaxSetup({
         headers: {
