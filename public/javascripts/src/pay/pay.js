@@ -39,10 +39,20 @@ define(function(require, exports, moudle) {
         }
     }
     if (location.pathname == '/pay/payConfirm.html') {
-        
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:"filePayCon",
+            moduleName:'资料支付弹窗'
+        });
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
+    }
+    if (location.pathname == '/pay/privilege.html') {
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:"buyTqCon",
+            moduleName:'特权补充弹窗'
+        });
+       
     }
 
 
@@ -60,10 +70,12 @@ define(function(require, exports, moudle) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
         }else{
+
             // 加油包判断是否是vip
         if(location.pathname == "/pay/privilege.html"){
              method.compatibleIESkip('/pay/vip.html', false);
         }
+
         }
         $(function() {
 
@@ -473,8 +485,8 @@ define(function(require, exports, moudle) {
         if (isAutoRenew == '1') {
             goodsType = $('.renewal-radio #renewal').attr('checked') ? 12 : goodsType // 续费
         }
-
-        if(goodsType == '2'){
+       // 物品类型 1-购买资料 2-购买VIP 4-购买爱问豆 8-下载特权 10-免费资料 11-vip专享资料 12-VIP套餐(签约)
+        if(goodsType == '2'){ 
             var activeLi = $('.pay-vip-list .ui-tab-nav-item.active')
             var  payCoupon = $('.pay-coupon-wrap')
             iask_web.track_event('SE010', "payVipClick", 'click', {
@@ -483,6 +495,22 @@ define(function(require, exports, moudle) {
                 vipPrice:activeLi.attr('data-price'),
                 couponID:payCoupon.attr('vid'),
                 coupon:payCoupon.attr('svuid')
+            });
+        }
+        if(goodsType == '1'){ 
+            
+            iask_web.track_event('SE008', "payFileClick", 'click', {
+               fileID:method.getParam('orderNo'),
+               fileName:$('.data-info .data-name a').text(),
+               salePrice:$('.price-text-con .price').text()
+            });
+        }
+
+        if(goodsType == '8'){ 
+            
+            iask_web.track_event('SE008', "payPrivilegeClick", 'click', {
+                privilegeName:$('.pay-pri-list .ui-tab-nav-item.active .privilege-price').text(),
+                privilegePrice:$('.price-text-con .price').text()
             });
         }
 

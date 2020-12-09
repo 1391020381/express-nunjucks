@@ -11,6 +11,10 @@ define(function(require , exports , module){
     var userInfo = {}
     if(type == 'home'){
         isLogin(initData,true)
+        iask_web.track_event('NE030', "pageTypeView", 'page', {
+            pageID:"UC",
+            pageName:'个人中心页-首页'
+        });
     }
     function initData(data){
            userInfo = data
@@ -122,8 +126,7 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                    console.log('getFileBrowsePage:',res)
-                    // data.rows
+                   
                     if(res.data.rows&&res.data.rows.length){
                         var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlySee',data:res.data.rows||[]});
                         $(".recently-see").html(_homeRecentlySeeTemplate);
@@ -247,7 +250,7 @@ define(function(require , exports , module){
                 $(recommendConfigInfo.myVipRightsList.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_vip'){ // search-all-main-bottombanner
-                            console.log('PC_M_USER_vip:',k.list)
+                           
                             var _vipPrivilegeListHtml = template.compile(vipPrivilegeList)({ list: k.list});
                             $('.personal-center-home .vip-privilege-items-wrapper').html(_vipPrivilegeListHtml);
                           

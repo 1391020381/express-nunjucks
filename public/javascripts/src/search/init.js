@@ -11,7 +11,9 @@ define(function(require , exports , module){
     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
     iask_web.track_event('NE030', "pageTypeView", 'page', {
         pageID:'SR',
-        pageName:"搜索结果页",
+        pageName:"搜索结果页"
+    });
+    iask_web.track_event('SE015', "pageTypeView", 'page', {
         keyWords:cond
     });
     $('.landing-txt-list .li-file').on('click',function(){

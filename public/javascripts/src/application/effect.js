@@ -6,12 +6,20 @@ define(function (require, exports, module) {
     var api = require("./api");
     var loginTypeContent = require('../common/loginType')
     $("#unLogin").on("click", function () {
+       
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
     });
 
     $(".loginOut").on("click", function () {
+        var pageName =  window.pageConfig.page&&window.pageConfig.page.pageName
+        if(pageName == 'personalCenter'){
+            iask_web.track_event('NE002', "normalClick", 'click', {
+             domID:'exit',
+             domName:'退出登录'
+         });
+        }
         checkLogin.ishareLogout();
     });
 
