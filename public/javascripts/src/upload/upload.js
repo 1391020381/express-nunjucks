@@ -697,7 +697,8 @@ define(function(require , exports , module){
                             }
                         }
                         uploadObj.dataVerify(item,index)
-                        var obj = JSON.parse(JSON.stringify(item))
+                        var fileName = item.fileName.substring(0,item.fileName.indexOf('.'))
+                        var obj = JSON.parse(JSON.stringify($.extend({},item,{fileName:fileName})))
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
                         }
