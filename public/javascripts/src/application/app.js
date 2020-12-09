@@ -11,7 +11,8 @@ define(function (require, exports, module) {
             PRODUCT_VER: 'V1.0.0',     // 产品版本
         },
         TRACK_TYPE:'get',//请求方式post get(目前m端是post,pc端是get)
-        TRACK_URL:urlConfig.bilogUrl   //上报服务器地址
+        TRACK_URL:urlConfig.bilogUrl,   //上报服务器地址
+        PAGEVIEW:true
     })
     getVisitUserId();
 

@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-    
+    var urlConfig = require('../application/urlConfig')
 
     var IframeMessenger = require('./iframe/iframe-messenger');
 
@@ -52,7 +52,9 @@ define(function (require, exports, module) {
                 fid: params.fid,
                 jsId: params.jsId,
                 redirectUrl:window.location.href,
-                originUrl:urlList[env]
+                originUrl:urlList[env],
+                bilogUrl:urlConfig.bilogUrl,
+                visitor_id:method.getCookie('visitor_id')
             });
         }
 
@@ -72,9 +74,13 @@ define(function (require, exports, module) {
         })
 
         // 关闭弹窗按钮
-        $('.dialog-box .close-btn').on('click', function () {
+        $('#dialog-box .login-dialog .close-btn').on('click', function () {
             // 主动关闭弹窗-需通知登录中心
             IframeMessengerList[iframeId].send({isOpen: false});
+            iask_web.track_event('NE002', "normalClick ", 'click', {
+                moduleID:'closeLogin',
+                moduleName:'登录页关闭'
+            });
             closeRewardPop()
         })
     }
