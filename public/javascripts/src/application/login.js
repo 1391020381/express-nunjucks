@@ -147,12 +147,18 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
-           
+            iask_web.track_event('NE006', "modelView", 'view', {
+                moduleID:'noLgFPayCon',
+                moduleName:'免登录资料支付弹窗'
+            })
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
-           
+            iask_web.track_event('NE006', "modelView", 'view', {
+                moduleID:'login',
+                moduleName:'登录弹窗'
+            })
             $('.tourist-purchase-dialog .tourist-purchase-content').hide()
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
         }

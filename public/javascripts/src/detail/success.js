@@ -17,7 +17,10 @@ define(function (require, exports, module) {
     var showTouristLogin = require('../application/login').showTouristLogin
     require("../common/bindphone");
     require("../common/coupon/couponIssue");
-    
+    iask_web.track_event('NE006', "modelView", 'view', {
+        moduleID:'downSucCon',
+        moduleName:'下载成功弹窗'
+    })
    
     var userData = null, initData = {};
     eventBinding();

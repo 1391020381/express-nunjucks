@@ -156,6 +156,10 @@ define(function (require, exports, module) {
                 goLocalTab('/pay/vip.html' + params);
                 break; 
             case 13:
+                iask_web.track_event('NE006', "modelView", 'view', {
+                    moduleID:'buyTqCon',
+                    moduleName:'特权补充弹窗'
+                })
                 $dialogBox.dialog({
                     html: $permanent_privilege_not.html()
                         .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
@@ -240,6 +244,12 @@ define(function (require, exports, module) {
                         console.log(res)
                         if(res.code == '0'){
                           if(res.data.checkStatus == 0 && res.data.consumeStatus ==2){ // consumeStatus == 2 用下载特权消费的
+                             
+                            iask_web.track_event('NE006', "modelView", 'view', {
+                                moduleID:'vipTqCon',
+                                moduleName:'特权兑换弹窗'
+                            })
+
                             $dialogBox.dialog({
                                 html: $permanent_privilege.html()
                                     .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
@@ -272,6 +282,17 @@ define(function (require, exports, module) {
     }
 
     var getFileDownLoadUrl  = function (){
+        var page = window.pageConfig.page
+        var params = window.pageConfig.params 
+        iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
+            fileID:params.g_fileId,
+            fileName:page.fileName,
+            salePrice:params.productPrice,
+            saleType:params.productType,
+            fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+            fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+        });
+
         $.ajax({
             headers:{
                 'Authrization':method.getCookie('cuk')

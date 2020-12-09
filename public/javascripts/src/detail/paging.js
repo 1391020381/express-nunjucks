@@ -24,7 +24,7 @@ define(function(require, exports, module) {
         goSwiper: null,
         //判断是否已经是最后一页
         isHideMore: function(pageNum) { // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
-            if (pageNum >= limitPage && limitPage < totalPage) { // 试读结束
+            if (pageNum >= limitPage && limitPage <= totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {
                 $(".show-over-text").eq(1).show();
@@ -510,24 +510,44 @@ define(function(require, exports, module) {
     function loadMore(page) {
         cPage = page || cPage;
         var drawingPage = (cPage + 5) <= limitPage ? (cPage + 5) : limitPage;
+        var params = window.pageConfig.params
         //加载更多开始
         action.drawing(drawingPage);
         var loadedPage = $(".detail-pro-con div.article-page").length;
         //如果已经到最后了
-        if (loadedPage - limitPage >= 0) {
+        if (loadedPage - limitPage >= 0 || loadedPage == totalPage) {
             action.isHideMore(loadedPage);
             if ($('.red-color').text() !== '点击可继续阅读 >') {
+                 
+              
+                iask_web.track_event('SE035', "fileDetailBottomDownClick", 'click', {
+                    fileID:params.g_fileId,
+                    fileName:params.file_title,
+                    salePrice:params.productPrice,
+                    saleType:params.productType,
+                    fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+                    fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+                });
+
                 readMoreTextEvent()
+            }else{
+                iask_web.track_event('NE029', "fileListNormalClick", 'click', {
+                    domID:'continueRead',
+                    domName:'继续阅读',
+                    fileID:params.g_fileId,
+                    fileName:params.file_title,
+                    saleType:params.productType
+                });
             }
             changeText()
         }
-        if (loadedPage == totalPage) {
-            action.isHideMore(loadedPage);
-            if ($('.red-color').text() !== '点击可继续阅读 >') {
-                readMoreTextEvent()
-            }
-            changeText()
-        }
+        // if (loadedPage == totalPage) {
+        //     action.isHideMore(loadedPage);
+        //     if ($('.red-color').text() !== '点击可继续阅读 >') {
+        //         readMoreTextEvent()
+        //     }
+        //     changeText()
+        // }
         loadMoreStyle()
         
     }

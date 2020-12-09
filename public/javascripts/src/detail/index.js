@@ -12,10 +12,23 @@ define(function (require, exports, module) {
     var common = require('./common');
     
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName
+    var page = window.pageConfig.page
+    var params = window.pageConfig.params
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
     handleBaiduStatisticsPush('fileDetailPageView')
-
+    iask_web.track_event('NE030', "pageTypeView", 'page', {
+        pageID:'FD',
+        pageName:'资料详情'
+    });
+    iask_web.track_event('SE002', "fileDetailPageView", 'page', {
+        fileID:params.g_fileId,
+        fileName:page.fileName,
+        salePrice:params.productPrice,
+        saleType:params.productType,
+        fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+        fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+    });
     // 初始化显示
     initShow();
     // 初始化绑定
@@ -229,6 +242,14 @@ define(function (require, exports, module) {
     }
 
     function sendEmail() {
+        var params = window.pageConfig.params 
+        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+            domID:"sendemail",
+            domName:"发送邮箱",
+            fileID:params.g_fileId,
+            fileName:params.file_title,
+            saleType:params.productType
+        });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
         // var reward = window.pageConfig.reward;
         // if (reward.value == "-1") { // 老用户VIP正常弹起
@@ -553,6 +574,15 @@ define(function (require, exports, module) {
 
     // 新收藏或取消收藏接口
     function setCollect(_this) {
+       var params = window.pageConfig.params
+        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+            domID:"sucMark",
+            domName:"收藏和取消收藏",
+            fileID:params.g_fileId,
+            fileName:params.file_title,
+            saleType:params.productType
+        });
+
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
@@ -563,6 +593,15 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+
+                iask_web.track_event('NE029', "fileNomalClick", 'click', {
+                    domID:"sucMark",
+                    domName:_this.hasClass("btn-collect-success") ? "取消收藏" : "收藏成功",
+                    fileID:params.g_fileId,
+                    fileName:params.file_title,
+                    saleType:params.productType
+                });
+
                 if (res.code == '0') {
                     $.toast({
                         text: _this.hasClass("btn-collect-success") ? "取消收藏成功" : "收藏成功"
