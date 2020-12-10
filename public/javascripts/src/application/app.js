@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var method = require("./method");
     var urlConfig=require('./urlConfig');
     var api = require("./api");
-
+    require('./loadSentry.js')
     window.$ajax  =  $ajax
 
     new ISHARE_WEB_SDK({  //埋点初始化
@@ -121,7 +121,12 @@ function $ajax(url,ajaxMethod,data,async){  //  .done(function(){})  .fail(funct
     });
 
    
-    
+
+  
+
+  
+  
+   
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;
     return {
