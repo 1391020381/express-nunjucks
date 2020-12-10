@@ -2,6 +2,9 @@ define(function (require, exports, module) {
     var method = require("./method");
     var urlConfig=require('./urlConfig');
     var api = require("./api");
+
+    window.$ajax  =  $ajax
+
     new ISHARE_WEB_SDK({  //埋点初始化
         PRODUCT_CONFIG:{
             TERMINAL_TYPE: '0',        // 终端类型
@@ -27,22 +30,11 @@ define(function (require, exports, module) {
     
     var singleLogin = require('./single-login').init
     var url = api.user.dictionaryData.replace('$code', 'singleLogin');
-   
-  
-    $.ajax({
-        url: url,
-        type: "GET",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        cache: false,
-        success: function (res) {
-            console.log(res)
-            if (res.code == 0 && res.data && res.data.length) {
-                var item = res.data[0];
-                if (item.pcode == 1) {
-                    singleLogin()
-                }
+    $ajax(url,'GET','',false).done(function(res){
+        if (res.code == 0 && res.data && res.data.length) {
+            var item = res.data[0];
+            if (item.pcode == 1) {
+                singleLogin()
             }
         }
     })
@@ -61,38 +53,44 @@ define(function (require, exports, module) {
                 loaded:function(sdk){
                       // 过有效期-重新请求
                      if (!visitId) {
-                        $.ajax({
-                            headers: {
-                                'Authrization': method.getCookie('cuk')
-                            },
-                            url: api.user.getVisitorId,
-                            type: "GET",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (res) {
-                                if (res.code == '0') {
-                                    method.setCookieWithExp(name, res.data, expires, '/');
-                                    sdk.set_visit_id(res.data); //设置visitID
-                                } else {
+                        $ajax(api.user.getVisitorId,'GET').done(function(res){
+                            if (res.code == '0') {
+                                            method.setCookieWithExp(name, res.data, expires, '/');
+                                            sdk.set_visit_id(res.data); //设置visitID
+                                        } else {
+                                            visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                                            sdk.set_visit_id(visitId); //设置visitID
+                                        }
+                        }).fail(function(){
+                                  console.log('getVisitUserId:', error)
                                     visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                                    method.setCookieWithExp(name, visitId, expires, '/');
                                     sdk.set_visit_id(visitId); //设置visitID
-                                }
-                            },
-                            error: function (error) {
-                                console.log('getVisitUserId:', error)
-                                visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                                method.setCookieWithExp(name, visitId, expires, '/');
-                                sdk.set_visit_id(visitId); //设置visitID
-                            }
                         })
                    }else{
-                    sdk.set_visit_id(visitId); //设置visitID
+                      sdk.set_visit_id(visitId); //设置visitID
                    }
                 }
             })
     }
 
-    
+     
+    // 全局的ajax 请求方法
+
+function $ajax(url,ajaxMethod,data,async){  //  .done(function(){})  .fail(function(){})
+      return  $.ajax(url, {
+        type: ajaxMethod || "post",
+        data: data?JSON.stringify(data):'',
+        async:async == undefined ?true:false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        headers: {
+            'cache-control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Authrization':method.getCookie('cuk')
+        }
+    })
+}
 
     $.ajaxSetup({
         headers: {
@@ -110,7 +108,19 @@ define(function (require, exports, module) {
             }
         }
     });
+    
+    $(document).ready(function(){
+        $(document).ajaxError(function(event,xhr,options,exc){
+            console.log(JSON.stringify({
+                event:event,
+                xhr:xhr,
+                options:options,
+                exc:exc
+            }))
+        });
+    });
 
+   
     
     //此方法是为了解决外部登录找不到此方法
     window.getCookie = method.getCookie;

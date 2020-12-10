@@ -28,6 +28,8 @@
     <meta name="description" content="{{ results.tdk.data.description if results.tdk.data.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
    <meta name="keywords" content="{{ results.tdk.data.keywords if results.tdk.data.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
    <link rel="canonical" href="https://ishare.iask.sina.com.cn/c/{{results.reqParams.cid}}.html"/>
+   {%elif results.inialPrex%}
+    <title>{{results.inialPrex}}{{'字母' if results.inialPrex !='0-9'}}最新{%if results.type == 'f'%}文档{%else%}专题{%endif%}索引第{{results.currentPage}}页-爱问共享资料</title>
    {%else%}
      <title>{{ results.list.data.tdk.title if results.list.data.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
     <meta name="description" content="{{ results.list.data.tdk.description if results.list.data.tdk.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />

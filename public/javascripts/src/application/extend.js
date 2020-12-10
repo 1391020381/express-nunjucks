@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+    
     if (!String.prototype.format) {
         String.prototype.format = function() {
             var args = arguments;
