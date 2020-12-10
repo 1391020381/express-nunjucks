@@ -49,19 +49,23 @@
                    <span style="margin-left: 5px;">资料标题</span>
                 </label>
             </th>
-            {{ if myuploadType != '4' }}
-                 <th style="width:100px;"></th>
-            {{/if}}
+            <th style="width:100px;"></th>
             {{ if myuploadType == '1'}}
+                     <th style="width:100px;">资料类型</th>
                      <th style="width:100px;">价格</th>
-                        <th style="width:100px;">浏览量</th>
+                         <th style="width:100px;">浏览量</th>
                         <th style="width:100px;">下载量</th>
             {{/if}}
              {{if myuploadType == '2'}}
+                         <th style="width:100px;">资料类型</th>
                         <th style="width:100px;">价格</th>
-                        <th style="width:100px;">浏览量</th>
-                        <th style="width:100px;">下载量</th>
-                    {{/if}} 
+                        
+                        <th style="width:100px;">审核进度</th>
+              {{/if}} 
+                {{if myuploadType == '3'}}
+                         <th style="width:100px;">资料类型</th>
+                        <th style="width:100px;">价格</th>
+              {{/if}} 
             <th style="width:100px;">上传时间</th>
         </tr>
           {{each list}}

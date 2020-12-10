@@ -32,7 +32,7 @@ define(function(require , exports , module){
            dataType: "json",
            success: function (res) {
               if(res.code == '0'){
-                   console.log('getMyUploadPage:',res)   
+                 //  console.log('getMyUploadPage:',res)   
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
