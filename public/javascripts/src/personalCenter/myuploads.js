@@ -8,6 +8,18 @@ define(function(require , exports , module){
     var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var idList = []  // 保存 要删除的文件id
+    var userFileTypeList = {
+        1:'免费文档',
+        3:'在线文档',
+        4:"vip特权",
+        5:"付费文档",
+        6:"私有文档"
+    }
+    var auditTypeList =  {
+        1:'待机器审核',
+        2:'待人工审核', 
+        3:"待转码"
+    }
     if(type == 'myuploads'){
         isLogin(initData,true)
     }
@@ -51,11 +63,13 @@ define(function(require , exports , module){
                      item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
                      item.createtime = createtime
-
+                     item.userFileTypeName = userFileTypeList[item.userFileType]
+                     item.auditTypeName = auditTypeList[item.auditType]
                     item.readNum  = item.readNum > 10000 ? (item.readNum/10000).toFixed(1)+'w' : item.readNum
                     item.downNum  =  item.downNum > 10000 ? (item.downNum/10000).toFixed(1)+'w' : item.downNum
                      list.push(item)
                   })
+                  console.log('list:',list)
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
                   var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 

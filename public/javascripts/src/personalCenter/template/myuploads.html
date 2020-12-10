@@ -65,7 +65,11 @@
                 {{if myuploadType == '3'}}
                          <th style="width:100px;">资料类型</th>
                         <th style="width:100px;">价格</th>
-              {{/if}} 
+              {{/if}}
+                {{if myuploadType == '4'}}
+                        <th style="width:100px;">资料类型</th>
+                        <th style="width:100px;">价格</th>
+              {{/if}}  
             <th style="width:100px;">上传时间</th>
         </tr>
           {{each list}}
@@ -89,14 +93,25 @@
              {{/if}}
 
              {{ if myuploadType == '1'}}
+                          <td class="td-text">{{list[$index].userFileTypeName}}</td>
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
                           <td class="td-text">{{list[$index].readNum}}</td>
                           <td class="td-text">{{list[$index].downNum }}</td>
              {{/if}}
                {{if myuploadType == '2'}}
+                          <td class="td-text">{{list[$index].userFileTypeName}}</td>
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
-                          <td class="td-text">{{list[$index].readNum }}</td>
-                          <td class="td-text">{{list[$index].downNum}}</td>
+                          <td class="td-text">{{list[$index].auditTypeName }}</td>
+                 {{/if}}
+
+                 {{if myuploadType == '3'}}
+                          <td class="td-text">{{list[$index].userFileTypeName}}</td>
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
+                 {{/if}}
+
+                 {{if myuploadType == '4'}}
+                          <td class="td-text">{{list[$index].userFileTypeName}}</td>
+                          <td class="td-text">{{list[$index].userFilePrice}}</td>
                  {{/if}}
             <td class="td-text">{{list[$index].createtime}}</td>
         </tr>
