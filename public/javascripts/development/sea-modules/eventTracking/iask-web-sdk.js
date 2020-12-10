@@ -32,7 +32,7 @@
             // 上报数据前，每个字段长度截取配置，默认不截取
 
             // PV指标自动触发配置
-            'pageview': true,
+            'pageview': params.PAGEVIEW===false ? false : true,
 
             'truncateLength': -1,
             // 会话超时时长，建议设置30分钟
