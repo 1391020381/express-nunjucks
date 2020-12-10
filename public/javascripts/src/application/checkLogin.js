@@ -95,6 +95,7 @@ define(function (require, exports, module) {
                                 userid: res.data.userId,
                                 loginResult: "1"
                             })
+                            iask_web.login(res.data.userID)
                             window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
@@ -154,6 +155,7 @@ define(function (require, exports, module) {
                 success: function (res) {
                     console.log('loginOut:', res)
                     if (res.code == 0) {
+                        iask_web.logout()
                         window.location.reload();
                     } else {
                         $.toast({
