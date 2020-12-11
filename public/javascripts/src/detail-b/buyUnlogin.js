@@ -199,8 +199,15 @@ define(function (require, exports, module) {
          * 根据时间产生随机数
          */
         getVisitorId: function () {
-            // 从cookie中获取访客id
-            return method.getCookie('visitor_id');
+            var name = 'visitor_id'
+            var expires = 30 * 24 * 60 * 60 * 1000
+            var visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+            if(method.getCookie('visitor_id')){
+                return method.getCookie('visitor_id')
+            }else{
+                method.setCookieWithExp(name, visitId, expires, '/')
+                return method.getCookie('visitor_id')
+            }
         },
         /**
          * 查询订单
@@ -286,7 +293,7 @@ define(function (require, exports, module) {
                 data: JSON.stringify({
                     url:url,
                     message:message,
-                    userId:''
+                    userId:unloginObj.getVisitorId()
                 }),
                 success: function (response) {
                    console.log('reportOrderError:',response)

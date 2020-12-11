@@ -71,7 +71,7 @@ define(function (require, exports, module) {
             data: JSON.stringify({
                 url:url,
                 message:message,
-                userId:''
+                userId:orderNo
             }),
             success: function (response) {
                console.log('reportOrderError:',response)

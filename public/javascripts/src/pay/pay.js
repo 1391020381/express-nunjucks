@@ -578,7 +578,7 @@ define(function(require, exports, moudle) {
             data: JSON.stringify({
                 url:url,
                 message:message,
-                userId:''
+                userId:userInfo.userId||method.getCookie('visitor_id')
             }),
             success: function (response) {
                console.log('reportOrderError:',response)
