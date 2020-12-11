@@ -158,6 +158,7 @@ define(function (require, exports, module) {
                 isVouchers: 1,
                 returnPayment: false
             }
+            console.log(JSON.stringify(params))
             // node 接口
             $.post('/pay/orderUnlogin?ts=' + new Date().getTime(), params, function (data, status) {
                 if (data && data.code == '0') {
@@ -304,6 +305,14 @@ define(function (require, exports, module) {
 
                 }
             })  
+            Sentry.captureException(JSON.stringify({
+                url:url,
+                message:message
+            }),{
+              tags: {
+                title: "生成游客订单错误",
+              }
+            })
         }
     }
     unloginObj.init()

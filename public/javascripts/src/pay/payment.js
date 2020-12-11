@@ -26,6 +26,8 @@ define(function (require, exports, module) {
         payType: isWeChat == 'true' ? 'wechat' : 'alipay',
         host: location.origin
     }
+    console.log(JSON.stringify(params))
+    
     scanOrderInfo()
     function scanOrderInfo() {
         $.ajax({
@@ -177,7 +179,16 @@ define(function (require, exports, module) {
             complete: function () {
 
             }
-        })  
+        }) 
+        
+        Sentry.captureException(JSON.stringify({
+            url:url,
+            message:message
+        }),{
+          tags: {
+            title: "扫码支付错误",
+          }
+        })
     }
     $(document).on('click', '.pay-confirm', function (e) {
         console.log('pay-confirm-start')

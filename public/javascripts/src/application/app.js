@@ -117,6 +117,12 @@ function $ajax(url,ajaxMethod,data,async){  //  .done(function(){})  .fail(funct
                 options:options,
                 exc:exc
             }))
+            Sentry.captureException(JSON.stringify({
+                event:event,
+                xhr:xhr,
+                options:options,
+                exc:exc
+            }))
         });
     });
 

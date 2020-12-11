@@ -33,6 +33,7 @@ function loadScript(url) {
     var cdnUrl = window._head
     var url1 =  cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-5.27.6-bundle.min.js":"/javascripts/sea-modules/sentry/sentry-5.27.6-bundle.min.js"
     var url2 = cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-tracing-5.27.6-bundle.tracing.min.js":"/javascripts/sea-modules/sentry/sentry-tracing-5.27.6-bundle.tracing.min.js"
+    var url3 = cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-3.26.4-raven.min.js":"/javascripts/sea-modules/sentry/sentry-3.26.4-raven.min.js"
     loadScript(url1).then(function(){
         
         loadScript(url2).then(function(){
@@ -43,8 +44,22 @@ function loadScript(url) {
                     release: "node-pc@" + 0.01,
                    integrations: Sentry.Integrations.BrowserTracing?[new Sentry.Integrations.BrowserTracing()]:[],
                     tracesSampleRate: 1.0,
+                    autoSessionTracking: true
                   });
-            },500)
+                //   console.log(333333333333333333)
+                //   Sentry.captureException(JSON.stringify({
+                //     a:3333,
+                //     url:location.href,
+                //     params:JSON.stringify({a:1,b:2}),
+                //     data:{d:1}
+                // }),{
+                //   tags: {
+                //     title: "4444",
+                //   }
+                // })
+                
+
+            },200)
         })
     })  
 }

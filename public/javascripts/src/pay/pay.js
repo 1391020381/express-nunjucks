@@ -534,6 +534,7 @@ define(function(require, exports, moudle) {
             ref: utils.getPageRef(window.pageConfig.params.g_fileId), //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
         }
+        console.log(JSON.stringify(temp))
         $.ajax({
             url: api.order.createOrderInfo,
             type: "POST",
@@ -586,7 +587,16 @@ define(function(require, exports, moudle) {
             complete: function () {
 
             }
-        })  
+        }) 
+        
+        Sentry.captureException(JSON.stringify({
+            url:url,
+            message:message
+        }),{
+          tags: {
+            title: "生成订单错误",
+          }
+        })
     }
 
 

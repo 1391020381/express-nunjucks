@@ -397,8 +397,8 @@ module.exports = {
                 server.post(appConfig.apiBasePath + api.pay.order, callback, req);
             }
         }, function (err, results) {
-            // console.log("下单操作=================");
-            // console.log(results);
+            console.log("下单操作=================",JSON.stringify(results));
+           
             res.send(results.list).end();
         })
     },
