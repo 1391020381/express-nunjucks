@@ -11,19 +11,21 @@
              <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=4&type=myuploads">重复资料</a></li>
          </ul>
          <div class="select-list">
+               {{ if myuploadType == 2}}
                  <span class="list-item">审核进度 :</span>
-                 <select class="list-select">
-                   <option value="0">全部</option>
+                 <select class="list-select review-progress">
+                   <option value="">全部</option>
                    <option value="1">待机器审核</option>
                    <option value="2">待人工审核</option>
                    <option value="3">待转码</option>
                  </select>
+               {{/if }}  
                  <span class="list-item">资料类型 :</span>
-                 <select class="list-select">
-                   <option value="0">全部</option>
-                   <option value="saab">私有</option>
-                   <option value="opel">付费</option>
-                   <option value="audi">免费</option>
+                 <select class="list-select file-type">
+                   <option value="">全部</option>
+                   <option value="6">私有</option>
+                   <option value="5">付费</option>
+                   <option value="1">免费</option>
                  </select>
          </div>
     </div>

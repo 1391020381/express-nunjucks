@@ -38,7 +38,9 @@ define(function(require , exports , module){
            data: JSON.stringify({
                currentPage:currentPage||1,
                pageSize:20,
-               status:+status   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
+               status:+status,   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
+               userFileType:$('.file-type').val(),
+               auditType:$('.review-progress').val()
            }),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
@@ -98,6 +100,14 @@ define(function(require , exports , module){
         })
        }
     // 
+    $(document).on('change','.review-progress',function(event){
+        console.log($(this).val())
+        getMyUploadPage()
+    })
+    $(document).on('change','.file-type',function(event){
+        console.log($(this).val())
+        getMyUploadPage()
+    })
     $(document).on('click','.myuploads .label-input',function(event){ // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'))
         if($(this).attr('checked')){ // checked
