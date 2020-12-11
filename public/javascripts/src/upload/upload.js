@@ -632,7 +632,13 @@ define(function(require , exports , module){
         verifyRequire:function() {
             $('.js-file-item').on('keyup',".data-name input[name='fileName']",function(){
                 if($(this).val()){
-                    if($(this).val().length>64) {
+                    var reg=/(^\s+)|(\s+$)|\s+/g;
+                    var text = $(this).val()
+                    if(reg.test(text)){
+                        $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
+                    }else if($(this).val().length<5){
+                        $(this).parent().siblings('.warn-tip').show().text('标题字数不能少于5个字');
+                    }else if($(this).val().length>64) {
                         $(this).parent().siblings('.warn-tip').show().text('标题字数不能超过64个字');
                     }else {
                         $(this).parent().siblings('.warn-tip').hide()
