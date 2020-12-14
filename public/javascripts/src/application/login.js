@@ -62,11 +62,7 @@ define(function (require, exports, module) {
         IframeMessengerList[iframeId].listen(function (res) {
             console.log('客户端监听-数据', res);
             if (res.userData) {
-                iask_web.track_event('SE001', "loginResult", 'query', {
-                    loginResult:'1',
-                    failMsg:'',
-                    loginType: res.formData
-                });
+                
                 loginInSuccess(res.userData, res.formData, successFun)
             } else {
                 loginInFail(res.formData);

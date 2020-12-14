@@ -96,6 +96,11 @@ define(function (require, exports, module) {
                                 loginResult: "1"
                             })
                             iask_web.login(res.data.userId)
+                            iask_web.track_event('SE001', "loginResult", 'query', {
+                                loginResult:'1',
+                                failMsg:'',
+                                loginType: res.formData
+                            });
                             window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
