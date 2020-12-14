@@ -17,7 +17,7 @@ define(function (require, exports, module) {
         TRACK_URL:urlConfig.bilogUrl,   //上报服务器地址
         PAGEVIEW:true
     })
-    getVisitUserId();
+  
 
 
     
@@ -33,6 +33,7 @@ define(function (require, exports, module) {
 
     var pathnameList = ['/pay/qr','/pay/paymentresult','/pay/payRedirect'] // 手机端页面
     if(pathnameList.indexOf(location.pathname) == -1){
+        getVisitUserId();
         $ajax(url,'GET','',false).done(function(res){
             if (res.code == 0 && res.data && res.data.length) {
                 var item = res.data[0];
