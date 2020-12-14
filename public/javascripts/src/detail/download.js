@@ -223,9 +223,10 @@ define(function (require, exports, module) {
     * 
     * 获取下载获取地址接口
     */
-    var handleFileDownUrl = function(){
-        var page = window.pageConfig.page
-        var params = window.pageConfig.params 
+    var handleFileDownUrl = function(isLoginCallback){
+        if(!isLoginCallback){
+            var page = window.pageConfig.page
+          var params = window.pageConfig.params 
         iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
             fileID:params.g_fileId,
             fileName:page.fileName,
@@ -234,6 +235,8 @@ define(function (require, exports, module) {
             fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
             fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
         });
+        }
+        
         
 
         if (method.getCookie("cuk")){
@@ -289,7 +292,7 @@ define(function (require, exports, module) {
             login.notifyLoginInterface(function (data) {
                 common.afterLogin(data);
                 userData = data
-                handleFileDownUrl()
+                handleFileDownUrl(true)
             }); 
         }
     }

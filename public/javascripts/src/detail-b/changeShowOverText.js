@@ -52,7 +52,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                         }
 
                     } else {
-                        downLoad()
+                        downLoad(true)
                       
                     }
                 })

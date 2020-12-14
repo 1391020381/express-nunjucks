@@ -51,7 +51,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                         }
 
                     } else {
-                        downLoad()
+                        downLoad(true)
                         
                     }
                 })
