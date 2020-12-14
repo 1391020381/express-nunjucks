@@ -14,7 +14,7 @@
                {{ if myuploadType == 2}}
                  <span class="list-item">审核进度 :</span>
                  <select class="list-select review-progress">
-                   <option value="">全部</option>
+                   <option value="0">全部</option>
                    <option value="1">待机器审核</option>
                    <option value="2">待人工审核</option>
                    <option value="3">待转码</option>
@@ -22,7 +22,7 @@
                {{/if }}  
                  <span class="list-item">资料类型 :</span>
                  <select class="list-select file-type">
-                   <option value="">全部</option>
+                   <option value="0">全部</option>
                    <option value="6">私有</option>
                    <option value="5">付费</option>
                    <option value="1">免费</option>
@@ -43,10 +43,8 @@
         <tr class="myuploads-table-head">
                 <th style="{{myuploadType == '1'? 'width:400px;':myuploadType == '2'?'width:400px;':''}}">
                 <label for="all">
-                   {{ if myuploadType !== '4'}}
                       <input  type="checkbox"  id="all" value="all"/>
                      <span></span>
-                   {{/if}}
                    <span style="margin-left: 5px;">资料标题</span>
                 </label>
             </th>
@@ -89,9 +87,9 @@
                     {{/if}}
                 </label>
             </td>
-              {{ if myuploadType != '4' }}
+             
              <td><img class="delete-icon" data-id={{list[$index].id}} src="{{cdnUrl}}/images/personalCenter/delete-icon.png"></td>
-             {{/if}}
+            
 
              {{ if myuploadType == '1'}}
                           <td class="td-text">{{list[$index].userFileTypeName}}</td>
@@ -102,7 +100,7 @@
                {{if myuploadType == '2'}}
                           <td class="td-text">{{list[$index].userFileTypeName}}</td>
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
-                          <td class="td-text">{{list[$index].auditTypeName }}</td>
+                          <td class="td-text">{{list[$index].auditType }}</td>
                  {{/if}}
 
                  {{if myuploadType == '3'}}

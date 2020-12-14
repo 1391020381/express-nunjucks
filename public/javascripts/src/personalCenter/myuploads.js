@@ -15,11 +15,7 @@ define(function(require , exports , module){
         5:"付费文档",
         6:"私有文档"
     }
-    var auditTypeList =  {
-        1:'待机器审核',
-        2:'待人工审核', 
-        3:"待转码"
-    }
+   
     if(type == 'myuploads'){
         isLogin(initData,true)
     }
@@ -39,8 +35,8 @@ define(function(require , exports , module){
                currentPage:currentPage||1,
                pageSize:20,
                status:+status,   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
-               userFileType:+$('.file-type').val(),
-               auditType:+$('.review-progress').val()
+               userFileType:$('.file-type').val() == '0'?'':+$('.file-type').val(),
+               auditType:$('.review-progress').val() == '0'?'':+$('.review-progress').val()
            }),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
@@ -66,7 +62,7 @@ define(function(require , exports , module){
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
                      item.createtime = createtime
                      item.userFileTypeName = userFileTypeList[item.userFileType]
-                     item.auditTypeName = auditTypeList[item.auditType]
+                   
                     item.readNum  = item.readNum > 10000 ? (item.readNum/10000).toFixed(1)+'w' : item.readNum
                     item.downNum  =  item.downNum > 10000 ? (item.downNum/10000).toFixed(1)+'w' : item.downNum
                      list.push(item)
