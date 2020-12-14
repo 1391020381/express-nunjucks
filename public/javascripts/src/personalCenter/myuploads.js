@@ -39,8 +39,8 @@ define(function(require , exports , module){
                currentPage:currentPage||1,
                pageSize:20,
                status:+status,   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
-               userFileType:$('.file-type').val(),
-               auditType:$('.review-progress').val()
+               userFileType:+$('.file-type').val(),
+               auditType:+$('.review-progress').val()
            }),
            contentType: "application/json; charset=utf-8",
            dataType: "json",

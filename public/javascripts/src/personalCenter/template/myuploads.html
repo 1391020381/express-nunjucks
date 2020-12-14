@@ -39,8 +39,7 @@
             <span class="myuploads-nums">0篇</span>
         </label>
          {{/if}}
-    {{/if }}
-    <table class="myuploads-table-list">
+         <table class="myuploads-table-list">
         <tr class="myuploads-table-head">
                 <th style="{{myuploadType == '1'? 'width:400px;':myuploadType == '2'?'width:400px;':''}}">
                 <label for="all">
@@ -119,6 +118,13 @@
         </tr>
           {{/each}}
     </table>
+    
+    {{else }}
+      <div class="empty-data" style="margin-left:-134px;">
+            <img class="empty-img" src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png"/>
+            <p class="empty-desc">空空如也,快去上传一些资料吧~</p>
+         </div>
+    {{/if}}
     <div class="pagination-wrapper">
         
     </div>
