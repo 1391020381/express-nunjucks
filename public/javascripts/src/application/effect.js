@@ -169,17 +169,18 @@ define(function (require, exports, module) {
         $('.loginRedPacket-dialog').hide()
     })
     $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
+        iask_web.track_event('NE002', "normalClick", 'click', {
+            domID:'confirm',
+            domName:'确定'
+        });
         var abTest = window.pageConfig.page&&window.pageConfig.page.abTest
         if(abTest == 'a'){
             $('.detail-unLogin').trigger('click')
         }else if(abTest == 'b'){
             $('.detail-unLogin').trigger('click')
         }else{
-            $('.notLogin').trigger('click')
-            iask_web.track_event('NE002', "normalClick", 'click', {
-                domID:'confirm',
-                domName:'确定'
-            });
+            $('.index-header .notLogin').trigger('click')
+          
         }
     
        

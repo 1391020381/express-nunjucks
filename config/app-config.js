@@ -24,7 +24,7 @@ const config = {
         apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
         apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
         newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: '//dev-login-ishare.iask.com.cn',
+       loginUrl: '//dev-login-ishare.iask.com.cn',
         // loginUrl:'http://127.0.0.1:8085',
         // apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
         // apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',

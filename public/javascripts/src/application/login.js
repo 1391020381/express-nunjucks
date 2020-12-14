@@ -73,10 +73,7 @@ define(function (require, exports, module) {
         $('#dialog-box .login-dialog .close-btn').on('click', function () {
             // 主动关闭弹窗-需通知登录中心
             IframeMessengerList[iframeId].send({isOpen: false});
-            iask_web.track_event('NE002', "normalClick ", 'click', {
-                moduleID:'closeLogin',
-                moduleName:'登录页关闭'
-            });
+           
             closeRewardPop()
         })
     }

@@ -57,7 +57,7 @@ define(function (require, exports, module) {
             sdk_token = 'iask_web';
             iask_web.init(sdk_token,{
                 local_storage:{
-                    type: 'localStorage'
+                    type: 'cookie'
                 },
                 loaded:function(sdk){
                       // 过有效期-重新请求
