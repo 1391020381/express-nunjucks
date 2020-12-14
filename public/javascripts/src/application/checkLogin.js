@@ -103,6 +103,7 @@ define(function (require, exports, module) {
                             });
                             window.location.reload();
                         }
+                        $('.loginRedPacket-dialog').hide()
                         if (callback && typeof callback == "function") {
                            
                             callback(res.data);
