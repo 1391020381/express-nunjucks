@@ -231,6 +231,18 @@ define(function (require, exports, module) {
      * 获取下载获取地址接口
      */
     var handleFileDownUrl = function () {
+        var page = window.pageConfig.page
+        var params = window.pageConfig.params 
+        iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
+            fileID:params.g_fileId,
+            fileName:page.fileName,
+            salePrice:params.productPrice,
+            saleType:params.productType,
+            fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+            fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+        });
+
+
         if (method.getCookie("cuk")) {
             // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
             if (window.pageConfig.page.productType == 4) {

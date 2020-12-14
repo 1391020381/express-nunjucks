@@ -13,7 +13,7 @@ define(function(require , exports , module){
         pageID:'SR',
         pageName:"搜索结果页"
     });
-    iask_web.track_event('SE015', "pageTypeView", 'page', {
+    iask_web.track_event('SE015', "searchPageView", 'page', {
         keyWords:cond
     });
     $('.landing-txt-list .li-file').on('click',function(){
