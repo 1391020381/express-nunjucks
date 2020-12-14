@@ -30,14 +30,19 @@ define(function (require, exports, module) {
     
     var singleLogin = require('./single-login').init
     var url = api.user.dictionaryData.replace('$code', 'singleLogin');
-    $ajax(url,'GET','',false).done(function(res){
-        if (res.code == 0 && res.data && res.data.length) {
-            var item = res.data[0];
-            if (item.pcode == 1) {
-                singleLogin()
+
+    var pathnameList = ['/pay/qr','/pay/paymentresult','/pay/payRedirect'] // 手机端页面
+    if(pathnameList.indexOf(location.pathname) == -1){
+        $ajax(url,'GET','',false).done(function(res){
+            if (res.code == 0 && res.data && res.data.length) {
+                var item = res.data[0];
+                if (item.pcode == 1) {
+                    singleLogin()
+                }
             }
-        }
-    })
+        })
+    }
+    
 
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {

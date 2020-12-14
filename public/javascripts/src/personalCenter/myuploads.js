@@ -46,7 +46,10 @@ define(function(require , exports , module){
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  $(res.data.rows).each(function(index,item){
+                  var auditType =  res.data.auditType
+                  var userFileType =  res.data.userFileType
+                  $(res.data.list.rows).each(function(index,item){
+                  
                      var userFilePrice  = ''
                      if(item.userFileType == 1){
                          userFilePrice = '免费'
@@ -67,9 +70,9 @@ define(function(require , exports , module){
                     item.downNum  =  item.downNum > 10000 ? (item.downNum/10000).toFixed(1)+'w' : item.downNum
                      list.push(item)
                   })
-                  console.log('list:',list)
+                  console.log('list:',list,auditType,userFileType)
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
-                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType});
+                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType,auditType:auditType + '',userFileType:userFileType+''});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
                    handlePagination(res.data.totalPages,res.data.currentPage) 
               }else{

@@ -15,17 +15,46 @@
                  <span class="list-item">审核进度 :</span>
                  <select class="list-select review-progress">
                    <option value="0">全部</option>
-                   <option value="1">待机器审核</option>
-                   <option value="2">待人工审核</option>
-                   <option value="3">待转码</option>
+                   {{if auditType == '1'}}
+                        <option value="1" selected="selected">待机器审核</option>
+                   {{else}}
+                        <option value="1" >待机器审核</option>
+                   {{/if}}
+                 {{if auditType == '2'}}
+                          <option value="2" selected="selected">待人工审核</option>
+                 {{else}}
+                     <option value="2" >待人工审核</option>
+                 {{/if}}
+               
+                {{if auditType == '3'}}
+                          <option value="3" selected="selected">待转码</option>
+                 {{else}}
+                     <option value="3" >待转码</option>
+                 {{/if}}
+                
                  </select>
                {{/if }}  
                  <span class="list-item">资料类型 :</span>
-                 <select class="list-select file-type">
-                   <option value="0">全部</option>
-                   <option value="6">私有</option>
-                   <option value="5">付费</option>
-                   <option value="1">免费</option>
+                 <select class="list-select file-type" >
+                   <option value="0" >全部</option>
+                   {{if userFileType == '6' }}
+                       <option value="6" selected="selected">私有</option>
+                   {{else}}
+                   <option value="6" >私有</option>
+                   {{/if }}
+                 
+                    {{if userFileType == '5' }}
+                       <option value="5" selected="selected">付费</option>
+                   {{else}}
+                   <option value="5" >付费</option>
+                   {{/if }}
+                  
+                    {{if userFileType == '1' }}
+                       <option value="1" selected="selected">免费</option>
+                   {{else}}
+                   <option value="1" >免费</option>
+                   {{/if }}
+                  
                  </select>
          </div>
     </div>

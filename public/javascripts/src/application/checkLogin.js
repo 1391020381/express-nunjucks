@@ -95,7 +95,7 @@ define(function (require, exports, module) {
                                 userid: res.data.userId,
                                 loginResult: "1"
                             })
-                            iask_web.login(res.data.userID)
+                            iask_web.login(res.data.userId)
                             window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
