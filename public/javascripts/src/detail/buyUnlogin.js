@@ -176,7 +176,9 @@ define(function (require, exports, module) {
                 if (data && data.code == '0') {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
-                   
+                    iask_web.track_event('SE033', "createOrder", 'query', {
+                        orderID:data.data.orderNo
+                     });
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
                    
@@ -263,6 +265,12 @@ define(function (require, exports, module) {
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                             }
                         } else if (orderInfo.orderStatus == 2) {
+                            iask_web.track_event('SE034', "payResult", 'query', {
+                                result:1,
+                                orderID:orderInfo.orderNo,
+                                goodsId:orderInfo.goodsId,
+                                goodsType:orderInfo.goodsType
+                             });
                             // 成功
                             try {
                                
@@ -273,7 +281,12 @@ define(function (require, exports, module) {
                             } catch (e) {
                             }
                         } else if (orderInfo.orderStatus == 3) {
-                            
+                            iask_web.track_event('SE034', "payResult", 'query', {
+                                result:0,
+                                orderID:orderInfo.orderNo,
+                                goodsId:orderInfo.goodsId,
+                                goodsType:orderInfo.goodsType
+                             });
                         }
                     } else {
                         $.toast({

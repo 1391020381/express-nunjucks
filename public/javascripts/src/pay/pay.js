@@ -508,7 +508,7 @@ define(function(require, exports, moudle) {
 
         if(goodsType == '8'){ 
             
-            iask_web.track_event('SE008', "payPrivilegeClick", 'click', {
+            iask_web.track_event('SE012', "payPrivilegeClick", 'click', {
                 privilegeName:$('.pay-pri-list .ui-tab-nav-item.active .privilege-price').text(),
                 privilegePrice:$('.price-text-con .price').text()
             });
