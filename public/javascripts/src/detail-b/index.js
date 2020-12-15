@@ -194,6 +194,14 @@ define(function (require, exports, module) {
         });
         // 取消或者关注
         $('.btn-collect').on('click', function () {
+            var params = window.pageConfig.params
+            iask_web.track_event('NE029', "fileNomalClick", 'click', {
+                domID:"sucMark",
+                domName:"收藏和取消收藏",
+                fileID:params.g_fileId,
+                fileName:params.file_title,
+                saleType:params.productType
+            });
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
@@ -554,14 +562,7 @@ define(function (require, exports, module) {
 
        // 新收藏或取消收藏接口
    function setCollect(_this) { 
-         var params = window.pageConfig.params
-        iask_web.track_event('NE029', "fileNomalClick", 'click', {
-            domID:"sucMark",
-            domName:"收藏和取消收藏",
-            fileID:params.g_fileId,
-            fileName:params.file_title,
-            saleType:params.productType
-        });
+        
 
 
         $.ajax({
@@ -574,6 +575,7 @@ define(function (require, exports, module) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (res) {
+                var params = window.pageConfig.params
                 iask_web.track_event('NE029', "fileNomalClick", 'click', {
                     domID:"sucMark",
                     domName:_this.hasClass("btn-collect-success") ? "取消收藏" : "收藏成功",

@@ -11,7 +11,7 @@ define(function(require , exports , module){
        iask_web.track_event('SE035', "ztFileEntryClick", 'click', {
         ztID:pageConfig&&pageConfig.urlParams.specialTopicId,
         ztName:pageConfig&&pageConfig.topicName,
-        filePostion:$(this).index(),
+        filePostion:$(this).index() + 1,
         fileID:contentId,
         fileName:fileName
     });
@@ -24,7 +24,7 @@ define(function(require , exports , module){
     iask_web.track_event('SE035', "ztFileEntryClick", 'click', {
      ztID:pageConfig&&pageConfig.urlParams.specialTopicId,
      ztName:pageConfig&&pageConfig.topicName,
-     filePostion:$(this).index(),
+     filePostion:$(this).index() + 1,
      fileID:contentId,
      fileName:fileName
  });

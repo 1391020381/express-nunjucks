@@ -468,11 +468,13 @@
 <div class="authentication authentication-banner"></div>
 <!--悬浮工具栏 end-->
 <script>
-    var pageConfig = {
+    window.pageConfig  = {
         report:{
            
         },
-        page:{}
+        page:{
+            abTest:'index'
+        }
     };
     seajs.use(["dist/application/app.js","dist/index/init.js"])
 </script>

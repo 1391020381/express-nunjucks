@@ -496,7 +496,7 @@ define(function (require, exports, module) {
         action.drawing(drawingPage);
         var loadedPage = $(".detail-pro-con div.article-page").length;
         //如果已经到最后了
-        if (loadedPage - limitPage >= 0) {
+        if (loadedPage - limitPage >= 0 || loadedPage == totalPage) {
             action.isHideMore(loadedPage);
             if ($('.red-color').text() !== '点击可继续阅读 >') {
 
@@ -510,24 +510,24 @@ define(function (require, exports, module) {
                 });
 
                 readMoreTextEvent()
-            }else{
-                iask_web.track_event('NE029', "fileListNormalClick", 'click', {
-                    domID:'continueRead',
-                    domName:'继续阅读',
-                    fileID:params.g_fileId,
-                    fileName:params.file_title,
-                    saleType:params.productType
-                });
             }
             changeText()
+        }else{
+            iask_web.track_event('NE029', "fileListNormalClick", 'click', {
+                domID:'continueRead',
+                domName:'继续阅读',
+                fileID:params.g_fileId,
+                fileName:params.file_title,
+                saleType:params.productType
+            });
         }
-        if (loadedPage == totalPage) {
-            action.isHideMore(loadedPage);
-            if ($('.red-color').text() !== '点击可继续阅读 >') {
-                readMoreTextEvent()
-            }
-            changeText()
-        }
+        // if (loadedPage == totalPage) {
+        //     action.isHideMore(loadedPage);
+        //     if ($('.red-color').text() !== '点击可继续阅读 >') {
+        //         readMoreTextEvent()
+        //     }
+        //     changeText()
+        // }
         loadMoreStyle()
        
     }

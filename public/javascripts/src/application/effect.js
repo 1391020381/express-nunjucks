@@ -154,6 +154,10 @@ define(function (require, exports, module) {
     isHasPcMLogin()
     // 首页 详情 登录领取红包
     $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
+        iask_web.track_event('NE002', "normalClick", 'click', {
+            domID:'close',
+            domName:'关闭'
+        });
         var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
        if(abTest =='a'){
             method.setCookieWithExpPath('isShowDetailALoginRedPacket',1)
@@ -161,10 +165,7 @@ define(function (require, exports, module) {
            method.setCookieWithExpPath('isShowDetailBLoginRedPacket',1)
        }else{
            method.setCookieWithExpPath('isShowIndexLoginRedPacket',1)
-           iask_web.track_event('NE002', "normalClick", 'click', {
-            domID:'close',
-            domName:'关闭'
-        });
+           
        }
         $('.loginRedPacket-dialog').hide()
     })
@@ -204,9 +205,17 @@ define(function (require, exports, module) {
                         var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
                         if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
                             $('.loginRedPacket-dialog').removeClass('hide')
+                            iask_web.track_event('NE006', "modelView", 'view', {
+                                moduleID:'activityFloat',
+                                moduleName:'活动浮层'
+                            });
                         }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
                             $('.loginRedPacket-dialog').removeClass('hide')
-                        }else if(!abTest&&!method.getCookie('isShowIndexLoginRedPacket')){
+                            iask_web.track_event('NE006', "modelView", 'view', {
+                                moduleID:'activityFloat',
+                                moduleName:'活动浮层'
+                            });
+                        }else if(abTest=='index'&&!method.getCookie('isShowIndexLoginRedPacket')){
                             $('.loginRedPacket-dialog').removeClass('hide')
                             iask_web.track_event('NE006', "modelView", 'view', {
                                 moduleID:'activityFloat',
