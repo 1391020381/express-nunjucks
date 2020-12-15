@@ -176,9 +176,9 @@ define(function (require, exports, module) {
         });
         var abTest = window.pageConfig.page&&window.pageConfig.page.abTest
         if(abTest == 'a'){
-            $('.detail-unLogin').trigger('click')
+            $('#detail-unLogin').trigger('click')
         }else if(abTest == 'b'){
-            $('.detail-unLogin').trigger('click')
+            $('#detail-unLogin').trigger('click')
         }else{
             $('.index-header .notLogin').trigger('click')
           
