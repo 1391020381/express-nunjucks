@@ -10,6 +10,7 @@
              <li class="{{ myuploadType == '3' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=3&type=myuploads">审核不通过</a></li>
              <li class="{{ myuploadType == '4' ? 'tab-active tab' :'tab'}}"><a href="/node/personalCenter/myuploads.html?myuploadType=4&type=myuploads">重复资料</a></li>
          </ul>
+          {{ if list.length}}
          <div class="select-list">
                {{ if myuploadType == 2}}
                  <span class="list-item">审核进度 :</span>
@@ -57,6 +58,7 @@
                   
                  </select>
          </div>
+         {{/if}}
     </div>
     
     {{ if list.length}}

@@ -768,7 +768,7 @@ define(function(require, exports, moudle) {
                         iask_web.track_event('SE034', "payResult", 'query', {
                             result:1,
                             orderID:orderNo,
-                            goodsId:method.getParam("goodsId"),
+                            goodsID:method.getParam("goodsId"),
                             goodsType:method.getParam("goodsType")
                          });
                         goodsPaySuccess(data, orderNo)
@@ -776,7 +776,7 @@ define(function(require, exports, moudle) {
                         iask_web.track_event('SE034', "payResult", 'query', {
                             result:0,
                             orderID:orderNo,
-                            goodsId:method.getParam("goodsId"),
+                            goodsID:method.getParam("goodsId"),
                             goodsType:method.getParam("goodsType")
                          });
                         goodsPayFail(data, orderNo);

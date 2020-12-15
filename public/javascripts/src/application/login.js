@@ -54,7 +54,14 @@ define(function (require, exports, module) {
                 redirectUrl:window.location.href,
                 originUrl:urlList[env],
                 bilogUrl:urlConfig.bilogUrl,
-                visitor_id:method.getCookie('visitor_id')
+                visitor_id:method.getCookie('visitor_id'),
+                sessionID:iask_web.get_property('sessionID'),
+                deviceID:iask_web.get_property('deviceID'),
+                persistedTime:iask_web.get_property('persistedTime'),
+                sessionReferrer:iask_web.get_property('sessionReferrer'),
+                sessionStartTime:iask_web.get_property('sessionStartTime'),
+                updatedTime:iask_web.get_property('updatedTime'),
+                visitID:iask_web.get_property('visitID')
             });
         }
 

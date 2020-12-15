@@ -510,16 +510,16 @@ define(function (require, exports, module) {
                 });
 
                 readMoreTextEvent()
+            }else{
+                iask_web.track_event('NE029', "fileListNormalClick", 'click', {
+                    domID:'continueRead',
+                    domName:'继续阅读',
+                    fileID:params.g_fileId,
+                    fileName:params.file_title,
+                    saleType:params.productType
+                });
             }
             changeText()
-        }else{
-            iask_web.track_event('NE029', "fileListNormalClick", 'click', {
-                domID:'continueRead',
-                domName:'继续阅读',
-                fileID:params.g_fileId,
-                fileName:params.file_title,
-                saleType:params.productType
-            });
         }
         // if (loadedPage == totalPage) {
         //     action.isHideMore(loadedPage);

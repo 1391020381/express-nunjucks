@@ -268,7 +268,7 @@ define(function (require, exports, module) {
                             iask_web.track_event('SE034', "payResult", 'query', {
                                 result:1,
                                 orderID:orderInfo.orderNo,
-                                goodsId:orderInfo.goodsId,
+                                goodsID:orderInfo.goodsId,
                                 goodsType:orderInfo.goodsType
                              });
                             // 成功
@@ -284,7 +284,7 @@ define(function (require, exports, module) {
                             iask_web.track_event('SE034', "payResult", 'query', {
                                 result:0,
                                 orderID:orderInfo.orderNo,
-                                goodsId:orderInfo.goodsId,
+                                goodsID:orderInfo.goodsId,
                                 goodsType:orderInfo.goodsType
                              });
                         }
