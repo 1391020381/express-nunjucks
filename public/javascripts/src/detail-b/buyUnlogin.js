@@ -331,15 +331,16 @@ define(function (require, exports, module) {
 
                 }
             }) 
-            
-            Sentry.captureException(JSON.stringify({
-                url:url,
-                message:message
-            }),{
-              tags: {
-                title: "生成游客订单错误",
-              }
-            }) 
+            if(!method.isIe8()){
+                Sentry.captureException(JSON.stringify({
+                    url:url,
+                    message:message
+                }),{
+                  tags: {
+                    title: "生成游客订单错误",
+                  }
+                }) 
+            }
         }
     }
     unloginObj.init()

@@ -59,7 +59,7 @@ function loadScript(url) {
                 // })
                 
 
-            },200)
+            },100)
         })
     })  
 }

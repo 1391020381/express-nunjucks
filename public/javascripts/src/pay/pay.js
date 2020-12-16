@@ -588,15 +588,17 @@ define(function(require, exports, moudle) {
 
             }
         }) 
+        if(!method.isIe8()){
+            Sentry.captureException(JSON.stringify({
+                url:url,
+                message:message
+            }),{
+              tags: {
+                title: "生成订单错误",
+              }
+            })
+        }
         
-        Sentry.captureException(JSON.stringify({
-            url:url,
-            message:message
-        }),{
-          tags: {
-            title: "生成订单错误",
-          }
-        })
     }
 
 
