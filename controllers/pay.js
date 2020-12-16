@@ -654,6 +654,7 @@ module.exports = {
                 callback(null, null);
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
+            results.payment = 1
             render("pay/paymentresult", results, req, res);
         })
     }

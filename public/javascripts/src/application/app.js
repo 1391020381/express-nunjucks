@@ -2,6 +2,8 @@ define(function (require, exports, module) {
     var method = require("./method");
     var urlConfig=require('./urlConfig');
     var api = require("./api");
+    require("./element");
+    require("./extend");
     require('./loadSentry.js')
     window.$ajax  =  $ajax
 
@@ -25,8 +27,7 @@ define(function (require, exports, module) {
 
 
     
-    require("./element");
-    require("./extend");
+   
     require('./effect.js')
     require('./login')
     window.template = require("./template");
