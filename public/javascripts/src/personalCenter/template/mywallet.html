@@ -3,13 +3,13 @@
         <p class="mywallet-title">我的钱包</p>
         <ul class="mywallet-tabs tabs" >
             <li  class="{{ mywalletType == '1' ? 'tab-active tab':'tab'}}">
-                <a href="/node/personalCenter/mywallet.html?mywalletType=1">概况</a>
+                <a href="/node/personalCenter/mywallet.html?type=mywallet&mywalletType=1">概况</a>
             </li>
             <li class="{{ mywalletType == '2' ? 'tab-active tab' :'tab'}}">
-                <a href="/node/personalCenter/mywallet.html?mywalletType=2">提现记录</a>
+                <a href="/node/personalCenter/mywallet.html?type=mywallet&mywalletType=2">提现记录</a>
             </li>
             <li class="{{ mywalletType == '3' ? 'tab-active tab' :'tab'}}">
-                <a href="/node/personalCenter/mywallet.html?mywalletType=3">财务信息</a>
+                <a href="/node/personalCenter/mywallet.html?type=mywallet&mywalletType=3">财务信息</a>
             </li>
         </ul>
         {{if mywalletType == '1'}}
