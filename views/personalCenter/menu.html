@@ -5,10 +5,10 @@
         <img class="personal-img" src="{{results.userInfo.data.photoPicURL}}"/>
         <div class="personal-nickname-content">
             <p class="personal-nickname"><span class="nickname">{{results.userInfo.data.nickName }}</span>
-                {% if results.userInfo.data.isMasterVip == 1%}
+                {% if results.isMasterVip == 1%}
                 <span class="whole-station-vip-icon"></span>
                 {%endif%}
-                {% if results.userInfo.data.isOfficeVip == 1%}
+                {% if results.isOfficeVip == 1%}
                 <span class="office-vip-icon"></span>
                 {%endif%}
             </p>

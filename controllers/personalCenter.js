@@ -11,6 +11,12 @@ function getUserCentreInfo(req,res){
     const url= appConfig.apiNewBaselPath + api.user.getUserCentreInfo + "?scope=4";
     return server.$http(url,'get', req, res, true);
 }
+function getRightsVipMemberDetail(req,res){
+    req.body = {
+        memberCodeList: ['PREVILEGE_NUM', 'PAY_DISCOUNT']
+    }
+    return server.$http(appConfig.apiNewBaselPath + api.coupon.getVipAllMemberDetail, 'post', req, res, true)
+}
 const  renderPersonalCenter =  async(req,res)=>{
     let cuk = req.cookies.cuk
     let results = {
@@ -25,8 +31,19 @@ const  renderPersonalCenter =  async(req,res)=>{
     }
     if(cuk){
         results.userInfo = await getUserCentreInfo(req,res)
+        let rightsVipMemberDetail = await getRightsVipMemberDetail(req,res)
+        results.isMasterVip = 0
+        results.isOfficeVip = 0
+        rightsVipMemberDetail.data.forEach(item => {  // site 使用范围 0-办公,1-教育,2-建筑,3-超级会员,4-主站       fileDiscount   PAY_DISCOUNT的特权
+            if (item.site == '4') {  // 主站
+                results.isMasterVip =  item.vipStatus
+            }
+            if (item.site == '0') {   // 办公
+                results.isOfficeVip = item.vipStatus
+            }
+        })
     }
-    console.log('results:',JSON.stringify(results))
+    
     render("personalCenter/index", results, req, res);
 }
 
