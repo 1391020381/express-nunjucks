@@ -9,12 +9,12 @@ define(function (require, exports, module) {
     //启始页 默认的情况
     var cPage = +window.pageConfig.page.initReadPage;
     var restPage = 0;
-    var imgTotalPage = window.pageConfig.imgUrl.length;
-    var totalPage = window.pageConfig.params.totalPage;//最大页数
+    var imgTotalPage = +window.pageConfig.imgUrl.length;
+    var totalPage = +window.pageConfig.params.totalPage;//最大页数
     var ptype = window.pageConfig.params.g_fileExtension || '';
-    var preRead = window.pageConfig.page.preRead || 50;
+    var preRead = +window.pageConfig.page.preRead || 50;
     var limitPage = Math.min(preRead, 50); //最大限制阅读页数
-    var initReadPage = window.pageConfig.page.initReadPage // 默认展示的页数
+    var initReadPage = +window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4;
     var hash = window.location.hash;
     console.log('limitPage', limitPage)
