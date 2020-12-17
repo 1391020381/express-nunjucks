@@ -84,7 +84,7 @@
              </li>
         </ul>
         {%if results.userInfo.data.isAuth == 1%}
-         <ul class="{{ 'menus active-menus mywallet' if results.type === 'mywallet' else 'menus mywallet'}}" style="display:none;">
+         <ul class="{{ 'menus active-menus mywallet' if results.type === 'mywallet' else 'menus mywallet'}}" >
             <p class="menus-desc">
               <a class="menu-link" href="/node/personalCenter/mywallet.html?type=mywallet">
                 <span class="menus-icon mywallet-icon"></span>
