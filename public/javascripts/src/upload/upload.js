@@ -652,39 +652,39 @@ define(function(require , exports , module){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             if (!item.fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
-                stop = true
+                return
             }
             if(reg.test(item.fileName)){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能包含空格')
-                stop = true
+                return
             }
             if(item.fileName.length<5){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能少于5个字')
-                stop = true
+                return
                
             }
             if(item.fileName.length>64){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能超过64个字')
-                stop = true
+                return
             }
             if(!item.classid) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.must-error').show()
-                stop = true
+                return
             }
             if(!item.folderId) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.folder-error').show()
-                stop = true
+                return
             }
             if(item.userFileType==5) {
                if(!item.definePrice && item.userFilePrice =='0') {
                 $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.pay-item-info').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.price-error').show()
-                stop = true
+                return
                }else if (item.userFilePrice =='0'){
                     $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                     $('.js-file-item').find('.doc-li').eq(index).find('.select-item-info').show()
-                    stop = true
+                    return
                    
                }
             }

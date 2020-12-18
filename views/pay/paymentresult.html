@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-{% include "common/head.html" %}
+<title>订单详情</title>
+{# {% include "common/head.html" %} #}
  <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 
 {# <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
@@ -31,7 +31,14 @@
 }
 fun(document, window)
 </script>  
-
+<script type="text/javascript">
+        var _speedMark = +new Date()
+        var   _version = "{{version}}"
+        var   _head = "{{cdnUrl}}";
+        var _dpData = [];//广告测试
+        var env = "{{env}}";
+        var loginUrl = "{{loginUrl}}"
+</script>
 </head>
 
 <body>
