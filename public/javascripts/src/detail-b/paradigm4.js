@@ -135,13 +135,18 @@ define(function (require, exports, module) {
             })
             $.post('https://nbrecsys.4paradigm.com/action/api/log?clientToken=' + clientToken, paradigm4RelevantData, function (data) {
             })
+            var fileName = $(this).find('.item-link-right-desc').text()
+            var index = fileName.lastIndexOf(".");
+            if(index !=-1) {
+             fileName  =  fileName.substr(0,index)
+            }  
             var params = window.pageConfig.params 
             iask_web.track_event('NE017', "fileListNormalClick", 'click', {
                 moduleID:"guesslike",
                 moduleName:"猜你喜欢",
                 filePostion:$(this).index() + 1,
                 fileID:params.g_fileId,
-                salePrice:params.productPrice,
+                fileName:fileName,
                 saleType:params.productType,
                 fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                 fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3

@@ -492,12 +492,13 @@ define(function(require, exports, moudle) {
         if(goodsType == '2' || goodsType == '12'){ 
             var activeLi = $('.pay-vip-list .ui-tab-nav-item.active')
             var  payCoupon = $('.pay-coupon-wrap')
+            
             iask_web.track_event('SE010', "payVipClick", 'click', {
                 vipID:activeLi.attr('data-vid'),
                 vipName:activeLi.attr('data-month'),
                 vipPrice:activeLi.attr('data-price'),
-                couponID:payCoupon.attr('vid'),
-                coupon:payCoupon.attr('svuid')
+                couponID:payCoupon.attr('vid')||'',
+                coupon:payCoupon.attr('svuid')||''
             });
         }
         if(goodsType == '1'){ 
