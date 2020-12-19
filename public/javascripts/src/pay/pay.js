@@ -38,11 +38,14 @@ define(function(require, exports, moudle) {
             $('.renewal-radio').hide()
         }
     }
-    if (location.pathname == '/pay/payConfirm.html') {
+    if (location.pathname == '/pay/payConfirm.html') { // /pay/payConfirm.html
         iask_web.track_event('NE006', "modelView", 'view', {
             moduleID:"filePayCon",
             moduleName:'资料支付弹窗'
         });
+        
+    }
+    if(location.pathname == '/pay/payQr.html'){
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
@@ -486,7 +489,7 @@ define(function(require, exports, moudle) {
             goodsType = $('.renewal-radio #renewal').attr('checked') ? 12 : goodsType // 续费
         }
        // 物品类型 1-购买资料 2-购买VIP 4-购买爱问豆 8-下载特权 10-免费资料 11-vip专享资料 12-VIP套餐(签约)
-        if(goodsType == '2'){ 
+        if(goodsType == '2' || goodsType == '12'){ 
             var activeLi = $('.pay-vip-list .ui-tab-nav-item.active')
             var  payCoupon = $('.pay-coupon-wrap')
             iask_web.track_event('SE010', "payVipClick", 'click', {
@@ -770,16 +773,16 @@ define(function(require, exports, moudle) {
                         iask_web.track_event('SE034', "payResult", 'query', {
                             result:1,
                             orderID:orderNo,
-                            goodsID:method.getParam("goodsId"),
-                            goodsType:method.getParam("goodsType")
+                            goodsID:data.goodsId,
+                            goodsType:data.goodsType
                          });
                         goodsPaySuccess(data, orderNo)
                     } else if (data.orderStatus == 3) {
                         iask_web.track_event('SE034', "payResult", 'query', {
                             result:0,
                             orderID:orderNo,
-                            goodsID:method.getParam("goodsId"),
-                            goodsType:method.getParam("goodsType")
+                            goodsID:data.goodsId,
+                            goodsType:data.goodsType
                          });
                         goodsPayFail(data, orderNo);
                     }

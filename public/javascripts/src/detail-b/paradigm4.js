@@ -140,6 +140,7 @@ define(function (require, exports, module) {
                 moduleID:"guesslike",
                 moduleName:"猜你喜欢",
                 filePostion:$(this).index() + 1,
+                fileID:params.g_fileId,
                 salePrice:params.productPrice,
                 saleType:params.productType,
                 fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,

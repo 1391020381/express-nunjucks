@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                         if (isFirstLogin) {
                            
                             handleBaiduStatisticsPush('loginResult', {
-                                loginType: window.loginType && window.loginType.type,
+                                loginType: window.loginType && window.loginType,
                                 phone: res.data.mobile,
                                 userid: res.data.userId,
                                 loginResult: "1"
@@ -99,7 +99,7 @@ define(function (require, exports, module) {
                             iask_web.track_event('SE001', "loginResult", 'query', {
                                 loginResult:'1',
                                 failMsg:'',
-                                loginType: res.formData
+                                loginType: window.loginType && window.loginType
                             });
                             window.location.reload();
                         }
@@ -127,7 +127,7 @@ define(function (require, exports, module) {
                     } else {
                         
                         handleBaiduStatisticsPush('loginResult', {
-                            loginType: window.loginType && window.loginType.type,
+                            loginType: window.loginType && window.loginType,
                             phone: '',
                             userid: res.data.userId,
                             loginResult: "0"
