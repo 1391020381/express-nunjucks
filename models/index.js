@@ -93,7 +93,7 @@ module.exports = {
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
                 // console.log('$http---------:',opt.url,error,body)
-                let is4paradigm = opt.url.includes('https://nbrecsys.4paradigm.com/')
+                let is4paradigm = opt.url.includes('4paradigm.com')
                 let isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk')
                 if (body) {
                     try {
