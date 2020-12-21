@@ -74,10 +74,10 @@ const renderPage = cc(async (req, res) => {
     const recommendInfo = await getRecommendInfo(req, res, list)
     console.log('recommendInfo:',JSON.stringify(recommendInfo))
     let paradigm4Guess = []
-    let paradigm4Relevant = []
+    let paradigm4Relevant = {}
     if (recommendInfo) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
-       
+        console.log('paradigm4Relevant:',JSON.stringify(paradigm4Relevant))
         // paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
         
     }
@@ -186,7 +186,7 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
         let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
         return server.$http(url, 'post', req, res, true);
     } else {
-        return null
+        return {}
     }
 }
 
