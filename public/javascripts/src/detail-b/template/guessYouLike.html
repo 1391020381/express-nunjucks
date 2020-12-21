@@ -1,29 +1,27 @@
 <!--猜你喜欢-->
-<div class="guess-you-like">
-    <h2 class="guess-you-like-title">你可能喜欢</h2>
+
+
+<div class="guessyoulike"  >
+    <div class="guess-you-like">
+    <h2 class="guess-you-like-title">你可能还喜欢</h2>
     <ul class="guess-you-like-itmes">
-        {{each paradigm4GuessData as item}}
-            
-        <li class="item">
-            <a class="item-link" href="/f/{{item.id}}.html"    target="_blank">
-                <div class="item-link-left">
-                 {% if item.cover_url %}
-                    <img class="item-link-left-img"  src={{item.cover_url}} alt={{item.name}}/>
-                    <span class="item-link-left-icon"><span>
-                  {% else %}
-                  <img class="item-link-left-img"  src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt={{item.name}}/>
-                 <span class="item-link-left-icon"><span>
-                  {% endif %}  
-                </div>
-                <div class="item-link-right">
-                    <p class="item-link-right-desc">{{item.name}}</p>
-                    <p class="item-link-right-other">
-                        <span class="other-read">{{item.item_read_cnt}}阅读</span>
-                        {# <span class="other-page">25页</span> #}
-                    </p>
-                </div>
+    {{each paradigm4GuessData as item}}
+          <li class="item" bilogContent="underSimilarFileClick">
+            <a class="item-link" href="/f/{{item.id}}.html" target="_blank">
+                  <div class="item-content">
+                      {{ if item.cover_url }}
+                         <img class="img"  src="{{item.cover_url}}" alt="{{item.name}}"/>
+                        {{ else }}
+                        <img class="item-link-left-img"  src="{{cdnUrl}}/images/detail/pic_data_normal.jpg" alt="{{item.name}}"/>
+                       {{ /if }}
+                 <p class="item-desc">{{item.name}}</p>
+                  <div class="pic-mask"></div>
+                   <span class="pic-download">立即下载</span> 
+                  </div>
+
             </a>
         </li>
-        {{/each}}  
+     {{/each}}
     </ul>
+</div>
 </div>

@@ -99,6 +99,7 @@ define(function (require, exports, module) {
                                 userid: res.data.userId,
                                 loginResult: "1"
                             })
+                          
                             window.location.reload();
                         }
                         if (callback && typeof callback == "function") {
@@ -118,6 +119,7 @@ define(function (require, exports, module) {
                                 tel: res.data.mobile
                             }
                             method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
+                            method.setCookieWithExpPath("userId",res.data.userId, 30 * 60 * 1000, "/");
                         } catch (e) {
                         }
 
@@ -188,6 +190,7 @@ define(function (require, exports, module) {
             method.delCookie("sid_ishare", "/", ".iask.com.cn");
             method.delCookie("sid_ishare", "/", ".sina.com.cn");
             method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
+            method.delCookie("userId", "/", "/");
             // 删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");

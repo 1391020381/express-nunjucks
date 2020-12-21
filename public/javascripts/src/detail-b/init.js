@@ -3,6 +3,7 @@ define(function (require, exports, module) {
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
    require("./userComments.js")
+   require('./guessYouLike.js')
     require("./index");
     require("./search");
     require("./download");

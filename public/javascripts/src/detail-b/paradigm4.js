@@ -24,7 +24,7 @@ define(function (require, exports, module) {
         var paradigm4Guess = paradigm4.paradigm4Guess || [];
         var requestID_rele = paradigm4.requestID_rele || '';
         var requestID_guess = paradigm4.requestID_guess || '';
-        var paradigm4Relevant = paradigm4.paradigm4Relevant || [];
+        var paradigm4Relevant = paradigm4.paradigm4Relevant.data || [];
         var recommendInfoData_rele = paradigm4.recommendInfoData_rele || {};
         var recommendInfoData_guess = paradigm4.recommendInfoData_guess || {};
         var sceneIDRelevant = recommendInfoData_rele.useId || '';

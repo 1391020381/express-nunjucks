@@ -15,7 +15,7 @@ const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess
 
 const renderPage = cc(async (req, res) => {
 
-    let userID = Math.random().toString().slice(-15); //标注用户的ID，
+    let userID = req.cookies.useId?req.cookies.useId:req.cookies.visitor_id; //标注用户的ID，
     const flag = req.params.id.includes('-nbhh')
     const redirectUrl = await getRedirectUrl(req, res)
 
@@ -34,7 +34,6 @@ const renderPage = cc(async (req, res) => {
         return
     }
     if (list.data) {
-        userID = list.data.fileInfo.uid && list.data.fileInfo.uid.slice(0, 10) || ''; //来标注用户的ID，
         let uid = req.cookies.ui ? JSON.parse(req.cookies.ui).uid : ''
         let cuk = req.cookies.cuk
         let data = list.data;
@@ -79,7 +78,8 @@ const renderPage = cc(async (req, res) => {
     if (recommendInfo) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
        
-        paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
+        // paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
+        
     }
     const filePreview = await getFilePreview(req, res, list)
    
@@ -198,6 +198,7 @@ function getParadigm4Guess(req, res, list, recommendInfo, userID) {
         req.body = {
             request:{ "userId": userID, "requestId": requestId }
         }
+        console.log('userID',userID)
         let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
         return server.$http(url, 'post', req, res, true)
     } else {
@@ -310,7 +311,7 @@ function handleDetalData(
                 id: item.itemId || '',
                 format: item.categoryLevel5 ||'',
                 name: item.title || '',
-                cover_url: item.cover_url || '',
+                cover_url: item.coverUrl || '',
                 url: item.url || '',
                 item_read_cnt: item.item_read_cnt
             }
@@ -323,21 +324,21 @@ function handleDetalData(
     }
 
     // 如果有第四范式 猜你喜欢
-    if (results.paradigm4Guess) {
-        var paradigm4Guess = results.paradigm4Guess.map(item => {
-            return {
-                id: item.item_id || '',
-                format: item.extra1 || format || '',
-                name: item.title || '',
-                cover_url: item.cover_url || '',
-                url: item.url || '',
-                item_read_cnt: item.item_read_cnt
-            }
-        })
-        results.paradigm4GuessData = paradigm4Guess || [];
-        results.requestID_guess = req.requestID_guess;
-        results.userID = userID;
-    }
+    // if (results.paradigm4Guess.data) {
+    //     var paradigm4Guess = results.paradigm4Guess.data.map(item => {
+    //         return {
+    //             id: item.itemId || '',
+    //             format: item.categoryLevel5 ||  '',
+    //             name: item.title || '',
+    //             cover_url: item.cover_url || '',
+    //             url: item.url || '',
+    //             item_read_cnt: item.item_read_cnt
+    //         }
+    //     })
+    //     results.paradigm4GuessData = paradigm4Guess || [];
+    //     results.requestID_guess = req.requestID_guess;
+    //     results.userID = userID;
+    // }
 
     results.recommendInfoData_rele = req.recommendInfoData_rele || {};
     results.recommendInfoData_guess = req.recommendInfoData_guess || {};

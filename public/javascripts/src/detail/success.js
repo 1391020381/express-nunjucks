@@ -8,6 +8,7 @@ define(function (require, exports, module) {
     var fileName = method.getParam('title');
     var format = method.getParam('format');
     var api = require('../application/api');
+    require('./guessYouLike')
     var userId;
     require('swiper');
     var refreshTopBar = require('../application/effect.js').refreshTopBar
