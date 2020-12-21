@@ -87,18 +87,18 @@ define(function (require, exports, module) {
      
     // 全局的ajax 请求方法
 
-function $ajax(url,ajaxMethod,data,async){  //  .done(function(){})  .fail(function(){})
+function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){})  .fail(function(){})
       return  $.ajax(url, {
         type: ajaxMethod || "post",
         data: data?JSON.stringify(data):'',
-        async:async == undefined ?true:false,
+        async:(async == undefined||async == '') ?true:false,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        headers: {
+        headers: $.extend({},{
             'cache-control': 'no-cache',
             'Pragma': 'no-cache',
             'Authrization':method.getCookie('cuk')
-        }
+        },customHeaders)
     })
 }
 

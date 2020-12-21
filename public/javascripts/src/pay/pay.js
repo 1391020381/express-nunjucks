@@ -52,8 +52,8 @@ define(function(require, exports, moudle) {
     }
     if (location.pathname == '/pay/privilege.html') {
         iask_web.track_event('NE006', "modelView", 'view', {
-            moduleID:"buyTqCon",
-            moduleName:'特权补充弹窗'
+            moduleID:"priPayCon",
+            moduleName:'特权列表弹窗'
         });
        
     }
