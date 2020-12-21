@@ -7496,7 +7496,7 @@
                   
                    
                     for (var  prop in data['var']){
-                        data['var'] [prop] = data['var'][prop] || ''
+                        data['var'][prop] = data['var'][prop] || ''
                     }
 
                   
