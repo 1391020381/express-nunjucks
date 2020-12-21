@@ -27,7 +27,7 @@
         <div class="personal-id">
            <span class="id" id="id" value="">用户ID:{{results.userInfo.data.id}}</span><span class="copy clipboardBtn" data-clipboard-text='{{results.userInfo.data.id}}' data-clipboard-action="copy">复制</span>
         </div>
-        {% if results.userInfo.isWxAuth%}
+        {% if results.isWxAuth%}
           <div class="signIn "> <span class="signIn-icon"></span><span class="signIn-desc">签到</span></div>
         {%endif%}
     </div>

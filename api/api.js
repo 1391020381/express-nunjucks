@@ -52,6 +52,7 @@ module.exports = {
         associatedWords: '/search/specialTopic/lisPage'
     },
     user:{
+       userWxAuthState:'/cas/user/wxAuthState',
        getUserInfo:'/user/getUserInfo',
        getUserCentreInfo:'/user/getUserCentreInfo'
     },

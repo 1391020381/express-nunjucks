@@ -17,6 +17,10 @@ function getRightsVipMemberDetail(req,res){
     }
     return server.$http(appConfig.apiNewBaselPath + api.coupon.getVipAllMemberDetail, 'post', req, res, true)
 }
+function userWxAuthState(req,res){
+    let url = appConfig.apiNewBaselPath + api.user.userWxAuthState
+    return server.$http(url,'get', req, res, true)
+}
 const  renderPersonalCenter =  async(req,res)=>{
     let cuk = req.cookies.cuk
     let results = {
@@ -32,6 +36,8 @@ const  renderPersonalCenter =  async(req,res)=>{
     if(cuk){
         results.userInfo = await getUserCentreInfo(req,res)
         let rightsVipMemberDetail = await getRightsVipMemberDetail(req,res)
+        let  userWxAuthStateResult =  await userWxAuthState(req,res)
+        results.isWxAuth = userWxAuthStateResult.data.isWxAuth
         results.isMasterVip = 0
         results.isOfficeVip = 0
         rightsVipMemberDetail.data.forEach(item => {  // site 使用范围 0-办公,1-教育,2-建筑,3-超级会员,4-主站       fileDiscount   PAY_DISCOUNT的特权
