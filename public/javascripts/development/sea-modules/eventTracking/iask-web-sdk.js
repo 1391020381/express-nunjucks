@@ -7493,7 +7493,15 @@
 
                     // 上报数据对象字段截取
                     var truncateLength = this.instance._get_config('truncateLength');
+                  
+                   
+                    for (var  prop in data['var']){
+                        data['var'] [prop] = data['var'][prop] || ''
+                    }
+
+                  
                     var truncated_data = data;
+                    
                     if (_.isNumber(truncateLength) && truncateLength > 0) {
                         truncated_data = _.truncate(data, truncateLength);
                     }
