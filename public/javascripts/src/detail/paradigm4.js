@@ -21,7 +21,7 @@ define(function (require, exports, module) {
         var time = date.toTimeString().split('GMT')[0].trim();
         var dateParams = year + '-' + month + '-' + day + ' ' + time;
         var paradigm4 = window.paradigm4 || {};
-        var paradigm4Guess = paradigm4.paradigm4Guess || [];
+        var paradigm4Guess = paradigm4.paradigm4Guess&&paradigm4.paradigm4Guess.data || [];
         var requestID_rele = paradigm4.requestID_rele || '';
         var requestID_guess = paradigm4.requestID_guess || '';
         var paradigm4Relevant = paradigm4.paradigm4Relevant.data || [];
@@ -54,14 +54,17 @@ define(function (require, exports, module) {
         if(paradigm4Guess!='null' && paradigm4Guess){
             paradigm4Guess.forEach(function (item) {
                 actionsGuess.push({
-                    "itemId": item.item_id,
+                    "itemId": item.itemId,
                     "actionTime": date.getTime(),
                     "action": "show",
                     "itemSetId": recommendInfoData_guess.materialId || '',
                     "sceneId": sceneIDGuess,
                     "userId": userId,
-                    "context": item.context,
                     "requestId": requestID_guess,
+                    "lib":"pc-node",
+                    "deviceId":"pc-node",
+                    "context": item.context,
+                   
                 })
             });
         }
@@ -98,8 +101,10 @@ define(function (require, exports, module) {
                     "itemSetId": recommendInfoData_guess.materialId || '',
                     "sceneId": sceneIDGuess,
                     "userId": userId,
-                    "context": context,
-                    "requestId": requestID_guess
+                    "requestId": requestID_guess,
+                    "lib":"pc-node",
+                    "deviceId":"pc-node",
+                    "context": context
                 }]
             })
             $.post('https://nbrecsys.4paradigm.com/action/api/log?clientToken=' + clientToken, guessyoulikeData, function (data) {

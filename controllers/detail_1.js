@@ -11,12 +11,12 @@ const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
 
-const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
 
     let userID = req.cookies.useId?req.cookies.useId:req.cookies.visitor_id; //标注用户的ID，
-    const flag = req.params.id.includes('-nbhh')
+    
     const redirectUrl = await getRedirectUrl(req, res)
 
     if (redirectUrl.data) {
@@ -65,21 +65,17 @@ const renderPage = cc(async (req, res) => {
             }
         }
     }
-    // const specialTopic  = await getSpecialTopic(req,res,list)
+    
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
     const crumbList = await getCrumbList(req, res, list)
     const cateList = await getCategoryList(req, res);  
     const recommendInfo = await getRecommendInfo(req, res, list)
-    console.log('recommendInfo:',JSON.stringify(recommendInfo))
-    let paradigm4Guess = []
+    
     let paradigm4Relevant = {}
     if (recommendInfo) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
-        console.log('paradigm4Relevant:',JSON.stringify(paradigm4Relevant))
-        // paradigm4Guess = await getParadigm4Guess(req, res, list, recommendInfo, userID)
-        
     }
     const filePreview = await getFilePreview(req, res, list)
    
@@ -94,7 +90,6 @@ const renderPage = cc(async (req, res) => {
         cateList,
         recommendInfo,
         paradigm4Relevant,
-        paradigm4Guess,
         filePreview,
         crumbList,
         userID
@@ -154,15 +149,7 @@ function getCrumbList(req, res, list) {
     return { data: [] };
 }
 
-function getSpecialTopic(req,res,list){
-    req.body = {
-        currentPage:1,
-        pageSize:5,
-        topicName: list.data.fileInfo.title,
-        siteCode:'4' 
-    }
-    return server.$http(appConfig.apiNewBaselPath + Api.search.associatedWords, 'post', req, res, true)
-}
+
 
 function getRecommendInfo(req, res, list) {
         req.body = ['ishare_relevant']
@@ -190,21 +177,7 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
     }
 }
 
-function getParadigm4Guess(req, res, list, recommendInfo, userID) {
-    let recommendInfoData_guess = recommendInfo.data[1] || {}; // 个性化 猜你喜欢
-    let requestId = Math.random().toString().slice(-10);// requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-    if (recommendInfoData_guess.useId) {
-       
-        req.body = {
-            request:{ "userId": userID, "requestId": requestId }
-        }
-        console.log('userID',userID)
-        let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
-        return server.$http(url, 'post', req, res, true)
-    } else {
-        return null
-    }
-}
+
 
 // 获取页面分类列表
 function getCategoryList(req, res) {
@@ -225,12 +198,7 @@ function getFilePreview(req, res, list) {
     return server.$http(appConfig.apiNewBaselPath + Api.file.preReadPageLimit, 'post', req, res, true)
 }
 
-// 获取详情评论  用于加载更多定位
-function getFileComment(req,res){ 
-    let fid = req.params.id
-    const url=  appConfig.apiNewBaselPath + Api.comment.getFileComment + '?fid='+ fid + '&currentPage=1&pageSize=15' ;
-    return server.$http(url,'get', req, res, true);
-}
+
 function handleDetalData(
     req,
     res,
@@ -242,7 +210,6 @@ function handleDetalData(
     cateList,
     recommendInfo,
     paradigm4Relevant,
-    paradigm4Guess,
     filePreview,
     crumbList,
     userID
@@ -294,7 +261,6 @@ function handleDetalData(
         cateList: cateList.data && cateList.data.length ? cateList.data : [],
         recommendInfo,
         paradigm4Relevant,
-        paradigm4Guess,
         filePreview,
     }, { list: list });
     
@@ -323,22 +289,6 @@ function handleDetalData(
         results.userID = userID;
     }
 
-    // 如果有第四范式 猜你喜欢
-    // if (results.paradigm4Guess.data) {
-    //     var paradigm4Guess = results.paradigm4Guess.data.map(item => {
-    //         return {
-    //             id: item.itemId || '',
-    //             format: item.categoryLevel5 ||  '',
-    //             name: item.title || '',
-    //             cover_url: item.cover_url || '',
-    //             url: item.url || '',
-    //             item_read_cnt: item.item_read_cnt
-    //         }
-    //     })
-    //     results.paradigm4GuessData = paradigm4Guess || [];
-    //     results.requestID_guess = req.requestID_guess;
-    //     results.userID = userID;
-    // }
 
     results.recommendInfoData_rele = req.recommendInfoData_rele || {};
     results.recommendInfoData_guess = req.recommendInfoData_guess || {};

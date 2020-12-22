@@ -1,11 +1,14 @@
+
+
 define(function (require, exports, module){
    var pageConfig = window.pageConfig&&window.pageConfig
     var isConvert = pageConfig&&pageConfig.page.isConvert
     var method = require("../application/method");
     var api = require('../application/api');
     var guessYouLike = require('./template/guessYouLike.html')
-   var userId = method.getCookie('userId')
+   var userId = method.getCookie('userId')?method.getCookie('userId'):method.getCookie('visitor_id')
    var requestId = Math.random().toString().slice(-10);// requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+   window.recommendConfig = {}   // 第四范式参数 在上报时需要
    var params = {
     request:{ "userId": userId, "requestId": requestId }
  }
@@ -186,6 +189,7 @@ define(function (require, exports, module){
  
  $ajax(api.recommend.recommendConfigInfo,'post',['ishare_personality']).then(function(recommendConfig){
      var sceneID = recommendConfig.data[0].useId 
+     window.recommendConfig =  recommendConfig.data
     $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',params).then(function(res){
         if(res.code == '200'){
             var guessYouLikeTemplate =  template.compile(guessYouLike)({paradigm4GuessData:res.data});
@@ -194,7 +198,9 @@ define(function (require, exports, module){
         }
         
     })
-
+    window.paradigm4 = {
+      paradigm4Guess:list
+    } 
     var paradigm4GuessData = []
     $.each(list.data,function(index,item){
         paradigm4GuessData.push({
