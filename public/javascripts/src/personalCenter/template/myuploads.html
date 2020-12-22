@@ -14,7 +14,8 @@
          <div class="select-list">
                {{ if myuploadType == 2}}
                  <span class="list-item">审核进度 :</span>
-                 <select class="list-select review-progress">
+                 <div class="list-select list-select-reviewProgress">
+                      <select class=" review-progress">
                    <option value="0">全部</option>
                    {{if auditType == '1'}}
                         <option value="1" selected="selected">待机器审核</option>
@@ -34,9 +35,12 @@
                  {{/if}}
                 
                  </select>
+                 
+                 </div>
                {{/if }}  
                  <span class="list-item">资料类型 :</span>
-                 <select class="list-select file-type" >
+                 <div class="list-select list-select-fileType">
+                    <select class="file-type" >
                    <option value="0" >全部</option>
                    {{if userFileType == '6' }}
                        <option value="6" selected="selected">私有</option>
@@ -57,6 +61,7 @@
                    {{/if }}
                   
                  </select>
+                 </div>
          </div>
          {{/if}}
     </div>
@@ -133,7 +138,7 @@
                {{if myuploadType == '2'}}
                           <td class="td-text">{{list[$index].userFileTypeName}}</td>
                           <td class="td-text">{{list[$index].userFilePrice}}</td>
-                          <td class="td-text">{{list[$index].auditType }}</td>
+                          <td class="td-text" style="color:#222222;">{{list[$index].auditType }}</td>
                  {{/if}}
 
                  {{if myuploadType == '3'}}

@@ -72,7 +72,7 @@ define(function(require , exports , module){
                   })
                   console.log('list:',list,auditType,userFileType)
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
-                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType,auditType:auditType + '',userFileType:userFileType+''});
+                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.list.totalSize,myuploadType:myuploadType,auditType:auditType + '',userFileType:userFileType+''});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
                    handlePagination(res.data.list.totalPages,res.data.list.currentPage) 
               }else{
