@@ -29,8 +29,9 @@ function loadScript(url) {
     return dtd
   }
  
-  if(!method.isIe8()){
-    var cdnUrl = window._head
+  if(method.isIe8()){
+    var cdnUrl = window._head 
+    var env = window.env
     var url1 =  cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-5.27.6-bundle.min.js":"/javascripts/sea-modules/sentry/sentry-5.27.6-bundle.min.js"
     var url2 = cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-tracing-5.27.6-bundle.tracing.min.js":"/javascripts/sea-modules/sentry/sentry-tracing-5.27.6-bundle.tracing.min.js"
     var url3 = cdnUrl? '/' + cdnUrl + "/javascripts/sea-modules/sentry/sentry-3.26.4-raven.min.js":"/javascripts/sea-modules/sentry/sentry-3.26.4-raven.min.js"
@@ -40,7 +41,7 @@ function loadScript(url) {
             
             setTimeout(function(){
                 Sentry.init({
-                    dsn: "http://1c2e7350f62e41f581a7b24026a0ff10@192.168.1.199:9000/2",
+                    dsn: (env =='pre'||env == 'prod')?"http://c37a5f8c8d9b44f9ab05398cbbfa2dd8@sentry-ishare.iask.com.cn/2":"http://1c2e7350f62e41f581a7b24026a0ff10@192.168.1.199:9000/2",
                     release: "node-pc@" + 0.01,
                    integrations: Sentry.Integrations.BrowserTracing?[new Sentry.Integrations.BrowserTracing()]:[],
                     tracesSampleRate: 1.0,
@@ -57,8 +58,6 @@ function loadScript(url) {
                 //     title: "4444",
                 //   }
                 // })
-                
-
             },100)
         })
     })  

@@ -127,7 +127,7 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
                 options:options,
                 exc:exc
             }))
-            if(!method.isIe8()){
+            if(method.isIe8()){
                 Sentry.captureException(JSON.stringify({
                     event:event,
                     xhr:xhr,

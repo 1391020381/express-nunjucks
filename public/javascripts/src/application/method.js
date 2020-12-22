@@ -374,15 +374,20 @@ define(function (require, exports, module) {
             return this.getCookie('ish_jssid') || '';
         },
         isIe8: function isIe8(){
-            var DEFAULT_VERSION = 8.0;  
-            var ua = navigator.userAgent.toLowerCase();  
-            var isIE = ua.indexOf("msie")>-1;  
-            var safariVersion;  
-            if(isIE){  
-            safariVersion =  ua.match(/msie ([\d.]+)/)[1];  
-            }  
-            if(safariVersion <= DEFAULT_VERSION ){  
-               return true
+            // var DEFAULT_VERSION = 8.0;  
+            // var ua = navigator.userAgent.toLowerCase();  
+            // var isIE = ua.indexOf("msie")>-1;  
+            // var safariVersion;  
+            // if(isIE){  
+            // safariVersion =  ua.match(/msie ([\d.]+)/)[1];  
+            // }  
+            // if(safariVersion <= DEFAULT_VERSION ){  
+            //    return true
+            // }else{
+            //     return false
+            // }
+            if(Array.isArray){
+                return true
             }else{
                 return false
             }

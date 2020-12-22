@@ -592,7 +592,7 @@ define(function(require, exports, moudle) {
 
             }
         }) 
-        if(!method.isIe8()){
+        if(method.isIe8()){
             Sentry.captureException(JSON.stringify({
                 url:url,
                 message:message

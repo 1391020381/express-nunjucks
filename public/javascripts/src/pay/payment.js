@@ -180,7 +180,7 @@ define(function (require, exports, module) {
 
             }
         }) 
-        if(!method.isIe8()){
+        if(method.isIe8()){
             Sentry.captureException(JSON.stringify({
                 url:url,
                 message:message
