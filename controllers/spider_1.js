@@ -103,7 +103,7 @@ function getParadigm4Relevant(req,res,list,recommendInfo,userID){
         let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
         return server.$http(url, 'post', req, res, true);
     } else {
-        return null
+        return {}
     }
 }
 
@@ -223,6 +223,7 @@ function handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recom
     results.seo.description = description ||'';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
+    console.log('paradigm4Relevant:',JSON.stringify(paradigm4Relevant))
     let recRelateArrNum  = paradigm4Relevant.data.length
     if(recRelateArrNum>30) {
          results.relevantList=results.paradigm4Relevant.data.slice(0,10)

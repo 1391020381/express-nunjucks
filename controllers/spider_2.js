@@ -9,7 +9,7 @@ var appConfig = require("../config/app-config");
 const cc = require('../common/cc')
 
 const renderPage = cc(async(req,res,next)=>{
-    console.log('req.headers[user-agent]:',req.headers['user-agent'])
+   
     let userID = Math.random().toString().slice(-15); //标注用户的ID，
     let type = req.query&&req.query.type || 'new'
     let id = req.params.id.replace('-nbhh','')
@@ -39,8 +39,9 @@ const renderPage = cc(async(req,res,next)=>{
     }
     if(paradigm4Relevant){
          hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
+         
     }
-  
+   
     const  hotTopicSearch = await getHotTopicSearch(req,res,list)
     const hotTopicSeo  = await getHotTopicSeo(req,res)
     const hotRecData =  await getHotRecData(req,res)
@@ -151,24 +152,26 @@ function getRecommendInfo(req,res,list){
 }
 
 function getParadigm4Relevant(req,res,list,recommendInfo,userID){
-    let requestID_rele = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-    
     let recommendInfoData_rele = recommendInfo.data[0] || {} //相关资料
-    req.requestID_rele = requestID_rele
-    req.recommendInfoData_rele = recommendInfoData_rele
-    if(recommendInfoData_rele.useId){
-       let sceneIDRelevant = recommendInfoData_rele.useId || '';
-       req.body = { "itemID": list.data.fileInfo.fid, "itemTitle": list.data.fileInfo.title }
-      
-       let url = `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID_rele}&sceneID=${sceneIDRelevant}&userID=${userID}`
-       return server.$http(url,'post', req,res,true)
-    }else{
-        return null
+    if (recommendInfoData_rele.useId) {
+        let requestId = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+        req.body = {
+            request:{
+            "userId":userID,
+            "requestId":requestId,
+            "itemId":list.data.fileInfo.id, 
+            "itemTitle":list.data.fileInfo.title
+             }
+        }
+        let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
+        return server.$http(url, 'post', req, res, true);
+    } else {
+        return {}
     }
 }
 
 function getHotpotSearch(req,res,list,paradigm4Relevant){
-    let recRelateArrNum = paradigm4Relevant.length
+    let recRelateArrNum = paradigm4Relevant.data.length
     req.body = {
         currentPage:1,
         pageSize:40,
@@ -179,7 +182,7 @@ function getHotpotSearch(req,res,list,paradigm4Relevant){
     if(recRelateArrNum<31){
         return server.$http(appConfig.apiNewBaselPath+Api.spider.hotpotSearch,'post', req,res,true)
     }else{
-        return null
+        return {}
     }
 }
 
@@ -250,7 +253,7 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
     }
      //对正文进行处理
      var textString =  results.fileDetailTxt&&results.fileDetailTxt.data||'';
-     // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
+    
      var picArr = results.list&&results.list.data&&results.list.data.transcodeInfo&&results.list.data.transcodeInfo.fileContentList || ''
      if(picArr&&picArr.length>6) {
           picArr = picArr.slice(0,6)
@@ -286,20 +289,21 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
     results.seo.description = description ||'';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
-    let recRelateArrNum  = paradigm4Relevant.length
+    let recRelateArrNum  = paradigm4Relevant.data.length
     if(recRelateArrNum>30) {
-         results.relevantList=results.paradigm4Relevant.slice(0,10)
-         results.guessLikeList=results.paradigm4Relevant.slice(10,21)
+         results.relevantList=results.paradigm4Relevant.data.slice(0,10)
+         results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
     }else {
         //  if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
         //      results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
         //      results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
         //  }
+       
         if(results.hotpotSearch.data&&results.hotpotSearch.data){
             results.relevantList=results.hotpotSearch.data.slice(0,10)
             results.guessLikeList=results.hotpotSearch.data.slice(10,31)
         }
-         // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
+        
     }
     // 对最新资料  推荐专题数据处理
 
@@ -329,7 +333,7 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
      }else{
          results.newsRec.data = []
      }
- //    console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
+
     results.fileDetailArr = newTextArr;
      render("spider/index", results, req, res);
 }
