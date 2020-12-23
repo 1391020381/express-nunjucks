@@ -27,7 +27,7 @@ define(function (require, exports, module) {
             paradigm4Arr.forEach(function (item) {
                 actionsRelevant.push({
                     "date": new Date().formatDate("yyyy-MM-dd:hh:mm"),
-                    "itemId": item.itemId,
+                    "itemId": item.id || item.itemId,
                     "actionTime": new Date().getTime(),
                     "action": "show",
                     "itemSetId": recommendInfoItem.materialId || '',//物料库的ID
