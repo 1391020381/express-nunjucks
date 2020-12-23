@@ -4,12 +4,14 @@ define(function(require , exports , module){
     var api = require("../application/api");
     var login = require("../application/checkLogin");
     // require('./effect.js')
-    var isLogin = require('../application/effect.js').isLogin
+    var isLogin = require('../application/effect.js').isLogin;
+    var paradigm4Report = require('../common/paradigm4-report');
     require("../cmd-lib/toast");
-    var userInfo = {}
+    var userInfo = {};
     var userData='',currentPage=1,sortField='downNum',format='';
     var isAutoLogin = false;
     var callback = null;
+    var recommendInfoItem={},paradigm4GuessData=[];
     isLogin(init,isAutoLogin)
    // init()
 
@@ -43,6 +45,11 @@ define(function(require , exports , module){
             currentPage=1;
             format=$(this).attr('format');
             hotList()
+        })
+
+        $(document).on('click','.hot-file ul li',function(){
+            var itemId=$(this).data('id');
+            paradigm4Report.eventReport(itemId,paradigm4GuessData,recommendInfoItem);
         })
     }
 
@@ -87,14 +94,8 @@ define(function(require , exports , module){
     }
 
     function recommend(){ //推荐位 第四范式
-        $.ajax({
-            url: api.recommend.recommendConfigInfo,
-            type: "post",
-            data: JSON.stringify(['Q_M_FD_hot_home']),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-               if(res.code == '0'){
+        $ajax(api.recommend.recommendConfigInfo,'post',['ishare_personality']).then(function(res){
+            if(res.code == '0'){
                 paradigm4Relevant(res.data)
                }else{
                 $.toast({
@@ -102,23 +103,23 @@ define(function(require , exports , module){
                     delay : 3000,
                 })
                }
-            }
         })
     }
     function paradigm4Relevant(data){
-        var requestID_rele = Math.random().toString().slice(-10);
-        var userID = method.getQueryString('uid').slice(0, 10) || ''; //来标注用户的ID
-        var sceneIDRelevant=data[0].useId;
-        $.ajax({
-            url: 'https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID='+requestID_rele+'&sceneID='+sceneIDRelevant+'&userID='+userID,
-            type: "post",
-            data: JSON.stringify({'page':0}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                var _html = template.compile(require('./template/userPage/rightList.html'))({rightList:res});
-                $('.hot-file ul').html(_html);         
-            }
+        var requestId = Math.random().toString().slice(-10);
+        // var userId = method.getCookie('userId') ||  method.getCookie('visitor_id');
+        var userId = method.getQueryString('uid');
+        var sceneID=data[0].useId;
+        $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',{request:{
+            requestId:requestId,
+            userId:userId
+        }}).then(function(res){
+            var _html = template.compile(require('./template/userPage/rightList.html'))({rightList:res.data});
+            $('.hot-file ul').html(_html);
+            paradigm4GuessData=res.data;
+            recommendInfoItem=data[0];
+            recommendInfoItem.requestId=requestId;
+            paradigm4Report.pageView(paradigm4GuessData,recommendInfoItem);//上报第四范式      
         })
     } 
 

@@ -1,13 +1,13 @@
 {{ each rightList as item i }}
-<li>
-    <a href="/f/{{item.item_id}}.html">
+<li data-id="{{item.itemId}}">
+    <a href="/f/{{item.itemId}}.html" target="_blank">
         <div class="info">
             <p>{{item.title}}</p>
-            <p>{{item.item_read_cnt ? item.item_read_cnt + '阅读' : ''}}</p>
+            <!-- <p>{{item.item_read_cnt ? item.item_read_cnt + '阅读' : ''}}</p> -->
         </div>
         <div class="pic">
-            <img src="{{item.cover_url}}" alt="">
-            <span class="ico-data pos ico-{{item.extra1}}"></span>
+            <img src="{{item.coverUrl}}" alt="">
+            <span class="ico-data pos ico-{{item.categoryLevel5}}"></span>
         </div>
         
     </a>
