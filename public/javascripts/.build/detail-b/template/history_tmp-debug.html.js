@@ -1,1 +1,0 @@
-define("dist/detail-b/template/history_tmp-debug.html", [], '{{each data as value i}}\n<li>\n    <a href="/search/home.html?cond={{encodeValue(value)}}">{{value}}</a>\n    <a href="javascript:;" class="btn-delete" data-html="{{value}}"></a>\n</li>\n{{/each}}');
