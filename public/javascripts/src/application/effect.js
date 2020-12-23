@@ -191,7 +191,7 @@ define(function (require, exports, module) {
     
     function isHasPcMLogin(){
         $.ajax({
-            url: api.user.dictionaryData.replace('$code', 'PC-M-Login'),
+            url: api.user.dictionaryData.replace('$code', 'sceneSwitch'),
             type: "GET",
             async: false,
             contentType: "application/json; charset=utf-8",
@@ -200,30 +200,33 @@ define(function (require, exports, module) {
             success: function (res) { // loginRedPacket-dialog
                 console.log(res)
                 if (res.code == 0 && res.data && res.data.length) {
-                    var item = res.data[0];
-                    if (item.pcode == 'PC-M-Login') {
-                        var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
-                        if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
-                            $('.loginRedPacket-dialog').removeClass('hide')
-                            iask_web.track_event('NE006', "modelView", 'view', {
-                                moduleID:'activityFloat',
-                                moduleName:'活动浮层'
-                            });
-                        }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
-                            $('.loginRedPacket-dialog').removeClass('hide')
-                            iask_web.track_event('NE006', "modelView", 'view', {
-                                moduleID:'activityFloat',
-                                moduleName:'活动浮层'
-                            });
-                        }else if(abTest=='index'&&!method.getCookie('isShowIndexLoginRedPacket')){
-                            $('.loginRedPacket-dialog').removeClass('hide')
-                            iask_web.track_event('NE006', "modelView", 'view', {
-                                moduleID:'activityFloat',
-                                moduleName:'活动浮层'
-                            });
+                  
+                    $.each(res.data,function(inidex,item){
+                        if (item.pcode == 'PC-M-Login') {
+                            var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
+                            if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }else if(abTest=='index'&&!method.getCookie('isShowIndexLoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }
+                            
                         }
-                        
-                    }
+                    })
+                    
                 }
             }
         })
