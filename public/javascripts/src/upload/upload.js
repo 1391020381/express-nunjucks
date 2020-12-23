@@ -633,13 +633,16 @@ define(function(require , exports , module){
             $('.js-file-item').on('keyup',".data-name input[name='fileName']",function(){
                 if($(this).val()){
                     var reg=/(^\s+)|(\s+$)|\s+/g;
-                    var text = $(this).val()
+                    var patrn = /^[0-9]*$/;
+                    var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
                     if(reg.test(text)){
                         $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
                     }else if($(this).val().length<5){
                         $(this).parent().siblings('.warn-tip').show().text('标题字数不能少于5个字');
                     }else if($(this).val().length>64) {
                         $(this).parent().siblings('.warn-tip').show().text('标题字数不能超过64个字');
+                    }else if(patrn.test(text)){
+                        $(this).parent().siblings('.warn-tip').show().text('标题不能纯数字');
                     }else {
                         $(this).parent().siblings('.warn-tip').hide()
                     }
@@ -650,20 +653,26 @@ define(function(require , exports , module){
         },
         dataVerify:function(item,index){
             var reg=/(^\s+)|(\s+$)|\s+/g;
-            if (!item.fileName) {
+            var patrn = /^[0-9]*$/;
+            var fileName = item.fileName.substring(0,item.fileName.indexOf('.'))
+            if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
             }
-            if(reg.test(item.fileName)){
+            if(reg.test(fileName)){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能包含空格')
                 return false
             }
-            if(item.fileName.length<5){
+            if(fileName.length<5){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能少于5个字')
                 return false
                
             }
-            if(item.fileName.length>64){
+            if(patrn.test(fileName)){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为纯数字')
+                return false
+            }
+            if(fileName.length>64){
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能超过64个字')
                 return false
             }
