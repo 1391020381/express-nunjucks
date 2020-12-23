@@ -145,7 +145,8 @@ define(function (require, exports, module) {
            getPersoDataInfo:gateway + '/comment/eval/persoDataInfo'  // 个人中心我的下载 查询评论
         },
         "tianshu":{
-            "4paradigm": 'https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=$sceneID'
+            "4paradigm": 'https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=$sceneID',
+            'actionsLog':'https://tianshu.4paradigm.com/cess/data-ingestion/actions/recom/api/log'
         }
     }
 });

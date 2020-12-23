@@ -1,14 +1,14 @@
 
 
 define(function (require, exports, module){
-   var pageConfig = window.pageConfig&&window.pageConfig
-    var isConvert = pageConfig&&pageConfig.page.isConvert
+   
+    var paradigm4Report = require('../common/paradigm4-report')
     var method = require("../application/method");
     var api = require('../application/api');
     var guessYouLike = require('./template/guessYouLike.html')
    var userId = method.getCookie('userId')?method.getCookie('userId'):method.getCookie('visitor_id')
    var requestId = Math.random().toString().slice(-10);// requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-   window.recommendConfig = {}   // 第四范式参数 在上报时需要
+ 
    var params = {
     request:{ "userId": userId, "requestId": requestId }
  }
@@ -17,10 +17,10 @@ define(function (require, exports, module){
  $ajax(api.recommend.recommendConfigInfo,'post',['ishare_personality']).then(function(recommendConfig){
     if(recommendConfig.code == '0'){
       var sceneID = recommendConfig.data[0].useId 
-      window.recommendConfig =  recommendConfig.data
+      var paradigm4GuessRecommendConfig =  $.extend({},recommendConfig.data[0],{requestId:requestId})
      $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',params).then(function(res){
          if(res.code == '200'){
-          window.paradigm4 = {
+          window.paradigm4Data = {
             paradigm4Guess:res.data
           }
           
@@ -50,13 +50,42 @@ define(function (require, exports, module){
           'right':'0px',
           'bottom':(bottomHeight) + 'px',
           'width': '890px'
-      })
-      
+      }) 
     }
-         
+      action(paradigm4GuessData,paradigm4GuessRecommendConfig)   
      })
     }
  }) 
  
-    
+   
+ 
+
+ function action(paradigm4GuessData,paradigm4GuessRecommendConfig) {
+       
+  var paradigm4 = window.paradigm4 || {};
+ var paradigm4GuessData = paradigm4GuessData
+ var paradigm4GuessRecommendConfig = paradigm4GuessRecommendConfig
+ var paradigm4Relevant = paradigm4.paradigm4Relevant.data || []; // 第四范式相关推荐
+ var relevantRecommendInfoData = paradigm4.relevantRecommendInfoData.data[0] || {}
+ 
+  
+  
+
+  paradigm4Report.pageView(paradigm4Relevant,relevantRecommendInfoData)
+
+  //猜你喜欢点击
+  $(document).on('click','.guess-you-like .item',function(){
+      var itemId = $(this).data('id') || '';
+      paradigm4Report.eventReport(itemId,paradigm4GuessData,paradigm4GuessRecommendConfig)
+  })
+  
+
+  //相关推荐点击
+  $(document).on('click','.related-data-list li',function(){
+      var itemId = $(this).data('id') || '';
+      paradigm4Report.eventReport(itemId,paradigm4Relevant,relevantRecommendInfoData)
+  })
+  
+}   
+
 })

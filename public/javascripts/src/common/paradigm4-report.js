@@ -4,8 +4,9 @@
 define(function (require, exports, module) {
 
     var method = require("../application/method");
+    var api = require("../application/api.js")
     var paradigm4={
-        url:'https://tianshu.4paradigm.com/cess/data-ingestion/actions/recom/api/log',
+        url:api.tianshu.actionsLog,
         commonParam:function(){
             var date = new Date();
             var year = date.getFullYear();
@@ -19,12 +20,13 @@ define(function (require, exports, module) {
         pageView:function(paradigm4Arr,recommendInfoItem){ //页面曝光
             var dateParams=this.commonParam();
             var userId = method.getCookie("userId") || method.getCookie("visitor_id");
-            var clientToken = recommendInfoItem.token || '1qaz2wsx3edc';
+            var clientToken = recommendInfoItem.token ;
             var serverUrl=this.url+'?clientToken=' + clientToken;  
             // 相关推荐
             var actionsRelevant = [];
             paradigm4Arr.forEach(function (item) {
                 actionsRelevant.push({
+                    "date": new Date().formatDate("yyyy-MM-dd:hh:mm"),
                     "itemId": item.itemId,
                     "actionTime": new Date().getTime(),
                     "action": "show",
@@ -32,51 +34,48 @@ define(function (require, exports, module) {
                     "sceneId": recommendInfoItem.useId,//推荐服务的ID
                     "userId": userId,
                     "context": item.context,
-                    "requestId": recommendInfoItem.requestId
+                    "requestId": recommendInfoItem.requestId,
+                    "lib":"pc-node",
+                    "deviceId":"pc-node"
                 })
             });
         
-            var data = JSON.stringify({
+            var data = {
                 "date": dateParams,
                 "actions": actionsRelevant,
-            })
-
-            $.ajax({
-                type: 'post',
-                url: serverUrl,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                data: data,
+            }
+            $ajax(serverUrl,'post',data).then(function(res){
+                console.log('paradigm4:',res)
             })
         },
         eventReport:function(itemId,paradigm4Arr,recommendInfoItem){//点击上报
             var dateParams=this.commonParam();
             var userId = method.getCookie("userId") || method.getCookie("visitor_id");
-            var clientToken = recommendInfoItem.token || '1qaz2wsx3edc';
+            var clientToken = recommendInfoItem.token;
             var serverUrl=this.url+'?clientToken=' + clientToken;
             var context='';
             paradigm4Arr.forEach(function(item){
                 item.itemId==itemId ? context=item.context : '';
             })
-            var params = JSON.stringify({
+            var params = {
                 "date": dateParams,
                 "actions": [{
+                    "date": new Date().formatDate("yyyy-MM-dd:hh:mm"),
                     "itemId": itemId,
                     "actionTime": new Date().getTime(),
-                    "action": "show",
+                    "action": "detailPageShow",
                     "itemSetId": recommendInfoItem.materialId || '',
                     "sceneId": recommendInfoItem.useId,
                     "userId": userId,
                     "context": context,
-                    "requestId": recommendInfoItem.requestId
+                    "requestId": recommendInfoItem.requestId,
+                    "lib":"pc-node",
+                    "deviceId":"pc-node"
                 }]
-            })    
-            $.ajax({
-                type: 'post',
-                url: serverUrl,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                data: params,
+            }    
+           
+            $ajax(serverUrl,'post',params).then(function(res){
+                console.log('paradigm4:',res)
             })
         }
     }

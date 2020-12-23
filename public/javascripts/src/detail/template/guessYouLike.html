@@ -8,7 +8,7 @@
     {{ /if }}
     <ul class="guess-you-like-itmes">
         {{each paradigm4GuessData as item}}
-        <li class="item">
+        <li class="item" data-id="{{item.id}}">
             <a class="item-link" href="/f/{{item.id}}.html"    target="_blank">
                 <div class="item-link-left">
                  {{ if item.cover_url }}
@@ -22,8 +22,9 @@
                 <div class="item-link-right">
                     <p class="item-link-right-desc">{{item.name}}</p>
                     <p class="item-link-right-other">
+                       {{if item.item_read_cnt}}
                         <span class="other-read">{{item.item_read_cnt}}阅读</span>
-                       
+                       {{/if}}
                     </p>
                 </div>
             </a>

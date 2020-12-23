@@ -11,10 +11,10 @@ const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
 
-const defaultResultsData = { recommendInfoData_rele: {}, recommendInfoData_guess: {}, paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = {  paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
-
+    
     let userID = req.cookies.useId?req.cookies.useId:req.cookies.visitor_id; //标注用户的ID，
     
     const redirectUrl = await getRedirectUrl(req, res)
@@ -72,9 +72,9 @@ const renderPage = cc(async (req, res) => {
     const crumbList = await getCrumbList(req, res, list)
     const cateList = await getCategoryList(req, res);  
     const recommendInfo = await getRecommendInfo(req, res, list)
-    
     let paradigm4Relevant = {}
     if (recommendInfo) {
+        recommendInfo.data[0].requestId =  Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
     }
     const filePreview = await getFilePreview(req, res, list)
@@ -161,11 +161,10 @@ function getRecommendInfo(req, res, list) {
 function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
     let recommendInfoData_rele = recommendInfo.data[0] || {} //相关资料
     if (recommendInfoData_rele.useId) {
-        let requestId = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
         req.body = {
             request:{
             "userId":userID,
-            "requestId":requestId,
+            "requestId":recommendInfo.data[0].requestId,
             "itemId":list.data.fileInfo.id, 
             "itemTitle":list.data.fileInfo.title
              }
@@ -290,8 +289,8 @@ function handleDetalData(
     }
 
 
-    results.recommendInfoData_rele = req.recommendInfoData_rele || {};
-    results.recommendInfoData_guess = req.recommendInfoData_guess || {};
+    results.relevantRecommendInfoData = recommendInfo || {};
+    
     results.showFlag = true
     results.isDetailRender = true
     // console.log('获取详情数据：', JSON.stringify(results))

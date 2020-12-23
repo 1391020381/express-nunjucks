@@ -218,8 +218,7 @@
 
     // 第四范式内容
     window.paradigm4 = {
-        recommendInfoData_rele:{{ results.recommendInfoData_rele | dump | safe  }},
-        recommendInfoData_guess:{{results.recommendInfoData_guess | dump | safe }},
+        relevantRecommendInfoData:{{ results.relevantRecommendInfoData | dump | safe  }},
         paradigm4Relevant: {{ results.paradigm4Relevant | dump | safe }},
         requestID_rele: "{{results.requestID_rele}}",
         requestID_guess: "{{results.requestID_guess}}",
