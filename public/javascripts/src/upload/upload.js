@@ -634,7 +634,9 @@ define(function(require , exports , module){
                 if($(this).val()){
                     var reg=/(^\s+)|(\s+$)|\s+/g;
                     var patrn = /^[0-9]*$/;
-                    var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
+                    var index = $(this).val().indexOf('.')
+                   // var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
+                    var text = index !== -1? $(this).val().substring(0,index):$(this).val()
                     if(reg.test(text)){
                         $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
                     }else if($(this).val().length<5){
@@ -654,7 +656,8 @@ define(function(require , exports , module){
         dataVerify:function(item,index){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
-            var fileName = item.fileName.substring(0,item.fileName.indexOf('.'))
+            var index = item.fileName.indexOf('.')
+             var fileName = index !== -1? item.fileName.substring(0,index):item.fileName
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
@@ -685,7 +688,7 @@ define(function(require , exports , module){
                 return false
             }
             if(item.userFileType==5) {
-               if(!item.definePrice && item.userFilePrice =='0') {
+               if(!item.definePrice && item.userFilePrice ==0) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.pay-item-info').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.price-error').show()
