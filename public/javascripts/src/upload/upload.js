@@ -741,7 +741,8 @@ define(function(require , exports , module){
                        }else{
                            stop = false
                        }
-                        var fileName = item.fileName.substring(0,item.fileName.indexOf('.'))
+                       var subIndex = item.fileName.indexOf('.')
+                        var fileName = subIndex !=-1?item.fileName.substring(0,subIndex):item.fileName
                         var obj = JSON.parse(JSON.stringify($.extend({},item,{fileName:fileName})))
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
