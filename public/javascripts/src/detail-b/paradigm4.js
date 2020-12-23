@@ -135,7 +135,7 @@ define(function (require, exports, module) {
             })
             $.post('https://nbrecsys.4paradigm.com/action/api/log?clientToken=' + clientToken, paradigm4RelevantData, function (data) {
             })
-            var fileName = $(this).find('.item-link-right-desc').text()
+            var fileName = $(this).find('.item-name').text()
             var index = fileName.lastIndexOf(".");
             if(index !=-1) {
              fileName  =  fileName.substr(0,index)
