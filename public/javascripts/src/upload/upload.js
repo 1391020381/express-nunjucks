@@ -636,7 +636,7 @@ define(function(require , exports , module){
                     var patrn = /^[0-9]*$/;
                     var index = $(this).val().indexOf('.')
                    // var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
-                    var text = index !== -1? $(this).val().substring(0,index):$(this).val()
+                    var text = index != -1? $(this).val().substring(0,index):$(this).val()
                     if(reg.test(text)){
                         $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
                     }else if($(this).val().length<5){
@@ -657,7 +657,7 @@ define(function(require , exports , module){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
             var subIndex = item.fileName.indexOf('.')
-             var fileName = index !== -1? item.fileName.substring(0,subIndex):item.fileName
+             var fileName = subIndex != -1? item.fileName.substring(0,subIndex):item.fileName
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
