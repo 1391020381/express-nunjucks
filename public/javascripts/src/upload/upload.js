@@ -656,8 +656,8 @@ define(function(require , exports , module){
         dataVerify:function(item,index){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
-            var index = item.fileName.indexOf('.')
-             var fileName = index !== -1? item.fileName.substring(0,index):item.fileName
+            var subIndex = item.fileName.indexOf('.')
+             var fileName = index !== -1? item.fileName.substring(0,subIndex):item.fileName
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
