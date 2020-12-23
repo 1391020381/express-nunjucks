@@ -91,6 +91,7 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
             'Authrization': method.getCookie('cuk')
         },
         complete: function (XMLHttpRequest, textStatus) {
+            console.log('ajaxSetup:',XMLHttpRequest, textStatus)
         },
         statusCode: {
             401: function () {
