@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     require('./expand');
     require("./buyUnlogin");
     require("../common/bilog");
-    require('../detail/paradigm4');
+    // require('../detail/paradigm4');
     require('./banner.js')
    
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')

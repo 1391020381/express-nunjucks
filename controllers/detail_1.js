@@ -278,7 +278,8 @@ function handleDetalData(
                 name: item.title || '',
                 cover_url: item.coverUrl || '',
                 url: item.url || '',
-                item_read_cnt: item.item_read_cnt
+                item_read_cnt: item.item_read_cnt,
+                context:item.context
             }
         })
 

@@ -32,7 +32,8 @@ define(function (require, exports, module){
                   name: item.title || '',
                   cover_url: item.coverUrl || '',
                   url: item.url || '',
-                  item_read_cnt: item.item_read_cnt
+                  item_read_cnt: item.item_read_cnt,
+                  context:item.context
               })
           })
              var guessYouLikeTemplate =  template.compile(guessYouLike)({paradigm4GuessData:paradigm4GuessData});
@@ -65,13 +66,18 @@ define(function (require, exports, module){
   var paradigm4 = window.paradigm4 || {};
  var paradigm4GuessData = paradigm4GuessData
  var paradigm4GuessRecommendConfig = paradigm4GuessRecommendConfig
- var paradigm4Relevant = paradigm4.paradigm4Relevant.data || []; // 第四范式相关推荐
- var relevantRecommendInfoData = paradigm4.relevantRecommendInfoData.data[0] || {}
+ var paradigm4Relevant = paradigm4.paradigm4Relevant&&paradigm4.paradigm4Relevant.data || []; // 第四范式相关推荐
+ var relevantRecommendInfoData = paradigm4.relevantRecommendInfoData&&paradigm4.relevantRecommendInfoData.data[0] || {}
  
   
   
+  if(paradigm4Relevant.length){
+    paradigm4Report.pageView(paradigm4Relevant,relevantRecommendInfoData)
+  }
+  if(paradigm4GuessData.length){
+    paradigm4Report.pageView(paradigm4GuessData,paradigm4GuessRecommendConfig)
+  }
 
-  paradigm4Report.pageView(paradigm4Relevant,relevantRecommendInfoData)
 
   //猜你喜欢点击
   $(document).on('click','.guess-you-like .item',function(){
