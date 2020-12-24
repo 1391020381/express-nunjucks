@@ -285,7 +285,7 @@ function handleDetalData(
 
         results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
         results.RelevantInformationList.data = paradigm4RelevantMap.slice(0, 4) || [];
-        results.requestID_rele = req.requestID_rele;
+       
         results.userID = userID;
     }
 

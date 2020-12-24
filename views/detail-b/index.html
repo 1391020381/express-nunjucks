@@ -177,12 +177,8 @@
 
     // 第四范式内容
     window.paradigm4 = {
-        recommendInfoData_rele:{{ results.recommendInfoData_rele | dump | safe  }},
-        recommendInfoData_guess:{{results.recommendInfoData_guess | dump | safe }},
-        paradigm4Guess: {{ results.paradigm4Guess | dump | safe }},
+        relevantRecommendInfoData:{{ results.relevantRecommendInfoData | dump | safe  }},
         paradigm4Relevant: {{ results.paradigm4Relevant | dump | safe }},
-        requestID_rele: "{{results.requestID_rele}}",
-        requestID_guess: "{{results.requestID_guess}}",
         userId: "{{results.userID}}",
         paradigm4GuessData:'{{results.paradigm4GuessData}}',
         RelevantInformationList:'{{results.RelevantInformationList}}'
