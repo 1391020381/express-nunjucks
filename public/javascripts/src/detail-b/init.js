@@ -13,7 +13,7 @@ define(function (require, exports, module) {
     
     require("./buyUnlogin");
     
-    require('./paradigm4');
+   
     require('./banner.js')
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')

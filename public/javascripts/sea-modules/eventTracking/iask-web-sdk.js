@@ -7120,7 +7120,7 @@
                     // 操作系统
                     osType: DEVICEINFO.os.name,
                     // 操作系统版本
-                    osVer: DEVICEINFO.os.version.original,
+                    osVer: DEVICEINFO.os.version && DEVICEINFO.os.version.original || '',
                     // 设备平台
                     devicePlatform: DEVICEINFO.device.type,
                     // 浏览器名称
@@ -7493,15 +7493,12 @@
 
                     // 上报数据对象字段截取
                     var truncateLength = this.instance._get_config('truncateLength');
-                  
-                   
+
                     for (var  prop in data['var']){
                         data['var'][prop] = data['var'][prop] || ''
                     }
 
-                  
                     var truncated_data = data;
-                    
                     if (_.isNumber(truncateLength) && truncateLength > 0) {
                         truncated_data = _.truncate(data, truncateLength);
                     }
@@ -7794,7 +7791,7 @@
                     }
                     // 清除本地用户信息，退出用户（选则调用）
 
-                }, {
+                },{
                     key: 'logout',
                     value: function logout() {
                         this['local_storage'].register({'userID': ''});
@@ -8221,9 +8218,7 @@
             }, {
                 key: 'set_visit_id',
                 value: function set_visit_id(visitID) {
-                    if ((visitID !== '' && visitID != null) && (this.get_property('visitID') == undefined)) {
-                        this['local_storage'].register({'visitID': visitID});
-                    }
+                    this['local_storage'].register({'visitID': visitID});
                 }
             }, {
                 key: 'clear_visit_id',
@@ -8236,7 +8231,18 @@
                     this['event'].login(user_id);
                 }
                 // 清除本地用户信息，退出用户（选则调用）,建议平台网站不必调用（无需匿名用户的平台）
-            }, {
+            },{
+                key: 'set_common',
+                value: function set_common(deviceID,persistedTime,sessionID,sessionReferrer,sessionStartTime,updatedTime) {
+                    this['local_storage'].register({'deviceID': deviceID});
+                    this['local_storage'].register({'persistedTime': persistedTime});
+                    this['local_storage'].register({'sessionID': sessionID});
+                    this['local_storage'].register({'sessionReferrer': sessionReferrer});
+                    this['local_storage'].register({'sessionStartTime': sessionStartTime});
+                    this['local_storage'].register({'updatedTime': updatedTime});
+                }
+                // 清除本地用户信息，退出用户（选则调用）,建议平台网站不必调用（无需匿名用户的平台）
+            },  {
                 key: 'logout',
                 value: function logout() {
                     this['event'].logout();

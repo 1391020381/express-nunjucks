@@ -7,21 +7,34 @@ define(function (require, exports, module) {
     require('./loadSentry.js')
     window.$ajax  =  $ajax
 
-    new ISHARE_WEB_SDK({  //埋点初始化
-        PRODUCT_CONFIG:{
-            TERMINAL_TYPE: '0',        // 终端类型
-            PRODUCT_NAME: 'ishare',    // 产品名称
-            SITE_TYPE: 'ishare',       // 站点类型
-            PRODUCT_CODE: '0',         // 产品代码
-            PRODUCT_VER: 'V1.0.0',     // 产品版本
-        },
-        TRACK_TYPE:'get',//请求方式post get(目前m端是post,pc端是get)
-        TRACK_URL:urlConfig.bilogUrl,   //上报服务器地址
-        PAGEVIEW:true
-    })
-    var pathnameList = ['/pay/qr','/pay/paymentresult','/pay/payRedirect'] // 手机端页面
-    if(pathnameList.indexOf(location.pathname) == -1){
-        getVisitUserId();
+    try{
+        new ISHARE_WEB_SDK({  //埋点初始化
+            PRODUCT_CONFIG:{
+                TERMINAL_TYPE: '0',        // 终端类型
+                PRODUCT_NAME: 'ishare',    // 产品名称
+                SITE_TYPE: 'ishare',       // 站点类型
+                PRODUCT_CODE: '0',         // 产品代码
+                PRODUCT_VER: 'V1.0.0',     // 产品版本
+            },
+            TRACK_TYPE:'get',//请求方式post get(目前m端是post,pc端是get)
+            TRACK_URL:urlConfig.bilogUrl,   //上报服务器地址
+            PAGEVIEW:true
+        })
+        var pathnameList = ['/pay/qr','/pay/paymentresult','/pay/payRedirect'] // 手机端页面
+        if(pathnameList.indexOf(location.pathname) == -1){
+            getVisitUserId();
+        }
+    }catch(err){
+        console.log(err)
+        if(method.isIe8()){
+              Sentry.captureException(JSON.stringify({
+                   err:err
+                }),{
+                  tags: {
+                    title: "埋点上报初始化错误",
+                  }
+                })
+        }
     }
     
 
@@ -141,7 +154,7 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
         $(document).ajaxError(function(event,xhr,options,exc){
             console.log(JSON.stringify({
                 event:event,
-                xhr:xhr,
+                // xhr:xhr,
                 options:options,
                 exc:exc
             }))
