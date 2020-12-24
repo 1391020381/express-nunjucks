@@ -1,10 +1,10 @@
 define(function (require, exports, module) {
 
     var method = require("./method");
-    var normalPageView = require('../common/bilog').normalPageView
+    
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
-    var viewExposure = require('../common/bilog').viewExposure
+    var urlConfig = require('../application/urlConfig')
 
     var IframeMessenger = require('./iframe/iframe-messenger');
 
@@ -52,7 +52,16 @@ define(function (require, exports, module) {
                 fid: params.fid,
                 jsId: params.jsId,
                 redirectUrl:window.location.href,
-                originUrl:urlList[env]
+                originUrl:urlList[env],
+                bilogUrl:urlConfig.bilogUrl,
+                visitor_id:method.getCookie('visitor_id'),
+                sessionID:iask_web.get_property('sessionID'),
+                deviceID:iask_web.get_property('deviceID'),
+                persistedTime:iask_web.get_property('persistedTime'),
+                sessionReferrer:iask_web.get_property('sessionReferrer'),
+                sessionStartTime:iask_web.get_property('sessionStartTime'),
+                updatedTime:iask_web.get_property('updatedTime'),
+                visitID:iask_web.get_property('visitID')
             });
         }
 
@@ -60,6 +69,7 @@ define(function (require, exports, module) {
         IframeMessengerList[iframeId].listen(function (res) {
             console.log('客户端监听-数据', res);
             if (res.userData) {
+                
                 loginInSuccess(res.userData, res.formData, successFun)
             } else {
                 loginInFail(res.formData);
@@ -67,17 +77,20 @@ define(function (require, exports, module) {
         })
 
         // 关闭弹窗按钮
-        $('.dialog-box .close-btn').on('click', function () {
+        $('#dialog-box .login-dialog .close-btn').on('click', function () {
             // 主动关闭弹窗-需通知登录中心
             IframeMessengerList[iframeId].send({isOpen: false});
+           
             closeRewardPop()
         })
     }
 
     function showLoginDialog(params, callback) {
-        viewExposure($(this),'login','登录弹窗')
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:'login',
+            moduleName:'登录弹窗'
+        });
         var loginDialog = $('#login-dialog')
-        normalPageView('loginResultPage')
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         $("#dialog-box").dialog({
@@ -87,8 +100,10 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        // viewExposure($(this),'visitLogin','游客支付弹窗')
-        viewExposure($(this),'login','登录弹窗')
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:'login',
+            moduleName:'登录弹窗'
+        });
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog')
@@ -138,12 +153,18 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
-            viewExposure($(this),'visitLogin','游客支付弹窗')
+            iask_web.track_event('NE006', "modelView", 'view', {
+                moduleID:'noLgFPayCon',
+                moduleName:'免登录资料支付弹窗'
+            })
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').hide()
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
-            viewExposure($(this),'login','登录弹窗')
+            iask_web.track_event('NE006', "modelView", 'view', {
+                moduleID:'login',
+                moduleName:'登录弹窗'
+            })
             $('.tourist-purchase-dialog .tourist-purchase-content').hide()
             $('.tourist-purchase-dialog #I_SHARE_T0URIST_PURCHASE').show()
         }

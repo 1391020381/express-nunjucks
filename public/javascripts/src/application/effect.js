@@ -3,15 +3,23 @@
 define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
-    var clickEvent = require('../common/bilog').clickEvent  
+    var api = require("./api");
     var loginTypeContent = require('../common/loginType')
     $("#unLogin").on("click", function () {
+       
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
         });
     });
 
     $(".loginOut").on("click", function () {
+        var pageName =  window.pageConfig.page&&window.pageConfig.page.pageName
+        if(pageName == 'personalCenter'){
+            iask_web.track_event('NE002', "normalClick", 'click', {
+             domID:'exit',
+             domName:'退出登录'
+         });
+        }
         checkLogin.ishareLogout();
     });
 
@@ -25,7 +33,7 @@ define(function (require, exports, module) {
         method.compatibleIESkip("/node/rights/vip.html", true);
     })
     $('.btn-new-search').click(function () {
-        clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
+       
         if (new RegExp('/search/home.html').test(location.href)) {
             var href = window.location.href.substring(0, window.location.href.indexOf('?')) + '?ft=all';
             var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
@@ -47,7 +55,7 @@ define(function (require, exports, module) {
             if (e.keyCode === 13) {
                 var sword = $('.new-input').val() ? $('.new-input').val().replace(/^\s+|\s+$/gm, '') : $('.new-input').attr('placeholder');
                 if (sword) {
-                    clickEvent('searchBtnClick',{keyWords:$('.new-input').val()})
+                    
                     method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
                 }
             }
@@ -143,6 +151,88 @@ define(function (require, exports, module) {
             callback && callback()
         }
     }
+    isHasPcMLogin()
+    // 首页 详情 登录领取红包
+    $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
+        iask_web.track_event('NE002', "normalClick", 'click', {
+            domID:'close',
+            domName:'关闭'
+        });
+        var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
+       if(abTest =='a'){
+            method.setCookieWithExpPath('isShowDetailALoginRedPacket',1)
+       }else if(abTest =='b'){
+           method.setCookieWithExpPath('isShowDetailBLoginRedPacket',1)
+       }else{
+           method.setCookieWithExpPath('isShowIndexLoginRedPacket',1)
+           
+       }
+        $('.loginRedPacket-dialog').hide()
+    })
+    $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
+        iask_web.track_event('NE002', "normalClick", 'click', {
+            domID:'confirm',
+            domName:'确定'
+        });
+        var abTest = window.pageConfig.page&&window.pageConfig.page.abTest
+        if(abTest == 'a'){
+            $('#detail-unLogin').trigger('click')
+        }else if(abTest == 'b'){
+            $('#detail-unLogin').trigger('click')
+        }else{
+            $('.index-header .notLogin').trigger('click')
+          
+        }
+    
+       
+      //  $('.loginRedPacket-dialog').hide()
+    })
+
+    
+    function isHasPcMLogin(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'sceneSwitch'),
+            type: "GET",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                console.log(res)
+                if (res.code == 0 && res.data && res.data.length) {
+                  
+                    $.each(res.data,function(inidex,item){
+                        if (item.pcode == 'PC-M-Login') {
+                            var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
+                            if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }else if(abTest=='index'&&!method.getCookie('isShowIndexLoginRedPacket')){
+                                $('.loginRedPacket-dialog').removeClass('hide')
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'activityFloat',
+                                    moduleName:'活动浮层'
+                                });
+                            }
+                            
+                        }
+                    })
+                    
+                }
+            }
+        })
+    }
+    
+
     return {
         refreshTopBar: refreshTopBar,
         isLogin: isLogin

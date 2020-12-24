@@ -1,6 +1,5 @@
 define(function (require,exports,module) {
-    // var $ = require("$");
-    // require("../common/baidu-statistics");
+    
     $(function () {
         var ua = navigator.userAgent.toLowerCase();
         if (ua.indexOf('micromessenger') != -1){

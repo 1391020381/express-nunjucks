@@ -13,14 +13,7 @@
 </script>
     <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/index/index.css">
       <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
-    <script type="text/javascript">
-        var _speedMark = +new Date(),
-            _version = "{{version}}",
-            _head = "{{cdnUrl}}";
-        var _dpData = [];//广告测试
-        var env = "{{env}}";
-        var loginUrl = "{{loginUrl}}"
-    </script>
+ 
 </head>
 <body class="office-body screen-body">
 <input type="hidden" id="ip-page-id" value="PC-M-H">
@@ -462,20 +455,25 @@
 </div>
 <!-- 签到弹窗 -->
 {% include "common/wechatSign-dialog.html" %}
+
+<!-- 红包弹窗 -->
+{% include "common/loginRedPacket-dialog.html" %}
 <!-- 底部 start-->
 {% include "common/new/footer.html" %}
 <!-- 底部 end-->
 <!--悬浮工具栏 start-->
 {% include "common/suspension.html" %}
 
-<!--立即认证 start-->
-{# <a class="authentication" target="_blank" href="/node/auth/index.html"></a> #}
+
 <div class="authentication authentication-banner"></div>
 <!--悬浮工具栏 end-->
 <script>
-    var pageConfig = {
+    window.pageConfig  = {
         report:{
            
+        },
+        page:{
+            abTest:'index'
         }
     };
     seajs.use(["dist/application/app.js","dist/index/init.js"])

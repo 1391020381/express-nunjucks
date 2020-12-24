@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+  
     require("../cmd-lib/lazyload");
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
@@ -10,7 +11,7 @@ define(function (require, exports, module) {
     require("./paging");
     require('./expand');
     require("./buyUnlogin");
-    require("../common/bilog");
+    
     // require('../detail/paradigm4');
     require('./banner.js')
    

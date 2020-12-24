@@ -10,7 +10,7 @@ define(function(require , exports , module){
    var isLogin = require('../application/effect.js').isLogin
    var getUserCentreInfo = require('./home.js').getUserCentreInfo
    var type = window.pageConfig&&window.pageConfig.page.type
-   var clickEvent = require('../common/bilog').clickEvent
+   
    var utils = require("../cmd-lib/util");
    var receiveCoupon = require('./template/receiveCoupon.html')
    var commentDialogContent= require('./template/commentDialogContent.html')
@@ -25,6 +25,10 @@ define(function(require , exports , module){
     if(type =='mycollection'){
         getUserCentreInfo(null,data) 
        getUserFileList()
+       iask_web.track_event('NE030', "pageTypeView", 'page', {
+        pageID:'CL',
+        pageName:'个人中心-收藏页'
+     });
     }else if(type == 'mydownloads'){
       getUserCentreInfo(null,data) 
        getDownloadRecordList()
@@ -312,12 +316,11 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
 
 
 
-  $('#dialog-box').on('click','.close-btn',function(e){
-    var  bilogContent = $(this).attr('bilogContent')
-    if(bilogContent){
-        clickEvent($(this))
+  $('#dialog-box').on('click','.close-btn',function(e){  
+    if(isAppraise!=1){
         getDownloadRecordList()
     }
+ 
     score = 0
     closeRewardPop();
 })
@@ -327,7 +330,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
           key:taskList.fid,
           taskCode:taskList.code
       };
-      clickEvent($(this))
+    
       $.ajax({
           url: api.coupon.receiveTask, //
           headers: {
@@ -373,8 +376,7 @@ $(document).on('click','.personal-center-dialog .file-rates .start',function(e){
             getDownloadRecordList(paginationCurrentPage)
         }
        
-    //     var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0),currentPage:paginationCurrentPage});
-    //   $(".pagination-wrapper").html(_simplePaginationTemplate)
+    
     })
   } 
 });

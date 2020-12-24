@@ -14,13 +14,7 @@
 </script>  
 
 </head>
-<script type="text/javascript">
-    var _speedMark = + new Date();
-    var _version = "{{version}}";
-    var _head = "{{cdnUrl}}";
-    var env = "{{env}}";
-    var loginUrl = "{{loginUrl}}"
-</script>
+
 <body>
     
    {% include "common/websiteHeaderbar.html" %}
@@ -62,6 +56,10 @@
               {% if results.type =='myorder' %}
                <input type="hidden" id="ip-page-id" value="PC-M-USER-ORD">
              <input type="hidden" id="ip-page-name" value="个人中心-我的订单">
+                   <!-- 评价有礼弹窗 -->
+               <div class="reviewGift-dialog-wrap" style="display:none;">
+                 {% include "detail/reviewGift-dialog.html" %}
+              </div>
                {% include "personalCenter/myorder.html" %}
              {% endif %}
 
@@ -90,9 +88,12 @@
                {% endif %}
         </div>  
    </div>
-    {# {% include "../common/footer.html" %} #}
+   
     <!-- 签到弹窗 -->
     {% include "common/wechatSign-dialog.html" %}
+
+
+
     <!-- 底部 start-->
 {% include "common/new/footer.html" %}
     {% include "common/js.html" %}
@@ -101,21 +102,23 @@
 {% include "common/suspension.html" %}
 <!--遮罩层-->
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>
-{# {% include "common/dialog.html" %} #}
+
   {% if results.type == 'accountsecurity' %}
-    <!--天御图形验证码 -->
-{# <script type="text/javascript" src="//ssl.captcha.qq.com/TCaptcha.js"></script> #}
-{# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}
+
   {% endif %}
 {% include "./dialog.html" %}
     <script type="text/javascript">
         window.pageConfig = {
             page:{
+               pageName:'personalCenter',
                type: '{{results.type}}',
                myuploadType:'{{results.myuploadType}}',
                vipTableType:'{{results.vipTableType}}',
                myorderType:'{{results.myorderType}}',
-               mywalletType:'{{results.mywalletType}}'
+               mywalletType:'{{results.mywalletType}}',
+               isMasterVip:'{{results.isMasterVip}}',
+               isOfficeVip:'{{results.isOfficeVip}}',
+               userInfo:{{ results.userInfo | dump | safe}}
             },
             params:{
                 

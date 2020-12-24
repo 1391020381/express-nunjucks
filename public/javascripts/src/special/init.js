@@ -6,6 +6,9 @@ define(function(require , exports , module){
     require('../cmd-lib/toast');
     require("./bottomBar.js");
     require("./content.js");
-    // require("../common/userMoreMsg")
     require('../application/suspension')
+    iask_web.track_event('NE030', "pageTypeView", 'page', {
+        pageID:'TP',
+        pageName:'专题页'
+    });
 });

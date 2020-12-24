@@ -72,6 +72,29 @@
   text-align: center;
   margin-top: 20px;
 }
+.loginRedPacket-dialog {
+  width: 136px;
+  height: 160px;
+  position: fixed;
+  right: 100px;
+  top: 94px;
+  z-index: 999999;
+  border-radius: 2px;
+}
+.loginRedPacket-dialog .close-btn {
+  display: block;
+  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  position: absolute;
+  right: -16px;
+  top: 0px;
+}
+.loginRedPacket-dialog .loginRedPacket-content {
+  height: 160px;
+  cursor: pointer;
+}
 .screen-body {
   background: #f4f4f4;
 }

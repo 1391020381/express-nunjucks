@@ -5,19 +5,20 @@ const env = process.env.NODE_ENV  || 'prod'
 const config = {
     debug:{
         env: env,
-        apiBasePath: 'http://ishare.iask.sina.com.cn/gateway/pc',
-        apiNewBaselPath: 'http://ishare.iask.sina.com.cn/gateway',
-        newBasePath: 'http://ishare.iask.sina.com.cn',
-        // apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
-        // apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
-        // newBasePath: 'http://pre-ishare.iask.com.cn',
+        // apiBasePath: 'http://ishare.iask.sina.com.cn/gateway/pc',
+        // apiNewBaselPath: 'http://ishare.iask.sina.com.cn/gateway',
+        // newBasePath: 'http://ishare.iask.sina.com.cn',
+        // loginUrl:'//login-ishare.iask.com.cn',
+        apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
+        newBasePath: 'http://pre-ishare.iask.com.cn',
+        loginUrl:'//pre-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl :'http://office.iask.com',
-        loginUrl:'//login-ishare.iask.com.cn'
+        officeUrl :'http://office.iask.com'
     },
     local: {
         env: env,
@@ -25,7 +26,7 @@ const config = {
         // apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
         // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // loginUrl: '//dev-login-ishare.iask.com.cn',
-
+        // loginUrl:'http://127.0.0.1:8085',
         apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
         apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
         newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
@@ -35,9 +36,7 @@ const config = {
         //服务端口-自定义
         port: 3004,
         static3:'',
-        officeUrl: 'http://dev-office.iask.com',
-        
-        
+        officeUrl: 'http://dev-office.iask.com'
     },
     dev: {
         env: env,

@@ -1,6 +1,5 @@
 let routes = [
     'detail',
-    'office',
     'pay',
     'search',
     'rights',

@@ -9,11 +9,11 @@ define(function (require, exports, module) {
     var showLoginDialog = require('./login').showLoginDialog
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
     var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-    var loginResult = require('../common/bilog').loginResult
+   
     module.exports = {
         getIds: function () {
             // 详情页
-            console.log('生成详情页信息：' + window.pageConfig);
+           
             var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
 
@@ -88,20 +88,22 @@ define(function (require, exports, module) {
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         if (isFirstLogin) {
-                            loginResult('', 'loginResult', {
-                                loginType: window.loginType && window.loginType.type,
-                                phone: res.data.mobile,
-                                loginResult: "1"
-                            })
+                           
                             handleBaiduStatisticsPush('loginResult', {
-                                loginType: window.loginType && window.loginType.type,
+                                loginType: window.loginType && window.loginType,
                                 phone: res.data.mobile,
                                 userid: res.data.userId,
                                 loginResult: "1"
                             })
-                          
+                            iask_web.login(res.data.userId)
+                            iask_web.track_event('SE001', "loginResult", 'query', {
+                                loginResult:'1',
+                                failMsg:'',
+                                loginType: window.loginType && window.loginType
+                            });
                             window.location.reload();
                         }
+                        $('.loginRedPacket-dialog').hide()
                         if (callback && typeof callback == "function") {
                            
                             callback(res.data);
@@ -124,14 +126,9 @@ define(function (require, exports, module) {
                         }
 
                     } else {
-                        loginResult('', 'loginResult', {
-                            loginType: window.loginType && window.loginType.type,
-                            phone: '',
-                            userid: '',
-                            loginResult: "0"
-                        })
+                        
                         handleBaiduStatisticsPush('loginResult', {
-                            loginType: window.loginType && window.loginType.type,
+                            loginType: window.loginType && window.loginType,
                             phone: '',
                             userid: res.data.userId,
                             loginResult: "0"
@@ -165,6 +162,7 @@ define(function (require, exports, module) {
                 success: function (res) {
                     console.log('loginOut:', res)
                     if (res.code == 0) {
+                        iask_web.logout()
                         window.location.reload();
                     } else {
                         $.toast({

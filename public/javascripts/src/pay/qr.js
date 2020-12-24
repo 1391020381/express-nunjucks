@@ -1,5 +1,5 @@
 define(function (require,exports,moudle) {
-    // var $ = require("$");
+    
     var utils = require("../cmd-lib/util");
     var QRCode = require("../cmd-lib/qr/qrcode.min");
     var qrcode = require("../cmd-lib/qr/jquery.qrcode.min");

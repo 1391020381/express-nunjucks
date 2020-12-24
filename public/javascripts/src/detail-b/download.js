@@ -5,12 +5,12 @@ define(function (require, exports, module) {
     require("../cmd-lib/toast");
     require("../cmd-lib/loading");
     var utils = require("../cmd-lib/util");
-    var gioInfo = require("../cmd-lib/gioInfo");
+    
     var common = require('./common');
     var login = require('../application/checkLogin');
     var api = require('../application/api');
 
-    var clickEvent = require('../common/bilog').clickEvent
+    
     var fid = window.pageConfig.params.g_fileId; // 文件id
     var tpl_android = $("#tpl-down-android").html();    //下载app  项目全局 没有 这个 classId
     var file_title = window.pageConfig.params.file_title
@@ -42,9 +42,9 @@ define(function (require, exports, module) {
         // filePreDownLoad: router + '/action/downloadCheck',
         method.get(api.normalFileDetail.filePreDownLoad + '?fid=' + fid, function (res) {
             if (res.code == 0) {
-                //阻塞下载gio上报
+                
                 bouncedType(res);
-                docDLFail(res.data.status);
+                
                 // 42000  42001 42002  私有文件禁止下载 ,文件禁止下载,下载过于频繁,您已被限制下载，
             } else if (res.code == 42000 || res.code == 42001 || res.code == 42002 || res.code == 42003) {
                 $("#dialog-box").dialog({
@@ -66,13 +66,7 @@ define(function (require, exports, module) {
 
 
 
-    //上报数据处理-下载受限
-    var docDLFail = function (status) {
-        if (gioInfo.downloadLimitedCodeMap[status]) {
-            downLoadReport.downloadLimited_var = gioInfo.downloadLimitedCodeMap[status];
-            __pc__.gioTrack("docDLFail", downLoadReport);
-        }
-    };
+ 
 
     var bouncedType = function (res) { //屏蔽下载的 后台返回 文件不存在需要怎么提示
         // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
@@ -170,6 +164,10 @@ define(function (require, exports, module) {
                 break;
 
             case 13:
+                iask_web.track_event('NE006', "modelView", 'view', {
+                    moduleID:'buyTqCon',
+                    moduleName:'特权补充弹窗'
+                })
                 $dialogBox.dialog({
                     html: $permanent_privilege_not.html()
                         .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
@@ -199,7 +197,7 @@ define(function (require, exports, module) {
      * 预下载
      */
     var preDownLoad = function () {
-        //gio上报-下载按钮点击
+        
         if (!method.getCookie("cuk")) {
 
             login.notifyLoginInterface(function (data) {
@@ -222,7 +220,7 @@ define(function (require, exports, module) {
         } else if (method.getCookie("cuk") && userData) {
             publicDownload();
         }
-        __pc__.gioTrack("docDetailDLClick", downLoadReport);
+        
 
     };
 
@@ -233,6 +231,18 @@ define(function (require, exports, module) {
      * 获取下载获取地址接口
      */
     var handleFileDownUrl = function () {
+        var page = window.pageConfig.page
+        var params = window.pageConfig.params 
+        iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
+            fileID:params.g_fileId,
+            fileName:page.fileName,
+            salePrice:params.productPrice,
+            saleType:params.productType,
+            fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+            fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+        });
+
+
         if (method.getCookie("cuk")) {
             // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
             if (window.pageConfig.page.productType == 4) {
@@ -253,6 +263,10 @@ define(function (require, exports, module) {
                         console.log(res)
                         if (res.code == '0') {
                             if (res.data.checkStatus == 0 && res.data.consumeStatus == 2) { // consumeStatus == 2 用下载特权消费的
+                                iask_web.track_event('NE006', "modelView", 'view', {
+                                    moduleID:'vipTqCon',
+                                    moduleName:'特权兑换弹窗'
+                                })
                                 $dialogBox.dialog({
                                     html: $permanent_privilege.html()
                                         .replace(/\$title/, pageConfig.params.file_title.substr(0, 20))
@@ -301,9 +315,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 console.log(res)
                 if (res.code == '0') {
-                    if(res.data.productType == '4' && res.data.orderNo){
-                        clickEvent('createOrder',{orderID:res.data.orderNo})
-                    }
+                   
                     bouncedType(res);
                 } else {
                     $.toast({

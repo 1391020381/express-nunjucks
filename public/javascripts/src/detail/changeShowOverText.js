@@ -9,7 +9,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     var readMore = $('.red-color')
     var pageText = $('.page-text .endof-trial-reading')
     var pageNum = $('.page-num')
-    var clickEvent = require('../common/bilog').clickEvent
+   
     var preRead = window.pageConfig.page && window.pageConfig.page.preRead || 50
 
     var imgTotalPage = window.pageConfig.imgUrl.length
@@ -35,7 +35,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
 
             } else {
                 downLoad()
-                clickEvent('loadMore',{loadMoreDown:1})
+                
             }
         } else {
             if (productType == 5) {
@@ -51,8 +51,8 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                         }
 
                     } else {
-                        downLoad()
-                        clickEvent('loadMore',{loadMoreDown:1})
+                        downLoad(true)
+                        
                     }
                 })
             }
@@ -88,6 +88,14 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
 
     function sentEmail() {
         // 寻找相关资料  
+        var params = window.pageConfig.params 
+        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+            domID:"sendemail",
+            domName:"发送邮箱",
+            fileID:params.g_fileId,
+            fileName:params.file_title,
+            saleType:params.productType
+        });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
 
         var reward = window.pageConfig.reward;

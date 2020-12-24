@@ -3,23 +3,15 @@ define(function (require, exports, moudle) {
     var method = require("../application/method");
     var api = require('../application/api');
     require('swiper');
-    var clickEvent = require('../common/bilog').clickEvent,
-        cond = decodeURIComponent(decodeURIComponent(method.getParam('cond'))),
-        userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
+    var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
+    var   userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
     if (cond) {
         cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
     }
 
     $('#search-detail-input').attr('placeholder', cond || '与人沟通的十大绝招')
 
-    //页面级埋点
-    // var gioPageSet = require('../common/gioPageSet');
-
-    //  gioReport();
-
-    //   setInputValue();
-
-    // gebyPosition();
+    
 
     conditionChange();
 
@@ -36,14 +28,7 @@ define(function (require, exports, moudle) {
     //参数 数据
     var data = {};
 
-    // gio 埋点上报 页面级
-    // function gioReport() {
-    //     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
-
-    //     gioPageSet.gioPageSet({
-    //         searchContent_pvar: cond    // 搜索关键词
-    //     })
-    // }
+   
 
 
 
@@ -59,7 +44,7 @@ define(function (require, exports, moudle) {
             var inputValue = sconditionInput.val().trim() || '';
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
-                clickEvent($(this))
+                
                 btnHrefChange('cond', inputValue);
             }
         })

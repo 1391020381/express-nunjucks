@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     console.log('聚合支付码')
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    // require("../cmd-lib/toast");
+    
     require("../cmd-lib/toast2");
     var api = require('../application/api');
     var method = require("../application/method");
@@ -51,7 +51,7 @@ define(function (require, exports, module) {
                     });
                     var url = location.href
                     var message  = JSON.stringify({orderNo:orderNo}) + JSON.stringify(data.message)
-                    unloginObj.reportOrderError(url,message)
+                    reportOrderError(url,message)
                 }
             },
             error: function (error) {
@@ -71,7 +71,7 @@ define(function (require, exports, module) {
             data: JSON.stringify({
                 url:url,
                 message:message,
-                userId:''
+                userId:orderNo
             }),
             success: function (response) {
                console.log('reportOrderError:',response)

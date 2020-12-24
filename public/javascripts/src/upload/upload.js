@@ -632,8 +632,19 @@ define(function(require , exports , module){
         verifyRequire:function() {
             $('.js-file-item').on('keyup',".data-name input[name='fileName']",function(){
                 if($(this).val()){
-                    if($(this).val().length>64) {
+                    var reg=/(^\s+)|(\s+$)|\s+/g;
+                    var patrn = /^[0-9]*$/;
+                    var index = $(this).val().indexOf('.')
+                   // var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
+                    var text = index != -1? $(this).val().substring(0,index):$(this).val()
+                    if(reg.test(text)){
+                        $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
+                    }else if($(this).val().length<5){
+                        $(this).parent().siblings('.warn-tip').show().text('标题字数不能少于5个字');
+                    }else if($(this).val().length>64) {
                         $(this).parent().siblings('.warn-tip').show().text('标题字数不能超过64个字');
+                    }else if(patrn.test(text)){
+                        $(this).parent().siblings('.warn-tip').show().text('标题不能纯数字');
                     }else {
                         $(this).parent().siblings('.warn-tip').hide()
                     }
@@ -643,26 +654,54 @@ define(function(require , exports , module){
             }) 
         },
         dataVerify:function(item,index){
-            if (!item.fileName) {
+            var reg=/(^\s+)|(\s+$)|\s+/g;
+            var patrn = /^[0-9]*$/;
+            var subIndex = item.fileName.indexOf('.')
+             var fileName = subIndex != -1? item.fileName.substring(0,subIndex):item.fileName
+            if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
+                return false
+            }
+            if(reg.test(fileName)){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能包含空格')
+                return false
+            }
+            if(fileName.length<5){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能少于5个字')
+                return false
+               
+            }
+            if(patrn.test(fileName)){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为纯数字')
+                return false
+            }
+            if(fileName.length>64){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题字数不能超过64个字')
+                return false
             }
             if(!item.classid) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.must-error').show()
+                return false
             }
             if(!item.folderId) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.folder-error').show()
+                return false
             }
             if(item.userFileType==5) {
-               if(!item.definePrice && item.userFilePrice =='0') {
+               if(!item.definePrice && item.userFilePrice ==0) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.pay-item-info').hide()
                 $('.js-file-item').find('.doc-li').eq(index).find('.price-error').show()
+                return false
                }else if (item.userFilePrice =='0'){
                     $('.js-file-item').find('.doc-li').eq(index).find('.momey-wanning').hide()
                     $('.js-file-item').find('.doc-li').eq(index).find('.select-item-info').show()
+                    return false
                    
                }
             }
+            return true
+            
            
         },
         // 保存
@@ -696,8 +735,15 @@ define(function(require , exports , module){
                                 stop = true;
                             }
                         }
-                        uploadObj.dataVerify(item,index)
-                        var obj = JSON.parse(JSON.stringify(item))
+                       var verifyResult =  uploadObj.dataVerify(item,index)
+                       if(!verifyResult){
+                           stop = true
+                       }else{
+                           stop = false
+                       }
+                       var subIndex = item.fileName.indexOf('.')
+                        var fileName = subIndex !=-1?item.fileName.substring(0,subIndex):item.fileName
+                        var obj = JSON.parse(JSON.stringify($.extend({},item,{fileName:fileName})))
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
                         }

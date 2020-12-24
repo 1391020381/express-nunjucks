@@ -45,26 +45,26 @@
             <div class="header-btn-con" id="headerBtn">
                 {% if results.list.data.isDownload != 'n' %}
                 {% if results.list.data.vipFreeFlag == 1%}
-                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
+                <a class="btn-data-new " pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
                     data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
                 {%else%}
                 {% if results.list.data.perMin == "3" %}
                 {% if results.list.data.vipDiscountFlag and results.list.data.ownVipDiscountFlag%}
-                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
+                <a class="btn-data-new js-buy-open " pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
                     data-type="file">立即购买</a>
                 <div class="header-price-warp header-price-more">
                     <p class="price">&yen;{{results.list.data.moneyPrice}}</p>
                     <p class="vip-sale-price">VIP价&yen;<span class="js-original-price"></span></p>
                 </div>
                 {%else%}
-                <a class="btn-data-new js-buy-open pc_click" pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
+                <a class="btn-data-new js-buy-open " pcTrackContent="buyBtn-1" bilogContent="fileDetailUpBuy"
                     data-type="file">立即购买</a>
                 <div class="header-price-warp">
                     <p class="price">&yen;{{results.list.data.moneyPrice}}</p>
                 </div>
                 {%endif%}
                 {%else%}
-                <a class="btn-data-new pc_click" pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
+                <a class="btn-data-new " pcTrackContent="downloadBtn-0" bilogContent="fileDetailUpDown"
                     data-toggle="download" loginOffer="downloadBtn-0">立即下载</a>
                 {% if results.list.data.volume >0 %}
                 <p class="btn-text"><span>{{results.list.data.volume}}</span>下载券</p>
@@ -75,7 +75,7 @@
             </div>
             <div class="new-header-right fr">
                 <div class="vip-join-con">
-                    <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                    <a class="join-vip-ele js-buy-open " pcTrackContent="joinVip-9" data-type="vip">
                         <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
                     </a>
                     <div class="join-vip-more">
@@ -88,9 +88,9 @@
                             <li class="li-04"><i class="icon-p"></i>千万文档免费下载</li>
                         </ul>
                         <a class="btn-join-vip login-open-vip">登录后开通</a>
-                        <a class="btn-join-vip open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
+                        <a class="btn-join-vip open-vip js-buy-open " pcTrackContent="joinVip-9"
                             style="display: none;" data-type="vip">开通</a>
-                        <a class="btn-join-vip xf-open-vip js-buy-open pc_click" pcTrackContent="joinVip-9"
+                        <a class="btn-join-vip xf-open-vip js-buy-open " pcTrackContent="joinVip-9"
                             style="display: none;" data-type="vip">续费</a>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                     <div class="user-con" id="unLogin">
                         <a class="user-link user-login">
                             <div class="user-img"></div>
-                            <span class="login-text pc_click" pcTrackContent="detailTopLogin">登录</span>
+                            <span class="login-text " pcTrackContent="detailTopLogin">登录</span>
                         </a>
                     </div>
                     <!--已登录 -->
@@ -136,7 +136,7 @@
                                             <p data-type="3" style="display: none;" class="vip-text">
                                                 您的VIP权益已过期，再次开通</p>
                                         </div>
-                                        <a class="btn-user-more js-buy-open pc_click" pcTrackContent="joinVip-9"
+                                        <a class="btn-user-more js-buy-open " pcTrackContent="joinVip-9"
                                             data-type="vip">开通</a>
                                     </div>
                                 </div>
@@ -151,10 +151,10 @@
                                 <a href="/node/personalCenter/home.html" class="entry-ele center-ele">
                                     <i class="icon-entry"></i>个人中心
                                 </a>
-                                <a href="/node/personalCenter/mycollection.html" class="entry-ele my-collect-ele">
+                                <a href="/node/personalCenter/mycollection.html?type=mycollection" class="entry-ele my-collect-ele">
                                     <i class="icon-entry"></i>我的收藏
                                 </a>
-                                <a href="/node/personalCenter/myuploads.html" class="entry-ele my-upload-ele">
+                                <a href="/node/personalCenter/myuploads.html?type=myuploads" class="entry-ele my-upload-ele">
                                     <i class="icon-entry"></i>我的上传
                                 </a>
                                 {# <a href="/ucenter/sign?u=" class="entry-ele my-task">

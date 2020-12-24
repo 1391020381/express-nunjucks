@@ -11,6 +11,10 @@ define(function(require , exports , module){
     var userInfo = {}
     if(type == 'home'){
         isLogin(initData,true)
+        iask_web.track_event('NE030', "pageTypeView", 'page', {
+            pageID:"UC",
+            pageName:'个人中心页-首页'
+        });
     }
     function initData(data){
            userInfo = data
@@ -44,14 +48,14 @@ define(function(require , exports , module){
                     var endDateMaster = userInfo.expireTime? new Date(userInfo.expireTime).format("yyyy-MM-dd"):''
                     var endDateOffice = userInfo.officeVipExpireTime? new Date(userInfo.officeVipExpireTime).format("yyyy-MM-dd"):''
                     // compilerTemplate(res.data)
-                    var masterIcon = isMasterVip== 1?'<span class="whole-station-vip-icon"></span>':''
-                    var officIcon = isOfficeVip ==1?'<span class="office-vip-icon"></span>':''
-                    $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
+                    // var masterIcon = isMasterVip== 1?'<span class="whole-station-vip-icon"></span>':''
+                    // var officIcon = isOfficeVip ==1?'<span class="office-vip-icon"></span>':''
+                    // $('.personal-center-menu .personal-profile .personal-img').attr('src',res.data.photoPicURL)
                     // $('.personal-center-menu .personal-profile .personal-nickname .nickname').(res.data.nickName)
-                    $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span>'+ masterIcon + officIcon + '</p>')
+                    // $('.personal-center-menu .personal-profile .personal-nickname-content').html('<p class="personal-nickname"><span class="nickname">'+res.data.nickName +'</span>'+ masterIcon + officIcon + '</p>')
                     // $('.personal-center-menu .personal-profile .personal-id .id').text(res.data.id?'用户ID:' + res.data.id:'用户ID:')
-                    $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
-                    $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
+                    // $('.personal-center-menu .personal-profile .personal-id').html('<span class="id" id="id" value="">用户ID:'+ res.data.id + '</span><span class="copy clipboardBtn" data-clipboard-text='+ res.data.id +'data-clipboard-action="copy">复制</span>')
+                    // $('.personal-center-menu .personal-profile .personal-id .copy').attr("data-clipboard-text",res.data.id)
                     // $('.personal-center-menu .personal-profile .personal-brief').text('简介: 爱问共享资料爱问共享资...')
                   
                     if(isMasterVip ==1){ 
@@ -88,10 +92,10 @@ define(function(require , exports , module){
                         $(".personal-center-home .aibeans").text(aibeans?(aibeans/100).toFixed():0)
                     }
                    
-                    if(isAuth == 1){
-                        $('.personal-isAuth').html('<span class="auth-desc">'+ authDesc +'</span>')
-                        $('.personal-menu .mywallet').css('display','block')
-                    }
+                    // if(isAuth == 1){
+                    //     $('.personal-isAuth').html('<span class="auth-desc">'+ authDesc +'</span>')
+                    //     $('.personal-menu .mywallet').css('display','block')
+                    // }
                     callback&&callback(res.data)
                     userWxAuthState()
                }else{
@@ -122,8 +126,7 @@ define(function(require , exports , module){
             dataType: "json",
             success: function (res) {
                if(res.code == '0'){
-                    console.log('getFileBrowsePage:',res)
-                    // data.rows
+                   
                     if(res.data.rows&&res.data.rows.length){
                         var _homeRecentlySeeTemplate = template.compile(homeRecentlySee)({flag:'recentlySee',data:res.data.rows||[]});
                         $(".recently-see").html(_homeRecentlySeeTemplate);
@@ -247,7 +250,7 @@ define(function(require , exports , module){
                 $(recommendConfigInfo.myVipRightsList.descs).each(function(index,k){
                     if(k.list.length){
                         if(k.pageId == 'PC_M_USER_vip'){ // search-all-main-bottombanner
-                            console.log('PC_M_USER_vip:',k.list)
+                           
                             var _vipPrivilegeListHtml = template.compile(vipPrivilegeList)({ list: k.list});
                             $('.personal-center-home .vip-privilege-items-wrapper').html(_vipPrivilegeListHtml);
                           

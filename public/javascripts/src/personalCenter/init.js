@@ -15,7 +15,7 @@ define(function(require , exports , module){
     require("./accountsecurity.js")
     require("./personalinformation.js")
     require("./mywallet.js")
-    require("../common/bilog");
+    
     if(!isLowsIe8()){
         var Clipboard =  require("../cmd-lib/clipboard");
         var clipboardBtn  = new Clipboard('.clipboardBtn');

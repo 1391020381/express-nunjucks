@@ -14,14 +14,6 @@
 </script>  
 
 </head>
-<script type="text/javascript">
-    var _speedMark = +new Date(),
-        _version = "{{version}}",
-        _head = "{{cdnUrl}}";
-    var _dpData = [];//广告测试
-    var env = "{{env}}";
-    var loginUrl = "{{loginUrl}}"
-</script>
 <body>
 <input type="hidden" id="ip-page-type" value="pindex">
 <input type="hidden" id="ip-page-statusCode" value="{{results.statusCode}}">
@@ -125,6 +117,8 @@
 {% include "detail/dialog.html" %}
 <!--  优惠券广告 -->
 {% include "detail/couponAD.html" %}
+<!-- 红包弹窗 -->
+{% include "common/loginRedPacket-dialog.html" %}
 <!--右侧悬浮工具栏 -->
 {% include "common/suspension.html" %}
 <script>
@@ -132,6 +126,7 @@
         page: {
             attr: 'other',
             type: 'detail',
+            abTest:'a',
             isDownload: '{{results.list.data.isDownload}}',
             owner: "{{results.list.data.owner.id}}",
             preRead: "{{results.filePreview.data.preRead}}",

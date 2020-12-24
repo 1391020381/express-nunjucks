@@ -255,12 +255,5 @@ router.get('/pay/payRedirect',function(req , res , next){ // m端支付成功页
 });
 
 
-router.get('/pay/aliPayMidPage',function(req , res , next){ 
-    try{
-        payController.aliPayMidPage(req , res);
-    }catch(e){
-        error(req , res , next);
-        return;
-    }
-});
+
 module.exports = router;

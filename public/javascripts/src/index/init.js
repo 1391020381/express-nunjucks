@@ -10,9 +10,9 @@ define(function (require,exports,moudle) {
     var method = require("../application/method");
     var login = require("../application/checkLogin");
     var api = require("../application/api");
-    var headTip = require("./template/saiTemplate.html");
-    var clickEvent = require('../common/bilog').clickEvent                      
-    // require('../common/bilog');
+    
+                         
+    
     /**
      * 推荐多图点击轮播
      * @type {{moreIndex: number, init: init, distance: number, domRend: domRend, index: number, slideLeft: slideLeft, slideRight: slideRight}}
@@ -130,13 +130,13 @@ define(function (require,exports,moudle) {
             var searVal = '';
             $('.search-container .icon-search').click(function(){  
                 searVal = $('.search-container .search-input').val();
-                clickEvent('searchBtnClick',{keyWords:searVal})
+              
                window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
             })
             $('.search-container .search-input').keydown(function(e) {  
                 if (e.keyCode == 13) {  
                     searVal = $('.search-container .search-input').val();
-                    clickEvent('searchBtnClick',{keyWords:searVal})
+                  
                     window.open('/search/home.html'+ '?' + 'ft=all' + '&cond='+ encodeURIComponent(encodeURIComponent(searVal)))
                 }  
             });  
@@ -351,4 +351,8 @@ define(function (require,exports,moudle) {
      indexObject.initial()
      require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')
      require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
+     iask_web.track_event('NE030', "pageTypeView", 'page', {
+            pageID:'HO',
+            pageName:'首页'
+        });
 })

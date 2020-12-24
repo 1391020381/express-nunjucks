@@ -45,21 +45,6 @@ module.exports = {
         downloadVisitor: '/content/download/visitorDow', // 免登下载
         orderPoint: '/order/point/$orderNo',         //订单埋点
     },
-    office: {
-        //办公频道 搜索
-        search: {
-            // 查询全部分类
-            category: '/channel/categorys',
-            // 导航分类及属性
-            categoryTitle: '/channel/getCategoryCid',
-            // 首页列表查询
-            contents: '/office/index',
-            // 联想词
-            linkWords: '/office/getHotSearchList?cond=$cond',
-            //搜索导航
-            navCategorys: '/channel/navCategorys'
-        }
-    },
     search: {
         //搜索服务--API接口--条件搜索--同步
         byCondition: '/search/content/byCondition',
@@ -67,7 +52,9 @@ module.exports = {
         associatedWords: '/search/specialTopic/lisPage'
     },
     user:{
-       getUserInfo:'/user/getUserInfo'
+       userWxAuthState:'/cas/user/wxAuthState',
+       getUserInfo:'/user/getUserInfo',
+       getUserCentreInfo:'/user/getUserCentreInfo'
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id

@@ -79,7 +79,28 @@ define(function(require , exports , module){
     })
 
 
+    taskHasEnable()
+    function taskHasEnable() { 
+        $.ajax({
+            url: api.coupon.taskHasEnable,
+            type: "POST",
+            data: JSON.stringify({
+            
+                taskCode:'evaluate'
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(res) {
+                if (res && res.code == '0') {
+                    if(res.data){
+                        $('.reviewGift-dialog-wrap').show()
+                    }
 
+                }
+            }
+        });
+    
+  }
     function queryOrderlistByCondition(currentPage) {
         var orderStatus =   (method.getParam('myorderType') == '1' || method.getParam('myorderType') == '')?[]: method.getParam('myorderType') == 0?[0,1]:[+method.getParam('myorderType')]
         $.ajax({

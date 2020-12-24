@@ -8,6 +8,14 @@ define(function(require , exports , module){
     var isLogin = require('../application/effect.js').isLogin
     var getUserCentreInfo = require('./home.js').getUserCentreInfo
     var idList = []  // 保存 要删除的文件id
+    var userFileTypeList = {
+        1:'免费文档',
+        3:'在线文档',
+        4:"vip特权",
+        5:"付费文档",
+        6:"私有文档"
+    }
+   
     if(type == 'myuploads'){
         isLogin(initData,true)
     }
@@ -26,17 +34,22 @@ define(function(require , exports , module){
            data: JSON.stringify({
                currentPage:currentPage||1,
                pageSize:20,
-               status:+status   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
+               status:+status,   // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
+               userFileType:$('.file-type').val() == '0'?'':+$('.file-type').val(),
+               auditType:$('.review-progress').val() == '0'?'':+$('.review-progress').val()
            }),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
            success: function (res) {
               if(res.code == '0'){
-                   console.log('getMyUploadPage:',res)   
+                 //  console.log('getMyUploadPage:',res)   
                   var formatDate = method.formatDate
                   Date.prototype.format = formatDate
                   var list = []
-                  $(res.data.rows).each(function(index,item){
+                  var auditType =  res.data.auditType
+                  var userFileType =  res.data.userFileType
+                  $(res.data.list.rows).each(function(index,item){
+                  
                      var userFilePrice  = ''
                      if(item.userFileType == 1){
                          userFilePrice = '免费'
@@ -51,15 +64,17 @@ define(function(require , exports , module){
                      item.userFilePrice = userFilePrice
                      var createtime =  new Date(item.createtime).format("yyyy-MM-dd")
                      item.createtime = createtime
-
+                     item.userFileTypeName = userFileTypeList[item.userFileType]
+                   
                     item.readNum  = item.readNum > 10000 ? (item.readNum/10000).toFixed(1)+'w' : item.readNum
                     item.downNum  =  item.downNum > 10000 ? (item.downNum/10000).toFixed(1)+'w' : item.downNum
                      list.push(item)
                   })
+                  console.log('list:',list,auditType,userFileType)
                   var myuploadType =  window.pageConfig.page&&window.pageConfig.page.myuploadType || 1
-                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.totalSize,myuploadType:myuploadType});
+                  var _myuploadsTemplate = template.compile(myuploads)({list:list||[],totalPages:res.data.list.totalSize,myuploadType:myuploadType,auditType:auditType + '',userFileType:userFileType+''});
                    $(".personal-center-myuploads").html(_myuploadsTemplate) 
-                   handlePagination(res.data.totalPages,res.data.currentPage) 
+                   handlePagination(res.data.list.totalPages,res.data.list.currentPage) 
               }else{
                $.toast({
                    text:res.message,
@@ -84,6 +99,14 @@ define(function(require , exports , module){
         })
        }
     // 
+    $(document).on('change','.review-progress',function(event){
+        console.log($(this).val())
+        getMyUploadPage()
+    })
+    $(document).on('change','.file-type',function(event){
+        console.log($(this).val())
+        getMyUploadPage()
+    })
     $(document).on('click','.myuploads .label-input',function(event){ // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'))
         if($(this).attr('checked')){ // checked

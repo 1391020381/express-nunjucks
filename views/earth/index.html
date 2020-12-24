@@ -2,38 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta name="renderer" content="webkit"> 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="pragma" content="no-cache"> 
-    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
-    <meta http-equiv="expires" content="0"> 
-    <meta name=renderer  content=webkit>
-    <title>{{results.inialPrex}}{{'字母' if results.inialPrex !='0-9'}}最新{%if results.type == 'f'%}文档{%else%}专题{%endif%}索引第{{results.currentPage}}页-爱问共享资料</title>
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/>
-    <script>
-        /*ie9兼容*/
-        window.console = window.console || (function() {
-            var c = {};
-            c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function() {};
-            return c;
-        })();
-    </script>
+    {% include "common/head.html" %}
+
+   
+   
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/earth/index.css" />
-<!-- 添加360统计代码1、PC端统计代码： -->
-<style>
-    .detail-search-info p {
-        display: none;
-    }
-</style>
+
+
 </head>
-<script type="text/javascript">
-    var _speedMark = + new Date();
-    var _version = "{{version}}";
-    var _head = "{{cdnUrl}}";
-     var env = "{{env}}";
-     var loginUrl = "{{loginUrl}}"
-</script>
+
 
 <body class="auth-body">
     <input type="hidden" id="ip-page-id" value="PC-M-SMAP">

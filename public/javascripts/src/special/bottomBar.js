@@ -6,8 +6,29 @@ define(function(require , exports , module){
    
    $('.search-img-box').click(function(){
        var contentId=$(this).attr('contentId')
+       var fileName = $(this).attr('fileName')
+       var pageConfig = window.pageConfig
+       iask_web.track_event('SE040', "ztFileEntryClick", 'click', {
+        ztID:pageConfig&&pageConfig.urlParams.specialTopicId,
+        ztName:pageConfig&&pageConfig.topicName,
+        filePostion:$(this).index() + 1,
+        fileID:contentId,
+        fileName:fileName
+    });
        window.open('/f/'+contentId+'.html', "_blank");
    }) 
+   $('.search-list-info').click(function(){
+    var contentId=$(this).attr('contentId')
+    var fileName = $(this).attr('fileName')
+    var pageConfig = window.pageConfig
+    iask_web.track_event('SE040', "ztFileEntryClick", 'click', {
+     ztID:pageConfig&&pageConfig.urlParams.specialTopicId,
+     ztName:pageConfig&&pageConfig.topicName,
+     filePostion:$(this).index() + 1,
+     fileID:contentId,
+     fileName:fileName
+ });
+   })
    // 收藏与取消收藏功能
    var userId = ''   // 注意 在 loginStatusQuery 也可以取到 userID
    $('.search-img-box .ic-collect').click(function(event){

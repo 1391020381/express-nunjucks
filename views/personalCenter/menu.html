@@ -2,17 +2,39 @@
 
 <div class="personal-center-menu">
     <div class="personal-profile">
-        <img class="personal-img" />
-        <div class="personal-nickname-content"></div>
-         <div class="personal-isAuth"></div>
-        <div class="personal-id">
+        <img class="personal-img" src="{{results.userInfo.data.photoPicURL}}"/>
+        <div class="personal-nickname-content">
+            <p class="personal-nickname"><span class="nickname">{{results.userInfo.data.nickName }}</span>
+                {% if results.isMasterVip == 1%}
+                <span class="whole-station-vip-icon"></span>
+                {%endif%}
+                {% if results.isOfficeVip == 1%}
+                <span class="office-vip-icon"></span>
+                {%endif%}
+            </p>
         </div>
-        <div class="signIn signIn-hide"> <span class="signIn-icon"></span><span class="signIn-desc">签到</span></div>
+         <div class="personal-isAuth">
+                {% if results.userInfo.data.isAuth == 1%}
+                    <span class="auth-desc">
+                        {% if  results.userInfo.data.userTypeId==2%}
+                             个人认证
+                        {%else%}
+                          机构认证
+                        {%endif%}
+                    </span>
+                {%endif%}   
+         </div>
+        <div class="personal-id">
+           <span class="id" id="id" value="">用户ID:{{results.userInfo.data.id}}</span><span class="copy clipboardBtn" data-clipboard-text='{{results.userInfo.data.id}}' data-clipboard-action="copy">复制</span>
+        </div>
+        {% if results.isWxAuth%}
+          <div class="signIn "> <span class="signIn-icon"></span><span class="signIn-desc">签到</span></div>
+        {%endif%}
     </div>
     <div class="personal-menu">
         <ul class="{{ 'menus active-menus' if results.type === 'home' else 'menus'}}">
             <p class="menus-desc">
-               <a class="menu-link" href="/node/personalCenter/home.html">
+               <a class="menu-link" href="/node/personalCenter/home.html?type=home">
                     <span class="menus-icon home-icon"></span>
                     <span class="menus-text">我的首页</span> 
                </a>
@@ -25,18 +47,18 @@
                <span class="menu-arrow"></span>
             </p>
             <li class="{{ 'menu active-menus' if results.type === 'mydownloads' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/mydownloads.html">我的下载</a>
+                <a class="menu-link" href="/node/personalCenter/mydownloads.html?type=mydownloads">我的下载</a>
             </li>
             <li class="{{ 'menu active-menus' if results.type === 'mycollection' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/mycollection.html">我的收藏</a>
+                <a class="menu-link" href="/node/personalCenter/mycollection.html?type=mycollection">我的收藏</a>
             </li>
             <li  class="{{ 'menu active-menus' if results.type === 'myuploads' else 'menu'}}">
-                <a class="menu-link"  href="/node/personalCenter/myuploads.html">我的上传</a>
+                <a class="menu-link"  href="/node/personalCenter/myuploads.html?type=myuploads">我的上传</a>
             </li>
         </ul>
         <ul  class="{{ 'menus active-menus' if results.type === 'myvip' else 'menus'}}">
             <p class="menus-desc">
-               <a class="menu-link"  href="/node/personalCenter/vip.html">
+               <a class="menu-link"  href="/node/personalCenter/vip.html?type=myvip">
                <span class="menus-icon myvip-icon"></span>
                <span class="menus-text">我的VIP<span>
                </a>
@@ -49,25 +71,27 @@
                <span class="menu-arrow"></span>
             </p>
             <li  class="{{ 'menu active-menus' if results.type === 'myorder' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/myorder.html">我的订单</a>
+                <a class="menu-link" href="/node/personalCenter/myorder.html?type=myorder">我的订单</a>
             </li>
             <li  class="{{ 'menu active-menus' if results.type === 'mycoupon' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/mycoupon.html">我的优惠券</a>
+                <a class="menu-link" href="/node/personalCenter/mycoupon.html?type=mycoupon">我的优惠券</a>
             </li>
             <li  class="{{ 'menu active-menus' if results.type === 'accountsecurity' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/accountsecurity.html">账号与安全</a>
+                <a class="menu-link" href="/node/personalCenter/accountsecurity.html?type=accountsecurity">账号与安全</a>
             </li>
              <li  class="{{ 'menu active-menus' if results.type === 'personalinformation' else 'menu'}}">
-                <a class="menu-link" href="/node/personalCenter/personalinformation.html">个人信息</a>
+                <a class="menu-link" href="/node/personalCenter/personalinformation.html?type=personalinformation">个人信息</a>
              </li>
         </ul>
-         <ul class="{{ 'menus active-menus mywallet' if results.type === 'mywallet' else 'menus mywallet'}}" style="display:none;">
+        {%if results.userInfo.data.isAuth == 1%}
+         <ul class="{{ 'menus active-menus mywallet' if results.type === 'mywallet' else 'menus mywallet'}}" >
             <p class="menus-desc">
-              <a class="menu-link" href="/node/personalCenter/mywallet.html">
+              <a class="menu-link" href="/node/personalCenter/mywallet.html?type=mywallet">
                 <span class="menus-icon mywallet-icon"></span>
                <span class="menus-text">我的钱包<span>
               </a>
             </p>
         </ul>
+        {%endif%}
     </div>
 </div>

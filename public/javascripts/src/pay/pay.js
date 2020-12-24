@@ -1,10 +1,5 @@
 define(function(require, exports, moudle) {
-    // 自有埋点注入
-
-    var payVipResult_bilog = require("../common/bilog-module/payVipResult_bilog");
-    var payFileResult_bilog = require("../common/bilog-module/payFileResult_bilog");
-    var payPrivilegeResult_bilog = require("../common/bilog-module/payPrivilegeResult_bilog");
-    var viewExposure = require('../common/bilog').viewExposure
+    
     require('swiper');
     var method = require("../application/method");
     var utils = require("../cmd-lib/util");
@@ -13,9 +8,9 @@ define(function(require, exports, moudle) {
     var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var couponReceive = require('./couponReceive.html')
-    require("../common/bilog");
-    var clickEvent = require('../common/bilog').clickEvent
-    var viewExposure = require('../common/bilog').viewExposure
+    
+    
+    
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {}
     var renewalVIP = window.pageConfig.params.isVip == '1' ? '1' : '0' // 标识是否是续费vip
     var checkStatus = window.pageConfig.params.checkStatus || '10'
@@ -35,16 +30,32 @@ define(function(require, exports, moudle) {
     fetchCouponReceiveList();
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
-        viewExposure($(this),'vipPayCon','VIP套餐列表弹窗')
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:"vipPayCon",
+            moduleName:'VIP套餐列表弹窗'
+        });
         if (isAutoRenew != 1) { //  
             $('.renewal-radio').hide()
         }
     }
-    if (location.pathname == '/pay/payConfirm.html') {
-        viewExposure($(this),'filePayCon','资料支付弹窗')
+    if (location.pathname == '/pay/payConfirm.html') { // /pay/payConfirm.html
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:"filePayCon",
+            moduleName:'资料支付弹窗'
+        });
+        
+    }
+    if(location.pathname == '/pay/payQr.html'){
         if (isAutoRenew == 1) { //  
             $('.icon-pay-style').css("background-position", "-172px -200px")
         }
+    }
+    if (location.pathname == '/pay/privilege.html') {
+        iask_web.track_event('NE006', "modelView", 'view', {
+            moduleID:"priPayCon",
+            moduleName:'特权列表弹窗'
+        });
+       
     }
 
 
@@ -62,10 +73,12 @@ define(function(require, exports, moudle) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
         }else{
+
             // 加油包判断是否是vip
         if(location.pathname == "/pay/privilege.html"){
              method.compatibleIESkip('/pay/vip.html', false);
         }
+
         }
         $(function() {
 
@@ -215,7 +228,7 @@ define(function(require, exports, moudle) {
     // 绑定定时弹窗关闭按钮
     $(document).on('click', '.coupon-dialog-wrap .coupon-dialog-close', function(e) {
         // 判断如果弹窗出现
-        clickEvent($(this))
+        
         switchCancel = true;
         switchCount = 0;
         if ($("#receive-coupon-box").html()) {
@@ -230,7 +243,7 @@ define(function(require, exports, moudle) {
             source: 1,
             site: 4,
         };
-        clickEvent($(this))
+        
         $.ajax({
             url: api.coupon.rightsSaleVouchers,
             headers: {
@@ -386,30 +399,29 @@ define(function(require, exports, moudle) {
             $("#unLogin").click();
             return;
         }
-        // var ptype = $(this).data("page");  
+      
         var checkStatus = params.type
-        if (checkStatus == '10') { // ptype == 'vip'
+        if (checkStatus == '10') { 
             params.type = '10';
             if ($(".js-tab ul.pay-vip-list").find("li.active").data("vid")) {
                 params.vipMemberId = params.vid = $(".js-tab ul.pay-vip-list").find("li.active").data("vid");
             }
             params.aid = $(".js-tab ul.pay-vip-list").find("li.active").data("actids");
-            //    report.price = $(".js-tab ul.pay-vip-list").find("li.active").data("price");
-            //  report.name = $(".js-tab ul.pay-vip-list").find("li.active").data("month");
+           
             // 带优惠券id
             params.vouchersId = $('.pay-coupon-wrap').attr('vid')
             params.suvid = $('.pay-coupon-wrap').attr('svuid')
             $(".btn-vip-item-selected").attr("pcTrackContent", 'payVip-' + params.vid);
             $(".btn-vip-item-selected").click();
-            // __pc__.push(['pcTrackEvent','payVip-'+params.vid]);
-        } else if (checkStatus == '13') { //  ptype == 'privilege' 
+            
+        } else if (checkStatus == '13') { 
             params.type = '13';
             if ($("ul.pay-pri-list").find("li.active").data("pid")) {
                 params.pid = $("ul.pay-pri-list").find("li.active").data("pid");
                 params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
             }
             params.aid = $("ul.pay-pri-list").find("li.active").data("actids");
-            //     report.price = $("ul.pay-pri-list").find("li.active").data("price");
+            
         } else if (checkStatus == '8') { // ptype === 'file'
             params = {
                 fid: pageConfig.params.g_fileId,
@@ -476,7 +488,35 @@ define(function(require, exports, moudle) {
         if (isAutoRenew == '1') {
             goodsType = $('.renewal-radio #renewal').attr('checked') ? 12 : goodsType // 续费
         }
+       // 物品类型 1-购买资料 2-购买VIP 4-购买爱问豆 8-下载特权 10-免费资料 11-vip专享资料 12-VIP套餐(签约)
+        if(goodsType == '2' || goodsType == '12'){ 
+            var activeLi = $('.pay-vip-list .ui-tab-nav-item.active')
+            var  payCoupon = $('.pay-coupon-wrap')
+            
+            iask_web.track_event('SE010', "payVipClick", 'click', {
+                vipID:activeLi.attr('data-vid'),
+                vipName:activeLi.attr('data-month'),
+                vipPrice:activeLi.attr('data-price'),
+                couponID:payCoupon.attr('vid')||'',
+                coupon:payCoupon.attr('svuid')||''
+            });
+        }
+        if(goodsType == '1'){ 
+            
+            iask_web.track_event('SE008', "payFileClick", 'click', {
+               fileID:method.getParam('orderNo'),
+               fileName:$('.data-info .data-name a').text(),
+               salePrice:$('.price-text-con .price').text()
+            });
+        }
 
+        if(goodsType == '8'){ 
+            
+            iask_web.track_event('SE012', "payPrivilegeClick", 'click', {
+                privilegeName:$('.pay-pri-list .ui-tab-nav-item.active .privilege-price').text(),
+                privilegePrice:$('.price-text-con .price').text()
+            });
+        }
 
         // 组装创建订单的参数
         var temp = { //  
@@ -498,6 +538,7 @@ define(function(require, exports, moudle) {
             ref: utils.getPageRef(window.pageConfig.params.g_fileId), //正常为0,360合作文档为1，360文库为3
             referrer: document.referrer || document.URL,
         }
+        console.log(JSON.stringify(temp))
         $.ajax({
             url: api.order.createOrderInfo,
             type: "POST",
@@ -509,9 +550,14 @@ define(function(require, exports, moudle) {
                 if (data && data.code == '0') {
                     console.log("下单返回的数据：" + data);
                     data['remark'] = temp.remark;
+
+                    iask_web.track_event('SE033', "createOrder", 'query', {
+                       orderID:data.data.orderNo
+                    });
+
                     openWin(data);
                 } else {
-                    // __pc__.push(['pcTrackEvent','orderFail']);
+                  
                     $(".btn-vip-order-fail").click();
                     utils.showAlertDialog("温馨提示", '下单失败');
 
@@ -537,7 +583,7 @@ define(function(require, exports, moudle) {
             data: JSON.stringify({
                 url:url,
                 message:message,
-                userId:''
+                userId:userInfo.userId||method.getCookie('visitor_id')
             }),
             success: function (response) {
                console.log('reportOrderError:',response)
@@ -545,7 +591,18 @@ define(function(require, exports, moudle) {
             complete: function () {
 
             }
-        })  
+        }) 
+        if(method.isIe8()){
+            Sentry.captureException(JSON.stringify({
+                url:url,
+                message:message
+            }),{
+              tags: {
+                title: "生成订单错误",
+              }
+            })
+        }
+        
     }
 
 
@@ -553,10 +610,12 @@ define(function(require, exports, moudle) {
      * 支付跳转到新页面
      */
     function openWin(data) {
-        clickEvent('createOrder',{orderID:data.data.orderNo})
+     
         var orderNo = data.data.orderNo;
         var price = data.data.payPrice;
         var name = data.data.name;
+        var goodsType =  data.data.gooodsType
+        var goodsId = data.data.goodsId
         var type = params.type; // 都以获取下载url接口  checkStatus为准  data.data.type ||
         var fileId = data.data.fileId;
         if (!fileId) {
@@ -596,7 +655,7 @@ define(function(require, exports, moudle) {
         if ($('.js-tab').find('.ui-tab-nav-item.active').data('isautorenew') == '1') {
             var isAutoRenew = $('.renewal-radio #renewal').attr('checked') ? '1' : '0'
         }
-        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId + "&isAutoRenew=" + isAutoRenew, false);
+        method.compatibleIESkip(target + "orderNo=" + orderNo + "&fid=" + fileId + "&isAutoRenew=" + isAutoRenew +'&goodsType=' + goodsType + '&goodsId=' + goodsId, false);
     }
 
     //网页支付宝
@@ -670,35 +729,7 @@ define(function(require, exports, moudle) {
         })
     });
 
-    /**
-     * 获取文件详细信息
-     * @param id 文件id
-     * @param callback 回调携带返回数据
-     */
-    function getFileInfoById(id, callback) {
-        // 获取资料详细信息
-        var params = {
-            clientType: 0,
-            fid: id,
-            sourceType: 2,
-            site:4
-        }
-        $.ajax({
-            type: 'POST',
-            url: api.normalFileDetail.getFileDetailNoTdk, // '/gateway/content/getFileDetailNoTdk'
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(params),
-            success: function(response) {
-                console.error('获取资料详情数据', response.data)
-                var fileInfo = {};
-                if (response && response.data && response.data.fileInfo) {
-                    fileInfo = response.data.fileInfo;
-                }
-                callback(fileInfo)
-            }
-        });
-    }
+   
 
     /**
      * 只用于订单结果轮询用
@@ -740,8 +771,20 @@ define(function(require, exports, moudle) {
                             }, 4000);
                         }
                     } else if (data.orderStatus == 2) {
+                        iask_web.track_event('SE034', "payResult", 'query', {
+                            result:1,
+                            orderID:orderNo,
+                            goodsID:data.goodsId,
+                            goodsType:data.goodsType
+                         });
                         goodsPaySuccess(data, orderNo)
                     } else if (data.orderStatus == 3) {
+                        iask_web.track_event('SE034', "payResult", 'query', {
+                            result:0,
+                            orderID:orderNo,
+                            goodsID:data.goodsId,
+                            goodsType:data.goodsType
+                         });
                         goodsPayFail(data, orderNo);
                     }
 
@@ -776,8 +819,7 @@ define(function(require, exports, moudle) {
         // var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
         var format = window.pageConfig && window.pageConfig.params.format
         var title = window.pageConfig && window.pageConfig.params.title || $('.data-name').text()
-        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title),
-            bilogResult = null;
+        var href = '/pay/success.html' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid + '&format=' + format + '&title=' + encodeURIComponent(title)
         if (orderInfo.goodsType === 1) {
             // 购买文件成功
             href += '&type=2';
@@ -788,20 +830,9 @@ define(function(require, exports, moudle) {
                 //  report.docPaySuccess(rf);
                 method.delCookie('rf', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-            };
+            
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payFileResult_bilog.reportResult(orderInfo, fileInfo, true);
-            })
+           
 
         } else if (orderInfo.goodsType === 2||orderInfo.goodsType === 12) {
             // 购买vip成功
@@ -811,20 +842,9 @@ define(function(require, exports, moudle) {
                 // report.vipPaySuccess(JSON.parse(rv));
                 method.delCookie('rv', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                vipID: orderInfo.reportData.id,
-                vipName: orderInfo.reportData.name,
-                vipPrice: orderInfo.reportData.payPrice || '',
-            };
+            
 
-            // 自有埋点
-            payVipResult_bilog.reportResult(orderInfo, true);
+          
 
             //透传用户信息 更新isVip字段
             $(".js-sync").trigger('click');
@@ -837,28 +857,12 @@ define(function(require, exports, moudle) {
                 // report.privilegePaySuccess(JSON.parse(rp));
                 method.delCookie('rp', "/");
             }
-            // 自由埋点数据
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                privilegeID: orderInfo.reportData.id,
-                privilegeName: orderInfo.reportData.name,
-                privilegePrice: orderInfo.reportData.payPrice || '',
-            };
+            
 
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, true);
-            })
+            
         }
 
-        // 自有埋点用到
-        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-        // window.location.href = href;
+       
         method.compatibleIESkip(href, false);
     }
 
@@ -870,78 +874,29 @@ define(function(require, exports, moudle) {
      */
     function goodsPayFail(orderInfo, orderNo) {
         // 携带参数,上报数据
-        var href = '/pay/fail.htm' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid,
-            bilogResult = null;
+        var href = '/pay/fail.htm' + '?orderNo=' + orderNo + '&fid=' + orderInfo.fid;
         if (orderInfo.goodsType == 1) {
             // 购买文件失败
             href += "&type=2";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-            };
-
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payFileResult_bilog.reportResult(orderInfo, fileInfo, false);
-            })
-
         } else if (orderInfo.goodsType == 2) {
             // 购买vip失败
             href += "&type=0";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice,
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                vipID: orderInfo.reportData.id,
-                vipName: orderInfo.reportData.name,
-                vipPrice: orderInfo.reportData.payPrice || '',
-            };
-
-            // 自有埋点
-            payVipResult_bilog.reportResult(orderInfo, false);
-
         } else if (orderInfo.goodsType == 8) {
             // 购买下载特权失败
-            href += "&type=1";
-            bilogResult = {
-                orderID: orderInfo.reportData.orderId,
-                orderPayType: orderInfo.reportData.orderPayCode,
-                orderPayPrice: orderInfo.reportData.payPrice || '',
-                couponID: orderInfo.reportData.couponID || '',
-                coupon: '',
-                privilegeID: orderInfo.reportData.id,
-                privilegeName: orderInfo.reportData.name,
-                privilegePrice: orderInfo.reportData.payPrice || '',
-            };
-
-            // 获取资料详细信息
-            getFileInfoById(orderInfo.fid, function(fileInfo) {
-                // 自有埋点
-                payPrivilegeResult_bilog.reportResult(orderInfo, fileInfo, false);
-            })
+            href += "&type=1";   
         }
-
-        // 自由埋点用到
-        method.setCookieWithExp('br', JSON.stringify(bilogResult), 30 * 60 * 1000, '/');
-        // window.location.href = href;
         method.compatibleIESkip(href, false);
     }
 
-    // ===== end ====
+  
 
     $(".btn-back").click(function() {
         var referrer = document.referrer;
         if (referrer) {
-            // window.location.href = referrer;
+           
             method.compatibleIESkip(referrer, false);
         } else {
-            // window.location.href = "/";
+           
             method.compatibleIESkip("/", false);
         }
     });
@@ -974,17 +929,13 @@ define(function(require, exports, moudle) {
                     var browserEnv = method.browserType();
                     method.delCookie("event_data_down", "/");
                     if (browserEnv === 'IE' || browserEnv === 'Edge') {
-                        // window.location.href = res.data;
+                       
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     } else if (browserEnv === 'Firefox') {
-                        // var downLoadURL = res.data;
-                        // var sub = downLoadURL.lastIndexOf('&fn=');
-                        // var sub_url1 = downLoadURL.substr(0, sub + 4);
-                        // var sub_ur2 = decodeURIComponent(downLoadURL.substr(sub + 4, downLoadURL.length));
-                        // window.location.href = sub_url1 + sub_ur2;
+                        
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     } else {
-                        // window.location.href = res.data;
+                        
                         method.compatibleIESkip(res.data.fileDownUrl, false);
                     }
                 } else {

@@ -397,8 +397,8 @@ module.exports = {
                 server.post(appConfig.apiBasePath + api.pay.order, callback, req);
             }
         }, function (err, results) {
-            // console.log("下单操作=================");
-            // console.log(results);
+            console.log("下单操作=================",JSON.stringify(results));
+           
             res.send(results.list).end();
         })
     },
@@ -637,6 +637,7 @@ module.exports = {
             results.isWeChat = isWeChat
             results.isAliPay = isAliPay
             results.isAutoRenew = req.query.isAutoRenew
+            results.payment = 1
             if (isOther) {
                 res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });//设置response编码
                 res.end('请使用微信或者支付扫码支付!')
@@ -653,6 +654,7 @@ module.exports = {
                 callback(null, null);
             },
         }, function (err, results) {  // results 是fileDetails组装后的数据 
+            results.payment = 1
             render("pay/paymentresult", results, req, res);
         })
     }

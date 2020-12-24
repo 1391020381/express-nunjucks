@@ -14,13 +14,7 @@
 </script>  
 
 </head>
-<script type="text/javascript">
-    var _speedMark = + new Date();
-    var _version = "{{version}}";
-    var _head = "{{cdnUrl}}";
-    var env = "{{env}}";
-    var loginUrl = "{{loginUrl}}"
-</script>
+
 <body>
     <input type="hidden" id="ip-page-type" value="pay">
     <input type="hidden" id="ip-uid" value="{{results.data.uid}}">
@@ -31,11 +25,9 @@
     <input type="hidden" id="ip-type" value="{{results.type}}">
 
     {% include "common/dialog.html" %}
-    {# {% include "pay/topbar.html" %} #}
+    
 
-    {# {% if results.flag != 4%}
-        {% include "pay/header.html" %}
-    {% endif %} #}
+   
 
     {% include "common/websiteHeaderbar.html" %}
     {% if results.flag === 'true' %}
@@ -54,9 +46,7 @@
 
     {% endif %}
 
-    {# {% include "pay/footer.html" %} #}
-    {# {% include "../common/footer.html" %} #}
-        <!-- 底部 start-->
+   
 {% include "common/new/footer.html" %}
     {% include "common/js.html" %}
 

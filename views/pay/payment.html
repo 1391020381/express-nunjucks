@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+
+{# {% include "common/head.html" %} #}
 <title>订单详情</title>
 <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
+
  {# <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 <script>
   // 初始化
@@ -31,15 +34,16 @@
 }
 fun(document, window)
 </script>  
-
-</head>
 <script type="text/javascript">
-    var _speedMark = + new Date();
-    var _version = "{{version}}";
-    var _head = "{{cdnUrl}}";
-    var env = "{{env}}";
-    var loginUrl = "{{loginUrl}}"
+        var _speedMark = +new Date()
+        var   _version = "{{version}}"
+        var   _head = "{{cdnUrl}}";
+        var _dpData = [];//广告测试
+        var env = "{{env}}";
+        var loginUrl = "{{loginUrl}}"
 </script>
+</head>
+
 <body>
 <div class="payment hide">
  <div class="pay-price">
