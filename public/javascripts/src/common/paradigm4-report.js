@@ -26,7 +26,6 @@ define(function (require, exports, module) {
             var actionsRelevant = [];
             paradigm4Arr.forEach(function (item) {
                 actionsRelevant.push({
-                    "date": new Date().formatDate("yyyy-MM-dd:hh:mm"),
                     "itemId": item.id || item.itemId,
                     "actionTime": new Date().getTime(),
                     "action": "show",
