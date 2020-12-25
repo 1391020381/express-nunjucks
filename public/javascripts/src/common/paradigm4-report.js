@@ -59,7 +59,6 @@ define(function (require, exports, module) {
             var params = {
                 "date": dateParams,
                 "actions": [{
-                    "date": new Date().formatDate("yyyy-MM-dd:hh:mm"),
                     "itemId": itemId,
                     "actionTime": new Date().getTime(),
                     "action": "detailPageShow",
