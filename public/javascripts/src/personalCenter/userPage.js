@@ -107,8 +107,7 @@ define(function(require , exports , module){
     }
     function paradigm4Relevant(data){
         var requestId = Math.random().toString().slice(-10);
-        // var userId = method.getCookie('userId') ||  method.getCookie('visitor_id');
-        var userId = method.getQueryString('uid');
+        var userId = method.getCookie('userId') ||  method.getCookie('visitor_id');
         var sceneID=data[0].useId;
         $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',{request:{
             requestId:requestId,
