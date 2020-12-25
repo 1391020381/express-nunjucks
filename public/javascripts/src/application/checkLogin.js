@@ -188,7 +188,7 @@ define(function (require, exports, module) {
             method.delCookie("sid_ishare", "/", ".iask.com.cn");
             method.delCookie("sid_ishare", "/", ".sina.com.cn");
             method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
-            method.delCookie("userId", "/", "/");
+            method.delCookie("userId", "/");
             // 删除第一次登录标识
             method.delCookie("_1st_l", "/");
             method.delCookie("ui", "/");
