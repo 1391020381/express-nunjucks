@@ -54,7 +54,7 @@ define(function (require, exports, module) {
             var serverUrl=this.url+'?clientToken=' + clientToken;
             var context='';
             paradigm4Arr.forEach(function(item){
-                item.itemId==itemId ? context=item.context : '';
+                (item.id==itemId || item.itemId == itemId) ? context=item.context : '';
             })
             var params = {
                 "date": dateParams,
