@@ -102,7 +102,7 @@ define(function (require, exports, module) {
                                 loginType: window.loginType && window.loginType
                             });
                             
-                            var page = window.pageConfig&&window.pageConfig.page
+                            var page = window.pageConfig&&window.pageConfig.page || {}
 
                             if(page.type !='detail'){
                                 window.location.reload();
