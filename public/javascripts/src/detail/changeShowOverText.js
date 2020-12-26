@@ -105,25 +105,25 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
         });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
 
-        var reward = window.pageConfig.reward;
-        if (reward.value == "-1") { // 老用户VIP正常弹起
-            $("#dialog-box").dialog({
-                html: $('#reward-mission-pop').html(),
-            }).open();
-        } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
-            $("#dialog-box").dialog({
-                html: $('#reward-error-pop').html(),
-            }).open();
-        } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
-            $("#dialog-box").dialog({
-                html: $('#reward-error1-pop').html(),
-            }).open();
-        } else if (reward.value > 0) { // 正常弹起
-            $("#dialog-box").dialog({
-                html: $('#reward-success-pop').html()
-                  .replace(/\$value/, reward.value),
-            }).open();
-        }
+        // var reward = window.pageConfig.reward;
+        // if (reward.value == "-1") { // 老用户VIP正常弹起
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-mission-pop').html(),
+        //     }).open();
+        // } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-error-pop').html(),
+        //     }).open();
+        // } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-error1-pop').html(),
+        //     }).open();
+        // } else if (reward.value > 0) { // 正常弹起
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-success-pop').html()
+        //           .replace(/\$value/, reward.value),
+        //     }).open();
+        // }
 
         setTimeout(bindEventPop, 500)
 
@@ -184,7 +184,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                             text: '发送成功',
                             delay: 2000,
                         })
-                        getWebsitVipRightInfo();
+                       // getWebsitVipRightInfo();
                     } else if (res.code == 401100) {
                         $.toast({
                             text: '该功能仅对VIP用户开放',

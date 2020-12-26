@@ -64,8 +64,10 @@ define(function (require, exports, module) {
                     //唤起支付弹框
                     // goPage(event);
                     var params = window.pageConfig.params;
-                    if(params.productType == '3'&&data&&data.isVip==1){ // 
-                        sendEmail()
+                    if(params.productType == '3'){ //
+                        if(data&&data.isVip==1){
+                            sendEmail()
+                        }   
                     }else{
                         window.downLoad()
                     }
