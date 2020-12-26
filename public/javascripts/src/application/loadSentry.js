@@ -41,7 +41,7 @@ function loadScript(url) {
             
             setTimeout(function(){
                 Sentry.init({
-                    dsn: (env =='pre'||env == 'prod')?"http://c37a5f8c8d9b44f9ab05398cbbfa2dd8@sentry-ishare.iask.com.cn/2":"http://1c2e7350f62e41f581a7b24026a0ff10@192.168.1.199:9000/2",
+                    dsn: (env =='pre'||env == 'prod')?"https://c37a5f8c8d9b44f9ab05398cbbfa2dd8@sentry-ishare.iask.com.cn/2":"http://1c2e7350f62e41f581a7b24026a0ff10@192.168.1.199:9000/2",
                     release: "node-pc@" + 0.01,
                    integrations: Sentry.Integrations.BrowserTracing?[new Sentry.Integrations.BrowserTracing()]:[],
                     tracesSampleRate: 1.0,
