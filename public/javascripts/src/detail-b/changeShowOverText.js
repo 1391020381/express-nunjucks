@@ -125,7 +125,13 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         //           .replace(/\$value/, reward.value),
         //     }).open();
         // }
-
+       
+        setTimeout(function(){  // hanck 写法  正常写法dialog会自动关闭
+            $("#dialog-box").dialog({
+                html: $('#reward-mission-pop').html()
+            }).open();
+        },50)
+        
         setTimeout(bindEventPop, 500)
         function bindEventPop() {
             console.log(6666)

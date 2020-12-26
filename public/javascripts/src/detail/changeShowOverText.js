@@ -124,7 +124,13 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
         //           .replace(/\$value/, reward.value),
         //     }).open();
         // }
-
+         
+        setTimeout(function(){
+            $("#dialog-box").dialog({
+                html: $('#reward-mission-pop').html()
+            }).open();
+        },50)
+        
         setTimeout(bindEventPop, 500)
 
         function bindEventPop() {
