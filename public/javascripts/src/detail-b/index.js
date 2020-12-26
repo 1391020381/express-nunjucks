@@ -59,7 +59,15 @@ define(function (require, exports, module) {
                     if(params.productType == '3'){ // 
                         if(data&&data.isVip==1){
                             sendEmail()
-                        }
+                        }else {
+                            var fid = window.pageConfig.params.g_fileId;
+                             var format = window.pageConfig.params.file_format;
+                             var title = window.pageConfig.params.file_title;
+                            var params = window.pageConfig.params
+                            var ref = utils.getPageRef(fid);
+                           var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+                            method.compatibleIESkip('/pay/vip.html' + params, false);
+                        } 
                     }else{
                         window.downLoad()
                     }
