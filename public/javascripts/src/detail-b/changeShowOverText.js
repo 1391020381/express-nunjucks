@@ -38,10 +38,16 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 
             }
         } else {
+            method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
             if (productType == 5) {
                 $("#footer-btn .js-buy-open").trigger("click")
             } else {
                 login.notifyLoginInterface(function (data) {
+                    var loginType = window.loginType
+                    console.log('loginType:',loginType)
+                    if(loginType!=='qq'||loginType!=='weibo'){
+                        method.delCookie("download-qqweibo", "/");
+                    }
                     common.afterLogin(data);
                     if (productType == 3) { // 发送邮箱
                         window.pageConfig.userId = data.userId;
