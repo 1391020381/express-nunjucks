@@ -1,8 +1,10 @@
+
 /**
  * 详情页首页
  */
 define(function (require, exports, module) {
     // var $ = require('$');
+   
     require('../application/suspension');
     var app = require("../application/app");
     var api = require('../application/api');
@@ -10,7 +12,7 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var login = require("../application/checkLogin");
     var common = require('./common');
-    
+
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName
     var page = window.pageConfig.page
     var params = window.pageConfig.params
@@ -58,10 +60,17 @@ define(function (require, exports, module) {
                 window.pageConfig.userId = data.userId;
                 window.pageConfig.email = data.email || "";
                 //已经登录 并且有触发支付点击
-                if (method.getCookie('event_data')) {
+                if (method.getCookie('download-qqweibo')) {    
                     //唤起支付弹框
-                    goPage(event);
-                    method.delCookie("event_data", "/");
+                    // goPage(event);
+                    var params = window.pageConfig.params;
+                    if(params.productType == '3'&&data&&data.isVip==1){ // 
+                        sendEmail()
+                    }else{
+                        window.downLoad()
+                    }
+                   
+                    method.delCookie("download-qqweibo", "/");
                 }
             });
         } else {
@@ -232,6 +241,8 @@ define(function (require, exports, module) {
                 if ($(this).attr("loginOffer")) {
                     method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
                 }
+                method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
+
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js

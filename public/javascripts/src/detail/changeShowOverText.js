@@ -229,7 +229,6 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                     } else {
                         textContent = '¥' + (+productPrice).toFixed(2) + '获取该资料'
                     }
-
                     if (status == 2) {
                         textContent = currentPage >= preRead || currentPage >= imgTotalPage ? '下载到本地阅读' : textContent
                     }

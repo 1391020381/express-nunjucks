@@ -27,7 +27,7 @@ define(function (require, exports, module) {
     }
     var env = window.env
     var urlList = {
-        local:'http://127.0.0.1:8085',
+        local:'http://localhost:3004',
         dev: 'http://dev-ishare.iask.com.cn',
         test: 'http://test-ishare.iask.com.cn',
         pre: 'http://pre-ishare.iask.com.cn',
@@ -81,6 +81,8 @@ define(function (require, exports, module) {
             // 主动关闭弹窗-需通知登录中心
             IframeMessengerList[iframeId].send({isOpen: false});
            
+            method.delCookie("download-qqweibo", "/");   // 当用户点击下载按钮后,又关闭dialog
+
             closeRewardPop()
         })
     }
@@ -146,6 +148,7 @@ define(function (require, exports, module) {
     }
 
     $('#dialog-box').on('click', '.close-btn', function (e) {
+        method.delCookie("download-qqweibo", "/"); // 关闭游客购买dialog
         closeRewardPop();
     })
     $(document).on('click', '.tourist-purchase-dialog .tabs .tab', function (e) {

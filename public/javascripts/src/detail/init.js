@@ -4,9 +4,10 @@ define(function (require, exports, module) {
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
     require('./userComments.js')
+    require("./download");
     require("./index");
     require("./search");
-    require("./download");
+    // require("./download");
     require("./paging");
     require('./expand');
     require("./buyUnlogin");

@@ -101,7 +101,12 @@ define(function (require, exports, module) {
                                 failMsg:'',
                                 loginType: window.loginType && window.loginType
                             });
-                            window.location.reload();
+                            
+                            var page = window.pageConfig&&window.pageConfig.page
+
+                            if(page.type !='detail'){
+                                window.location.reload();
+                            }
                         }
                         $('.loginRedPacket-dialog').hide()
                         if (callback && typeof callback == "function") {
