@@ -95,6 +95,11 @@ define(function (require, exports, module) {
                         showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
                             
                             login.getLoginData(function (data) {
+                                var loginType = window.loginType
+                                console.log('loginType:',loginType)
+                                if(loginType!=='qq'||loginType!=='weibo'){
+                                    method.delCookie("download-qqweibo", "/");
+                                }
                                 common.afterLogin(data,{type:'file',data:data,callback:goPage});
                             });
                         })

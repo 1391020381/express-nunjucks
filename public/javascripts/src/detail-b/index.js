@@ -1,3 +1,5 @@
+
+
 /**
  * 详情页首页
  */
@@ -50,10 +52,26 @@ define(function (require, exports, module) {
                 window.pageConfig.userId = data.userId;
                 window.pageConfig.email = data.email || "";
                 //已经登录 并且有触发支付点击
-                if (method.getCookie('event_data')) {
+                if (method.getCookie('download-qqweibo')) {   
                     //唤起支付弹框
-                    goPage(event);
-                    method.delCookie("event_data", "/");
+                    // goPage(event);
+                    var params = window.pageConfig.params;
+                    if(params.productType == '3'){ // 
+                        if(data&&data.isVip==1){
+                            sendEmail()
+                        }else {
+                            var fid = window.pageConfig.params.g_fileId;
+                             var format = window.pageConfig.params.file_format;
+                             var title = window.pageConfig.params.file_title;
+                            var params = window.pageConfig.params
+                            var ref = utils.getPageRef(fid);
+                           var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+                            method.compatibleIESkip('/pay/vip.html' + params, false);
+                        } 
+                    }else{
+                        window.downLoad()
+                    }
+                    method.delCookie("download-qqweibo", "/");
                 }
             });
         } else {
@@ -230,6 +248,8 @@ define(function (require, exports, module) {
                 if ($(this).attr("loginOffer")) {
                     method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
                 }
+                method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
+                
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js

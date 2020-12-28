@@ -182,7 +182,14 @@ define(function (require, exports, module) {
     
                     // 修改继续阅读文案要判断是否购买过  
                     if(initData.productType == '5' || initData.productType == '4' || initData.productType == '3') {
-                        window.changeText()
+                        var totalPage = +window.pageConfig.params.totalPage; //最大页数
+                        var loadedPage = $(".detail-pro-con div.article-page").length;
+                        var preRead = +window.pageConfig.page.preRead || 50; // 预览页数
+                        var limitPage = Math.min(preRead, 50); //最大限制阅读页数
+                        if (loadedPage - limitPage >= 0 || loadedPage == totalPage) {
+                            window.changeText()
+                        }
+                            
                     }
                 
                     if (pageConfig.params.file_state === '3') {

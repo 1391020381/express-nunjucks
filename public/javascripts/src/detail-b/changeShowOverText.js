@@ -38,10 +38,16 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                 
             }
         } else {
+            method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
             if (productType == 5) {
                 $("#footer-btn .js-buy-open").trigger("click")
             } else {
                 login.notifyLoginInterface(function (data) {
+                    var loginType = window.loginType
+                    console.log('loginType:',loginType)
+                    if(loginType!=='qq'||loginType!=='weibo'){
+                        method.delCookie("download-qqweibo", "/");
+                    }
                     common.afterLogin(data);
                     if (productType == 3) { // 发送邮箱
                         window.pageConfig.userId = data.userId;
@@ -100,26 +106,32 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
         });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
 
-        var reward = window.pageConfig.reward;
-        if (reward.value == "-1") { // 老用户VIP正常弹起
+        // var reward = window.pageConfig.reward;
+        // if (reward.value == "-1") { // 老用户VIP正常弹起
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-mission-pop').html(),
+        //     }).open();
+        // } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-error-pop').html(),
+        //     }).open();
+        // } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-error1-pop').html(),
+        //     }).open();
+        // } else if (reward.value > 0) { // 正常弹起
+        //     $("#dialog-box").dialog({
+        //         html: $('#reward-success-pop').html()
+        //           .replace(/\$value/, reward.value),
+        //     }).open();
+        // }
+       
+        setTimeout(function(){  // hanck 写法  正常写法dialog会自动关闭
             $("#dialog-box").dialog({
-                html: $('#reward-mission-pop').html(),
+                html: $('#reward-mission-pop').html()
             }).open();
-        } else if (reward.unit == 1 && reward.value == '0') { // 当天次数用完
-            $("#dialog-box").dialog({
-                html: $('#reward-error-pop').html(),
-            }).open();
-        } else if (reward.unit == 0 && reward.value == '0') { // 一次性用完
-            $("#dialog-box").dialog({
-                html: $('#reward-error1-pop').html(),
-            }).open();
-        } else if (reward.value > 0) { // 正常弹起
-            $("#dialog-box").dialog({
-                html: $('#reward-success-pop').html()
-                  .replace(/\$value/, reward.value),
-            }).open();
-        }
-
+        },50)
+        
         setTimeout(bindEventPop, 500)
         function bindEventPop() {
             console.log(6666)
@@ -179,7 +191,7 @@ define(function (require, exports, module) { // 需要判断时候是否要登�
                             text: '发送成功',
                             delay: 2000,
                         })
-                        getWebsitVipRightInfo();
+                     //   getWebsitVipRightInfo();
                     } else if (res.code == 401100) {
                         $.toast({
                             text: '该功能仅对VIP用户开放',

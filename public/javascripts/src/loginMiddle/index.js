@@ -21,6 +21,7 @@ define(function (require, exports, module) {
                     window.loginType = clientCode  // 获取用户信息时埋点需要
                     method.setCookieWithExpPath("cuk", res.data.access_token, res.data.expires_in * 1000, "/");
                     method.setCookieWithExpPath("loginType", loginType, res.data.expires_in * 1000, "/");
+                   
                     $.ajaxSetup({
                         headers: {
                             'Authrization': method.getCookie('cuk')
