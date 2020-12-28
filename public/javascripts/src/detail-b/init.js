@@ -4,11 +4,8 @@ define(function (require, exports, module) {
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
    require("./userComments.js")
-<<<<<<< HEAD
    require('./guessYouLike.js')
-=======
    require("./download");
->>>>>>> master
     require("./index");
     require("./search");
   
