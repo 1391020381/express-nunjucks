@@ -15,7 +15,7 @@ const defaultResultsData = {  paradigm4Relevant: {}, list: { data: { svgFlag: tr
 
 const renderPage = cc(async (req, res) => {
     
-    let userID = req.cookies.useId||req.cookies.visitor_id ||  Math.random().toString().slice(-15); //标注用户的ID，
+    let userID = req.cookies.userId ||req.cookies.visitor_id ||  Math.random().toString().slice(-15); //标注用户的ID
     
     const redirectUrl = await getRedirectUrl(req, res)
 
