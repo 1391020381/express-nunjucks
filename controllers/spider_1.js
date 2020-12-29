@@ -223,18 +223,20 @@ function handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recom
     results.seo.description = description ||'';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
-    // console.log('paradigm4Relevant:zhizhu',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
-    let recRelateArrNum  = paradigm4Relevant.data.length
-    if(recRelateArrNum>30) {
-         results.relevantList=results.paradigm4Relevant.data.slice(0,10)
-         results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
-    }else {
+  //  console.log('paradigm4Relevant:zhizhu',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
+  //  let recRelateArrNum  = paradigm4Relevant.data.length
+    results.relevantList= results.paradigm4Relevant.data.slice(0,10)
+    results.guessLikeList= results.paradigm4Relevant.data.slice(10,21)
+    // if(recRelateArrNum>=30) {
+    //      results.relevantList=results.paradigm4Relevant.data.slice(0,10)
+    //      results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
+    // }else {
          // if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
          //     results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
          //     results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
          // }
          // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
-    }
+    // }
     // 对最新资料  推荐专题数据处理
 
  //    if(results.newRecData &&results.newRecData.data && type!="hot"){
