@@ -90,65 +90,8 @@ function getFileDetailTxt(req,res){
 
 
 function getRecommendInfo(req,res,list){
-    const productType = list.data.fileInfo.productType
-    let classid1 = list.data.fileInfo.classid1
-    let format = list.data.fileInfo.format
-    // 必须是主站 不是私密文件 文件类型必须是 教育类||专业资料 ||经济管理 ||生活休闲 || 办公频道文件 
-    // && (classid1 == '1816' || classid1 == '1820' || classid1 == '1821' || classid1 == '1819' || classid1 == '1818')
-    if ( productType != '6') {
-          //关联推荐 教育类型 'jy'  'zyzl' 'jjgl' 'shxx'
-          const pageIdsConfig_jy_rele = {
-            'doc': 'doc_jy_20200220_001',
-            'txt': 'doc_jy_20200220_001',
-            'pdf': 'doc_jy_20200220_001',
-            'xls': 'xls_jy_20200220_001',
-            'ppt': 'ppt_jy_20200220_001',
-        }
-
-        //个性化推荐 教育类型
-        const pageIdsConfig_jy_guess = {
-            'doc': 'doc_jy_20200220_002',
-            'txt': 'doc_jy_20200220_002',
-            'pdf': 'doc_jy_20200220_002',
-            'xls': 'xls_jy_20200220_002',
-            'ppt': 'ppt_jy_20200220_002',
-        }
-               //关联推荐(相关资料)
-        const rele_pageId = pageIdsConfig_jy_rele[format];
-               //个性化推荐(猜你喜欢)
-        const guess_pageId = pageIdsConfig_jy_guess[format];
-        let pageIds = [];
-        if(classid1 == '10339'){
-            classid1 = '1819'
-        }
-        if(classid1 == '1823'){
-            classid1 = '1821'
-        }
-        switch (classid1) {
-            case '1816': // 教育类
-                pageIds = [rele_pageId, guess_pageId];
-                break;
-            case '1820': // 专业资料
-                pageIds = [rele_pageId.replace('jy', 'zyzl'), guess_pageId.replace('jy', 'zyzl')];
-                break;
-            case '1821': // 经济管理
-                pageIds = [rele_pageId.replace('jy', 'jjgl'), guess_pageId.replace('jy', 'jjgl')];
-                break;
-            case '1819': // 生活休闲
-                pageIds = [rele_pageId.replace('jy', 'shxx'), guess_pageId.replace('jy', 'shxx')];
-                break;
-            case '1818': // 办公频道  1818  生产预发环境。测试开发环境8038 
-                pageIds = [rele_pageId.replace('jy', 'zzbg'), guess_pageId.replace('jy', 'zzbg')];
-                break;
-            default:   pageIds = [rele_pageId.replace('jy', 'shxx'), guess_pageId.replace('jy', 'shxx')];
-        }
-        req.body = pageIds
-        // '/gateway/recommend/config/info' 
-        return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo,'post', req,res,true) 
-    }else{
-        return null
-    }    
-
+    req.body = ['ishare_relevant']
+    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true)
 }
 
 function getParadigm4Relevant(req,res,list,recommendInfo,userID){
@@ -289,6 +232,7 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
     results.seo.description = description ||'';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
+    // console.log('paradigm4Relevant:z',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
     let recRelateArrNum  = paradigm4Relevant.data.length
     if(recRelateArrNum>30) {
          results.relevantList=results.paradigm4Relevant.data.slice(0,10)

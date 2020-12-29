@@ -223,7 +223,7 @@ function handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recom
     results.seo.description = description ||'';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
-    console.log('paradigm4Relevant:',paradigm4Relevant.data.length)
+    // console.log('paradigm4Relevant:zhizhu',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
     let recRelateArrNum  = paradigm4Relevant.data.length
     if(recRelateArrNum>30) {
          results.relevantList=results.paradigm4Relevant.data.slice(0,10)

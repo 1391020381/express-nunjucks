@@ -77,6 +77,7 @@ const renderPage = cc(async (req, res) => {
         recommendInfo.data[0].requestId =  Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
     }
+    // console.log('paradigm4Relevant:详情',JSON.stringify(paradigm4Relevant))
     const filePreview = await getFilePreview(req, res, list)
    
     handleDetalData(

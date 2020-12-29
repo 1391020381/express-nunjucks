@@ -109,7 +109,14 @@
                 <h3>你可能还喜欢</h3>
                 <ul class="youlike-item">
                     {% for item in results.guessLikeList %}
-                    <li> <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a></li>
+                    <li> 
+                     {% if item.id%}
+                      <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                     {%else%}
+                      <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
+                     {%endif%}
+                      
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -181,7 +188,12 @@
                 <ul>
                     {% for item in results.relevantList %}
                     <li class="file-item">
+                       {% if item.id%}
                         <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                       {%else%}
+                        <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
+                       {%endif%}
+                       
                     </li>
                     {% endfor %}
                 </ul>
