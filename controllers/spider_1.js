@@ -226,7 +226,7 @@ function handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,recom
   //  console.log('paradigm4Relevant:zhizhu',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
   //  let recRelateArrNum  = paradigm4Relevant.data.length
     results.relevantList= results.paradigm4Relevant.data.slice(0,10)
-    results.guessLikeList= results.paradigm4Relevant.data.slice(10,21)
+    results.guessLikeList= results.paradigm4Relevant.data.slice(-21)
     // if(recRelateArrNum>=30) {
     //      results.relevantList=results.paradigm4Relevant.data.slice(0,10)
     //      results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)

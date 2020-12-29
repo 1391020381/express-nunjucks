@@ -37,10 +37,10 @@ const renderPage = cc(async(req,res,next)=>{
     if(recommendInfo){
          paradigm4Relevant = await getParadigm4Relevant(req,res,list,recommendInfo,userID)
     }
-    if(paradigm4Relevant){
-         hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
+    // if(paradigm4Relevant){
+    //      hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
          
-    }
+    // }
    
     const  hotTopicSearch = await getHotTopicSearch(req,res,list)
     const hotTopicSeo  = await getHotTopicSeo(req,res)
@@ -235,7 +235,7 @@ function  handleSpiderData({req,res,list,crumbList,editorInfo,fileDetailTxt,reco
    // console.log('paradigm4Relevant:z',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
    // let recRelateArrNum  = paradigm4Relevant.data.length
     results.relevantList=results.paradigm4Relevant.data.slice(0,10)
-    results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
+    results.guessLikeList=results.paradigm4Relevant.data.slice(-21)
     // if(recRelateArrNum>30) {
     //      results.relevantList=results.paradigm4Relevant.data.slice(0,10)
     //      results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
