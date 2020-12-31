@@ -392,12 +392,22 @@ $(document).on('click', '.login-content', function (e) {
 
 function loginInSuccess(userData){
     var loginType = window.loginType.type;
-    messenger.send(userData,loginType);
+ 
+    method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
+    method.setCookieWithExpPath("loginType", loginType, userData.expires_in * 1000, "/");
+    $.ajaxSetup({
+        headers: {
+            'Authrization': method.getCookie('cuk')
+        }
+    });
+    successFun && successFun()
+    closeRewardPop()
 }
 function closeRewardPop() {
     $(".common-bgMask").hide();
     $(".detail-bg-mask").hide();
-    $('.login-content').hide();
+    // $('.login-content').hide();
+    $('#dialog-box').hide()
     clearInterval(setIntervalTimer)
 }
 function showErrorTip(type, isShow, msg) {
@@ -461,12 +471,18 @@ function getLoginQrcode(temp, fid, isqrRefresh, isTouristLogin, callback) {  // 
                 }, 4000)
             } else {
                 clearInterval(setIntervalTimer)
-                layer.msg(res.message)
+                $.toast({
+                    text:res.message,
+                    delay : 3000,
+                })
             }
         },
         error: function (error) {
-            layer.msg(error.message)
-
+           
+            $.toast({
+                text:error.message,
+                delay : 3000,
+            })
         }
     })
 }
@@ -521,12 +537,19 @@ function loginByWeChat(cid, fid) { // 微信扫码登录  返回 access_token �
             } else {
                 if (res.code != '411046') { //  411046 用户未登录
                     clearInterval(setIntervalTimer)
-                    layer.msg(res.message)
+                   
+                    $.toast({
+                        text:res.message,
+                        delay : 3000,
+                    })
                 }
             }
         },
         error: function (error) {
-            layer.msg(error.message)
+            $.toast({
+                text:error.message,
+                delay : 3000,
+            })
         }
     })
 }
@@ -580,14 +603,20 @@ function thirdLoginRedirect(code, channel, clientCode) { // 根据授权code 获
                 myWindow.close()
                 loginInSuccess(res.data)
             } else {
-                layer.msg(res.message)
+                $.toast({
+                    text:res.message,
+                    delay : 3000,
+                })
                 myWindow.close()
             }
         },
         error: function (error) {
             myWindow.close()
 
-            layer.msg(error.message)
+            $.toast({
+                text:error.message,
+                delay : 3000,
+            })
         }
     })
 }
@@ -645,14 +674,25 @@ function sendSms(appId, randstr, ticket, onOff) { // 发送短信验证码
                 showCaptcha(sendSms);
             } else if (res.code == '411033') { // 图形验证码错误
 
-                layer.msg('图形验证码错误')
+                
+                $.toast({
+                    text:'图形验证码错误',
+                    delay : 3000,
+                })
             } else {
-                layer.msg(res.message)
+              
+                $.toast({
+                    text:res.message,
+                    delay : 3000,
+                })
             }
         },
         error: function (error) {
 
-            layer.msg(error.message)
+            $.toast({
+                text:error.message,
+                delay : 3000,
+            })
         }
     })
 }
@@ -691,8 +731,10 @@ function loginByPsodOrVerCode(loginType, mobile, nationCode, smsId, checkCode, p
             }
         },
         error: function (error) {
-            layer.msg(error.message)
-
+            $.toast({
+                text:error.message,
+                delay : 3000,
+            })
         }
     })
 }
