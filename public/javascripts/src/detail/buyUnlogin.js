@@ -335,16 +335,7 @@ define(function (require, exports, module) {
 
                 }
             })  
-            if(method.isIe8()&&Sentry){
-                Sentry.captureException(JSON.stringify({
-                    url:url,
-                    message:message
-                }),{
-                  tags: {
-                    title: "生成游客订单错误",
-                  }
-                })
-            }
+            
         }
     }
     unloginObj.init()

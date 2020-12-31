@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var api = require("./api");
     require("./element");
     require("./extend");
-    require('./loadSentry.js')
+   
     window.$ajax  =  $ajax
 
     try{
@@ -26,15 +26,7 @@ define(function (require, exports, module) {
         }
     }catch(err){
        
-        if(method.isIe8()&&Sentry){
-            Sentry.captureException(JSON.stringify({
-                   err:err
-                }),{
-                  tags: {
-                    title: "埋点上报初始化错误",
-                  }
-                })
-        }
+        
     }
     
 
@@ -139,11 +131,6 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
                 xhr:xhr,
                 options:options
             }))
-            if(method.isIe8()&&Sentry){
-                Sentry.captureException(JSON.stringify({
-                    options:options
-                }))
-            }
         });
     });
 

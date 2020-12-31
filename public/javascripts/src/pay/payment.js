@@ -180,16 +180,7 @@ define(function (require, exports, module) {
 
             }
         }) 
-        if(method.isIe8()&&Sentry){
-            Sentry.captureException(JSON.stringify({
-                url:url,
-                message:message
-            }),{
-              tags: {
-                title: "扫码支付错误",
-              }
-            })
-        }
+        
         
     }
     $(document).on('click', '.pay-confirm', function (e) {
