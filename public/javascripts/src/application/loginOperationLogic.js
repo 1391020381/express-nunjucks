@@ -5,10 +5,10 @@ define(function (require, exports, module) {
 // import method from "../../common/method";
 // import showCaptcha from "../../common/bindphone";
 // import IframeMessenger from "../../common/iframe-messenger";
-
+require("../cmd-lib/jqueryMd5.js")
 var api = require('../application/api');
 var method = require("../application/method");
-var showCaptcha = require("../common/bindphone");
+var showCaptcha = require("../common/bindphone").showCaptcha;
 
 
 
@@ -32,6 +32,7 @@ var bilogUrl = ''
 var visitor_id = ''
 var bilog = {}   //数据上报参数
 
+var successFun = ''
 
 window.loginType = {
     type: 'wechat',
@@ -391,7 +392,19 @@ $(document).on('click', '.login-content', function (e) {
 
 function loginInSuccess(userData){
     let loginType = window.loginType.type;
-    messenger.send(userData,loginType);
+   // messenger.send(userData,loginType);
+   function loginInSuccess(userData, loginType, successFun) { //
+    window.loginType = loginType  // 获取用户信息时埋点需要
+    method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
+    method.setCookieWithExpPath("loginType", loginType, userData.expires_in * 1000, "/");
+    $.ajaxSetup({
+        headers: {
+            'Authrization': method.getCookie('cuk')
+        }
+    });
+    successFun && successFun()
+    closeRewardPop()
+}
 }
 function closeRewardPop() {
     $(".common-bgMask").hide();
@@ -543,9 +556,11 @@ function handleThirdCodelogin(loginType) {
     //  var locationUrl = originUrl
      var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname
     // var location = locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-    var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode +  '&redirectUrl=' + encodeURIComponent(redirectUrl)
-
-     var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location)
+    // var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode +  '&redirectUrl=' + encodeURIComponent(redirectUrl)
+    var redirectUrl = window.location.href
+    var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode + '&redirectUrl=' + encodeURIComponent(redirectUrl)
+    // var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location)
+    var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location)
     openWindow(url)
 }
 function openWindow(url) { // 第三方打开新的标签页
@@ -669,7 +684,7 @@ function loginByPsodOrVerCode(loginType, mobile, nationCode, smsId, checkCode, p
             smsId: smsId,
             checkCode: checkCode,
             
-            password: md5(password)
+            password: $.md5(password)
         }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -721,6 +736,7 @@ function isHasPcMLogin(){
     })
 }
 function loginInit(params, callback) {
+    successFun = callback  // 保存传入的回调
     jsId = params.jsId
     cid = params.cid
     originUrl = params.originUrl
