@@ -26,8 +26,8 @@ define(function (require, exports, module) {
         }
     }catch(err){
        
-        if(method.isIe8()){
-            Sentry&&Sentry.captureException(JSON.stringify({
+        if(method.isIe8()&&Sentry){
+            Sentry.captureException(JSON.stringify({
                    err:err
                 }),{
                   tags: {
@@ -136,14 +136,12 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
     $(document).ready(function(){
         $(document).ajaxError(function(event,xhr,options,exc){
             console.log(JSON.stringify({
+                xhr:xhr,
                 options:options
             }))
-            if(method.isIe8()){
-                Sentry&&Sentry.captureException(JSON.stringify({
-                    event:event,
-                    xhr:xhr,
-                    options:options,
-                    exc:exc
+            if(method.isIe8()&&Sentry){
+                Sentry.captureException(JSON.stringify({
+                    options:options
                 }))
             }
         });

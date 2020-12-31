@@ -592,8 +592,8 @@ define(function(require, exports, moudle) {
 
             }
         }) 
-        if(method.isIe8()){
-            Sentry&&Sentry.captureException(JSON.stringify({
+        if(method.isIe8()&&Sentry){
+            Sentry.captureException(JSON.stringify({
                 url:url,
                 message:message
             }),{
