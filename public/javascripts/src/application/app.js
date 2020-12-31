@@ -115,23 +115,6 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
     })
 }
 
-
-function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){})  .fail(function(){})
-    return  $.ajax(url, {
-      type: ajaxMethod || "post",
-      data: data?JSON.stringify(data):'',
-      async:(async == undefined||async == '') ?true:false,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      headers: $.extend({},{
-          'cache-control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Authrization':method.getCookie('cuk')
-      },customHeaders)
-  })
-}
-
-
     $.ajaxSetup({
         headers: {
             'Authrization': method.getCookie('cuk')
