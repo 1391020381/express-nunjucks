@@ -136,10 +136,7 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
     $(document).ready(function(){
         $(document).ajaxError(function(event,xhr,options,exc){
             console.log(JSON.stringify({
-                event:event,
-                // xhr:xhr,
-                options:options,
-                exc:exc
+                options:options
             }))
             if(method.isIe8()){
                 Sentry&&Sentry.captureException(JSON.stringify({
