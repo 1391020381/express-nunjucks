@@ -25,7 +25,7 @@ var setIntervalTimer = null   // 保存轮询微信登录的定时器
 var expires_in = ''  // 二位码过期时间
 var jsId = ''
 var cid = ''
-let messenger = ''  // 记录当前那个 iframeMessager监听到数据
+var messenger = ''  // 记录当前那个 iframeMessager监听到数据
 var originUrl = ''    // 保存调用登录的页面url
 var redirectUrl = ''
 var bilogUrl = ''
@@ -390,7 +390,7 @@ $(document).on('click', '.login-content', function (e) {
 
 
 function loginInSuccess(userData){
-    let loginType = window.loginType.type;
+    var loginType = window.loginType.type;
     messenger.send(userData,loginType);
 }
 function closeRewardPop() {
@@ -557,7 +557,7 @@ function openWindow(url) { // 第三方打开新的标签页
     myWindow = window.open(url, '_parent', param);
 }
 
-function thirdLoginRedirect({code, channel, clientCode}) { // 根据授权code 获取 access_token
+function thirdLoginRedirect(code, channel, clientCode) { // 根据授权code 获取 access_token
     $.ajax({
         headers: {
             jsId:jsId
