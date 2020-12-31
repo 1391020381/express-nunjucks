@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
     var method = require("./method");
-    
+    var loginInit = require('./loginOperationLogic').loginInit
     require("../cmd-lib/myDialog");
     require('../cmd-lib/toast');
     var urlConfig = require('../application/urlConfig')
@@ -95,10 +95,14 @@ define(function (require, exports, module) {
         var loginDialog = $('#login-dialog')
         var jsId = method.getLoginSessionId();
         $.extend(params, {jsId: jsId });
+        // $("#dialog-box").dialog({
+        //     html: loginDialog.html(),
+        //     'closeOnClickModal': false
+        // }).open(initIframeParams(callback, 'I_SHARE', params));
         $("#dialog-box").dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
-        }).open(initIframeParams(callback, 'I_SHARE', params));
+        }).open(loginInit(params,callback));
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
