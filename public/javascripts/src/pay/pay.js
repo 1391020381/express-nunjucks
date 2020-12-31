@@ -27,7 +27,7 @@ define(function(require, exports, moudle) {
     var callback = null;
  
     isLogin(initPage, isAutoLogin, initPage);
-    fetchCouponReceiveList();
+    
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
         iask_web.track_event('NE006', "modelView", 'view', {
@@ -67,7 +67,7 @@ define(function(require, exports, moudle) {
   
     //生成二维码
     function initPage(userInfo) {
-       
+        fetchCouponReceiveList();
         window.pageConfig.params.fileDiscount = userInfo.fileDiscount // 获取用户折扣 在优惠券使用
         if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
@@ -593,7 +593,7 @@ define(function(require, exports, moudle) {
             }
         }) 
         if(method.isIe8()){
-            Sentry.captureException(JSON.stringify({
+            Sentry&&Sentry.captureException(JSON.stringify({
                 url:url,
                 message:message
             }),{

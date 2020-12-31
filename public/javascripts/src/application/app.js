@@ -25,9 +25,9 @@ define(function (require, exports, module) {
             getVisitUserId();
         }
     }catch(err){
-        console.log(err)
+       
         if(method.isIe8()){
-              Sentry.captureException(JSON.stringify({
+            Sentry&&Sentry.captureException(JSON.stringify({
                    err:err
                 }),{
                   tags: {
@@ -142,7 +142,7 @@ function $ajax(url,ajaxMethod,data,async,customHeaders){  //  .done(function(){}
                 exc:exc
             }))
             if(method.isIe8()){
-                Sentry.captureException(JSON.stringify({
+                Sentry&&Sentry.captureException(JSON.stringify({
                     event:event,
                     xhr:xhr,
                     options:options,
