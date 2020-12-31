@@ -42,7 +42,8 @@ $ajax(api.recommend.recommendConfigInfo,'post',['ishare_personality']).then(func
        var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
       var currentPage = $('.detail-con').length
       var temp = guessYouLikeHeight + userEvaluation +30
-      var bottomHeight =  (currentPage == 1||currentPage == 2)?temp+123:temp
+      // var bottomHeight =  (currentPage == 1||currentPage == 2)?temp+123:temp
+      var bottomHeight =  temp
       $('.detail-footer').css({
         'position': 'absolute',
         'left':'0px',

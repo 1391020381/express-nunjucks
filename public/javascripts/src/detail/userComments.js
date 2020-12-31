@@ -67,7 +67,7 @@ define(function (require, exports, module){
                   var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
                   var currentPage = $('.detail-con').length
                   var temp = guessYouLikeHeight + userEvaluation +30
-                  var bottomHeight =  (currentPage == 1||currentPage == 2)?temp+123:temp
+                  var bottomHeight =  (currentPage == 1||currentPage == 2 || currentPage == 3)?temp+123:temp
                 
                   $('.detail-footer').css({
                     'position': 'absolute',
