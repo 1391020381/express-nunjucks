@@ -155,7 +155,9 @@ define(function (require, exports, module) {
     function autoDownUrl(){
         var fileDownUrl = method.getQueryString('url');
         if(fileDownUrl){
-            method.compatibleIESkip(fileDownUrl,false);
+            setTimeout(function(){
+                method.compatibleIESkip(fileDownUrl,false);
+            },1000)
         }else {
             if(unloginFlag){ // 游客
                 getDownUrl()

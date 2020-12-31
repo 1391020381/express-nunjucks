@@ -9,16 +9,14 @@ define(function (require, exports, module){
  var userId = method.getCookie('userId')?method.getCookie('userId'):method.getCookie('visitor_id')
  var requestId = Math.random().toString().slice(-10);// requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
 
- var params = {
-  request:{ "userId": userId, "requestId": requestId }
-}
+ var params = { "userId": userId, "requestId": requestId }
 
 
 $ajax(api.recommend.recommendConfigInfo,'post',['ishare_personality']).then(function(recommendConfig){
   if(recommendConfig.code == '0'){
     var sceneID = recommendConfig.data[0].useId 
     var paradigm4GuessRecommendConfig =  $.extend({},recommendConfig.data[0],{requestId:requestId})
-   $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',params).then(function(res){
+   $ajax('/detail/like/' + sceneID,'POST',params).then(function(res){
        if(res.code == '200'){
         window.paradigm4Data = {
           paradigm4Guess:res.data

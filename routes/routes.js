@@ -14,7 +14,8 @@ let routes = [
     'category',
     'authentication',
     'earth',
-    'loginMiddle'
+    'loginMiddle',
+    'tianshu'
 ];
 
 module.exports = routes;

@@ -109,10 +109,10 @@ define(function(require , exports , module){
         var requestId = Math.random().toString().slice(-10);
         var userId = method.getCookie('userId') ||  method.getCookie('visitor_id');
         var sceneID=data[0].useId;
-        $ajax(api.tianshu['4paradigm'].replace(/\$sceneID/, sceneID),'POST',{request:{
+        $ajax('/detail/like/' + sceneID,'POST',{
             requestId:requestId,
             userId:userId
-        }}).then(function(res){
+        }).then(function(res){
             var _html = template.compile(require('./template/userPage/rightList.html'))({rightList:res.data});
             $('.hot-file ul').html(_html);
             paradigm4GuessData=res.data;
