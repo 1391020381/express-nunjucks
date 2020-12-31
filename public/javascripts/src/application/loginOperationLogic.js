@@ -352,7 +352,7 @@ $(document).on('click', '.login-content .password-login .eye', function () {
 })
 
 
-$(document).on('click', '.login-content .close-btn', function (e) {
+$(document).on('click', '.login-dialog .close-btn', function (e) {
     closeRewardPop()
 })
 
