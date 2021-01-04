@@ -11,7 +11,7 @@ const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
 
-const defaultResultsData = {  paradigm4Relevant: {}, list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = { list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
     
@@ -69,32 +69,12 @@ const renderPage = cc(async (req, res) => {
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
+  
     const crumbList = await getCrumbList(req, res, list)
     const cateList = await getCategoryList(req, res);  
-    const recommendInfo = await getRecommendInfo(req, res, list)
-    let paradigm4Relevant = {}
-    if (recommendInfo) {
-        recommendInfo.data[0].requestId =  Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-        paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
-    }
-    // console.log('paradigm4Relevant:详情',JSON.stringify(paradigm4Relevant))
     const filePreview = await getFilePreview(req, res, list)
    
-    handleDetalData(
-        req,
-        res,
-        redirectUrl,
-        list,
-        topBannerList,
-        searchBannerList,
-        bannerList,
-        cateList,
-        recommendInfo,
-        paradigm4Relevant,
-        filePreview,
-        crumbList,
-        userID
-    )
+    handleDetalData({req,res,redirectUrl,list,topBannerList,searchBannerList,bannerList,cateList,filePreview,crumbList,userID})
 })
 
 
@@ -149,36 +129,6 @@ function getCrumbList(req, res, list) {
     // return server.$http(appConfig.apiNewBaselPath + Api.file.navCategory, 'post', req, res, true)
     return { data: [] };
 }
-
-
-
-function getRecommendInfo(req, res, list) {
-        req.body = ['ishare_relevant']
-        return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true)
-    
-
-}
-
-function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
-    let recommendInfoData_rele = recommendInfo.data[0] || {} //相关资料
-    if (recommendInfoData_rele.useId) {
-        req.body = {
-            request:{
-            "userId":userID,
-            "requestId":recommendInfo.data[0].requestId,
-            "itemId":list.data.fileInfo.id, 
-            "itemTitle":list.data.fileInfo.title
-             }
-        }
-        let url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoData_rele.useId}`
-        return server.$http(url, 'post', req, res, true);
-    } else {
-        return {}
-    }
-}
-
-
-
 // 获取页面分类列表
 function getCategoryList(req, res) {
     req.body = {
@@ -199,22 +149,8 @@ function getFilePreview(req, res, list) {
 }
 
 
-function handleDetalData(
-    req,
-    res,
-    redirectUrl,
-    list,
-    topBannerList,
-    searchBannerList,
-    bannerListData,
-    cateList,
-    recommendInfo,
-    paradigm4Relevant,
-    filePreview,
-    crumbList,
-    userID
-) {
-
+function handleDetalData({ req,res,redirectUrl,list,topBannerList,searchBannerList,bannerList,cateList,recommendInfo,filePreview,crumbList,userID}) {
+ 
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
             topBannerList = []
@@ -225,16 +161,16 @@ function handleDetalData(
     if (searchBannerList.data) {
         searchBannerList = util.handleRecommendData(searchBannerList.data[0] && searchBannerList.data[0].list || [])
     }
-    if (bannerListData.data) {
-        const bannerList = {
+    if (bannerList.data) {
+        let detailBannerList = {
             'rightTopBanner': [],
             'rightBottomBanner': [],
             'titleBottomBanner': [],
             'turnPageOneBanner': [],
             'turnPageTwoBanner': []
         }
-        bannerListData.data.forEach(item => {
-            bannerList[item.id] = util.handleRecommendData(item.fileRecommend && item.fileRecommend.list || [])
+        bannerList.data.forEach(item => {
+            detailBannerList[item.id] = util.handleRecommendData(item.fileRecommend && item.fileRecommend.list || [])
         })
     }
 
@@ -256,11 +192,10 @@ function handleDetalData(
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         geSearchBannerList: searchBannerList,
-        getBannerList: bannerListData,
+        getBannerList: bannerList,
         crumbList,
         cateList: cateList.data && cateList.data.length ? cateList.data : [],
         recommendInfo,
-        paradigm4Relevant,
         filePreview,
     }, { list: list });
     
@@ -269,33 +204,10 @@ function handleDetalData(
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
     results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
     results.crumbList.data.isGetClassType = fileInfo.isGetClassType || 0;
-    getInitPage(req, results);
-    // 如果有第四范式 相关
-    if (results.paradigm4Relevant.data) {
-        var paradigm4RelevantMap = results.paradigm4Relevant.data.map(item => {
-            return {
-                id: item.itemId || '',
-                format: item.categoryLevel5 ||'',
-                name: item.title || '',
-                cover_url: item.coverUrl || '',
-                url: item.url || '',
-                item_read_cnt: item.item_read_cnt,
-                context:item.context
-            }
-        })
-
-        results.RelevantInformationList = {}   // RelevantInformationList 接口被注释 为了 不修改页面取数据的格式,自己在 results上添加一个RelevantInformationList
-        results.RelevantInformationList.data = paradigm4RelevantMap.slice(0, 4) || [];
-       
-        results.userID = userID;
-    }
-
-
-    results.relevantRecommendInfoData = recommendInfo || {};
-    
+    getInitPage(req, results);  
     results.showFlag = true
     results.isDetailRender = true
-    // console.log('获取详情数据：', JSON.stringify(results))
+    
     if (results.list.data && results.list.data.abTest) {
         render("detail-b/index", results, req, res);
     } else {

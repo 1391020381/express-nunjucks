@@ -35,27 +35,10 @@
             {%endif%}    
         </div>
 
-        {% if results.RelevantInformationList.data.length>0 %}
+       
         <div class="related-data " pcTrackContent="relateFiles-new" >
-            <h2 class="related-data-title">相关推荐</h2>
-            <ul class="related-data-list">
-                {% for item in results.RelevantInformationList.data%}
-                 <li  class="item" data-id="{{item.id}}" bilogContent="similarFileClick" class="{% if loop.index0 > 7 %} hide {% endif %} {% if results.list.data.isExcellent == 0 %} li-you {% endif %} " >
-                <a class="item-link" href="/f/{{item.id}}.html" target="_blank" data-id="{{item.id}}" class="_blank">
-                    {% if item.cover_url %}
-                     <img class="img" src="{{item.cover_url}}" alt="{{item.name}}"/>
-                    {% else %}
-                     <img class="img" src="{{cdnUrl}}/images/default-picture.png" alt="{{item.name}}"/>
-                    {% endif%}
-                      <p class="item-name">{{item.name}}</p>
-            </a>
-             </li>
-                {% endfor %}
-            </ul>
+            
         </div>
-        {% endif %}
-        
-        
             </div>
         </div>
     </div>

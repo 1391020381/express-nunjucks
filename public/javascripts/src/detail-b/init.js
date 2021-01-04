@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     require("../cmd-lib/loading");
    require("./userComments.js")
    require('./guessYouLike.js')
+   require('./relevantInformation.js')
    require("./download");
     require("./index");
     require("./search");

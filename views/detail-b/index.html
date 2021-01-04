@@ -173,16 +173,6 @@
         },
         email: ""
     };
-
-
-    // 第四范式内容
-    window.paradigm4 = {
-        relevantRecommendInfoData:{{ results.relevantRecommendInfoData | dump | safe  }},
-        paradigm4Relevant: {{ results.paradigm4Relevant | dump | safe }},
-        userId: "{{results.userID}}",
-        paradigm4GuessData:'{{results.paradigm4GuessData}}',
-        RelevantInformationList:'{{results.RelevantInformationList}}'
-    };
 </script>
 <script>
     seajs.use(["dist/application/app.js", "dist/detail-b/init.js"])
