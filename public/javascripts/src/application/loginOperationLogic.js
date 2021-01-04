@@ -768,7 +768,7 @@ function isHasPcMLogin(){
 function loginInit(params, callback) {
     successFun = callback  // 保存传入的回调
     jsId = params.jsId
-    cid = params.cid
+    cid = params.cid || params.clsId
     originUrl = params.originUrl
     redirectUrl = params.redirectUrl
     bilogUrl = params.bilogUrl

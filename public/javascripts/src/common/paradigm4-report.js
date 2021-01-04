@@ -24,7 +24,7 @@ define(function (require, exports, module) {
             var serverUrl=this.url+'?clientToken=' + clientToken;  
             // 相关推荐
             var actionsRelevant = [];
-            paradigm4Arr.forEach(function (item) {
+            $(paradigm4Arr).each(function(index,item){
                 actionsRelevant.push({
                     "itemId": item.id || item.itemId,
                     "actionTime": new Date().getTime(),
@@ -37,7 +37,8 @@ define(function (require, exports, module) {
                     "lib":"pc-node",
                     "deviceId":"pc-node"
                 })
-            });
+            })
+           
         
             var data = {
                 "date": dateParams,
@@ -53,9 +54,10 @@ define(function (require, exports, module) {
             var clientToken = recommendInfoItem.token;
             var serverUrl=this.url+'?clientToken=' + clientToken;
             var context='';
-            paradigm4Arr.forEach(function(item){
+            $(paradigm4Arr).eah(item,function(index,item){
                 (item.id==itemId || item.itemId == itemId) ? context=item.context : '';
             })
+            
             var params = {
                 "date": dateParams,
                 "actions": [{
