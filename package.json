@@ -42,7 +42,8 @@
         "redis": "^2.8.0",
         "request": "*",
         "serve-favicon": "^2.5.0",
-        "urlencode": "^1.1.0"
+        "urlencode": "^1.1.0",
+        "xss-filters": "^1.2.7"
     },
     "devDependencies": {
         "cross-env": "^6.0.3",

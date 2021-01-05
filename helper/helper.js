@@ -3,7 +3,7 @@
  */
 var appConfig = require("../config/app-config");
 var express = require("express");
-
+var xssFilters = require('xss-filters');
 module.exports = function(env){
     env.addGlobal('subStringFn' , function(str , len){
             //截取文本
@@ -128,6 +128,7 @@ module.exports = function(env){
             var reg = /<[^<>]+>/g;//1、全局匹配g肯定忘记写,2、<>标签中不能包含标签实现过滤HTML标签
             value = value.replace(reg, '');//替换HTML标签
             value = value.replace(/&nbsp;/ig, '');//替换HTML空格
+            value = xssFilters.inHTMLData(value)
                 return value;
         })
 

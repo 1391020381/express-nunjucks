@@ -9,6 +9,7 @@ var Api = require("../api/api");
 var appConfig = require("../config/app-config");
 var urlencode = require('urlencode');
 const { cond } = require("lodash");
+var xssFilters = require('xss-filters');
 //测试数据
 
 
@@ -152,7 +153,7 @@ module.exports = {
 
             
             if (req.query.cond) {
-                req.query.cond = decodeURIComponent(decodeURIComponent(req.query.cond)).trim();
+                req.query.cond = decodeURIComponent(decodeURIComponent(xssFilters.inHTMLData(req.query.cond))).trim();
             };
             render("search/home", results, req, res);
         })
