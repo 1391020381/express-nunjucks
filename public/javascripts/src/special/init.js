@@ -7,7 +7,7 @@ define(function(require , exports , module){
     require("./bottomBar.js");
     require("./content.js");
     require('../application/suspension')
-    iask_web.track_event('NE030', "pageTypeView", 'page', {
+    trackEvent('NE030', "pageTypeView", 'page', {
         pageID:'TP',
         pageName:'专题页'
     });

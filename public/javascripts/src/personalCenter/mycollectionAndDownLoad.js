@@ -25,7 +25,7 @@ define(function(require , exports , module){
     if(type =='mycollection'){
         getUserCentreInfo(null,data) 
        getUserFileList()
-       iask_web.track_event('NE030', "pageTypeView", 'page', {
+       trackEvent('NE030', "pageTypeView", 'page', {
         pageID:'CL',
         pageName:'个人中心-收藏页'
      });

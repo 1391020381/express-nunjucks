@@ -4,7 +4,8 @@ define(function (require, exports, module) {
     var api = require("./api");
     require("./element");
     require("./extend");
-   
+    var trackEvent = require('../common/iask_web.track_event').trackEvent
+    var trackEventLogin = require('../common/iask_web.track_event').trackEventLogin
     window.$ajax  =  $ajax
 
     try{
@@ -20,6 +21,10 @@ define(function (require, exports, module) {
             TRACK_URL:urlConfig.bilogUrl,   //上报服务器地址
             PAGEVIEW:true
         })
+        // 把封装的上报方法挂载到全局
+        window.trackEvent = trackEvent
+        window.trackEventLogin = trackEventLogin
+
         var pathnameList = ['/pay/qr','/pay/paymentresult','/pay/payRedirect'] // 手机端页面
         if(pathnameList.indexOf(location.pathname) == -1){
             getVisitUserId();

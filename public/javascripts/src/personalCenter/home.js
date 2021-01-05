@@ -11,7 +11,7 @@ define(function(require , exports , module){
     var userInfo = {}
     if(type == 'home'){
         isLogin(initData,true)
-        iask_web.track_event('NE030', "pageTypeView", 'page', {
+        trackEvent('NE030', "pageTypeView", 'page', {
             pageID:"UC",
             pageName:'个人中心页-首页'
         });

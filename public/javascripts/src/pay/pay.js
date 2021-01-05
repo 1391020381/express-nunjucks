@@ -30,7 +30,7 @@ define(function(require, exports, moudle) {
     
     var isAutoRenew = $('.renewal-radio').attr('data-isAutoRenew') || method.getParam('isAutoRenew')
     if (location.pathname == '/pay/vip.html') {
-        iask_web.track_event('NE006', "modelView", 'view', {
+        trackEvent('NE006', "modelView", 'view', {
             moduleID:"vipPayCon",
             moduleName:'VIP套餐列表弹窗'
         });
@@ -39,7 +39,7 @@ define(function(require, exports, moudle) {
         }
     }
     if (location.pathname == '/pay/payConfirm.html') { // /pay/payConfirm.html
-        iask_web.track_event('NE006', "modelView", 'view', {
+        trackEvent('NE006', "modelView", 'view', {
             moduleID:"filePayCon",
             moduleName:'资料支付弹窗'
         });
@@ -51,7 +51,7 @@ define(function(require, exports, moudle) {
         }
     }
     if (location.pathname == '/pay/privilege.html') {
-        iask_web.track_event('NE006', "modelView", 'view', {
+        trackEvent('NE006', "modelView", 'view', {
             moduleID:"priPayCon",
             moduleName:'特权列表弹窗'
         });
@@ -493,7 +493,7 @@ define(function(require, exports, moudle) {
             var activeLi = $('.pay-vip-list .ui-tab-nav-item.active')
             var  payCoupon = $('.pay-coupon-wrap')
             
-            iask_web.track_event('SE010', "payVipClick", 'click', {
+            trackEvent('SE010', "payVipClick", 'click', {
                 vipID:activeLi.attr('data-vid'),
                 vipName:activeLi.attr('data-month'),
                 vipPrice:activeLi.attr('data-price'),
@@ -503,7 +503,7 @@ define(function(require, exports, moudle) {
         }
         if(goodsType == '1'){ 
             
-            iask_web.track_event('SE008', "payFileClick", 'click', {
+            trackEvent('SE008', "payFileClick", 'click', {
                fileID:method.getParam('orderNo'),
                fileName:$('.data-info .data-name a').text(),
                salePrice:$('.price-text-con .price').text()
@@ -512,7 +512,7 @@ define(function(require, exports, moudle) {
 
         if(goodsType == '8'){ 
             
-            iask_web.track_event('SE012', "payPrivilegeClick", 'click', {
+            trackEvent('SE012', "payPrivilegeClick", 'click', {
                 privilegeName:$('.pay-pri-list .ui-tab-nav-item.active .privilege-price').text(),
                 privilegePrice:$('.price-text-con .price').text()
             });
@@ -551,7 +551,7 @@ define(function(require, exports, moudle) {
                     console.log("下单返回的数据：" + data);
                     data['remark'] = temp.remark;
 
-                    iask_web.track_event('SE033', "createOrder", 'query', {
+                    trackEvent('SE033', "createOrder", 'query', {
                        orderID:data.data.orderNo
                     });
 
@@ -762,7 +762,7 @@ define(function(require, exports, moudle) {
                             }, 4000);
                         }
                     } else if (data.orderStatus == 2) {
-                        iask_web.track_event('SE034', "payResult", 'query', {
+                        trackEvent('SE034', "payResult", 'query', {
                             result:1,
                             orderID:orderNo,
                             goodsID:data.goodsId,
@@ -770,7 +770,7 @@ define(function(require, exports, moudle) {
                          });
                         goodsPaySuccess(data, orderNo)
                     } else if (data.orderStatus == 3) {
-                        iask_web.track_event('SE034', "payResult", 'query', {
+                        trackEvent('SE034', "payResult", 'query', {
                             result:0,
                             orderID:orderNo,
                             goodsID:data.goodsId,

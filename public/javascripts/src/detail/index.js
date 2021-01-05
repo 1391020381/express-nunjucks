@@ -19,11 +19,11 @@ define(function (require, exports, module) {
     var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
 
     handleBaiduStatisticsPush('fileDetailPageView')
-    iask_web.track_event('NE030', "pageTypeView", 'page', {
+    trackEvent('NE030', "pageTypeView", 'page', {
         pageID:'FD',
         pageName:'资料详情'
     });
-    iask_web.track_event('SE002', "fileDetailPageView", 'page', {
+    trackEvent('SE002', "fileDetailPageView", 'page', {
         fileID:params.g_fileId,
         fileName:page.fileName,
         salePrice:params.productPrice,
@@ -218,7 +218,7 @@ define(function (require, exports, module) {
         // 取消或者关注
         $('#btn-collect').on('click', function () {
             var params = window.pageConfig.params
-        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+        trackEvent('NE029', "fileNomalClick", 'click', {
             domID:"sucMark",
             domName:"收藏和取消收藏",
             fileID:params.g_fileId,
@@ -272,7 +272,7 @@ define(function (require, exports, module) {
 
     function sendEmail() {
         var params = window.pageConfig.params 
-        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+        trackEvent('NE029', "fileNomalClick", 'click', {
             domID:"sendemail",
             domName:"发送邮箱",
             fileID:params.g_fileId,
@@ -616,7 +616,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 var params = window.pageConfig.params
-                iask_web.track_event('NE029', "fileNomalClick", 'click', {
+                trackEvent('NE029', "fileNomalClick", 'click', {
                     domID:"sucMark",
                     domName:_this.hasClass("btn-collect-success") ? "取消收藏" : "收藏成功",
                     fileID:params.g_fileId,

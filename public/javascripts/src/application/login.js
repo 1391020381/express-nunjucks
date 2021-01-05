@@ -88,7 +88,7 @@ define(function (require, exports, module) {
     }
 
     function showLoginDialog(params, callback) {
-        iask_web.track_event('NE006', "modelView", 'view', {
+        trackEvent('NE006', "modelView", 'view', {
             moduleID:'login',
             moduleName:'登录弹窗'
         });
@@ -106,7 +106,7 @@ define(function (require, exports, module) {
     }
 
     function showTouristPurchaseDialog(params, callback) { // 游客购买的回调函数
-        iask_web.track_event('NE006', "modelView", 'view', {
+        trackEvent('NE006', "modelView", 'view', {
             moduleID:'login',
             moduleName:'登录弹窗'
         });
@@ -160,7 +160,7 @@ define(function (require, exports, module) {
         $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active')
         $(this).addClass('tab-active')
         if (dataType == 'tourist-purchase') {
-            iask_web.track_event('NE006', "modelView", 'view', {
+            trackEvent('NE006', "modelView", 'view', {
                 moduleID:'noLgFPayCon',
                 moduleName:'免登录资料支付弹窗'
             })
@@ -168,7 +168,7 @@ define(function (require, exports, module) {
             $('.tourist-purchase-dialog .tourist-purchase-content').show()
         }
         if (dataType == 'login-purchase') {
-            iask_web.track_event('NE006', "modelView", 'view', {
+            trackEvent('NE006', "modelView", 'view', {
                 moduleID:'login',
                 moduleName:'登录弹窗'
             })

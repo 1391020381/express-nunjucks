@@ -96,7 +96,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     function sentEmail() {
         // 寻找相关资料  
         var params = window.pageConfig.params 
-        iask_web.track_event('NE029', "fileNomalClick", 'click', {
+        trackEvent('NE029', "fileNomalClick", 'click', {
             domID:"sendemail",
             domName:"发送邮箱",
             fileID:params.g_fileId,

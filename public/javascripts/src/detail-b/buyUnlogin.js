@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                  
                 var page = window.pageConfig.page
                 var params = window.pageConfig.params 
-              iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
+              trackEvent('SE003', "fileDetailDownClick", 'click', {
                   fileID:params.g_fileId,
                   fileName:page.fileName,
                   salePrice:params.productPrice,
@@ -180,7 +180,7 @@ define(function (require, exports, module) {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
 
-                    iask_web.track_event('SE033', "createOrder", 'query', {
+                    trackEvent('SE033', "createOrder", 'query', {
                         orderID:data.data.orderNo
                      });
 
@@ -269,7 +269,7 @@ define(function (require, exports, module) {
                             }
                         } else if (orderInfo.orderStatus == 2) {
                                
-                            iask_web.track_event('SE034', "payResult", 'query', {
+                            trackEvent('SE034', "payResult", 'query', {
                                 result:1,
                                 orderID:orderInfo.orderNo,
                                 goodsID:orderInfo.goodsId,
@@ -287,7 +287,7 @@ define(function (require, exports, module) {
                             } catch (e) {
                             }
                         } else if (orderInfo.orderStatus == 3) {
-                            iask_web.track_event('SE034', "payResult", 'query', {
+                            trackEvent('SE034', "payResult", 'query', {
                                 result:0,
                                 orderID:orderInfo.orderNo,
                                 goodsID:orderInfo.goodsId,

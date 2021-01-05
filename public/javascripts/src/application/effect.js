@@ -15,7 +15,7 @@ define(function (require, exports, module) {
     $(".loginOut").on("click", function () {
         var pageName =  window.pageConfig.page&&window.pageConfig.page.pageName
         if(pageName == 'personalCenter'){
-            iask_web.track_event('NE002', "normalClick", 'click', {
+            trackEvent('NE002', "normalClick", 'click', {
              domID:'exit',
              domName:'退出登录'
          });
@@ -154,7 +154,7 @@ define(function (require, exports, module) {
     isHasPcMLogin()
     // 首页 详情 登录领取红包
     $(document).on('click','.loginRedPacket-dialog .close-btn',function(e){
-        iask_web.track_event('NE002', "normalClick", 'click', {
+        trackEvent('NE002', "normalClick", 'click', {
             domID:'close',
             domName:'关闭'
         });
@@ -170,7 +170,7 @@ define(function (require, exports, module) {
         $('.loginRedPacket-dialog').hide()
     })
     $(document).on('click','.loginRedPacket-dialog .loginRedPacket-content',function(e){ // 区分路径 首页  详情A  详情B
-        iask_web.track_event('NE002', "normalClick", 'click', {
+        trackEvent('NE002', "normalClick", 'click', {
             domID:'confirm',
             domName:'确定'
         });
@@ -206,19 +206,19 @@ define(function (require, exports, module) {
                             var   abTest = window.pageConfig.page&&window.pageConfig.page.abTest
                             if(abTest =='a'&&!method.getCookie('isShowDetailALoginRedPacket')){
                                 $('.loginRedPacket-dialog').removeClass('hide')
-                                iask_web.track_event('NE006', "modelView", 'view', {
+                                trackEvent('NE006', "modelView", 'view', {
                                     moduleID:'activityFloat',
                                     moduleName:'活动浮层'
                                 });
                             }else if(abTest =='b'&&!method.getCookie('isShowDetailBLoginRedPacket')){
                                 $('.loginRedPacket-dialog').removeClass('hide')
-                                iask_web.track_event('NE006', "modelView", 'view', {
+                                trackEvent('NE006', "modelView", 'view', {
                                     moduleID:'activityFloat',
                                     moduleName:'活动浮层'
                                 });
                             }else if(abTest=='index'&&!method.getCookie('isShowIndexLoginRedPacket')){
                                 $('.loginRedPacket-dialog').removeClass('hide')
-                                iask_web.track_event('NE006', "modelView", 'view', {
+                                trackEvent('NE006', "modelView", 'view', {
                                     moduleID:'activityFloat',
                                     moduleName:'活动浮层'
                                 });

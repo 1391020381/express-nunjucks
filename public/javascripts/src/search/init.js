@@ -9,17 +9,17 @@ define(function(require , exports , module){
     
     require('../application/suspension')
     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
-    iask_web.track_event('NE030', "pageTypeView", 'page', {
+    trackEvent('NE030', "pageTypeView", 'page', {
         pageID:'SR',
         pageName:"搜索结果页"
     });
-    iask_web.track_event('SE015', "searchPageView", 'page', {
+    trackEvent('SE015', "searchPageView", 'page', {
         keyWords:cond
     });
     $('.landing-txt-list .li-file').on('click',function(){
         var fileID = $(this).attr('data-fileId')
         var fileName = $(this).attr('data-fileName')
-        iask_web.track_event('SE016', "searchResultClick", 'click', {
+        trackEvent('SE016', "searchResultClick", 'click', {
             filePostion:$(this).index() + 1,
             keyWords:cond,
             fileID:fileID,

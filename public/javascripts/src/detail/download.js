@@ -156,7 +156,7 @@ define(function (require, exports, module) {
                 goLocalTab('/pay/vip.html' + params);
                 break; 
             case 13:
-                iask_web.track_event('NE006', "modelView", 'view', {
+                trackEvent('NE006', "modelView", 'view', {
                     moduleID:'buyTqCon',
                     moduleName:'特权补充弹窗'
                 })
@@ -227,7 +227,7 @@ define(function (require, exports, module) {
         if(!isLoginCallback){
             var page = window.pageConfig.page
           var params = window.pageConfig.params 
-        iask_web.track_event('SE003', "fileDetailDownClick", 'click', {
+        trackEvent('SE003', "fileDetailDownClick", 'click', {
             fileID:params.g_fileId,
             fileName:page.fileName,
             salePrice:params.productPrice,
@@ -260,7 +260,7 @@ define(function (require, exports, module) {
                         if(res.code == '0'){
                           if(res.data.checkStatus == 0 && res.data.consumeStatus ==2){ // consumeStatus == 2 用下载特权消费的
                              
-                            iask_web.track_event('NE006', "modelView", 'view', {
+                            trackEvent('NE006', "modelView", 'view', {
                                 moduleID:'vipTqCon',
                                 moduleName:'特权兑换弹窗'
                             })

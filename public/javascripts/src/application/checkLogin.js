@@ -95,8 +95,8 @@ define(function (require, exports, module) {
                                 userid: res.data.userId,
                                 loginResult: "1"
                             })
-                            iask_web.login(res.data.userId)
-                            iask_web.track_event('SE001', "loginResult", 'query', {
+                            trackEventLogin(res.data.userId)
+                            trackEvent('SE001', "loginResult", 'query', {
                                 loginResult:'1',
                                 failMsg:'',
                                 loginType: window.loginType && window.loginType

@@ -520,7 +520,7 @@ define(function(require, exports, module) {
             if ($('.red-color').text() !== '点击可继续阅读 >') {
                  
               
-                iask_web.track_event('SE035', "fileDetailBottomDownClick", 'click', {
+                trackEvent('SE035', "fileDetailBottomDownClick", 'click', {
                     fileID:params.g_fileId,
                     fileName:params.file_title,
                     salePrice:params.productPrice,
@@ -531,7 +531,7 @@ define(function(require, exports, module) {
 
                 readMoreTextEvent()
             }else{
-                iask_web.track_event('NE029', "fileListNormalClick", 'click', {
+                trackEvent('NE029', "fileListNormalClick", 'click', {
                     domID:'continueRead',
                     domName:'继续阅读',
                     fileID:params.g_fileId,
