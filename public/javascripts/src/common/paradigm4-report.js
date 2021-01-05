@@ -4,9 +4,8 @@
 define(function (require, exports, module) {
 
     var method = require("../application/method");
-    var api = require("../application/api.js")
-    var paradigm4={
-        url:api.tianshu.actionsLog,
+    var paradigm4= {  // 第四范式相关使用node代理一层
+        url:'/detail/actionslog', 
         commonParam:function(){
             var date = new Date();
             var year = date.getFullYear();
@@ -21,7 +20,8 @@ define(function (require, exports, module) {
             var dateParams=this.commonParam();
             var userId = method.getCookie("userId") || method.getCookie("visitor_id");
             var clientToken = recommendInfoItem.token ;
-            var serverUrl=this.url+'?clientToken=' + clientToken;  
+            // var serverUrl=this.url+'?clientToken=' + clientToken;  
+            var serverUrl= this.url + '/' + clientToken;  
             // 相关推荐
             var actionsRelevant = [];
             $(paradigm4Arr).each(function(index,item){

@@ -19,6 +19,7 @@ module.exports = (path, results, req, res) => {
         cdnUrl: pageConfig.cdn,
         staticUrl: pageConfig.staticUrl,
         version: pageConfig.version,
-        loginUrl:appConfig.loginUrl
+        loginUrl:appConfig.loginUrl,
+        currentYear:(new Date).getFullYear()
     })
 };
