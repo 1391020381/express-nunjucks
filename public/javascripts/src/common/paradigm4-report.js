@@ -52,7 +52,8 @@ define(function (require, exports, module) {
             var dateParams=this.commonParam();
             var userId = method.getCookie("userId") || method.getCookie("visitor_id");
             var clientToken = recommendInfoItem.token;
-            var serverUrl=this.url+'?clientToken=' + clientToken;
+            // var serverUrl=this.url+'?clientToken=' + clientToken;
+            var serverUrl= this.url + '/' + clientToken;  
             var context='';
             $(paradigm4Arr).each(function(index,item){
                 (item.id==itemId || item.itemId == itemId) ? context=item.context : '';
