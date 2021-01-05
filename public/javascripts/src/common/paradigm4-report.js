@@ -54,7 +54,7 @@ define(function (require, exports, module) {
             var clientToken = recommendInfoItem.token;
             var serverUrl=this.url+'?clientToken=' + clientToken;
             var context='';
-            $(paradigm4Arr).eah(function(index,item){
+            $(paradigm4Arr).each(function(index,item){
                 (item.id==itemId || item.itemId == itemId) ? context=item.context : '';
             })
             
