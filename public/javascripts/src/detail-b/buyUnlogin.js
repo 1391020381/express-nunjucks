@@ -211,7 +211,9 @@ define(function (require, exports, module) {
             unloginObj.orderNo = oid || '';
             var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid
             try {
-                qr.createQrCode(url,'touristPayQrCode', 178, 178);
+               setTimeout(function(){  // ie8下 不延迟第一次二维码加载不了
+                  qr.createQrCode(url,'touristPayQrCode', 178, 178);
+               },1500)
             } catch (e) {
                 console.log('createdQrCode:',e)
             }
