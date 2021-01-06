@@ -4,8 +4,8 @@ define(function (require, exports, module) {
     var api = require("./api");
     require("./element");
     require("./extend");
-    var trackEvent = require('../common/iask_web.track_event').trackEvent
-    var trackEventLogin = require('../common/iask_web.track_event').trackEventLogin
+    var trackEvent = require('../common/bilogReport.js').trackEvent
+    var trackEventLogin = require('../common/bilogReport.js').trackEventLogin
     window.$ajax  =  $ajax
 
     try{
