@@ -1,1 +1,0 @@
-define("dist/personalCenter/template/vipPrivilegeList.html", [], ' <ul class="vip-privilege-items">\n            {{each list}}\n                <li class="item">\n                     <img class="item-img" src="{{list[$index].imagUrl}}"/>\n                     <p class="item-desc">{{list[$index].copywriting1}}</p>\n                </li>\n            {{/each}}    \n</ul>');
