@@ -111,16 +111,23 @@ module.exports = function(env){
         })
         //去掉标题格式
         .addFilter('delType',function(value){
-            if(value){
-                var index = value.lastIndexOf(".");
-                if(index !=-1) {
-                    return value.substr(0,index)
-                }else{
-                    return value
-                } 
-            }else{
-                return value
+            let typeList = ['.doc','.docx','.docm','.dotx','.dotm','.xls','.xlsx','.xlsm','.xltx','.xltm','.xlsb','.xlamppt','.pptx','.pptm','.ppsx','.potm','.ppam','.ppsm','.ppsx','.txt','.pdf']
+            let temp = value
+            if(temp){
+                for(let i=0;i<=typeList.length;i++){
+                    let flag = value.endsWith(typeList[i])
+                    if(flag){
+                        var index = value.lastIndexOf(typeList[i]);
+                        if(index!=-1){
+                            temp = value.substr(0,index)
+                        }
+                        break;
+                    }else{
+                         temp = value
+                    }
+                }
             }
+            return temp
             
         })
         // 过滤字符串中的html标签
