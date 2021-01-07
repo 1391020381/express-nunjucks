@@ -156,7 +156,7 @@ module.exports = {
                 }
                 // 推荐位处理数
                 results.contentList=[];
-                // console.log(JSON.stringify(results),'results------------------contentList')
+              //  console.log(JSON.stringify(results),'results------------------contentList')
                 if(results.recommendList){
                     const recfileArr = [];//精选资料
                     results.recommendList.data && results.recommendList.data.map(item=>{
@@ -240,7 +240,7 @@ module.exports = {
     
                     results.recfileArr = recfileArr;
                 }  
-              
+                console.log(JSON.stringify(results.recfileArr),'results------------------')
                 results.officeUrl = appConfig.officeUrl
                 render("index/index",results,req,res,next);  
             }catch(e){
