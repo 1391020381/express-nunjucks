@@ -90,7 +90,7 @@ function getFileDetailTxt(req,res){
 
 
 function getRecommendInfo(req,res,list){
-    req.body = ['ishare_relevant']
+    req.body = ['ishare_zhizhu_relevant']
     return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true)
 }
 
