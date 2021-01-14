@@ -643,9 +643,7 @@ define(function(require , exports , module){
                     var reg=/(^\s+)|(\s+$)|\s+/g;
                     var patrn = /^[0-9]*$/;
                     var text = $(this).val()
-                    if(that.isEndWithFileType(text)){
-                        $(this).parent().siblings('.warn-tip').show().text('标题末尾不能包含文件格式'); 
-                    }else if(reg.test(text)){
+                    if(reg.test(text)){
                         $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
                     }else if($(this).val().length<5){
                         $(this).parent().siblings('.warn-tip').show().text('标题字数不能少于5个字');
@@ -665,10 +663,6 @@ define(function(require , exports , module){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
              var fileName = item.fileName
-            if(this.isEndWithFileType(fileName)){
-                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题末尾不能带有文件格式')
-                return false
-            }
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
@@ -833,16 +827,6 @@ define(function(require , exports , module){
                }
             })
            
-        },
-        isEndWithFileType(fileName){
-            var typeList = [".doc", ".docx", ".docm", ".dotx", ".dotm", ".xls", ".xlsx", ".xlsm", ".xltx", ".xltm", ".xlsb", ".xlamppt", ".pptx", ".pptm", ".ppsx", ".potm", ".ppam", ".ppsm", ".ppsx", ".txt", ".pdf"]
-            for(var i=0;i<typeList.length;i++){
-                var reg = new RegExp("\\" + typeList[i]  + "$","ig")
-                if(reg.test(fileName)){
-                    return true
-                }
-            }
-            return false
         }
     }
     isLogin(function(data){
