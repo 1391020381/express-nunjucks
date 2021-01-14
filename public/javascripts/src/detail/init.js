@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-  
+    require('../common/testBilog');
     require("../cmd-lib/lazyload");
     require("../cmd-lib/myDialog");
     require("../cmd-lib/loading");
