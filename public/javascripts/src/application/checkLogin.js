@@ -105,7 +105,9 @@ define(function (require, exports, module) {
                             var page = window.pageConfig&&window.pageConfig.page || {}
 
                             if(page.type !='detail'){
-                                window.location.reload();
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },600)
                             }
                         }
                         $('.loginRedPacket-dialog').hide()

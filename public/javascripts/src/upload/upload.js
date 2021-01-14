@@ -137,8 +137,10 @@ define(function(require , exports , module){
                         if (uploadObj.uploadFiles.length>19) {
                             return false;
                         }
+                        console.log('task:',task)
                         var ext = task.ext.split('.')[1];
-                        var obj = {ext:ext,fileName:task.name,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
+                        var fileName = task.name.substr(0,task.name.indexOf(task.ext))
+                        var obj = {ext:ext,fileName:fileName,size:task.size,userFileType:1,userFilePrice:'',preRead:'',permin:uploadObj.permin}
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj)
                         $('.secondStep').show();
                         $('.firstStep').hide();
@@ -162,6 +164,7 @@ define(function(require , exports , module){
                     },
                     //上传完成后触发
                     complete: function (task) {
+                        
                         var res = JSON.parse(task.response);
                         uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail,res.data.success);
                         //this.list  为上传任务列表
@@ -169,14 +172,16 @@ define(function(require , exports , module){
                         //uploadStatus 1成功 2失败
                         if (res.data.fail.length>0) {
                             uploadObj.uploadFiles.forEach(function(item){
-                                if (item.fileName ==res.data.fail[0].fileName && item.size == res.data.success[0].size) {
+                                var fileName = res.data.fail[0].fileName.substr(0,res.data.fail[0].fileName.indexOf('.'+res.data.fail[0].extension))
+                                if (item.fileName == fileName && item.size == res.data.success[0].size) {
                                     item.uploadStatus = 2;
                                 }
                             })
                         }
                         if (res.data.success.length>0) {
                             uploadObj.uploadFiles.forEach(function(item){
-                                if (item.fileName ==res.data.success[0].fileName && item.size == res.data.success[0].size ) {
+                                var fileName = res.data.success[0].fileName.substr(0,res.data.success[0].fileName.indexOf('.'+ res.data.success[0].extension))
+                                if (item.fileName == fileName && item.size == res.data.success[0].size ) {
                                     item.uploadStatus = 1;
                                     item.path = res.data.success[0].path;
                                     item.extension = res.data.success[0].extension;
@@ -190,6 +195,7 @@ define(function(require , exports , module){
                             // console.log(uploadObj.uploadFiles)
                             // console.log("所有任务上传完成：" + new Date());
                         }
+                        console.log('uploadObj:',uploadObj)
                     }
                 }
             });
@@ -255,6 +261,7 @@ define(function(require , exports , module){
         categoryOption:function(){
             $('.doc-list').on('click','.js-fenlei',function(e){
                 e.stopPropagation()
+                $('.fenlei').hide();
                 $(this).siblings('.fenlei').toggle()
                 $(this).parents('.date-con-in').css('width','180px')
                 $('.date-con-second').hide()
@@ -630,13 +637,12 @@ define(function(require , exports , module){
             })
         },
         verifyRequire:function() {
+            var that = this
             $('.js-file-item').on('keyup',".data-name input[name='fileName']",function(){
                 if($(this).val()){
                     var reg=/(^\s+)|(\s+$)|\s+/g;
                     var patrn = /^[0-9]*$/;
-                    var index = $(this).val().indexOf('.')
-                   // var text = $(this).val()?$(this).val().substring(0,$(this).val().indexOf('.')):$(this).val()
-                    var text = index != -1? $(this).val().substring(0,index):$(this).val()
+                    var text = $(this).val()
                     if(reg.test(text)){
                         $(this).parent().siblings('.warn-tip').show().text('标题不能包含空格'); 
                     }else if($(this).val().length<5){
@@ -656,8 +662,7 @@ define(function(require , exports , module){
         dataVerify:function(item,index){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
-            var subIndex = item.fileName.indexOf('.')
-             var fileName = subIndex != -1? item.fileName.substring(0,subIndex):item.fileName
+             var fileName = item.fileName
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
@@ -741,8 +746,7 @@ define(function(require , exports , module){
                        }else{
                            stop = false
                        }
-                       var subIndex = item.fileName.indexOf('.')
-                        var fileName = subIndex !=-1?item.fileName.substring(0,subIndex):item.fileName
+                        var fileName = item.fileName
                         var obj = JSON.parse(JSON.stringify($.extend({},item,{fileName:fileName})))
                         if(item.userFileType==5) {
                             obj.userFilePrice = item.userFilePrice*100
@@ -755,6 +759,9 @@ define(function(require , exports , module){
                         }
                     }
                 })
+               for(var i = 0;i<uploadObj.uploadFiles.length;i++){
+
+               }
                 if (stop) {
                     return false;
                 }
