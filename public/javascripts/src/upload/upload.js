@@ -261,6 +261,7 @@ define(function(require , exports , module){
         categoryOption:function(){
             $('.doc-list').on('click','.js-fenlei',function(e){
                 e.stopPropagation()
+                $('.fenlei').hide();
                 $(this).siblings('.fenlei').toggle()
                 $(this).parents('.date-con-in').css('width','180px')
                 $('.date-con-second').hide()
@@ -664,6 +665,10 @@ define(function(require , exports , module){
             var reg=/(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
              var fileName = item.fileName
+            if(this.isEndWithFileType(fileName)){
+                $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题末尾不能带有文件格式')
+                return false
+            }
             if (!fileName) {
                 $('.js-file-item').find('.doc-li').eq(index).find('.warn-tip').show().text('标题不能为空')
                 return false
@@ -760,6 +765,9 @@ define(function(require , exports , module){
                         }
                     }
                 })
+               for(var i = 0;i<uploadObj.uploadFiles.length;i++){
+
+               }
                 if (stop) {
                     return false;
                 }
