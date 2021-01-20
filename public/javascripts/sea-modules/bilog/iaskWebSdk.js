@@ -7645,10 +7645,9 @@
                     key: 'track_pv',
                     value: function track_pv(properties, callback) {
                         var _this2 = this;
+
                         this._session(function () {
-                            setTimeout(function(){
-                                _this2.track(SYSTEM_EVENT_OBJECT.normalPageView.event_id, SYSTEM_EVENT_OBJECT.normalPageView.event_name, SYSTEM_EVENT_OBJECT.normalPageView.event_type, _.extend({}, properties), callback);
-                            },100)
+                            _this2.track(SYSTEM_EVENT_OBJECT.normalPageView.event_id, SYSTEM_EVENT_OBJECT.normalPageView.event_name, SYSTEM_EVENT_OBJECT.normalPageView.event_type, _.extend({}, properties), callback);
                         });
                     }
                 },
@@ -7737,7 +7736,7 @@
                         };
                         // 合并客户端信息
                         data = _.extend({}, data, _.info.properties());
-                     
+
                         // userID、visitID和loginStatus 值初始化
                         if (!this.instance.get_property('userID')) {
                             data['userID'] = '';
@@ -7754,10 +7753,6 @@
 
                         // 上报数据对象字段截取
                         var truncateLength = this.instance._get_config('truncateLength');
-                     
-                        for (var  prop in data['var']){
-                            data['var'][prop] = data['var'][prop] || ''
-                        }
                         var truncated_data = data;
                         if (_.isNumber(truncateLength) && truncateLength > 0) {
                             truncated_data = _.truncate(data, truncateLength);
@@ -7773,6 +7768,7 @@
                         if (track_type === 'img') {
                             url += 'track.gif';
                         }
+
                         //数据上报
                         var _this = this;
                         _.sendRequest(url, track_type, {
@@ -8113,7 +8109,7 @@
              * @param {String} sdkToken 上报数据凭证
              * @param {Object} config sdk客户端配置
              */
-            function SMARTLib(sdkToken,visitID, config) {
+            function SMARTLib(sdkToken, config) {
                 _classCallCheck$5(this, SMARTLib);
 
                 this['__loaded'] = true;
@@ -8121,10 +8117,8 @@
                 this['config'] = {};
                 this._set_config(_.extend({}, DEFAULT_CONFIG, PRODUCT_CONFIG, SDK_CONFIG, APP_CONFIG, SYSTEM_CONFIG, config, {'sdkToken': sdkToken}));
                 this['local_storage'] = new LOCAL_STORAGE(this['config']);
-
-                if (!this.get_property('visitID')) {
-                    this['local_storage'].register({'visitID': visitID});
-                }
+                // 运行钩子函数
+                this._loaded();
                 // 实例化事件对象
                 this['event'] = new EVENT_TRACK(this);
                 // 实例化用户对象
@@ -8133,13 +8127,11 @@
                 var _this = this;
                 // 设置设备凭证
                 _this._set_device_id();
+
                 _this._track_pv();
 
                 // persistedTime 首次访问应用时间
                 this['local_storage'].register_once({'persistedTime': new Date().getTime()}, '');
-
-                // // 运行钩子函数
-                this._loaded();
             }
 
             _createClass$5(SMARTLib, [{
@@ -8292,11 +8284,11 @@
 
             _createClass$6(LoaderSync, [{
                 key: 'init',
-                value: function init(sdkToken, visitID, config) {
+                value: function init(sdkToken, config) {
                     if (this['__loaded']) {
                         return;
                     }
-                    this.instance = new SMARTLib(sdkToken, visitID,config);
+                    this.instance = new SMARTLib(sdkToken, config);
                     this.instance.init = this['init'];
                     window['iask_web'] = this.instance;
                 }

@@ -4,7 +4,6 @@ define(function (require, exports, module) {
     var api = require("./api");
     require("./element");
     require("./extend");
-    var trackEventSDKInit = require('../common/bilogReport').trackEventSDKInit
     var trackEvent = require('../common/bilogReport.js').trackEvent
     var trackEventLogin = require('../common/bilogReport.js').trackEventLogin
     window.$ajax  =  $ajax
@@ -67,29 +66,32 @@ define(function (require, exports, module) {
             expires = 30 * 24 * 60 * 60 * 1000,
             visitId = method.getCookie(name),
             sdk_token = 'iask_web';
-
-            if (!visitId) {
-                $ajax(api.user.getVisitorId,'GET','','false').done(function(res){
-                    if (res.code == '0') {
-                                    method.setCookieWithExp(name, res.data, expires, '/');
-                                   
-                                    trackEventSDKInit(sdk_token,res.data)
-                                } else {
+            iask_web.init(sdk_token,{
+                local_storage:{
+                    type: 'cookie'
+                },
+                loaded:function(sdk){
+                      // 过有效期-重新请求
+                     if (!visitId) {
+                        $ajax(api.user.getVisitorId,'GET','','false').done(function(res){
+                            if (res.code == '0') {
+                                            method.setCookieWithExp(name, res.data, expires, '/');
+                                            sdk.set_visit_id(res.data); //设置visitID
+                                        } else {
+                                            visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
+                                            sdk.set_visit_id(visitId); //设置visitID
+                                        }
+                        }).fail(function(){
+                                  console.log('getVisitUserId:', error)
                                     visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                                
-                                    trackEventSDKInit(sdk_token,visitId)
-                                }
-                }).fail(function(){
-                          console.log('getVisitUserId:', error)
-                            visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                            method.setCookieWithExp(name, visitId, expires, '/');
-
-                            trackEventSDKInit(sdk_token,visitId)
-                            
-                })
-           }else{
-            trackEventSDKInit(sdk_token,visitId)
-           }
+                                    method.setCookieWithExp(name, visitId, expires, '/');
+                                    sdk.set_visit_id(visitId); //设置visitID
+                        })
+                   }else{
+                      sdk.set_visit_id(visitId); //设置visitID
+                   }
+                }
+            })
     }
 
      

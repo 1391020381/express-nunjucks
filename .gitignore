@@ -11,3 +11,4 @@ yarn.lock
 package-lock.json
 logs/
 .history/
+.nuxt
