@@ -1,1 +1,0 @@
-define("dist/detail/fail-debug", [], function(require, exports, module) {});

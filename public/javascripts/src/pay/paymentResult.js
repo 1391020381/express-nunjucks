@@ -56,6 +56,9 @@ define(function (require, exports, module) {
             },
             error: function (error) {
                 console.log('getOrderInfo:', error)
+                var url = location.href
+                var message  = JSON.stringify({orderNo:orderNo}) + JSON.stringify(error)
+                reportOrderError(url,message)
             }
         })
     }
