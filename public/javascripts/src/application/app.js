@@ -76,19 +76,19 @@ define(function (require, exports, module) {
                         $ajax(api.user.getVisitorId,'GET','','false').done(function(res){
                             if (res.code == '0') {
                                             method.setCookieWithExp(name, res.data, expires, '/');
-                                            sdk.set_visit_id(res.data); //设置visitID
+                                            sdk.init(sdk_token,res.data); //设置visitID
                                         } else {
                                             visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-                                            sdk.set_visit_id(visitId); //设置visitID
+                                            sdk.init(sdk_token,visitId); //设置visitID
                                         }
                         }).fail(function(){
                                   console.log('getVisitUserId:', error)
                                     visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
                                     method.setCookieWithExp(name, visitId, expires, '/');
-                                    sdk.set_visit_id(visitId); //设置visitID
+                                    sdk.init(sdk_token,visitId); //设置visitID
                         })
                    }else{
-                      sdk.set_visit_id(visitId); //设置visitID
+                      sdk.init(sdk_token,visitId); //设置visitID
                    }
                 }
             })
