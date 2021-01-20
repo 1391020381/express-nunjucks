@@ -34,7 +34,7 @@ var bilog = {}   //数据上报参数
 
 var successFun = ''
 
-window.loginType = {
+window.loginTypeList = {
     type: 'wechat',
     values: {
         0: 'wechat',//微信登录
@@ -48,7 +48,7 @@ $(document).on('click', '.login-content .login-type-list .login-type-weixin .wei
     $('.login-content .verificationCode-login').hide()
     $(' .login-content .password-login').hide()
     $('.login-content .weixin-login').show()
-    window.loginType.type = window.loginType.values[0]
+    window.loginTypeList.type = window.loginTypeList.values[0]
 })
 
 $(document).on('click', '.login-content .login-type-list .login-type-verificationCode', function (e) { // 切换到验证码
@@ -56,7 +56,7 @@ $(document).on('click', '.login-content .login-type-list .login-type-verificatio
     $('.login-content .weixin-login').hide()
     $('.login-content .verificationCode-login').show()
     
-    window.loginType.type = window.loginType.values[3]
+    window.loginTypeList.type = window.loginTypeList.values[3]
     iask_web.track_event('NE002', "normalClick", 'click', {
         domID:'mobileLogin',
         domName:'登录页短信验证码登录'
@@ -68,7 +68,7 @@ $(document).on('click', '.login-content .login-type-list .login-type-password', 
     $('.login-content .verificationCode-login').hide()
     $('.login-content .password-login').show()
    
-    window.loginType.type = window.loginType.values[4]
+    window.loginTypeList.type = window.loginTypeList.values[4]
     iask_web.track_event('NE002', "normalClick", 'click', {
         domID:'pwLogin',
         domName:'登录页密码登录'
@@ -81,7 +81,7 @@ $(document).on('click', '.login-content  .login-type-list .login-type', function
     if (loginType) {
         handleThirdCodelogin(loginType)
         if (loginType == 'qq') {
-            window.loginType.type = window.loginType.values[1]
+            window.loginTypeList.type = window.loginTypeList.values[1]
             iask_web.track_event('NE002', "normalClick", 'click', {
                 domID:'qqLogin',
                 domName:'登录页QQ登录'
@@ -89,7 +89,7 @@ $(document).on('click', '.login-content  .login-type-list .login-type', function
           
         }
         if (loginType == 'weibo') {
-            window.loginType.type = window.loginType.values[2]
+            window.loginTypeList.type = window.loginTypeList.values[2]
             iask_web.track_event('NE002', "normalClick", 'click', {
                 domID:'weiboLogin',
                 domName:'登录页微博登录'
@@ -391,8 +391,8 @@ $(document).on('click', '.login-content', function (e) {
 
 
 function loginInSuccess(userData){
-    var loginType = window.loginType.type;
- 
+    var loginType = window.loginTypeList.type;
+    window.loginType = loginType  // 获取用户信息时埋点需要
     method.setCookieWithExpPath("cuk", userData.access_token, userData.expires_in * 1000, "/");
     method.setCookieWithExpPath("loginType", loginType, userData.expires_in * 1000, "/");
     $.ajaxSetup({

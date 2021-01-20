@@ -34,7 +34,9 @@ define(function (require, exports, module) {
                             failMsg:'',
                             loginType: window.loginType && window.loginType
                         });
-                          window.open(redirectUrl,'_self')
+                         setTimeout(function(){
+                            window.open(redirectUrl,'_self')
+                         },600)
                     }).fail(function(err){
                         window.open(redirectUrl,'_self')
                     })
