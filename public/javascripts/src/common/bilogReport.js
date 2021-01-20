@@ -12,7 +12,15 @@ define(function (require, exports, module) {
     function trackEventLogin(userId){
         iask_web.login(userId)
     } 
+    function trackEventSDKInit(sdkToken,visitId){
+        iask_web.init(sdkToken,visitId,{
+            local_storage:{
+                type: 'cookie'
+            }
+        }); //设置visitID
+    }
     return {
+        trackEventSDKInit:trackEventSDKInit,
         trackEvent:trackEvent,
         trackEventLogin:trackEventLogin
     }

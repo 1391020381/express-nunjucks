@@ -75,7 +75,7 @@ define(function (require, exports, module) {
             error: function (error) {
                 console.log('scanOrderInfo:', error)
                 $.toast({
-                    text: error.message || 'scanOrderInfo错误',
+                    text: error.message || 'error-scanOrderInfo错误',
                     delay: 3000,
                 })
                 var url = location.href
