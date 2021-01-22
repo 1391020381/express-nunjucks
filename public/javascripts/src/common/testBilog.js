@@ -16,8 +16,21 @@ define(function (require, exports, module) {
                 });
             }
         }
-
-      
+    })
+    $(".btn-fix-vip").on('click',function(e){
+        if(!e.isTrigger){
+            if(window.pageConfig.page.abTest=='a'){
+                trackEvent('SE060', "fileDetailDownClick", 'page', {
+                    domID:'btn-fix-bottom-a',
+                    domName:'立即下载'
+                });
+            }else{
+                trackEvent('SE060', "fileDetailDownClick", 'page', {
+                    domID:'btn-fix-bottom-b',
+                    domName:'立即下载'
+                });
+            }
+        }
     })
     $(".js-read-more").on('click',function(e){
         if(window.pageConfig.page.abTest=='a'){

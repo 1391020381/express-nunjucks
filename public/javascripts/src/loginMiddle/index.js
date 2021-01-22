@@ -28,7 +28,7 @@ define(function (require, exports, module) {
                         }
                     });
                     $ajax('/node/api/getUserInfo','GET').then(function(res){
-                        iask_web.login(res.data.userId)
+                        trackEventLogin(res.data.userId)
                         trackEvent('SE001', "loginResult", 'query', {
                             loginResult:'1',
                             failMsg:'',

@@ -75,8 +75,9 @@ define(function (require, exports, module) {
             var unloginBuyHtml = require('./template/buyUnlogin.html')
             unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>'
             $('body').on("click", ".js-buy-open", function (e) {
-                var page = window.pageConfig.page
-                var params = window.pageConfig.params 
+                var page = window.pageConfig.page;
+                var params = window.pageConfig.params; 
+                var bilogcontent=$(this).attr("bilogcontent");
               trackEvent('SE003', "fileDetailDownClick", 'click', {
                   fileID:params.g_fileId,
                   fileName:page.fileName,
@@ -85,7 +86,13 @@ define(function (require, exports, module) {
                   fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                   fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
               });
-
+            // 测试登录埋点没反应的埋点（以后删除）  
+            if(bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8'){
+                trackEvent('NE061', "fileDetailDownClick", 'click', {
+                   domID:'fileDetailBottomDown',
+                   domName:'立即下载-a'
+                });
+            }
 
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {

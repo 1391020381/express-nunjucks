@@ -28,7 +28,7 @@ define(function (require, exports, module) {
     //
 
 
-    var userData = null;
+    var userData = null,bilogcontent='';
 
 
 
@@ -242,7 +242,13 @@ define(function (require, exports, module) {
             fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
         });
 
-
+        // 测试底部立即下载的事件（以后可以删除）
+        if(bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8'){
+            trackEvent('NE061', "fileDetailDownClick", 'click', {
+            domID:'fileDetailBottomDown',
+            domName:'立即下载-b'
+            });
+        }
         if (method.getCookie("cuk")) {
             // 判断文档类型 假设是 productType = 4 vip特权文档 需要先请求预下载接口
             if (window.pageConfig.page.productType == 4) {
@@ -366,7 +372,7 @@ define(function (require, exports, module) {
 
     //点击预下载按钮
     $(document).on("click", '[data-toggle="download"]', function (e) {
-
+        bilogcontent=$(this).attr("bilogcontent");
         handleFileDownUrl()
     })
     //用app保存
