@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     console.log('聚合支付码')
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    
+
     require("../cmd-lib/toast2");
     var api = require('../application/api');
     var method = require("../application/method");
@@ -38,10 +38,10 @@ define(function (require, exports, module) {
                     res.data.orderTime = new Date(res.data.orderTime).format("yyyy-MM-dd")
                     var _paymentRestultTemplate = template.compile(paymentRestult)({ orderInfo: res.data });
                     $(".payment .payment-content").html(_paymentRestultTemplate)
-                    if (res.goodsType == 1) {
+                    if (res.data.goodsType == 1) {
                         handleBaiduStatisticsPush('payFileResult', { payresult: 1, orderid: orderNo, orderpaytype: res.data.payType })
                     }
-                    if (res.goodsType == 2) {
+                    if (res.data.goodsType == 2) {
                         handleBaiduStatisticsPush('payVipResult', { payresult: 1, orderid: orderNo, orderpaytype: res.data.payType })
                     }
                 } else {
@@ -50,38 +50,38 @@ define(function (require, exports, module) {
                         delay: 3000,
                     });
                     var url = location.href
-                    var message  = JSON.stringify({orderNo:orderNo}) + JSON.stringify(data.message)
-                    reportOrderError(url,message)
+                    var message = JSON.stringify({ orderNo: orderNo }) + JSON.stringify(data.message)
+                    reportOrderError(url, message)
                 }
             },
             error: function (error) {
                 console.log('getOrderInfo:', error)
                 var url = location.href
-                var message  = JSON.stringify({orderNo:orderNo}) + JSON.stringify(error)
-                reportOrderError(url,message)
+                var message = JSON.stringify({ orderNo: orderNo }) + JSON.stringify(error)
+                reportOrderError(url, message)
             }
         })
     }
 
-    function reportOrderError(url,message) { // 上报错误
+    function reportOrderError(url, message) { // 上报错误
         $.ajax({
             type: 'post',
             url: api.order.reportOrderError,
-            headers:{
+            headers: {
                 'Authrization': method.getCookie('cuk')
             },
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify({
-                url:url,
-                message:message,
-                userId:orderNo
+                url: url,
+                message: message,
+                userId: orderNo
             }),
             success: function (response) {
-               console.log('reportOrderError:',response)
+                console.log('reportOrderError:', response)
             },
             complete: function () {
 
             }
-        })  
+        })
     }
 });
