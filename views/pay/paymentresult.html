@@ -1,95 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>订单详情</title>
-{# {% include "common/head.html" %} #}
- <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <head>
+        <title>订单详情</title>
+        {# {% include "common/head.html" %} #}
+        <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 
-{# <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-<script>
-  // 初始化
-  var vConsole = new VConsole();
-</script> #}
+        <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+        <script>
+            // 初始化
+            var vConsole = new VConsole();
+        </script>
 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/pay/payment.css"/>
+        <script>
+            var fun = function (doc, win) {
+                var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window
+                        ? 'orientationchange'
+                        : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        if (!clientWidth) 
+                            return;
+                        
+                        //这里是假设在750px宽度设计稿的情况下 1rem = 100px
+                        //可以根据实际需要修改
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                    };
+                if (!doc.addEventListener) 
+                    return;
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false);
+            }
+            fun(document, window)
+        </script>
+        <script type="text/javascript">
+            var _speedMark = + new Date()
+            var _version = "{{version}}"
+            var _head = "{{cdnUrl}}";
+            var _dpData = []; //广告测试
+            var env = "{{env}}";
+            var loginUrl = "{{loginUrl}}"
+        </script>
+    </head>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-   <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/pay/payment.css"/>
-<script>
-    var fun = function (doc, win) {
-    var docEl = doc.documentElement,
-        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-        recalc = function () {
-            var clientWidth = docEl.clientWidth; 
-            if (!clientWidth) return;
-            //这里是假设在750px宽度设计稿的情况下 1rem = 100px
-            //可以根据实际需要修改
-            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
-        };
-    if (!doc.addEventListener) return;
-    win.addEventListener(resizeEvt, recalc, false);
-    doc.addEventListener('DOMContentLoaded', recalc, false);
-}
-fun(document, window)
-</script>  
-<script type="text/javascript">
-        var _speedMark = +new Date()
-        var   _version = "{{version}}"
-        var   _head = "{{cdnUrl}}";
-        var _dpData = [];//广告测试
-        var env = "{{env}}";
-        var loginUrl = "{{loginUrl}}"
-</script>
-</head>
+    <body>
+        <div class="payment">
 
-<body>
-<div class="payment">
-
-<div class="payment-content"></div>
-<wx-open-launch-weapp
+            <div class="payment-content"></div>
+            <wx-open-launch-weapp
                     id="launch-btn"
                     username="gh_c6a9e426f251"
                     path="pages/template/template.html">
-                    <template>
-                        <style>
-                        .btn { 
-                            display:inline-block;
+                <template>
+                    <style>
+                        .btn {
+                            display: inline-block;
                             width: 315px;
                             height: 45px;
                             line-height: 45px;
                             text-align: center;
                             background: #F25226;
                             border-radius: 22px;
-                            border:none;
-                            font-size:16px;
-                            color:#FFFFFF
-                      }
-                      </style>
-                        <button class="btn">立即查看文件</button>
-                      </template>
-</wx-open-launch-weapp> 
-</div>
+                            border: none;
+                            font-size: 16px;
+                            color: #FFFFFF;
+                        }
+                    </style>
+                    <button class="btn">立即查看文件</button>
+                </template>
+            </wx-open-launch-weapp>
+        </div>
 
+        {% include "common/js.html" %}
 
-
- {% include "common/js.html" %}
-
-    <script type="text/javascript">
-        window.pageConfig = {
-            page:{
-                isWeChat:"results.isWeChat",
-                isAliPay:"results.isAliPay"
-            },
-            params:{
-                
-            },
-            report: {
-                
-            },
-            gio:{
-            }
-        };
-        seajs.use(["dist/application/app.js","dist/pay/paymentResult.js"]);
-    </script>
-</body>
+        <script type="text/javascript">
+            window.pageConfig = {
+                page: {
+                    isWeChat: "results.isWeChat",
+                    isAliPay: "results.isAliPay"
+                },
+                params: {},
+                report: {},
+                gio: {}
+            };
+            seajs.use(["dist/application/app.js", "dist/pay/paymentResult.js"]);
+        </script>
+    </body>
 
 </html>
