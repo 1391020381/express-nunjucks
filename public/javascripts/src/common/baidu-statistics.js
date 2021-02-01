@@ -59,20 +59,30 @@ define(function (require, exports, moudle) {
         loginResult:""
     }
   }
-    function handle(id) {
-        if (id){
-            try {
-                (function () {
-                    var hm = document.createElement("script");
-                    hm.src = "https://hm.baidu.com/hm.js?" + id;
-                    var s = document.getElementsByTagName("script")[0];
-                    s.parentNode.insertBefore(hm, s);
-                })();
-            } catch (e) {
-                console.error(id,e);
+   
+   
+   function handle(id) {
+        if (id) {
+            _hmt.push(['_setAccount', id]);
+            for (var key in _hmt.cmd) {
+                if (key == id) {
+                    return
+                } else {
+                    try {
+                        (function () {
+                            var hm = document.createElement("script");
+                            hm.src = "https://hm.baidu.com/hm.js?" + id;
+                            var s = document.getElementsByTagName("script")[0];
+                            s.parentNode.insertBefore(hm, s);
+                        })();
+                    } catch (e) {
+                        console.error(id, e);
+                    }
+                }
             }
         }
     }
+
   function handleBaiduStatisticsPush(eventName,params){ // vlaue是对象
     var temp = eventNameList[eventName]
     if(eventName == 'fileDetailPageView'){
