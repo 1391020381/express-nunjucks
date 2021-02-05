@@ -22,7 +22,6 @@ const config = {
     },
     local: {
         env: env,
-<<<<<<< HEAD
         // apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
         // apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
         // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
@@ -32,17 +31,6 @@ const config = {
         apiNewBaselPath: 'http://test-ishare.iask.com.cn/gateway',
         newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
         loginUrl:'//test-login-ishare.iask.com.cn',
-=======
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: '//dev-login-ishare.iask.com.cn',
-        loginUrl: 'http://127.0.0.1:8085',
-        // apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
-        // apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
-        // newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
-        loginUrl: '//test-login-ishare.iask.com.cn',
->>>>>>> 9c3fef2480508a5caa9f9a14f3e581b2c4afbf43
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         //服务端口-自定义
