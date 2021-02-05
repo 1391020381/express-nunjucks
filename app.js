@@ -46,23 +46,23 @@ app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 
 //本地开发环境反向代理
 
-let  restream = function(proxyReq, req, res, options) {
+let restream = function (proxyReq, req, res, options) {
     if (req.body) {
         let bodyData = JSON.stringify(req.body);
         // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
-        proxyReq.setHeader('Content-Type','application/json');
+        proxyReq.setHeader('Content-Type', 'application/json');
         proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
         // stream the content
         proxyReq.write(bodyData);
     }
 }
 
-if(appConfig.env == 'local' || appConfig.env == 'debug'){
+if (appConfig.env == 'local' || appConfig.env == 'debug') {
     app.use('/gateway', proxy({
         //目标后端服务地址
-       //  target: 'http://ishare.iask.sina.com.cn',
-       target:appConfig.newBasePath,
-       changeOrigin: true,
+        //  target: 'http://ishare.iask.sina.com.cn',
+        target: appConfig.newBasePath,
+        changeOrigin: true,
         secure: false,
         onProxyReq: restream
     }))
@@ -71,7 +71,7 @@ if(appConfig.env == 'local' || appConfig.env == 'debug'){
 
 
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
@@ -111,34 +111,33 @@ app.use('/', router);
 
 
 app.use(function (err, req, res, next) {
-    if(res.headersSent){
+    if (res.headersSent) {
         return next(err)
     }
-    if (appConfig.env === 'local'||appConfig.env === 'dev'||appConfig.env === 'test' || appConfig.env === 'debug') {
+    if (appConfig.env === 'local' || appConfig.env === 'dev' || appConfig.env === 'test' || appConfig.env === 'debug') {
         console.log(err.message)
         res.status(err.status || 500);
         res.send({
             status: 0,
             message: err.message,
             error: err,
-            statck:err.stack
+            statck: err.stack
         })
-    }else{
+    } else {
         log4js.info({
             status: 0,
             message: err.message,
             error: err,
-            statck:err.stack
+            statck: err.stack
         });
         res.redirect(`/node/503.html?fid=${req.params.id}`);
     }
-    
+
 });
 
-process.on('uncaughtException',(err)=>{
-    console.log('uncaughtException:',err.message,err.stack)
+process.on('uncaughtException', (err) => {
+    console.log('uncaughtException:', err.message, err.stack)
     process.exit(1)
-    
 })
 
 module.exports = app;

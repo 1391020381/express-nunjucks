@@ -1,16 +1,20 @@
 <div class="title">TA的资料</div>
 <div class="tab">
-    <div class="tab-item {{sortField=='downNum' ? 'active' : '' }}" type='downNum'><a href="javascript:;">热门</a></div>
-    <div class="tab-item {{sortField=='createTime' ? 'active' : '' }}" type='createTime'><a href="javascript:;">最新</a></div>
+    <div class="tab-item {{sortField == 'downNum' ? 'active' : '' }}" type='downNum'>
+        <a href="?sort=downNum">热门</a>
+    </div>
+    <div class="tab-item {{sortField == 'createTime' ? 'active' : '' }}" type='createTime'>
+        <a href="?sort=createTime">最新</a>
+    </div>
     <div class="format">
-        <div class="format-title">格式<i></i></div>
+        <div class="format-title">{{ formatName }}<i></i></div>
         <div class="format-list">
-            <div class="format-list-item" format=''>全部</div>
-            <div class="format-list-item" format='doc'>DOC</div>
-            <div class="format-list-item" format='ppt'>PPT</div>
-            <div class="format-list-item" format='pdf'>PDF</div>
-            <div class="format-list-item" format='xls'>XLS</div>
-            <div class="format-list-item" format='txt'>TXT</div>
+            <div class="format-list-item {{format == '' ? 'format-active' : ''}}" format=''>全部</div>
+            <div class="format-list-item {{format == 'doc' ? 'format-active' : ''}}" format='doc'>DOC</div>
+            <div class="format-list-item {{format == 'ppt' ? 'format-active' : ''}}" format='ppt'>PPT</div>
+            <div class="format-list-item {{format == 'pdf' ? 'format-active' : ''}}" format='pdf'>PDF</div>
+            <div class="format-list-item {{format == 'xls' ? 'format-active' : ''}}" format='xls'>XLS</div>
+            <div class="format-list-item {{format == 'txt' ? 'format-active' : ''}}" format='txt'>TXT</div>
         </div>
      </div> 
  </div>
@@ -20,7 +24,7 @@
         <a href="/f/{{item.id}}.html">
          <div class="pic">
              {{ if item.fileSmallPic }}
-             <img src="{{'http://pic.iask.com.cn/'+item.fileSmallPic}}" alt="">
+             <img src="{{'http://pic.iask.com.cn/' + item.fileSmallPic}}" alt="">
              {{else}}
              <img src="/images/default-picture.png" alt="">
              {{/if}}

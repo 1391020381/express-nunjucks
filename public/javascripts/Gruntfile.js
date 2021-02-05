@@ -124,6 +124,7 @@ module.exports = function (grunt) {
                     "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                     "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
                     "../stylesheets/personalCenter/personalCenter.css": "../stylesheets/personalCenter/personalCenter.less",
+                    "../stylesheets/personalCenter/userPage.css": "../stylesheets/personalCenter/userPage.less",
                     "../stylesheets/authentication/index.css": "../stylesheets/authentication/index.less",
                     "../stylesheets/authentication/user.css": "../stylesheets/authentication/user.less",
                     "../stylesheets/authentication/org.css": "../stylesheets/authentication/org.less",
