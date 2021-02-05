@@ -37,7 +37,7 @@
                             <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
                                 <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                                    <a data-ids="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
+                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
                                         {{thirdItem.propertyName}}
                                     </a>
                                 {% endfor %}
@@ -82,8 +82,8 @@
             <!--筛选列表  -->
             <div class="search-list-section">
                 <div class="search-list-tab">
-                    <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
-                    <a href="javascript:;" data-url="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+                    <a  href="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}.html" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+                    <a  href="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}.html" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
                 </div>
                 <div class="search-list-container">
                     <ul>
@@ -131,16 +131,16 @@
                     <!-- 分页 -->
                     {% if results.list.data.totalPages > 1 %}
                         <div class="office-page-paging">
-                            <a class="btn-page-long js-tab-page" href="javascript:;" value='1'>首页</a>
+                            <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_1_{{results.urlParams.sortFlag}}.html" value='1'>首页</a>
                             {% if results.urlParams.currentPage > 1 %}
-                                <a class="btn-page js-tab-page" href="javascript:;" value='{{results.urlParams.currentPage-1}}'>上一页</a>
+                                <a class="btn-page js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}.html" value='{{results.urlParams.currentPage-1}}'>上一页</a>
                             {% endif %}
 
                             {%if results.pageIndexArr.length>1 %}
                                 {%for item in results.pageIndexArr%}
                                     {% if (loop.index <+ results.urlParams.currentPage + 3 and loop.index >= results.urlParams.currentPage - 3) %}
                                         <a class="page-ele js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
-                   style="display: inline-block" href="javascript:;">
+                   style="display: inline-block" href="/node/s/{{results.urlParams.specialTopicId }}_{{loop.index}}_{{results.urlParams.sortFlag}}.html">
                                             {{loop.index}}
                                         </a>
                                     {% endif %}
@@ -149,9 +149,9 @@
                                         <a class="page-more">...</a>
                                     {% endif %}
                                     {% if results.urlParams.currentPage < results.pageIndexArr.length %}
-                                        <a class="btn-page-long js-tab-page" href="javascript:;" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
+                                        <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}.html" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
                                         {%endif%}
-                                        <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="javascript:;" value='{{results.pageIndexArr.length}}'>尾页</a>
+                                        <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html" value='{{results.pageIndexArr.length}}'>尾页</a>
                                         {%endif%}
                                     </div>
                                     {%endif%}

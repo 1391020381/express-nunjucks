@@ -11,6 +11,7 @@ const cc = require('../common/cc')
 const renderPage = cc(async (req, res) => {
     let paramsObj = util.getSpecialParams(req.url)
     let detail = await getFindSpecialTopic(req, res, paramsObj)
+    console.log('detail:', JSON.stringify(detail))
     let specialList = []
     let uid = ''
     if (req.cookies.ui) {
@@ -29,8 +30,7 @@ const renderPage = cc(async (req, res) => {
         specialList = detail.data.specialTopicPropertyGroupDOList; //
     }
     let listData = await getListTopicContents(req, res, paramsObj, specialList)
-    // tdk
-    //    let tdkData = await getTdkByUrl(req,res,paramsObj)
+    console.log('listData:', JSON.stringify(listData))
 
     let topicName = detail.data.topicName;
     let str = topicName.length <= 12 ? (topicName + '_' + topicName) : topicName;//专题字数小于等于12时
@@ -41,12 +41,7 @@ const renderPage = cc(async (req, res) => {
         description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName + '资料，快来爱问共享资料下载!',
         keywords: (topicName + "," + topicName) + '下载',
     }
-    //    let topicName = detail.data.topicName;
-    //    let str=topicName.length<=12 ? (topicName +'_'+ topicName) : topicName;//专题字数小于等于12时
-    //    if(tdkData.data&&tdkData.data.title){
-    //     tdkData.data.title = tdkData.data.title + '_第' + paramsObj.currentPage + '页_爱问共享资料'
-    //     tdkData=data.data
-    //    }
+
 
 
 
@@ -160,8 +155,8 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
     }
 
     //最大20页
-    var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-    if (listData.data && listData.data.totalPages < 20) {
+    var pageIndexArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+    if (listData.data && listData.data.totalPages < 40) {
         pageIndexArr.length = listData.data.totalPages;
     }
     let canonicalUrl = paramsObj.currentPage > 1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
@@ -169,11 +164,6 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
     let results = {
         data: data,
         list: listData,
-        // list:{
-        //     data:{
-        //         rows:[{contentName:'发嘀咕嘀咕郭德纲灌灌风格个复活复活海关海关监管和股份辉煌过后'}]
-        //     }
-        // },
         specialTopic: specialTopic,
         pageIndexArr: pageIndexArr,
         urlParams: paramsObj,
