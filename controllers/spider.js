@@ -15,7 +15,6 @@ const renderPage = cc(async (req, res, next) => {
     let id = req.params.id.replace('-nbhh', '')
     let fileurl = "https://ishare.iask.sina.com.cn/f/" + id + '.html'
     const list = await getList(req, res, id)
-
     if (list.code == 'G-404') { // 文件不存在
         var results = { showFlag: false }
         res.status(404)
@@ -24,7 +23,6 @@ const renderPage = cc(async (req, res, next) => {
     }
     if (list.data.fileInfo.showflag !== 'y') { // 文件删除
         var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(list.data.fileInfo.title))}`
-        console.log(searchQuery)
         var results = { showFlag: false, searchQuery, statusCode: '404' }
         res.status(404)
         render("detail/index", results, req, res);
@@ -35,12 +33,20 @@ const renderPage = cc(async (req, res, next) => {
     const fileDetailTxt = await getFileDetailTxt(req, res)
     const recommendInfo = await getRecommendInfo(req, res, list)
     let paradigm4Relevant = []
+    let hotpotSearch = {}
     if (recommendInfo) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID)
     }
+    // if(paradigm4Relevant){
+    //      hotpotSearch = await getHotpotSearch(req,res,list,paradigm4Relevant)
 
+    // }
+
+    const hotTopicSearch = await getHotTopicSearch(req, res, list)
+    const hotTopicSeo = await getHotTopicSeo(req, res)
     const hotRecData = await getHotRecData(req, res)
-    handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotRecData, type, fileurl })
+    const newsRec = await getNewsRec(req, res)
+    handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotpotSearch, hotTopicSearch, hotTopicSeo, hotRecData, newsRec, type, fileurl })
 })
 
 module.exports = {
@@ -77,7 +83,7 @@ function getEditorInfo(req, res, list) {
 
 function getFileDetailTxt(req, res) {
     req.body = {
-        fid: req.params.id,
+        fid: req.params.id.replace('-nbhh', ''),
         subBody: 20000
     };
     return server.$http(appConfig.apiNewBaselPath + Api.spider.fileDetailTxt, 'post', req, res, true)
@@ -109,16 +115,18 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
 }
 
 function getHotpotSearch(req, res, list, paradigm4Relevant) {
-    let recRelateArrNum = paradigm4Relevant.length
+    let recRelateArrNum = paradigm4Relevant.data.length
     req.body = {
-        searchKey: list.data.fileInfo.title,
         currentPage: 1,
-        pageSize: 40
+        pageSize: 40,
+        site: 4,
+        classIds: [list.data.fileInfo.classid2, list.data.fileInfo.classid3].filter(item => { return !!item }),
+        title: list.data.fileInfo.title
     }
     if (recRelateArrNum < 31) {
         return server.$http(appConfig.apiNewBaselPath + Api.spider.hotpotSearch, 'post', req, res, true)
     } else {
-        return null
+        return {}
     }
 }
 
@@ -164,9 +172,10 @@ function getHotRecData(req, res) {
     return server.$http(appConfig.apiNewBaselPath + Api.spider.hotRecData, 'post', req, res, false)
 }
 
-function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotRecData, type, fileurl }) {
+function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotpotSearch, hotTopicSearch, hotTopicSeo, newsRec, hotRecData, type, fileurl }) {
 
-    let results = Object.assign({}, { list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotRecData })
+    let results = Object.assign({}, { list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotpotSearch, hotTopicSearch, hotTopicSeo, newsRec, hotRecData })
+
     // doc对应Word、ppt对应PowerPoint、xls对应Excel、txt对应记事本、pdf对应PDF阅读器
     var readTool = {
         Word: 'Word',
@@ -188,7 +197,7 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
     }
     //对正文进行处理
     var textString = results.fileDetailTxt && results.fileDetailTxt.data || '';
-    // console.log(JSON.stringify(results.hotRecData),'results.hotRecData')
+
     var picArr = results.list && results.list.data && results.list.data.transcodeInfo && results.list.data.transcodeInfo.fileContentList || ''
     if (picArr && picArr.length > 6) {
         picArr = picArr.slice(0, 6)
@@ -224,51 +233,55 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
     results.seo.description = description || '';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
-    //  console.log('paradigm4Relevant:zhizhu',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
-    //  let recRelateArrNum  = paradigm4Relevant.data.length
+    // console.log('paradigm4Relevant:z',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
+    // let recRelateArrNum  = paradigm4Relevant.data.length
     results.relevantList = results.paradigm4Relevant.data.slice(0, 10)
     results.guessLikeList = results.paradigm4Relevant.data.slice(-21)
-    // if(recRelateArrNum>=30) {
+    // if(recRelateArrNum>30) {
     //      results.relevantList=results.paradigm4Relevant.data.slice(0,10)
     //      results.guessLikeList=results.paradigm4Relevant.data.slice(10,21)
     // }else {
-    // if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
-    //     results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
-    //     results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
+    //  if(results.hotpotSearch.data&&results.hotpotSearch.data.rows){
+    //      results.relevantList=results.hotpotSearch.data.rows.slice(0,10)
+    //      results.guessLikeList=results.hotpotSearch.data.rows.slice(10,31)
+    //  }
+
+    // if(results.hotpotSearch.data&&results.hotpotSearch.data){
+    //     results.relevantList=results.hotpotSearch.data.slice(0,10)
+    //     results.guessLikeList=results.hotpotSearch.data.slice(10,31)
     // }
-    // console.log(JSON.stringify(results.hotpotSearch),'results.hotpotSearch')
+
     // }
     // 对最新资料  推荐专题数据处理
 
-    //    if(results.newRecData &&results.newRecData.data && type!="hot"){
-    //         results.newRecList=results.newRecData.data.map(item=>{
-    //             if(type=="new") {
-    //                 item.link ="/f/"+item.id+'.html'
-    //             }else if(type=="topic"){
-    //                 item.link ="/node/s/"+item.id+'.html'
-    //             }
-    //             return item;
-    //         })
-    //    }
+    if (results.newRecData && results.newRecData.data && type != "hot") {
+        results.newRecList = results.newRecData.data.map(item => {
+            if (type == "new") {
+                item.link = "/f/" + item.id + '.html'
+            } else if (type == "topic") {
+                item.link = "/node/s/" + item.id + '.html'
+            }
+            return item;
+        })
+    }
     // 热门推荐数据处理
-    //    if(results.hotRecData &&results.hotRecData.data && type =="hot"){
-    //     results.newRecList=results.hotRecData.data.map(item=>{
-    //             item.link = item.contentUrl;
-    //             item.title= item.contentName;
-    //             return item;
-    //         })
-    //    }
+    if (results.hotRecData && results.hotRecData.data && type == "hot") {
+        results.newRecList = results.hotRecData.data.map(item => {
+            item.link = item.contentUrl;
+            item.title = item.contentName;
+            return item;
+        })
+    }
     // 对热门搜索的主题数进行限制
-    //    results.newRecList = results.newRecList?results.newRecList:[];
+    results.newRecList = results.newRecList ? results.newRecList : [];
     results.type = type;
-    //    if(results.newsRec && results.newsRec.data){
-    //         results.newPagetotal = results.newsRec.data.length
-    //     }else{
-    //         results.newsRec.data = []
-    //     }
-    //    console.log(JSON.stringify(results.hotTopicSearch),'hotTopicSearch')
-    results.fileDetailArr = newTextArr;
+    if (results.newsRec && results.newsRec.data) {
+        results.newPagetotal = results.newsRec.data.length
+    } else {
+        results.newsRec.data = []
+    }
 
+    results.fileDetailArr = newTextArr;
     results.fileSummary = results.list.data.fileInfo.title + fileDetailTxt.data && fileDetailTxt.data.slice(0, 266)
     render("spider/index", results, req, res);
 }
