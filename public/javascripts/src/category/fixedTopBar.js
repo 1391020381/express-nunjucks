@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var headerHeight = $detailHeader.height();
     $(window).scroll(function () {
         var detailTop = $(this).scrollTop();
-        if (detailTop-headerHeight>=0) {
+        if (detailTop - headerHeight >= 0) {
             $detailHeader.addClass("new-detail-header-fix");
         } else {
             $detailHeader.removeClass("new-detail-header-fix");

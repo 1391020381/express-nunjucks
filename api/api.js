@@ -54,7 +54,8 @@ module.exports = {
     user:{
        userWxAuthState:'/cas/user/wxAuthState',
        getUserInfo:'/user/getUserInfo',
-       getUserCentreInfo:'/user/getUserCentreInfo'
+       getUserCentreInfo:'/user/getUserCentreInfo',
+       getOtherUser: '/user/getOthersCentreInfo',//他人信息主页
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
@@ -66,7 +67,9 @@ module.exports = {
         specialTopic:'/search/specialTopic/lisPage'   // 专题热点查询
     },
     tdk:{
-        getTdkByUrl:'/seo/tdkmanage/findByUrl?url=$url',
+        // 【A20接入新的tdk规则】
+        getTdkByUrl:'/seo/tdk/getTdkDetail',
+        // getTdkByUrl:'/seo/tdkmanage/findByUrl?url=$url',
     },
     category:{//分类页
         list:'/search/content/byCondition', //查询列表

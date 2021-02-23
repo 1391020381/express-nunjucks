@@ -911,8 +911,14 @@ body {
 .vip-protocol {
   float: right;
   display: inline-block;
-  text-decoration: underline;
   color: #999999;
+  a {
+    text-decoration: none;
+    color: #999999;
+    &:hover {
+      color: #f25125;
+    }
+  }
 }
 
 .carding-footer {

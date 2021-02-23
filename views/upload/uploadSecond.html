@@ -203,8 +203,18 @@
             </div>
         </div>
     </div>
-     <!--批量修改悬浮 -->
-     <div class="doc-batch-fixed">
+    <!-- 黑名单提示 -->
+    <div class="dialog-blacklist">
+        <span class="btn-close" title="关闭" onclick="$(this).parent().hide();$('#bgMask').hide();"></span>
+        <h2 class="blacklist-title">提示</h2>
+        <div class="blacklist-content">
+            <p>您的账号已注销或存在黑名单中</p>
+            <p>详情可咨询<strong>QQ: 3463748482</strong></p>
+        </div>
+        <a class="btn-blacklist" href="javascript:;" onclick="$(this).siblings('.btn-close').trigger('click');">知道了</a>
+    </div>
+    <!--批量修改悬浮 -->
+    <div class="doc-batch-fixed">
         <div class="pw pw-v">
             <div class="doc-batch-inter cf">
                 <ul class="doc-list cf">

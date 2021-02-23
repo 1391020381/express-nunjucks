@@ -1,40 +1,49 @@
 <div class="title">TA的资料</div>
 <div class="tab">
-    <div class="tab-item {{sortField == 'downNum' ? 'active' : '' }}" type='downNum'>
+    <div class="tab-item {{sortField == 'downNum' ? 'active' : '' }}"
+        type='downNum'>
         <a href="?sort=downNum">热门</a>
     </div>
-    <div class="tab-item {{sortField == 'createTime' ? 'active' : '' }}" type='createTime'>
+    <div class="tab-item {{sortField == 'createTime' ? 'active' : '' }}"
+        type='createTime'>
         <a href="?sort=createTime">最新</a>
     </div>
     <div class="format">
         <div class="format-title">{{ formatName }}<i></i></div>
         <div class="format-list">
-            <div class="format-list-item {{format == '' ? 'format-active' : ''}}" format=''>全部</div>
-            <div class="format-list-item {{format == 'doc' ? 'format-active' : ''}}" format='doc'>DOC</div>
-            <div class="format-list-item {{format == 'ppt' ? 'format-active' : ''}}" format='ppt'>PPT</div>
-            <div class="format-list-item {{format == 'pdf' ? 'format-active' : ''}}" format='pdf'>PDF</div>
-            <div class="format-list-item {{format == 'xls' ? 'format-active' : ''}}" format='xls'>XLS</div>
-            <div class="format-list-item {{format == 'txt' ? 'format-active' : ''}}" format='txt'>TXT</div>
+            <div class="format-list-item {{format == '' ? 'format-active' :
+                ''}}" format=''>全部</div>
+            <div class="format-list-item {{format == 'doc' ? 'format-active' :
+                ''}}" format='doc'>DOC</div>
+            <div class="format-list-item {{format == 'ppt' ? 'format-active' :
+                ''}}" format='ppt'>PPT</div>
+            <div class="format-list-item {{format == 'pdf' ? 'format-active' :
+                ''}}" format='pdf'>PDF</div>
+            <div class="format-list-item {{format == 'xls' ? 'format-active' :
+                ''}}" format='xls'>XLS</div>
+            <div class="format-list-item {{format == 'txt' ? 'format-active' :
+                ''}}" format='txt'>TXT</div>
         </div>
-     </div> 
- </div>
+    </div>
+</div>
 <ul>
     {{ each list.rows as item i }}
     <li>
         <a href="/f/{{item.id}}.html">
-         <div class="pic">
-             {{ if item.fileSmallPic }}
-             <img src="{{'http://pic.iask.com.cn/' + item.fileSmallPic}}" alt="">
-             {{else}}
-             <img src="/images/default-picture.png" alt="">
-             {{/if}}
-             <span class="ico-data pos ico-{{item.format}}"></span>
-         </div>
-         
-         <div class="info">
-             <p>{{item.title}}</p>
-             <p>{{item.readNum}}阅读 &nbsp; &nbsp;  {{item.totalPage}}页</p>
-         </div>
+            <div class="pic">
+                {{ if item.fileSmallPic }}
+                <img src="{{'http://pic.iask.com.cn/' + item.fileSmallPic}}"
+                    alt="">
+                {{else}}
+                <img src="/images/default-picture.png" alt="">
+                {{/if}}
+                <span class="ico-data pos ico-{{item.format}}"></span>
+            </div>
+
+            <div class="info">
+                <p>{{item.title}}</p>
+                <p>{{item.readNum}}阅读 &nbsp; &nbsp; {{item.totalPage}}页</p>
+            </div>
         </a>
     </li>
     {{/each}}
@@ -43,28 +52,34 @@
 {{ if list.rows.length == 0 }}
 <div class="no-record">暂无记录</div>
 {{/if}}
-{{ if list.totalPages.length >1}}
- <div class="pagination-wrapper">
-     <div class="page-list pagination">
-         <div class="page-item js-page-item first" data-currentPage="1">首页</div>
-         {{if currentPage>1}}
-         <div class="page-item js-page-item prev" data-currentPage={{currentPage-1}}>上一页</div> 
-         {{/if}}
-         {{each list.totalPages}}
-             {{ if $index >currentPage-3 && $index <=+currentPage +3 }}
-             <div class="page-item js-page-item {{ currentPage == $index+1 ? 'active':''}}"  data-currentPage={{+$index+1}}>
-                 {{$index+1}}
-             </div>
-             {{/if}}
-         {{/each}}
+{{ if list.totalPages.length > 1 }}
+<div class="pagination-wrapper">
+    <div class="page-list pagination">
+        <a class="page-item js-page-item first" 
+            data-currentPage="1" href="{{currentUrl}}1">首页</a>
+        {{if currentPage>1}}
+        <a class="page-item js-page-item prev" 
+            data-currentPage={{currentPage - 1}} href="{{currentUrl}}{{currentPage - 1}}">上一页</a>
+        {{/if}}
+        {{each list.totalPages}}
+        {{ if $index >currentPage-3 && $index <=+currentPage +3 }}
+        <a class="page-item js-page-item {{currentPage == $index+1 ? 'active' : ''}}" 
+            data-currentPage={{+$index+1}} href="{{currentUrl}}{{+$index+1}}">
+            {{$index+1}}
+        </a>
+        {{/if}}
+        {{/each}}
 
-         {{if currentPage <= list.totalPages.length -3}}
-             <div class="page-more page-item">...</div>
-         {{/if}}
-         {{if currentPage < list.totalPages.length}}
-            <div class="page-item js-page-item" data-currentPage={{+currentPage+1}}>下一页</div>
-          {{/if}}
-         <div class="page-item js-page-item" data-currentPage={{list.totalPages.length}}>尾页</div>
- </div>
+        {{if currentPage <= list.totalPages.length -3}}
+        <a class="page-more page-item">...</a>
+        {{/if}}
+        {{if currentPage <list.totalPages.length}}
+        <a class="page-item js-page-item" data-currentPage={{+currentPage+1}}
+            href="{{currentUrl}}{{+currentPage+1}}">下一页</a>
+        {{/if}}
+        <a class="page-item js-page-item"
+            data-currentPage={{list.totalPages.length}}
+            href="{{currentUrl}}{{list.totalPages.length}}">尾页</a>
+    </div>
 </div>
 {{/if}}

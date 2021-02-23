@@ -4,7 +4,7 @@
  */
 define(function (require, exports, module) {
     // var $ = require('$');
-   
+
     require('../application/suspension');
     var app = require("../application/app");
     var api = require('../application/api');
@@ -20,14 +20,14 @@ define(function (require, exports, module) {
 
     handleBaiduStatisticsPush('fileDetailPageView')
     trackEvent('NE030', "pageTypeView", 'page', {
-        pageID:'FD',
-        pageName:'资料详情'
+        pageID: 'FD',
+        pageName: '资料详情'
     });
     trackEvent('SE002', "fileDetailPageView", 'page', {
-        fileID:params.g_fileId,
-        fileName:page.fileName,
-        salePrice:params.productPrice,
-        saleType:params.productType,
+        fileID: params.g_fileId,
+        fileName: page.fileName,
+        salePrice: params.productPrice,
+        saleType: params.productType,
         fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
         fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
     });
@@ -60,26 +60,26 @@ define(function (require, exports, module) {
                 window.pageConfig.userId = data.userId;
                 window.pageConfig.email = data.email || "";
                 //已经登录 并且有触发支付点击
-                if (method.getCookie('download-qqweibo')) {    
+                if (method.getCookie('download-qqweibo')) {
                     //唤起支付弹框
                     // goPage(event);
                     var params = window.pageConfig.params;
-                    if(params.productType == '3'){ //
-                        if(data&&data.isVip==1){
+                    if (params.productType == '3') { //
+                        if (data && data.isVip == 1) {
                             sendEmail()
-                        }else {
+                        } else {
                             var fid = window.pageConfig.params.g_fileId;
                             var format = window.pageConfig.params.file_format;
                             var title = window.pageConfig.params.file_title;
                             var params = window.pageConfig.params
                             var ref = utils.getPageRef(fid);
-                           var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
+                            var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
                             method.compatibleIESkip('/pay/vip.html' + params, false);
-                        }  
-                    }else{
+                        }
+                    } else {
                         window.downLoad()
                     }
-                   
+
                     method.delCookie("download-qqweibo", "/");
                 }
             });
@@ -125,7 +125,7 @@ define(function (require, exports, module) {
             $cate_inner = $('.header-cate'),
             $slider_control = $('.slider-control');
         // 头部分类
-        $cate_inner.on('mouseover', function() {
+        $cate_inner.on('mouseover', function () {
             var $this = $('.cate-menu');
             if (!$this.hasClass('hover')) {
                 $this.addClass('hover');
@@ -177,9 +177,9 @@ define(function (require, exports, module) {
 
         $('.detail-search-info').on('click', function () {
             var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
-
             searchFn(_val);
-        })
+        });
+
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
@@ -187,9 +187,11 @@ define(function (require, exports, module) {
             }
             $detail_lately.hide();
         });
+
         $detail_lately.on('click', function (event) {
             event.stopPropagation();
         });
+
         // 登录
         $('#detail-unLogin,.login-open-vip').on('click', function () {
             if (!method.getCookie('cuk')) {
@@ -199,32 +201,35 @@ define(function (require, exports, module) {
             }
         });
 
-
         // 退出
         $('.btn-exit').on('click', function () {
             login.ishareLogout();
         });
+
         $('#search-detail-input').on('focus', function () {
             $('.detail-search-info').hide();
         });
+
         // 点击checkbox
         $('#commentCheckbox').on('click', function () {
             $(this).find('.check-con').toggleClass('checked');
         });
+
         // 显示举报窗口
         $('.report-link').on('click', function () {
             method.compatibleIESkip('/node/feedback/feedback.html' + '?url=' + location.href, true);
         });
+
         // 取消或者关注
         $('#btn-collect').on('click', function () {
             var params = window.pageConfig.params
-        trackEvent('NE029', "fileNomalClick", 'click', {
-            domID:"sucMark",
-            domName:"收藏和取消收藏",
-            fileID:params.g_fileId,
-            fileName:params.file_title,
-            saleType:params.productType
-        });
+            trackEvent('NE029', "fileNomalClick", 'click', {
+                domID: "sucMark",
+                domName: "收藏和取消收藏",
+                fileID: params.g_fileId,
+                fileName: params.file_title,
+                saleType: params.productType
+            });
             if (!method.getCookie('cuk')) {
                 login.notifyLoginInterface(function (data) {
                     common.afterLogin(data);
@@ -232,8 +237,7 @@ define(function (require, exports, module) {
                 return;
             } else {
                 var fid = $(this).attr('data-fid');
-                
-                setCollect($(this))
+                setCollect($(this));
             }
 
         });
@@ -245,6 +249,9 @@ define(function (require, exports, module) {
 
         // 现在把 下载和购买逻辑都写在 download.js中 通过 后台接口的状态码来判断下一步操作
         $('body').on("click", ".js-buy-open", function (e) {
+            var productType = window.pageConfig.params.productType || '';
+            if (productType == 3) return false;
+
             var type = $(this).data('type');
             if (!method.getCookie("cuk")) {
                 //上报数据相关
@@ -271,13 +278,13 @@ define(function (require, exports, module) {
     }
 
     function sendEmail() {
-        var params = window.pageConfig.params 
+        var params = window.pageConfig.params
         trackEvent('NE029', "fileNomalClick", 'click', {
-            domID:"sendemail",
-            domName:"发送邮箱",
-            fileID:params.g_fileId,
-            fileName:params.file_title,
-            saleType:params.productType
+            domID: "sendemail",
+            domName: "发送邮箱",
+            fileID: params.g_fileId,
+            fileName: params.file_title,
+            saleType: params.productType
         });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
         // var reward = window.pageConfig.reward;
@@ -342,29 +349,29 @@ define(function (require, exports, module) {
                     window.pageConfig.freeAdv = freeAdv;
                     window.pageConfig.copy = copy;
                     if (freeAdv) { // 如果去广告
-                        $('.adv-container').each(function($index, $element) {
+                        $('.adv-container').each(function ($index, $element) {
                             $($element).remove();
                         });
                     }
                     if (copy) { // 如果可以复制
-                        $('.detail-holder').each(function($index, $element) {
+                        $('.detail-holder').each(function ($index, $element) {
                             $($element).remove();
                         })
                     }
-                } 
+                }
             }).fail(function (e) {
                 console.error(JSON.stringify(e));
             });
-        } 
+        }
     }
 
-    
+
     // 查询单个站点单个权限信息
     function getWebsitVipRightInfo() {
         var params = {
             site: 4,
             memberCode: "REWARD"
-        }; 
+        };
         $.ajax('/gateway/rights/vip/memberDetail', {
             type: "POST",
             data: JSON.stringify(params),
@@ -376,8 +383,8 @@ define(function (require, exports, module) {
                 window.pageConfig.reward = {
                     unit: res.data.memberPoint ? res.data.memberPoint.unit : 1,
                     value: res.data.memberPoint ? res.data.memberPoint.value : 0
-                } 
-            } 
+                }
+            }
         }).fail(function (e) {
             $.toast({
                 text: '发送失败，请重试',
@@ -536,7 +543,7 @@ define(function (require, exports, module) {
         var $dFooter = $(".detail-footer");
         var fixHeight = $detailHeader.height();
         var documentInnerHeight = $(window).height()
-        var fixRight = 1113 
+        var fixRight = 1113
         if (fixEle.length) {
             var fixTop = fixEle.offset().top - headerHeight;
         }
@@ -560,10 +567,10 @@ define(function (require, exports, module) {
                 // $('.fix-right-bannertop').hide()
                 // $('.fix-right-bannerbottom').hide()
                 fixEle.css({ "position": "fixed", "top": headerHeight, "z-index": "75" });
-                if(detailTop > pwDetail -documentInnerHeight){
-                    var tempHeight  = pwDetail  - fixRight -15
-                    fixEle.css({ "position": "absolute", "top": tempHeight }); 
-                }else{
+                if (detailTop > pwDetail - documentInnerHeight) {
+                    var tempHeight = pwDetail - fixRight - 15
+                    fixEle.css({ "position": "absolute", "top": tempHeight });
+                } else {
 
                 }
             } else {
@@ -603,8 +610,6 @@ define(function (require, exports, module) {
 
     // 新收藏或取消收藏接口
     function setCollect(_this) {
-       
-
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
@@ -617,11 +622,11 @@ define(function (require, exports, module) {
             success: function (res) {
                 var params = window.pageConfig.params
                 trackEvent('NE029', "fileNomalClick", 'click', {
-                    domID:"sucMark",
-                    domName:_this.hasClass("btn-collect-success") ? "取消收藏" : "收藏成功",
-                    fileID:params.g_fileId,
-                    fileName:params.file_title,
-                    saleType:params.productType
+                    domID: "sucMark",
+                    domName: _this.hasClass("btn-collect-success") ? "取消收藏" : "收藏成功",
+                    fileID: params.g_fileId,
+                    fileName: params.file_title,
+                    saleType: params.productType
                 });
 
                 if (res.code == '0') {
@@ -704,13 +709,10 @@ define(function (require, exports, module) {
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
         if (type === 'file') {
-
             params = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
-
             method.compatibleIESkip("/pay/payConfirm.html" + params, false);
         } else if (type === 'vip') {
             if (data && data.isVip == 1) { // 
-
                 sendEmail()
             } else {
                 var params = window.pageConfig.params
@@ -722,14 +724,10 @@ define(function (require, exports, module) {
                 } else {
                     var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '10' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref
                 }
-
-
                 method.compatibleIESkip('/pay/vip.html' + params, false);
             }
         } else if (type === 'privilege') {
-
             var params = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + '13' + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-
             method.compatibleIESkip('/pay/privilege.html' + params, false);
         }
     }

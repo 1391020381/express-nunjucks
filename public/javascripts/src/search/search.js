@@ -2,16 +2,13 @@ define(function (require, exports, moudle) {
     // var $ = require('$');
     var method = require("../application/method");
     var api = require('../application/api');
-    require('swiper');
     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
-    var   userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
+    var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
     if (cond) {
         cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
     }
 
     $('#search-detail-input').attr('placeholder', cond || '与人沟通的十大绝招')
-
-    
 
     conditionChange();
 
@@ -25,12 +22,13 @@ define(function (require, exports, moudle) {
 
     pageIndexChange();
 
+    initAssociateWords();
+
     //参数 数据
     var data = {};
 
-   
-
-
+    // 关键词联想
+    var searchList = [];
 
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
@@ -44,7 +42,6 @@ define(function (require, exports, moudle) {
             var inputValue = sconditionInput.val().trim() || '';
             inputValue = inputValue.replace(/\s+/g, "");
             if (/\S/.test(inputValue)) {
-                
                 btnHrefChange('cond', inputValue);
             }
         })
@@ -91,7 +88,6 @@ define(function (require, exports, moudle) {
                 $(item).on('click', function () {
                     $(item).addClass('active').siblings().removeClass('active');
                     var title = $searchItem.eq(index).find('.search-title').attr('value');
-                    console.log
                     var code = $(item).attr('value');
                     data[title] = code;
                     data.pageIndex = 1;
@@ -110,7 +106,6 @@ define(function (require, exports, moudle) {
         }
         window.location.href = href;
     }
-
 
     // 综合排序   上传时间 等切换  URL参数改变 页面改变
     function sort() {
@@ -158,21 +153,16 @@ define(function (require, exports, moudle) {
         })
     }
 
-
     //分页功能      一共20页；
     function pageIndexChange() {
         var officePage = $('.office-page');
         var btnpagelong = officePage.find('.btn-page-long');
         var btnpage = officePage.find('.btn-page');
         var pageele = officePage.find('.page-ele');
-
         var indexNum = pageele.length - 1;
-
         var params = method.getParam('pageIndex');
         var pageIndex = params - 1;
-
         pageIndex = pageIndex > 0 ? pageIndex : 0;
-
         pageele.eq(pageIndex).addClass('active').siblings().removeClass('active');
 
         if (pageIndex > 0) {
@@ -186,7 +176,6 @@ define(function (require, exports, moudle) {
             pageele.eq(pageIndex).show();
             pageele.eq(pageIndex + 1).show();
             pageele.eq(pageIndex + 2).show();
-
             pageIndex - 2 > 0 ? pageele.eq(pageIndex - 2).before('<span class="page-point">...</span>') : null;
             pageIndex + 2 < indexNum - 1 ? pageele.eq(pageIndex + 2).after('<span class="page-point">...</span>') : null;
         }
@@ -195,27 +184,21 @@ define(function (require, exports, moudle) {
         if (pageIndex === 0) {
             btnpagelong.eq(0).hide();
             btnpage.eq(0).hide();
-
             pageele.eq(1).show();
             pageele.eq(2).show();
             pageele.eq(3).show();
             pageele.eq(4).show();
-
             pageele.eq(4).after('<span class="page-point">...</span>');
-
         }
 
         if (pageIndex === indexNum) {
             btnpagelong.eq(1).hide();
             btnpage.eq(1).hide();
-
             pageele.eq(indexNum - 4).show();
             pageele.eq(indexNum - 3).show();
             pageele.eq(indexNum - 2).show();
             pageele.eq(indexNum - 1).show();
-
             pageele.eq(indexNum - 4).before('<span class="page-point">...</span>')
-
         }
 
         if (pageIndex > 0 && pageIndex < indexNum) {
@@ -228,42 +211,79 @@ define(function (require, exports, moudle) {
 
         //点击分页时
         pageele.click(function () {
-
             var index = $(this).attr('value') - 0 + 1;
-
             conditionHrefChange({ pageIndex: index });
-
-        })
-
+        });
 
         //首页
         btnpagelong.eq(0).click(function () {
             conditionHrefChange({ pageIndex: 1 });
-        })
+        });
 
         //下一页
         btnpagelong.eq(1).click(function () {
             if (!params) {
                 conditionHrefChange({ pageIndex: 2 });
-
             } else if ((pageIndex + 1) <= (indexNum + 1)) {
-
                 conditionHrefChange({ pageIndex: pageIndex + 2 });
-
             }
-
-        })
+        });
 
         // 上一页
         btnpage.eq(0).click(function () {
             conditionHrefChange({ pageIndex: pageIndex });
-        })
+        });
 
         //尾页
         btnpage.eq(1).click(function () {
             conditionHrefChange({ pageIndex: indexNum + 1 });
+        });
+    }
 
-        })
+    // 【A20 关键词联想】
+    function initAssociateWords() {
+        $('#search-detail-input').keyup(function () {
+            var value = this.value;
+            if (value) {
+                $.ajax({
+                    url: 'http://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonp: 'cb',
+                    jsonpCallback: 'soso',
+                    success: function (data) {
+                        $(".lately-list li").remove();
+                        searchList = data.s;
+                        var content = "";
+                        for (var i = 0, len = searchList.length; i < len; i++) {
+                            var el = searchList[i];
+                            content += '<li><a href ="/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(el)) + '" target="_blank">' + el + '</a></li>';
+                            $(".lately-list").html(content);
+                        }
+                    }
+                });
+            } else {
+                $(".lately-list").html('');
+            }
+        });
+
+        $('#search-detail-input').focus(function () {
+            if (!$(this).hasClass('input-focus')) {
+                $(this).addClass('input-focus')
+            }
+            $('.detail-lately').css({display: 'block'});
+        });
+
+        $('#search-detail-input').blur(function () {
+            var $this = $(this);
+            setTimeout(function() {
+                if ($this.hasClass('input-focus')) {
+                    $this.removeClass('input-focus');
+                }
+                $('.detail-lately').css({display: 'none'});
+            }, 200);
+        });
+
     }
 
 });

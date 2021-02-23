@@ -1,7 +1,7 @@
-define(function(require, exports, module) {
+define(function (require, exports, module) {
     // var $ = require("$");
     require('../cmd-lib/toast');
-    
+
     var img_tmp = require("./template/img_box.html");
     var changeText = require('./changeShowOverText.js').changeText
     var readMoreTextEvent = require('./changeShowOverText.js').readMoreTextEvent
@@ -19,20 +19,19 @@ define(function(require, exports, module) {
     var initReadPage = +window.pageConfig.page.initReadPage // 默认展示的页数
     var clientHeight = (document.documentElement.clientHeight || window.innerHeight) / 4; // 网页可见区域高度
     var hash = window.location.hash;
-  
+
     var action = {
         goSwiper: null,
         //判断是否已经是最后一页
-        isHideMore: function(pageNum) { // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
+        isHideMore: function (pageNum) { // 继续阅读的逻辑修改后, 在 试读完成后 修改    show-over-text的 文案
             if (pageNum >= limitPage && limitPage <= totalPage) { // 试读结束
                 $(".show-over-text").eq(0).show();
             } else if (pageNum >= imgTotalPage) {
                 $(".show-over-text").eq(1).show();
             }
-
         },
         //加载渲染
-        drawing: function(currentPage) {
+        drawing: function (currentPage) {
             if (imgTotalPage <= 2) return;
             $(".detail-pro-con div.article-page").eq(2).show();
             if (limitPage >= 4) {
@@ -101,7 +100,7 @@ define(function(require, exports, module) {
         },
 
         //判断地址是否有效
-        handleHtmlExpireUrl: function() {
+        handleHtmlExpireUrl: function () {
             var isoverdue = 0;
             var pageHtmlUrl = window.pageConfig.imgUrl[0];
             var st = pageHtmlUrl.indexOf('?Expires=');
@@ -128,7 +127,7 @@ define(function(require, exports, module) {
         $('.page-num').text(0)
     }
 
-    $(function() {
+    $(function () {
         //默认隐藏
         var $articlePages = $(".detail-pro-con div.article-page");
         //360
@@ -145,11 +144,11 @@ define(function(require, exports, module) {
                 } else if (hashPage <= 7) {
                     restPage = totalPage - 2;
                     loadMore();
-                    setTimeout(function() {
-                            var top = $(".detail-pro-con").find('div.article-page').eq(hashPage - 1).offset().top;
-                            $('body,html').animate({ scrollTop: top });
-                        }, 2000)
-                        //只加载指定页图片
+                    setTimeout(function () {
+                        var top = $(".detail-pro-con").find('div.article-page').eq(hashPage - 1).offset().top;
+                        $('body,html').animate({ scrollTop: top });
+                    }, 2000)
+                    //只加载指定页图片
                 } else {
                     restPage = totalPage - hashPage + 5;
                     // limitPage = imgTotalPage;
@@ -186,7 +185,7 @@ define(function(require, exports, module) {
                     }
                     $last.before(str);
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('body,html').animate({ scrollTop: $last.offset().top });
                     }, 2000);
                     if (parseInt(hashArr[1]) >= preRead) {
@@ -234,8 +233,8 @@ define(function(require, exports, module) {
         } else {
             var subdoc = null;
             try {
-                subdoc = embed_element.getSVGDocument(); 
-            } catch(e) {
+                subdoc = embed_element.getSVGDocument();
+            } catch (e) {
                 console.log('获取svg元素出错');
             }
             return subdoc;
@@ -245,18 +244,18 @@ define(function(require, exports, module) {
     // 绑定svgDom复制事件
     $(document).on('mousedown', '.detail-holder', function (e) {
         var holder = e.currentTarget;
-        holder.style.cursor = 'text'; 
-        var disX = e.clientX - holder.offsetLeft;                
+        holder.style.cursor = 'text';
+        var disX = e.clientX - holder.offsetLeft;
         var disY = e.clientY - holder.offsetTop;
-        var l, t;       
+        var l, t;
         // 创建选择框
         // var selectDiv = document.getElementById('selectDiv');
         // if (selectDiv) holder.removeChild(selectDiv);
         // var selDiv = createSelectorElement();
         // holder.appendChild(selDiv);      
         holder.onmousemove = function (ev) {
-            l = ev.clientX - disX;                               
-            t = ev.clientY - disY;   
+            l = ev.clientX - disX;
+            t = ev.clientY - disY;
             // selDiv.style.display = "";                        
             // selDiv.style.width = Math.abs(l) + "px";
             // selDiv.style.height = Math.abs(t) + 38 + "px";
@@ -284,43 +283,32 @@ define(function(require, exports, module) {
     window.onmousewheel = document.onmousewheel = scrollFunc;
 
     //点击加载更多
-    $(document).on('click', '[data-toggle="btnReadMore"]', function(e) {
+    $(document).on('click', '[data-toggle="btnReadMore"]', function (e) {
         e.stopPropagation()
         loadMore();
     });
 
     //点击下一页 >
-    $('.page-next').on('click', function() {
-
+    $('.page-next').on('click', function () {
         // var index = $('.page-input').val() - 0;
         var index = $('.page-input').text() - 0;
         if (limitPage === 2 && index === 2) return;
-
         var dataDetail = $('.data-detail');
-
-
         var drawingPage = (cPage + 5) <= limitPage ? (cPage + 5) : limitPage;
 
         if (index === 2) {
             action.drawing(drawingPage);
         }
-
         if (index == dataDetail.length && index < totalPage && index < limitPage) {
-
-
             action.drawing(drawingPage);
-
             var loadedPage = $(".detail-pro-con div.article-page").length;
             //如果已经到最后了
-
             if (loadedPage - limitPage >= 0) {
                 action.isHideMore(loadedPage);
             }
-
             if (loadedPage == totalPage) {
                 action.isHideMore(loadedPage);
             }
-
         }
 
         if (index < totalPage && index < limitPage) {
@@ -329,13 +317,12 @@ define(function(require, exports, module) {
 
                 $('body,html').animate({ scrollTop: position }, 200);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     // $('.page-input').val(index + 1);
                     $('.page-input').text(index + 1);
                 }, 100)
             }
         }
-
 
         if (dataDetail.length == limitPage && limitPage < totalPage) {
             $(".show-more-text").hide();
@@ -350,23 +337,19 @@ define(function(require, exports, module) {
             $(".article-mask").hide();
         }
 
-
     });
 
     // 点击上一页 <
-    $('.page-prev').on('click', function() {
-
+    $('.page-prev').on('click', function () {
         // var index = $('.page-input').val() - 0;
         var index = $('.page-input').text() - 0;
         if (index === 1) {
             return
         }
         var position = $(".detail-pro-con div.article-page").eq(index - 2).offset().top;
-
         if (position) {
             $('body,html').animate({ scrollTop: position }, 200);
-
-            setTimeout(function() {
+            setTimeout(function () {
                 // $('.page-input').val(index - 1);
                 $('.page-input').text(index - 1);
             }, 100)
@@ -374,14 +357,14 @@ define(function(require, exports, module) {
     });
 
     //enter键盘 按下事件
-    $(".page-input").keydown(function(event) {
+    $(".page-input").keydown(function (event) {
         if (event.keyCode === 13) {
             // var index = $('.page-input').val() - 0;
             var index = $('.page-input').text() - 0;
             if (index > limitPage) {
                 var $d_page_wrap = $('.d-page-wrap');
                 $d_page_wrap.removeClass('hide');
-                setTimeout(function() {
+                setTimeout(function () {
                     $d_page_wrap.addClass('hide');
                 }, 1500);
                 return;
@@ -396,12 +379,11 @@ define(function(require, exports, module) {
                     $('body,html').animate({ scrollTop: position }, 200);
                 }
             }
-
         }
     });
 
     //点击展开
-    $(document).on('click', '[data-toggle="btnExpandMore"]', function() {
+    $(document).on('click', '[data-toggle="btnExpandMore"]', function () {
         //移除固定高度
         $(".ppt-pic-con").css("height", "auto");
         $(this).parent().remove();
@@ -410,7 +392,7 @@ define(function(require, exports, module) {
     });
 
     //点击大图预览
-    $('div.detail-pro-con').delegate(".article-page", "click", function() {
+    $('div.detail-pro-con').delegate(".article-page", "click", function () {
         if (ptype === 'txt') {
             return
         }
@@ -420,11 +402,11 @@ define(function(require, exports, module) {
     });
 
     //点击隐藏大图
-    $(".code-source").click(function() {
+    $(".code-source").click(function () {
         $(".code-source").css("visibility", "hidden");
     });
 
-    $(function() {
+    $(function () {
         var iframeId = 'iframeu4078296_0';
         if ($.browser.msie && $.browser.version <= 9) {
             $('#' + iframeId).parent().hide();
@@ -447,16 +429,16 @@ define(function(require, exports, module) {
                     div.appendChild(ad);
                 }
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     //节流函数
     function throttle(fn) {
         var canRun = true; // 通过闭包保存一个标记
-        return function() {
+        return function () {
             if (!canRun) return; // 在函数开头判断标记是否为true，不为true则return
             canRun = false; // 立即设置为false
-            setTimeout(function() { // 将外部传入的函数的执行放在setTimeout中
+            setTimeout(function () { // 将外部传入的函数的执行放在setTimeout中
                 fn.apply(this, arguments);
                 // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。当定时器没有执行的时候标记永远是false，在开头被return掉
                 canRun = true;
@@ -518,28 +500,25 @@ define(function(require, exports, module) {
         if (loadedPage - limitPage >= 0 || loadedPage == totalPage) {
             action.isHideMore(loadedPage);
             if ($('.red-color').text() !== '点击可继续阅读 >') {
-                 
-              
                 trackEvent('SE035', "fileDetailBottomDownClick", 'click', {
-                    fileID:params.g_fileId,
-                    fileName:params.file_title,
-                    salePrice:params.productPrice,
-                    saleType:params.productType,
+                    fileID: params.g_fileId,
+                    fileName: params.file_title,
+                    salePrice: params.productPrice,
+                    saleType: params.productType,
                     fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                     fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
                 });
-
                 readMoreTextEvent()
-            }else{
+            } else {
                 trackEvent('NE029', "fileListNormalClick", 'click', {
-                    domID:'continueRead',
-                    domName:'继续阅读',
-                    fileID:params.g_fileId,
-                    fileName:params.file_title,
-                    saleType:params.productType
+                    domID: 'continueRead',
+                    domName: '继续阅读',
+                    fileID: params.g_fileId,
+                    fileName: params.file_title,
+                    saleType: params.productType
                 });
             }
-            changeText()
+            changeText();
         }
         // if (loadedPage == totalPage) {
         //     action.isHideMore(loadedPage);
@@ -549,7 +528,6 @@ define(function(require, exports, module) {
         //     changeText()
         // }
         loadMoreStyle()
-        
     }
 
     function mouseScroll() {

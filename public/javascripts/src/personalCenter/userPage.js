@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var paradigm4Report = require('../common/paradigm4-report');
     var pageParams = window.pageConfig.page || {};
     var userInfo = {};
-    var userData = '', currentPage = 1, sortField = 'downNum', format = '';
+    var userData = '';
     var recommendInfoItem = {}, paradigm4GuessData = [];
     var formatEnum = {
         'doc': 'DOC',
@@ -121,6 +121,24 @@ define(function (require, exports, module) {
         })
     }
 
+    // 返回分页链接构造器
+    function renderCurrentUrl() {
+        var sortField = method.getQueryString('sort');
+        var format = method.getQueryString('format') || '';
+        var curHref = window.location.href.split('?')[0];
+        var curQuery = '';
+        if (sortField && format) {
+            curQuery = '?sort=' + sortField + '&format=' + format + '&page='; 
+        } else if (!sortField && format) {
+            curQuery = '?format=' + format + '&page='; 
+        } else if (sortField && !format) {
+            curQuery = '?sort=' + sortField + '&page=';
+        } else {
+            curQuery = '?page=';
+        }
+        return curHref + curQuery;
+    }
+
     /**
      * 获取热门最新资料列表
      * @param current {number} 当前分页
@@ -131,14 +149,14 @@ define(function (require, exports, module) {
         var current = method.getQueryString('page') || 1;
         var sortField = method.getQueryString('sort') || 'downNum';
         var format = method.getQueryString('format') || '';
+        var currentUrl = renderCurrentUrl();
         
-
         $.ajax({
             url: api.user.getSearchList,
             type: "post",
             data: JSON.stringify({
                 currentPage: current,
-                pageSize: 2,
+                pageSize: 40,
                 sortField: sortField,   
                 format: format,
                 uid: pageParams.uid
@@ -156,10 +174,11 @@ define(function (require, exports, module) {
                         { 
                             uid: pageParams.uid,
                             list: res.data, 
-                            currentPage: currentPage, 
+                            currentPage: current, 
                             sortField: sortField,
                             format: format,
-                            formatName: formatEnum[format] || '格式'
+                            formatName: formatEnum[format] || '格式',
+                            currentUrl: currentUrl
                         }
                     );
                     $(".personal-container .left").html(_html);

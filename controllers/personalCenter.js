@@ -25,6 +25,12 @@ function userWxAuthState(req, res) {
     return server.$http(url, 'get', req, res, true)
 }
 
+function getOtherUserInfo(req, res) {
+    const url = appConfig.apiNewBaselPath + api.user.getOtherUser + '?uid=' + req.params.uid;
+    console.log('获取用户信息URL：', url)
+    return server.$http(url, 'get', req, res, true);
+}
+
 const renderPersonalCenter = async (req, res) => {
     let cuk = req.cookies.cuk
     let results = {
@@ -56,6 +62,31 @@ const renderPersonalCenter = async (req, res) => {
     render("personalCenter/index", results, req, res);
 };
 
+// 返回他人主页页面信息
+const renderUserPage = async (req, res) => {
+    let nickName = '';
+    try {
+        let otherUserInfo = await getOtherUserInfo(req, res);
+        if (otherUserInfo && otherUserInfo.code == 0) {
+            nickName = otherUserInfo.data ? otherUserInfo.data.nickName : '';
+        }
+    } catch (e) {
+        console.log(JSON.stringify(e))
+    }
+    render("personalCenter/userPage", {
+        uid: req.params.uid,
+        list: {
+            data: {
+                tdk: {
+                    title: nickName + '分享的资料 - 爱问共享资料',
+                    description: ' ',
+                    keywords: ' '
+                }
+            }
+        }
+    }, req, res);
+}
+
 module.exports = {
     home: cc(renderPersonalCenter),
     mydownloads: cc(renderPersonalCenter),
@@ -70,9 +101,5 @@ module.exports = {
     redirectionURL: function (req, res) {
         render("personalCenter/redirectionURL", {}, req, res);
     },
-    userPage: function (req, res) {
-        render("personalCenter/userPage", {
-            uid: req.params.uid
-        }, req, res);
-    },
+    userPage: cc(renderUserPage),
 };

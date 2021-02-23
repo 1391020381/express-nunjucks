@@ -1,4 +1,4 @@
-define(function(require, exports, module) { // 需要判断时候是否要登录 是否点击
+define(function (require, exports, module) { // 需要判断时候是否要登录 是否点击
     // 试读完毕后, 修改 继续阅读 按钮的文字 而且修改后 事件的逻辑 走下载逻辑
     var downLoad = require("./download").downLoad;
     var method = require("../application/method");
@@ -9,14 +9,14 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     var readMore = $('.red-color')
     var pageText = $('.page-text .endof-trial-reading')
     var pageNum = $('.page-num')
-   
+
     var preRead = window.pageConfig.page && window.pageConfig.page.preRead || 50
 
     var imgTotalPage = window.pageConfig.imgUrl.length
-        // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-        // 是否登录  method.getCookie('cuk')
-        // 是否可以下载  window.pageConfig.page.isDownload
-        // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
+    // productType		int	商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+    // 是否登录  method.getCookie('cuk')
+    // 是否可以下载  window.pageConfig.page.isDownload
+    // productPrice		long	商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
     var productType = window.pageConfig.page.productType
     var productPrice = window.pageConfig.page.productPrice
     var vipDiscountFlag = window.pageConfig.params.vipDiscountFlag
@@ -27,44 +27,46 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
     function readMoreTextEvent() { // 文件下载接口的返回数据
         if (method.getCookie('cuk')) {
             if (productType == 3) { // 发送邮箱
-                if (ui.isVip == '1') {
-                    sentEmail()
-                } else {
-                    goPage('vip')
-                }
-
+                // if (ui.isVip == '1') {
+                //     sentEmail();
+                // } else {
+                //     goPage('vip')
+                // }
+                scrollToHeader();
             } else {
-                downLoad()
-                
+                downLoad();
             }
         } else {
             method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
-           
             if (productType == 5) {
                 $("#footer-btn .js-buy-open").trigger("click")
             } else {
-                login.notifyLoginInterface(function(data) {
+                login.notifyLoginInterface(function (data) {
                     var loginType = window.loginType
-                    console.log('loginType:',loginType)
-                    if(loginType!=='qq'||loginType!=='weibo'){
+                    console.log('loginType:', loginType)
+                    if (loginType !== 'qq' || loginType !== 'weibo') {
                         method.delCookie("download-qqweibo", "/");
                     }
                     common.afterLogin(data);
                     if (productType == 3) { // 发送邮箱
-                        if (data.isVip == '1') {
-                            sentEmail()
-                        } else {
-                            goPage('vip')
-                        }
-
+                        // if (data.isVip == '1') {
+                        //     sentEmail();
+                        // } else {
+                        //     goPage('vip');
+                        // }
+                        scrollToHeader();
                     } else {
-                        downLoad(true)
-                        
+                        downLoad(true);
                     }
                 })
             }
         }
-       
+    }
+
+    // 【A20定位到详情页顶部，搜索框突出显示，并切换为输入状态】
+    function scrollToHeader() {
+        $('html,body').animate({scrollTop: 0}, 200);
+        $('.new-detail-header #search-detail-input').focus();
     }
 
     // 查询单个站点单个权限信息
@@ -72,7 +74,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
         var params = {
             site: 4,
             memberCode: "REWARD"
-        }; 
+        };
         $.ajax('/gateway/rights/vip/memberDetail', {
             type: "POST",
             data: JSON.stringify(params),
@@ -83,8 +85,8 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                 window.pageConfig.reward = {
                     unit: res.data.memberPoint ? res.data.memberPoint.unit : 1,
                     value: res.data.memberPoint ? res.data.memberPoint.value : 0
-                } 
-            } 
+                }
+            }
         }).fail(function (e) {
             $.toast({
                 text: '发送失败，请重试',
@@ -95,13 +97,13 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
 
     function sentEmail() {
         // 寻找相关资料  
-        var params = window.pageConfig.params 
+        var params = window.pageConfig.params
         trackEvent('NE029', "fileNomalClick", 'click', {
-            domID:"sendemail",
-            domName:"发送邮箱",
-            fileID:params.g_fileId,
-            fileName:params.file_title,
-            saleType:params.productType
+            domID: "sendemail",
+            domName: "发送邮箱",
+            fileID: params.g_fileId,
+            fileName: params.file_title,
+            saleType: params.productType
         });
         $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
 
@@ -124,19 +126,19 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
         //           .replace(/\$value/, reward.value),
         //     }).open();
         // }
-         
-        setTimeout(function(){
+
+        setTimeout(function () {
             $("#dialog-box").dialog({
                 html: $('#reward-mission-pop').html()
             }).open();
-        },50)
-        
+        }, 50)
+
         setTimeout(bindEventPop, 500)
 
         function bindEventPop() {
             console.log(6666)
-                // 绑定关闭悬赏任务弹窗pop
-             // 绑定邮箱的值
+            // 绑定关闭悬赏任务弹窗pop
+            // 绑定邮箱的值
             if ($('.m-reward-pop #email')) {
                 $('.m-reward-pop #email').val(window.pageConfig.email);
             }
@@ -152,7 +154,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
             });
 
             // submit提交
-            $('.m-reward-pop .submit-btn').on('click', function() {
+            $('.m-reward-pop .submit-btn').on('click', function () {
                 var userId = window.pageConfig.userId;
                 if (!userId) {
                     closeRewardPop();
@@ -183,14 +185,14 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                     data: JSON.stringify(params),
                     dataType: "json",
                     contentType: 'application/json'
-                }).done(function(res) {
+                }).done(function (res) {
                     if (res.code == 0) {
                         closeRewardPop();
                         $.toast({
                             text: '发送成功',
                             delay: 2000,
                         })
-                       // getWebsitVipRightInfo();
+                        // getWebsitVipRightInfo();
                     } else if (res.code == 401100) {
                         $.toast({
                             text: '该功能仅对VIP用户开放',
@@ -202,7 +204,7 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
                             delay: 2000
                         });
                     }
-                }).fail(function(e) {
+                }).fail(function (e) {
                     $.toast({
                         text: '发送失败，请重试',
                         delay: 2000
@@ -231,36 +233,36 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
         var status = window.pageConfig.page.status
         var fileDiscount = window.pageConfig.page.fileDiscount
         var currentPage = $('.detail-con').length
-
         var textContent = ''
         switch (productType) {
             case '5': // 付费
                 if (currentPage >= preRead || currentPage >= imgTotalPage) {
                     if (ui.isVip == '1' && vipDiscountFlag == '1') {
                         // textContent =  '¥'+ (productPrice*0.8).toFixed(2) +'获取该资料'
-                        textContent = '¥' + (productPrice * (fileDiscount / 100)).toFixed(2) + '获取该资料'
+                        textContent = '¥' + (productPrice * (fileDiscount / 100)).toFixed(2) + '获取该资料';
                     } else {
-                        textContent = '¥' + (+productPrice).toFixed(2) + '获取该资料'
+                        textContent = '¥' + (+productPrice).toFixed(2) + '获取该资料';
                     }
                     if (status == 2) {
-                        textContent = currentPage >= preRead || currentPage >= imgTotalPage ? '下载到本地阅读' : textContent
+                        textContent = currentPage >= preRead || currentPage >= imgTotalPage ? '下载到本地阅读' : textContent;
                     }
                 } else {
-                    textContent = '点击可继续阅读 >'
+                    textContent = '点击可继续阅读 >';
                 }
                 break
             case '1':
-                textContent = '下载到本地阅读'
+                textContent = '下载到本地阅读';
                 break
             case '3':
+                // 【A20添加修改，在线资料改为修改其他资料】
                 if (currentPage >= preRead || currentPage >= imgTotalPage) {
                     if (ui.isVip != '1') {
-                        textContent = '开通VIP寻找资料'
+                        textContent = '查找其他资料';
                     } else {
-                        textContent = '寻找资料'
+                        textContent = '查找其他资料';
                     }
                 } else {
-                    textContent = '点击可继续阅读 >'
+                    textContent = '点击可继续阅读 >';
                 }
                 break
             case '4':
@@ -277,17 +279,20 @@ define(function(require, exports, module) { // 需要判断时候是否要登录
             default:
 
         }
-        readMore.text(textContent)
-
+        readMore.text(textContent);
 
         if (currentPage >= preRead || currentPage >= imgTotalPage) {
-            pageText.show()
+            pageText.show();
+            // 【A20新增在线资料判断】
+            if (productType == 3) {
+                $('.endof-num-reading').hide();
+                pageText.text('该资料由网友上传，极少部分内容可浏览，试试');
+            }
         }
-        var currentPage = pageNum.text().trim()
+        var currentPage = pageNum.text().trim();
         if (currentPage == -1 || currentPage == 0) {
-
-            var page = imgTotalPage - preRead >= 0 ? imgTotalPage - preRead : 0
-            pageNum.text(page)
+            var page = imgTotalPage - preRead >= 0 ? imgTotalPage - preRead : 0;
+            pageNum.text(page);
         }
     }
 });

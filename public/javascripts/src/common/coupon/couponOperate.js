@@ -9,7 +9,8 @@ define(function (require, exports, module) {
 
     var couponObj = {
         _index: 0,
-        data: [],
+        data: [], // 此为可用的优惠券
+        undata: [], // 此为不可用的优惠券
         price: 10,
         maxCouponLimit: null,
         couponType: 2,//0是现金文档，1是vip
@@ -99,7 +100,11 @@ define(function (require, exports, module) {
                 type: type,
                 price: oprice
             }
-            var dataList = [];
+            // 筛选可用的优惠券【A20】
+            var dataList = {
+                validList: [],
+                invalidList: []
+            };
             $.get(url, data, function (res) {
                 if (res.code == 0) {
                     if (res.data) {
@@ -113,9 +118,12 @@ define(function (require, exports, module) {
                         }
                     }
                 }
-                var _html = template.compile(couponOptions)({ data: dataList });
+                var list = dataList.validList.concat(dataList.invalidList);
+                var _html = template.compile(couponOptions)({ data: list });
                 $('.coupon-down .select-text').html(_html);
-                couponObj.data = dataList;
+                // 判断是否可用【A20】
+                couponObj.data = dataList.validList;
+                couponObj.undata = dataList.invalidList;
                 couponObj.updateCouponOption(0);
             })
         },
@@ -134,10 +142,11 @@ define(function (require, exports, module) {
          */
         operateCouponModule: function () {
             $('.pay-coupon-wrap').on('click', '.chose-ele', function (event) {
-                if (couponObj.data.length > 0) {
+                var dataList = couponObj.data.concat(couponObj.undata);
+                if (dataList.length > 0) {
                     $('.coupon-down').toggle();
                     $('.select-wrap').toggleClass('select-wrap-down');
-                    event.stopPropagation()
+                    event.stopPropagation();
                 }
             })
         },
@@ -149,11 +158,20 @@ define(function (require, exports, module) {
             $('.coupon-down').on('click', '.select-ele', function (event) {
                 $('.coupon-down').hide();
                 event.stopPropagation();
-                var _index = $(this).index();
+                // 相对可选元素的位置【A20】
+                var _index = $(this).index('.select-ele');
                 $('.select-wrap').toggleClass('select-wrap-down');
                 couponObj._index = _index;
                 couponObj.useCouponFlag = 1;//初始化
                 couponObj.updateCouponOption(_index);
+            });
+
+            $('.coupon-down').on('click', '.select-ele-disable', function (event) {
+                event.stopPropagation();
+                $.toast({
+                    text: '该券不满足使用条件',
+                    delay: 2000,
+                });
             });
         },
 
@@ -327,28 +345,46 @@ define(function (require, exports, module) {
         },
 
         /**
-         * 删选大于订单金额的优惠券
+         * 删选大于订单金额的优惠券【筛选可用/不可用】
          */
         delInvalidData: function (data, oprice) {
             var data = JSON.parse(JSON.stringify(data))
             var oprice = oprice ? oprice : 0;
-            var invalidIndex = []
-            data.map(function (v, i) {
-                if (v.couponAmount) {
-                    if (v.couponAmount - oprice > 0 || v.couponAmount == oprice) {
-                        invalidIndex.push(i);
+            var validList = [], invalidList = [];
+            // data.map(function (v, i) {
+            //     if (v.couponAmount) {
+            //         if (v.couponAmount - oprice > 0 || v.couponAmount == oprice) {
+            //             invalidIndex.push(i);
+            //         }
+            //     }
+            // })
+            // if (invalidIndex.length > 0) {
+            //     for (var index = invalidIndex.length - 1; index > -1; index--) {
+            //         data.splice(invalidIndex[index], 1)
+            //     }
+            // }
+            // return data;
+            for (var index = 0; index < data.length; index++) {
+                var element = data[index];
+                if (element.couponAmount && element.couponAmount - oprice >= 0) {
+                    element['vStatus'] = 3;
+                    invalidList.push(element);
+                } else {
+                    if (element.vStatus == 3) {
+                        invalidList.push(element);
+                    } else {
+                        validList.push(element);
                     }
                 }
-            })
-            if (invalidIndex.length > 0) {
-                for (var index = invalidIndex.length - 1; index > -1; index--) {
-                    data.splice(invalidIndex[index], 1)
-                }
             }
-            return data;
-        }
-
+            return {
+                validList: validList,
+                invalidList: invalidList
+            };
+        },
+        
     }
+
     couponObj.initial();
     return couponObj
 })

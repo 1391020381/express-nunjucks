@@ -8,36 +8,33 @@
 <meta name="force-rendering" content="webkit"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-
-
-
 {%if results.isDetailRender%}
-   {% if results.statusCode == '404' %}
-     <title>404错误 - 爱问共享资料</title>
+    {% if results.statusCode == '404' %}
+    <title>404错误 - 爱问共享资料</title>
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/> 
-   {%else%}
+    {%else%}
     <title>{{results.list.data.title}} - 爱问共享资料</title>
     <meta name="description" content="爱问共享资料提供优质的{{results.list.data.title}}下载，可编辑，可替换，更多{{results.list.data.title}}资料，快来爱问共享资料下载!" />
-   <meta name="keywords" content="{{results.list.data.title}}" />
+    <meta name="keywords" content="{{results.list.data.title}}" />
     <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/ishare_public.css"/> 
     {% endif %}
 {%elif results.isCategoryRender%} 
-    {% if results.reqParams.currentPage > 1%}
-        <title>{{ results.tdk.data.title + '_第'+results.reqParams.currentPage+'页_爱问共享资料' if results.tdk.data.title else '爱问共享资料_在线资料分享平台'}}</title>
+    {%if results.reqParams.currentPage > 1%}
+    <title>{{ results.tdk.data.title + '_第'+results.reqParams.currentPage+'页_爱问共享资料' if results.tdk.data.title else '爱问共享资料_在线资料分享平台'}}</title>
     {%else%}
-     <title>{{ results.tdk.data.title if results.tdk.data.title else '爱问共享资料_在线资料分享平台'}}</title>
+    <title>{{ results.tdk.data.title if results.tdk.data.title else '爱问共享资料_在线资料分享平台'}}</title>
     {%endif%}
     <meta name="description" content="{{ results.tdk.data.description if results.tdk.data.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
-   <meta name="keywords" content="{{ results.tdk.data.keywords if results.tdk.data.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
-   <link rel="canonical" href="https://ishare.iask.sina.com.cn/c/{{results.reqParams.cid}}.html"/>
+    <meta name="keywords" content="{{ results.tdk.data.keywords if results.tdk.data.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
+    <link rel="canonical" href="https://ishare.iask.sina.com.cn/c/{{results.reqParams.cid}}.html"/>
 {%elif results.inialPrex%}
     <title>{{results.inialPrex}}{{'字母' if results.inialPrex !='0-9'}}最新{%if results.type == 'f'%}文档{%else%}专题{%endif%}索引第{{results.currentPage}}页-爱问共享资料</title>
-   {%elif results.payment == '1'%}
+{%elif results.payment == '1'%}
     <title>订单详情</title>
-    {%else%}
-     <title>{{ results.list.data.tdk.title if results.list.data.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
+{%else%}
+    <title>{{ results.list.data.tdk.title if results.list.data.tdk.title else '爱问共享资料_在线资料分享平台'}}</title>
     <meta name="description" content="{{ results.list.data.tdk.description if results.list.data.tdk.description else '爱问共享资料是爱问自主研发的资料共享平台，包含了千万网友上传的多种格式的文档，同时也提供海量资料的免费下载，内容涉及教育资源、专业资料、IT资料、娱乐生活、经济管理、办公文书、游戏资料等。'}}" />
-   <meta name="keywords" content="{{ results.list.data.tdk.keywords if results.list.data.tdk.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
+    <meta name="keywords" content="{{ results.list.data.tdk.keywords if results.list.data.tdk.keywords else '爱问共享资料,共享资料,爱问共享资料'}}" />
 {%endif%}
 
 

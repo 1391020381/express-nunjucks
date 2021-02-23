@@ -1,29 +1,29 @@
-define(function(require , exports , module){
+define(function (require, exports, module) {
     var method = require("../application/method");
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = false;
     var callback = null;
-    isLogin(callback,isAutoLogin)
+    isLogin(callback, isAutoLogin)
     require('./search');
     require('./banner')
-    
+
     require('../application/suspension')
     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
     trackEvent('NE030', "pageTypeView", 'page', {
-        pageID:'SR',
-        pageName:"搜索结果页"
+        pageID: 'SR',
+        pageName: "搜索结果页"
     });
     trackEvent('SE015', "searchPageView", 'page', {
-        keyWords:cond
+        keyWords: cond
     });
-    $('.landing-txt-list .li-file').on('click',function(){
+    $('.landing-txt-list .li-file').on('click', function () {
         var fileID = $(this).attr('data-fileId')
         var fileName = $(this).attr('data-fileName')
         trackEvent('SE016', "searchResultClick", 'click', {
-            filePostion:$(this).index() + 1,
-            keyWords:cond,
-            fileID:fileID,
-            fileName:fileName
+            filePostion: $(this).index() + 1,
+            keyWords: cond,
+            fileID: fileID,
+            fileName: fileName
         });
     })
 });

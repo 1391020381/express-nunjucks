@@ -108,7 +108,8 @@ module.exports = function (grunt) {
             development: {
                 options: {
                     sourceMap: true,
-                    compress: true
+                    compress: true,
+                    ieCompat: true,
                 },
                 files: {
                     "../stylesheets/ishare_public.css": "../stylesheets/ishare_public.less",
@@ -123,6 +124,7 @@ module.exports = function (grunt) {
                     "../stylesheets/rights/rights.css": "../stylesheets/rights/rights.less",
                     "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                     "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
+                    "../stylesheets/upload/upload.css": "../stylesheets/upload/upload.less",
                     "../stylesheets/personalCenter/personalCenter.css": "../stylesheets/personalCenter/personalCenter.less",
                     "../stylesheets/personalCenter/userPage.css": "../stylesheets/personalCenter/userPage.less",
                     "../stylesheets/authentication/index.css": "../stylesheets/authentication/index.less",

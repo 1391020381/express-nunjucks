@@ -14,16 +14,25 @@
                     <div class="cate-menu-content">
                         {% for item in results.cateList %}
                         <div class="menu-content-item">
+                            {% if item.url %}
                             <a class="item-title" title="{{ item.name }}" 
-                                href="/c/{{item.url if item.url else item.nodeCode}}.html" target="_blank">
+                                href="/c/{{item.url}}.html" target="_blank">
                                 <span class="item-title-icon"></span>
                                 <span class="item-title-text">{{ item.name }}</span>
                             </a> 
+                            {% else %}
+                            <a class="item-title" title="{{ item.name }}" 
+                                href="/c/{{item.nodeCode}}/" target="_blank">
+                                <span class="item-title-icon"></span>
+                                <span class="item-title-text">{{ item.name }}</span>
+                            </a> 
+                            {% endif %}
+                            
                             {% if item.frontAllCategoryVOList and item.frontAllCategoryVOList.length %}
                             <div class="item-content">
                                 {% for menu in item.frontAllCategoryVOList %}
                                 <a class="item-content-link" title="{{ menu.name }}"
-                                    href="/c/{{menu.nodeCode}}.html" target="_blank">{{ menu.name }}</a>
+                                    href="/c/{{menu.nodeCode}}/" target="_blank">{{ menu.name }}</a>
                                 {% endfor %}
                             </div>    
                             {% endif %}
@@ -93,14 +102,12 @@
                             {% if results.type %}
 
                             {%else%}
-                           
-                                  <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                            <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
                             {%endif%}
                             <a class="loginOut">退出</a>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>

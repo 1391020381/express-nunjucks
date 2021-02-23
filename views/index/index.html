@@ -62,7 +62,7 @@
                                       {% if item.url%}
                                         <a href="{{item.url}}" target="_blank">{{item.name.slice(0,5)}}</a>
                                       {%else%}
-                                       <a href="/c/{{item.nodeCode}}.html" target="_blank">{{item.name.slice(0,5)}}</a>
+                                       <a href="/c/{{item.nodeCode}}/" target="_blank">{{item.name.slice(0,5)}}</a>
                                       {%endif%}
                                      
                                     </h4>
@@ -73,7 +73,7 @@
                             </div>
                           
                             {% if item.frontAllCategoryVOList.length>0 %}
-                                <div   class="category-more">
+                                <div class="category-more">
                                 <span></span>
                                 <span></span>
                                 <div class="more-inter">
@@ -83,7 +83,7 @@
                                             {% if label.url%}
                                               <a href="{{label.url}}" target="_blank">{{label.name}}</a>
                                              {%else%}
-                                              <a href="/c/{{label.nodeCode}}.html" target="_blank">{{label.name}}</a>
+                                              <a href="/c/{{label.nodeCode}}/" target="_blank">{{label.name}}</a>
                                              {%endif%}
                                         </li>
                                         {%endfor%}
@@ -130,7 +130,7 @@
         <div class="search-container">
             <div class="header-search">
                 <div class="search-bar">
-                    <input type="text" class="search-input" value="{{results.hotSearchWord[0].copywriting1 if results.hotSearchWord[0]}}">
+                    <input type="text" class="search-input" placeholder="{{results.hotSearchWord[0].copywriting1 if results.hotSearchWord[0]}}">
                     <!-- <a class="btn-office-search btn-search"><i class="icon-search"></i>搜索</a> -->
                     <a class="btn-office-search btn-search"><i class="icon-search"></i></a>
                     <div class="detail-lately">
