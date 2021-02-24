@@ -4,7 +4,10 @@ define(function (require, exports, module) {
     var checkLogin = require("../application/checkLogin");
     var method = require("../application/method");
     var api = require("./api");
-    var loginTypeContent = require('../common/loginType')
+    var loginTypeContent = require('../common/loginType');
+    // 【A20热词搜索】
+    var associateWords = require('../common/associateWords');
+    associateWords.init();
     $("#unLogin").on("click", function () {
         checkLogin.notifyLoginInterface(function (data) {
             refreshTopBar(data);
@@ -59,7 +62,7 @@ define(function (require, exports, module) {
             }
         }
     });
-    
+
     var $detailHeader = $(".new-detail-header");
     var headerHeight = $detailHeader.height();
     $(window).scroll(function () {
@@ -171,7 +174,7 @@ define(function (require, exports, module) {
         }
         $('.loginRedPacket-dialog').hide()
     })
-    
+
     $(document).on('click', '.loginRedPacket-dialog .loginRedPacket-content', function (e) { // 区分路径 首页  详情A  详情B
         trackEvent('NE002', "normalClick", 'click', {
             domID: 'confirm',
@@ -231,7 +234,6 @@ define(function (require, exports, module) {
             }
         })
     }
-
 
     return {
         refreshTopBar: refreshTopBar,

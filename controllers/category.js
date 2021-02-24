@@ -207,15 +207,14 @@ function getList(req, res, categoryId, sortField, format, currentPage, specifics
 }
 
 function getTdk(req, res, categoryId, sIds) {
-    return {};
-    // req.body = {
-    //     attributes: [...sIds],
-    //     classId: categoryId,
-    //     page: 1,
-    //     site: 4,
-    //     terminal: 0
-    // };
-    // return server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl, 'post', req, res, true);
+    req.body = {
+        attributes: [...sIds],
+        classId: categoryId,
+        page: 1,
+        site: 4,
+        terminal: 0
+    };
+    return server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl, 'post', req, res, true);
 }
 
 // 获取跳转链接
@@ -275,7 +274,7 @@ function handleResultData(
         // 页码处理
         pageObj = results.list.data;
         var totalPages = pageObj.totalPages;
-        totalPages = totalPages > 20 ? 20 : totalPages;
+        totalPages = totalPages > 40 ? 40 : totalPages;
         if (pageObj.rows.length > 0) {
             if (currentPage > 5) {
                 pageArr_f = [1, '···'];

@@ -17,42 +17,44 @@ define(function (require, exports, module) {
     if (recommendConfig.code == '0') {
       var sceneID = recommendConfig.data[0].useId
       var paradigm4GuessRecommendConfig = $.extend({}, recommendConfig.data[0], { requestId: requestId })
-      $ajax('/detail/like/' + sceneID, 'POST', params).then(function (res) {
-        if (res.code == '200') {
-          window.paradigm4Data = {
-            paradigm4Guess: res.data
-          }
-          var paradigm4GuessData = []
-          $.each(res.data, function (index, item) {
-            paradigm4GuessData.push({
-              id: item.itemId || '',
-              format: item.categoryLevel5 || '',
-              name: item.title || '',
-              cover_url: item.coverUrl || '',
-              url: item.url || '',
-              item_read_cnt: item.item_read_cnt,
-              context: item.context
+      if (sceneID) {
+        $ajax('/detail/like/' + sceneID, 'POST', params).then(function (res) {
+          if (res.code == '200') {
+            window.paradigm4Data = {
+              paradigm4Guess: res.data
+            }
+            var paradigm4GuessData = []
+            $.each(res.data, function (index, item) {
+              paradigm4GuessData.push({
+                id: item.itemId || '',
+                format: item.categoryLevel5 || '',
+                name: item.title || '',
+                cover_url: item.coverUrl || '',
+                url: item.url || '',
+                item_read_cnt: item.item_read_cnt,
+                context: item.context
+              })
             })
-          })
-          var guessYouLikeTemplate = template.compile(guessYouLike)({ paradigm4GuessData: paradigm4GuessData });
-
-          $('.guess-you-like-warpper').html(guessYouLikeTemplate)
-
-          var guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
-          var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
-          var currentPage = $('.detail-con').length
-          var temp = guessYouLikeHeight + userEvaluation + 30
-          var bottomHeight = (currentPage == 1 || currentPage == 2 || currentPage == 3) ? temp + 123 : temp
-          $('.detail-footer').css({
-            'position': 'absolute',
-            'left': '0px',
-            'right': '0px',
-            'bottom': (bottomHeight) + 'px',
-            'width': '890px'
-          })
-        }
-        action(paradigm4GuessData, paradigm4GuessRecommendConfig);
-      })
+            var guessYouLikeTemplate = template.compile(guessYouLike)({ paradigm4GuessData: paradigm4GuessData });
+  
+            $('.guess-you-like-warpper').html(guessYouLikeTemplate)
+  
+            var guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0
+            var userEvaluation = $('.user-comments-container').outerHeight(true) || 0
+            var currentPage = $('.detail-con').length
+            var temp = guessYouLikeHeight + userEvaluation + 30
+            var bottomHeight = (currentPage == 1 || currentPage == 2 || currentPage == 3) ? temp + 123 : temp
+            $('.detail-footer').css({
+              'position': 'absolute',
+              'left': '0px',
+              'right': '0px',
+              'bottom': (bottomHeight) + 'px',
+              'width': '890px'
+            })
+          }
+          action(paradigm4GuessData, paradigm4GuessRecommendConfig);
+        })
+      }
     }
   })
 

@@ -12,13 +12,16 @@ define(function (require, exports, module) {
     var utils = require("../cmd-lib/util");
     var login = require("../application/checkLogin");
     var common = require('./common');
+    
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName
     var page = window.pageConfig.page
-    var params = window.pageConfig.params
-    var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
+    var params = window.pageConfig.params;
 
-    handleBaiduStatisticsPush('fileDetailPageView')
+    // 【A20删除详情页的百度统计埋点】
+    // var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
+    // handleBaiduStatisticsPush('fileDetailPageView')
+
     trackEvent('NE030', "pageTypeView", 'page', {
         pageID: 'FD',
         pageName: '资料详情'
@@ -39,7 +42,7 @@ define(function (require, exports, module) {
         if (fileName) {
             fileName = fileName.length > 12 ? fileName.slice(0, 12) + '...' : fileName
         }
-        $('#search-detail-input').attr('placeholder', fileName || '与人沟通的十大绝招')
+        $('#search-detail-input').attr('placeholder', fileName || '与人沟通的十大绝招');
         // 初始化显示
         pageInitShow();
         // 访问记录
@@ -180,6 +183,11 @@ define(function (require, exports, module) {
             searchFn(_val);
         });
 
+        $('.btn-new-search').on('click', function() {
+            var _val = $search_detail_input.val() || $search_detail_input.attr('placeholder');
+            searchFn(_val);
+        })
+
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
@@ -259,7 +267,6 @@ define(function (require, exports, module) {
                     method.setCookieWithExpPath('_loginOffer', $(this).attr("loginOffer"), 1000 * 60 * 60 * 1, '/');
                 }
                 method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/');  // qq weibo 登录添加标记
-
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
                 if (pageConfig.params.productType == '5' && type == "file") {
                     //相关逻辑未登陆购买逻辑移到buyUnlogin.js
@@ -761,7 +768,7 @@ define(function (require, exports, module) {
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
 
-        method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), false);
+        method.compatibleIESkip("/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword)), true);
     }
     module.exports = {
         goPage: goPage

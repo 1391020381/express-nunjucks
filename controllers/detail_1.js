@@ -10,29 +10,29 @@ const recommendConfigInfo = require('../common/recommendConfigInfo')
 const Api = require("../api/api");
 const appConfig = require("../config/app-config");
 
-
-const defaultResultsData = { list: { data: { svgFlag: true, supportSvg: true, fileContentList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
+const defaultResultsData = { list: { data: { svgFlag: true, supportSvg: true, contentPathList: [], svgPathList: [], isDownload: 'no' } } } // 确保私有 删除  404 显示用户信息 用户可以登录
 
 const renderPage = cc(async (req, res) => {
-    
-    let userID = req.cookies.userId ||req.cookies.visitor_id ||  Math.random().toString().slice(-15); //标注用户的ID
-    
+
+    let userID = req.cookies.userId || req.cookies.visitor_id || Math.random().toString().slice(-15); //标注用户的ID
+
     const redirectUrl = await getRedirectUrl(req, res)
 
     if (redirectUrl.data) {
         if (redirectUrl.data.targetLink) {
             var url = redirectUrl.data.type == 1 ? req.protocol + '://' + redirectUrl.data.targetLink : req.protocol + '://' + req.hostname + '/f/' + redirectUrl.data.targetLink + '.html';
-            
-            res.redirect(301,url);
+            res.redirect(301, url);
         }
     }
     const list = await getList(req, res)
+
     if (list.code == 'G-404') { // 文件不存在
         var results = Object.assign({}, defaultResultsData, { showFlag: false, statusCode: '404', isDetailRender: true })
         res.status(404)
         render("detail/index", results, req, res);
         return
     }
+
     if (list.data) {
         let uid = req.cookies.ui ? JSON.parse(req.cookies.ui).uid : ''
         let cuk = req.cookies.cuk
@@ -40,11 +40,9 @@ const renderPage = cc(async (req, res) => {
         let fileInfo = data.fileInfo
         if (fileInfo.site == 0) {
             // 跳转到办公携带参数修改
-
             var officeParams = 'utm_source=ishare&utm_medium=ishare&utm_content=ishare&utm_campaign=ishare&utm_term=ishare';
-            
-            res.redirect(301,`https://office.iask.com/f/${fileInfo.id}.html?` + officeParams);
-            return
+            res.redirect(301, `https://office.iask.com/f/${fileInfo.id}.html?` + officeParams);
+            return;
         }
         if (fileInfo.showflag !== 'y') { // 文件删除
             var searchQuery = `?ft=all&cond=${encodeURIComponent(encodeURIComponent(fileInfo.title))}`
@@ -64,17 +62,22 @@ const renderPage = cc(async (req, res) => {
                 return
             }
         }
+        // 【A20如果该文件是txt格式】
+        if (fileInfo.format.toLowerCase() === 'txt') {
+            const txtContentList = await fetchTxtContentList(data.transcodeInfo.contentPathList);
+            list.data.transcodeInfo.contentPathList = [...txtContentList];
+        }
     }
-    
+
     const topBannerList = await getTopBannerList(req, res)
     const searchBannerList = await getSearchBannerList(req, res)
     const bannerList = await getBannerList(req, res, list)
-  
+
     const crumbList = await getCrumbList(req, res, list)
-    const cateList = await getCategoryList(req, res);  
+    const cateList = await getCategoryList(req, res);
     const filePreview = await getFilePreview(req, res, list)
-   
-    handleDetalData({req,res,redirectUrl,list,topBannerList,searchBannerList,bannerList,cateList,filePreview,crumbList,userID})
+
+    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID })
 })
 
 
@@ -94,7 +97,7 @@ function getList(req, res) {
         clientType: 0,
         fid: req.params.id,
         sourceType: 0,
-        site:4
+        site: 4
     }
     return server.$http(appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk, 'post', req, res, true)
 }
@@ -148,9 +151,31 @@ function getFilePreview(req, res, list) {
     return server.$http(appConfig.apiNewBaselPath + Api.file.preReadPageLimit, 'post', req, res, true)
 }
 
+// 获取txt列表
+function fetchTxtContentList(contentPathList) {
+    if (contentPathList.length) {
+        let promiseList = contentPathList.map(item => {
+            return fetchContentForTxt(item);
+        })
+        return new Promise((resolve) => {
+            Promise.all(promiseList).then(resArr => {
+                resolve(resArr);
+            }).catch(() => {
+                console.log('获取txt数据出错！');
+                resolve([]);
+            })
+        });
+    }
+}
 
-function handleDetalData({ req,res,redirectUrl,list,topBannerList,searchBannerList,bannerList,cateList,recommendInfo,filePreview,crumbList,userID}) {
- 
+// 获取txt数据
+function fetchContentForTxt(txtPath) {
+    return server.$httpTxt(txtPath);
+}
+
+
+function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID }) {
+
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
             topBannerList = []
@@ -174,12 +199,12 @@ function handleDetalData({ req,res,redirectUrl,list,topBannerList,searchBannerLi
         })
     }
 
-    // 
     let fileInfo = list.data.fileInfo
     fileInfo.readTimes = Math.ceil((fileInfo.praiseNum + fileInfo.collectNum) * 1.9)
     var list = Object.assign({}, { data: Object.assign({}, list.data.fileInfo, list.data.transcodeInfo) })
-    if (!list.data.fileContentList) {
-        list.data.fileContentList = []
+
+    if (!list.data.contentPathList) {
+        list.data.contentPathList = []
         list.data.isConvert = 0
     }
     if (!list.data.svgPathList) {
@@ -187,7 +212,6 @@ function handleDetalData({ req,res,redirectUrl,list,topBannerList,searchBannerLi
         list.data.isConvert = 0
     }
 
-    
     var results = Object.assign({}, {
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
@@ -198,21 +222,20 @@ function handleDetalData({ req,res,redirectUrl,list,topBannerList,searchBannerLi
         recommendInfo,
         filePreview,
     }, { list: list });
-    
-   
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
     results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
     results.crumbList.data.isGetClassType = fileInfo.isGetClassType || 0;
-    getInitPage(req, results);  
-    results.showFlag = true
-    results.isDetailRender = true
+    getInitPage(req, results);
+    results.showFlag = true;
+    results.isDetailRender = true;
     
-    if (results.list.data && results.list.data.abTest) {
-        render("detail-b/index", results, req, res);
-    } else {
-        render("detail/index", results, req, res);
-    }
+    render("detail/index", results, req, res);
+    // if (results.list.data && results.list.data.abTest) {
+    //     render("detail/index", results, req, res);
+    // } else {
+    //     render("detail/index", results, req, res);
+    // }
 }
 
 // 初始页数 计算页数,去缓存
@@ -220,7 +243,7 @@ function getInitPage(req, results) {
     let filePreview = results.filePreview;
     if (filePreview) {
         if (results.list.data.state === 3) {   // 1:免费文档 2:下载券文档 3:付费文档 4:仅供在线阅读 5:VIP免费文档 6:VIP特权文档
-            let content = results.list.data.url || results.list.data.fileContentList[0];  //  fileContentList 存储文件所有内容（不超过50页）；Array的每个值代表一个结果
+            let content = results.list.data.url || results.list.data.contentPathList[0];  //  contentPathList 存储文件所有内容（不超过50页）；Array的每个值代表一个结果
             let bytes = filePreview.data.pinfo.bytes || {}; // bytes 转码预览html文本md5
             let newImgUrl = [];
             for (var key in bytes) {
@@ -229,13 +252,13 @@ function getInitPage(req, results) {
                 var newUrl = changeURLPar(content, 'range', param);
                 newImgUrl.push(newUrl);
             }
-            results.list.data.fileContentList = newImgUrl;
+            results.list.data.contentPathList = newImgUrl;
         }
         // 接口限制可预览页数
         if (!results.filePreview.data) {
             results.filePreview.data = {}
         }
-        let fileContentList = results.list.data && results.list.data.fileContentList
+        let contentPathList = results.list.data && results.list.data.contentPathList
         let preRead = results.filePreview.data.preRead = results.list.data.preRead
 
         if (!preRead) {
@@ -243,7 +266,7 @@ function getInitPage(req, results) {
         }
         // 页面默认初始渲染页数
 
-        let initReadPage = Math.min(fileContentList.length, preRead, 4);
+        let initReadPage = Math.min(contentPathList.length, preRead, 4);
         // 360传递页数
         let pageFrom360 = req.query.page || 0;
         if (pageFrom360 > 0) {
@@ -259,7 +282,6 @@ function getInitPage(req, results) {
         results.filePreview.data.initReadPage = initReadPage;
     }
 }
-
 
 // 修改参数 有参数则修改 无则加
 function changeURLPar(url, arg, arg_val) {

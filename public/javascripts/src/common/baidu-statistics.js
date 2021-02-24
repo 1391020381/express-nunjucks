@@ -88,9 +88,9 @@ define(function (require, exports, moudle) {
         if (eventName == 'loginResult') {
             params = $.extend(temp, { loginType: params.loginType, userid: params.userid, loginResult: params.loginResult })
         }
-
         _hmt.push(['_trackCustomEvent', eventName, params]);
         console.log('百度统计:', eventName, params)
+        return false;
 
     }
     return {

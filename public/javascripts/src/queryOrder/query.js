@@ -295,10 +295,12 @@ define(function (require, exports, module) {
         $('#search-detail-input').on('focus', function () {
             $('.detail-search-info').hide();
         });
+
         // 点击checkbox
         $('#commentCheckbox').on('click', function () {
             $(this).find('.check-con').toggleClass('checked');
         });
+        
         // 显示举报窗口
         $('.report-link').on('click', function () {
             $("#dialog-box").dialog({

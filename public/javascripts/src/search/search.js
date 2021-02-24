@@ -8,7 +8,7 @@ define(function (require, exports, moudle) {
         cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
     }
 
-    $('#search-detail-input').attr('placeholder', cond || '与人沟通的十大绝招')
+    $('#search-detail-input').val(cond || '与人沟通的十大绝招');
 
     conditionChange();
 
@@ -22,14 +22,9 @@ define(function (require, exports, moudle) {
 
     pageIndexChange();
 
-    initAssociateWords();
-
     //参数 数据
     var data = {};
-
-    // 关键词联想
-    var searchList = [];
-
+    
     //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
     //点击 enter时逻辑
     function setInputValue() {
@@ -240,50 +235,5 @@ define(function (require, exports, moudle) {
         });
     }
 
-    // 【A20 关键词联想】
-    function initAssociateWords() {
-        $('#search-detail-input').keyup(function () {
-            var value = this.value;
-            if (value) {
-                $.ajax({
-                    url: 'http://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value,
-                    type: 'GET',
-                    dataType: 'jsonp',
-                    jsonp: 'cb',
-                    jsonpCallback: 'soso',
-                    success: function (data) {
-                        $(".lately-list li").remove();
-                        searchList = data.s;
-                        var content = "";
-                        for (var i = 0, len = searchList.length; i < len; i++) {
-                            var el = searchList[i];
-                            content += '<li><a href ="/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(el)) + '" target="_blank">' + el + '</a></li>';
-                            $(".lately-list").html(content);
-                        }
-                    }
-                });
-            } else {
-                $(".lately-list").html('');
-            }
-        });
-
-        $('#search-detail-input').focus(function () {
-            if (!$(this).hasClass('input-focus')) {
-                $(this).addClass('input-focus')
-            }
-            $('.detail-lately').css({display: 'block'});
-        });
-
-        $('#search-detail-input').blur(function () {
-            var $this = $(this);
-            setTimeout(function() {
-                if ($this.hasClass('input-focus')) {
-                    $this.removeClass('input-focus');
-                }
-                $('.detail-lately').css({display: 'none'});
-            }, 200);
-        });
-
-    }
 
 });

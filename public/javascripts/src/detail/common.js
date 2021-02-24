@@ -233,7 +233,7 @@ define(function (require, exports, module) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
             initData.fileDiscount = data.fileDiscount
-           window.pageConfig.page.fileDiscount = data.fileDiscount
+            window.pageConfig.page.fileDiscount = data.fileDiscount
             reloadHeader(data);
             // queryStoreFlag();
             filePreview(obj);

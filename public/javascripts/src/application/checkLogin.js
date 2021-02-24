@@ -89,10 +89,10 @@ define(function (require, exports, module) {
                     if (res.code == 0 && res.data) {
                         if (isFirstLogin) {
                            
-                            handleBaiduStatisticsPush('loginResult', {
+                            handleBaiduStatisticsPush('loginResult01', {
                                 loginType: window.loginType && window.loginType,
-                                phone: res.data.mobile,
-                                userid: res.data.userId,
+                                // phone: res.data.mobile,
+                                // userid: res.data.userId,
                                 loginResult: "1"
                             })
                             trackEventLogin(res.data.userId)
@@ -134,10 +134,10 @@ define(function (require, exports, module) {
 
                     } else {
                         
-                        handleBaiduStatisticsPush('loginResult', {
+                        handleBaiduStatisticsPush('loginResult01', {
                             loginType: window.loginType && window.loginType,
-                            phone: '',
-                            userid: res.data.userId,
+                            // phone: '',
+                            // userid: res.data.userId,
                             loginResult: "0"
                         })
                         _self.ishareLogout();
