@@ -162,11 +162,21 @@ define(function (require, exports, module) {
                                     autoplay: 3000,
                                 })
                             }
+                        } else {
+                            $(".right-banner").hide()
                         }
                     })
                 }
             }
         })
     }
+
+    // 顶部专题标题收藏逻辑
+    $('.search-adv-warper .special-collect').on('mouseover', function () {
+        $('.new-header-inter .logo-drag-tips').css('display', 'block');
+    })
+    $('.search-adv-warper .special-collect').on('mouseout', function () {
+        $('.new-header-inter .logo-drag-tips').removeAttr("style")
+    })
 
 });
