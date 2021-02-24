@@ -36,6 +36,15 @@
   display: block;
   margin-top: 8px;
 }
+.new-detail-header .logo:hover .logo-drag-tips {
+  display: block;
+}
+.new-detail-header .logo-drag-tips {
+  position: absolute;
+  top: 23px;
+  left: -145px;
+  display: none;
+}
 .new-detail-header .new-nav {
   height: 55px;
   line-height: 55px;
@@ -131,6 +140,14 @@
   border-bottom-left-radius: 4px;
   vertical-align: top;
   *float: left;
+}
+.new-detail-header .new-input.input-focus {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 0;
+  background-color: #ffffff;
+  border-left: 1px solid #F25126;
+  border-top: 1px solid #F25126;
+  border-bottom: none;
 }
 .new-detail-header .new-search-focus .new-input {
   border: 1px solid #f8a48c;

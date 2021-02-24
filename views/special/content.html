@@ -1,19 +1,13 @@
 <div class="search-all-main">
     <!-- 广告位 -->
     <div class="search-adv-warper">
-        <img src="" alt="">
+        <span class="special-topicName">{{results.data.topicName}}</span>
+        <p class="special-collect">
+            <span class="special-collect-icon"></span>
+            <span class="special-collect-desc">收藏</span>
+        </p>
     </div>
-    <!-- 面包屑 -->
-    {% if results.data.dimensionStatus === 0 %}
-        <div class="search-crumb-warper">
-            <a href="/">首页</a>
-            <a>{{results.data.topicName}}</a>
-        </div>
-    {% else %}
-        <div class="search-crumb-warper">
-            <h1>{{results.data.topicName}}</h1>
-        </div>
-    {% endif %}
+
     <div class="right-content-container">
         <!-- 筛选条件 -->
         {% if results.data.dimensionStatus===0 or results.data.dimensionStatus==1 and results.specialTopic.length>0%}
@@ -37,7 +31,7 @@
                             <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
                                 <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
+                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}.html" class="search-ele {{'active' if thirdItem.active  }}" >
                                         {{thirdItem.propertyName}}
                                     </a>
                                 {% endfor %}
@@ -86,9 +80,9 @@
                     <a  href="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}.html" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
                 </div>
                 <div class="search-list-container">
-                    <ul>
+                    <ul class="search-list">
                         {% for item in results.list.data.rows %}
-                            <li>
+                            <li class="list-item">
                                 <div class="search-img-box" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
                                     <img src="{{item.fileSmallPic}}" alt="">
                                     <div class="mask-container">
@@ -156,6 +150,25 @@
                                     </div>
                                     {%endif%}
                                 </div>
+
+                                <!-- 热门搜索 -->
+                                {% if results.specialTopic.length > 10 %}
+                                    <div class="hot-spot-search">
+                                        <div class="title">
+                                            <span class="title-desc">热点搜索</span>
+                                        </div>
+                                        <ul class="hot-list">
+                                            {% for item in results
+                                                .specialTopic
+                                                .slice(10) %}
+                                                <li  class="hot-items {%if loop.index0 > 9 %} hide {%endif%}">
+                                                    <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
+                                                </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </div>
+                                {% endif %}
 
                             </div>
 

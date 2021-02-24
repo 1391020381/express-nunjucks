@@ -1,17 +1,18 @@
-
-
 <div class="new-detail-header">
     <div class="pw">
         <div class="new-header-inter">
-            <a class="logo fl" href="/"><img src="{{cdnUrl}}/images/new_detail_logo.jpg"></a>
+            <a class="logo fl" href="/">
+                <img src="{{cdnUrl}}/images/new_detail_logo.jpg">
+                <img class="logo-drag-tips" src="{{cdnUrl}}/images/logo-drag-tips.png">
+            </a>
             <div class="header-right fl">
                 <div class="new-search fl cf">
                     <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
                         placeholder="请输入搜索内容">
-                    <a class="btn-new-search"><i class="icon-detail"></i>搜索资料</a>
+                    <a class="btn-new-search">
+                        <i class="icon-detail"></i>搜索资料</a>
                     <div class="detail-lately">
-                        <ul class="lately-list">
-                        </ul>
+                        <ul class="lately-list"></ul>
                     </div>
                 </div>
             </div>
@@ -33,29 +34,29 @@
                             <i class="icon-detail"></i>
                             <div class="user-img">
                                 <img src="" alt="头像">
-                                
+
                             </div>
                             <span class="user-name"></span>
                             <span class="user-loginType"></span>
                         </a>
-            
-                          <div class="user-more">
+
+                        <div class="user-more">
                             <i class="before"></i>
                             <i class="after"></i>
                             {% if results.noPersonalCenter %}
 
-                            {%else%}
-                           
-                            <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
-                            {%endif%}
-                            <a class="loginOut">退出</a>
+                                {%else%}
+
+                                <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                                {%endif%}
+                                <a class="loginOut">退出</a>
+                            </div>
+
                         </div>
 
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>

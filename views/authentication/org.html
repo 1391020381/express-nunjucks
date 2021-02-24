@@ -1,370 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
- {% include "common/head.html" %}
-<link rel="stylesheet" href="{{cdnUrl}}/stylesheets/authentication/user.css" />
-</head>
+    <head>
+        {% include "common/head.html" %}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/authentication/user.css"/>
+    </head>
 
-
-<body class="auth-body">
-    <input type="hidden" id="ip-page-id" value="PC-M-ZGRZ">
-    <input type="hidden" id="ip-page-name" value="机构认证页">
-    {% include "common/js.html" %}
-    <!-- 搜索头部 -->
-    {% include "common/websiteHeaderbar.html" %}
-    <!-- 内容 -->
-    <div class="org-auth">
-        <div class="authentication-header">
-            <div class="pw pw-v">
-                <h2 class="header-title">你正在进行机构认证</h2>
-                <div class="header-process cf">
-                    <div class="process-item step-now fl">
-                        <span class="step-num">1</span>
-                        <span class="step-text">填写信息</span>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="process-item  fl">
-                        <span class="step-num">2</span>
-                        <span class="step-text">等待审核</span>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="process-item fl">
-                        <span class="step-num">3</span>
-                        <span class="step-text">认证成功</span>
+    <body class="auth-body">
+        <input type="hidden" id="ip-page-id" value="PC-M-ZGRZ">
+        <input type="hidden" id="ip-page-name" value="机构认证页">
+        {% include "common/js.html" %}
+        <!-- 搜索头部 -->
+        {% include "common/websiteHeaderbar.html" %}
+        <!-- 内容 -->
+        <div class="org-auth">
+            <div class="authentication-header">
+                <div class="pw pw-v">
+                    <h2 class="header-title">你正在进行机构认证</h2>
+                    <div class="header-process cf">
+                        <div class="process-item step-now fl">
+                            <span class="step-num">1</span>
+                            <span class="step-text">填写信息</span>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="process-item  fl">
+                            <span class="step-num">2</span>
+                            <span class="step-text">等待审核</span>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="process-item fl">
+                            <span class="step-num">3</span>
+                            <span class="step-text">认证成功</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="pw mt30">
-            <div class="rz-main">
-              <div class="tip"><span class="tip-link-icon"></span><a class="tip-link" target="_blank" href="https://iask.sina.com.cn/helpCenter/5f928238474e3161c1ea67ac.html">不得不看的认证指南</a><span class="tip-desc">注：每个用户最多只可申请3次认证 </span></div>
-                <form id="info-form">
-                    <div class="rz-main-item">
-                        <h2 class="rz-main-item-title"><i class="b"></i>基本信息</h2>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>账号昵称：</dt>
-                            <dd class="rz-main-dd" style="margin-bottom:24px;">
-                                <div class="rz-input-con">
-                                    <input type="text" name="nickName" class="rz-input-text js-nickName" placeholder="不可超过10个汉字" maxlength="30">
-                                </div>
-                                <div class="rz-input-label">
-                                    <span class="label-icon">
-                                        <img src="{{cdnUrl}}/images/auth/question.png" 
-                                          aval="question.jpg" style="max-width:18px;max-height:18px;" />
-                                    </span>
-                                    <span class="label-link">
-                                      <a href="https://iask.sina.com.cn/helpCenter/5f855bf7474e313663bbc9a7.html" target="_blank">查看昵称规范></a>
-                                    </span>
-                                </div>
-                                <span class="rz-input-info">请填写向外展示的创作者昵称，谨慎填写，不可修改</span>
-                            </dd> 
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>所属类型：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="jqtransform jqtransformdone">
-                                    <div class="jqTransformSelectWrapper" style="width: 228px;">
-                                        <div class="js-select js-organize" authtype="0">
-                                            <span style="width: 206px;">企业</span>
-                                            <a href="javascript:;" class="jqTransformSelectOpen"></a>
-                                        </div>
-                                        <ul class="js-organlist" style="width: 228px; display: none; visibility: visible;z-index: 201;">
-                                            <li><a href="javascript:;" index="0" class="selected">企业</a></li>
-                                            <li><a href="javascript:;" index="1">学校</a></li>
-                                            <li><a href="javascript:;" index="2">网络营销</a></li>
-                                            <li><a href="javascript:;" index="3">IT/互联网</a></li>
-                                            <li><a href="javascript:;" index="4">医学</a></li>
-                                        </ul>
-                                </div>
-                                </div>
-                                <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>所属行业：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="jqtransform jqtransformdone">
-                                    <div class="jqTransformSelectWrapper" style="width: 228px;">
-                                        <div class="js-select js-industry" authtype="0">
-                                            <span style="width: 206px;">教育</span>
-                                            <a href="javascript:;" class="jqTransformSelectOpen"></a>
-                                        </div>
-                                        <!-- 0-教育、1-法律、2-建筑/房地产、3-制造加工、4-通信电子、5-农林牧渔、6-健康/医学、7-IT/互联网、8-水利电力、9-公关广告、10-行业资讯、 
-11-金融、12-石油化工、13-人文艺术、14-军事/航天/航空、15-餐饮美食、16-交通运输、17-出版行业、18-娱乐休闲、19-生活科普、20-学术/科研、21-能源矿产、22-文化传媒、23-体育、24-旅游、25-政府、26-其他 -->
-                                        <ul class="js-industryTypeList" style="width: 228px; display: none; visibility: visible;">
-                                            <li><a href="javascript:;" index="0" class="selected">教育</a></li>
-                                            <li><a href="javascript:;" index="1">法律</a></li>
-                                            <li><a href="javascript:;" index="2">建筑/房地产</a></li>
-                                            <li><a href="javascript:;" index="3">制造加工</a></li>
-                                            <li><a href="javascript:;" index="4">通信电子</a></li>
-                                            <li><a href="javascript:;" index="5">农林牧渔</a></li>
-                                            <li><a href="javascript:;" index="6">健康/医学</a></li>
-                                            <li><a href="javascript:;" index="7">IT/互联网</a></li>
-                                            <li><a href="javascript:;" index="8">水利电力</a></li>
-                                            <li><a href="javascript:;" index="9">公关广告</a></li>
-                                            <li><a href="javascript:;" index="10">行业资讯</a></li>
-                                            <li><a href="javascript:;" index="11" >金融</a></li>
-                                            <li><a href="javascript:;" index="12">石油化工</a></li>
-                                            <li><a href="javascript:;" index="13">人文艺术</a></li>
-                                            <li><a href="javascript:;" index="14">军事/航天/航空</a></li>
-                                            <li><a href="javascript:;" index="15">餐饮美食</a></li>
-                                            <li><a href="javascript:;" index="16" >交通运输</a></li>
-                                            <li><a href="javascript:;" index="17">出版行业</a></li>
-                                            <li><a href="javascript:;" index="18">娱乐休闲</a></li>
-                                            <li><a href="javascript:;" index="19">生活科普</a></li>
-                                            <li><a href="javascript:;" index="20">学术/科研</a></li>
-                                            <li><a href="javascript:;" index="21">能源矿产</a></li>
-                                            <li><a href="javascript:;" index="22">文化传媒</a></li>
-                                            <li><a href="javascript:;" index="23">体育</a></li>
-                                            <li><a href="javascript:;" index="24">旅游</a></li>
-                                            <li><a href="javascript:;" index="25">政府</a></li>
-                                            <li><a href="javascript:;" index="26">其他</a></li>
-                                        </ul>
-                                </div>
-                                </div>
-                                <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>机构名称：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-input-con">
-                                    <input type="text" class="rz-input-text js-organize-name"   placeholder="请输入机构名称" name="organizeName">
-                                </div>
-                                <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt">机构官网：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-input-con rz-input-410">
-                                    <input type="text" class="rz-input-text js-website"   placeholder="请输入网站地址"  name="organizeWebsite">
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>机构简介：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-area-con">
-                                    <textarea class="rz-text-area js-brief"  placeholder="请输入机构简介" name="organizeProfile"></textarea>
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt">机构地址：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-input-con rz-input-410">
-                                    <input type="text" class="rz-input-text js-add"    placeholder="请输入机构所在地" name="organizeAddress" value="">
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>统一社会信用代码：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-input-con">
-                                    <input type="text" class="rz-input-text js-cer-code"  placeholder="请输入社会信用代码" name="organizeName">
-                                </div>
-                                <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
-                            </dd>
-                        </dl>
-                        <div class="rz-upload-con rz-enterprise-upload cf">
+            <div class="pw mt30">
+                <div class="rz-main">
+                    <div class="tip">
+                        <span class="tip-link-icon"></span>
+                        <a class="tip-link" target="_blank" href="https://iask.sina.com.cn/helpCenter/5f928238474e3161c1ea67ac.html">不得不看的认证指南</a>
+                        <span class="tip-desc">注：每个用户最多只可申请3次认证 </span></div>
+                    <form id="info-form">
+                        <div class="rz-main-item">
+                            <h2 class="rz-main-item-title">
+                                <i class="b"></i>基本信息</h2>
                             <dl class="rz-main-dl cf">
-                                <dt class="rz-main-dt"><span class="import">*</span>企业LOGO：</dt>
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>账号昵称：</dt>
+                                <dd class="rz-main-dd" style="margin-bottom:24px;">
+                                    <div class="rz-input-con">
+                                        <input type="text" name="nickName" class="rz-input-text js-nickName" placeholder="不可超过10个汉字" maxlength="30">
+                                    </div>
+                                    <div class="rz-input-label">
+                                        <span class="label-icon">
+                                            <img src="{{cdnUrl}}/images/auth/question.png" 
+                                          aval="question.jpg" style="max-width:18px;max-height:18px;"/>
+                                        </span>
+                                        <span class="label-link">
+                                            <a href="https://iask.sina.com.cn/helpCenter/5f855bf7474e313663bbc9a7.html" target="_blank">查看昵称规范></a>
+                                        </span>
+                                    </div>
+                                    <span class="rz-input-info">请填写向外展示的创作者昵称，谨慎填写，不可修改</span>
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>所属类型：</dt>
                                 <dd class="rz-main-dd">
-                                    <div class="cf">
-                                        <a class="btn-rz-upload fl" id="upload-target">
-                                            <div class="plus-icon">+</div>
-                                            <div class="upload-des">上传图片</div>
-                                            <!-- <input type="file" class="rz-file" aval="logo" > -->
-                                            <!-- <input type="hidden" name="logoPic" value=""> -->
-                                        </a>
-                                        <div class="rz-upload-pic fl js-logoPic">
-                                            <span class="delete-ele" title="删除" style="display:none"></span>
-                                            <img src="{{cdnUrl}}/images/auth/pic_sfz_z.jpg" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
+                                    <div class="jqtransform jqtransformdone">
+                                        <div class="jqTransformSelectWrapper" style="width: 228px;">
+                                            <div class="js-select js-organize" authtype="0">
+                                                <span style="width: 206px;">企业</span>
+                                                <a href="javascript:;" class="jqTransformSelectOpen"></a>
+                                            </div>
+                                            <ul class="js-organlist" style="width: 228px; display: none; visibility: visible;z-index: 201;">
+                                                <li>
+                                                    <a href="javascript:;" index="0" class="selected">企业</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="1">学校</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="2">网络营销</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="3">IT/互联网</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="4">医学</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="rz-info-bottom">
-                                        <p>1.请上传机构LOGO，用于机构合作页展示，要求清晰</p>
-                                        <p>2.LOGO要求尺寸200*200像素，格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
+                                    <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>所属行业：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="jqtransform jqtransformdone">
+                                        <div class="jqTransformSelectWrapper" style="width: 228px;">
+                                            <div class="js-select js-industry" authtype="0">
+                                                <span style="width: 206px;">教育</span>
+                                                <a href="javascript:;" class="jqTransformSelectOpen"></a>
+                                            </div>
+                                            <!-- 0-教育、1-法律、2-建筑/房地产、3-制造加工、4-通信电子、5-农林牧渔、6-健康/医学、7-IT/互联网、8-水利电力、9-公关广告、10-行业资讯、 
+11-金融、12-石油化工、13-人文艺术、14-军事/航天/航空、15-餐饮美食、16-交通运输、17-出版行业、18-娱乐休闲、19-生活科普、20-学术/科研、21-能源矿产、22-文化传媒、23-体育、24-旅游、25-政府、26-其他 -->
+                                            <ul class="js-industryTypeList" style="width: 228px; display: none; visibility: visible;">
+                                                <li>
+                                                    <a href="javascript:;" index="0" class="selected">教育</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="1">法律</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="2">建筑/房地产</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="3">制造加工</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="4">通信电子</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="5">农林牧渔</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="6">健康/医学</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="7">IT/互联网</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="8">水利电力</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="9">公关广告</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="10">行业资讯</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="11" >金融</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="12">石油化工</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="13">人文艺术</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="14">军事/航天/航空</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="15">餐饮美食</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="16" >交通运输</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="17">出版行业</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="18">娱乐休闲</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="19">生活科普</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="20">学术/科研</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="21">能源矿产</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="22">文化传媒</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="23">体育</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="24">旅游</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="25">政府</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" index="26">其他</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- <span class="gray-text">请选择与您企业相对应的行业</span> -->
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>机构名称：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con">
+                                        <input type="text" class="rz-input-text js-organize-name"   placeholder="请输入机构名称" name="organizeName">
+                                    </div>
+                                    <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">机构官网：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con rz-input-410">
+                                        <input type="text" class="rz-input-text js-website"   placeholder="请输入网站地址"  name="organizeWebsite">
                                     </div>
                                 </dd>
                             </dl>
                             <dl class="rz-main-dl cf">
-                                <dt class="rz-main-dt"><span class="import">*</span>营业执照：</dt>
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>机构简介：</dt>
                                 <dd class="rz-main-dd">
-                                    <div class="cf">
-                                        <a class="btn-rz-upload fl" id="upload-target2">
-                                            <div class="plus-icon">+</div>
-                                            <div class="upload-des">上传图片</div>
-                                            <!-- <input type="file" class="rz-file"> -->
-                                            <input type="hidden" name="businessLicensePic"></a>
-                                        <div class="rz-upload-pic fl js-businessLicensePic">
-                                            <span class="delete-ele" title="删除" style="display:none"></span>
-                                            <img src="{%if results.isEdit%}{{results.businessLicensePic}}{%else%}{{cdnUrl}}/images/auth/pic_zj.jpg{%endif%}" aval="pic_zj.jpg" style="max-height: 200px;max-height: 200px;">
-                                        </div>
+                                    <div class="rz-area-con">
+                                        <textarea class="rz-text-area js-brief"  placeholder="请输入机构简介" name="organizeProfile"></textarea>
                                     </div>
-                                    <div class="rz-info-bottom">
-                                        <p>1.提供含最近一年年检信息的营业执照</p>
-                                        <p>2.上传文件需加盖公章，清晰无涂抹</p>
-                                        <p>3.格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
-                                        <p>4. 请确保您上传的所有证件在有效期内</p>
-                                        <p class="careful">注：您的证件信息不会被其他网友看到，我们将严格保密，请放心上传</p>
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">机构地址：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con rz-input-410">
+                                        <input type="text" class="rz-input-text js-add"    placeholder="请输入机构所在地" name="organizeAddress" value="">
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>统一社会信用代码：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con">
+                                        <input type="text" class="rz-input-text js-cer-code"  placeholder="请输入社会信用代码" name="organizeName">
+                                    </div>
+                                    <!-- <span class="gray-text">请填写营业执照上的企业名称</span> -->
+                                </dd>
+                            </dl>
+                            <div class="rz-upload-con rz-enterprise-upload cf">
+                                <dl class="rz-main-dl cf">
+                                    <dt class="rz-main-dt">
+                                        <span class="import">*</span>企业LOGO：</dt>
+                                    <dd class="rz-main-dd">
+                                        <div class="cf">
+                                            <a class="btn-rz-upload fl" id="upload-target">
+                                                <div class="plus-icon">+</div>
+                                                <div class="upload-des">上传图片</div>
+                                                <!-- <input type="file" class="rz-file" aval="logo" > -->
+                                                <!-- <input type="hidden" name="logoPic" value=""> -->
+                                            </a>
+                                            <div class="rz-upload-pic fl js-logoPic">
+                                                <span class="delete-ele" title="删除" style="display:none"></span>
+                                                <img src="{{cdnUrl}}/images/auth/pic_sfz_z.jpg" aval="pic_sfz_z.jpg" style="max-height: 200px;max-height: 200px;">
+                                            </div>
+                                        </div>
+                                        <div class="rz-info-bottom">
+                                            <p>1.请上传机构LOGO，用于机构合作页展示，要求清晰</p>
+                                            <p>2.LOGO要求尺寸200*200像素，格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="rz-main-dl cf">
+                                    <dt class="rz-main-dt">
+                                        <span class="import">*</span>营业执照：</dt>
+                                    <dd class="rz-main-dd">
+                                        <div class="cf">
+                                            <a class="btn-rz-upload fl" id="upload-target2">
+                                                <div class="plus-icon">+</div>
+                                                <div class="upload-des">上传图片</div>
+                                                <!-- <input type="file" class="rz-file"> -->
+                                                <input type="hidden" name="businessLicensePic"></a>
+                                            <div class="rz-upload-pic fl js-businessLicensePic">
+                                                <span class="delete-ele" title="删除" style="display:none"></span>
+                                                <img src="{%if results.isEdit%}{{results.businessLicensePic}}{%else%}{{cdnUrl}}/images/auth/pic_zj.jpg{%endif%}" aval="pic_zj.jpg" style="max-height: 200px;max-height: 200px;">
+                                            </div>
+                                        </div>
+                                        <div class="rz-info-bottom">
+                                            <p>1.提供含最近一年年检信息的营业执照</p>
+                                            <p>2.上传文件需加盖公章，清晰无涂抹</p>
+                                            <p>3.格式为JPG/JPEG/GIF/PNG，大小不要超过3M</p>
+                                            <p>4. 请确保您上传的所有证件在有效期内</p>
+                                            <p class="careful">注：您的证件信息不会被其他网友看到，我们将严格保密，请放心上传</p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <div class="rz-main-item">
+                            <h2 class="rz-main-item-title">
+                                <i class="b"></i>联系方式<span class="text">以下信息仅用于跟您联系时使用，我们不会泄露您的个人信息</span></h2>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>QQ：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con">
+                                        <input type="text" name="qqNumber"  placeholder="请输入QQ号" class="rz-input-text js-qqNumber">
+                                    </div>
+                                </dd>
+                            </dl>
+
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>电子邮箱：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con">
+                                        <input type="text" name="email"  placeholder="请输入邮箱地址" class="rz-input-text js-email">
                                     </div>
                                 </dd>
                             </dl>
                         </div>
-                    </div>
 
-                    <div class="rz-main-item">
-                        <h2 class="rz-main-item-title"><i class="b"></i>联系方式<span class="text">以下信息仅用于跟您联系时使用，我们不会泄露您的个人信息</span></h2>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>QQ：</dt>
-                            <dd class="rz-main-dd">
-                                 <div class="rz-input-con">
-                                    <input type="text" name="qqNumber"  placeholder="请输入QQ号" class="rz-input-text js-qqNumber">
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>电子邮箱：</dt>
-                            <dd class="rz-main-dd">
-                                 <div class="rz-input-con">
-                                    <input type="text" name="email"  placeholder="请输入邮箱地址" class="rz-input-text js-email">
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-
-                    <div class="rz-main-item rz-main-validate">
-                        <h2 class="rz-main-item-title"><i class="b"></i>验证手机号
+                        <div class="rz-main-item rz-main-validate">
+                            <h2 class="rz-main-item-title">
+                                <i class="b"></i>验证手机号
                           <span class="text">手机号不可用? <a href="/node/personalCenter/accountsecurity.html?type=accountsecurity" target="_blank">去修改手机号 ></a></span></h2>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>手机号码：</dt>
-                            <dd class="rz-main-dd js-phone">
-                                <!-- <div class="rz-input-con "></div>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>手机号码：</dt>
+                                <dd class="rz-main-dd js-phone">
+                                    <!-- <div class="rz-input-con "></div>
                                  <a class="btn-validate">验证手机</a> -->
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt"><span class="import">*</span>验证码：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-input-con validate-input">
-                                    <input type="tel" autocomplete="off" maxlength="6"  class="rz-input-text js-msg-val" placeholder="请输入短信验证码">
-                                </div>
-                                <a class="ver-btn js-msg">获取验证码</a>
-                            </dd>
-                        </dl>
-                        <dl class="rz-main-dl cf">
-                            <dt class="rz-main-dt protocol-text">协议：</dt>
-                            <dd class="rz-main-dd">
-                                <div class="rz-agreement-con easy_scrollable" tabindex="0" style="overflow: hidden; padding: 0px; width: 440px; outline: none;">
-                                    
-                                <div class="scroll_container" style="width: 440px; height: 148px;"><div class="scroll_absolute" style="padding: 0px; width: 428px; top: 0px;"><div>
-                                        <p>爱问共享资料认证合作协议</p>
-                                        <p class="rz-indent">深圳爱问科技股份有限公司及其关联公司（以下简称“爱问”）依据本协议为爱问共享资料平台以及爱问办公的（以下简称“平台”）认证用户（以下简称 “认证用户”或“您”）进行关于数字作品资源的上传、下载、引用等行为提供服务。在您成为平台的认证用户前，请您务必仔细阅读以下条款，充分理解各条款内容后再选择是否接受本协议。一旦您在平台提交认证申请，即意味着您已阅读本协议所有条款，并对本协议条款的含义及相应的法律后果已全部通晓并充分理解，同意受本协议约束。</p>
-                                        <p class="rz-title">一、定义</p>
-                                        <p>1.1 “爱问共享资料平台”：指由爱问所有并合法运营的关于资料共享的网站（网址：http://ishare.iask.sina.com.cn）、微信端、APP、及其它已经开发及将来可能开发的实现部分或全部网站功能的移动终端软件。</p>
-                                        <p>1.2 “爱问办公”：提供优质创意办公服务，提高办公效率的办公创意服务平台，内容覆盖PPT模板、Excel模板、Word模板等常用办公资料。</p>
-                                        <p>1.3 “数字作品”：指认证用户通过平台以上传、下载、引用、浏览、阅读等方式允许其他用户有偿或者无偿使用的电子图书、文字作品、图片、电子杂志，电子报纸、课程资源等各类数字化作品及相关内容，认证用户应对上述数字作品应具有知识产权或者已得到有效授权。</p>
-                                        <p>1.4 “爱问”：指深圳爱问科技股份有限公司及其关联公司。</p>
-                                        <p class="rz-title">二、用户认证资格条件</p>
-                                        <p>2.1 个人认证资格条件：</p>
-                                        <p class="third-txt">（1）持有中华人民共和国法律认可有效身份证明的18周岁以上的自然人；</p>
-                                        <p class="third-txt">（2）具有中华人民共和国法律规定的完全民事行为能力的自然人。</p>
-                                        <p>2.2 企业法人或其他认证用户认证资格条件：</p>
-                                        <p class="third-txt">（1）依照中华人民共和国法律合法成立的境内法人企业；</p>
-                                        <p class="third-txt">（2）取得营业执照并正常合法经营。</p>
-                                        <p>2.3 如您不符合上述条件的，爱问有权随时中止或终止您的认证用户资格。</p>
-                                        <p>2.4 您同意按照爱问要求提供真实、最新、有效及完整的资料，并且授予爱问基于提供服务的目的，对您提供的资料及数据信息拥有永久的、免费的使用权利。</p>
-                                        <p>2.5 您有义务维持并更新申请认证的用户资料，确保其为真实、最新、有效及完整的资料。如因您未及时更新资料导致爱问无法提供服务或提供服务时发生任何错误，爱问不承担任何责任，所有后果应由您承担。</p>
-                                        <p>2.6 您认证成功后，不得将您在平台的用户名转让给第三方或者授权给第三方使用。爱问通过您的用户名及密码来识别您的指令。您确认，使用用户名和密码登录本平台后在平台的一切行为均代表您本人。您的认证操作所产生的电子信息记录均为您的行为的有效凭证，并由您本人承担相应的法律后果。</p>
-                                        <p>2.7 爱问有权根据需要不定时地制定、修改本协议或各类规则。一旦发生变动，爱问将会在爱问平台上公布修改之后的协议内容，爱问也可选择通过其他适当方式（比如系统通知）向认证用户通知修改内容。对于协议、规则生效之前的认证用户，若认证用户在新规则生效后继续使用本平台提供的各项服务，则表明认证用户已充分阅读并认可和同意遵守新的协议或规则。若认证用户拒绝接受新的协议和规则，认证用户有权放弃或终止继续使用本平台提供的各项服务，但该认证用户应承担在本平台已经进行的行为下所应承担的任何法律责任。</p>
-                                        <p class="rz-title">三、平台服务费与销售收入</p>
-                                        <p>3.1 爱问为您进行数字作品的上传、下载、引用、浏览、阅读等需求提供服务，使您得以通过平台在全球范围内发布数字作品及相关信息，并允许其他用户有偿或者无偿对数字作品进行下载、引用、浏览、阅读等。鉴于爱问为您提供服务付出了大量的成本，因此爱问有权根据平台相关规则向您收取一定费用作为网站维护的服务费用。</p>
-                                        <p>您在平台上因上传、下载、引用、浏览、阅读等行为利用数字作品而获得的收入在扣除相关税费（包括但不限于应用商店的收费、应缴税费等）后视为您对该数字作品的销售收入，对该销售收入您可以在平台上选择按照以下其中一种方式分配：</p>
-                                        <p class="third-txt">（1）定期按比例分配方式：在每个结算周期，您向爱问定期支付一定比例的平台服务费后，剩余销售收入由您获得。爱问收取的平台服务费标准为：个人为销售收入的50%、企业法人或其他认证用户为销售收入的30%。</p>
-                                        <p class="third-txt">（2）一次性分配方式：爱问预先向您一次性支付固定具体金额的销售收入，之后的销售收入作为平台服务费均由爱问收取，该固定具体金额由双方另行约定。</p>
-                                        <p>3.2 当您选择一次性分配方式时，爱问预先一次性支付的固定具体金额标准将会由爱问另行告知或双方另行约定，如您选择继续提交认证申请，则表明那您自愿接受该金额标准。您应确保您对在平台发布的数字作品持续具有知识产权或者有效授权，且未经爱问书面同意，您不会擅自修改、删除、下线、中断、关闭已向平台提供的数字作品。如有违反，您应退还对该数字作品所得收入。</p>
-                                        <p>3.3 认证用户应于每个自然月的20日至25日期间申请提现，经爱问确认同意后于次月5日前将应付销售收入结算至认证用户，销售收入的结算起点金额为人民币300元，不足300元则累积至下个月结算。以上时间遇节假日顺延。</p>
-                                        <p>3.4 爱问于结算销售收入前有权要求认证用户开具符合爱问要求的发票（委托爱问代扣代缴税费的情形除外）。</p>
-                                        <p class="rz-title">四、知识产权</p>
-                                        <p>4.1 平台内容受中国知识产权法律法规及各国际版权公约的保护，您未经授权不得将平台包含的资料等任何内容发布上传到任何其他网站或者服务器。任何未经授权对平台内容的使用均属于违法行为。</p>
-                                        <p>4.2 您保证上传发布在平台上的任何信息和内容没有侵犯任何第三方的知识产权，也不存在可能导致侵犯第三方知识产权的情形。若任何第三方因您上传发布的信息和内容提出权属异议或引起任何纠纷，您应自行承担责任，与平台无关。</p>
-                                        <p>4.3 除另有约定外，您同意对上传发布到平台上的所有内容许可爱问永久性无偿使用，许可权利包括但不限于复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权等。</p>
-                                        <p class="rz-title">五、双方权利与义务</p>
-                                        <p>5.1 您提供的数字作品及相关信息符合中国法律、法规及国家政策的规定，不含任何违法、违规内容。</p>
-                                        <p>5.2 您履行本协议并不侵犯任何第三方权益，也不会被任何第三方追索；您提供的数字作品不存在任何权利瑕疵，没有侵犯任何第三方的合法权益；您对所提供数字作品资源内容的真实性、准确性、完整性、合法性等负完全责任；如爱问被第三方主张权利而产生任何纠纷、仲裁、诉讼，或遭到国家相关部门处理，由您出面解决，承担全部法律责任并使爱问免责，并赔偿因上述原因给爱问造成的全部直接和间接损失。</p>
-                                        <p>5.3 您不会以任何形式擅自转让或授权他人使用自己的平台用户名和密码。一经发现，爱问有权立即封禁该服务账户，并有权终止向认证用户提供本协议约定的服务而无须承担违约责任。</p>
-                                        <p>5.4 如您选择一次性分配方式结算销售收入，则未经爱问事先书面同意，您不得擅自删除、下线、中断或关闭其已向平台提供的数字作品，不得随意修改数字作品内容。无论选择何种分配方式，您均不得使用爱问的名义进行任何以营利为目的的商业活动或任何可能对爱问的品牌造成不利影响的活动。</p>
-                                        <p>5.5 如因数字作品的版权到期或权利授权方原因等导致该数字作品需要下线的，您应提前30天书面通知爱问，协助爱问采取措施妥善处理。爱问禁止同一作品多次上传（包括不限于以不同格式的文档形式、不同账户、同一作品二次拆分上传的行为）以及不具有知识产权或者未获得有效授权的上传行为。一经发现，爱问有权对您的账户进行注销处理，同时您确认放弃向爱问主张由此导致的账户损失的权利。</p>
-                                        <p>5.6 如您未能提供关于数字作品的版权证明及有效授权，或您提供的版权证明及授权不符合爱问要求，或您与爱问合作终止，则爱问有权拒绝上传数字作品或者对已上传数字作品下线。</p>
-                                        <p>5.7 除非书面提出异议，否则默认您同意参加平台的营销活动，具体活动方案以爱问公布方案为准。</p>
-                                        <p>5.8 爱问负责对爱问共享资料平台提供技术支持与维护服务。爱问在认为必要时或紧急时，有权无需事先通知您即终止提供您的账户服务，并可能立即暂停、关闭或删除您的账户及该账户中的所有相关资料及档案。</p>
-                                        <p>5.9 爱问有权根据国家法律法规及相关政策的规定制定平台的各项管理制度，对您在平台的上传、下载、引用、浏览、阅读等行为进行规范；同时，对于违反国家法律法规及相关政策及平台的各项管理制度的数字作品，爱问有权禁止在平台上进行发布或展示或者对已上传数字作品下线，爱问对此无需承担违约责任。</p>
-                                        <p>5.10 您授权爱问对于任何第三方侵犯数字作品的侵权行为独立采取包括但不限于诉讼、仲裁等各种法律手段。</p>
-                                        <p class="rz-title">六、隐私政策</p>
-                                        <p>6.1 在收集、使用、共享或存储与任何用户相关的所有数据（包括但不限于任何用户信息）时，您同意实施并遵守所适用的隐私和保密标准，这些标准至少与爱问隐私政策中阐明的标准同等严格和对用户有利。</p>
-                                        <p>6.2 为保护用户的隐私，并使用户能够控制对其数据隐私设置的访问，您不应将访问或收集的与平台用户相关的任何数据提供给任何第三方。您同意遵守并且不以任何方式避开由爱问设定的所有此类数据访问限制和用户选择的任何隐私设置。</p>
-                                        <p>6.3 在爱问提出要求时，您应立即向爱问提供相关用户信息，以便：</p>
-                                        <p class="third-txt">（1）保护或维护数字作品或平台或其他用户的合法权利或财产；</p>
-                                        <p class="third-txt">（2）保护平台服务的用户或公众的安全（包括在紧急情况下采取相应措施）；</p>
-                                        <p class="third-txt">（3）防止欺诈行为或实现风险管理目的；</p>
-                                        <p class="third-txt">（4）执行相关政府主管部门的要求、规定、命令等；</p>
-                                        <p class="third-txt">（5）遵守法律或法定程序。</p>
-                                        <p>6.4 爱问可能通过公开及其他渠道来源收集您的额外资料，以更好地了解您并为您度身订造平台服务、解决争议和确保您在平台进行交易的安全性。</p>
-                                        <p class="rz-title">七、信息披露与保密</p>
-                                        <p>7.1 您与爱问关于重大信息的披露、采用、表述等均应获得双方的一致认可。您可以宣传其已与平台的事实与情况，但未经过爱问事先书面同意，不得发布使用任何含有爱问名称、商标、logo、标记等的新闻稿、其他宣传声明或推广材料。</p>
-                                        <p>7.2 爱问或您对于因签署或履行本协议而了解或接触到的对方的商业秘密及其他保密资料和信息（以下简称“保密信息”）均应保守秘密。除非国家法律法规、政府或者法院的要求，或者本协议双方同意，任何一方不得向任何第三方泄露、给予或转让该等保密信息。</p>
-                                        <p>除本协议另有约定之外，未经对方事先书面同意，任何一方不得擅自使用、复制或擅自向任何第三方授权使用、授权复制对方的商标、标志、商业信息、技术及其他资料等。</p>
-                                        <p>7.3 本保密条款不因本协议的无效、被撤销、解除、提前终止、不具操作性等而失效。</p>
-                                        <p class="rz-title">八、免责声明</p>
-                                        <p>8.1 本协议项下爱问将在现有技术的基础上尽最大努力提供相应的安全措施以保障平台的安全和正常运行。但爱问明确声明对服务不作任何明示或暗示的保证，包括但不限于对平台的安全性、可靠性、持续性、准确性、适用于某一特定用途等。您同意本协议即意味着理解且不要求爱问或平台在以下任一情况下承担责任：</p>
-                                        <p class="third-txt">（1）不可抗力。不可抗力是指本协议双方不能合理控制、不可预见或即使预见亦无法避免的事件，包括但不限于政府行为、地震、台风、洪水、火灾或其它天灾、战争或任何其它类似事件。</p>
-                                        <p class="third-txt">（2）鉴于互联网之特殊性质，不可抗力亦包括但不限于下列影响互联网正常运行之情形：</p>
-                                        <p class="forth-txt">（a）黑客攻击；</p>
-                                        <p class="forth-txt">（b）电信部门技术调整导致之重大影响；</p>
-                                        <p class="forth-txt">（c）因政府管制而造成之暂时关闭；</p>
-                                        <p class="forth-txt">（d）病毒侵袭；</p>
-                                        <p class="forth-txt">（e）网站升级、系统停机维护或通讯终端、电信设备出现故障导致无法进行数据传输；</p>
-                                        <p class="forth-txt">（f）其他非因双方原因导致互联网无法正常运行、服务中断或延迟之情形。</p>
-                                        <p class="third-txt">（3）如发生不可抗力事件，遭受该事件的一方应立即以可能的最快捷的方式通知另一方该事件的性质、发生日期、预计持续时间等有关细节，以及该事件阻碍通知方履行其于本协议项下义务的程度。</p>
-                                        <p class="third-txt">（4）在不可抗力事件持续期间，遭受不可抗力事件的一方应定期及时地告知另一方不可抗力事件的现状。如不可抗力事件结束，应立即以书面形式通知对方，并继续履行其于本协议项下之义务。</p>
-                                        <p class="third-txt">（5）遭受不可抗力事件的一方应当向另一方提供事件发生地区的公证认证用户(或其他适当认证用户)出具的证实不可抗力事件的合法证明。</p>
-                                        <p class="third-txt">（6）如果不可抗力事件持续超过九十（90）天，任何一方均可按本协议12.2之规定终止本协议。</p>
-                                        <p class="third-txt">（7）本协议任何一方违约后遭遇不可抗力的，违约责任不因不可抗力而免除。</p>
-                                        <p>8.2 除不可抗力外，爱问有权在提前七天通知的情况下修改、限制、暂停或终止全部或部分平台服务，对于此等修改、限制、暂停或终止行为，爱问对您或任何第三方不负任何责任。</p>
-                                        <p>8.3 爱问不对您的数字作品的真实性、合法性负责，亦不对您作任何口头、书面承诺或任何担保。爱问不对您与用户之间达成的或涉及的法定义务或约定义务承担任何责任。</p>
-                                        <p>8.4 爱问没有义务为您保存其存储于平台中的数据以及您使用平台产生的任何数据。您应自行对相关数据进行定期保存。如您因数据丢失造成损失或产生其他责任，爱问对此不承担责任。</p>
-                                        <p class="rz-title">九、违约责任</p>
-                                        <p>9.1 如因爱问违反有关法律、法规或本协议项下的任何条款而给认证用户造成损失的，因此给认证用户造成的损害赔偿责任由爱问承担。</p>
-                                        <p>9.2 认证用户同意保障和维护爱问及其他用户的合法权益，如因认证用户违反有关法律、法规或本协议项下的任何条款而给爱问或任何其他任何第三方造成损失，认证用户同意承担由此造成的损害赔偿责任。</p>
-                                        <p>9.3 如爱问发现或收到第三方举报或投诉获知，认证用户存在或涉嫌违反本协议，爱问或其授权主体有权依据其合理判断不经通知立即采取一切必要措施以减轻或消除认证用户行为造成的影响，并将尽可能在处理之后对认证用户进行通知。由此造成的损失及后果由认证用户自行独立承担。</p>
-                                        <p>9.4 除本协议另有约定外，如爱问发现或收到第三方举报或投诉获知，认证用户存在或涉嫌违反本协议中约定的义务、保证、承诺或其他条款，认证用户应在爱问指定期限内予以纠正并消除影响；若认证用户未在前述时限内予以纠正的，爱问或其授权主体有权依据其合理判断立即采取一切必要措施以减轻或消除认证用户行为造成的影响，并将尽可能在处理之后对认证用户进行通知。由此造成的损失及后果由认证用户自行独立承担。</p>
-                                        <p>9.5 本协议9.3、9.4中所述的“一切必要措施”包括但不限于以下一项或多项：</p>
-                                        <p class="third-txt">（1）更改、删除或屏蔽相关内容；</p>
-                                        <p class="third-txt">（2）警告违规账号、账号禁言；</p>
-                                        <p class="third-txt">（3）冻结认证用户账户资金并要求认证用户退还已获得的各项收益，用于弥补认证用户给爱问及他人造成的损失；</p>
-                                        <p class="third-txt">（4）变更、限制或禁止违规账号部分或全部功能；</p>
-                                        <p class="third-txt">（5）暂停、限制或终止认证用户使用爱问服务的权利、注销认证用户账号等；</p>
-                                        <p class="third-txt">（6）向有关监管部门或国家机关报告；</p>
-                                        <p class="third-txt">（7）其他爱问运营方认为合理的措施。</p>
-                                        <p class="rz-title">十、通知与送达</p>
-                                        <p>10.1 本协议条款及其任何其他协议、告示或其他关于认证用户使用本服务账户及服务的通知，你同意平台使用电子方式或通过向您在注册时预留的通讯地址邮寄文件资料的方式通知你。电子方式包括但不限于以电子邮件方式、短信息、站内信或于本平台或者合作网站上公布、或通过官方微信、APP、官方微博等方式公布。</p>
-                                        <p>10.2 平台的通知如以公示方式作出，一经在平台公示即视为已经送达。除此之外，其他向您发布的具有专属性的通知将由本平台向您在注册时提供的电子邮箱，或本平台在您的个人账户中的站内信，或您注册后在本平台绑定的手机发送，一经发送即视为已经送达。因信息传输等原因导致您未在前述通知发出当日收到该等通知的，本平台不承担责任。</p>
-                                        <p class="rz-title">十一、协议的生效</p>
-                                        <p>11.1 本协议自您同意勾选或网上签署并成功注册成为本平台注册用户之日起生效，除非本公司终止本协议或者您丧失资格，否则本协议始终有效。</p>
-                                        <p>11.2 在您违反了本协议、相关规则，或在相关法律法规、政府部门的要求下，本平台有权通过站内信、电子邮件通知等方式终止本协议、关闭您的账户或者限制您使用本平台。但本平台的终止行为不能免除您根据本协议或在本平台生成的其他协议项下的还未履行完毕的义务。</p>
-                                        <p class="rz-title">十二、争议解决与法律适用</p>
-                                        <p>12.1 如双方就本协议内容或其执行发生任何争议，应首先友好协商；若经协商无法解决该争议，则双方应将争议提交深圳市南山区人民法院诉讼解决。</p>
-                                        <p>12.2 本协议的订立、执行、解释及争议的解决均适用中华人民共和国法律。</p>
-                                        <p>12.3 本协议无效、被撤销或者终止的，不影响本协议中独立存在的有关解决争议方法与法律适用等条款的效力。</p>
-                                        <p class="rz-title">十三、其他</p>
-                                        <p>13.1 在法律范围内，爱问对本协议拥有最终解释权。本协议及平台有关页面的相关名词可互相引用参照，如有不同理解，则以本协议条款为准。此外，若本协议的部分条款被认定为无效或者无法实施时，本协议中的其他条款仍然有效。</p>
-                                        <p style="text-align:right;">深圳爱问科技股份有限公司</p>
-                                    </div></div>
-                                    <!-- <div class="scroll_vertical_bar" style="-webkit-user-select:none">
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt">
+                                    <span class="import">*</span>验证码：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-input-con validate-input">
+                                        <input type="tel" autocomplete="off" maxlength="6"  class="rz-input-text js-msg-val" placeholder="请输入短信验证码">
+                                    </div>
+                                    <a class="ver-btn js-msg">获取验证码</a>
+                                </dd>
+                            </dl>
+                            <dl class="rz-main-dl cf">
+                                <dt class="rz-main-dt protocol-text">协议：</dt>
+                                <dd class="rz-main-dd">
+                                    <div class="rz-agreement-con easy_scrollable" tabindex="0" style="overflow: hidden; padding: 0px; width: 440px; outline: none;">
+
+                                        <div class="scroll_container" style="width: 440px; height: 148px;">
+                                            <div class="scroll_absolute" style="padding: 0px; width: 428px; top: 0px;">
+                                                <div>
+                                                    <p>爱问共享资料认证合作协议</p>
+                                                    <p class="rz-indent">深圳爱问科技股份有限公司及其关联公司（以下简称“爱问”）依据本协议为爱问共享资料平台以及爱问办公的（以下简称“平台”）认证用户（以下简称 “认证用户”或“您”）进行关于数字作品资源的上传、下载、引用等行为提供服务。在您成为平台的认证用户前，请您务必仔细阅读以下条款，充分理解各条款内容后再选择是否接受本协议。一旦您在平台提交认证申请，即意味着您已阅读本协议所有条款，并对本协议条款的含义及相应的法律后果已全部通晓并充分理解，同意受本协议约束。</p>
+                                                    <p class="rz-title">一、定义</p>
+                                                    <p>1.1 “爱问共享资料平台”：指由爱问所有并合法运营的关于资料共享的网站（网址：http://ishare.iask.sina.com.cn）、微信端、APP、及其它已经开发及将来可能开发的实现部分或全部网站功能的移动终端软件。</p>
+                                                    <p>1.2 “爱问办公”：提供优质创意办公服务，提高办公效率的办公创意服务平台，内容覆盖PPT模板、Excel模板、Word模板等常用办公资料。</p>
+                                                    <p>1.3 “数字作品”：指认证用户通过平台以上传、下载、引用、浏览、阅读等方式允许其他用户有偿或者无偿使用的电子图书、文字作品、图片、电子杂志，电子报纸、课程资源等各类数字化作品及相关内容，认证用户应对上述数字作品应具有知识产权或者已得到有效授权。</p>
+                                                    <p>1.4 “爱问”：指深圳爱问科技股份有限公司及其关联公司。</p>
+                                                    <p class="rz-title">二、用户认证资格条件</p>
+                                                    <p>2.1 个人认证资格条件：</p>
+                                                    <p class="third-txt">（1）持有中华人民共和国法律认可有效身份证明的18周岁以上的自然人；</p>
+                                                    <p class="third-txt">（2）具有中华人民共和国法律规定的完全民事行为能力的自然人。</p>
+                                                    <p>2.2 企业法人或其他认证用户认证资格条件：</p>
+                                                    <p class="third-txt">（1）依照中华人民共和国法律合法成立的境内法人企业；</p>
+                                                    <p class="third-txt">（2）取得营业执照并正常合法经营。</p>
+                                                    <p>2.3 如您不符合上述条件的，爱问有权随时中止或终止您的认证用户资格。</p>
+                                                    <p>2.4 您同意按照爱问要求提供真实、最新、有效及完整的资料，并且授予爱问基于提供服务的目的，对您提供的资料及数据信息拥有永久的、免费的使用权利。</p>
+                                                    <p>2.5 您有义务维持并更新申请认证的用户资料，确保其为真实、最新、有效及完整的资料。如因您未及时更新资料导致爱问无法提供服务或提供服务时发生任何错误，爱问不承担任何责任，所有后果应由您承担。</p>
+                                                    <p>2.6 您认证成功后，不得将您在平台的用户名转让给第三方或者授权给第三方使用。爱问通过您的用户名及密码来识别您的指令。您确认，使用用户名和密码登录本平台后在平台的一切行为均代表您本人。您的认证操作所产生的电子信息记录均为您的行为的有效凭证，并由您本人承担相应的法律后果。</p>
+                                                    <p>2.7 爱问有权根据需要不定时地制定、修改本协议或各类规则。一旦发生变动，爱问将会在爱问平台上公布修改之后的协议内容，爱问也可选择通过其他适当方式（比如系统通知）向认证用户通知修改内容。对于协议、规则生效之前的认证用户，若认证用户在新规则生效后继续使用本平台提供的各项服务，则表明认证用户已充分阅读并认可和同意遵守新的协议或规则。若认证用户拒绝接受新的协议和规则，认证用户有权放弃或终止继续使用本平台提供的各项服务，但该认证用户应承担在本平台已经进行的行为下所应承担的任何法律责任。</p>
+                                                    <p class="rz-title">三、平台服务费与销售收入</p>
+                                                    <p>3.1 爱问为您进行数字作品的上传、下载、引用、浏览、阅读等需求提供服务，使您得以通过平台在全球范围内发布数字作品及相关信息，并允许其他用户有偿或者无偿对数字作品进行下载、引用、浏览、阅读等。鉴于爱问为您提供服务付出了大量的成本，因此爱问有权根据平台相关规则向您收取一定费用作为网站维护的服务费用。</p>
+                                                    <p>您在平台上因上传、下载、引用、浏览、阅读等行为利用数字作品而获得的收入在扣除相关税费（包括但不限于应用商店的收费、应缴税费等）后视为您对该数字作品的销售收入，对该销售收入您可以在平台上选择按照以下其中一种方式分配：</p>
+                                                    <p class="third-txt">（1）定期按比例分配方式：在每个结算周期，您向爱问定期支付一定比例的平台服务费后，剩余销售收入由您获得。爱问收取的平台服务费标准为：个人为销售收入的50%、企业法人或其他认证用户为销售收入的30%。</p>
+                                                    <p class="third-txt">（2）一次性分配方式：爱问预先向您一次性支付固定具体金额的销售收入，之后的销售收入作为平台服务费均由爱问收取，该固定具体金额由双方另行约定。</p>
+                                                    <p>3.2 当您选择一次性分配方式时，爱问预先一次性支付的固定具体金额标准将会由爱问另行告知或双方另行约定，如您选择继续提交认证申请，则表明那您自愿接受该金额标准。您应确保您对在平台发布的数字作品持续具有知识产权或者有效授权，且未经爱问书面同意，您不会擅自修改、删除、下线、中断、关闭已向平台提供的数字作品。如有违反，您应退还对该数字作品所得收入。</p>
+                                                    <p>3.3 认证用户应于每个自然月的20日至25日期间申请提现，经爱问确认同意后于次月5日前将应付销售收入结算至认证用户，销售收入的结算起点金额为人民币300元，不足300元则累积至下个月结算。以上时间遇节假日顺延。</p>
+                                                    <p>3.4 爱问于结算销售收入前有权要求认证用户开具符合爱问要求的发票（委托爱问代扣代缴税费的情形除外）。</p>
+                                                    <p class="rz-title">四、知识产权</p>
+                                                    <p>4.1 平台内容受中国知识产权法律法规及各国际版权公约的保护，您未经授权不得将平台包含的资料等任何内容发布上传到任何其他网站或者服务器。任何未经授权对平台内容的使用均属于违法行为。</p>
+                                                    <p>4.2 您保证上传发布在平台上的任何信息和内容没有侵犯任何第三方的知识产权，也不存在可能导致侵犯第三方知识产权的情形。若任何第三方因您上传发布的信息和内容提出权属异议或引起任何纠纷，您应自行承担责任，与平台无关。</p>
+                                                    <p>4.3 除另有约定外，您同意对上传发布到平台上的所有内容许可爱问永久性无偿使用，许可权利包括但不限于复制权、发行权、出租权、展览权、表演权、放映权、广播权、信息网络传播权、摄制权、改编权、翻译权、汇编权等。</p>
+                                                    <p class="rz-title">五、双方权利与义务</p>
+                                                    <p>5.1 您提供的数字作品及相关信息符合中国法律、法规及国家政策的规定，不含任何违法、违规内容。</p>
+                                                    <p>5.2 您履行本协议并不侵犯任何第三方权益，也不会被任何第三方追索；您提供的数字作品不存在任何权利瑕疵，没有侵犯任何第三方的合法权益；您对所提供数字作品资源内容的真实性、准确性、完整性、合法性等负完全责任；如爱问被第三方主张权利而产生任何纠纷、仲裁、诉讼，或遭到国家相关部门处理，由您出面解决，承担全部法律责任并使爱问免责，并赔偿因上述原因给爱问造成的全部直接和间接损失。</p>
+                                                    <p>5.3 您不会以任何形式擅自转让或授权他人使用自己的平台用户名和密码。一经发现，爱问有权立即封禁该服务账户，并有权终止向认证用户提供本协议约定的服务而无须承担违约责任。</p>
+                                                    <p>5.4 如您选择一次性分配方式结算销售收入，则未经爱问事先书面同意，您不得擅自删除、下线、中断或关闭其已向平台提供的数字作品，不得随意修改数字作品内容。无论选择何种分配方式，您均不得使用爱问的名义进行任何以营利为目的的商业活动或任何可能对爱问的品牌造成不利影响的活动。</p>
+                                                    <p>5.5 如因数字作品的版权到期或权利授权方原因等导致该数字作品需要下线的，您应提前30天书面通知爱问，协助爱问采取措施妥善处理。爱问禁止同一作品多次上传（包括不限于以不同格式的文档形式、不同账户、同一作品二次拆分上传的行为）以及不具有知识产权或者未获得有效授权的上传行为。一经发现，爱问有权对您的账户进行注销处理，同时您确认放弃向爱问主张由此导致的账户损失的权利。</p>
+                                                    <p>5.6 如您未能提供关于数字作品的版权证明及有效授权，或您提供的版权证明及授权不符合爱问要求，或您与爱问合作终止，则爱问有权拒绝上传数字作品或者对已上传数字作品下线。</p>
+                                                    <p>5.7 除非书面提出异议，否则默认您同意参加平台的营销活动，具体活动方案以爱问公布方案为准。</p>
+                                                    <p>5.8 爱问负责对爱问共享资料平台提供技术支持与维护服务。爱问在认为必要时或紧急时，有权无需事先通知您即终止提供您的账户服务，并可能立即暂停、关闭或删除您的账户及该账户中的所有相关资料及档案。</p>
+                                                    <p>5.9 爱问有权根据国家法律法规及相关政策的规定制定平台的各项管理制度，对您在平台的上传、下载、引用、浏览、阅读等行为进行规范；同时，对于违反国家法律法规及相关政策及平台的各项管理制度的数字作品，爱问有权禁止在平台上进行发布或展示或者对已上传数字作品下线，爱问对此无需承担违约责任。</p>
+                                                    <p>5.10 您授权爱问对于任何第三方侵犯数字作品的侵权行为独立采取包括但不限于诉讼、仲裁等各种法律手段。</p>
+                                                    <p class="rz-title">六、隐私政策</p>
+                                                    <p>6.1 在收集、使用、共享或存储与任何用户相关的所有数据（包括但不限于任何用户信息）时，您同意实施并遵守所适用的隐私和保密标准，这些标准至少与爱问隐私政策中阐明的标准同等严格和对用户有利。</p>
+                                                    <p>6.2 为保护用户的隐私，并使用户能够控制对其数据隐私设置的访问，您不应将访问或收集的与平台用户相关的任何数据提供给任何第三方。您同意遵守并且不以任何方式避开由爱问设定的所有此类数据访问限制和用户选择的任何隐私设置。</p>
+                                                    <p>6.3 在爱问提出要求时，您应立即向爱问提供相关用户信息，以便：</p>
+                                                    <p class="third-txt">（1）保护或维护数字作品或平台或其他用户的合法权利或财产；</p>
+                                                    <p class="third-txt">（2）保护平台服务的用户或公众的安全（包括在紧急情况下采取相应措施）；</p>
+                                                    <p class="third-txt">（3）防止欺诈行为或实现风险管理目的；</p>
+                                                    <p class="third-txt">（4）执行相关政府主管部门的要求、规定、命令等；</p>
+                                                    <p class="third-txt">（5）遵守法律或法定程序。</p>
+                                                    <p>6.4 爱问可能通过公开及其他渠道来源收集您的额外资料，以更好地了解您并为您度身订造平台服务、解决争议和确保您在平台进行交易的安全性。</p>
+                                                    <p class="rz-title">七、信息披露与保密</p>
+                                                    <p>7.1 您与爱问关于重大信息的披露、采用、表述等均应获得双方的一致认可。您可以宣传其已与平台的事实与情况，但未经过爱问事先书面同意，不得发布使用任何含有爱问名称、商标、logo、标记等的新闻稿、其他宣传声明或推广材料。</p>
+                                                    <p>7.2 爱问或您对于因签署或履行本协议而了解或接触到的对方的商业秘密及其他保密资料和信息（以下简称“保密信息”）均应保守秘密。除非国家法律法规、政府或者法院的要求，或者本协议双方同意，任何一方不得向任何第三方泄露、给予或转让该等保密信息。</p>
+                                                    <p>除本协议另有约定之外，未经对方事先书面同意，任何一方不得擅自使用、复制或擅自向任何第三方授权使用、授权复制对方的商标、标志、商业信息、技术及其他资料等。</p>
+                                                    <p>7.3 本保密条款不因本协议的无效、被撤销、解除、提前终止、不具操作性等而失效。</p>
+                                                    <p class="rz-title">八、免责声明</p>
+                                                    <p>8.1 本协议项下爱问将在现有技术的基础上尽最大努力提供相应的安全措施以保障平台的安全和正常运行。但爱问明确声明对服务不作任何明示或暗示的保证，包括但不限于对平台的安全性、可靠性、持续性、准确性、适用于某一特定用途等。您同意本协议即意味着理解且不要求爱问或平台在以下任一情况下承担责任：</p>
+                                                    <p class="third-txt">（1）不可抗力。不可抗力是指本协议双方不能合理控制、不可预见或即使预见亦无法避免的事件，包括但不限于政府行为、地震、台风、洪水、火灾或其它天灾、战争或任何其它类似事件。</p>
+                                                    <p class="third-txt">（2）鉴于互联网之特殊性质，不可抗力亦包括但不限于下列影响互联网正常运行之情形：</p>
+                                                    <p class="forth-txt">（a）黑客攻击；</p>
+                                                    <p class="forth-txt">（b）电信部门技术调整导致之重大影响；</p>
+                                                    <p class="forth-txt">（c）因政府管制而造成之暂时关闭；</p>
+                                                    <p class="forth-txt">（d）病毒侵袭；</p>
+                                                    <p class="forth-txt">（e）网站升级、系统停机维护或通讯终端、电信设备出现故障导致无法进行数据传输；</p>
+                                                    <p class="forth-txt">（f）其他非因双方原因导致互联网无法正常运行、服务中断或延迟之情形。</p>
+                                                    <p class="third-txt">（3）如发生不可抗力事件，遭受该事件的一方应立即以可能的最快捷的方式通知另一方该事件的性质、发生日期、预计持续时间等有关细节，以及该事件阻碍通知方履行其于本协议项下义务的程度。</p>
+                                                    <p class="third-txt">（4）在不可抗力事件持续期间，遭受不可抗力事件的一方应定期及时地告知另一方不可抗力事件的现状。如不可抗力事件结束，应立即以书面形式通知对方，并继续履行其于本协议项下之义务。</p>
+                                                    <p class="third-txt">（5）遭受不可抗力事件的一方应当向另一方提供事件发生地区的公证认证用户(或其他适当认证用户)出具的证实不可抗力事件的合法证明。</p>
+                                                    <p class="third-txt">（6）如果不可抗力事件持续超过九十（90）天，任何一方均可按本协议12.2之规定终止本协议。</p>
+                                                    <p class="third-txt">（7）本协议任何一方违约后遭遇不可抗力的，违约责任不因不可抗力而免除。</p>
+                                                    <p>8.2 除不可抗力外，爱问有权在提前七天通知的情况下修改、限制、暂停或终止全部或部分平台服务，对于此等修改、限制、暂停或终止行为，爱问对您或任何第三方不负任何责任。</p>
+                                                    <p>8.3 爱问不对您的数字作品的真实性、合法性负责，亦不对您作任何口头、书面承诺或任何担保。爱问不对您与用户之间达成的或涉及的法定义务或约定义务承担任何责任。</p>
+                                                    <p>8.4 爱问没有义务为您保存其存储于平台中的数据以及您使用平台产生的任何数据。您应自行对相关数据进行定期保存。如您因数据丢失造成损失或产生其他责任，爱问对此不承担责任。</p>
+                                                    <p class="rz-title">九、违约责任</p>
+                                                    <p>9.1 如因爱问违反有关法律、法规或本协议项下的任何条款而给认证用户造成损失的，因此给认证用户造成的损害赔偿责任由爱问承担。</p>
+                                                    <p>9.2 认证用户同意保障和维护爱问及其他用户的合法权益，如因认证用户违反有关法律、法规或本协议项下的任何条款而给爱问或任何其他任何第三方造成损失，认证用户同意承担由此造成的损害赔偿责任。</p>
+                                                    <p>9.3 如爱问发现或收到第三方举报或投诉获知，认证用户存在或涉嫌违反本协议，爱问或其授权主体有权依据其合理判断不经通知立即采取一切必要措施以减轻或消除认证用户行为造成的影响，并将尽可能在处理之后对认证用户进行通知。由此造成的损失及后果由认证用户自行独立承担。</p>
+                                                    <p>9.4 除本协议另有约定外，如爱问发现或收到第三方举报或投诉获知，认证用户存在或涉嫌违反本协议中约定的义务、保证、承诺或其他条款，认证用户应在爱问指定期限内予以纠正并消除影响；若认证用户未在前述时限内予以纠正的，爱问或其授权主体有权依据其合理判断立即采取一切必要措施以减轻或消除认证用户行为造成的影响，并将尽可能在处理之后对认证用户进行通知。由此造成的损失及后果由认证用户自行独立承担。</p>
+                                                    <p>9.5 本协议9.3、9.4中所述的“一切必要措施”包括但不限于以下一项或多项：</p>
+                                                    <p class="third-txt">（1）更改、删除或屏蔽相关内容；</p>
+                                                    <p class="third-txt">（2）警告违规账号、账号禁言；</p>
+                                                    <p class="third-txt">（3）冻结认证用户账户资金并要求认证用户退还已获得的各项收益，用于弥补认证用户给爱问及他人造成的损失；</p>
+                                                    <p class="third-txt">（4）变更、限制或禁止违规账号部分或全部功能；</p>
+                                                    <p class="third-txt">（5）暂停、限制或终止认证用户使用爱问服务的权利、注销认证用户账号等；</p>
+                                                    <p class="third-txt">（6）向有关监管部门或国家机关报告；</p>
+                                                    <p class="third-txt">（7）其他爱问运营方认为合理的措施。</p>
+                                                    <p class="rz-title">十、通知与送达</p>
+                                                    <p>10.1 本协议条款及其任何其他协议、告示或其他关于认证用户使用本服务账户及服务的通知，你同意平台使用电子方式或通过向您在注册时预留的通讯地址邮寄文件资料的方式通知你。电子方式包括但不限于以电子邮件方式、短信息、站内信或于本平台或者合作网站上公布、或通过官方微信、APP、官方微博等方式公布。</p>
+                                                    <p>10.2 平台的通知如以公示方式作出，一经在平台公示即视为已经送达。除此之外，其他向您发布的具有专属性的通知将由本平台向您在注册时提供的电子邮箱，或本平台在您的个人账户中的站内信，或您注册后在本平台绑定的手机发送，一经发送即视为已经送达。因信息传输等原因导致您未在前述通知发出当日收到该等通知的，本平台不承担责任。</p>
+                                                    <p class="rz-title">十一、协议的生效</p>
+                                                    <p>11.1 本协议自您同意勾选或网上签署并成功注册成为本平台注册用户之日起生效，除非本公司终止本协议或者您丧失资格，否则本协议始终有效。</p>
+                                                    <p>11.2 在您违反了本协议、相关规则，或在相关法律法规、政府部门的要求下，本平台有权通过站内信、电子邮件通知等方式终止本协议、关闭您的账户或者限制您使用本平台。但本平台的终止行为不能免除您根据本协议或在本平台生成的其他协议项下的还未履行完毕的义务。</p>
+                                                    <p class="rz-title">十二、争议解决与法律适用</p>
+                                                    <p>12.1 如双方就本协议内容或其执行发生任何争议，应首先友好协商；若经协商无法解决该争议，则双方应将争议提交深圳市南山区人民法院诉讼解决。</p>
+                                                    <p>12.2 本协议的订立、执行、解释及争议的解决均适用中华人民共和国法律。</p>
+                                                    <p>12.3 本协议无效、被撤销或者终止的，不影响本协议中独立存在的有关解决争议方法与法律适用等条款的效力。</p>
+                                                    <p class="rz-title">十三、其他</p>
+                                                    <p>13.1 在法律范围内，爱问对本协议拥有最终解释权。本协议及平台有关页面的相关名词可互相引用参照，如有不同理解，则以本协议条款为准。此外，若本协议的部分条款被认定为无效或者无法实施时，本协议中的其他条款仍然有效。</p>
+                                                    <p style="text-align:right;">深圳爱问科技股份有限公司</p>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="scroll_vertical_bar" style="-webkit-user-select:none">
                                         <div class="scroll_cap scroll_cap_top"></div>
                                         <div class="scroll_track" style="height: 142px;">
                                             <div class="scroll_drag" style="height: 3px; top: 0px;">
@@ -375,38 +459,37 @@
                                         </div>
                                         <div class="scroll_cap scroll_cap_bottom"></div>
                                     </div> -->
-                                </div>
-                            </div>
-                                <label class="rz-label" for="c1">
-                                    <i class="check-con"><input id="c1" type="checkbox"></i>
+                                        </div>
+                                    </div>
+                                    <label class="rz-label" for="c1">
+                                        <i class="check-con"><input id="c1" type="checkbox"></i>
                                     我已阅读并同意<a href="https://iask.sina.com.cn/helpCenter/5e15b6a7474e3171f58ae2bf.html" target="_blank">《用户认证协议》</a>
-                                </label>
-                            </dd>
-                        </dl>
-                    </div>
+                                    </label>
+                                </dd>
+                            </dl>
+                        </div>
 
-                    <div class="btn-rz-con js-edit">
-                        <a class="btn-rz-send js-submit">提交审核</a>
-                    </div>
-                </form>
+                        <div class="btn-rz-con js-edit">
+                            <a class="btn-rz-send js-submit">提交审核</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 底部声明 -->
-    {% include "common/new/footer.html" %}
-    <div id="authentication-box"></div>
+        <!-- 底部声明 -->
+        {% include "common/footer.html" %}
+        <div id="authentication-box"></div>
         <!--天御图形验证码 -->
-    {# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}
-    <script>
-         window.pageConfig = {
-            report: {
-            },
-            params:{
-                status:"{{results.isEdit}}"
-            }
-        };
-        seajs.use(["dist/application/app.js","dist/authentication/org.js"]);
-    </script>
-</body>
+        {# <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script> #}
+        <script>
+            window.pageConfig = {
+                report: {},
+                params: {
+                    status: "{{results.isEdit}}"
+                }
+            };
+            seajs.use(["dist/application/app.js", "dist/authentication/org.js"]);
+        </script>
+    </body>
 
 </html>
