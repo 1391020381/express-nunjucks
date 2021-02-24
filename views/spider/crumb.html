@@ -3,25 +3,13 @@
     <i class="crumb-arrow crumb-arrow-left"></i>
 
     {% for item in results.crumbList.data %}
-    <div class="crumb-more">
-
-        <a href="/{%if results.crumbList.data.isGetClassType==0%}c{%else%}p{%endif%}/{{item.id}}.html"><i
-                class="crumb-arrow">
-            </i>{{item.name}}
-        </a>
-        <div class="crumb-more-con">
-            <ul class="cf">
-                {% for v in item.categoryList%}
-                <li>
-                    <p class="text"><a
-                            href="/{%if results.crumbList.data.isGetClassType==0%}c{%else%}p{%endif%}/{{v.id}}.html">{{v.name}}</a>
-                    </p>
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="crumb-more">
+            <a href="/c/{{item.nodeCode}}.html">
+                <i
+                class=" {{'crumb-arrow' if results.crumbList.data.length != loop.index}}" ></i>{{item.name}}
+            </a>
         </div>
-    </div>
-    <i class="crumb-arrow crumb-arrow-left"></i>
+        <i class="crumb-arrow crumb-arrow-left"></i>
     {% endfor %}
     <strong>{{ results.list.data.fileInfo.title}}</strong>
 </div>

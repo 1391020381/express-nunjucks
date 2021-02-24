@@ -128,8 +128,8 @@
                         <!-- 推荐 -->
                         <div class="recmond-area mt20">
                             <div class="recmend-tab">
-                                <div class="tab-item current" val ="new">最新资料</div>
-                                <div class="tab-item" val ="hot">热门推荐</div>
+                                <div class="tab-item" val ="new">最新资料</div>
+                                <div class="tab-item current" val ="hot">热门推荐</div>
                                 <div class="tab-item" val ="topic">推荐专题</div>
                             </div>
                             <div class="recmend-item">
@@ -137,7 +137,7 @@
                                     <ul>
                                         {%for item in  results.newsRec.data %}
                                             <li>
-                                                <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                                                <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{item.contentUrl}}.html">{{item.contentName|delType}}</a>
                                             </li>
                                             {%endfor%}
                                         </ul>
@@ -153,9 +153,9 @@
                                         </div>
                                         <div class="switch_content_wrap">
                                             <ul>
-                                                {%for item in  results.hotTopicSeo.data %}
+                                                {%for item in  results.hotTopicSeo %}
                                                     <li>
-                                                        <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{item.id}}.html">{{item.title|delType}}</a>
+                                                        <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
                                                     </li>
                                                     {%endfor%}
                                                 </ul>
@@ -216,15 +216,15 @@
                                                     </div>
                                                     <!-- 热门搜索 -->
                                                     <div class="hot-search">
-                                                        {% if results.hotTopicSearch.data.rows.length %}
+                                                        {% if results.hotTopicSearch.length %}
                                                             <div class="search-top">
                                                                 <span class="column-name">热点搜索</span>
                                                                 <!-- <span class="swtich-bar">换一换</span> -->
                                                             </div>
                                                             {%endif%}
                                                             <div class="search-list">
-                                                                {% for item in results.hotTopicSearch.data.rows %}
-                                                                    <a href="https://ishare.iask.sina.com.cn/node/s/{{item.specialTopicId}}.html">{{item.topicName|delType}}</a>
+                                                                {% for item in results.hotTopicSearch %}
+                                                                    <a href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
                                                                 {% endfor %}
                                                             </div>
                                                         </div>
