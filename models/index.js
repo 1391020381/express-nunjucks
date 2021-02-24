@@ -1,3 +1,4 @@
+const { response } = require('express');
 var request = require('request');
 
 module.exports = {
@@ -85,6 +86,20 @@ module.exports = {
             },
             body: req.body
         };
+    },
+
+    // 获取txt文本信息
+    $httpTxt: function(url) {
+        return new Promise((resolve, reject) => {
+            request(url, (error, response, body) => {
+                if (!error && response.statusCode == 200 || response.statusCode == 206) {
+                    resolve(response.body); // Print the google web page.
+                } else {
+                    console.log('$httpTxt---------:', body)
+                    reject(body);
+                }
+            })
+        })
     },
     
     $http: function (url, method, req, res, append) {

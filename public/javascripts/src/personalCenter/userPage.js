@@ -166,6 +166,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 if (res.code == '0') {
                     var arr = [];
+                    res.data.totalPages = res.data.totalPages > 40 ? 40 : res.data.totalPages;
                     for (var i = 0; i < res.data.totalPages; i++) {
                         arr.push(i)
                     }

@@ -21,7 +21,6 @@ define(function (require, exports, module) {
         } else {
             getHotSearch();
         }
-
         $("#search-bd-con").hide();
         $(".search-dialog").show();
         $("#search-input").focus();

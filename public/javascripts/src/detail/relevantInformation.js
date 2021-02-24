@@ -22,29 +22,31 @@ define(function (require, exports, module) {
   $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_pc_relevant']).then(function (recommendConfig) {
     if (recommendConfig.code == '0') {
       var sceneID = recommendConfig.data[0].useId;
-      var relevantInformationRecommendConfig = $.extend({}, recommendConfig.data[0], { requestId: requestId })
-      $ajax('/detail/relevant/' + sceneID, 'POST', params).then(function (res) {
-        if (res.code == '200') {
-          var relevantInformationData = []
-          $.each(res.data, function (index, item) {
-            relevantInformationData.push({
-              id: item.itemId || '',
-              format: item.categoryLevel5 || '',
-              name: item.title || '',
-              cover_url: item.coverUrl || '',
-              url: item.url || '',
-              item_read_cnt: item.item_read_cnt,
-              context: item.context
-            })
-          });
-
-          var relevantInformationTemplate = template.compile(relevantInformation)({ 
-            RelevantInformationList: relevantInformationData.slice(0, 4)
-          });
-          $('.related-data').html(relevantInformationTemplate);
-        }
-        action(relevantInformationData, relevantInformationRecommendConfig);
-      })
+      var relevantInformationRecommendConfig = $.extend({}, recommendConfig.data[0], { requestId: requestId });
+      if (sceneID) {
+        $ajax('/detail/relevant/' + sceneID, 'POST', params).then(function (res) {
+          if (res.code == '200') {
+            var relevantInformationData = []
+            $.each(res.data, function (index, item) {
+              relevantInformationData.push({
+                id: item.itemId || '',
+                format: item.categoryLevel5 || '',
+                name: item.title || '',
+                cover_url: item.coverUrl || '',
+                url: item.url || '',
+                item_read_cnt: item.item_read_cnt,
+                context: item.context
+              })
+            });
+  
+            var relevantInformationTemplate = template.compile(relevantInformation)({ 
+              RelevantInformationList: relevantInformationData.slice(0, 4)
+            });
+            $('.related-data').html(relevantInformationTemplate);
+          }
+          action(relevantInformationData, relevantInformationRecommendConfig);
+        })
+      }
     }
   })
 

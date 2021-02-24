@@ -103,7 +103,7 @@
                             results.list.data.format === 'txt' else
                             'ppt-pic-con'}}">
                             {% for item in
-                            results.list.data.fileContentList.slice(0,results.filePreview.data.initReadPage)
+                            results.list.data.contentPathList.slice(0, results.filePreview.data.initReadPage)
                             %}
                             {%if results.list.data.format === 'txt' %}
                             <div class="detail-con first-style article-page

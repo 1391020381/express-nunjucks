@@ -27,16 +27,7 @@ router.get('/node/f/downfail.html',function(req , res , next){
 
 
 router.get('/f/:id*.html*',detailController_1.render)
-router.get('/zhizhu/:id*.html*',spiderController.index)
-
-
-
-
-
-
-
-
-
+// router.get('/zhizhu/:id*.html*',spiderController.index)
 
 // 订单查询页
 router.get('/node/queryOrder',function(req , res , next){

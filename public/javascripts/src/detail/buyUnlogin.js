@@ -8,11 +8,12 @@ define(function (require, exports, module) {
     var qr = require("../pay/qr");
     var login = require("../application/checkLogin");
     var urlConfig = require('../application/urlConfig')
-    var goPage = require('./index').goPage
-    
-   
+    var goPage = require('./index').goPage;
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush;
+
+
     var common = require('./common');
-    
+
     var fileName = pageConfig.page.fileName;
     var format = pageConfig.params.file_format;
     // 资料详情数据-从全局window中获取
@@ -30,10 +31,10 @@ define(function (require, exports, module) {
         classidName2: pageConfig.params.classidName2,
         classidName3: pageConfig.params.classidName3,
     }
-   
+
 
     var showTouristPurchaseDialog = require('../application/login').showTouristPurchaseDialog
-    var  getIds = require('../application/checkLogin').getIds
+    var getIds = require('../application/checkLogin').getIds
     var unloginObj = {
         count: 0,
         orderNo: '',
@@ -76,38 +77,38 @@ define(function (require, exports, module) {
             unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>'
             $('body').on("click", ".js-buy-open", function (e) {
                 var page = window.pageConfig.page;
-                var params = window.pageConfig.params; 
-                var bilogcontent=$(this).attr("bilogcontent");
-              trackEvent('SE003', "fileDetailDownClick", 'click', {
-                  fileID:params.g_fileId,
-                  fileName:page.fileName,
-                  salePrice:params.productPrice,
-                  saleType:params.productType,
-                  fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
-                  fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
-              });
-            // 测试登录埋点没反应的埋点（以后删除）  
-            if(bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8'){
-                trackEvent('NE061', "fileDetailDownClick", 'click', {
-                   domID:'fileDetailBottomDown',
-                   domName:'立即下载-a'
+                var params = window.pageConfig.params;
+                var bilogcontent = $(this).attr("bilogcontent");
+                trackEvent('SE003', "fileDetailDownClick", 'click', {
+                    fileID: params.g_fileId,
+                    fileName: page.fileName,
+                    salePrice: params.productPrice,
+                    saleType: params.productType,
+                    fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+                    fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
                 });
-            }
+                // 测试登录埋点没反应的埋点（以后删除）  
+                if (bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8') {
+                    trackEvent('NE061', "fileDetailDownClick", 'click', {
+                        domID: 'fileDetailBottomDown',
+                        domName: '立即下载-a'
+                    });
+                }
 
                 unloginObj.isClear = false;
                 if (!method.getCookie("cuk")) {
                     if (pageConfig.params.productType == 5 && $(this).data('type') == "file") { //pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         var clsId = getIds().clsId;
-                        var fid  = getIds().fid;
-                        showTouristPurchaseDialog({clsId: clsId, fid: fid}, function(){ // 游客登录后刷新头部和其他数据
-                            
+                        var fid = getIds().fid;
+                        showTouristPurchaseDialog({ clsId: clsId, fid: fid }, function () { // 游客登录后刷新头部和其他数据
+
                             login.getLoginData(function (data) {
                                 var loginType = window.loginType
-                                console.log('loginType:',loginType)
-                                if(loginType!=='qq'||loginType!=='weibo'){
+                                console.log('loginType:', loginType)
+                                if (loginType !== 'qq' || loginType !== 'weibo') {
                                     method.delCookie("download-qqweibo", "/");
                                 }
-                                common.afterLogin(data,{type:'file',data:data,callback:goPage});
+                                common.afterLogin(data, { type: 'file', data: data, callback: goPage });
                             });
                         })
                         var className = 'ico-' + pageConfig.params.file_format;
@@ -116,17 +117,17 @@ define(function (require, exports, module) {
                         $('.tourist-purchase-content .file-price-summary .price').text(pageConfig.params.productPrice);
                         unloginObj.createOrder() // 生成订单
                     }
-                    
+
                 }
             })
         },
         // 刷新订单
-        freshOrder: function(orderNo, visitorId) {
-            var params = JSON.stringify({orderNo: orderNo});
+        freshOrder: function (orderNo, visitorId) {
+            var params = JSON.stringify({ orderNo: orderNo });
             $.ajax({
                 type: 'post',
                 url: api.order.getOrderInfo,
-                headers:{
+                headers: {
                     'Authrization': method.getCookie('cuk')
                 },
                 contentType: "application/json;charset=utf-8",
@@ -138,10 +139,9 @@ define(function (require, exports, module) {
                         if (orderInfo.orderStatus == 2) {  // 支付成功
                             try {
                                 unloginObj.closeLoginWindon();
-                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) 
-                                  + '&format=' + format + '&visitorId=' + visitorId;
+                                var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20)
+                                    + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
-                               
                             } catch (e) {
 
                             }
@@ -162,14 +162,14 @@ define(function (require, exports, module) {
                 complete: function () {
 
                 }
-            })   
+            })
         },
         createOrder: function () {
             var visitorId = unloginObj.getVisitorId();
             var params = {
                 fid: pageConfig.params.g_fileId,
                 goodsId: pageConfig.params.g_fileId,
-                goodsType: 1 ,
+                goodsType: 1,
                 ref: utils.getPageRef(window.pageConfig.params.g_fileId),
                 referrer: pageConfig.params.referrer,
                 remark: 'other',
@@ -189,28 +189,28 @@ define(function (require, exports, module) {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
                     trackEvent('SE033', "createOrder", 'query', {
-                        orderID:data.data.orderNo
-                     });
+                        orderID: data.data.orderNo
+                    });
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
-                   
+
                     unloginObj.payStatus(data.data.orderNo, visitorId);
                     // 重新生成隐藏遮罩
-                  
+
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').hide()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide()
-                    
+
                 } else {
                     var url = location.href
-                    var message  = JSON.stringify(params) + JSON.stringify(data)
-                    unloginObj.reportOrderError(url,message)
+                    var message = JSON.stringify(params) + JSON.stringify(data)
+                    unloginObj.reportOrderError(url, message)
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show()
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
-                    
+
                 }
             });
         },
@@ -218,11 +218,11 @@ define(function (require, exports, module) {
             unloginObj.orderNo = oid || '';
             var url = urlConfig.payUrl + '/pay/qr?orderNo=' + oid
             try {
-                setTimeout(function(){ // ie8下 不延迟第一次二维码加载不了
-                    qr.createQrCode(url,'touristPayQrCode', 178, 178);
-                },1500)
+                setTimeout(function () { // ie8下 不延迟第一次二维码加载不了
+                    qr.createQrCode(url, 'touristPayQrCode', 178, 178);
+                }, 1500)
             } catch (e) {
-                console.log('createdQrCode:',e)
+                console.log('createdQrCode:', e)
             }
         },
         /**
@@ -233,9 +233,9 @@ define(function (require, exports, module) {
             var name = 'visitor_id'
             var expires = 30 * 24 * 60 * 60 * 1000
             var visitId = (Math.floor(Math.random() * 100000) + new Date().getTime() + '000000000000000000').substring(0, 18)
-            if(method.getCookie('visitor_id')){
+            if (method.getCookie('visitor_id')) {
                 return method.getCookie('visitor_id')
-            }else{
+            } else {
                 method.setCookieWithExp(name, visitId, expires, '/')
                 return method.getCookie('visitor_id')
             }
@@ -247,14 +247,14 @@ define(function (require, exports, module) {
          * isClear 是否停止
          */
         payStatus: function (orderNo, visitorId) {
-        //    orderNo = 45432441372672
-            var params = JSON.stringify({orderNo: orderNo});
-          
+            //    orderNo = 45432441372672
+            var params = JSON.stringify({ orderNo: orderNo });
+
             $.ajax({
                 type: 'post',
                 url: api.order.getOrderInfo,
-                headers:{
-                    'Authrization':method.getCookie('cuk')
+                headers: {
+                    'Authrization': method.getCookie('cuk')
                 },
                 // url: '/pay/orderStatusUlogin?ts=' + new Date().getTime(),
                 contentType: "application/json;charset=utf-8",
@@ -272,22 +272,28 @@ define(function (require, exports, module) {
                                 }, 3000);
                             }
                             if (unloginObj.count > 28) {
-                               
+
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').show()
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').show();
                                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').show()
                             }
                         } else if (orderInfo.orderStatus == 2) {
+                            // 【A20购买资料支付成功上报】
+                            handleBaiduStatisticsPush('payFileResult01', { 
+                                payresult: 1, 
+                                orderid: orderNo, 
+                                fileid: orderInfo.goodsId
+                            });
                             trackEvent('SE034', "payResult", 'query', {
-                                result:1,
-                                orderID:orderInfo.orderNo,
-                                goodsID:orderInfo.goodsId,
-                                goodsType:orderInfo.goodsType
-                             });
+                                result: 1,
+                                orderID: orderInfo.orderNo,
+                                goodsID: orderInfo.goodsId,
+                                goodsType: orderInfo.goodsType
+                            });
                             // 成功
                             try {
-                               
+
                                 unloginObj.closeLoginWindon();
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
@@ -295,12 +301,18 @@ define(function (require, exports, module) {
                             } catch (e) {
                             }
                         } else if (orderInfo.orderStatus == 3) {
+                            // 【A20购买资料支付失败上报】
+                            handleBaiduStatisticsPush('payFileResult01', { 
+                                payresult: 1, 
+                                orderid: orderNo, 
+                                fileid: orderInfo.goodsId
+                            });
                             trackEvent('SE034', "payResult", 'query', {
-                                result:0,
-                                orderID:orderInfo.orderNo,
-                                goodsID:orderInfo.goodsId,
-                                goodsType:orderInfo.goodsType
-                             });
+                                result: 0,
+                                orderID: orderInfo.orderNo,
+                                goodsID: orderInfo.goodsId,
+                                goodsType: orderInfo.goodsType
+                            });
                         }
                     } else {
                         $.toast({
@@ -324,27 +336,27 @@ define(function (require, exports, module) {
             unloginObj.isClear = true;
             unloginObj.count = 0;
         },
-        reportOrderError:function (url,message) {
+        reportOrderError: function (url, message) {
             $.ajax({
                 type: 'post',
                 url: api.order.reportOrderError,
-                headers:{
+                headers: {
                     'Authrization': method.getCookie('cuk')
                 },
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
-                    url:url,
-                    message:message,
+                    url: url,
+                    message: message,
                     userId: unloginObj.getVisitorId()
                 }),
                 success: function (response) {
-                   console.log('reportOrderError:',response)
+                    console.log('reportOrderError:', response)
                 },
                 complete: function () {
 
                 }
-            })  
-            
+            })
+
         }
     }
     unloginObj.init()

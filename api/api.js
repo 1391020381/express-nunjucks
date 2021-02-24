@@ -8,7 +8,8 @@ module.exports = {
     file: {
 
         fileDetail: '/content/getFileDetail',
-        getFileDetailNoTdk: '/content/getFileDetailNoTdk',
+        // 【A20获取详情接口getFileDetailNoTxt】
+        getFileDetailNoTdk: '/content/getFileDetailNoTxt',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
         navCategory: '/content/category/navCategory',
