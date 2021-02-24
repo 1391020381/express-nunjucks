@@ -1,113 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/search/ishare_search.css" />
-    {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css"> #}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
-<!-- 添加360统计代码1、PC端统计代码： -->
-<script>
-    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
-    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
-    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
-    })(window,document,"script","_qha",335601,false);
-</script>  
+    <head>
+        {% include "common/head.html" %}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/search/ishare_search.css"/>
+        {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.7/css/swiper.min.css"> #}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
+        <!-- 添加360统计代码1、PC端统计代码： -->
+        <script>
+            (function (b, a, e, h, f, c, g, s) {
+                b[h] = b[h] || function () {
+                    (b[h].c = b[h].c || []).push(arguments)
+                };
+                b[h].s = !!c;
+                g = a.getElementsByTagName(e)[0];
+                s = a.createElement(e);
+                s.src = "//s.union.360.cn/" + f + ".js";
+                s.defer = !0;
+                s.async = !0;
+                g
+                    .parentNode
+                    .insertBefore(s, g)
+            })(window, document, "script", "_qha", 335601, false);
+        </script>
 
-</head>
+    </head>
 
+    <body>
+        <input type="hidden" id="ip-page-id" value="M-M-SR">
+        <input type="hidden" id="ip-page-name" value="搜索结果页">
+        {% include "common/js.html" %}
 
-<body>
-<input type="hidden" id="ip-page-id" value="M-M-SR">
-<input type="hidden" id="ip-page-name" value="搜索结果页">
-    {% include "common/js.html" %}
+        {% include "common/websiteHeaderbar.html" %}
+        <!-- 搜索内容主体 -->
+        {% include "search/content.html" %}
 
+        <!-- 底部 start-->
+        {% include "common/footer.html" %}
 
-   
+        <!-- 右边固定提示导航 -->
 
-    
-    {% include "common/websiteHeaderbar.html" %}
-    <!-- 搜索内容主体 -->
-    {% include "search/content.html" %}
+        {% include "common/suspension.html" %}
 
-   
-
-    <!-- 底部 start-->
-    {% include "common/new/footer.html" %}
-
-    <!-- 右边固定提示导航 -->
-
-    {% include "common/suspension.html" %}
-
-
-
-
-
-    <script type="text/javascript">
-        window.pageConfig = {
-            page: {
-                type: 'pay',
-                uid: '',
-                ptype: 'pay',
-            },
-            params: {
-                isVip: 0
-            },
-            report: {
-                uid: "{{results.userInfo.data.userId}}",
-                ptype: "pay",
-                fsource: "{{results.list.data.fileSourceChannel}}",
-                ftype: '{{results.list.data.payType}}',
-                format: "{{results.list.data.format}}",
-                cate: "{{results.list.data.classid1}}",
-                cateName: "{{results.list.data.className}}",
-                cate1: "{{results.list.data.classid2}}",
-                cate2: "{{results.list.data.classid3}}",
-                clickName: '',
-                time: "",
-                timestamp: +new Date()
-            },
-            gio: {
-                reportVipData: {
-                    "orderId_var": "",//订单id
-                    "vipName_var": "",//vip套餐名称
-                    "vipPayPrice_var": "",//支付金额
-                    "orderPayType_var": "",//支付方式
-                    "channelName_var": ""//是否垂直频道 办公频道 其他
+        <script type="text/javascript">
+            window.pageConfig = {
+                page: {
+                    type: 'pay',
+                    uid: '',
+                    ptype: 'pay'
                 },
-                reportPrivilegeData: {
-                    "orderId_var": "",//订单id
-                    "privilegeName_var": "",//特权套餐名称
-                    "privilegePayPrice_var": "",//支付金额
-                    "orderPayType_var": "",//支付方式
-                    "channelName_var": ""//是否垂直频道 办公频道 其他
+                params: {
+                    isVip: 0
                 },
-                reportFileData: {
-                    "orderId_var": "",//订单id
-                    "docTypeLevel1_var": "",//一级分类
-                    "docTypeLevel2_var": "",//二级分类
-                    "docTypeLevel3_var": "",//三级分类
-                    "docId_var": "",//文档id
-                    "docTitle_var": "",//文档名称
-                    "docPayType_var": "",//文档类型
-                    "docFormType_var": "",//文档格式
-                    "docSourceType_var": "",//文档来源
-                    "sourceName_var": "",//合作渠道类型
-                    "docPayPrice_var": "",//文档金额
-                    "docDiscount_var": "",//文档折扣
-                    "orderBuyType_var": "",//购买方式
-                    "orderPayType_var": "",//支付方式
-                    "channelName_var": ""//是否垂直频道
+                report: {
+                    uid: "{{results.userInfo.data.userId}}",
+                    ptype: "pay",
+                    fsource: "{{results.list.data.fileSourceChannel}}",
+                    ftype: '{{results.list.data.payType}}',
+                    format: "{{results.list.data.format}}",
+                    cate: "{{results.list.data.classid1}}",
+                    cateName: "{{results.list.data.className}}",
+                    cate1: "{{results.list.data.classid2}}",
+                    cate2: "{{results.list.data.classid3}}",
+                    clickName: '',
+                    time: "",
+                    timestamp: + new Date()
+                },
+                gio: {
+                    reportVipData: {
+                        "orderId_var": "", //订单id
+                        "vipName_var": "", //vip套餐名称
+                        "vipPayPrice_var": "", //支付金额
+                        "orderPayType_var": "", //支付方式
+                        "channelName_var": "" //是否垂直频道 办公频道 其他
+                    },
+                    reportPrivilegeData: {
+                        "orderId_var": "", //订单id
+                        "privilegeName_var": "", //特权套餐名称
+                        "privilegePayPrice_var": "", //支付金额
+                        "orderPayType_var": "", //支付方式
+                        "channelName_var": "" //是否垂直频道 办公频道 其他
+                    },
+                    reportFileData: {
+                        "orderId_var": "", //订单id
+                        "docTypeLevel1_var": "", //一级分类
+                        "docTypeLevel2_var": "", //二级分类
+                        "docTypeLevel3_var": "", //三级分类
+                        "docId_var": "", //文档id
+                        "docTitle_var": "", //文档名称
+                        "docPayType_var": "", //文档类型
+                        "docFormType_var": "", //文档格式
+                        "docSourceType_var": "", //文档来源
+                        "sourceName_var": "", //合作渠道类型
+                        "docPayPrice_var": "", //文档金额
+                        "docDiscount_var": "", //文档折扣
+                        "orderBuyType_var": "", //购买方式
+                        "orderPayType_var": "", //支付方式
+                        "channelName_var": "" //是否垂直频道
+                    }
                 }
-            }
-        };
-        seajs.use(["dist/application/app.js", "dist/search/init.js"],function(app){
-            
-        });
-    </script>
-     <!-- 百度统计代码 -->
-     <script src="{{staticUrl}}/baidu-statistics.js"> </script>
+            };
+            seajs.use([
+                "dist/application/app.js", "dist/search/init.js"
+            ], function (app) {});
+        </script>
+        <!-- 百度统计代码 -->
+        <script src="{{staticUrl}}/baidu-statistics.js"></script>
 
-</body>
+    </body>
 
 </html>

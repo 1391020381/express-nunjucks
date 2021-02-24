@@ -1,124 +1,128 @@
 <!DOCTYPE html>
 <html>
-<head>
-    {% include "common/head.html" %}
-    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/ishare_rights.css">
-    <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/rights.css">
-    <!-- 添加360统计代码1、PC端统计代码： -->
-    <script>
-        (function (b, a, e, h, f, c, g, s) {
-            b[h] = b[h] || function () {(b[h].c = b[h].c || []).push(arguments)};
-            b[h].s = !!c;
-            g = a.getElementsByTagName(e)[0];
-            s = a.createElement(e);
-            s.src = "//s.union.360.cn/" + f + ".js";
-            s.defer = !0;
-            s.async = !0;
-            g.parentNode.insertBefore(s, g)
-        })(window, document, "script", "_qha", 335601, false);
-    </script>
-</head>
+    <head>
+        {% include "common/head.html" %}
+        <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/ishare_rights.css">
+        <link rel="stylesheet" type="text/css" href="{{cdnUrl}}/stylesheets/rights/rights.css">
+        <!-- 添加360统计代码1、PC端统计代码： -->
+        <script>
+            (function (b, a, e, h, f, c, g, s) {
+                b[h] = b[h] || function () {
+                    (b[h].c = b[h].c || []).push(arguments)
+                };
+                b[h].s = !!c;
+                g = a.getElementsByTagName(e)[0];
+                s = a.createElement(e);
+                s.src = "//s.union.360.cn/" + f + ".js";
+                s.defer = !0;
+                s.async = !0;
+                g
+                    .parentNode
+                    .insertBefore(s, g)
+            })(window, document, "script", "_qha", 335601, false);
+        </script>
+    </head>
 
-<body class="m-rights-body">
-{% include "common/websiteHeaderbar.html" %}
-<div class="m-rights">
-    <div class="header"></div>
-    <div class="main">
-        <div class="product-wrap">
-            <div class="product-item clear-fix">
-                <!-- 用户信息框 -->
-                <div class="user-wrap">
-                    <div class="user-top">
-                        <div class="t-image-bg i-default-portrait">
-                            <img class="t-image jsUserImage" src="{{cdnUrl}}/images/rights/image/default-portrait.png" alt="">
+    <body class="m-rights-body">
+        {% include "common/websiteHeaderbar.html" %}
+        <div class="m-rights">
+            <div class="header"></div>
+            <div class="main">
+                <div class="product-wrap">
+                    <div class="product-item clear-fix">
+                        <!-- 用户信息框 -->
+                        <div class="user-wrap">
+                            <div class="user-top">
+                                <div class="t-image-bg i-default-portrait">
+                                    <img class="t-image jsUserImage" src="{{cdnUrl}}/images/rights/image/default-portrait.png" alt="">
+                                </div>
+                                <p class="t-name jsUserName"></p>
+                                {# <p class="t-type">(&nbsp;<span class="jsLoginType">微信登陆</span>&nbsp;)</p> #}
+                            </div>
+                            <ul class="user-bottom clear-fix">
+                                <li class="b-item">
+                                    <div class="b-icon JsMainIcon i-vip-gray1"></div>
+                                    <div>全站VIP</div>
+                                </li>
+                                <li class="b-item">
+                                    <div class="b-icon JsOfficeIcon i-vip-gray2"></div>
+                                    <div>办公VIP</div>
+                                </li>
+                            </ul>
                         </div>
-                        <p class="t-name jsUserName"></p>
-                        {# <p class="t-type">(&nbsp;<span class="jsLoginType">微信登陆</span>&nbsp;)</p> #}
+                        <div class="left-side">
+                            <div class="left-side-icon i-main-vip"></div>
+                            <div class="left-side-btn is-yellow JsPayMainVip">立即开通</div>
+                        </div>
+                        <ul class="right-list clear-fix">
+                            <li class="list-item">
+                                <div class="list-item-icon i-down-privilege"></div>
+                                <p class="list-item-text">vip专享资料下载特权</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-discount"></div>
+                                <p class="list-item-text">付费资料折扣</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-vip-sign"></div>
+                                <p class="list-item-text">会员身份标识</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-multi-port"></div>
+                                <p class="list-item-text">多终端互通</p>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="user-bottom clear-fix">
-                        <li class="b-item">
-                            <div class="b-icon JsMainIcon i-vip-gray1"></div>
-                            <div>全站VIP</div>
-                        </li>
-                        <li class="b-item">
-                            <div class="b-icon JsOfficeIcon i-vip-gray2"></div>
-                            <div>办公VIP</div>
-                        </li>
-                    </ul>
+                    <div class="product-item m-top10 clear-fix">
+                        <div class="left-side">
+                            <div class="left-side-icon i-office-vip"></div>
+                            <div class="left-side-btn is-blue JsPayOfficeVip">立即开通</div>
+                        </div>
+                        <ul class="right-list clear-fix">
+                            <li class="list-item">
+                                <div class="list-item-icon i-down-privilege"></div>
+                                <p class="list-item-text">办公资料下载特权</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-vip-sign"></div>
+                                <p class="list-item-text">会员身份标识</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-multi-port"></div>
+                                <p class="list-item-text">多终端互通</p>
+                            </li>
+
+                            <li class="list-item">
+                                <div class="list-item-icon i-vip-activity"></div>
+                                <p class="list-item-text">会员专属活动</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="left-side">
-                    <div class="left-side-icon i-main-vip"></div>
-                    <div class="left-side-btn is-yellow JsPayMainVip">立即开通</div>
-                </div>
-                <ul class="right-list clear-fix">
-                    <li class="list-item">
-                        <div class="list-item-icon i-down-privilege"></div>
-                        <p class="list-item-text">vip专享资料下载特权</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-discount"></div>
-                        <p class="list-item-text">付费资料折扣</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-vip-sign"></div>
-                        <p class="list-item-text">会员身份标识</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-multi-port"></div>
-                        <p class="list-item-text">多终端互通</p>
-                    </li>
-                </ul>
             </div>
-            <div class="product-item m-top10 clear-fix">
-                <div class="left-side">
-                    <div class="left-side-icon i-office-vip"></div>
-                    <div class="left-side-btn is-blue JsPayOfficeVip">立即开通</div>
-                </div>
-                <ul class="right-list clear-fix">
-                    <li class="list-item">
-                        <div class="list-item-icon i-down-privilege"></div>
-                        <p class="list-item-text">办公资料下载特权</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-vip-sign"></div>
-                        <p class="list-item-text">会员身份标识</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-multi-port"></div>
-                        <p class="list-item-text">多终端互通</p>
-                    </li>
-                    
-                    <li class="list-item">
-                        <div class="list-item-icon i-vip-activity"></div>
-                        <p class="list-item-text">会员专属活动</p>
-                    </li>
-                </ul>
-            </div>
+            <p class="more">
+                <i class="more-icon i-more"></i>
+                <span>更多其它精品频道，敬请期待...</span>
+            </p>
         </div>
-    </div>
-    <p class="more">
-        <i class="more-icon i-more"></i>
-        <span>更多其它精品频道，敬请期待...</span>
-    </p>
-</div>
-<!-- 底部 start-->
-{% include "common/new/footer.html" %}
-{% include "common/js.html" %}
-<script type="text/javascript">
-    window.pageConfig = {
-        report: {}
-    }
-</script>
-<script>
-    seajs.use(["dist/application/app.js", "dist/rights/index.js"])
-</script>
-<!-- 百度统计代码 -->
-<script src="{{staticUrl}}/baidu-statistics.js"></script>
-<script src="{{staticUrl}}/baidu-office.js"></script>
-</body>
+        <!-- 底部 start-->
+        {% include "common/footer.html" %}
+        {% include "common/js.html" %}
+        <script type="text/javascript">
+            window.pageConfig = {
+                report: {}
+            }
+        </script>
+        <script>
+            seajs.use(["dist/application/app.js", "dist/rights/index.js"])
+        </script>
+        <!-- 百度统计代码 -->
+        <script src="{{staticUrl}}/baidu-statistics.js"></script>
+        <script src="{{staticUrl}}/baidu-office.js"></script>
+    </body>
 </html>

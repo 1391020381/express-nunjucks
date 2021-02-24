@@ -789,3 +789,6 @@ body {
 .search-all-main .right-content .search-other-container .search-other-item span:last-child {
   margin-right: 0;
 }
+.search-all-main .right-content .adv-position {
+  margin-top: 10px;
+}

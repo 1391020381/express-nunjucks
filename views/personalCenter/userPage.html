@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    {% include "common/head.html" %}
-    <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/userPage.css"/>
-    <!-- 添加360统计代码1、PC端统计代码： -->
-<script>
-    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
-    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
-    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
-    })(window,document,"script","_qha",335601,false);
-</script>  
+    <head>
+        {% include "common/head.html" %}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/userPage.css"/>
+        <!-- 添加360统计代码1、PC端统计代码： -->
+        <script>
+            (function (b, a, e, h, f, c, g, s) {
+                b[h] = b[h] || function () {
+                    (b[h].c = b[h].c || []).push(arguments)
+                };
+                b[h].s = !!c;
+                g = a.getElementsByTagName(e)[0];
+                s = a.createElement(e);
+                s.src = "//s.union.360.cn/" + f + ".js";
+                s.defer = !0;
+                s.async = !0;
+                g
+                    .parentNode
+                    .insertBefore(s, g)
+            })(window, document, "script", "_qha", 335601, false);
+        </script>
 
-</head>
+    </head>
 
-<body>
-    
-   {% include "common/websiteHeaderbar.html" %}
-    <input type="hidden" id="ip-page-id" value="PC-M-UP">
-    <input type="hidden" id="ip-page-name" value="个人中心-个人信息页">
-   <div class="personal-center-content pw">
-        <div class="container"></div>
-   </div>
-    {# {% include "../common/footer.html" %} #}
+    <body>
+
+        {% include "common/websiteHeaderbar.html" %}
+        <input type="hidden" id="ip-page-id" value="PC-M-UP">
+        <input type="hidden" id="ip-page-name" value="个人中心-个人信息页">
+        <div class="personal-center-content pw">
+            <div class="container"></div>
+        </div>
+        {# {% include "../common/footer.html" %} #}
         <!-- 底部 start-->
-{% include "common/new/footer.html" %}
-    {% include "common/js.html" %}
-    <script type="text/javascript">
-        window.pageConfig = {
-            page:{
-                uid: '{{results.uid}}'
-            }
-        };
-        seajs.use(["dist/application/app.js", "dist/personalCenter/userPage.js"]);
-    </script>
-    <!-- 百度统计代码 -->
-    <script src="{{staticUrl}}/baidu-statistics.js"> </script>
-</body>
+        {% include "common/footer.html" %}
+        {% include "common/js.html" %}
+        <script type="text/javascript">
+            window.pageConfig = {
+                page: {
+                    uid: '{{results.uid}}'
+                }
+            };
+            seajs.use(["dist/application/app.js", "dist/personalCenter/userPage.js"]);
+        </script>
+        <!-- 百度统计代码 -->
+        <script src="{{staticUrl}}/baidu-statistics.js"></script>
+    </body>
 
 </html>

@@ -37,7 +37,7 @@
                             <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
                                 <span class="search-title">{{secondItem.propertyGroupName}}: </span>
                                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}" class="search-ele {{'active' if thirdItem.active  }}" href="javascript:;">
+                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}.html" class="search-ele {{'active' if thirdItem.active  }}" >
                                         {{thirdItem.propertyName}}
                                     </a>
                                 {% endfor %}
