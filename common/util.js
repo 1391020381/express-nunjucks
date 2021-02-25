@@ -224,6 +224,7 @@ module.exports = {
             specialTopicId: firstSpilt[0],//专题id
             dimensionId: paramsArr[1],//维度id
             topicPropertyQueryDTOList: [],
+            topicPropertyQuery:'',
             sortFlag: firstSpilt[2] || 0,//排序,0-综合排序,1-最新上传
             currentPage: firstSpilt[1] || 1,
         }
@@ -234,6 +235,7 @@ module.exports = {
                 arr.push(paramsArr[i]);
             }
             item.topicPropertyQueryDTOList=arr;
+            item.topicPropertyQuery = item.topicPropertyQueryDTOList.join('-')
         }
         return item
     },

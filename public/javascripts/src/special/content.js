@@ -5,8 +5,8 @@ define(function (require, exports, module) {
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var recommendConfigInfo = require('../common/recommendConfigInfo')
     toggleMore();
-    toggleTag();
-    searchTab();
+    // toggleTag();
+    // searchTab();
     console.log(window.pageConfig)
 
     $('.btn-fresh').on('click', function () {
@@ -82,18 +82,18 @@ define(function (require, exports, module) {
 
         })
 
-        $(document).on('click', '.js-tab-page', function () {  //直接替换页数
-            var currentPage = $('.office-page-paging .active').attr('value')
-            var nextpage = $(this).attr('value')
-            var url = window.location.pathname;
-            var i = url.indexOf('_');
-            if (i > -1) {
-                url = changeStr(url, i + 1, nextpage, currentPage);
-            } else {  //默认情况下
-                url = '/node/s/' + pageConfig.urlParams.specialTopicId + '_' + nextpage + '_' + pageConfig.urlParams.sortFlag + '.html'
-            }
-            location.href = url;
-        })
+        // $(document).on('click', '.js-tab-page', function () {  //直接替换页数
+        //     var currentPage = $('.office-page-paging .active').attr('value')
+        //     var nextpage = $(this).attr('value')
+        //     var url = window.location.pathname;
+        //     var i = url.indexOf('_');
+        //     if (i > -1) {
+        //         url = changeStr(url, i + 1, nextpage, currentPage);
+        //     } else {  //默认情况下
+        //         url = '/node/s/' + pageConfig.urlParams.specialTopicId + '_' + nextpage + '_' + pageConfig.urlParams.sortFlag + '.html'
+        //     }
+        //     location.href = url;
+        // })
     }
 
     function changeStr(str, index, changeStr, currentPage) {
