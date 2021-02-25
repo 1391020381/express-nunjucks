@@ -30,7 +30,7 @@ const renderPage = cc(async (req, res, next) => {
     }
     const crumbList = await getCrumbList(req, res, list)
 
-    const editorInfo = {} // await getEditorInfo(req, res, list)
+    const editorInfo = {}  // await getEditorInfo(req, res, list)
     const fileDetailTxt = await getFileDetailTxt(req, res)
     const recommendInfo = await getRecommendInfo(req, res, list)
     let paradigm4Relevant = []
@@ -42,14 +42,11 @@ const renderPage = cc(async (req, res, next) => {
         hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID)
 
     }
-
-    // const hotTopicSearch = await getHotTopicSearch(req, res, list)
     const hotTopicSearch = {}
-    // const hotTopicSeo = await getHotTopicSeo(req, res)
     const hotTopicSeo = {}
     const hotRecData = await getHotRecData(req, res)
     const newsRec = await getNewsRec(req, res)
-    console.log('newsRec:', JSON.stringify(newsRec))
+
     handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt, recommendInfo, paradigm4Relevant, hotpotSearch, hotTopicSearch, hotTopicSeo, hotRecData, newsRec, type, fileurl })
 })
 
@@ -114,19 +111,7 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
 }
 
 function getHotpotSearch(req, res, list, recommendInfo, userID) {
-    // let recRelateArrNum = paradigm4Relevant.data.length
-    // req.body = {
-    //     currentPage: 1,
-    //     pageSize: 40,
-    //     site: 4,
-    //     classIds: [list.data.fileInfo.classid2, list.data.fileInfo.classid3].filter(item => { return !!item }),
-    //     title: list.data.fileInfo.title
-    // }
-    // if (recRelateArrNum < 31) {
-    //     return server.$http(appConfig.apiNewBaselPath + Api.spider.hotpotSearch, 'post', req, res, true)
-    // } else {
-    //     return {}
-    // }
+
     let recommendInfoData_rele = recommendInfo.data[1] || {} //相关资料
     if (recommendInfoData_rele.useId) {
         let requestId = Math.random().toString().slice(-10);//requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
@@ -145,35 +130,11 @@ function getHotpotSearch(req, res, list, recommendInfo, userID) {
     }
 }
 
-function getHotTopicSearch(req, res, list) {
-    req.body = {
-        topicName: list.data.fileInfo.title,
-        currentPage: 1,
-        pageSize: 40,
-        siteCode: '4'
-    };
-    return server.$http(appConfig.apiNewBaselPath + Api.spider.hotTopicSearch, 'post', req, res, true)
-}
 
-function getHotTopicSeo(req, res) {
-    req.body = {
-        type: 'topic',
-        currentPage: 1,
-        pageSize: 20,
-        siteCode: 4,
-        random: 'y'
-    };
-    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRecData, 'post', req, res, true)
-}
+
+
 
 function getNewsRec(req, res) {
-    // req.body = {
-    //     type: 'new',
-    //     currentPage: 1,
-    //     pageSize: 20,
-    //     siteCode: 4,
-    //     random: 'y'
-    // }
     return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true)
 }
 
@@ -219,15 +180,7 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
     if (picArr && picArr.length > 6) {
         picArr = picArr.slice(0, 6)
     }
-    var sliceNum = Math.ceil(textString.length / picArr.length);
-    var newTextArr = [];
-    for (var i = 0; i < picArr.length; i++) {
-        var txt = textString.substr(sliceNum * i, sliceNum);
-        var obj = {};
-        obj.txt = txt;
-        obj.img = picArr[i];
-        newTextArr.push(obj)
-    }
+    var newTextArr = dealContent(textString, picArr, topicList);
     if (results.crumbList && results.crumbList.data) {
         results.crumbList.data.isGetClassType = list.data.fileInfo.isGetClassType || 0;
     }
@@ -250,8 +203,7 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
     results.seo.description = description || '';
     results.seo.fileurl = fileurl;
     //对相关资料数据处理
-    // console.log('paradigm4Relevant:z',paradigm4Relevant.data.length,JSON.stringify(paradigm4Relevant.data))
-    // let recRelateArrNum  = paradigm4Relevant.data.length
+
     results.relevantList = results.paradigm4Relevant.data.slice(0, 10)
     results.guessLikeList = results.paradigm4Relevant.data.slice(-21)
 
@@ -263,36 +215,42 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
     // 对最新资料  推荐专题数据处理
     results.hotTopicSearch = results.hotpotSearch.data.slice(0, 20)
     results.hotTopicSeo = results.hotpotSearch.data.slice(-21)
-
-
-    // if (results.newRecData && results.newRecData.data && type != "hot") {
-    //     results.newRecList = results.newRecData.data.map(item => {
-    //         if (type == "new") {
-    //             item.link = "/f/" + item.id + '.html'
-    //         } else if (type == "topic") {
-    //             item.link = "/node/s/" + item.id + '.html'
-    //         }
-    //         return item;
-    //     })
-    // }
-    // // 热门推荐数据处理
-    // if (results.hotRecData && results.hotRecData.data && type == "hot") {
-    //     results.newRecList = results.hotRecData.data.map(item => {
-    //         item.link = item.contentUrl;
-    //         item.title = item.contentName;
-    //         return item;
-    //     })
-    // }
-    // // 对热门搜索的主题数进行限制
-    // results.newRecList = results.newRecList ? results.newRecList : [];
     results.type = type;
-    // if (results.newsRec && results.newsRec.data) {
-    //     results.newPagetotal = results.newsRec.data.length
-    // } else {
-    //     results.newsRec.data = []
-    // }
-
     results.fileDetailArr = newTextArr;
     results.fileSummary = results.list.data.fileInfo.title + fileDetailTxt.data && fileDetailTxt.data.slice(0, 266)
     render("spider/index", results, req, res);
+}
+
+
+
+
+function dealContent(content, fileContentList, hotSearch) { //分割字符串 替换字符串  
+    let urlList = {
+        'debug': 'http://ishare.iask.sina.com.cn/',
+        'local': 'http://localhost:3004/',
+        'dev': "http://dev-ishare.iask.com.cn/",
+        'test': "http://test-ishare.iask.com.cn/",
+        'pre': "http://test-ishare.iask.com.cn/",
+        'prod': 'http://ishare.iask.sina.com.cn/'
+    }
+    let arr = [];
+    let textLength = Math.ceil(content.length / fileContentList.length)
+    let matchNum = 1;
+    let env = process.env.NODE_ENV || 'prod'
+    fileContentList && fileContentList.map((dto, i) => {
+        let text = content.substring(i * textLength, textLength * (i + 1));
+        hotSearch && hotSearch.map(item => {
+            const reg = new RegExp(item.title, 'i');
+            let replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
+            if (reg.test(text) && matchNum <= 5) {//匹配成功
+                text = text.replace(reg, replaceStr);
+                matchNum++
+            }
+        })
+        arr.push({
+            img: dto,
+            txt: text
+        })
+    })
+    return arr
 }
