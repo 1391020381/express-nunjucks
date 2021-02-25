@@ -98,7 +98,8 @@ define(function (require, exports, module) {
             var url = '/node/coupon/queryPersonal';
             var data = {
                 type: type,
-                price: oprice
+                price: oprice,
+                terminal: 0
             }
             // 筛选可用的优惠券【A20】
             var dataList = {
