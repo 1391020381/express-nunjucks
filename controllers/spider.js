@@ -226,14 +226,15 @@ function handleSpiderData({ req, res, list, crumbList, editorInfo, fileDetailTxt
 
 function dealContent(content, fileContentList, hotSearch) { //分割字符串 替换字符串  
     let urlList = {
-        'debug': 'http://ishare.iask.sina.com.cn/',
-        'local': 'http://localhost:3004/',
-        'dev': "http://dev-ishare.iask.com.cn/",
-        'test': "http://test-ishare.iask.com.cn/",
-        'pre': "http://test-ishare.iask.com.cn/",
-        'prod': 'http://ishare.iask.sina.com.cn/'
+        'debug': 'http://ishare.iask.sina.com.cn',
+        'local': 'http://localhost:3004',
+        'dev': "http://dev-ishare.iask.com.cn",
+        'test': "http://test-ishare.iask.com.cn",
+        'pre': "http://test-ishare.iask.com.cn",
+        'prod': 'http://ishare.iask.sina.com.cn'
     }
     let arr = [];
+    // hotSearch = [{itemId:'aaaaa',title:'面试真题'}]  // 测试
     let textLength = Math.ceil(content.length / fileContentList.length)
     let matchNum = 1;
     let env = process.env.NODE_ENV || 'prod'
