@@ -75,6 +75,7 @@ const renderPage = cc(async (req, res) => {
 
     const crumbList = await getCrumbList(req, res, list)
     const cateList = await getCategoryList(req, res);
+    
     const filePreview = {};
 
     handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID })
@@ -222,9 +223,7 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
         cateList: cateList.data && cateList.data.length ? cateList.data : [],
         recommendInfo,
         filePreview: {
-            data: {
-
-            }
+            data: {}
         },
     }, { list: list });
     var svgPathList = results.list.data.svgPathList;
@@ -237,14 +236,14 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     }
 
     // 构造预读页数数据
-    let initReadPage = Math.min(list.data.contentPathList.length, results.list.data.totalPage);
+    let initReadPage = Math.min(list.data.contentPathList.length, results.list.data.preRead, 4);
     // 360传递页数
     let pageFrom360 = req.query.page || 0;
     if (pageFrom360 > 0) {
         if (pageFrom360 < preRead) {
             initReadPage = pageFrom360;
         } else {
-            initReadPage = results.list.data.totalPage;
+            initReadPage = results.list.data.preRead;
         }
         results.filePreview.data.is360page = true;
     } else {
@@ -259,6 +258,8 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     results.showFlag = true;
     results.isDetailRender = true;
 
+    console.log('返回的最新的预读页数：', JSON.stringify(results))
+    
     render("detail/index", results, req, res);
     // if (results.list.data && results.list.data.abTest) {
     //     render("detail/index", results, req, res);
@@ -294,6 +295,21 @@ function getInitPage(req, results) {
             preRead = results.filePreview.data.preRead = 50;
         }
         // 页面默认初始渲染页数
+
+        let initReadPage = Math.min(contentPathList.length, preRead, 4);
+        // 360传递页数
+        let pageFrom360 = req.query.page || 0;
+        if (pageFrom360 > 0) {
+            if (pageFrom360 < preRead) {
+                initReadPage = pageFrom360;
+            } else {
+                initReadPage = results.filePreview.data.preRead;
+            }
+            results.filePreview.data.is360page = true;
+        } else {
+            results.filePreview.data.is360page = false;
+        }
+        results.filePreview.data.initReadPage = initReadPage;
     }
 }
 
