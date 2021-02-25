@@ -10,8 +10,8 @@ const cc = require('../common/cc')
 
 const renderPage = cc(async (req, res) => {
     let paramsObj = util.getSpecialParams(req.url)
+    
     let detail = await getFindSpecialTopic(req, res, paramsObj)
-    console.log('detail:', JSON.stringify(detail))
     let specialList = []
     let uid = ''
     if (req.cookies.ui) {
@@ -30,7 +30,7 @@ const renderPage = cc(async (req, res) => {
         specialList = detail.data.specialTopicPropertyGroupDOList; //
     }
     let listData = await getListTopicContents(req, res, paramsObj, specialList)
-    console.log('listData:', JSON.stringify(listData))
+
 
     let topicName = detail.data.topicName;
     let str = topicName.length <= 12 ? (topicName + '_' + topicName) : topicName;//专题字数小于等于12时

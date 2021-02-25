@@ -122,7 +122,6 @@ module.exports = function (grunt) {
                     "../stylesheets/ishare_coupon_ad.css": "../stylesheets/ishare_coupon_ad.less",
                     "../stylesheets/rights/ishare_rights.css": "../stylesheets/rights/ishare_rights.less",
                     "../stylesheets/rights/rights.css": "../stylesheets/rights/rights.less",
-                    "../stylesheets/special/ishare_special.css": "../stylesheets/special/ishare_special.less",
                     "../stylesheets/feedback/feedback.css": "../stylesheets/feedback/feedback.less",
                     "../stylesheets/upload/upload.css": "../stylesheets/upload/upload.less",
                     "../stylesheets/personalCenter/personalCenter.css": "../stylesheets/personalCenter/personalCenter.less",

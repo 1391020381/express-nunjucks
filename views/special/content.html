@@ -76,39 +76,27 @@
             <!--筛选列表  -->
             <div class="search-list-section">
                 <div class="search-list-tab">
-                    <a  href="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}.html" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
-                    <a  href="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}.html" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+
+                    <a  href="/node/s/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+                    <a  href="/node/s/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
                 </div>
                 <div class="search-list-container">
                     <ul class="search-list">
                         {% for item in results.list.data.rows %}
                             <li class="list-item">
-                                <div class="search-img-box" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
+                                <a  class="search-img-box"  href="/f/{{item.contentId}}.html" target="_blank" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
                                     <img src="{{item.fileSmallPic}}" alt="">
                                     <div class="mask-container">
                                         <div class="bg-mask"></div>
                                         <!-- <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i> -->
                                         <div class="to-download">
-                                            <a style="width:100%;height:100%;">立即下载</a>
+                                            <span style="width:100%;height:100%;">立即下载</span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="title-hover">
                                     {{item.contentName}}
                                 </div>
-                                {# <div class="search-list-info"  contentId="{{item.contentId}}" fileName="{{item.contentName}}">
-                                    <a href="/f/{{item.contentId}}.html" target="_blank">{{item.contentName}}</a>
-                                    <div class="search-info-state">
-                                        <div class="search-info-state-item">
-                                            <i class="ic-scan"></i>
-                                            <span>{{item.readNum}}</span>
-                                        </div>
-                                        <div class="search-info-state-item">
-                                            <i class="ic-download"></i>
-                                            <span>{{item.downNum}}</span>
-                                        </div>
-                                    </div>
-                                </div> #}
                             </li>
                         {% endfor %}
                     </ul>
@@ -124,17 +112,17 @@
                     {% endif %}
                     <!-- 分页 -->
                     {% if results.list.data.totalPages > 1 %}
-                        <div class="office-page-paging">
-                            <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_1_{{results.urlParams.sortFlag}}.html" value='1'>首页</a>
+                        <div class="office-page-paging"> 
+                            <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_1_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='1'>首页</a>
                             {% if results.urlParams.currentPage > 1 %}
-                                <a class="btn-page js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}.html" value='{{results.urlParams.currentPage-1}}'>上一页</a>
+                                <a class="btn-page js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{results.urlParams.currentPage-1}}'>上一页</a>
                             {% endif %}
 
                             {%if results.pageIndexArr.length>1 %}
                                 {%for item in results.pageIndexArr%}
                                     {% if (loop.index <+ results.urlParams.currentPage + 3 and loop.index >= results.urlParams.currentPage - 3) %}
                                         <a class="page-ele js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
-                   style="display: inline-block" href="/node/s/{{results.urlParams.specialTopicId }}_{{loop.index}}_{{results.urlParams.sortFlag}}.html">
+                   style="display: inline-block" href="/node/s/{{results.urlParams.specialTopicId }}_{{loop.index}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html">
                                             {{loop.index}}
                                         </a>
                                     {% endif %}
@@ -143,9 +131,9 @@
                                         <a class="page-more">...</a>
                                     {% endif %}
                                     {% if results.urlParams.currentPage < results.pageIndexArr.length %}
-                                        <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}.html" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
+                                        <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
                                         {%endif%}
-                                        <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html" value='{{results.pageIndexArr.length}}'>尾页</a>
+                                        <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}.html-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}" value='{{results.pageIndexArr.length}}'>尾页</a>
                                         {%endif%}
                                     </div>
                                     {%endif%}
