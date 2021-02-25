@@ -162,8 +162,6 @@ define(function (require, exports, module) {
                                     autoplay: 3000,
                                 })
                             }
-                        } else {
-                            $(".right-banner").hide()
                         }
                     })
                 }
