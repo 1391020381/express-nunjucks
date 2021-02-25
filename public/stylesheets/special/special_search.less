@@ -574,30 +574,19 @@ body {
         background: #fff;
 
         .search-list-tab {
-
+            border-bottom: 1px solid #ECECEC;
+            padding-bottom: 13px;
 
             a {
                 font-size: 16px;
 
                 font-weight: 400;
                 color: rgba(102, 102, 102, 1);
-
-                &::after {
-                    content: '';
-                    display: inline-block;
-                    width: 1px;
-                    height: 16px;
-                    background-color: rgba(204, 204, 204, 1);
-                    vertical-align: middle;
-                    margin: 0 30px;
-                }
             }
 
-            a:last-child {
-                &::after {
-                    display: none;
-                }
-            }
+           a:last-child{
+            margin-left:30px;
+           }
 
             a:hover {
                 color: #F25125;
@@ -605,11 +594,21 @@ body {
 
             .active {
                 color: #F25125;
+                position: relative;
+                &:before{
+                    content: '';
+                    position: absolute;
+                    width: 24px;
+                    height: 2px;
+                    left: 19px;
+                    bottom: -14px;
+                    background: #F25125;
+                }
             }
         }
 
         .search-list {
-            margin-top: 26px;
+            margin-top: 20px;
             .cf();
 
             .list-item {
@@ -877,7 +876,7 @@ body {
 
             .title {
                 padding: 17px;
-
+                padding-left:0px;
                 .title-desc {
                     font-size: 16px;
                     color: #333333;

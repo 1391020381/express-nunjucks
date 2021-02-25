@@ -83,32 +83,19 @@
                     <ul class="search-list">
                         {% for item in results.list.data.rows %}
                             <li class="list-item">
-                                <div class="search-img-box" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
+                                <a  class="search-img-box"  href="/f/{{item.contentId}}.html" target="_blank" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
                                     <img src="{{item.fileSmallPic}}" alt="">
                                     <div class="mask-container">
                                         <div class="bg-mask"></div>
                                         <!-- <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i> -->
                                         <div class="to-download">
-                                            <a style="width:100%;height:100%;">立即下载</a>
+                                            <span style="width:100%;height:100%;">立即下载</span>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="title-hover">
                                     {{item.contentName}}
                                 </div>
-                                {# <div class="search-list-info"  contentId="{{item.contentId}}" fileName="{{item.contentName}}">
-                                    <a href="/f/{{item.contentId}}.html" target="_blank">{{item.contentName}}</a>
-                                    <div class="search-info-state">
-                                        <div class="search-info-state-item">
-                                            <i class="ic-scan"></i>
-                                            <span>{{item.readNum}}</span>
-                                        </div>
-                                        <div class="search-info-state-item">
-                                            <i class="ic-download"></i>
-                                            <span>{{item.downNum}}</span>
-                                        </div>
-                                    </div>
-                                </div> #}
                             </li>
                         {% endfor %}
                     </ul>
