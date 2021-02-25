@@ -59,38 +59,36 @@ define(function (require, exports, moudle) {
             loginResult: ""
         }
     }
-    function handle(id) {
+   function handle(id) {
         if (id) {
-            try {
-                (function () {
-                    var hm = document.createElement("script");
-                    hm.src = "https://hm.baidu.com/hm.js?" + id;
-                    var s = document.getElementsByTagName("script")[0];
-                    s.parentNode.insertBefore(hm, s);
-                })();
-            } catch (e) {
-                console.error(id, e);
+            _hmt.push(['_setAccount', id]);
+            for (var key in _hmt.cmd) {
+                if (key == id) {
+                    return
+                } else {
+                    try {
+                        (function () {
+                            var hm = document.createElement("script");
+                            hm.src = "https://hm.baidu.com/hm.js?" + id;
+                            var s = document.getElementsByTagName("script")[0];
+                            s.parentNode.insertBefore(hm, s);
+                        })();
+                    } catch (e) {
+                        console.error(id, e);
+                    }
+                }
             }
         }
     }
-    function handleBaiduStatisticsPush(eventName, params) { // vlaue是对象
-        var temp = eventNameList[eventName]
-        if (eventName == 'fileDetailPageView') {
-            params = temp
-        }
-        if (eventName == 'payFileResult') {
-            params = $.extend(temp, { payresult: params.payresult, orderid: params.orderNo, orderpaytype: params.orderpaytype });
-        }
 
-        if (eventName == 'payVipResult') {
-            params = $.extend(temp, { payresult: params.payresult, orderid: params.orderNo, orderpaytype: params.orderpaytype });
-        }
-        if (eventName == 'loginResult') {
-            params = $.extend(temp, { loginType: params.loginType, userid: params.userid, loginResult: params.loginResult })
-        }
-        _hmt.push(['_trackCustomEvent', eventName, params]);
-        console.log('百度统计:', eventName, params)
-        return false;
+  function handleBaiduStatisticsPush(eventName,params){ // vlaue是对象
+    var temp = eventNameList[eventName]
+    if(eventName == 'fileDetailPageView'){
+        params = temp
+    }
+    if(eventName == 'payFileResult'){
+        params = $.extend(temp, {payresult:params.payresult,orderid:params.orderNo,orderpaytype:params.orderpaytype});
+    }
 
     }
     return {
