@@ -48,7 +48,8 @@ define(function (require, exports, module) {
             getFileDownLoadUrl: gateway + '/content/getFileDownUrl',
             // 文件打分
             // 文件预览判断接口
-            getPrePageInfo: gateway + '/content/file/getPrePageInfo',
+            // 【A20新文件预览判断接口】
+            getPrePageInfo: gateway + '/content/getPreRead',
             sendmail: gateway + '/content/sendmail/findFile',
             getFileDetailNoTdk: gateway + '/content/getFileDetailNoTdk'
 
