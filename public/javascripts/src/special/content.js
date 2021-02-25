@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var topBnnerTemplate = require("../common/template/swiper_tmp.html");
     var recommendConfigInfo = require('../common/recommendConfigInfo')
     toggleMore();
+    
     // toggleTag();
     // searchTab();
     console.log(window.pageConfig)
