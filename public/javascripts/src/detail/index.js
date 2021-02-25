@@ -249,6 +249,11 @@ define(function (require, exports, module) {
             }
 
         });
+        
+        // 详情页退出登录
+        $(".loginOut").on("click", function () {
+            login.ishareLogout();
+        });
 
         // 查找相关资料
         $('.detail-fixed').on('click', '#searchRes', function () { // 寻找相关资料  

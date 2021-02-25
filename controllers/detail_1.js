@@ -75,7 +75,7 @@ const renderPage = cc(async (req, res) => {
 
     const crumbList = await getCrumbList(req, res, list)
     const cateList = await getCategoryList(req, res);
-    const filePreview = await getFilePreview(req, res, list)
+    const filePreview = {};
 
     handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID })
 })
@@ -145,8 +145,9 @@ function getCategoryList(req, res) {
 function getFilePreview(req, res, list) {
     let validateIE9 = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1 : 0;
     req.body = {
-        fid: list.data.fileInfo.fid,
-        validateIE9: validateIE9
+        fid: list.data.fileInfo.id,
+        validateIE9: validateIE9,
+        site: 4
     }
     return server.$http(appConfig.apiNewBaselPath + Api.file.preReadPageLimit, 'post', req, res, true)
 }
@@ -220,16 +221,44 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
         crumbList,
         cateList: cateList.data && cateList.data.length ? cateList.data : [],
         recommendInfo,
-        filePreview,
+        filePreview: {
+            data: {
+
+            }
+        },
     }, { list: list });
     var svgPathList = results.list.data.svgPathList;
     results.list.data.supportSvg = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 : false;
     results.list.data.svgFlag = !!(svgPathList && svgPathList.length > 0);
+    if (results.list.data.supportSvg && results.list.data.svgFlag) {
+        results.list.data.totalPage = results.list.data.svgPage;
+    } else {
+        results.list.data.totalPage = results.list.data.pngPage;
+    }
+
+    // 构造预读页数数据
+    let initReadPage = Math.min(list.data.contentPathList.length, results.list.data.totalPage);
+    // 360传递页数
+    let pageFrom360 = req.query.page || 0;
+    if (pageFrom360 > 0) {
+        if (pageFrom360 < preRead) {
+            initReadPage = pageFrom360;
+        } else {
+            initReadPage = results.list.data.totalPage;
+        }
+        results.filePreview.data.is360page = true;
+    } else {
+        results.filePreview.data.is360page = false;
+    }
+    results.filePreview.data.preRead = results.list.data.preRead;
+    results.filePreview.data.initReadPage = initReadPage;
+    results.filePreview.data.status = 1;
+
     results.crumbList.data.isGetClassType = fileInfo.isGetClassType || 0;
-    getInitPage(req, results);
+    // getInitPage(req, results);
     results.showFlag = true;
     results.isDetailRender = true;
-    
+
     render("detail/index", results, req, res);
     // if (results.list.data && results.list.data.abTest) {
     //     render("detail/index", results, req, res);
@@ -265,21 +294,6 @@ function getInitPage(req, results) {
             preRead = results.filePreview.data.preRead = 50;
         }
         // 页面默认初始渲染页数
-
-        let initReadPage = Math.min(contentPathList.length, preRead, 4);
-        // 360传递页数
-        let pageFrom360 = req.query.page || 0;
-        if (pageFrom360 > 0) {
-            if (pageFrom360 < preRead) {
-                initReadPage = pageFrom360;
-            } else {
-                initReadPage = results.filePreview.data.preRead;
-            }
-            results.filePreview.data.is360page = true;
-        } else {
-            results.filePreview.data.is360page = false;
-        }
-        results.filePreview.data.initReadPage = initReadPage;
     }
 }
 

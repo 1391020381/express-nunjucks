@@ -173,7 +173,7 @@ define(function (require, exports, module) {
             dataType: "json",
             success: function (res) {
                 // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-                console.log(pageConfig, res.data)
+                // console.log(pageConfig, res.data)
                 if (res.code == 0) {
                     pageConfig.page.preRead = res.data && res.data.transcodeInfo && res.data.transcodeInfo.preRead || 50;
                     var num = method.getParam('page');

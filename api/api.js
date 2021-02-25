@@ -16,7 +16,7 @@ module.exports = {
         // 评论列表
         commentList: '/file/getComments?fid=$fid',
         // 限制预读页数
-        preReadPageLimit: '/content/file/getPrePageInfo',
+        preReadPageLimit: '/content/getPreRead',
         relateFile: '/file/queryOwnerDownloadList?ownerId=$ownerId&fid=$fid',
         getAdv: '/file/getAdv?fid=$fid&advertBatchId=$advertBatchId&taskId=$taskId',
         getUserFileZcState: '/comment/zc/getUserFileZcState',
