@@ -12,7 +12,6 @@ const renderPage = cc(async (req, res) => {
     let paramsObj = util.getSpecialParams(req.url)
     
     let detail = await getFindSpecialTopic(req, res, paramsObj)
-   
     let specialList = []
     let uid = ''
     if (req.cookies.ui) {

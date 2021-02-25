@@ -12,17 +12,7 @@ define(function (require, exports, module) {
     $('.btn-fresh').on('click', function () {
         window.location.reload()
     })
-    // $(".search-list-info a").hover(function(){
-    //     var text=$(this).parent().siblings('.search-img-box').find('.title-hover');
-    //     $(this).addClass('active');
-    //     text.removeClass('hide');
-    //     text.addClass('active');
-    // },function(){
-    //     var text=$(this).parent().siblings('.search-img-box').find('.title-hover');
-    //     $(this).removeClass('active');
-    //     text.removeClass('active')
-    //     text.addClass('hide');
-    // });
+   
 
 
     //更多筛选  切换函数
