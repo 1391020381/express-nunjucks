@@ -27,6 +27,6 @@ define(function (require, exports, module) {
     if(productType == '1'){
         require('../common/baidu-statistics.js').initBaiduStatistics('c0fb058099c13a527871d024b1d809f8') 
     }
-    console.log(window.b.c) // 测试听云
+    console.log(window.c.d) // 测试听云
 }
 );
