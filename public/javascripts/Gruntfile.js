@@ -90,6 +90,7 @@ module.exports = function (grunt) {
         //压缩js
         uglify: {
             options: {
+                sourceMap: 'dist/js-source-map/ishare-web-pc.js.map',
                 //头部信息
                 banner: '/*! <%= pke.name %>\n*author:<%= pke.author %> */\n'
             },
