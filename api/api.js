@@ -57,6 +57,7 @@ module.exports = {
         getUserInfo: '/user/getUserInfo',
         getUserCentreInfo: '/user/getUserCentreInfo',
         getOtherUser: '/user/getOthersCentreInfo',//他人信息主页
+        getSearchList: '/search/content/byCondition', //他人信息主页 热门与最新
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin',      //获取用户信息
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id

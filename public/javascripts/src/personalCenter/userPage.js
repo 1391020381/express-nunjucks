@@ -8,21 +8,13 @@ define(function (require, exports, module) {
     var paradigm4Report = require('../common/paradigm4-report');
     var pageParams = window.pageConfig.page || {};
     var userInfo = {};
-    var userData = '';
     var recommendInfoItem = {}, paradigm4GuessData = [];
-    var formatEnum = {
-        'doc': 'DOC',
-        'ppt': 'PPT',
-        'pdf': 'PDF',
-        'xls': 'XLS',
-        'txt': 'TXT'
-    }
     isLogin(init, false);
 
     function init(data) {
         userInfo = data;
-        // 获取他人主页信息
-        getOtherUser();
+        // 第四范式热门资料
+        recommend();
         
         $(document).on('click', '.format-title', function () {
             $('.format-list').toggle();
@@ -51,43 +43,6 @@ define(function (require, exports, module) {
         $(document).on('click', '.hot-file ul li', function () {
             var itemId = $(this).data('id');
             paradigm4Report.eventReport(itemId, paradigm4GuessData, recommendInfoItem);
-        });
-    }
-
-    function getOtherUser() {
-        $.ajax({
-            url: api.user.getOtherUser,
-            type: "get",
-            data: {
-                uid: pageParams.uid
-            },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                if (res.code == '0') {
-                    userData = res.data;
-                    userData.readSum = userData.readSum > 10000 ? (userData.readSum / 10000).toFixed(1) + 'w+' : userData.readSum
-                    userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum
-                    userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize
-                    var _html = template.compile(require('./template/userPage/index.html'))({ data: userData });
-                    $(".container").html(_html);
-                    var isMasterVip = userData.isVip && userData.vipSiteList.indexOf(4) >= 0;
-                    var isOfficeVip = userData.isVip && userData.vipSiteList.indexOf(0) >= 0;
-                    if (!isMasterVip) {
-                        $('.personal-header .person-info-left .whole-station-vip').hide();
-                    }
-                    if (!isOfficeVip) {
-                        $('.personal-header .person-info-left .office-vip').hide();
-                    }
-                    fetchHotRecommList();
-                    recommend();
-                } else {
-                    $.toast({
-                        text: res.message,
-                        delay: 3000,
-                    });
-                }
-            }
         });
     }
 
@@ -121,76 +76,4 @@ define(function (require, exports, module) {
         })
     }
 
-    // 返回分页链接构造器
-    function renderCurrentUrl() {
-        var sortField = method.getQueryString('sort');
-        var format = method.getQueryString('format') || '';
-        var curHref = window.location.href.split('?')[0];
-        var curQuery = '';
-        if (sortField && format) {
-            curQuery = '?sort=' + sortField + '&format=' + format + '&page='; 
-        } else if (!sortField && format) {
-            curQuery = '?format=' + format + '&page='; 
-        } else if (sortField && !format) {
-            curQuery = '?sort=' + sortField + '&page=';
-        } else {
-            curQuery = '?page=';
-        }
-        return curHref + curQuery;
-    }
-
-    /**
-     * 获取热门最新资料列表
-     * @param current {number} 当前分页
-     * @param sortField {string} 排序方式  downNum热门 createTime最新
-     * @param format {string} 格式
-     * */ 
-    function fetchHotRecommList() { //热门 推荐  
-        var current = method.getQueryString('page') || 1;
-        var sortField = method.getQueryString('sort') || 'downNum';
-        var format = method.getQueryString('format') || '';
-        var currentUrl = renderCurrentUrl();
-        
-        $.ajax({
-            url: api.user.getSearchList,
-            type: "post",
-            data: JSON.stringify({
-                currentPage: current,
-                pageSize: 40,
-                sortField: sortField,   
-                format: format,
-                uid: pageParams.uid
-            }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
-                if (res.code == '0') {
-                    var arr = [];
-                    res.data.totalPages = res.data.totalPages > 40 ? 40 : res.data.totalPages;
-                    for (var i = 0; i < res.data.totalPages; i++) {
-                        arr.push(i)
-                    }
-                    res.data.totalPages = arr;
-                    var _html = template.compile(require('./template/userPage/userPageList.html'))(
-                        { 
-                            uid: pageParams.uid,
-                            list: res.data, 
-                            currentPage: current, 
-                            sortField: sortField,
-                            format: format,
-                            formatName: formatEnum[format] || '格式',
-                            currentUrl: currentUrl
-                        }
-                    );
-                    $(".personal-container .left").html(_html);
-                } else {
-                    $.toast({
-                        text: res.message,
-                        delay: 3000,
-                    });
-                }
-            }
-        });
-    }
-    
 });

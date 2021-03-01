@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         {% include "common/head.html" %}
-        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/userPage.css"/>
+        <link rel="stylesheet"
+            href="{{cdnUrl}}/stylesheets/personalCenter/userPage.css" />
         <!-- 添加360统计代码1、PC端统计代码： -->
         <script>
             (function (b, a, e, h, f, c, g, s) {
@@ -20,7 +21,6 @@
                     .insertBefore(s, g)
             })(window, document, "script", "_qha", 335601, false);
         </script>
-
     </head>
 
     <body>
@@ -29,13 +29,144 @@
         <input type="hidden" id="ip-page-id" value="PC-M-UP">
         <input type="hidden" id="ip-page-name" value="个人中心-个人信息页">
         <div class="personal-center-content pw">
-            <div class="container"></div>
+            <div class="container">
+                <!-- 个人中心头部信息 -->
+                <div class="personal-header">
+                    <div class="person-info">
+                        <img src="{{results.userData.photoPicURL}}" alt="">
+                        <div class="person-info-left">
+                            <p>{{results.userData.nickName}}
+                                {% if results.userData.isMasterVip %}
+                                <span class="whole-station-vip"></span>
+                                {% endif %}
+                                {% if results.userData.isOfficeVip %}
+                                <span class="office-vip"></span>
+                                {% endif %}
+                            </p>
+                            <p>{{results.userData.userTypeName}}认证</p>
+                        </div>
+                    </div>
+                    <div class="decrition">个人简介：{{results.userData.description}}</div>
+                </div>
+                <!-- 个人中心 -->
+                <div class="personal-container cf">
+                    <!-- 个人中心左侧 -->
+                    <div class="left fl">
+                        <div class="title">TA的资料</div>
+                        <div class="tab">
+                            <div class="tab-item {%if results.sortField == 'downNum'%} active {%endif%}"
+                                type='downNum'>
+                                <a href="?sort=downNum">热门</a>
+                            </div>
+                            <div class="tab-item {%if results.sortField == 'createTime'%} active {%endif%}"
+                                type='createTime'>
+                                <a href="?sort=createTime">最新</a>
+                            </div>
+                            <div class="format">
+                                <div class="format-title">{{ results.formatName }}<i></i></div>
+                                <div class="format-list">
+                                    <div class="format-list-item {%if results.format == ''%} format-active {%endif%}" format=''>全部</div>
+                                    <div class="format-list-item {%if results.format == 'doc'%} format-active {%endif%}" format='doc'>DOC</div>
+                                    <div class="format-list-item {%if results.format == 'ppt'%} format-active {%endif%}" format='ppt'>PPT</div>
+                                    <div class="format-list-item {%if results.format == 'pdf'%} format-active {%endif%}" format='pdf'>PDF</div>
+                                    <div class="format-list-item {%if results.format == 'xls'%} format-active {%endif%}" format='xls'>XLS</div>
+                                    <div class="format-list-item {%if results.format == 'txt'%} format-active {%endif%}" format='txt'>TXT</div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul>
+                            {%for item in results.list.rows%}
+                            <li>
+                                <a href="/f/{{item.id}}.html">
+                                    <div class="pic">
+                                        {% if item.fileSmallPic %}
+                                        <img src="{{'http://pic.iask.com.cn/' + item.fileSmallPic}}"
+                                            alt="">
+                                        {% else %}
+                                        <img src="/images/default-picture.png"
+                                            alt="">
+                                        {% endif %}
+                                        <span class="ico-data pos
+                                            ico-{{item.format}}"></span>
+                                    </div>
+                                    <div class="info">
+                                        <p>{{item.title}}</p>
+                                        <p>{{item.readNum}}阅读 &nbsp; &nbsp;
+                                            {{item.totalPage}}页</p>
+                                    </div>
+                                </a>
+                            </li>
+                            {%endfor%}
+                        </ul>
+                        <!-- 暂无记录 -->
+                        {% if results.list.rows.length == 0 %}
+                        <div class="no-record">暂无记录</div>
+                        {% endif %}
+                        {% if results.list.totalPages.length > 1 %}
+                        <div class="pagination-wrapper">
+                            <div class="page-list pagination">
+                                <a class="page-item js-page-item first"
+                                    data-currentPage="1" href="{{results.currentUrl}}1">首页</a>
+                                {% if results.currentPage > 1 %}
+                                <a class="page-item js-page-item prev"
+                                    data-currentPage="{{results.currentPage - 1}}"
+                                    href="{{results.currentUrl}}{{results.currentPage - 1}}">上一页</a>
+                                {% endif %}
+                                {% for $index in results.list.totalPages %}
+                                {% if $index > results.currentPage - 3 and $index <= +results.currentPage + 3 %}
+                                <a class="page-item js-page-item {% if results.currentPage == $index+1 %} active {% endif %}"
+                                    data-currentPage="{{+$index + 1}}"
+                                    href="{{results.currentUrl}}{{+$index+1}}">
+                                    {{$index+1}}
+                                </a>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if results.currentPage <= results.list.totalPages.length -3 %}
+                                <a class="page-more page-item">...</a>
+                                {% endif %}
+                                {% if results.currentPage < results.list.totalPages.length %}
+                                <a class="page-item js-page-item"
+                                    data-currentPage={{+results.currentPage+1}}
+                                    href="{{results.currentUrl}}{{+results.currentPage+1}}">下一页</a>
+                                {% endif %}
+                                <a class="page-item js-page-item"
+                                    data-currentPage={{results.list.totalPages.length}}
+                                    href="{{results.currentUrl}}{{results.list.totalPages.length}}">尾页</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <!-- 个人中心右侧 -->
+                    <div class="right fl">
+                        <div class="right-top">
+                            <div class="right-top-item">
+                                <p>{{results.userData.readSum}}</p>
+                                <p>浏览量</p>
+                            </div>
+                            <div class="right-top-item">
+                                <p>{{results.userData.downSum}}</p>
+                                <p>下载量</p>
+                            </div>
+                            <div class="right-top-item">
+                                <p>{{results.userData.fileSize}}</p>
+                                <p>资料数</p>
+                            </div>
+                        </div>
+                        <div class="hot-file">
+                            <div class="title">热门资料</div>
+                            <ul>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {# {% include "../common/footer.html" %} #}
         <!-- 底部 start-->
         {% include "common/footer.html" %}
         {% include "common/js.html" %}
-        
+
         <script type="text/javascript">
             window.pageConfig = {
                 page: {
