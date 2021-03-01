@@ -30,7 +30,7 @@ const renderPage = cc(async (req, res) => {
         specialList = detail.data.specialTopicPropertyGroupDOList; //
     }
     let listData = await getListTopicContents(req, res, paramsObj, specialList)
-
+    
 
     let topicName = detail.data.topicName;
     let str = topicName.length <= 12 ? (topicName + '_' + topicName) : topicName;//专题字数小于等于12时
@@ -78,6 +78,7 @@ function getListTopicContents(req, res, paramsObj, specialList) {
         currentPage: +paramsObj.currentPage || 1,
         pageSize: 40
     };
+   
     return server.$http(appConfig.apiNewBaselPath + api.special.listTopicContents, 'post', req, res, true)
 }
 function getTdkByUrl(req, res, paramsObj) {
