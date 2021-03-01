@@ -27,7 +27,6 @@ function userWxAuthState(req, res) {
 
 function getOtherUserInfo(req, res) {
     const url = appConfig.apiNewBaselPath + api.user.getOtherUser + '?uid=' + req.params.uid;
-    console.log('获取用户信息URL：', url)
     return server.$http(url, 'get', req, res, true);
 }
 
