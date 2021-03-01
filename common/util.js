@@ -242,9 +242,9 @@ module.exports = {
     getPropertyParams:function(list,properList){
 
         var arr=[],result=[];
-      //  console.log(list,'list------------')
-     //   console.log(properList,'properList------------')
-        properList.map(item=>{
+    //    console.log(list,'list------------')
+    //    console.log(properList,'properList------------')
+    properList&&properList.map(item=>{
            item.specialTopicPropertyDOList.map(res=>{
                res.ids=item.propertyGroupId+"_"+res.propertyId;
                res.propertyGroupName=item.propertyGroupName;
