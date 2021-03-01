@@ -126,7 +126,7 @@ define(function (require, exports, module) {
                 couponObj.data = dataList.validList;
                 couponObj.undata = dataList.invalidList;
                 couponObj.updateCouponOption(0);
-            })
+            });
         },
 
         /**

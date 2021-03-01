@@ -59,7 +59,7 @@ define(function (require, exports, moudle) {
             loginResult: ""
         }
     }
-   function handle(id) {
+    function handle(id) {
         if (id) {
             _hmt.push(['_setAccount', id]);
             for (var key in _hmt.cmd) {
@@ -81,15 +81,17 @@ define(function (require, exports, moudle) {
         }
     }
 
-  function handleBaiduStatisticsPush(eventName,params){ // vlaue是对象
-    var temp = eventNameList[eventName]
-    if(eventName == 'fileDetailPageView'){
-        params = temp
-    }
-    if(eventName == 'payFileResult'){
-        params = $.extend(temp, {payresult:params.payresult,orderid:params.orderNo,orderpaytype:params.orderpaytype});
-    }
+    function handleBaiduStatisticsPush(eventName, params) { // vlaue是对象
+        var temp = eventNameList[eventName]
+        if (eventName == 'fileDetailPageView') {
+            params = temp
+        }
+        if (eventName == 'payFileResult') {
+            params = $.extend(temp, { payresult: params.payresult, orderid: params.orderNo, orderpaytype: params.orderpaytype });
+        }
 
+        _hmt.push(['_trackCustomEvent', eventName, params]);
+        console.log('百度统计:', eventName, params);
     }
     return {
         initBaiduStatistics: handle,
