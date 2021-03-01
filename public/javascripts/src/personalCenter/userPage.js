@@ -66,6 +66,7 @@ define(function (require, exports, module) {
             success: function (res) {
                 if (res.code == '0') {
                     userData = res.data;
+                    userData.photoPicURL = userData.photoPicURL ? userData.photoPicURL : '/images/personalCenter/default_avatar.jpg';
                     userData.readSum = userData.readSum > 10000 ? (userData.readSum / 10000).toFixed(1) + 'w+' : userData.readSum
                     userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum
                     userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize
