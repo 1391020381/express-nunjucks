@@ -1,11 +1,11 @@
 /**
  * @Description: 503
  */
-const async = require("async");
-const render = require("../common/render");
+const async = require('async');
+const render = require('../common/render');
 const request = require('request');
-const Api = require("../api/api");
-const appConfig = require("../config/app-config");
+const Api = require('../api/api');
+const appConfig = require('../config/app-config');
 const recommendConfigInfo = require('../common/recommendConfigInfo');
 const util = require('../common/util');
 
@@ -25,22 +25,20 @@ module.exports = {
                     if (body) {
                         const data = JSON.parse(body);
                         if (data.code == 0) {
-                            // eslint-disable-next-line callback-return
                             callback(null, util.handleRecommendData(data.data[0] && data.data[0].list || []));
                         } else {
-                            // eslint-disable-next-line callback-return
                             callback(null, null);
                         }
                     } else {
-                        // eslint-disable-next-line callback-return
                         callback(null, null);
                     }
                 });
             }
         }, (err, results) => {
+            // console.log(results)
             results.fid = req.query.fid;
             res.status(503);
-            render("503", results, req, res);
+            render('503', results, req, res);
         });
     }
 };

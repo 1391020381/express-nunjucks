@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var tianshuController = require('../controllers/tianshu');
-var error = require('../common/error');
+const express = require('express');
+const router = express.Router();
+const tianshuController = require('../controllers/tianshu');
+const error = require('../common/error');
 
 router.post('/detail/like/:sceneID', tianshuController.like);
 
-router.post('/detail/relevant/:sceneID',tianshuController.relevant);
-router.post('/detail/actionslog/:clientToken',tianshuController.actionsLog);
+router.post('/detail/relevant/:sceneID', tianshuController.relevant);
+router.post('/detail/actionslog/:clientToken', tianshuController.actionsLog);
 module.exports = router;

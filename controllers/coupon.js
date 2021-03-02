@@ -2,10 +2,10 @@
  *
  */
 
-const async = require("async");
-const server = require("../models/index");
-const Api = require("../api/api");
-const appConfig = require("../config/app-config");
+const async = require('async');
+const server = require('../models/index');
+const Api = require('../api/api');
+const appConfig = require('../config/app-config');
 
 module.exports = {
     // 获取优惠券发放列表
@@ -21,7 +21,6 @@ module.exports = {
             res.send(results.list).end();
         });
     },
-
     personalCoupon: function (req, res) {
         return async.series({
             list: function (callback) {

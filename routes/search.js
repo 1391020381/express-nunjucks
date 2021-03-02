@@ -1,15 +1,15 @@
-var express = require("express");
-var router = express.Router();
-var render = require("../common/render");
-var searchController = require("../controllers/search");
-var error = require('../common/error');
+const express = require('express');
+const router = express.Router();
+const render = require('../common/render');
+const searchController = require('../controllers/search');
+const error = require('../common/error');
 
-//购买vip
-router.get('/search/home.html',function(req , res , next){
+// 购买vip
+router.get('/search/home.html', (req, res, next) => {
     try{
-        searchController.getData(req , res );
+        searchController.getData(req, res );
     }catch(e){
-        error(req , res , next);
+        error(req, res, next);
         return;
     }
 });

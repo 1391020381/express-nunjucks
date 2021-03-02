@@ -13,8 +13,9 @@ module.exports = {
         es6: true,
         es2017: true
     },
+    parser: 'babel-eslint',
     parserOptions: {
-        // parser: 'babel-eslint',
+        // parser: 'babel-eslint'
         // sourceType: 'module'	// 指定来源的类型
     },
     overrides: [

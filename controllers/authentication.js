@@ -1,12 +1,12 @@
 /**
  * @Description: 认证
  */
-const async = require("async");
-const render = require("../common/render");
-// const server = require("../models/index");
+const async = require('async');
+const render = require('../common/render');
+// const server = require('../models/index');
 // const request = require('request');
-// const api = require("../api/api");
-// const appConfig = require("../config/app-config");
+// const api = require('../api/api');
+// const appConfig = require('../config/app-config');
 // const recommendConfigInfo = require('../common/recommendConfigInfo');
 // const util = require('../common/util');
 
@@ -18,7 +18,7 @@ module.exports = {
             }
         }, (err, results) => {
             // console.log(results)
-            render("authentication/index", results, req, res);
+            render('authentication/index', results, req, res);
         });
     },
     user: function (req, res) {
@@ -30,7 +30,7 @@ module.exports = {
             }
         }, (err, results) => {
             // console.log(results.auditStatus,'auditStatus')
-            render("authentication/user", results, req, res);
+            render('authentication/user', results, req, res);
         });
     },
     org: function (req, res) {
@@ -40,7 +40,7 @@ module.exports = {
                 callback(null, null);
             }
         }, (err, results) => {
-            render("authentication/org", results, req, res);
+            render('authentication/org', results, req, res);
         });
     }
 };

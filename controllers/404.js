@@ -25,19 +25,17 @@ module.exports = {
                     if (body) {
                         const data = JSON.parse(body);
                         if (data.code == 0) {
-                            // eslint-disable-next-line callback-return
                             callback(null, util.handleRecommendData(data.data[0] && data.data[0].list || []));
                         } else {
-                            // eslint-disable-next-line callback-return
                             callback(null, null);
                         }
                     } else {
-                        // eslint-disable-next-line callback-return
                         callback(null, null);
                     }
                 });
             }
         }, (err, results) => {
+            // console.log(results)
             res.status(404);
             render('404', results, req, res);
         });
