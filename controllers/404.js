@@ -1,19 +1,19 @@
 /**
  * @Description: 404
  */
-var async = require("async");
-var render = require("../common/render");
-var request = require('request');
-var Api = require("../api/api");
-var appConfig = require("../config/app-config");
-var recommendConfigInfo = require('../common/recommendConfigInfo')
-var util = require('../common/util');
+const async = require('async');
+const render = require('../common/render');
+const request = require('request');
+const Api = require('../api/api');
+const appConfig = require('../config/app-config');
+const recommendConfigInfo = require('../common/recommendConfigInfo');
+const util = require('../common/util');
 
 module.exports = {
     index: function (req, res) {
         return async.series({
             geSearchBannerList:function(callback){
-                var opt = {
+                const opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
                     body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
@@ -21,24 +21,24 @@ module.exports = {
                         'Content-Type': 'application/json'
                     }
                 };
-                request(opt,function(err,res1,body){
+                request(opt, (err, res1, body) => {
                     if(body){
-                        var data = JSON.parse(body);
+                        const data = JSON.parse(body);
                         if (data.code == 0 ){
-                            
+
                             callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
                         }else{
-                            callback(null,null)
+                            callback(null, null);
                         }
                     }else{
-                      callback(null,null)
+                        callback(null, null);
                     }
-                })
-            },
-        } , function(err, results){
+                });
+            }
+        }, (err, results) => {
             // console.log(results)
-            res.status(404)
-            render("404", results, req, res);
-        })
+            res.status(404);
+            render('404', results, req, res);
+        });
     }
 };

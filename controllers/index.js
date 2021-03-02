@@ -2,21 +2,21 @@
  * office Controller
  * 办公频道 首页
  */
-var async = require("async");
-var server = require("../models/index");
-var render = require("../common/render");
-var api = require("../api/api");
-var util = require("../common/util");
-var appConfig = require("../config/app-config");
-var request = require('request');
+const async = require('async');
+const server = require('../models/index');
+const render = require('../common/render');
+const api = require('../api/api');
+const util = require('../common/util');
+const appConfig = require('../config/app-config');
+const request = require('request');
 
 module.exports = {
     render: function (res, req, next) {
         return async.parallel({
-            recommendList: function (callback) { //推荐列表  包含banner 专题 word ppt exl
-                let params = [];
-                for (let k in util.pageIds.index) {
-                    params.push(util.pageIds.index[k])
+            recommendList: function (callback) { // 推荐列表  包含banner 专题 word ppt exl
+                const params = [];
+                for (const k in util.pageIds.index) {
+                    params.push(util.pageIds.index[k]);
                 }
                 req.body = params;
                 server.post(appConfig.apiNewBaselPath + api.index.recommendList, callback, req);
@@ -26,14 +26,14 @@ module.exports = {
                     page: 0,
                     site: 4,
                     terminal: 0
-                }
+                };
                 server.post(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl, callback, req);
             },
-            //第四范式 相关推荐
+            // 第四范式 相关推荐
             paradigm4Relevant: function (callback) {
                 callback(null, null);
                 // var pageIds = ['Q_M_FD_hot_home']
-                // let url =  appConfig.newBasePath + '/gateway/recommend/config/info' 
+                // let url =  appConfig.newBasePath + '/gateway/recommend/config/info'
                 // let option = {
                 //     url: url,
                 //     method: 'POST',
@@ -80,7 +80,7 @@ module.exports = {
                 // }
             },
             categoryList: function (callback) {
-                req.body = { "site": 4, "terminal": 0, level: 2 };
+                req.body = { 'site': 4, 'terminal': 0, level: 2 };
                 server.post(appConfig.apiNewBaselPath + api.index.navList, callback, req);
             },
             // 热门专题（晒内容）
@@ -113,38 +113,38 @@ module.exports = {
                 server.post(appConfig.apiNewBaselPath + api.index.listContentInfos, callback, req);
             }
 
-        }, function (err, results) {
+        }, (err, results) => {
 
             if (err) {
-                next(err)
+                next(err);
             }
             try {
                 if (results.categoryList && results.categoryList.data) {
-                    var preContent = results.categoryList.data.slice(0, 7)
-                    var temp = results.categoryList.data.slice(7)
-                    var nextContent = { id: '', "name": "更多", class: 'loadMore', frontAllCategoryVOList: [] }
+                    const preContent = results.categoryList.data.slice(0, 7);
+                    const temp = results.categoryList.data.slice(7);
+                    const nextContent = { id: '', 'name': '更多', class: 'loadMore', frontAllCategoryVOList: [] };
                     temp.forEach(item => {
                         nextContent.frontAllCategoryVOList.push({
                             nodeCode: item.nodeCode,
                             name: item.name,
                             url: item.url
                         });
-                    })
+                    });
                     if (nextContent.frontAllCategoryVOList.length) {
-                        results.categoryList.data = preContent.concat([nextContent])
+                        results.categoryList.data = preContent.concat([nextContent]);
 
                     } else {
-                        results.categoryList.data = preContent
+                        results.categoryList.data = preContent;
                     }
                 }
                 if (results.hotTopicSeo && results.hotTopicSeo.data) {
-                    results.topicPagtotal = results.hotTopicSeo.data.length
+                    results.topicPagtotal = results.hotTopicSeo.data.length;
                 }
                 if (results.newsRec && results.newsRec.data) {
-                    results.newPagetotal = results.newsRec.data.length
+                    results.newPagetotal = results.newsRec.data.length;
                 } else {
-                    results.newsRec = {}
-                    results.newsRec.data = []
+                    results.newsRec = {};
+                    results.newsRec.data = [];
                 }
                 if (results.tdk && results.tdk.data) {
                     results.list = {};
@@ -153,13 +153,13 @@ module.exports = {
                 } else {
                     results.list = {};
                     results.list.data = {};
-                    results.list.data.tdk = {}
+                    results.list.data.tdk = {};
                 }
                 // 推荐位处理数
                 results.contentList = [];
                 //  console.log(JSON.stringify(results),'results------------------contentList')
                 if (results.recommendList) {
-                    const recfileArr = [];//精选资料
+                    const recfileArr = [];// 精选资料
                     results.recommendList.data && results.recommendList.data.map(item => {
                         if (item.pageId == util.pageIds.index.ub) {
                             results.bannerList = util.dealHref(item).list || [];
@@ -168,39 +168,39 @@ module.exports = {
                         } else if (item.pageId == util.pageIds.index.viprelevant) {
                             results.vipList = util.dealHref(item).list || [];
                         } else if (item.pageId == util.pageIds.index.recfile1) {
-                            let tmp1 = util.dealHref(item).list || [];
-                            recfileArr.push(tmp1)
+                            const tmp1 = util.dealHref(item).list || [];
+                            recfileArr.push(tmp1);
                         } else if (item.pageId == util.pageIds.index.recfile2) {
-                            let tmp2 = util.dealHref(item).list || [];
-                            recfileArr.push(tmp2)
+                            const tmp2 = util.dealHref(item).list || [];
+                            recfileArr.push(tmp2);
                         } else if (item.pageId == util.pageIds.index.recfile3) {
-                            let tmp3 = util.dealHref(item).list || [];
-                            recfileArr.push(tmp3)
+                            const tmp3 = util.dealHref(item).list || [];
+                            recfileArr.push(tmp3);
                         } else if (item.pageId == util.pageIds.index.recfile4) {
-                            let tmp4 = util.dealHref(item).list || [];
-                            recfileArr.push(tmp4)
+                            const tmp4 = util.dealHref(item).list || [];
+                            recfileArr.push(tmp4);
                         } else if (item.pageId == util.pageIds.index.recfile5) {
-                            let tmp5 = util.dealHref(item).list || [];
-                            recfileArr.push(tmp5)
+                            const tmp5 = util.dealHref(item).list || [];
+                            recfileArr.push(tmp5);
                         } else if (item.pageId == util.pageIds.index.organize) {
-                            var arr = util.dealHref(item).list || [];
+                            const arr = util.dealHref(item).list || [];
                             // 处理权威机构数据
-                            var fileArr = [];
-                            var userInfoArr = [];
+                            const fileArr = [];
+                            const userInfoArr = [];
                             arr.forEach(element => {
                                 if (element.type == 1) {
-                                    fileArr.push(element)
+                                    fileArr.push(element);
                                 } else if (element.type == 2) {
-                                    userInfoArr.push(element)
+                                    userInfoArr.push(element);
                                 }
                             });
                             results.organize = JSON.parse(JSON.stringify(userInfoArr));
-                            var step = 0;
+                            let step = 0;
                             if (fileArr.length > 11) {
-                                for (var i = 0; i < 4; i++) {
-                                    var fileSlice = fileArr.slice(step, step + 3);
+                                for (let i = 0; i < 4; i++) {
+                                    const fileSlice = fileArr.slice(step, step + 3);
                                     step += 3;
-                                    results.organize[i].fileList = fileSlice
+                                    results.organize[i].fileList = fileSlice;
                                 }
                             }
 
@@ -211,13 +211,13 @@ module.exports = {
                             // 友情链接
                             results.friendLink = util.dealHref(item).list || [];
                         } else if (item.pageId == util.pageIds.index.vipqy) {
-                            results.vipqy = util.dealHref(item).list || []
+                            results.vipqy = util.dealHref(item).list || [];
                         }
-                    })
+                    });
                     // VIP专区优先展示第四范式的数据，如果第四范式没有返回数据，则取自定义推荐位配置的数据*
                     if (results.paradigm4Relevant && results.paradigm4Relevant.length > 0) {
                         results.vipList = results.paradigm4Relevant.map(item => {
-                            var obj = {};
+                            const obj = {};
                             obj.linkUrl = '/f' + item.url;
                             obj.title = item.title;
                             obj.imagUrl = item.cover_url;
@@ -226,28 +226,28 @@ module.exports = {
                             obj.expand.readNum = item.item_read_cnt || 0;
                             obj.expand.totalPage = 0;
                             return obj;
-                        })
+                        });
 
                     }
                     recfileArr.map(item => {
                         item.forEach(ctn => {
                             if (!ctn.imagUrl) {
                                 if (ctn.expand && ctn.expand.fileSmallPic) {
-                                    ctn.imagUrl = ctn.expand.fileSmallPic
+                                    ctn.imagUrl = ctn.expand.fileSmallPic;
                                 }
                             }
-                        })
-                    })
+                        });
+                    });
 
                     results.recfileArr = recfileArr;
                 }
-                console.log(JSON.stringify(results.recfileArr), 'results------------------')
-                results.officeUrl = appConfig.officeUrl
-                render("index/index", results, req, res, next);
+                console.log(JSON.stringify(results.recfileArr), 'results------------------');
+                results.officeUrl = appConfig.officeUrl;
+                render('index/index', results, req, res, next);
             } catch (e) {
-                console.log('e:', e)
-                next(e)
+                console.log('e:', e);
+                next(e);
             }
-        })
+        });
     }
 };
