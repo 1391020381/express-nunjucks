@@ -270,10 +270,10 @@ function handleResultData(
     let pageObj = {};
     let pageArr_f = [];
     const pageArr_b = [];
+    let totalPages = pageObj.totalPages;
     if (results.list && results.list.data && results.list.data.rows) {
         // 页码处理
         pageObj = results.list.data;
-        let totalPages = pageObj.totalPages;
         totalPages = totalPages > 40 ? 40 : totalPages;
         if (pageObj.rows.length > 0) {
             if (currentPage > 5) {
