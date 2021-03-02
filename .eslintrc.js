@@ -12,9 +12,9 @@ module.exports = {
         node: true,
         es6: true
     },
-    // 解析器配置
     parserOptions: {
-        parser: 'babel-eslint',
+        ecmaVersion :2017
+        // parser: 'babel-eslint',
         // sourceType: 'module'	// 指定来源的类型
     },
     overrides: [
@@ -28,7 +28,8 @@ module.exports = {
             files: ['./public/**/*.js', './static/**/*.js'], // public目录采用另外的规则
             rules: {
                 'no-var': 'off', // 禁用var，用let和const代替
-                'no-undef': 'off' // 不能有未定义的变量
+                'no-undef': 'off', // 不能有未定义的变量
+                'prefer-arrow-callback': 'off' // 要求回调函数使用箭头函数
             }
         }
     ],
@@ -45,19 +46,19 @@ module.exports = {
         'no-delete-var': 'error', // 不能对var声明的变量使用delete操作符
         'no-dupe-args': 'error', // 函数参数不能重复
         'no-duplicate-case': 'error', // switch中的case标签不能重复
-        'no-empty': 'error', // 块语句中的内容不能为空
+        'no-empty': 'warn', // todo 后续整改 块语句中的内容不能为空
         'no-empty-character-class': 'error', // 正则表达式中的[]内容不能为空
         'no-eval': 'warn', // 禁止使用eval
         'no-ex-assign': 'error', // 禁止给catch语句中的异常参数赋值
         'no-extra-bind': 'error', // 禁止不必要的函数绑定
-        'no-extra-boolean-cast': 'error', // 禁止不必要的bool转换
+        'no-extra-boolean-cast': 'error', // todo 待确认后台数据类型是否唯一 禁止不必要的bool转换
         'no-extra-parens': 'warn', // 禁止非必要的括号
         'no-extra-semi': 'error', // 禁止多余的冒号
         'no-floating-decimal': 'error', // 禁止省略浮点数中的0 .5 3.
         'no-func-assign': 'error', // 禁止重复的函数声明
         'no-implicit-coercion': 'warn', // 禁止隐式转换
         'no-implied-eval': 'error', // 禁止使用隐式eval
-        'no-inner-declarations': ['error', 'functions'], // 禁止在块语句中使用声明（变量或函数）
+        'no-inner-declarations': ['error', 'functions'], // 禁止在块语句中使用声明（函数）
         'no-irregular-whitespace': 'error', // 不能有不规则的空格
         'no-multi-spaces': 'warn', // 不能用多余的空格
         'no-multiple-empty-lines': ['warn', {'max': 2}], // 空行最多不能超过2行
@@ -87,20 +88,20 @@ module.exports = {
         'comma-spacing': 'warn', // 逗号前后的空格
         'comma-style': ['error', 'last'], // 逗号风格，换行时在行首还是行尾
         // 'complexity': ['off', 6], // 循环复杂度
-        // 'consistent-this': ['error', 'that'], // this别名
+        'consistent-this': ['warn', 'that'], // this别名
         'indent': ['error', 4, {
             'VariableDeclarator': 1,
             'SwitchCase': 1,
             'MemberExpression': 1
         }], // 缩进规则
         'key-spacing': ['off', {'beforeColon': false, 'afterColon': true}], // 对象字面量中冒号的前后空格
-        'new-cap': 'error', // 函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用
+        'new-cap': '["error", { "properties": false }]', // 函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用
         'new-parens': 'error', // new时必须加小括号
         'operator-linebreak': ['error', 'after'], // 换行时运算符在行尾还是行首
         'prefer-arrow-callback': 'warn', // 要求回调函数使用箭头函数
         'prefer-const': 'error', // 要求使用 const 声明那些声明后不再被修改的变量
         'prefer-rest-params': 'error', // 要求使用剩余参数而不是 arguments
-        'quotes': ['off', 'single'], // 引号类型 `` "" ''
+        'quotes': ['warn', 'single'], // 引号类型 `` "" ''
         'id-match': 'off', // 命名检测
         'semi': ['error', 'always'], // 语句强制分号结尾
         'semi-spacing': ['warn', {'before': false, 'after': true}], // 分号前后空格
@@ -109,4 +110,3 @@ module.exports = {
         'yoda': ['error', 'never'] // 禁止尤达条件
     }
 };
-
