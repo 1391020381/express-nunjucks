@@ -10,17 +10,18 @@ module.exports = {
     env: {
         browser: true,
         node: true,
-        es6: true
+        es6: true,
+        es2017:true
     },
     parserOptions: {
-        ecmaVersion :2017
         // parser: 'babel-eslint',
         // sourceType: 'module'	// 指定来源的类型
     },
     overrides: [
         {
             env: {
-                es6: false
+                es6: false,
+                es2017:false
             },
             parserOptions: {
                 sourceType: 'script'
@@ -35,6 +36,7 @@ module.exports = {
     ],
     plugins: [],
     rules: {
+        'new-cap': ['error', { 'capIsNew': false }],
         'arrow-spacing': 'error', // 强制箭头函数的箭头前后使用一致的空格
         'no-caller': 'warn', // 禁止使用arguments.caller或arguments.callee
         'no-catch-shadow': 'error', // 禁止catch子句参数与外部作用域变量同名
@@ -61,7 +63,7 @@ module.exports = {
         'no-inner-declarations': ['error', 'functions'], // 禁止在块语句中使用声明（函数）
         'no-irregular-whitespace': 'error', // 不能有不规则的空格
         'no-multi-spaces': 'warn', // 不能用多余的空格
-        'no-multiple-empty-lines': ['warn', {'max': 2}], // 空行最多不能超过2行
+        'no-multiple-empty-lines': ['warn', { 'max': 2 }], // 空行最多不能超过2行
         'no-redeclare': 'error', // 禁止重复声明变量
         'no-self-compare': 'error', // 不能比较自身
         'no-shadow': 'warn', // 外部作用域中的变量不能与它所包含的作用域中的变量或参数同名
@@ -75,7 +77,7 @@ module.exports = {
         // 'no-unneeded-ternary': 'error', // 禁止不必要的嵌套 var isYes = answer === 1 ? true : false;
         'no-unreachable': 'error', // 不能有无法执行的代码
         'no-unused-expressions': 'warn', // 禁止无用的表达式
-        'no-unused-vars': ['warn', {'vars': 'all', 'args': 'after-used'}], // 不能有声明后未被使用的变量或参数
+        'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'after-used' }], // 不能有声明后未被使用的变量或参数
         'no-use-before-define': 'warn', // 未定义前不能使用
         'no-var': 'error', // 禁用var，用let和const代替
         // 'no-warning-comments': ['warn', {'terms': ['todo', 'fixme'], 'location': 'start'}], // 不能有警告备注
@@ -94,8 +96,8 @@ module.exports = {
             'SwitchCase': 1,
             'MemberExpression': 1
         }], // 缩进规则
-        'key-spacing': ['off', {'beforeColon': false, 'afterColon': true}], // 对象字面量中冒号的前后空格
-        'new-cap': '["error", { "properties": false }]', // 函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用
+        'key-spacing': ['off', { 'beforeColon': false, 'afterColon': true }], // 对象字面量中冒号的前后空格
+        // 'new-cap': '["error", { "properties": false }]', // 函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用
         'new-parens': 'error', // new时必须加小括号
         'operator-linebreak': ['error', 'after'], // 换行时运算符在行尾还是行首
         'prefer-arrow-callback': 'warn', // 要求回调函数使用箭头函数
@@ -104,7 +106,7 @@ module.exports = {
         'quotes': ['warn', 'single'], // 引号类型 `` "" ''
         'id-match': 'off', // 命名检测
         'semi': ['error', 'always'], // 语句强制分号结尾
-        'semi-spacing': ['warn', {'before': false, 'after': true}], // 分号前后空格
+        'semi-spacing': ['warn', { 'before': false, 'after': true }], // 分号前后空格
         'spaced-comment': 'warn', // 注释风格要不要有空格什么的
         'use-isnan': 'error', // 禁止比较时使用NaN，只能用isNaN()
         'yoda': ['error', 'never'] // 禁止尤达条件

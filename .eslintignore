@@ -12,3 +12,4 @@ yarn.lock
 /public/javascripts/package.json/
 /public/javascripts/pm2.json/
 /public/javascripts/yarn.lock/
+/public/javascripts/src/cmd-lib/
