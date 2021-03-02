@@ -2,13 +2,13 @@ function handle(id) {
     if (id){
         try {
             (function () {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?" + id;
-                var s = document.getElementsByTagName("script")[0];
+                var hm = document.createElement('script');
+                hm.src = 'https://hm.baidu.com/hm.js?' + id;
+                var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(hm, s);
             })();
         } catch (e) {
-            console.error(id,e);
+            console.error(id, e);
         }
     }
 }

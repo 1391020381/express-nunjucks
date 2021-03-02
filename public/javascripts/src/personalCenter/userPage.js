@@ -1,9 +1,9 @@
 
 define(function(require, exports, module) {
-    require("../cmd-lib/toast");
-    var method = require("../application/method");
-    var api = require("../application/api");
-    var login = require("../application/checkLogin");
+    require('../cmd-lib/toast');
+    var method = require('../application/method');
+    var api = require('../application/api');
+    var login = require('../application/checkLogin');
     var isLogin = require('../application/effect.js').isLogin;
     var paradigm4Report = require('../common/paradigm4-report');
     var pageParams = window.pageConfig.page || {};
@@ -57,12 +57,12 @@ define(function(require, exports, module) {
     function getOtherUser() {
         $.ajax({
             url: api.user.getOtherUser,
-            type: "get",
+            type: 'get',
             data: {
                 uid: pageParams.uid
             },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
                     userData = res.data;
@@ -71,7 +71,7 @@ define(function(require, exports, module) {
                     userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum;
                     userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize;
                     var _html = template.compile(require('./template/userPage/index.html'))({ data: userData });
-                    $(".container").html(_html);
+                    $('.container').html(_html);
                     var isMasterVip = userData.isVip && userData.vipSiteList.indexOf(4) >= 0;
                     var isOfficeVip = userData.isVip && userData.vipSiteList.indexOf(0) >= 0;
                     if (!isMasterVip) {
@@ -154,7 +154,7 @@ define(function(require, exports, module) {
 
         $.ajax({
             url: api.user.getSearchList,
-            type: "post",
+            type: 'post',
             data: JSON.stringify({
                 currentPage: current,
                 pageSize: 40,
@@ -162,8 +162,8 @@ define(function(require, exports, module) {
                 format: format,
                 uid: pageParams.uid
             }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
                     var arr = [];
@@ -172,7 +172,7 @@ define(function(require, exports, module) {
                         arr.push(i);
                     }
                     res.data.totalPages = arr;
-                    var _html = template.compile(require('./template/userPage/userPageList.html'))(
+                    var userPageListTemplate = template.compile(require('./template/userPage/userPageList.html'))(
                         {
                             uid: pageParams.uid,
                             list: res.data,
@@ -183,7 +183,7 @@ define(function(require, exports, module) {
                             currentUrl: currentUrl
                         }
                     );
-                    $(".personal-container .left").html(_html);
+                    $('.personal-container .left').html(userPageListTemplate);
                 } else {
                     $.toast({
                         text: res.message,
