@@ -1,56 +1,56 @@
 /**
  * @Description: nunjucks 添加全局方法
  */
-var appConfig = require("../config/app-config");
-var express = require("express");
-var xssFilters = require('xss-filters');
+const appConfig = require('../config/app-config');
+const express = require('express');
+const xssFilters = require('xss-filters');
 module.exports = function(env){
-    env.addGlobal('subStringFn' , function(str , len){
-            //截取文本
-            if(!str){
-                return ""
-            }
-            var str = str 
-                .replace(/&nbsp;/g, '')
-                .replace(/&rdquo;/g, '”')
-                .replace(/&ldquo;/g, '“')
-                .replace(/&mdash;/g, '—');
-            var s = str.replace(/<(?:.|\n)*?>/gm, '').trim();
-            if(s.length > len){
-                return s.substring(0 , len) + '...';
-            }
-            return s;
-        })
-        //日期格式化
-        .addGlobal('formatDate' , function(style, time){
+    env.addGlobal('subStringFn', (str, len) => {
+        // 截取文本
+        if(!str){
+            return '';
+        }
+        str = str
+            .replace(/&nbsp;/g, '')
+            .replace(/&rdquo;/g, '”')
+            .replace(/&ldquo;/g, '“')
+            .replace(/&mdash;/g, '—');
+        const s = str.replace(/<(?:.|\n)*?>/gm, '').trim();
+        if(s.length > len){
+            return s.substring(0, len) + '...';
+        }
+        return s;
+    })
+        // 日期格式化
+        .addGlobal('formatDate', (style, time) => {
             if (typeof style !== 'string' || time === 'undefined') {
                 return time;
-            };
+            }
 
             time = getDateValue(time);
-            console.log(time)
-            var date = new Date(time);
-            var attr = {};
+            console.log(time);
+            const date = new Date(time);
+            const attr = {};
 
             if (isNaN(date.getTime())) {
                 return time;
-            };
+            }
 
             attr.YYYY = date.getFullYear();
             attr.YY = attr.YYYY.toString(10).slice(-2);
             attr.M = date.getMonth() + 1;
-            attr.MM = (attr.M < 10) ? '0' + attr.M : attr.M;
+            attr.MM = attr.M < 10 ? '0' + attr.M : attr.M;
             attr.D = date.getDate();
-            attr.DD = (attr.D < 10) ? '0' + attr.D : attr.D;
+            attr.DD = attr.D < 10 ? '0' + attr.D : attr.D;
 
             attr.H = date.getHours();
-            attr.HH = (attr.H < 10) ? '0' + attr.H : attr.H;
-            attr.h = (attr.H > 12) ? attr.H - 12 : attr.H;
-            attr.hh = (attr.h < 10) ? '0' + attr.h : attr.h;
+            attr.HH = attr.H < 10 ? '0' + attr.H : attr.H;
+            attr.h = attr.H > 12 ? attr.H - 12 : attr.H;
+            attr.hh = attr.h < 10 ? '0' + attr.h : attr.h;
             attr.m = date.getMinutes();
-            attr.mm = (attr.m < 10) ? '0' + attr.m : attr.m;
+            attr.mm = attr.m < 10 ? '0' + attr.m : attr.m;
             attr.s = date.getSeconds();
-            attr.ss = (attr.s < 10) ? '0' + attr.s : attr.s;
+            attr.ss = attr.s < 10 ? '0' + attr.s : attr.s;
 
             attr.time = date.getTime();
             attr.string = date.toDateString();
@@ -74,82 +74,82 @@ module.exports = function(env){
 
             return style;
         })
-        //判断货币标识
-        .addFilter('isMoneyString' , function(value){
+        // 判断货币标识
+        .addFilter('isMoneyString', (value) => {
             if(value){
                 return /[￥]/.test(value);
             }
             return false;
         })
-        //数字字符串转数字
-        .addFilter('number' , function(value){
+        // 数字字符串转数字
+        .addFilter('number', (value) => {
             if(value){
                 return Number(value);
             }
             return value;
         })
-        //判空
-        .addFilter('empty' , function(value){
+        // 判空
+        .addFilter('empty', (value) => {
             if(value=='undefined'||value==''||value==null||value=='null'){
                 return true;
             }
             return false;
         })
-        //小数加法保留两位小数
-        .addFilter('toFixed' , function(value){
+        // 小数加法保留两位小数
+        .addFilter('toFixed', (value) => {
             if(value){
                 return value.toFixed(2);
             }
             return value;
         })
-        //字符串截取 以...结尾
-        .addFilter('cutStr' , function(value,param){
-            if(value&&param.len&&(value.length-param.len)>3){
-                return value.substr(0,param.len)+"...";
+        // 字符串截取 以...结尾
+        .addFilter('cutStr', (value, param) => {
+            if(value&&param.len&&value.length-param.len>3){
+                return value.substr(0, param.len)+'...';
             }
             return value;
         })
-        //去掉标题格式
-        .addFilter('delType',function(value){
-            let typeList = ['.doc','.docx','.docm','.dotx','.dotm','.xls','.xlsx','.xlsm','.xltx','.xltm','.xlsb','.xlamppt','.pptx','.pptm','.ppsx','.potm','.ppam','.ppsm','.ppsx','.txt','.pdf']
-            let temp = value
+        // 去掉标题格式
+        .addFilter('delType', (value) => {
+            const typeList = ['.doc', '.docx', '.docm', '.dotx', '.dotm', '.xls', '.xlsx', '.xlsm', '.xltx', '.xltm', '.xlsb', '.xlamppt', '.pptx', '.pptm', '.ppsx', '.potm', '.ppam', '.ppsm', '.ppsx', '.txt', '.pdf'];
+            let temp = value;
             if(temp){
-                for(let i=0;i<=typeList.length;i++){
-                    let flag = value.endsWith(typeList[i])
+                for(let i=0; i<=typeList.length; i++){
+                    const flag = value.endsWith(typeList[i]);
                     if(flag){
-                        var index = value.lastIndexOf(typeList[i]);
+                        const index = value.lastIndexOf(typeList[i]);
                         if(index!=-1){
-                            temp = value.substr(0,index)
+                            temp = value.substr(0, index);
                         }
                         break;
                     }else{
-                         temp = value
+                        temp = value;
                     }
                 }
             }
-            return temp
-            
+            return temp;
+
         })
         // 过滤字符串中的html标签
-        .addFilter('replaceHtml',function(value){
-            var reg = /<[^<>]+>/g;//1、全局匹配g肯定忘记写,2、<>标签中不能包含标签实现过滤HTML标签
-            value = value.replace(reg, '');//替换HTML标签
-            value = value.replace(/&nbsp;/ig, '');//替换HTML空格
-            value = xssFilters.inHTMLData(value)
-                return value;
-        })
+        .addFilter('replaceHtml', (value) => {
+            const reg = /<[^<>]+>/g;// 1、全局匹配g肯定忘记写,2、<>标签中不能包含标签实现过滤HTML标签
+            value = value.replace(reg, '');// 替换HTML标签
+            value = value.replace(/&nbsp;/ig, '');// 替换HTML空格
+            value = xssFilters.inHTMLData(value);
+            return value;
+        });
 
-}
+};
 
 // 转换日期值类型
-var getDateValue = function(value) {
+const getDateValue = function(value) {
     if (/^\d{4}$/.test(value)) {
         value = value + '/1/1';
     } else if (typeof value === 'number' && isFinite(value)) {
         value = parseInt(value, 10);
     } else if (typeof value === 'string') {
         value = value.replace(/[\.\-]/g, '/');
-    };
+    }
 
     return value;
 };

@@ -1,14 +1,14 @@
-var express = require("express");
-var router = express.Router();
-var rightController = require("../controllers/rights");
-var error = require('../common/error');
+const express = require('express');
+const router = express.Router();
+const rightController = require('../controllers/rights');
+const error = require('../common/error');
 
-//VIP权益展示页面.
-router.get('/node/rights/vip.html',function(req , res , next){
+// VIP权益展示页面.
+router.get('/node/rights/vip.html', (req, res, next) => {
     try{
-        rightController.index(req , res );
+        rightController.index(req, res );
     }catch(e){
-        error(req , res , next);
+        error(req, res, next);
     }
 });
 
