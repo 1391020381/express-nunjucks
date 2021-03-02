@@ -76,7 +76,7 @@ module.exports = {
         'no-underscore-dangle': 'warn', // 标识符不能以_开头或结尾
         // 'no-unneeded-ternary': 'error', // 禁止不必要的嵌套 var isYes = answer === 1 ? true : false;
         'no-unreachable': 'error', // 不能有无法执行的代码
-        'no-unused-expressions': 'warn', // 禁止无用的表达式
+        // 'no-unused-expressions': 'warn', // 禁止无用的表达式
         'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'after-used' }], // 不能有声明后未被使用的变量或参数
         'no-use-before-define': 'warn', // 未定义前不能使用
         'no-var': 'error', // 禁用var，用let和const代替

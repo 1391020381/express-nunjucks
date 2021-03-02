@@ -7,53 +7,6 @@ const util = require('../common/util');
 const cc = require('../common/cc');
 
 
-const renderPage = cc(async (req, res) => {
-    const paramsObj = util.getSpecialParams(req.url);
-
-    const detail = await getFindSpecialTopic(req, res, paramsObj);
-    let specialList = [];
-    let uid = '';
-    if (req.cookies.ui) {
-        uid = JSON.parse(req.cookies.ui).uid;
-    }
-
-    if (detail.data.templateCode !== 'ishare_zt_model1' || !detail.data) {
-        res.redirect('/node/404.html');
-        return;
-    }
-
-    if (paramsObj.dimensionId && detail.data.dimensionStatus == 0) { // 获取当前当前的维度列表
-        const index = _.findIndex(detail.data.specialTopicDimensionDOList, ['dimensionId', paramsObj.dimensionId]);
-        specialList = detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; // 当前维度下的分类
-    } else {// 无维度的情况
-        specialList = detail.data.specialTopicPropertyGroupDOList; //
-    }
-    const listData = await getListTopicContents(req, res, paramsObj, specialList);
-
-
-    const topicName = detail.data.topicName;
-    const str = topicName.length <= 12 ? topicName + '_' + topicName : topicName;// 专题字数小于等于12时
-    const tdkData = {
-        pageTable: '专题页',
-        url: '/node/s/' + paramsObj.specialTopicId + '.html',
-        title: paramsObj.currentPage > 1 ? topicName + '_' + topicName + '下载 _第' + paramsObj.currentPage + '页_爱问共享资料' : str + '下载 - 爱问共享资料',
-        description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName + '资料，快来爱问共享资料下载!',
-        keywords: topicName + ',' + topicName + '下载'
-    };
-
-
-    const specialData = await getSpecialTopic(req, res, detail.data.topicName);
-    specialTopic = specialData.data && specialData.data.rows || [];
-
-    let recommendList = [];
-    const recommendListData = await getRecommendList(req, res);
-    recommendListData.data && recommendListData.data.map(item => {
-        // 友情链接
-        recommendList = util.dealHref(item).list || [];
-    });
-    handleDataResult(req, res, detail, listData, specialTopic, paramsObj, tdkData, recommendList, uid);
-});
-
 function getFindSpecialTopic(req, res, paramsObj) {
     const url = appConfig.apiNewBaselPath + api.special.findSpecialTopic.replace(/\$id/, paramsObj.specialTopicId);
     return server.$http(url, 'get', req, res, true);
@@ -78,9 +31,7 @@ function getListTopicContents(req, res, paramsObj, specialList) {
 
     return server.$http(appConfig.apiNewBaselPath + api.special.listTopicContents, 'post', req, res, true);
 }
-function getTdkByUrl(req, res, paramsObj) {
-    return server.$http(appConfig.apiNewBaselPath + api.tdk.getTdkByUrl.replace(/\$url/, '/node/s/' + paramsObj.specialTopicId + '.html'), 'get', req, res, true);
-}
+
 function getSpecialTopic(req, res, topicName) {
     req.body = {
         currentPage: 1,
@@ -175,6 +126,56 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
 
     render('special/index', results, req, res);
 }
+
+
+const renderPage = cc(async (req, res) => {
+    const paramsObj = util.getSpecialParams(req.url);
+
+    const detail = await getFindSpecialTopic(req, res, paramsObj);
+    let specialList = [];
+    let uid = '';
+    if (req.cookies.ui) {
+        uid = JSON.parse(req.cookies.ui).uid;
+    }
+
+    if (detail.data.templateCode !== 'ishare_zt_model1' || !detail.data) {
+        res.redirect('/node/404.html');
+        return;
+    }
+
+    if (paramsObj.dimensionId && detail.data.dimensionStatus == 0) { // 获取当前当前的维度列表
+        const index = _.findIndex(detail.data.specialTopicDimensionDOList, ['dimensionId', paramsObj.dimensionId]);
+        specialList = detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; // 当前维度下的分类
+    } else {// 无维度的情况
+        specialList = detail.data.specialTopicPropertyGroupDOList; //
+    }
+    const listData = await getListTopicContents(req, res, paramsObj, specialList);
+
+
+    const topicName = detail.data.topicName;
+    const str = topicName.length <= 12 ? topicName + '_' + topicName : topicName;// 专题字数小于等于12时
+    const tdkData = {
+        pageTable: '专题页',
+        url: '/node/s/' + paramsObj.specialTopicId + '.html',
+        title: paramsObj.currentPage > 1 ? topicName + '_' + topicName + '下载 _第' + paramsObj.currentPage + '页_爱问共享资料' : str + '下载 - 爱问共享资料',
+        description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName + '资料，快来爱问共享资料下载!',
+        keywords: topicName + ',' + topicName + '下载'
+    };
+
+
+    const specialData = await getSpecialTopic(req, res, detail.data.topicName);
+    const specialTopic = specialData.data && specialData.data.rows || [];
+
+    let recommendList = [];
+    const recommendListData = await getRecommendList(req, res);
+    recommendListData.data && recommendListData.data.map(item => {
+        // 友情链接
+        recommendList = util.dealHref(item).list || [];
+    });
+    handleDataResult(req, res, detail, listData, specialTopic, paramsObj, tdkData, recommendList, uid);
+});
+
+
 module.exports = {
     render: renderPage
 };
