@@ -46,7 +46,7 @@ const getData = cc(async (req, res) => {
         for (let i = 0, len = sIds.length; i < len; i++) {
             const sIdItems = sIds[i].split('_');
             // 如果有属性值
-            if (sIdItems[1]) { 
+            if (sIdItems[1]) {
                 urlSelectOb[sIdItems[0]] = sIdItems[1];
             }
         }
@@ -80,13 +80,13 @@ const getData = cc(async (req, res) => {
     // 获取 属性组和id
     let selectId = [];
     let specificsIdList = [];
-    
+
     // 构造属性url
     if (categoryTitle.data && categoryTitle.data.specificsInfos) {
         categoryTitle.data.specificsInfos.forEach(item => {
             if (item.select == '1') {
                 // 去掉groupId
-                const newUrlSelectOb = {...urlSelectOb};
+                const newUrlSelectOb = { ...urlSelectOb };
                 delete newUrlSelectOb[item.id];
                 item['surl'] = formatObToStr(newUrlSelectOb);
                 item.subSpecificsList.forEach(k => {
@@ -98,7 +98,7 @@ const getData = cc(async (req, res) => {
                         specificsIdList.push(k.id);
                         k['surl'] = sId;
                     } else {
-                        const newUrlSelectOb = {...urlSelectOb};
+                        const newUrlSelectOb = { ...urlSelectOb };
                         newUrlSelectOb[item.id] = k.id;
                         k['surl'] = formatObToStr(newUrlSelectOb);
                     }
@@ -114,7 +114,7 @@ const getData = cc(async (req, res) => {
                         specificsIdList.push(k.id);
                         k['surl'] = sId;
                     } else {
-                        const newUrlSelectOb = {...urlSelectOb};
+                        const newUrlSelectOb = { ...urlSelectOb };
                         newUrlSelectOb[item.id] = k.id;
                         k['surl'] = formatObToStr(newUrlSelectOb);
                     }
@@ -137,19 +137,19 @@ const getData = cc(async (req, res) => {
     let tdk = await getTdk(req, res, categoryId, sIds);
     let words = await getWords(req, res, categoryName);
     handleResultData(
-        req, 
-        res, 
-        categoryTitle, 
-        recommendList, 
-        list, 
-        tdk, 
-        words, 
-        categoryId, 
-        currentPage, 
-        format, 
-        sortField, 
-        navFatherId, 
-        selectId, 
+        req,
+        res,
+        categoryTitle,
+        recommendList,
+        list,
+        tdk,
+        words,
+        categoryId,
+        currentPage,
+        format,
+        sortField,
+        navFatherId,
+        selectId,
         categoryPage
     );
 });
@@ -240,7 +240,7 @@ function getWords(req, res, categoryName) {
  * 专有方法，将对象转换为字符串
  * @param obj {object} 对象
  * @returns str {string} 字符串
- * */ 
+ * */
 function formatObToStr(obj) {
     let str = "";
     for (let attr in obj) {
@@ -250,19 +250,19 @@ function formatObToStr(obj) {
 }
 
 function handleResultData(
-    req, 
-    res, 
-    categoryTitle, 
-    recommendList, 
-    list, 
-    tdk, 
-    words, 
-    categoryId, 
-    currentPage, 
-    format, 
-    sortField, 
-    navFatherId, 
-    selectId, 
+    req,
+    res,
+    categoryTitle,
+    recommendList,
+    list,
+    tdk,
+    words,
+    categoryId,
+    currentPage,
+    format,
+    sortField,
+    navFatherId,
+    selectId,
     categoryPage
 ) {
     var urlSelectId = '';

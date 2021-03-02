@@ -14,7 +14,7 @@ module.exports = {
     },
     // 解析器配置
     parserOptions: {
-        parser: 'babel-eslint',
+        // parser: 'babel-eslint',
         // sourceType: 'module'	// 指定来源的类型
     },
     overrides: [

@@ -1,45 +1,46 @@
 /**
  * @Description: 503
  */
-var async = require("async");
-var render = require("../common/render");
-var request = require('request');
-var Api = require("../api/api");
-var appConfig = require("../config/app-config");
-var recommendConfigInfo = require('../common/recommendConfigInfo')
-var util = require('../common/util');
+const async = require("async");
+const render = require("../common/render");
+const request = require('request');
+const Api = require("../api/api");
+const appConfig = require("../config/app-config");
+const recommendConfigInfo = require('../common/recommendConfigInfo');
+const util = require('../common/util');
 
 module.exports = {
     index: function (req, res) {
         return async.series({
-            geSearchBannerList:function(callback){
-                var opt = {
+            geSearchBannerList: function (callback) {
+                const opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
-                    body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
+                    body: JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 };
-                request(opt,function(err,res1,body){
-                    if(body){
-                        var data = JSON.parse(body);
-                        if (data.code == 0 ){
-                           
-                            callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
-                        }else{
-                            callback(null,null)
+                request(opt, (err, res1, body) => {
+                    if (body) {
+                        const data = JSON.parse(body);
+                        if (data.code == 0) {
+                            // eslint-disable-next-line callback-return
+                            callback(null, util.handleRecommendData(data.data[0] && data.data[0].list || []));
+                        } else {
+                            // eslint-disable-next-line callback-return
+                            callback(null, null);
                         }
-                    }else{
-                      callback(null,null)
+                    } else {
+                        // eslint-disable-next-line callback-return
+                        callback(null, null);
                     }
-                })
-            },
-        } , function(err, results){
-            // console.log(results)
-            results.fid =req.query.fid
-            res.status(503)
+                });
+            }
+        }, (err, results) => {
+            results.fid = req.query.fid;
+            res.status(503);
             render("503", results, req, res);
-        })
+        });
     }
 };
