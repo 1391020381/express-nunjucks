@@ -1,5 +1,5 @@
 
-define(function (require, exports, module) {
+define(function(require, exports, module) {
     require("../cmd-lib/toast");
     var method = require("../application/method");
     var api = require("../application/api");
@@ -16,14 +16,14 @@ define(function (require, exports, module) {
         'pdf': 'PDF',
         'xls': 'XLS',
         'txt': 'TXT'
-    }
+    };
     isLogin(init, false);
 
     function init(data) {
         userInfo = data;
         // 获取他人主页信息
         getOtherUser();
-        
+
         $(document).on('click', '.format-title', function () {
             $('.format-list').toggle();
             if ($('.format-title').find('i').hasClass('rotate')) {
@@ -32,16 +32,16 @@ define(function (require, exports, module) {
                 $(this).find('i').addClass('rotate');
             }
         });
-        
+
         $(document).on('click', '.format-list-item', function () {
             var format = $(this).attr('format');
             var curHref = window.location.href.split('?')[0];
             var curQuery = '';
             var sortField = method.getQueryString('sort');
             if (sortField && format) {
-                curQuery = '?sort=' + sortField + '&format=' + format; 
+                curQuery = '?sort=' + sortField + '&format=' + format;
             } else if (!sortField && format) {
-                curQuery = '?format=' + format; 
+                curQuery = '?format=' + format;
             } else if (sortField && !format) {
                 curQuery = '?sort=' + sortField;
             }
@@ -67,9 +67,9 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     userData = res.data;
                     userData.photoPicURL = userData.photoPicURL ? userData.photoPicURL : '/images/personalCenter/default_avatar.jpg';
-                    userData.readSum = userData.readSum > 10000 ? (userData.readSum / 10000).toFixed(1) + 'w+' : userData.readSum
-                    userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum
-                    userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize
+                    userData.readSum = userData.readSum > 10000 ? (userData.readSum / 10000).toFixed(1) + 'w+' : userData.readSum;
+                    userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum;
+                    userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize;
                     var _html = template.compile(require('./template/userPage/index.html'))({ data: userData });
                     $(".container").html(_html);
                     var isMasterVip = userData.isVip && userData.vipSiteList.indexOf(4) >= 0;
@@ -85,21 +85,21 @@ define(function (require, exports, module) {
                 } else {
                     $.toast({
                         text: res.message,
-                        delay: 3000,
+                        delay: 3000
                     });
                 }
             }
         });
     }
 
-    function recommend() { //推荐位 第四范式
-        $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_personality']).then(function (res) {
+    function recommend() { // 推荐位 第四范式
+        $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_personality']).then(function(res) {
             if (res.code == '0') {
                 paradigm4Relevant(res.data);
             } else {
                 $.toast({
                     text: res.message,
-                    delay: 3000,
+                    delay: 3000
                 });
             }
         });
@@ -112,14 +112,14 @@ define(function (require, exports, module) {
         $ajax('/detail/like/' + sceneID, 'POST', {
             requestId: requestId,
             userId: userId
-        }).then(function (res) {
+        }).then(function(res) {
             var _html = template.compile(require('./template/userPage/rightList.html'))({ rightList: res.data });
             $('.hot-file ul').html(_html);
             paradigm4GuessData = res.data;
             recommendInfoItem = data[0];
             recommendInfoItem.requestId = requestId;
-            paradigm4Report.pageView(paradigm4GuessData, recommendInfoItem);//上报第四范式      
-        })
+            paradigm4Report.pageView(paradigm4GuessData, recommendInfoItem);// 上报第四范式
+        });
     }
 
     // 返回分页链接构造器
@@ -129,9 +129,9 @@ define(function (require, exports, module) {
         var curHref = window.location.href.split('?')[0];
         var curQuery = '';
         if (sortField && format) {
-            curQuery = '?sort=' + sortField + '&format=' + format + '&page='; 
+            curQuery = '?sort=' + sortField + '&format=' + format + '&page=';
         } else if (!sortField && format) {
-            curQuery = '?format=' + format + '&page='; 
+            curQuery = '?format=' + format + '&page=';
         } else if (sortField && !format) {
             curQuery = '?sort=' + sortField + '&page=';
         } else {
@@ -145,20 +145,20 @@ define(function (require, exports, module) {
      * @param current {number} 当前分页
      * @param sortField {string} 排序方式  downNum热门 createTime最新
      * @param format {string} 格式
-     * */ 
-    function fetchHotRecommList() { //热门 推荐  
+     * */
+    function fetchHotRecommList() { // 热门 推荐
         var current = method.getQueryString('page') || 1;
         var sortField = method.getQueryString('sort') || 'downNum';
         var format = method.getQueryString('format') || '';
         var currentUrl = renderCurrentUrl();
-        
+
         $.ajax({
             url: api.user.getSearchList,
             type: "post",
             data: JSON.stringify({
                 currentPage: current,
                 pageSize: 40,
-                sortField: sortField,   
+                sortField: sortField,
                 format: format,
                 uid: pageParams.uid
             }),
@@ -169,14 +169,14 @@ define(function (require, exports, module) {
                     var arr = [];
                     res.data.totalPages = res.data.totalPages > 40 ? 40 : res.data.totalPages;
                     for (var i = 0; i < res.data.totalPages; i++) {
-                        arr.push(i)
+                        arr.push(i);
                     }
                     res.data.totalPages = arr;
                     var _html = template.compile(require('./template/userPage/userPageList.html'))(
-                        { 
+                        {
                             uid: pageParams.uid,
-                            list: res.data, 
-                            currentPage: current, 
+                            list: res.data,
+                            currentPage: current,
                             sortField: sortField,
                             format: format,
                             formatName: formatEnum[format] || '格式',
@@ -187,11 +187,11 @@ define(function (require, exports, module) {
                 } else {
                     $.toast({
                         text: res.message,
-                        delay: 3000,
+                        delay: 3000
                     });
                 }
             }
         });
     }
-    
+
 });

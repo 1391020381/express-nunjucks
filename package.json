@@ -47,6 +47,7 @@
     },
     "devDependencies": {
         "cross-env": "^6.0.3",
+        "eslint": "^7.21.0",
         "http-proxy-middleware": "^0.19.1",
         "increase-memory-limit": "^1.0.7",
         "nodemon": "^1.19.1"

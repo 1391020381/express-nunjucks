@@ -1,0 +1,14 @@
+/views/
+/node_modules/
+Gruntfile.js
+package.json
+pm2.json
+yarn.lock
+/public/javascripts/development/
+/public/javascripts/dist/
+/public/javascripts/node_modules/
+/public/javascripts/Gruntfile.js/
+/public/javascripts/seajs_config.js/
+/public/javascripts/package.json/
+/public/javascripts/pm2.json/
+/public/javascripts/yarn.lock/
