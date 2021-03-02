@@ -1,6 +1,6 @@
 define(function (require) {
-    var method = require("./method");
-    var api = require("./api");
+    var method = require('./method');
+    var api = require('./api');
     // 根据环境读取登录页url
     var javaPath = loginUrl + '/login-common.html?redirectUrl=';
 
@@ -73,7 +73,7 @@ define(function (require) {
     function updateLoginToken(jsId) {
         $.ajax({
             url: api.user.checkSso,
-            type: "GET",
+            type: 'GET',
             async: false,
             headers: {
                 'cache-control': 'no-cache',
@@ -82,20 +82,20 @@ define(function (require) {
             },
             cache: false,
             data: null,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
             success: function (res) {
-                console.log(res)
+                console.log(res);
                 if (res.code == '0' && res.data && res.data.access_token) {
                     method.saveLoginToken(res.data.access_token);
                 } else {
                     method.delLoginToken();
                 }
             }
-        })
+        });
     }
 
     return {
         init: init
-    }
-})
+    };
+});
