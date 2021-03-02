@@ -14,3 +14,6 @@ yarn.lock
 /public/javascripts/yarn.lock/
 /public/javascripts/src/cmd-lib/
 /public/javascripts/sea-modules/
+/public/javascripts/src/application/iframe/messenger.js
+/public/javascripts/src/application/template.js
+/public/javascripts/src/common/slider.js

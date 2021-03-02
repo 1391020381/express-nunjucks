@@ -1,91 +1,90 @@
 define(function (require, exports, moudle) {
-    //var $ = require("$");
+    // var $ = require("$");
     var api = require('../application/api');
-    var method = require('../application/method')
-  
+    var method = require('../application/method');
+
 
     function formatTel(mobile) {
         var value = mobile.replace(/\D/g, '').substring(0, 11);
         var valueLen = value.length;
         if (valueLen > 3 && valueLen < 8) {
-            value = value.replace(/^(...)/g, "$1 ");
+            value = value.replace(/^(...)/g, '$1 ');
         } else if (valueLen >= 8) {
-            value = value.replace(/^(...)(....)/g, "$1 $2 ");
+            value = value.replace(/^(...)(....)/g, '$1 $2 ');
         }
         return value;
     }
 
     function handle(flag) {
         if (flag == '1') {
-            //334
-            var mobile = $("#mobile").val();
-            $(".carding-error").hide();
+            // 334
+            var mobile = $('#mobile').val();
+            $('.carding-error').hide();
             if (mobile) {
-                $("#mobile").val(formatTel(mobile));
-                $(".btn-binding-code").removeClass("btn-code-no");
+                $('#mobile').val(formatTel(mobile));
+                $('.btn-binding-code').removeClass('btn-code-no');
             } else {
-                $(".btn-binding-code").addClass("btn-code-no");
+                $('.btn-binding-code').addClass('btn-code-no');
             }
 
         }
     }
 
-   
 
     $(function () {
         // debugger
-        //手机区号选择
-        var $choiceCon = $(".phone-choice");
-        var pageType = $('#ip-page-type').val();//页面类型
-        var $checkCode = $('#ip-checkCode');//手机验证码
-        var $mobile = $('#mobile');//手机号
-        var $captcha = $('.login-input-item.img-code-item');//图形验证码div
-        var $loginError = $(".carding-error span");//错误提醒位置
+        // 手机区号选择
+        var $choiceCon = $('.phone-choice');
+        var pageType = $('#ip-page-type').val();// 页面类型
+        var $checkCode = $('#ip-checkCode');// 手机验证码
+        var $mobile = $('#mobile');// 手机号
+        var $captcha = $('.login-input-item.img-code-item');// 图形验证码div
+        var $loginError = $('.carding-error span');// 错误提醒位置
 
-        $choiceCon.find(".phone-num").click(function (e) {
+        $choiceCon.find('.phone-num').click(function (e) {
             e.stopPropagation();
-            if ($(this).siblings(".phone-more").is(":hidden")) {
-                $(this).parent().addClass("phone-choice-show");
-                $(this).siblings(".phone-more").show();
+            if ($(this).siblings('.phone-more').is(':hidden')) {
+                $(this).parent().addClass('phone-choice-show');
+                $(this).siblings('.phone-more').show();
             } else {
-                $(this).parent().removeClass("phone-choice-show");
-                $(this).siblings(".phone-more").hide();
+                $(this).parent().removeClass('phone-choice-show');
+                $(this).siblings('.phone-more').hide();
             }
         });
-        $(".phone-more").find("a").click(function () {
-            var countryNum = $(this).find(".number-con").find("em").text();
-            $choiceCon.find(".phone-num").find("em").text(countryNum);
-            $choiceCon.removeClass("phone-choice-show");
-            $choiceCon.find(".phone-more").hide();
+        $('.phone-more').find('a').click(function () {
+            var countryNum = $(this).find('.number-con').find('em').text();
+            $choiceCon.find('.phone-num').find('em').text(countryNum);
+            $choiceCon.removeClass('phone-choice-show');
+            $choiceCon.find('.phone-more').hide();
         });
 
-        //手机号格式化(xxx xxxx xxxx)
-        $(document).on("keyup", "#mobile", function () {
+        // 手机号格式化(xxx xxxx xxxx)
+        $(document).on('keyup', '#mobile', function () {
             handle(1);
         });
 
-        //enter 键
+        // enter 键
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
-                $(".btn-phone-login").trigger("click");
+                $('.btn-phone-login').trigger('click');
             }
         });
 
 
-        //绑定
+        // 绑定
         $('.btn-bind').click(function () {
-            if ($(this).hasClass("btn-code-no")) {
+            if ($(this).hasClass('btn-code-no')) {
                 return;
             }
-            var mobile = $mobile.val().replace(/\s/g, "");
+            var mobile = $mobile.val().replace(/\s/g, '');
             var checkCode = $checkCode.val();
             var nationCode = $('.phone-num em').text();
             if (/^\s*$/g.test(mobile)) {
-                $loginError.text("请输入手机号码!").parent().show();
+                $loginError.text('请输入手机号码!').parent().show();
                 return;
             }
             if (/^\s*$/g.test(checkCode)) {
-                $loginError.text("请输入验证码!").parent().show();
+                $loginError.text('请输入验证码!').parent().show();
                 return;
             }
             var params = {
@@ -105,15 +104,15 @@ define(function (require, exports, moudle) {
             //         }
             //     }
             // }, 'json');
-            userBindMobile(mobile,$checkCode.attr('smsId'),checkCode)
-            function userBindMobile(mobile,smsId,checkCode){ // 绑定手机号接口
+            userBindMobile(mobile, $checkCode.attr('smsId'), checkCode);
+            function userBindMobile(mobile, smsId, checkCode){ // 绑定手机号接口
                 $.ajax({
                     headers:{
                         'Authrization':method.getCookie('cuk')
                     },
                     url: api.user.userBindMobile,
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
                     data:JSON.stringify({
                         terminal:'pc',
                         mobile:mobile,
@@ -121,31 +120,31 @@ define(function (require, exports, moudle) {
                         smsId:smsId,
                         checkCode:checkCode
                     }),
-                    dataType: "json",
+                    dataType: 'json',
                     success: function (res) {
-                       if(res.code == '0'){
-                        $(".binging-main").hide();
-                        $(".binging-success").show();
-                       }else{
-                        $loginError.text(res.message).parent().show();
-                        $(".carding-error").show();
-                       }
+                        if(res.code == '0'){
+                            $('.binging-main').hide();
+                            $('.binging-success').show();
+                        }else{
+                            $loginError.text(res.message).parent().show();
+                            $('.carding-error').show();
+                        }
                     },
                     error:function(error){
-                        console.log('userBindMobile:',error)
+                        console.log('userBindMobile:', error);
                     }
-                })
+                });
             }
         });
 
         var captcha = function (appId, randstr, ticket, onOff) {
             var _this = $('.binging-main .yz-link');
-            if ($(_this).hasClass("btn-code-no")) {
+            if ($(_this).hasClass('btn-code-no')) {
                 return;
             }
-            var mobile = $mobile.val().replace(/\s/g, "");
+            var mobile = $mobile.val().replace(/\s/g, '');
             if (/^\s*$/g.test(mobile)) {
-                $loginError.text("请输入手机号码!").parent().show();
+                $loginError.text('请输入手机号码!').parent().show();
                 return;
             }
             $loginError.parent().hide();
@@ -169,20 +168,20 @@ define(function (require, exports, moudle) {
                 type: 'POST',
                 // url: api.sms.getCaptcha,
                 url:api.user.sendSms,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
                 data: param,
                 success: function (data) {
                     if (data) {
                         if (data.code == '0') {
-                            $checkCode.removeAttr("smsId");
-                            $checkCode.attr("smsId", data.data.smsId);
-                            var yzTime$ = $(_this).siblings(".yz-time");
-                            yzTime$.addClass("btn-code-no");
+                            $checkCode.removeAttr('smsId');
+                            $checkCode.attr('smsId', data.data.smsId);
+                            var yzTime$ = $(_this).siblings('.yz-time');
+                            yzTime$.addClass('btn-code-no');
                             yzTime$.show();
                             $(_this).hide();
-                            $(".btn-none-bind").hide();
-                            $(".btn-bind").show();
+                            $('.btn-none-bind').hide();
+                            $('.btn-bind').show();
                             // $(".btn-binging").removeClass("btn-binging-no");
                             (function countdown() {
                                 var yzt = yzTime$.text().replace(/秒后重发$/g, '');
@@ -196,25 +195,25 @@ define(function (require, exports, moudle) {
                                 }
                                 setTimeout(countdown, 1000);
                             })();
-                            //单日单ip发送验证码超过3次
+                            // 单日单ip发送验证码超过3次
                         }
-                        //单日单ip发送验证码超过3次
+                        // 单日单ip发送验证码超过3次
                         else if (data.code == '411015') {
                             showCaptcha(captcha);
                         } else if (data.code == '411033') {
-                            //图形验证码错误
-                            $loginError.text("图形验证码错误").parent().show();
+                            // 图形验证码错误
+                            $loginError.text('图形验证码错误').parent().show();
                         } else {
                             $loginError.text(data.message).parent().show();
                         }
                     } else {
-                        $loginError.text("发送短信失败").parent().show();
+                        $loginError.text('发送短信失败').parent().show();
                     }
                 }
             });
         };
-        /*获取短信验证码*/
-        $(".binging-main").delegate(".yz-link", "click", function () {
+        /* 获取短信验证码*/
+        $('.binging-main').delegate('.yz-link', 'click', function () {
             captcha('', '', '', '');
         });
     });
@@ -237,8 +236,8 @@ define(function (require, exports, moudle) {
         if (res.ret === 0) {
             res.bizState(res.appid, res.randstr, res.ticket, 1);
         }
-    }
+    };
     return {
         showCaptcha:showCaptcha
-    }
+    };
 });

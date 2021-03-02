@@ -2,15 +2,14 @@
 
 define(function (require, exports, moudle) {
     require('swiper');
-    var bannerTemplate = require("../common/template/swiper_tmp.html");
-    require('../application/suspension')
-    var slider = require('../common/slider');//轮播插件
-    var login = require("../application/checkLogin");
-    var utils = require("../cmd-lib/util");
-    var method = require("../application/method");
-    var login = require("../application/checkLogin");
-    var api = require("../application/api");
-
+    var bannerTemplate = require('../common/template/swiper_tmp.html');
+    require('../application/suspension');
+    var Slider = require('../common/slider');// 轮播插件
+    var login = require('../application/checkLogin');
+    var utils = require('../cmd-lib/util');
+    var method = require('../application/method');
+    // var login = require('../application/checkLogin');
+    var api = require('../application/api');
 
 
     /**
@@ -32,7 +31,7 @@ define(function (require, exports, moudle) {
                     recomandSlide.index++;
                     recomandSlide.domRend();
                 }
-            })
+            });
         },
         slideRight: function () {
             $('.preArrow').click(function () {
@@ -40,21 +39,21 @@ define(function (require, exports, moudle) {
                     recomandSlide.index--;
                     recomandSlide.domRend();
                 }
-            })
+            });
         },
         domRend: function () {
             var num = -1 * recomandSlide.index * 302 + 'px';
-            $('.swiper-wrapper').animate({ 'margin-left': num })
+            $('.swiper-wrapper').animate({ 'margin-left': num });
         }
-    }
+    };
     var indexObject = {
         initial: function () {
             // 精选专题多图轮播
             setTimeout(function () {
                 recomandSlide.init();
-            }, 1000)
-            //banner轮播图
-            new slider("J_office_banner", "J_office_focus", "J_office_prev", "J_office_next");
+            }, 1000);
+            // banner轮播图
+            new Slider('J_office_banner', 'J_office_focus', 'J_office_prev', 'J_office_next');
 
             this.tabswitchFiles();
             this.tabswitchSeo();
@@ -71,8 +70,8 @@ define(function (require, exports, moudle) {
             });
             // 退出登录
             $('.loginOut').click(function () {
-                login.ishareLogout()
-            })
+                login.ishareLogout();
+            });
             $('.js-vaip—avatar').click(function () {
                 var url = '/node/personalCenter/home.html';
                 if (!utils.getCookie('cuk')) {
@@ -83,7 +82,7 @@ define(function (require, exports, moudle) {
                 } else {
                     window.open(url);
                 }
-            })
+            });
             this.signDialog();
             this.getBannerbyPosition();
         },
@@ -107,7 +106,7 @@ define(function (require, exports, moudle) {
             var timer = setInterval(function () {
                 i++;
                 if (i == length) {
-                    i = 0
+                    i = 0;
                 }
                 var val = $('.search-container .label-ele').eq(i).find('a').text();
                 $('.search-container .search-input').attr('placeholder', val);
@@ -119,7 +118,7 @@ define(function (require, exports, moudle) {
                 timer = setInterval(function () {
                     i++;
                     if (i == length) {
-                        i = 0
+                        i = 0;
                     }
                     var val = $('.search-container .label-ele').eq(i).find('a').text();
                     $('.search-container .search-input').attr('placeholder', val);
@@ -132,12 +131,12 @@ define(function (require, exports, moudle) {
             var searVal = '';
             $('.search-container .icon-search').click(function () {
                 searVal = $('.search-container .search-input').val() || $('.search-container .search-input').attr('placeholder');
-                window.open('/search/home.html' + '?' + 'ft=all' + '&cond=' + encodeURIComponent(encodeURIComponent(searVal)))
-            })
+                window.open('/search/home.html' + '?' + 'ft=all' + '&cond=' + encodeURIComponent(encodeURIComponent(searVal)));
+            });
             $('.search-container .search-input').keydown(function (e) {
                 if (e.keyCode == 13) {
                     searVal = $('.search-container .search-input').val() || $('.search-container .search-input').attr('placeholder');
-                    window.open('/search/home.html' + '?' + 'ft=all' + '&cond=' + encodeURIComponent(encodeURIComponent(searVal)))
+                    window.open('/search/home.html' + '?' + 'ft=all' + '&cond=' + encodeURIComponent(encodeURIComponent(searVal)));
                 }
             });
         },
@@ -148,7 +147,7 @@ define(function (require, exports, moudle) {
                 $(this).addClass('current').siblings().removeClass('current');
                 var _index = $(this).index();
                 $(this).parents('.recmond-con').find('.content-list').eq(_index).addClass('current').siblings().removeClass('current');
-            })
+            });
         },
 
         tabswitchSeo: function () {
@@ -157,19 +156,19 @@ define(function (require, exports, moudle) {
                 $(this).addClass('active').siblings().removeClass('active');
 
                 var _index = $(this).index();
-                $(".seo-upload-new .tab-list .tab").each(function (index, element) {
+                $('.seo-upload-new .tab-list .tab').each(function (index, element) {
                     if (index == _index) {
-                        $(element).addClass('active')
-                        $(element).first().addClass('item-active')
+                        $(element).addClass('active');
+                        $(element).first().addClass('item-active');
                     } else {
-                        $(element).removeClass('active')
+                        $(element).removeClass('active');
                     }
-                })
+                });
                 $(this).parents('.seo-upload-new').find('.upload-list').eq(_index).addClass('current').siblings().removeClass('current');
-            })
+            });
             $('.seo-upload-new .tab-list .tab .tab-item').on('hover', function () {
                 $(this).addClass('item-active').siblings().removeClass('item-active');
-                var _index = $(this).index()
+                var _index = $(this).index();
                 var range = { // slice
                     0: { start: 0, end: 20 },
                     1: { start: 20, end: 40 },
@@ -181,17 +180,17 @@ define(function (require, exports, moudle) {
                     7: { start: 140, end: 160 },
                     8: { start: 160, end: 180 },
                     9: { start: 180, end: 200 }
-                }
-                changeItem(_index)
+                };
+                changeItem(_index);
                 function changeItem(index) {
-                    $('.seo-upload-new .current li').hide()
+                    $('.seo-upload-new .current li').hide();
 
-                    $('.seo-upload-new .current li').slice(range[index].start, range[index].end).show()
+                    $('.seo-upload-new .current li').slice(range[index].start, range[index].end).show();
                 }
-            })
+            });
         },
 
-        //换一换
+        // 换一换
         freshSeoData: function () {
             var url = '';
             var data = {
@@ -260,7 +259,7 @@ define(function (require, exports, moudle) {
             // }
         },
 
-        //刷新topbar
+        // 刷新topbar
         refreshTopBar: function (data) {
             var $unLogin = $('.notLogin');
             var $hasLogin = $('.hasLogin');
@@ -270,77 +269,76 @@ define(function (require, exports, moudle) {
             $hasLogin.find('.user-link img').attr('src', data.photoPicURL);
             $('.user-top .avatar-frame img').attr('src', data.photoPicURL);
             $hasLogin.find('.top-user-more .name').html(data.nickName);
-            $('.user-state .user-name').text(data.nickName)
+            $('.user-state .user-name').text(data.nickName);
             $hasLogin.show();
-            console.log('data:', data)
+            console.log('data:', data);
             // data.isVip = 0
 
-            var wholeStationVip = data.isMasterVip == 1 ? '<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">' + data.expireTime + '到期</span></p>' : ''
-            var officeVip = data.isOfficeVip == 1 ? '<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">' + data.officeVipExpireTime + '到期</span></p>' : ''
-            var infoDescContent = wholeStationVip + officeVip
+            var wholeStationVip = data.isMasterVip == 1 ? '<p class="whole-station-vip"><span class="whole-station-vip-icon"></span><span class="endtime">' + data.expireTime + '到期</span></p>' : '';
+            var officeVip = data.isOfficeVip == 1 ? '<p class="office-vip"><span class="office-vip-icon"></span><span class="endtime">' + data.officeVipExpireTime + '到期</span></p>' : '';
+            var infoDescContent = wholeStationVip + officeVip;
 
             if (data.isMasterVip == 1 || data.isOfficeVip == 1) {
-                $('.user-state .vip-icon').addClass('vip-avaliable')
+                $('.user-state .vip-icon').addClass('vip-avaliable');
                 $('.userOperateBtn.gocenter').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 //  var expireStr = data.expireTime+'到期'
 
                 // $('.user-state .info-des').text(expireStr);
                 $('.user-state .info-des').html(infoDescContent);
-                $('.user-state').addClass('vipstate')
-                $('.js-vip-open').hide()
+                $('.user-state').addClass('vipstate');
+                $('.js-vip-open').hide();
             } else {
                 $('.userOperateBtn.goVip').removeClass('hide').siblings('.userOperateBtn').addClass('hide');
                 $('.user-state .info-des').text('你还不是VIP');
             }
-            this.userWxAuthState()
+            this.userWxAuthState();
         },
 
         signDialog: function () {
             $('.sign-btn').click(function () {
-                $("#dialog-box").dialog({
-                    html: $('#Sign-dialog').html(),
+                $('#dialog-box').dialog({
+                    html: $('#Sign-dialog').html()
                 }).open();
-            })
+            });
 
         },
 
-        getBannerbyPosition: function () { // 
+        getBannerbyPosition: function () { //
             $.ajax({
                 url: api.recommend.recommendConfigInfo,
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify(['PC_M_H_xfbanner']),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 success: function (res) {
                     if (res.code == '0') {
-                        console.log('getBannerbyPosition:', res)
-                        var list = method.handleRecommendData(res.data[0].list)
+                        console.log('getBannerbyPosition:', res);
+                        var list = method.handleRecommendData(res.data[0].list);
                         var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list, className: 'authentication-container', hasDeleteIcon: false });
-                        $(".authentication-banner").html(_bannerTemplate);
+                        $('.authentication-banner').html(_bannerTemplate);
                         var mySwiper = new Swiper('.authentication-container', {
                             direction: 'horizontal',
-                            loop: true,
                             loop: list.length > 1 ? true : false,
-                            autoplay: 3000,
-                        })
+                            autoplay: 3000
+                        });
                     }
                 }
-            })
+            });
         },
 
         userWxAuthState: function () {
             $.ajax({
                 headers: {
-                    Authrization: method.getCookie("cuk")
+                    Authrization: method.getCookie('cuk')
                 },
                 url: api.user.userWxAuthState,
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 success: function (res) {
-                    if (res.code == "0") {
+                    if (res.code == '0') {
                         if (res.data.isWxAuth) {
-                            $('.sign-btn').removeClass('hide')
+                            $('.sign-btn').removeClass('hide');
                         }
                     } else {
                         $.toast({
@@ -350,16 +348,16 @@ define(function (require, exports, moudle) {
                     }
                 },
                 error: function (error) {
-                    console.log("queryUserBindInfo:", error);
+                    console.log('queryUserBindInfo:', error);
                 }
             });
-        },
-    }
+        }
+    };
     indexObject.initial();
-    require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')
-    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    trackEvent('NE030', "pageTypeView", 'page', {
+    require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7');
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
+    trackEvent('NE030', 'pageTypeView', 'page', {
         pageID: 'HO',
         pageName: '首页'
     });
-})
+});

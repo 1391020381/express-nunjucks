@@ -4,32 +4,32 @@
 define(function (require, exports, module) {
 
     var api = require('./api');
-    var method = require("./method");
-    var api = require("./api");
-    var showLoginDialog = require('./login').showLoginDialog
-    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
-    var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush
-   
+    var method = require('./method');
+    // var api = require('./api');
+    var showLoginDialog = require('./login').showLoginDialog;
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
+    var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush;
+
     module.exports = {
         getIds: function () {
             // 详情页
-           
+
             var params = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
             var access = window.pageConfig && window.pageConfig.access ? window.pageConfig.access : null;
 
-            var classArr = []
-            var clsId = params ? params.classid : ''
+            var classArr = [];
+            var clsId = params ? params.classid : '';
 
-            var fid = access ? (access.fileId || params.g_fileId || '') : '';
+            var fid = access ? access.fileId || params.g_fileId || '' : '';
 
             // 类目页
             var classIds = params && params.classIds ? params.classIds : '';
-            !clsId && (clsId = classIds)
+            !clsId && (clsId = classIds);
 
             return {
                 clsId: clsId,
                 fid: fid
-            }
+            };
         },
         /**
          * description  唤醒登录界面
@@ -39,31 +39,31 @@ define(function (require, exports, module) {
             var _self = this;
             if (!method.getCookie('cuk')) {
 
-                var ptype = window.pageConfig && window.pageConfig.page ? (window.pageConfig.page.ptype || 'index') : 'index';
-                var clsId = this.getIds().clsId
-                var fid = this.getIds().fid
+                var ptype = window.pageConfig && window.pageConfig.page ? window.pageConfig.page.ptype || 'index' : 'index';
+                var clsId = this.getIds().clsId;
+                var fid = this.getIds().fid;
                 showLoginDialog({clsId: clsId, fid: fid}, function () {
-                    console.log('loginCallback')
-                    _self.getLoginData(callback, 'isFirstLogin')
-                })
+                    console.log('loginCallback');
+                    _self.getLoginData(callback, 'isFirstLogin');
+                });
 
             }
         },
         listenLoginStatus: function (callback) {
             var _self = this;
             $.loginPop('login_wx_code', {
-                "terminal": "PC",
-                "businessSys": "ishare",
+                'terminal': 'PC',
+                'businessSys': 'ishare',
                 'domain': document.domain,
-                "ptype": "ishare",
-                "popup": "hidden",
-                "clsId": this.getIds().clsId,
-                "fid": this.getIds().fid
+                'ptype': 'ishare',
+                'popup': 'hidden',
+                'clsId': this.getIds().clsId,
+                'fid': this.getIds().fid
             }, function () {
 
                 _self.getLoginData(callback);
 
-            })
+            });
         },
         /**
          * description  优惠券提醒 查询用户发券资格-pc
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
             if (method.getCookie('cuk')) {
                 method.get(api.coupon.querySeniority, function (res) {
                     if (res && res.code == 0) {
-                        callback(res.data)
+                        callback(res.data);
                     }
                 }, '');
             }
@@ -88,31 +88,31 @@ define(function (require, exports, module) {
                 method.get('/node/api/getUserInfo', function (res) { // api.user.login
                     if (res.code == 0 && res.data) {
                         if (isFirstLogin) {
-                           
+
                             handleBaiduStatisticsPush('loginResult01', {
                                 loginType: window.loginType && window.loginType,
                                 // phone: res.data.mobile,
                                 // userid: res.data.userId,
-                                loginResult: "1"
-                            })
-                            trackEventLogin(res.data.userId)
-                            trackEvent('SE001', "loginResult", 'query', {
+                                loginResult: '1'
+                            });
+                            trackEventLogin(res.data.userId);
+                            trackEvent('SE001', 'loginResult', 'query', {
                                 loginResult:'1',
                                 failMsg:'',
                                 loginType: window.loginType && window.loginType
                             });
-                            
-                            var page = window.pageConfig&&window.pageConfig.page || {}
+
+                            var page = window.pageConfig&&window.pageConfig.page || {};
 
                             if(page.type !='detail'){
                                 setTimeout(function(){
                                     window.location.reload();
-                                },600)
+                                }, 600);
                             }
                         }
-                        $('.loginRedPacket-dialog').hide()
-                        if (callback && typeof callback == "function") {
-                           
+                        $('.loginRedPacket-dialog').hide();
+                        if (callback && typeof callback == 'function') {
+
                             callback(res.data);
                             try {
                                 window.pageConfig.params.isVip = res.data.isVip;
@@ -126,26 +126,26 @@ define(function (require, exports, module) {
                                 uid: res.data.userId,
                                 isVip: res.data.isVip,
                                 tel: res.data.mobile
-                            }
-                            method.setCookieWithExpPath("ui", JSON.stringify(userInfo), 30 * 60 * 1000, "/");
-                            method.setCookieWithExpPath("userId",res.data.userId, 30 * 60 * 1000, "/");
+                            };
+                            method.setCookieWithExpPath('ui', JSON.stringify(userInfo), 30 * 60 * 1000, '/');
+                            method.setCookieWithExpPath('userId', res.data.userId, 30 * 60 * 1000, '/');
                         } catch (e) {
                         }
 
                     } else {
-                        
+
                         handleBaiduStatisticsPush('loginResult01', {
                             loginType: window.loginType && window.loginType,
                             // phone: '',
                             // userid: res.data.userId,
-                            loginResult: "0"
-                        })
+                            loginResult: '0'
+                        });
                         _self.ishareLogout();
                     }
 
                 });
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
 
         },
@@ -156,50 +156,50 @@ define(function (require, exports, module) {
             var that = this;
             $.ajax({
                 url: api.user.loginOut,
-                type: "GET",
+                type: 'GET',
                 headers: {
                     'cache-control': 'no-cache',
                     'Pragma': 'no-cache',
                     'jsId': method.getLoginSessionId()
                 },
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 cache: false,
                 data: null,
                 success: function (res) {
-                    console.log('loginOut:', res)
+                    console.log('loginOut:', res);
                     if (res.code == 0) {
-                        iask_web.logout()
+                        iask_web.logout();
                         window.location.reload();
                     } else {
                         $.toast({
                             text: res.message,
-                            delay: 3000,
-                        })
+                            delay: 3000
+                        });
                     }
                 }
-            })
+            });
             // 删域名cookie
-            method.delCookie("cuk", "/", ".sina.com.cn");
-            method.delCookie("cuk", "/", ".iask.com.cn");
-            method.delCookie("cuk", "/", ".iask.com");
-            method.delCookie("cuk", "/");
+            method.delCookie('cuk', '/', '.sina.com.cn');
+            method.delCookie('cuk', '/', '.iask.com.cn');
+            method.delCookie('cuk', '/', '.iask.com');
+            method.delCookie('cuk', '/');
 
-            method.delCookie("sid", "/", ".iask.sina.com.cn");
-            method.delCookie("sid", "/", ".iask.com.cn");
-            method.delCookie("sid", "/", ".sina.com.cn");
-            method.delCookie("sid", "/", ".ishare.iask.com.cn");
-            method.delCookie("sid", "/", ".office.iask.com");
+            method.delCookie('sid', '/', '.iask.sina.com.cn');
+            method.delCookie('sid', '/', '.iask.com.cn');
+            method.delCookie('sid', '/', '.sina.com.cn');
+            method.delCookie('sid', '/', '.ishare.iask.com.cn');
+            method.delCookie('sid', '/', '.office.iask.com');
 
-            method.delCookie("sid_ishare", "/", ".iask.sina.com.cn");
-            method.delCookie("sid_ishare", "/", ".iask.com.cn");
-            method.delCookie("sid_ishare", "/", ".sina.com.cn");
-            method.delCookie("sid_ishare", "/", ".ishare.iask.com.cn");
-            method.delCookie("userId", "/");
+            method.delCookie('sid_ishare', '/', '.iask.sina.com.cn');
+            method.delCookie('sid_ishare', '/', '.iask.com.cn');
+            method.delCookie('sid_ishare', '/', '.sina.com.cn');
+            method.delCookie('sid_ishare', '/', '.ishare.iask.com.cn');
+            method.delCookie('userId', '/');
             // 删除第一次登录标识
-            method.delCookie("_1st_l", "/");
-            method.delCookie("ui", "/");
+            method.delCookie('_1st_l', '/');
+            method.delCookie('ui', '/');
         }
-    }
+    };
 
 });

@@ -22,8 +22,8 @@ define(function (require, exports, module) {
         { value: '花旗银行', key: 'CITI' },
         { value: '浙商银行', key: 'CZB' },
         { value: '恒丰银行', key: 'HFB' },
-        { value: '浦东发展银行',key:'SPB' },
+        { value: '浦东发展银行', key:'SPB' },
         { value: '兴业银行', key: 'CIB' },
         { value: '其他', key: '' }
-    ]
-})
+    ];
+});

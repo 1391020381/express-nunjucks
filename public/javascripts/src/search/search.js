@@ -1,11 +1,11 @@
 define(function (require, exports, moudle) {
     // var $ = require('$');
-    var method = require("../application/method");
+    var method = require('../application/method');
     var api = require('../application/api');
-    var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')))
+    var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
     var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
     if (cond) {
-        cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond
+        cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond;
     }
 
     $('#search-detail-input').val(cond || '与人沟通的十大绝招');
@@ -22,37 +22,37 @@ define(function (require, exports, moudle) {
 
     pageIndexChange();
 
-    //参数 数据
+    // 参数 数据
     var data = {};
-    
-    //其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond 
-    //点击 enter时逻辑
+
+    // 其他页面 跳转到这个页面时获取 url中搜索内容 参数  cond
+    // 点击 enter时逻辑
     function setInputValue() {
         // var sconditionInput = $('#scondition');
-        var sconditionInput = $('.new-input')
+        var sconditionInput = $('.new-input');
         // var searchBtn = $('#searchBtn');
-        var searchBtn = $('.btn-new-search')
-        //点击搜索按钮时
+        var searchBtn = $('.btn-new-search');
+        // 点击搜索按钮时
         searchBtn.on('click', function () {
             var inputValue = sconditionInput.val().trim() || '';
-            inputValue = inputValue.replace(/\s+/g, "");
+            inputValue = inputValue.replace(/\s+/g, '');
             if (/\S/.test(inputValue)) {
                 btnHrefChange('cond', inputValue);
             }
-        })
-        //搜索输入框按下enter键
+        });
+        // 搜索输入框按下enter键
         sconditionInput.on('keydown', function (e) {
             if (e.keyCode === 13) {
                 var inputValue = sconditionInput.val().trim() || '';
-                inputValue = inputValue.replace(/\s+/g, "");
+                inputValue = inputValue.replace(/\s+/g, '');
                 if (/\S/.test(inputValue)) {
                     btnHrefChange('cond', inputValue);
                 }
             }
-        })
+        });
     }
 
-    //点击搜索和  enter时 逻辑函数 只需要 cond参数 其他参数 不要
+    // 点击搜索和  enter时 逻辑函数 只需要 cond参数 其他参数 不要
     function btnHrefChange(params, value) {
         var href = window.location.href.substring(0, window.location.href.indexOf('?'));
         window.location.href = method.changeURLPar(href, params, encodeURIComponent(encodeURIComponent(value.substr(0, 20))));
@@ -67,8 +67,8 @@ define(function (require, exports, moudle) {
             $(item).click(function () {
                 var condValue = $(item).text().trim();
                 btnHrefChange('cond', condValue);
-            })
-        })
+            });
+        });
     }
 
 
@@ -86,14 +86,14 @@ define(function (require, exports, moudle) {
                     var code = $(item).attr('value');
                     data[title] = code;
                     data.pageIndex = 1;
-                    //搜索条件切换  时 页面更新 url 参数改变
+                    // 搜索条件切换  时 页面更新 url 参数改变
                     conditionHrefChange(data);
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
-    //搜索条件切换  时 页面更新url 参数改变
+    // 搜索条件切换  时 页面更新url 参数改变
     function conditionHrefChange(data) {
         var href = window.location.href;
         for (var key in data) {
@@ -111,9 +111,9 @@ define(function (require, exports, moudle) {
                 $searchResult.eq(index).addClass('current').siblings().removeClass('current');
                 var value = $searchResult.eq(index).attr('value');
                 conditionHrefChange({ sequence: value, pageIndex: 1 });
-            })
+            });
         });
-    };
+    }
 
     // 页面滚动头部搜索固定
     function headerFixed() {
@@ -121,17 +121,17 @@ define(function (require, exports, moudle) {
         var top = $(element).offset() && $(element).offset().top;
         $(window).on('scroll', function () {
             var p = $(window).scrollTop();
-            $(element).css('position', (p > top) ? 'fixed' : 'static');
-            $(element).css('top', (p > top) ? '0px' : '');
+            $(element).css('position', p > top ? 'fixed' : 'static');
+            $(element).css('top', p > top ? '0px' : '');
         });
     }
 
-    //转成真数组
+    // 转成真数组
     function arrCall(param) {
         return Array.prototype.slice.call(param, 0);
     }
 
-    //更多筛选  切换函数
+    // 更多筛选  切换函数
     function screenMore() {
         var searchScreen = $('.search-screen');
         var searchItem = $('.search-item ');
@@ -145,10 +145,10 @@ define(function (require, exports, moudle) {
                 searchItem.eq(3).addClass('hide');
             }
             searchScreen.children().eq(1).toggleClass('screen-less');
-        })
+        });
     }
 
-    //分页功能      一共20页；
+    // 分页功能      一共20页；
     function pageIndexChange() {
         var officePage = $('.office-page');
         var btnpagelong = officePage.find('.btn-page-long');
@@ -193,7 +193,7 @@ define(function (require, exports, moudle) {
             pageele.eq(indexNum - 3).show();
             pageele.eq(indexNum - 2).show();
             pageele.eq(indexNum - 1).show();
-            pageele.eq(indexNum - 4).before('<span class="page-point">...</span>')
+            pageele.eq(indexNum - 4).before('<span class="page-point">...</span>');
         }
 
         if (pageIndex > 0 && pageIndex < indexNum) {
@@ -204,22 +204,22 @@ define(function (require, exports, moudle) {
         pageele.eq(indexNum).show();
 
 
-        //点击分页时
+        // 点击分页时
         pageele.click(function () {
             var index = $(this).attr('value') - 0 + 1;
             conditionHrefChange({ pageIndex: index });
         });
 
-        //首页
+        // 首页
         btnpagelong.eq(0).click(function () {
             conditionHrefChange({ pageIndex: 1 });
         });
 
-        //下一页
+        // 下一页
         btnpagelong.eq(1).click(function () {
             if (!params) {
                 conditionHrefChange({ pageIndex: 2 });
-            } else if ((pageIndex + 1) <= (indexNum + 1)) {
+            } else if (pageIndex + 1 <= indexNum + 1) {
                 conditionHrefChange({ pageIndex: pageIndex + 2 });
             }
         });
@@ -229,7 +229,7 @@ define(function (require, exports, moudle) {
             conditionHrefChange({ pageIndex: pageIndex });
         });
 
-        //尾页
+        // 尾页
         btnpage.eq(1).click(function () {
             conditionHrefChange({ pageIndex: indexNum + 1 });
         });

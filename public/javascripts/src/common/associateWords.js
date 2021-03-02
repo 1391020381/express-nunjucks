@@ -1,6 +1,6 @@
 /**
  * A20 公共的热词联想模块
- * */ 
+ * */
 
 define(function (require, exports, module) {
     var associateWords = {
@@ -16,29 +16,29 @@ define(function (require, exports, module) {
                         jsonp: 'cb',
                         jsonpCallback: 'soso',
                         success: function (data) {
-                            $(".lately-list li").remove();
+                            $('.lately-list li').remove();
                             associateWords.searchList = data.s;
-                            var content = "";
+                            var content = '';
                             for (var i = 0, len = associateWords.searchList.length; i < len; i++) {
                                 var el = associateWords.searchList[i];
                                 content += '<li><a href ="/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(el)) + '" target="_blank">' + el + '</a></li>';
-                                $(".lately-list").html(content);
+                                $('.lately-list').html(content);
                             }
                         }
                     });
                 } else {
                     associateWords.searchList = [];
-                    $(".lately-list").html('');
+                    $('.lately-list').html('');
                 }
             });
-    
+
             $('#search-detail-input').focus(function () {
                 if (!$(this).hasClass('input-focus')) {
-                    $(this).addClass('input-focus')
+                    $(this).addClass('input-focus');
                 }
                 $('.detail-lately').css({display: 'block'});
             });
-    
+
             $('#search-detail-input').blur(function () {
                 var $this = $(this);
                 setTimeout(function() {
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                 }, 200);
             });
         }
-    }
+    };
 
     return associateWords;
 });

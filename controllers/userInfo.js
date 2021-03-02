@@ -90,7 +90,8 @@ module.exports = {
                 results.rightsVipMemberDetail && results.rightsVipMemberDetail.data.forEach(item => { // site 使用范围 0-办公,1-教育,2-建筑,3-超级会员,4-主站       fileDiscount   PAY_DISCOUNT的特权
                     if (item.site == '4') { // 主站
                         let fileDiscount = '';
-                        let expireTime = expireTime = item.endDate ? moment(item.endDate).format('YYYY-MM-DD') : '';
+                        let expireTime = '';
+                        expireTime = item.endDate ? moment(item.endDate).format('YYYY-MM-DD') : '';
 
                         if (item.memberPointList) {
                             item.memberPointList.forEach(memberPoint => {
@@ -104,7 +105,8 @@ module.exports = {
                     }
                     if (item.site == '0') { // 办公
                         let fileDiscount = '';
-                        let expireTime = expireTime = item.endDate ? moment(item.endDate).format('YYYY-MM-DD') : '';
+                        let expireTime = '';
+                        expireTime = item.endDate ? moment(item.endDate).format('YYYY-MM-DD') : '';
 
                         if (item.memberPointList) {
                             item.memberPointList.forEach(memberPoint => {

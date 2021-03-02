@@ -2,10 +2,10 @@
  * VIP 权益页面
  **/
 define(function (require, exports, module) {
-    var method = require("../application/method");
-    var login = require("../application/checkLogin");
-    var effect = require("../application/effect");
-     var urlConfig = require('../application/urlConfig')
+    var method = require('../application/method');
+    var login = require('../application/checkLogin');
+    var effect = require('../application/effect');
+    var urlConfig = require('../application/urlConfig');
     // 办公vip开通按钮
     var $JsPayOfficeVip = $('.JsPayOfficeVip');
     // 全站vip开通按钮
@@ -21,8 +21,8 @@ define(function (require, exports, module) {
         weibo: '微博登陆',
         qq: 'QQ登陆',
         phonePw: '密码登陆',
-        phoneCode: '验证码登陆',
-    }
+        phoneCode: '验证码登陆'
+    };
 
     initShow();
     bindEvent();
@@ -46,7 +46,7 @@ define(function (require, exports, module) {
                 }
             });
         }else{
-            
+
         }
     }
 
