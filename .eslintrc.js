@@ -11,7 +11,7 @@ module.exports = {
         browser: true,
         node: true,
         es6: true,
-        es2017:true
+        es2017: true
     },
     parserOptions: {
         // parser: 'babel-eslint',

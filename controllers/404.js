@@ -1,11 +1,11 @@
 /**
  * @Description: 404
  */
-const async = require("async");
-const render = require("../common/render");
+const async = require('async');
+const render = require('../common/render');
 const request = require('request');
-const Api = require("../api/api");
-const appConfig = require("../config/app-config");
+const Api = require('../api/api');
+const appConfig = require('../config/app-config');
 const recommendConfigInfo = require('../common/recommendConfigInfo');
 const util = require('../common/util');
 
@@ -39,7 +39,7 @@ module.exports = {
             }
         }, (err, results) => {
             res.status(404);
-            render("404", results, req, res);
+            render('404', results, req, res);
         });
     }
 };
