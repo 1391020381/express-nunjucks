@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     require('./fixedTopBar');
     require('../application/suspension');
     var Slider = require('../common/slider');// 轮播插件
-    var utils = require('../cmd-lib/util');
+    // var utils = require('../cmd-lib/util');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = false;
     var callback = null;
@@ -93,13 +93,10 @@ define(function (require, exports, module) {
                 var $this = $(this);
                 var scrollTop = $this.scrollTop();
                 if (scrollTop >= rightHeight + searchHeader + bannerHeight) {
-
                     $('.landing-right').css({ 'position': 'fixed', 'top': searchHeader, 'zIndex': '75' });
                     if (scrollTop > leftHeifht - documentInnerHeight) {
                         var tempHeight = leftHeifht - fixRight - 15;
                         $('.landing-right').css({ 'position': 'absolute', 'top': tempHeight });
-                    } else {
-
                     }
                 } else {
                     $('.landing-right').removeAttr('style');

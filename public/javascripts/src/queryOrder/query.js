@@ -4,7 +4,6 @@
 define(function (require, exports, module) {
     // var $ = require('$');
     require('../application/suspension');
-
     var api = require('../application/api');
     var method = require('../application/method');
     var utils = require('../cmd-lib/util');
@@ -12,7 +11,6 @@ define(function (require, exports, module) {
     var common = require('../detail/common');
     require('../common/coupon/couponIssue');
     var refreshTopBar = require('../application/effect.js').refreshTopBar;
-
     /** 用户信息 */
     var userInfo = null;
     /** 文件信息 */
@@ -26,9 +24,7 @@ define(function (require, exports, module) {
         pageInitShow();
         // 访问记录
         storeAccessRecord();
-
     }
-
 
     function loginPopShow() {
         login.notifyLoginInterface(function (data) {
@@ -49,7 +45,7 @@ define(function (require, exports, module) {
         if (method.getCookie('cuk')) {
             // 如果已登录 则去下载
             queryOrder(order);
-        }else {
+        } else {
             loginPopShow();
         }
     });
@@ -73,7 +69,7 @@ define(function (require, exports, module) {
                     fileInfo = res.data;
                     handleShowInfos();
                     handleFileTypeIcon(fileInfo);
-                }else {
+                } else {
                     $('.wrong-search-words').css('display', 'block');
                     $('.table-box-outside').css('display', 'none');
                     $.toast({
@@ -83,13 +79,13 @@ define(function (require, exports, module) {
             }
         });
     }
+
     /* 查询到订单结果后显示查询结果 */
     function handleShowInfos() {
         var d = new Date(fileInfo.orderTime);
         var year = d.getFullYear(); // 年
         var month = d.getMonth() + 1; // 月
         var day = d.getDate(); // 日
-
         var hh = d.getHours(); // 时
         var mm = d.getMinutes(); // 分
         var ss = d.getSeconds(); // 秒
@@ -98,31 +94,30 @@ define(function (require, exports, module) {
 
         if (month < 10)
             clock += '0';
-
         clock += month + '-';
 
         if (day < 10)
             clock += '0';
-
         clock += day + ' ';
 
         if (hh < 10)
             clock += '0';
-
         clock += hh + ':';
+
         if (mm < 10) clock += '0';
         clock += mm;
 
         var oldTime = clock;
         var newTime = fileInfo.orderTimeStr;
         var time = newTime || oldTime;
-        var price = fileInfo.payPrice > 0 ? fileInfo.payPrice/100 : 0;
+        var price = fileInfo.payPrice > 0 ? fileInfo.payPrice / 100 : 0;
         $('.wrong-search-words').css('display', 'none');
         $('.table-box-outside').css('display', 'block');
         document.getElementsByClassName('file-name-value')[0].innerHTML = fileInfo.goodsName;
         document.getElementsByClassName('price-value')[0].innerHTML = '￥ ' + price;
         document.getElementsByClassName('time-value')[0].innerHTML = time;
     }
+
     function handleFileTypeIcon(fileInfo) {
         resetFileIcon();
         if (fileInfo.format.indexOf('doc') > -1) {
@@ -137,6 +132,7 @@ define(function (require, exports, module) {
             $('.file-pdf-icon').css('display', 'block');
         }
     }
+
     function resetFileIcon() {
         $('.file-doc-icon').css('display', 'none');
         $('.file-excel-icon').css('display', 'none');
@@ -144,10 +140,12 @@ define(function (require, exports, module) {
         $('.file-ppt-icon').css('display', 'none');
         $('.file-text-icon').css('display', 'none');
     }
+
     // 点击下载按钮
     $('.down-btn').on('click', function () {
         downLoad();
     });
+
     /* 下载接口 */
     function downLoad() {
         var order = document.getElementById('scondition').value;
@@ -166,7 +164,7 @@ define(function (require, exports, module) {
                 if (res.code == '0') {
                     var url = res.data.downUrl;
                     window.location = url;
-                }else {
+                } else {
                     $.toast({
                         text: res.message
                     });
@@ -190,7 +188,6 @@ define(function (require, exports, module) {
         // 意见反馈的url
         var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);
         $('.user-feedback').attr('href', url);
-
         var $iconDetailWrap = $('.icon-detail-wrap');
         if ($iconDetailWrap.length) {
             $(window).on('scroll', function () {
@@ -224,23 +221,27 @@ define(function (require, exports, module) {
                 $(this).addClass('hover');
             }
         });
+
         $more_nave.on('mouseleave', function () {
             var $this = $(this);
             if ($this.hasClass('hover')) {
                 $(this).removeClass('hover');
             }
         });
+
         // 搜索
         $search_detail_input.on('keyup', function (e) {
             var keycode = e.keyCode;
             if ($(this).val()) {
                 getBaiduData($(this).val());
             } else {
+                console.log('');
             }
             if (keycode === 13) {
                 searchFn($(this).val());
             }
         });
+
         $search_detail_input.on('focus', function () {
             $('.detail-search-info').hide();
             var lately_list = $('.lately-list'),
@@ -252,6 +253,7 @@ define(function (require, exports, module) {
             }
             return true;
         });
+
         $('.btn-new-search').on('click', function () {
             var _val = $search_detail_input.val();
             if (!_val) {
@@ -259,6 +261,7 @@ define(function (require, exports, module) {
             }
             searchFn(_val);
         });
+
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
@@ -266,10 +269,10 @@ define(function (require, exports, module) {
             }
             $detail_lately.hide();
         });
+
         $detail_lately.on('click', function (event) {
             event.stopPropagation();
         });
-
 
         // 登录
         $('.user-login,.login-open-vip').on('click', function () {
@@ -281,7 +284,6 @@ define(function (require, exports, module) {
                 });
             }
         });
-
 
         // 退出
         $('.btn-exit').on('click', function () {
@@ -326,7 +328,7 @@ define(function (require, exports, module) {
                 html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId)
             }).open();
         });
-        $('body').on('click', '.js-buy-open', function (e) {
+        $('body').on('click', '.js-buy-open', function () {
             var type = $(this).data('type');
             if (!method.getCookie('cuk')) {
                 // 上报数据相关
@@ -350,7 +352,6 @@ define(function (require, exports, module) {
         });
     }
 
-
     // 获取焦点
     function inputFocus(ele, focus, css) {
         $(ele).focus(function () {
@@ -359,7 +360,6 @@ define(function (require, exports, module) {
         $(ele).blur(function () {
             $(this).parents(css).removeClass(focus);
         });
-
     }
 
     // hover
@@ -387,9 +387,9 @@ define(function (require, exports, module) {
         inputFocus('.evaluate-textarea textarea', 'evaluate-textarea-focus', '.evaluate-textarea');
         // 详情页头部悬浮
         var fixEle = $('#fix-right');
-        var $fixBar = $('.detail-fixed-con');
+        // var $fixBar = $('.detail-fixed-con');
         // var $dFooter = $(".detail-footer");
-        var fixHeight = $detailHeader.height();
+        // var fixHeight = $detailHeader.height();
         if (fixEle.length) {
             var fixTop = fixEle.offset().top - headerHeight;
         }
@@ -405,7 +405,6 @@ define(function (require, exports, module) {
                 if (!localStorage.getItem('firstCoupon') && method.getCookie('cuk')) {
                     $('.coupon-info-top').show();// 赠券提示框
                 }
-
             }
             // 右侧悬浮
             if (detailTop > fixTop) {
@@ -429,14 +428,17 @@ define(function (require, exports, module) {
                 closeCouponAD();
             }
         });
+
         // 关闭底部优惠券弹窗
         function closeCouponAD() {
             $('.pc-tui-coupon .btn-close').click(function () {
                 $('.pc-tui-coupon').hide();
             });
         }
+
         // 关闭头部优惠券赠送信息
         closeHeadCouponTip();
+
         function closeHeadCouponTip() {
             $('.coupon-info-top').on('click', '.btn-no-user', function () {
                 $('.coupon-info-top').hide();
@@ -502,28 +504,21 @@ define(function (require, exports, module) {
         });
     }
 
-
     function goPage(type) {
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
         var params = '';
         var ref = utils.getPageRef(fid);
-
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
-
         if (type === 'file') {
             params = '?orderNo=' + fid + '&referrer=' + document.referrer;
-
             method.compatibleIESkip('/pay/payConfirm.html' + params, false);
         } else if (type === 'vip') {
-
-            var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-
+            params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             method.compatibleIESkip('/pay/vip.html' + params, true);
         } else if (type === 'privilege') {
-            var params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
-
+            params = '?fid=' + fid + '&ft=' + format + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref;
             method.compatibleIESkip('/pay/privilege.html' + params, true);
         }
     }

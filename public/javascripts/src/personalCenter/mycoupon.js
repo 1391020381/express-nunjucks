@@ -1,4 +1,4 @@
-define(function(require, exports, module){
+define(function(require){
     var api = require('../application/api');
     var method = require('../application/method');
     var type = window.pageConfig&&window.pageConfig.page.type;
@@ -8,6 +8,7 @@ define(function(require, exports, module){
     if(type == 'mycoupon'){
         isLogin(initData, true);
     }
+
     function initData(data){
         getUserCentreInfo(null, data);
         rightsSaleQueryUsing();
@@ -42,8 +43,8 @@ define(function(require, exports, module){
                         list.push(item);
                     });
                     var mycoupon = require('./template/mycoupon.html');
-                    var _mycouponTemplate = template.compile(mycoupon)({list:list||[], mycouponType:type||'0'});
-                    $('.personal-center-mycoupon').html(_mycouponTemplate);
+                    var mycouponTemplate = template.compile(mycoupon)({list:list||[], mycouponType:type||'0'});
+                    $('.personal-center-mycoupon').html(mycouponTemplate);
                     handlePagination(res.data.totalPages, res.data.pageNumber);
                 }else{
                     $.toast({
@@ -60,8 +61,11 @@ define(function(require, exports, module){
 
 
     function handlePagination(totalPages, currentPage){
-        var _simplePaginationTemplate = template.compile(simplePagination)({paginationList:new Array(totalPages||0), currentPage:currentPage});
-        $('.pagination-wrapper').html(_simplePaginationTemplate);
+        var simplePaginationTemplate = template.compile(simplePagination)({
+            paginationList:new Array(totalPages||0),
+            currentPage:currentPage
+        });
+        $('.pagination-wrapper').html(simplePaginationTemplate);
         $('.pagination-wrapper').on('click', '.page-item', function(e){
             var paginationCurrentPage = $(this).attr('data-currentPage');
             if(!paginationCurrentPage){

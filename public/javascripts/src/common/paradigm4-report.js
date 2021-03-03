@@ -4,9 +4,9 @@
 define(function (require, exports, module) {
 
     var method = require('../application/method');
-    var paradigm4= { // 第四范式相关使用node代理一层
-        url:'/detail/actionslog',
-        commonParam:function(){
+    var paradigm4 = { // 第四范式相关使用node代理一层
+        url: '/detail/actionslog',
+        commonParam: function () {
             var date = new Date();
             var year = date.getFullYear();
             var mon = date.getMonth() + 1;
@@ -16,15 +16,16 @@ define(function (require, exports, module) {
             var dateParams = year + '-' + month + '-' + day + ' ' + time;
             return dateParams;
         },
-        pageView:function(paradigm4Arr, recommendInfoItem){ // 页面曝光
-            var dateParams=this.commonParam();
+
+        pageView: function (paradigm4Arr, recommendInfoItem) { // 页面曝光
+            var dateParams = this.commonParam();
             var userId = method.getCookie('userId') || method.getCookie('visitor_id');
             var clientToken = recommendInfoItem.token;
             // var serverUrl=this.url+'?clientToken=' + clientToken;
-            var serverUrl= this.url + '/' + clientToken;
+            var serverUrl = this.url + '/' + clientToken;
             // 相关推荐
             var actionsRelevant = [];
-            $(paradigm4Arr).each(function(index, item){
+            $(paradigm4Arr).each(function (index, item) {
                 actionsRelevant.push({
                     'itemId': item.id || item.itemId,
                     'actionTime': new Date().getTime(),
@@ -34,31 +35,29 @@ define(function (require, exports, module) {
                     'userId': userId,
                     'context': item.context,
                     'requestId': recommendInfoItem.requestId,
-                    'lib':'pc-node',
-                    'deviceId':'pc-node'
+                    'lib': 'pc-node',
+                    'deviceId': 'pc-node'
                 });
             });
-
-
             var data = {
                 'date': dateParams,
                 'actions': actionsRelevant
             };
-            $ajax(serverUrl, 'post', data).then(function(res){
+            $ajax(serverUrl, 'post', data).then(function (res) {
                 console.log('paradigm4:', res);
             });
         },
-        eventReport:function(itemId, paradigm4Arr, recommendInfoItem){// 点击上报
-            var dateParams=this.commonParam();
+
+        eventReport: function (itemId, paradigm4Arr, recommendInfoItem) {// 点击上报
+            var dateParams = this.commonParam();
             var userId = method.getCookie('userId') || method.getCookie('visitor_id');
             var clientToken = recommendInfoItem.token;
             // var serverUrl=this.url+'?clientToken=' + clientToken;
-            var serverUrl= this.url + '/' + clientToken;
-            var context='';
-            $(paradigm4Arr).each(function(index, item){
-                item.id==itemId || item.itemId == itemId ? context=item.context : '';
+            var serverUrl = this.url + '/' + clientToken;
+            var context = '';
+            $(paradigm4Arr).each(function (index, item) {
+                item.id == itemId || item.itemId == itemId ? context = item.context : '';
             });
-
             var params = {
                 'date': dateParams,
                 'actions': [{
@@ -70,12 +69,12 @@ define(function (require, exports, module) {
                     'userId': userId,
                     'context': context,
                     'requestId': recommendInfoItem.requestId,
-                    'lib':'pc-node',
-                    'deviceId':'pc-node'
+                    'lib': 'pc-node',
+                    'deviceId': 'pc-node'
                 }]
             };
 
-            $ajax(serverUrl, 'post', params).then(function(res){
+            $ajax(serverUrl, 'post', params).then(function (res) {
                 console.log('paradigm4:', res);
             });
         }

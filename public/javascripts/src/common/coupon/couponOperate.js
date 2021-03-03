@@ -4,7 +4,7 @@
 define(function (require, exports, module) {
     // var $ = require("$");
     require('../../cmd-lib/toast');
-    var method = require('../../application/method');
+    // var method = require('../../application/method');
     var couponOptions = require('./template/options.html');
 
     var couponObj = {
@@ -120,8 +120,8 @@ define(function (require, exports, module) {
                     }
                 }
                 var list = dataList.validList.concat(dataList.invalidList);
-                var _html = template.compile(couponOptions)({ data: list });
-                $('.coupon-down .select-text').html(_html);
+                var htmlTpl = template.compile(couponOptions)({ data: list });
+                $('.coupon-down .select-text').html(htmlTpl);
                 // 判断是否可用【A20】
                 couponObj.data = dataList.validList;
                 couponObj.undata = dataList.invalidList;
@@ -231,9 +231,7 @@ define(function (require, exports, module) {
             var tips = '';
             if (couponObj.couponType == 1) {
                 // 购买vip
-
                 var activeTip = '';
-
                 // 放弃使用优惠券
                 if (couponAmount == 0) {
                     tips = '';
@@ -386,7 +384,6 @@ define(function (require, exports, module) {
                 invalidList: invalidList
             };
         }
-
     };
 
     couponObj.initial();

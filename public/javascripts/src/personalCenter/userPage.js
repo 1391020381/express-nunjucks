@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     require('../cmd-lib/toast');
     var method = require('../application/method');
     var api = require('../application/api');
-    var login = require('../application/checkLogin');
+    // var login = require('../application/checkLogin');
     var isLogin = require('../application/effect.js').isLogin;
     var paradigm4Report = require('../common/paradigm4-report');
     var pageParams = window.pageConfig.page || {};
@@ -70,8 +70,8 @@ define(function(require, exports, module) {
                     userData.readSum = userData.readSum > 10000 ? (userData.readSum / 10000).toFixed(1) + 'w+' : userData.readSum;
                     userData.downSum = userData.downSum > 10000 ? (userData.downSum / 10000).toFixed(1) + 'w+' : userData.downSum;
                     userData.fileSize = userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize;
-                    var _html = template.compile(require('./template/userPage/index.html'))({ data: userData });
-                    $('.container').html(_html);
+                    var htmlTpl = template.compile(require('./template/userPage/index.html'))({ data: userData });
+                    $('.container').html(htmlTpl);
                     var isMasterVip = userData.isVip && userData.vipSiteList.indexOf(4) >= 0;
                     var isOfficeVip = userData.isVip && userData.vipSiteList.indexOf(0) >= 0;
                     if (!isMasterVip) {
@@ -113,8 +113,8 @@ define(function(require, exports, module) {
             requestId: requestId,
             userId: userId
         }).then(function(res) {
-            var _html = template.compile(require('./template/userPage/rightList.html'))({ rightList: res.data });
-            $('.hot-file ul').html(_html);
+            var htmlTpl = template.compile(require('./template/userPage/rightList.html'))({ rightList: res.data });
+            $('.hot-file ul').html(htmlTpl);
             paradigm4GuessData = res.data;
             recommendInfoItem = data[0];
             recommendInfoItem.requestId = requestId;

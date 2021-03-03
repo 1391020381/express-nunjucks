@@ -58,7 +58,5 @@ define(function (require, exports, module) {
         $hasLogin.find('.top-user-more .user-name').html(data.nickName);
         $hasLogin.find('.top-user-more img').attr('src', data.photoPicURL);
         // $hasLogin.show();
-
-
     }
 });

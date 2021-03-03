@@ -13,9 +13,11 @@ define(function (require, exports, module) {
         pageID: 'SR',
         pageName: '搜索结果页'
     });
+
     trackEvent('SE015', 'searchPageView', 'page', {
         keyWords: cond
     });
+
     $('.landing-txt-list .li-file').on('click', function () {
         var fileID = $(this).attr('data-fileId');
         var fileName = $(this).attr('data-fileName');

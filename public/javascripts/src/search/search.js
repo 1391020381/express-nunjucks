@@ -1,9 +1,9 @@
 define(function (require, exports, moudle) {
     // var $ = require('$');
     var method = require('../application/method');
-    var api = require('../application/api');
+    // var api = require('../application/api');
     var cond = decodeURIComponent(decodeURIComponent(method.getParam('cond')));
-    var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
+    // var userInfo = method.getCookie('ui') ? JSON.parse(method.getCookie('ui')) : {};
     if (cond) {
         cond = cond.length > 12 ? cond.slice(0, 12) + '...' : cond;
     }
@@ -71,7 +71,6 @@ define(function (require, exports, moudle) {
         });
     }
 
-
     // 搜索条件切换
     function conditionChange() {
         var $searchItem = $('.search-item');
@@ -94,10 +93,10 @@ define(function (require, exports, moudle) {
     }
 
     // 搜索条件切换  时 页面更新url 参数改变
-    function conditionHrefChange(data) {
+    function conditionHrefChange(res) {
         var href = window.location.href;
-        for (var key in data) {
-            href = method.changeURLPar(href, key, data[key]);
+        for (var key in res) {
+            href = method.changeURLPar(href, key, res[key]);
         }
         window.location.href = href;
     }
@@ -159,7 +158,6 @@ define(function (require, exports, moudle) {
         var pageIndex = params - 1;
         pageIndex = pageIndex > 0 ? pageIndex : 0;
         pageele.eq(pageIndex).addClass('active').siblings().removeClass('active');
-
         if (pageIndex > 0) {
             btnpagelong.eq(0).show();
             btnpage.eq(0).show();
@@ -174,7 +172,6 @@ define(function (require, exports, moudle) {
             pageIndex - 2 > 0 ? pageele.eq(pageIndex - 2).before('<span class="page-point">...</span>') : null;
             pageIndex + 2 < indexNum - 1 ? pageele.eq(pageIndex + 2).after('<span class="page-point">...</span>') : null;
         }
-
 
         if (pageIndex === 0) {
             btnpagelong.eq(0).hide();
@@ -202,7 +199,6 @@ define(function (require, exports, moudle) {
         }
         pageele.eq(0).show();
         pageele.eq(indexNum).show();
-
 
         // 点击分页时
         pageele.click(function () {
@@ -234,6 +230,5 @@ define(function (require, exports, moudle) {
             conditionHrefChange({ pageIndex: indexNum + 1 });
         });
     }
-
 
 });

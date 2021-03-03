@@ -1,33 +1,33 @@
 define(function (require, exports, module) {
     // var $ = require("$");
-    var method = require("../application/method");
+    var method = require('../application/method');
     var api = require('../application/api');
-    var pay_btn_tmp = require("./template/pay_btn_tmp.html");
-    var pay_middle_tmp = require("./template/pay_middle_tmp.html");
-    var pay_header_tmp = require("./template/pay_header.tmp.html");
-    var loginTypeContent = require('../common/loginType')
+    var pay_btn_tmp = require('./template/pay_btn_tmp.html');
+    // var pay_middle_tmp = require('./template/pay_middle_tmp.html');
+    // var pay_header_tmp = require('./template/pay_header.tmp.html');
+    var loginTypeContent = require('../common/loginType');
     var userData = null;
-    var pageConfig = window.pageConfig && window.pageConfig
+    var pageConfig = window.pageConfig && window.pageConfig;
 
     // 页面信息
-    // productType  1  4  5 
+    // productType  1  4  5
     var initData = {
         fileDiscount: '80',
-        isDownload: pageConfig.page.isDownload,                   //仅在线阅读
-        vipFreeFlag: pageConfig.params.vipFreeFlag,               //是否VIP免费
-        isVip: 0,                                                 //是否VIP
-        perMin: pageConfig.params.g_permin,                       //是否现金文档
+        isDownload: pageConfig.page.isDownload, // 仅在线阅读
+        vipFreeFlag: pageConfig.params.vipFreeFlag, // 是否VIP免费
+        isVip: 0, // 是否VIP
+        perMin: pageConfig.params.g_permin, // 是否现金文档
         vipDiscountFlag: pageConfig.params.vipDiscountFlag,
         ownVipDiscountFlag: pageConfig.params.ownVipDiscountFlag,
-        volume: pageConfig.params.file_volume,                    //下载券数量
+        volume: pageConfig.params.file_volume, // 下载券数量
         moneyPrice: pageConfig.params.moneyPrice,
         fid: pageConfig.params.g_fileId,
         title: pageConfig.page.fileName,
         format: pageConfig.params.file_format,
         cdnUrl: _head,
         cuk: method.getCookie('cuk'), // 判断是否登录
-        productType: pageConfig.page.productType,  // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
-        productPrice: pageConfig.page.productPrice  // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
+        productType: pageConfig.page.productType, // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
+        productPrice: pageConfig.page.productPrice // 商品价格 > 0 的只有 vip特权 个数,和 付费文档 金额 单位分
     };
 
     /**
@@ -35,13 +35,13 @@ define(function (require, exports, module) {
      * @param data checkLogin 返回数据
      */
     var reloadHeader = function (data) {
-        var $unLogin = $('#detail-unLogin'),  // unLogin
+        var $unLogin = $('#detail-unLogin'), // unLogin
             $hasLogin = $('#haveLogin'),
             $top_user_more = $('.top-user-more'),
             $icon_iShare_text = $('.icon-iShare-text'),
             $btn_user_more = $('.btn-user-more'),
             $vip_status = $('.vip-status'),
-            $icon_iShare = $(".icon-iShare");
+            $icon_iShare = $('.icon-iShare');
         // 顶部右侧的消息
         $('.top-bar .news').removeClass('hide').find('#user-msg').text(data.msgCount);
         $icon_iShare_text.html(data.isVip === '1' ? '续费VIP' : '开通VIP');
@@ -54,13 +54,13 @@ define(function (require, exports, module) {
         }
 
         var $target = null;
-        //vip
+        // vip
         if (data.isVip == 1) {
             $target = $vip_status.find('p[data-type="2"]');
             $target.find('.expire_time').html(data.expireTime);
             $target.show().siblings().hide();
             $top_user_more.addClass('top-vip-more');
-            //vip 已经 过期
+            // vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
             $target.show().siblings().hide();
@@ -69,15 +69,15 @@ define(function (require, exports, module) {
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
         $hasLogin.find('img').attr('src', data.photoPicURL);
-        var nickName = data.nickName && data.nickName.length > 4 ? data.nickName.slice(0, 4) + '...' : data.nickName
+        var nickName = data.nickName && data.nickName.length > 4 ? data.nickName.slice(0, 4) + '...' : data.nickName;
         $hasLogin.find('.user-link .user-name').text(nickName);
-        var temp = loginTypeContent[method.getCookie('loginType')]
+        var temp = loginTypeContent[method.getCookie('loginType')];
         $hasLogin.find('.user-link .user-loginType').text(temp ? temp + '登录' : '');
         $top_user_more.find('img').attr('src', data.photoPicURL);
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
-        //右侧导航栏.
+        // 右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
         $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
@@ -97,7 +97,7 @@ define(function (require, exports, module) {
      * 登录后,要刷新顶部.中间,底部内容
      */
     var reloadingPartOfPage = function () {
-        $("#footer-btn").html(template.compile(pay_btn_tmp)({ data: initData })); // footer-btn 详情底部固定栏  /views/detail/fixed.html
+        $('#footer-btn').html(template.compile(pay_btn_tmp)({ data: initData })); // footer-btn 详情底部固定栏  /views/detail/fixed.html
         //  $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData})); // middle-btn 详情正文部分按钮 /views/detail/middleBtn.html
         //  $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));  // headerBtn  详情头部立即下载按钮  产品暂时注释掉 header的立即下载按钮
     };
@@ -110,7 +110,7 @@ define(function (require, exports, module) {
         if (initData.vipDiscountFlag == '1') {
             originalPrice = initData.isVip == 1 ? (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2) : (initData.moneyPrice * (80 / 100)).toFixed(2); // 8折
 
-            $(".js-original-price").html(originalPrice);
+            $('.js-original-price').html(originalPrice);
 
             if (initData.isVip == 1) {
                 $('.vip-price').html('&yen;' + (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2));
@@ -122,7 +122,7 @@ define(function (require, exports, module) {
         if (initData.productType === '5' && initData.vipDiscountFlag == '1') {
             originalPrice = userData.isVip == 1 ? (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2) : (initData.moneyPrice * (80 / 100)).toFixed(2);
 
-            $(".js-original-price").html(originalPrice);
+            $('.js-original-price').html(originalPrice);
             var savePrice = userData.isVip == 1 ? (initData.moneyPrice * (initData.fileDiscount / 100)).toFixed(2) : (initData.moneyPrice * (80 / 100)).toFixed(2);
             $('#vip-save-money').html(savePrice);
             $('.js-original-price').html(savePrice);
@@ -156,21 +156,21 @@ define(function (require, exports, module) {
     var filePreview = function (obj) {
         var validateIE9 = method.validateIE9() ? 1 : 0;
         var pageConfig = window.pageConfig;
-        var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
-        console.log('获取文件')
+        // var params = '?fid=' + pageConfig.params.g_fileId + '&validateIE9=' + validateIE9;
+        console.log('获取文件');
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
             },
             url: api.normalFileDetail.getPrePageInfo,
-            type: "POST",
+            type: 'POST',
             data: JSON.stringify({
                 fid: pageConfig.params.g_fileId,
                 isIe9Low: validateIE9,
                 site: 4
             }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
             success: function (res) {
                 // 商品类型 1：免费文档，3 在线文档 4 vip特权文档 5 付费文档 6 私有文档
                 // console.log(pageConfig, res.data)
@@ -181,19 +181,19 @@ define(function (require, exports, module) {
                         pageConfig.page.is360page = 'true';
                         pageConfig.page.initReadPage = Math.min(num, 50);
                     }
-                    pageConfig.page.status = initData.status = res.data && res.data.status;  // 0 未登录、转化失败、未购买 2 已购买、本人文件
+                    pageConfig.page.status = initData.status = res.data && res.data.status; // 0 未登录、转化失败、未购买 2 已购买、本人文件
 
-                    // 修改继续阅读文案要判断是否购买过  
+                    // 修改继续阅读文案要判断是否购买过
                     if (initData.productType == '5' || initData.productType == '4' || initData.productType == '3') {
-                        var totalPage = +window.pageConfig.params.totalPage; //最大页数
-                        var loadedPage = $(".detail-pro-con div.article-page").length;
-                        var preRead = +window.pageConfig.page.preRead || 50; // 预览页数
-                        var limitPage = Math.min(preRead, 50); //最大限制阅读页数
+                        var totalPage = Number(window.pageConfig.params.totalPage); // 最大页数
+                        var loadedPage = $('.detail-pro-con div.article-page').length;
+                        var preRead = Number(window.pageConfig.page.preRead) || 50; // 预览页数
+                        var limitPage = Math.min(preRead, 50); // 最大限制阅读页数
                         if (loadedPage - limitPage >= 0 || loadedPage == totalPage) {
                             window.changeText();
                         }
                     }
-                    
+
                     // 如果是在线文档
                     if (pageConfig.params.file_state === '3') {
                         // var content = res.data.url || pageConfig.imgUrl[0];
@@ -207,7 +207,7 @@ define(function (require, exports, module) {
                         // }
                         pageConfig.imgUrl = res.data.transcodeInfo.contentPathList || [];
                     }
-                    //http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
+                    // http://swf.ishare.down.sina.com.cn/xU0VKvC0nR.jpg?ssig=%2FAUC98cRYf&Expires=1573301887&KID=sina,ishare&range=0-501277
                     if (method.getCookie('cuk')) {
                         reloadingPartOfPage();
                     }
@@ -222,7 +222,7 @@ define(function (require, exports, module) {
                     }
                 }
             }
-        })
+        });
 
 
     };
@@ -235,11 +235,11 @@ define(function (require, exports, module) {
         afterLogin: function (data, obj) {
             userData = data;
             initData.isVip = parseInt(data.isVip, 10);
-            initData.fileDiscount = data.fileDiscount
-            window.pageConfig.page.fileDiscount = data.fileDiscount
+            initData.fileDiscount = data.fileDiscount;
+            window.pageConfig.page.fileDiscount = data.fileDiscount;
             reloadHeader(data);
             // queryStoreFlag();
             filePreview(obj);
         }
-    }
+    };
 });

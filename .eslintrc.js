@@ -79,7 +79,7 @@ module.exports = {
         'no-unreachable': 'error', // 不能有无法执行的代码
         // 'no-unused-expressions': 'warn', // 禁止无用的表达式
         'no-unused-vars': ['warn', { 'vars': 'all', 'args': 'after-used' }], // 不能有声明后未被使用的变量或参数
-        'no-use-before-define': 'warn', // 未定义前不能使用
+        'no-use-before-define': ['warn', { 'functions': false, 'classes': true }], // 未定义前不能使用
         'no-var': 'error', // 禁用var，用let和const代替
         // 'no-warning-comments': ['warn', {'terms': ['todo', 'fixme'], 'location': 'start'}], // 不能有警告备注
         'no-with': 'error', // 禁用with
@@ -103,7 +103,7 @@ module.exports = {
         'operator-linebreak': ['error', 'after'], // 换行时运算符在行尾还是行首
         'prefer-arrow-callback': 'warn', // 要求回调函数使用箭头函数
         'prefer-const': 'error', // 要求使用 const 声明那些声明后不再被修改的变量
-        'prefer-rest-params': 'error', // 要求使用剩余参数而不是 arguments
+        'prefer-rest-params': 'warn', // 要求使用剩余参数而不是 arguments
         'quotes': ['warn', 'single'], // 引号类型 `` "" ''
         'id-match': 'off', // 命名检测
         'semi': ['error', 'always'], // 语句强制分号结尾

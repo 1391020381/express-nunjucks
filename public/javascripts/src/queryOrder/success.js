@@ -1,17 +1,15 @@
 define(function (require, exports, module) {
-
     var method = require('../application/method');
     var login = require('../application/checkLogin');
-    var utils = require('../cmd-lib/util');
+    // var utils = require('../cmd-lib/util');
     var fid = method.getParam('fid');
     var fileName = method.getParam('name');
     var format = method.getParam('format');
     var userId;
     require('../common/bindphone');
     require('../common/coupon/couponIssue');
-
-
     var userData = null, initData = {};
+
     eventBinding();
 
     // url上带有这个参数unloginFlag，说明是游客模式过来的
@@ -24,7 +22,6 @@ define(function (require, exports, module) {
         $('.pay-ok-text').hide();
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
-
         if (method.getCookie('cuk')) {
             $('.carding-info-bottom.unloginStatus').remove();
             login.getLoginData(function (data) {
@@ -41,7 +38,6 @@ define(function (require, exports, module) {
                 userData = res;
                 // 登陆成功绑定userid
                 bindOrder(res.userId, res.nickName);
-
             });
             setTimeout(function () {
                 getDownUrl();
@@ -91,7 +87,7 @@ define(function (require, exports, module) {
                 }
             },
             complete: function () {
-
+                console.log('请求完成');
             }
         });
     }
@@ -133,7 +129,6 @@ define(function (require, exports, module) {
                 });
             }
         });
-
     }
 
     // 生登陆二维码
@@ -163,19 +158,16 @@ define(function (require, exports, module) {
         } else {
             $('.carding-binding').show();
         }
-
         if (data.isVip == '1') {
             var time = method.compareTime(new Date(), new Date(data.expireTime));
             if (time <= 5) {
                 $('.down-succ-title').html('您的VIP将于' + data.expireTime + '到期').show();
                 $('.down-succ-btn[data-type=vip]').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').show();
-
             } else if (data.privilege <= 5) {
                 $('.down-succ-title').html('您的VIP下载特权仅剩' + data.privilege + '次！').show();
                 $('.down-succ-btn[data-type=privilege]').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').show();
-
             } else {
                 $('.btn-carding-back').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').hide();
@@ -189,7 +181,6 @@ define(function (require, exports, module) {
     $('.btn-carding-back').on('click', function () {
         window.location.href = '/f/' + fid + '.html';
     });
-
 
     /**
      * 刷新顶部状态
@@ -221,18 +212,14 @@ define(function (require, exports, module) {
             $target.find('.expire_time').html(data.expireTime);
             $target.show().siblings().hide();
             $top_user_more.addClass('top-vip-more');
-
             // vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
             $target.show().siblings().hide();
-
             // 新用户
         } else if (data.isVip == 0) {
-
             $icon_iShare.removeClass('icon-vip');
         }
-
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
@@ -276,6 +263,7 @@ define(function (require, exports, module) {
                 $(this).addClass('hover');
             }
         });
+
         $more_nave.on('mouseleave', function () {
             var $this = $(this);
             if ($this.hasClass('hover')) {
@@ -289,11 +277,13 @@ define(function (require, exports, module) {
             if ($(this).val()) {
                 getBaiduData($(this).val());
             } else {
+                console.log('搜索');
             }
             if (keycode === 13) {
                 searchFn($(this).val());
             }
         });
+
         $search_detail_input.on('focus', function () {
             var lately_list = $('.lately-list'),
                 len = lately_list.find('li').length;
@@ -304,13 +294,15 @@ define(function (require, exports, module) {
             }
             return true;
         });
+
         $('.btn-new-search').on('click', function () {
-            var _val = $('#search-detail-input').val();
-            if (!_val) {
+            var val = $('#search-detail-input').val();
+            if (!val) {
                 return;
             }
-            searchFn(_val);
+            searchFn(val);
         });
+
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
@@ -318,16 +310,17 @@ define(function (require, exports, module) {
             }
             $detail_lately.hide();
         });
+
         $detail_lately.on('click', function (event) {
             event.stopPropagation();
         });
-
     }
 
     // 获取百度数据
     var getBaiduData = function (val) {
         $.getScript('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + encodeURIComponent(val) + '&p=3&cb=window.baidu_searchsug&t=' + new Date().getTime());
     };
+
     /* 百度搜索建议回调方法*/
     window.baidu_searchsug = function (data) {
         var sword = $('#search-detail-input').val();

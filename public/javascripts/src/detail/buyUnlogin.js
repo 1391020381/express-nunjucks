@@ -70,8 +70,8 @@ define(function (require) {
             });
 
             // 弹出未登录购买弹窗
-            var unloginBuyHtml = require('./template/buyUnlogin.html');
-            unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>';
+            // var unloginBuyHtml = require('./template/buyUnlogin.html');
+            // unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>';
             $('body').on('click', '.js-buy-open', function () {
                 var page = window.pageConfig.page;
                 var params = window.pageConfig.params;
@@ -180,7 +180,7 @@ define(function (require) {
             };
             console.log(JSON.stringify(params));
             // node 接口
-            $.post('/pay/orderUnlogin?ts=' + new Date().getTime(), params, function (data, status) {
+            $.post('/pay/orderUnlogin?ts=' + new Date().getTime(), params, function (data) {
                 if (data && data.code == '0') {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
@@ -293,8 +293,8 @@ define(function (require) {
                                 unloginObj.closeLoginWindon();
                                 var url = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) + '&format=' + format + '&visitorId=' + visitorId;
                                 method.compatibleIESkip(url, false);
-
                             } catch (e) {
+                                console.log(JSON.stringify(e));
                             }
                         } else if (orderInfo.orderStatus == 3) {
                             // 【A20购买资料支付失败上报】

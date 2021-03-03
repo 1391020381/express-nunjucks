@@ -1,5 +1,4 @@
 define(function (require, exports, module) {
-
     return [
         { value: '招商银行', key: 'CMB' },
         { value: '建设银行', key: 'CCB' },

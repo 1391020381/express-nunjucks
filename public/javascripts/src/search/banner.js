@@ -28,8 +28,12 @@ define(function (require, exports, module) {
                     recommendConfigInfo.search.descs.forEach(function (item) {
                         if (item.list.length) {
                             if (item.pageId == 'PC_M_SR_ub') {
-                                var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list, className: 'swiper-top-container', hasDeleteIcon: true });
-                                $('.search-all-main-topbanner').html(_topBannerHtml);
+                                var topBannerHtml = template.compile(topBnnerTemplate)({
+                                    topBanner: item.list,
+                                    className: 'swiper-top-container',
+                                    hasDeleteIcon: true
+                                });
+                                $('.search-all-main-topbanner').html(topBannerHtml);
                                 new Swiper('.swiper-top-container', {
                                     direction: 'horizontal',
                                     loop: item.list.length > 1 ? true : false,
@@ -37,8 +41,11 @@ define(function (require, exports, module) {
                                 });
                             }
                             if (item.pageId == 'PC_M_SR_rb') {
-                                var _rightBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list, className: 'swiper-right-container' });
-                                $('.banner').html(_rightBannerHtml);
+                                var rightBannerHtml = template.compile(topBnnerTemplate)({
+                                    topBanner: item.list,
+                                    className: 'swiper-right-container'
+                                });
+                                $('.banner').html(rightBannerHtml);
                                 new Swiper('.swiper-right-container', {
                                     direction: 'horizontal',
                                     loop: item.list.length > 1 ? true : false,
@@ -46,8 +53,11 @@ define(function (require, exports, module) {
                                 });
                             }
                             if (item.pageId == 'PC_M_SR_downb') { // search-all-main-bottombanner
-                                var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list, className: 'swiper-bottom-container' });
-                                $('.search-all-main-bottombanner').html(_bottomBannerHtml);
+                                var bottomBannerHtml = template.compile(topBnnerTemplate)({
+                                    topBanner: item.list,
+                                    className: 'swiper-bottom-container'
+                                });
+                                $('.search-all-main-bottombanner').html(bottomBannerHtml);
                                 new Swiper('.swiper-bottom-container', {
                                     direction: 'horizontal',
                                     loop: item.list.length > 1 ? true : false,
@@ -59,12 +69,12 @@ define(function (require, exports, module) {
                 }
                 if ($('.search-all-main-topbanner .swiper-slide').length <= 0) {
                     $('.close-swiper').hide();
-
                 }
             }
         });
     }
-    $('.search-all-main-topbanner-container .close-swiper').on('click', function (e) {
+
+    $('.search-all-main-topbanner-container .close-swiper').on('click', function () {
         $('.search-all-main-topbanner-container').hide();
     });
 });

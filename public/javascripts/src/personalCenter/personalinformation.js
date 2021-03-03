@@ -1,4 +1,4 @@
-define(function (require, exports, module) {
+define(function (require) {
     var api = require('../application/api');
     var method = require('../application/method');
     require('../cmd-lib/jquery.datepicker.js');
@@ -13,17 +13,23 @@ define(function (require, exports, module) {
     if (type == 'personalinformation') {
         isLogin(initData, true);
     }
+
     function initData(data) {
         getUserCentreInfo(getUserCentreInfoCallBack, data);
     }
-    function getUserCentreInfoCallBack(userInfo, editUser) {
 
+    function getUserCentreInfoCallBack(userInfo, editUser) {
         getProvinceAndCityList(userInfo);
         var personalinformation = require('./template/personalinformation.html');
         // userInfo.prov = '北京市'
         // userInfo.city ='西城区'
-        var _personalinformationTemplate = template.compile(personalinformation)({ userInfo: userInfo, provinceList: provinceList, cityList: cityList, editUser: editUser });
-        $('.personal-center-personalinformation').html(_personalinformationTemplate);
+        var personalinformationTemplate = template.compile(personalinformation)({
+            userInfo: userInfo,
+            provinceList: provinceList,
+            cityList: cityList,
+            editUser: editUser
+        });
+        $('.personal-center-personalinformation').html(personalinformationTemplate);
         $('.item-province-select').val(userInfo.prov);
         $('.item-city-select').val(userInfo.city);
         var gender = userInfo.gender == 'M' ? '男' : '女';
@@ -32,12 +38,15 @@ define(function (require, exports, module) {
             var formatDate = method.formatDate;
             Date.prototype.dateFormatting = formatDate;
             var birthday = userInfo.birthday ? new Date(userInfo.birthday).format('yyyy-MM-dd') : '';
-            $('.item-date-input').datePicker({ currentDate: birthday, maxDate: new Date().format('yyyy-MM-dd') });
-
+            $('.item-date-input').datePicker({
+                currentDate: birthday,
+                maxDate: new Date().format('yyyy-MM-dd')
+            });
         } else {
             $('.item-date-input').datePicker({ maxDate: new Date().format('yyyy-MM-dd') });
         }
     }
+
     function getProvinceAndCityList(userInfo) {
         userInfoInfomation = userInfo;
         $(areaData).each(function (index, itemCity) {
@@ -58,7 +67,6 @@ define(function (require, exports, module) {
                 });
             }
         });
-
     }
 
     function editUser(gender, birthday, prov, city, email) {
@@ -79,7 +87,6 @@ define(function (require, exports, module) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
-
                     initData();
                 } else {
                     $.toast({
@@ -89,12 +96,12 @@ define(function (require, exports, module) {
                 }
             },
             error: function (error) {
-
+                console.log('请求错误：', JSON.stringify(error));
             }
         });
     }
 
-    $(document).on('click', '.personalinformation .edit-information', function (e) { // active-input
+    $(document).on('click', '.personalinformation .edit-information', function () { // active-input
         var edit = $(this).attr('data-edit');
         if (edit == 'edit') {
             getUserCentreInfoCallBack(userInfoInfomation, 'editUser');
@@ -106,8 +113,12 @@ define(function (require, exports, module) {
             var email = $('.item-email-input').val();
             var errMsg = '';
             var regTestEmail = new RegExp('^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$');
-
-            if (!province && (errMsg = '请选择所在省') || !city && (errMsg = '请选择所在的市') || !sex && (errMsg = '请选择性别') || !birthday && (errMsg = '请选择生日') || !regTestEmail.test(email) && (errMsg = '请填写邮箱')) {
+            if (!province && (errMsg = '请选择所在省') ||
+                !city && (errMsg = '请选择所在的市') ||
+                !sex && (errMsg = '请选择性别') ||
+                !birthday && (errMsg = '请选择生日') ||
+                !regTestEmail.test(email) && (errMsg = '请填写邮箱')
+            ) {
                 $.toast({
                     text: errMsg,
                     delay: 3000
@@ -120,7 +131,7 @@ define(function (require, exports, module) {
         }
     });
 
-    $(document).on('change', '.personalinformation .item-province-select', function (e) { // 北京市 天津市 重庆市  上海市 澳门 香港
+    $(document).on('change', '.personalinformation .item-province-select', function () { // 北京市 天津市 重庆市  上海市 澳门 香港
         var provinceName = $(this).val();
         var str = '';
         var cityList = [];
@@ -139,12 +150,9 @@ define(function (require, exports, module) {
                 }
             }
         });
-
-
         $(cityList).each(function (index, city) {
             str += '<option value="' + city + '">' + city + '</option>';
         });
-
         $('.personalinformation .item-city-select').html(str);
     });
 });

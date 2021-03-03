@@ -1,4 +1,4 @@
-define(function(require, exports, module){
+define(function(require){
     require('../cmd-lib/tab');
     require('../cmd-lib/toast');
     require('../cmd-lib/myDialog');
@@ -35,6 +35,7 @@ define(function(require, exports, module){
             console.error('Trigger:', e.trigger);
         });
     }
+
     function isLowsIe8(){
         var DEFAULT_VERSION = 8.0;
         var ua = navigator.userAgent.toLowerCase();
@@ -50,6 +51,7 @@ define(function(require, exports, module){
             false;
         }
     }
+
     $(document).on('click', '.personal-center-content .personal-center-menu .signIn', function(){
         $('#dialog-box').dialog({
             html: $('#Sign-dialog').html()

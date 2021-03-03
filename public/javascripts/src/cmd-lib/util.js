@@ -2,55 +2,55 @@
  * @Description: 工具类
  */
 
-define(function(require, exports, module) {
+define(function (require, exports, module) {
     // var $ = require("$");
     var utils = {
         //节流函数 func 是传入执行函数，wait是定义执行间隔时间
-        throttle : function(func , wait ){
-            var last,deferTimer;
-            return function(args){
+        throttle: function (func, wait) {
+            var last, deferTimer;
+            return function (args) {
                 var that = this;
                 var _args = arguments;
                 //当前时间
                 var now = +new Date();
                 //将当前时间和上一次执行函数时间对比
                 //如果差值大于设置的等待时间就执行函数
-                if(last && now < last + wait){
+                if (last && now < last + wait) {
                     clearTimeout(deferTimer)
-                    deferTimer = setTimeout(function(){
+                    deferTimer = setTimeout(function () {
                         last = now;
                         func.apply(that, _args);
-                    },wait)
-                }else{
+                    }, wait)
+                } else {
                     last = now;
-                    func.apply(that , _args);
+                    func.apply(that, _args);
                 }
             }
         },
         //防抖函数 func 是传入执行函数，wait是定义执行间隔时间
-        debounce : function(func , wait){
+        debounce: function (func, wait) {
             //缓存一个定时器id 
             var timer = 0;
             var that = this;
-            return function(args){
-                if(timer) clearTimeout(timer);
-                timer = setTimeout(function(){
-                    func.apply(that , args);
-                },wait)
+            return function (args) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(function () {
+                    func.apply(that, args);
+                }, wait)
             }
         },
         //判断是否微信浏览器
-        isWeChatBrow:function(){
+        isWeChatBrow: function () {
             var ua = navigator.userAgent.toLowerCase();
             var isWeixin = (ua.indexOf('micromessenger') != -1);
             if (isWeixin) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },
         //识别是ios 还是 android
-        getWebAppUA:function(){
+        getWebAppUA: function () {
             var res = 0;//非IOS
             var ua = navigator.userAgent.toLowerCase();
             if (/iphone|ipad|ipod/.test(ua)) {
@@ -61,28 +61,28 @@ define(function(require, exports, module) {
             return res;
         },
         //判断IE8以下浏览器
-        validateIE8 : function () {
-            if ($.browser.msie && ( $.browser.version == "8.0"
+        validateIE8: function () {
+            if ($.browser.msie && ($.browser.version == "8.0"
                 || $.browser.version == "7.0"
-                || $.browser.version == "6.0")){
+                || $.browser.version == "6.0")) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },
         //判断IE9以下浏览器
-        validateIE9 : function () {
+        validateIE9: function () {
             if ($.browser.msie && (($.browser.version == "9.0")
                 || $.browser.version == "8.0"
                 || $.browser.version == "7.0"
-                || $.browser.version == "6.0")){
+                || $.browser.version == "6.0")) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },
         //获取来源地址 gio上报使用
-        getReferrer:function(){
+        getReferrer: function () {
             var referrer = document.referrer;
             var res = "";
             if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
@@ -95,57 +95,57 @@ define(function(require, exports, module) {
                 res = 'sogou';
             } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
                 res = 'sm';
-            }  else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
                 res = 'ishare';
             } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
                 res = 'iask';
             }
             return res;
         },
-        getPageRef:function(fid){
+        getPageRef: function (fid) {
             var that = this;
             var ref = 0;
-            if(that.is360cookie(fid)||that.is360cookie("360")){
+            if (that.is360cookie(fid) || that.is360cookie("360")) {
                 ref = 1;
             }
-            if (that.is360wkCookie()){
+            if (that.is360wkCookie()) {
                 ref = 3;
             }
             return ref;
         },
-        is360cookie : function(val){
+        is360cookie: function (val) {
             var that = this;
             var rso = that.getCookie('_r_so');
-            if(rso){
+            if (rso) {
                 var split = rso.split("_");
-                for (var i=0;i<split.length;i++) {
-                    if(split[i] == val){
+                for (var i = 0; i < split.length; i++) {
+                    if (split[i] == val) {
                         return true;
                     }
                 }
             }
             return false;
         },
-        add360wkCookie : function(){
-            this.setCookieWithExpPath('_360hz', '1',1000*60*30, '/');
+        add360wkCookie: function () {
+            this.setCookieWithExpPath('_360hz', '1', 1000 * 60 * 30, '/');
         },
-        is360wkCookie : function(){
-            return getCookie("_360hz") == null?false:true;
+        is360wkCookie: function () {
+            return getCookie("_360hz") == null ? false : true;
         },
-        getCookie : function(name){
-            var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
-            if(arr !== null){
+        getCookie: function (name) {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr !== null) {
                 return unescape(arr[2]);
             }
             return null;
         },
-        setCookieWithExpPath : function(name, value, timeOut, path) {
+        setCookieWithExpPath: function (name, value, timeOut, path) {
             var exp = new Date();
             exp.setTime(exp.getTime() + timeOut);
             document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
         },
         //gio数据上报上一级页面来源
-        findRefer:function(){
+        findRefer: function () {
             var referrer = document.referrer;
             var res = 'other';
             if (/https?\:\/\/[^\s]*\/f\/.*$/g.test(referrer)) {
@@ -162,13 +162,13 @@ define(function(require, exports, module) {
                 res = 'popenuser';
             } else if (/https?\:\/\/[^\s]*\/ucenter\/.*$/g.test(referrer)) {
                 res = 'puser';
-            }  else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(referrer)) {
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.$/g.test(referrer)) {
                 res = 'ishareindex';
             } else if (/https?\:\/\/[^\s]*\/theme\/.*$/g.test(referrer)) {
                 res = 'theme';
-            }  else  if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
+            } else if (/https?\:\/\/[^\s]*wenku.so.com.*$/g.test(referrer)) {
                 res = '360wenku';
-            } else  if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
+            } else if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
                 res = '360';
             } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
                 res = 'baidu';
@@ -176,7 +176,7 @@ define(function(require, exports, module) {
                 res = 'sogou';
             } else if (/https?\:\/\/[^\s]*sm.cn.*$/g.test(referrer)) {
                 res = 'sm';
-            }  else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
+            } else if (/https?\:\/\/[^\s]*ishare.iask.sina.com.cn.*$/g.test(referrer)) {
                 res = 'ishare';
             } else if (/https?\:\/\/[^\s]*iask.sina.com.cn.*$/g.test(referrer)) {
                 res = 'iask';
@@ -184,7 +184,7 @@ define(function(require, exports, module) {
             return res;
         },
         /*通用对话框(alert)*/
-        showAlertDialog : function (title, content, callback) {
+        showAlertDialog: function (title, content, callback) {
             var bgMask = $(".common-bgMask");
             var dialog = $(".common-dialog");
             /*标题*/
@@ -249,53 +249,53 @@ define(function(require, exports, module) {
             }
             return 'unKnow'
         },
-        getBrowserInfo : function (userAgent){
+        getBrowserInfo: function (userAgent) {
             var Sys = {};
             var ua = userAgent.toLowerCase();
-            var re =/(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/;
+            var re = /(msie|firefox|chrome|opera|version|trident).*?([\d.]+)/;
             var m = ua.match(re);
-            if (m && m.length>=2){
-                Sys.browser = m[1].replace(/version/, "'safari")||'unknow';
-                Sys.ver = m[2]||'1.0.0';
-            }else{
+            if (m && m.length >= 2) {
+                Sys.browser = m[1].replace(/version/, "'safari") || 'unknow';
+                Sys.ver = m[2] || '1.0.0';
+            } else {
                 Sys.browser = 'unknow';
                 Sys.ver = '1.0.0';
             }
 
-            return Sys.browser+"/"+Sys.ver;
-       },
-       timeFormat: function (style, time) {
-        if (!time) return '';
-        var d = new Date(time);
-        var year = d.getFullYear();       //年
-        var month = d.getMonth() + 1;     //月
-        var day = d.getDate();            //日
-        var hh = d.getHours();            //时
-        var mm = d.getMinutes();          //分
-        var ss = d.getSeconds();          //秒
-        var clock = year + "-";
-        if (month < 10) {
-            month += '0';
-        }
-        if (day < 10) {
-            day += '0';
-        }
-        if (hh < 10) {
-            hh += '0';
-        }
-        if (mm < 10) {
-            mm += '0';
-        }
+            return Sys.browser + "/" + Sys.ver;
+        },
+        timeFormat: function (style, time) {
+            if (!time) return '';
+            var d = new Date(time);
+            var year = d.getFullYear();       //年
+            var month = d.getMonth() + 1;     //月
+            var day = d.getDate();            //日
+            var hh = d.getHours();            //时
+            var mm = d.getMinutes();          //分
+            var ss = d.getSeconds();          //秒
+            var clock = year + "-";
+            if (month < 10) {
+                month += '0';
+            }
+            if (day < 10) {
+                day += '0';
+            }
+            if (hh < 10) {
+                hh += '0';
+            }
+            if (mm < 10) {
+                mm += '0';
+            }
 
-        if (ss < 10) {
-            ss += '0';
+            if (ss < 10) {
+                ss += '0';
+            }
+            if (style === 'yyyy-mm-dd') {
+                return year + '-' + month + '-' + day;
+            }
+            // yyyy-mm-dd HH:mm:ss
+            return year + '-' + month + '-' + day + ' ' + hh + ':' + mm + ':' + ss;
         }
-        if (style === 'yyyy-mm-dd') {
-            return year + '-' + month + '-' + day;
-        }
-        // yyyy-mm-dd HH:mm:ss
-        return year + '-' + month + '-' + day + ' ' + hh + ':' + mm + ':' + ss;
-    }
     }
     //return utils;
     module.exports = utils;
