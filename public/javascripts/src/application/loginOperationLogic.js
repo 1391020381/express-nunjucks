@@ -657,34 +657,31 @@ define(function (require, exports, module) {
                             });
                             autheSicationCode.attr('data-authenticationCodeType', 2); // 可以重新获取验证码
                         } else {
-                            authentCationCode.text(textNumber--);
+                            authenticationCode.text(textNumber--);
                             authenticationCode.css({
                                 'color': '#999999',
                                 'backgroundColor': '#E9E8E5',
                                 'borderColor': '#eee'
                             });
                             timer = setTimeout(countdown, 1000);
-                        }C;
-                    })(); C;
+                        }
+                    })();
                 } else if (res.code == '411015') { // 单日ip获取验证码超过三次
                     showCaptcha(sendSms);
                 } else if (res.code == '411033') { // 图形验证码错误
-
-
                     $.toast({
                         text:'图形验证码错误',
                         delay : 3000
                     });
                 } else {
-
                     $.toast({
                         text:res.message,
                         delay : 3000
                     });
                 }
             },
-            error: function (error) {
 
+            error: function (error) {
                 $.toast({
                     text:error.message,
                     delay : 3000
