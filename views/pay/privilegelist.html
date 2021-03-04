@@ -28,7 +28,11 @@
             {# <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元<span id="discountPrice" class="original-text">{{ '（立省'+results.list.data.packages[0].discountPrice+'元）' if results.list.data.packages[0].discountPrice else 'display:none;'}}</span></p> #}
             <p class="price-text-con">支付金额：<strong id="activePrice" class="price">{{results.list.data.packages[0].activePrice if results.list.data.packages[0].activePrice>0 else results.list.data.packages[0].price}}</strong>元 </p>
             <a href="javascript:;" data-page="privilege" class="btn-carding-pay btn-buy-bar pc_click" bilogContent="payPrivilege">立即支付</a>
-
+            <span class="vip-protocol clearfix">
+                支付即表示你已同意
+                <a href="//iask.sina.com.cn/helpCenter/5e15b6f4474e3171f58ae2c1.html"
+                    target="_blank">《爱问用户协议》</a>
+            </span>
             {# <div class="pay-info-wrap">
                 <p>注意事项：</p>
                 <p>·下载特权购买后立即生效</p>
