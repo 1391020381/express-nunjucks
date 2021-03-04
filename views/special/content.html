@@ -97,6 +97,8 @@
                                 <div class="title-hover">
                                     {{item.contentName}}
                                 </div>
+                                {# <span class="title-content">
+                                    {{item.contentName}}</span> #}
                             </li>
                         {% endfor %}
                     </ul>
@@ -112,7 +114,7 @@
                     {% endif %}
                     <!-- 分页 -->
                     {% if results.list.data.totalPages > 1 %}
-                        <div class="office-page-paging"> 
+                        <div class="office-page-paging">
                             <a class="btn-page-long js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_1_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='1'>首页</a>
                             {% if results.urlParams.currentPage > 1 %}
                                 <a class="btn-page js-tab-page" href="/node/s/{{results.urlParams.specialTopicId }}_{{results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{results.urlParams.currentPage-1}}'>上一页</a>

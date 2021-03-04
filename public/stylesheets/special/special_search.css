@@ -521,9 +521,13 @@ body {
   margin-bottom: 25px;
   background-color: #fff;
   transition: all 0.2s ease-out;
+  position: relative;
 }
 .search-all-main .search-list-section .search-list .list-item:hover {
   transform: scale(1.04);
+}
+.search-all-main .search-list-section .search-list .list-item:hover .title-content {
+  display: block;
 }
 .search-all-main .search-list-section .search-list .list-item .search-img-box {
   display: block;
@@ -532,7 +536,8 @@ body {
   width: 184px;
   margin: 4px auto;
   overflow: hidden;
-  box-shadow: 0px 4px 7px 0px rgba(57, 0, 0, 0.09);
+  border: 1px solid rgba(217, 217, 217, 0.53);
+  border-radius: 4px;
 }
 .search-all-main .search-list-section .search-list .list-item .search-img-box:hover .mask-container {
   display: block;
@@ -584,7 +589,7 @@ body {
   cursor: pointer;
   border-radius: 4px;
   position: absolute;
-  bottom: 51px;
+  bottom: 22px;
   left: 50%;
   margin-left: -76.5px;
   opacity: 0.7/100;
@@ -597,7 +602,9 @@ body {
   margin-top: 17px;
   color: #333;
   font-size: 14px;
-  width: 100%;
+  width: 184px;
+  height: 32px;
+  line-height: 16px;
   text-align: center;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -659,6 +666,19 @@ body {
   position: absolute;
   right: 0;
   top: 0;
+}
+.search-all-main .search-list-section .search-list .list-item .title-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 300px;
+  z-index: 10;
+  padding: 0 17px;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(51, 51, 51, 0.9);
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.27);
+  border-radius: 2px;
 }
 .search-all-main .search-list-section .search-list .list-item:nth-child(4n) {
   margin-right: 0;
