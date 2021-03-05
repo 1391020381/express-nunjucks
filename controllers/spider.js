@@ -84,7 +84,7 @@ function getHotpotSearch(req, res, list, recommendInfo, userID) {
         const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
         return server.$http(url, 'post', req, res, true);
     } else {
-        return {};
+        return {data:[]};
     }
 }
 
