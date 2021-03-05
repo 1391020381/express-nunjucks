@@ -100,5 +100,12 @@ module.exports = {
     redirectionURL: function (req, res) {
         render('personalCenter/redirectionURL', {}, req, res);
     },
+    oldUserPage: function(req, res) {
+        if (req.query.uid) {
+            res.redirect(`/u/${req.query.uid}/`);
+        } else {
+            res.redirect('/u/');
+        }
+    },
     userPage: cc(renderUserPage)
 };
