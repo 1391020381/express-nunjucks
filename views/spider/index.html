@@ -79,170 +79,174 @@
                 <div class="file-content mt20">
                     {% for item in results.fileDetailArr %}
                         <div class="pic-con">
-                            <img src="{{item.img}}" alt={{results.list.data.fileInfo.title + '图片' + loop.index}}>
-                        </div>
-                        <p >
-                            {{item.txt}}
-                        </p>
-                    {% endfor %}
-                </div>
-                <!-- 正文底部文案 -->
-                <div class="file-content-bottom mt20">
+                            {% if loop.index0 > 0%}
+                                <img src="{{item.img}}" alt={{results.list.data.fileInfo.title + '图片' + loop.index0}}>
+                                {%else%}
+                                <img src="{{item.img}}" alt={{results.list.data.fileInfo.title + '图片'}}>
+                                {%endif%}
+                            </div>
+                            <p >
+                                {{item.txt}}
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <!-- 正文底部文案 -->
+                    <div class="file-content-bottom mt20">
                 本文档为【{{results.list.data.fileInfo.title}}】，请使用软件OFFICE或WPS软件打开。作品中的文字与图均可以修改和编辑， 图片更改请在作品中右键图片并更换，文字修改请直接点击文字进行修改，也可以新增和删除文档中的内容。
                 <br>
                 该文档来自用户分享，如有侵权行为请发邮件ishare@vip.sina.com联系网站客服，我们会及时删除。
             </div>
-                <!-- 下载 -->
-                <div class="download-area mt20">
-                    <div class="down-info">
-                        <!-- VIP专享资料展示xx特权，付费资料展示￥xx，免费资料展示免费。 -->
+                    <!-- 下载 -->
+                    <div class="download-area mt20">
+                        <div class="down-info">
+                            <!-- VIP专享资料展示xx特权，付费资料展示￥xx，免费资料展示免费。 -->
                     下载需要：{% if results.list.data.fileInfo.productType == 1 %} 免费
                     {% elif results.list.data.fileInfo.productType == 4 %}
-                            {{results.list.data.fileInfo.productPrice}}特权
+                                {{results.list.data.fileInfo.productPrice}}特权
                     {% elif results.list.data.fileInfo.productType == 5 %} ￥{{results.list.data.fileInfo.productPrice}}
-                        {% endif %}  已有{% if results.editorInfo.uploads.data.uploads > 0 %}
-                            {{results.editorInfo.uploads.data.uploads}}
-                        {% else %}0 {% endif%}人下载
+                            {% endif %}  已有{% if results.editorInfo.uploads.data.uploads > 0 %}
+                                {{results.editorInfo.uploads.data.uploads}}
+                            {% else %}0 {% endif%}人下载
                 </div>
-                        <div class="download-groupbtns">
+                            <div class="download-groupbtns">
 
-                            <a href="javascript:;">立即下载</a>
-                        </div>
-                    </div>
-                    <!-- 你可能还喜欢 -->
-                    <div class="youlike-area mt20">
-                        <h3>你可能还喜欢</h3>
-                        <ul class="youlike-item">
-                            {% for item in results.guessLikeList %}
-                                <li>
-                                    {% if item.id%}
-                                        <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
-                                        {%else%}
-                                        <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
-                                        {%endif%}
-
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <!-- 推荐 -->
-                        <div class="recmond-area mt20">
-                            <div class="recmend-tab">
-                                <div class="tab-item" val ="new">最新资料</div>
-                                <div class="tab-item current" val ="hot">热门推荐</div>
-                                <div class="tab-item" val ="topic">推荐专题</div>
+                                <a href="javascript:;">立即下载</a>
                             </div>
-                            <div class="recmend-item">
-                                <div class="switch_content_wrap">
-                                    <ul>
-                                        {%for item in  results.newsRec.data %}
-                                            <li>
-                                                <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{item.contentId}}.html">{{item.contentName|delType}}</a>
-                                            </li>
-                                            {%endfor%}
-                                        </ul>
-                                    </div>
-                                    <div class="switch_content_wrap current">
+                        </div>
+                        <!-- 你可能还喜欢 -->
+                        <div class="youlike-area mt20">
+                            <h3>你可能还喜欢</h3>
+                            <ul class="youlike-item">
+                                {% for item in results.guessLikeList %}
+                                    <li>
+                                        {% if item.id%}
+                                            <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                                            {%else%}
+                                            <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                            {%endif%}
+
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- 推荐 -->
+                            <div class="recmond-area mt20">
+                                <div class="recmend-tab">
+                                    <div class="tab-item" val ="new">最新资料</div>
+                                    <div class="tab-item current" val ="hot">热门推荐</div>
+                                    <div class="tab-item" val ="topic">推荐专题</div>
+                                </div>
+                                <div class="recmend-item">
+                                    <div class="switch_content_wrap">
                                         <ul>
-                                            {%for item in  results.hotRecData.data %}
+                                            {%for item in  results.newsRec.data %}
                                                 <li>
-                                                    <a target="_blank" href="{{item.contentUrl}}">{{item.contentName|delType}}</a>
+                                                    <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{item.contentId}}.html">{{item.contentName|delType}}</a>
                                                 </li>
                                                 {%endfor%}
                                             </ul>
                                         </div>
-                                        <div class="switch_content_wrap">
+                                        <div class="switch_content_wrap current">
                                             <ul>
-                                                {%for item in  results.hotTopicSeo %}
+                                                {%for item in  results.hotRecData.data %}
                                                     <li>
-                                                        <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                                        <a target="_blank" href="{{item.contentUrl}}">{{item.contentName|delType}}</a>
                                                     </li>
                                                     {%endfor%}
                                                 </ul>
                                             </div>
+                                            <div class="switch_content_wrap">
+                                                <ul>
+                                                    {%for item in  results.hotTopicSeo %}
+                                                        <li>
+                                                            <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                                        </li>
+                                                        {%endfor%}
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="rigthAside fl">
-                                    <!-- 作者信息 -->
-                                    <div class="editer-con">
-                                        <div class="avatar-frame">
-                                            <img src="{{results.editorInfo.data.photoPicURL}}" alt="">
-                                            {% if results.editorInfo.data.userTypeId == 2%}
-                                                <img class="editer-icon" src="{{cdnUrl}}/images/personal-authentication.png" alt="个人认证用户"/>
-                                                {%endif%}
-                                                {% if results.editorInfo.data.userTypeId == 3%}
-                                                    <img class="editer-icon" src="{{cdnUrl}}/images/agency-certification.png" alt="机构认证用户"/>
+                                    <div class="rigthAside fl">
+                                        <!-- 作者信息 -->
+                                        <div class="editer-con">
+                                            <div class="avatar-frame">
+                                                <img src="{{results.editorInfo.data.photoPicURL}}" alt="">
+                                                {% if results.editorInfo.data.userTypeId == 2%}
+                                                    <img class="editer-icon" src="{{cdnUrl}}/images/personal-authentication.png" alt="个人认证用户"/>
                                                     {%endif%}
-                                                </div>
-                                                <div class="editer-info">
-                                                    <div class="nickname">{{results.editorInfo.data.nickName}}</div>
-                                                    <div class="editer-brief">
-                                                        {% if  results.editorInfo.data.cfcDescribe%}
-                                                            {{results.editorInfo.data.cfcDescribe}}
-                                                            {%else%}
+                                                    {% if results.editorInfo.data.userTypeId == 3%}
+                                                        <img class="editer-icon" src="{{cdnUrl}}/images/agency-certification.png" alt="机构认证用户"/>
+                                                        {%endif%}
+                                                    </div>
+                                                    <div class="editer-info">
+                                                        <div class="nickname">{{results.editorInfo.data.nickName}}</div>
+                                                        <div class="editer-brief">
+                                                            {% if  results.editorInfo.data.cfcDescribe%}
+                                                                {{results.editorInfo.data.cfcDescribe}}
+                                                                {%else%}
                                                            暂无简介~
                                                         {%endif%}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- 文章信息 -->
-                                                <div class="paper-info">
-                                                    <div class="info-item">格式：{{results.list.data.fileInfo.format}}</div>
-                                                    <div class="info-item">大小：{{results.list.data.fileInfo.fileSize}}</div>
-                                                    <div class="info-item">软件：{{results.list.data.fileInfo.readTool[results.list.data.fileInfo.software]}}</div>
-                                                    <div class="info-item">页数：{{results.list.data.transcodeInfo.totalPage}}</div>
-                                                    <div class="info-item">分类：{{results.crumbList.data[results.crumbList.data.length-1]['name']}}</div>
-                                                    <div class="info-item">上传时间：{{results.list.data.fileInfo.createtime}}</div>
-                                                    <div class="info-item">浏览量：{{results.list.data.fileInfo.readNum}}</div>
-                                                </div>
-                                                <!-- 相关资料 -->
-                                                <div class="related-file">
-                                                    {% if results.relevantList.length %}
-                                                        <div class="column-name">相关资料</div>
-                                                    {% endif %}
-                                                    <ul>
-                                                        {% for item in results.relevantList %}
-                                                            <li class="file-item">
-                                                                {% if item.id%}
-                                                                    <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
-                                                                    {%else%}
-                                                                    <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
-                                                                    {%endif%}
-
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
+                                                    <!-- 文章信息 -->
+                                                    <div class="paper-info">
+                                                        <div class="info-item">格式：{{results.list.data.fileInfo.format}}</div>
+                                                        <div class="info-item">大小：{{results.list.data.fileInfo.fileSize}}</div>
+                                                        <div class="info-item">软件：{{results.list.data.fileInfo.readTool[results.list.data.fileInfo.software]}}</div>
+                                                        <div class="info-item">页数：{{results.list.data.transcodeInfo.totalPage}}</div>
+                                                        <div class="info-item">分类：{{results.crumbList.data[results.crumbList.data.length-1]['name']}}</div>
+                                                        <div class="info-item">上传时间：{{results.list.data.fileInfo.createtime}}</div>
+                                                        <div class="info-item">浏览量：{{results.list.data.fileInfo.readNum}}</div>
                                                     </div>
-                                                    <!-- 热门搜索 -->
-                                                    <div class="hot-search">
-                                                        {% if results.hotTopicSearch.length %}
-                                                            <div class="search-top">
-                                                                <span class="column-name">热点搜索</span>
-                                                                <!-- <span class="swtich-bar">换一换</span> -->
-                                                            </div>
-                                                            {%endif%}
-                                                            <div class="search-list">
-                                                                {% for item in results.hotTopicSearch %}
-                                                                    <a href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                                    <!-- 相关资料 -->
+                                                    <div class="related-file">
+                                                        {% if results.relevantList.length %}
+                                                            <div class="column-name">相关资料</div>
+                                                        {% endif %}
+                                                        <ul>
+                                                            {% for item in results.relevantList %}
+                                                                <li class="file-item">
+                                                                    {% if item.id%}
+                                                                        <a href="https://ishare.iask.sina.com.cn/f/{{item.id}}.html">{{item.title|delType}}</a>
+                                                                        {%else%}
+                                                                        <a href="https://ishare.iask.sina.com.cn/f/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                                                        {%endif%}
+
+                                                                    </li>
                                                                 {% endfor %}
-                                                            </div>
+                                                            </ul>
                                                         </div>
+                                                        <!-- 热门搜索 -->
+                                                        <div class="hot-search">
+                                                            {% if results.hotTopicSearch.length %}
+                                                                <div class="search-top">
+                                                                    <span class="column-name">热点搜索</span>
+                                                                    <!-- <span class="swtich-bar">换一换</span> -->
+                                                                </div>
+                                                                {%endif%}
+                                                                <div class="search-list">
+                                                                    {% for item in results.hotTopicSearch %}
+                                                                        <a href="https://ishare.iask.sina.com.cn/node/s/{{item.itemId}}.html">{{item.title|delType}}</a>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- 底部声明 -->
-                                                {% include "common/footer.html" %}
-                                                <script>
-                                                    window.pageConfig = {
-                                                        page: {}
-                                                    };
-                                                    seajs.use(["dist/spider/init.js"]);
-                                                </script>
-                                                <script type="text/javascript">
-                                                    document.write(unescape("%3Cspan id='cnzz_stat_icon_1279079195'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/stat.php%3Fid%3D1279079195' type='text/javascript'%3E%3C/script%3E"));
-                                                </script>
-                                            </body>
+                                                    <!-- 底部声明 -->
+                                                    {% include "common/footer.html" %}
+                                                    <script>
+                                                        window.pageConfig = {
+                                                            page: {}
+                                                        };
+                                                        seajs.use(["dist/spider/init.js"]);
+                                                    </script>
+                                                    <script type="text/javascript">
+                                                        document.write(unescape("%3Cspan id='cnzz_stat_icon_1279079195'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/stat.php%3Fid%3D1279079195' type='text/javascript'%3E%3C/script%3E"));
+                                                    </script>
+                                                </body>
 
-                                        </html>
+                                            </html>
