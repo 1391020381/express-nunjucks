@@ -48,4 +48,12 @@ router.get('/u/:uid', (req, res) => {
     }
 });
 
+router.get('/node/userPage.html', (req, res) => {
+    try {
+        personalCenter.oldUserPage(req, res);
+    } catch (e) {
+        error(req, res, next);
+    }
+});
+
 module.exports = router;
