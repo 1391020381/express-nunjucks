@@ -26,7 +26,10 @@ function userWxAuthState(req, res) {
 }
 
 function getOtherUserInfo(req, res) {
-    const url = appConfig.apiNewBaselPath + api.user.getOtherUser + '?uid=' + req.params.uid;
+    const uid = req.params.uid;
+    const uids = uid ? uid.split('_') : [];
+    const userId = uids[0] ? uids[0] : '';
+    const url = appConfig.apiNewBaselPath + api.user.getOtherUser + '?uid=' + userId;
     return server.$http(url, 'get', req, res, true);
 }
 
@@ -37,16 +40,20 @@ function getOtherUserInfo(req, res) {
  * @param format {string} 格式
  * */
 function fetchHotRecommList(req, res) {
-    const current = req.query.page || 1;
-    const sortField = req.query.sort || 'downNum';
-    const format = req.query.format || '';
+    // 解析uid,分解参数
     const uid = req.params.uid;
+    const uids = uid ? uid.split('_') : [];
+    const userId = uids[0] ? uids[0] : '';
+    const sortField = uids[1] ? uids[1] : 'downNum';
+    const format = uids[2] ? uids[2] : 'all';
+    const currentPage = uids[3] ? uids[3] : 1;
+    console.log('打印当前的请求参数：', userId, JSON.stringify(uids));
     req.body = {
-        currentPage: current,
+        currentPage: currentPage,
         pageSize: 40,
         sortField: sortField,
-        format: format,
-        uid: uid
+        format: format == 'all' ? '' : format,
+        uid: userId
     };
     return server.$http(appConfig.apiNewBaselPath + api.user.getSearchList, 'post', req, res, true);
 }
@@ -94,28 +101,23 @@ const renderUserPage = async (req, res) => {
     };
 
     let nickName = '';
-    let curQuery = '';
     // 用户信息
     let userData = {};
     let tableData = [];
     const totalPages = [];
 
-    const sortField = req.query.sort;
-    const format = req.query.format || '';
-
-    if (sortField && format) {
-        curQuery = '?sort=' + sortField + '&format=' + format + '&page=';
-    } else if (!sortField && format) {
-        curQuery = '?format=' + format + '&page=';
-    } else if (sortField && !format) {
-        curQuery = '?sort=' + sortField + '&page=';
-    } else {
-        curQuery = '?page=';
-    }
-
+    const uid = req.params.uid;
+    // 解析uid,分解参数
+    const uids = uid ? uid.split('_') : [];
+    const userId = uids[0] ? uids[0] : '';
+    const sortField = uids[1] ? uids[1] : 'downNum';
+    const format = uids[2] ? uids[2] : 'all';
+    const currentPage = uids[3] ? uids[3] : 1;
+    const currentUrl = `/u/${userId}_${sortField}_${format}_`;
     try {
         const otherUserInfo = await getOtherUserInfo(req, res);
         const searchData = await fetchHotRecommList(req, res);
+        console.log('当前的搜索数据：', JSON.stringify(searchData));
         // 处理个人信息
         if (otherUserInfo && otherUserInfo.code == 0) {
             userData = {...otherUserInfo.data};
@@ -133,7 +135,7 @@ const renderUserPage = async (req, res) => {
         console.log(JSON.stringify(e));
     }
     render('personalCenter/userPage', {
-        uid: req.params.uid,
+        uid: userId,
         list: {
             data: {
                 tdk: {
@@ -156,9 +158,9 @@ const renderUserPage = async (req, res) => {
             fileSize: userData.fileSize > 10000 ? (userData.fileSize / 10000).toFixed(1) + 'w+' : userData.fileSize
         },
         format: format,
-        currentUrl: curQuery,
-        currentPage: req.query.page || 1,
-        sortField: req.query.sort || 'downNum',
+        currentUrl: currentUrl,
+        currentPage: currentPage,
+        sortField: sortField,
         formatName: formatEnum[format] || '格式'
     }, req, res);
 };

@@ -270,11 +270,11 @@ function handleResultData(
     let pageObj = {};
     let pageArr_f = [];
     const pageArr_b = [];
-    let totalPages = pageObj.totalPages;
+    let totalPages = [];
     if (results.list && results.list.data && results.list.data.rows) {
         // 页码处理
         pageObj = results.list.data;
-        totalPages = totalPages > 40 ? 40 : totalPages;
+        totalPages = pageObj.totalPages > 40 ? 40 : pageObj.totalPages;
         if (pageObj.rows.length > 0) {
             if (currentPage > 5) {
                 pageArr_f = [1, '···'];
@@ -325,7 +325,6 @@ function handleResultData(
         selectId: urlSelectId ? '/' + urlSelectId : '/',
         selectUrl: urlSelectId ? '/' + urlSelectId.substring(1, urlSelectId.length) + '/' : '/'
     };
-    console.log('当前的urlSelect：', urlSelectId, results.reqParams.selectUrl);
     // 推荐位 banner
     // var topbannerId = 'topbanner_' + navFatherId;
     // var rightbannerId = 'rightbanner_' + navFatherId;
