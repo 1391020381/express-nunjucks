@@ -1,6 +1,6 @@
-const { response } = require('express');
-const request = require('request');
 
+const request = require('request');
+const Api = require('../api/api');
 module.exports = {
     get: function (url, callback, req, append) {
         const opt = this.getPaymentType(req, url, '', append);
@@ -109,8 +109,8 @@ module.exports = {
             request(opt, (error, response, body) => {
                 // console.log('$http---------:',opt.url,error,body)
                 const is4paradigm = opt.url.includes('4paradigm.com');
-                const isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk');
-
+                // const isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk');
+                const isGetFileDetailNoTdk = opt.url.includes(Api.file.getFileDetailNoTdk);
                 if (body) {
                     try {
                         let data = body;
