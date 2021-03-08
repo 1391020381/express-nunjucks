@@ -1,13 +1,13 @@
 define(function (require, exports, module) {
-    require("../cmd-lib/upload/Q");
-    require("../cmd-lib/upload/Q.Uploader");
-    require("./fixedTopBar");
-    require("./msgVer");
+    require('../cmd-lib/upload/Q');
+    require('../cmd-lib/upload/Q.Uploader');
+    require('./fixedTopBar');
+    require('./msgVer');
     require('../cmd-lib/toast');
     var api = require('../application/api');
-    var urlConfig = require('../application/urlConfig')
-    var utils = require("../cmd-lib/util");
-    var method = require("../application/method");
+    var urlConfig = require('../application/urlConfig');
+    var utils = require('../cmd-lib/util');
+    var method = require('../application/method');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var callback = null;
@@ -27,22 +27,22 @@ define(function (require, exports, module) {
             this.delUploadImg();
             this.checkedRules();
             if (method.getCookie('cuk')) {
-                this.queryCerinfo()
+                this.queryCerinfo();
             }
             $('.js-submit').click(function () {
                 if (method.getCookie('cuk')) {
                     orgObj.submitData();
                 } else {
-                    isLogin(null, isAutoLogin)
+                    isLogin(null, isAutoLogin);
                 }
 
-            })
+            });
             $('body').click(function () {
-                $('.jqTransformSelectWrapper ul').slideUp()
-            })
+                $('.jqTransformSelectWrapper ul').slideUp();
+            });
             setTimeout(function () {
                 orgObj.uploadfile();
-            }, 800)
+            }, 800);
         },
 
         // 弹出认证审核窗口
@@ -66,19 +66,19 @@ define(function (require, exports, module) {
         // 查询认证信息
         queryCerinfo: function () {
             $.ajax(api.authentication.getInstitutions, { // /gateway/user/certification/getInstitutions
-                type: "get"
+                type: 'get'
             }).done(function (data) {
                 if (data.data && data.data.auditStatus != 3) {
                     if (data.data.auditStatus == 0 || data.data.auditStatus == 1) {
                         $('.header-title').text('信息审核中，请耐心等候');
-                        $('.header-process .process-item').eq(1).addClass('step-now').siblings().removeClass('step-now')
+                        $('.header-process .process-item').eq(1).addClass('step-now').siblings().removeClass('step-now');
                         orgObj.dialogAudit();
                     } else if (data.data.auditStatus == 2) {
                         $('.header-title').text('你已完成机构认证');
-                        $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now')
+                        $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now');
                         orgObj.dialogSuccess();
-                    } 
-                    
+                    }
+
                     $('.js-nickName').val(data.data.nickName).attr('disabled', 'disabled');
                     $('.js-realName').val(data.data.realName).attr('disabled', 'disabled');
                     var organizeIndustryArr = [
@@ -87,7 +87,7 @@ define(function (require, exports, module) {
                         { val: 2, title: '网络营销' },
                         { val: 3, title: 'IT/互联网' },
                         { val: 4, title: '医学' }
-                    ]
+                    ];
                     var industryTypeArr = [
                         { val: 0, title: '教育' },
                         { val: 1, title: '法律' },
@@ -116,10 +116,10 @@ define(function (require, exports, module) {
                         { val: 24, title: '旅游' },
                         { val: 25, title: '政府' },
                         { val: 26, title: '其他' }
-                    ]
+                    ];
                     $('.js-organize span').text(organizeIndustryArr[data.data.organizeIndustryType].title);
                     $('.js-organlist').remove();
-                    data.data.industryType ? $('.js-industry span').text(industryTypeArr[data.data.industryType].title) : "";
+                    data.data.industryType ? $('.js-industry span').text(industryTypeArr[data.data.industryType].title) : '';
                     $('.js-industryTypeList').remove();
                     $('.js-organize-name').val(data.data.organizeName).attr('disabled', 'disabled');
                     $('.js-website').val(data.data.organizeWebsite).attr('disabled', 'disabled');
@@ -127,83 +127,83 @@ define(function (require, exports, module) {
                     $('.js-add').val(data.data.organizeAddress).attr('disabled', 'disabled');
                     $('.js-cer-code').val(data.data.socialCreditCode).attr('disabled', 'disabled');
                     $('.js-logoPic img').attr('src', data.data.logoPic);
-                    $('#upload-target').removeAttr('id')
+                    $('#upload-target').removeAttr('id');
                     $('.js-businessLicensePic img').attr('src', data.data.businessLicensePic);
-                    $('#upload-target2').removeAttr('id')
+                    $('#upload-target2').removeAttr('id');
                     $('.js-phone').val(data.data.contactNumber).attr('disabled', 'disabled');
                     $('.js-qqNumber').val(data.data.qqNumber).attr('disabled', 'disabled');
                     $('.js-email').val(data.data.email).attr('disabled', 'disabled');
                     $('.js-msg').attr('disabled', 'disabled');
-                    $('.js-edit').hide()
+                    $('.js-edit').hide();
 
                 } else if (data.data && data.data.auditStatus == 3) {
                     userObj.dialogError();
-                } 
+                }
 
             }).fail(function (e) {
-                console.log("error===" + e);
-            })
+                console.log('error===' + e);
+            });
         },
 
         // 事件绑定
         eventBind: function () {
             $('#authentication-box').on('click', '.modal-close', function () {
-                console.log('关闭弹窗')
+                console.log('关闭弹窗');
                 $(authenticationBox).html('').hide();
             });
         },
 
-        //认证类型选
+        // 认证类型选
         selectBind: function () {
             $('.js-select').click(function (e) {
                 $(this).siblings('ul').slideToggle();
-                e.stopPropagation()
+                e.stopPropagation();
             });
             $('.jqTransformSelectWrapper ul').on('click', 'li a', function () {
-                $('.jqTransformSelectWrapper ul').find('li a').removeClass('selected')
+                $('.jqTransformSelectWrapper ul').find('li a').removeClass('selected');
                 $(this).addClass('selected');
-                $('.jqTransformSelectWrapper ul').slideUp()
-                $(this).parents('ul').siblings('.js-select').find('span').text($(this).text())
-                $(this).parents('ul').siblings('.js-select').attr('authType', $(this).attr('index'))
+                $('.jqTransformSelectWrapper ul').slideUp();
+                $(this).parents('ul').siblings('.js-select').find('span').text($(this).text());
+                $(this).parents('ul').siblings('.js-select').attr('authType', $(this).attr('index'));
 
-            })
+            });
         },
 
-        //图片上传
+        // 图片上传
         uploadfile: function () {
-            var currentTarget = ''
+            var currentTarget = '';
             $('.btn-rz-upload').on('click', function () {
                 currentTarget = $(this);
-            })
+            });
             var E = Q.event,
                 Uploader = Q.Uploader;
             var uploader = new Uploader({
                 url: urlConfig.upload + api.upload.picUploadCatalog,
-                target: [document.getElementById("upload-target"), document.getElementById("upload-target2")],
+                target: [document.getElementById('upload-target'), document.getElementById('upload-target2')],
                 upName: 'file',
-                dataType: "application/json",
+                dataType: 'application/json',
                 multiple: false,
                 data: { fileCatalog: 'ishare' },
-                allows: ".jpg,.jpeg,.gif,.png", //允许上传的文件格式
-                maxSize: 3 * 1024 * 1024,                //允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
-                //每次上传都会发送的参数(POST方式)
+                allows: '.jpg,.jpeg,.gif,.png', // 允许上传的文件格式
+                maxSize: 3 * 1024 * 1024, // 允许上传的最大文件大小,字节,为0表示不限(仅对支持的浏览器生效)
+                // 每次上传都会发送的参数(POST方式)
                 on: {
-                    //添加之前触发
+                    // 添加之前触发
                     add: function (task) {
-                        //task.limited存在值的任务不会上传，此处无需返回false
+                        // task.limited存在值的任务不会上传，此处无需返回false
                         switch (task.limited) {
                             case 'ext': return $.toast({
-                                text: "不支持此格式上传",
+                                text: '不支持此格式上传'
                             });
                             case 'size': return $.toast({
-                                text: "资料不能超过3M",
+                                text: '资料不能超过3M'
                             });
                         }
-                        //读取图片数据
+                        // 读取图片数据
                         if (currentTarget.attr('id') == 'upload-target') {
                             var file = task.file;
                             var fileReader = new FileReader();
-                            fileReader.readAsDataURL(file); //根据图片路径读取图片
+                            fileReader.readAsDataURL(file); // 根据图片路径读取图片
                             fileReader.onload = function (e) {
                                 var base64 = this.result;
                                 var img = new Image();
@@ -212,20 +212,20 @@ define(function (require, exports, module) {
                                     widthRadio = img.naturalWidth / img.naturalHeight;
                                     if (widthRadio != 1) {
                                         $.toast({
-                                            text: "要求尺寸200*200像素",
+                                            text: '要求尺寸200*200像素'
                                         });
-                                        task.limited = true
+                                        task.limited = true;
                                     }
-                                }
-                            }
+                                };
+                            };
                         }
 
                         // console.log(task)
-                        //自定义判断，返回false时该文件不会添加到上传队列
+                        // 自定义判断，返回false时该文件不会添加到上传队列
                     },
-                    //上传完成后触发
+                    // 上传完成后触发
                     complete: function (task) {
-                        console.log(task, 'task')
+                        console.log(task, 'task');
                         if (task.limited) {
                             return false;
                         }
@@ -233,14 +233,14 @@ define(function (require, exports, module) {
                         if (res.data && res.data.picKey) {
                             currentTarget.attr('val', res.data.picKey);
                             currentTarget.siblings('.rz-upload-pic').find('img').attr('src', res.data.preUrl + res.data.picKey);
-                            currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show()
+                            currentTarget.siblings('.rz-upload-pic').find('.delete-ele').show();
                         } else {
                             $.toast({
                                 text: '上传失败，重新上传',
                                 icon: '',
                                 delay: 2000,
                                 callback: false
-                            })
+                            });
                         }
 
                     }
@@ -252,21 +252,21 @@ define(function (require, exports, module) {
         // 删除已上传的图片
         delUploadImg: function () {
             $('.delete-ele').click(function () {
-                $(this).hide()
+                $(this).hide();
                 if ($(this).parents('.rz-main-dd').find('.btn-rz-upload').attr('id') == 'upload-target2') {
-                    $(this).siblings('img').attr('src', '../../../images/auth/pic_zj.jpg')
+                    $(this).siblings('img').attr('src', '../../../images/auth/pic_zj.jpg');
                 } else {
-                    $(this).siblings('img').attr('src', '../../../images/auth/pic_sfz_z.jpg')
+                    $(this).siblings('img').attr('src', '../../../images/auth/pic_sfz_z.jpg');
                 }
-                $(this).parents('.rz-main-dd').find('.btn-rz-upload').attr('val', '')
-            })
+                $(this).parents('.rz-main-dd').find('.btn-rz-upload').attr('val', '');
+            });
         },
 
-        //勾选和取消协议
+        // 勾选和取消协议
         checkedRules: function () {
             $('.rz-label .check-con').click(function () {
-                $('.rz-label .check-con').toggleClass('checked')
-            })
+                $('.rz-label .check-con').toggleClass('checked');
+            });
 
         },
 
@@ -274,7 +274,7 @@ define(function (require, exports, module) {
         submitData: function () {
             // nickName	否	String	昵称
             // organizeIndustryType	是	Integer	原来机构行业，名字改为“所属类型”所属类型；0:企业；1:学校；2:网络营销；3:IT/互联网；4:医学
-            // industryType	是	Integer	所属行业：0-教育、1-法律、2-建筑/房地产、3-制造加工、4-通信电子、5-农林牧渔、6-健康/医学、7-IT/互联网、8-水利电力、9-公关广告、10-行业资讯、 
+            // industryType	是	Integer	所属行业：0-教育、1-法律、2-建筑/房地产、3-制造加工、4-通信电子、5-农林牧渔、6-健康/医学、7-IT/互联网、8-水利电力、9-公关广告、10-行业资讯、
             // 11-金融、12-石油化工、13-人文艺术、14-军事/航天/航空、15-餐饮美食、16-交通运输、17-出版行业、18-娱乐休闲、19-生活科普、20-学术/科研、21-能源矿产、22-文化传媒、23-体育、24-旅游、25-政府、26-其他
             // organizeName	是	String	机构名称
             // organizeWebsite	否	String	机构官网
@@ -284,7 +284,7 @@ define(function (require, exports, module) {
             // logoPic	是	String	企业logo图片
             // businessLicensePic	是	String	营业执照图片
             // contactNumber	是	String	联系电话(手机号码)
-            // qqNumber 是  String QQ号 
+            // qqNumber 是  String QQ号
             // email	是	String	邮箱地址
             // smsId	是	String	验证码id
             // checkCode	是	String	验证码
@@ -294,7 +294,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('.js-brief').val().trim()) {
@@ -303,7 +303,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('.js-cer-code').val().trim()) {
@@ -312,7 +312,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('#upload-target').attr('val')) {
@@ -321,7 +321,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('#upload-target2').attr('val')) {
@@ -330,7 +330,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!orgObj.validateFrom.test($('.js-phone').text())) {
@@ -339,7 +339,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('.js-msg-val').val().trim()) {
@@ -348,7 +348,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!$('.js-qqNumber').val().trim()) {
@@ -357,7 +357,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             if (!orgObj.emailForm.test($('.js-email').val().trim())) {
@@ -366,7 +366,7 @@ define(function (require, exports, module) {
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
 
@@ -386,46 +386,46 @@ define(function (require, exports, module) {
                 email: $('.js-email').val().trim(),
                 smsId: $('.js-msg').attr('smsId'),
                 checkCode: $('.js-msg-val').val().trim()
-            }
+            };
             if (!$('.rz-label .check-con').hasClass('checked')) {
                 $.toast({
                     text: '请勾选用户认证协议',
                     icon: '',
                     delay: 2000,
                     callback: false
-                })
+                });
                 return false;
             }
             params = JSON.stringify(params);
 
             $.ajax(api.authentication.institutions, { // /gateway/user/certification/institutions
-                type: "POST",
+                type: 'POST',
                 data: params,
                 contentType: 'application/json'
             }).done(function (data) {
-                if (data.code == "0") {
+                if (data.code == '0') {
                     $.toast({
                         text: '提交成功',
                         icon: '',
                         delay: 3000,
                         callback: function () {
-                            location.reload()
+                            location.reload();
                         }
-                    })
+                    });
                 } else {
                     $.toast({
                         text: data.message,
                         icon: '',
-                        delay: 2000,
+                        delay: 2000
 
-                    })
+                    });
                 }
 
             }).fail(function (e) {
-                console.log("error===" + e);
-            })
+                console.log('error===' + e);
+            });
         }
-    }
+    };
 
     isLogin(function (data) {
         if (data.mobile) {
@@ -436,7 +436,7 @@ define(function (require, exports, module) {
             authenticationBox.html(_html).show();
         }
     }, isAutoLogin, function () {
-        location.reload()
+        location.reload();
     });
-    
+
 });

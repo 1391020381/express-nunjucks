@@ -9,10 +9,10 @@ define(function (require, exports, module) {
         },
         async: function (url, callback, msg, method, data) {
             $.ajax(url, {
-                type: method || "post",
+                type: method || 'post',
                 data: data,
                 async: false,
-                dataType: "json",
+                dataType: 'json',
                 headers: {
                     'cache-control': 'no-cache',
                     'Pragma': 'no-cache',
@@ -21,20 +21,20 @@ define(function (require, exports, module) {
             }).done(function (data) {
                 callback && callback(data);
             }).fail(function (e) {
-                console.log("error===" + msg);
-            })
+                console.log('error===' + msg);
+            });
         },
         get: function (u, c, m) {
             $.ajaxSetup({cache: false});
             this.async(u, c, m, 'get');
         },
         post: function (u, c, m, g, d) {
-            this.async(u, c, m, g, d)
+            this.async(u, c, m, g, d);
         },
         postd: function (u, c, d) {
-            this.async(u, c, false, false, d)
+            this.async(u, c, false, false, d);
         },
-        //随机数
+        // 随机数
         random: function (min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         },
@@ -42,44 +42,44 @@ define(function (require, exports, module) {
         setCookieWithExpPath: function (name, value, timeOut, path) {
             var now = new Date();
             now.setTime(now.getTime() + timeOut);
-            document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + now.toGMTString();
+            document.cookie = name + '=' + escape(value) + ';path=' + path + ';expires=' + now.toGMTString();
         },
-        //提供360结算方法
+        // 提供360结算方法
         setCookieWithExp: function (name, value, timeOut, path) {
             var exp = new Date();
             exp.setTime(exp.getTime() + timeOut);
             if (path) {
-                document.cookie = name + "=" + escape(value) + ";path=" + path + ";expires=" + exp.toGMTString();
+                document.cookie = name + '=' + escape(value) + ';path=' + path + ';expires=' + exp.toGMTString();
             } else {
-                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+                document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString();
             }
         },
-        //读 cookie
+        // 读 cookie
         getCookie: function (name) {
-            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            var arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'));
             if (arr !== null) {
                 return unescape(arr[2]);
             }
             return null;
         },
-        //删除cookie
+        // 删除cookie
         delCookie: function (name, path, domain) {
             var now = new Date();
             now.setTime(now.getTime() - 1);
             var cval = this.getCookie(name);
             if (cval != null) {
                 if (path && domain) {
-                    document.cookie = name + "= '' " + ";domain=" + domain + ";expires=" + now.toGMTString() + ";path=" + path;
+                    document.cookie = name + '= \'\' ' + ';domain=' + domain + ';expires=' + now.toGMTString() + ';path=' + path;
                 } else if (path) {
-                    document.cookie = name + "= '' " + ";expires=" + now.toGMTString() + ";path=" + path;
+                    document.cookie = name + '= \'\' ' + ';expires=' + now.toGMTString() + ';path=' + path;
                 } else {
-                    document.cookie = name + "=" + cval + ";expires=" + now.toGMTString();
+                    document.cookie = name + '=' + cval + ';expires=' + now.toGMTString();
                 }
             }
         },
-        //获取 url 参数值
+        // 获取 url 参数值
         getQueryString: function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
             var r = window.location.search.substr(1).match(reg);
             if (r != null) {
                 return unescape(r[2]);
@@ -88,24 +88,24 @@ define(function (require, exports, module) {
         },
         url2Obj: function (url) {
             var obj = {};
-            var arr1 = url.split("?");
-            var arr2 = arr1[1].split("&");
+            var arr1 = url.split('?');
+            var arr2 = arr1[1].split('&');
             for (var i = 0; i < arr2.length; i++) {
-                var res = arr2[i].split("=");
+                var res = arr2[i].split('=');
                 obj[res[0]] = res[1];
             }
             return obj;
         },
-        //获取url中参数的值
+        // 获取url中参数的值
         getParam: function (name) {
-            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+            var regexS = '[\\?&]' + name + '=([^&#]*)';
             var regex = new RegExp(regexS);
             var results = regex.exec(window.location.href);
             if (results == null) {
-                return "";
+                return '';
             }
-            return decodeURIComponent(results[1].replace(/\+/g, " "));
+            return decodeURIComponent(results[1].replace(/\+/g, ' '));
         },
         // 获取本地 localStorage 数据
         getLocalData: function (key) {
@@ -115,7 +115,7 @@ define(function (require, exports, module) {
                     return val === null ? null : JSON.parse(val);
                 } else {
                     console.log('浏览器不支持html localStorage getItem');
-                    return null
+                    return null;
                 }
             } catch (e) {
                 return null;
@@ -132,33 +132,33 @@ define(function (require, exports, module) {
         },
         // 浏览器环境判断
         browserType: function () {
-            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-            var isOpera = userAgent.indexOf("Opera") > -1;
-            if (isOpera) { //判断是否Opera浏览器
+            var userAgent = navigator.userAgent; // 取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf('Opera') > -1;
+            if (isOpera) { // 判断是否Opera浏览器
                 return 'Opera';
             }
-            if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) { //判断是否IE浏览器
+            if (userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 && !isOpera) { // 判断是否IE浏览器
                 return 'IE';
             }
-            if (userAgent.indexOf("Edge") > -1) { //判断是否IE的Edge浏览器
-                return "Edge"
+            if (userAgent.indexOf('Edge') > -1) { // 判断是否IE的Edge浏览器
+                return 'Edge';
             }
-            if (userAgent.indexOf("Firefox") > -1) {//判断是否Firefox浏览器
-                return "Firefox"
+            if (userAgent.indexOf('Firefox') > -1) {// 判断是否Firefox浏览器
+                return 'Firefox';
             }
-            if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) {  //判断是否Safari浏览器
-                return "Safari"
+            if (userAgent.indexOf('Safari') > -1 && userAgent.indexOf('Chrome') === -1) { // 判断是否Safari浏览器
+                return 'Safari';
             }
-            if (userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1) { //判断Chrome浏览器
-                return "Chrome"
+            if (userAgent.indexOf('Chrome') > -1 && userAgent.indexOf('Safari') > -1) { // 判断Chrome浏览器
+                return 'Chrome';
             }
         },
-        //判断IE9以下浏览器
+        // 判断IE9以下浏览器
         validateIE9: function () {
-            return !!($.browser.msie && (($.browser.version === "9.0")
-                || $.browser.version === "8.0"
-                || $.browser.version === "7.0"
-                || $.browser.version === "6.0"));
+            return Boolean($.browser.msie && ($.browser.version === '9.0' ||
+                $.browser.version === '8.0' ||
+                $.browser.version === '7.0' ||
+                $.browser.version === '6.0'));
         },
         // 计算两个2个时间相差的天数
         compareTime: function (startTime, endTime) {
@@ -182,34 +182,35 @@ define(function (require, exports, module) {
                     return url + '?' + replaceText;
                 }
             }
-            // return url+'\n'+arg+'\n'+arg_val; 
+            // return url+'\n'+arg+'\n'+arg_val;
         },
-        //获取url全部参数
+        // 获取url全部参数
         getUrlAllParams: function (urlStr) {
-            if (typeof urlStr == "undefined") {
-                var url = decodeURI(location.search); //获取url中"?"符后的字符串
+            if (typeof urlStr == 'undefined') {
+                var url = decodeURI(location.search); // 获取url中"?"符后的字符串
             } else {
-                var url = "?" + urlStr.split("?")[1];
+                // eslint-disable-next-line
+                var url = '?' + urlStr.split('?')[1];
             }
             var theRequest = new Object();
-            if (url.indexOf("?") != -1) {
+            if (url.indexOf('?') != -1) {
                 var str = url.substr(1);
-                var strs = str.split("&");
+                var strs = str.split('&');
                 for (var i = 0; i < strs.length; i++) {
-                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                    theRequest[strs[i].split('=')[0]] = decodeURI(strs[i].split('=')[1]);
                 }
             }
             return theRequest;
         },
-        //获取 url 参数值
-        getQueryString: function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) {
-                return unescape(r[2]);
-            }
-            return null;
-        },
+        // 获取 url 参数值
+        // getQueryString: function (name) {
+        //     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        //     var r = window.location.search.substr(1).match(reg);
+        //     if (r != null) {
+        //         return unescape(r[2]);
+        //     }
+        //     return null;
+        // },
         /**
          * 兼容ie document.referrer的页面跳转 替代 window.location.href   window.open
          * @param url
@@ -225,63 +226,63 @@ define(function (require, exports, module) {
                 }
                 document.body.appendChild(referLink);
                 referLink.click();
-            },350)
+            }, 350);
         },
         testEmail: function (val) {
             var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
             if (reg.test(val)) {
-                return true    //正确
+                return true; // 正确
             } else {
-                return false
+                return false;
             }
         },
         testPhone: function (val) {
             if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)) {
                 return true;
             } else {
-                return false
+                return false;
             }
         },
         handleRecommendData: function (list) {
-            var arr = []
+            var arr = [];
             $(list).each(function (index, item) {
-                var temp = {}
+                var temp = {};
                 if (item.type == 1) { // 资料
                     // temp = Object.assign({},item,{linkUrl:`/f/${item.tprId}.html`})
-                    item.linkUrl = '/f/' + item.tprId + '.html'
-                    temp = item
+                    item.linkUrl = '/f/' + item.tprId + '.html';
+                    temp = item;
                 }
                 if (item.type == 2) { // 链接
-                    temp = item
+                    temp = item;
                 }
                 if (item.type == 3) { // 专题页
                     // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
-                    item.linkUrl = '/node/s/' + item.tprId + '.html'
-                    temp = item
+                    item.linkUrl = '/node/s/' + item.tprId + '.html';
+                    temp = item;
                 }
-                arr.push(temp)
-            })
-            console.log(arr)
-            return arr
+                arr.push(temp);
+            });
+            console.log(arr);
+            return arr;
         },
         formatDate: function (fmt) {
             var o = {
-                "M+": this.getMonth() + 1, //月份
-                "d+": this.getDate(), //日
-                "h+": this.getHours(), //小时
-                "m+": this.getMinutes(), //分
-                "s+": this.getSeconds(), //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds() //毫秒
+                'M+': this.getMonth() + 1, // 月份
+                'd+': this.getDate(), // 日
+                'h+': this.getHours(), // 小时
+                'm+': this.getMinutes(), // 分
+                's+': this.getSeconds(), // 秒
+                'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+                'S': this.getMilliseconds() // 毫秒
             };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, String(this.getFullYear()).substr(4 - RegExp.$1.length));
             for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(String(o[k]).length));
             return fmt;
         },
         getReferrer: function () {
             var referrer = document.referrer;
-            var res = "";
+            var res = '';
             if (/https?\:\/\/[^\s]*so.com.*$/g.test(referrer)) {
                 res = '360';
             } else if (/https?\:\/\/[^\s]*baidu.com.*$/g.test(referrer)) {
@@ -297,25 +298,25 @@ define(function (require, exports, module) {
             if (!ishareBilog) {
                 ishareBilog = {};
             }
-            ishareBilog.searchEngine = ''
+            ishareBilog.searchEngine = '';
             var from = '';
             from = utils.getQueryVariable('from');
             if (!from) {
-                from = sessionStorage.getItem('webWxFrom') || utils.getCookie('webWxFrom')
+                from = sessionStorage.getItem('webWxFrom') || utils.getCookie('webWxFrom');
             }
             if (from) {
                 ishareBilog.source = from;
                 sessionStorage.setItem('webWxFrom', from);
-                sessionStorage.removeItem('webReferrer')
+                sessionStorage.removeItem('webReferrer');
             } else {
-                var referrer = sessionStorage.getItem('webReferrer') || utils.getCookie('webReferrer')
+                var referrer = sessionStorage.getItem('webReferrer') || utils.getCookie('webReferrer');
                 if (!referrer) {
-                    referrer = document.referrer
+                    referrer = document.referrer;
                 }
                 if (referrer) {
-                    sessionStorage.setItem('webReferrer', referrer)
-                    sessionStorage.removeItem('webWxFrom')
-                    referrer = referrer.toLowerCase(); //转为小写
+                    sessionStorage.setItem('webReferrer', referrer);
+                    sessionStorage.removeItem('webWxFrom');
+                    referrer = referrer.toLowerCase(); // 转为小写
                     var webSites = new Array('google.', 'baidu.', '360.', 'sogou.', 'shenma.', 'bing.');
                     var searchEngineArr = new Array('google', 'baidu', '360', 'sogou', 'shenma', 'bing');
                     for (var i = 0, l = webSites.length; i < l; i++) {
@@ -333,13 +334,13 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            return ishareBilog
+            return ishareBilog;
         },
         // 随机数
         randomString: function (len) {
             len = len || 4;
             var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
-            /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+            /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
             var maxPos = $chars.length;
             var pwd = '';
             for (var i = 0; i < len; i++) {
@@ -376,24 +377,24 @@ define(function (require, exports, module) {
             return this.getCookie('ish_jssid') || '';
         },
         isIe8: function isIe8(){
-            // var DEFAULT_VERSION = 8.0;  
-            // var ua = navigator.userAgent.toLowerCase();  
-            // var isIE = ua.indexOf("msie")>-1;  
-            // var safariVersion;  
-            // if(isIE){  
-            // safariVersion =  ua.match(/msie ([\d.]+)/)[1];  
-            // }  
-            // if(safariVersion <= DEFAULT_VERSION ){  
+            // var DEFAULT_VERSION = 8.0;
+            // var ua = navigator.userAgent.toLowerCase();
+            // var isIE = ua.indexOf("msie")>-1;
+            // var safariVersion;
+            // if(isIE){
+            // safariVersion =  ua.match(/msie ([\d.]+)/)[1];
+            // }
+            // if(safariVersion <= DEFAULT_VERSION ){
             //    return true
             // }else{
             //     return false
             // }
             if(Array.isArray){
-                return true
+                return true;
             }else{
-                return false
+                return false;
             }
-           }
-    }
+        }
+    };
 });
 

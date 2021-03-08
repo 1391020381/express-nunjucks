@@ -17,7 +17,7 @@ define(function (require) {
     /** 添加iframe */
     IframeMessenger.prototype.addTarget = function (iframe) {
         this.messenger.addTarget(iframe.contentWindow, this.ssoId);
-    }
+    };
 
     // 监听消息
     IframeMessenger.prototype.listen = function (callback) {
@@ -26,12 +26,12 @@ define(function (require) {
             if (res) {
                 res = JSON.parse(res);
                 // 只接收对应窗口数据
-                if (res.id === that.ssoId && typeof callback === "function") {
+                if (res.id === that.ssoId && typeof callback === 'function') {
                     callback(res);
                 }
             }
         });
-    }
+    };
 
     // 推送数据
     IframeMessenger.prototype.send = function (data) {
@@ -40,7 +40,7 @@ define(function (require) {
             id: that.clientId,
             data: data
         }));
-    }
+    };
 
     // 在此处实例化-防止外部重复实例
     // return new IframeMessenger({
@@ -56,4 +56,4 @@ define(function (require) {
 
 
     return IframeMessenger;
-})
+});

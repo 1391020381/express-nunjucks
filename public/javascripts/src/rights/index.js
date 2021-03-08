@@ -2,10 +2,10 @@
  * VIP 权益页面
  **/
 define(function (require, exports, module) {
-    var method = require("../application/method");
-    var login = require("../application/checkLogin");
-    var effect = require("../application/effect");
-     var urlConfig = require('../application/urlConfig')
+    var method = require('../application/method');
+    var login = require('../application/checkLogin');
+    var effect = require('../application/effect');
+    var urlConfig = require('../application/urlConfig');
     // 办公vip开通按钮
     var $JsPayOfficeVip = $('.JsPayOfficeVip');
     // 全站vip开通按钮
@@ -21,8 +21,8 @@ define(function (require, exports, module) {
         weibo: '微博登陆',
         qq: 'QQ登陆',
         phonePw: '密码登陆',
-        phoneCode: '验证码登陆',
-    }
+        phoneCode: '验证码登陆'
+    };
 
     initShow();
     bindEvent();
@@ -45,8 +45,8 @@ define(function (require, exports, module) {
                     $JsPayMainVip.html('立即开通');
                 }
             });
-        }else{
-            
+        } else {
+            console.log('用户没有登录');
         }
     }
 
@@ -69,7 +69,6 @@ define(function (require, exports, module) {
             $JsMainIcon.removeClass('i-vip-yellow');
             $JsMainIcon.addClass('i-vip-gray1');
         }
-
         $('.jsUserImage').attr('src', data.photoPicURL);
         $('.jsUserName').text(data.nickName);
         // 登录类型-对应在登陆时存储到本地cookie中的字段
@@ -87,7 +86,6 @@ define(function (require, exports, module) {
                 login.notifyLoginInterface(function (data) {
                     effect.refreshTopBar(data);
                     refreshUserInfo(data);
-
                     method.compatibleIESkip('/pay/vip.html', false);
                 });
             } else {

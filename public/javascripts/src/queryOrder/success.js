@@ -1,18 +1,15 @@
 define(function (require, exports, module) {
-    
-    var method = require("../application/method");
+    var method = require('../application/method');
     var login = require('../application/checkLogin');
-    var utils = require("../cmd-lib/util");
+    // var utils = require('../cmd-lib/util');
     var fid = method.getParam('fid');
     var fileName = method.getParam('name');
     var format = method.getParam('format');
     var userId;
-    require("../common/bindphone");
-    require("../common/coupon/couponIssue");
-   
-    
-
+    require('../common/bindphone');
+    require('../common/coupon/couponIssue');
     var userData = null, initData = {};
+
     eventBinding();
 
     // url上带有这个参数unloginFlag，说明是游客模式过来的
@@ -25,7 +22,6 @@ define(function (require, exports, module) {
         $('.pay-ok-text').hide();
         $('.unloginTop').show();
         $('.carding-data-pay-con').hide();
-
         if (method.getCookie('cuk')) {
             $('.carding-info-bottom.unloginStatus').remove();
             login.getLoginData(function (data) {
@@ -42,14 +38,13 @@ define(function (require, exports, module) {
                 userData = res;
                 // 登陆成功绑定userid
                 bindOrder(res.userId, res.nickName);
-
             });
             setTimeout(function () {
-                getDownUrl()
-            }, 1000)
+                getDownUrl();
+            }, 1000);
         }
     } else {
-        initShow()
+        initShow();
     }
 
     function initShow() {
@@ -63,38 +58,38 @@ define(function (require, exports, module) {
         }
     }
 
-    //游客购买成功绑定购买记录
+    // 游客购买成功绑定购买记录
     function bindOrder(userId, nickName) {
         var visitorId = getVisitIdByCookie();
         var params = {
             visitorId: visitorId,
             userId: userId,
             nickName: nickName
-        }
+        };
         params = JSON.stringify(params);
         $.ajax({
             type: 'get',
-            url: '/pay/bindUnlogin?ts=' + new Date().getTime(),   // node接口
-            contentType: "application/json;charset=utf-8",
+            url: '/pay/bindUnlogin?ts=' + new Date().getTime(), // node接口
+            contentType: 'application/json;charset=utf-8',
             data: params,
             success: function (data) {
                 if (data && data.code == 0) {
                     $.toast({
                         text: data.message,
                         callback: function () {
-                            location.reload()
+                            location.reload();
                         }
-                    })
+                    });
                 } else {
                     $.toast({
-                        text: data.message,
-                    })
+                        text: data.message
+                    });
                 }
             },
             complete: function () {
-                
+                console.log('请求完成');
             }
-        })
+        });
     }
 
     // 游客登陆下载成功
@@ -104,16 +99,16 @@ define(function (require, exports, module) {
         $('.carding-share').hide();
         $('.down-carding-main').addClass('coupon-carding-item');
         $('.carding-success-item').css('padding-bottom', '60px');
-        $('.xbsd i').addClass("ico-data ico-" + format);
+        $('.xbsd i').addClass('ico-data ico-' + format);
         setTimeout(function () {
-            createdLoginQr()
-        }, 200)
+            createdLoginQr();
+        }, 200);
     }
 
     // 点击下载
     $('.unloginStatus .quick-down-a').click(function () {
-        getDownUrl()
-    })
+        getDownUrl();
+    });
 
     function getDownUrl() {
         var vuk = getVisitIdByCookie();
@@ -123,76 +118,69 @@ define(function (require, exports, module) {
         var fid = method.getQueryString('fid');
         $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
             if (data.code == 0) {
-                location.href = data.data.dowUrl
+                location.href = data.data.dowUrl;
             } else if (data.code == 41003) {
                 $.toast({
-                    text: data.message,
-                })
+                    text: data.message
+                });
             } else {
                 $.toast({
-                    text: data.message,
-                })
+                    text: data.message
+                });
             }
         });
-
     }
 
     // 生登陆二维码
     function createdLoginQr() {
         var qrCodeparams = window.pageConfig && window.pageConfig.params ? window.pageConfig.params : null;
-        var classid1 = qrCodeparams && qrCodeparams.classid1 ? qrCodeparams.classid1 + '' : '';
-        var classid2 = qrCodeparams && qrCodeparams.classid2 ? '-' + qrCodeparams.classid2 + '' : '';
-        var classid3 = qrCodeparams && qrCodeparams.classid3 ? '-' + qrCodeparams.classid3 + '' : '';
+        var classid1 = qrCodeparams && qrCodeparams.classid1 ? String(qrCodeparams.classid1) : '';
+        var classid2 = qrCodeparams && qrCodeparams.classid2 ? String('-' + qrCodeparams.classid2) : '';
+        var classid3 = qrCodeparams && qrCodeparams.classid3 ? String('-' + qrCodeparams.classid3) : '';
         var clsId = classid1 + classid2 + classid3;
         var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
         var loginUrl = $.loginPop('login_wx_code', {
-            "terminal": "PC",
-            "businessSys": "ishare",
+            'terminal': 'PC',
+            'businessSys': 'ishare',
             'domain': document.domain,
-            "ptype": "ishare",
-            "popup": "hidden",
-            "clsId": clsId,
-            "fid": fid
+            'ptype': 'ishare',
+            'popup': 'hidden',
+            'clsId': clsId,
+            'fid': fid
         });
         var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
-        $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom)
+        $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom);
     }
 
     function successReload(data) {
         if (data.mobile) {
-            $('.carding-info-bottom').addClass('carding-binding-ok')
+            $('.carding-info-bottom').addClass('carding-binding-ok');
         } else {
-            $('.carding-binding').show()
+            $('.carding-binding').show();
         }
-
         if (data.isVip == '1') {
             var time = method.compareTime(new Date(), new Date(data.expireTime));
             if (time <= 5) {
                 $('.down-succ-title').html('您的VIP将于' + data.expireTime + '到期').show();
                 $('.down-succ-btn[data-type=vip]').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').show();
-
             } else if (data.privilege <= 5) {
                 $('.down-succ-title').html('您的VIP下载特权仅剩' + data.privilege + '次！').show();
                 $('.down-succ-btn[data-type=privilege]').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').show();
-
             } else {
                 $('.btn-carding-back').show().css('display', 'block').siblings('a').hide();
                 $('.bottom-privilege').hide();
             }
         } else {
             $('.down-succ-btn[data-type=default]').show().css('display', 'block').siblings('a').hide();
-            $('.new-success-item .bottom-privilege').removeClass('hide')
+            $('.new-success-item .bottom-privilege').removeClass('hide');
         }
     }
 
     $('.btn-carding-back').on('click', function () {
-        window.location.href = "/f/" + fid + ".html";
+        window.location.href = '/f/' + fid + '.html';
     });
-
-
- 
 
     /**
      * 刷新顶部状态
@@ -206,7 +194,7 @@ define(function (require, exports, module) {
             $btn_user_more = $('.btn-user-more'),
             $vip_status = $('.vip-status'),
             $btn_join_vip = $('.btn-join-vip'),
-            $icon_iShare = $(".icon-iShare");
+            $icon_iShare = $('.icon-iShare');
 
         $icon_iShare_text.html(data.isVip === '1' ? '续费VIP' : '开通VIP');
         $btn_user_more.text(data.isVip === '1' ? '续费' : '开通');
@@ -218,24 +206,20 @@ define(function (require, exports, module) {
         }
 
         var $target = null;
-        //vip
+        // vip
         if (data.isVip == 1) {
             $target = $vip_status.find('p[data-type="2"]');
             $target.find('.expire_time').html(data.expireTime);
             $target.show().siblings().hide();
             $top_user_more.addClass('top-vip-more');
-
-            //vip 已经 过期
+            // vip 已经 过期
         } else if (data.userType == 1) {
             $target = $vip_status.find('p[data-type="3"]');
             $target.show().siblings().hide();
-
             // 新用户
         } else if (data.isVip == 0) {
-
-            $icon_iShare.removeClass("icon-vip");
+            $icon_iShare.removeClass('icon-vip');
         }
-
 
         $unLogin.hide();
         $hasLogin.find('.icon-detail').html(data.nickName);
@@ -244,7 +228,7 @@ define(function (require, exports, module) {
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
-        //右侧导航栏.
+        // 右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
         $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
@@ -279,6 +263,7 @@ define(function (require, exports, module) {
                 $(this).addClass('hover');
             }
         });
+
         $more_nave.on('mouseleave', function () {
             var $this = $(this);
             if ($this.hasClass('hover')) {
@@ -287,16 +272,18 @@ define(function (require, exports, module) {
         });
 
         // 搜索
-        $search_detail_input.on("keyup", function (e) {
+        $search_detail_input.on('keyup', function (e) {
             var keycode = e.keyCode;
             if ($(this).val()) {
                 getBaiduData($(this).val());
             } else {
+                console.log('搜索');
             }
             if (keycode === 13) {
                 searchFn($(this).val());
             }
         });
+
         $search_detail_input.on('focus', function () {
             var lately_list = $('.lately-list'),
                 len = lately_list.find('li').length;
@@ -307,33 +294,36 @@ define(function (require, exports, module) {
             }
             return true;
         });
+
         $('.btn-new-search').on('click', function () {
-            var _val = $("#search-detail-input").val();
-            if (!_val) {
-                return
+            var val = $('#search-detail-input').val();
+            if (!val) {
+                return;
             }
-            searchFn(_val);
+            searchFn(val);
         });
+
         $(document).on('click', ':not(.new-search)', function (event) {
             var $target = $(event.target);
             if ($target.hasClass('new-input')) {
-                return
+                return;
             }
             $detail_lately.hide();
         });
+
         $detail_lately.on('click', function (event) {
             event.stopPropagation();
         });
-        
     }
 
-    //获取百度数据
+    // 获取百度数据
     var getBaiduData = function (val) {
-        $.getScript("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + encodeURIComponent(val) + "&p=3&cb=window.baidu_searchsug&t=" + new Date().getTime());
+        $.getScript('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + encodeURIComponent(val) + '&p=3&cb=window.baidu_searchsug&t=' + new Date().getTime());
     };
-    /*百度搜索建议回调方法*/
+
+    /* 百度搜索建议回调方法*/
     window.baidu_searchsug = function (data) {
-        var sword = $("#search-detail-input").val();
+        var sword = $('#search-detail-input').val();
         sword = sword ? sword.replace(/^\s+|\s+$/gm, '') : '';
         if (sword.length > 0) {
             if (data && data.s) {
@@ -342,20 +332,20 @@ define(function (require, exports, module) {
                     var max = Math.min(condArr.length, 10);
                     var _html = [];
                     for (var i = 0; i < max; i++) {
-                        var searchurl = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(condArr[i]));
-                        _html.push('<li><a href="' + searchurl + '"  data-html="' + condArr[i] + '" >' + condArr[i].replace(new RegExp("(" + sword + ")", "gm"), "<span class='search-font'>$1</span>") + '</a></li>');
+                        var searchurl = '/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(condArr[i]));
+                        _html.push('<li><a href="' + searchurl + '"  data-html="' + condArr[i] + '" >' + condArr[i].replace(new RegExp('(' + sword + ')', 'gm'), '<span class=\'search-font\'>$1</span>') + '</a></li>');
                     }
-                    $(".lately-list").html(_html.join("")).parent('.detail-lately').show();
+                    $('.lately-list').html(_html.join('')).parent('.detail-lately').show();
                 }
             }
         }
     };
 
-    //搜索
+    // 搜索
     var searchFn = function (_val) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
-        window.location.href = "/search/home.html?ft=all&cond=" + encodeURIComponent(encodeURIComponent(sword));
-    }
+        window.location.href = '/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(sword));
+    };
 
     // 获取访客id
     function getVisitIdByCookie() {

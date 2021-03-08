@@ -4,8 +4,8 @@
 define(function (require, exports, module) {
     // var $ = require("$");
     require('../../cmd-lib/toast');
-    var method = require("../../application/method");
-    var couponOptions = require("./template/options.html");
+    // var method = require('../../application/method');
+    var couponOptions = require('./template/options.html');
 
     var couponObj = {
         _index: 0,
@@ -13,16 +13,16 @@ define(function (require, exports, module) {
         undata: [], // 此为不可用的优惠券
         price: 10,
         maxCouponLimit: null,
-        couponType: 2,//0是现金文档，1是vip
-        cashPrice: 0,//现金文档
-        vipPrice: 0,//vip
+        couponType: 2, // 0是现金文档，1是vip
+        cashPrice: 0, // 现金文档
+        vipPrice: 0, // vip
         useCouponFlag: 1,
         isVip: 0,
-        fileDiscount: 0.8, //是VIP 会有个动态折扣
+        fileDiscount: 0.8, // 是VIP 会有个动态折扣
         initial: function () {
-            //区别现金购买还是vip购买
+            // 区别现金购买还是vip购买
             couponObj.queryPageType();
-            //点击页面其他地方收起优惠券
+            // 点击页面其他地方收起优惠券
             $('body').click(function () {
                 if (!$('.coupon-down').is(':hidden')) {
                     $('.coupon-down').hide();
@@ -38,15 +38,15 @@ define(function (require, exports, module) {
                 }
                 var fileDiscount = window.pageConfig.params.fileDiscount;
                 couponObj.fileDiscount = fileDiscount || 0.8; // 是VIP的话就有动态折扣
-                //获取数据
+                // 获取数据
                 couponObj.getCouponData(couponObj.couponType);
                 // 优惠券选择点击
                 couponObj.selectCouponOption();
-                //优惠券选择弹窗
+                // 优惠券选择弹窗
                 couponObj.operateCouponModule();
                 // 切换vip套餐
                 couponObj.switchVipSeries();
-                //如果支持vip打折
+                // 如果支持vip打折
                 // if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.ownVipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 0) {
                 //     $('.vip-share-text').show();
                 //     couponObj.vipDiscountFreeAmount();
@@ -66,10 +66,10 @@ define(function (require, exports, module) {
             var oprice = 0;
             if (couponObj.couponType == 1) { // 如果是VIP购买场景
                 // 当前选择选择态的套餐【活动价/原价】
-                    oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price')
+                oprice = $('.js-tab').find('.ui-tab-nav-item.active').data('price');
             } else {
                 if (pageConfig.params) {
-                    oprice = pageConfig.params.moneyPrice
+                    oprice = pageConfig.params.moneyPrice;
                 }
             }
             return oprice;
@@ -80,12 +80,12 @@ define(function (require, exports, module) {
          */
         queryPageType: function () {
             var pathName = location.pathname;
-            if (pathName == "/pay/vip.html") {
+            if (pathName == '/pay/vip.html') {
                 couponObj.couponType = 1; // vip购买页
-            } else if (pathName == "/pay/payConfirm.html") {
+            } else if (pathName == '/pay/payConfirm.html') {
                 couponObj.couponType = 0;
-                var referrerHref = document.referrer
-                $('.btn-back').attr('href', referrerHref)
+                var referrerHref = document.referrer;
+                $('.btn-back').attr('href', referrerHref);
                 // $('.btn-back').attr('href', "//ishare.iask.sina.com.cn/f/" + method.getParam('orderNo') + '.html')
             }
         },
@@ -100,7 +100,7 @@ define(function (require, exports, module) {
                 type: type,
                 price: oprice,
                 terminal: 0
-            }
+            };
             // 筛选可用的优惠券【A20】
             var dataList = {
                 validList: [],
@@ -115,27 +115,27 @@ define(function (require, exports, module) {
                                 // 删除大于订单金额的优惠券
                                 dataList = couponObj.delInvalidData(data, oprice);
                             }
-                            couponObj.useCouponFlag = 1;//初始化
+                            couponObj.useCouponFlag = 1;// 初始化
                         }
                     }
                 }
                 var list = dataList.validList.concat(dataList.invalidList);
-                var _html = template.compile(couponOptions)({ data: list });
-                $('.coupon-down .select-text').html(_html);
+                var htmlTpl = template.compile(couponOptions)({ data: list });
+                $('.coupon-down .select-text').html(htmlTpl);
                 // 判断是否可用【A20】
                 couponObj.data = dataList.validList;
                 couponObj.undata = dataList.invalidList;
                 couponObj.updateCouponOption(0);
-            })
+            });
         },
 
         /**
          * 获得vip 8折省多少元
          */
         vipDiscountFreeAmount: function () {
-            var discountPrice = (couponObj.price * couponObj.fileDiscount).toFixed(2)
+            var discountPrice = (couponObj.price * couponObj.fileDiscount).toFixed(2);
             var Freeprice = ((couponObj.price * 100 - discountPrice * 100) / 100).toFixed(2);
-            $('#vipDiscountFreeAmount').text(Freeprice)
+            $('#vipDiscountFreeAmount').text(Freeprice);
         },
 
         /**
@@ -149,7 +149,7 @@ define(function (require, exports, module) {
                     $('.select-wrap').toggleClass('select-wrap-down');
                     event.stopPropagation();
                 }
-            })
+            });
         },
 
         /**
@@ -163,7 +163,7 @@ define(function (require, exports, module) {
                 var _index = $(this).index('.select-ele');
                 $('.select-wrap').toggleClass('select-wrap-down');
                 couponObj._index = _index;
-                couponObj.useCouponFlag = 1;//初始化
+                couponObj.useCouponFlag = 1;// 初始化
                 couponObj.updateCouponOption(_index);
             });
 
@@ -171,7 +171,7 @@ define(function (require, exports, module) {
                 event.stopPropagation();
                 $.toast({
                     text: '该券不满足使用条件',
-                    delay: 2000,
+                    delay: 2000
                 });
             });
         },
@@ -184,13 +184,13 @@ define(function (require, exports, module) {
                 // 选择最后一个就是放弃优惠券
                 if (_index == 0) {
                     //    如果没有优惠券
-                    var text = '<span class="no-user">无可用</span>'
+                    var text = '<span class="no-user">无可用</span>';
                     $('.select-text .chose-ele').html(text);
-                    couponObj.useCouponFlag = 0
+                    couponObj.useCouponFlag = 0;
                 } else {
                     var textHtml = couponObj.data.length + '个可用';
                     $('.select-text .chose-ele').html(textHtml);
-                    couponObj.quitCouponUse()
+                    couponObj.quitCouponUse();
                 }
                 $('.pay-coupon-wrap').removeAttr('vid');
                 $('.pay-coupon-wrap').removeAttr('svuId');
@@ -199,7 +199,7 @@ define(function (require, exports, module) {
                 $('.pay-coupon-wrap').attr('vid', couponObj.data[_index].vid);
                 $('.pay-coupon-wrap').attr('svuId', couponObj.data[_index].svuId);
 
-                var domHtml = $('.coupon-down').find('.select-text .select-ele').eq(_index).html()
+                var domHtml = $('.coupon-down').find('.select-text .select-ele').eq(_index).html();
                 $('.select-text .chose-ele').html(domHtml);
                 // 存在最大优惠限制
                 if (couponObj.data[_index].manCouponAmount) {
@@ -208,7 +208,7 @@ define(function (require, exports, module) {
                     couponObj.maxCouponLimit = null;
                 }
             }
-            couponObj.updatePrice()
+            couponObj.updatePrice();
         },
 
         /**
@@ -219,7 +219,7 @@ define(function (require, exports, module) {
             couponObj.useCouponFlag = 0;
             var tips = '';
             $('.price-text-con #discountPrice').text(tips);
-            couponObj.updatePrice()
+            couponObj.updatePrice();
         },
 
         /**
@@ -231,24 +231,22 @@ define(function (require, exports, module) {
             var tips = '';
             if (couponObj.couponType == 1) {
                 // 购买vip
-             
                 var activeTip = '';
-              
-                //放弃使用优惠券
+                // 放弃使用优惠券
                 if (couponAmount == 0) {
-                        tips = '';
+                    tips = '';
                 } else {
                     // 使用优惠券
                     tips = '(' + activeTip + '使用优惠券优惠' + couponAmount + '元)';
                 }
             } else {
-                // 现金文档 
-                var vipDiscountTip = "";
+                // 现金文档
+                var vipDiscountTip = '';
                 var isVipDiscount = false;
                 if (pageConfig.params.vipDiscountFlag == 1 && pageConfig.params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - couponAmount * 100) / 100).toFixed(2);
                     var vipDiscount = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
-                    vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元'
+                    vipDiscountTip = 'VIP权益优惠' + vipDiscount + '元';
                     isVipDiscount = true;
                 }
                 if (couponAmount == 0) {
@@ -266,7 +264,7 @@ define(function (require, exports, module) {
                 $('.price-text-con .original-text').text(tips);
             } else if (couponObj.couponType == 1) {
                 $('.price-text-con #discountPrice').text(tips);
-                $('.price-text-con #discountPrice').show()
+                $('.price-text-con #discountPrice').show();
             }
         },
 
@@ -279,7 +277,7 @@ define(function (require, exports, module) {
                 // 选择框提示
                 couponObj._index = 0;
                 couponObj.getCouponData(1);
-            })
+            });
         },
 
         /**
@@ -294,36 +292,38 @@ define(function (require, exports, module) {
                 discountNum = couponObj.getDiscountPrice();
             }
             var lastedPrice = 0;
-            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):''
-            var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
+            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):'';
+            var renewalPrice = $('.renewal-radio .renewal-desc .price').text();
             if (couponObj.couponType == 1) { // vip
-                var oprice = isRenewal?renewalPrice:couponObj.price 
+                var oprice = isRenewal?renewalPrice:couponObj.price;
                 lastedPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
-            } else if (couponObj.couponType == 0) {  //现金
+            } else if (couponObj.couponType == 0) { // 现金
+                // eslint-disable-next-line no-redeclare
                 var vipDiscountPrice = 0, oprice = pageConfig.params.moneyPrice;
                 var params = pageConfig.params;
                 if (params.vipDiscountFlag == 1 && params.g_permin == 3 && couponObj.isVip == 1) {
                     var afterCouponPrice = ((oprice * 100 - discountNum * 100) / 100).toFixed(2);
+                    // eslint-disable-next-line no-redeclare
                     var vipDiscountPrice = ((afterCouponPrice * 100 - (afterCouponPrice * couponObj.fileDiscount).toFixed(2) * 100) / 100).toFixed(2);
                 }
                 lastedPrice = ((couponObj.price * 100 - discountNum * 100 - vipDiscountPrice * 100) / 100).toFixed(2);
             }
-           
+
             if (couponObj.couponType == 1) {
-                    $('#activePrice').text(lastedPrice);
+                $('#activePrice').text(lastedPrice);
             } else {
-                    $('.price-text-con .price').text(lastedPrice);  
+                $('.price-text-con .price').text(lastedPrice);
             }
-            couponObj.updatePriceTip()
+            couponObj.updatePriceTip();
         },
 
         /**
          * 计算优惠金额
          */
         getDiscountPrice: function () {
-            //如果flag==0；不适用优惠券
-            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):''
-            var renewalPrice = $('.renewal-radio .renewal-desc .price').text()
+            // 如果flag==0；不适用优惠券
+            var isRenewal = $('.js-tab .ui-tab-nav-item.active').attr('data-isautorenew') == '1'? $('.renewal-radio #renewal').attr('checked'):'';
+            var renewalPrice = $('.renewal-radio .renewal-desc .price').text();
             var _index = couponObj._index;
             var data = couponObj.data;
             var oprice = isRenewal?renewalPrice:couponObj.price;
@@ -332,6 +332,7 @@ define(function (require, exports, module) {
                 couponAmount = 0;
             } else {
                 if (data[_index].type == 1) { // 如果是满减券
+                    // eslint-disable-next-line no-redeclare
                     var couponAmount = data[_index].couponAmount;
                 } else { // 如果是折扣卷
                     var discount = data[_index].discount;
@@ -349,8 +350,8 @@ define(function (require, exports, module) {
          * 删选大于订单金额的优惠券【筛选可用/不可用】
          */
         delInvalidData: function (data, oprice) {
-            var data = JSON.parse(JSON.stringify(data))
-            var oprice = oprice ? oprice : 0;
+            data = JSON.parse(JSON.stringify(data));
+            oprice = oprice ? oprice : 0;
             var validList = [], invalidList = [];
             // data.map(function (v, i) {
             //     if (v.couponAmount) {
@@ -382,10 +383,9 @@ define(function (require, exports, module) {
                 validList: validList,
                 invalidList: invalidList
             };
-        },
-        
-    }
+        }
+    };
 
     couponObj.initial();
-    return couponObj
-})
+    return couponObj;
+});

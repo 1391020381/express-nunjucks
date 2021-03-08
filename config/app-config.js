@@ -1,7 +1,7 @@
 /**
 * 系统配置
 */
-const env = process.env.NODE_ENV || 'prod'
+const env = process.env.NODE_ENV || 'prod';
 const config = {
     debug: {
         env: env,
@@ -15,7 +15,7 @@ const config = {
         loginUrl: '//pre-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '',
         officeUrl: 'http://office.iask.com'
@@ -33,7 +33,7 @@ const config = {
         loginUrl:'//test-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '',
         officeUrl: 'http://dev-office.iask.com'
@@ -45,7 +45,7 @@ const config = {
         newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '//dev-static3.iask.cn/',
         officeUrl: 'http://dev-office.iask.com',
@@ -58,7 +58,7 @@ const config = {
         newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '//test-static3.iask.cn/',
         officeUrl: 'http://test-office.iask.com',
@@ -71,7 +71,7 @@ const config = {
         newBasePath: 'http://pre-gateway.pc.ishare.iaskonline.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '//pre-static3.iask.cn/',
         officeUrl: 'http://pre-office.iask.com',
@@ -84,13 +84,13 @@ const config = {
         newBasePath: 'http://gateway.pc.ishare.iaskonline.com',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
-        //服务端口-自定义
+        // 服务端口-自定义
         port: 3004,
         static3: '//static3.iask.cn/',
         officeUrl: 'http://office.iask.com',
         loginUrl: '//login-ishare.iask.com.cn'
     }
-}
+};
 
 
-module.exports = config[env]
+module.exports = config[env];

@@ -1,104 +1,102 @@
 define(function (require, exports, module) {
-    //var $ = require("$");
+    // var $ = require("$");
     var method = require('./method');
     var login = require('./checkLogin');
     // 右侧滚动
-    var app = require("../application/app");
-    var api = require("./api");
+    var app = require('../application/app');
+    var api = require('./api');
 
     scrollMenu();
 
     function scrollMenu() {
-        //右侧悬浮 js
-        var $fixBtn = $(".fixed-op").find(".J_menu");
-        var $fixFull = $(".fixed-right-full");
-        var $anWrap = $fixFull.find(".fixed-detail-wrap");
+        // 右侧悬浮 js
+        var $fixBtn = $('.fixed-op').find('.J_menu');
+        var $fixFull = $('.fixed-right-full');
+        var $anWrap = $fixFull.find('.fixed-detail-wrap');
 
-        function fixAn(start, index,$this) {
-            
+        function fixAn(start, index, $this) {
+
             index = index || 0;
-            if (start && (index === 1)) { // index === 1 || index === 2
+            if (start && index === 1) { // index === 1 || index === 2
                 if (method.getCookie('cuk')) {
                     rightSlideShow(index);
-                    $anWrap.animate({ "right": "61px" }, 500);
+                    $anWrap.animate({ 'right': '61px' }, 500);
                 } else {
                     login.notifyLoginInterface(function (data) {
-                        refreshDomTree($anWrap, index, data)
+                        refreshDomTree($anWrap, index, data);
                     });
                 }
             } else {
-                $anWrap.animate({ "right": "-307px" }, 200);
+                $anWrap.animate({ 'right': '-307px' }, 200);
             }
             if (start && index === 0) {
-                
+
                 if (method.getCookie('cuk')) {
-                    window.open('/node/rights/vip.html','target');
+                    window.open('/node/rights/vip.html', 'target');
                 } else {
-                    
-                    window.open('/node/rights/vip.html','target');
+
+                    window.open('/node/rights/vip.html', 'target');
                 }
             } else if (index === 1) {
-                $(".mui-user-wrap").css("visibility", "hidden");
-                $(".mui-sel-wrap").css("visibility", "visible");
-           
+                $('.mui-user-wrap').css('visibility', 'hidden');
+                $('.mui-sel-wrap').css('visibility', 'visible');
+
             } else if (index === 2) {
-                $(".mui-user-wrap").css("visibility", "hidden");
-                $(".mui-sel-wrap").css("visibility", "hidden");
-            
-              method.compatibleIESkip('/node/upload.html',true);
+                $('.mui-user-wrap').css('visibility', 'hidden');
+                $('.mui-sel-wrap').css('visibility', 'hidden');
+
+                method.compatibleIESkip('/node/upload.html', true);
 
             } else if (index === 4 || index === 6) {
-                $anWrap.animate({ "right": "-307px" }, 200);
+                $anWrap.animate({ 'right': '-307px' }, 200);
                 if(index ==6){
-                    method.compatibleIESkip('https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q',true);
+                    method.compatibleIESkip('https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q', true);
                 }
             }
-               
-            
-            
-        
+
+
         }
 
-        $(".btn-detail-back").on("click", function () {
-            fixAn(false,$(this));
-            $fixBtn.removeClass("active");
+        $('.btn-detail-back').on('click', function () {
+            fixAn(false, $(this));
+            $fixBtn.removeClass('active');
         });
-        $(document).on("click", function () {
+        $(document).on('click', function () {
             var $this = $(this);
-            fixAn(false,$this);
-            $fixBtn.removeClass("active");
+            fixAn(false, $this);
+            $fixBtn.removeClass('active');
 
         });
         // 开通vip
-        $fixFull.on('click','.js-buy-open',function(){
-           
-            method.compatibleIESkip('/pay/vip.html',true);
-        })
-        $(".op-menu-wrap").click(function (e) {
+        $fixFull.on('click', '.js-buy-open', function(){
+
+            method.compatibleIESkip('/pay/vip.html', true);
+        });
+        $('.op-menu-wrap').click(function (e) {
             e.stopPropagation();
         });
 
-        $fixBtn.on("click", function () {
+        $fixBtn.on('click', function () {
             var index = $(this).index();
-         
-            if ($(this).hasClass("active")) {
-                $(this).removeClass("active");
-                fixAn(false,$(this));
+
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+                fixAn(false, $(this));
             } else {
-                $(this).addClass("active").siblings().removeClass("active");
-                fixAn(true, index,$(this));
+                $(this).addClass('active').siblings().removeClass('active');
+                fixAn(true, index, $(this));
             }
 
         });
-        $(window).bind("resize ready", resizeWindow);
+        $(window).bind('resize ready', resizeWindow);
 
         function resizeWindow(e) {
             var newWindowHeight = $(window).height();
 
             if (newWindowHeight >= 920) {
-                $fixFull.removeClass("fixed-min-height");
+                $fixFull.removeClass('fixed-min-height');
             } else {
-                $fixFull.addClass("fixed-min-height");
+                $fixFull.addClass('fixed-min-height');
             }
         }
     }
@@ -136,7 +134,7 @@ define(function (require, exports, module) {
         $top_user_more.find('#userName').html(data.nickName);
         $hasLogin.show();
 
-        //右侧导航栏.
+        // 右侧导航栏.
         /* ==>头像,昵称 是否会员文案提示.*/
         $('.user-avatar img').attr('src', data.photoPicURL);
         $('.name-wrap .name-text').html(data.nickName);
@@ -152,7 +150,7 @@ define(function (require, exports, module) {
         rightSlideShow(index);
         // 发现有调用传入$anWrap 为 null ，因此作此判断
         if ($anWrap) {
-            $anWrap.animate({ "right": "61px" }, 500);
+            $anWrap.animate({ 'right': '61px' }, 500);
         }
     }
 
@@ -160,7 +158,7 @@ define(function (require, exports, module) {
         if (index === 1) {
             accessList();
         } else if (index === 2) {
-            myCollect()
+            myCollect();
         }
     }
 
@@ -168,13 +166,12 @@ define(function (require, exports, module) {
      * 我看过的
      */
     function accessList() {
-      
-        getFileBrowsePage()
+
+        getFileBrowsePage();
     }
 
-   
 
-    //新的我的收藏列表
+    // 新的我的收藏列表
     function myCollect() { // 右侧栏的我的收藏下架
         var params = {
             pageNumber: 1,
@@ -183,56 +180,57 @@ define(function (require, exports, module) {
             order:-1
         };
         $.ajax(api.user.newCollect, {
-            type: "get",
+            type: 'get',
             async: false,
             data: params,
-            dataType: "json"
+            dataType: 'json'
         }).done(function (res) {
             if (res.code == 0) {
-                collectRender(res.data.rows)
+                collectRender(res.data.rows);
             }
         }).fail(function (e) {
-            console.log("error===" + e);
-        })
+            console.log('error===' + e);
+        });
     }
 
-    function getFileBrowsePage(){  // 查询个人收藏列表
-       $.ajax({
-        url: api.user.getFileBrowsePage,
-        type: "POST",
-        data: JSON.stringify({
-            currentPage:1,
-            pageSize:20
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-          success: function (res) {
-             if(res.code == '0'){
-                  console.log('getUserFileList:',res)
-                 var list = res.data&&res.data.rows ||[]     
-                 var $seenRecord = $('#seenRecord'), arr = [];
-                 if (list && list.length) {
-                    list = list.slice(0, 20);
-                    for (var k = 0; k < list.length; k++) {
-                        var item = list[k];
-                        var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileid + '.html">' + item.name + '</a></li>';
-                        arr.push($li)
+    function getFileBrowsePage(){ // 查询个人收藏列表
+        $.ajax({
+            url: api.user.getFileBrowsePage,
+            type: 'POST',
+            data: JSON.stringify({
+                currentPage:1,
+                pageSize:20
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (res) {
+                if(res.code == '0'){
+                    console.log('getUserFileList:', res);
+                    var list = res.data&&res.data.rows ||[];
+                    var $seenRecord = $('#seenRecord'), arr = [];
+                    if (list && list.length) {
+                        list = list.slice(0, 20);
+                        for (var k = 0; k < list.length; k++) {
+                            var item = list[k];
+                            var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileid + '.html">' + item.name + '</a></li>';
+                            arr.push($li);
+                        }
+                        $seenRecord.html(arr.join(''));
+                    } else {
+                        $seenRecord.hide().siblings('.mui-data-null').show();
                     }
-                    $seenRecord.html(arr.join(''));
-                } else {
+                }else{
+                    // eslint-disable-next-line
+                    var $seenRecord = $('#seenRecord');
                     $seenRecord.hide().siblings('.mui-data-null').show();
-                }             
-             }else{
-                var $seenRecord = $('#seenRecord')
-                $seenRecord.hide().siblings('.mui-data-null').show();
-               console.log(res.message)
-             }
-          },
-          error:function(error){
-              console.log('getUserFileList:',error)
-          }
-      })
-      }
+                    console.log(res.message);
+                }
+            },
+            error:function(error){
+                console.log('getUserFileList:', error);
+            }
+        });
+    }
 
 
     /**
@@ -241,21 +239,22 @@ define(function (require, exports, module) {
      */
     $('.op-feedback').on('click', function () {
         var curr = window.location.href;
-       
-        method.compatibleIESkip('/node/feedback/feedback.html?url=' + encodeURIComponent(curr),true);
+
+        method.compatibleIESkip('/node/feedback/feedback.html?url=' + encodeURIComponent(curr), true);
     });
 
     $('#go-back-top').on('click', function () {
         $('body,html').animate({ scrollTop: 0 }, 200);
     });
 
-    try {//引入美洽客服
+    try {// 引入美洽客服
         (function(a, b, c, d, e, j, s) {
             a[d] = a[d] || function() {
-                (a[d].a = a[d].a || []).push(arguments)
+                // eslint-disable-next-line
+                (a[d].a = a[d].a || []).push(arguments);
             };
             j = b.createElement(c),
-                s = b.getElementsByTagName(c)[0];
+            s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
             j.src = 'https://static.meiqia.com/widget/loader.js';
@@ -268,10 +267,10 @@ define(function (require, exports, module) {
     // 联系客服
     $('.btn-mui-contact').on('click', function () {
         _MEIQIA('init');
-           // 初始化成功后调用美洽 showPanel
-    _MEIQIA('allSet', function(){
-        _MEIQIA('showPanel');
-      });
+        // 初始化成功后调用美洽 showPanel
+        _MEIQIA('allSet', function(){
+            _MEIQIA('showPanel');
+        });
     });
     function collectRender(list) {
         var $myCollect = $('#myCollect'), arr = [];
@@ -282,7 +281,7 @@ define(function (require, exports, module) {
             for (var k = 0; k < subList.length; k++) {
                 var item = subList[k];
                 var $li = '<li><i class="ico-data ico-' + item.format + '"></i><a target="_blank" href="/f/' + item.fileId + '.html">' + item.title + '</a></li>';
-                arr.push($li)
+                arr.push($li);
             }
             $myCollect.html(arr.join(''));
             if (list.length > 20) {
@@ -294,7 +293,7 @@ define(function (require, exports, module) {
     module.exports = {
         usermsg: function (data) {
 
-            //右侧导航栏.
+            // 右侧导航栏.
             /* ==>头像,昵称 是否会员文案提示.*/
             $('.user-avatar img').attr('src', data.photoPicURL);
             $('.name-wrap .name-text').html(data.nickName);
@@ -308,5 +307,5 @@ define(function (require, exports, module) {
                 $('.mui-privilege-list li').removeClass('hide');
             }
         }
-    }
+    };
 });

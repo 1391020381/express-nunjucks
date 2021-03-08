@@ -9,6 +9,7 @@
         "restart": "cross-env NODE_ENV=prod  pm2 restart pm2.json && node --max_old_space_size=4096",
         "pre": "cross-env NODE_ENV=pre  pm2 restart pm2.json && node --max_old_space_size=4096",
         "test": "cross-env NODE_ENV=test  pm2 restart pm2.json && node --max_old_space_size=4096",
+        "test2": "cross-env NODE_ENV=test2  pm2 restart pm2.json && node --max_old_space_size=4096",
         "dev": "cross-env NODE_ENV=dev  pm2 restart pm2.json && node --max_old_space_size=4096",
         "local": "cross-env NODE_ENV=local  nodemon ./bin/www",
         "debug": "cross-env NODE_ENV=debug  nodemon ./bin/www",
@@ -46,7 +47,9 @@
         "xss-filters": "^1.2.7"
     },
     "devDependencies": {
+        "babel-eslint": "^10.1.0",
         "cross-env": "^6.0.3",
+        "eslint": "^7.21.0",
         "http-proxy-middleware": "^0.19.1",
         "increase-memory-limit": "^1.0.7",
         "nodemon": "^1.19.1"

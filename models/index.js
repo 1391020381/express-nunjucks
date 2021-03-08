@@ -1,13 +1,13 @@
 const { response } = require('express');
-var request = require('request');
+const request = require('request');
 
 module.exports = {
     get: function (url, callback, req, append) {
-        var opt = this.getPaymentType(req, url, '', append);
+        const opt = this.getPaymentType(req, url, '', append);
         request(opt, (error, response, body) => {
             if (body) {
                 try {
-                    var data = body;
+                    let data = body;
                     if (typeof body == 'string') {
                         data = JSON.parse(body);
                     }
@@ -16,8 +16,8 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
-                    console.log('请求地址get-------------------:', opt.url)
-                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
+                    console.log('请求地址get-------------------:', opt.url);
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message);
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -25,15 +25,15 @@ module.exports = {
             } else {
                 callback(null, null);
             }
-        })
+        });
     },
-    
+
     post: function (url, callback, req) {
-        var opt = this.postPaymentType(req, url, '');
+        const opt = this.postPaymentType(req, url, '');
         request(opt, (error, response, body) => {
             if (body) {
                 try {
-                    var data = body;
+                    let data = body;
                     if (typeof body == 'string') {
                         data = JSON.parse(body);
                     }
@@ -42,9 +42,9 @@ module.exports = {
                     } else {
                         callback(null, null);
                     }
-                    console.log('请求地址post-------------------:', opt.url)
-                    console.log('请求参数-------------------:', req.body)
-                    console.log('返回code------:' + data.code, '返回message-------:' + data.message)
+                    console.log('请求地址post-------------------:', opt.url);
+                    console.log('请求参数-------------------:', req.body);
+                    console.log('返回code------:' + data.code, '返回message-------:' + data.message);
                 } catch (err) {
                     console.error(err);
                     // callback(null , null);
@@ -52,7 +52,7 @@ module.exports = {
             } else {
                 callback(null, null);
             }
-        })
+        });
     },
 
     getPaymentType: function (req, url, id, append) {
@@ -63,7 +63,7 @@ module.exports = {
         }
         return {
             url: url,
-            method: "GET",
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
@@ -76,10 +76,10 @@ module.exports = {
     postPaymentType: function (req, url, id) {
         return {
             url: id ? url.replace(/\$id/, id) : url,
-            method: "POST",
+            method: 'POST',
             json: true,
             headers: {
-                "content-type": "application/json",
+                'content-type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
                 'Authrization': req.cookies.cuk
@@ -95,47 +95,47 @@ module.exports = {
                 if (!error && response.statusCode == 200 || response.statusCode == 206) {
                     resolve(response.body); // Print the google web page.
                 } else {
-                    console.log('$httpTxt---------:', body)
+                    console.log('$httpTxt---------:', body);
                     reject(body);
                 }
-            })
-        })
+            });
+        });
     },
-    
+
     $http: function (url, method, req, res, append) {
         return new Promise((resolve, reject) => {
-            var opt = '';
+            let opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
                 // console.log('$http---------:',opt.url,error,body)
-                let is4paradigm = opt.url.includes('4paradigm.com')
-                let isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk')
-               
+                const is4paradigm = opt.url.includes('4paradigm.com');
+                const isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk');
+
                 if (body) {
                     try {
-                        var data = body;
+                        let data = body;
                         if (typeof body == 'string') {
                             data = JSON.parse(body);
-                           
+
                         }
-                        if((isGetFileDetailNoTdk&&data.code=='G-404')||is4paradigm){ // 非标准判断
-                            resolve(data)
+                        if(isGetFileDetailNoTdk&&data.code=='G-404'||is4paradigm){ // 非标准判断
+                            resolve(data);
                         }else{
                             if(data.code==0){
-                                resolve(data)
+                                resolve(data);
                             }else{
-                                console.log('$http---------:', JSON.stringify(opt), data)
-                                reject(data)
+                                console.log('$http---------:', JSON.stringify(opt), data);
+                                reject(data);
                             }
                         }
                     } catch (err) {
-                        console.log('$http---------:', opt, body)
-                        reject(err)
+                        console.log('$http---------:', opt, body);
+                        reject(err);
                     }
                 } else {
-                    reject(body)
+                    reject(body);
                 }
-            })
-        })
-    },
+            });
+        });
+    }
 };

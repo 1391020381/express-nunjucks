@@ -1,8 +1,8 @@
 define(function (require, exports, module) {
-    require("./fixedTopBar");
-    require('../application/suspension')
-    var slider = require('../common/slider');//轮播插件
-    var utils = require("../cmd-lib/util");
+    require('./fixedTopBar');
+    require('../application/suspension');
+    var Slider = require('../common/slider');// 轮播插件
+    // var utils = require('../cmd-lib/util');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = false;
     var callback = null;
@@ -11,27 +11,27 @@ define(function (require, exports, module) {
     var obj = {
         reqParams: pageConfig.reqParams,
         init: function () {
-            new slider("J_categoty_banner", "J_categoty_focus", "J_categoty_prev", "J_categoty_next");
-            new slider("j-rightBanner", "J_right_focus", "J_right__prev", "J_right__next")
+            new Slider('J_categoty_banner', 'J_categoty_focus', 'J_categoty_prev', 'J_categoty_next');
+            new Slider('j-rightBanner', 'J_right_focus', 'J_right__prev', 'J_right__next');
             this.selectMenu();
             //  this.pageOperate();
             this.fomatSelect();
             // this.sortSelect();
-            this.fixRight()
+            this.fixRight();
         },
-        
+
         selectMenu: function () {
             $('.js-nav-menu').click(function (event) {
-                event.stopPropagation()
+                event.stopPropagation();
                 $(this).parent().toggleClass('selected');
-                $(this).find('i').toggleClass('rotate')
-            })
+                $(this).find('i').toggleClass('rotate');
+            });
             $('body').click(function () {
                 if ($('.js-nav-menu').parent().hasClass('selected')) {
                     $('.js-nav-menu').parent().removeClass('selected');
                     $('.js-nav-menu').find('i').removeClass('rotate');
                 }
-            })
+            });
         },
         // pageOperate:function(){
         //     $('.page-ele').on('click',function(){
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
                 var sortField = obj.reqParams.sortField ? '-' + obj.reqParams.sortField : '';
                 var pageUrl = location.origin + '/c/' + obj.reqParams.cid + '-' + fomat + '-p1' + sortField + '.html';
                 location.href = pageUrl;
-            })
+            });
 
         },
         // sortSelect:function(){
@@ -76,40 +76,37 @@ define(function (require, exports, module) {
 
         pageNavigate: function (page) {
             var fomat = obj.reqParams.fileType ? obj.reqParams.fileType : 'all';
-            var page = 'p' + page;
+            page = 'p' + page;
             var sortField = obj.reqParams.sortField ? '-' + obj.reqParams.sortField : '';
             var pageUrl = location.origin + '/c/' + obj.reqParams.cid + '-' + fomat + '-' + page + sortField + '.html';
             location.href = pageUrl;
         },
 
         fixRight: function () {
-            var leftHeifht = $('.search-all-left').height()
-            var rightHeight = $('.landing-right').height()
-            var searchHeader = $(".new-detail-header").height()
-            var bannerHeight = $('.search-all-main-topbanner').height()
-            var documentInnerHeight = $(window).height()
-            var fixRight = 980
+            var leftHeifht = $('.search-all-left').height();
+            var rightHeight = $('.landing-right').height();
+            var searchHeader = $('.new-detail-header').height();
+            var bannerHeight = $('.search-all-main-topbanner').height();
+            var documentInnerHeight = $(window).height();
+            var fixRight = 980;
             $(window).on('scroll', function () {
                 var $this = $(this);
                 var scrollTop = $this.scrollTop();
                 if (scrollTop >= rightHeight + searchHeader + bannerHeight) {
-
-                    $('.landing-right').css({ "position": "fixed", "top": searchHeader, "z-index": "75" });
+                    $('.landing-right').css({ 'position': 'fixed', 'top': searchHeader, 'zIndex': '75' });
                     if (scrollTop > leftHeifht - documentInnerHeight) {
-                        var tempHeight = leftHeifht - fixRight - 15
-                        $('.landing-right').css({ "position": "absolute", "top": tempHeight });
-                    } else {
-
+                        var tempHeight = leftHeifht - fixRight - 15;
+                        $('.landing-right').css({ 'position': 'absolute', 'top': tempHeight });
                     }
                 } else {
-                    $('.landing-right').removeAttr("style");
+                    $('.landing-right').removeAttr('style');
                 }
             });
         }
-    }
+    };
 
     obj.init();
-    require('../common/baidu-statistics.js').initBaiduStatistics('6512a66181dbb2ea03b2b8fc4648babc')
-    require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7')
-    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66')
+    require('../common/baidu-statistics.js').initBaiduStatistics('6512a66181dbb2ea03b2b8fc4648babc');
+    require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7');
+    require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
 });

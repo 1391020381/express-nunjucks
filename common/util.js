@@ -172,15 +172,15 @@ module.exports = {
         // yyyy-mm-dd HH:mm:ss
         return year + '-' + month + '-' + day + ' ' + hh + ':' + mm + ':' + ss;
     },
-    getCategoryId: function (pathname) {
-        var regExp = /(?<=(\/c\/)).+(?=(.html))/;
-        var matchResult = pathname.match(regExp);
-        if (matchResult && matchResult.length > 0) {
-            var splitArr = matchResult[0].split('_');
-            return splitArr[0];
-        }
-        return '';
-    },
+    // getCategoryId: function (pathname) {
+    //     var regExp = /(?<=(\/c\/)).+(?=(.html))/;
+    //     var matchResult = pathname.match(regExp);
+    //     if (matchResult && matchResult.length > 0) {
+    //         var splitArr = matchResult[0].split('_');
+    //         return splitArr[0];
+    //     }
+    //     return '';
+    // },
     getCategoryParam: function (pathname) {
         var res = null;
         var regExp = /(?<=(\/c\/)).+(?=(.html))/;
@@ -242,9 +242,9 @@ module.exports = {
     getPropertyParams:function(list,properList){
 
         var arr=[],result=[];
-      //  console.log(list,'list------------')
-     //   console.log(properList,'properList------------')
-        properList.map(item=>{
+    //    console.log(list,'list------------')
+    //    console.log(properList,'properList------------')
+    properList&&properList.map(item=>{
            item.specialTopicPropertyDOList.map(res=>{
                res.ids=item.propertyGroupId+"_"+res.propertyId;
                res.propertyGroupName=item.propertyGroupName;

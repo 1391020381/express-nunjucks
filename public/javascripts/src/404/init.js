@@ -1,5 +1,5 @@
-define(function(require , exports , module){
-    require('./index')
-    require('./fixedTopBar')
-    
+define(function(require, exports, module){
+    require('./index');
+    require('./fixedTopBar');
+
 });

@@ -1,6 +1,6 @@
-define(function(require , exports , module){
+define(function(require, exports, module){
     // require('./fixedTopBar')
-    require('./upload')
-    require('../application/suspension')
-    require('./banner')
+    require('./upload');
+    require('../application/suspension');
+    require('./banner');
 });

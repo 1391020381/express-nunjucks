@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 // var render = require('../common/render');
-var personalCenter = require("../controllers/personalCenter");
-var error = require('../common/error');
+const personalCenter = require('../controllers/personalCenter');
+const error = require('../common/error');
 
 // router.get('/node/personalCenter/home.html', function(req, res) {
 //     try{
@@ -32,7 +32,7 @@ router.get('/node/personalCenter/personalinformation.html', personalCenter.perso
 
 router.get('/node/personalCenter/mywallet.html', personalCenter.mywallet);
 
-router.get('/node/redirectionURL.html', function (req, res) {
+router.get('/node/redirectionURL.html', (req, res) => {
     try {
         personalCenter.redirectionURL(req, res);
     } catch (e) {
@@ -40,9 +40,17 @@ router.get('/node/redirectionURL.html', function (req, res) {
     }
 });
 
-router.get('/u/:uid', function (req, res) {
+router.get('/u/:uid', (req, res) => {
     try {
         personalCenter.userPage(req, res);
+    } catch (e) {
+        error(req, res, next);
+    }
+});
+
+router.get('/node/userPage.html', (req, res) => {
+    try {
+        personalCenter.oldUserPage(req, res);
     } catch (e) {
         error(req, res, next);
     }

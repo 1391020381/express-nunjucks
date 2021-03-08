@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     return {
         search: {
-            descs: [ //搜索页推荐位
+            descs: [ // 搜索页推荐位
                 {
                     desc: '搜索页顶部banner',
                     pageId: 'PC_M_SR_ub',
@@ -18,7 +18,7 @@ define(function (require, exports, module) {
                     list: []
                 }
             ],
-            pageIds: ['PC_M_SR_ub', 'PC_M_SR_rb', 'PC_M_SR_downb'],
+            pageIds: ['PC_M_SR_ub', 'PC_M_SR_rb', 'PC_M_SR_downb']
         },
         paySuccess: {
             descs: [
@@ -90,5 +90,5 @@ define(function (require, exports, module) {
             ],
             pageIds: ['ishare_ztbanner']
         }
-    }
+    };
 });

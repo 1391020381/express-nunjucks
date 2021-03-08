@@ -1,11 +1,10 @@
 // 百度统计 自定义数据上传
 
 
-
-var _hmt = _hmt || [];//此变量百度统计需要  需全局变量
+var _hmt = _hmt || [];// 此变量百度统计需要  需全局变量
 define(function (require, exports, moudle) {
-    var method = require("../application/method");
-    var fileParams = window.pageConfig && window.pageConfig.params
+    var method = require('../application/method');
+    var fileParams = window.pageConfig && window.pageConfig.params;
     var eventNameList = {
         fileDetailPageView: {
             loginstatus: method.getCookie('cuk') ? 1 : 0,
@@ -14,7 +13,7 @@ define(function (require, exports, moudle) {
             fileid: fileParams && fileParams.g_fileId,
             filecategoryname: fileParams && fileParams.classidName1 + '||' + fileParams && fileParams.classidName2 + '||' + fileParams && fileParams.classidName3,
             filepaytype: fileParams && fileParams.productType || '', // 文件类型
-            filecootype: '', // 文件来源   
+            filecootype: '', // 文件来源
             fileformat: fileParams && fileParams.file_format || ''
         },
         payFileResult: {
@@ -56,21 +55,21 @@ define(function (require, exports, moudle) {
             pageid: $('#ip-page-name').val(),
             loginType: '',
             userid: '',
-            loginResult: ""
+            loginResult: ''
         }
-    }
-   function handle(id) {
+    };
+    function handle(id) {
         if (id) {
             _hmt.push(['_setAccount', id]);
             for (var key in _hmt.cmd) {
                 if (key == id) {
-                    return
+                    return;
                 } else {
                     try {
                         (function () {
-                            var hm = document.createElement("script");
-                            hm.src = "https://hm.baidu.com/hm.js?" + id;
-                            var s = document.getElementsByTagName("script")[0];
+                            var hm = document.createElement('script');
+                            hm.src = 'https://hm.baidu.com/hm.js?' + id;
+                            var s = document.getElementsByTagName('script')[0];
                             s.parentNode.insertBefore(hm, s);
                         })();
                     } catch (e) {
@@ -81,18 +80,20 @@ define(function (require, exports, moudle) {
         }
     }
 
-  function handleBaiduStatisticsPush(eventName,params){ // vlaue是对象
-    var temp = eventNameList[eventName]
-    if(eventName == 'fileDetailPageView'){
-        params = temp
-    }
-    if(eventName == 'payFileResult'){
-        params = $.extend(temp, {payresult:params.payresult,orderid:params.orderNo,orderpaytype:params.orderpaytype});
-    }
+    function handleBaiduStatisticsPush(eventName, params) { // vlaue是对象
+        var temp = eventNameList[eventName];
+        if (eventName == 'fileDetailPageView') {
+            params = temp;
+        }
+        if (eventName == 'payFileResult') {
+            params = $.extend(temp, { payresult: params.payresult, orderid: params.orderNo, orderpaytype: params.orderpaytype });
+        }
 
+        _hmt.push(['_trackCustomEvent', eventName, params]);
+        console.log('百度统计:', eventName, params);
     }
     return {
         initBaiduStatistics: handle,
-        handleBaiduStatisticsPush: handleBaiduStatisticsPush,
-    }
+        handleBaiduStatisticsPush: handleBaiduStatisticsPush
+    };
 });
