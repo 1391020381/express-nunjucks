@@ -33,7 +33,7 @@ const getData = cc(async (req, res) => {
     let navFatherId = '';
     let categoryName = '';
     // 分解cId字符串【categoryId-分类id format-格式 sortField-排序 currentPage-分页】
-    const cIds = cId ? cId.split('-') : [];
+    const cIds = cId ? cId.split('_') : [];
     const categoryId = cIds[0] ? cIds[0] : '';
     const format = cIds[1] ? cIds[1].toLowerCase() : 'all';
     const currentPage = cIds[2] ? Number(cIds[2]) : 1;
@@ -322,9 +322,10 @@ function handleResultData(
         fileType: format,
         sortField: sortField == 'default' ? '' : sortField,
         pageIndexArr: pageIndexArr,
-        selectId: urlSelectId ? '/' + urlSelectId : '/'
+        selectId: urlSelectId ? '/' + urlSelectId : '/',
+        selectUrl: urlSelectId ? '/' + urlSelectId.substring(1, urlSelectId.length) + '/' : '/'
     };
-
+    console.log('当前的urlSelect：', urlSelectId, results.reqParams.selectUrl);
     // 推荐位 banner
     // var topbannerId = 'topbanner_' + navFatherId;
     // var rightbannerId = 'rightbanner_' + navFatherId;
