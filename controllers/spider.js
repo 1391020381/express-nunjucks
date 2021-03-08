@@ -115,13 +115,16 @@ function dealContent(content, fileContentList, hotSearch) { // 分割字符串 �
     // hotSearch = [{itemId:'aaaaa',title:'面试真题'}]  // 测试
     const textLength = Math.ceil(content.length / fileContentList.length);
     let matchNum = 1;
+    const selectHotSearch = []; // 保存匹配过的专题
     const env = process.env.NODE_ENV || 'prod';
     fileContentList && fileContentList.map((dto, i) => {
         let text = content.substring(i * textLength, textLength * (i + 1));
         hotSearch && hotSearch.map(item => {
             const reg = new RegExp(item.title, 'i');
             const replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
-            if (reg.test(text) && matchNum <= 5) {// 匹配成功
+            const ret = reg.test(text);
+            if (ret && selectHotSearch.indexOf(item.title) == -1 && matchNum <= 5) {// 匹配成功
+                selectHotSearch.push(item.title); // 已匹配过
                 text = text.replace(reg, replaceStr);
                 matchNum++;
             }
