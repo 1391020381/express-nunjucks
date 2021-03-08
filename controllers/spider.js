@@ -108,7 +108,7 @@ function dealContent(content, fileContentList, hotSearch) { // 分割字符串 �
         'local': 'http://localhost:3004',
         'dev': 'http://dev-ishare.iask.com.cn',
         'test': 'http://test-ishare.iask.com.cn',
-        'pre': 'http://test-ishare.iask.com.cn',
+        'pre': 'http://pre-ishare.iask.com.cn',
         'prod': 'http://ishare.iask.sina.com.cn'
     };
     const arr = [];
