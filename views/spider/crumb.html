@@ -4,7 +4,7 @@
 
     {% for item in results.crumbList.data %}
         <div class="crumb-more">
-            <a href="/c/{{item.nodeCode}}">
+            <a href="/c/{{item.nodeCode}}/">
                 <i
                 class=" {{'crumb-arrow' if results.crumbList.data.length != loop.index}}" ></i>{{item.name}}
             </a>
