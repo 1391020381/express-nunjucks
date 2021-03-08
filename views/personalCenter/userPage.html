@@ -56,16 +56,16 @@
                         <div class="tab">
                             <div class="tab-item {%if results.sortField == 'downNum'%} active {%endif%}"
                                 type='downNum'>
-                                <a href="?sort=downNum">热门</a>
+                                <a href="/u/{{results.uid}}_downNum_all_1/">热门</a>
                             </div>
                             <div class="tab-item {%if results.sortField == 'createTime'%} active {%endif%}"
                                 type='createTime'>
-                                <a href="?sort=createTime">最新</a>
+                                <a href="/u/{{results.uid}}_createTime_all_1/">最新</a>
                             </div>
                             <div class="format">
                                 <div class="format-title">{{ results.formatName }}<i></i></div>
                                 <div class="format-list">
-                                    <div class="format-list-item {%if results.format == ''%} format-active {%endif%}" format=''>全部</div>
+                                    <div class="format-list-item {%if results.format == 'all'%} format-active {%endif%}" format='all'>全部</div>
                                     <div class="format-list-item {%if results.format == 'doc'%} format-active {%endif%}" format='doc'>DOC</div>
                                     <div class="format-list-item {%if results.format == 'ppt'%} format-active {%endif%}" format='ppt'>PPT</div>
                                     <div class="format-list-item {%if results.format == 'pdf'%} format-active {%endif%}" format='pdf'>PDF</div>
@@ -106,17 +106,17 @@
                         <div class="pagination-wrapper">
                             <div class="page-list pagination">
                                 <a class="page-item js-page-item first"
-                                    data-currentPage="1" href="{{results.currentUrl}}1">首页</a>
+                                    data-currentPage="1" href="{{results.currentUrl}}1/">首页</a>
                                 {% if results.currentPage > 1 %}
                                 <a class="page-item js-page-item prev"
                                     data-currentPage="{{results.currentPage - 1}}"
-                                    href="{{results.currentUrl}}{{results.currentPage - 1}}">上一页</a>
+                                    href="{{results.currentUrl}}{{results.currentPage - 1}}/">上一页</a>
                                 {% endif %}
                                 {% for $index in results.list.totalPages %}
                                 {% if $index > results.currentPage - 3 and $index <= +results.currentPage + 3 %}
                                 <a class="page-item js-page-item {% if results.currentPage == $index+1 %} active {% endif %}"
                                     data-currentPage="{{+$index + 1}}"
-                                    href="{{results.currentUrl}}{{+$index+1}}">
+                                    href="{{results.currentUrl}}{{+$index+1}}/">
                                     {{$index+1}}
                                 </a>
                                 {% endif %}
@@ -128,11 +128,11 @@
                                 {% if results.currentPage < results.list.totalPages.length %}
                                 <a class="page-item js-page-item"
                                     data-currentPage={{+results.currentPage+1}}
-                                    href="{{results.currentUrl}}{{+results.currentPage+1}}">下一页</a>
+                                    href="{{results.currentUrl}}{{+results.currentPage+1}}/">下一页</a>
                                 {% endif %}
                                 <a class="page-item js-page-item"
                                     data-currentPage={{results.list.totalPages.length}}
-                                    href="{{results.currentUrl}}{{results.list.totalPages.length}}">尾页</a>
+                                    href="{{results.currentUrl}}{{results.list.totalPages.length}}/">尾页</a>
                             </div>
                         </div>
                         {% endif %}

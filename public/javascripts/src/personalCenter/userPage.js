@@ -27,16 +27,13 @@ define(function(require, exports, module) {
 
         $(document).on('click', '.format-list-item', function () {
             var format = $(this).attr('format');
-            var curHref = window.location.href.split('?')[0];
-            var curQuery = '';
-            var sortField = method.getQueryString('sort');
-            if (sortField && format) {
-                curQuery = '?sort=' + sortField + '&format=' + format;
-            } else if (!sortField && format) {
-                curQuery = '?format=' + format;
-            } else if (sortField && !format) {
-                curQuery = '?sort=' + sortField;
-            }
+            var pathname = window.location.pathname;
+            var curHref = window.location.protocol + '//' + window.location.host + '/u/';
+            var uid = pathname ? pathname.substring(3, pathname.length) : '';
+            var uids = uid ? uid.split('_') : [];
+            var userId = uids[0] ? uids[0] : '';
+            var sortField = uids[1] ? uids[1] : 'downNum';
+            var curQuery = userId + '_' + sortField + '_' + format + '_1/';
             window.location.href = curHref + curQuery;
         });
 
