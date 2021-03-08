@@ -108,7 +108,8 @@ body {
   margin-bottom: 17px;
   width: 1200px;
   height: 140px;
-  background: #6dcbff;
+  background: url(../../images/special/special-bg.png) no-repeat center;
+  background-size: 100%;
   border: 1px solid #eeeeee;
   border-radius: 2px;
 }
