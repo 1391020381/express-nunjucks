@@ -80,9 +80,9 @@
                     {% for item in results.fileDetailArr %}
                         <div class="pic-con">
                             {% if loop.index0 > 0%}
-                                <img src="{{item.img}}" alt={{results.list.data.fileInfo.title + '图片' + loop.index0}}>
+                                <img src="{{item.img}}" alt="{{results.list.data.fileInfo.title + '图片' + loop.index0}}">
                                 {%else%}
-                                <img src="{{item.img}}" alt={{results.list.data.fileInfo.title + '图片'}}>
+                                <img src="{{item.img}}" alt="{{results.list.data.fileInfo.title + '图片'}}">
                                 {%endif%}
                             </div>
                             <p >
