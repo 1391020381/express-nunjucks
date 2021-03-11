@@ -69,7 +69,7 @@ define(function (require, exports, module) {
                     var params = window.pageConfig.params;
                     if (params.productType == '3') { //
                         if (data && data.isVip == 1) {
-                            sendEmail();
+                            console.log('发送邮箱');
                         } else {
                             var fid = window.pageConfig.params.g_fileId;
                             var format = window.pageConfig.params.file_format;
@@ -256,6 +256,8 @@ define(function (require, exports, module) {
 
         // 查找相关资料
         $('.detail-fixed').on('click', '#searchRes', function () { // 寻找相关资料
+            var productType = window.pageConfig.params.productType || '';
+            if (productType == 3) return false;
             sendEmail();
         });
 

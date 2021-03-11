@@ -328,6 +328,7 @@ define(function (require, exports, module) {
                 html: $('#search-file-box').html().replace(/\$fileId/, window.pageConfig.params.g_fileId)
             }).open();
         });
+
         $('body').on('click', '.js-buy-open', function () {
             var type = $(this).data('type');
             if (!method.getCookie('cuk')) {
