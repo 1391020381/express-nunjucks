@@ -781,7 +781,8 @@ define(function (require, exports, moudle) {
             handleBaiduStatisticsPush('payFileResult01', {
                 payresult: 1,
                 orderid: orderNo,
-                fileid: orderInfo.goodsId
+                fileid: orderInfo.goodsId,
+                orderpayprice:orderInfo.payPrice /100
             });
             // 购买文件成功
             href += '&type=2';
@@ -838,7 +839,8 @@ define(function (require, exports, moudle) {
             handleBaiduStatisticsPush('payFileResult01', {
                 payresult: 0,
                 orderid: orderNo,
-                fileid: orderInfo.goodsId
+                fileid: orderInfo.goodsId,
+                orderpayprice:orderInfo.payPrice/100
             });
             // 购买文件失败
             href += '&type=2';

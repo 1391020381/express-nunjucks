@@ -280,7 +280,8 @@ define(function (require) {
                             handleBaiduStatisticsPush('payFileResult01', {
                                 payresult: 1,
                                 orderid: orderNo,
-                                fileid: orderInfo.goodsId
+                                fileid: orderInfo.goodsId,
+                                orderpayprice:orderInfo.payPrice /100
                             });
                             trackEvent('SE034', 'payResult', 'query', {
                                 result: 1,
@@ -301,7 +302,8 @@ define(function (require) {
                             handleBaiduStatisticsPush('payFileResult01', {
                                 payresult: 1,
                                 orderid: orderNo,
-                                fileid: orderInfo.goodsId
+                                fileid: orderInfo.goodsId,
+                                orderpayprice:orderInfo.payPrice/100
                             });
                             trackEvent('SE034', 'payResult', 'query', {
                                 result: 0,
