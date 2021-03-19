@@ -149,7 +149,7 @@
             </div>
             <ul class="landing-txt-list">
                 {% for item in results.list.data.rows or []  %}
-                <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult'>
+                <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult' data-index="{{loop.index}}">
                     <div class="filepic fl">
                         <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
                         <img src="{% if item.fileSmallPic %}{{'http://pic.iask.com.cn/'+item.fileSmallPic if item.fileSmallPic}} {%else%} {{cdnUrl}}/images/default-picture.png {%endif%}" alt="">

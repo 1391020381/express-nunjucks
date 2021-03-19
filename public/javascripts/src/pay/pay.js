@@ -31,6 +31,11 @@ define(function (require, exports, moudle) {
             moduleID: 'vipPayCon',
             moduleName: 'VIP套餐列表弹窗'
         });
+        trackEvent('NE033', 'goodsPayModelView', 'view', {
+            moduleID: 'vipPayCon',
+            moduleName: 'VIP套餐列表弹窗',
+            prePageFileID:method.getParam('fid')
+        });
         if (isAutoRenew != 1) { //
             $('.renewal-radio').hide();
         }
@@ -52,7 +57,11 @@ define(function (require, exports, moudle) {
             moduleID: 'priPayCon',
             moduleName: '特权列表弹窗'
         });
-
+        trackEvent('NE033', 'goodsPayModelView', 'view', {
+            moduleID: 'buyTqCon',
+            moduleName: '特权补充弹窗',
+            prePageFileID:method.getParam('fid')
+        });
     }
 
 
@@ -484,7 +493,8 @@ define(function (require, exports, moudle) {
                 vipName: activeLi.attr('data-month'),
                 vipPrice: activeLi.attr('data-price'),
                 couponID: payCoupon.attr('vid') || '',
-                coupon: payCoupon.attr('svuid') || ''
+                coupon: payCoupon.attr('svuid') || '',
+                prePageFileID:method.getParam('fid')
             });
         }
         if (goodsType == '1') {
@@ -500,7 +510,8 @@ define(function (require, exports, moudle) {
 
             trackEvent('SE012', 'payPrivilegeClick', 'click', {
                 privilegeName: $('.pay-pri-list .ui-tab-nav-item.active .privilege-price').text(),
-                privilegePrice: $('.price-text-con .price').text()
+                privilegePrice: $('.price-text-con .price').text(),
+                prePageFileID: method.getParam('fid')
             });
         }
 
@@ -537,7 +548,10 @@ define(function (require, exports, moudle) {
                     console.log('下单返回的数据：' + data);
                     data['remark'] = temp.remark;
                     trackEvent('SE033', 'createOrder', 'query', {
-                        orderID: data.data.orderNo
+                        orderID: data.data.orderNo,
+                        goodsID: goodsId,
+                        goodsType: goodsType,
+                        prePageFileID: method.getParam('fid')
                     });
                     openWin(data);
                 } else {
@@ -731,7 +745,8 @@ define(function (require, exports, moudle) {
                             result: 1,
                             orderID: orderNo,
                             goodsID: data.goodsId,
-                            goodsType: data.goodsType
+                            goodsType: data.goodsType,
+                            prePageFileID:method.getParam('fid')
                         });
                         goodsPaySuccess(data, orderNo);
                     } else if (data.orderStatus == 3) {
@@ -739,7 +754,8 @@ define(function (require, exports, moudle) {
                             result: 0,
                             orderID: orderNo,
                             goodsID: data.goodsId,
-                            goodsType: data.goodsType
+                            goodsType: data.goodsType,
+                            prePageFileID:method.getParam('fid')
                         });
                         goodsPayFail(data, orderNo);
                     }

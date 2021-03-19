@@ -185,7 +185,11 @@ define(function (require) {
                     // 生成二维码
                     unloginObj.createdQrCode(data.data.orderNo);
                     trackEvent('SE033', 'createOrder', 'query', {
-                        orderID: data.data.orderNo
+                        orderID: data.data.orderNo,
+                        goodsID: pageConfig.params.g_fileId,
+                        goodsType: 1,
+                        prePageFileID: pageConfig.params.g_fileId,
+                        
                     });
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
@@ -287,7 +291,8 @@ define(function (require) {
                                 result: 1,
                                 orderID: orderInfo.orderNo,
                                 goodsID: orderInfo.goodsId,
-                                goodsType: orderInfo.goodsType
+                                goodsType: orderInfo.goodsType,
+                                prePageFileID:orderInfo.goodsId
                             });
                             // 成功
                             try {
@@ -309,7 +314,8 @@ define(function (require) {
                                 result: 0,
                                 orderID: orderInfo.orderNo,
                                 goodsID: orderInfo.goodsId,
-                                goodsType: orderInfo.goodsType
+                                goodsType: orderInfo.goodsType,
+                                prePageFileID:orderInfo.goodsId
                             });
                         }
                     } else {

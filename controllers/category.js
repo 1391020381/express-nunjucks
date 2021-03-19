@@ -14,20 +14,6 @@ const util = require('../common/util');
 const cc = require('../common/cc');
 
 const getData = cc(async (req, res) => {
-    // let iszhizhuC = req.url.includes('zhizhuc')
-    // let navFatherId = ''
-    // let urlobj = req.params.id.split('-');
-    // let categoryId = urlobj[0];
-    // let format = urlobj[1] || '';
-    // format = format ? format.toLowerCase() : 'all';
-    // let currentPage = urlobj[2];
-    // currentPage = currentPage ? Number(currentPage.replace('p', '')) : 1;
-    // let sortField = urlobj[3] || '';  // 排序
-    // let attributeGroupId = urlobj[4]
-    // let attributeId = urlobj[5]
-    // let urlSelectId = urlobj[6] ? JSON.parse(decodeURIComponent(urlobj[6])) : []
-    // var deleteAttributeGroupId = urlobj[7]
-    // var categoryName = ''
 
     const { cId, sId } = req.params;
     let navFatherId = '';
@@ -68,6 +54,7 @@ const getData = cc(async (req, res) => {
     }
 
     const categoryTitle = await getCategoryTitle(req, res, categoryId, urlSelectId);
+  
     if (categoryTitle.data && categoryTitle.data.level1) {
         categoryTitle.data.level1.forEach(item => {
             if (item.select == 1) {
@@ -76,6 +63,7 @@ const getData = cc(async (req, res) => {
             }
         });
     }
+
 
     // 获取 属性组和id
     const selectId = [];
@@ -157,24 +145,26 @@ const getData = cc(async (req, res) => {
 module.exports = {
     getData: getData
 };
-
-// function getCategoryTitle(req, res, categoryId, attributeGroupId, attributeId, urlSelectId, deleteAttributeGroupId) {
-//     let addId = attributeGroupId && attributeId ? { attributeGroupId, attributeId } : ''
-//     // 先删除选中的同级属性
-//     urlSelectId = urlSelectId.filter(item => {
-//         return item.attributeGroupId != attributeGroupId && item.attributeGroupId != deleteAttributeGroupId
-//     })
-
-//     if (addId) {
-//         urlSelectId.push(addId)
-//     }
-
-//     req.body = {
-//         nodeCode: categoryId,
-//         attributeGroupList: urlSelectId
-//     }
-//     return server.$http(appConfig.apiNewBaselPath + api.category.navForCpage, 'post', req, res, true)
-// }
+//处理埋点需要上报的分类id和分类名称
+function dealCategoryTitle(cateData){
+   let idArr=[],nameArr=[];//选中的分类1 2 3 4 5级
+   const level1 = cateData.level1 ? cateData.level1 : [];
+   const level2 = cateData.level2 ? cateData.level2 : [];
+   const level3 = cateData.level3 ? cateData.level3 : [];
+   const level4 = cateData.level4 ? cateData.level4 : [];
+   const level5 = cateData.level5 ? cateData.level5 : [];
+   const levelList = [...level1, ...level2, ...level3, ...level4, ...level5];
+   levelList.forEach(item=>{
+       if(item.select == 1){
+        idArr.push(item.nodeCode)
+        nameArr.push(item.name)
+       }
+   })
+   return {
+    idArr:idArr.join('|'),
+    nameArr:nameArr.join('|')
+   }
+}
 
 // 根据分类节点获取所属分类和属性【A20】
 function getCategoryTitle(req, res, categoryId, urlSelectId) {
@@ -354,8 +344,10 @@ function handleResultData(
     });
 
     results.categoryId = categoryId; // 登录时传入当前分类id
+    results.navFatherId = navFatherId; // 登录时传入当前分类id
     results.isCategoryRender = true;
-    // results.iszhizhuC = iszhizhuC
+    results.idArr= dealCategoryTitle(categoryTitle.data).idArr;
+    results.nameArr= dealCategoryTitle(categoryTitle.data).nameArr;
     render('category/home', results, req, res);
 }
 
