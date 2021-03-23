@@ -1,0 +1,7 @@
+<!-- 文件夹模板 -->
+<li>
+    <span class="new-built js-folder-new" title="新建文件夹">新建文件夹</span>
+    {{each folders as foldItem foldIndex}}
+        <span class="new-built js-folder-item" id ='{{foldItem.id}}' name ='{{foldItem.name}}'   title="新建文件夹">{{foldItem.name}}</span>
+    {{/each}}
+</li>
