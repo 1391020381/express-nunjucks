@@ -137,7 +137,12 @@
                             <li>
                                 <span class="new-built js-folder-new" title="新建文件夹">新建文件夹</span>
                                 {{each folders as foldItem foldIndex}}
-                                    <span class="new-built js-folder-item" id ='{{foldItem.id}}' name ='{{foldItem.name}}'   title="新建文件夹">{{foldItem.name}}</span>
+                                    <span class="new-built js-folder-item" 
+                                        id ='{{foldItem.id}}' 
+                                        name ='{{foldItem.name}}' 
+                                        title="新建文件夹" 
+                                        index="{{i}}"
+                                    >{{foldItem.name}}</span>
                                 {{/each}}
                             </li>
                         </ul>
@@ -150,7 +155,7 @@
                         <span class="lable-name">简介:</span>
                         <div class="down-inter cf">
                             <div class="doc-describe fl">
-                                <textarea class="doc-text-area js-text-area" placeholder="请填写资料简介、概况或使用方法，有助提升资料的曝光率、购买率" maxlength="200">{{value.description}}</textarea>
+                                <textarea class="doc-text-area js-text-area" index="{{i}}" placeholder="请填写资料简介、概况或使用方法，有助提升资料的曝光率、购买率" maxlength="200">{{value.description}}</textarea>
                                 <p class="num-con"><em>0</em>/200</p>
                             </div>
                             <!-- <div class="doc-trial-con">

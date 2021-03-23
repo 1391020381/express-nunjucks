@@ -523,7 +523,7 @@ define(function (require, exports, module) {
                     var val = $(this).val().substr(0, 200);
                     $(this).val(val);
                 }
-                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                var itemIndex = $(this).attr('index');
                 uploadObj.uploadFiles[itemIndex].description = $(this).val();
             });
         },
@@ -647,7 +647,6 @@ define(function (require, exports, module) {
             }
             // 如果上传是第一次渲染
             if (uploadObj.initial) {
-
                 uploadObj.inputPrice();
                 uploadObj.inputPreRead();
                 uploadObj.verifyRequire();
