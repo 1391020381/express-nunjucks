@@ -9,6 +9,8 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var tmpList = require('./template/list.html'); // 公开资料模板
     var tmpList2 = require('./template/list_pravite.html'); // 私密资料模板
+    var cateTpl = require('./template/cate_tmp.html'); // 分类模板
+    var folderTpl = require('./template/folder_tmp.html'); // 文件夹模板
     var method = require('../application/method');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
@@ -18,6 +20,7 @@ define(function (require, exports, module) {
         permin: 1, // 1:公开、2:私密
         addFiles: [],
         isAuth: true,
+        initial: true, // 首次绑定渲染
         Allcategory: [],
         folders: [],
         allChecked: {
@@ -48,6 +51,7 @@ define(function (require, exports, module) {
             });
             uploadObj.handleDatainput();
         },
+
         handleDatainput: function () {
             $(document).on('blur', '.data-filename', function (e) {
                 var value = $(this).val();
@@ -55,6 +59,7 @@ define(function (require, exports, module) {
                 uploadObj.uploadFiles[index].fileName = value;
             });
         },
+
         checkHook: function () {
             // 勾选上传编辑文件
             $(document).on('click', '.data-checked', function () {
@@ -81,6 +86,7 @@ define(function (require, exports, module) {
                 uploadObj.publicFileRener();
             });
         },
+
         tabSwitch: function () {
             // 切换tab
             var index = 0;
@@ -92,6 +98,7 @@ define(function (require, exports, module) {
                 uploadObj.permin = Number(index) + 1;
             });
         },
+
         upload: function () {
             var E = Q.event,
                 Uploader = Q.Uploader;
@@ -120,6 +127,7 @@ define(function (require, exports, module) {
                 */
                 on: {
                     init: function () {
+                        console.log('上传文件准备就绪');
                     },
                     // 添加之前触发
                     add: function (task) {
@@ -140,7 +148,15 @@ define(function (require, exports, module) {
                         console.log('task:', task);
                         var ext = task.ext.split('.')[1];
                         var fileName = task.name.substr(0, task.name.indexOf(task.ext));
-                        var obj = { ext: ext, fileName: fileName, size: task.size, userFileType: 1, userFilePrice: '', preRead: '', permin: uploadObj.permin };
+                        var obj = {
+                            ext: ext,
+                            fileName: fileName,
+                            size: task.size,
+                            userFileType: 1,
+                            userFilePrice: '',
+                            preRead: '',
+                            permin: uploadObj.permin
+                        };
                         uploadObj.uploadFiles = uploadObj.uploadFiles.concat(obj);
                         $('.secondStep').show();
                         $('.firstStep').hide();
@@ -164,7 +180,6 @@ define(function (require, exports, module) {
                     },
                     // 上传完成后触发
                     complete: function (task) {
-
                         var res = JSON.parse(task.response);
                         uploadObj.addFiles = uploadObj.addFiles.concat(res.data.fail, res.data.success);
                         // this.list  为上传任务列表
@@ -217,6 +232,7 @@ define(function (require, exports, module) {
                 uploader.addList(files);
             });
         },
+
         getAllcategory: function () {
             var params = {
                 type: '0'
@@ -248,6 +264,7 @@ define(function (require, exports, module) {
                             }
                         });
                         uploadObj.Allcategory = res.data;
+                        uploadObj.bottomCategory();
                     } else {
                         utils.showAlertDialog('温馨提示', res.message);
                     }
@@ -257,6 +274,7 @@ define(function (require, exports, module) {
                 }
             });
         },
+
         // 分类选择
         categoryOption: function () {
             $('.doc-list').on('click', '.js-fenlei', function (e) {
@@ -337,6 +355,7 @@ define(function (require, exports, module) {
             });
 
         },
+
         // 类型选择
         typeSelect: function () {
             $('.doc-list').on('click', '.js-type', function (e) {
@@ -381,6 +400,7 @@ define(function (require, exports, module) {
             });
 
         },
+
         // 价钱选择
         priceSelect: function () {
             $('.doc-list').on('click', '.js-price', function (e) {
@@ -424,6 +444,7 @@ define(function (require, exports, module) {
             });
 
         },
+
         //  输入金额
         inputPrice: function () {
             $('.js-file-item').on('blur', '.doc-pay-input input[name=\'moneyPrice\']', function () {
@@ -450,6 +471,7 @@ define(function (require, exports, module) {
                     }
                 }
             });
+
             $('.js-file-item').on('blur', '.doc-pay-input input[name=\'moneyPrice\']', function () {
                 // uploadObj.publicFileRener()
             });
@@ -465,6 +487,7 @@ define(function (require, exports, module) {
             });
 
         },
+
         // 试读
         inputPreRead: function () {
             $('.js-file-item').on('blur', 'input[name=\'preRead\']', function () {
@@ -490,6 +513,7 @@ define(function (require, exports, module) {
                 uploadObj.publicFileRener();
             });
         },
+
         // 简介
         briefIntroduce: function () {
             $('.js-file-item').on('keyup', '.js-text-area', function () {
@@ -499,10 +523,11 @@ define(function (require, exports, module) {
                     var val = $(this).val().substr(0, 200);
                     $(this).val(val);
                 }
-                var itemIndex = $(event.target).parents('.doc-li').attr('index');
+                var itemIndex = $(this).attr('index');
                 uploadObj.uploadFiles[itemIndex].description = $(this).val();
             });
         },
+
         // 选择保存
         saveFolderOption: function () {
             $('.doc-list').on('click', '.js-folder-hook', function (e) {
@@ -541,6 +566,7 @@ define(function (require, exports, module) {
                 uploadObj.createFolder(name);
             });
         },
+
         // 新建文件夹
         createFolder: function (name) {
             var params = {
@@ -571,6 +597,7 @@ define(function (require, exports, module) {
                 }
             });
         },
+
         getFolder: function () {
             var params = {
                 deeplevel: 3,
@@ -592,12 +619,15 @@ define(function (require, exports, module) {
                     } else {
                         uploadObj.folders = [];
                     }
+                    uploadObj.bottomFolder();
                 },
                 complete: function () {
 
                 }
             });
         },
+
+        // 资料上传列表渲染
         publicFileRener: function () {
             var _html = '';
             if (uploadObj.permin == 1) {
@@ -610,32 +640,48 @@ define(function (require, exports, module) {
             var uploadAmount = uploadObj.uploadFiles.length;
             $('.uploadAmount').text(uploadAmount);
             $('.js-file-item').html(_html);
-            uploadObj.bottomCategory();
-            uploadObj.inputPrice();
-            uploadObj.inputPreRead();
-            uploadObj.verifyRequire();
-            uploadObj.briefIntroduce();
             if (uploadObj.uploadFiles.length > 19) {
                 $('#upload-target2').hide();
             } else {
                 $('#upload-target2').show();
             }
+            // 如果上传是第一次渲染
+            if (uploadObj.initial) {
+                uploadObj.inputPrice();
+                uploadObj.inputPreRead();
+                uploadObj.verifyRequire();
+                uploadObj.briefIntroduce();
+                uploadObj.initial = false;
+            }
         },
-        // 渲染底部分类&文件夹
+
+        // 渲染底部分类
         bottomCategory: function () {
-            var _html = $('.fenlei .date-con-in').html();
-            var foldhtml = $('.folder').html();
-            $('.js-bottom-category').html(_html);
+            var fenleihtml = template.compile(cateTpl)({
+                Allcategory: uploadObj.Allcategory
+            });
+            $('.js-bottom-category').html(fenleihtml);
+        },
+
+        // 渲染底部文件夹
+        bottomFolder: function() {
+            var foldhtml = template.compile(folderTpl)({
+                folders: uploadObj.folders
+            });
             $('.js-folder-con').html(foldhtml);
         },
+
         // 删除
         delete: function () {
             $('.js-file-item').on('click', '.js-delete', function () {
-                var index = $(this).parents('.doc-list').attr('index');
-                uploadObj.uploadFiles.splice(index, 1);
-                uploadObj.publicFileRener();
+                var index = $(this).attr('index');
+                if (index > -1) {
+                    uploadObj.uploadFiles.splice(index, 1);
+                    uploadObj.publicFileRener();
+                }
             });
         },
+
         verifyRequire: function () {
             var that = this;
             $('.js-file-item').on('keyup', '.data-name input[name=\'fileName\']', function () {
@@ -659,6 +705,8 @@ define(function (require, exports, module) {
                 }
             });
         },
+
+        // 数据合法性验证
         dataVerify: function (item, index) {
             var reg = /(^\s+)|(\s+$)|\s+/g;
             var patrn = /^[0-9]*$/;
@@ -709,6 +757,7 @@ define(function (require, exports, module) {
 
 
         },
+
         // 保存
         saveUploadFile: function () {
             var locker = false;
@@ -759,9 +808,7 @@ define(function (require, exports, module) {
                         }
                     }
                 });
-                // for (var i = 0; i < uploadObj.uploadFiles.length; i++) {
 
-                // }
                 if (stop) {
                     return false;
                 }
