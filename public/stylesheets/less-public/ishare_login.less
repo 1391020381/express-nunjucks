@@ -26,28 +26,32 @@
         background-position: -220px -20px;
         cursor: pointer;
     }
-    
-input::-webkit-input-safebox-button{
-    display: none;/*去掉搜狗浏览器密码软盘*/
-}
+
+    input::-webkit-input-safebox-button {
+        display: none;
+        /*去掉搜狗浏览器密码软盘*/
+    }
 }
 
 input::-webkit-credentials-auto-fill-button {
     display: none !important;
     visibility: hidden;
     pointer-events: none;
-    position: absolute; /* 避免占用 input 元素额外的 padding，正常情况下存在 display: none!; 就可以了 */
+    position: absolute;
+    /* 避免占用 input 元素额外的 padding，正常情况下存在 display: none!; 就可以了 */
     right: 0;
 }
-.qrcode-default{
+
+.qrcode-default {
     position: absolute;
-    left:50%;
-    top:50%;
+    left: 50%;
+    top: 50%;
     width: 50px;
     height: 50px;
-    margin-left:-25px;
-    margin-top:-25px;
- }
+    margin-left: -25px;
+    margin-top: -25px;
+}
+
 .login-content {
     width: 100%;
     height: 100%;
@@ -84,12 +88,14 @@ input::-webkit-credentials-auto-fill-button {
             }
         }
     }
-    .errortip{
+
+    .errortip {
         display: none;
         position: absolute;
         left: 61px;
         top: 100px;
-        .error-icon{
+
+        .error-icon {
             display: inline-block;
             width: 18px;
             height: 18px;
@@ -97,15 +103,17 @@ input::-webkit-credentials-auto-fill-button {
             background-size: 100%;
             vertical-align: middle;
         }
-        .error-tip{
-            margin-left:5px;
+
+        .error-tip {
+            margin-left: 5px;
             width: 315px;
             font-size: 15px;
             color: #E53223;
             vertical-align: middle;
-            .text-ellipsis(); 
+            .text-ellipsis();
         }
     }
+
     .weixin-login {
         // display: none;
 
@@ -117,15 +125,16 @@ input::-webkit-credentials-auto-fill-button {
             position: relative;
 
             .login-qr {
-                
+
                 width: 100%;
                 height: 100%;
                 background: #ffffff;
                 border-radius: 4px;
-                background:rgba(255,255,255,1);
-                border:1px solid rgba(212, 212, 212, 1);
+                background: rgba(255, 255, 255, 1);
+                border: 1px solid rgba(212, 212, 212, 1);
                 position: relative;
-                #login-qr{
+
+                #login-qr {
                     width: 200px;
                     height: 200px;
                     display: none;
@@ -143,8 +152,9 @@ input::-webkit-credentials-auto-fill-button {
                 left: 0;
                 top: 0;
                 opacity: 0.6;
-                
+
             }
+
             .qr-invalidtip {
                 display: none;
                 position: absolute;
@@ -181,14 +191,16 @@ input::-webkit-credentials-auto-fill-button {
             color: #656565;
             text-align: center;
         }
-        .login-redpacket{
+
+        .login-redpacket {
             display: none;
-            margin-top:18px;
+            margin-top: 18px;
             margin-bottom: 22px;
             font-size: 14px;
             text-align: center;
             color: #333333;
-            .redpacket-icon{   
+
+            .redpacket-icon {
                 display: inline-block;
                 width: 15px;
                 height: 19px;
@@ -198,7 +210,8 @@ input::-webkit-credentials-auto-fill-button {
                 background-size: 100%;
                 vertical-align: middle;
             }
-            .redpacket-desc{
+
+            .redpacket-desc {
                 display: inline-block;
                 vertical-align: middle;
             }
@@ -220,14 +233,17 @@ input::-webkit-credentials-auto-fill-button {
                 color: #1d73a0;
                 margin-left: 10px;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
-            .privacy-pooptioncy{
+
+            .privacy-pooptioncy {
                 color: #1d73a0;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
@@ -303,7 +319,8 @@ input::-webkit-credentials-auto-fill-button {
                 margin-left: 121px;
                 font-size: 15px;
                 color: #999999;
-                &:hover{
+
+                &:hover {
                     color: #1D739F;
                 }
             }
@@ -313,9 +330,11 @@ input::-webkit-credentials-auto-fill-button {
                 font-size: 15px;
                 color: #999999;
                 position: relative;
-                &:hover{
+
+                &:hover {
                     color: #1D739F;
                 }
+
                 &::after {
                     content: '';
                     width: 1px;
@@ -353,6 +372,7 @@ input::-webkit-credentials-auto-fill-button {
                 cursor: pointer;
                 background: rgba(255, 255, 255, 1);
                 border-top: none;
+
                 .phone-num {
                     width: 100%;
                     height: 42px;
@@ -373,12 +393,12 @@ input::-webkit-credentials-auto-fill-button {
                         width: 0;
                         height: 0;
                         border-left: 4px solid transparent;
-                       border-right: 4px solid transparent;
-                       border-top: 4px solid #A0A0A0;
-                       top: 50%;
-                         right: 5px;
-                         position: absolute;
-                         margin-top: -2px;
+                        border-right: 4px solid transparent;
+                        border-top: 4px solid #A0A0A0;
+                        top: 50%;
+                        right: 5px;
+                        position: absolute;
+                        margin-top: -2px;
                     }
                 }
 
@@ -391,7 +411,7 @@ input::-webkit-credentials-auto-fill-button {
                     z-index: 5;
                     background-color: #fff;
                     border: 1px solid #ccc;
-                    border-top:none;
+                    border-top: none;
                     border-bottom-left-radius: 4px;
                     border-bottom-right-radius: 4px;
                     line-height: 30px;
@@ -399,17 +419,20 @@ input::-webkit-credentials-auto-fill-button {
                     height: 150px;
                     overflow: hidden;
                     overflow-y: scroll;
-                    .phone-ele{
+
+                    .phone-ele {
                         display: block;
-                        .number-con{
-                             float: left;
-                             width: 46px;
-                             margin-left: 10px;
+
+                        .number-con {
+                            float: left;
+                            width: 46px;
+                            margin-left: 10px;
                         }
                     }
                 }
             }
-            .phone-choice-show{
+
+            .phone-choice-show {
                 .phone-num {
                     border-bottom-color: #fff;
                     border-bottom-left-radius: 0;
@@ -462,17 +485,19 @@ input::-webkit-credentials-auto-fill-button {
                 border-radius: 4px;
                 padding-left: 8px;
             }
-            .verification-code-tip{
+
+            .verification-code-tip {
                 display: none;
                 position: absolute;
-                 top: 50%;
+                top: 50%;
                 font-size: 15px;
                 height: 15px;
                 color: #E63223;
-                 left: 96px;
+                left: 96px;
                 margin-top: -9px;
             }
-            .getVerificationCode{
+
+            .getVerificationCode {
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -482,11 +507,12 @@ input::-webkit-credentials-auto-fill-button {
                 font-size: 15px;
                 color: #999999;
                 text-align: center;
-                background:rgba(233,232,229,1);
-                border-radius:4px;
+                background: rgba(233, 232, 229, 1);
+                border-radius: 4px;
                 // cursor: not-allowed;
                 cursor: pointer;
             }
+
             .getVerificationCode-active {
                 position: absolute;
                 right: 0;
@@ -519,14 +545,17 @@ input::-webkit-credentials-auto-fill-button {
                 color: #1d73a0;
                 margin-left: 10px;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
-            .privacy-pooptioncy{
+
+            .privacy-pooptioncy {
                 color: #1d73a0;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
@@ -540,19 +569,22 @@ input::-webkit-credentials-auto-fill-button {
             text-align: center;
             font-size: 15px;
             color: #ffffff;
-            border-radius:4px;
-            &:hover{
+            border-radius: 4px;
+
+            &:hover {
                 background: #EC3A22;
             }
-           
+
         }
+
         .login-btn-disable {
-            background:rgba(242,81,38,1);
-            opacity:0.6;
+            background: rgba(242, 81, 38, 1);
+            opacity: 0.6;
             // cursor: not-allowed;
             cursor: pointer;
         }
-        .login-btn-active{
+
+        .login-btn-active {
             background: rgba(242, 81, 38, 1);
             border-radius: 4px;
             cursor: pointer;
@@ -592,12 +624,13 @@ input::-webkit-credentials-auto-fill-button {
                     background: url('../images/login/weixin.png') no-repeat center;
                     background-size: 100%;
                 }
+
                 // &:hover{
                 //     .weixin-icon {
                 //         background: url('../images/login/tourist-wechat-login.png') no-repeat center;
                 //         background-size: 100%;
                 //     }
-                    
+
                 // }
             }
 
@@ -615,6 +648,7 @@ input::-webkit-credentials-auto-fill-button {
                     font-size: 13px;
                     color: #656565;
                 }
+
                 // &:hover{
                 //     .qq-icon {
                 //         background: url('../images/login/qq-active.png') no-repeat center;
@@ -637,6 +671,7 @@ input::-webkit-credentials-auto-fill-button {
                     font-size: 13px;
                     color: #656565;
                 }
+
                 // &:hover{
                 //     .weibo-icon {
                 //         background: url('../images/login/weibo-active.png') no-repeat center;
@@ -649,7 +684,8 @@ input::-webkit-credentials-auto-fill-button {
                 margin-left: 121px;
                 font-size: 15px;
                 color: #999999;
-                &:hover{
+
+                &:hover {
                     color: #1D739F;
                 }
             }
@@ -662,7 +698,8 @@ input::-webkit-credentials-auto-fill-button {
                 right: 24px;
                 font-size: 15px;
                 color: #999999;
-                &:hover{
+
+                &:hover {
                     color: #1D739F;
                 }
 
@@ -693,6 +730,7 @@ input::-webkit-credentials-auto-fill-button {
                 cursor: pointer;
                 background: rgba(255, 255, 255, 1);
                 border-top: none;
+
                 .phone-num {
                     width: 100%;
                     height: 42px;
@@ -731,7 +769,7 @@ input::-webkit-credentials-auto-fill-button {
                     z-index: 5;
                     background-color: #fff;
                     border: 1px solid #ccc;
-                    border-top:none;
+                    border-top: none;
                     border-bottom-left-radius: 4px;
                     border-bottom-right-radius: 4px;
                     line-height: 30px;
@@ -739,17 +777,20 @@ input::-webkit-credentials-auto-fill-button {
                     height: 150px;
                     overflow: hidden;
                     overflow-y: scroll;
-                    .phone-ele{
+
+                    .phone-ele {
                         display: block;
-                        .number-con{
-                             float: left;
-                             width: 46px;
-                             margin-left: 10px;
+
+                        .number-con {
+                            float: left;
+                            width: 46px;
+                            margin-left: 10px;
                         }
                     }
                 }
             }
-            .phone-choice-show{
+
+            .phone-choice-show {
                 .phone-num {
                     border-bottom-color: #fff;
                     border-bottom-left-radius: 0;
@@ -803,32 +844,35 @@ input::-webkit-credentials-auto-fill-button {
                 border: 1px solid rgba(204, 204, 204, 1);
                 border-radius: 4px;
             }
-            .close-eye{
+
+            .close-eye {
                 display: none;
                 position: absolute;
                 right: 11px;
-                top:50%;
+                top: 50%;
                 width: 20px;
                 height: 20px;
-                margin-top:-10px;
+                margin-top: -10px;
                 background: url('../images/login/close-eye.png');
                 background-size: 100%;
                 cursor: pointer;
             }
-            .eye{
+
+            .eye {
                 display: none;
                 position: absolute;
                 right: 11px;
-                top:50%;
+                top: 50%;
                 width: 20px;
                 height: 15px;
-                margin-top:-7.5px;
+                margin-top: -7.5px;
                 background: url('../images/login/eye.png');
                 background-size: 100%;
                 cursor: pointer;
             }
+
             .password-errortip {
-                 display: none;
+                display: none;
                 position: absolute;
                 width: 120px;
                 height: 15px;
@@ -850,23 +894,26 @@ input::-webkit-credentials-auto-fill-button {
             font-size: 15px;
             color: #ffffff;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 background: #EC3A22;
             }
 
         }
-        
+
         .login-btn-disable {
-            background:rgba(242,81,38,1);
-            opacity:0.6;
+            background: rgba(242, 81, 38, 1);
+            opacity: 0.6;
             // cursor: not-allowed;
             cursor: pointer;
         }
-        .login-btn-active{
+
+        .login-btn-active {
             background: rgba(242, 81, 38, 1);
             border-radius: 4px;
             cursor: pointer;
         }
+
         .login-qrinfo {
             margin: 0 auto;
             margin-top: 20px;
@@ -874,8 +921,9 @@ input::-webkit-credentials-auto-fill-button {
             line-height: 15px;
             color: #656565;
             text-align: center;
-           
+
         }
+
         .login-info {
             margin: 24px auto 0 auto;
             width: 336px;
@@ -892,14 +940,17 @@ input::-webkit-credentials-auto-fill-button {
                 color: #1d73a0;
                 margin-left: 10px;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
-            .privacy-pooptioncy{
+
+            .privacy-pooptioncy {
                 color: #1d73a0;
                 cursor: pointer;
-                &:hover{
+
+                &:hover {
                     color: #1d73a0;
                 }
             }
@@ -980,7 +1031,8 @@ input::-webkit-credentials-auto-fill-button {
                 position: absolute;
                 right: 24px;
                 color: #999999;
-                &:hover{
+
+                &:hover {
                     color: #1D739F;
                 }
             }
@@ -1015,7 +1067,7 @@ input::-webkit-credentials-auto-fill-button {
         background-position: -220px -20px;
         cursor: pointer;
     }
-    
+
     .tourist-purchase-container {
         width: 100%;
         height: 100%;
@@ -1032,21 +1084,24 @@ input::-webkit-credentials-auto-fill-button {
                 font-size: 22px;
                 cursor: pointer;
             }
-            .border-bottom{
+
+            .border-bottom {
                 display: none;
                 position: absolute;
-                left:50%;
+                left: 50%;
                 bottom: 0;
-                margin-left:-25px;
-                width:50px;
-                height:4px;
-                background:rgba(242,81,37,1);
-                border-radius:2px;
+                margin-left: -25px;
+                width: 50px;
+                height: 4px;
+                background: rgba(242, 81, 37, 1);
+                border-radius: 2px;
             }
+
             .tab-active {
                 color: #333333;
                 font-weight: 500;
-                .border-bottom{
+
+                .border-bottom {
                     display: block;
                 }
             }
@@ -1056,15 +1111,17 @@ input::-webkit-credentials-auto-fill-button {
             }
 
             .login-purchase {
-                left: 93px; 
+                left: 93px;
             }
         }
-        .errortip{
+
+        .errortip {
             display: none;
             position: absolute;
             left: 61px;
             top: 170px;
-            .error-icon{
+
+            .error-icon {
                 display: inline-block;
                 width: 18px;
                 height: 18px;
@@ -1072,27 +1129,30 @@ input::-webkit-credentials-auto-fill-button {
                 background-size: 100%;
                 vertical-align: middle;
             }
-            .error-tip{
-                margin-left:5px;
+
+            .error-tip {
+                margin-left: 5px;
                 width: 315px;
                 font-size: 15px;
                 color: #E53223;
                 vertical-align: middle;
-                .text-ellipsis(); 
+                .text-ellipsis();
             }
         }
-        
 
-        .tourist-purchase-content{
+
+        .tourist-purchase-content {
             display: none;
             margin-top: 40px;
         }
+
         .file-summary {
             font-size: 14px;
             height: 14px;
             line-height: 14px;
             color: #666666;
             text-align: center;
+
             .file-icon {
                 // margin-left: 58px;
                 margin-right: 4px;
@@ -1116,7 +1176,8 @@ input::-webkit-credentials-auto-fill-button {
             height: 24px;
             line-height: 24px;
             color: #333333;
-            .price{
+
+            .price {
                 font-size: 24px;
                 color: #F25125;
                 font-weight: bold;
@@ -1134,11 +1195,12 @@ input::-webkit-credentials-auto-fill-button {
                 //    display: none;
                 width: 100%;
                 height: 100%;
-                background:rgba(255,255,255,1);
-                border:1px solid rgba(212, 212, 212, 1);
-                border-radius:4px;
-                #touristPayQrCode{
-                    padding:11px;
+                background: rgba(255, 255, 255, 1);
+                border: 1px solid rgba(212, 212, 212, 1);
+                border-radius: 4px;
+
+                #touristPayQrCode {
+                    padding: 11px;
                 }
             }
 
@@ -1154,6 +1216,7 @@ input::-webkit-credentials-auto-fill-button {
                 top: 0;
                 opacity: 0.6;
             }
+
             .tourist-purchase-qr-invalidtip {
                 display: none;
                 position: absolute;
@@ -1180,13 +1243,14 @@ input::-webkit-credentials-auto-fill-button {
                 text-align: center;
                 cursor: pointer;
             }
+
             .tourist-purchase-refresh {
                 display: none;
                 position: absolute;
                 left: 64px;
                 bottom: 27px;
                 width: 72px;
-                font-size: 14px;                
+                font-size: 14px;
                 color: #FFFFFF;
                 line-height: 24px;
                 text-align: center;
@@ -1233,24 +1297,28 @@ input::-webkit-credentials-auto-fill-button {
             line-height: 24px;
             color: #666666;
             text-align: center;
+
             .tourist-purchase-text {
                 visibility: visible;
             }
+
             .tourist-purchase-download {
                 display: inline-block;
-                width: 126px;
-                height: 35px;
-                line-height: 35px;
-                background: #F25226;
-                border-radius: 4px;
+                // width: 126px;
+                // height: 35px;
+                // line-height: 35px;
+                // background: #F25226;
+                // border-radius: 4px;
                 font-size: 14px;
                 font-weight: 400;
                 color: #FFFFFF;
                 line-height: 35px;
                 margin-left: 10px;
-                &:hover {
-                    background-color: #f15125;
-                }
+                color: #F25226;
+                cursor: pointer;
+                // &:hover {
+                //     background-color: #f15125;
+                // }
             }
         }
 
@@ -1267,28 +1335,29 @@ input::-webkit-credentials-auto-fill-button {
 }
 
 
-.tourist-login{
+.tourist-login {
     .login-qrContent {
-        margin:0 auto;
+        margin: 0 auto;
         width: 200px;
         height: 200px;
         position: relative;
-    
+
         .login-qr {
             width: 100%;
             height: 100%;
             background: #ffffff;
             border-radius: 4px;
-            background:rgba(255,255,255,1);
-            border:1px solid rgba(212, 212, 212, 1);
-            #login-qr{
+            background: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(212, 212, 212, 1);
+
+            #login-qr {
                 width: 200px;
                 height: 200px;
-                
+
                 display: none;
             }
         }
-    
+
         .login-qr-invalidtip {
             display: none;
             width: 100%;
@@ -1300,8 +1369,9 @@ input::-webkit-credentials-auto-fill-button {
             left: 0;
             top: 0;
             opacity: 0.6;
-            
+
         }
+
         .qr-invalidtip {
             display: none;
             position: absolute;
@@ -1329,6 +1399,7 @@ input::-webkit-credentials-auto-fill-button {
             cursor: pointer;
         }
     }
+
     .login-qrinfo {
         margin: 0 auto;
         margin-top: 20px;
@@ -1336,7 +1407,8 @@ input::-webkit-credentials-auto-fill-button {
         line-height: 15px;
         color: #656565;
         text-align: center;
-        .wechat-icon{
+
+        .wechat-icon {
             margin-right: 8px;
             display: inline-block;
             width: 23px;
@@ -1345,9 +1417,8 @@ input::-webkit-credentials-auto-fill-button {
             background: url('../images/login/tourist-wechat-login.png') no-repeat center;
             background-size: 100%;
         }
-        .wechat-icon-desc{
 
-        }
+        .wechat-icon-desc {}
     }
 
     .login-info {
@@ -1366,23 +1437,23 @@ input::-webkit-credentials-auto-fill-button {
             color: #1d73a0;
             margin-left: 10px;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 color: #1d73a0;
             }
         }
-        .privacy-pooptioncy{
+
+        .privacy-pooptioncy {
             color: #1d73a0;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 color: #1d73a0;
             }
         }
     }
-    a:hover{
+
+    a:hover {
         color: #1d73a0;
     }
 }
-
-
-
-

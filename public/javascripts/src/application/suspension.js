@@ -261,6 +261,7 @@ define(function (require, exports, module) {
             s.parentNode.insertBefore(j, s);
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
+        _MEIQIA('subSource', 'sub_source_10');
         _MEIQIA('manualInit');
     } catch (e) { }
 

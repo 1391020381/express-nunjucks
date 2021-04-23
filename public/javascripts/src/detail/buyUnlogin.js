@@ -68,7 +68,12 @@ define(function (require) {
                 var orderNo = unloginObj.orderNo;
                 unloginObj.freshOrder(orderNo, visitorId);
             });
-
+            // 查询订单是否支付
+            $('body').on('click', '.tourist-purchase-content .tourist-purchase-download', function () {
+                var visitorId = unloginObj.getVisitorId();
+                var orderNo = unloginObj.orderNo;
+                unloginObj.freshOrder(orderNo, visitorId);
+            });
             // 弹出未登录购买弹窗
             // var unloginBuyHtml = require('./template/buyUnlogin.html');
             // unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>';
@@ -188,8 +193,8 @@ define(function (require) {
                         orderID: data.data.orderNo,
                         goodsID: pageConfig.params.g_fileId,
                         goodsType: 1,
-                        prePageFileID: pageConfig.params.g_fileId,
-                        
+                        prePageFileID: pageConfig.params.g_fileId
+
                     });
                     // 订单详情赋值
                     $('.shouldPayWrap span').text(data.data.payPrice / 100);
