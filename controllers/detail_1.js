@@ -72,13 +72,14 @@ const renderPage = cc(async (req, res) => {
     const topBannerList = await getTopBannerList(req, res);
     const searchBannerList = await getSearchBannerList(req, res);
     const bannerList = await getBannerList(req, res, list);
-
+    const rightTopBanner = await getRightBannerList(req, res);
+    console.log('rightTopBanner:', JSON.stringify(rightTopBanner));
     const crumbList = await getCrumbList(req, res, list);
     const cateList = await getCategoryList(req, res);
 
     const filePreview = {};
 
-    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID });
+    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner });
 });
 
 
@@ -105,6 +106,11 @@ function getList(req, res) {
 
 function getTopBannerList(req, res) {
     req.body = recommendConfigInfo.details.topBanner.pageId;
+    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
+}
+
+function getRightBannerList(req, res) {
+    req.body = recommendConfigInfo.details.rightToBanner.pageId;
     return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
 }
 
@@ -176,7 +182,7 @@ function fetchContentForTxt(txtPath) {
 }
 
 
-function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID }) {
+function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner}) {
 
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
@@ -188,9 +194,18 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     if (searchBannerList.data) {
         searchBannerList = util.handleRecommendData(searchBannerList.data[0] && searchBannerList.data[0].list || []);
     }
+    if(rightTopBanner&&rightTopBanner.data){
+        const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[]);
+        const classId = list.data.fileInfo.classid;
+        rightTopBanner = {list:[]};
+        tempList.list.forEach(item => {
+            if(item.copywriting1.indexOf(classId)>-1){
+                rightTopBanner.list.push(item);
+            }
+        });
+    }
     if (bannerList.data) {
         const detailBannerList = {
-            'rightTopBanner': [],
             'rightBottomBanner': [],
             'titleBottomBanner': [],
             'turnPageOneBanner': [],
@@ -217,6 +232,7 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     const results = Object.assign({}, {
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
+        rightTopBanner:rightTopBanner,
         geSearchBannerList: searchBannerList,
         getBannerList: bannerList,
         crumbList,
@@ -335,15 +351,6 @@ function changeURLPar(url, arg, arg_val) {
 function dealParam(format, classid1, classid2) {// 处理详情推荐位参数
     const defaultType = 'all';
     const params = [
-        {
-            id: 'rightTopBanner',
-            pageIds: [
-                `PC_M_FD_${format}_${classid2}_ru`,
-                `PC_M_FD_${format}_${classid1}_ru`,
-                `PC_M_FD_${defaultType}_${classid2}_ru`,
-                `PC_M_FD_${defaultType}_${classid1}_ru`
-            ]
-        },
         {
             id: 'rightBottomBanner',
             pageIds: [ //

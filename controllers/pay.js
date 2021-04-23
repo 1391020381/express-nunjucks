@@ -22,14 +22,14 @@ module.exports = {
             },
             list: function (callback) {
 
-                const userFileType = req.query.userFileType;
-                const userFilePrice = req.query.userFilePrice;
+                // const userFileType = req.query.userFileType;   // 动态vip相关
+                // const userFilePrice = req.query.userFilePrice;
                 req.body = {
                     size: 4,
                     platform: 0,
-                    scope: 4,
-                    userFileType:userFileType,
-                    userFilePrice:userFilePrice
+                    scope: 4
+                    // userFileType:userFileType,
+                    // userFilePrice:userFilePrice
                 };
                 server.post(appConfig.apiNewBaselPath + api.pay.getVipList, callback, req);
             }

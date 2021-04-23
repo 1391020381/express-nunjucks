@@ -1,64 +1,55 @@
 <div class="detail-w300 fr">
-    <div id="fix-right">
-        <div class="fix-right-bannertop">
-            {% if results.getBannerList.rightTopBanner.list.length>0 %}
-             <div class="swiper-container  fix-right-swiperbannertop">
-               <div class="swiper-wrapper">
-           {%for item in  results.getBannerList.rightTopBanner.list %}
-            <div class="swiper-slide" >
-               <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
-                 <img class="swiper-slide-img" src="{{item.imagUrl}}">
-               </a>
+  <div id="fix-right">
+    <div class="fix-right-bannertop">
+      {% if results.rightTopBanner.list.length > 0 %}
+        <div class="swiper-container  fix-right-swiperbannertop">
+          <div class="swiper-wrapper">
+            {%for item in  results.rightTopBanner.list %}
+              <div class="swiper-slide" >
+                <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
+                  <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                </a>
+              </div>
+              {%endfor%}
             </div>
-           {%endfor%}
-               </div>  
-             </div>
-            {%endif%}    
+          </div>
+          {%endif%}
         </div>
-  
-        <div class="related-data" pcTrackContent="relateFiles-new" >
-            
-           
-        </div>
-        <div class="hot-spot-search-warper">
-       
-       </div>
-        
 
+        <div class="related-data" pcTrackContent="relateFiles-new" ></div>
+        <div class="hot-spot-search-warper"></div>
 
-         <div class="fix-right-bannerbottom">
-            {% if results.getBannerList.rightBottomBanner.list.length > 0 or results.freeAdv %}
-             <div class="swiper-container  fix-right-swiperbannerbottom">
-               <div class="swiper-wrapper">
-           {%for item in  results.getBannerList.rightBottomBanner.list %}
-            <div class="swiper-slide" >
-               <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
-                 <img class="swiper-slide-img" src="{{item.imagUrl}}">
-               </a>
+        <div class="fix-right-bannerbottom">
+          {% if results.getBannerList.rightBottomBanner.list.length > 0 or results.freeAdv %}
+            <div class="swiper-container  fix-right-swiperbannerbottom">
+              <div class="swiper-wrapper">
+                {%for item in  results.getBannerList.rightBottomBanner.list %}
+                  <div class="swiper-slide" >
+                    <a  href="{{item.linkUrl}}" target="_blank" data-id="{{item.id}}">
+                      <img class="swiper-slide-img" src="{{item.imagUrl}}">
+                    </a>
+                  </div>
+                  {%endfor%}
+                </div>
+                {%else%}
+                <div class="tui-box-shadow" id="ag-rh-04">
+                  <!--  广告位：PC端-ishare-详细页-右边第一个方块300*350-0620  -->
+                  <div class="adv-container">
+                    <script>
+                      (function () {
+                        var s = "_" + Math
+                          .random()
+                          .toString(36)
+                          .slice(2);
+                        document.write('<div id="' + s + '"></div>');
+                        (window.slotbydup = window.slotbydup || []).push({id: '6307759', container: s, size: '300,350', display: 'inlay-fix'});
+                        _dpData[9] = 1;
+                      })();
+                    </script>
+                  </div>
+                </div>
+                {%endif%}
+              </div>
             </div>
-           {%endfor%}
-               </div> 
-             {%else%}
-              <div class="tui-box-shadow" id="ag-rh-04">
-            <!--  广告位：PC端-ishare-详细页-右边第一个方块300*350-0620  -->
-            <div class="adv-container">
-              <script>
-                (function () {
-                    var s = "_" + Math.random().toString(36).slice(2);
-                    document.write('<div id="' + s + '"></div>');
-                    (window.slotbydup = window.slotbydup || []).push({
-                        id: '6307759',
-                        container: s,
-                        size: '300,350',
-                        display: 'inlay-fix'
-                    });
-                    _dpData[9] = 1;
-                })();
-              </script>
-            </div>
+          </div>
         </div>
-        {%endif%}     
-             </div>
-        </div>
-    </div>
-</div>

@@ -165,6 +165,10 @@ define(function (require, exports, module) {
                 searchFn($(this).val());
             }
         });
+        $('.detail-search-info .close-icon').on('click', function(e){
+            e.stopPropagation();
+            $('.detail-search-info').hide();
+        });
         $search_detail_input.on('focus', function () {
             $('.detail-search-info').hide();
             var lately_list = $('.lately-list'),
@@ -578,7 +582,7 @@ define(function (require, exports, module) {
             if (detailTop > fixHeight + fixEle.height()) {
                 // $('.fix-right-bannertop').hide()
                 // $('.fix-right-bannerbottom').hide()
-                fixEle.css({ 'position': 'fixed', 'top': headerHeight, 'z-index': '75' });
+                fixEle.css({ 'position': 'fixed', 'top': headerHeight, 'zIndex': '75' });
                 if (detailTop > pwDetail - documentInnerHeight) {
                     var tempHeight = pwDetail - fixRight - 15;
                     fixEle.css({ 'position': 'absolute', 'top': tempHeight });

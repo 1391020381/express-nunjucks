@@ -57,7 +57,7 @@ define(function (require, exports, module) {
     function getVisitUserId() {
         // 访客id-有效时间和name在此处写死
         var name = 'visitor_id',
-            expires = 30 * 24 * 60 * 60 * 1000,
+            expires = 365*30 * 24 * 60 * 60 * 1000,
             visitId = method.getCookie(name),
             sdk_token = 'iask_web';
         iask_web.init(sdk_token, {
