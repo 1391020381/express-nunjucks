@@ -9,7 +9,9 @@ module.exports = {
         req.body = {
             'request':{
                 'userId':req.body.userId,
-                'requestId':req.body.requestId
+                'requestId':req.body.requestId,
+                'itemId':req.body.itemId,
+                'itemTitle':req.body.itemTitle
             }
         };
         const list = await server.$http(`https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${req.params.sceneID}`, 'post', req, res, true);

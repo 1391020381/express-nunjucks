@@ -109,10 +109,10 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
-                    console.log('getBuyRecord:', res);
+                    console.log('getBuyRecord:', res, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
                     var vipTable = require('./template/vipTable.html');
                     var vipTableType = window.pageConfig.page && window.pageConfig.page.vipTableType || 0;
-                    var list = res.data && res.data.rows || [];
+                    var list = [];
                     //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice
                     // var list = [];
                     $(res.data.rows).each(function (index, item) {
@@ -158,7 +158,7 @@ define(function (require) {
                     console.log('getBuyAutoRenewList:', res);
                     var vipTable = require('./template/vipTable.html');
                     var vipTableType = window.pageConfig.page && window.pageConfig.page.vipTableType || 0;
-                    var list = res.data && res.data.rows || [];
+                    var list = [];
                     //   var isVip =  userInfoValue.isVipMaster || userInfoValue.isVipOffice
                     // var list = [];
                     $(res.data.rows).each(function (index, item) {

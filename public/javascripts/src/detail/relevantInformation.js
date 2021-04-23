@@ -28,6 +28,18 @@ define(function (require) {
         // 相关推荐点击
         $(document).on('click', '.related-data-list li', function () {
             var itemId = $(this).data('id') || '';
+            var fileName = $(this).data('name') || '';
+            var params = window.pageConfig.params;
+            trackEvent('NE017', 'fileListNormalClick', 'click', {
+                moduleID: 'relevant',
+                moduleName: '相关推荐',
+                filePostion:$(this).index() + 1,
+                fileID:itemId,
+                fileName:fileName,
+                saleType:params.productType,
+                fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
+                fileCategoryName:params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+            });
             paradigm4Report.eventReport(itemId, paradigm4Relevant, relevantRecommendInfoData);
         });
     }
