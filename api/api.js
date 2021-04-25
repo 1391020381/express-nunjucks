@@ -112,7 +112,8 @@ module.exports = {
     },
     comment: {
         getFileComment: '/comment/eval/dataList' // 详情评论
-    }
+    },
+    dictionaryData: '/market/dictionaryData/$code',
 };
 
 

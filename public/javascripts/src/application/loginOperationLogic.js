@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var method = require('../application/method');
     var showCaptcha = require('../common/bindphone').showCaptcha;
-
+    var urlConfig = require('./urlConfig')
 
     myWindow = ''; // 保存第三方授权时,打开的标签
     var smsId = ''; // 验证码
@@ -439,7 +439,7 @@ define(function (require, exports, module) {
             type: 'POST',
             data: JSON.stringify({
                 cid: cid || '',
-                site: '1',
+                site: urlConfig.site,
                 fid: fid || '',
                 sceneId: sceneId,
                 domain: encodeURIComponent(document.domain)
@@ -518,7 +518,7 @@ define(function (require, exports, module) {
             type: 'POST',
             data: JSON.stringify({
                 sceneId: sceneId, // 公众号登录二维码id
-                site: '1',
+                site:urlConfig.site,
                 cid: cid,
                 fid: fid || '1816',
                 domain: encodeURIComponent(document.domain)
@@ -591,7 +591,8 @@ define(function (require, exports, module) {
                 terminal: '0',
                 thirdType: clientCode,
                 code: code,
-                businessSys: 'ishare'
+                businessSys: 'ishare',
+                site:urlConfig.site
             }),
             dataType: 'json',
             success: function (res) {
@@ -655,7 +656,7 @@ define(function (require, exports, module) {
                                 'color': '#fff',
                                 'borderColor': '#eee'
                             });
-                            autheSicationCode.attr('data-authenticationCodeType', 2); // 可以重新获取验证码
+                            authenticationCode.attr('data-authenticationCodeType', 2); // 可以重新获取验证码
                         } else {
                             authenticationCode.text(textNumber--);
                             authenticationCode.css({
@@ -705,7 +706,8 @@ define(function (require, exports, module) {
                 smsId: smsId,
                 checkCode: checkCode,
 
-                password: $.md5(password)
+                password: $.md5(password),
+                site:urlConfig.site
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',

@@ -93,4 +93,4 @@ const config = {
 };
 
 
-module.exports = config[env];
+module.exports = Object.assign({},config[env],{site:4})

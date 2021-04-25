@@ -14,8 +14,10 @@ define(function (require, exports, module) {
             dictionaryData: gateway + '/market/dictionaryData/$code',
             checkSso: gateway + '/cas/login/checkSso',
             loginByPsodOrVerCode: gateway + '/cas/login/authorize', // 通过密码和验证码登录
-            getLoginQrcode: gateway + '/cas/login/qrcode', // 生成公众号登录二维码
-            loginByWeChat: gateway + '/cas/login/gzhScan', // 公众号扫码登录
+            // getLoginQrcode: gateway + '/cas/login/qrcode', // 生成公众号登录二维码
+            getLoginQrcode: gateway + '/cas/login/qr_code', // 生成公众号登录二维码
+            // loginByWeChat: gateway + '/cas/login/gzhScan', // 公众号扫码登录
+            loginByWeChat: gateway + '/cas/login/gzh_scan', // 公众号扫码登录
             getUserInfo: '/node/api/getUserInfo', // node聚合的接口获取用户信息
             thirdLoginRedirect: gateway + '/cas/login/redirect', // 根据第三方授权的code,获取 access_token
             loginOut: gateway + '/cas/login/logout',

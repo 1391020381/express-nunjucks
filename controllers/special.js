@@ -126,9 +126,43 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
 
     render('special/index', results, req, res);
 }
-
-
+function getThemeModel(req,res){ // 获取专题相关配置
+    const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
+    return server.$http(url, 'get', req, res, true);
+}
+function handleThemeModel({themeModelData,templateCode,req,specialTopicId}){
+    console.log('handleThemeModel:',JSON.stringify(themeModelData),'xxxxx',templateCode,req.path)
+    let themeModelMap = {}
+    // '/node/s/test001.html'.replace(new RegExp('\/' + 'specialTopicId' +  '.html', 'ig'),'')
+    var reg = new RegExp('\/' + specialTopicId +  '.html', 'ig')
+    let currentPath = req.path.replace(reg,'')
+    console.log('currentPath:',currentPath)
+    if(themeModelData&&themeModelData.length){
+        themeModelData.forEach(item=>{
+            let pcode = item.pcode.trim()
+            if(!themeModelMap[pcode]){
+                themeModelMap[pcode] = item
+            }
+        })
+        console.log('themeModelMap',JSON.stringify(themeModelMap),themeModelMap[templateCode])
+        if(themeModelMap[templateCode]){
+           let desc = themeModelMap[templateCode].desc  //站点
+           let pvalue = themeModelMap[templateCode].pvalue  // 目录
+           console.log(desc,appConfig.site,pvalue,currentPath,desc == appConfig.site && pvalue == currentPath)
+           if(desc == appConfig.site && pvalue == currentPath){
+               return true
+           }else{
+               return false
+           }
+        }else{
+            return false
+        }
+    }else{
+        return false // 404
+    }
+}
 const renderPage = cc(async (req, res) => {
+    const { data:themeModelData} = await getThemeModel(req,res)
     const paramsObj = util.getSpecialParams(req.url);
 
     const detail = await getFindSpecialTopic(req, res, paramsObj);
@@ -138,11 +172,15 @@ const renderPage = cc(async (req, res) => {
         uid = JSON.parse(req.cookies.ui).uid;
     }
 
-    if (detail.data.templateCode !== 'ishare_zt_model1' || !detail.data) {
+    // if (detail.data.templateCode !== 'ishare_zt_model1' || !detail.data) {
+    //     res.redirect('/node/404.html');
+    //     return;
+    // }
+   let isRender =  handleThemeModel({themeModelData,templateCode:detail.data.templateCode,req,specialTopicId:paramsObj.specialTopicId})
+    if(!isRender){
         res.redirect('/node/404.html');
         return;
     }
-
     if (paramsObj.dimensionId && detail.data.dimensionStatus == 0) { // 获取当前当前的维度列表
         const index = _.findIndex(detail.data.specialTopicDimensionDOList, ['dimensionId', paramsObj.dimensionId]);
         specialList = detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; // 当前维度下的分类

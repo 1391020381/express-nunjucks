@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     // 登录 第三方授权回调页面
+    var urlConfig = require('../application/urlConfig')
     var api = require('../application/api');
     var method = require('../application/method');
     var redirectUrl = method.getParam('redirectUrl');
@@ -15,7 +16,8 @@ define(function (require, exports, module) {
             terminal: '0',
             thirdType: clientCode,
             code: code,
-            businessSys: 'ishare'
+            businessSys: 'ishare',
+            site:urlConfig.site
         }, '', {jsId:jsId}).then(function(res){
             if (res.code == '0') {
                 window.loginType = clientCode; // 获取用户信息时埋点需要
