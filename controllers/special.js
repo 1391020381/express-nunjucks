@@ -121,7 +121,8 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
         tdk: {
             canonicalUrl: canonicalUrl
         },
-        friendLink: recommendList
+        friendLink: recommendList,
+        mulu:req.mulu
     };
 
     render('special/index', results, req, res);
@@ -131,11 +132,10 @@ function getThemeModel(req,res){ // 获取专题相关配置
     return server.$http(url, 'get', req, res, true);
 }
 function handleThemeModel({themeModelData,templateCode,req,specialTopicId}){
-    console.log('handleThemeModel:',JSON.stringify(themeModelData),'xxxxx',templateCode,req.path)
     let themeModelMap = {}
     // '/node/s/test001.html'.replace(new RegExp('\/' + 'specialTopicId' +  '.html', 'ig'),'')
     var reg = new RegExp('\/' + specialTopicId +  '.html', 'ig')
-    let currentPath = req.path.replace(reg,'')
+    let currentPath = req.mulu
     console.log('currentPath:',currentPath)
     if(themeModelData&&themeModelData.length){
         themeModelData.forEach(item=>{
@@ -162,6 +162,7 @@ function handleThemeModel({themeModelData,templateCode,req,specialTopicId}){
     }
 }
 const renderPage = cc(async (req, res) => {
+    console.log('req.mulu:',req.mulu)
     const { data:themeModelData} = await getThemeModel(req,res)
     const paramsObj = util.getSpecialParams(req.url);
 
