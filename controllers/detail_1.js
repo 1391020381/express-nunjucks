@@ -9,6 +9,7 @@ const cc = require('../common/cc');
 const recommendConfigInfo = require('../common/recommendConfigInfo');
 const Api = require('../api/api');
 const appConfig = require('../config/app-config');
+const api = require('../api/api');
 
 const defaultResultsData = { list: { data: { svgFlag: true, supportSvg: true, contentPathList: [], svgPathList: [], isDownload: 'no' } } }; // 确保私有 删除  404 显示用户信息 用户可以登录
 
@@ -68,18 +69,17 @@ const renderPage = cc(async (req, res) => {
             list.data.transcodeInfo.contentPathList = [...txtContentList];
         }
     }
-
+    const {data:categoryIdList} = await getNodeByClassId(req,res,list)
     const topBannerList = await getTopBannerList(req, res);
     const searchBannerList = await getSearchBannerList(req, res);
     const bannerList = await getBannerList(req, res, list);
     const rightTopBanner = await getRightBannerList(req, res);
-    console.log('rightTopBanner:', JSON.stringify(rightTopBanner));
     const crumbList = await getCrumbList(req, res, list);
     const cateList = await getCategoryList(req, res);
 
     const filePreview = {};
 
-    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner });
+    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList});
 });
 
 
@@ -182,7 +182,7 @@ function fetchContentForTxt(txtPath) {
 }
 
 
-function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner}) {
+function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList}) {
 
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
@@ -196,7 +196,8 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     }
     if(rightTopBanner&&rightTopBanner.data){
         const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[]);
-        const classId = list.data.fileInfo.classid;
+        const classId = categoryIdList&&categoryIdList.length?categoryIdList[categoryIdList.length-1].nodeCode:''
+        console.log('classId:',classId,JSON.stringify(rightTopBanner))
         rightTopBanner = {list:[]};
         tempList.list.forEach(item => {
             if(item.copywriting1.indexOf(classId)>-1){
@@ -274,7 +275,7 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     results.showFlag = true;
     results.isDetailRender = true;
 
-    console.log('返回的最新的预读页数：', JSON.stringify(results));
+   // console.log('返回的最新的预读页数：', JSON.stringify(results));
 
     render('detail/index', results, req, res);
     // if (results.list.data && results.list.data.abTest) {
@@ -283,7 +284,16 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     //     render("detail/index", results, req, res);
     // }
 }
+function getNodeByClassId(req, res, list) {
+    const classId = list.data.fileInfo.classid;
+    req.body = {
+        classId: classId,
+        site: 4,
+        terminal:0
+    };
+    return server.$http(appConfig.apiNewBaselPath + api.spider.getNodeByClassId, 'post', req, res, true);
 
+}
 // 初始页数 计算页数,去缓存
 function getInitPage(req, results) {
     const filePreview = results.filePreview;
