@@ -25,5 +25,5 @@ module.exports = {
     cdn : url,
     staticUrl:surl,
     // 版本
-    version : version
+    version : version.trim()
 };
