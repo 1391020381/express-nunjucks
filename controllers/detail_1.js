@@ -65,8 +65,14 @@ const renderPage = cc(async (req, res) => {
         }
         // 【A20如果该文件是txt格式】
         if (fileInfo.format.toLowerCase() === 'txt') {
-            const txtContentList = await fetchTxtContentList(data.transcodeInfo.contentPathList);
-            list.data.transcodeInfo.contentPathList = [...txtContentList];
+            let contentPathList = data.transcodeInfo.contentPathList
+            if(contentPathList&&contentPathList.length){
+                const txtContentList = await fetchTxtContentList(contentPathList);
+                list.data.transcodeInfo.contentPathList = [...txtContentList];
+            }else{
+                list.data.transcodeInfo.contentPathList = [];
+            }
+
         }
     }
     const {data:categoryIdList} = await getNodeByClassId(req,res,list)
