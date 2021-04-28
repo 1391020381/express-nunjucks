@@ -444,7 +444,7 @@ define(function (require, exports, moudle) {
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
         _MEIQIA('subSource', 'sub_source_10');
         _MEIQIA('manualInit');
-        _MEIQIA('init');
+        // _MEIQIA('init');
     } catch (e) {
         console.log('美洽加载错误', JSON.stringify(e));
     }
