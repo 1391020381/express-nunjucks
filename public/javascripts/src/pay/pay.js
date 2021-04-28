@@ -443,13 +443,14 @@ define(function (require, exports, moudle) {
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
         _MEIQIA('subSource', 'sub_source_10');
+        _MEIQIA('manualInit');
         _MEIQIA('init');
     } catch (e) {
         console.log('美洽加载错误', JSON.stringify(e));
     }
     // 联系客服
     $('.connect-ser').on('click', function () {
-        _MEIQIA('init');
+        _MEIQIA('manualInit');
         // 初始化成功后调用美洽 showPanel
         _MEIQIA('allSet', function () {
             _MEIQIA('showPanel');
