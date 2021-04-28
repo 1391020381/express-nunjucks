@@ -15,7 +15,6 @@ define(function (require, exports, module) {
             fileID: contentId,
             fileName: fileName
         });
-       // window.open('/f/' + contentId + '.html', '_blank');
     });
 
     $('.search-list-info').click(function () {
