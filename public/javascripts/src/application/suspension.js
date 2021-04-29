@@ -263,8 +263,8 @@ define(function (require, exports, module) {
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
         _MEIQIA('manualInit');
         _MEIQIA('subSource', 'sub_source_10');
-        console.log('suspension-xxxxxxxxx')
-        _MEIQIA('init');
+        // console.log('suspension-xxxxxxxxx')
+        // _MEIQIA('init');
     } catch (e) { }
 
     // 联系客服
