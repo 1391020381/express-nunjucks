@@ -121,11 +121,11 @@ define(function (require, exports, module) {
                 var showTips = 1;
                 var turl = '';
                 var tformat = window.pageConfig.params.file_format;
-                var ttitle = window.pageConfig.params.file_title;
+                var title = window.pageConfig.params.file_title;
                 var productType = window.pageConfig.params.productType;
                 var userFileType = window.pageConfig.params.userFileType;
                 var userFilePrice = window.pageConfig.params.userFilePrice;
-                method.setCookieWithExp('f', JSON.stringify({ fid: tfid, title: ttitle, format: tformat }), 5 * 60 * 1000, '/');
+                method.setCookieWithExp('f', JSON.stringify({ fid: tfid, title: title, format: tformat }), 5 * 60 * 1000, '/');
                 if (productType == '4') {
                     turl = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + res.data.checkStatus + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips + '&productType=' + productType + '&userFileType=' + userFileType + '&userFilePrice=' + userFilePrice;
                 } else {
