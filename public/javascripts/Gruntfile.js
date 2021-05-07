@@ -83,7 +83,8 @@ module.exports = function (grunt) {
                     'dist/category/index.js': ['.build/category/index.js'],
                     'dist/login/loginMiddle.js': ['.build/login/loginMiddle.js'],
                     'dist/loginMiddle/index.js': ['.build/loginMiddle/index.js'],
-                    
+                    'dist/personalCenter/pointsMall.js': ['.build/personalCenter/pointsMall.js'],
+
                 }
             }
         },
@@ -133,6 +134,7 @@ module.exports = function (grunt) {
                     "../stylesheets/category/category.css": "../stylesheets/category/category.less",
                     "../stylesheets/earth/index.css": "../stylesheets/earth/index.less",
                     "../stylesheets/spider/spider.css": "../stylesheets/spider/spider.less",
+                    "../stylesheets/personalCenter/pointsMall.css": "../stylesheets/personalCenter/pointsMall.less",
                 }
             }
         },

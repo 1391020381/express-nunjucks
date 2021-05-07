@@ -51,9 +51,15 @@ router.get('/u/:uid', (req, res) => {
 router.get('/node/userPage.html', (req, res) => {
     try {
         personalCenter.oldUserPage(req, res);
-    } catch (e) {
+    } catch (e) {s
         error(req, res, next);
     }
 });
-
+router.get('/node/pointsMall.html',(req,res)=>{
+    try {
+        personalCenter.pointsMall(req, res);
+    } catch (e) {
+        error(req, res, next);
+    }
+})
 module.exports = router;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        {% include "common/head.html" %}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/pointsMall.css"/>
+    </head>
+
+    <body>
+
+        {% include "common/websiteHeaderbar.html" %}
+
+
+
+
+        <!-- 底部 start-->
+        {% include "common/footer.html" %}
+        {% include "common/js.html" %}
+
+        <!--右侧悬浮工具栏 -->
+        {% include "common/suspension.html" %}
+        <script type="text/javascript">
+            window.pageConfig = {
+                page: {
+
+                },
+                params: {},
+                report: {},
+                gio: {}
+            };
+            seajs.use(["dist/application/app.js", "dist/personalCenter/init.js"]);
+        </script>
+        <!-- 百度统计代码 -->
+        <script src="{{staticUrl}}/baidu-statistics.js"></script>
+    </body>
+
+</html>

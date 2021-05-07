@@ -186,5 +186,8 @@ module.exports = {
             res.redirect('/u/');
         }
     },
-    userPage: cc(renderUserPage)
+    userPage: cc(renderUserPage),
+    pointsMall:function(req,res){
+        render('personalCenter/pointsMall', {}, req, res);
+    }
 };
