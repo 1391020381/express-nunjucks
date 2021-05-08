@@ -504,7 +504,10 @@ define(function (require, exports, moudle) {
             trackEvent('SE008', 'payFileClick', 'click', {
                 fileID: method.getParam('orderNo'),
                 fileName: $('.data-info .data-name a').text(),
-                salePrice: $('.price-text-con .price').text()
+                salePrice: $('.price-text-con .price').text(),
+                // todo A24 数据待添加
+                fileType: '',
+                saleType: ''
             });
         }
 

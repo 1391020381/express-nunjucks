@@ -8,7 +8,7 @@
             <div class="header-right fl">
                 <div class="new-search fl cf">
                     <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
-                        placeholder="请输入搜索内容">
+                           placeholder="请输入搜索内容">
                     <a class="btn-new-search">
                         <i class="icon-detail"></i>搜索资料</a>
                     <div class="detail-lately">
@@ -44,19 +44,18 @@
                             <i class="before"></i>
                             <i class="after"></i>
                             {% if results.noPersonalCenter %}
-
-                                {%else%}
-
-                                <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
-                                {%endif%}
-                                <a class="loginOut">退出</a>
-                            </div>
-
+                            {% else %}
+                            <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                            {% endif %}
+                            <a href="/node/pointsMall.html" target="_blank">爱问币商城</a>
+                            <a class="loginOut">退出</a>
                         </div>
 
                     </div>
-                </div>
 
+                </div>
             </div>
+
         </div>
     </div>
+</div>

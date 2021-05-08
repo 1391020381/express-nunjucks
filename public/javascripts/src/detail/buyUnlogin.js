@@ -84,6 +84,8 @@ define(function (require) {
                 trackEvent('SE003', 'fileDetailDownClick', 'click', {
                     fileID: params.g_fileId,
                     fileName: page.fileName,
+                    // todo A24
+                    fileType: params.userFileType,
                     salePrice: params.productPrice,
                     saleType: params.productType,
                     fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,

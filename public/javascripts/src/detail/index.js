@@ -1,4 +1,3 @@
-
 /**
  * 详情页首页
  */
@@ -26,6 +25,24 @@ define(function (require, exports, module) {
         pageName: '资料详情'
     });
 
+    // 进入详情页时间戳
+    var fileDetailStartTime = new Date().getTime();
+
+    // 监听页面解绑事件
+    $(window).on('unload ', function () {
+        var fileDetailEndTime = new Date().getTime();
+        trackEvent('SE050', 'pageDuration', 'page', {
+            pageID: 'FD',
+            pageName: '详情页',
+            //	进入页面时间（时间戳
+            startTime: fileDetailStartTime,
+            //	离开页面时间（时间戳
+            endTime: fileDetailEndTime,
+            //	页面停留时长（endTime - startTime)
+            duration: fileDetailEndTime - fileDetailStartTime
+        }, true);
+    });
+
     trackEvent('SE002', 'fileDetailPageView', 'page', {
         fileID: params.g_fileId,
         fileName: page.fileName,
@@ -38,6 +55,7 @@ define(function (require, exports, module) {
     initShow();
     // 初始化绑定
     eventBinding();
+
     function initShow() {
         if (fileName) {
             fileName = fileName.length > 12 ? fileName.slice(0, 12) + '...' : fileName;
@@ -55,6 +73,7 @@ define(function (require, exports, module) {
         // 初始化权益
         getUserVipRights();
     }
+
     // 页面加载
     function pageInitShow() {
         if (method.getCookie('cuk')) {
@@ -126,7 +145,7 @@ define(function (require, exports, module) {
             $search_detail_input = $('#search-detail-input'),
             $detail_lately = $('.detail-lately'),
             $cate_inner = $('.header-cate');
-            // $slider_control = $('.slider-control');
+        // $slider_control = $('.slider-control');
         // 头部分类
         $cate_inner.on('mouseover', function () {
             var $this = $('.cate-menu');
@@ -165,7 +184,7 @@ define(function (require, exports, module) {
                 searchFn($(this).val());
             }
         });
-        $('.detail-search-info .close-icon').on('click', function(e){
+        $('.detail-search-info .close-icon').on('click', function (e) {
             e.stopPropagation();
             $('.detail-search-info').hide();
         });
@@ -284,7 +303,7 @@ define(function (require, exports, module) {
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
-                        common.afterLogin(data, { type: type, data: data, callback: goPage });
+                        common.afterLogin(data, {type: type, data: data, callback: goPage});
                         //  goPage(type,data);
                     });
                 }
@@ -389,7 +408,7 @@ define(function (require, exports, module) {
             fileName: emailParams.file_title,
             saleType: emailParams.productType
         });
-        $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
+        $('body,html').animate({scrollTop: $('#littleApp').offset().top - 60}, 200);
         // var reward = window.pageConfig.reward;
         // if (reward.value == "-1") { // 老用户VIP正常弹起
         //     $("#dialog-box").dialog({
@@ -582,10 +601,10 @@ define(function (require, exports, module) {
             if (detailTop > fixHeight + fixEle.height()) {
                 // $('.fix-right-bannertop').hide()
                 // $('.fix-right-bannerbottom').hide()
-                fixEle.css({ 'position': 'fixed', 'top': headerHeight, 'zIndex': '75' });
+                fixEle.css({'position': 'fixed', 'top': headerHeight, 'zIndex': '75'});
                 if (detailTop > pwDetail - documentInnerHeight) {
                     var tempHeight = pwDetail - fixRight - 15;
-                    fixEle.css({ 'position': 'absolute', 'top': tempHeight });
+                    fixEle.css({'position': 'absolute', 'top': tempHeight});
                 }
             } else {
                 fixEle.removeAttr('style');
@@ -601,20 +620,24 @@ define(function (require, exports, module) {
                 $fixBar.find('.data-item').hide();
             }
         });
+
         // 关闭底部优惠券弹窗
         function closeCouponAD() {
             $('.pc-tui-coupon .btn-close').click(function () {
                 $('.pc-tui-coupon').hide();
             });
         }
+
         // 关闭头部优惠券赠送信息
         closeHeadCouponTip();
+
         function closeHeadCouponTip() {
             $('.coupon-info-top').on('click', '.btn-no-user', function () {
                 $('.coupon-info-top').hide();
                 localStorage.setItem('firstCoupon', 1);
             });
         }
+
         $('.firstLoginHook').click(function () {
             $('.pc-tui-coupon').hide();
         });
@@ -630,7 +653,7 @@ define(function (require, exports, module) {
             },
             url: api.special.setCollect,
             type: 'post',
-            data: JSON.stringify({ fid: window.pageConfig.params.g_fileId, source: 0 }),
+            data: JSON.stringify({fid: window.pageConfig.params.g_fileId, source: 0}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
@@ -664,7 +687,7 @@ define(function (require, exports, module) {
             },
             url: api.special.getCollectState,
             type: 'get',
-            data: { fid: window.pageConfig.params.g_fileId, uid: window.pageConfig.page.uid },
+            data: {fid: window.pageConfig.params.g_fileId, uid: window.pageConfig.page.uid},
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
@@ -721,7 +744,7 @@ define(function (require, exports, module) {
         var ref = utils.getPageRef(fid);
 
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
-        method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+        method.setCookieWithExp('f', JSON.stringify({fid: fid, title: title, format: format}), 5 * 60 * 1000, '/');
         if (type === 'file') {
             href = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
             method.compatibleIESkip('/pay/payConfirm.html' + href, false);
