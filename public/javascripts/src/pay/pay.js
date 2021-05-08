@@ -506,8 +506,8 @@ define(function (require, exports, moudle) {
                 fileName: $('.data-info .data-name a').text(),
                 salePrice: $('.price-text-con .price').text(),
                 // todo A24 数据待添加
-                fileType: '',
-                saleType: ''
+                fileType: $('.data-info').data('filetype') || '',
+                saleType: $('.data-info').data('producttype') || ''
             });
         }
 

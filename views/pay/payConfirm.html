@@ -6,7 +6,9 @@
             <div class="carding-pay-item pay-coupon-item">
                 {# <a class="btn-back"><i class="icon-back"></i>返回</a> #}
                 <div class="pay-data-info">
-                    <p class="data-info">
+                    <p class="data-info"
+                       data-filetype="{{results.fileDetails.userFileType}}"
+                       data-producttype="{{results.fileDetails.productType}}">
                         <span class="data-name">
                             <i class="ico-data ico-{{results.fileDetails.format}}"></i>
                             <a href="javascript:;">{{results.fileDetails.title}}</a>
