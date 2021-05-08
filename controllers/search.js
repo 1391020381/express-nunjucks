@@ -50,7 +50,7 @@ module.exports = {
 
         }, (err, results) => {
             // console.log(req.query, 'req.query');
-            // console.warn(results, 'results');
+            console.warn(JSON.stringify(results), 'results');
             // 是否是vip
             const userinfo = req.cookies && req.cookies.ui ? JSON.parse(req.cookies.ui) : {};
 

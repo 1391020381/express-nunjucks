@@ -1,0 +1,24 @@
+<div class="newcomertask-content">
+    <p class="newcomertask-title">新人任务</p>
+    <div class="newcomertask-content-list">
+      <div class="swiper-container task-list">
+            <div class="swiper-wrapper">
+            {{each newcomertaskList as item}}
+               <div class="swiper-slide" >
+                  <div class="task-content">
+                      <p class="task-icon">{{item.icon}}</p>
+                      <p class="task-title">{{item.title}}</p>
+                      <p class="task-subtitle">{{item.subTitle}}</p>
+                      <p class="task-desc">{{item.desc}}</p>
+                      {{ if item.url}}
+                        <p class="task-btn" data-url="{{item.url}}">去做任务</p>
+                      {{/if}}
+                  </div>
+               </div>
+               {{/each}}
+            </div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+            <div class="swiper-button-next swiper-button-white"></div>
+       </div>
+    </div>
+</div>

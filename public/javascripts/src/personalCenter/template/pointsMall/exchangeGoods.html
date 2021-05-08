@@ -1,0 +1,27 @@
+<div class="exchange-goods-content">
+    <p class="exchange-goods-sort">
+        <span class="exchange-goods-title">兑换商品</span>
+        <span class="sort-all sort">综合</span>
+        <span class="sort-line"></span>
+        <span class="sort-asce sort">爱问币从低到高</span>
+        <span class="sort-line"></span>
+        <span class="sort-desc sort">爱问币从高到低</span>
+    </p>
+    <ul class="exchange-goods-list">
+        {{each exchangeGoodsList as item}}
+        <li class="exchange-goods-list-item">
+                <div class="item-img-wrapper">
+                    <img class="item-img" src="{{item.img}}" />
+                </div>
+                <p class="item-desc">{{item.desc}}</p>
+                <p class="item-loveAskCoin">
+                    <span class="loveAskCoin-icon"></span>
+                    <span class="loveAskCoin-num">{{item.loveAskCoinNum}}爱问币</span>
+                </p>
+        </li>
+        {{/each}}
+    </ul>
+    <div class="pagination-wrapper">
+
+    </div>
+</div>

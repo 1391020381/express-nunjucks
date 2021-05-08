@@ -1,0 +1,344 @@
+@import "../less-public/_ishare_setting";
+@import "../less-public/_less_mixin";
+.points-mall-content{
+    width: 1200px;
+    margin: 0 auto;
+    .points-mall-summary{
+        margin-top:30px;
+        height: 220px;
+        background: url("../../images/personalCenter/points-mall-banner.png") no-repeat center;
+        background-size: 100%;
+        border: 1px solid transparent;
+        .ponits-mall-loveAskCoin{
+            margin-left:52px;
+            margin-top: 26px;
+            width: 353px;
+            height: 166px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid transparent;
+            box-sizing: border-box;
+            box-shadow: 0px 4px 20px 0px rgba(125, 101, 78, 0.3);
+            .ponit-mall-loveAskCoin-content{
+                margin-left:10px;
+                margin-top:10px;
+                width: 333px;
+                height: 148px;
+                border: 1px solid #CACACA;
+                .ponits-mall-title{
+                    margin-top:19px;
+                    font-size: 14px;
+                    color: #666666;
+                }
+                .ponit-mall-loveAskCoinnum{
+                   margin-top: 18px;
+                   font-size:38px;
+                   color: #F25125;
+                   font-weight: bold;
+                }
+                .ponit-mall-rule{
+                    margin-top:15px;
+                    font-size:12px;
+                    .ponit-mall-ruldesc{
+                        display: inline-block;
+                        vertical-align: middle;
+                        cursor: pointer;
+                    }
+                    .ponit-mall-rulicon{
+                       margin-left:20px;
+                       margin-right: 20px;
+                       display: inline-block;
+                       vertical-align: middle;
+                       width: 1px;
+                       height: 14px;
+                       background: #7C644C;
+                       opacity: 0.2;
+                    }
+                    .point-mall-detail{
+                        display: inline-block;
+                        vertical-align: middle;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    .ponints-mall-newcomertask{
+        margin-top:10px;
+        .newcomertask-content{
+            height: 392px;
+            background: #fff;
+            .newcomertask-title{
+                padding-left:39px;
+                padding-top:30px;
+                font-size: 18px;
+                color: #333333
+            }
+            .newcomertask-content-list{
+                margin-top:20px;
+                width: 100%;
+                height: 285px;
+                .swiper-container{
+                    margin-left:40px;
+                    z-index: 10;
+                    overflow: visible;
+                    .swiper-slide{
+                        width: 228px;
+                        height: 285px;
+                        .task-content{
+                            width: 228px;
+                            height: 285px;
+                            text-align: center;
+                            background: #FFFFFF;
+                            border: 1px solid #E5E5E5;
+                            box-shadow: 0px 3px 10px 0px rgba(125, 101, 78, 0.3);
+                            border-radius: 4px;
+                            .task-icon{
+                                margin-top:25px;
+                                display: inline-block;
+                                width: 80px;
+                                height: 80px;
+                                background: #eee;
+                            }
+                            .task-title{
+                                margin-top:15px;
+                                font-size: 16px;
+                                color: #333333;
+                                line-height: 1;
+                                .text-ellipsis();
+                            }
+                            .task-subtitle{
+                                margin-top:10px;
+                                padding:0 20px;
+                                font-size: 13px;
+                                color: #F25125;
+                                line-height: 1;
+                                .text-ellipsis();
+                            }
+                            .task-desc{
+                                margin-top:24px;
+                                padding:0 20px;
+                                font-size: 12px;
+                                line-height: 1;
+                                color: #666666;
+                                .text-ellipsis();
+                            }
+                            .task-btn{
+                                margin-top:33px;
+                                display: inline-block;
+                                 width: 115px;
+                                 height: 34px;
+                                 line-height: 34px;
+                                 text-align: center;
+                                 font-size:12px;
+                                 color: #FFFFFF;
+                                 background: #F25125;
+                                border-radius: 4px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .daily-task-content{
+        background: #fff;
+        margin-top:10px;
+        padding-bottom: 19px;
+        .daily-task-title{
+            margin-left:39px;
+            margin-top:29px;
+            font-size: 16px;
+            color: #333333;
+        }
+        .daily-task-list{
+            margin-left:26px;
+            margin-top:5px;
+            margin-right: 26px;
+            .cf();
+            .daily-task-item{
+                float: left;
+                margin-top:14px;
+                margin-left:14px;
+                margin-bottom: 0;
+                padding-left:20px;
+                width: 344px;
+                height: 130px;
+                background: #FFFFFF;
+                border: 1px solid #E5E5E5;
+                border-radius: 4px;
+                position: relative;
+                .daily-task-item-title{
+                    margin-top:24px;
+                    font-size:16px;
+                    line-height: 1;
+                    color: #333;
+                }
+                .daily-task-item-subtitle{
+                    margin-top:10px;
+                    font-size: 13px;
+                    color: #F25125;
+                    line-height: 1;
+                }
+                .daily-task-item-desc{
+                    margin-top:20px;
+                    width: 270px;
+                    font-size: 12px;
+                    line-height: 16px;
+                    color: #666666;
+                    .text-ellipsis();
+                }
+                .daily-task-itembtn{
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                }
+            }
+        }
+        .load-more-task{
+            margin-top:29px;
+            background: #fff;
+            text-align: center;
+            cursor: pointer;
+            .load-more-task-desc{
+                font-size: 14px;
+                color: #999999;
+                vertical-align: middle;
+            }
+            .load-more-task-icon{
+                margin-left:5px;
+                display: inline-block;
+                width: 16px;
+                height: 9px;
+                background: url("../../images/personalCenter/down-arrow.png") no-repeat center;
+                background-size: 100%;
+            }
+        }
+    }
+    .exchange-goods-content{
+        margin-top:10px;
+        padding-bottom: 30px;
+        background: #fff;
+        .exchange-goods-sort{
+            margin-left:39px;
+            padding-top:19px;
+            font-size: 12px;
+            .exchange-goods-title{
+                margin-right: 39px;
+                font-size:16px;
+                color: #333333;
+            }
+            .sort-all{
+                font-size:12px;
+                color: #666666;
+            }
+            .sort-line{
+                display: inline-block;
+                margin:0 10px;
+                width: 1px;
+                height: 13px;
+                vertical-align: middle;
+                background: #E5E5E5;
+            }
+            .sort{
+                cursor: pointer;
+            }
+            .active{
+                color: #F25125;
+            }
+        }
+        .exchange-goods-list{
+            margin-left:26px;
+            margin-top:5px;
+            margin-right: 26px;
+            margin-bottom:30px;
+            .cf();
+            .exchange-goods-list-item{
+                float: left;
+                margin-top:14px;
+                margin-left:14px;
+                margin-bottom: 0;
+                padding-bottom: 19px;
+                width: 270px;
+                height: 252px;
+                background: #FFFFFF;
+                box-sizing: border-box;
+                box-shadow: 0px 3px 10px 0px rgba(125, 101, 78, 0.3);
+                border-radius: 4px;
+                &:hover{
+                    border: 1px solid #F25125;
+                }
+                .item-img-wrapper{
+                    height: 164px;
+                    background: #F4F4F4;
+                    .item-img{
+                        margin:0 auto;
+                        margin-top:8px;
+                        display: block;
+                        width: 210px;
+                        height: 151px;
+                    }
+                }
+                .item-desc{
+                    margin-top:19px;
+                    padding-left:15px;
+                    padding-right: 20px;
+                    font-size: 14px;
+                    line-height: 1;
+                    color: #333333;
+                }
+                .item-loveAskCoin{
+                    margin-top:19px;
+                    padding-left:15px;
+                    .loveAskCoin-icon{
+                        display: inline-block;
+                        width: 22px;
+                        height: 22px;
+                        vertical-align: middle;
+                        background: url("../../images/personalCenter/love-ask-coin.png") no-repeat center;
+                       background-size: 100%;
+                    }
+                    .loveAskCoin-num{
+                        margin-left:8px;
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-size:16px;
+                        color: #F25125;
+                    }
+                }
+            }
+        }
+        .pagination-wrapper{
+            text-align: center;
+            .pagination{
+                margin: 0 auto;
+                display: inline-block;
+                // margin-left: 155px;
+                .cf();
+                .page-item{
+                    float: left;
+                    margin-right: 8px;
+                    height: 30px;
+                    line-height: 30px;
+                    padding:0 11px;
+                    color: #555555;
+                    background:rgba(255,255,255,1);
+                    border:1px solid rgba(230, 230, 230, 1);
+                    border-radius:2px;
+                    cursor: pointer;
+                }
+                .first,.prev,.next,.last{
+                    padding: 0 17px;
+                }
+                .active{
+                    background: #F25125;
+                    color: #ffffff;
+                    a{
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+}

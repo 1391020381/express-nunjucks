@@ -1,0 +1,17 @@
+<div class="daily-task-content">
+    <p class="daily-task-title">每日任务</p>
+    <ul class="daily-task-list">
+        {{each dailyTaskList as item}}
+            <li class="daily-task-item">
+                <p class="daily-task-item-title">{{item.title}}</p>
+                <p class="daily-task-item-subtitle">{{item.subTitle}}</p>
+                <p class="daily-task-item-desc">{{item.desc}}</p>
+                <span class="daily-task-itembtn"></span>
+            </li>
+        {{/each}}
+    </ul>
+    <p class="load-more-task">
+        <span class="load-more-task-desc">更多任务</span>
+        <span class="load-more-task-icon"></span>
+    </p>
+</div>
