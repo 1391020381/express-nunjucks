@@ -31,7 +31,35 @@ define(function (require, exports, module) {
             subTitle:'奖励100爱问币',
             desc:'完成首次评价时，获得爱问币',
             url:'xxxxx'
-        }
+        },
+        {
+            icon:'',
+            title:'完成登录注册',
+            subTitle:'奖励100爱问币',
+            desc:'用户输入关键词并进行搜索后赠送',
+            url:'xxxxx'
+           },
+           {
+               icon:'',
+               title:'完成浏览资料(10s）',
+               subTitle:'奖励100爱问币',
+               desc:'用户从未访问过任意资料详情页 首次完成访问后，获得奖励',
+               url:'xxxxx'
+           },
+           {
+               icon:'',
+               title:'完成搜索资料',
+               subTitle:'奖励100爱问币',
+               desc:'用户下载任意类型资料  (不限资料类型）',
+               url:'xxxxx'
+           },
+           {
+               icon:'',
+               title:'完成下载资料',
+               subTitle:'奖励100爱问币',
+               desc:'完成首次评价时，获得爱问币',
+               url:'xxxxx'
+           }
     ]
     var newcomertaskTemplate = require('./template/pointsMall/newcomertask.html')
     var dailyTaskTemplate = require('./template/pointsMall/dailyTask.html')

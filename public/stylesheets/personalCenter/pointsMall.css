@@ -79,7 +79,8 @@
 .points-mall-content .ponints-mall-newcomertask .newcomertask-content .newcomertask-content-list {
   margin-top: 20px;
   width: 100%;
-  height: 285px;
+  height: 330px;
+  overflow: hidden;
 }
 .points-mall-content .ponints-mall-newcomertask .newcomertask-content .newcomertask-content-list .swiper-container {
   margin-left: 40px;
@@ -147,6 +148,20 @@
   background: #F25125;
   border-radius: 4px;
   cursor: pointer;
+}
+.points-mall-content .ponints-mall-newcomertask .newcomertask-content .newcomertask-content-list .swiper-button-prev {
+  left: -38px;
+  width: 36px;
+  height: 36px;
+  background: url("../../images/personalCenter/newcomertask-leftarrow.png") no-repeat center;
+  background-size: 100%;
+}
+.points-mall-content .ponints-mall-newcomertask .newcomertask-content .newcomertask-content-list .swiper-button-next {
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  background: url("../../images/personalCenter/newcomertask-rightarrow.png") no-repeat center;
+  background-size: 100%;
 }
 .points-mall-content .daily-task-content {
   background: #fff;
