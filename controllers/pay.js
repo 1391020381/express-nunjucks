@@ -186,6 +186,9 @@ module.exports = {
                                 backData.title = data.data.fileInfo.title || '';
                                 backData.fileSize = data.data.fileInfo.fileSize || '';
                                 backData.g_permin = data.data.fileInfo.permin || '';
+                                // todo A24
+                                backData.userFileType = data.data.fileInfo.userFileType || '';
+                                backData.productType = data.data.fileInfo.productType || '';
                                 callback(null, backData);
                             } else {
                                 callback(null, null);

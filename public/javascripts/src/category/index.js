@@ -23,6 +23,22 @@ define(function (require, exports, module) {
 
         },
         categoryBilog:function() {
+            // 进入分类页时间戳
+            var startTime = new Date().getTime();
+            // 监听页面解绑事件
+            $(window).on('unload ', function () {
+                var endTime = new Date().getTime();
+                trackEvent('SE050', 'pageDuration', 'page', {
+                    pageID: 'CL',
+                    pageName: '分类页',
+                    //	进入页面时间（时间戳
+                    startTime: startTime,
+                    //	离开页面时间（时间戳
+                    endTime: endTime,
+                    //	页面停留时长（endTime - startTime）
+                    duration: startTime - endTime
+                }, true);
+            });
             trackEvent('NE030','pageTypeView','page',{
                 pageID:'CL',
                 pageName:'分类页'
