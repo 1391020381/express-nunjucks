@@ -7,8 +7,15 @@ define(function (require, exports, module) {
     var trackEvent = require('../common/bilogReport.js').trackEvent;
     var trackEventLogin = require('../common/bilogReport.js').trackEventLogin;
     window.$ajax = $ajax;
+    window.template = require('./template');
 
-    var messageCenter = require('../common/message-center/index');
+    // var messageCenter = require('../common/message-center/index');
+    // // 爱问币规则弹窗
+    // var coinRuleLayerService = require('../common/coin-rule-layer/index');
+    // // 爱问币明细弹窗
+    // var iaskCoinLayerService = require('../common/iask-coin-layer/index');
+    //
+    // iaskCoinLayerService.open();
 
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
@@ -36,7 +43,6 @@ define(function (require, exports, module) {
     }
 
     require('./login');
-    window.template = require('./template');
     require('./helper');
 
     var singleLogin = require('./single-login').init;
@@ -132,8 +138,6 @@ define(function (require, exports, module) {
                 options: options
             }));
         });
-
-        // messageCenter.init();
     });
 
     // 此方法是为了解决外部登录找不到此方法
