@@ -2,6 +2,7 @@
 <html lang="zh">
     <head>
         {% include "common/head.html" %}
+        <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
         <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/personalCenter/pointsMall.css"/>
     </head>
 
@@ -10,7 +11,24 @@
         {% include "common/websiteHeaderbar.html" %}
 
 
-
+        <div class="points-mall-content">
+            <div class="points-mall-summary">
+                <div class="ponits-mall-loveAskCoin">
+                   <div  class="ponit-mall-loveAskCoin-content">
+                    <p class="ponits-mall-title">爱问币</p>
+                    <p class="ponit-mall-loveAskCoinnum">9999</p>
+                    <p class="ponit-mall-rule">
+                        <span class="ponit-mall-ruldesc">规则说明</span>
+                        <span class="ponit-mall-rulicon"></span>
+                        <span class="point-mall-detail">爱问币明细</span>
+                    </p>
+                   </div>
+                </div>
+            </div>
+            <div class="ponints-mall-newcomertask"></div>
+            <div class="ponints-mall-dailytask"></div>
+            <div class="ponints-mall-exchangegoods"></div>
+        </div>
 
         <!-- 底部 start-->
         {% include "common/footer.html" %}
@@ -27,7 +45,7 @@
                 report: {},
                 gio: {}
             };
-            seajs.use(["dist/application/app.js", "dist/personalCenter/init.js"]);
+            seajs.use(["dist/application/app.js", "dist/personalCenter/pointsMall.js"]);
         </script>
         <!-- 百度统计代码 -->
         <script src="{{staticUrl}}/baidu-statistics.js"></script>
