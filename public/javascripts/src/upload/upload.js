@@ -15,6 +15,8 @@ define(function (require, exports, module) {
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var urlConfig = require('../application/urlConfig');
+        // 认证协议弹窗
+    var agreementLayerService = require('../common/agreement-layer/index');
     var uploadObj = {
         uploadFiles: [],
         permin: 1, // 1:公开、2:私密
@@ -877,6 +879,7 @@ define(function (require, exports, module) {
     };
 
     isLogin(function (data) {
+        agreementLayerService.open(function(){},true)
         uploadObj.isAuth = data.isAuth == 1 ? true : false;
         uploadObj.init();
     }, isAutoLogin);

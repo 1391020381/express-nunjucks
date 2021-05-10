@@ -18,6 +18,7 @@ define(function (require, exports, module) {
     var authenticationBox = $('#authentication-box');
        // 认证协议弹窗
     var agreementLayerService = require('../common/agreement-layer/index');
+    agreementLayerService.open(function(){})
     var orgObj = {
         nickName: '',
         validateFrom: /^1[3456789]\d{9}$/,
@@ -398,7 +399,6 @@ define(function (require, exports, module) {
             //     return false;
             // }
             agreementLayerService.open(function () {
-                layer.msg('认证协议弹窗-回调');
                 params = JSON.stringify(params);
                 $.ajax(api.authentication.institutions, { // /gateway/user/certification/institutions
                     type: 'POST',
