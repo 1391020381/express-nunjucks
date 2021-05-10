@@ -78,7 +78,7 @@ module.exports = {
                 {
                     title: '范围',
                     code: 'fileType',
-                    content: userinfo.isVip == 1 ? fileTypeList : fileTypeList.slice(0, 4)
+                    content: userinfo.isVip == 1 ? fileTypeList : fileTypeList.slice(0, 3)
                 },
                 {
                     title: '页数',
