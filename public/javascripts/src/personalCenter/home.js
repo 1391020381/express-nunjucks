@@ -8,6 +8,8 @@ define(function (require) {
     var vipPrivilegeList = require('./template/vipPrivilegeList.html');
     var type = window.pageConfig && window.pageConfig.page.type;
     var isLogin = require('../application/effect.js').isLogin;
+    // 认证协议弹窗
+    var agreementLayerService = require('../common/agreement-layer/index');
     var userInfo = {};
     if (type == 'home') {
         isLogin(initData, true);
@@ -27,6 +29,7 @@ define(function (require) {
     }
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
+        agreementLayerService.open(function(){},true)
         userInfo = data ? data : userInfo;
         $.ajax({
             headers: {

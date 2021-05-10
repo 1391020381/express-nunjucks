@@ -1,6 +1,8 @@
 <div class="m-agreement-layer jsAgreementLayer">
     <!-- 关闭弹窗按钮 -->
+    {{if !isPersonalCenterOrFileUpload}}
     <div class="close-btn jsAgreementCloseBtn"></div>
+    {{/if}}
     <h4 class="layer-title">阅读并同意《用户认证协议》及《作品承诺函》</h4>
     <div class="layer-main">
         <div class="content">

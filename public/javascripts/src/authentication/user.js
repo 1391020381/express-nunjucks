@@ -15,7 +15,8 @@ define(function (require, exports, module) {
     var successTemplate = require('./template/success.html');
     var errorTemplate = require('./template/error.html');
     var authenticationBox = $('#authentication-box');
-
+    // 认证协议弹窗
+    var agreementLayerService = require('../common/agreement-layer/index');
     var userObj = {
         nickName: '',
         validateFrom: /^1[3456789]\d{9}$/,
@@ -359,41 +360,43 @@ define(function (require, exports, module) {
                 });
                 return false;
             }
-            if (!$('.rz-label .check-con').hasClass('checked')) {
-                $.toast({
-                    text: '请勾选用户认证协议',
-                    icon: '',
-                    delay: 2000,
-                    callback: false
-                });
-                return false;
-            }
-            params = JSON.stringify(params);
-            $.ajax(api.authentication.personalCertification, { // /gateway/user/certification/personal
-                type: 'POST',
-                data: params,
-                contentType: 'application/json'
-            }).done(function (data) {
-                if (data.code == '0') {
-                    $.toast({
-                        text: '提交成功',
-                        icon: '',
-                        delay: 3000,
-                        callback: function () {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    $.toast({
-                        text: data.message,
-                        icon: '',
-                        delay: 2000,
-                        callback: false
-                    });
-                }
+            // if (!$('.rz-label .check-con').hasClass('checked')) {
+            //     $.toast({
+            //         text: '请勾选用户认证协议',
+            //         icon: '',
+            //         delay: 2000,
+            //         callback: false
+            //     });
+            //     return false;
+            // }
+            agreementLayerService.open(function () {
+                params = JSON.stringify(params);
+                $.ajax(api.authentication.personalCertification, { // /gateway/user/certification/personal
+                    type: 'POST',
+                    data: params,
+                    contentType: 'application/json'
+                }).done(function (data) {
+                    if (data.code == '0') {
+                        $.toast({
+                            text: '提交成功',
+                            icon: '',
+                            delay: 3000,
+                            callback: function () {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        $.toast({
+                            text: data.message,
+                            icon: '',
+                            delay: 2000,
+                            callback: false
+                        });
+                    }
 
-            }).fail(function (e) {
-                console.log('error===' + e);
+                }).fail(function (e) {
+                    console.log('error===' + e);
+                });
             });
         }
     };
