@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var utils = require('../cmd-lib/util');
     var login = require('../application/checkLogin');
     var common = require('./common');
-
+    var fileCollectLayer = require('../common/file-collect-layer')
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
     var page = window.pageConfig.page;
@@ -267,7 +267,13 @@ define(function (require, exports, module) {
                 return;
             } else {
                 // var fid = $(this).attr('data-fid');
-                setCollect($(this));
+                var ui = method.getCookie('ui') ? JSON.parse(decodeURIComponent(method.getCookie('ui'))) : { isVip: '' };
+                if (ui.isVip == '1') {
+                    setCollect($(this));
+                }else{
+                    // 比较用户收藏的数是否大于50
+                    fileCollectLayer.open()
+                }
             }
 
         });
