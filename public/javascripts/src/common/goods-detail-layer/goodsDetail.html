@@ -2,28 +2,28 @@
     <!-- 关闭弹窗按钮 -->
     <div class="close-btn jsGoodsDetailCloseBtn"></div>
     <div class="goods-img">
-        <img src="{{data.mainPicture}}" alt="{{data.name}}">
+        <img src="{{data.pictureUrl}}" alt="{{data.goodsName}}">
     </div>
     <div class="goods-info">
         <div class="goods-name ellipsis">
-            {{data.name}}
+            {{data.goodsName}}
         </div>
         <div class="goods-handle cf">
             <div class="price fl cf">
                 <span class="icon fl"></span>
                 <span class="num fl ellipsis">{{data.price}}</span>
-                <span class="util fl">爱问币{{coinNum}}</span>
+                <span class="util fl">爱问币</span>
             </div>
-            {{if coinNum >= data.price}}
+            {{if coinNum >= data.price && !data.hasExchange}}
             <div class="exchange fr jsGoodsDetailLayerExchange">立即兑换</div>
             {{else}}
-            <div class="exchange fr disabled jsGoodsDetailLayerExchange">立即兑换</div>
+            <div class="exchange fr disabled">立即兑换</div>
             {{/if}}
         </div>
         <div class="goods-desc">
             <div class="title">商品详情</div>
             <div class="content">
-                {{data.introduction}}
+                {{data.description}}
             </div>
         </div>
     </div>

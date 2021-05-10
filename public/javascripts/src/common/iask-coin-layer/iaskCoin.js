@@ -76,15 +76,35 @@ define(function (require, exports, module) {
         findTableList: function () {
             var that = this;
             var currentPage = that.currentPage;
+            // action	动作名称（业务名称）
+            // changeNumber	变动积分数量（增加用正数，减扣用负数）
+            // createTime	创建时间
+            // method.customPost(api.user.getCoinIaskList, {
+            //     currentPage: currentPage,
+            //     pageSize: 20
+            // }, function (res) {
+            //     if (res && res.code === '0' && res.data && res.data.rows) {
+            //         that.renderTable({
+            //             rows: res.data.rows,
+            //             currentPage: currentPage,
+            //             totalPages: res.data.totalPages,
+            //             totalSize: res.data.totalSize
+            //         });
+            //     }
+            // });
             var rows = [];
             setTimeout(function () {
+                // action	动作名称（业务名称）
+                // changeNumber	变动积分数量（增加用正数，减扣用负数）
+                // createTime	创建时间
                 for (var i = (currentPage - 1) * 20; i < currentPage * 20; i++) {
                     rows.push({
-                        name: '直接购买' + i,
-                        date: '2021-05-05',
-                        value: 200,
-                        // 0、扣除 1、增加
-                        type: i % 2 === 0 ? 1 : 0
+                        // 动作名称（业务名称）
+                        action: '直接购买' + i,
+                        // 创建时间
+                        createTime: '2021-05-05',
+                        // 变动积分数量（增加用正数，减扣用负数）
+                        changeNumber: i % 2 === 0 ? 200 : -200
                     });
                 }
                 that.renderTable({
