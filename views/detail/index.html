@@ -83,7 +83,6 @@
                                     </a>
 
                                     <div class="collect-con fl pc" >
-
                                         <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick">
                                             <em class="btn-line"></em>
 
@@ -94,14 +93,15 @@
                                             <i class="after"></i>
                                             <p>
                                                 <i class="icon-success"></i>
-                                                <em>已收藏至<a style="cursor: pointer;" href="/ucenter/vips"
-                                                                  target="_blank">个人中心</a>
-                                                </em>
+                                                <em>已收藏至<a style="cursor: pointer;" href="/ucenter/vips" target="_blank">个人中心</a></em>
                                             </p>
                                             <p class="info mt10">点击个人中心可查看</p>
                                         </div>
                                     </div>
-
+                                    {# 评价按钮 #}
+                                    <div class="u-evaluate-wrapper block-1 fl jsDetailEvaluateBtn">
+                                        <i class="evaluate-icon"></i><span class="evaluate-text">评价有礼</span>
+                                    </div>
                                     {%if results.list.data.contentPathList and results.list.data.totalPage %}
                                         <div class="fix-page-con">
                                             <span class="btn-page page-prev" data-type="reduce" title="上一页"></span>
