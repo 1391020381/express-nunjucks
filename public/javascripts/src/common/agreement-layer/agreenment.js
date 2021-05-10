@@ -40,8 +40,8 @@ define(function (require, exports, module) {
                         $duration.text(that.duration);
                         that.duration--;
                     }
-                }, 1000)
-            })
+                }, 1000);
+            });
         },
         /**
          * public 外部可调
@@ -66,7 +66,7 @@ define(function (require, exports, module) {
             $('.jsAgreementCloseBtn').on('click', function (e) {
                 e.stopPropagation();
                 that.closeLayer();
-            })
+            });
 
             // 确认
             $('.jsAgreementConfirm').on('click', function (e) {
@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                     }
                     that.closeLayer();
                 }
-            })
+            });
         },
         // 解绑事件
         unBindEvent: function () {
@@ -95,5 +95,5 @@ define(function (require, exports, module) {
         layerMsg: function (message) {
             layer.msg(message, {offset: ['200px']});
         }
-    }
-})
+    };
+});

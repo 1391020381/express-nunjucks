@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     // 业务模板和js
-    var coinRuleLayerHtml = require('./coinRule.html');
-    var coinRuleLayerJs = require('./coinRule');
+    var fileCollectLayerHtml = require('./fileCollect.html');
+    var fileCollectLayerJs = require('./fileCollect');
 
     /**
      * 爱问币规则弹窗
@@ -9,20 +9,20 @@ define(function (require, exports, module) {
     function open() {
         layer.open({
             // 确保只打开一个弹窗
-            id: 'coinRuleLayer',
+            id: 'fileCollectLayer',
             skin: 'g-noBg-layer',
             type: 1,
             title: false,
             closeBtn: 0,
-            area: ['668px', '547px'],
+            area: ['477px', '244px'],
             shade: 0.8,
             shadeClose: false,
-            content: coinRuleLayerHtml,
+            content: fileCollectLayerHtml,
             success: function (layero, index) {
-                coinRuleLayerJs.init(index);
+                fileCollectLayerJs.init(index);
             },
             end: function () {
-                coinRuleLayerJs.destroy();
+                fileCollectLayerJs.destroy();
             }
         });
     }

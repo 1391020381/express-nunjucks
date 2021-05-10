@@ -72,7 +72,7 @@ define(function (require, exports, module) {
                 closeBtn: 0,
                 area: ['477px'],
                 shade: 0.8,
-                shadeClose: true,
+                shadeClose: false,
                 content: tpl,
                 success: function (layero, index) {
                     evaluateLayerModel.init(fileInfo, evaluateInfo, index, callback);
