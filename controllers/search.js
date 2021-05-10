@@ -56,7 +56,7 @@ module.exports = {
 
             const fileTypeList = [
                 { code: '', des: '全部', active: req.query.fileType === '' || req.query.fileType == undefined ? true : false },
-                { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
+                // { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
                 { code: 'vipExclusive', des: 'VIP专享', active: req.query.fileType === 'vipExclusive' ? true : false },
                 { code: 'pay', des: '付费', active: req.query.fileType === 'pay' ? true : false },
                 { code: 'free', des: '免费', active: req.query.fileType === 'free' ? true : false }
