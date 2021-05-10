@@ -31,10 +31,14 @@
     </div>
     <div class="integral-con fr">
         {{ if data.status != 2 }}
-        <span style="float:left;margin-right:15px;">{{ data.productPrice }}个下载特权</span>
-        {{ /if }}
+        <!-- <span style="float:left;margin-right:15px;">{{ data.productPrice }}个下载特权</span> -->
+        <p  class="integral-con-content js-buy-open"><span class="integral-con-price" style="font-weight: bold;"></span><span class="integral-con-desc"></span></p>
+        <a class="btn-fix-bottom btn-fix-bottom-vip  fl"pcTrackContent="downloadBtn-3"
+            data-toggle="download">VIP特权下载</a>
+        {{ else }}
         <a class="btn-fix-bottom fl"pcTrackContent="downloadBtn-3"
             data-toggle="download">立即下载</a>
+        {{/if}}
     </div>
     {{else}}
     {{if data.productType == "5" }}
