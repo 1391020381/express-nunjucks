@@ -142,6 +142,9 @@ define(function (require, exports, module) {
         },
         comment: {
             getLableList: gateway + '/comment/lable/dataList',
+            // todo A24 替换 getLableList
+            getStarLevelList: gateway + '/comment/lable/getStarLevelList',
+
             addComment: gateway + '/comment/eval/add',
             getHotLableDataList: gateway + '/comment/lable/hotDataList', // 详情热评标签
             getFileComment: gateway + '/comment/eval/dataList', // 详情评论

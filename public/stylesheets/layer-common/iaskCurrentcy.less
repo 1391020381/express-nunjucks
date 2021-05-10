@@ -1,0 +1,126 @@
+// 爱问币明细弹窗
+.m-iaskCurrentcy-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 15px 0 rgba(1, 1, 1, 0.35);
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: -32px;
+        display: block;
+        width: 18px;
+        height: 18px;
+        background: url(../../images/icon_iShare.png) -220px -20px no-repeat;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .layer-title {
+        font-size: 16px;
+        color: #333;
+        width: 100%;
+        height: 59px;
+        text-align: center;
+        line-height: 59px;
+        background-color: #F7F7F7;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .layer-main {
+        position: relative;
+        //height: 488px;
+        margin: 16px 30px 0;
+    }
+
+    // 列表
+    .table-wrapper {
+        position: relative;
+        width: 100%;
+        height: 392px;
+        overflow-y: auto;
+
+        .table-content {
+            width: 100%;
+        }
+
+        .table-tr {
+            color: #666;
+            font-size: 14px;
+            font-weight: 400;
+            height: 46px;
+            line-height: 46px;
+
+            &.header {
+                color: #999;
+                border-bottom: 1px solid #f4f4f4;
+            }
+        }
+
+        .table-td {
+            padding-left: 14px;
+
+            &.gray {
+                color: #888;
+            }
+
+            &.orange {
+                color: #F25125;
+            }
+        }
+
+        .table-nodata {
+            font-size: 18px;
+            color: #999;
+            text-align: center;
+            line-height: 300px;
+        }
+    }
+
+    .paging-wrapper {
+        padding: 20px 0 30px;
+        height: 30px;
+        text-align: center;
+    }
+
+    // 分页
+    .pagination-container {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        height: 32px;
+        overflow: hidden;
+
+        .page-item {
+            float: left;
+            font-size: 13px;
+            color: #555555;
+            text-align: center;
+            line-height: 13px;
+            padding: 9px 12px 8px 11px;
+            background-color: #fff;
+            border: 1px solid #E6E6E6;
+            border-radius: 2px;
+            margin-right: 8px;
+            cursor: pointer;
+
+            &.first,
+            &.prev,
+            &.next &.last {
+                padding: 9px 16px 8px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.active {
+                background-color: #F25125;
+                color: #fff;
+            }
+        }
+    }
+}

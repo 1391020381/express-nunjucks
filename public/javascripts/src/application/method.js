@@ -34,6 +34,67 @@ define(function (require, exports, module) {
         postd: function (u, c, d) {
             this.async(u, c, false, false, d);
         },
+        // todo A24 ========== start
+        // ajax请求-包装一层，后续所有接口调用都用此方法替换
+        customAjax: function (options) {
+            var self = this;
+            var cuk = this.getCookie('cuk');
+            $.ajax({
+                type: options.type || 'POST',
+                timeout: options.timeout || 30000,
+                async: options.async,
+                cache: options.cache,
+                headers: {
+                    // 携带登录token
+                    'Authrization': cuk,
+                    'cache-control': 'no-cache',
+                    'Pragma': 'no-cache'
+                },
+                statusCode: {
+                    // code码全局处理
+                    401: function () {
+                        self.delCookie('cuk', '/');
+                        self.delCookie('cuk', '/', '.sina.com.cn');
+                        self.delCookie('cuk', '/', '.iask.com.cn');
+                        self.delCookie('cuk', '/', '.iask.com');
+                        $.toast({
+                            text: '请重新登录',
+                            delay: 2000
+                        });
+                    }
+                },
+                contentType: options.contentType || 'application/json;charset=utf-8',
+                dataType: options.dataType || 'json',
+                url: options.url,
+                data: options.data,
+                success: options.success,
+                error: options.error
+            });
+        },
+        // get请求
+        customGet: function (url, params, success, error, isAsync) {
+            this.customAjax({
+                type: 'GET',
+                url: url,
+                async: isAsync === false ? isAsync : true,
+                cache: false,
+                data: params,
+                success: success,
+                error: error
+            });
+        },
+        // post请求
+        customPost: function (url, params, success, error, isAsync) {
+            this.customAjax({
+                type: 'POST',
+                url: url,
+                async: isAsync === false ? isAsync : true,
+                data: params ? JSON.stringify(params) : params,
+                success: success,
+                error: error
+            });
+        },
+        // todo A24 ========== end
         // 随机数
         random: function (min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
@@ -217,7 +278,7 @@ define(function (require, exports, module) {
          * @param flag 是否新窗口打开
          */
         compatibleIESkip: function (url, flag) {
-            setTimeout(function(){
+            setTimeout(function () {
                 var referLink = document.createElement('a');
                 referLink.href = url;
                 referLink.style.display = 'none';
@@ -376,7 +437,7 @@ define(function (require, exports, module) {
         getLoginSessionId: function () {
             return this.getCookie('ish_jssid') || '';
         },
-        isIe8: function isIe8(){
+        isIe8: function isIe8() {
             // var DEFAULT_VERSION = 8.0;
             // var ua = navigator.userAgent.toLowerCase();
             // var isIE = ua.indexOf("msie")>-1;
@@ -389,9 +450,9 @@ define(function (require, exports, module) {
             // }else{
             //     return false
             // }
-            if(Array.isArray){
+            if (Array.isArray) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }

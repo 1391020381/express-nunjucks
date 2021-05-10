@@ -1,0 +1,22 @@
+{{if dataList.length }}
+    {{each dataList}}
+    <div class="dropdown-item">
+        {{if showDate}}
+        <div class="msg-date">{{$value.date}}</div>
+        {{/if}}
+        <div class="cf">
+            <div class="msg-name fl">{{$value.name}}</div>
+            <div class="msg-num fl">
+                <!--<span>+100</span><span>爱问币</span>-->
+                {{$value.content}}
+            </div>
+        </div>
+    </div>
+    {{/each}}
+{{else}}
+<div class="dropdown-item">
+   <div class="nodata">暂无数据</div>
+</div>
+{{/if}}
+
+

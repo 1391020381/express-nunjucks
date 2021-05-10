@@ -1,0 +1,279 @@
+// 评价编辑弹窗
+.m-evaluate-popup {
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 2px;
+
+    .evaluate-close {
+        position: absolute;
+        top: 15px;
+        right: -32px;
+        display: block;
+        width: 18px;
+        height: 18px;
+        background: url(../../images/icon_iShare.png) -220px -20px no-repeat;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .evaluate-header {
+        text-align: left;
+        padding: 6px 0;
+        margin-bottom: 30px;
+        font-size: 0;
+
+        .img-icon {
+            float: left;
+            width: 16px;
+            height: 16px;
+            background-image: url(../../images/new_detail/icon_new_data.png);
+
+            &.doc,
+            &.docx {
+                background-position: 0 -20px;
+            }
+
+            &.pdf {
+                background-position: 0 -40px;
+            }
+
+            &.ppt,
+            &.pptx {
+                background-position: 0 -60px;
+            }
+
+            &.txt {
+                background-position: 0 -80px;
+            }
+
+            &.xls,
+            &.xlsx {
+                background-position: 0 -100px;
+            }
+        }
+
+        .popup-title {
+            display: block;
+            height: 16px;
+            text-align: left;
+            line-height: 16px;
+            margin-left: 26px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #222222;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+
+    .evaluate-body {
+        font-size: 20px;
+        font-weight: 400;
+        color: #666666;
+        line-height: 34px;
+
+        .evaluate-body-item {
+            padding: 10px 0;
+
+            .left-title {
+                float: left;
+                font-size: 15px;
+                color: #666666;
+                height: 21px;
+                text-align: left;
+                line-height: 21px;
+
+                &.block {
+                    float: none;
+                }
+            }
+
+            .star-evaluate {
+                float: left;
+                height: 21px;
+                margin-left: 20px;
+
+                .star {
+                    width: 21px;
+                    height: 21px;
+                    background-image: url(../../images/personalCenter/star-default.png);
+
+
+                    &.star_1 {
+                        left: 0;
+                    }
+
+                    &.star_2 {
+                        left: 31px;
+                    }
+
+                    &.star_3 {
+                        left: 62px;
+                    }
+
+                    &.star_4 {
+                        left: 93px;
+                    }
+
+                    &.star_5 {
+                        left: 124px;
+                    }
+
+                    &.active {
+                        background-image: url(../../images/personalCenter/star-active.png);
+                    }
+                }
+            }
+
+            .label-evaluate {
+                margin: 15px -10px 0;
+            }
+
+            .content-evaluate {
+                margin-top: 10px;
+            }
+        }
+
+        // 评分星号
+        .star-evaluate {
+            position: relative;
+            overflow: hidden;
+            width: 218px;
+            height: 34px;
+            margin: 0 auto;
+
+            .star {
+                position: absolute;
+                top: 0;
+                z-index: 3;
+                width: 34px;
+                height: 34px;
+                display: block;
+                cursor: pointer;
+                margin-bottom: 0;
+                background: url(../../images/personalCenter/star-default.png) center no-repeat;
+                background-size: contain;
+                transition: background 0.1s;
+
+                &.star_1 {
+                    left: 0;
+                }
+
+                &.star_2 {
+                    left: 46px;
+                }
+
+                &.star_3 {
+                    left: 92px;
+                }
+
+                &.star_4 {
+                    left: 138px;
+                }
+
+                &.star_5 {
+                    left: 184px;
+                }
+
+                &.active {
+                    background-image: url(../../images/personalCenter/star-active.png);
+                }
+            }
+        }
+
+        // 标签
+        .label-evaluate {
+            position: relative;
+            text-align: left;
+            line-height: 44px;
+            margin: 44px -10px 32px;
+            font-size: 0;
+
+            .label-item {
+                display: inline-block;
+                vertical-align: top;
+                height: 13px;
+                line-height: 13px;
+                padding: 8px 12px 7px;
+                margin: 0 10px;
+                font-size: 13px;
+                font-weight: 400;
+                color: #333;
+                background-color: #F4F4F4;
+                border-radius: 14px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #FCE8E2;
+                }
+
+                &.active {
+                    //color: #222;
+                    background-color: #FCE8E2;
+                }
+            }
+        }
+
+        // 输入框
+        .content-evaluate {
+            height: 90px;
+            border: 1px solid #DDDDDD;
+            border-radius: 2px;
+            padding: 4px 10px;
+            text-align: left;
+            line-height: 24px;
+            font-size: 14px;
+
+            .desc-content {
+                width: 100%;
+                height: 100%;
+                border: 0 none;
+                resize: none;
+                outline: 0 none;
+                background-color: transparent;
+                color: #333;
+                line-height: 22px;
+            }
+        }
+    }
+
+    .evaluate-footer {
+        margin-top: 30px;
+
+        .btn {
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 15px;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            vertical-align: top;
+            margin: 0 10px;
+            border-radius: 3px;
+            border: 1px solid #d9d9d9;
+            cursor: pointer;
+
+            &.btn-normal {
+                background-color: #f6f6f6;
+                color: #333;
+            }
+
+            &.btn-color {
+                color: #fff;
+                border-color: #f25125;
+                background-color: #f25125;
+            }
+
+            &.btn-disabled {
+                cursor: not-allowed;
+                color: #999;
+                background-color: #e9e8e5;
+                border-color: #e9e8e5;
+            }
+        }
+    }
+}

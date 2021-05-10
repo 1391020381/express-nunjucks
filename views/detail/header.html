@@ -13,34 +13,34 @@
                 </div>
                 <div class="cate-menu">
                     {% if results.cateList.length > 0 %}
-                        <div class="cate-menu-content">
-                            {% for item in results.cateList %}
-                                <div class="menu-content-item">
-                                    {% if item.url %}
-                                        <a class="item-title" title="{{ item.name }}" 
-                                href="/c/{{item.url}}/" target="_blank">
-                                            <span class="item-title-icon"></span>
-                                            <span class="item-title-text">{{ item.name }}</span>
-                                        </a>
-                                    {% else %}
-                                        <a class="item-title" title="{{ item.name }}" 
-                                href="/c/{{item.nodeCode}}/" target="_blank">
-                                            <span class="item-title-icon"></span>
-                                            <span class="item-title-text">{{ item.name }}</span>
-                                        </a>
-                                    {% endif %}
+                    <div class="cate-menu-content">
+                        {% for item in results.cateList %}
+                        <div class="menu-content-item">
+                            {% if item.url %}
+                            <a class="item-title" title="{{ item.name }}"
+                               href="/c/{{item.url}}/" target="_blank">
+                                <span class="item-title-icon"></span>
+                                <span class="item-title-text">{{ item.name }}</span>
+                            </a>
+                            {% else %}
+                            <a class="item-title" title="{{ item.name }}"
+                               href="/c/{{item.nodeCode}}/" target="_blank">
+                                <span class="item-title-icon"></span>
+                                <span class="item-title-text">{{ item.name }}</span>
+                            </a>
+                            {% endif %}
 
-                                    {% if item.frontAllCategoryVOList and item.frontAllCategoryVOList.length %}
-                                        <div class="item-content">
-                                            {% for menu in item.frontAllCategoryVOList %}
-                                                <a class="item-content-link" title="{{ menu.name }}"
-                                    href="/c/{{menu.nodeCode}}/" target="_blank">{{ menu.name }}</a>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
+                            {% if item.frontAllCategoryVOList and item.frontAllCategoryVOList.length %}
+                            <div class="item-content">
+                                {% for menu in item.frontAllCategoryVOList %}
+                                <a class="item-content-link" title="{{ menu.name }}"
+                                   href="/c/{{menu.nodeCode}}/" target="_blank">{{ menu.name }}</a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
+                        {% endfor %}
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="header-right fl">
                 <div class="new-search fl cf">
                     <input type="text" class="new-input" id="search-detail-input" autocomplete="off"
-                        placeholder="与人沟通的十大绝招">
+                           placeholder="与人沟通的十大绝招">
                     <a class="btn-new-search">
                         <i class="icon-detail"></i>搜索资料</a>
                     <div class="detail-lately">
@@ -67,21 +67,19 @@
                 </div>
             </div>
 
-            <div class="new-header-right fl">
-                <div class="vip-join-con">
-                    {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
-                        <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
-                    </a> #}
-                    {% if results
-                        .geSearchBannerList
-                        .list[0] %}
-                        <a  href="{{results.geSearchBannerList.list[0].linkUrl}}" target="_blank" data-id="{{results.geSearchBannerList.list[0].id}}">
-                            <img class="img" src="{{results.geSearchBannerList.list[0].imagUrl}}">
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
-
+            <!--<div class="new-header-right fl">
+              <div class="vip-join-con">
+                   {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
+                   <i class="icon-iShare"></i><span class="icon-iShare-text">开通VIP</span>
+                   </a> #}
+                   {% if results.geSearchBannerList.list[0] %}
+                   <a href="{{results.geSearchBannerList.list[0].linkUrl}}" target="_blank"
+                      data-id="{{results.geSearchBannerList.list[0].id}}">
+                       <img class="img" src="{{results.geSearchBannerList.list[0].imagUrl}}">
+                   </a>
+                   {% endif %}
+               </div>
+           </div>-->
             <div class="user-info fr">
                 <!--未登录 -->
                 <div class="user-con" id="detail-unLogin">
@@ -104,14 +102,64 @@
                     <div class="user-more">
                         <i class="before"></i>
                         <i class="after"></i>
+                        <a href="/node/pointsMall.html" target="_blank">爱问币商城</a>
                         {% if results.type %}
-
-                            {%else%}
-                            <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
-                            {%endif%}
-                            <a class="loginOut">退出</a>
-                        </div>
+                        {%else%}
+                        <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                        {%endif%}
+                        <a class="loginOut">退出</a>
                     </div>
+                </div>
+            </div>
+            <!--消息中心-->
+            <div class="message-center fr">
+                    <span class="icon jsMessageOpenPopup">
+                        <span class="badge"></span>
+                    </span>
+                <!--初始化展示一条记录-->
+                <!--   <div class="dropdown jsMessageInitShow">
+                       <i class="before"></i>
+                       <i class="after"></i>
+                       <div class="dropdown-header cf">
+                           <i class="close-btn fr jsMessageClosePopupInit"></i>
+                       </div>
+                       <div class="dropdown-list jsMessageDropdownInit">
+                           &lt;!&ndash;<div class="dropdown-item">
+                               <div class="cf">
+                                   <div class="msg-name fl">购买VIP赠送最多十个字符</div>
+                                   <div class="msg-num fl">
+                                       <span>+100</span><span>爱问币</span>
+                                   </div>
+                               </div>
+                           </div>&ndash;&gt;
+                       </div>
+                   </div>-->
+                <!--点击展示记录-->
+                <div class="dropdown JsMessageDropdown">
+                    <i class="before"></i>
+                    <i class="after"></i>
+                    <div class="dropdown-header cf">
+                        <i class="close-btn fr jsMessageClosePopup"></i>
+                    </div>
+                    <div class="dropdown-list jsMessageDropdownList"></div>
+                    <!-- <div class="dropdown-item">
+                         <div class="msg-date">2020-05-24</div>
+                         <div class="cf">
+                             <div class="msg-name fl">购买VIP赠送最多十个字符</div>
+                             <div class="msg-num fl">
+                                 <span>+100</span><span>爱问币</span>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="dropdown-item">
+                         <div class="msg-date">2020-05-24</div>
+                         <div class="cf">
+                             <div class="msg-name fl">购买VIP赠送最多十个字符</div>
+                             <div class="msg-num fl">
+                                 优惠券已发放到账户
+                             </div>
+                         </div>
+                     </div>-->
                 </div>
             </div>
         </div>

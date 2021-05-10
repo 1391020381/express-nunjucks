@@ -8,6 +8,8 @@ define(function (require, exports, module) {
     var trackEventLogin = require('../common/bilogReport.js').trackEventLogin;
     window.$ajax = $ajax;
 
+    var messageCenter = require('../common/message-center/index');
+
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
             PRODUCT_CONFIG: {
@@ -130,6 +132,8 @@ define(function (require, exports, module) {
                 options: options
             }));
         });
+
+        // messageCenter.init();
     });
 
     // 此方法是为了解决外部登录找不到此方法
