@@ -10,9 +10,9 @@ define(function (require, exports, module) {
     var utils = require('../cmd-lib/util');
     var login = require('../application/checkLogin');
     var common = require('./common');
+    var fileCollectLayer = require('../common/file-collect-layer')
     // 评价弹窗
     var evaluateLayerService = require('../common/evaluate-layer/index');
-
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
     var page = window.pageConfig.page;
@@ -272,7 +272,13 @@ define(function (require, exports, module) {
                 return;
             } else {
                 // var fid = $(this).attr('data-fid');
-                setCollect($(this));
+                var ui = method.getCookie('ui') ? JSON.parse(decodeURIComponent(method.getCookie('ui'))) : { isVip: '' };
+                if (ui.isVip == '1') {
+                    setCollect($(this));
+                }else{
+                    // 比较用户收藏的数是否大于50
+                    fileCollectLayer.open()
+                }
             }
 
         });
@@ -295,6 +301,8 @@ define(function (require, exports, module) {
             if (productType == 3) return false;
 
             var type = $(this).data('type');
+            var vipPrice = $(this).attr('price')
+            var vipDesc = $(this).attr('desc')
             if (!method.getCookie('cuk')) {
                 // 上报数据相关
                 if ($(this).attr('loginOffer')) {
@@ -302,7 +310,9 @@ define(function (require, exports, module) {
                 }
                 method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/'); // qq weibo 登录添加标记
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
-                if (pageConfig.params.productType == '5' && type == 'file') {
+                console.log(vipDesc,vipPrice)
+                if ((pageConfig.params.productType == '5' && type == 'file')||(pageConfig.params.productType == '4')&&vipPrice&&vipDesc
+                ) {
                     // 相关逻辑未登陆购买逻辑移到buyUnlogin.js
 
                 } else {
