@@ -2,12 +2,16 @@ define(function (require, exports, module) {
     // 业务模板和js
     var agreementLayerHtml = require('./agreement.html');
     var agreementLayerJs = require('./agreenment');
+
     /**
      * 认证协议弹窗
      * @param confirmCb 确认回调
-     * @param isPersonalCenterOrFileUpload 区分是否是个人中心与上传资料
+     * @param noShowClose 是否展示关闭按钮,默认展示
      */
-    function open(confirmCb,isPersonalCenterOrFileUpload) {
+    function open(confirmCb, noShowClose) {
+        var agreementHtml = template.compile(agreementLayerHtml)({
+            noShowClose: noShowClose
+        });
         layer.open({
             // 确保只打开一个弹窗
             id: 'agreementLayer',
@@ -18,9 +22,7 @@ define(function (require, exports, module) {
             area: ['668px', '580px'],
             shade: 0.8,
             shadeClose: false,
-            content:template.compile(agreementLayerHtml)({
-                isPersonalCenterOrFileUpload:isPersonalCenterOrFileUpload
-            }),
+            content: agreementHtml,
             success: function (layero, index) {
                 agreementLayerJs.init(index, confirmCb);
             },
@@ -32,5 +34,5 @@ define(function (require, exports, module) {
 
     return {
         open: open
-    }
-})
+    };
+});

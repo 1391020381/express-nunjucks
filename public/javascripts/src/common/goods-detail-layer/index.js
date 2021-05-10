@@ -47,7 +47,7 @@ define(function (require, exports, module) {
             closeBtn: 0,
             area: ['501px'],
             shade: 0.8,
-            shadeClose: true,
+            shadeClose: false,
             content: goodsHtml,
             success: function (layero, index) {
                 goodsDetailLayerJs.init(index, goodsData);
