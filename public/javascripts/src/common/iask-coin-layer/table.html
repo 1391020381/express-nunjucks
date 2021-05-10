@@ -23,12 +23,12 @@
         <tbody>
         {{ each dataList }}
         <tr class="table-tr">
-            <td class="table-td" colspan="1" rowspan="1">{{$value.name}}</td>
-            <td class="table-td gray" colspan="1" rowspan="1">{{$value.date}}</td>
-            {{if $value.type === 0}}
-            <td class="table-td gray" colspan="1" rowspan="1">-{{$value.value}}</td>
+            <td class="table-td" colspan="1" rowspan="1">{{$value.action}}</td>
+            <td class="table-td gray" colspan="1" rowspan="1">{{$value.createTime}}</td>
+            {{if $value.changeNumber >= 0}}
+            <td class="table-td orange" colspan="1" rowspan="1">+{{$value.changeNumber}}</td>
             {{else}}
-            <td class="table-td orange" colspan="1" rowspan="1">+{{$value.value}}</td>
+            <td class="table-td gray" colspan="1" rowspan="1">{{$value.changeNumber}}</td>
             {{/if}}
         </tr>
         {{ /each }}

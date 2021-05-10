@@ -41,7 +41,12 @@ define(function (require, exports, module) {
             getMyUploadPage: gateway + '/content/getMyUploadPage', // 分页查询我的上传(公开资料，付费资料，私有资料，审核中，未通过)
             getOtherUser: gateway + '/user/getOthersCentreInfo', // 他人信息主页
             getSearchList: gateway + '/search/content/byCondition', // 他人信息主页 热门与最新
-            getVisitorId: gateway + '/user/getVisitorId' // 获取游客id
+            getVisitorId: gateway + '/user/getVisitorId', // 获取游客id
+
+            // 查询用户爱问币余额
+            getCoinIaskBalance: gateway + '/user/getCoinIaskBalance',
+            // 查询用户爱问币流水
+            getCoinIaskList: gateway + ' /user/getCoinIaskList'
         },
         normalFileDetail: {
             // 文件预下载
@@ -92,7 +97,9 @@ define(function (require, exports, module) {
             rightsVipGetUserMember: gateway + '/rights/vip/getUserMember',
             getOrderStatus: gateway + '/order/get/orderStatus',
             queryOrderlistByCondition: gateway + '/order/query/listByCondition',
-            getOrderInfo: gateway + '/order/get/orderInfo'
+            getOrderInfo: gateway + '/order/get/orderInfo',
+            // 站内下单接口-积分相关
+            downloadOrder: gateway + '/order/create/downloadOrder'
         },
         getHotSearch: gateway + '/cms/search/content/hotWords',
         special: {
@@ -149,6 +156,12 @@ define(function (require, exports, module) {
             getHotLableDataList: gateway + '/comment/lable/hotDataList', // 详情热评标签
             getFileComment: gateway + '/comment/eval/dataList', // 详情评论
             getPersoDataInfo: gateway + '/comment/eval/persoDataInfo' // 个人中心我的下载 查询评论
+        },
+        exchange: {
+            // 兑换商品列表
+            exchangeGoodsList: gateway + '/exchange/integralGoodsManage/exchangeGoodsList',
+            // 兑换商品详情
+            exchangeGoodsDetail: gateway + '/exchange/integralGoodsManage/exchangeGoodsDetail/$id'
         }
     };
 });
