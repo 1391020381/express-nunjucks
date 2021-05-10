@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var utils = require('../cmd-lib/util');
     var login = require('../application/checkLogin');
     var common = require('./common');
-    var fileCollectLayer = require('../common/file-collect-layer')
+    var fileCollectLayer = require('../common/file-collect-layer/index')
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
     var page = window.pageConfig.page;
