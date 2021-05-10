@@ -28,6 +28,10 @@ define(function (require, exports, module) {
     //     // msg: '优惠券已发放到当前账户，请注意查收',
     //     // url: ''
     // });
+    // 收藏提示弹窗
+    var fileCollectLayerService = require('../common/file-collect-layer/index');
+
+    fileCollectLayerService.open();
 
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
