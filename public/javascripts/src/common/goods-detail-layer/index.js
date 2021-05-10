@@ -17,10 +17,11 @@ define(function (require, exports, module) {
      * @param data {{goodsId,coinNum}}
      */
     function getGoodsDetail(data) {
-        var goodsId = data.goodsId;
+        var goodsId = data.goodsId || '';
+        var coinNum = data.coinNum || 0;
         method.customGet('/gateway/order/get/commodityInfo/' + goodsId, null, function (res) {
             if (res && res.code === '0' && res.data) {
-                openLayer(res.data);
+                openLayer(res.data, coinNum);
             } else {
                 layerMsg('获取商品详情失败');
             }

@@ -27,10 +27,10 @@ const config = {
         // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
         // loginUrl: '//dev-login-ishare.iask.com.cn',
         // loginUrl:'http://127.0.0.1:8085',
-        apiBasePath: 'http://test-ishare.iask.com.cn/gateway/pc',
-        apiNewBaselPath: 'http://test-ishare.iask.com.cn/gateway',
-        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
-        loginUrl:'//test-login-ishare.iask.com.cn',
+        apiBasePath: 'http://dev-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://dev-ishare.iask.com.cn/gateway',
+        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
+        loginUrl:'//dev-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义

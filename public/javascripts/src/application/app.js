@@ -15,11 +15,19 @@ define(function (require, exports, module) {
     // // 爱问币明细弹窗
     // var iaskCoinLayerService = require('../common/iask-coin-layer/index');
     // 商品详情弹窗
-    var goodsDetailLayerService = require('../common/goods-detail-layer/index');
-    goodsDetailLayerService.open({
-        goodsId: '6010ccd039a1575630ffb2c8',
-        coinNum: 100
-    });
+    // var goodsDetailLayerService = require('../common/goods-detail-layer/index');
+    // goodsDetailLayerService.open({
+    //     goodsId: '6010ccd039a1575630ffb2c8',
+    //     coinNum: 100
+    // });
+    // 商品兑换提示弹窗
+    // var exchangeTipsLayerService = require('../common/exchange-tips-layer/index');
+    //
+    // exchangeTipsLayerService.confirm();
+    // exchangeTipsLayerService.success({
+    //     // msg: '优惠券已发放到当前账户，请注意查收',
+    //     // url: ''
+    // });
 
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
