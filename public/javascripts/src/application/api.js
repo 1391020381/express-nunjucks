@@ -155,7 +155,9 @@ define(function (require, exports, module) {
             addComment: gateway + '/comment/eval/add',
             getHotLableDataList: gateway + '/comment/lable/hotDataList', // 详情热评标签
             getFileComment: gateway + '/comment/eval/dataList', // 详情评论
-            getPersoDataInfo: gateway + '/comment/eval/persoDataInfo' // 个人中心我的下载 查询评论
+            getPersoDataInfo: gateway + '/comment/eval/persoDataInfo', // 个人中心我的下载 查询评论
+            // 查询资料是否被用户评价过
+            getQualifications: gateway + '/comment/eval/getQualifications',
         },
         exchange: {
             // 兑换商品列表

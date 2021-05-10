@@ -2,6 +2,7 @@
 @import "less-public/_less_mixin";
 
 @import "./ishare-loginRedPacket";
+
 @detail-bg: #f4f4f4;
 
 html {
@@ -166,7 +167,6 @@ body {
         background-size: 100%;
     }
 }
-
 
 
 //原价样式
@@ -1506,10 +1506,6 @@ body {
 }
 
 
-
-
-
-
 .tui-detail-02,
 .tui-detail {
     width: 890px;
@@ -1556,7 +1552,7 @@ body {
     height: 229px;
     left: 0;
     bottom: 0;
-    background: url("../images/stateBottomBg.png")no-repeat center;
+    background: url("../images/stateBottomBg.png") no-repeat center;
     background-size: 100%;
 }
 
@@ -2312,7 +2308,7 @@ body {
         .page-input {
             width: 41px;
             height: 20px;
-            line-height: 20px;
+            line-height: 22px;
             padding: 0;
             color: @gray-light;
             // border: 1px solid #d9d9d9;
@@ -2355,8 +2351,9 @@ body {
         .price-more {
             padding-top: 10px;
         }
-        .integral-con-content{
-            display:none;
+
+        .integral-con-content {
+            display: none;
             float: left;
             width: 148px;
             height: 59px;
@@ -2366,7 +2363,8 @@ body {
             font-size: 14px;
             color: #FFFFFF;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 color: #fff;
                 background-color: #e63c0e;
             }
@@ -2381,12 +2379,14 @@ body {
         // color: #fff!important;
         background: rgba(242, 81, 37, 1);
     }
-    .btn-fix-bottom-vip{
-        margin-top:0;
+
+    .btn-fix-bottom-vip {
+        margin-top: 0;
         color: #7A5231;
         background: #FCE8B2;
-        border-top:none
+        border-top: none
     }
+
     .btn-fix-border {
         width: 132px;
         background: rgba(242, 81, 37, 1);
@@ -3145,8 +3145,6 @@ body {
 }
 
 
-
-
 .guess-you-like-warpper {
     .cf();
     margin-top: 10px;
@@ -3480,10 +3478,11 @@ body {
         border-radius: 4px;
 
         .evaluation-tags {
-            margin-bottom: 20px;
+            position: relative;
+            padding-right: 208px;
+            margin: -10px 0 20px -10px;
 
             .tag {
-                margin-right: 20px;
                 display: inline-block;
                 padding: 4px 12px;
                 background: #EAEAEA;
@@ -3491,11 +3490,18 @@ body {
                 font-size: 13px;
                 color: #222222;
                 cursor: pointer;
+                margin: 10px;
             }
 
             .tag-all {
                 float: right;
                 margin-right: 0;
+            }
+
+            .absolute-tag {
+                position: absolute;
+                top: 0;
+                right: 0;
             }
 
             .tag-active {
@@ -3594,5 +3600,46 @@ body {
                 }
             }
         }
+    }
+}
+
+// 评价按钮
+.u-evaluate-wrapper {
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+
+    &.block-1 {
+        margin-top: 18px;
+        margin-left: 14px;
+    }
+
+    &.block-2 {
+        position: absolute;
+        top: 0;
+        right: 70px;
+        margin-top: 10px;
+    }
+
+    .evaluate-icon {
+        display: inline-block;
+        vertical-align: top;
+        width: 24px;
+        height: 24px;
+        background: url(../images/detail/evaluate-24.png) center no-repeat;
+    }
+
+    .evaluate-text {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 13px;
+        font-weight: 400;
+        color: #FF8416;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        padding: 0 6px;
+        background-color: #FFF3D4;
+        border-radius: 0 2px 2px 0;
     }
 }

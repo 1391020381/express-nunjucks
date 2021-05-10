@@ -1,29 +1,32 @@
 <div class="user-comments">
      <div class="user-evaluation">
-        <div class="evaluation-tags">
+        <div class="evaluation-tags cf">
             {{each tagsList as item }}
                  {{if item.active}}
                   <span class="tag tag-active" data-id="{{item.id}}">{{item.name}}</span>
                  {{else}}
                   <span class="tag" data-id="{{item.id}}">{{item.name}}</span>
                  {{/if}}
-                
-           {{/each}}  
+
+           {{/each}}
            {{if lableId}}
-            <span class="tag tag-all " data-id="">全部</span>
+            <span class="tag tag-all absolute-tag" data-id="">全部</span>
            {{else}}
-            <span class="tag tag-all tag-active" data-id="">全部</span>
+            <span class="tag tag-all absolute-tag tag-active" data-id="">全部</span>
            {{/if}}
-           
+            <!--评价按钮-->
+            <div class="u-evaluate-wrapper block-2 jsDetailEvaluateBtn">
+                <i class="evaluate-icon"></i><span class="evaluate-text">评价资料得爱问币</span>
+            </div>
         </div>
         <ul class="evaluation-list">
             {{each userComments as comment }}
               <li class="evaluation-item">
-                    <p class="evaluation-user-summary"> 
-                       <img class="evaluation-user-avatar" src="{{comment.photoPicURL}}"/> 
+                    <p class="evaluation-user-summary">
+                       <img class="evaluation-user-avatar" src="{{comment.photoPicURL}}"/>
                        <span class="evaluation-user-name">{{comment.nickName}}</span>
                           {{ each comment.score}}
-                                 <span class="start"></span> 
+                                 <span class="start"></span>
                           {{/each}}
                        <span class="evaluation-time fr">{{comment.createTime}}</span>
                     </p>
@@ -33,6 +36,6 @@
         </ul>
     </div>
 <div class="pagination-wrapper">
-        
+
 </div>
 </div>

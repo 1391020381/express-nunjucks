@@ -10,6 +10,8 @@ define(function (require, exports, module) {
     var utils = require('../cmd-lib/util');
     var login = require('../application/checkLogin');
     var common = require('./common');
+    // 评价弹窗
+    var evaluateLayerService = require('../common/evaluate-layer/index');
 
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
@@ -72,6 +74,9 @@ define(function (require, exports, module) {
         fileBrowseReportBrowse(); // 资料详情上报服务端
         // 初始化权益
         getUserVipRights();
+
+        // 评价按钮
+        evaluateBtnIsShow();
     }
 
     // 页面加载
@@ -311,11 +316,47 @@ define(function (require, exports, module) {
                 goPage(type);
             }
         });
+
+        // 评价有礼按钮
+        $(document).on('click', '.jsDetailEvaluateBtn', function (e) {
+            e.stopPropagation();
+            // var fid = $(this).data('id');
+            // var format = $(this).data('format');
+            // var title = $(this).data('title');
+
+            var fid = window.pageConfig.params.g_fileId;
+            var format = window.pageConfig.params.file_format;
+            var title = window.pageConfig.params.file_title;
+            // 评价弹窗
+            evaluateLayerService.open({
+                fid: fid,
+                title: title,
+                format: format
+            }, false, function () {
+                $('.jsDetailEvaluateBtn').hide();
+            });
+        });
     }
 
+    // 评价按钮显隐
+    function evaluateBtnIsShow() {
+        var fid = window.pageConfig.params.g_fileId;
+        // 用户登录且未评价才显示此按钮
+        // 查询接口，判断当前文档是否已评价过
+        if (method.getCookie('cuk')) {
+            method.customGet(api.comment.getQualifications, {
+                fid: fid
+            }, function (res) {
+                if (res && res.code === '0' && res.data && res.data.isDf) {
+                    // 展示评价按钮
+                    $('.jsDetailEvaluateBtn').show();
+                }
+            });
+        }
+    }
 
     function bindEventPop() {
-        console.log(6666);
+        // console.log(6666);
 
         // 关闭任务pop
         function closeRewardPop() {
