@@ -4,8 +4,8 @@
             <div class="detail-top-box">
                 {% if results.list.data.owner.perMin !== '3' %}
                 <a class="tui-open-vip js-buy-open pc_click"
-                    pcTrackContent="joinVip-0" data-type="vip"><img
-                        src="{{cdnUrl}}/images/tui_open.gif"></a>
+                   pcTrackContent="joinVip-0" data-type="vip"><img
+                    src="{{cdnUrl}}/images/tui_open.gif"></a>
                 {% endif %}
                 <h2 class="data-title">
                     <i class="ico-big-data
@@ -20,14 +20,14 @@
                     <span><em>{{results.list.data.fileSize}}</em></span>
                     <span class="line"></span>
                     <a class="user-name" href="/u/{{results.list.data.uid}}/"
-                        target="_blank">
+                       target="_blank">
                         <div class="user-pic">
                             {%if results.list.data.owner.photoPicURL%}
                             <img src="{{results.list.data.owner.photoPicURL}}">
                             {%else%}
                             <img
                                 src="{{cdnUrl}}/images/new_detail/pic_detail_no_login.jpg"
-                                />
+                            />
                             {%endif%}
                         </div>
                         <span class="user-text">{{results.list.data.usernick}}</span>
@@ -51,9 +51,9 @@
                         results.getBannerList.titleBottomBanner.list %}
                         <div class="swiper-slide">
                             <a href="{{item.linkUrl}}" target="_blank"
-                                data-id="{{item.id}}">
+                               data-id="{{item.id}}">
                                 <img class="swiper-slide-img"
-                                    src="{{item.imagUrl}}">
+                                     src="{{item.imagUrl}}">
                             </a>
                         </div>
                         {%endfor%}
@@ -82,7 +82,7 @@
             <div class="detail-main">
                 <div class="detail-reader">
                     <span class="reader-fullScreen" title="全屏浏览"><i
-                            class="icon-detail"></i></span>
+                        class="icon-detail"></i></span>
                     <div class="detail-reader-con detail-pro-con">
                         <!--付费文档图标 -->
                         {% if results.list.data.perMin == 3%}
@@ -109,7 +109,7 @@
                             <div class="detail-con first-style article-page
                                 source-link {% if loop.index != 1
                                 %}mt4{%endif%}"
-                                data-num="{{loop.index}}">
+                                 data-num="{{loop.index}}">
                                 <div class="detail-inner article-main">
                                     <div
                                         class="data-detail {% if loop.index ===
@@ -125,7 +125,7 @@
                             <div class="detail-con third-style article-page
                                 source-link {% if loop.index != 1
                                 %}mt4{%endif%}"
-                                data-num="{{loop.index}}">
+                                 data-num="{{loop.index}}">
                                 <div class="detail-inner article-main">
                                     <div
                                         class="data-detail {% if
@@ -141,7 +141,7 @@
                                             width="100%"
                                             height="100%" type="image/svg+xml"
                                             pluginspage="//www.adobe.com/svg/viewer/install/"
-                                            />
+                                        />
                                         <article class="detail-holder"></article>
                                     </div>
                                 </div>
@@ -162,8 +162,8 @@
                                         other-format-style-first {%endif%}
                                         {%endif%}">
                                         <img class="img-png lazy" src="{{item}}"
-                                            style="width: 100%;height: 100%"
-                                            alt="">
+                                             style="width: 100%;height: 100%"
+                                             alt="">
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                             <div class="detail-con second-style article-page
                                 source-link {% if loop.index != 1
                                 %}mt4{%endif%}"
-                                data-num="{{loop.index}}">
+                                 data-num="{{loop.index}}">
                                 <div class="detail-inner article-main">
                                     <div
                                         class="data-detail {% if
@@ -184,8 +184,8 @@
                                         other-format-style-first {%endif%}
                                         {%endif%}">
                                         <img class="img-png lazy" src="{{item}}"
-                                            style="width: 100%;height: 100%"
-                                            alt="">
+                                             style="width: 100%;height: 100%"
+                                             alt="">
                                     </div>
                                 </div>
                             </div>
@@ -210,10 +210,10 @@
                                         %}
                                         <div class="swiper-slide">
                                             <a href="{{item.linkUrl}}"
-                                                target="_blank"
-                                                data-id="{{item.id}}">
+                                               target="_blank"
+                                               data-id="{{item.id}}">
                                                 <img class="swiper-slide-img"
-                                                    src="{{item.imagUrl}}">
+                                                     src="{{item.imagUrl}}">
                                             </a>
                                         </div>
                                         {%endfor%}
@@ -252,10 +252,10 @@
                                         %}
                                         <div class="swiper-slide">
                                             <a href="/f/{{item.linkUrl}}.html"
-                                                target="_blank"
-                                                data-id="{{item.id}}">
+                                               target="_blank"
+                                               data-id="{{item.id}}">
                                                 <img class="swiper-slide-img"
-                                                    src="{{item.imagUrl}}">
+                                                     src="{{item.imagUrl}}">
                                             </a>
                                         </div>
                                         {%endfor%}
@@ -319,7 +319,7 @@
         <div class="state-bottom">
             <div class="data-page show-more-text btn-read-more pc_click
                 js-read-more" pcTrackContent="pageTurning-1"
-                data-toggle="btnReadMore">
+                 data-toggle="btnReadMore">
                 <p class="page-text" bilogContent="loadMore">
                     <em class="endof-trial-reading" style="display: none;">试读结束</em>
                     <span class="endof-num-reading">还剩<em class="page-num">
@@ -333,13 +333,17 @@
         </div>
         {%endif%}
     </div>
-
-
     <!-- 第四范式 猜你喜欢 -->
     {# {%if results.paradigm4GuessData.length>0 %}
     {% include "detail/guessYouLike.html" %}
     {%endif%} #}
     <div class="guess-you-like-warpper"></div>
     <!--评价-->
-    <div class="user-comments-container"></div>
+    <div class="user-comments-wrapper">
+        <div class="user-comments-container"></div>
+        <!--评价按钮-->
+        <div class="u-evaluate-wrapper block-2 jsDetailEvaluateBtn">
+            <i class="evaluate-icon"></i><span class="evaluate-text">评价资料得爱问币</span>
+        </div>
+    </div>
 </div>
