@@ -12,6 +12,8 @@ define(function (require) {
     // var utils = require('../cmd-lib/util');
     var receiveCoupon = require('./template/receiveCoupon.html');
     var commentDialogContent = require('./template/commentDialogContent.html');
+    // 评价弹窗
+    var evaluateLayerService = require('../common/evaluate-layer/index');
     var score = 0;
     var isAppraise = 0;
     var tagList = []; // 评论标签
@@ -193,10 +195,21 @@ define(function (require) {
             success: function (res) {
                 if (res && res.code == '0') {
                     var data = { fid: fid, format: format, title: title, labelList: res.data.labels, isAppraise: 1, content: res.data.content, scores: new Array(Number(res.data.score)) };
-                    var evaluationDialogContent = template.compile(commentDialogContent)({ data: data });
-                    $('#dialog-box').dialog({
-                        html: $('#evaluation-dialog').html().replace(/\$content/, evaluationDialogContent)
-                    }).open();
+                    // var evaluationDialogContent = template.compile(commentDialogContent)({ data: data });
+                    // $('#dialog-box').dialog({
+                    //     html: $('#evaluation-dialog').html().replace(/\$content/, evaluationDialogContent)
+                    // }).open();
+                    evaluateLayerService.openLayer({
+                        fid: fid,
+                        title: title,
+                        format: format
+                    }, {
+                        labels:res.data.labels,
+                        score:res.data.score,
+                        content:res.data.content
+                    }, function () {
+                        // $('.jsDetailEvaluateBtn').hide();
+                    });
                 }
             }
         });
@@ -252,9 +265,16 @@ define(function (require) {
         isAppraise = $(this).attr('data-isappraise'); // 1 此文件评价过
         // isAppraise = 1
         if (isAppraise == 1) {
-            getFileComment(fid, title, format);
+           getFileComment(fid, title, format);
         } else {
-            getLabelList(fid, format, title, isAppraise);
+           // getLabelList(fid, format, title, isAppraise);
+           evaluateLayerService.open({
+            fid: fid,
+            title: title,
+            format: format
+        }, false, function () {
+            getDownloadRecordList()
+        });
         }
 
     });

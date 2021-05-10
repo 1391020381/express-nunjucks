@@ -29,7 +29,7 @@ define(function (require) {
     }
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
-        agreementLayerService.open(function(){},true)
+      //  agreementLayerService.open(function(){},true)
         userInfo = data ? data : userInfo;
         $.ajax({
             headers: {
