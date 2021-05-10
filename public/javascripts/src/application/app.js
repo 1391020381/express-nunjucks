@@ -11,14 +11,6 @@ define(function (require, exports, module) {
 
     // 消息中心
     // var messageCenter = require('../common/message-center/index');
-    // 商品详情弹窗
-    // var goodsDetailLayerService = require('../common/goods-detail-layer/index');
-    // goodsDetailLayerService.open({
-    //     goodsId: '606fb77139a1577ff4955cac',
-    //     coinNum: 100
-    // });
-    var goodsDetailLayerService = require('../common/iask-coin-layer/index');
-    goodsDetailLayerService.open();
 
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
