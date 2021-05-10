@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var loginTypeContent = require('../common/loginType');
     var userData = null;
     var pageConfig = window.pageConfig && window.pageConfig;
-
+    var getPaidTestData =  require('./handlePaidTest').getPaidTestData
     // 页面信息
     // productType  1  4  5
     var initData = {
@@ -98,6 +98,7 @@ define(function (require, exports, module) {
      */
     var reloadingPartOfPage = function () {
         $('#footer-btn').html(template.compile(pay_btn_tmp)({ data: initData })); // footer-btn 详情底部固定栏  /views/detail/fixed.html
+        getPaidTestData() // vip专享 以 付费文档的形式购买
         //  $("#middle-btn").html(template.compile(pay_middle_tmp)({data: initData})); // middle-btn 详情正文部分按钮 /views/detail/middleBtn.html
         //  $("#headerBtn").html(template.compile(pay_header_tmp)({data: initData}));  // headerBtn  详情头部立即下载按钮  产品暂时注释掉 header的立即下载按钮
     };

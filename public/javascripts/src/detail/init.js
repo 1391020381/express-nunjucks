@@ -15,6 +15,8 @@ define(function (require, exports, module) {
     require('./expand');
     require('./buyUnlogin');
     require('./banner.js');
+   var getPaidTestData =  require('./handlePaidTest').getPaidTestData
+   getPaidTestData()
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7');
     var productType = window.pageConfig.params && window.pageConfig.params.productType;
@@ -24,5 +26,4 @@ define(function (require, exports, module) {
     if (productType == '1') {
         require('../common/baidu-statistics.js').initBaiduStatistics('c0fb058099c13a527871d024b1d809f8');
     }
-    // console.log(window.c.d) // 测试听云
 });
