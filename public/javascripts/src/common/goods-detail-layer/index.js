@@ -33,7 +33,6 @@ define(function (require, exports, module) {
                     price: res.data.price, // 	兑换金额
                     skipLinks: res.data.skipLinks, // 	跳转链接
                     useExchangeCount:res.data.useExchangeCount, // 	已兑换总次数
-                    goodsType:res.data.goodsType  // 商品类型:1优惠券 2vip套餐
                 };
                 openLayer(goodsData, coinNum);
             }else{
