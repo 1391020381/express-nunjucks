@@ -1,6 +1,9 @@
 
 define(function (require, exports, module) {
-
+    var iaskCoinLayer = require('../common/iask-coin-layer/index')
+    var coinRuleLayer = require('../common/coin-rule-layers')
+    var goodsDetailLayer = require('../common/goods-detail-layer/index')
+    var api = require('../application/api')
     // 新人任务
     require('swiper');
     var newcomertaskList = [
@@ -85,53 +88,9 @@ define(function (require, exports, module) {
     })
     $('.ponints-mall-dailytask').html(dailyTaskHtml)
 
-    var exchangeGoodsList = [
-        {
-            img:"//img12.360buyimg.com/jdcms/s300x300_jfs/t1/122094/28/14316/171392/5f7aecbcE674ddb1b/0144df19a3d08ae0.jpg.webp",
-            desc:'积分商品名称积分商品名称积分商...',
-            loveAskCoinNum:100
-        },
-        {
-            img:"//img12.360buyimg.com/jdcms/s300x300_jfs/t1/122094/28/14316/171392/5f7aecbcE674ddb1b/0144df19a3d08ae0.jpg.webp",
-            desc:'积分商品名称积分商品名称积分商...',
-            loveAskCoinNum:100
-        },
-        {
-            img:"//img12.360buyimg.com/jdcms/s300x300_jfs/t1/122094/28/14316/171392/5f7aecbcE674ddb1b/0144df19a3d08ae0.jpg.webp",
-            desc:'积分商品名称积分商品名称积分商...',
-            loveAskCoinNum:100
-        },
-        {
-            img:"//img12.360buyimg.com/jdcms/s300x300_jfs/t1/122094/28/14316/171392/5f7aecbcE674ddb1b/0144df19a3d08ae0.jpg.webp",
-            desc:'积分商品名称积分商品名称积分商...',
-            loveAskCoinNum:100
-        },
-        {
-            img:"//img12.360buyimg.com/jdcms/s300x300_jfs/t1/122094/28/14316/171392/5f7aecbcE674ddb1b/0144df19a3d08ae0.jpg.webp",
-            desc:'积分商品名称积分商品名称积分商...',
-            loveAskCoinNum:100
-        }
-    ]
 
-    var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
-        exchangeGoodsList: exchangeGoodsList
-    });
-    $('.ponints-mall-exchangegoods').html(exchangeGoodsHtml);
-    handlePagination(50,2)
-    function handlePagination(totalPages, currentPage) {
-        var simplePaginationTemplate = template.compile(simplePagination)({
-            paginationList: new Array(totalPages || 0),
-            currentPage: currentPage
-        });
-        $('.pagination-wrapper').html(simplePaginationTemplate);
-        $('.pagination-wrapper').on('click', '.page-item', function () {
-            var paginationCurrentPage = $(this).attr('data-currentPage');
-            if (!paginationCurrentPage) {
-                return;
-            }
-            // 更新兑换商品列表
-        });
-    }
+
+
     function getNewcomertask() {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
@@ -153,4 +112,75 @@ define(function (require, exports, module) {
             }
         });
     }
+    var obj = {
+        initHtml:function(){
+            this.getExchangeGoodsList()
+        },
+        getExchangeGoodsList:function(currentPage){
+            var that = this
+            // 排序 1-综合 2-爱问币升序 3-爱问币降序
+            var sort = $('.exchange-goods-content .exchange-goods-sort .active').attr('data-sort') || 1
+            var url = api.exchange.exchangeGoodsList
+            var params = {
+                currentPage:currentPage||1,
+                exchangeType:1,
+                pageSize:20,
+                sort:sort
+            }
+            $ajax(url, 'POST',params, false).done(function (res) {
+                if (res.code == 0) {
+                    var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
+                        exchangeGoodsList: res.data.rows,
+                        sortType:sort
+                    });
+                    $('.ponints-mall-exchangegoods').html(exchangeGoodsHtml);
+                    that.handlePagination(res.data.totalPages,res.data.currentPage)
+                }
+            });
+        },
+        getCoinIaskBalance:function(){
+            $ajax(url, 'POST',params, false).done(function (res) {
+                if (res.code == 0) {
+                    console.log(res)
+                }
+            });
+        },
+        bindEvent:function(){
+            var that = this
+            $('.js-ponitmallruledesc').on('click',function(){
+                coinRuleLayer.open()
+            })
+            $('.js-point-mall-detail').on('click',function(){
+                iaskCoinLayer.open()
+            })
+            $(document).on('click','.exchange-goods-content .js-sort',function(){
+                console.log('js-sort')
+                $('.exchange-goods-content .js-sort').removeClass('active')
+                $(this).addClass('active')
+                var currentPage = $('.page-list .active').attr('data-currentPage')
+                that.getExchangeGoodsList(currentPage)
+            })
+            $(document).on('click','.exchange-goods-content .js-exchange-goods-list-item',function(){
+                console.log('js-exchange-goods-list-item')
+                goodsDetailLayer.open()
+            })
+        },
+        handlePagination:function(totalPages, currentPage){
+            var simplePaginationTemplate = template.compile(simplePagination)({
+                paginationList: new Array(totalPages || 0),
+                currentPage: currentPage
+            });
+            $('.pagination-wrapper').html(simplePaginationTemplate);
+            $('.pagination-wrapper').on('click', '.page-item', function () {
+                var paginationCurrentPage = $(this).attr('data-currentPage');
+                if (!paginationCurrentPage) {
+                    return;
+                }
+                // 更新兑换商品列表
+            });
+        }
+    }
+    obj.initHtml()
+    obj.bindEvent()
+
 });

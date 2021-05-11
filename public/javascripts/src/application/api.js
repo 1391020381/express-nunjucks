@@ -159,9 +159,12 @@ define(function (require, exports, module) {
             // todo A24 查询资料是否被用户评价过
             getQualifications: gateway + '/comment/eval/getQualifications',
         },
+        iaskCoin:{
+            getCoinIaskBalance:gateway + '/user/getCoinIaskBalance'
+        },
         exchange: {
             // 兑换商品列表
-            exchangeGoodsList: gateway + '/exchange/integralGoodsManage/exchangeGoodsList',
+            exchangeGoodsList: gateway + '/exchange/integralGoods/exchangeGoodsList',
             // 兑换商品详情
             exchangeGoodsDetail: gateway + '/exchange/integralGoodsManage/exchangeGoodsDetail/$id'
         }
