@@ -52,6 +52,8 @@ define(function (require, exports, module) {
             $ajax(url, 'get','', false).done(function (res) {
                 if (res.code == 0) {
                     $('.js-love-ask-coinnum').text(res.data.availableTotal || 0)
+                    that.getNoviceTaskList()
+                    that.getDailyTaskList()
                     that.getExchangeGoodsList(1,res.data.availableTotal)
                 }
             });
@@ -63,28 +65,29 @@ define(function (require, exports, module) {
                 terminal:urlConfig.terminal
             }
             var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/novice' || api.task.noviceTaskList
-            $ajax(url, 'get',params, false).done(function (res) {
+            $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0) {
                      that.createNewcomerTaskHtml(res.data)
                 }
             });
         },
         getDailyTaskList:function(isLoadeMore){ //  每日任务
+            var that = this
             var params = {
                 limit:isLoadeMore?'':6,
                 site:urlConfig.site,
                 terminal:urlConfig.terminal
             }
             var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/daily' || api.task.noviceTaskList
-            $ajax(url, 'get',params, false).done(function (res) {
+            $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0) {
-                    console.log(res)
+                    that.createDailyTaskHtml(res.data,isLoadeMore)
                 }
             });
         },
         createNewcomerTaskHtml:function(data){
             var newcomertaskHtml = template.compile(newcomertaskTemplate)({ //
-                newcomertaskList: data || []
+                newcomertaskList: this.handleTaskData(data)
             });
             $('.ponints-mall-newcomertask').html(newcomertaskHtml);
             new Swiper('.task-list', {
@@ -97,14 +100,35 @@ define(function (require, exports, module) {
                   }
             });
         },
-        createDailyTaskHtml:function(){
+        createDailyTaskHtml:function(data,isLoadeMore){
             var dailyTaskHtml = template.compile(dailyTaskTemplate)({
-                dailyTaskList:newcomertaskList
+                dailyTaskList:this.handleTaskData(data),
+                isLoadeMore:isLoadeMore
             })
             $('.ponints-mall-dailytask').html(dailyTaskHtml)
         },
+        handleTaskData:function(data){
+            var arr = []
+            var linkUrlMap = {
+                0:'/',
+                1:'/search/home.html'
+            }
+            if(data&&data.length){
+                $.each(data, function (inidex, item) {
+                    var temp = {
+                        linkUrl:linkUrlMap[item.linkType]?linkUrlMap[item.linkType]:item.linkUrl,
+                        rewardContent:item.rewardContent.join(',')
+                    }
+                    arr.push($.extend({},item.temp))
+                })
+            }
+            return arr
+        },
         bindEvent:function(){
             var that = this
+            $(document).on('click','.js-load-more-task',function(){
+                    that.getDailyTaskList(true)
+            })
             $('.js-ponit-mall-rule-desc').on('click',function(){
                 coinRuleLayer.open()
             })
