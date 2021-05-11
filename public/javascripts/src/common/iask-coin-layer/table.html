@@ -24,7 +24,7 @@
         {{ each dataList }}
         <tr class="table-tr">
             <td class="table-td" colspan="1" rowspan="1">{{$value.action}}</td>
-            <td class="table-td gray" colspan="1" rowspan="1">{{$value.createTime}}</td>
+            <td class="table-td gray" colspan="1" rowspan="1">{{formatDate('yyyy-MM-dd',$value.createTime)}}</td>
             {{if $value.changeNumber >= 0}}
             <td class="table-td orange" colspan="1" rowspan="1">+{{$value.changeNumber}}</td>
             {{else}}

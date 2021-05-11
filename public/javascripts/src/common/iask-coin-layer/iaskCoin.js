@@ -96,12 +96,15 @@ define(function (require, exports, module) {
         // 渲染列表
         renderTable: function (data) {
             var that = this;
+            // 处理日期
+            var rows = data.rows || [];
             var tableHtml = template.compile(iaskCoinTableHtml)({
                 currentPage: data.currentPage,
                 totalPages: data.totalPages,
                 totalSize: data.totalSize,
                 dataList: data.rows || [],
-                pagingList: that.initPagination(data.currentPage, data.totalPages)
+                pagingList: that.initPagination(data.currentPage, data.totalPages),
+                formatDate: method.formatDateV2
             });
             $('.jsIaskCoinTable').html(tableHtml);
         },
