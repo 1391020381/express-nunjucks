@@ -305,9 +305,11 @@
   box-sizing: border-box;
   box-shadow: 0px 3px 10px 0px rgba(125, 101, 78, 0.3);
   border-radius: 4px;
+  position: relative;
 }
 .points-mall-content .exchange-goods-content .exchange-goods-list .exchange-goods-list-item:hover {
   border: 1px solid #F25125;
+  cursor: pointer;
 }
 .points-mall-content .exchange-goods-content .exchange-goods-list .exchange-goods-list-item .item-img-wrapper {
   height: 164px;
@@ -346,6 +348,21 @@
   vertical-align: middle;
   font-size: 16px;
   color: #F25125;
+}
+.points-mall-content .exchange-goods-content .exchange-goods-list .exchange-goods-list-item .has-exchange {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 20px;
+  color: #FFFFFF;
+  text-align: center;
+  background: #000000;
+  opacity: 0.7;
+  border-radius: 50%;
+  position: absolute;
+  left: 85px;
+  top: 32px;
+  cursor: pointer;
 }
 .points-mall-content .exchange-goods-content .pagination-wrapper {
   text-align: center;

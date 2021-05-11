@@ -160,13 +160,13 @@ define(function (require, exports, module) {
             getQualifications: gateway + '/comment/eval/getQualifications',
         },
         iaskCoin:{
-            getCoinIaskBalance:gateway + '/user/getCoinIaskBalance'
+            getCoinIaskBalance:gateway + '/account/user/getCoinIaskBalance'
         },
         exchange: {
             // 兑换商品列表
             exchangeGoodsList: gateway + '/exchange/integralGoods/exchangeGoodsList',
             // 兑换商品详情
-            exchangeGoodsDetail: gateway + '/exchange/integralGoodsManage/exchangeGoodsDetail/$id'
+            exchangeGoodsDetail: gateway + '/exchange/integralGoods/exchangeGoodsDetail/$id'
         }
     };
 });

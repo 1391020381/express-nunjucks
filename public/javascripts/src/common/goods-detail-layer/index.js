@@ -18,30 +18,28 @@ define(function (require, exports, module) {
      * @param data {{goodsId,coinNum}}
      */
     function getGoodsDetail(data) {
-        var goodsId = data.goodsId || '';
-        var coinNum = data.coinNum || 0;
-        var url = api.exchange.exchangeGoodsDetail.replace('$id', goodsId);
-        // method.customGet(url, null, function (res) {
-        //     if (res && res.code === '0' && res.data) {
-        //         openLayer(res.data, coinNum);
-        //     } else {
-        //         layerMsg('获取积分商品详情失败');
-        //     }
-        // }, function () {
-        //     layerMsg('获取积分商品详情失败');
-        // });
-        var goodsData = {
-            description: '商品说明商品说明商品说明商品说明', // 商品说明
-            exchangeType: 1, // 	 兑换类型: 1爱问币
-            goodsName: '积分商品名称', // 	积分商品名称
-            hasExchange: false, // 	是否兑换完 true-已兑完 false-剩余
-            id: '123213213', // 	积分商品id
-            pictureUrl: 'http://pic.iask.com.cn/YbboO71Bo2g_small1.jpg', // 	积分商品图片url
-            price: 20, // 	兑换金额
-            skipLinks: 'http://www.baidu.com', // 	跳转链接
-            useExchangeCount: 20 // 	已兑换总次数
-        };
-        openLayer(goodsData, coinNum);
+        var id = data.id
+        var coinNum = data.coinNum
+        var url = api.exchange.exchangeGoodsDetail.replace('$id', id);
+        $ajax(url, 'GET','', false).done(function (res) {
+            if (res.code == 0) {
+                var goodsData = {
+                    description: res.data.description, // 商品说明
+                    exchangeType: 1, // 	 兑换类型: 1爱问币
+                    goodsName: res.data.goodsName, // 	积分商品名称
+                    hasExchange: false, // 	是否兑换完 true-已兑完 false-剩余
+                    id: res.data.id, // 	积分商品id
+                    pictureUrl: res.data.pictureUrl, // 	积分商品图片url
+                    price: res.data.price, // 	兑换金额
+                    skipLinks: res.data.skipLinks, // 	跳转链接
+                    useExchangeCount:res.data.useExchangeCount, // 	已兑换总次数
+                    goodsType:res.data.goodsType  // 商品类型:1优惠券 2vip套餐
+                };
+                openLayer(goodsData, coinNum);
+            }else{
+                layerMsg(res.message)
+            }
+        });
     }
 
     // 展开弹窗

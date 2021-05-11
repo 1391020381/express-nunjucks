@@ -132,23 +132,32 @@ define(function (require, exports, module) {
                 // 来源网址 0-正常 1-360 2-小米
                 ref: 0
             };
-            // method.customPost(api.order.downloadOrder, params, function (res) {
-            //     if (res && res.code === '0') {
-            //         // exchangeTipsLayerService.success({
-            //         //     msg: '优惠券已发放到当前账户，请注意查收',
-            //         //     url: url
-            //         // });
-            //         $.toast({
-            //             text:'优惠券已发放到当前账户，请注意查收',
-            //             delay: 2000
-            //         });
-            //     } else {
-            //         $.toast({
-            //             text: res && res.message ? res.message : '购买失败，请重试',
-            //             delay: 2000
-            //         });
-            //     }
-            // });
+            var url = api.order.downloadOrder
+            $ajax(url, 'POST',params, false).done(function (res) {
+                if (res.code == 0) {
+
+
+                }else{
+                    layerMsg(res.message)
+                }
+            });
+            method.customPost(api.order.downloadOrder, params, function (res) {
+                if (res && res.code === '0') {
+                    // exchangeTipsLayerService.success({
+                    //     msg: '优惠券已发放到当前账户，请注意查收',
+                    //     url: url
+                    // });
+                    $.toast({
+                        text:'优惠券已发放到当前账户，请注意查收',
+                        delay: 2000
+                    });
+                } else {
+                    $.toast({
+                        text: res && res.message ? res.message : '购买失败，请重试',
+                        delay: 2000
+                    });
+                }
+            });
 
             exchangeTipsLayerService.success({
                 msg: '优惠券已发放到当前账户，请注意查收',
