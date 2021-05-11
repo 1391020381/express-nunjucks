@@ -60,5 +60,5 @@ define(function (require, exports, module) {
     };
 
 
-    return $.extend({},urlConfig[env],{site:4})
+    return $.extend({},urlConfig[env],{site:4,terminal:0})
 });

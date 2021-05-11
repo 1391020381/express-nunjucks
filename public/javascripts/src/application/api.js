@@ -44,9 +44,9 @@ define(function (require, exports, module) {
             getVisitorId: gateway + '/user/getVisitorId', // 获取游客id
 
             // 查询用户爱问币余额
-            getCoinIaskBalance: gateway + '/user/getCoinIaskBalance',
+            getCoinIaskBalance: gateway + '/account/user/getCoinIaskBalance',
             // 查询用户爱问币流水
-            getCoinIaskList: gateway + ' /user/getCoinIaskList'
+            getCoinIaskList: gateway + '/account/user/getCoinIaskList'
         },
         normalFileDetail: {
             // 文件预下载
@@ -167,6 +167,10 @@ define(function (require, exports, module) {
             exchangeGoodsList: gateway + '/exchange/integralGoods/exchangeGoodsList',
             // 兑换商品详情
             exchangeGoodsDetail: gateway + '/exchange/integralGoods/exchangeGoodsDetail/$id'
+        },
+        task:{
+            dailyTaskList:gateway + '/task/taskList/daily',
+            noviceTaskList:gateway + '/task/taskList/novice'
         }
     };
 });

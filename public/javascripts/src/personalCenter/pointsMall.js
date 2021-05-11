@@ -6,115 +6,13 @@ define(function (require, exports, module) {
     var goodsDetailLayer = require('../common/goods-detail-layer/index')
     var api = require('../application/api')
     var isLogin = require('../application/effect.js').isLogin;
-
+    var urlConfig = require('../application/urlConfig')
     // 新人任务
     require('swiper');
-    var newcomertaskList = [
-        {
-         icon:'',
-         title:'完成登录注册',
-         subTitle:'奖励100爱问币',
-         desc:'用户输入关键词并进行搜索后赠送',
-         url:'xxxxx'
-        },
-        {
-            icon:'',
-            title:'完成浏览资料(10s）',
-            subTitle:'奖励100爱问币',
-            desc:'用户从未访问过任意资料详情页 首次完成访问后，获得奖励',
-            url:'xxxxx'
-        },
-        {
-            icon:'',
-            title:'完成搜索资料',
-            subTitle:'奖励100爱问币',
-            desc:'用户下载任意类型资料  (不限资料类型）',
-            url:'xxxxx'
-        },
-        {
-            icon:'',
-            title:'完成下载资料',
-            subTitle:'奖励100爱问币',
-            desc:'完成首次评价时，获得爱问币',
-            url:'xxxxx'
-        },
-        {
-            icon:'',
-            title:'完成登录注册',
-            subTitle:'奖励100爱问币',
-            desc:'用户输入关键词并进行搜索后赠送',
-            url:'xxxxx'
-           },
-           {
-               icon:'',
-               title:'完成浏览资料(10s）',
-               subTitle:'奖励100爱问币',
-               desc:'用户从未访问过任意资料详情页 首次完成访问后，获得奖励',
-               url:'xxxxx'
-           },
-           {
-               icon:'',
-               title:'完成搜索资料',
-               subTitle:'奖励100爱问币',
-               desc:'用户下载任意类型资料  (不限资料类型）',
-               url:'xxxxx'
-           },
-           {
-               icon:'',
-               title:'完成下载资料',
-               subTitle:'奖励100爱问币',
-               desc:'完成首次评价时，获得爱问币',
-               url:'xxxxx'
-           }
-    ]
     var newcomertaskTemplate = require('./template/pointsMall/newcomertask.html')
     var dailyTaskTemplate = require('./template/pointsMall/dailyTask.html')
     var exchangeGoodsTemplate = require('./template/pointsMall/exchangeGoods.html')
     var simplePagination = require('./template/simplePagination.html');
-    var newcomertaskHtml = template.compile(newcomertaskTemplate)({ //
-        newcomertaskList: newcomertaskList
-    });
-    $('.ponints-mall-newcomertask').html(newcomertaskHtml);
-    new Swiper('.task-list', {
-        direction: 'horizontal',
-        spaceBetween:20,           //间距20px
-        slidesPerView:5,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }
-    });
-
-
-    var dailyTaskHtml = template.compile(dailyTaskTemplate)({
-        dailyTaskList:newcomertaskList
-    })
-    $('.ponints-mall-dailytask').html(dailyTaskHtml)
-
-
-
-
-    function getNewcomertask() {
-        $.ajax({
-            url: api.recommend.recommendConfigInfo,
-            type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.search.pageIds),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (res) {
-                if (res.code == '0') {
-                    $('.ponints-mall-newcomertask').html(newcomertaskHtml);
-                    new Swiper('.newcomertask-content-list', {
-                        direction: 'horizontal',
-                        navigation: {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev',
-                          }
-                    });
-                }
-            }
-        });
-    }
     var obj = {
         initHtml:function(){
             var that = this
@@ -153,9 +51,57 @@ define(function (require, exports, module) {
             var that = this
             $ajax(url, 'get','', false).done(function (res) {
                 if (res.code == 0) {
+                    $('.js-love-ask-coinnum').text(res.data.availableTotal || 0)
                     that.getExchangeGoodsList(1,res.data.availableTotal)
                 }
             });
+        },
+        getNoviceTaskList:function(){ // 新手任务
+            var that = this
+            var params = {
+                site:urlConfig.site,
+                terminal:urlConfig.terminal
+            }
+            var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/novice' || api.task.noviceTaskList
+            $ajax(url, 'get',params, false).done(function (res) {
+                if (res.code == 0) {
+                     that.createNewcomerTaskHtml(res.data)
+                }
+            });
+        },
+        getDailyTaskList:function(isLoadeMore){ //  每日任务
+            var params = {
+                limit:isLoadeMore?'':6,
+                site:urlConfig.site,
+                terminal:urlConfig.terminal
+            }
+            var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/daily' || api.task.noviceTaskList
+            $ajax(url, 'get',params, false).done(function (res) {
+                if (res.code == 0) {
+                    console.log(res)
+                }
+            });
+        },
+        createNewcomerTaskHtml:function(data){
+            var newcomertaskHtml = template.compile(newcomertaskTemplate)({ //
+                newcomertaskList: data || []
+            });
+            $('.ponints-mall-newcomertask').html(newcomertaskHtml);
+            new Swiper('.task-list', {
+                direction: 'horizontal',
+                spaceBetween:20,           //间距20px
+                slidesPerView:5,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                  }
+            });
+        },
+        createDailyTaskHtml:function(){
+            var dailyTaskHtml = template.compile(dailyTaskTemplate)({
+                dailyTaskList:newcomertaskList
+            })
+            $('.ponints-mall-dailytask').html(dailyTaskHtml)
         },
         bindEvent:function(){
             var that = this
