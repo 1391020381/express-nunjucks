@@ -7,51 +7,50 @@ define(function (require, exports, module) {
 
     /**
      * 爱问币规则弹窗
-     * @param data {{goodsId,coinNum}} 商品id，用户拥有的爱问币数量
+     * @param data {{id,coinNum}} 商品id，用户拥有的爱问币数量
+     * @param callback            兑换成功或失败都触发此回调
      */
-    function open(data) {
-        getGoodsDetail(data);
+    function open(data, callback) {
+        getGoodsDetail(data, callback);
     }
 
     /**
      * 查询商品详情
-     * @param data {{goodsId,coinNum}}
+     * @param data {{id,coinNum}} 商品id，用户拥有的爱问币数量
+     * @param callback            兑换成功或失败都触发此回调
      */
-    function getGoodsDetail(data) {
-        var id = data.id
-        var coinNum = data.coinNum
+    function getGoodsDetail(data, callback) {
+        var id = data.id;
+        var coinNum = data.coinNum;
         var url = api.exchange.exchangeGoodsDetail.replace('$id', id);
-        $ajax(url, 'GET','', false).done(function (res) {
-            if (res.code == 0) {
-                var goodsData = {
-                    description: res.data.description, // 商品说明
-                    exchangeType: 1, // 	 兑换类型: 1爱问币
-                    goodsName: res.data.goodsName, // 	积分商品名称
-                    hasExchange: false, // 	是否兑换完 true-已兑完 false-剩余
-                    id: res.data.id, // 	积分商品id
-                    pictureUrl: res.data.pictureUrl, // 	积分商品图片url
-                    price: res.data.price, // 	兑换金额
-                    skipLinks: res.data.skipLinks, // 	跳转链接
-                    useExchangeCount:res.data.useExchangeCount, // 	已兑换总次数
-                };
-                openLayer(goodsData, coinNum);
-            }else{
-                layerMsg(res.message)
+        method.customGet(url, null, function (res) {
+            if (res && res.code === '0') {
+                openLayer(res.data, coinNum, callback);
+            } else {
+                layerMsg(res && res.message ? res.message : '积分商品详情获取失败');
             }
         });
     }
 
-    // 展开弹窗
-    function openLayer(goodsData, coinNum) {
-        // description	 商品说明
-        // exchangeType	 兑换类型: 1爱问币
+    /**
+     * 展开弹窗
+     * @param goodsData           商品数据
+     * @param coinNum             用户爱问币数量
+     * @param callback            兑换成功或失败都触发此回调
+     */
+    function openLayer(goodsData, coinNum, callback) {
+        // description	商品说明
+        // exchangeCount 可兑换总次数
+        // exchangeType	兑换类型: 1爱问币
         // goodsName	积分商品名称
+        // goodsType	商品类型:1优惠券 2vip套餐
+        // goodsTypeId	商品类型Id
         // hasExchange	是否兑换完 true-已兑完 false-剩余
         // id	积分商品id
         // pictureUrl	积分商品图片url
         // price	兑换金额
-        // skipLinks	跳转链接
-        // useExchangeCount	已兑换总次数
+        // skipLinks 跳转链接
+        // useExchangeCount 已兑换总次数
         var goodsHtml = template.compile(goodsDetailLayerHtml)({
             // 商品信息
             data: goodsData,
@@ -70,7 +69,7 @@ define(function (require, exports, module) {
             shadeClose: false,
             content: goodsHtml,
             success: function (layero, index) {
-                goodsDetailLayerJs.init(index, goodsData);
+                goodsDetailLayerJs.init(index, goodsData, coinNum, callback);
             },
             end: function () {
                 goodsDetailLayerJs.destroy();

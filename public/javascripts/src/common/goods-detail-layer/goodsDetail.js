@@ -9,25 +9,25 @@ define(function (require, exports, module) {
         layerIndex: null,
         // 商品信息
         goodsData: null,
-        // 用户信息
-        userInfo: null,
+        // 用户爱问币数量
+        iaskCoinNum: 0,
+        // 成功或失败回调
+        callback: null,
 
         /**
          * public 外部可调
          * 初始化
          * @param layerIndex    弹窗id
          * @param goodsData     商品信息
+         * @param iaskCoinNum   用户爱问币数量
+         * @param callback      兑换成功或失败都触发此回调
          */
-        init: function (layerIndex, goodsData) {
+        init: function (layerIndex, goodsData, iaskCoinNum, callback) {
             var that = this;
             that.layerIndex = layerIndex;
-            that.goodsData = goodsData;
-            // 获取用户信息
-            var userStr = method.getCookie('ui');
-            that.userInfo = userStr ? JSON.parse(userStr) : {};
-
-            console.log('当前用户信息', that.userInfo);
-            console.log('当前积分商品数据', goodsData);
+            that.goodsData = goodsData || {};
+            that.iaskCoinNum = iaskCoinNum || 0;
+            that.callback = callback;
 
             // 等待dom加载完毕
             $('.jsGoodsDetailLayer').ready(function () {
@@ -58,17 +58,23 @@ define(function (require, exports, module) {
             // 立即兑换
             $('.jsGoodsDetailLayerExchange').on('click', function (e) {
                 e.stopPropagation();
-                var coinNum = that.goodsData.price;
-                var url = that.goodsData.skipLinks;
-
-                // 弹出确认框
-                exchangeTipsLayerService.confirm(coinNum, function () {
-                    that.exchangeGoodsByCoin(url);
-                });
-                // exchangeTipsLayerService.success({
-                //     // msg: '优惠券已发放到当前账户，请注意查收',
-                //     // url: ''
-                // });
+                var coinNum = that.goodsData.price || 0;
+                if (that.goodsData.hasExchange) {
+                    $.toast({
+                        text: '积分商品剩余数量为0',
+                        delay: 2000
+                    });
+                } else if (coinNum > that.iaskCoinNum) {
+                    $.toast({
+                        text: '爱问币余额不足',
+                        delay: 2000
+                    });
+                } else {
+                    // 弹出确认框
+                    exchangeTipsLayerService.confirm(coinNum, function () {
+                        that.exchangeGoodsByCoin();
+                    });
+                }
             });
         },
         // 解绑事件
@@ -82,26 +88,17 @@ define(function (require, exports, module) {
                 layer.close(layerIndex);
             }
         },
-        // 提示
-        layerMsg: function (message) {
-            layer.msg(message, {offset: ['200px']});
-        },
 
         /**
          * 兑换积分商品
-         * @param url   跳转链接
          */
-        exchangeGoodsByCoin: function (url) {
+        exchangeGoodsByCoin: function () {
             var that = this;
-            var userInfo = that.userInfo;
-            var goodsData = that.goodsData;
-            if (!goodsData) {
-                return;
-            }
-            if (!userInfo) {
-                return;
-            }
-
+            // 获取用户信息
+            var userStr = method.getCookie('ui') || '{}';
+            var userInfo = JSON.parse(userStr);
+            var goodsData = that.goodsData || {};
+            var host = window._env === 'local' ? 'https://dev-ishare.iask.com.cn/' : window.location.origin;
             var params = {
                 // 商品id
                 goodsId: goodsData.id,
@@ -113,7 +110,7 @@ define(function (require, exports, module) {
                 // 订单金额 单位分
                 payPrice: goodsData.price,
                 // 支付类型 wechat-微信支付 alipay-支付宝 iask-平台内购(爱问豆) baidu-百度收银台 ishare-站内支付
-                payType: 'iask',
+                payType: 'ishare',
 
                 // 买家id
                 buyerUserId: userInfo.uid,
@@ -127,32 +124,39 @@ define(function (require, exports, module) {
                 sourceMode: 0,
                 // 否使用优惠券，1未使用，2使用
                 isVouchers: 1,
-                host: window.location.origin,
+                host: host,
                 referrer: document.referrer || document.URL,
                 // 来源网址 0-正常 1-360 2-小米
                 ref: 0
             };
             method.customPost(api.order.downloadOrder, params, function (res) {
                 if (res && res.code === '0') {
-                    // exchangeTipsLayerService.success({
-                    //     msg: '优惠券已发放到当前账户，请注意查收',
-                    //     url: url
-                    // });
-                    $.toast({
-                        text:'优惠券已发放到当前账户，请注意查收',
-                        delay: 2000
+                    var msg = '商品已发放到当前账户，请注意查收';
+                    // 商品类型:1优惠券 2vip套餐
+                    if (goodsData.goodsType === 1) {
+                        msg = '优惠券已发放到当前账户，请注意查收';
+                    }
+                    // 显示兑换成功弹窗
+                    exchangeTipsLayerService.success({
+                        msg: msg,
+                        url: goodsData.skipLinks
                     });
                 } else {
                     $.toast({
-                        text: res && res.message ? res.message : '购买失败，请重试',
+                        text: res && res.message ? res.message : '兑换失败，请重试',
                         delay: 2000
                     });
                 }
-            });
 
-            exchangeTipsLayerService.success({
-                msg: '优惠券已发放到当前账户，请注意查收',
-                url: url
+                // 触发回调
+                if (typeof that.callback === 'function') {
+                    that.callback();
+                }
+            }, function () {
+                $.toast({
+                    text: '系统错误，请重试',
+                    delay: 2000
+                });
             });
         }
     };
