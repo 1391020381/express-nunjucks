@@ -162,8 +162,8 @@
         margin-top:10px;
         padding-bottom: 19px;
         .daily-task-title{
-            margin-left:39px;
-            margin-top:29px;
+            padding-left:39px;
+            padding-top:29px;
             font-size: 16px;
             color: #333333;
         }
@@ -178,7 +178,8 @@
                 margin-left:14px;
                 margin-bottom: 0;
                 padding-left:20px;
-                width: 344px;
+                padding-right: 76px;
+                width: 268px;
                 height: 130px;
                 background: #FFFFFF;
                 border: 1px solid #E5E5E5;
@@ -204,11 +205,24 @@
                     color: #666666;
                     .text-ellipsis();
                 }
-                .daily-task-itembtn{
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                }
+            }
+            .daily-task-bg{
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 101px;
+                height: 109px;
+                background: url("../../images/personalCenter/daily-task-bg.png") no-repeat center;
+                background-size: 100%;
+            }
+            .daily-task-itembtn{
+                position: absolute;
+                right: 18px;
+                bottom: 44px;
+                width: 40px;
+                height: 40px;
+                background: url("../../images/personalCenter/daily-task-arrow.png") no-repeat center;
+                background-size: 100%;
             }
         }
         .load-more-task{
