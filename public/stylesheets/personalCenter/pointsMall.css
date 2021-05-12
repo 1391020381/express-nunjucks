@@ -169,8 +169,8 @@
   padding-bottom: 19px;
 }
 .points-mall-content .daily-task-content .daily-task-title {
-  margin-left: 39px;
-  margin-top: 29px;
+  padding-left: 39px;
+  padding-top: 29px;
   font-size: 16px;
   color: #333333;
 }
@@ -193,7 +193,8 @@
   margin-left: 14px;
   margin-bottom: 0;
   padding-left: 20px;
-  width: 344px;
+  padding-right: 76px;
+  width: 268px;
   height: 130px;
   background: #FFFFFF;
   border: 1px solid #E5E5E5;
@@ -222,10 +223,23 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.points-mall-content .daily-task-content .daily-task-list .daily-task-item .daily-task-itembtn {
+.points-mall-content .daily-task-content .daily-task-list .daily-task-bg {
   position: absolute;
   right: 0;
   bottom: 0;
+  width: 101px;
+  height: 109px;
+  background: url("../../images/personalCenter/daily-task-bg.png") no-repeat center;
+  background-size: 100%;
+}
+.points-mall-content .daily-task-content .daily-task-list .daily-task-itembtn {
+  position: absolute;
+  right: 18px;
+  bottom: 44px;
+  width: 40px;
+  height: 40px;
+  background: url("../../images/personalCenter/daily-task-arrow.png") no-repeat center;
+  background-size: 100%;
 }
 .points-mall-content .daily-task-content .load-more-task {
   margin-top: 29px;

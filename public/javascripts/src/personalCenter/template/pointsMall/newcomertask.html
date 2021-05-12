@@ -7,11 +7,11 @@
                <div class="swiper-slide" >
                   <div class="task-content">
                       <p class="task-icon">{{item.icon}}</p>
-                      <p class="task-title">{{item.title}}</p>
-                      <p class="task-subtitle">{{item.subTitle}}</p>
+                      <p class="task-title">{{item.taskName}}</p>
+                      <p class="task-subtitle">{{item.rewardContent}}</p>
                       <p class="task-desc">{{item.desc}}</p>
-                      {{ if item.url}}
-                        <p class="task-btn" data-url="{{item.url}}">去做任务</p>
+                      {{ if item.linkUrl}}
+                        <a class="task-btn" href="{{item.linkUrl}}" target = "_blank">去做任务</a>
                       {{/if}}
                   </div>
                </div>

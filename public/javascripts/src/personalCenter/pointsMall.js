@@ -90,7 +90,7 @@ define(function (require, exports, module) {
                 newcomertaskList: this.handleTaskData(data)
             });
             $('.ponints-mall-newcomertask').html(newcomertaskHtml);
-            new Swiper('.task-list', {
+          var mySwiper =   new Swiper('.task-list', {
                 direction: 'horizontal',
                 spaceBetween:20,           //间距20px
                 slidesPerView:5,
@@ -99,6 +99,12 @@ define(function (require, exports, module) {
                     prevEl: '.swiper-button-prev',
                   }
             });
+            $(document).on('click','.task-list .swiper-button-prev',function(){
+                mySwiper.slidePrev();
+            })
+            $(document).on('click','.task-list .swiper-button-next',function(){
+                mySwiper.slideNext();
+            })
         },
         createDailyTaskHtml:function(data,isLoadeMore){
             var dailyTaskHtml = template.compile(dailyTaskTemplate)({
@@ -119,9 +125,10 @@ define(function (require, exports, module) {
                         linkUrl:linkUrlMap[item.linkType]?linkUrlMap[item.linkType]:item.linkUrl,
                         rewardContent:item.rewardContent.join(',')
                     }
-                    arr.push($.extend({},item.temp))
+                    arr.push($.extend({},item,temp))
                 })
             }
+            console.log('arr:',arr)
             return arr
         },
         bindEvent:function(){

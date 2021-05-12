@@ -3,10 +3,11 @@
     <ul class="daily-task-list">
         {{each dailyTaskList as item}}
             <li class="daily-task-item">
-                <p class="daily-task-item-title">{{item.title}}</p>
-                <p class="daily-task-item-subtitle">{{item.subTitle}}</p>
+                <p class="daily-task-item-title">{{item.taskName}}</p>
+                <p class="daily-task-item-subtitle">{{item.rewardContent}}</p>
                 <p class="daily-task-item-desc">{{item.desc}}</p>
-                <span class="daily-task-itembtn"></span>
+                <span class="daily-task-bg"></span>
+                <a class="daily-task-itembtn"  href="{{item.linkUrl}}" target = "_blank"></a>
             </li>
         {{/each}}
     </ul>
