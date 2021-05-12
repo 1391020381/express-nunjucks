@@ -37,6 +37,20 @@ define(function (require, exports, module) {
                 that.bindEvent();
             });
         },
+        /**
+         * public 外部可调
+         * 弹窗相关数据重置，事件解绑
+         */
+        destroy: function () {
+            // 重置数据
+            this.layerIndex = null;
+            this.fileInfo = {};
+            this.successCallback = null;
+            this.labelList = [];
+            this.score = 0;
+            // 解绑事件
+            this.unBindEvent();
+        },
         // 事件绑定
         bindEvent: function () {
             var that = this;
@@ -148,6 +162,17 @@ define(function (require, exports, module) {
                 that.setLayerPosition();
             });
         },
+        // 解绑事件
+        unBindEvent: function () {
+            $('.jsEvaluateCloseBtn').off('click');
+            $('.jsEvaluateStar .star')
+                .off('mouseover')
+                .off('mouseout')
+                .off('click');
+            $('.jsEvaluateLabel').off('click');
+            $('.jsEvaluateBtn').off('click');
+        },
+
         /**
          * 获取资料评价标签
          * @params score {number} 评分

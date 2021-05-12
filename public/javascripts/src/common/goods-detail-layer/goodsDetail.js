@@ -60,19 +60,21 @@ define(function (require, exports, module) {
                 e.stopPropagation();
                 var coinNum = that.goodsData.price || 0;
                 if (that.goodsData.hasExchange) {
-                    $.toast({
-                        text: '积分商品剩余数量为0',
-                        delay: 2000
-                    });
+                    that.layerMsg('积分商品剩余数量为0');
                 } else if (coinNum > that.iaskCoinNum) {
-                    $.toast({
-                        text: '爱问币余额不足',
-                        delay: 2000
-                    });
+                    that.layerMsg('爱问币余额不足');
                 } else {
+                    // 获取商品信息
+                    var goodsData = that.goodsData || {};
+                    // 关闭详情弹窗---清除详情弹窗内数据
+                    that.closeLayer();
                     // 弹出确认框
                     exchangeTipsLayerService.confirm(coinNum, function () {
-                        that.exchangeGoodsByCoin();
+                        // 获取用户信息
+                        var userStr = method.getCookie('ui') || '{}';
+                        var userInfo = JSON.parse(userStr);
+                        // 开启兑换
+                        that.exchangeGoodsByCoin(userInfo, goodsData);
                     });
                 }
             });
@@ -80,6 +82,7 @@ define(function (require, exports, module) {
         // 解绑事件
         unBindEvent: function () {
             $('.jsGoodsDetailCloseBtn').off('click');
+            $('.jsGoodsDetailLayerExchange').off('click');
         },
         // 关闭弹窗
         closeLayer: function () {
@@ -88,16 +91,21 @@ define(function (require, exports, module) {
                 layer.close(layerIndex);
             }
         },
+        // 提示
+        layerMsg: function (message) {
+            $.toast({
+                text: message,
+                delay: 2000
+            });
+        },
 
         /**
          * 兑换积分商品
+         * @param   userInfo    用户信息
+         * @param   goodsData   商品信息
          */
-        exchangeGoodsByCoin: function () {
+        exchangeGoodsByCoin: function (userInfo, goodsData) {
             var that = this;
-            // 获取用户信息
-            var userStr = method.getCookie('ui') || '{}';
-            var userInfo = JSON.parse(userStr);
-            var goodsData = that.goodsData || {};
             var host = window._env === 'local' ? 'https://dev-ishare.iask.com.cn/' : window.location.origin;
             var params = {
                 // 商品id
@@ -142,10 +150,7 @@ define(function (require, exports, module) {
                         url: goodsData.skipLinks
                     });
                 } else {
-                    $.toast({
-                        text: res && res.message ? res.message : '兑换失败，请重试',
-                        delay: 2000
-                    });
+                    that.layerMsg(res && res.message ? res.message : '兑换失败，请重试');
                 }
 
                 // 触发回调
@@ -153,10 +158,7 @@ define(function (require, exports, module) {
                     that.callback();
                 }
             }, function () {
-                $.toast({
-                    text: '系统错误，请重试',
-                    delay: 2000
-                });
+                that.layerMsg('系统错误，请重试');
             });
         }
     };
