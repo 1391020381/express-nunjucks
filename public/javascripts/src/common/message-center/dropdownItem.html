@@ -2,15 +2,9 @@
     {{each dataList}}
     <div class="dropdown-item">
         {{if showDate}}
-        <div class="msg-date">{{$value.date}}</div>
+        <div class="msg-date">{{formatDate('yyyy-MM-dd hh:mm:ss',$value.createTime)}}</div>
         {{/if}}
-        <div class="cf">
-            <div class="msg-name fl">{{$value.name}}</div>
-            <div class="msg-num fl">
-                <!--<span>+100</span><span>爱问币</span>-->
-                {{$value.content}}
-            </div>
-        </div>
+        <div class="msg-content">{{#$value.content}}</div>
     </div>
     {{/each}}
 {{else}}

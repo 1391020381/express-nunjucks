@@ -2,7 +2,7 @@
     <table class="table-content" cellspacing="0" cellpadding="0" border="0">
         <colgroup>
             <col>
-            <col width="140">
+            <col width="160">
             <col width="140">
         </colgroup>
         <thead>
@@ -17,14 +17,14 @@
     <table class="table-content" cellspacing="0" cellpadding="0" border="0">
         <colgroup>
             <col>
-            <col width="140">
+            <col width="160">
             <col width="140">
         </colgroup>
         <tbody>
         {{ each dataList }}
         <tr class="table-tr">
             <td class="table-td" colspan="1" rowspan="1">{{$value.action}}</td>
-            <td class="table-td gray" colspan="1" rowspan="1">{{formatDate('yyyy-MM-dd',$value.createTime)}}</td>
+            <td class="table-td gray" colspan="1" rowspan="1">{{formatDate('yyyy-MM-dd hh:mm:ss',$value.createTime)}}</td>
             {{if $value.changeNumber >= 0}}
             <td class="table-td orange" colspan="1" rowspan="1">+{{$value.changeNumber}}</td>
             {{else}}

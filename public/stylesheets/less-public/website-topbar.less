@@ -640,10 +640,10 @@
     // 消息中心
     .message-center {
         position: relative;
-        width: 22px;
+        width: 30px;
         height: 100%;
         margin-right: 10px;
-        cursor: pointer;
+        z-index: 99;
 
         .icon {
             position: relative;
@@ -651,16 +651,19 @@
             width: 22px;
             height: 22px;
             background: url(../../images/message-center-22.png) center no-repeat;
+            background-size: contain;
             margin-top: 24px;
-            margin-right: 20px;
+            margin-left: 4px;
+            cursor: pointer;
         }
 
         .badge {
             position: absolute;
-            width: 10px;
-            height: 10px;
             top: 0;
             right: 0;
+            display: none;
+            width: 10px;
+            height: 10px;
             background-color: #F25126;
             border-radius: 50%;
         }
@@ -710,7 +713,9 @@
                 display: block;
                 width: 10px;
                 height: 10px;
-                background-color: red;
+                background: url(../../images/common/close-gray-23.png) center no-repeat;
+                background-size: contain;
+                cursor: pointer;
             }
         }
 
@@ -729,25 +734,11 @@
             line-height: 22px;
         }
 
-        .msg-name {
+        .msg-content {
             font-size: 13px;
             color: #666;
-            width: 165px;
-            height: 22px;
             line-height: 22px;
-            padding-right: 10px;
             box-sizing: border-box;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .msg-num {
-            font-size: 13px;
-            color: #F25125;
-            width: 117px;
-            height: 22px;
-            line-height: 22px;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;

@@ -6,11 +6,10 @@ define(function (require, exports, module) {
     require('./extend');
     var trackEvent = require('../common/bilogReport.js').trackEvent;
     var trackEventLogin = require('../common/bilogReport.js').trackEventLogin;
+    // 消息中心
+    var messageCenter = require('../common/message-center/index');
     window.$ajax = $ajax;
     window.template = require('./template');
-
-    // 消息中心
-    // var messageCenter = require('../common/message-center/index');
 
     try {
         new ISHARE_WEB_SDK({ // 埋点初始化
@@ -133,6 +132,9 @@ define(function (require, exports, module) {
                 options: options
             }));
         });
+
+        // 消息中心初始化
+        messageCenter.init();
     });
 
     // 此方法是为了解决外部登录找不到此方法

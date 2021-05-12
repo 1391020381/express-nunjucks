@@ -170,7 +170,9 @@ define(function (require, exports, module) {
         },
         task:{
             dailyTaskList:gateway + '/task/taskList/daily',
-            noviceTaskList:gateway + '/task/taskList/novice'
+            noviceTaskList:gateway + '/task/taskList/novice',
+            // 任务完成消息
+            taskNotifyList: gateway + '/task/taskList/done'
         }
     };
 });
