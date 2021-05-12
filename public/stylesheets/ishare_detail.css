@@ -816,7 +816,7 @@ body {
 .new-detail-header-fix .btn-header-upload {
   display: none;
 }
-.new-detail-header-fix .user-info {
+.new-detail-header-fix .message-user-wrapper {
   display: none;
 }
 .new-detail-header-fix .header-btn-con {

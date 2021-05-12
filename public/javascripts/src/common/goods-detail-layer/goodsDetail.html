@@ -14,10 +14,10 @@
                 <span class="num fl ellipsis">{{data.price}}</span>
                 <span class="util fl">爱问币</span>
             </div>
-            {{if coinNum >= data.price && !data.hasExchange}}
+            {{if !data.hasExchange && data.price <= coinNum}}
             <div class="exchange fr jsGoodsDetailLayerExchange">立即兑换</div>
             {{else}}
-            <div class="exchange fr disabled jsGoodsDetailLayerExchange">立即兑换</div>
+            <div class="exchange fr disabled">立即兑换</div>
             {{/if}}
         </div>
         <div class="goods-desc">
