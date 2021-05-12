@@ -10,7 +10,7 @@
             color: #222222;
             font-weight: bold;
             vertical-align: middle;
-        } 
+        }
         .file-num{
             display: inline-block;
             margin-left:5px;
@@ -53,10 +53,11 @@
                 height: 34px;
                 line-height: normal;
                 color: #333333;
-                padding-left: 10px;
+                // padding-left: 10px;
                 padding-right: 30px;
+                margin-right: -30px;
                 position: relative;
-               
+
                 .review-progress{
                     height: 34px;
                     padding-left: 10px;
@@ -68,7 +69,7 @@
                     padding-left: 10px;
                      padding-right: 30px;
                     line-height: normal;
-                }  
+                }
             }
             .list-select-reviewProgress{
                 &::after{
@@ -98,10 +99,10 @@
                     transform: rotate(180deg);
                   }
             }
-            
+
         }
     }
-    
+
     .table-title{
         margin-top:10px;
         margin-bottom: 0px;
@@ -121,6 +122,25 @@
                 width: 13px;
                 height: 14px;
                 vertical-align: middle;
+            }
+        }
+        .search-file{
+            display: inline-block;
+            margin-left:428px;
+            .search-file-title{
+
+            }
+            .searach-file-input-wrapper{
+                display: inline-block;
+                width: 163px;
+                height: 30px;
+                .searach-file-input{
+                    height: 100%;
+                    display: block;
+                    padding: 0;
+                    border: none;
+                    padding: 0 10px;
+                }
             }
         }
         .delete-desc{
@@ -147,7 +167,7 @@
                 border-bottom: solid 1px #F4F4F4;
             }
         }
-        .table-item{ 
+        .table-item{
             height: 40px;
             line-height: 40px;
             .cf();
@@ -209,6 +229,6 @@
             background: url("../../images/personalCenter/checkbox-selected.png") no-repeat center;
             background-size: 100%;
             border: none;
-        } 
+        }
     }
 }
