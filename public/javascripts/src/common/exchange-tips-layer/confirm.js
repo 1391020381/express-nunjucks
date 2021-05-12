@@ -54,6 +54,7 @@ define(function (require, exports, module) {
         // 解绑事件
         unBindEvent: function () {
             $('.jsExchangeTipsConfirmClose').off('click');
+            $('.jsExchangeTipsConfirm').off('click');
         },
         // 关闭弹窗
         closeLayer: function () {

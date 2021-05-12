@@ -77,7 +77,9 @@ define(function (require, exports, module) {
                 success: function (layero, index) {
                     evaluateLayerModel.init(fileInfo, evaluateInfo, index, callback);
                 },
-                end: function () {}
+                end: function () {
+                    evaluateLayerModel.destroy();
+                }
             });
         },
         // 关闭弹窗

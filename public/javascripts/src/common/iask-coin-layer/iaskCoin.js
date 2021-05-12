@@ -93,7 +93,6 @@ define(function (require, exports, module) {
         renderTable: function (data) {
             var that = this;
             // 处理日期
-            var rows = data.rows || [];
             var tableHtml = template.compile(iaskCoinTableHtml)({
                 currentPage: data.currentPage,
                 totalPages: data.totalPages,
