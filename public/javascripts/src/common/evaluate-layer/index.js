@@ -89,7 +89,10 @@ define(function (require, exports, module) {
         },
         // 提示
         layerMsg: function (message) {
-            layer.msg(message, {offset: ['200px']});
+            $.toast({
+                text: message,
+                delay: 2000
+            });
         }
     };
 });

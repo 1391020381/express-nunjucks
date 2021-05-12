@@ -65,11 +65,6 @@ define(function (require, exports, module) {
         });
     }
 
-    // 提示
-    function layerMsg(message) {
-        layer.msg(message, {offset: ['200px']});
-    }
-
     return {
         confirm: confirm,
         success: success

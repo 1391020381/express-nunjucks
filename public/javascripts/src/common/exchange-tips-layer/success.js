@@ -60,10 +60,6 @@ define(function (require, exports, module) {
             if (layerIndex) {
                 layer.close(layerIndex);
             }
-        },
-        // 提示
-        layerMsg: function (message) {
-            layer.msg(message, {offset: ['200px']});
         }
     };
 });

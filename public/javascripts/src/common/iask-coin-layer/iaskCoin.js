@@ -67,10 +67,6 @@ define(function (require, exports, module) {
                 layer.close(layerIndex);
             }
         },
-        // 提示
-        layerMsg: function (message) {
-            layer.msg(message, {offset: ['200px']});
-        },
 
         // 查询爱问币明细
         findTableList: function () {
