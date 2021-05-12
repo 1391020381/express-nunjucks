@@ -15,8 +15,11 @@ define(function (require, exports, module) {
             var that = this;
 
             $(function () {
-                that.initMessage();
-                that.bindEvent();
+                if (method.getCookie('cuk')) {
+                    $('.jsGlobalMessageCenter').show();
+                    that.initMessage();
+                    that.bindEvent();
+                }
             });
         },
         // 绑定事件
@@ -95,7 +98,7 @@ define(function (require, exports, module) {
                 if (res && res.code === '0' && res.data) {
                     dataList = res.data;
                 }
-                // if (!isInit) {
+                // if (isInit) {
                 //     for (var i = 0; i < pageSize; i++) {
                 //         dataList.push({
                 //             createTime: new Date().getTime(),

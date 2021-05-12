@@ -66,7 +66,6 @@
                     </div>
                 </div>
             </div>
-
             <!--<div class="new-header-right fl">
               <div class="vip-join-con">
                    {# <a class="join-vip-ele js-buy-open pc_click" pcTrackContent="joinVip-9" data-type="vip">
@@ -80,88 +79,54 @@
                    {% endif %}
                </div>
            </div>-->
-            <div class="user-info fr">
-                <!--未登录 -->
-                <div class="user-con" id="detail-unLogin">
-                    <a class="user-link user-login">
-                        <div class="user-img"></div>
-                        <span class="login-text pc_click" pcTrackContent="detailTopLogin">登录</span>
-                    </a>
-                </div>
-                <!--已登录 -->
-                <div class="user-con" id="haveLogin" style="display: none;">
-                    <a class="user-link" href="/node/personalCenter/vip.html?type=myvip" target="_blank">
-                        <i class="icon-detail"></i>
-                        <div class="user-img">
-                            <img src="" alt="头像">
-                        </div>
-                        <span class="user-name"></span>
-                        <span class="user-loginType"></span>
-                    </a>
-
-                    <div class="user-more">
-                        <i class="before"></i>
-                        <i class="after"></i>
-                        <a href="/node/pointsMall.html" target="_blank">爱问币商城</a>
-                        {% if results.type %}
-                        {%else%}
-                        <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
-                        {%endif%}
-                        <a class="loginOut">退出</a>
-                    </div>
-                </div>
-            </div>
-            <!--消息中心-->
-            <div class="message-center fr">
+           <div class="message-user-wrapper fr cf">
+               <!--消息中心-->
+               <div class="m-message-center detail fl jsGlobalMessageCenter">
                     <span class="icon jsMessageOpenPopup">
                         <span class="badge"></span>
                     </span>
-                <!--初始化展示一条记录-->
-                <!--   <div class="dropdown jsMessageInitShow">
+                   <!--点击展示记录-->
+                   <div class="dropdown JsMessageDropdown">
                        <i class="before"></i>
                        <i class="after"></i>
                        <div class="dropdown-header cf">
-                           <i class="close-btn fr jsMessageClosePopupInit"></i>
+                           <i class="close-btn fr jsMessageClosePopup"></i>
                        </div>
-                       <div class="dropdown-list jsMessageDropdownInit">
-                           &lt;!&ndash;<div class="dropdown-item">
-                               <div class="cf">
-                                   <div class="msg-name fl">购买VIP赠送最多十个字符</div>
-                                   <div class="msg-num fl">
-                                       <span>+100</span><span>爱问币</span>
-                                   </div>
-                               </div>
-                           </div>&ndash;&gt;
+                       <div class="dropdown-list jsMessageDropdownList"></div>
+                   </div>
+               </div>
+               <div class="user-info fl">
+                   <!--未登录 -->
+                   <div class="user-con" id="detail-unLogin">
+                       <a class="user-link user-login">
+                           <div class="user-img"></div>
+                           <span class="login-text pc_click" pcTrackContent="detailTopLogin">登录</span>
+                       </a>
+                   </div>
+                   <!--已登录 -->
+                   <div class="user-con" id="haveLogin" style="display: none;">
+                       <a class="user-link" href="/node/personalCenter/vip.html?type=myvip" target="_blank">
+                           <i class="icon-detail"></i>
+                           <div class="user-img">
+                               <img src="" alt="头像">
+                           </div>
+                           <span class="user-name"></span>
+                           <span class="user-loginType"></span>
+                       </a>
+
+                       <div class="user-more">
+                           <i class="before"></i>
+                           <i class="after"></i>
+                           <a href="/node/pointsMall.html" target="_blank">爱问币商城</a>
+                           {% if results.type %}
+                           {%else%}
+                           <a href="/node/personalCenter/home.html" target="_blank">个人中心</a>
+                           {%endif%}
+                           <a class="loginOut">退出</a>
                        </div>
-                   </div>-->
-                <!--点击展示记录-->
-                <div class="dropdown JsMessageDropdown">
-                    <i class="before"></i>
-                    <i class="after"></i>
-                    <div class="dropdown-header cf">
-                        <i class="close-btn fr jsMessageClosePopup"></i>
-                    </div>
-                    <div class="dropdown-list jsMessageDropdownList"></div>
-                    <!-- <div class="dropdown-item">
-                         <div class="msg-date">2020-05-24</div>
-                         <div class="cf">
-                             <div class="msg-name fl">购买VIP赠送最多十个字符</div>
-                             <div class="msg-num fl">
-                                 <span>+100</span><span>爱问币</span>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="dropdown-item">
-                         <div class="msg-date">2020-05-24</div>
-                         <div class="cf">
-                             <div class="msg-name fl">购买VIP赠送最多十个字符</div>
-                             <div class="msg-num fl">
-                                 优惠券已发放到账户
-                             </div>
-                         </div>
-                     </div>-->
-                </div>
-            </div>
+                   </div>
+               </div>
+           </div>
         </div>
     </div>
 </div>
