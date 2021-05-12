@@ -42,6 +42,8 @@ define(function (require, exports, module) {
             // 重置数据
             this.layerIndex = null;
             this.goodsData = null;
+            this.iaskCoinNum = 0;
+            this.callback = null;
             // 解绑事件
             this.unBindEvent();
         },
