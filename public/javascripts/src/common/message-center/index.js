@@ -36,7 +36,7 @@ define(function (require, exports, module) {
             var that = this;
 
             // 下拉容器
-            var $JsMessageDropdown = $('.JsMessageDropdown');
+            var $jsMessageDropdown = $('.jsMessageDropdown');
 
             // 点击消息中心图标-先关闭初始化一条下拉框-再展示消息下拉框
             $('.jsMessageOpenPopup')
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
                     if (that.isShowMessagePopup) {
                         that.findRewardRecordList(10);
                     } else {
-                        $JsMessageDropdown.hide();
+                        $jsMessageDropdown.hide();
                     }
                 });
 
@@ -68,7 +68,7 @@ define(function (require, exports, module) {
                     } else {
                         that.isShowMessagePopup = false;
                     }
-                    $JsMessageDropdown.hide();
+                    $jsMessageDropdown.hide();
                 });
 
             // 移出消息中心，关闭下拉--初始化展开的下拉，不关闭
@@ -78,7 +78,7 @@ define(function (require, exports, module) {
             //         e.stopPropagation();
             //         if (!that.isInitOneMessage) {
             //             that.isShowMessagePopup = false;
-            //             $JsMessageDropdown.hide();
+            //             $jsMessageDropdown.hide();
             //         }
             //     });
         },
@@ -144,7 +144,7 @@ define(function (require, exports, module) {
             // 添加dom
             $('.jsMessageDropdownList').html(dropItemHtml);
             // 展示下拉
-            $('.JsMessageDropdown').show();
+            $('.jsMessageDropdown').show();
         },
         // 保存关闭状态24小时--再次刷新不会再次默认展示一条
         saveInitCloseStatus: function () {
