@@ -41,6 +41,11 @@ define(function (require, exports, module) {
                         that.duration--;
                     }
                 }, 1000);
+
+                trackEvent('NE006', 'modelView', 'view', {
+                    moduleID: 'agreement',
+                    moduleName: '协同弹窗曝光'
+                });
             });
         },
         /**
