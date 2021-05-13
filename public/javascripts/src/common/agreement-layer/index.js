@@ -25,10 +25,6 @@ define(function (require, exports, module) {
             content: agreementHtml,
             success: function (layero, index) {
                 agreementLayerJs.init(index, confirmCb);
-                trackEvent('NE006', 'modelView', 'view', {
-                    moduleID: 'agreement',
-                    moduleName: '协同弹窗曝光'
-                });
             },
             end: function () {
                 agreementLayerJs.destroy();
