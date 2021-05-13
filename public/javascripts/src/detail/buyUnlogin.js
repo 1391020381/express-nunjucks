@@ -59,8 +59,15 @@ define(function (require) {
             });
             // 失败重新生产订单
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-refresh', function () {
-                unloginObj.createOrder();
+              //  unloginObj.createOrder();
                 unloginObj.count = 0;
+                var visitorId = unloginObj.getVisitorId();
+                var orderNo = unloginObj.orderNo;
+                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-invalidtip').hide();
+                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-qr-invalidtip').hide();
+                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-btn').hide();
+                $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide();
+                unloginObj.payStatus(orderNo, visitorId);
             });
             // 查询已支付按钮回调
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-btn', function () {
