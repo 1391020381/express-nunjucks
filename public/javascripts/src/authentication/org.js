@@ -18,7 +18,7 @@ define(function (require, exports, module) {
     var authenticationBox = $('#authentication-box');
        // 认证协议弹窗
     var agreementLayerService = require('../common/agreement-layer/index');
-    agreementLayerService.open(function(){})
+
     var orgObj = {
         nickName: '',
         validateFrom: /^1[3456789]\d{9}$/,
@@ -388,7 +388,7 @@ define(function (require, exports, module) {
                 email: $('.js-email').val().trim(),
                 smsId: $('.js-msg').attr('smsId'),
                 checkCode: $('.js-msg-val').val().trim(),
-                agreementTime:new Date(new Date().getTime()).formatDate('yyyy-MM-dd')
+                agreementTime:new Date(new Date().getTime()).formatDate('yyyy-MM-dd hh:mm:ss')
             };
             // if (!$('.rz-label .check-con').hasClass('checked')) {
             //     $.toast({
