@@ -55,6 +55,8 @@ define(function (require, exports, module) {
         destroy: function () {
             // 重置数据
             this.layerIndex = null;
+            this.confirmCb = null;
+            this.duration = 10;
             // 清除定时器
             if (this.timerId) {
                 window.clearInterval(this.timerId);
@@ -80,12 +82,13 @@ define(function (require, exports, module) {
                 if (that.duration <= 0) {
                     if (typeof that.confirmCb === 'function') {
                         that.confirmCb();
-                        trackEvent('NE002', 'normalClick', 'view', {
-                            domID: 'ConsentAgreement ',
-                            domName: '同意协议'
-                        });
                     }
                     that.closeLayer();
+
+                    trackEvent('NE002', 'normalClick', 'view', {
+                        domID: 'ConsentAgreement ',
+                        domName: '同意协议'
+                    });
                 }
             });
         },
