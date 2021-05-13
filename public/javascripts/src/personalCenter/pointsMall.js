@@ -1,6 +1,7 @@
 
 define(function (require, exports, module) {
     require('../application/suspension');
+    var method = require('../application/method');
     var iaskCoinLayer = require('../common/iask-coin-layer/index')
     var coinRuleLayer = require('../common/coin-rule-layer/index.js')
     var goodsDetailLayer = require('../common/goods-detail-layer/index')
@@ -22,6 +23,10 @@ define(function (require, exports, module) {
             }, isAutoLogin);
 
             that.bindEvent()
+            trackEvent('NE030','pageTypeView','page',{
+                pageID:'IMALL',
+                pageName:'爱问币商城'
+            })
         },
         getExchangeGoodsList:function(currentPage,coinNum){ // coinNum 兑换商品详情需要
             var that = this
@@ -43,6 +48,10 @@ define(function (require, exports, module) {
                     });
                     $('.ponints-mall-exchangegoods').html(exchangeGoodsHtml);
                     that.handlePagination(res.data.totalPages,res.data.currentPage)
+                    trackEvent('NE060','modelView','view',{
+                        moduleID:'iicongoods',
+                        moduleName:'爱问币商品曝光'
+                    })
                 }
             });
         },
@@ -123,7 +132,7 @@ define(function (require, exports, module) {
                 $.each(data, function (inidex, item) {
                     var temp = {
                         linkUrl:linkUrlMap[item.linkType]?linkUrlMap[item.linkType]:item.linkUrl,
-                        rewardContent:item.rewardContent.join(',')
+                        rewardContent:rewardContent&&rewardContent.length == 1?rewardContent[0]:item.rewardContent.join(',')
                     }
                     arr.push($.extend({},item,temp))
                 })
@@ -142,6 +151,16 @@ define(function (require, exports, module) {
             $('.js-point-mall-detail').on('click',function(){
                 iaskCoinLayer.open()
             })
+            $(document).on('click','.js-task-btn',function(){ // 新手任务
+                var href = $(this).attr('data-href')
+                trackEvent('NE002','normalClick','click',{
+                    domID:'doTheTask',
+                    domName:'做任务点击曝光'
+                })
+                if(href){
+                    method.compatibleIESkip(href, true);
+                }
+            })
             $(document).on('click','.exchange-goods-content .js-sort',function(){
                 console.log('js-sort')
                 $('.exchange-goods-content .js-sort').removeClass('active')
@@ -151,6 +170,10 @@ define(function (require, exports, module) {
             })
             $(document).on('click','.exchange-goods-content .js-exchange-goods-list-item',function(){
                 console.log('js-exchange-goods-list-item')
+                trackEvent('NE002','normalClick','click',{
+                    domID:'goodsClick',
+                    domName:'爱问币商品点击'
+                })
                 var id = $(this).attr('data-id')
                 var coinNum = $(this).attr('data-coinNum')
                 goodsDetailLayer.open({id:id,coinNum:coinNum})

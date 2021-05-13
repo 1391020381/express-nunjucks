@@ -123,7 +123,7 @@ define(function (require, exports, module) {
                     $('.js-organlist').remove();
                     data.data.industryType ? $('.js-industry span').text(industryTypeArr[data.data.industryType].title) : '';
                     $('.js-industryTypeList').remove();
-                    $('.js-organize-name').val(data.data.organizeName).attr('disabled', 'disabled');
+                    $('.js-organize-name').val(data.data.authName).attr('disabled', 'disabled');
                     $('.js-website').val(data.data.organizeWebsite).attr('disabled', 'disabled');
                     $('.js-brief').val(data.data.organizeProfile).attr('disabled', 'disabled');
                     $('.js-add').val(data.data.organizeAddress).attr('disabled', 'disabled');
@@ -132,7 +132,7 @@ define(function (require, exports, module) {
                     $('#upload-target').removeAttr('id');
                     $('.js-businessLicensePic img').attr('src', data.data.businessLicensePic);
                     $('#upload-target2').removeAttr('id');
-                    $('.js-phone').val(data.data.contactNumber).attr('disabled', 'disabled');
+                    $('.js-phone').val(data.data.phoneNumber).attr('disabled', 'disabled');
                     $('.js-qqNumber').val(data.data.qqNumber).attr('disabled', 'disabled');
                     $('.js-email').val(data.data.email).attr('disabled', 'disabled');
                     $('.js-msg').attr('disabled', 'disabled');
@@ -376,18 +376,19 @@ define(function (require, exports, module) {
                 nickName: $('.js-nickName').val().trim(),
                 organizeIndustryType: $('.js-organize').attr('authtype'),
                 industryType: $('.js-industry').attr('authtype'),
-                organizeName: $('.js-organize-name').val().trim(),
+                authName: $('.js-organize-name').val().trim(),
                 organizeWebsite: $('.js-website').val().trim(),
                 organizeProfile: $('.js-brief').val().trim(),
                 organizeAddress: $('.js-add').val().trim(),
                 socialCreditCode: $('.js-cer-code').val().trim(),
                 logoPic: $('#upload-target').attr('val'),
                 businessLicensePic: $('#upload-target2').attr('val'),
-                contactNumber: $('.js-phone').text(),
+                phoneNumber: $('.js-phone').text(),
                 qqNumber: $('.js-qqNumber').val().trim(),
                 email: $('.js-email').val().trim(),
                 smsId: $('.js-msg').attr('smsId'),
-                checkCode: $('.js-msg-val').val().trim()
+                checkCode: $('.js-msg-val').val().trim(),
+                agreementTime:new Date(new Date().getTime()).format('yyyy-MM-dd')
             };
             // if (!$('.rz-label .check-con').hasClass('checked')) {
             //     $.toast({

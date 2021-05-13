@@ -11,7 +11,7 @@
                       <p class="task-subtitle">{{item.rewardContent}}</p>
                       <p class="task-desc">{{item.desc}}</p>
                       {{ if item.linkUrl}}
-                        <a class="task-btn" href="{{item.linkUrl}}" target = "_blank">去做任务</a>
+                        <span class="task-btn js-task-btn" data-href="{{item.linkUrl}}" target = "_blank">去做任务</span>
                       {{/if}}
                   </div>
                </div>

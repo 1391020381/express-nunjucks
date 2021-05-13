@@ -11,6 +11,8 @@ define(function (require, exports, module) {
     var login = require('../application/checkLogin');
     var common = require('./common');
     var fileCollectLayer = require('../common/file-collect-layer/index')
+    var urlConfig = require('../application/urlConfig')
+    var Browse10s = require('../common/userActionRecordReport').Browse10s;
     // 评价弹窗
     var evaluateLayerService = require('../common/evaluate-layer/index');
 
@@ -21,7 +23,6 @@ define(function (require, exports, module) {
     // 【A20删除详情页的百度统计埋点】
     // var handleBaiduStatisticsPush = require('../common/baidu-statistics').handleBaiduStatisticsPush
     // handleBaiduStatisticsPush('fileDetailPageView')
-
     trackEvent('NE030', 'pageTypeView', 'page', {
         pageID: 'FD',
         pageName: '资料详情'
@@ -83,6 +84,13 @@ define(function (require, exports, module) {
     function pageInitShow() {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
+                Browse10s({attrList:[
+                    {site:urlConfig.site},
+                    {terminal:urlConfig.terminal},
+                    {content_type:1},
+                    {product_type: window.pageConfig&&window.pageConfig.params.productType},
+                    {vip:data.isVip}
+                ], userActCode:'browse'});
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
                 window.pageConfig.email = data.email || '';

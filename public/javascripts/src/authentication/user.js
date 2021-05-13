@@ -81,7 +81,7 @@ define(function (require, exports, module) {
                     }
 
                     $('.js-nickName').val(data.data.nickName).attr('disabled', 'disabled');
-                    $('.js-realName').val(data.data.realName).attr('disabled', 'disabled');
+                    $('.js-realName').val(data.data.authName).attr('disabled', 'disabled');
                     var Authtype = [
                         { val: 0, title: '中小学教师' },
                         { val: 1, title: '大学或高职教师' },
@@ -244,7 +244,7 @@ define(function (require, exports, module) {
             // checkCode	是	String	验证码
             var params = {
                 nickName: $('.js-nickName').val().trim(),
-                realName: $('.js-realName').val().trim(),
+                authName: $('.js-realName').val().trim(),
                 authType: Number($('.js-authType').attr('authtype')),
                 idCardNo: $('.js-idCardNo').val().trim(),
                 idCardFrontPic: $('#js-id-front').attr('val'),
@@ -259,7 +259,8 @@ define(function (require, exports, module) {
                 qqNumber: $('.js-qqNumber').val().trim(),
                 email: $('.js-email').val().trim(),
                 smsId: $('.js-msg').attr('smsId'),
-                checkCode: $('.js-msg-val').val().trim()
+                checkCode: $('.js-msg-val').val().trim(),
+                agreementTime:new Date(new Date().getTime()).format('yyyy-MM-dd')
             };
             if (!params.nickName) {
                 $.toast({
@@ -270,7 +271,7 @@ define(function (require, exports, module) {
                 });
                 return false;
             }
-            if (!params.realName) {
+            if (!params.authName) {
                 $.toast({
                     text: '请输入真实姓名',
                     icon: '',

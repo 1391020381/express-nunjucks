@@ -7,7 +7,7 @@
                 <p class="daily-task-item-subtitle">{{item.rewardContent}}</p>
                 <p class="daily-task-item-desc">{{item.desc}}</p>
                 <span class="daily-task-bg"></span>
-                <a class="daily-task-itembtn"  href="{{item.linkUrl}}" target = "_blank"></a>
+                <span class="daily-task-itembtn js-task-btn"  data-href="{{item.linkUrl}}" ></span>
             </li>
         {{/each}}
     </ul>
