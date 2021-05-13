@@ -129,10 +129,11 @@ define(function (require, exports, module) {
                 1:'/search/home.html'
             }
             if(data&&data.length){
-                $.each(data, function (inidex, item) {
+                $.each(data, function (index, item) {
+                    var rewardContent = item.rewardContent || []
                     var temp = {
                         linkUrl:linkUrlMap[item.linkType]?linkUrlMap[item.linkType]:item.linkUrl,
-                        rewardContent:rewardContent&&rewardContent.length == 1?rewardContent[0]:item.rewardContent.join(',')
+                        rewardContent:rewardContent&&rewardContent.length == 1?rewardContent[0]:rewardContent.join(',')
                     }
                     arr.push($.extend({},item,temp))
                 })
