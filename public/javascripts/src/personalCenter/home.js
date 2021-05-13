@@ -307,7 +307,12 @@ define(function (require) {
     $(document).on('click', '.personal-center-home .add-privileges', function (e) {
         method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
     });
-
+    $('.js-pointsmall').on('click',function(){
+        var href = $(this).attr('data-href')
+        $('.active-menus').removeClass('active-menus')
+        $(this).addClass('active-menus')
+        method.compatibleIESkip(href,true)
+    })
     return {
         getUserCentreInfo: getUserCentreInfo
     };

@@ -388,7 +388,7 @@ define(function (require, exports, module) {
                 email: $('.js-email').val().trim(),
                 smsId: $('.js-msg').attr('smsId'),
                 checkCode: $('.js-msg-val').val().trim(),
-                agreementTime:new Date(new Date().getTime()).format('yyyy-MM-dd')
+                agreementTime:new Date(new Date().getTime()).formatDate('yyyy-MM-dd')
             };
             // if (!$('.rz-label .check-con').hasClass('checked')) {
             //     $.toast({
