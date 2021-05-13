@@ -22,7 +22,7 @@
                           机构认证
                         {%endif%}
                     </span>
-                {%endif%}   
+                {%endif%}
          </div>
         <div class="personal-id">
            <span class="id" id="id" value="">用户ID:{{results.userInfo.data.id}}</span><span class="copy clipboardBtn" data-clipboard-text='{{results.userInfo.data.id}}' data-clipboard-action="copy">复制</span>
@@ -36,7 +36,7 @@
             <p class="menus-desc">
                <a class="menu-link" href="/node/personalCenter/home.html?type=home">
                     <span class="menus-icon home-icon"></span>
-                    <span class="menus-text">我的首页</span> 
+                    <span class="menus-text">我的首页</span>
                </a>
             </p>
         </ul>
@@ -55,6 +55,14 @@
             <li  class="{{ 'menu active-menus' if results.type === 'myuploads' else 'menu'}}">
                 <a class="menu-link"  href="/node/personalCenter/myuploads.html?type=myuploads">我的上传</a>
             </li>
+        </ul>
+        <ul  class="menus js-pointsmall" data-href="/node/pointsMall.html">
+            <p class="menus-desc">
+               <span class="menu-link"><span>
+               <span class="menus-icon pointsmall-icon"></span>
+               <span class="menus-text">爱问币商城<span>
+               </a>
+            </p>
         </ul>
         <ul  class="{{ 'menus active-menus' if results.type === 'myvip' else 'menus'}}">
             <p class="menus-desc">

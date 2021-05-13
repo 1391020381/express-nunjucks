@@ -471,6 +471,17 @@ define(function (require, exports, module) {
             } else {
                 return false;
             }
+        },
+        debounce: function (func, wait) {
+            //缓存一个定时器id
+            var timer = 0;
+            var that = this;
+            return function (args) {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(function () {
+                    func.apply(that, args);
+                }, wait)
+            }
         }
     };
 });
