@@ -8,6 +8,7 @@ define(function (require) {
     var isLogin = require('../application/effect.js').isLogin;
     var getUserCentreInfo = require('./home.js').getUserCentreInfo;
     var idList = []; // 保存 要删除的文件id
+    var utils = require('../cmd-lib/util');
     var userFileTypeList = {
         1: '免费文档',
         3: '在线文档',
@@ -130,17 +131,18 @@ define(function (require) {
         console.log($(this).val())
         getMyUploadPage()
     })
-    $(document).on('change','.js-searach-file-input',function(){
+    $(document).on('input','.js-searach-file-input',function(e){
         var val = $(this).val()
         if(val&&val.length>50){
             $.toast({
                 text: '标题最多输入50个字',
                 delay: 3000
             });
-        }else{
-            method.debounce(function(){
-                getMyUploadPage()
-            },500)
+        }
+    })
+    $(document).on('keypress','.js-searach-file-input',function(e){
+        if(e && e.keyCode==13){
+            getMyUploadPage()
         }
     })
     $(document).on('click', '.myuploads .label-input', function () { // 切换checkbox选中的状态样式
