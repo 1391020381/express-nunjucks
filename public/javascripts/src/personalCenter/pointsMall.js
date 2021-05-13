@@ -15,6 +15,7 @@ define(function (require, exports, module) {
     var exchangeGoodsTemplate = require('./template/pointsMall/exchangeGoods.html')
     var simplePagination = require('./template/simplePagination.html');
     var obj = {
+        dailyTaskList:[],
         initHtml:function(){
             var that = this
             var isAutoLogin = true;
@@ -73,7 +74,7 @@ define(function (require, exports, module) {
                 site:urlConfig.site,
                 terminal:urlConfig.terminal
             }
-            var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/novice' || api.task.noviceTaskList
+            var url = api.task.noviceTaskList
             $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0) {
                      that.createNewcomerTaskHtml(res.data)
@@ -83,14 +84,14 @@ define(function (require, exports, module) {
         getDailyTaskList:function(isLoadeMore){ //  每日任务
             var that = this
             var params = {
-                limit:isLoadeMore?'':6,
                 site:urlConfig.site,
                 terminal:urlConfig.terminal
             }
-            var url = 'http://yapi.ishare.iasktest.com/mock/186/taskList/daily' || api.task.noviceTaskList
+            var url =  api.task.dailyTaskList
             $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0) {
-                    that.createDailyTaskHtml(res.data,isLoadeMore)
+                    that.dailyTaskList = res.data
+                    that.createDailyTaskHtml(that.dailyTaskList)
                 }
             });
         },
@@ -115,10 +116,12 @@ define(function (require, exports, module) {
                 mySwiper.slideNext();
             })
         },
-        createDailyTaskHtml:function(data,isLoadeMore){
+        createDailyTaskHtml:function(data,isLoadeMore){ // 第一次 isLoadeMore是undefined
+            var isLoadeMore = data&&data.length>6||isLoadeMore
+            var dailyTaskList = isLoadeMore?this.handleTaskData(data):this.handleTaskData(data.slice(0,6))
             var dailyTaskHtml = template.compile(dailyTaskTemplate)({
-                dailyTaskList:this.handleTaskData(data),
-                isLoadeMore:isLoadeMore
+                dailyTaskList:dailyTaskList,
+                isLoadeMore:data&&data.length>6
             })
             $('.ponints-mall-dailytask').html(dailyTaskHtml)
         },
@@ -144,7 +147,7 @@ define(function (require, exports, module) {
         bindEvent:function(){
             var that = this
             $(document).on('click','.js-load-more-task',function(){
-                    that.getDailyTaskList(true)
+                that.createDailyTaskHtml(obj.dailyTaskList,true)
             })
             $('.js-ponit-mall-rule-desc').on('click',function(){
                 coinRuleLayer.open()

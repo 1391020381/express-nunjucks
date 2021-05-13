@@ -879,7 +879,10 @@ define(function (require, exports, module) {
     };
 
     isLogin(function (data) {
-        agreementLayerService.open(function(){},true)
+        if(!data.agreementTime){
+            agreementLayerService.open(function(){},true)
+        }
+
         uploadObj.isAuth = data.isAuth == 1 ? true : false;
         uploadObj.init();
     }, isAutoLogin);
