@@ -279,14 +279,7 @@ define(function (require, exports, module) {
                 });
                 return;
             } else {
-                // var fid = $(this).attr('data-fid');
-                var ui = method.getCookie('ui') ? JSON.parse(decodeURIComponent(method.getCookie('ui'))) : { isVip: '' };
-                if (ui.isVip == '1') {
                     setCollect($(this));
-                }else{
-                    // 比较用户收藏的数是否大于50
-                    fileCollectLayer.open()
-                }
             }
 
         });
@@ -731,9 +724,13 @@ define(function (require, exports, module) {
                     });
                     _this.hasClass('btn-collect-success') ? _this.removeClass('btn-collect-success') : _this.addClass('btn-collect-success');
                 } else {
-                    $.toast({
-                        text: _this.hasClass('btn-collect-success') ? '取消收藏失败' : '收藏失败'
-                    });
+                    if(res.code == '407005'){
+                        fileCollectLayer.open()
+                    }else{
+                        $.toast({
+                            text: _this.hasClass('btn-collect-success') ? '取消收藏失败' : '收藏失败'
+                        });
+                    }
                 }
             }
         });
