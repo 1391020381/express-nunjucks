@@ -11,9 +11,9 @@
             </li>
         {{/each}}
     </ul>
-    {{ if !isLoadeMore}}
-    <p class="load-more-task">
-        <span class="load-more-task-desc js-load-more-task">更多任务</span>
+    {{ if isLoadeMore}}
+    <p class="load-more-task js-load-more-task">
+        <span class="load-more-task-desc ">更多任务</span>
         <span class="load-more-task-icon"></span>
     </p>
     {{/if}}

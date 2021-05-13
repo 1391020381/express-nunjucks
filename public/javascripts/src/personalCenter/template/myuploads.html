@@ -18,7 +18,7 @@
         <a href="/node/personalCenter/myuploads.html?myuploadType=4&type=myuploads">重复资料</a>
       </li>
     </ul>
-    {{ if list.length}}
+
       <div class="select-list">
         {{ if myuploadType == 2}}
           <span class="list-item">审核进度 :</span>
@@ -42,12 +42,12 @@
         <span class="list-item">上传时间 :</span>
         <div class="list-select list-select-fileType">
             <select class="file-type js-search-time-type">
-                <option value="0" selected="{{uploadTime == 0?selected:''}}">近一个月</option>
-                <option value="1" selected="{{uploadTime == 1?selected:''}}">近三个月</option>
-                <option value="2" selected="{{uploadTime == 2?selected:''}}">近半年</option>
-                <option value="3" selected="{{uploadTime == 3?selected:''}}">近一年</option>
-                <option value="4" selected="{{uploadTime == 4?selected:''}}">近三年</option>
-                <option value="" selected="{{uploadTime =='' ?selected:''}}">全部</option>
+                <option value="0" selected="{{time == 0?selected:''}}">近一个月</option>
+                <option value="1" selected="{{time == 1?selected:''}}">近三个月</option>
+                <option value="2" selected="{{time == 2?selected:''}}">近半年</option>
+                <option value="3" selected="{{time == 3?selected:''}}">近一年</option>
+                <option value="4" selected="{{time == 4?selected:''}}">近三年</option>
+                <option value="" selected="{{time =='' ?selected:''}}">全部</option>
             </select>
             </select>
         </div>
@@ -76,7 +76,7 @@
           </select>
         </div>
       </div>
-    {{/if}}
+
   </div>
 
   <label class="table-title" >
@@ -86,15 +86,14 @@
         <span class="delete-desc">删除</span>
       {{/if}}
     </div>
-    {{ if list.length}}
-     <div class="search-file">
-         <span class="search-file-title">搜索资料 :</span>
-         <div class="searach-file-input-wrapper">
-            <input class="searach-file-input js-searach-file-input"  placeholder="输入标题回车搜索"/>
-         </div>
-     </div>
-      <span class="myuploads-nums">0篇</span>
-    {{/if}}
+    <span class="myuploads-nums">0篇</span>
+    <div class="search-file">
+        <span class="search-file-title">搜索资料 :</span>
+        <div class="searach-file-input-wrapper">
+           <input class="searach-file-input js-searach-file-input" value="{{title}}" placeholder="输入标题回车搜索"/>
+        </div>
+    </div>
+
   </label>
   {{ if list.length}}
     <table class="myuploads-table-list">

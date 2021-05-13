@@ -47,7 +47,8 @@ define(function (require, exports, module) {
             getCoinIaskBalance: gateway + '/account/user/getCoinIaskBalance',
             // 查询用户爱问币流水
             getCoinIaskList: gateway + '/account/user/getCoinIaskList',
-            taskUserActionRecordReport:gateway + '/task/userActionRecord/report'
+            taskUserActionRecordReport:gateway + '/task/userActionRecord/report',
+            updateAgreementTime:gateway + '/user/certification/updateAgreementTime'
         },
         normalFileDetail: {
             // 文件预下载

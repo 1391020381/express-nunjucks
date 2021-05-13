@@ -40,7 +40,7 @@ define(function (require) {
                 userFileType: $('.file-type').val() == '0' ? '' : Number($('.file-type').val()),
                 auditType: $('.review-progress').val() == '0' ? '' : Number($('.review-progress').val()),
                 uploadDateRange:$('.js-search-time-type').val(),
-                time:$('.js-searach-file-input').val()
+                title:$('.js-searach-file-input').val()
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -52,6 +52,8 @@ define(function (require) {
                     var list = [];
                     var auditType = res.data.auditType;
                     var userFileType = res.data.userFileType;
+                    var time = res.data.time
+                    var uploadDateRange = res.data.uploadDateRange
                     $(res.data.list.rows).each(function (index, item) {
                         var userFilePrice = '';
                         if (item.userFileType == 1) {
@@ -80,7 +82,9 @@ define(function (require) {
                         totalPages: res.data.list.totalSize,
                         myuploadType: myuploadType,
                         auditType: auditType,
-                        userFileType: userFileType
+                        userFileType: userFileType,
+                        time:time,
+                        uploadDateRange:uploadDateRange
                     });
                     $('.personal-center-myuploads').html(myuploadsTemplate);
                     handlePagination(res.data.list.totalPages, res.data.list.currentPage);
@@ -125,6 +129,19 @@ define(function (require) {
     $(document).on('change','.js-search-time-type',function(){
         console.log($(this).val())
         getMyUploadPage()
+    })
+    $(document).on('change','.js-searach-file-input',function(){
+        var val = $(this).val()
+        if(val&&val.length>50){
+            $.toast({
+                text: '标题最多输入50个字',
+                delay: 3000
+            });
+        }else{
+            method.debounce(function(){
+                getMyUploadPage()
+            },500)
+        }
     })
     $(document).on('click', '.myuploads .label-input', function () { // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'));
