@@ -124,7 +124,7 @@ define(function (require, exports, module) {
             });
         },
         // 渲染消息记录列表
-        renderDropdown(dataList, isInit) {
+        renderDropdown:function(dataList, isInit) {
             var len = dataList.length;
             // 无数据时-隐藏红点
             // if (len <= 0) {
