@@ -148,7 +148,7 @@ define(function (require, exports, module) {
         },
         // 保存关闭状态24小时--再次刷新不会再次默认展示一条
         saveInitCloseStatus: function () {
-            method.setCookieWithExpPath('message_center', 1, 24 * 60 * 60 * 1000, '/');
+            method.setCookieWithExpPath('message_center', 1, 86400000, '/');
         },
         getInitCloseStatus: function () {
             return method.getCookie('message_center');
