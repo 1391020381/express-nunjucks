@@ -53,7 +53,12 @@ define(function (require, exports, module) {
             });
             uploadObj.handleDatainput();
         },
+        updateAgreementTime:function(){ // 更新认证时间
+            var url = api.user.updateAgreementTime
+            $ajax(url, 'POST','', false).done(function (res) {
 
+            });
+        },
         handleDatainput: function () {
             $(document).on('blur', '.data-filename', function (e) {
                 var value = $(this).val();
@@ -880,7 +885,9 @@ define(function (require, exports, module) {
 
     isLogin(function (data) {
         if(data.isAuth==1&&!data.agreementTime){
-            agreementLayerService.open(function(){},true)
+            agreementLayerService.open(function(){
+                uploadObj.updateAgreementTime()
+            },true)
         }
 
         uploadObj.isAuth = data.isAuth == 1 ? true : false;

@@ -146,13 +146,15 @@
   vertical-align: middle;
 }
 .myuploads .table-title .search-file {
-  display: inline-block;
-  margin-left: 428px;
+  margin-right: 43px;
+  float: right;
 }
 .myuploads .table-title .search-file .searach-file-input-wrapper {
   display: inline-block;
-  width: 163px;
+  width: 167px;
   height: 30px;
+  border: 1px solid #DDDDDD;
+  border-radius: 2px;
 }
 .myuploads .table-title .search-file .searach-file-input-wrapper .searach-file-input {
   height: 100%;

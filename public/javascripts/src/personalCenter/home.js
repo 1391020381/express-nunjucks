@@ -30,7 +30,9 @@ define(function (require) {
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
         if(data.isAuth==1&&!data.agreementTime){
-            agreementLayerService.open(function(){},true)
+            agreementLayerService.open(function(){
+                updateAgreementTime()
+            },true)
         }
         userInfo = data ? data : userInfo;
         $.ajax({
@@ -296,7 +298,12 @@ define(function (require) {
             }
         });
     }
+    function updateAgreementTime(){ // 更新认证时间
+        var url = api.user.updateAgreementTime
+        $ajax(url, 'POST','', false).done(function (res) {
 
+        });
+    }
     $(document).on('click', '.personal-center-home .add-privileges', function (e) {
         method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
     });
