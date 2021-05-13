@@ -24,11 +24,6 @@ define(function (require, exports, module) {
 
             // 等待dom加载完毕
             $('.jsAgreementLayer').ready(function () {
-                trackEvent('NE006', 'modelView', 'view', {
-                    moduleID: 'agreement',
-                    moduleName: '协同弹窗曝光'
-                });
-
                 that.bindEvent();
 
                 var $jsAgreementConfirm = $('.jsAgreementConfirm');
@@ -46,6 +41,11 @@ define(function (require, exports, module) {
                         that.duration--;
                     }
                 }, 1000);
+
+                trackEvent('NE006', 'modelView', 'view', {
+                    moduleID: 'agreement',
+                    moduleName: '协同弹窗曝光'
+                });
             });
         },
         /**
