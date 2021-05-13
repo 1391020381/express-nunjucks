@@ -9,6 +9,8 @@ define(function (require, exports, module) {
     var showLoginDialog = require('./login').showLoginDialog;
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
     var handleBaiduStatisticsPush = require('../common/baidu-statistics.js').handleBaiduStatisticsPush;
+    // 消息中心
+    var messageCenter = require('../common/message-center/index');
 
     module.exports = {
         getIds: function () {
@@ -97,15 +99,15 @@ define(function (require, exports, module) {
                             });
                             trackEventLogin(res.data.userId);
                             trackEvent('SE001', 'loginResult', 'query', {
-                                loginResult:'1',
-                                failMsg:'',
+                                loginResult: '1',
+                                failMsg: '',
                                 loginType: window.loginType && window.loginType
                             });
 
-                            var page = window.pageConfig&&window.pageConfig.page || {};
+                            var page = window.pageConfig && window.pageConfig.page || {};
 
-                            if(page.type !='detail'){
-                                setTimeout(function(){
+                            if (page.type != 'detail') {
+                                setTimeout(function () {
                                     window.location.reload();
                                 }, 600);
                             }
@@ -131,7 +133,6 @@ define(function (require, exports, module) {
                             method.setCookieWithExpPath('userId', res.data.userId, 30 * 60 * 1000, '/');
                         } catch (e) {
                         }
-
                     } else {
 
                         handleBaiduStatisticsPush('loginResult01', {
@@ -142,12 +143,12 @@ define(function (require, exports, module) {
                         });
                         _self.ishareLogout();
                     }
-
+                    // 消息中心初始化---解决部分页面登陆后不刷新页面-未展示消息中心图标
+                    messageCenter.init();
                 });
             } catch (e) {
                 console.log(e);
             }
-
         },
         /**
          * 退出

@@ -9,13 +9,22 @@ define(function (require, exports, module) {
         isShowMessagePopup: false,
         // 是否为初始化展示一条的下拉框--任何主动点击展开下拉框操作需重置此状态
         isInitOneMessage: false,
+        // 是否为已登录情况下的多次执行
+        isMoreInitToLogin: false,
 
+        // 因目前部分页面存在登录后刷新--故在初始化时需执行消息中心初始化
+        // 还存在部分页面登录后不刷新页面--故需要在登陆接口中执行消息中心初始化
         // 初始化
         init: function () {
             var that = this;
 
             $(function () {
                 if (method.getCookie('cuk')) {
+                    // 已登录情况下再次触发的初始化-不在触发后续流程
+                    if (that.isMoreInitToLogin) {
+                        return;
+                    }
+                    that.isMoreInitToLogin = true;
                     $('.jsGlobalMessageCenter').show();
                     that.initMessage();
                     that.bindEvent();
@@ -30,49 +39,54 @@ define(function (require, exports, module) {
             var $JsMessageDropdown = $('.JsMessageDropdown');
 
             // 点击消息中心图标-先关闭初始化一条下拉框-再展示消息下拉框
-            $('.jsMessageOpenPopup').on('click', function (e) {
-                e.stopPropagation();
-                // 初次点击消息图标--重置初始化下拉框
-                if (that.isInitOneMessage) {
-                    that.isInitOneMessage = false;
-                    that.saveInitCloseStatus();
-                }
-                that.isShowMessagePopup = !that.isShowMessagePopup;
-                if (that.isShowMessagePopup) {
-                    that.findRewardRecordList(10);
-                } else {
-                    $JsMessageDropdown.hide();
-                }
-            });
+            $('.jsMessageOpenPopup')
+                .off('click')
+                .on('click', function (e) {
+                    e.stopPropagation();
+                    // 初次点击消息图标--重置初始化下拉框
+                    if (that.isInitOneMessage) {
+                        that.isInitOneMessage = false;
+                        that.saveInitCloseStatus();
+                    }
+                    that.isShowMessagePopup = !that.isShowMessagePopup;
+                    if (that.isShowMessagePopup) {
+                        that.findRewardRecordList(10);
+                    } else {
+                        $JsMessageDropdown.hide();
+                    }
+                });
 
             // 关闭消息中心下拉框--包含初次展示下拉框和多条消息下拉框
-            $('.jsMessageClosePopup').on('click', function (e) {
-                e.stopPropagation();
-                // 如果点击的是初始化展示一条的下拉框中关闭按钮-保存关闭状态
-                if (that.isInitOneMessage) {
-                    that.isInitOneMessage = false;
-                    that.saveInitCloseStatus();
-                } else {
-                    that.isShowMessagePopup = false;
-                }
-                $JsMessageDropdown.hide();
-            });
+            $('.jsMessageClosePopup')
+                .off('click')
+                .on('click', function (e) {
+                    e.stopPropagation();
+                    // 如果点击的是初始化展示一条的下拉框中关闭按钮-保存关闭状态
+                    if (that.isInitOneMessage) {
+                        that.isInitOneMessage = false;
+                        that.saveInitCloseStatus();
+                    } else {
+                        that.isShowMessagePopup = false;
+                    }
+                    $JsMessageDropdown.hide();
+                });
 
             // 移出消息中心，关闭下拉--初始化展开的下拉，不关闭
-            $('.jsGlobalMessageCenter').on('mouseleave', function (e) {
-                e.stopPropagation();
-                if (!that.isInitOneMessage) {
-                    that.isShowMessagePopup = false;
-                    $JsMessageDropdown.hide();
-                }
-            });
+            // $('.jsGlobalMessageCenter')
+            //     .off('mouseleave')
+            //     .on('mouseleave', function (e) {
+            //         e.stopPropagation();
+            //         if (!that.isInitOneMessage) {
+            //             that.isShowMessagePopup = false;
+            //             $JsMessageDropdown.hide();
+            //         }
+            //     });
         },
         // 初始化获取一条记录
         initMessage: function () {
-            var isNoInitShow = method.getCookie('MESSAGE_CENTER_INIT');
-
+            var initVal = method.getCookie('MESSAGE_CENTER_INIT');
             // 如果已经关闭过，进入页面不会展示
-            if (!isNoInitShow) {
+            if (initVal !== '1') {
                 this.isInitOneMessage = true;
                 this.findRewardRecordList(1, this.isInitOneMessage);
             }
@@ -98,13 +112,11 @@ define(function (require, exports, module) {
                 if (res && res.code === '0' && res.data) {
                     dataList = res.data;
                 }
-                // if (isInit) {
-                //     for (var i = 0; i < pageSize; i++) {
-                //         dataList.push({
-                //             createTime: new Date().getTime(),
-                //             content: '购买VIP赠送最多十个字符<br>购买VIP赠送最多十个字符，+300爱问币'
-                //         });
-                //     }
+                // for (var i = 0; i < pageSize; i++) {
+                //     dataList.push({
+                //         createTime: new Date().getTime(),
+                //         content: '购买VIP赠送最多十个字符<br>购买VIP赠送最多十个字符，+300爱问币'
+                //     });
                 // }
                 that.renderDropdown(dataList, isInit);
             }, function () {
@@ -115,11 +127,11 @@ define(function (require, exports, module) {
         renderDropdown(dataList, isInit) {
             var len = dataList.length;
             // 无数据时-隐藏红点
-            if (len <= 0) {
-                $('.jsMessageOpenPopup .badge').hide();
-            } else {
-                $('.jsMessageOpenPopup .badge').show();
-            }
+            // if (len <= 0) {
+            //     $('.jsMessageOpenPopup .badge').hide();
+            // } else {
+            //     $('.jsMessageOpenPopup .badge').show();
+            // }
             // 如果是展示初始化下拉框且无数据
             if (isInit && len <= 0) {
                 return;
