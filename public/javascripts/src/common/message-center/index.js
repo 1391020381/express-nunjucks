@@ -84,7 +84,7 @@ define(function (require, exports, module) {
         },
         // 初始化获取一条记录
         initMessage: function () {
-            var initVal = method.getCookie('MESSAGE_CENTER_INIT');
+            var initVal = this.getInitCloseStatus();
             // 如果已经关闭过，进入页面不会展示
             if (initVal !== '1') {
                 this.isInitOneMessage = true;
@@ -149,6 +149,9 @@ define(function (require, exports, module) {
         // 保存关闭状态24小时--再次刷新不会再次默认展示一条
         saveInitCloseStatus: function () {
             method.setCookieWithExpPath('message_center', 1, 24 * 60 * 60 * 1000, '/');
+        },
+        getInitCloseStatus: function () {
+            return method.getCookie('message_center');
         }
     };
 });
