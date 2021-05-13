@@ -29,7 +29,7 @@ define(function (require) {
     }
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
-        if(!data.agreementTime){
+        if(data.isAuth==1&&!data.agreementTime){
             agreementLayerService.open(function(){},true)
         }
         userInfo = data ? data : userInfo;

@@ -36,7 +36,7 @@ define(function (require, exports, module) {
                     //	离开页面时间（时间戳
                     endTime: endTime,
                     //	页面停留时长（endTime - startTime）
-                    duration: startTime - endTime
+                    duration: endTime - startTime
                 }, true);
             });
             trackEvent('NE030','pageTypeView','page',{

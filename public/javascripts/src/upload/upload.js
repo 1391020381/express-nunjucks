@@ -879,7 +879,7 @@ define(function (require, exports, module) {
     };
 
     isLogin(function (data) {
-        if(!data.agreementTime){
+        if(data.isAuth==1&&!data.agreementTime){
             agreementLayerService.open(function(){},true)
         }
 
