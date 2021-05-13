@@ -29,12 +29,12 @@ define(function (require) {
     }
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
-        if(data.isAuth==1&&!data.agreementTime){
+        userInfo = data ? data : userInfo;
+        if(userInfo.isAuth==1&&!userInfo.agreementTime){
             agreementLayerService.open(function(){
                 updateAgreementTime()
             },true)
         }
-        userInfo = data ? data : userInfo;
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')

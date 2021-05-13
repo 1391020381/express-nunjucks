@@ -75,6 +75,7 @@ const renderPage = cc(async (req, res) => {
 
         }
     }
+    const { data:paidTestData} = await getPaidTestData(req,res)
     const {data:categoryIdList} = await getNodeByClassId(req,res,list)
     const topBannerList = await getTopBannerList(req, res);
     const searchBannerList = await getSearchBannerList(req, res);
@@ -85,7 +86,7 @@ const renderPage = cc(async (req, res) => {
 
     const filePreview = {};
 
-    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList});
+    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList,paidTestData});
 });
 
 
@@ -186,10 +187,29 @@ function fetchTxtContentList(contentPathList) {
 function fetchContentForTxt(txtPath) {
     return server.$httpTxt(txtPath);
 }
+function getPaidTestData(req,res){ // 获取专题相关配置
+    const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'PaidTest');
+    return server.$http(url, 'get', req, res, true);
+}
 
+function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList,paidTestData}) {
+    let isVipPaidTest = {
+        flag:false,
+        price:'',
+        desc:''
+    }
+    if(paidTestData){
+        paidTestData.forEach(item=>{
+            if(item.pcode == 0){
+                isVipPaidTest = {
+                    flag:true,
+                    price:item.pname,
+                    desc:item.pvalue
+                }
+            }
 
-function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList}) {
-
+        })
+    }
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
             topBannerList = [];
@@ -237,6 +257,7 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     }
 
     const results = Object.assign({}, {
+        isVipPaidTest:isVipPaidTest,
         redirectUrl: redirectUrl,
         getTopBannerList: topBannerList,
         rightTopBanner:rightTopBanner,

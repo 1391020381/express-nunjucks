@@ -19,11 +19,19 @@
                 ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
     </div>
     <div class="integral-con fr">
-        <!-- <span style="float:left;margin-right:15px;">{{
-            results.list.data.productPrice }}个下载特权</span> -->
-        <p  class="integral-con-content js-buy-open"><span class="integral-con-price"  style="font-weight: bold;"></span><span class="integral-con-desc"></span></p>
+        {%if results.isVipPaidTest.flag%}
+        <p  class="integral-con-content js-buy-open">
+            <span class="integral-con-price"  style="font-weight: bold;">{{results.isVipPaidTest.price}}</span>
+            <span class="integral-con-desc">{{results.isVipPaidTest.desc}}</span>
+        </p>
         <a class="btn-fix-bottom btn-fix-bottom-vip fl pc_click" pcTrackContent="downloadBtn-3"
             bilogContent="fileDetailBottomDown" data-toggle="download" >VIP特权下载</a>
+        {%else%}
+        <span style="float:left;margin-right:15px;">{{
+            results.list.data.productPrice }}个下载特权</span>
+            <a class="btn-fix-bottom btn-fix-bottom-vip fl pc_click" pcTrackContent="downloadBtn-3"
+            bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>
+        {%endif%}
     </div>
     {%else%}
     <!--现金文档-->
