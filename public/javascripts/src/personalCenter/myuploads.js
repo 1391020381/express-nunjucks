@@ -38,7 +38,9 @@ define(function (require) {
                 pageSize: 20,
                 status: Number(status), // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
                 userFileType: $('.file-type').val() == '0' ? '' : Number($('.file-type').val()),
-                auditType: $('.review-progress').val() == '0' ? '' : Number($('.review-progress').val())
+                auditType: $('.review-progress').val() == '0' ? '' : Number($('.review-progress').val()),
+                uploadDateRange:$('.js-search-time-type').val(),
+                time:$('.js-searach-file-input').val()
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -116,11 +118,14 @@ define(function (require) {
         getMyUploadPage();
     });
 
-    $(document).on('change', '.file-type', function () {
+    $(document).on('change', '.js-file-type', function () {
         console.log($(this).val());
         getMyUploadPage();
     });
-
+    $(document).on('change','.js-search-time-type',function(){
+        console.log($(this).val())
+        getMyUploadPage()
+    })
     $(document).on('click', '.myuploads .label-input', function () { // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'));
         if ($(this).attr('checked')) { // checked
