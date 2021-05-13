@@ -214,8 +214,8 @@
                             },
                             svgFlag: '{{results.list.data.svgFlag}}',
                             supportSvg: '{{ results.list.data.supportSvg}}',
-                            imgUrl: '{{results.list.data.contentPathList | dump | safe}}',
-                            svgUrl: '{{ results.list.data.svgPathList | dump | safe}}',
+                            imgUrl: {{results.list.data.contentPathList | dump | safe}},
+                            svgUrl: {{ results.list.data.svgPathList | dump | safe}},
                             freeAdv: false,
                             copy: false,
                             reward: {
