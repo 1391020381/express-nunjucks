@@ -75,6 +75,10 @@ define(function (require, exports, module) {
                 if (that.duration <= 0) {
                     if (typeof that.confirmCb === 'function') {
                         that.confirmCb();
+                        trackEvent('NE002', 'normalClick', 'view', {
+                            domID: 'ConsentAgreement ',
+                            domName: '同意协议'
+                        });
                     }
                     that.closeLayer();
                 }

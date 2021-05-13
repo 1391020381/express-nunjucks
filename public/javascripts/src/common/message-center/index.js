@@ -72,15 +72,15 @@ define(function (require, exports, module) {
                 });
 
             // 移出消息中心，关闭下拉--初始化展开的下拉，不关闭
-            $('.jsGlobalMessageCenter')
-                .off('mouseleave')
-                .on('mouseleave', function (e) {
-                    e.stopPropagation();
-                    if (!that.isInitOneMessage) {
-                        that.isShowMessagePopup = false;
-                        $jsMessageDropdown.hide();
-                    }
-                });
+            // $('.jsGlobalMessageCenter')
+            //     .off('mouseleave')
+            //     .on('mouseleave', function (e) {
+            //         e.stopPropagation();
+            //         if (!that.isInitOneMessage) {
+            //             that.isShowMessagePopup = false;
+            //             $jsMessageDropdown.hide();
+            //         }
+            //     });
         },
         // 初始化获取一条记录
         initMessage: function () {
