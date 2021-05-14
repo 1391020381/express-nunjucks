@@ -27,7 +27,7 @@ define(function (require) {
 
     function getMyUploadPage(currentPage) { // 分页查询我的上传
         var status = method.getParam('myuploadType') || 1;
-        var jsUploadDateRange = $('.js-search-time-type').val();
+        var jsUploadDateRange = $('.js-search-time-type').val() || 0;
         var jsUserFileType = $('.js-file-type').val();
         var jsTitle = $('.js-searach-file-input').val();
         var jsAuditType = $('.review-progress').val();

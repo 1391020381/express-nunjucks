@@ -120,7 +120,12 @@ define(function (require) {
                                 if (loginType !== 'qq' || loginType !== 'weibo') {
                                     method.delCookie('download-qqweibo', '/');
                                 }
-                                common.afterLogin(data, { type: 'file', data: data, callback: goPage });
+                                var isPaidTest = {
+                                    price:vipPrice,
+                                    desc:vipDesc,
+                                    productType:4
+                                }
+                                common.afterLogin(data, { type: 'file', data: data, callback: goPage,isPaidTest:isPaidTest });
                             });
                         });
                         var className = 'ico-' + pageConfig.params.file_format;

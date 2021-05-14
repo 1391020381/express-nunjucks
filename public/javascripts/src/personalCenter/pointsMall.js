@@ -195,6 +195,7 @@ define(function (require, exports, module) {
                     return;
                 }
                 // 更新兑换商品列表
+                this.getExchangeGoodsList(paginationCurrentPage)
             });
         }
     }
