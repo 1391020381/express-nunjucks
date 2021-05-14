@@ -10,7 +10,7 @@ define(function (require) {
             $ajax(url, 'GET', '', false).done(function (res) {
                 if (res.code == 0 && res.data && res.data.length) {
                     $.each(res.data, function (index, item) {
-                        if(item.pcode == 0){
+                        if(item.pcode == 4){
                             flag = true
                             price = item.pname
                             desc = item.pvalue
