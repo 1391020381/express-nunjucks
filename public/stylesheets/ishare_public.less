@@ -1227,6 +1227,9 @@ a[title="站长统计"] {
     height: 55px;
     margin-right: 44px;
     display: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
 
     // 处于详情页
     &.detail {
@@ -1304,6 +1307,7 @@ a[title="站长统计"] {
     .dropdown-list {
         max-height: 270px;
         overflow-y: auto;
+        user-select: none;
     }
 
     .dropdown-header {
