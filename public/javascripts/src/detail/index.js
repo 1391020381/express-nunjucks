@@ -724,7 +724,7 @@ define(function (require, exports, module) {
                     });
                     _this.hasClass('btn-collect-success') ? _this.removeClass('btn-collect-success') : _this.addClass('btn-collect-success');
                 } else {
-                    if(res.code == '407005'){
+                    if(res.code == '401002'){ // 收藏数量超过限制
                         fileCollectLayer.open()
                     }else{
                         $.toast({
