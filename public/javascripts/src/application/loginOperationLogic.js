@@ -518,6 +518,7 @@ define(function (require, exports, module) {
             type: 'POST',
             data: JSON.stringify({
                 sceneId: sceneId, // 公众号登录二维码id
+                terminal:urlConfig.terminal,
                 site:urlConfig.site,
                 cid: cid,
                 fid: fid || '1816',
@@ -588,11 +589,11 @@ define(function (require, exports, module) {
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                terminal: '0',
                 thirdType: clientCode,
                 code: code,
                 businessSys: 'ishare',
-                site:urlConfig.site
+                terminal:urlConfig.terminal,
+                site:urlConfig.site,
             }),
             dataType: 'json',
             success: function (res) {
@@ -700,14 +701,13 @@ define(function (require, exports, module) {
             },
             data: JSON.stringify({
                 loginType: loginType,
-                terminal: 'pc',
                 mobile: mobile,
                 nationCode: nationCode,
                 smsId: smsId,
                 checkCode: checkCode,
-
                 password: $.md5(password),
-                site:urlConfig.site
+                terminal:urlConfig.terminal,
+                site:urlConfig.site,
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
