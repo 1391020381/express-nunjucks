@@ -518,7 +518,7 @@ define(function (require, exports, module) {
             type: 'POST',
             data: JSON.stringify({
                 sceneId: sceneId, // 公众号登录二维码id
-                terminal:urlConfig.terminal,
+                terminal:'pc',
                 site:urlConfig.site,
                 cid: cid,
                 fid: fid || '1816',
@@ -592,7 +592,7 @@ define(function (require, exports, module) {
                 thirdType: clientCode,
                 code: code,
                 businessSys: 'ishare',
-                terminal:urlConfig.terminal,
+                terminal:'pc',
                 site:urlConfig.site,
             }),
             dataType: 'json',
@@ -706,7 +706,7 @@ define(function (require, exports, module) {
                 smsId: smsId,
                 checkCode: checkCode,
                 password: $.md5(password),
-                terminal:urlConfig.terminal,
+                terminal:'pc',
                 site:urlConfig.site,
             }),
             contentType: 'application/json; charset=utf-8',
