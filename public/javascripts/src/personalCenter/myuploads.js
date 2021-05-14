@@ -1,4 +1,3 @@
-
 define(function (require) {
     var method = require('../application/method');
     var type = window.pageConfig && window.pageConfig.page.type;
@@ -28,6 +27,10 @@ define(function (require) {
 
     function getMyUploadPage(currentPage) { // 分页查询我的上传
         var status = method.getParam('myuploadType') || 1;
+        var jsUploadDateRange = $('.js-search-time-type').val();
+        var jsUserFileType = $('.js-file-type').val();
+        var jsTitle = $('.js-searach-file-input').val();
+        var jsAuditType = $('.review-progress').val();
         $.ajax({
             headers: {
                 'Authrization': method.getCookie('cuk')
@@ -38,10 +41,10 @@ define(function (require) {
                 currentPage: currentPage || 1,
                 pageSize: 20,
                 status: Number(status), // 1公开资料,2,付费资料，3，私有资料，4，审核中，5，未通过
-                userFileType: $('.file-type').val() == '0' ? '' : Number($('.file-type').val()),
-                auditType: $('.review-progress').val() == '0' ? '' : Number($('.review-progress').val()),
-                uploadDateRange:$('.js-search-time-type').val(),
-                title:$('.js-searach-file-input').val()
+                userFileType: jsUserFileType === '0' ? '' : Number(jsUserFileType),
+                auditType: jsAuditType === '0' ? '' : Number(jsAuditType),
+                uploadDateRange: jsUploadDateRange === 'all' ? '' : Number(jsUploadDateRange),
+                title: jsTitle
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -53,8 +56,9 @@ define(function (require) {
                     var list = [];
                     var auditType = res.data.auditType;
                     var userFileType = res.data.userFileType;
-                    var time = res.data.time
-                    var uploadDateRange = res.data.uploadDateRange
+                    var time = res.data.uploadDateRange;
+                    var uploadDateRange = res.data.uploadDateRange;
+                    var title = res.data.title;
                     $(res.data.list.rows).each(function (index, item) {
                         var userFilePrice = '';
                         if (item.userFileType == 1) {
@@ -84,8 +88,9 @@ define(function (require) {
                         myuploadType: myuploadType,
                         auditType: auditType,
                         userFileType: userFileType,
-                        time:time,
-                        uploadDateRange:uploadDateRange
+                        time: time,
+                        uploadDateRange: uploadDateRange,
+                        title: title
                     });
                     $('.personal-center-myuploads').html(myuploadsTemplate);
                     handlePagination(res.data.list.totalPages, res.data.list.currentPage);
@@ -127,24 +132,24 @@ define(function (require) {
         console.log($(this).val());
         getMyUploadPage();
     });
-    $(document).on('change','.js-search-time-type',function(){
-        console.log($(this).val())
-        getMyUploadPage()
-    })
-    $(document).on('input','.js-searach-file-input',function(e){
-        var val = $(this).val()
-        if(val&&val.length>50){
+    $(document).on('change', '.js-search-time-type', function () {
+        console.log($(this).val());
+        getMyUploadPage();
+    });
+    $(document).on('input', '.js-searach-file-input', function (e) {
+        var val = $(this).val();
+        if (val && val.length > 50) {
             $.toast({
                 text: '标题最多输入50个字',
                 delay: 3000
             });
         }
-    })
-    $(document).on('keypress','.js-searach-file-input',function(e){
-        if(e && e.keyCode==13){
-            getMyUploadPage()
+    });
+    $(document).on('keypress', '.js-searach-file-input', function (e) {
+        if (e && e.keyCode == 13) {
+            getMyUploadPage();
         }
-    })
+    });
     $(document).on('click', '.myuploads .label-input', function () { // 切换checkbox选中的状态样式
         console.log($(this).attr('checked'));
         if ($(this).attr('checked')) { // checked
