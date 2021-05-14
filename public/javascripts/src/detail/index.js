@@ -1,3 +1,5 @@
+
+
 /**
  * 详情页首页
  */
@@ -304,6 +306,11 @@ define(function (require, exports, module) {
             var type = $(this).data('type');
             var vipPrice = $(this).attr('price')
             var vipDesc = $(this).attr('desc')
+            var isPaidTest = {
+                price:vipPrice,
+                desc:vipDesc,
+                productType:4
+            }
             if (!method.getCookie('cuk')) {
                 // 上报数据相关
                 if ($(this).attr('loginOffer')) {
@@ -319,12 +326,12 @@ define(function (require, exports, module) {
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
-                        common.afterLogin(data, {type: type, data: data, callback: goPage});
+                        common.afterLogin(data, {type: type, data: data, callback: goPage,isPaidTest:isPaidTest});
                         //  goPage(type,data);
                     });
                 }
             } else {
-                goPage(type);
+                goPage(type,'',isPaidTest);
             }
         });
 
@@ -792,7 +799,7 @@ define(function (require, exports, module) {
         return fileArr;
     }
 
-    function goPage(type, data) { // data 登录后用户信息
+    function goPage(type, data,isPaidTest) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -801,7 +808,9 @@ define(function (require, exports, module) {
 
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({fid: fid, title: title, format: format}), 5 * 60 * 1000, '/');
-        if (type === 'file') {
+        if(isPaidTest&&isPaidTest.productType==4&&isPaidTest.price){
+            createOrder()
+        }else if (type === 'file') {
             href = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
             method.compatibleIESkip('/pay/payConfirm.html' + href, false);
         } else if (type === 'vip') {
@@ -824,7 +833,50 @@ define(function (require, exports, module) {
             method.compatibleIESkip('/pay/privilege.html' + href, false);
         }
     }
+    function createOrder() {
+         // 组装创建订单的参数
+         var goodsId = window.pageConfig.params.g_fileId
+         var temp = {
+            goodsId: goodsId, // 文件id
+            goodsType: 1, // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
+            sourceMode: 0, // 0PC 1M 2android 3ios 4快应用 5百度小程序 6微信浏览器
+            channelSource: 4, // 订单频道来源 0办公 1教育 2建筑 3超级会员 4主站
+            host: window.location.origin,
+            channel: method.getCookie('channel'), // 渠道 message-短信 other-其他
+            isVisitor: method.getCookie('cuk') ? 0 : 1,
+            returnPayment: false,
+            ref: utils.getPageRef(window.pageConfig.params.g_fileId), // 正常为0,360合作文档为1，360文库为3
+            referrer: document.referrer || document.URL
+        };
+        console.log(JSON.stringify(temp));
+        $.ajax({
+            url: api.order.createOrderInfo,
+            type: 'POST',
+            data: JSON.stringify(temp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data && data.code == '0') {
+                    console.log('下单返回的数据：' + data);
+                    trackEvent('SE033', 'createOrder', 'query', {
+                        orderID: data.data.orderNo,
+                        goodsID: goodsId,
+                        goodsType: 1,
+                        prePageFileID: method.getParam('fid')||''
+                    });
+                   // 跳转
+                    var orderID = data.data.orderNo
+                   method.compatibleIESkip('/pay/payQr.html?' + 'type=8&orderNo=' + orderID + '&fid=' + goodsId)
+                } else {
+                    $.toast({
+                        text: res.message,
+                        delay: 3000
+                    });
+                }
+            }
+        });
 
+    }
     // 获取百度数据
     var getBaiduData = function (val) {
         $.getScript('//sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + encodeURIComponent(val) + '&p=3&cb=window.baidu_searchsug&t=' + new Date().getTime());
