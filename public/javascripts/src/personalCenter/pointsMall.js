@@ -15,6 +15,7 @@ define(function (require, exports, module) {
     var exchangeGoodsTemplate = require('./template/pointsMall/exchangeGoods.html')
     var simplePagination = require('./template/simplePagination.html');
     var obj = {
+        coinNum:'',
         dailyTaskList:[],
         initHtml:function(){
             var that = this
@@ -45,7 +46,7 @@ define(function (require, exports, module) {
                     var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
                         exchangeGoodsList: res.data.rows,
                         sortType:sort,
-                        coinNum:coinNum
+                        coinNum:coinNum || that.coinNum
                     });
                     $('.ponints-mall-exchangegoods').html(exchangeGoodsHtml);
                     that.handlePagination(res.data.totalPages,res.data.currentPage)
@@ -64,6 +65,7 @@ define(function (require, exports, module) {
                     $('.js-love-ask-coinnum').text(res.data.availableTotal || 0)
                     that.getNoviceTaskList()
                     that.getDailyTaskList()
+                    that.coinNum = res.data.availableTotal
                     that.getExchangeGoodsList(1,res.data.availableTotal)
                 }
             });
@@ -180,7 +182,9 @@ define(function (require, exports, module) {
                 })
                 var id = $(this).attr('data-id')
                 var coinNum = $(this).attr('data-coinNum')
-                goodsDetailLayer.open({id:id,coinNum:coinNum})
+                goodsDetailLayer.open({id:id,coinNum:coinNum},function(){
+                    that.getExchangeGoodsList(1)
+                })
             })
         },
         handlePagination:function(totalPages, currentPage){
@@ -189,13 +193,14 @@ define(function (require, exports, module) {
                 currentPage: currentPage
             });
             $('.pagination-wrapper').html(simplePaginationTemplate);
+            var that = this
             $('.pagination-wrapper').on('click', '.page-item', function () {
                 var paginationCurrentPage = $(this).attr('data-currentPage');
                 if (!paginationCurrentPage) {
                     return;
                 }
                 // 更新兑换商品列表
-                this.getExchangeGoodsList(paginationCurrentPage)
+                that.getExchangeGoodsList(paginationCurrentPage)
             });
         }
     }
