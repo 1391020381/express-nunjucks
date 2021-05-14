@@ -42,13 +42,12 @@
         <span class="list-item">上传时间 :</span>
         <div class="list-select list-select-fileType">
             <select class="file-type js-search-time-type">
-                <option value="0" selected="{{time == 0?selected:''}}">近一个月</option>
-                <option value="1" selected="{{time == 1?selected:''}}">近三个月</option>
-                <option value="2" selected="{{time == 2?selected:''}}">近半年</option>
-                <option value="3" selected="{{time == 3?selected:''}}">近一年</option>
-                <option value="4" selected="{{time == 4?selected:''}}">近三年</option>
-                <option value="" selected="{{time =='' ?selected:''}}">全部</option>
-            </select>
+                <option value="0" {{time === 0 ? 'selected' : ''}}>近一个月</option>
+                <option value="1" {{time === 1 ? 'selected' : ''}}>近三个月</option>
+                <option value="2" {{time === 2 ? 'selected' : ''}}>近半年</option>
+                <option value="3" {{time === 3 ? 'selected' : ''}}>近一年</option>
+                <option value="4" {{time === 4 ? 'selected' : ''}}>近三年</option>
+                <option value="all" {{!time && time !== 0 ? 'selected' : ''}}>全部</option>
             </select>
         </div>
         <span class="list-item">资料类型 :</span>
@@ -66,13 +65,11 @@
             {{else}}
               <option value="5" >付费</option>
             {{/if }}
-
             {{if userFileType == '1' }}
               <option value="1" selected="selected">免费</option>
             {{else}}
               <option value="1" >免费</option>
             {{/if }}
-
           </select>
         </div>
       </div>
