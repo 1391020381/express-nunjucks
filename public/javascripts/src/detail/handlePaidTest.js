@@ -17,6 +17,9 @@ define(function (require) {
                             changePaidTestHtml(price,desc)
                         }
                     })
+                    if(!flag){
+                        changePaidTestHtml()
+                    }
                 }else{
                     changePaidTestHtml()
                 }

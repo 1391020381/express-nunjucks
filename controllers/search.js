@@ -31,7 +31,7 @@ module.exports = {
                     totalPageStart: filePages[0],
                     totalPageEnd: filePages[1],
                     site:appConfig.site,
-                    terminal:appConfig.site,
+                    terminal:appConfig.terminal,
                     searchKey: decodeURIComponent(decodeURIComponent(req.query.cond)).trim() || ''
                 };
                 server.post(appConfig.apiNewBaselPath + Api.search.byCondition, callback, req);
