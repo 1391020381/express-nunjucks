@@ -101,7 +101,7 @@ define(function (require, exports, module) {
                     },
                     {
                         actionAttrCode:'product_type',
-                        actionAttrVal:window.pageConfig&&window.pageConfig.params.productTyp
+                        actionAttrVal:window.pageConfig&&window.pageConfig.params.productType
                     },
                     {
                         actionAttrCode:'vip',
