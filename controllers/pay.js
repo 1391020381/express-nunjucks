@@ -150,29 +150,6 @@ module.exports = {
     // 支付确认
     payConfirm: function (req, res) {
         return async.series({
-            paidTest: function (callback) {
-                //    console.log('req.cookies:',req.cookies)
-                const opt = {
-                    method: 'GET',
-                    url: appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'PaidTest'),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authrization': req.cookies.cuk
-                    }
-                };
-                request(opt, (err, res1, body) => {
-                    if (body) {
-                        const data = JSON.parse(body);
-                        if (data.code == 0 && data.data) {
-                            callback(null, data);
-                        } else {
-                            callback(null, null);
-                        }
-                    } else {
-                        callback(null, null);
-                    }
-                });
-            },
             fileDetails: function (callback) {
                 const opt = {
                     method: 'POST',
@@ -226,19 +203,7 @@ module.exports = {
                 });
             }
         }, (err, results) => { // results 是fileDetails组装后的数据
-            console.log('results:',JSON.stringify(results))
-            var price = ''
-            if(results.paidTest.data){
-                results.paidTest.data.forEach(item=>{
-                    if(item.pcode == '0'){
-                        price = item.pname
-                    }
-                })
-            }
             results.flag = 4;
-            if(price&&results.fileDetail.productType == '4'){
-                results = Object.assign({},{moneyPrice:price})
-            }
             render('pay/index', results, req, res);
         });
     },

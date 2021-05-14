@@ -218,7 +218,7 @@ define(function (require, exports, module) {
                         if (res.data && res.data.status == 2) {
                             window.downLoad();
                         } else {
-                            obj.callback(obj.type, obj.data);
+                            obj.callback(obj.type, obj.data,obj.isPaidTest);
                         }
                     }
                 }
