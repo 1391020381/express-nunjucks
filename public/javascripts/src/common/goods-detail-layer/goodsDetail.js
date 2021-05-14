@@ -68,6 +68,7 @@ define(function (require, exports, module) {
                 } else {
                     // 获取商品信息
                     var goodsData = that.goodsData || {};
+                    var callback = that.callback;
                     // 关闭详情弹窗---清除详情弹窗内数据
                     that.closeLayer();
                     // 弹出确认框
@@ -76,7 +77,7 @@ define(function (require, exports, module) {
                         var userStr = method.getCookie('ui') || '{}';
                         var userInfo = JSON.parse(userStr);
                         // 开启兑换
-                        that.exchangeGoodsByCoin(userInfo, goodsData);
+                        that.exchangeGoodsByCoin(userInfo, goodsData, callback);
                     });
                 }
             });
@@ -105,8 +106,9 @@ define(function (require, exports, module) {
          * 兑换积分商品
          * @param   userInfo    用户信息
          * @param   goodsData   商品信息
+         * @param   callback    回调
          */
-        exchangeGoodsByCoin: function (userInfo, goodsData) {
+        exchangeGoodsByCoin: function (userInfo, goodsData, callback) {
             var that = this;
             var host = window._env === 'local' ? 'https://dev-ishare.iask.com.cn/' : window.location.origin;
             var params = {
@@ -156,8 +158,8 @@ define(function (require, exports, module) {
                 }
 
                 // 触发回调-告知外部跟新积分商品列表
-                if (typeof that.callback === 'function') {
-                    that.callback();
+                if (typeof callback === 'function') {
+                    callback();
                 }
             }, function () {
                 that.layerMsg('系统错误，请重试');
