@@ -200,11 +200,13 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
     }
     if(paidTestData){
         paidTestData.forEach(item=>{
-            if(item.pcode == 0){
+            if(item.pcode == 4){
                 isVipPaidTest = {
                     flag:true,
-                    price:item.pname,
-                    desc:item.pvalue
+                    // price:item.pname,
+                    // desc:item.pvalue,
+                    price:item.pvalue/100,
+                    desc:item.desc
                 }
             }
 

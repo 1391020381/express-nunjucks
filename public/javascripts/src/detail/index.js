@@ -87,11 +87,26 @@ define(function (require, exports, module) {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
                 Browse10s({attrList:[
-                    {site:urlConfig.site},
-                    {terminal:urlConfig.terminal},
-                    {content_type:1},
-                    {product_type: window.pageConfig&&window.pageConfig.params.productType},
-                    {vip:data.isVip}
+                    {
+                        actionAttrCode:'site',
+                        actionAttrVal:urlConfig.site
+                    },
+                    {
+                        actionAttrCode:'terminal',
+                        actionAttrVal:urlConfig.terminal
+                    },
+                    {
+                        actionAttrCode:'content_type',
+                        actionAttrVal:1
+                    },
+                    {
+                        actionAttrCode:'product_type',
+                        actionAttrVal:window.pageConfig&&window.pageConfig.params.productType
+                    },
+                    {
+                        actionAttrCode:'vip',
+                        actionAttrVal:data.isVip
+                    }
                 ], userActCode:'browse'});
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;

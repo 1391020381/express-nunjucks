@@ -30,6 +30,8 @@ module.exports = {
                     sortField: req.query.sequence,
                     totalPageStart: filePages[0],
                     totalPageEnd: filePages[1],
+                    site:appConfig.site,
+                    terminal:appConfig.site,
                     searchKey: decodeURIComponent(decodeURIComponent(req.query.cond)).trim() || ''
                 };
                 server.post(appConfig.apiNewBaselPath + Api.search.byCondition, callback, req);

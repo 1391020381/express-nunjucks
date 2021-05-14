@@ -12,8 +12,8 @@ define(function (require) {
                     $.each(res.data, function (index, item) {
                         if(item.pcode == 4){
                             flag = true
-                            price = item.pname
-                            desc = item.pvalue
+                            price = item.pvalue
+                            desc = item.desc
                             changePaidTestHtml(price,desc)
                         }
                     })
@@ -28,9 +28,9 @@ define(function (require) {
     }
     function changePaidTestHtml(price,desc){
         if(price&&desc){
-        $('.integral-con .integral-con-price').text(price)
+        $('.integral-con .integral-con-price').text(price/100)
         $('.integral-con .integral-con-desc').text(desc)
-        $('.integral-con .integral-con-content').attr("price",price)
+        $('.integral-con .integral-con-content').attr("price",price/100)
         $('.integral-con .integral-con-content').attr("desc",desc)
         $('.integral-con .integral-con-content').show()
 
