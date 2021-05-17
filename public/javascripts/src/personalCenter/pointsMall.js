@@ -184,6 +184,7 @@ define(function (require, exports, module) {
                 var coinNum = $(this).attr('data-coinNum')
                 goodsDetailLayer.open({id:id,coinNum:coinNum},function(){
                     that.getExchangeGoodsList(1)
+                    that.getCoinIaskBalance()
                 })
             })
         },

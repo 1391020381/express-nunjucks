@@ -116,6 +116,20 @@ define(function (require, exports, module) {
                     // 唤起支付弹框
                     // goPage(event);
                     var params = window.pageConfig.params;
+                    if(method.getCookie('isPaidTest')){ // vip付费文档 支付
+                        var vipDesc = $('.integral-con .integral-con-content').attr('desc')
+                        var vipPrice = $('.integral-con .integral-con-content').attr('price')
+                        var isPaidTest = {
+                            price:vipPrice,
+                            desc:vipDesc,
+                            productType:params.productType   // vip 4
+                        }
+                        if(isPaidTest.productType == 4){
+                            method.getCookie('isPaidTest','/')
+                            goPage('','',isPaidTest);
+                        }
+                    }
+
                     if (params.productType == '3') { //
                         if (data && data.isVip == 1) {
                             console.log('发送邮箱');
@@ -134,6 +148,7 @@ define(function (require, exports, module) {
 
                     method.delCookie('download-qqweibo', '/');
                 }
+
             });
         } else {
             var params = window.pageConfig.params;
@@ -337,7 +352,7 @@ define(function (require, exports, module) {
                 if ((pageConfig.params.productType == '5' && type == 'file')||(pageConfig.params.productType == '4')&&vipPrice&&vipDesc
                 ) {
                     // 相关逻辑未登陆购买逻辑移到buyUnlogin.js
-
+                    method.setCookieWithExpPath('isPaidTest', 1, 1000 * 60 * 60 * 1, '/');  // vip专享 付费资料 付费
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;

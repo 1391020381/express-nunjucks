@@ -36,6 +36,7 @@ define(function (require) {
         $('.integral-con .integral-con-content').attr("price",price/100)
         $('.integral-con .integral-con-content').attr("desc",desc)
         $('.integral-con .integral-con-content').show()
+        $('.integral-con .btn-fix-bottom-vip').show()
 
         $('.integral-con .btn-fix-bottom-normal').hide()
         $('.integral-con .integral-con-vipnum').hide() // 消耗多少特权
