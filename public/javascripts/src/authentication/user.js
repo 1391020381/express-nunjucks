@@ -52,8 +52,8 @@ define(function (require, exports, module) {
         },
 
         // 弹出认证成功窗口
-        dialogSuccess: function() {
-            var _html = template.compile(successTemplate)();
+        dialogSuccess: function(auditStatus) {
+            var _html = template.compile(successTemplate)({auditStatus:auditStatus,org:false});
             authenticationBox.html(_html).show();
         },
 
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
                     } else if (data.data.auditStatus == 2) {
                         $('.header-title').text('你已完成个人认证');
                         $('.header-process .process-item').eq(2).addClass('step-now').siblings().removeClass('step-now');
-                        userObj.dialogSuccess();
+                        userObj.dialogSuccess(data.data.auditStatus);
                     }
 
                     $('.js-nickName').val(data.data.nickName).attr('disabled', 'disabled');

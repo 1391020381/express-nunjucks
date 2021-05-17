@@ -1,4 +1,4 @@
-<!-- 
+<!--
     name：认证成功
     author：limeng
     date：2020-11-04
@@ -10,7 +10,17 @@
     <div class="modal-content">
         <div class="modal-header">
             <a class="modal-close"></a>
-            <h4><span class="img-icon icon-success"></span>你已完成个人认证</h4>
+            <h4><span class="img-icon icon-success"></span>
+                {{if org }}
+                    {{if auditStatus == 2}}
+                      你已完成机构认证
+                    {{/if}}
+                {{else}}
+                    {{if auditStatus == 2}}
+                      你已完成机构认证
+                    {{/if}}
+                {{/if}}
+            </h4>
         </div>
         <div class="modal-body">
             <p>现在开始上传资料赚取收益吧~</p>
