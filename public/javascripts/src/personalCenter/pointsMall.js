@@ -83,7 +83,7 @@ define(function (require, exports, module) {
                 }
             });
         },
-        getDailyTaskList:function(isLoadeMore){ //  每日任务
+        getDailyTaskList:function(){ //  每日任务
             var that = this
             var params = {
                 site:urlConfig.site,
@@ -98,19 +98,20 @@ define(function (require, exports, module) {
             });
         },
         createNewcomerTaskHtml:function(data){
+            var isShowButtonPrev = data&&data.length>5
             var newcomertaskHtml = template.compile(newcomertaskTemplate)({ //
-                newcomertaskList: this.handleTaskData(data)
+                newcomertaskList: this.handleTaskData(data),
+                isShowButtonPrev:isShowButtonPrev
             });
-         $('.ponints-mall-newcomertask').html(newcomertaskHtml);
-          var mySwiper =   new Swiper('.task-list', {
+
+         $('.ponints-mall-newcomertask').html(newcomertaskHtml)
+         if(isShowButtonPrev){
+            var mySwiper =   new Swiper('.task-list', {
                 direction: 'horizontal',
                 spaceBetween:20,           //间距20px
-                slidesPerView:5,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                  }
+                slidesPerView:5
             });
+         }
             $(document).on('click','.task-list .swiper-button-prev',function(){
                 mySwiper.slidePrev();
             })

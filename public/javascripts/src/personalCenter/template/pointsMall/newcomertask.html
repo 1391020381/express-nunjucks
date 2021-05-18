@@ -17,8 +17,10 @@
                </div>
                {{/each}}
             </div>
-            <div class="swiper-button-prev "></div>
-            <div class="swiper-button-next "></div>
+            {{if isShowButtonPrev}}
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            {{/if}}
        </div>
     </div>
 </div>
