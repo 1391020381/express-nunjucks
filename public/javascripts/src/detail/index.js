@@ -34,7 +34,7 @@ define(function (require, exports, module) {
     var fileDetailStartTime = new Date().getTime();
 
     // 监听页面解绑事件
-    $(window).on('unload ', function () {
+    $(window).on('unload', function () {
         var fileDetailEndTime = new Date().getTime();
         trackEvent('SE050', 'pageDuration', 'page', {
             pageID: 'FD',
