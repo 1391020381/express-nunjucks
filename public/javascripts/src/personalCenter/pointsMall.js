@@ -42,9 +42,10 @@ define(function (require, exports, module) {
                 sort:sort
             }
             $ajax(url, 'POST',params, false).done(function (res) {
-                if (res.code == 0) {
+                var rows  = res.data&&res.data.rows || []
+                if (res.code == 0&&rows.length) {
                     var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
-                        exchangeGoodsList: res.data.rows,
+                        exchangeGoodsList: rows,
                         sortType:sort,
                         coinNum:coinNum || that.coinNum
                     });
