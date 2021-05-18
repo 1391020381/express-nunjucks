@@ -106,13 +106,12 @@ define(function (require, exports, module) {
             });
 
          $('.ponints-mall-newcomertask').html(newcomertaskHtml)
-         if(isShowButtonPrev){
             var mySwiper =   new Swiper('.task-list', {
                 direction: 'horizontal',
                 spaceBetween:20,           //间距20px
                 slidesPerView:5
             });
-         }
+
             $(document).on('click','.task-list .swiper-button-prev',function(){
                 mySwiper.slidePrev();
             })
