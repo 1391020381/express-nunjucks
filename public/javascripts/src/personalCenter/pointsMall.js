@@ -50,7 +50,7 @@ define(function (require, exports, module) {
                     });
                     $('.ponints-mall-exchangegoods').html(exchangeGoodsHtml);
                     that.handlePagination(res.data.totalPages,res.data.currentPage)
-                    trackEvent('NE060','modelView','view',{
+                    trackEvent('NE006','modelView','view',{
                         moduleID:'iicongoods',
                         moduleName:'爱问币商品曝光'
                     })
