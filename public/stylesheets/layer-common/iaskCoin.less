@@ -95,7 +95,7 @@
         display: inline-block;
         vertical-align: top;
         height: 32px;
-        overflow: hidden;
+        //overflow: hidden;
 
         .page-item {
             float: left;
@@ -107,7 +107,6 @@
             background-color: #fff;
             border: 1px solid #E6E6E6;
             border-radius: 2px;
-            margin-right: 8px;
             cursor: pointer;
 
             &.first,
@@ -116,8 +115,8 @@
                 padding: 9px 16px 8px;
             }
 
-            &:last-child {
-                margin-right: 0;
+            & + .page-item {
+                margin-left: 8px;
             }
 
             &.active {
