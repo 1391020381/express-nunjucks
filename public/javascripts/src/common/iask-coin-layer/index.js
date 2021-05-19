@@ -14,6 +14,7 @@ define(function (require, exports, module) {
             type: 1,
             title: false,
             closeBtn: 0,
+            // 615px
             area: ['668px', '547px'],
             shade: 0.8,
             shadeClose: false,

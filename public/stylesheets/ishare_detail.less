@@ -3503,6 +3503,7 @@ body {
             position: relative;
             padding-right: 208px;
             margin: -10px 0 20px -10px;
+            min-height: 25px;
 
             .tag {
                 display: inline-block;
@@ -3640,10 +3641,19 @@ body {
         position: absolute;
         top: 40px;
         right: 98px;
+        padding-left: 12px;
+
+        .evaluate-text {
+            padding-left: 15px;
+        }
 
         .evaluate-icon {
             background: url(../images/common/iask-coin.png) center no-repeat;
-            margin-right: -1px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
         }
     }
 
@@ -3653,6 +3663,7 @@ body {
         width: 24px;
         height: 24px;
         background: url(../images/detail/evaluate-24.png) center no-repeat;
+        background-size: contain;
     }
 
     .evaluate-text {
