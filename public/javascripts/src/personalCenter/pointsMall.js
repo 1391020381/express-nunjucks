@@ -80,7 +80,7 @@ define(function (require, exports, module) {
             var url = api.task.noviceTaskList
             $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0 && res.data&&res.data.length) {
-                     that.createNewcomerTaskHtml(res.data)
+                     that.createNewcomerTaskHtml(res.data.slice(0,4))
                 }
             });
         },
@@ -108,7 +108,7 @@ define(function (require, exports, module) {
          $('.ponints-mall-newcomertask').html(newcomertaskHtml)
             var mySwiper =   new Swiper('.task-list', {
                 direction: 'horizontal',
-                spaceBetween:20,           //间距20px
+                spaceBetween:14,
                 slidesPerView:5
             });
 
@@ -119,12 +119,21 @@ define(function (require, exports, module) {
                 mySwiper.slideNext();
             })
         },
-        createDailyTaskHtml:function(data,isLoadeMore){ // 第一次 isLoadeMore是undefined
-            var isLoadeMore = data&&data.length>6||isLoadeMore
-            var dailyTaskList = isLoadeMore?this.handleTaskData(data):this.handleTaskData(data.slice(0,6))
+        createDailyTaskHtml:function(data,isLoadeMoreFlag){
+            var isLoadeMore = ''
+            if(!isLoadeMoreFlag){
+                if(data&&data.length>6){
+                    isLoadeMore = true
+                }else{
+                    isLoadeMore = false
+                }
+            }else{
+                isLoadeMore = false
+            }
+            var dailyTaskList = isLoadeMore?this.handleTaskData(data.slice(0,6)):this.handleTaskData(data)
             var dailyTaskHtml = template.compile(dailyTaskTemplate)({
                 dailyTaskList:dailyTaskList,
-                isLoadeMore:data&&data.length>6
+                isLoadeMore:isLoadeMore
             })
             $('.ponints-mall-dailytask').html(dailyTaskHtml)
         },

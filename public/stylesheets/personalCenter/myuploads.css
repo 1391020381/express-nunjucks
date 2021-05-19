@@ -88,9 +88,11 @@
 }
 .myuploads .myuploads-select .select-list .list-select .file-type {
   height: 34px;
+  border-radius: 2px;
   padding-left: 10px;
   padding-right: 30px;
   line-height: normal;
+  color: #333;
 }
 .myuploads .myuploads-select .select-list .list-select-reviewProgress::after {
   content: "";
@@ -162,6 +164,7 @@
   padding: 0;
   border: none;
   padding: 0 10px;
+  color: #333;
 }
 .myuploads .table-title .delete-desc {
   display: inline-block;
