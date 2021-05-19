@@ -42,9 +42,10 @@ define(function (require, exports, module) {
                 sort:sort
             }
             $ajax(url, 'POST',params, false).done(function (res) {
-                if (res.code == 0) {
+                var rows  = res.data&&res.data.rows || []
+                if (res.code == 0&&rows.length) {
                     var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
-                        exchangeGoodsList: res.data.rows,
+                        exchangeGoodsList: rows,
                         sortType:sort,
                         coinNum:coinNum || that.coinNum
                     });
@@ -105,13 +106,12 @@ define(function (require, exports, module) {
             });
 
          $('.ponints-mall-newcomertask').html(newcomertaskHtml)
-         if(isShowButtonPrev){
             var mySwiper =   new Swiper('.task-list', {
                 direction: 'horizontal',
                 spaceBetween:20,           //间距20px
                 slidesPerView:5
             });
-         }
+
             $(document).on('click','.task-list .swiper-button-prev',function(){
                 mySwiper.slidePrev();
             })

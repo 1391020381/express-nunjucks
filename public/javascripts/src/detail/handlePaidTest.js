@@ -31,7 +31,7 @@ define(function (require) {
     }
     function changePaidTestHtml(price,desc){
         if(price&&desc){
-        $('.integral-con .integral-con-price').text(price/100)
+        $('.integral-con .integral-con-price .integral-con-pricenum').text(price/100)
         $('.integral-con .integral-con-desc').text(desc)
         $('.integral-con .integral-con-content').attr("price",price/100)
         $('.integral-con .integral-con-content').attr("desc",desc)

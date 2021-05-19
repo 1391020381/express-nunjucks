@@ -742,7 +742,7 @@ define(function (require, exports, module) {
             },
             url: api.special.setCollect,
             type: 'post',
-            data: JSON.stringify({fid: window.pageConfig.params.g_fileId, source: 0}),
+            data: JSON.stringify({fid: window.pageConfig.params.g_fileId, source: 0,site:urlConfig.site}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

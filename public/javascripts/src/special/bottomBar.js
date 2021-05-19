@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var method = require('../application/method');
     var login = require('../application/checkLogin');
-
+    var urlConfig = require('../application/urlConfig')
 
     $('.search-img-box').click(function () {
         var contentId = $(this).attr('contentId');
@@ -58,7 +58,7 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.special.setCollect,
             type: 'post',
-            data: JSON.stringify({ fid: fid, source: 0 }),
+            data: JSON.stringify({ fid: fid, source: 0 ,site:urlConfig.site}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
