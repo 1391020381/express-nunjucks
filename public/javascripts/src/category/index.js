@@ -26,7 +26,7 @@ define(function (require, exports, module) {
             // 进入分类页时间戳
             var startTime = new Date().getTime();
             // 监听页面解绑事件
-            $(window).on('unload ', function () {
+            $(window).on('unload', function () {
                 var endTime = new Date().getTime();
                 trackEvent('SE050', 'pageDuration', 'page', {
                     pageID: 'CL',
