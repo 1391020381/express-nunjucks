@@ -91,6 +91,7 @@
   padding-left: 10px;
   padding-right: 30px;
   line-height: normal;
+  color: #333;
 }
 .myuploads .myuploads-select .select-list .list-select-reviewProgress::after {
   content: "";
