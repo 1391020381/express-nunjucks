@@ -80,7 +80,7 @@ define(function (require, exports, module) {
             var url = api.task.noviceTaskList
             $ajax(url, 'POST',params, false).done(function (res) {
                 if (res.code == 0 && res.data&&res.data.length) {
-                     that.createNewcomerTaskHtml(res.data.slice(0,4))
+                     that.createNewcomerTaskHtml(res.data)
                 }
             });
         },
