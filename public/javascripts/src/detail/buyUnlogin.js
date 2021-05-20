@@ -95,8 +95,8 @@ define(function (require) {
                     fileName: page.fileName,
                     // todo A24
                     fileType: params.userFileType,
-                    salePrice: params.productPrice,
-                    saleType: params.productType,
+                    salePrice:vipPrice&&vipDesc?vipPrice:params.productPrice,
+                    saleType: vipPrice&&vipDesc?5:params.productType,
                     fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                     fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
                 });
