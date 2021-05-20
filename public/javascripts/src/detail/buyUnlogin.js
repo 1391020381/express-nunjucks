@@ -164,7 +164,7 @@ define(function (require) {
                             }
                         } else {
                             $.toast({
-                                text: '订单未支付，请重新支付'
+                                text: '如你已支付,点击订单查询下载'
                             });
                             // unloginObj.count = 0;
                             // unloginObj.createOrder() // 生成订单
