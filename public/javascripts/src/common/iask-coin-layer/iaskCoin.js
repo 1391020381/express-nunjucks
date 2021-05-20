@@ -77,7 +77,7 @@ define(function (require, exports, module) {
             // createTime	创建时间
             method.customGet(api.user.getCoinIaskList, {
                 currentPage: currentPage,
-                pageSize: 10
+                pageSize: 8
             }, function (res) {
                 if (res && res.code === '0' && res.data && res.data.rows) {
                     that.renderTable({
