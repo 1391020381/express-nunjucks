@@ -126,13 +126,13 @@ define(function (require, exports, module) {
                 }
             }
             if (current - (show + 1) > 1) {
-                str = '...,' + str;
+                str = '···,' + str;
             }
             if (current > 1) {
                 str = 1 + ',' + str;
             }
             if (current + show + 1 < total) {
-                str = str + ',...';
+                str = str + ',···';
             }
             if (current < total) {
                 str = str + ',' + total;
@@ -140,11 +140,11 @@ define(function (require, exports, module) {
             var strList = str.split(',');
             for (var i = 0, len = strList.length; i < len; i++) {
                 var pageItem = {};
-                if (strList[i] === '...') {
+                if (strList[i] === '···') {
                     var curValue = Number(strList[i - 1]) + Number(strList[i + 1]);
                     pageItem = {
                         value: Math.ceil(curValue / 2),
-                        label: '...'
+                        label: '···'
                     };
                 } else {
                     pageItem = {
