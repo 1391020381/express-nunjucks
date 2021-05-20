@@ -118,6 +118,14 @@
   background-size: 100%;
   transform: rotate(180deg);
 }
+.myuploads .myuploads-select .select-list select::-ms-expand {
+  display: none;
+}
+.myuploads .myuploads-select .select-list select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
 .myuploads .table-title {
   margin-top: 10px;
   margin-bottom: 0px;
