@@ -24,18 +24,17 @@
   width: 100%;
 }
 .mycollection-anddownLoad .table-list .table-title {
-  padding-bottom: 35px;
+  height: 50px;
   border-bottom: solid 1px #F4F4F4;
 }
 .mycollection-anddownLoad .table-list .table-title .file-title {
-  padding-bottom: 18px;
   text-align: left;
 }
 .mycollection-anddownLoad .table-list .table-title .action-time {
-  padding-bottom: 30px;
   text-align: left;
 }
 .mycollection-anddownLoad .table-list .table-item {
+  height: 50px;
   *zoom: 1;
 }
 .mycollection-anddownLoad .table-list .table-item:after {
@@ -46,7 +45,6 @@
   height: 0;
 }
 .mycollection-anddownLoad .table-list .table-item .file-content {
-  padding-top: 28px;
   text-align: left;
   *zoom: 1;
 }
@@ -78,12 +76,8 @@
   width: 300px;
 }
 .mycollection-anddownLoad .table-list .table-item .operation-time {
-  padding-top: 40px;
   text-align: left;
   color: #888888;
-}
-.mycollection-anddownLoad .table-list .table-item .operation-btn {
-  padding-top: 28px;
 }
 .mycollection-anddownLoad .table-list .table-item .operation-btn .evaluate-btn {
   display: inline-block;
@@ -100,10 +94,9 @@
 .mycollection-anddownLoad .table-list .table-item:first-child .file-content {
   margin-top: 13px;
 }
-.mycollection-anddownLoad .table-list tr:nth-child(3) .file-content {
-  padding-top: 13px;
-  text-align: left;
+.mycollection-anddownLoad .table-list tr:nth-child(2) {
+  height: 1px;
 }
-.mycollection-anddownLoad .table-list tr:nth-child(3) .operation-time {
-  padding-top: 20px;
+.mycollection-anddownLoad .table-list tr:nth-child(3) .file-content {
+  text-align: left;
 }
