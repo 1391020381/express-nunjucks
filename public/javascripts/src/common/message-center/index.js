@@ -112,12 +112,6 @@ define(function (require, exports, module) {
                 if (res && res.code === '0' && res.data) {
                     dataList = res.data;
                 }
-                // for (var i = 0; i < pageSize; i++) {
-                //     dataList.push({
-                //         createTime: new Date().getTime(),
-                //         content: '购买VIP赠送最多十个字符<br>购买VIP赠送最多十个字符，+300爱问币'
-                //     });
-                // }
                 that.renderDropdown(dataList, isInit);
             }, function () {
                 that.renderDropdown([], isInit);

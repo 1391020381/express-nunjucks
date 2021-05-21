@@ -4,7 +4,7 @@
         {{if showDate}}
         <div class="msg-date">{{formatDate('yyyy-MM-dd hh:mm:ss',$value.createTime)}}</div>
         {{/if}}
-        <div class="msg-content" title="{{$value.content}}">{{#$value.content}}</div>
+        <div class="msg-content" title="{{$value.content}}">{{$value.content}}</div>
     </div>
     {{/each}}
 {{else}}
