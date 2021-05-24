@@ -2019,7 +2019,99 @@ body {
 
         }
     }
+    .format-conversion-icon {
+        margin-left:29px;
+        width: 20px;
+        height: 100%;
+        cursor: pointer;
+        position: relative;
+        .conversion-icon{
+            display: block;
+            font-size: 30px
+        }
+        .format-conversion-iconlist{
+            display: none;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #E8E8E8;
+            box-shadow: 0px 2px 6px 0px rgba(19, 19, 19, 0.18);
+            border-radius: 2px;
+            top: -114px;
+            left: -118px;
+            width: 285px;
+            .icon-list-item{
+                margin-left: 20px;
+                margin-top: 20px;
+                .format-icon{
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    vertical-align: middle;
+                }
+                .format-desc{
+                    margin-left:9px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
 
+            .pdf-convert-ppt{
+                    background: url("../images/new_detail/pdf-convert-ppt.png") no-repeat center;
+                    background-size: 100%;
+                }
+            .ppt-convert-pdf{
+                    background: url("../images/new_detail/ppt-convert-pdf.png") no-repeat center;
+                    background-size: 100%;
+            }
+            .pdf-merge{
+                background: url("../images/new_detail/pdf-merge.png") no-repeat center;
+                background-size: 100%;
+            }
+            .pdf-split{
+                background: url("../images/new_detail/pdf-split.png") no-repeat center;
+                background-size: 100%;
+            }
+            .pdf-encryption{
+                background: url("../images/new_detail/pdf-encryption.png") no-repeat center;
+                background-size: 100%;
+            }
+
+        }
+        .arrow-firtst{
+            display: none;
+            position: absolute;
+            left: 6px;
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 12px solid #E8E8E8;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+        .arrow-sencond{
+            display: none;
+            position: absolute;
+            left: 6px;
+            top: -1px;
+            width: 0;
+            height: 0;
+            border-top: 12px solid #fff;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+        }
+        .format-conversion-more{
+            width: 248px;
+            top: -158px;
+        }
+        &:hover{
+            .format-conversion-iconlist{
+                display: block;
+            }
+            .arrow{
+                display: block;
+            }
+        }
+    }
     .reader-fullScreen {
 
         .icon-detail {
@@ -2096,6 +2188,7 @@ body {
     }
 
     .collect-con {
+        margin-left:29px;
         position: relative;
     }
 

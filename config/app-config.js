@@ -29,7 +29,7 @@ const config = {
         // apiBasePath: 'http://dev-ishare.iask.com.cn/gateway/pc',
         // apiNewBaselPath: 'http://dev-ishare.iask.com.cn/gateway',
         // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        // loginUrl:'//dev-login-ishare.iask.com.cn',
+        // loginUrl: '//dev-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
@@ -92,4 +92,4 @@ const config = {
 };
 
 
-module.exports = Object.assign({},config[env],{site:4,terminal:0})
+module.exports = Object.assign({}, config[env], { site: 4, terminal: 0 })

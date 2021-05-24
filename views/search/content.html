@@ -82,7 +82,10 @@
 
                                         {% if item.productType == 4 %}
                                             <span class="icon-vip"></span>
-                                            {%endif%}
+                                        {%endif%}
+                                        {% if item.format == 'pdf'%}
+                                            <span class="icon-format-conversion">VIP转换格式</span>
+                                        {%endif%}
                                         </a>
                                     </h4>
                                     <p class="data-text">
@@ -239,7 +242,7 @@
                                                     <div class="banner">
                                                         {# <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <!-- <div class="swiper-slide"> 
+                        <!-- <div class="swiper-slide">
                                 Slide2
                         </div>
                         <div class="swiper-slide"> Slide2</div>

@@ -84,7 +84,7 @@
 
                                     <div class="collect-con fl pc" >
                                         <a id="btn-collect" data-fid="{{results.list.data.fileId}}" class="operation-item btn-collect {{'btn-collect-success' if results.list.data.hasCollect}}" title="点击收藏" bilogContent="markFileClick">
-                                            <em class="btn-line"></em>
+                                            {# <em class="btn-line"></em> #}
 
                                             <i class="icon-newdetail"></i>
                                         </a>
@@ -98,6 +98,9 @@
                                             <p class="info mt10">点击个人中心可查看</p>
                                         </div>
                                     </div>
+                                    {# 跳转格式转换 #}
+                                   {% include "detail/formatConversion.html" %}
+
                                     {# 评价按钮 #}
                                     <div class="u-evaluate-wrapper block-1 fl jsDetailEvaluateBtn">
                                         <i class="evaluate-icon"></i><span class="evaluate-text">评价有礼</span>
