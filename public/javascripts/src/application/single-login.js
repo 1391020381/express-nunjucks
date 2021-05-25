@@ -65,7 +65,6 @@ define(function (require) {
                         href = href + '#ishredtid=' + redtid;
                     }
                 }
-                console.log('单点登录:', javaPath + encodeURIComponent(href))
                 window.location.replace(javaPath + encodeURIComponent(href));
             }
         }
