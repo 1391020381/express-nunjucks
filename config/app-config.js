@@ -22,14 +22,14 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
+        // apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
+        // apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
+        // newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        // loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        apiBasePath: 'http://dev-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://dev-ishare.iask.com.cn/gateway',
         newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: '//dev-login-ishare.iask.com.cn',
-        // apiBasePath: 'http://dev-ishare.iask.com.cn/gateway/pc',
-        // apiNewBaselPath: 'http://dev-ishare.iask.com.cn/gateway',
-        // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        // loginUrl: '//dev-login-ishare.iask.com.cn',
+        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
@@ -48,7 +48,7 @@ const config = {
         port: 3004,
         static3: '//dev-static3.iask.cn/',
         officeUrl: 'http://dev-office.iask.com',
-        loginUrl: '//dev-login-ishare.iask.com.cn'
+        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
     },
     test: {
         env: env,
@@ -61,7 +61,7 @@ const config = {
         port: 3004,
         static3: '//test-static3.iask.cn/',
         officeUrl: 'http://test-office.iask.com',
-        loginUrl: '//test-login-ishare.iask.com.cn'
+        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
     },
     pre: {
         env: env,
@@ -74,7 +74,7 @@ const config = {
         port: 3004,
         static3: '//pre-static3.iask.cn/',
         officeUrl: 'http://pre-office.iask.com',
-        loginUrl: '//pre-login-ishare.iask.com.cn'
+        loginUrl: 'http://pre-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
     },
     prod: {
         env: env,
@@ -87,7 +87,7 @@ const config = {
         port: 3004,
         static3: '//static3.iask.cn/',
         officeUrl: 'http://office.iask.com',
-        loginUrl: '//login-ishare.iask.com.cn'
+        loginUrl: 'http://login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
     }
 };
 

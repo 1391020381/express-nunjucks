@@ -1,4 +1,12 @@
-{% include "./login-dialog-2.html" %}
- <!--天御图形验证码 -->
+<!--弹框-->
+<div
+    class="dialog" id="dialog-box">
+    <!--遮罩层 start-->
+    <div id="bgMask" class="common-bgMask"></div>
+</div>
+{% include "./login-dialog.html" %}
+{% include "./tourist-purchase-dialog.html" %}
+{% include "./tourist-login.html" %}
+<!--天御图形验证码 -->
 <script type="text/javascript" src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
 <div id="bgMask" data-page="mask" class="detail-bg-mask"></div>

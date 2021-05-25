@@ -68,7 +68,7 @@ module.exports = {
                 });
             }
         }, (err, results) => {
-            // console.log('results-------------:',results)
+            console.log('userInfo-results:-------------:', results)
             let userInfo = {};
             let rightsVipMemberDetail = {};
             let userInfoCode = '0';

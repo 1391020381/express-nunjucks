@@ -26,9 +26,9 @@ const recommendInfoData_guess = {}; // 个性化数据(猜你喜欢)
 const requestID_guess = ''; //  个性化数据(猜你喜欢) requestID
 
 module.exports = {
-    success: function(req, res) {
+    success: function (req, res) {
         const index = {
-            list: function(callback) {
+            list: function (callback) {
                 const opt = {
 
                     method: 'POST',
@@ -37,7 +37,7 @@ module.exports = {
                         clientType: 0,
                         fid: req.query.fid,
                         sourceType: 1,
-                        site:4
+                        site: 4
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ module.exports = {
         };
         return async.series(index, (err, results) => { // async.series 串行无关联
             results.list.data = results.list.data || {};
-            const list = Object.assign({}, { data: Object.assign(results.list && results.list.data.fileInfo, results.list.data.tdk, results.list.data.transcodeInfo, { title: results.list.data.fileInfo.title }) });
+            const list = Object.assign({}, { data: Object.assign(results.list && results.list.data.fileInfo, results.list.data.tdk, results.list.data.transcodeInfo, { title: results.list && results.list.data.fileInfo.title }) });
             const unloginFlag = req.query.unloginFlag;
             const consumeStatus = req.query.consumeStatus; // 7 已经下载过
             results = Object.assign({}, results, { list: list }, { unloginFlag: unloginFlag, consumeStatus: consumeStatus });
@@ -83,7 +83,7 @@ module.exports = {
             render('detail/success', results, req, res);
         });
     },
-    fail: function(req, res) {
+    fail: function (req, res) {
         render('detail/fail', null, req, res);
     }
 };

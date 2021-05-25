@@ -44,7 +44,7 @@ define(function (require, exports, module) {
                 var ptype = window.pageConfig && window.pageConfig.page ? window.pageConfig.page.ptype || 'index' : 'index';
                 var clsId = this.getIds().clsId;
                 var fid = this.getIds().fid;
-                showLoginDialog({clsId: clsId, fid: fid}, function () {
+                showLoginDialog({ clsId: clsId, fid: fid }, function () {
                     console.log('loginCallback');
                     _self.getLoginData(callback, 'isFirstLogin');
                 });
@@ -107,9 +107,7 @@ define(function (require, exports, module) {
                             var page = window.pageConfig && window.pageConfig.page || {};
 
                             if (page.type != 'detail') {
-                                setTimeout(function () {
-                                    window.location.reload();
-                                }, 600);
+                                window.location.reload();
                             }
                         }
                         $('.loginRedPacket-dialog').hide();

@@ -25,7 +25,7 @@ define(function (require, exports, module) {
             });
         },
         get: function (u, c, m) {
-            $.ajaxSetup({cache: false});
+            $.ajaxSetup({ cache: false });
             this.async(u, c, m, 'get');
         },
         post: function (u, c, m, g, d) {
@@ -163,6 +163,16 @@ define(function (require, exports, module) {
             var regexS = '[\\?&]' + name + '=([^&#]*)';
             var regex = new RegExp(regexS);
             var results = regex.exec(window.location.href);
+            if (results == null) {
+                return '';
+            }
+            return decodeURIComponent(results[1].replace(/\+/g, ' '));
+        },
+        getParamsByName: function (url, name) {
+            name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+            var regexS = '[\\?&#]' + name + '=([^&#]*)';
+            var regex = new RegExp(regexS);
+            var results = regex.exec(url);
             if (results == null) {
                 return '';
             }

@@ -1,16 +1,9 @@
 define(function (require, exports, module) {
-
-    // import api from "../../common/api";
-    // import "../../common/myDialog";
-    // import method from "../../common/method";
-    // import showCaptcha from "../../common/bindphone";
-    // import IframeMessenger from "../../common/iframe-messenger";
     require('../cmd-lib/jqueryMd5.js');
     var api = require('../application/api');
     var method = require('../application/method');
     var showCaptcha = require('../common/bindphone').showCaptcha;
     var urlConfig = require('./urlConfig')
-
     myWindow = ''; // 保存第三方授权时,打开的标签
     var smsId = ''; // 验证码
     var myWindow = ''; // 保存 openWindow打开的对象
@@ -21,17 +14,8 @@ define(function (require, exports, module) {
     var setIntervalTimer = null; // 保存轮询微信登录的定时器
     var expires_in = ''; // 二位码过期时间
     var jsId = '';
-    var cid = '';
-    var messenger = ''; // 记录当前那个 iframeMessager监听到数据
-    var originUrl = ''; // 保存调用登录的页面url
-    var redirectUrl = '';
-    var bilogUrl = '';
-    var visitor_id = '';
-    var bilog = {}; // 数据上报参数
-
     var successFun = '';
-
-    window.loginTypeList = {
+    loginTypeList = {
         type: 'wechat',
         values: {
             0: 'wechat', // 微信登录
@@ -41,11 +25,44 @@ define(function (require, exports, module) {
             4: 'phonePw'// 手机号+密码
         }
     }; //   保存登录方式在 登录数上报时使用
+    /**
+     * 关闭游客购买dialog
+     */
+    $('#dialog-box').on('click', '.close-btn', function (e) {
+        method.delCookie('download-qqweibo', '/');
+        closeRewardPop();
+    });
+    /**
+     * 游客购买切换tab
+     */
+    $(document).on('click', '.tourist-purchase-dialog .tabs .tab', function (e) {
+        var dataType = $(this).attr('data-type');
+        $(' .tourist-purchase-dialog .tabs .tab').removeClass('tab-active');
+        $(this).addClass('tab-active');
+        if (dataType == 'tourist-purchase') {
+            trackEvent('NE006', 'modelView', 'view', {
+                moduleID: 'noLgFPayCon',
+                moduleName: '免登录资料支付弹窗'
+            });
+            $('.tourist-purchase-dialog .login-content').hide();
+            $('.tourist-purchase-dialog .tourist-purchase-content').show();
+        }
+        if (dataType == 'login-purchase') {
+            trackEvent('NE006', 'modelView', 'view', {
+                moduleID: 'login',
+                moduleName: '登录弹窗'
+            });
+            $('.tourist-purchase-dialog .tourist-purchase-content').hide();
+            $('.tourist-purchase-dialog .login-content').show();
+        }
+    });
+
+
     $(document).on('click', '.login-content .login-type-list .login-type-weixin .weixin-icon', function (e) { // 切换到微信登录
         $('.login-content .verificationCode-login').hide();
         $(' .login-content .password-login').hide();
         $('.login-content .weixin-login').show();
-        window.loginTypeList.type = window.loginTypeList.values[0];
+        loginTypeList.type = loginTypeList.values[0];
     });
 
     $(document).on('click', '.login-content .login-type-list .login-type-verificationCode', function (e) { // 切换到验证码
@@ -53,10 +70,10 @@ define(function (require, exports, module) {
         $('.login-content .weixin-login').hide();
         $('.login-content .verificationCode-login').show();
 
-        window.loginTypeList.type = window.loginTypeList.values[3];
-        iask_web.track_event('NE002', 'normalClick', 'click', {
-            domID:'mobileLogin',
-            domName:'登录页短信验证码登录'
+        loginTypeList.type = loginTypeList.values[3];
+        trackEvent('NE002', 'normalClick', 'click', {
+            domID: 'mobileLogin',
+            domName: '登录页短信验证码登录'
         });
     });
 
@@ -65,10 +82,10 @@ define(function (require, exports, module) {
         $('.login-content .verificationCode-login').hide();
         $('.login-content .password-login').show();
 
-        window.loginTypeList.type = window.loginTypeList.values[4];
-        iask_web.track_event('NE002', 'normalClick', 'click', {
-            domID:'pwLogin',
-            domName:'登录页密码登录'
+        loginTypeList.type = loginTypeList.values[4];
+        trackEvent('NE002', 'normalClick', 'click', {
+            domID: 'pwLogin',
+            domName: '登录页密码登录'
         });
 
     });
@@ -78,18 +95,18 @@ define(function (require, exports, module) {
         if (loginType) {
             handleThirdCodelogin(loginType);
             if (loginType == 'qq') {
-                window.loginTypeList.type = window.loginTypeList.values[1];
-                iask_web.track_event('NE002', 'normalClick', 'click', {
-                    domID:'qqLogin',
-                    domName:'登录页QQ登录'
+                loginTypeList.type = loginTypeList.values[1];
+                trackEvent('NE002', 'normalClick', 'click', {
+                    domID: 'qqLogin',
+                    domName: '登录页QQ登录'
                 });
 
             }
             if (loginType == 'weibo') {
-                window.loginTypeList.type = window.loginTypeList.values[2];
-                iask_web.track_event('NE002', 'normalClick', 'click', {
-                    domID:'weiboLogin',
-                    domName:'登录页微博登录'
+                loginTypeList.type = loginTypeList.values[2];
+                trackEvent('NE002', 'normalClick', 'click', {
+                    domID: 'weiboLogin',
+                    domName: '登录页微博登录'
                 });
 
             }
@@ -117,9 +134,9 @@ define(function (require, exports, module) {
 
             showErrorTip('verificationCode-login', false, '');
             loginByPsodOrVerCode('codeLogin', mobile, nationCode, smsId, checkCode, ''); // mobile 在获取验证码时 在全局mobile保存
-            iask_web.track_event('NE002', 'normalClick', 'click', {
-                domID:'login',
-                domName:'登录页登录按钮'
+            trackEvent('NE002', 'normalClick', 'click', {
+                domID: 'login',
+                domName: '登录页登录按钮'
             });
             return;
         }
@@ -135,21 +152,21 @@ define(function (require, exports, module) {
             }
 
             loginByPsodOrVerCode('ppLogin', mobile, nationCode, '', '', password);
-            iask_web.track_event('NE002', 'normalClick', 'click', {
-                domID:'login',
-                domName:'登录页登录按钮'
+            trackEvent('NE002', 'normalClick', 'click', {
+                domID: 'login',
+                domName: '登录页登录按钮'
             });
             return;
         }
     });
 
     $(document).on('click', '.qr-refresh', function (e) { // 刷新微信登录二维码   包括游客登录页面
-
         getLoginQrcode('', '', true);
     });
-
-
-    $(document).on('click', '.login-content .getVerificationCode', function (e) { // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
+    /**
+     * // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
+     */
+    $(document).on('click', '.login-content .getVerificationCode', function (e) {
         var authenticationCodeType = $(this).attr('data-authenticationCodeType');
         var telphone = $('.login-content .verificationCode-login .input-mobile .telphone').val();
         var nationCode = $('.login-content .verificationCode-login .phone-num').text().replace(/\+/, '').trim();
@@ -166,9 +183,9 @@ define(function (require, exports, module) {
                 businessCode = 4;
 
                 sendSms();
-                iask_web.track_event('NE002', 'normalClick', 'click', {
-                    domID:'getValidateCode',
-                    domName:'登录页获取验证码'
+                trackEvent('NE002', 'normalClick', 'click', {
+                    domID: 'getValidateCode',
+                    domName: '登录页获取验证码'
                 });
 
             }
@@ -177,9 +194,9 @@ define(function (require, exports, module) {
                 businessCode = 4;
 
                 sendSms();
-                iask_web.track_event('NE002', 'normalClick', 'click', {
-                    domID:'getValidateCode',
-                    domName:'登录页获取验证码'
+                trackEvent('NE002', 'normalClick', 'click', {
+                    domID: 'getValidateCode',
+                    domName: '登录页获取验证码'
                 });
 
             }
@@ -348,14 +365,11 @@ define(function (require, exports, module) {
         $('.login-content .password-login .password .close-eye').show();
 
     });
-
-
     $(document).on('click', '.login-dialog .close-btn', function (e) {
         closeRewardPop();
     });
 
-
-    // 选择区号的逻辑
+    // 显示区号逻辑
     $(document).on('click', '.login-content .phone-choice', function (e) {
         $(this).addClass('phone-choice-show');
         $('.login-content .phone-more').show();
@@ -386,26 +400,20 @@ define(function (require, exports, module) {
         $('.login-content .phone-more').hide();
     });
 
-
-    function loginInSuccess(userData){
-        var loginType = window.loginTypeList.type;
-        window.loginType = loginType; // 获取用户信息时埋点需要
-        method.setCookieWithExpPath('cuk', userData.access_token, userData.expires_in * 1000, '/');
-        method.setCookieWithExpPath('loginType', loginType, userData.expires_in * 1000, '/');
-        $.ajaxSetup({
-            headers: {
-                'Authrization': method.getCookie('cuk')
-            }
-        });
-        successFun && successFun();
-        closeRewardPop();
-    }
+    // function closeRewardPop() {
+    //     $('.common-bgMask').hide();
+    //     $('.detail-bg-mask').hide();
+    //     $('#dialog-box').hide();
+    // }
     function closeRewardPop() {
         $('.common-bgMask').hide();
         $('.detail-bg-mask').hide();
-        // $('.login-content').hide();
         $('#dialog-box').hide();
         clearInterval(setIntervalTimer);
+        trackEvent('NE002', "normalClick ", 'click', {
+            domID: 'closeLogin',
+            domName: '登录页关闭'
+        });
     }
     function showErrorTip(type, isShow, msg) {
         if (isShow) {
@@ -429,11 +437,14 @@ define(function (require, exports, module) {
     }
 
 
-    // 微信登录
-    function getLoginQrcode(temp, fid, isqrRefresh, isTouristLogin, callback) { // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
+    /**
+     * 获取微信登录二维码
+     * // 生成二维码 或刷新二维码 callback 在游客下载成功页面登录的callback
+     */
+    function getLoginQrcode(cid, fid, isqrRefresh, isTouristLogin, callback) {
         $.ajax({
             headers: {
-                jsId:jsId
+                jsId: jsId
             },
             url: api.user.getLoginQrcode,
             type: 'POST',
@@ -454,6 +465,7 @@ define(function (require, exports, module) {
                     sceneId = res.data && res.data.sceneId;
                     countdown();
                     if (isTouristLogin || isqrRefresh) {
+                        successFun = callback;
                         $('.tourist-login .qrcode-default').hide();
                         $('.tourist-login #login-qr').attr('src', res.data.url);
                         $('.tourist-login #login-qr').show();
@@ -469,20 +481,171 @@ define(function (require, exports, module) {
                 } else {
                     clearInterval(setIntervalTimer);
                     $.toast({
-                        text:res.message,
-                        delay : 3000
+                        text: res.message,
+                        delay: 3000
                     });
                 }
             },
             error: function (error) {
 
                 $.toast({
-                    text:error.message,
-                    delay : 3000
+                    text: error.message,
+                    delay: 3000
                 });
             }
         });
     }
+    /**
+     * 第三方登录QQ 微博登录
+     */
+    function thirdLoginRedirect(code, channel, clientCode) {
+        $.ajax({
+            headers: {
+                jsId: jsId
+            },
+            url: api.user.thirdLoginRedirect,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                thirdType: clientCode,
+                code: code,
+                businessSys: 'ishare',
+                terminal: 'pc',
+                site: urlConfig.site,
+            }),
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == '0') {
+                    myWindow.close();
+                    loginInSuccess(res.data);
+                } else {
+                    $.toast({
+                        text: res.message,
+                        delay: 3000
+                    });
+                    myWindow.close();
+                }
+            },
+            error: function (error) {
+                myWindow.close();
+
+                $.toast({
+                    text: error.message,
+                    delay: 3000
+                });
+            }
+        });
+    }
+    window.clientDefineBindThirdUser = thirdLoginRedirect;
+
+    /**
+     * 通过密码或验证码登录
+     */
+    function loginByPsodOrVerCode(loginType, mobile, nationCode, smsId, checkCode, password) {
+        $.ajax({
+            url: api.user.loginByPsodOrVerCode,
+            type: 'POST',
+            headers: {
+                jsId: jsId
+            },
+            data: JSON.stringify({
+                loginType: loginType,
+                mobile: mobile,
+                nationCode: nationCode,
+                smsId: smsId,
+                checkCode: checkCode,
+                password: $.md5(password),
+                terminal: 'pc',
+                site: urlConfig.site,
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (res) {
+
+                if (res.code == '0') {
+                    loginInSuccess(res.data);
+                } else {
+
+                    if (checkCode) {
+                        showErrorTip('verificationCode-login', true, res.message);
+                    } else {
+                        showErrorTip('password-login', true, res.message);
+                    }
+
+                }
+            },
+            error: function (error) {
+                $.toast({
+                    text: error.message,
+                    delay: 3000
+                });
+            }
+        });
+    }
+    /**
+     *
+     * 微信扫码登录  返回 access_token 通过 access_token(cuk)
+     */
+    function loginByWeChat(cid, fid) {
+        $.ajax({
+            headers: {
+                jsId: jsId
+            },
+            url: api.user.loginByWeChat,
+            type: 'POST',
+            data: JSON.stringify({
+                sceneId: sceneId, // 公众号登录二维码id
+                terminal: 'pc',
+                site: urlConfig.site,
+                cid: cid,
+                fid: fid || '1816',
+                domain: encodeURIComponent(document.domain)
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (res) {
+
+                if (res.code == '0') {
+                    clearInterval(setIntervalTimer);
+                    loginInSuccess(res.data);
+                } else {
+                    if (res.code != '411046') { //  411046 用户未登录
+                        clearInterval(setIntervalTimer);
+
+                        $.toast({
+                            text: res.message,
+                            delay: 3000
+                        });
+                    }
+                }
+            },
+            error: function (error) {
+                $.toast({
+                    text: error.message,
+                    delay: 3000
+                });
+            }
+        });
+    }
+    // QQ 微博 登录
+    function handleThirdCodelogin(loginType) {
+        var clientCode = loginType;
+        var channel = 1; // 使用渠道：1:登录；2:绑定
+        var locationUrl = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname;
+        var redirectUrl = window.location.href;
+        var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode + '&redirectUrl=' + encodeURIComponent(redirectUrl);
+        var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location);
+        openWindow(url);
+    }
+    function openWindow(url) { // 第三方打开新的标签页
+        var iWidth = 585;
+        var iHeight = 525;
+        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+        var param = 'height=' + iHeight + ',width=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes';
+        myWindow = window.open(url, '_parent', param);
+    }
+
     function isShowQrInvalidtip(flag) { // 普通微信登录  游客微信登录
 
         if (flag) {
@@ -509,123 +672,12 @@ define(function (require, exports, module) {
             timer = setTimeout(countdown, 1000);
         }
     }
-    function loginByWeChat(cid, fid) { // 微信扫码登录  返回 access_token 通过 access_token(cuk)
-        $.ajax({
-            headers: {
-                jsId:jsId
-            },
-            url: api.user.loginByWeChat,
-            type: 'POST',
-            data: JSON.stringify({
-                sceneId: sceneId, // 公众号登录二维码id
-                terminal:'pc',
-                site:urlConfig.site,
-                cid: cid,
-                fid: fid || '1816',
-                domain: encodeURIComponent(document.domain)
-            }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (res) {
-
-                if (res.code == '0') {
-                    clearInterval(setIntervalTimer);
-                    loginInSuccess(res.data);
-                } else {
-                    if (res.code != '411046') { //  411046 用户未登录
-                        clearInterval(setIntervalTimer);
-
-                        $.toast({
-                            text:res.message,
-                            delay : 3000
-                        });
-                    }
-                }
-            },
-            error: function (error) {
-                $.toast({
-                    text:error.message,
-                    delay : 3000
-                });
-            }
-        });
-    }
-
-
-    // QQ 微博 登录
-
-
-    function handleThirdCodelogin(loginType) {
-
-        var clientCode = loginType;
-        var channel = 1; // 使用渠道：1:登录；2:绑定
-
-        //  var locationUrl = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname
-        //  var locationUrl = originUrl
-        var locationUrl = window.location.origin?window.location.origin:window.location.protocol + '//' + window.location.hostname;
-        // var location = locationUrl + '/node/redirectionURL.html' + '?clientCode=' + clientCode
-        // var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode +  '&redirectUrl=' + encodeURIComponent(redirectUrl)
-        var redirectUrl = window.location.href;
-        var location = locationUrl + '/login-middle.html' + '?clientCode=' + clientCode + '&redirectUrl=' + encodeURIComponent(redirectUrl);
-        // var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location)
-        var url = locationUrl + api.user.thirdCodelogin + '?clientCode=' + clientCode + '&channel=' + channel + '&terminal=pc' + '&businessSys=ishare' + '&location=' + encodeURIComponent(location);
-        openWindow(url);
-    }
-    function openWindow(url) { // 第三方打开新的标签页
-        var iWidth = 585;
-        var iHeight = 525;
-        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
-        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
-        var param = 'height=' + iHeight + ',width=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes';
-        myWindow = window.open(url, '_parent', param);
-    }
-
-    function thirdLoginRedirect(code, channel, clientCode) { // 根据授权code 获取 access_token
-        $.ajax({
-            headers: {
-                jsId:jsId
-            },
-            url: api.user.thirdLoginRedirect,
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({
-                thirdType: clientCode,
-                code: code,
-                businessSys: 'ishare',
-                terminal:'pc',
-                site:urlConfig.site,
-            }),
-            dataType: 'json',
-            success: function (res) {
-                if (res.code == '0') {
-                    myWindow.close();
-                    loginInSuccess(res.data);
-                } else {
-                    $.toast({
-                        text:res.message,
-                        delay : 3000
-                    });
-                    myWindow.close();
-                }
-            },
-            error: function (error) {
-                myWindow.close();
-
-                $.toast({
-                    text:error.message,
-                    delay : 3000
-                });
-            }
-        });
-    }
-
-    window.clientDefineBindThirdUser = thirdLoginRedirect;
 
     function sendSms(appId, randstr, ticket, onOff) { // 发送短信验证码
         $.ajax({
             url: api.user.sendSms,
             headers: {
-                jsId:jsId
+                jsId: jsId
             },
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
@@ -672,69 +724,26 @@ define(function (require, exports, module) {
                     showCaptcha(sendSms);
                 } else if (res.code == '411033') { // 图形验证码错误
                     $.toast({
-                        text:'图形验证码错误',
-                        delay : 3000
+                        text: '图形验证码错误',
+                        delay: 3000
                     });
                 } else {
                     $.toast({
-                        text:res.message,
-                        delay : 3000
+                        text: res.message,
+                        delay: 3000
                     });
                 }
             },
 
             error: function (error) {
                 $.toast({
-                    text:error.message,
-                    delay : 3000
+                    text: error.message,
+                    delay: 3000
                 });
             }
         });
     }
-
-    function loginByPsodOrVerCode(loginType, mobile, nationCode, smsId, checkCode, password) { // 通过密码或验证码登录
-        $.ajax({
-            url: api.user.loginByPsodOrVerCode,
-            type: 'POST',
-            headers: {
-                jsId:jsId
-            },
-            data: JSON.stringify({
-                loginType: loginType,
-                mobile: mobile,
-                nationCode: nationCode,
-                smsId: smsId,
-                checkCode: checkCode,
-                password: $.md5(password),
-                terminal:'pc',
-                site:urlConfig.site,
-            }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (res) {
-
-                if (res.code == '0') {
-                    loginInSuccess(res.data);
-                } else {
-
-                    if (checkCode) {
-                        showErrorTip('verificationCode-login', true, res.message);
-                    } else {
-                        showErrorTip('password-login', true, res.message);
-                    }
-
-                }
-            },
-            error: function (error) {
-                $.toast({
-                    text:error.message,
-                    delay : 3000
-                });
-            }
-        });
-    }
-
-    function isHasPcMLogin(){
+    function isHasPcMLogin() {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'sceneSwitch'),
             type: 'GET',
@@ -746,20 +755,21 @@ define(function (require, exports, module) {
                 console.log(res);
                 var pccodeList = [];
                 if (res.code == 0 && res.data && res.data.length) {
-                    $.each(res.data, function(index, item){
+                    $.each(res.data, function (index, item) {
                         pccodeList.push(item.pcode);
                     });
                 }
-                if(pccodeList.indexOf('PC-M-Login')!=-1){
+                if (pccodeList.indexOf('PC-M-Login') != -1) {
                     $('.login-redpacket').show();
                     $('.login-type-list').css('margin-top', '21px');
-                }else{
+                } else {
                     $('.login-redpacket').hide();
                     $('.login-type-list').removeAttr('style');
                 }
             }
         });
     }
+    // 常规登录初始化
     function loginInit(params, callback) {
         successFun = callback; // 保存传入的回调
         jsId = params.jsId;
@@ -769,19 +779,34 @@ define(function (require, exports, module) {
         bilogUrl = params.bilogUrl;
         visitor_id = params.visitor_id;
         bilog = {
-            sessionID:params.sessionID,
-            deviceID:params.deviceID,
-            persistedTime:params.persistedTime,
-            sessionReferrer:params.sessionReferrer,
-            sessionStartTime:params.sessionStartTime,
-            updatedTime:params.updatedTime,
-            visitID:params.visitID
+            sessionID: params.sessionID,
+            deviceID: params.deviceID,
+            persistedTime: params.persistedTime,
+            sessionReferrer: params.sessionReferrer,
+            sessionStartTime: params.sessionStartTime,
+            updatedTime: params.updatedTime,
+            visitID: params.visitID
         };
         getLoginQrcode(params.cid, params.fid);
         isHasPcMLogin();
     }
+    // 登录成功回调
+    function loginInSuccess(userData) {
+        var loginType = loginTypeList.type;
+        window.loginType = loginType; // 获取用户信息时埋点需要
+        method.setCookieWithExpPath('cuk', userData.access_token, userData.expires_in * 1000, '/');
+        method.setCookieWithExpPath('loginType', loginType, userData.expires_in * 1000, '/');
+        $.ajaxSetup({
+            headers: {
+                'Authrization': method.getCookie('cuk')
+            }
+        });
+        successFun && successFun();
+        closeRewardPop();
+    }
     return {
-        loginInit: loginInit
+        loginInit: loginInit,
+        getLoginQrcode: getLoginQrcode
     };
 });
 

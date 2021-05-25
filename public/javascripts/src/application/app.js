@@ -27,11 +27,7 @@ define(function (require, exports, module) {
         // 把封装的上报方法挂载到全局
         window.trackEvent = trackEvent;
         window.trackEventLogin = trackEventLogin;
-
-        var pathnameList = ['/pay/qr', '/pay/paymentresult', '/pay/payRedirect']; // 手机端页面
-        if (pathnameList.indexOf(location.pathname) == -1) {
-            getVisitUserId();
-        }
+        getVisitUserId();
     } catch (err) {
 
     }
@@ -40,10 +36,9 @@ define(function (require, exports, module) {
     require('./helper');
 
     var singleLogin = require('./single-login').init;
-    var url = api.user.dictionaryData.replace('$code', 'singleLogin');
-
-
-    if (pathnameList.indexOf(location.pathname) == -1) {
+    handleSingleLogin()
+    function handleSingleLogin() {
+        var url = api.user.dictionaryData.replace('$code', 'singleLogin');
         $ajax(url, 'GET', '', false).done(function (res) {
             if (res.code == 0 && res.data && res.data.length) {
                 var item = res.data[0];
@@ -53,8 +48,6 @@ define(function (require, exports, module) {
             }
         });
     }
-
-
     // 设置访客id-放在此处设置，防止其他地方用到时还未存储到cookie中
     function getVisitUserId() {
         // 访客id-有效时间和name在此处写死

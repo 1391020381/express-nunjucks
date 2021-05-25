@@ -254,6 +254,7 @@ body {
   vertical-align: middle;
 }
 .search-all-main .search-all-left .search-list-con .landing-txt-list li .data-name .icon-format-conversion {
+  margin-left: 10px;
   display: inline-block;
   width: 87px;
   height: 18px;
