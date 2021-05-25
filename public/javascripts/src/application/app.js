@@ -85,6 +85,15 @@ define(function (require, exports, module) {
 
 
     // 全局的ajax 请求方法
+    /**
+     *
+     * @param {*} url
+     * @param {*} ajaxMethod
+     * @param {*} data
+     * @param {*} async
+     * @param {*} customHeaders
+     * @returns
+     */
     function $ajax(url, ajaxMethod, data, async, customHeaders) { //  .done(function(){})  .fail(function(){})
         return $.ajax(url, {
             type: ajaxMethod || 'post',
@@ -95,7 +104,8 @@ define(function (require, exports, module) {
             headers: $.extend({}, {
                 'cache-control': 'no-cache',
                 'Pragma': 'no-cache',
-                'Authrization': method.getCookie('cuk')
+                'Authrization': method.getCookie('cuk'),
+                'isharejsid': method.getLoginSessionId()
             }, customHeaders)
         });
     }

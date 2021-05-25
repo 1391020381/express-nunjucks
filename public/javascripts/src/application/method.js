@@ -39,6 +39,7 @@ define(function (require, exports, module) {
         customAjax: function (options) {
             var self = this;
             var cuk = this.getCookie('cuk');
+            var jsId = this.getLoginSessionId();
             $.ajax({
                 type: options.type || 'POST',
                 timeout: options.timeout || 30000,
@@ -48,7 +49,8 @@ define(function (require, exports, module) {
                     // 携带登录token
                     'Authrization': cuk,
                     'cache-control': 'no-cache',
-                    'Pragma': 'no-cache'
+                    'Pragma': 'no-cache',
+                    'isharejsid': jsId
                 },
                 statusCode: {
                     // code码全局处理

@@ -159,7 +159,7 @@ define(function (require, exports, module) {
                 headers: {
                     'cache-control': 'no-cache',
                     'Pragma': 'no-cache',
-                    'jsId': method.getLoginSessionId()
+                    'isharejsid': method.getLoginSessionId()
                 },
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',

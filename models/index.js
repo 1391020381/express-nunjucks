@@ -68,7 +68,8 @@ module.exports = {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization': req.cookies.cuk
+                'Authrization': req.cookies.cuk,
+                'isharejsid': req.cookies.isharejsid
             }
         };
     },
@@ -82,14 +83,15 @@ module.exports = {
                 'content-type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization': req.cookies.cuk
+                'Authrization': req.cookies.cuk,
+                'isharejsid': req.cookies.isharejsid
             },
             body: req.body
         };
     },
 
     // 获取txt文本信息
-    $httpTxt: function(url) {
+    $httpTxt: function (url) {
         return new Promise((resolve, reject) => {
             request(url, (error, response, body) => {
                 if (!error && response.statusCode == 200 || response.statusCode == 206) {
@@ -118,12 +120,12 @@ module.exports = {
                             data = JSON.parse(body);
 
                         }
-                        if(isGetFileDetailNoTdk&&data.code=='G-404'||is4paradigm){ // 非标准判断
+                        if (isGetFileDetailNoTdk && data.code == 'G-404' || is4paradigm) { // 非标准判断
                             resolve(data);
-                        }else{
-                            if(data.code==0){
+                        } else {
+                            if (data.code == 0) {
                                 resolve(data);
-                            }else{
+                            } else {
                                 console.log('$http---------:', JSON.stringify(opt), data);
                                 reject(data);
                             }
