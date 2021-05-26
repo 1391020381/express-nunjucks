@@ -743,7 +743,7 @@ define(function (require, exports, module) {
             }
         });
     }
-    function isHasPcMLogin() {
+    function isHasPcMLogin() { // 当有红包的时候修改样式
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'sceneSwitch'),
             type: 'GET',

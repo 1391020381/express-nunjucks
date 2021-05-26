@@ -2,6 +2,7 @@
 
 define(function (require, exports, moudle) {
     require('swiper');
+    var isHasPcMLogin = require('../application/wxActivity').isHasPcMLogin
     var bannerTemplate = require('../common/template/swiper_tmp.html');
     require('../application/suspension');
     var Slider = require('../common/slider');// 轮播插件
@@ -354,6 +355,7 @@ define(function (require, exports, moudle) {
         }
     };
     indexObject.initial();
+    isHasPcMLogin()
     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7');
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
     trackEvent('NE030', 'pageTypeView', 'page', {

@@ -165,11 +165,9 @@ define(function (require, exports, module) {
             domID: 'close',
             domName: '关闭'
         });
-        var abTest = window.pageConfig.page && window.pageConfig.page.abTest;
-        if (abTest == 'a') {
+        var pageName = window.pageConfig.page && window.pageConfig.page.pageName;
+        if (pageName == 'detail') {
             method.setCookieWithExpPath('isShowDetailALoginRedPacket', 1);
-        } else if (abTest == 'b') {
-            method.setCookieWithExpPath('isShowDetailBLoginRedPacket', 1);
         } else {
             method.setCookieWithExpPath('isShowIndexLoginRedPacket', 1);
 
@@ -182,10 +180,8 @@ define(function (require, exports, module) {
             domID: 'confirm',
             domName: '确定'
         });
-        var abTest = window.pageConfig.page && window.pageConfig.page.abTest;
-        if (abTest == 'a') {
-            $('#detail-unLogin').trigger('click');
-        } else if (abTest == 'b') {
+        var pageName = window.pageConfig.page && window.pageConfig.page.pageName;
+        if (pageName == 'detail') {
             $('#detail-unLogin').trigger('click');
         } else {
             $('.index-header .notLogin').trigger('click');
@@ -205,23 +201,15 @@ define(function (require, exports, module) {
             success: function (res) { // loginRedPacket-dialog
                 console.log(res);
                 if (res.code == 0 && res.data && res.data.length) {
-
                     $.each(res.data, function (inidex, item) {
                         if (item.pcode == 'PC-M-Login') {
-                            var abTest = window.pageConfig.page && window.pageConfig.page.abTest;
-                            if (abTest == 'a' && !method.getCookie('isShowDetailALoginRedPacket')) {
+                            if (!method.getCookie('isShowDetailALoginRedPacket')) {
                                 $('.loginRedPacket-dialog').removeClass('hide');
                                 trackEvent('NE006', 'modelView', 'view', {
                                     moduleID: 'activityFloat',
                                     moduleName: '活动浮层'
                                 });
-                            } else if (abTest == 'b' && !method.getCookie('isShowDetailBLoginRedPacket')) {
-                                $('.loginRedPacket-dialog').removeClass('hide');
-                                trackEvent('NE006', 'modelView', 'view', {
-                                    moduleID: 'activityFloat',
-                                    moduleName: '活动浮层'
-                                });
-                            } else if (abTest == 'index' && !method.getCookie('isShowIndexLoginRedPacket')) {
+                            } else if (!method.getCookie('isShowIndexLoginRedPacket')) {
                                 $('.loginRedPacket-dialog').removeClass('hide');
                                 trackEvent('NE006', 'modelView', 'view', {
                                     moduleID: 'activityFloat',
@@ -239,6 +227,7 @@ define(function (require, exports, module) {
 
     return {
         refreshTopBar: refreshTopBar,
-        isLogin: isLogin
+        isLogin: isLogin,
+        isHasPcMLogin: isHasPcMLogin
     };
 });

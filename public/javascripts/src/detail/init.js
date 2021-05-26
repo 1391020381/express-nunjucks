@@ -1,6 +1,5 @@
 define(function (require, exports, module) {
-
-    require('../common/testBilog');
+    var isHasPcMLogin = require('../application/wxActivity').isHasPcMLogin
     require('../cmd-lib/lazyload');
     require('../cmd-lib/myDialog');
     require('../cmd-lib/loading');
@@ -24,4 +23,5 @@ define(function (require, exports, module) {
     if (productType == '1') {
         require('../common/baidu-statistics.js').initBaiduStatistics('c0fb058099c13a527871d024b1d809f8');
     }
+    isHasPcMLogin()
 });
