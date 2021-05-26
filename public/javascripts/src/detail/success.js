@@ -18,6 +18,11 @@ define(function (require, exports, module) {
     var showTouristLogin = require('../application/login').showTouristLogin;
     require('../common/bindphone');
     require('../common/coupon/couponIssue');
+
+    trackEvent('NE030', 'pageTypeView', 'page', {
+        pageID: 'DSC',
+        pageName: '下载成功页'
+    });
     trackEvent('NE006', 'modelView', 'view', {
         moduleID: 'downSucCon',
         moduleName: '下载成功弹窗'
@@ -333,6 +338,12 @@ define(function (require, exports, module) {
         $('.btn-exit').on('click', function () {
             login.ishareLogout(); // 在登出的接口成功后,会刷新页面
         });
+        $('.js-go2FileConvert').on('click', function () { // 跳转到格式转换
+            trackEvent('NE002', 'normalClick', 'click', {
+                domID: 'sucTransClick',
+                domName: '成功页导流按钮点击'
+            });
+        })
     }
 
     // 获取百度数据

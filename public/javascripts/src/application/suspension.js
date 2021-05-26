@@ -47,9 +47,14 @@ define(function (require, exports, module) {
 
                 method.compatibleIESkip('/node/upload.html', true);
 
+            } else if (index == 3) {
+                trackEvent('NE002', 'normalClick', 'click', {
+                    domID: 'rightTransClick',
+                    domName: '侧边栏转换导流按钮点击'
+                });
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ 'right': '-307px' }, 200);
-                if(index ==6){
+                if (index == 6) {
                     method.compatibleIESkip('https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q', true);
                 }
             }
@@ -68,7 +73,7 @@ define(function (require, exports, module) {
 
         });
         // 开通vip
-        $fixFull.on('click', '.js-buy-open', function(){
+        $fixFull.on('click', '.js-buy-open', function () {
 
             method.compatibleIESkip('/pay/vip.html', true);
         });
@@ -176,8 +181,8 @@ define(function (require, exports, module) {
         var params = {
             pageNumber: 1,
             pageSize: 20,
-            sidx:0,
-            order:-1
+            sidx: 0,
+            order: -1
         };
         $.ajax(api.user.newCollect, {
             type: 'get',
@@ -193,20 +198,20 @@ define(function (require, exports, module) {
         });
     }
 
-    function getFileBrowsePage(){ // 查询个人收藏列表
+    function getFileBrowsePage() { // 查询个人收藏列表
         $.ajax({
             url: api.user.getFileBrowsePage,
             type: 'POST',
             data: JSON.stringify({
-                currentPage:1,
-                pageSize:20
+                currentPage: 1,
+                pageSize: 20
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
-                if(res.code == '0'){
+                if (res.code == '0') {
                     console.log('getUserFileList:', res);
-                    var list = res.data&&res.data.rows ||[];
+                    var list = res.data && res.data.rows || [];
                     var $seenRecord = $('#seenRecord'), arr = [];
                     if (list && list.length) {
                         list = list.slice(0, 20);
@@ -219,14 +224,14 @@ define(function (require, exports, module) {
                     } else {
                         $seenRecord.hide().siblings('.mui-data-null').show();
                     }
-                }else{
+                } else {
                     // eslint-disable-next-line
                     var $seenRecord = $('#seenRecord');
                     $seenRecord.hide().siblings('.mui-data-null').show();
                     console.log(res.message);
                 }
             },
-            error:function(error){
+            error: function (error) {
                 console.log('getUserFileList:', error);
             }
         });
@@ -248,13 +253,13 @@ define(function (require, exports, module) {
     });
 
     try {// 引入美洽客服
-        (function(a, b, c, d, e, j, s) {
-            a[d] = a[d] || function() {
+        (function (a, b, c, d, e, j, s) {
+            a[d] = a[d] || function () {
                 // eslint-disable-next-line
                 (a[d].a = a[d].a || []).push(arguments);
             };
             j = b.createElement(c),
-            s = b.getElementsByTagName(c)[0];
+                s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
             j.src = 'https://static.meiqia.com/widget/loader.js';
@@ -271,7 +276,7 @@ define(function (require, exports, module) {
     $('.btn-mui-contact').on('click', function () {
         _MEIQIA('init');
         // 初始化成功后调用美洽 showPanel
-        _MEIQIA('allSet', function(){
+        _MEIQIA('allSet', function () {
             _MEIQIA('showPanel');
         });
     });

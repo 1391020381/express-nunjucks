@@ -21,6 +21,7 @@ define(function (require, exports, module) {
     $('.landing-txt-list .li-file').on('click', function () {
         var fileID = $(this).attr('data-fileId');
         var fileName = $(this).attr('data-fileName');
+        console.log($(this))
         trackEvent('SE016', 'searchResultClick', 'click', {
             filePostion: $(this).index() + 1,
             keyWords: cond,
@@ -28,4 +29,12 @@ define(function (require, exports, module) {
             fileName: fileName
         });
     });
+    $('.js-go2FileConvert').on('click', function (e) {
+        e.stopPropagation()
+        e.preventDefault();
+        trackEvent('NE002', 'normalClick', 'click', {
+            domID: 'transClick',
+            domName: '格式转换入口点击'
+        });
+    })
 });

@@ -10,8 +10,8 @@ define(function (require) {
     var requestId = Math.random().toString().slice(-10);// requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
     // 【A20作为是否已经上报的标识】
     var isActioned = false;
-    var pageParams = window.pageConfig&&window.pageConfig.params || {};
-    var params = { 'userId': userId, 'requestId': requestId, itemId:pageParams.g_fileId, itemTitle:pageParams.file_title};
+    var pageParams = window.pageConfig && window.pageConfig.params || {};
+    var params = { 'userId': userId, 'requestId': requestId, itemId: pageParams.g_fileId, itemTitle: pageParams.file_title };
     function action(paradigm4GuessData, paradigm4GuessRecommendConfig) {
         var paradigm4GuessDatas = paradigm4GuessData;
         var paradigm4GuessRecommendConfigs = paradigm4GuessRecommendConfig;
@@ -29,6 +29,10 @@ define(function (require) {
                     isActioned = true;
                     if (paradigm4GuessDatas.length) {
                         paradigm4Report.pageView(paradigm4GuessDatas, paradigm4GuessRecommendConfigs);
+                        trackEvent('NE006', 'modelView', 'view', {
+                            moduleID: 'personality',
+                            moduleName: '猜你喜欢模块曝光'
+                        });
                     }
                 }
             }
@@ -42,12 +46,12 @@ define(function (require) {
             trackEvent('NE017', 'fileListNormalClick', 'click', {
                 moduleID: 'personality',
                 moduleName: '猜你喜欢',
-                filePostion:$(this).index() + 1,
-                fileID:itemId,
-                fileName:fileName,
-                saleType:params.productType,
+                filePostion: $(this).index() + 1,
+                fileID: itemId,
+                fileName: fileName,
+                saleType: params.productType,
                 fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
-                fileCategoryName:params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+                fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
             });
             paradigm4Report.eventReport(itemId, paradigm4GuessData, paradigm4GuessRecommendConfig);
         });

@@ -24,6 +24,10 @@ define(function (require) {
         var relevantRecommendInfoData = relevantInformationRecommendConfig;
         if (relevantInformationData.length) {
             paradigm4Report.pageView(relevantInformationData, relevantInformationRecommendConfig);
+            trackEvent('NE006', 'modelView', 'view', {
+                moduleID: 'relevant',
+                moduleName: '相关推荐模块曝光'
+            });
         }
         // 相关推荐点击
         $(document).on('click', '.related-data-list li', function () {
@@ -33,12 +37,12 @@ define(function (require) {
             trackEvent('NE017', 'fileListNormalClick', 'click', {
                 moduleID: 'relevant',
                 moduleName: '相关推荐',
-                filePostion:$(this).index() + 1,
-                fileID:itemId,
-                fileName:fileName,
-                saleType:params.productType,
+                filePostion: $(this).index() + 1,
+                fileID: itemId,
+                fileName: fileName,
+                saleType: params.productType,
                 fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
-                fileCategoryName:params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
+                fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
             });
             paradigm4Report.eventReport(itemId, paradigm4Relevant, relevantRecommendInfoData);
         });

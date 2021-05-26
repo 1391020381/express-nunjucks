@@ -204,9 +204,9 @@ define(function (require) {
                         title: title,
                         format: format
                     }, {
-                        labels:res.data.labels,
-                        score:res.data.score,
-                        content:res.data.content
+                        labels: res.data.labels,
+                        score: res.data.score,
+                        content: res.data.content
                     }, function () {
                         // $('.jsDetailEvaluateBtn').hide();
                     });
@@ -265,20 +265,25 @@ define(function (require) {
         isAppraise = $(this).attr('data-isappraise'); // 1 此文件评价过
         // isAppraise = 1
         if (isAppraise == 1) {
-           getFileComment(fid, title, format);
+            getFileComment(fid, title, format);
         } else {
-           // getLabelList(fid, format, title, isAppraise);
-           evaluateLayerService.open({
-            fid: fid,
-            title: title,
-            format: format
-        }, false, function () {
-            getDownloadRecordList()
-        });
+            // getLabelList(fid, format, title, isAppraise);
+            evaluateLayerService.open({
+                fid: fid,
+                title: title,
+                format: format
+            }, false, function () {
+                getDownloadRecordList()
+            });
         }
 
     });
-
+    $(document).on('click', '.personal-center-mydownload .js-go2FileConvert', function () {
+        trackEvent('NE002', 'normalClick', 'click', {
+            domID: 'downTransClick',
+            domName: '下载列表页导流按钮点击'
+        });
+    })
     $(document).on('click', '.personal-center-dialog .evaluation-confirm', function () {
 
         if (isAppraise == 1) {

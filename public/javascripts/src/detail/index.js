@@ -86,28 +86,30 @@ define(function (require, exports, module) {
     function pageInitShow() {
         if (method.getCookie('cuk')) {
             login.getLoginData(function (data) {
-                Browse10s({attrList:[
-                    {
-                        actionAttrCode:'site',
-                        actionAttrVal:urlConfig.site
-                    },
-                    {
-                        actionAttrCode:'terminal',
-                        actionAttrVal:urlConfig.terminal
-                    },
-                    {
-                        actionAttrCode:'content_type',
-                        actionAttrVal:1
-                    },
-                    {
-                        actionAttrCode:'product_type',
-                        actionAttrVal:window.pageConfig&&window.pageConfig.params.productType
-                    },
-                    {
-                        actionAttrCode:'vip',
-                        actionAttrVal:data.isVip
-                    }
-                ], userActCode:'browse'});
+                Browse10s({
+                    attrList: [
+                        {
+                            actionAttrCode: 'site',
+                            actionAttrVal: urlConfig.site
+                        },
+                        {
+                            actionAttrCode: 'terminal',
+                            actionAttrVal: urlConfig.terminal
+                        },
+                        {
+                            actionAttrCode: 'content_type',
+                            actionAttrVal: 1
+                        },
+                        {
+                            actionAttrCode: 'product_type',
+                            actionAttrVal: window.pageConfig && window.pageConfig.params.productType
+                        },
+                        {
+                            actionAttrCode: 'vip',
+                            actionAttrVal: data.isVip
+                        }
+                    ], userActCode: 'browse'
+                });
                 common.afterLogin(data);
                 window.pageConfig.userId = data.userId;
                 window.pageConfig.email = data.email || '';
@@ -116,17 +118,17 @@ define(function (require, exports, module) {
                     // 唤起支付弹框
                     // goPage(event);
                     var params = window.pageConfig.params;
-                    if(method.getCookie('isPaidTest')){ // vip付费文档 支付
+                    if (method.getCookie('isPaidTest')) { // vip付费文档 支付
                         var vipDesc = $('.integral-con .integral-con-content').attr('desc')
                         var vipPrice = $('.integral-con .integral-con-content').attr('price')
                         var isPaidTest = {
-                            price:vipPrice,
-                            desc:vipDesc,
-                            productType:params.productType   // vip 4
+                            price: vipPrice,
+                            desc: vipDesc,
+                            productType: params.productType   // vip 4
                         }
-                        if(isPaidTest.productType == 4){
-                            method.getCookie('isPaidTest','/')
-                            goPage('','',isPaidTest);
+                        if (isPaidTest.productType == 4) {
+                            method.getCookie('isPaidTest', '/')
+                            goPage('', '', isPaidTest);
                         }
                     }
 
@@ -311,7 +313,7 @@ define(function (require, exports, module) {
                 });
                 return;
             } else {
-                    setCollect($(this));
+                setCollect($(this));
             }
 
         });
@@ -337,9 +339,9 @@ define(function (require, exports, module) {
             var vipPrice = $(this).attr('price')
             var vipDesc = $(this).attr('desc')
             var isPaidTest = {
-                price:vipPrice,
-                desc:vipDesc,
-                productType:4
+                price: vipPrice,
+                desc: vipDesc,
+                productType: 4
             }
             if (!method.getCookie('cuk')) {
                 // 上报数据相关
@@ -348,20 +350,20 @@ define(function (require, exports, module) {
                 }
                 method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/'); // qq weibo 登录添加标记
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
-                console.log(vipDesc,vipPrice)
-                if ((pageConfig.params.productType == '5' && type == 'file')||(pageConfig.params.productType == '4')&&vipPrice&&vipDesc
+                console.log(vipDesc, vipPrice)
+                if ((pageConfig.params.productType == '5' && type == 'file') || (pageConfig.params.productType == '4') && vipPrice && vipDesc
                 ) {
                     // 相关逻辑未登陆购买逻辑移到buyUnlogin.js
                     method.setCookieWithExpPath('isPaidTest', 1, 1000 * 60 * 60 * 1, '/');  // vip专享 付费资料 付费
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
-                        common.afterLogin(data, {type: type, data: data, callback: goPage,isPaidTest:isPaidTest});
+                        common.afterLogin(data, { type: type, data: data, callback: goPage, isPaidTest: isPaidTest });
                         //  goPage(type,data);
                     });
                 }
             } else {
-                goPage(type,'',isPaidTest);
+                goPage(type, '', isPaidTest);
             }
         });
 
@@ -384,6 +386,16 @@ define(function (require, exports, module) {
                 $('.jsDetailEvaluateBtn').hide();
             });
         });
+
+        // 跳转到格式转换
+        $('.js-go2FileConvert').on('click', function () {
+            var domID = 'Click{PDF转Word}'
+            var domName = '{PDF转Word}导航点击'
+            trackEvent('NE002', 'normalClick', 'click', {
+                domID: 'transClick',
+                domName: '格式转换入口点击'
+            });
+        })
     }
 
     // 评价按钮显隐
@@ -497,7 +509,7 @@ define(function (require, exports, module) {
             fileName: emailParams.file_title,
             saleType: emailParams.productType
         });
-        $('body,html').animate({scrollTop: $('#littleApp').offset().top - 60}, 200);
+        $('body,html').animate({ scrollTop: $('#littleApp').offset().top - 60 }, 200);
         // var reward = window.pageConfig.reward;
         // if (reward.value == "-1") { // 老用户VIP正常弹起
         //     $("#dialog-box").dialog({
@@ -690,10 +702,10 @@ define(function (require, exports, module) {
             if (detailTop > fixHeight + fixEle.height()) {
                 // $('.fix-right-bannertop').hide()
                 // $('.fix-right-bannerbottom').hide()
-                fixEle.css({'position': 'fixed', 'top': headerHeight, 'zIndex': '75'});
+                fixEle.css({ 'position': 'fixed', 'top': headerHeight, 'zIndex': '75' });
                 if (detailTop > pwDetail - documentInnerHeight) {
                     var tempHeight = pwDetail - fixRight - 15;
-                    fixEle.css({'position': 'absolute', 'top': tempHeight});
+                    fixEle.css({ 'position': 'absolute', 'top': tempHeight });
                 }
             } else {
                 fixEle.removeAttr('style');
@@ -742,7 +754,7 @@ define(function (require, exports, module) {
             },
             url: api.special.setCollect,
             type: 'post',
-            data: JSON.stringify({fid: window.pageConfig.params.g_fileId, source: 0,site:urlConfig.site}),
+            data: JSON.stringify({ fid: window.pageConfig.params.g_fileId, source: 0, site: urlConfig.site }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
@@ -761,9 +773,9 @@ define(function (require, exports, module) {
                     });
                     _this.hasClass('btn-collect-success') ? _this.removeClass('btn-collect-success') : _this.addClass('btn-collect-success');
                 } else {
-                    if(res.code == '401002'){ // 收藏数量超过限制
+                    if (res.code == '401002') { // 收藏数量超过限制
                         fileCollectLayer.open()
-                    }else{
+                    } else {
                         $.toast({
                             text: _this.hasClass('btn-collect-success') ? '取消收藏失败' : '收藏失败'
                         });
@@ -780,7 +792,7 @@ define(function (require, exports, module) {
             },
             url: api.special.getCollectState,
             type: 'get',
-            data: {fid: window.pageConfig.params.g_fileId, uid: window.pageConfig.page.uid},
+            data: { fid: window.pageConfig.params.g_fileId, uid: window.pageConfig.page.uid },
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
@@ -829,7 +841,7 @@ define(function (require, exports, module) {
         return fileArr;
     }
 
-    function goPage(type, data,isPaidTest) { // data 登录后用户信息
+    function goPage(type, data, isPaidTest) { // data 登录后用户信息
         var fid = window.pageConfig.params.g_fileId;
         var format = window.pageConfig.params.file_format;
         var title = window.pageConfig.params.file_title;
@@ -837,10 +849,10 @@ define(function (require, exports, module) {
         var ref = utils.getPageRef(fid);
 
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
-        method.setCookieWithExp('f', JSON.stringify({fid: fid, title: title, format: format}), 5 * 60 * 1000, '/');
-        if(isPaidTest&&isPaidTest.productType==4&&isPaidTest.price){
+        method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
+        if (isPaidTest && isPaidTest.productType == 4 && isPaidTest.price) {
             createOrder()
-        }else if (type === 'file') {
+        } else if (type === 'file') {
             href = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
             method.compatibleIESkip('/pay/payConfirm.html' + href, false);
         } else if (type === 'vip') {
@@ -864,9 +876,9 @@ define(function (require, exports, module) {
         }
     }
     function createOrder() {
-         // 组装创建订单的参数
-         var goodsId = window.pageConfig.params.g_fileId
-         var temp = {
+        // 组装创建订单的参数
+        var goodsId = window.pageConfig.params.g_fileId
+        var temp = {
             goodsId: goodsId, // 文件id
             goodsType: 1, // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
             sourceMode: 0, // 0PC 1M 2android 3ios 4快应用 5百度小程序 6微信浏览器
@@ -892,11 +904,11 @@ define(function (require, exports, module) {
                         orderID: data.data.orderNo,
                         goodsID: goodsId,
                         goodsType: 1,
-                        prePageFileID: method.getParam('fid')||''
+                        prePageFileID: method.getParam('fid') || ''
                     });
-                   // 跳转
+                    // 跳转
                     var orderID = data.data.orderNo
-                   method.compatibleIESkip('/pay/payQr.html?' + 'type=8&orderNo=' + orderID + '&fid=' + goodsId)
+                    method.compatibleIESkip('/pay/payQr.html?' + 'type=8&orderNo=' + orderID + '&fid=' + goodsId)
                 } else {
                     $.toast({
                         text: res.message,
