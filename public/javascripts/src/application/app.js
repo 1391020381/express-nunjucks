@@ -112,7 +112,8 @@ define(function (require, exports, module) {
 
     $.ajaxSetup({
         headers: {
-            'Authrization': method.getCookie('cuk')
+            'Authrization': method.getCookie('cuk'),
+            'isharejsid': method.getLoginSessionId()
         },
         complete: function (XMLHttpRequest, textStatus) {
             // console.log('ajaxSetup:',XMLHttpRequest, textStatus)

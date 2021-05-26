@@ -439,31 +439,34 @@ define(function (require, exports, module) {
         },
         // 登录状态保存 默认30天
         saveLoginToken: function (token, timeout) {
-            timeout = timeout || 2592000000;
+            timeout = timeout || 7776000000;
             this.setCookieWithExpPath('cuk', token, timeout, '/');
+        },
+        // 清除
+        delLoginToken: function () {
+            this.delCookie('ui', '/');
+            this.delCookie('userId', '/');
+            this.delCookie('cuk', '/');
+            this.delCookie('cuk', '/', '.sina.com.cn');
+            this.delCookie('cuk', '/', '.iask.com.cn');
+            this.delCookie('cuk', '/', '.iask.com');
         },
         // 获取
         getLoginToken: function () {
             return this.getCookie('cuk') || '';
         },
-        // 清除
-        delLoginToken: function () {
-            this.delCookie('cuk', '/');
-        },
         // 登录id保存
         saveLoginSessionId: function (id) {
-            // 当前时间
-            var currentTime = new Date().getTime();
-            var idArr = id.split('_');
-            // 有效期截止时间戳
-            var timeEnd = idArr[1] || 0;
-            // 计算剩余有效时间
-            var locTimeout = timeEnd - currentTime;
-            this.setCookieWithExpPath('ish_jssid', id, locTimeout, '/');
+            // 保存30天
+            this.setCookieWithExpPath('ISHJSSID', id, 7776000000, '/');
         },
-        // 获取
+        // 删除登录sessionId
+        delLoginSessionId: function () {
+            this.delCookie('ISHJSSID', '/');
+        },
+        // 获取登录sessionId
         getLoginSessionId: function () {
-            return this.getCookie('ish_jssid') || '';
+            return this.getCookie('ISHJSSID') || '';
         },
         isIe8: function isIe8() {
             // var DEFAULT_VERSION = 8.0;
