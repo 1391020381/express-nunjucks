@@ -43,7 +43,7 @@ module.exports = {
                 checkStatus: req.query.checkStatus // pay.js中不同支付状态判断都通过 获取下载url接口为准
             };
             // 排序每个套餐的权益
-            if (results.list.data&&results.list.data.length) {
+            if (results.list.data && results.list.data.length) {
                 const tempListData = [];
                 results.list.data.forEach(item => {
                     const tempMembers = [];
@@ -158,7 +158,7 @@ module.exports = {
                         clientType: 0,
                         fid: req.query.orderNo,
                         sourceType: 1,
-                        site:4
+                        site: 4
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -259,7 +259,7 @@ module.exports = {
                             clientType: 0,
                             fid: req.query.fid,
                             sourceType: 0,
-                            site:4
+                            site: 4
                         }),
                         headers: {
                             'Content-Type': 'application/json'
@@ -292,7 +292,7 @@ module.exports = {
 
             results.isAutoRenew = req.query.isAutoRenew;
             results.flag = 3;
-            if(results.list){
+            if (results.list) {
                 results.list.data.payPrice = results.list.data.payPrice ? (results.list.data.payPrice / 100).toFixed(2) : '';
                 results.list.data.originalPrice = results.list.data.originalPrice ? (results.list.data.originalPrice / 100).toFixed(2) : '';
                 results.list.data.discountPrice = results.list.data.originalPrice - results.list.data.payPrice > 0 ? true : false;
@@ -572,7 +572,7 @@ module.exports = {
                         clientType: 0,
                         fid: req.query.id,
                         sourceType: 1,
-                        site:4
+                        site: 4
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -602,66 +602,5 @@ module.exports = {
             res.send(results.list).end();
         });
 
-    },
-
-    // 聚合支付二维码
-    payment: function (req, res) {
-        return async.series({
-            getOrderInfo: function (callback) {
-                const opt = {
-                    method: 'POST',
-                    url: appConfig.apiNewBaselPath + api.pay.status,
-                    body: JSON.stringify({
-                        orderNo: req.query.orderNo
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };
-                request(opt, (err, res1, body) => {
-                    const data = JSON.parse(body);
-                    if (body) {
-                        if (data.code == 0) {
-                            callback(null, data);
-                        } else {
-                            callback(null, {});
-                        }
-                    } else {
-                        callback(null, {});
-                    }
-                });
-            }
-        }, (err, results) => { // results 是fileDetails组装后的数据
-            const source = req.useragent.source;
-            // console.log('useragent:',JSON.stringify(req.useragent))
-            const isWeChat = source.indexOf('MicroMessenger') !== -1;
-            const isAliPay = source.indexOf('AlipayClient') !== -1;
-            const isOther = !isWeChat && !isAliPay;
-            // var isOther = false
-            results.goodsName = results.getOrderInfo.data.goodsName;
-            results.payPrice = results.getOrderInfo.data.payPrice/100;
-            results.isWeChat = isWeChat;
-            results.isAliPay = isAliPay;
-            results.isAutoRenew = req.query.isAutoRenew;
-            results.payment = 1;
-            if (isOther) {
-                res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });// 设置response编码
-                res.end('请使用微信或者支付扫码支付!');
-            } else {
-                render('pay/payment', results, req, res);
-            }
-        });
-    },
-
-    // 聚合支付结果页
-    paymentresult: function (req, res) {
-        return async.series({
-            getPaymentResult: function (callback) {
-                callback(null, null);
-            }
-        }, (err, results) => { // results 是fileDetails组装后的数据
-            results.payment = 1;
-            render('pay/paymentresult', results, req, res);
-        });
     }
 };

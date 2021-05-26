@@ -5,37 +5,37 @@ const env = process.env.NODE_ENV || 'prod';
 const config = {
     debug: {
         env: env,
-        // apiBasePath: 'http://ishare.iask.sina.com.cn/gateway/pc',
-        // apiNewBaselPath: 'http://ishare.iask.sina.com.cn/gateway',
-        // newBasePath: 'http://ishare.iask.sina.com.cn',
-        // loginUrl:'//login-ishare.iask.com.cn',
         apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
         apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
         newBasePath: 'http://pre-ishare.iask.com.cn',
-        loginUrl: '//pre-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
         port: 3004,
         static3: '',
-        officeUrl: 'http://office.iask.com'
+        loginUrl: 'http://login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://open-ishare.iask.com.cn',
+        upload: '//upload-ishare.iask.com',
+        bilogUrl: 'https://dw.iask.com.cn/ishare/jsonp',
+        officeUrl: 'http://office.iask.com',
+        ejunshi: 'http://dev.ejunshi.com'
     },
     local: {
         env: env,
-        // apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
-        // apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
-        // newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
-        // loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         apiBasePath: 'http://dev-ishare.iask.com.cn/gateway/pc',
         apiNewBaselPath: 'http://dev-ishare.iask.com.cn/gateway',
         newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
         port: 3004,
         static3: '',
-        officeUrl: 'http://dev-office.iask.com'
+        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://dev-open-ishare.iask.com.cn',
+        upload: '//dev-upload-ishare.iask.com',
+        bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
+        officeUrl: 'http://dev-office.iask.com',
+        ejunshi: 'http://dev.ejunshi.com'
     },
     dev: {
         env: env,
@@ -47,8 +47,12 @@ const config = {
         // 服务端口-自定义
         port: 3004,
         static3: '//dev-static3.iask.cn/',
+        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://dev-open-ishare.iask.com.cn',
+        upload: '//dev-upload-ishare.iask.com',
+        bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://dev-office.iask.com',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
+        ejunshi: 'http://dev.ejunshi.com'
     },
     test: {
         env: env,
@@ -60,8 +64,12 @@ const config = {
         // 服务端口-自定义
         port: 3004,
         static3: '//test-static3.iask.cn/',
+        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://test-open-ishare.iask.com.cn',
+        upload: '//test-upload-ishare.iask.com',
+        bilogUrl: 'https://test-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://test-office.iask.com',
-        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
+        ejunshi: 'http://test.ejunshi.com'
     },
     pre: {
         env: env,
@@ -73,8 +81,12 @@ const config = {
         // 服务端口-自定义
         port: 3004,
         static3: '//pre-static3.iask.cn/',
+        loginUrl: 'http://pre-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://pre-open-ishare.iask.com.cn',
+        upload: '//pre-upload-ishare.iask.com',
+        bilogUrl: 'https://pre-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://pre-office.iask.com',
-        loginUrl: 'http://pre-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
+        ejunshi: 'http://pre.ejunshi.com'
     },
     prod: {
         env: env,
@@ -86,8 +98,12 @@ const config = {
         // 服务端口-自定义
         port: 3004,
         static3: '//static3.iask.cn/',
+        loginUrl: 'http://login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        payUrl: 'http://open-ishare.iask.com.cn',
+        upload: '//upload-ishare.iask.com',
+        bilogUrl: 'https://dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://office.iask.com',
-        loginUrl: 'http://login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl='
+        ejunshi: 'http://ejunshi.com'
     }
 };
 

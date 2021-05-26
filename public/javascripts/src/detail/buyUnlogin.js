@@ -59,7 +59,7 @@ define(function (require) {
             });
             // 失败重新生产订单
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-refresh', function () {
-              //  unloginObj.createOrder();
+                //  unloginObj.createOrder();
                 unloginObj.count = 0;
                 var visitorId = unloginObj.getVisitorId();
                 var orderNo = unloginObj.orderNo;
@@ -95,22 +95,14 @@ define(function (require) {
                     fileName: page.fileName,
                     // todo A24
                     fileType: params.userFileType,
-                    salePrice:vipPrice&&vipDesc?vipPrice:params.productPrice,
-                    saleType: vipPrice&&vipDesc?5:params.productType,
+                    salePrice: vipPrice && vipDesc ? vipPrice : params.productPrice,
+                    saleType: vipPrice && vipDesc ? 5 : params.productType,
                     fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                     fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
                 });
-                // 测试登录埋点没反应的埋点（以后删除）
-                if (bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8') {
-                    trackEvent('NE061', 'fileDetailDownClick', 'click', {
-                        domID: 'fileDetailBottomDown',
-                        domName: '立即下载-a'
-                    });
-                }
-
                 unloginObj.isClear = false;
                 if (!method.getCookie('cuk')) {
-                    if ((pageConfig.params.productType == 5 && $(this).data('type') == 'file' )|| (pageConfig.params.productType == 4 && vipPrice&&vipDesc)) { // pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
+                    if ((pageConfig.params.productType == 5 && $(this).data('type') == 'file') || (pageConfig.params.productType == 4 && vipPrice && vipDesc)) { // pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         var clsId = getIds().clsId;
                         var fid = getIds().fid;
                         showTouristPurchaseDialog({ clsId: clsId, fid: fid }, function () { // 游客登录后刷新头部和其他数据
@@ -121,17 +113,17 @@ define(function (require) {
                                     method.delCookie('download-qqweibo', '/');
                                 }
                                 var isPaidTest = {
-                                    price:vipPrice,
-                                    desc:vipDesc,
-                                    productType:4
+                                    price: vipPrice,
+                                    desc: vipDesc,
+                                    productType: 4
                                 }
-                                common.afterLogin(data, { type: 'file', data: data, callback: goPage,isPaidTest:isPaidTest });
+                                common.afterLogin(data, { type: 'file', data: data, callback: goPage, isPaidTest: isPaidTest });
                             });
                         });
                         var className = 'ico-' + pageConfig.params.file_format;
                         $('.tourist-purchase-content .ico-data').addClass(className);
                         $('.tourist-purchase-content .file-desc').text(pageConfig.params.file_title);
-                        $('.tourist-purchase-content .file-price-summary .price').text(vipPrice?vipPrice:pageConfig.params.productPrice);
+                        $('.tourist-purchase-content .file-price-summary .price').text(vipPrice ? vipPrice : pageConfig.params.productPrice);
                         unloginObj.createOrder(); // 生成订单
                     }
                 }
@@ -224,6 +216,9 @@ define(function (require) {
                     $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide();
 
                 } else {
+                    $.toast({
+                        text: data.data.message
+                    });
                     var url = location.href;
                     var message = JSON.stringify(params) + JSON.stringify(data);
                     unloginObj.reportOrderError(url, message);
@@ -306,14 +301,14 @@ define(function (require) {
                                 payresult: 1,
                                 orderid: orderNo,
                                 fileid: orderInfo.goodsId,
-                                orderpayprice:orderInfo.payPrice /100
+                                orderpayprice: orderInfo.payPrice / 100
                             });
                             trackEvent('SE034', 'payResult', 'query', {
                                 result: 1,
                                 orderID: orderInfo.orderNo,
                                 goodsID: orderInfo.goodsId,
                                 goodsType: orderInfo.goodsType,
-                                prePageFileID:orderInfo.goodsId
+                                prePageFileID: orderInfo.goodsId
                             });
                             // 成功
                             try {
@@ -329,14 +324,14 @@ define(function (require) {
                                 payresult: 1,
                                 orderid: orderNo,
                                 fileid: orderInfo.goodsId,
-                                orderpayprice:orderInfo.payPrice/100
+                                orderpayprice: orderInfo.payPrice / 100
                             });
                             trackEvent('SE034', 'payResult', 'query', {
                                 result: 0,
                                 orderID: orderInfo.orderNo,
                                 goodsID: orderInfo.goodsId,
                                 goodsType: orderInfo.goodsType,
-                                prePageFileID:orderInfo.goodsId
+                                prePageFileID: orderInfo.goodsId
                             });
                         }
                     } else {

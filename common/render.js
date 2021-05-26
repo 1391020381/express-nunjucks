@@ -19,7 +19,12 @@ module.exports = (path, results, req, res) => {
         cdnUrl: pageConfig.cdn,
         staticUrl: pageConfig.staticUrl,
         version: pageConfig.version,
-        loginUrl:appConfig.loginUrl,
-        currentYear:new Date().getFullYear()
+        loginUrl: appConfig.loginUrl,
+        payUrl: appConfig.payUrl,
+        upload: appConfig.upload,
+        bilogUrl: appConfig.bilogUrl,
+        officeUrl: appConfig.officeUrl,
+        ejunshi: appConfig.ejunshi,
+        currentYear: new Date().getFullYear()
     });
 };
