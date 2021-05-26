@@ -144,63 +144,6 @@ define(function (require, exports, module) {
                     // 消息中心初始化---解决部分页面登陆后不刷新页面-未展示消息中心图标
                     messageCenter.init();
                 })
-                // method.get('/node/api/getUserInfo', function (res) { // api.user.login
-                //     if (res.code == 0 && res.data) {
-                //         if (isFirstLogin) {
-
-                //             handleBaiduStatisticsPush('loginResult01', {
-                //                 loginType: window.loginType && window.loginType,
-                //                 // phone: res.data.mobile,
-                //                 // userid: res.data.userId,
-                //                 loginResult: '1'
-                //             });
-                //             trackEventLogin(res.data.userId);
-                //             trackEvent('SE001', 'loginResult', 'query', {
-                //                 loginResult: '1',
-                //                 failMsg: '',
-                //                 loginType: window.loginType && window.loginType
-                //             });
-
-                //             var page = window.pageConfig && window.pageConfig.page || {};
-
-                //             if (page.type != 'detail') {
-                //                 window.location.reload();
-                //             }
-                //         }
-                //         $('.loginRedPacket-dialog').hide();
-                //         if (callback && typeof callback == 'function') {
-
-                //             callback(res.data);
-                //             try {
-                //                 window.pageConfig.params.isVip = res.data.isVip;
-                //                 window.pageConfig.page.uid = res.data.userId;
-
-                //             } catch (err) { }
-                //         }
-
-                //         try {
-                //             var userInfo = {
-                //                 uid: res.data.userId,
-                //                 isVip: res.data.isVip,
-                //                 tel: res.data.mobile
-                //             };
-                //             method.setCookieWithExpPath('ui', JSON.stringify(userInfo), 30 * 60 * 1000, '/');
-                //             method.setCookieWithExpPath('userId', res.data.userId, 30 * 60 * 1000, '/');
-                //         } catch (e) {
-                //         }
-                //     } else {
-
-                //         handleBaiduStatisticsPush('loginResult01', {
-                //             loginType: window.loginType && window.loginType,
-                //             // phone: '',
-                //             // userid: res.data.userId,
-                //             loginResult: '0'
-                //         });
-                //         _self.ishareLogout();
-                //     }
-                //     // 消息中心初始化---解决部分页面登陆后不刷新页面-未展示消息中心图标
-                //     messageCenter.init();
-                // });
             } catch (e) {
                 console.log(e);
             }
