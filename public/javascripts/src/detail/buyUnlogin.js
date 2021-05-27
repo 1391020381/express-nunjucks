@@ -217,7 +217,7 @@ define(function (require) {
 
                 } else {
                     $.toast({
-                        text: data.data.message
+                        text: data.message
                     });
                     var url = location.href;
                     var message = JSON.stringify(params) + JSON.stringify(data);

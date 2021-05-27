@@ -459,8 +459,10 @@ define(function (require, exports, module) {
                     expires_in = res.data && res.data.expires_in;
                     sceneId = res.data && res.data.sceneId;
                     countdown();
-                    if (isTouristLogin || isqrRefresh) {
+                    if (isTouristLogin) {
                         successFun = callback;
+                    }
+                    if (isTouristLogin || isqrRefresh) {
                         $('.tourist-login .qrcode-default').hide();
                         $('.tourist-login #login-qr').attr('src', res.data.url);
                         $('.tourist-login #login-qr').show();

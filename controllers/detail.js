@@ -75,7 +75,7 @@ module.exports = {
         };
         return async.series(index, (err, results) => { // async.series 串行无关联
             results.list.data = results.list.data || {};
-            const list = Object.assign({}, { data: Object.assign(results.list && results.list.data.fileInfo, results.list.data.tdk, results.list.data.transcodeInfo, { title: results.list && results.list.data.fileInfo.title }) });
+            const list = Object.assign({}, { data: Object.assign(results.list && results.list.data.fileInfo || {}, results.list.data.tdk, results.list.data.transcodeInfo, { title: results.list.data.fileInfo ? results.list.data.fileInfo.title : '' }) });
             const unloginFlag = req.query.unloginFlag;
             const consumeStatus = req.query.consumeStatus; // 7 已经下载过
             results = Object.assign({}, results, { list: list }, { unloginFlag: unloginFlag, consumeStatus: consumeStatus });
