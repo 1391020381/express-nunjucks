@@ -11,8 +11,6 @@ define(function (require, exports, module) {
             moduleName: '登录弹窗'
         });
         var loginDialog = $('#login-dialog');
-        var jsId = method.getLoginSessionId();
-        $.extend(params, { jsId: jsId });
         $('#dialog-box').dialog({
             html: loginDialog.html(),
             'closeOnClickModal': false
@@ -24,13 +22,7 @@ define(function (require, exports, module) {
             moduleID: 'login',
             moduleName: '登录弹窗'
         });
-        var jsId = method.getLoginSessionId();
-        $.extend(params, { jsId: jsId });
         var touristPurchaseDialog = $('#tourist-purchase-dialog');
-        // $('#dialog-box').dialog({
-        //     html: touristPurchaseDialog.html(),
-        //     'closeOnClickModal': false
-        // }).open(initIframeParams(callback, 'I_SHARE_T0URIST_PURCHASE', params));
         $('#dialog-box').dialog({
             html: touristPurchaseDialog.html(),
             'closeOnClickModal': false
@@ -38,13 +30,9 @@ define(function (require, exports, module) {
     }
 
     function showTouristLogin(params, callback) {
-        var jsId = method.getLoginSessionId();
-        $.extend(params, { jsId: jsId });
         var loginDom = $('#tourist-login').html();
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom);
         $('#tourist-login').remove();
-        // initIframeParams(callback, 'I_SHARE_T0URIST_LOGIN', params);
-        // getLoginQrcode(params.cid, params.fid, '', true)
         getLoginQrcode(params.cid, params.fid, '', true, callback)
     }
     return {

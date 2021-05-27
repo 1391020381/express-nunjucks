@@ -7,7 +7,6 @@ define(function (require, exports, module) {
     var code = method.getParam('code');
     var channel = method.getParam('channel'); // 使用渠道：1:登录；2:绑定
     var clientCode = method.getParam('clientCode');
-    var jsId = method.getLoginSessionId();
     thirdLoginRedirect(code, channel, clientCode);
 
 
@@ -17,8 +16,8 @@ define(function (require, exports, module) {
             thirdType: clientCode,
             code: code,
             businessSys: 'ishare',
-            site:urlConfig.site
-        }, '', {jsId:jsId}).then(function(res){
+            site: urlConfig.site
+        }).then(function (res) {
             if (res.code == '0') {
                 window.loginType = clientCode; // 获取用户信息时埋点需要
                 method.setCookieWithExpPath('cuk', res.data.access_token, res.data.expires_in * 1000, '/');
@@ -29,17 +28,17 @@ define(function (require, exports, module) {
                         'Authrization': method.getCookie('cuk')
                     }
                 });
-                $ajax('/node/api/getUserInfo', 'GET').then(function(res){
+                $ajax('/node/api/getUserInfo', 'GET').then(function (res) {
                     trackEventLogin(res.data.userId);
                     trackEvent('SE001', 'loginResult', 'query', {
-                        loginResult:'1',
-                        failMsg:'',
+                        loginResult: '1',
+                        failMsg: '',
                         loginType: window.loginType && window.loginType
                     });
-                    setTimeout(function(){
+                    setTimeout(function () {
                         window.open(redirectUrl, '_self');
                     }, 600);
-                }).fail(function(err){
+                }).fail(function (err) {
                     window.open(redirectUrl, '_self');
                 });
 

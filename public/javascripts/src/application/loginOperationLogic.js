@@ -4,7 +4,6 @@ define(function (require, exports, module) {
     var method = require('../application/method');
     var showCaptcha = require('../common/bindphone').showCaptcha;
     var urlConfig = require('./urlConfig')
-    myWindow = ''; // 保存第三方授权时,打开的标签
     var smsId = ''; // 验证码
     var myWindow = ''; // 保存 openWindow打开的对象
     var sceneId = ''; // 微信二维码的场景id
@@ -13,7 +12,6 @@ define(function (require, exports, module) {
     var timer = null; // 二维码过期
     var setIntervalTimer = null; // 保存轮询微信登录的定时器
     var expires_in = ''; // 二位码过期时间
-    var jsId = '';
     var successFun = '';
     loginTypeList = {
         type: 'wechat',
@@ -443,9 +441,6 @@ define(function (require, exports, module) {
      */
     function getLoginQrcode(cid, fid, isqrRefresh, isTouristLogin, callback) {
         $.ajax({
-            headers: {
-                jsId: jsId
-            },
             url: api.user.getLoginQrcode,
             type: 'POST',
             data: JSON.stringify({
@@ -500,9 +495,6 @@ define(function (require, exports, module) {
      */
     function thirdLoginRedirect(code, channel, clientCode) {
         $.ajax({
-            headers: {
-                jsId: jsId
-            },
             url: api.user.thirdLoginRedirect,
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
@@ -545,9 +537,6 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.user.loginByPsodOrVerCode,
             type: 'POST',
-            headers: {
-                jsId: jsId
-            },
             data: JSON.stringify({
                 loginType: loginType,
                 mobile: mobile,
@@ -588,9 +577,6 @@ define(function (require, exports, module) {
      */
     function loginByWeChat(cid, fid) {
         $.ajax({
-            headers: {
-                jsId: jsId
-            },
             url: api.user.loginByWeChat,
             type: 'POST',
             data: JSON.stringify({
@@ -676,9 +662,6 @@ define(function (require, exports, module) {
     function sendSms(appId, randstr, ticket, onOff) { // 发送短信验证码
         $.ajax({
             url: api.user.sendSms,
-            headers: {
-                jsId: jsId
-            },
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
@@ -772,22 +755,7 @@ define(function (require, exports, module) {
     // 常规登录初始化
     function loginInit(params, callback) {
         successFun = callback; // 保存传入的回调
-        jsId = params.jsId;
-        cid = params.cid || params.clsId;
-        originUrl = params.originUrl;
-        redirectUrl = params.redirectUrl;
-        bilogUrl = params.bilogUrl;
-        visitor_id = params.visitor_id;
-        bilog = {
-            sessionID: params.sessionID,
-            deviceID: params.deviceID,
-            persistedTime: params.persistedTime,
-            sessionReferrer: params.sessionReferrer,
-            sessionStartTime: params.sessionStartTime,
-            updatedTime: params.updatedTime,
-            visitID: params.visitID
-        };
-        getLoginQrcode(params.cid, params.fid);
+        getLoginQrcode(params.clsId, params.fid);
         isHasPcMLogin();
     }
     // 登录成功回调

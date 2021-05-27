@@ -68,8 +68,7 @@ module.exports = {
                 'Content-Type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization': req.cookies.cuk,
-                'isharejsid': req.cookies.isharejsid
+                'Authrization': req.cookies.cuk
             }
         };
     },
@@ -83,8 +82,7 @@ module.exports = {
                 'content-type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization': req.cookies.cuk,
-                'isharejsid': req.cookies.isharejsid
+                'Authrization': req.cookies.cuks
             },
             body: req.body
         };
