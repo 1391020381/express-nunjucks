@@ -4,6 +4,28 @@ define(function (require, exports, module) {
     var topBnnerTemplate = require('../common/template/swiper_tmp.html');
     var recommendConfigInfo = require('../common/recommendConfigInfo');
     var method = require('../application/method');
+
+    var dictionaryData = [];
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
+    }
+
+    getDictionaryData();
+
     // 顶部 banner
 
     gebyPosition();
@@ -19,8 +41,8 @@ define(function (require, exports, module) {
                     res.data.forEach(function (item) { // 匹配 组装数据
                         recommendConfigInfo.search.descs.forEach(function (desc) {
                             if (item.pageId == desc.pageId) {
-                                desc.list = method.handleRecommendData(item.list);
-                                console.log(method.handleRecommendData(item.list));
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
+                                console.log(method.handleRecommendData(item.list, dictionaryData));
                             }
                         });
                     });

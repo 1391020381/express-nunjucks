@@ -3,6 +3,8 @@ define(function (require) {
     var method = require('../application/method');
     var api = require('../application/api');
     var HotSpotSearch = require('./template/HotSpotSearch.html');
+    // A25需求：获取字典列表
+    var dictionaryData = [];
     new Swiper('.swiper-top-container', {
         direction: 'horizontal',
         loop: $('.swiper-top-container .swiper-slide').length > 1 ? true : false,
@@ -71,13 +73,52 @@ define(function (require) {
             success: function (res) {
                 if (res.code == '0') {
                     if (res.data.rows && res.data.rows.length) {
-                        var hotSpotSearchTemplate = template.compile(HotSpotSearch)({ hotSpotSearchList: res.data.rows || [] });
+                        var HotSpotList = res.data.rows;
+                        console.log('HotSpotList', HotSpotList, 'getDictionaryData', dictionaryData);
+                        for(var i = 0; i < HotSpotList.length; i++) {
+                            var findArr = dictionaryData.filter(function(item){
+                                // console.log(item.pcode, HotSpotList[i].templateCode);
+                                return item.pcode === HotSpotList[i].templateCode
+                            });
+                            console.log('findArr', findArr[0]);
+                            if (findArr[0]) {
+                                if (findArr[0].order === 4) {
+                                    HotSpotList[i].newRouterUrl = findArr[0].pvalue + '/' + HotSpotList[i].id + '.html';
+                                } else {
+                                    HotSpotList[i].newRouterUrl = findArr[0].desc + findArr[0].pvalue + '/' + HotSpotList[i].id + '.html';
+                                }
+                            } else {
+                                HotSpotList[i].newRouterUrl = '';
+                            }
+                        }
+                        // console.log('HotSpotList', HotSpotList);
+                        var hotSpotSearchTemplate = template.compile(HotSpotSearch)({ hotSpotSearchList: HotSpotList || [] });
                         $('.hot-spot-search-warper').html(hotSpotSearchTemplate);
                     }
                 }
             }
         });
     }
+
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
+    }
+
+    getDictionaryData();
 
     getSpecialTopic();
 

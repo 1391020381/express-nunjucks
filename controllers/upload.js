@@ -9,7 +9,6 @@ const appConfig = require('../config/app-config');
 const recommendConfigInfo = require('../common/recommendConfigInfo');
 const util = require('../common/util');
 
-
 module.exports = {
     index: function (req, res) {
         return async.series({

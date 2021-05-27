@@ -19,13 +19,34 @@ define(function (require) {
         });
     }
 
+    var dictionaryData = [];
+
     function initData(data) {
         userInfo = data;
+        getDictionaryData();
         getUserCentreInfo();
         getFileBrowsePage();
         getDownloadRecordList();
         getBannerbyPosition();
         getMyVipRightsList();
+    }
+
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
     }
 
     function getUserCentreInfo(callback, data) { // data 用户等信息     用户中心其他页面调用传入
@@ -217,7 +238,7 @@ define(function (require) {
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.personalCenterHome.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
-                                desc.list = method.handleRecommendData(item.list);
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
                     });
@@ -253,7 +274,7 @@ define(function (require) {
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.myVipRightsList.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
-                                desc.list = method.handleRecommendData(item.list);
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
                     });

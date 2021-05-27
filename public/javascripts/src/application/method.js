@@ -316,7 +316,7 @@ define(function (require, exports, module) {
                 return false;
             }
         },
-        handleRecommendData: function (list) {
+        handleRecommendData: function (list, dictionaryList) {
             var arr = [];
             $(list).each(function (index, item) {
                 var temp = {};
@@ -328,10 +328,21 @@ define(function (require, exports, module) {
                 if (item.type == 2) { // 链接
                     temp = item;
                 }
-                if (item.type == 3) { // 专题页
-                    // temp = Object.assign({},item,{linkUrl:`/node/s/${item.tprId}.html`})
-                    item.linkUrl = '/node/s/' + item.tprId + '.html';
-                    temp = item;
+                if (item.type == 3 && item.tprId && item.expand && item.expand.templateCode && Array.isArray(dictionaryList)) { // 专题页
+                    // 专题--且存在模板标识
+                    const templateCode = item.expand.templateCode;
+                    const targetItem = dictionaryList.find(sItem => sItem.pcode === templateCode);
+                    if (targetItem) {
+                        if (targetItem.order === 4) {
+                            // 追加字段-如果为办公站点
+                            item.linkUrl = `${targetItem.pvalue}/${item.tprId}.html`;
+                            temp = item;
+                        } else {
+                            // 追加字段-非办公站点
+                            item.linkUrl = `${targetItem.desc}${targetItem.pvalue}/${item.tprId}.html`;
+                            temp = item;
+                        }
+                    }
                 }
                 arr.push(temp);
             });

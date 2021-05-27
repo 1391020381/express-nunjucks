@@ -124,6 +124,8 @@ const getData = cc(async (req, res) => {
     const list = await getList(req, res, categoryId, sortField, format, currentPage, specificsIdList);
     const tdk = await getTdk(req, res, categoryId, sIds);
     const words = await getWords(req, res, categoryName);
+    // 获取字典数组
+    const dictionaryData = await getDictionaryData(req, res);
     handleResultData(
         req,
         res,
@@ -132,6 +134,7 @@ const getData = cc(async (req, res) => {
         list,
         tdk,
         words,
+        dictionaryData,
         categoryId,
         currentPage,
         format,
@@ -226,6 +229,13 @@ function getWords(req, res, categoryName) {
     return server.$http(appConfig.apiNewBaselPath + api.category.words, 'post', req, res, true);
 }
 
+// A25需求：请求字典列表
+function getDictionaryData(req, res) {
+    // console.log('reqreqreq', req, 'resresres', res);
+    const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
+    return server.$http(url, 'get', req, res, true);
+}
+
 /**
  * 专有方法，将对象转换为字符串
  * @param obj {object} 对象
@@ -247,6 +257,7 @@ function handleResultData(
     list,
     tdk,
     words,
+    dictionaryData,
     categoryId,
     currentPage,
     format,
@@ -322,19 +333,20 @@ function handleResultData(
     const topbannerId = 'topbanner';
     const rightbannerId = 'rightbanner';
     const zhuantiId = 'zhuanti';
+    const dictionaryDataList = dictionaryData.data;
     results.recommendList.data && results.recommendList.data.map(item => {
         if (item.pageId == categoryPage[topbannerId]) {
             // 顶部banner
-            results.topbannerList = util.handleRecommendData(item.list || []).list || []; //
+            results.topbannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || []; //
         } else if (item.pageId == categoryPage[rightbannerId]) {
             // 右上banner
-            results.rightBannerList = util.handleRecommendData(item.list || []).list || [];
+            results.rightBannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
         } else if (item.pageId == categoryPage[zhuantiId]) {
             // 专题
-            results.zhuantiList = util.handleRecommendData(item.list || []).list || [];
+            results.zhuantiList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
         } else if (item.pageId == categoryPage.friendLink) {
             // 友情链接
-            results.friendLink = util.dealHref(item).list || [];
+            results.friendLink = util.dealHref(item, dictionaryDataList).list || [];
         }
     });
 

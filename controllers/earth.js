@@ -37,10 +37,18 @@ module.exports = {
                     server.post(appConfig.apiNewBaselPath+Api.map.topic, callback, req);
                 }
 
+            },
+            // A25需求：请求字典列表
+            dictionaryData:function(callback) {
+                const url = appConfig.apiNewBaselPath + Api.dictionaryData.replace(/\$code/, 'themeModel');
+                server.get(url, callback, req);
             }
         }, (err, results) => {
-            // console.log(JSON.stringify(results))
+            // console.log('results', results.dictionaryData.data, results.maplist.data.rows);
+            const dictionaryDataList = results.dictionaryData.data;
+            // A25需求：pc主站-网站地图专题大全-专题入口逻辑处理
             const list = results.maplist.data && results.maplist.data.rows.map(item => {
+                // console.log('item', item);
                 const obj ={};
                 if (type == 'f') {
 
@@ -49,7 +57,19 @@ module.exports = {
                     return obj;
                 }else {
                     // var obj ={};
-                    obj.linkurl = '/node/s/'+item.specialTopicId +'.html';
+                    // console.log('item', item);
+                    const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === item.templateCode);
+                    // console.log('targetItem', targetItem);
+                    if (targetItem) {
+                        if (targetItem.order === 4) {
+                            obj.linkurl = `${targetItem.pvalue}/${item.id}.html`;
+                        } else {
+                            obj.linkurl = `${targetItem.desc}${targetItem.pvalue}/${item.id}.html`;
+                        }
+                        // console.log('obj.linkurl', obj.linkurl);
+                    } else {
+                        obj.linkurl = '';
+                    }
                     obj.title = item.topicName;
                     return obj;
                 }

@@ -108,21 +108,21 @@
                 {% endfor %}
             </div>
             {% endif %}
-            
+
             {% if results.categoryTitle.data.specificsInfos.length  %}
             {% for item in results.categoryTitle.data.specificsInfos %}
             <div class="search-item">
                 <span class="search-title">{{item.name}}：</span>
-                <a class="search-ele {%if item.select != 1 %} active {%endif%}" rel="nofollow" 
+                <a class="search-ele {%if item.select != 1 %} active {%endif%}" rel="nofollow"
                     href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}/{{item.surl}}" style="margin-left:15px;">全部</a>
                 {% for subitem in item.subSpecificsList%}
-                <a class="search-ele {%if subitem.select == 1 %} active {%endif%}" rel="nofollow" 
+                <a class="search-ele {%if subitem.select == 1 %} active {%endif%}" rel="nofollow"
                     href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}/{{subitem.surl}}">{{subitem.name}}</a>
                 {%endfor%}
             </div>
             {%endfor%}
             {%endif%}
-            
+
             <div class="search-item ">
                 <span class="search-title">格式：</span>
                 <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all"rel="nofollow" href="/c/{{results.reqParams.cid}}_all_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">全部</a>
@@ -138,7 +138,7 @@
                 <span class="screen-more"></span>
             </div> -->
         </div>
-       
+
         <!-- 搜索列表内容-->
         <div class="search-list-con">
             <div class="search-result js-sort">
@@ -162,11 +162,11 @@
                                 <span class="desc fl">
                                     {{ item.title|delType }}
                                 </span>
-    
+
                                 {% if item.highQuality %}
                                 <span class="icon-selected"></span>
                                 {%endif%}
-    
+
                                 {% if item.vipExclusive %}
                                 <span class="icon-vip"></span>
                                 {%endif%}
@@ -184,8 +184,8 @@
         </div>
         {% if results.list == 'undefined' or results.list.data.rows.length === 0 %}
         <div class="search-nocontent" >
-            <img style="margin-left: 180px;" class="fl" 
-                src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png" alt=""> 
+            <img style="margin-left: 180px;" class="fl"
+                src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png" alt="">
             <span class="fl" style="margin-top: 40px;font-size: 20px;margin-left: 10px;">抱歉,没有相关的文档。</span>
         </div>
         {% endif %}
@@ -252,7 +252,7 @@
                     {% for item in results.zhuantiList %}
                     <li>
                         <a href="{{item.linkUrl}}" target="_blank">
-                            <img src="{{item.imagUrl}}" alt=""> 
+                            <img src="{{item.imagUrl}}" alt="">
                         </a>
                     </li>
                     {%endfor%}
@@ -285,8 +285,8 @@
             </div>
         </div>
     </div>
-   
-   
+
+
    </div>
 
 </div>

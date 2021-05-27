@@ -12,6 +12,13 @@ function getFindSpecialTopic(req, res, paramsObj) {
     return server.$http(url, 'get', req, res, true);
 }
 
+// A25需求：请求字典列表
+function getDictionaryData(req, res) {
+    console.log('reqreqreq', req, 'resresres', res);
+    const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
+    return server.$http(url, 'get', req, res, true);
+}
+
 function getListTopicContents(req, res, paramsObj, specialList) {
     let arr = [];
     let uid = '';
@@ -167,6 +174,8 @@ const renderPage = cc(async (req, res) => {
     const paramsObj = util.getSpecialParams(req.url);
 
     const detail = await getFindSpecialTopic(req, res, paramsObj);
+    // 获取字典数组
+    const dictionaryData = await getDictionaryData(req, res);
     let specialList = [];
     let uid = '';
     if (req.cookies.ui) {
@@ -204,12 +213,33 @@ const renderPage = cc(async (req, res) => {
 
     const specialData = await getSpecialTopic(req, res, detail.data.topicName);
     const specialTopic = specialData.data && specialData.data.rows || [];
+    const dictionaryDataList = dictionaryData.data;
+    // console.log('specialTopic', specialTopic);
+    // console.log('dictionaryDataList', dictionaryDataList);
+    // A25需求：pc主站-专题页热门搜索-专题入口逻辑处理
+    if (specialTopic && dictionaryDataList) {
+        specialTopic.forEach((specialTopicItem, index) => {
+            console.log('specialTopicItem', specialTopicItem);
+            const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === specialTopicItem.templateCode);
+            console.log('targetItem', targetItem);
+            if (targetItem) {
+                if (targetItem.order === 4) {
+                    specialTopic[index].newRouterUrl = `${targetItem.pvalue}/${specialTopicItem.id}.html`;
+                } else {
+                    specialTopic[index].newRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${specialTopicItem.id}.html`;
+                }
+            } else {
+                specialTopic[index].newRouterUrl = '';
+            }
+        });
+        console.log('specialTopic', specialTopic);
+    }
 
     let recommendList = [];
     const recommendListData = await getRecommendList(req, res);
     recommendListData.data && recommendListData.data.map(item => {
         // 友情链接
-        recommendList = util.dealHref(item).list || [];
+        recommendList = util.dealHref(item, dictionaryDataList).list || [];
     });
     handleDataResult(req, res, detail, listData, specialTopic, paramsObj, tdkData, recommendList, uid);
 });

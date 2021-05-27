@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="zh-CN">
     <head>
         <meta name="renderer" content="webkit">
         <meta charset="utf-8">
@@ -165,7 +165,7 @@
                             <ul>
                                 {% for item in  results.hotTopicSeo %}
                                     <li>
-                                        <a target="_blank" href="https://ishare.iask.sina.com.cn/node/s/{{ item.itemId }}.html">{{ item.title|delType }}</a>
+                                        <a target="_blank" href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -234,7 +234,7 @@
                     {% endif %}
                     <div class="search-list">
                         {% for item in results.hotTopicSearch %}
-                            <a href="https://ishare.iask.sina.com.cn/node/s/{{ item.itemId }}.html">{{ item.title|delType }}</a>
+                            <a href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a>
                         {% endfor %}
                     </div>
                 </div>

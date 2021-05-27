@@ -148,11 +148,9 @@
                                             <span class="title-desc">热点搜索</span>
                                         </div>
                                         <ul class="hot-list">
-                                            {% for item in results
-                                                .specialTopic
-                                                .slice(10) %}
+                                            {% for item in results.specialTopic.slice(10) %}
                                                 <li  class="hot-items {%if loop.index0 > 9 %} hide {%endif%}">
-                                                    <a href="/node/s/{{item.id}}.html" target="_blank">{{item.topicName}}</a>
+                                                    <a href="{{item.newRouterUrl}}" target="_blank">{{item.topicName}}</a>
                                                 </li>
                                             {% endfor %}
 

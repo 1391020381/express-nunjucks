@@ -56,6 +56,8 @@ define(function (require, exports, moudle) {
             // banner轮播图
             new Slider('J_office_banner', 'J_office_focus', 'J_office_prev', 'J_office_next');
 
+            var dictionaryData = this.getDictionaryData();
+
             this.tabswitchFiles();
             this.tabswitchSeo();
             this.beforeInit();
@@ -85,7 +87,7 @@ define(function (require, exports, moudle) {
                 }
             });
             this.signDialog();
-            this.getBannerbyPosition();
+            this.getBannerbyPosition(dictionaryData);
         },
 
         beforeInit: function () {
@@ -304,7 +306,25 @@ define(function (require, exports, moudle) {
 
         },
 
-        getBannerbyPosition: function () { //
+        // A25：获取字典列表
+        getDictionaryData: function (){
+            $.ajax({
+                url: api.user.dictionaryData.replace('$code', 'themeModel'),
+                type: 'GET',
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                cache: false,
+                success: function (res) { // loginRedPacket-dialog
+                    if (res.data && res.data.length) {
+                        return res.data;
+                    }
+                    // console.log('getDictionaryData', dictionaryData);
+                }
+            });
+        },
+
+        getBannerbyPosition: function (dictionaryData) { //
             $.ajax({
                 url: api.recommend.recommendConfigInfo,
                 type: 'POST',
@@ -314,7 +334,7 @@ define(function (require, exports, moudle) {
                 success: function (res) {
                     if (res.code == '0') {
                         console.log('getBannerbyPosition:', res);
-                        var list = method.handleRecommendData(res.data[0].list);
+                        var list = method.handleRecommendData(res.data[0].list, dictionaryData);
                         var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list, className: 'authentication-container', hasDeleteIcon: false });
                         $('.authentication-banner').html(_bannerTemplate);
                         var mySwiper = new Swiper('.authentication-container', {

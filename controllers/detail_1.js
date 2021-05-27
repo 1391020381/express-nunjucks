@@ -83,10 +83,12 @@ const renderPage = cc(async (req, res) => {
     const rightTopBanner = await getRightBannerList(req, res);
     const crumbList = await getCrumbList(req, res, list);
     const cateList = await getCategoryList(req, res);
+    // 获取字典数组
+    const dictionaryData = await getDictionaryData(req, res);
 
     const filePreview = {};
 
-    handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList,paidTestData});
+    handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList,paidTestData});
 });
 
 
@@ -156,6 +158,13 @@ function getCategoryList(req, res) {
     return server.$http(appConfig.apiNewBaselPath + Api.index.navList, 'post', req, res, true);
 }
 
+// A25需求：请求字典列表
+function getDictionaryData(req, res) {
+    // console.log('reqreqreq', req, 'resresres', res);
+    const url = appConfig.apiNewBaselPath + Api.dictionaryData.replace(/\$code/, 'themeModel');
+    return server.$http(url, 'get', req, res, true);
+}
+
 function getFilePreview(req, res, list) {
     const validateIE9 = req.headers['user-agent'] ? ['IE9', 'IE8', 'IE7', 'IE6'].indexOf(util.browserVersion(req.headers['user-agent'])) === -1 ? 0 : 1 : 0;
     req.body = {
@@ -192,12 +201,13 @@ function getPaidTestData(req,res){ // 获取专题相关配置
     return server.$http(url, 'get', req, res, true);
 }
 
-function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList,paidTestData}) {
+function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList,paidTestData}) {
     let isVipPaidTest = {
         flag:false,
         price:'',
         desc:''
-    }
+    };
+    const dictionaryDataList = dictionaryData.data;
     if(paidTestData){
         paidTestData.forEach(item=>{
             if(item.pcode == 4){
@@ -216,14 +226,14 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
         if (req.cookies.isHideDetailTopbanner) {
             topBannerList = [];
         } else {
-            topBannerList = util.handleRecommendData(topBannerList.data[0] && topBannerList.data[0].list || []);
+            topBannerList = util.handleRecommendData(topBannerList.data[0] && topBannerList.data[0].list || [], dictionaryDataList);
         }
     }
     if (searchBannerList.data) {
-        searchBannerList = util.handleRecommendData(searchBannerList.data[0] && searchBannerList.data[0].list || []);
+        searchBannerList = util.handleRecommendData(searchBannerList.data[0] && searchBannerList.data[0].list || [], dictionaryDataList);
     }
     if(rightTopBanner&&rightTopBanner.data){
-        const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[]);
+        const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[], dictionaryDataList);
         const classId = categoryIdList&&categoryIdList.length?categoryIdList[categoryIdList.length-1].nodeCode:''
         console.log('classId:',classId,JSON.stringify(rightTopBanner))
         rightTopBanner = {list:[]};
@@ -240,8 +250,9 @@ function handleDetalData({ req, res, redirectUrl, list, topBannerList, searchBan
             'turnPageOneBanner': [],
             'turnPageTwoBanner': []
         };
+        console.log('bannerList.data', bannerList.data);
         bannerList.data.forEach(item => {
-            detailBannerList[item.id] = util.handleRecommendData(item.fileRecommend && item.fileRecommend.list || []);
+            detailBannerList[item.id] = util.handleRecommendData(item.fileRecommend && item.fileRecommend.list || [], dictionaryDataList);
         });
     }
 

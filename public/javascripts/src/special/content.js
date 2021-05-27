@@ -123,6 +123,28 @@ define(function (require, exports, module) {
         return '?' + str.substring(1);
     }
 
+    var dictionaryData = [];
+
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
+    }
+
+    getDictionaryData();
+
     gebyPosition();
     function gebyPosition() {
         $.ajax({
@@ -136,7 +158,7 @@ define(function (require, exports, module) {
                     res.data.forEach(function (item) { // 匹配 组装数据
                         recommendConfigInfo.specialRightBanner.descs.forEach(function (desc) {
                             if (item.pageId == desc.pageId) {
-                                desc.list = method.handleRecommendData(item.list);
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
                     });

@@ -379,6 +379,29 @@ define(function (require, exports, module) {
         var sword = _val ? _val.replace(/^\s+|\s+$/gm, '') : '';
         window.location.href = '/search/home.html?ft=all&cond=' + encodeURIComponent(encodeURIComponent(sword));
     };
+
+    var dictionaryData = [];
+
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
+    }
+
+    getDictionaryData();
+
     gebyPosition();
     function gebyPosition() {
         $.ajax({
@@ -405,7 +428,7 @@ define(function (require, exports, module) {
                         // })
                         $(recommendConfigInfo.downSuccess.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
-                                desc.list = method.handleRecommendData(item.list);
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
                     });

@@ -111,10 +111,16 @@ module.exports = {
                     pageSize: 200
                 };
                 server.post(appConfig.apiNewBaselPath + api.index.listContentInfos, callback, req);
+            },
+            // A25需求：请求字典列表
+            dictionaryData: function (callback) {
+                const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
+                server.get(url, callback, req);
             }
 
         }, (err, results) => {
-
+            // console.log('results.hotTopicSeo', results.hotTopicSeo);
+            // console.log('results.dictionaryData', results.dictionaryData);
             if (err) {
                 next(err);
             }
@@ -140,6 +146,27 @@ module.exports = {
                 if (results.hotTopicSeo && results.hotTopicSeo.data) {
                     results.topicPagtotal = results.hotTopicSeo.data.length;
                 }
+                // A25需求：pc主站-首页热门专题-专题入口逻辑处理
+                if (results.hotTopicSeo.data && results.dictionaryData.data) {
+                    const hotDataList = results.hotTopicSeo.data;
+                    const dictionaryDataList = results.dictionaryData.data;
+                    // console.log(dictionaryDataList);
+                    hotDataList.forEach((hotItem, index) => {
+                        // console.log('hotItem', hotItem.templateCode);
+                        const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === hotItem.templateCode);
+                        // console.log('targetItem', targetItem);
+                        if (targetItem) {
+                            if (targetItem.order === 4) {
+                                results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.pvalue}/${hotItem.id}.html`;
+                            } else {
+                                results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${hotItem.id}.html`;
+                            }
+                        } else {
+                            results.hotTopicSeo.data[index].newRouterUrl = '';
+                        }
+                    });
+                    // console.log('results.hotTopicSeo.data', results.hotTopicSeo.data);
+                }
                 if (results.newsRec && results.newsRec.data) {
                     results.newPagetotal = results.newsRec.data.length;
                 } else {
@@ -160,30 +187,31 @@ module.exports = {
                 //  console.log(JSON.stringify(results),'results------------------contentList')
                 if (results.recommendList) {
                     const recfileArr = [];// 精选资料
+                    const dictionaryDataList = results.dictionaryData.data;
                     results.recommendList.data && results.recommendList.data.map(item => {
                         if (item.pageId == util.pageIds.index.ub) {
-                            results.bannerList = util.dealHref(item).list || [];
+                            results.bannerList = util.dealHref(item, dictionaryDataList).list || [];
                         } else if (item.pageId == util.pageIds.index.zt) {
-                            results.specialList = util.dealHref(item).list || [];
+                            results.specialList = util.dealHref(item, dictionaryDataList).list || [];
                         } else if (item.pageId == util.pageIds.index.viprelevant) {
-                            results.vipList = util.dealHref(item).list || [];
+                            results.vipList = util.dealHref(item, dictionaryDataList).list || [];
                         } else if (item.pageId == util.pageIds.index.recfile1) {
-                            const tmp1 = util.dealHref(item).list || [];
+                            const tmp1 = util.dealHref(item, dictionaryDataList).list || [];
                             recfileArr.push(tmp1);
                         } else if (item.pageId == util.pageIds.index.recfile2) {
-                            const tmp2 = util.dealHref(item).list || [];
+                            const tmp2 = util.dealHref(item, dictionaryDataList).list || [];
                             recfileArr.push(tmp2);
                         } else if (item.pageId == util.pageIds.index.recfile3) {
-                            const tmp3 = util.dealHref(item).list || [];
+                            const tmp3 = util.dealHref(item, dictionaryDataList).list || [];
                             recfileArr.push(tmp3);
                         } else if (item.pageId == util.pageIds.index.recfile4) {
-                            const tmp4 = util.dealHref(item).list || [];
+                            const tmp4 = util.dealHref(item, dictionaryDataList).list || [];
                             recfileArr.push(tmp4);
                         } else if (item.pageId == util.pageIds.index.recfile5) {
-                            const tmp5 = util.dealHref(item).list || [];
+                            const tmp5 = util.dealHref(item, dictionaryDataList).list || [];
                             recfileArr.push(tmp5);
                         } else if (item.pageId == util.pageIds.index.organize) {
-                            const arr = util.dealHref(item).list || [];
+                            const arr = util.dealHref(item, dictionaryDataList).list || [];
                             // 处理权威机构数据
                             const fileArr = [];
                             const userInfoArr = [];
@@ -206,12 +234,12 @@ module.exports = {
 
                         } else if (item.pageId == util.pageIds.index.hotSearchWord) {
                             // 搜索框下热词搜索
-                            results.hotSearchWord = util.dealHref(item).list || [];
+                            results.hotSearchWord = util.dealHref(item, dictionaryDataList).list || [];
                         } else if (item.pageId == util.pageIds.index.friendLink) {
                             // 友情链接
-                            results.friendLink = util.dealHref(item).list || [];
+                            results.friendLink = util.dealHref(item, dictionaryDataList).list || [];
                         } else if (item.pageId == util.pageIds.index.vipqy) {
-                            results.vipqy = util.dealHref(item).list || [];
+                            results.vipqy = util.dealHref(item, dictionaryDataList).list || [];
                         }
                     });
                     // VIP专区优先展示第四范式的数据，如果第四范式没有返回数据，则取自定义推荐位配置的数据*
@@ -241,7 +269,7 @@ module.exports = {
 
                     results.recfileArr = recfileArr;
                 }
-                console.log(JSON.stringify(results.recfileArr), 'results------------------');
+                // console.log(JSON.stringify(results.recfileArr), 'results------------------');
                 results.officeUrl = appConfig.officeUrl;
                 render('index/index', results, req, res, next);
             } catch (e) {
