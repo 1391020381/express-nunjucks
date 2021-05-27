@@ -1,4 +1,5 @@
 define(function (require, exports, module) {
+    var urlConfig = require('../application/urlConfig')
     var method = require('../application/method');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = false;
@@ -36,5 +37,8 @@ define(function (require, exports, module) {
             domID: 'transClick',
             domName: '格式转换入口点击'
         });
+        var convertType = $(this).attr('data-convert-type')
+        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
+        method.compatibleIESkip(href, true)
     })
 });

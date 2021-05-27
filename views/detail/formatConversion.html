@@ -1,36 +1,36 @@
-<div class="format-conversion-icon fl pc js-go2FileConvert">
+<div class="format-conversion-icon fl pc ">
     <span class="conversion-icon iconfont iconxiangxiye-geshizhuanhuan"></span>
     {% if results.list.data.format == 'doc'%}
         <ul class="format-conversion-iconlist format-conversion-more">
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdftoword">
                 <span class="format-icon pdf-convert-ppt"></span>
                 <span class="format-desc">PDF转换</span>
             </li>
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdfmerge">
                 <span class="format-icon pdf-merge"></span>
                 <span class="format-desc">合并PDF</span>
             </li>
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdfsplit">
                 <span class="format-icon pdf-split"></span>
                 <span class="format-desc">拆分PDF</span>
             </li>
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdfencrypt">
                 <span class="format-icon pdf-encryption"></span>
                 <span class="format-desc">加密PDF</span>
             </li>
         </ul>
         {%else%}
         <ul class="format-conversion-iconlist">
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdftoword">
                 <span class="format-icon pdf-convert-ppt"></span>
                 <span class="format-desc">一键转PDF</span>
             </li>
-            <li class="icon-list-item fl">
+            <li class="icon-list-item fl js-go2FileConvert" data-convert-type="pdfmerge">
                 <span class="format-icon ppt-convert-pdf"></span>
                 <span class="format-desc">资料格式转换</span>
             </li>
-            <ul>
-                {%endif%}
-                <em class="arrow arrow-firtst"></em>
-                <em class="arrow arrow-sencond"></em>
-            </div>
+        </ul>
+        {%endif%}
+        <em class="arrow arrow-firtst"></em>
+        <em class="arrow arrow-sencond"></em>
+    </div>

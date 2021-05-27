@@ -18,7 +18,8 @@ const config = {
         upload: '//upload-ishare.iask.com',
         bilogUrl: 'https://dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://office.iask.com',
-        ejunshi: 'http://dev.ejunshi.com'
+        ejunshi: 'http://dev.ejunshi.com',
+        fileConvertSite: 'http://dev.pdf.iask.com'
     },
     local: {
         env: env,
@@ -35,7 +36,8 @@ const config = {
         upload: '//dev-upload-ishare.iask.com',
         bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://dev-office.iask.com',
-        ejunshi: 'http://dev.ejunshi.com'
+        ejunshi: 'http://dev.ejunshi.com',
+        fileConvertSite: 'http://dev.pdf.iask.com'
     },
     dev: {
         env: env,
@@ -52,7 +54,8 @@ const config = {
         upload: '//dev-upload-ishare.iask.com',
         bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://dev-office.iask.com',
-        ejunshi: 'http://dev.ejunshi.com'
+        ejunshi: 'http://dev.ejunshi.com',
+        fileConvertSite: 'http://dev.pdf.iask.com'
     },
     test: {
         env: env,
@@ -69,7 +72,8 @@ const config = {
         upload: '//test-upload-ishare.iask.com',
         bilogUrl: 'https://test-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://test-office.iask.com',
-        ejunshi: 'http://test.ejunshi.com'
+        ejunshi: 'http://test.ejunshi.com',
+        fileConvertSite: 'http://test.pdf.iask.com'
     },
     pre: {
         env: env,
@@ -86,7 +90,8 @@ const config = {
         upload: '//pre-upload-ishare.iask.com',
         bilogUrl: 'https://pre-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://pre-office.iask.com',
-        ejunshi: 'http://pre.ejunshi.com'
+        ejunshi: 'http://pre.ejunshi.com',
+        fileConvertSite: 'http://pre.pdf.iask.com'
     },
     prod: {
         env: env,
@@ -103,7 +108,8 @@ const config = {
         upload: '//upload-ishare.iask.com',
         bilogUrl: 'https://dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://office.iask.com',
-        ejunshi: 'http://ejunshi.com'
+        ejunshi: 'http://ejunshi.com',
+        fileConvertSite: 'http://pdf.iask.com'
     }
 };
 

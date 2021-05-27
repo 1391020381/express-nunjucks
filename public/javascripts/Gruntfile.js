@@ -115,7 +115,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     "../stylesheets/ishare_public.css": "../stylesheets/ishare_public.less",
-                    "../stylesheets/ishare_detail_b.css": "../stylesheets/ishare_detail_b.less",
+                    "../stylesheets/down-success.css": "../stylesheets/down-success.less",
                     "../stylesheets/ishare_detail.css": "../stylesheets/ishare_detail.less",
                     "../stylesheets/pay/ishare_pay.css": "../stylesheets/pay/ishare_pay.less",
                     "../stylesheets/search/ishare_search.css": "../stylesheets/search/ishare_search.less",
@@ -140,17 +140,17 @@ module.exports = function (grunt) {
         },
 
         //压缩图片大小
-        imagemin:{
-            dist :{
-                options :{
-                    optimizationLevel : 3 //定义 PNG 图片优化水平
+        imagemin: {
+            dist: {
+                options: {
+                    optimizationLevel: 3 //定义 PNG 图片优化水平
                 },
-                files:[
+                files: [
                     {
-                        expand:true,
-                        cwd : '../images',
-                        src : ['**/*.{png,jpg,jpeg,gif}'],//优化 img 目录下所有 png/jpg/jpeg 图片
-                        dest : '../images' //优化后的图片保存位置，覆盖旧图片，并且不作提示（建议新建一个目录）
+                        expand: true,
+                        cwd: '../images',
+                        src: ['**/*.{png,jpg,jpeg,gif}'],//优化 img 目录下所有 png/jpg/jpeg 图片
+                        dest: '../images' //优化后的图片保存位置，覆盖旧图片，并且不作提示（建议新建一个目录）
                     }
                 ]
             }
@@ -189,5 +189,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.registerTask('css', ['less']);
-    grunt.registerTask('build', ['devcode', 'less', 'transport', 'concat', 'uglify', 'copy', 'clean','imagemin']);
+    grunt.registerTask('build', ['devcode', 'less', 'transport', 'concat', 'uglify', 'copy', 'clean', 'imagemin']);
 }

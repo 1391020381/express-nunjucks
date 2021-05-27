@@ -190,7 +190,7 @@
 .down-success .qrcode-warpper .qrcode-desc {
   margin: 0 auto;
   margin-top: 9px;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
   width: 256px;
   font-size: 16px;
 }
@@ -266,7 +266,7 @@
   width: 47px;
   height: 66px;
   border-radius: 2px;
-  border: solid 1px #eeee e;
+  border: solid 1px #eee;
 }
 .down-success .guess-you-like-warpper .guess-you-like .guess-you-like-itmes .item .item-link .item-link-left .item-link-left-icon {
   position: absolute;
@@ -348,5 +348,14 @@
   font-size: 15px;
   font-weight: 400;
   color: #ffffff;
+  cursor: pointer;
+}
+.file-format-convert {
+  margin: 0 auto;
+  margin-bottom: 60px;
+  width: 340px;
+  height: 70px;
+  background: url("../images/new_detail/formatConvert.png") no-repeat center;
+  background-size: 100%;
   cursor: pointer;
 }

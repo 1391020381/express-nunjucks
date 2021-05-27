@@ -389,12 +389,15 @@ define(function (require, exports, module) {
 
         // 跳转到格式转换
         $('.js-go2FileConvert').on('click', function () {
-            var domID = 'Click{PDF转Word}'
-            var domName = '{PDF转Word}导航点击'
+            var convertType = $(this).attr('data-convert-type')
+            var domID = 'Click' + convertType
+            var domName = convertType + '导航点击'
             trackEvent('NE002', 'normalClick', 'click', {
-                domID: 'transClick',
-                domName: '格式转换入口点击'
+                domID: domID,
+                domName: domName
             });
+            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
+            method.compatibleIESkip(href, true)
         })
     }
 

@@ -25,6 +25,7 @@ module.exports = (path, results, req, res) => {
         bilogUrl: appConfig.bilogUrl,
         officeUrl: appConfig.officeUrl,
         ejunshi: appConfig.ejunshi,
+        fileConvertSite: appConfig.fileConvertSite,
         currentYear: new Date().getFullYear()
     });
 };

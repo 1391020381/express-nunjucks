@@ -1,6 +1,7 @@
 
 
 define(function (require) {
+    var urlConfig = require('../application/urlConfig')
     var method = require('../application/method');
     var api = require('../application/api');
     var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html');
@@ -278,11 +279,14 @@ define(function (require) {
         }
 
     });
-    $(document).on('click', '.personal-center-mydownload .js-go2FileConvert', function () {
+    $(document).on('click', '.personal-center-mydownloads .js-go2FileConvert', function () {
         trackEvent('NE002', 'normalClick', 'click', {
             domID: 'downTransClick',
             domName: '下载列表页导流按钮点击'
         });
+        var convertType = $(this).attr('data-convert-type')
+        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
+        method.compatibleIESkip(href, true)
     })
     $(document).on('click', '.personal-center-dialog .evaluation-confirm', function () {
 

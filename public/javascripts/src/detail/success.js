@@ -2,6 +2,7 @@ define(function (require, exports, module) {
     require('swiper');
     require('../cmd-lib/myDialog');
     var method = require('../application/method');
+    var urlConfig = require('../application/urlConfig')
     var login = require('../application/checkLogin');
     var utils = require('../cmd-lib/util');
     var fid = method.getParam('fid');
@@ -343,6 +344,9 @@ define(function (require, exports, module) {
                 domID: 'sucTransClick',
                 domName: '成功页导流按钮点击'
             });
+            var convertType = $(this).attr('data-convert-type')
+            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
+            method.compatibleIESkip(href, true)
         })
     }
 
