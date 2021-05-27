@@ -331,15 +331,19 @@ define(function (require, exports, module) {
                 if (item.type == 3 && item.tprId && item.expand && item.expand.templateCode && Array.isArray(dictionaryList)) { // 专题页
                     // 专题--且存在模板标识
                     const templateCode = item.expand.templateCode;
-                    const targetItem = dictionaryList.find(sItem => sItem.pcode === templateCode);
-                    if (targetItem) {
-                        if (targetItem.order === 4) {
+                    var targetItem = dictionaryData.filter(function(sItem){
+                        // console.log(item.pcode, HotSpotList[i].templateCode);
+                        return sItem.pcode === templateCode
+                    });
+                    console.log('findArr', findArr[0]);
+                    if (targetItem[0]) {
+                        if (targetItem[0].order === 4) {
                             // 追加字段-如果为办公站点
-                            item.linkUrl = `${targetItem.pvalue}/${item.tprId}.html`;
+                            item.linkUrl = targetItem[0].pvalue + '/' + item.tprId + '.html';
                             temp = item;
                         } else {
                             // 追加字段-非办公站点
-                            item.linkUrl = `${targetItem.desc}${targetItem.pvalue}/${item.tprId}.html`;
+                            item.linkUrl = targetItem[0].desc + targetItem[0].pvalue + '/' + item.tprId + '.html';
                             temp = item;
                         }
                     }
