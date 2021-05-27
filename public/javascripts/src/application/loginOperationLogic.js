@@ -142,7 +142,7 @@ define(function (require, exports, module) {
         }
         if (logintype == 'password') { // mobile
 
-            nationCode = $('.login-content.password-login .phone-num').text().replace(/\+/, '').trim();
+            nationCode = $('.login-content .password-login .phone-num .add').text().replace(/\+/, '').trim();
             var password = $('.login-content .password-login .password .login-password:visible').val().trim();
             mobile = $('.login-content .password-login .telphone').val().trim();
             if (!method.testPhone(mobile) && nationCode == 86) {
@@ -169,7 +169,7 @@ define(function (require, exports, module) {
     $(document).on('click', '.login-content .getVerificationCode', function (e) {
         var authenticationCodeType = $(this).attr('data-authenticationCodeType');
         var telphone = $('.login-content .verificationCode-login .input-mobile .telphone').val();
-        var nationCode = $('.login-content .verificationCode-login .phone-num').text().replace(/\+/, '').trim();
+        var nationCode = $('.login-content .verificationCode-login .phone-num .add').text().replace(/\+/, '').trim();
         if (nationCode == '86') {
             if (!method.testPhone(telphone)) {
 
@@ -206,7 +206,7 @@ define(function (require, exports, module) {
     $(document).on('input', '.login-content .verificationCode-login .telphone', function (e) {
         mobile = $(this).val();
         var verificationCode = $('.login-content .verificationCode-login .verification-code').val();
-        var nationCode = $('.login-content .verificationCode-login .phone-num').text().replace(/\+/, '').trim();
+        var nationCode = $('.login-content .verificationCode-login .phone-num .add').text().replace(/\+/, '').trim();
         if (mobile.length > 11) {
             $('.login-content .telphone').val(mobile.slice(0, 11));
         }
@@ -247,7 +247,7 @@ define(function (require, exports, module) {
 
     });
     $(document).on('input', '.login-content .verification-code', function (e) { //
-        var nationCode = $('.login-content .verificationCode-login .phone-num').text().replace(/\+/, '').trim();
+        var nationCode = $('.login-content .verificationCode-login .phone-num .add').text().replace(/\+/, '').trim();
         var mobile = $('.login-content .verificationCode-login .telphone').val();
         var verificationCode = $(this).val();
         if (verificationCode.length > 4) {
@@ -277,7 +277,7 @@ define(function (require, exports, module) {
 
     });
     $(document).on('input', '.login-content .password-login .telphone', function () { //
-        var nationCode = $('.login-content .password-login .phone-num').text().replace(/\+/, '').trim();
+        var nationCode = $('.login-content .password-login .phone-num .add').text().replace(/\+/, '').trim();
         mobile = $(this).val();
         if (mobile.length > 11) {
             $('.login-content.password-login .telphone').val(mobile.slice(0, 11));
@@ -316,7 +316,7 @@ define(function (require, exports, module) {
         }
     });
     $(document).on('input', '.login-content .password-login .login-password', function () {
-        var nationCode = $('.login-content .password-login .phone-num').text().replace(/\+/, '').trim();
+        var nationCode = $('.login-content .password-login .phone-num .add').text().replace(/\+/, '').trim();
         var password = $(this).val();
         var telphone = $('.login-content .password-login .telphone').val();
         if (password && password.length > 0) {
@@ -683,7 +683,7 @@ define(function (require, exports, module) {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 mobile: mobile,
-                nationCode: $('.login-content .verificationCode-login .phone-num').text().replace(/\+/, '').trim(),
+                nationCode: $('.login-content .verificationCode-login .phone-num .add').text().replace(/\+/, '').trim(),
                 businessCode: businessCode, // 功能模块（1-注册模块、2-找回密码、3-修改密码、4-登录、5-绑定/更换手机号手机号（会检查手机号是否被使用过）、6-旧手机号获取验证码）
                 terminal: 'pc',
                 'appId': appId,
