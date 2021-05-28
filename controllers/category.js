@@ -351,9 +351,30 @@ function handleResultData(
     });
 
     // 热点搜索
-    results.words.data && results.words.data.rows.map(item => {
-        item.linkurl = '/node/s/' + item.specialTopicId + '.html';
-    });
+    // results.words.data && results.words.data.rows.map(item => {
+    //     item.linkurl = '/node/s/' + item.specialTopicId + '.html';
+    // });
+
+    const categoryTopic = results.words.data.rows
+
+    // A25需求：pc主站-专题页热门搜索-专题入口逻辑处理
+    if (categoryTopic && dictionaryDataList) {
+        categoryTopic.forEach((categoryTopicItem, index) => {
+            console.log('categoryTopicItem', categoryTopicItem);
+            const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === categoryTopicItem.templateCode);
+            console.log('targetItem', targetItem);
+            if (targetItem) {
+                if (targetItem.order === 4) {
+                    categoryTopic[index].linkurl = `${targetItem.pvalue}/${categoryTopicItem.id}.html`;
+                } else {
+                    categoryTopic[index].linkurl = `${targetItem.desc}${targetItem.pvalue}/${categoryTopicItem.id}.html`;
+                }
+            } else {
+                categoryTopic[index].linkurl = '';
+            }
+        });
+        console.log('categoryTopic', categoryTopic);
+    }
 
     results.categoryId = categoryId; // 登录时传入当前分类id
     results.navFatherId = navFatherId; // 登录时传入当前分类id
