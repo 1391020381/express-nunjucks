@@ -38,7 +38,7 @@ const config = {
         bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://dev-office.iask.com',
         ejunshi: 'http://dev.ejunshi.com',
-        fileConvertSite: 'http://dev.pdf.iask.com'
+        fileConvertSite: 'http://dev-pdf.iask.com'
     },
     dev: {
         env: env,
@@ -56,7 +56,7 @@ const config = {
         bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://dev-office.iask.com',
         ejunshi: 'http://dev.ejunshi.com',
-        fileConvertSite: 'http://dev.pdf.iask.com'
+        fileConvertSite: 'http://dev-pdf.iask.com'
     },
     test: {
         env: env,
@@ -74,7 +74,7 @@ const config = {
         bilogUrl: 'https://test-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://test-office.iask.com',
         ejunshi: 'http://test.ejunshi.com',
-        fileConvertSite: 'http://test.pdf.iask.com'
+        fileConvertSite: 'http://test-pdf.iask.com'
     },
     pre: {
         env: env,
@@ -92,7 +92,7 @@ const config = {
         bilogUrl: 'https://pre-dw.iask.com.cn/ishare/jsonp',
         officeUrl: 'http://pre-office.iask.com',
         ejunshi: 'http://pre.ejunshi.com',
-        fileConvertSite: 'http://pre.pdf.iask.com'
+        fileConvertSite: 'http://pre-pdf.iask.com'
     },
     prod: {
         env: env,
