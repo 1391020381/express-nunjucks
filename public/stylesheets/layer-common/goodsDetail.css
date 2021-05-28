@@ -1,0 +1,113 @@
+.m-goodsDetail-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 15px 0 rgba(1, 1, 1, 0.35);
+}
+.m-goodsDetail-layer .ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.m-goodsDetail-layer .close-btn {
+  position: absolute;
+  top: 15px;
+  right: -32px;
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url(../images/icon_iShare.png) -220px -20px no-repeat;
+  overflow: hidden;
+  cursor: pointer;
+}
+.m-goodsDetail-layer .goods-img {
+  width: 500px;
+  height: 306px;
+  text-align: center;
+  line-height: 306px;
+  background-color: #F4F4F4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.m-goodsDetail-layer .goods-img .img-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.m-goodsDetail-layer .goods-img img {
+  display: inline-block;
+  width: 100%;
+}
+.m-goodsDetail-layer .goods-info {
+  position: relative;
+  padding: 15px 20px;
+}
+.m-goodsDetail-layer .goods-name {
+  font-size: 16px;
+  color: #333;
+  height: 24px;
+  line-height: 24px;
+}
+.m-goodsDetail-layer .goods-handle {
+  margin-top: 24px;
+  height: 40px;
+}
+.m-goodsDetail-layer .goods-handle .price {
+  display: inline-block;
+  font-size: 16px;
+  color: #F25125;
+  padding: 9px 0;
+  box-sizing: border-box;
+}
+.m-goodsDetail-layer .goods-handle .price .icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: url(../images/common/iask-coin.png) center no-repeat;
+}
+.m-goodsDetail-layer .goods-handle .price .num {
+  display: block;
+  max-width: 250px;
+  height: 22px;
+  line-height: 22px;
+  margin-left: 6px;
+}
+.m-goodsDetail-layer .goods-handle .price .util {
+  display: block;
+  height: 22px;
+  line-height: 22px;
+}
+.m-goodsDetail-layer .goods-handle .exchange {
+  font-size: 14px;
+  color: #fff;
+  width: 125px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #F25125;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.m-goodsDetail-layer .goods-handle .exchange.disabled {
+  background-color: #F69579;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.m-goodsDetail-layer .goods-desc {
+  border-top: 1px solid #f4f4f4;
+  margin: 14px 10px 0;
+}
+.m-goodsDetail-layer .goods-desc .title {
+  margin: 10px 0 16px;
+  font-size: 14px;
+  color: #333;
+}
+.m-goodsDetail-layer .goods-desc .content {
+  font-size: 14px;
+  color: #666;
+  line-height: 20px;
+}
