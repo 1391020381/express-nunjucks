@@ -82,7 +82,7 @@ module.exports = {
                 'content-type': 'application/json',
                 'Service-Info': 'Nodejs-request',
                 'User-Agent': req.headers['user-agent'],
-                'Authrization': req.cookies.cuks
+                'Authrization': req.cookies.cuk
             },
             body: req.body
         };
