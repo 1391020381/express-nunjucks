@@ -28,7 +28,7 @@ define(function (require, exports, module) {
             pdftoword: '/converter/pdftoword/', // 搜索页VIP格式转换跳转pdf转world
             pdfencrypt: '/converter/pdfencrypt/',
             pdfmerge: '/converter/pdfmerge/', // 合并
-            pdfsplit: 'converter/pdfsplit/', // 拆分
+            pdfsplit: '/converter/pdfsplit/', // 拆分
         }
     }
     return $.extend({}, urlConfig[env], { site: 4, terminal: '0' })

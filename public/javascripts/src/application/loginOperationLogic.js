@@ -13,6 +13,8 @@ define(function (require, exports, module) {
     var setIntervalTimer = null; // 保存轮询微信登录的定时器
     var expires_in = ''; // 二位码过期时间
     var successFun = '';
+    var cid = ''; // 获取微信登录二维码时 详情与分类页需要传入的参数 用于区分不同公众号
+    var fid = ''
     loginTypeList = {
         type: 'wechat',
         values: {
@@ -159,7 +161,7 @@ define(function (require, exports, module) {
     });
 
     $(document).on('click', '.qr-refresh', function (e) { // 刷新微信登录二维码   包括游客登录页面
-        getLoginQrcode('', '', true);
+        getLoginQrcode(cid, fid, true);
     });
     /**
      * // 获取验证码   在 getVerificationCode元素上 添加标识   0 获取验证码    1 倒计时   2 重新获取验证码
@@ -757,6 +759,8 @@ define(function (require, exports, module) {
     // 常规登录初始化
     function loginInit(params, callback) {
         successFun = callback; // 保存传入的回调
+        cid = params.clsId
+        fid = params.fid
         getLoginQrcode(params.clsId, params.fid);
         isHasPcMLogin();
     }
