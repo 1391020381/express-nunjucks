@@ -14,7 +14,6 @@ function getFindSpecialTopic(req, res, paramsObj) {
 
 // A25需求：请求字典列表
 function getDictionaryData(req, res) {
-    console.log('reqreqreq', req, 'resresres', res);
     const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
     return server.$http(url, 'get', req, res, true);
 }
@@ -48,6 +47,7 @@ function getSpecialTopic(req, res, topicName) {
     };
     return server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req, res);
 }
+
 function getRecommendList(req, res) {
     req.body = [util.pageIds.special.friendLink];
     return server.$http(appConfig.apiNewBaselPath + api.index.recommendList, 'post', req, res);
@@ -103,7 +103,7 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
             dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active = true;
         });
 
-        data.specialLength = dimlist.specialTopicPropertyGroupDOList && dimlist.specialTopicPropertyGroupDOList.length;// 分类的长度
+        data.specialLength = dimlist.specialTopicPropertyGroupDOList && dimlist.specialTopicPropertyGroupDOList.length; // 分类的长度
         data.specialTopicPropertyGroupDOList = dimlist.specialTopicPropertyGroupDOList;
 
         paramsObj.topicPropertyQueryDTOList = JSON.stringify(paramsObj.topicPropertyQueryDTOList);
@@ -129,48 +129,57 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
             canonicalUrl: canonicalUrl
         },
         friendLink: recommendList,
-        mulu:req.mulu
+        mulu: req.mulu
     };
 
     render('special/index', results, req, res);
 }
-function getThemeModel(req,res){ // 获取专题相关配置
+
+function getThemeModel(req, res) { // 获取专题相关配置
     const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'themeModel');
     return server.$http(url, 'get', req, res, true);
 }
-function handleThemeModel({themeModelData,templateCode,req,specialTopicId}){
+
+function handleThemeModel({
+    themeModelData,
+    templateCode,
+    req,
+    specialTopicId
+}) {
     let themeModelMap = {}
     // '/node/s/test001.html'.replace(new RegExp('\/' + 'specialTopicId' +  '.html', 'ig'),'')
-    var reg = new RegExp('\/' + specialTopicId +  '.html', 'ig')
+    var reg = new RegExp('\/' + specialTopicId + '.html', 'ig')
     let currentPath = req.mulu
-    console.log('currentPath:',currentPath)
-    if(themeModelData&&themeModelData.length){
-        themeModelData.forEach(item=>{
+    console.log('currentPath:', currentPath)
+    if (themeModelData && themeModelData.length) {
+        themeModelData.forEach(item => {
             let pcode = item.pcode.trim()
-            if(!themeModelMap[pcode]){
+            if (!themeModelMap[pcode]) {
                 themeModelMap[pcode] = item
             }
         })
-        console.log('themeModelMap',JSON.stringify(themeModelMap),themeModelMap[templateCode])
-        if(themeModelMap[templateCode]){
-           let desc = themeModelMap[templateCode].desc  //站点
-           let pvalue = themeModelMap[templateCode].pvalue  // 目录
-           console.log(desc,appConfig.site,pvalue,currentPath,desc == appConfig.site && pvalue == currentPath)
-           if(desc == appConfig.site && pvalue == currentPath){
-               return true
-           }else{
-               return false
-           }
-        }else{
+        // console.log('themeModelMap',JSON.stringify(themeModelMap),themeModelMap[templateCode])
+        if (themeModelMap[templateCode]) {
+            let desc = themeModelMap[templateCode].order //站点
+            let pvalue = themeModelMap[templateCode].pvalue // 目录
+            console.log(desc, appConfig.site, pvalue, currentPath, desc == appConfig.site && pvalue == currentPath)
+            if (desc == appConfig.site && pvalue == currentPath) {
+                return true
+            } else {
+                return false
+            }
+        } else {
             return false
         }
-    }else{
+    } else {
         return false // 404
     }
 }
 const renderPage = cc(async (req, res) => {
-    console.log('req.mulu:',req.mulu)
-    const { data:themeModelData} = await getThemeModel(req,res)
+    console.log('req.mulu:', req.mulu)
+    const {
+        data: themeModelData
+    } = await getThemeModel(req, res)
     const paramsObj = util.getSpecialParams(req.url);
 
     const detail = await getFindSpecialTopic(req, res, paramsObj);
@@ -186,22 +195,28 @@ const renderPage = cc(async (req, res) => {
     //     res.redirect('/node/404.html');
     //     return;
     // }
-   let isRender =  handleThemeModel({themeModelData,templateCode:detail.data.templateCode,req,specialTopicId:paramsObj.specialTopicId})
-    if(!isRender){
+    let isRender = handleThemeModel({
+        themeModelData,
+        templateCode: detail.data.templateCode,
+        req,
+        specialTopicId: paramsObj.specialTopicId
+    })
+    console.log('isRender', isRender);
+    if (!isRender) {
         res.redirect('/node/404.html');
         return;
     }
     if (paramsObj.dimensionId && detail.data.dimensionStatus == 0) { // 获取当前当前的维度列表
         const index = _.findIndex(detail.data.specialTopicDimensionDOList, ['dimensionId', paramsObj.dimensionId]);
         specialList = detail.data.specialTopicDimensionDOList[index].specialTopicPropertyGroupDOList; // 当前维度下的分类
-    } else {// 无维度的情况
+    } else { // 无维度的情况
         specialList = detail.data.specialTopicPropertyGroupDOList; //
     }
     const listData = await getListTopicContents(req, res, paramsObj, specialList);
 
 
     const topicName = detail.data.topicName;
-    const str = topicName.length <= 12 ? topicName + '_' + topicName : topicName;// 专题字数小于等于12时
+    const str = topicName.length <= 12 ? topicName + '_' + topicName : topicName; // 专题字数小于等于12时
     const tdkData = {
         pageTable: '专题页',
         url: '/node/s/' + paramsObj.specialTopicId + '.html',
