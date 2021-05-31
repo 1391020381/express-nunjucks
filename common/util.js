@@ -1,84 +1,84 @@
 module.exports = {
-    pageIds: { //推荐位id
-        index: { //首页
-            ub: 'PC_M_H_banner', //顶部banner
-            zt: 'PC_M_H_zhuanti', //专题推荐
-            viprelevant: 'PC_M_H_vipzhuanqu', //首页VIP专区
-            recfile1: 'PC_M_H_bjtj1', //首页精选资料-编辑推荐1
-            recfile2: 'PC_M_H_bjtj2', //首页精选资料-编辑推荐2
-            recfile3: 'PC_M_H_bjtj3', //首页精选资料-编辑推荐3
-            recfile4: 'PC_M_H_bjtj4', //首页精选资料-编辑推荐4
-            recfile5: 'PC_M_H_bjtj5', //首页精选资料-编辑推荐5
+    pageIds: { // 推荐位id
+        index: { // 首页
+            ub: 'PC_M_H_banner', // 顶部banner
+            zt: 'PC_M_H_zhuanti', // 专题推荐
+            viprelevant: 'PC_M_H_vipzhuanqu', // 首页VIP专区
+            recfile1: 'PC_M_H_bjtj1', // 首页精选资料-编辑推荐1
+            recfile2: 'PC_M_H_bjtj2', // 首页精选资料-编辑推荐2
+            recfile3: 'PC_M_H_bjtj3', // 首页精选资料-编辑推荐3
+            recfile4: 'PC_M_H_bjtj4', // 首页精选资料-编辑推荐4
+            recfile5: 'PC_M_H_bjtj5', // 首页精选资料-编辑推荐5
             organize: 'PC_M_H_qwjg', // 首页权威机构
-            hotSearchWord: 'PC_M_H_rmss', //热门搜索词
-            friendLink: 'PC_M_H_yqlj', //友情链接
+            hotSearchWord: 'PC_M_H_rmss', // 热门搜索词
+            friendLink: 'PC_M_H_yqlj', // 友情链接
             vipqy: 'PC_M_H_vipqy'
         },
-        categoryPage: { //分类页
-            topbanner_1816: 'PC_M_FC_all_1816_topbanner', //顶部banner图
-            topbanner_1820: 'PC_M_FC_all_1820_topbanner', //顶部banner图
-            topbanner_1821: 'PC_M_FC_all_1821_topbanner', //顶部banner图
-            topbanner_1818: 'PC_M_FC_all_1818_topbanner', //顶部banner图
-            topbanner_1819: 'PC_M_FC_all_1819_topbanner', //顶部banner图
-            rightbanner_1816: 'PC_M_FC_all_1816_rightbanner', //分类页-右侧banner
-            rightbanner_1820: 'PC_M_FC_all_1820_rightbanner', //分类页-右侧banner
-            rightbanner_1821: 'PC_M_FC_all_1821_rightbanner', //分类页-右侧banner
-            rightbanner_1818: 'PC_M_FC_all_1818_rightbanner', //分类页-右侧banner
-            rightbanner_1819: 'PC_M_FC_all_1819_rightbanner', //分类页-右侧banner
-            zhuanti_1816: 'PC_M_FC_all_1816_zhuanti', //分类页-右侧专题
-            zhuanti_1820: 'PC_M_FC_all_1820_zhuanti', //分类页-右侧专题
-            zhuanti_1821: 'PC_M_FC_all_1821_zhuanti', //分类页-右侧专题
-            zhuanti_1818: 'PC_M_FC_all_1818_zhuanti', //分类页-右侧专题
-            zhuanti_1819: 'PC_M_FC_all_1819_zhuanti', //分类页-右侧专题
-            friendLink: 'PC_M_FC_yqlj' //友情链接
+        categoryPage: { // 分类页
+            topbanner_1816: 'PC_M_FC_all_1816_topbanner', // 顶部banner图
+            topbanner_1820: 'PC_M_FC_all_1820_topbanner', // 顶部banner图
+            topbanner_1821: 'PC_M_FC_all_1821_topbanner', // 顶部banner图
+            topbanner_1818: 'PC_M_FC_all_1818_topbanner', // 顶部banner图
+            topbanner_1819: 'PC_M_FC_all_1819_topbanner', // 顶部banner图
+            rightbanner_1816: 'PC_M_FC_all_1816_rightbanner', // 分类页-右侧banner
+            rightbanner_1820: 'PC_M_FC_all_1820_rightbanner', // 分类页-右侧banner
+            rightbanner_1821: 'PC_M_FC_all_1821_rightbanner', // 分类页-右侧banner
+            rightbanner_1818: 'PC_M_FC_all_1818_rightbanner', // 分类页-右侧banner
+            rightbanner_1819: 'PC_M_FC_all_1819_rightbanner', // 分类页-右侧banner
+            zhuanti_1816: 'PC_M_FC_all_1816_zhuanti', // 分类页-右侧专题
+            zhuanti_1820: 'PC_M_FC_all_1820_zhuanti', // 分类页-右侧专题
+            zhuanti_1821: 'PC_M_FC_all_1821_zhuanti', // 分类页-右侧专题
+            zhuanti_1818: 'PC_M_FC_all_1818_zhuanti', // 分类页-右侧专题
+            zhuanti_1819: 'PC_M_FC_all_1819_zhuanti', // 分类页-右侧专题
+            friendLink: 'PC_M_FC_yqlj' // 友情链接
         },
         special: {
             friendLink: 'PC_M_SS_ZT_yqlj'
         }
     },
-    paradigm4Relevant: function (fid, uid, title, sceneID, callback) { //第四范式
-        var requestID = Math.random().toString().slice(-10); //requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+    paradigm4Relevant: function (fid, uid, title, sceneID, callback) { // 第四范式
+        const requestID = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
         // 办公频道 非私密
-        let userID = uid.slice(0, 10) || ''; //来标注用户的ID，
-        var opt = {
+        const userID = uid.slice(0, 10) || ''; // 来标注用户的ID，
+        const opt = {
             url: `https://nbrecsys.4paradigm.com/api/v0/recom/recall?requestID=${requestID}&sceneID=${sceneID}&userID=${userID}`,
             method: 'POST',
             body: JSON.stringify({
-                "itemID": fid,
-                "itemTitle": title
+                'itemID': fid,
+                'itemTitle': title
             })
-        }
-        request(opt, function (err, res, body) {
+        };
+        request(opt, (err, res, body) => {
             if (body) {
                 try {
-                    var data = JSON.parse(body);
+                    const data = JSON.parse(body);
                     data.requestId = requestID;
                     data.userId = userID;
                     callback(null, data);
                 } catch (err) {
                     callback(null, null);
-                    console.log("err=---------------", err)
+                    console.log('err=---------------', err);
                 }
             } else {
                 callback(null, null);
             }
-        })
+        });
     },
-    dealParam: function (format, firstCage, secondCage) { //处理详情推荐位参数
-        let obj = {
+    dealParam: function (format, firstCage, secondCage) { // 处理详情推荐位参数
+        const obj = {
             ub: ['PC_O_H_' + format + '_' + secondCage + '_ub', 'PC_O_H_' + format + '_' + firstCage + '_ub', 'PC_O_H_all_' + secondCage + '_ub', 'PC_O_H_all_' + firstCage + '_ub'],
             rb: ['PC_O_H_' + format + '_' + secondCage + '_rb', 'PC_O_H_' + format + '_' + firstCage + '_rb', 'PC_O_H_all_' + secondCage + '_rb', 'PC_O_H_all_' + firstCage + '_rb'],
-            xfb: ['PC_O_H_' + format + '_' + secondCage + '_xfb', 'PC_O_H_' + format + '_' + firstCage + '_xfb', 'PC_O_H_all_' + secondCage + '_xfb', 'PC_O_H_all_' + firstCage + '_xfb'],
-        }
-        return obj
+            xfb: ['PC_O_H_' + format + '_' + secondCage + '_xfb', 'PC_O_H_' + format + '_' + firstCage + '_xfb', 'PC_O_H_all_' + secondCage + '_xfb', 'PC_O_H_all_' + firstCage + '_xfb']
+        };
+        return obj;
     },
-    dealHref: function (item, dictionaryList) { //处理推荐位的链接
+    dealHref: function (item, dictionaryList) { // 处理推荐位的链接
         if (item.list && item.list.length) {
             item.list.map(res => {
-                if (res.type == 1) { //资料
+                if (res.type == 1) { // 资料
                     res.linkUrl = '/f/' + res.tprId + '.html';
-                } else if (res.type == 2) { //链接
-                } else if (res.type == 3 && res.tprId && res.expand && res.expand.templateCode && Array.isArray(dictionaryList)) { //专题
+                } else if (res.type == 2) { // 链接
+                } else if (res.type == 3 && res.tprId && res.expand && res.expand.templateCode && Array.isArray(dictionaryList)) { // 专题
                     // 专题--且存在模板标识
                     const templateCode = res.expand.templateCode;
                     const targetItem = dictionaryList.find(sItem => sItem.pcode === templateCode);
@@ -93,77 +93,77 @@ module.exports = {
                         }
                     }
                 }
-            })
-            return item
+            });
+            return item;
         } else {
-            return []
+            return [];
         }
     },
     isIe9: function (useragent) {
-        if (parseInt(useragent.source.split(";")[1].replace(/[ ]/g, "").replace("MSIE", "")) < 9) {
-            return true
+        if (parseInt(useragent.source.split(';')[1].replace(/[ ]/g, '').replace('MSIE', '')) < 9) {
+            return true;
         } else {
-            return false
+            return false;
         }
     },
     browserVersion: function (userAgent) {
-        var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
-        var isIE = userAgent.indexOf("compatible") > -1 &&
-            userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
-        var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
-        var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
-        var isSafari = userAgent.indexOf("Safari") > -1 &&
-            userAgent.indexOf("Chrome") === -1; //判断是否Safari浏览器
-        var isChrome = userAgent.indexOf("Chrome") > -1 &&
-            userAgent.indexOf("Safari") > -1; //判断Chrome浏览器
+        const isOpera = userAgent.indexOf('Opera') > -1; // 判断是否Opera浏览器
+        const isIE = userAgent.indexOf('compatible') > -1 &&
+            userAgent.indexOf('MSIE') > -1 && !isOpera; // 判断是否IE浏览器
+        const isEdge = userAgent.indexOf('Edge') > -1; // 判断是否IE的Edge浏览器
+        const isFF = userAgent.indexOf('Firefox') > -1; // 判断是否Firefox浏览器
+        const isSafari = userAgent.indexOf('Safari') > -1 &&
+            userAgent.indexOf('Chrome') === -1; // 判断是否Safari浏览器
+        const isChrome = userAgent.indexOf('Chrome') > -1 &&
+            userAgent.indexOf('Safari') > -1; // 判断Chrome浏览器
 
         if (isIE) {
-            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            const reIE = new RegExp('MSIE (\\d+\\.\\d+);');
             reIE.test(userAgent);
-            var fIEVersion = parseFloat(RegExp["$1"]);
+            const fIEVersion = parseFloat(RegExp['$1']);
             if (fIEVersion === 7) {
-                return "IE7";
+                return 'IE7';
             } else if (fIEVersion === 8) {
-                return "IE8";
+                return 'IE8';
             } else if (fIEVersion === 9) {
-                return "IE9";
+                return 'IE9';
             } else if (fIEVersion === 10) {
-                return "IE10";
+                return 'IE10';
             } else if (fIEVersion === 11) {
-                return "IE11";
+                return 'IE11';
             } else if (fIEVersion === 12) {
-                return "IE12";
+                return 'IE12';
             } else {
-                return "IE";
+                return 'IE';
             }
         }
         if (isOpera) {
-            return "Opera";
+            return 'Opera';
         }
         if (isEdge) {
-            return "Edge";
+            return 'Edge';
         }
         if (isFF) {
-            return "Firefox";
+            return 'Firefox';
         }
         if (isSafari) {
-            return "Safari";
+            return 'Safari';
         }
         if (isChrome) {
-            return "Chrome";
+            return 'Chrome';
         }
-        return 'unKnow'
+        return 'unKnow';
     },
     timeFormat: function (style, time) {
         if (!time) return '';
-        var d = new Date(time);
-        var year = d.getFullYear(); //年
-        var month = d.getMonth() + 1; //月
-        var day = d.getDate(); //日
-        var hh = d.getHours(); //时
-        var mm = d.getMinutes(); //分
-        var ss = d.getSeconds(); //秒
-        var clock = year + "-";
+        const d = new Date(time);
+        const year = d.getFullYear(); // 年
+        let month = d.getMonth() + 1; // 月
+        let day = d.getDate(); // 日
+        let hh = d.getHours(); // 时
+        let mm = d.getMinutes(); // 分
+        let ss = d.getSeconds(); // 秒
+        const clock = year + '-';
         if (month < 10) {
             month += '0';
         }
@@ -196,13 +196,13 @@ module.exports = {
     //     return '';
     // },
     getCategoryParam: function (pathname) {
-        var res = null;
-        var regExp = /(?<=(\/c\/)).+(?=(.html))/;
-        var matchResult = pathname.match(regExp);
+        let res = null;
+        const regExp = /(?<=(\/c\/)).+(?=(.html))/;
+        const matchResult = pathname.match(regExp);
         if (matchResult && matchResult.length > 0) {
-            var partArr = matchResult[0].split('-');
+            const partArr = matchResult[0].split('-');
             if (partArr.length > 1) {
-                var subArr = partArr[0];
+                const subArr = partArr[0];
                 res = {
                     cid: subArr.split('_')[0],
                     order: partArr[1] || 'all',
@@ -211,8 +211,8 @@ module.exports = {
                     subUrl: matchResult[0]
                 };
                 if (partArr.length > 2) {
-                    for (var t = 2; t < partArr.length; t++) {
-                        var as = partArr[t];
+                    for (let t = 2; t < partArr.length; t++) {
+                        const as = partArr[t];
                         res.specifics.push(as);
                     }
                 }
@@ -222,52 +222,52 @@ module.exports = {
                     order: 'all',
                     page: 1,
                     specifics: []
-                }
+                };
             }
         }
         return res;
     },
-    getSpecialParams: function (pathname) { //专题id_页码_排序-维度-xx_xx-xx_xx    格式
-        var item = null;
-        var url = pathname.split('.')[0];
-        var index = url.lastIndexOf("\/");
-        var matchResult = url.substring(index + 1, url.length);
-        var paramsArr = matchResult.split('-');
-        var firstSpilt = paramsArr[0].split('_');
+    getSpecialParams: function (pathname) { // 专题id_页码_排序-维度-xx_xx-xx_xx    格式
+        let item = null;
+        const url = pathname.split('.')[0];
+        const index = url.lastIndexOf('\/');
+        const matchResult = url.substring(index + 1, url.length);
+        const paramsArr = matchResult.split('-');
+        const firstSpilt = paramsArr[0].split('_');
         item = {
-            specialTopicId: firstSpilt[0], //专题id
-            dimensionId: paramsArr[1], //维度id
+            specialTopicId: firstSpilt[0], // 专题id
+            dimensionId: paramsArr[1], // 维度id
             topicPropertyQueryDTOList: [],
             topicPropertyQuery: '',
-            sortFlag: firstSpilt[2] || 0, //排序,0-综合排序,1-最新上传
-            currentPage: firstSpilt[1] || 1,
-        }
+            sortFlag: firstSpilt[2] || 0, // 排序,0-综合排序,1-最新上传
+            currentPage: firstSpilt[1] || 1
+        };
 
-        if (paramsArr.length > 2) { //是否有属性分类筛选
-            var arr = [];
-            for (var i = 2; i < paramsArr.length; i++) {
+        if (paramsArr.length > 2) { // 是否有属性分类筛选
+            const arr = [];
+            for (let i = 2; i < paramsArr.length; i++) {
                 arr.push(paramsArr[i]);
             }
             item.topicPropertyQueryDTOList = arr;
-            item.topicPropertyQuery = item.topicPropertyQueryDTOList.join('-')
+            item.topicPropertyQuery = item.topicPropertyQueryDTOList.join('-');
         }
-        return item
+        return item;
     },
     getPropertyParams: function (list, properList) {
 
-        var arr = [],
+        const arr = [],
             result = [];
         //    console.log(list,'list------------')
         //    console.log(properList,'properList------------')
         properList && properList.map(item => {
             item.specialTopicPropertyDOList.map(res => {
-                res.ids = item.propertyGroupId + "_" + res.propertyId;
+                res.ids = item.propertyGroupId + '_' + res.propertyId;
                 res.propertyGroupName = item.propertyGroupName;
                 res.propertyGroupId = item.propertyGroupId;
                 res.propertyType = item.propertyType;
-                arr.push(res)
-            })
-        })
+                arr.push(res);
+            });
+        });
         arr.map(res => {
             if (list.includes(res.ids)) {
                 result.push({
@@ -276,22 +276,22 @@ module.exports = {
                     propertyType: res.propertyType,
                     propertyId: res.propertyId,
                     propertyName: res.propertyName
-                })
+                });
             }
-        })
-        return result
+        });
+        return result;
     },
     handleRecommendData: function (list = [], dictionaryList=[]) {
-        let arr = []
+        const arr = [];
         list.forEach(item => {
-            let temp = {}
+            let temp = {};
             if (item.type == 1) { // 资料
                 temp = Object.assign({}, item, {
                     linkUrl: `/f/${item.tprId}.html`
-                })
+                });
             }
             if (item.type == 2) { // 链接
-                temp = Object.assign({}, item)
+                temp = Object.assign({}, item);
             }
             if (item.type == 3 && item.tprId && item.expand && item.expand.templateCode && Array.isArray(dictionaryList)) { // 专题页
                 // 专题--且存在模板标识
@@ -312,11 +312,11 @@ module.exports = {
                 }
 
             }
-            arr.push(temp)
-        })
+            arr.push(temp);
+        });
         return {
             list: arr
-        }
+        };
     }
 
 };
