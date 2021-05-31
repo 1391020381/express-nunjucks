@@ -149,24 +149,27 @@ function handleThemeModel({
     let themeModelMap = {}
     // '/node/s/test001.html'.replace(new RegExp('\/' + 'specialTopicId' +  '.html', 'ig'),'')
     var reg = new RegExp('\/' + specialTopicId + '.html', 'ig')
-    let currentPath = req.mulu
+    let currentPath = req.mulu;
+    let templateCodeType = req.templateCodeType;
     console.log('currentPath:', currentPath)
     if (themeModelData && themeModelData.length) {
         themeModelData.forEach(item => {
-            let pcode = item.pcode.trim()
+            let pcode = item.pcode.trim();
             if (!themeModelMap[pcode]) {
-                themeModelMap[pcode] = item
+                themeModelMap[pcode] = item;
             }
         })
-        // console.log('themeModelMap',JSON.stringify(themeModelMap),themeModelMap[templateCode])
+        console.log('themeModelMap', themeModelMap, 'templateCode', templateCode, 'themeModelMap[templateCode]', themeModelMap[templateCode]);
         if (themeModelMap[templateCode]) {
-            let desc = themeModelMap[templateCode].order //站点
-            let pvalue = themeModelMap[templateCode].pvalue // 目录
-            console.log(desc, appConfig.site, pvalue, currentPath, desc == appConfig.site && pvalue == currentPath)
-            if (desc == appConfig.site && pvalue == currentPath) {
-                return true
+            let desc = themeModelMap[templateCode].order; //站点
+            let pvalue = themeModelMap[templateCode].pvalue; // 目录
+            let pcode = themeModelMap[templateCode].pcode; // 模板标识
+            console.log(desc, appConfig.site, pvalue, currentPath, desc == appConfig.site && pvalue == currentPath);
+            console.log('pcode', pcode, 'templateCodeType', templateCodeType);
+            if (pcode == templateCodeType && pvalue == currentPath) {
+                return true;
             } else {
-                return false
+                return false;
             }
         } else {
             return false
@@ -234,9 +237,9 @@ const renderPage = cc(async (req, res) => {
     // A25需求：pc主站-专题页热门搜索-专题入口逻辑处理
     if (specialTopic && dictionaryDataList) {
         specialTopic.forEach((specialTopicItem, index) => {
-            console.log('specialTopicItem', specialTopicItem);
+            // console.log('specialTopicItem', specialTopicItem);
             const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === specialTopicItem.templateCode);
-            console.log('targetItem', targetItem);
+            // console.log('targetItem', targetItem);
             if (targetItem) {
                 if (targetItem.order === 4) {
                     specialTopic[index].newRouterUrl = `${targetItem.pvalue}/${specialTopicItem.id}.html`;
@@ -247,7 +250,7 @@ const renderPage = cc(async (req, res) => {
                 specialTopic[index].newRouterUrl = '';
             }
         });
-        console.log('specialTopic', specialTopic);
+        // console.log('specialTopic', specialTopic);
     }
 
     let recommendList = [];
