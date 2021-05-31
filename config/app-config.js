@@ -115,4 +115,4 @@ const config = {
 };
 
 
-module.exports = Object.assign({}, config['test'], { site: 4, terminal: 0 });
+module.exports = Object.assign({}, config[env], { site: 4, terminal: 0 });
