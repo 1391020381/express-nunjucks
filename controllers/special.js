@@ -115,7 +115,7 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
     if (listData.data && listData.data.totalPages < 40) {
         pageIndexArr.length = listData.data.totalPages;
     }
-    const canonicalUrl = paramsObj.currentPage > 1 ? `/node/s/${paramsObj.specialTopicId}.html` : '';
+    const canonicalUrl = paramsObj.currentPage > 1 ? `${req.templateCodeType}/${paramsObj.specialTopicId}.html` : '';
     _.set(listData, 'data.tdk', tdkData);
     const results = {
         data: data,
@@ -222,7 +222,7 @@ const renderPage = cc(async (req, res) => {
     const str = topicName.length <= 12 ? topicName + '_' + topicName : topicName; // 专题字数小于等于12时
     const tdkData = {
         pageTable: '专题页',
-        url: '/node/s/' + paramsObj.specialTopicId + '.html',
+        url: req.templateCodeType + '/' + paramsObj.specialTopicId + '.html',
         title: paramsObj.currentPage > 1 ? topicName + '_' + topicName + '下载 _第' + paramsObj.currentPage + '页_爱问共享资料' : str + '下载 - 爱问共享资料',
         description: '爱问共享资料提供优质的' + topicName + '下载，可编辑，可替换，更多' + topicName + '资料，快来爱问共享资料下载!',
         keywords: topicName + ',' + topicName + '下载'

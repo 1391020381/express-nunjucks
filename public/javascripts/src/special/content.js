@@ -14,6 +14,8 @@ define(function (require, exports, module) {
         window.location.reload();
     });
 
+    console.log('window.pageConfig', window.pageConfig);
+
 
     // 更多筛选  切换函数
     function toggleMore() {
@@ -68,7 +70,8 @@ define(function (require, exports, module) {
                 url += res.propertyGroupId + '_' + res.propertyId + '-';
             });
             url = url.substring(0, url.length - 1);
-            location.href = '/node/s/' + idsArr[0] + '-' + idsArr[1] + '-' + url + '.html';
+            location.href = window.pageConfig.mulu + '/' + idsArr[0] + '-' + idsArr[1] + '-' + url + '.html';
+            // location.href = '/node/s/' + '/' + idsArr[0] + '-' + idsArr[1] + '-' + url + '.html';
 
         });
 

@@ -112,7 +112,7 @@ function getHotRecData(req, res) {
     return server.$http(appConfig.apiNewBaselPath + Api.spider.hotRecData, 'post', req, res, false);
 }
 
-function dealContent(content, fileContentList, hotSearch) { // 分割字符串 替换字符串
+function dealContent(content, fileContentList, hotSearch, dictionaryList) { // 分割字符串 替换字符串
     const urlList = {
         'debug': 'http://ishare.iask.sina.com.cn',
         'local': 'http://localhost:3004',
@@ -127,11 +127,29 @@ function dealContent(content, fileContentList, hotSearch) { // 分割字符串 �
     let matchNum = 1;
     const selectHotSearch = []; // 保存匹配过的专题
     const env = process.env.NODE_ENV || 'prod';
+    // console.log('hotSearch---------', hotSearch);
+    console.log('dictionaryList---------', dictionaryList);
     fileContentList && fileContentList.map((dto, i) => {
         let text = content.substring(i * textLength, textLength * (i + 1));
         hotSearch && hotSearch.map(item => {
+            console.log('hotSearch---------', item);
             const reg = new RegExp(item.title, 'i');
-            const replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
+            let replaceStr = '';
+            // 拼接路径
+            const targetItem = dictionaryList.data.find(sItem => sItem.pcode === item.categoryLevel2);
+            if (targetItem) {
+                // 如果为主站站点
+                if (targetItem.sort === '4') {
+                    // 追加字段
+                    // pItem.nodeRouterUrl = `${targetItem.pvalue}/${pItem.itemId}.html`;
+                    replaceStr = `<a style="color:red;" href="${urlList[env]}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
+                } else {
+                    // 追加字段
+                    // pItem.nodeRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${pItem.itemId}.html`;
+                    replaceStr = `<a style="color:red;" href="${targetItem.desc}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
+                }
+            }
+            // const replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
             const ret = reg.test(text);
             if (ret && selectHotSearch.indexOf(item.title) == -1 && matchNum <= 5) { // 匹配成功
                 selectHotSearch.push(item.title); // 已匹配过
@@ -159,8 +177,8 @@ function formatSpacialLink(spacialList, dictionaryList) {
     spacialList.forEach(pItem => {
         const targetItem = dictionaryList.find(sItem => sItem.pcode === pItem.categoryLevel2);
         if (targetItem) {
-            // 如果为办公站点
-            if (targetItem.sort === '0') {
+            // 如果为主站站点
+            if (targetItem.sort === '4') {
                 // 追加字段
                 pItem.nodeRouterUrl = `${targetItem.pvalue}/${pItem.itemId}.html`;
             } else {
@@ -236,7 +254,7 @@ function handleSpiderData({
     if (picArr && picArr.length > 6) {
         picArr = picArr.slice(0, 6);
     }
-    const newTextArr = dealContent(textString, picArr, topicList);
+    const newTextArr = dealContent(textString, picArr, topicList, results.dictionaryData);
     if (results.crumbList && results.crumbList.data) {
         results.crumbList.data.isGetClassType = list.data.fileInfo.isGetClassType || 0;
     }
@@ -282,7 +300,7 @@ function handleSpiderData({
     // A25需求：pc主站蜘蛛页-推荐专题-专题入口逻辑处理
     results.hotTopicSeo = formatSpacialLink(results.hotTopicSeo, results.dictionaryData);
 
-    console.log('hotTopicSeo', results.hotTopicSeo);
+    // console.log('hotTopicSeo', results.hotTopicSeo);
 
     results.type = type;
     results.fileDetailArr = newTextArr;

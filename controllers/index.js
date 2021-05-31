@@ -152,9 +152,11 @@ module.exports = {
                     const dictionaryDataList = results.dictionaryData.data;
                     // console.log(dictionaryDataList);
                     hotDataList.forEach((hotItem, index) => {
-                        // console.log('hotItem', hotItem.templateCode);
                         const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === hotItem.templateCode);
-                        // console.log('targetItem', targetItem);
+                        if (hotItem.title == '主站没有维度') {
+                            console.log('hotItem', hotItem);
+                            console.log('targetItem', targetItem);
+                        }
                         if (targetItem) {
                             if (targetItem.order === 4) {
                                 results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.pvalue}/${hotItem.id}.html`;

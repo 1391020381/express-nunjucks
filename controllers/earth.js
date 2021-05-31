@@ -57,9 +57,9 @@ module.exports = {
                     return obj;
                 }else {
                     // var obj ={};
-                    console.log('item', item);
+                    // console.log('item', item);
                     const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === item.templateCode);
-                    console.log('targetItem', targetItem);
+                    // console.log('targetItem', targetItem);
                     if (targetItem) {
                         if (targetItem.order === 4) {
                             obj.linkurl = `${targetItem.pvalue}/${item.id}.html`;

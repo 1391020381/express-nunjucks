@@ -559,7 +559,7 @@
         <ul class="upload-list cf">
             {% for item in  results.hotTopicSeo.data %}
                 <li class="{% if loop.index0 >19 %}hide{% endif %}">
-                    <a href="/node/s/{{ item.id }}.html" target="_blank">{{ item.title|delType }}</a>
+                    <a href="{{ item.newRouterUrl }}" target="_blank">{{ item.title|delType }}</a>
                 </li>
             {% endfor %}
         </ul>
