@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     require('./helper');
 
     var singleLogin = require('./single-login').init;
-    handleSingleLogin()
+    handleSingleLogin();
     function handleSingleLogin() {
         var url = api.user.dictionaryData.replace('$code', 'singleLogin');
         $ajax(url, 'GET', '', false).done(function (res) {

@@ -333,7 +333,7 @@ define(function (require, exports, module) {
                     const templateCode = item.expand.templateCode;
                     var targetItem = dictionaryData.filter(function(sItem){
                         // console.log(item.pcode, HotSpotList[i].templateCode);
-                        return sItem.pcode === templateCode
+                        return sItem.pcode === templateCode;
                     });
                     console.log('findArr', findArr[0]);
                     if (targetItem[0]) {

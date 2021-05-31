@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     // var $ = require("$");
-    var urlConfig = require('./urlConfig')
+    var urlConfig = require('./urlConfig');
     var method = require('./method');
     var login = require('./checkLogin');
     // 右侧滚动
@@ -53,9 +53,9 @@ define(function (require, exports, module) {
                     domID: 'rightTransClick',
                     domName: '侧边栏转换导流按钮点击'
                 });
-                var convertType = $this.attr('data-convert-type')
-                var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
-                method.compatibleIESkip(href, true)
+                var convertType = $this.attr('data-convert-type');
+                var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
+                method.compatibleIESkip(href, true);
             } else if (index === 4 || index === 6) {
                 $anWrap.animate({ 'right': '-307px' }, 200);
                 if (index == 6) {
@@ -263,7 +263,7 @@ define(function (require, exports, module) {
                 (a[d].a = a[d].a || []).push(arguments);
             };
             j = b.createElement(c),
-                s = b.getElementsByTagName(c)[0];
+            s = b.getElementsByTagName(c)[0];
             j.async = true;
             j.charset = 'UTF-8';
             j.src = 'https://static.meiqia.com/widget/loader.js';

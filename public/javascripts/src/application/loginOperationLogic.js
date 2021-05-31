@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var method = require('../application/method');
     var showCaptcha = require('../common/bindphone').showCaptcha;
-    var urlConfig = require('./urlConfig')
+    var urlConfig = require('./urlConfig');
     var smsId = ''; // 验证码
     var myWindow = ''; // 保存 openWindow打开的对象
     var sceneId = ''; // 微信二维码的场景id
@@ -14,7 +14,7 @@ define(function (require, exports, module) {
     var expires_in = ''; // 二位码过期时间
     var successFun = '';
     var cid = ''; // 获取微信登录二维码时 详情与分类页需要传入的参数 用于区分不同公众号
-    var fid = ''
+    var fid = '';
     loginTypeList = {
         type: 'wechat',
         values: {
@@ -410,7 +410,7 @@ define(function (require, exports, module) {
         $('.detail-bg-mask').hide();
         $('#dialog-box').hide();
         clearInterval(setIntervalTimer);
-        trackEvent('NE002', "normalClick ", 'click', {
+        trackEvent('NE002', 'normalClick ', 'click', {
             domID: 'closeLogin',
             domName: '登录页关闭'
         });
@@ -507,7 +507,7 @@ define(function (require, exports, module) {
                 code: code,
                 businessSys: 'ishare',
                 terminal: 'pc',
-                site: urlConfig.site,
+                site: urlConfig.site
             }),
             dataType: 'json',
             success: function (res) {
@@ -549,7 +549,7 @@ define(function (require, exports, module) {
                 checkCode: checkCode,
                 password: $.md5(password),
                 terminal: 'pc',
-                site: urlConfig.site,
+                site: urlConfig.site
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -759,8 +759,8 @@ define(function (require, exports, module) {
     // 常规登录初始化
     function loginInit(params, callback) {
         successFun = callback; // 保存传入的回调
-        cid = params.clsId
-        fid = params.fid
+        cid = params.clsId;
+        fid = params.fid;
         getLoginQrcode(params.clsId, params.fid);
         isHasPcMLogin();
     }

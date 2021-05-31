@@ -143,7 +143,7 @@ define(function (require, exports, module) {
                     }
                     // 消息中心初始化---解决部分页面登陆后不刷新页面-未展示消息中心图标
                     messageCenter.init();
-                })
+                });
             } catch (e) {
                 console.log(e);
             }

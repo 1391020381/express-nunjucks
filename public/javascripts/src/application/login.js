@@ -2,7 +2,7 @@ define(function (require, exports, module) {
 
     var method = require('./method');
     var loginInit = require('./loginOperationLogic').loginInit;
-    var getLoginQrcode = require('./loginOperationLogic').getLoginQrcode
+    var getLoginQrcode = require('./loginOperationLogic').getLoginQrcode;
     require('../cmd-lib/myDialog');
     require('../cmd-lib/toast');
     function showLoginDialog(params, callback) {
@@ -33,7 +33,7 @@ define(function (require, exports, module) {
         var loginDom = $('#tourist-login').html();
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom);
         $('#tourist-login').remove();
-        getLoginQrcode(params.cid, params.fid, '', true, callback)
+        getLoginQrcode(params.cid, params.fid, '', true, callback);
     }
     return {
         showLoginDialog: showLoginDialog,
