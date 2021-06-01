@@ -9,12 +9,10 @@ define(function (require) {
     function getLoginToken(jsId) {
         // 获取本地token
         var localToken = method.getLoginToken();
-        // 清除本地token
-        method.delLoginToken();
         // 查询token
         method.customAjax({
             type: 'GET',
-            url: api.user.checkSso,
+            url: '/cc/aa',
             async: false,
             cache: false,
             headers: {
@@ -27,7 +25,14 @@ define(function (require) {
                         method.saveLoginToken(res.data.access_token);
                         window.location.reload();
                     }
+                } else {
+                    // 清除本地token
+                    method.delLoginToken();
                 }
+            },
+            error: function () {
+                // 清除本地token
+                method.delLoginToken();
             }
         });
     }
