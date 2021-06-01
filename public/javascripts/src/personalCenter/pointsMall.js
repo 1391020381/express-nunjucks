@@ -41,7 +41,7 @@ define(function (require, exports, module) {
                 pageSize:20,
                 sort:sort
             };
-            $ajax(url, 'POST', params, false).done(function (res) {
+            $ajax(url, 'POST', params).done(function (res) {
                 var rows = res.data&&res.data.rows || [];
                 if (res.code == 0&&rows.length) {
                     var exchangeGoodsHtml = template.compile(exchangeGoodsTemplate)({ //
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
         getCoinIaskBalance:function(){
             var url = api.iaskCoin.getCoinIaskBalance;
             var that = this;
-            $ajax(url, 'get', '', false).done(function (res) {
+            $ajax(url, 'get', '').done(function (res) {
                 if (res.code == 0) {
                     $('.js-love-ask-coinnum').text(res.data.availableTotal || 0);
                     that.getNoviceTaskList();
@@ -78,7 +78,7 @@ define(function (require, exports, module) {
                 terminal:urlConfig.terminal
             };
             var url = api.task.noviceTaskList;
-            $ajax(url, 'POST', params, false).done(function (res) {
+            $ajax(url, 'POST', params).done(function (res) {
                 if (res.code == 0 && res.data&&res.data.length) {
                     that.createNewcomerTaskHtml(res.data);
                 }
@@ -91,7 +91,7 @@ define(function (require, exports, module) {
                 terminal:urlConfig.terminal
             };
             var url = api.task.dailyTaskList;
-            $ajax(url, 'POST', params, false).done(function (res) {
+            $ajax(url, 'POST', params).done(function (res) {
                 if (res.code == 0&& res.data&&res.data.length) {
                     that.dailyTaskList = res.data;
                     that.createDailyTaskHtml(that.dailyTaskList);
