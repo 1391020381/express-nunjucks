@@ -12,7 +12,7 @@ define(function (require) {
         // 查询token
         method.customAjax({
             type: 'GET',
-            url: '/cc/aa',
+            url: api.user.checkSso,
             async: false,
             cache: false,
             headers: {
