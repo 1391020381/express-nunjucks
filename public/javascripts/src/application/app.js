@@ -62,7 +62,7 @@ define(function (require, exports, module) {
             loaded: function (sdk) {
                 // 过有效期-重新请求
                 if (!visitId) {
-                    $ajax(api.user.getVisitorId, 'GET', '', 'false').done(function (res) {
+                    $ajax(api.user.getVisitorId, 'GET', '', false).done(function (res) {
                         if (res.code == '0') {
                             method.setCookieWithExp(name, res.data, expires, '/');
                             sdk.set_visit_id(res.data); // 设置visitID
@@ -98,7 +98,7 @@ define(function (require, exports, module) {
         return $.ajax(url, {
             type: ajaxMethod || 'post',
             data: data ? JSON.stringify(data) : '',
-            async: async == undefined || async == '' ? true : false,
+            async: async == false? false : true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             headers: $.extend({}, {

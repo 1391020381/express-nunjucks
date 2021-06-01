@@ -15,7 +15,7 @@ define(function (require, exports, module) {
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = true;
     var urlConfig = require('../application/urlConfig');
-        // 认证协议弹窗
+    // 认证协议弹窗
     var agreementLayerService = require('../common/agreement-layer/index');
     var uploadObj = {
         uploadFiles: [],
@@ -54,8 +54,8 @@ define(function (require, exports, module) {
             uploadObj.handleDatainput();
         },
         updateAgreementTime:function(){ // 更新认证时间
-            var url = api.user.updateAgreementTime
-            $ajax(url, 'POST','', false).done(function (res) {
+            var url = api.user.updateAgreementTime;
+            $ajax(url, 'POST', '').done(function (res) {
 
             });
         },
@@ -886,8 +886,8 @@ define(function (require, exports, module) {
     isLogin(function (data) {
         if(data.isAuth==1&&!data.agreementTime){
             agreementLayerService.open(function(){
-                uploadObj.updateAgreementTime()
-            },true)
+                uploadObj.updateAgreementTime();
+            }, true);
         }
 
         uploadObj.isAuth = data.isAuth == 1 ? true : false;

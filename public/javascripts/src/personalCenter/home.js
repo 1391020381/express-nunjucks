@@ -53,8 +53,8 @@ define(function (require) {
         userInfo = data ? data : userInfo;
         if(userInfo.isAuth==1&&!userInfo.agreementTime){
             agreementLayerService.open(function(){
-                updateAgreementTime()
-            },true)
+                updateAgreementTime();
+            }, true);
         }
         $.ajax({
             headers: {
@@ -320,20 +320,20 @@ define(function (require) {
         });
     }
     function updateAgreementTime(){ // 更新认证时间
-        var url = api.user.updateAgreementTime
-        $ajax(url, 'POST','', false).done(function (res) {
+        var url = api.user.updateAgreementTime;
+        $ajax(url, 'POST', '').done(function (res) {
 
         });
     }
     $(document).on('click', '.personal-center-home .add-privileges', function (e) {
         method.compatibleIESkip('/pay/privilege.html?checkStatus=13', true);
     });
-    $('.js-pointsmall').on('click',function(){
-        var href = $(this).attr('data-href')
-        $('.active-menus').removeClass('active-menus')
-        $(this).addClass('active-menus')
-        method.compatibleIESkip(href,true)
-    })
+    $('.js-pointsmall').on('click', function(){
+        var href = $(this).attr('data-href');
+        $('.active-menus').removeClass('active-menus');
+        $(this).addClass('active-menus');
+        method.compatibleIESkip(href, true);
+    });
     return {
         getUserCentreInfo: getUserCentreInfo
     };
