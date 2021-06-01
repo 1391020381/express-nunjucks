@@ -331,7 +331,7 @@ define(function (require, exports, module) {
                 if (item.type == 3 && item.tprId && item.expand && item.expand.templateCode && Array.isArray(dictionaryList)) { // 专题页
                     // 专题--且存在模板标识
                     const templateCode = item.expand.templateCode;
-                    var targetItem = dictionaryData.filter(function(sItem){
+                    var targetItem = dictionaryList.filter(function(sItem){
                         // console.log(item.pcode, HotSpotList[i].templateCode);
                         return sItem.pcode === templateCode;
                     });

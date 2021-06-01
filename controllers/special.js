@@ -232,7 +232,7 @@ const renderPage = cc(async (req, res) => {
     const specialData = await getSpecialTopic(req, res, detail.data.topicName);
     const specialTopic = specialData.data && specialData.data.rows || [];
     const dictionaryDataList = dictionaryData.data;
-    // console.log('specialTopic', specialTopic);
+    console.log('specialTopic', specialTopic);
     // console.log('dictionaryDataList', dictionaryDataList);
     // A25需求：pc主站-专题页热门搜索-专题入口逻辑处理
     if (specialTopic && dictionaryDataList) {
