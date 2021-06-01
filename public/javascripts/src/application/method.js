@@ -335,7 +335,7 @@ define(function (require, exports, module) {
                         // console.log(item.pcode, HotSpotList[i].templateCode);
                         return sItem.pcode === templateCode;
                     });
-                    console.log('findArr', findArr[0]);
+                    // console.log('findArr', targetItem[0]);
                     if (targetItem[0]) {
                         if (targetItem[0].order === 4) {
                             // 追加字段-如果为办公站点
