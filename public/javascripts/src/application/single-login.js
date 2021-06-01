@@ -9,6 +9,9 @@ define(function (require) {
     function getLoginToken(jsId) {
         // 获取本地token
         var localToken = method.getLoginToken();
+        // 清除本地token
+        method.delLoginToken();
+        // 查询token
         method.customAjax({
             type: 'GET',
             url: api.user.checkSso,
