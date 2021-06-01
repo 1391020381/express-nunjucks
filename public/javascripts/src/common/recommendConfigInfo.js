@@ -70,6 +70,16 @@ define(function (require, exports, module) {
             ],
             pageIds: ['PC_M_UPLOAD_banner']
         },
+        mydownloadBanner:{
+            descs: [
+                {
+                    desc: '个人中心首页/我的下载轮播图',
+                    pageId: 'PC_M_MYDOWN',
+                    list: []
+                }
+            ],
+            pageIds: ['PC_M_MYDOWN']
+        },
         myVipRightsList: {
             descs: [
                 {

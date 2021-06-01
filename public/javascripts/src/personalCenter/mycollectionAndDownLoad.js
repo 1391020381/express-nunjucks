@@ -1,7 +1,7 @@
 
 
 define(function (require) {
-    var urlConfig = require('../application/urlConfig')
+    var urlConfig = require('../application/urlConfig');
     var method = require('../application/method');
     var api = require('../application/api');
     var mycollectionAndDownLoad = require('./template/mycollectionAndDownLoad.html');
@@ -10,6 +10,8 @@ define(function (require) {
     var isLogin = require('../application/effect.js').isLogin;
     var getUserCentreInfo = require('./home.js').getUserCentreInfo;
     var type = window.pageConfig && window.pageConfig.page.type;
+    var bannerTemplate = require('../common/template/swiper_tmp.html');
+    var recommendConfigInfo = require('../common/recommendConfigInfo');
     // var utils = require('../cmd-lib/util');
     var receiveCoupon = require('./template/receiveCoupon.html');
     var commentDialogContent = require('./template/commentDialogContent.html');
@@ -19,6 +21,7 @@ define(function (require) {
     var isAppraise = 0;
     var tagList = []; // 评论标签
     var taskList = {};
+    var dictionaryData = [];
     if (type == 'mycollection' || type == 'mydownloads') {
         isLogin(initData, true);
     }
@@ -66,6 +69,8 @@ define(function (require) {
                     var mycollectionAndDownLoadTemplate = template.compile(mycollectionAndDownLoad)({ type: 'mydownloads', list: list || [], totalSize: res.data.totalSize || 0 });
                     $('.personal-center-mydownloads').html(mycollectionAndDownLoadTemplate);
                     handlePagination(res.data.totalPages, res.data.currentPage, 'mydownloads');
+                    getDictionaryData();
+                    getBannerbyPosition();
                 } else {
                     $.toast({
                         text: res.message,
@@ -121,7 +126,63 @@ define(function (require) {
             }
         });
     }
-
+    // A25：获取字典列表
+    function getDictionaryData(){
+        $.ajax({
+            url: api.user.dictionaryData.replace('$code', 'themeModel'),
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (res) { // loginRedPacket-dialog
+                if (res.data && res.data.length) {
+                    dictionaryData = res.data;
+                }
+                // console.log('getDictionaryData', dictionaryData);
+            }
+        });
+    }
+    function getBannerbyPosition() { // PC_M_USER_banner
+        $.ajax({
+            url: api.recommend.recommendConfigInfo,
+            type: 'POST',
+            data: JSON.stringify(recommendConfigInfo.mydownloadBanner.pageIds),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == '0') {
+                    $(res.data).each(function (index, item) { // 匹配 组装数据
+                        $(recommendConfigInfo.mydownloadBanner.descs).each(function (index, desc) {
+                            if (item.pageId == desc.pageId) {
+                                desc.list = method.handleRecommendData(item.list, dictionaryData);
+                            }
+                        });
+                    });
+                    console.log(recommendConfigInfo);
+                    $(recommendConfigInfo.mydownloadBanner.descs).each(function (index, k) {
+                        if (k.list.length) {
+                            if (k.pageId == 'PC_M_MYDOWN') { // search-all-main-bottombanner
+                                var ubannerTemplate = template.compile(bannerTemplate)({
+                                    topBanner: k.list,
+                                    className: 'mydownloads-swiper-container',
+                                    hasDeleteIcon: false
+                                });
+                                $('.mydownloads-bannerlist').html(ubannerTemplate);
+                                new Swiper('.mydownloads-swiper-container', {
+                                    direction: 'horizontal',
+                                    loop: k.list.length > 1 ? true : false,
+                                    autoplay: 3000
+                                });
+                            }else{
+                                $('.mydownloads-bannerlist').hide();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
     // 获取评价标签
     function getLabelList(fid, format, title, isAppraise) {
         $.ajax({
@@ -274,7 +335,7 @@ define(function (require) {
                 title: title,
                 format: format
             }, false, function () {
-                getDownloadRecordList()
+                getDownloadRecordList();
             });
         }
 
@@ -284,10 +345,10 @@ define(function (require) {
             domID: 'downTransClick',
             domName: '下载列表页导流按钮点击'
         });
-        var convertType = $(this).attr('data-convert-type')
-        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
-        method.compatibleIESkip(href, true)
-    })
+        var convertType = $(this).attr('data-convert-type');
+        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
+        method.compatibleIESkip(href, true);
+    });
     $(document).on('click', '.personal-center-dialog .evaluation-confirm', function () {
 
         if (isAppraise == 1) {
