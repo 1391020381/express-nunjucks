@@ -6,8 +6,9 @@ define(function (require) {
     var javaPath = loginUrl || 'http://login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=';
 
     // 验证sessionID，然后获取token
-    function getLoginToken(jsId, isReload) {
-        method.delLoginToken();
+    function getLoginToken(jsId) {
+        // 获取本地token
+        var localToken = method.getLoginToken();
         method.customAjax({
             type: 'GET',
             url: api.user.checkSso,
@@ -18,8 +19,9 @@ define(function (require) {
             },
             success: function (res) {
                 if (res.code === '0' && res.data && res.data.access_token) {
-                    method.saveLoginToken(res.data.access_token);
-                    if (isReload) {
+                    // 本地token已失效，保存本地后需触发页面刷新，保证获取登录后数据
+                    if (localToken !== res.data.access_token) {
+                        method.saveLoginToken(res.data.access_token);
                         window.location.reload();
                     }
                 }
@@ -29,14 +31,12 @@ define(function (require) {
 
     // 通过每次进中间页获取jsId
     function init() {
+        // debugger;
         var loginSessionId = method.getLoginSessionId();
         if (loginSessionId) {
-            // 获取本地token，本地不存在时，获取token且保存本地后需触发页面刷新，保证获取登录后数据
-            var localHasToken = method.getLoginToken();
             // 调取接口-验证jsId，获取token
-            getLoginToken(loginSessionId, !localHasToken);
+            getLoginToken(loginSessionId);
         } else {
-            // debugger;
             var href = window.location.href;
             var localRedtId = method.getCookie('ISHREDIRECT');
             var urlRedtId = method.getParamsByName(href, 'ishredtid');
@@ -49,7 +49,8 @@ define(function (require) {
                 if (jsId) {
                     // 先保存到cookie，请求时统一先去cookie中获取
                     method.saveLoginSessionId(jsId);
-                    getLoginToken(jsId, true);
+                    // 调取接口-验证jsId，获取token
+                    getLoginToken(jsId);
                 }
             } else {
                 var redtid = method.randomString(6);
