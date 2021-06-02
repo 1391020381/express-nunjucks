@@ -93,7 +93,6 @@ define(function (require, exports, module) {
     $(document).on('click', '.login-content  .login-type-list .login-type', function () { // 第三方登录
         var loginType = $(this).attr('data-logintype'); // qq  weibo
         if (loginType) {
-            handleThirdCodelogin(loginType);
             if (loginType == 'qq') {
                 loginTypeList.type = loginTypeList.values[1];
                 trackEvent('NE002', 'normalClick', 'click', {
@@ -110,6 +109,7 @@ define(function (require, exports, module) {
                 });
 
             }
+            handleThirdCodelogin(loginType);
         }
 
     });
