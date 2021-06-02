@@ -109,7 +109,9 @@ define(function (require, exports, module) {
                 });
 
             }
-            handleThirdCodelogin(loginType);
+            setTimeout(function(){
+                handleThirdCodelogin(loginType);
+            }, 600);
         }
 
     });
