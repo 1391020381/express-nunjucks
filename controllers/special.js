@@ -53,7 +53,7 @@ function getRecommendList(req, res) {
     return server.$http(appConfig.apiNewBaselPath + api.index.recommendList, 'post', req, res);
 }
 
-function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, tdkData, recommendList, uid) {
+function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid) {
     const data = detail.data || {};
     // 处理tag标签选中
     let dimlist = {};
@@ -125,6 +125,7 @@ function handleDataResult(req, res, detail, listData, specialTopic, paramsObj, t
         urlParams: paramsObj,
         isOpen: req.cookies.isOpen,
         uid: uid,
+        dictionaryDataList: dictionaryDataList,
         tdk: {
             canonicalUrl: canonicalUrl
         },
@@ -259,7 +260,7 @@ const renderPage = cc(async (req, res) => {
         // 友情链接
         recommendList = util.dealHref(item, dictionaryDataList).list || [];
     });
-    handleDataResult(req, res, detail, listData, specialTopic, paramsObj, tdkData, recommendList, uid);
+    handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid);
 });
 
 

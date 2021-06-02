@@ -12,13 +12,16 @@ define(function (require, exports, module){
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
                     dictionaryData = res.data;
+                    getBannerbyPosition();
+                } else {
+                    getBannerbyPosition();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
@@ -27,7 +30,6 @@ define(function (require, exports, module){
 
     getDictionaryData();
 
-    getBannerbyPosition();
     function getBannerbyPosition() { // PC_M_USER_banner
         $.ajax({
             url: api.recommend.recommendConfigInfo,

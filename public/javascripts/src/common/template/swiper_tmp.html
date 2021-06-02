@@ -1,16 +1,16 @@
 <!--轮播图-->
-    <div class="swiper-container {{className}}">
-         <div class="swiper-wrapper">
-         {{each topBanner}}
-            <div class="swiper-slide" >
-               <a href={{ topBanner[$index].linkUrl}} target="_blank">
-                 <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>
-               </a>
-            </div>
-            {{/each}} 
-         </div>
-         {{if hasDeleteIcon}}
-        <span class="icon close-swiper"><span>
-        {{/if}}
-         
-    </div>            
+<div class="swiper-container {{className}}">
+    <div class="swiper-wrapper">
+        {{each topBanner}}
+        <div class="swiper-slide">
+            <a href={{ topBanner[$index].linkUrl}} target="_blank">
+                <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+    {{if hasDeleteIcon}}
+    <span class="icon close-swiper"><span>
+    {{/if}}
+
+</div>

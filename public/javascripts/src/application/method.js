@@ -318,6 +318,7 @@ define(function (require, exports, module) {
         },
         handleRecommendData: function (list, dictionaryList) {
             var arr = [];
+            console.log('list', list, 'dictionaryList', dictionaryList);
             $(list).each(function (index, item) {
                 var temp = {};
                 if (item.type == 1) { // 资料
@@ -335,7 +336,7 @@ define(function (require, exports, module) {
                         // console.log(item.pcode, HotSpotList[i].templateCode);
                         return sItem.pcode === templateCode;
                     });
-                    // console.log('findArr', targetItem[0]);
+                    // console.log('targetItem', targetItem[0]);
                     if (targetItem[0]) {
                         if (targetItem[0].order === 4) {
                             // 追加字段-如果为办公站点

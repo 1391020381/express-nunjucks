@@ -70,7 +70,7 @@ define(function (require) {
                     $('.personal-center-mydownloads').html(mycollectionAndDownLoadTemplate);
                     handlePagination(res.data.totalPages, res.data.currentPage, 'mydownloads');
                     getDictionaryData();
-                    getBannerbyPosition();
+                    // getBannerbyPosition();
                 } else {
                     $.toast({
                         text: res.message,
@@ -131,13 +131,16 @@ define(function (require) {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
                     dictionaryData = res.data;
+                    getBannerbyPosition();
+                } else {
+                    getBannerbyPosition();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
