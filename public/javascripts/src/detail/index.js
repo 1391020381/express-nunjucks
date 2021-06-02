@@ -12,8 +12,8 @@ define(function (require, exports, module) {
     var utils = require('../cmd-lib/util');
     var login = require('../application/checkLogin');
     var common = require('./common');
-    var fileCollectLayer = require('../common/file-collect-layer/index')
-    var urlConfig = require('../application/urlConfig')
+    var fileCollectLayer = require('../common/file-collect-layer/index');
+    var urlConfig = require('../application/urlConfig');
     var Browse10s = require('../common/userActionRecordReport').Browse10s;
     // 评价弹窗
     var evaluateLayerService = require('../common/evaluate-layer/index');
@@ -119,15 +119,15 @@ define(function (require, exports, module) {
                     // goPage(event);
                     var params = window.pageConfig.params;
                     if (method.getCookie('isPaidTest')) { // vip付费文档 支付
-                        var vipDesc = $('.integral-con .integral-con-content').attr('desc')
-                        var vipPrice = $('.integral-con .integral-con-content').attr('price')
+                        var vipDesc = $('.integral-con .integral-con-content').attr('desc');
+                        var vipPrice = $('.integral-con .integral-con-content').attr('price');
                         var isPaidTest = {
                             price: vipPrice,
                             desc: vipDesc,
-                            productType: params.productType   // vip 4
-                        }
+                            productType: params.productType // vip 4
+                        };
                         if (isPaidTest.productType == 4) {
-                            method.getCookie('isPaidTest', '/')
+                            method.getCookie('isPaidTest', '/');
                             goPage('', '', isPaidTest);
                         }
                     }
@@ -336,13 +336,13 @@ define(function (require, exports, module) {
             if (productType == 3) return false;
 
             var type = $(this).data('type');
-            var vipPrice = $(this).attr('price')
-            var vipDesc = $(this).attr('desc')
+            var vipPrice = $(this).attr('price');
+            var vipDesc = $(this).attr('desc');
             var isPaidTest = {
                 price: vipPrice,
                 desc: vipDesc,
                 productType: 4
-            }
+            };
             if (!method.getCookie('cuk')) {
                 // 上报数据相关
                 if ($(this).attr('loginOffer')) {
@@ -350,11 +350,11 @@ define(function (require, exports, module) {
                 }
                 method.setCookieWithExpPath('download-qqweibo', 1, 1000 * 60 * 60 * 1, '/'); // qq weibo 登录添加标记
                 method.setCookieWithExpPath('enevt_data', type, 1000 * 60 * 60 * 1, '/');
-                console.log(vipDesc, vipPrice)
-                if ((pageConfig.params.productType == '5' && type == 'file') || (pageConfig.params.productType == '4') && vipPrice && vipDesc
+                console.log(vipDesc, vipPrice);
+                if (pageConfig.params.productType == '5' && type == 'file' || pageConfig.params.productType == '4' && vipPrice && vipDesc
                 ) {
                     // 相关逻辑未登陆购买逻辑移到buyUnlogin.js
-                    method.setCookieWithExpPath('isPaidTest', 1, 1000 * 60 * 60 * 1, '/');  // vip专享 付费资料 付费
+                    method.setCookieWithExpPath('isPaidTest', 1, 1000 * 60 * 60 * 1, '/'); // vip专享 付费资料 付费
                 } else {
                     login.notifyLoginInterface(function (data) {
                         window.pageConfig.userId = data.userId;
@@ -389,16 +389,16 @@ define(function (require, exports, module) {
 
         // 跳转到格式转换
         $('.js-go2FileConvert').on('click', function () {
-            var convertType = $(this).attr('data-convert-type')
-            var domID = 'Click' + convertType
-            var domName = convertType + '导航点击'
+            var convertType = $(this).attr('data-convert-type');
+            var domID = 'Click' + convertType;
+            var domName = convertType + '导航点击';
             trackEvent('NE002', 'normalClick', 'click', {
                 domID: domID,
                 domName: domName
             });
-            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
-            method.compatibleIESkip(href, true)
-        })
+            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
+            method.compatibleIESkip(href, true);
+        });
     }
 
     // 评价按钮显隐
@@ -777,7 +777,7 @@ define(function (require, exports, module) {
                     _this.hasClass('btn-collect-success') ? _this.removeClass('btn-collect-success') : _this.addClass('btn-collect-success');
                 } else {
                     if (res.code == '401002') { // 收藏数量超过限制
-                        fileCollectLayer.open()
+                        fileCollectLayer.open();
                     } else {
                         $.toast({
                             text: _this.hasClass('btn-collect-success') ? '取消收藏失败' : '收藏失败'
@@ -854,7 +854,7 @@ define(function (require, exports, module) {
         method.setCookieWithExpPath('rf', JSON.stringify({}), 5 * 60 * 1000, '/');
         method.setCookieWithExp('f', JSON.stringify({ fid: fid, title: title, format: format }), 5 * 60 * 1000, '/');
         if (isPaidTest && isPaidTest.productType == 4 && isPaidTest.price) {
-            createOrder()
+            createOrder();
         } else if (type === 'file') {
             href = '?orderNo=' + fid + '&checkStatus=' + '8' + '&referrer=' + document.referrer;
             method.compatibleIESkip('/pay/payConfirm.html' + href, false);
@@ -880,7 +880,7 @@ define(function (require, exports, module) {
     }
     function createOrder() {
         // 组装创建订单的参数
-        var goodsId = window.pageConfig.params.g_fileId
+        var goodsId = window.pageConfig.params.g_fileId;
         var temp = {
             goodsId: goodsId, // 文件id
             goodsType: 1, // 套餐类别  1-购买资料 2-购买VIP 3-购买下载券 4-购买爱问豆 8下载特权 9 优享资料
@@ -910,8 +910,8 @@ define(function (require, exports, module) {
                         prePageFileID: method.getParam('fid') || ''
                     });
                     // 跳转
-                    var orderID = data.data.orderNo
-                    method.compatibleIESkip('/pay/payQr.html?' + 'type=8&orderNo=' + orderID + '&fid=' + goodsId)
+                    var orderID = data.data.orderNo;
+                    method.compatibleIESkip('/pay/payQr.html?' + 'type=8&orderNo=' + orderID + '&fid=' + goodsId);
                 } else {
                     $.toast({
                         text: res.message,

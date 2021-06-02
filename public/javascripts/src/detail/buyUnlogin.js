@@ -88,8 +88,8 @@ define(function (require) {
                 var page = window.pageConfig.page;
                 var params = window.pageConfig.params;
                 var bilogcontent = $(this).attr('bilogcontent');
-                var vipPrice = $(this).attr('price')
-                var vipDesc = $(this).attr('desc')
+                var vipPrice = $(this).attr('price');
+                var vipDesc = $(this).attr('desc');
                 trackEvent('SE003', 'fileDetailDownClick', 'click', {
                     fileID: params.g_fileId,
                     fileName: page.fileName,
@@ -102,7 +102,7 @@ define(function (require) {
                 });
                 unloginObj.isClear = false;
                 if (!method.getCookie('cuk')) {
-                    if ((pageConfig.params.productType == 5 && $(this).data('type') == 'file') || (pageConfig.params.productType == 4 && vipPrice && vipDesc)) { // pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
+                    if (pageConfig.params.productType == 5 && $(this).data('type') == 'file' || pageConfig.params.productType == 4 && vipPrice && vipDesc) { // pageConfig.params.g_permin == 3 && $(this).data('type') == "file"
                         var clsId = getIds().clsId;
                         var fid = getIds().fid;
                         showTouristPurchaseDialog({ clsId: clsId, fid: fid }, function () { // 游客登录后刷新头部和其他数据
@@ -116,7 +116,7 @@ define(function (require) {
                                     price: vipPrice,
                                     desc: vipDesc,
                                     productType: 4
-                                }
+                                };
                                 common.afterLogin(data, { type: 'file', data: data, callback: goPage, isPaidTest: isPaidTest });
                             });
                         });

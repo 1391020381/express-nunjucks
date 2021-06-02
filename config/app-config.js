@@ -26,7 +26,6 @@ const config = {
         apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
         apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
         newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: '//dev-login-ishare.iask.com.cn',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
