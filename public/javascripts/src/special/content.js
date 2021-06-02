@@ -14,9 +14,6 @@ define(function (require, exports, module) {
         window.location.reload();
     });
 
-    console.log('window.pageConfig', window.pageConfig);
-
-
     // 更多筛选  切换函数
     function toggleMore() {
         var searchScreen = $('.search-screen');
@@ -133,13 +130,17 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
+                    console.log('success', res.data)
                     dictionaryData = res.data;
+                    gebyPosition();
+                } else {
+                    gebyPosition();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
@@ -148,7 +149,7 @@ define(function (require, exports, module) {
 
     getDictionaryData();
 
-    gebyPosition();
+    // gebyPosition();
     function gebyPosition() {
         $.ajax({
             url: api.recommend.recommendConfigInfo,

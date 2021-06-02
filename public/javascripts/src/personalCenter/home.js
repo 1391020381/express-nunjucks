@@ -27,8 +27,8 @@ define(function (require) {
         getUserCentreInfo();
         getFileBrowsePage();
         getDownloadRecordList();
-        getBannerbyPosition();
-        getMyVipRightsList();
+        // getBannerbyPosition();
+        // getMyVipRightsList();
     }
 
     // A25：获取字典列表
@@ -36,13 +36,18 @@ define(function (require) {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
                     dictionaryData = res.data;
+                    getBannerbyPosition();
+                    getMyVipRightsList();
+                } else {
+                    getBannerbyPosition();
+                    getMyVipRightsList();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
@@ -235,6 +240,7 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
+                    console.log('getBannerbyPosition', res);
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.personalCenterHome.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
@@ -270,6 +276,7 @@ define(function (require) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
+                console.log('getMyVipRightsList', res);
                 if (res.code == '0') {
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.myVipRightsList.descs).each(function (index, desc) {

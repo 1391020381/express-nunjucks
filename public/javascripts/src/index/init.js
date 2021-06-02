@@ -56,7 +56,7 @@ define(function (require, exports, moudle) {
             // banner轮播图
             new Slider('J_office_banner', 'J_office_focus', 'J_office_prev', 'J_office_next');
 
-            var dictionaryData = this.getDictionaryData();
+            this.getDictionaryData();
 
             this.tabswitchFiles();
             this.tabswitchSeo();
@@ -87,7 +87,6 @@ define(function (require, exports, moudle) {
                 }
             });
             this.signDialog();
-            this.getBannerbyPosition(dictionaryData);
         },
 
         beforeInit: function () {
@@ -311,13 +310,16 @@ define(function (require, exports, moudle) {
             $.ajax({
                 url: api.user.dictionaryData.replace('$code', 'themeModel'),
                 type: 'GET',
-                async: false,
+                async: true,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 cache: false,
                 success: function (res) { // loginRedPacket-dialog
                     if (res.data && res.data.length) {
-                        return res.data;
+                        var dictionaryData = res.data;
+                        indexObject.getBannerbyPosition(dictionaryData);
+                    } else {
+                        indexObject.getBannerbyPosition(dictionaryData);
                     }
                     // console.log('getDictionaryData', dictionaryData);
                 }

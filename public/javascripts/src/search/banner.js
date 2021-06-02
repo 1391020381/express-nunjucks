@@ -11,13 +11,17 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
+                // console.log('进入搜索页面请求成功', res.data);
                 if (res.data && res.data.length) {
                     dictionaryData = res.data;
+                    gebyPosition();
+                } else {
+                    gebyPosition();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
@@ -28,7 +32,6 @@ define(function (require, exports, module) {
 
     // 顶部 banner
 
-    gebyPosition();
     function gebyPosition() {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
@@ -37,6 +40,7 @@ define(function (require, exports, module) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
+                // console.log('res', res);
                 if (res.code == '0') {
                     res.data.forEach(function (item) { // 匹配 组装数据
                         recommendConfigInfo.search.descs.forEach(function (desc) {

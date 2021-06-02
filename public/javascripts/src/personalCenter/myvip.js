@@ -37,8 +37,8 @@ define(function (require) {
         });
         $('.personal-center-vip').html(myvipTemplate);
         getDictionaryData();
-        getBannerbyPosition();
-        getMyVipRightsList();
+        // getBannerbyPosition();
+        // getMyVipRightsList();
         if (vipTableType == '0') {
             getMemberPointRecord();
         } else if (vipTableType == '1') {
@@ -53,13 +53,18 @@ define(function (require) {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
-            async: false,
+            async: true,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
                     dictionaryData = res.data;
+                    getBannerbyPosition();
+                    getMyVipRightsList();
+                } else {
+                    getBannerbyPosition();
+                    getMyVipRightsList();
                 }
                 // console.log('getDictionaryData', dictionaryData);
             }
@@ -228,6 +233,7 @@ define(function (require) {
     }
 
     function getBannerbyPosition() { // PC_M_USER_banner
+        console.log('进入getBannerbyPosition')
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
@@ -268,6 +274,7 @@ define(function (require) {
     }
 
     function getMyVipRightsList() {
+        console.log('进入getMyVipRightsList');
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
@@ -349,3 +356,6 @@ define(function (require) {
         cancelAutoRenew(id);
     });
 });
+// w(id);
+//     });
+// });
