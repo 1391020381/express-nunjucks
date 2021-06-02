@@ -19,7 +19,7 @@ define(function (require, exports, module) {
             // this.sortSelect();
             this.fixRight();
 
-            this.categoryBilog()
+            this.categoryBilog();
 
         },
         categoryBilog:function() {
@@ -39,22 +39,22 @@ define(function (require, exports, module) {
                     duration: endTime - startTime
                 }, true);
             });
-            trackEvent('NE030','pageTypeView','page',{
+            trackEvent('NE030', 'pageTypeView', 'page', {
                 pageID:'CL',
                 pageName:'分类页'
-            })
-            trackEvent('NE032','ctListModelView','view',{
+            });
+            trackEvent('NE032', 'ctListModelView', 'view', {
                 tabID:window.pageConfig.params.idArr,
                 tabName:window.pageConfig.params.nameArr
-            })
-            $('.landing-txt-list .li-file').on('click',function (event) {
-                trackEvent('NE008','goodsEntryClick','click',{
+            });
+            $('.landing-txt-list .li-file').on('click', function (event) {
+                trackEvent('NE008', 'goodsEntryClick', 'click', {
                     clID: window.pageConfig.params.idArr,
                     clName: window.pageConfig.params.nameArr,
                     goodsPostion:$(this).data('index'),
                     goodsID: $(this).data('fileid'),
                     goodsName: $(this).data('filename')
-                })
+                });
             });
         },
 
