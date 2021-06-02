@@ -1,125 +1,148 @@
 <!--仅供在线阅读提示 -->
 <div id="footer-btn">
     {% if results.list.data.productType == "3" %}
-    <div class="data-item fl">
-        <h2 class="data-title fl"><i class="ico-big-data
-            ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
-        <span class="online-read">仅供在线阅读</span>
-    </div>
-    <div class="integral-con fr">
-        <a class="btn-fix-vip js-buy-open fl pc_click js-disable"
-            pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8"
-            loginOffer="joinVip-2" data-type="vip">该资料不支持下载</a>
-    </div>
-    {%else%}
-    <!-- VIP文档.results.list.data.productType-->
-    {% if results.list.data.productType == "4" %}
-    <div class="data-item fl">
-        <h2 class="data-title fl"><i class="ico-big-data
-                ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
-    </div>
-    <div class="integral-con fr">
-        {%if results.isVipPaidTest.flag%}
-        <p  class="integral-con-content js-buy-open" price="{{results.isVipPaidTest.price}}" desc="{{results.isVipPaidTest.desc}}">
-            <span class="integral-con-price"  style="font-weight: bold;">
-                <i class="integral-con-priceicon" style="font-style: normal;">¥</i>
-            <i class="integral-con-pricenum" style="font-style: normal;font-size: 18px;">{{results.isVipPaidTest.price}}</i>
-            </span>
-            <span class="integral-con-desc">{{results.isVipPaidTest.desc}}</span>
-        </p>
-        <a class="btn-fix-bottom btn-fix-bottom-vip fl pc_click" pcTrackContent="downloadBtn-3"
-            bilogContent="fileDetailBottomDown" data-toggle="download" >VIP特权下载</a>
-        {%else%}
-        <span style="float:left;margin-right:15px;">{{
-            results.list.data.productPrice }}个下载特权</span>
-            <a class="btn-fix-bottom btn-fix-bottom-vip fl pc_click" pcTrackContent="downloadBtn-3"
-            bilogContent="fileDetailBottomDown" data-toggle="download" >立即下载</a>
-        {%endif%}
-    </div>
-    {%else%}
-    <!--现金文档-->
-    {% if results.list.data.productType == "5" %}
-    <!-- 现金打折文档-->
-    {% if results.list.data.vipDiscountFlag == 1 %}
-    <div class="data-item fl">
-        <h2 class="data-title fl"><i class="ico-big-data
-                ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}</h2>
-    </div>
-
-    <div class="integral-con fr">
-        <div class="price-con price-more fl">
-            <!--现金文档价格 -->
-            <p class="price" style="">¥ {{results.list.data.productPrice}}</p>
-            <!--现金文档 有折扣 非vip会员 -->
-            <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span></p>
+        <div class="data-item fl">
+            <h2 class="data-title fl">
+                <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                {{ results.list.data.title }}</h2>
+            <span class="online-read">仅供在线阅读</span>
         </div>
-
-        <a class="btn-fix-bottom js-buy-open btn-fix-border fl pc_click"
-            pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy"
-            loginOffer="buyBtn-3" data-type="file">立即下载</a>
-        {# <a class="btn-vip-more fl js-buy-open pc_click"
-            pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8"
-            loginOffer="joinVip-2" data-type="vip">
-            <p class="text">开通VIP</p>
-            <p class="sale-text">8折起</p>
-            <div class="vip-d-share">
-                <div class="vip-d-inter">
-                    <i class="before"></i>
-                    <i class="after"></i>
-                    <p>开通VIP，本资料可享8折购买，立省<span id="vip-save-money"></span>元</p>
-                </div>
+        <div class="integral-con fr">
+            <a
+                class="btn-fix-vip js-buy-open fl pc_click js-disable"
+                pcTrackContent="joinVip-2"
+                bilogContent="fileDetailBottomOpenVip8"
+                loginOffer="joinVip-2"
+                data-type="vip">该资料不支持下载</a>
+        </div>
+    {% else %}
+        <!-- VIP文档.results.list.data.productType-->
+        {% if results.list.data.productType == "4" %}
+            <div class="data-item fl">
+                <h2 class="data-title fl">
+                    <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                    {{ results.list.data.title }}</h2>
             </div>
-        </a> #}
-    </div>
-    {%else%}
-
-    <div class="data-item fl">
-        <h2 class="data-title fl">
-            <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}
-        </h2>
-    </div>
-
-    <div class="integral-con fr">
-        <div class="price-con fl">
-            <!--现金文档价格 -->
-            <p class="price" style="">¥ {{results.list.data.productPrice}}</p>
-        </div>
-        <a class="btn-fix-bottom js-buy-open fl pc_click"
-            pcTrackContent="buyBtn-3" bilogContent="fileDetailBottomBuy"
-            loginOffer="buyBtn-3" data-type="file">立即下载</a>
-    </div>
-    {%endif%}
-    {%else%}
-    <!--下载券文档-->
-    {% if results.list.data.volume>0 %}
-    <div class="data-item fl">
-        <h2 class="data-title fl">
-            <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}
-        </h2>
-    </div>
-
-    <div class="integral-con fr">
-        <div class="price-con fl">
-            <p class="price" style="">{{results.list.data.volume}}下载券</p>
-        </div>
-        <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3"
-            bilogContent="fileDetailBottomDown" data-toggle="download"
-            loginOffer="downloadBtn-3">立即下载</a>
-    </div>
-    {%else%}
-    <div class="data-item fl">
-        <h2 class="data-title fl">
-            <i class="ico-big-data ico-big-{{results.list.data.format}}"></i>{{results.list.data.title}}
-        </h2>
-    </div>
-
-    <div class="integral-con fr">
-        <a class="btn-fix-bottom fl pc_click" pcTrackContent="downloadBtn-3"
-            bilogContent="fileDetailBottomDown" data-toggle="download"
-            loginOffer="downloadBtn-3">立即下载</a>
-    </div>
-    {%endif%}
-    {%endif%}
-    {%endif%}
-    {%endif%}
+            <div class="integral-con fr">
+                {% if results.isVipPaidTest.flag %}
+                    <p class="integral-con-content js-buy-open" price="{{ results.isVipPaidTest.price }}" desc="{{ results.isVipPaidTest.desc }}">
+                        <span class="integral-con-price" style="font-weight: bold;">
+                            <i class="integral-con-priceicon" style="font-style: normal;">¥</i>
+                            <i class="integral-con-pricenum" style="font-style: normal;font-size: 18px;">{{ results.isVipPaidTest.price }}</i>
+                        </span>
+                        <span class="integral-con-desc">{{ results.isVipPaidTest.desc }}</span>
+                    </p>
+                    <a
+                        class="btn-fix-bottom btn-fix-bottom-vip fl pc_click"
+                        pcTrackContent="downloadBtn-3"
+                        bilogContent="fileDetailBottomDown"
+                        data-toggle="download">立即下载</a>
+                {% else %}
+                    <span style="float:left;margin-right:15px;">{{ results.list.data.productPrice }}个下载特权</span>
+                    <a
+                        class="btn-fix-bottom btn-fix-bottom-vip fl pc_click"
+                        pcTrackContent="downloadBtn-3"
+                        bilogContent="fileDetailBottomDown"
+                        data-toggle="download">立即下载</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <!--现金文档-->
+            {% if results.list.data.productType == "5" %}
+                <!-- 现金打折文档-->
+                {% if results.list.data.vipDiscountFlag == 1 %}
+                    <div class="data-item fl">
+                        <h2 class="data-title fl">
+                            <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                            {{ results.list.data.title }}</h2>
+                    </div>
+                    <div class="integral-con fr">
+                        <div
+                            class="price-con price-more fl">
+                            <!--现金文档价格 -->
+                            <p class="price" style="">¥ {{ results.list.data.productPrice }}</p>
+                            <!--现金文档 有折扣 非vip会员 -->
+                            <p class="vip-sale-price">会员价&yen;<span class="js-original-price"></span>
+                            </p>
+                        </div>
+                        <a
+                            class="btn-fix-bottom js-buy-open btn-fix-border fl pc_click"
+                            pcTrackContent="buyBtn-3"
+                            bilogContent="fileDetailBottomBuy"
+                            loginOffer="buyBtn-3"
+                            data-type="file">立即下载</a>
+                        {# <a class="btn-vip-more fl js-buy-open pc_click"
+                                                                                                                                                                                                                                    pcTrackContent="joinVip-2" bilogContent="fileDetailBottomOpenVip8"
+                                                                                                                                                                                                                                    loginOffer="joinVip-2" data-type="vip">
+                                                                                                                                                                                                                                    <p class="text">开通VIP</p>
+                                                                                                                                                                                                                                    <p class="sale-text">8折起</p>
+                                                                                                                                                                                                                                    <div class="vip-d-share">
+                                                                                                                                                                                                                                        <div class="vip-d-inter">
+                                                                                                                                                                                                                                            <i class="before"></i>
+                                                                                                                                                                                                                                            <i class="after"></i>
+                                                                                                                                                                                                                                            <p>开通VIP，本资料可享8折购买，立省<span id="vip-save-money"></span>元</p>
+                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                </a> #}
+                    </div>
+                {% else %}
+                    <div class="data-item fl">
+                        <h2 class="data-title fl">
+                            <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                            {{ results.list.data.title }}
+                        </h2>
+                    </div>
+                    <div class="integral-con fr">
+                        <div
+                            class="price-con fl">
+                            <!--现金文档价格 -->
+                            <p class="price" style="">¥ {{ results.list.data.productPrice }}</p>
+                        </div>
+                        <a
+                            class="btn-fix-bottom js-buy-open fl pc_click"
+                            pcTrackContent="buyBtn-3"
+                            bilogContent="fileDetailBottomBuy"
+                            loginOffer="buyBtn-3"
+                            data-type="file">立即下载</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <!--下载券文档-->
+                {% if results.list.data.volume>0 %}
+                    <div class="data-item fl">
+                        <h2 class="data-title fl">
+                            <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                            {{ results.list.data.title }}
+                        </h2>
+                    </div>
+                    <div class="integral-con fr">
+                        <div class="price-con fl">
+                            <p class="price" style="">{{ results.list.data.volume }}下载券</p>
+                        </div>
+                        <a
+                            class="btn-fix-bottom fl pc_click"
+                            pcTrackContent="downloadBtn-3"
+                            bilogContent="fileDetailBottomDown"
+                            data-toggle="download"
+                            loginOffer="downloadBtn-3">立即下载</a>
+                    </div>
+                {% else %}
+                    <div class="data-item fl">
+                        <h2 class="data-title fl">
+                            <i class="ico-big-data ico-big-{{ results.list.data.format }}"></i>
+                            {{ results.list.data.title }}
+                        </h2>
+                    </div>
+                    <div class="integral-con fr">
+                        <a
+                            class="btn-fix-bottom fl pc_click"
+                            pcTrackContent="downloadBtn-3"
+                            bilogContent="fileDetailBottomDown"
+                            data-toggle="download"
+                            loginOffer="downloadBtn-3">立即下载</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
 </div>
