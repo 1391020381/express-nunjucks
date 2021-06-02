@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     // 登录 第三方授权回调页面
-    var urlConfig = require('../application/urlConfig')
+    var urlConfig = require('../application/urlConfig');
     var api = require('../application/api');
     var method = require('../application/method');
     var redirectUrl = method.getParam('redirectUrl');
