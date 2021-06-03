@@ -27,7 +27,7 @@ define(function (require, exports, module) {
     // handleBaiduStatisticsPush('fileDetailPageView')
     trackEvent('NE030', 'pageTypeView', 'page', {
         pageID: 'FD',
-        pageName: '资料详情'
+        pageName: '资料详情页'
     });
 
     // 进入详情页时间戳

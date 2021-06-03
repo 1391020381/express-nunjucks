@@ -121,15 +121,15 @@ define(function (require, exports, module) {
                 var showTips = 1;
                 var turl = '';
                 var tformat = window.pageConfig.params.file_format;
-                var title = window.pageConfig.params.file_title;
+                var fileTitle = window.pageConfig.params.file_title;
                 var productType = window.pageConfig.params.productType;
                 var userFileType = window.pageConfig.params.userFileType;
                 var userFilePrice = window.pageConfig.params.userFilePrice;
-                method.setCookieWithExp('f', JSON.stringify({ fid: tfid, title: title, format: tformat }), 5 * 60 * 1000, '/');
+                method.setCookieWithExp('f', JSON.stringify({ fid: tfid, title: fileTitle, format: tformat }), 5 * 60 * 1000, '/');
                 if (productType == '4') {
-                    turl = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + res.data.checkStatus + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips + '&productType=' + productType + '&userFileType=' + userFileType + '&userFilePrice=' + userFilePrice;
+                    turl = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + res.data.checkStatus + '&name=' + encodeURIComponent(encodeURIComponent(fileTitle)) + '&ref=' + ref + '&showTips=' + showTips + '&productType=' + productType + '&userFileType=' + userFileType + '&userFilePrice=' + userFilePrice;
                 } else {
-                    turl = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + res.data.checkStatus + '&name=' + encodeURIComponent(encodeURIComponent(title)) + '&ref=' + ref + '&showTips=' + showTips;
+                    turl = '?fid=' + fid + '&ft=' + format + '&checkStatus=' + res.data.checkStatus + '&name=' + encodeURIComponent(encodeURIComponent(fileTitle)) + '&ref=' + ref + '&showTips=' + showTips;
                 }
                 goLocalTab('/pay/vip.html' + turl);
                 break;
@@ -207,13 +207,6 @@ define(function (require, exports, module) {
                 fileCategoryID: params.classid1 + '||' + params.classid2 + '||' + params.classid3,
                 fileCategoryName: params.classidName1 + '||' + params.classidName2 + '||' + params.classidName3
             });
-            // 测试底部立即下载的事件（以后可以删除）
-            if (bilogcontent == 'fileDetailBottomDown' || bilogcontent == 'fileDetailBottomBuy' || bilogcontent == 'fileDetailBottomOpenVip8') {
-                trackEvent('NE061', 'fileDetailDownClick', 'click', {
-                    domID: 'fileDetailBottomDown',
-                    domName: '立即下载-a'
-                });
-            }
         }
 
         if (method.getCookie('cuk')) {

@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     require('swiper');
     require('../cmd-lib/myDialog');
     var method = require('../application/method');
-    var urlConfig = require('../application/urlConfig')
+    var urlConfig = require('../application/urlConfig');
     var login = require('../application/checkLogin');
     var utils = require('../cmd-lib/util');
     var fid = method.getParam('fid');
@@ -24,11 +24,6 @@ define(function (require, exports, module) {
         pageID: 'DSC',
         pageName: '下载成功页'
     });
-    trackEvent('NE006', 'modelView', 'view', {
-        moduleID: 'downSucCon',
-        moduleName: '下载成功弹窗'
-    });
-
     var userData = null, initData = {};
     eventBinding();
 
@@ -344,10 +339,10 @@ define(function (require, exports, module) {
                 domID: 'sucTransClick',
                 domName: '成功页导流按钮点击'
             });
-            var convertType = $(this).attr('data-convert-type')
-            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
-            method.compatibleIESkip(href, true)
-        })
+            var convertType = $(this).attr('data-convert-type');
+            var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
+            method.compatibleIESkip(href, true);
+        });
     }
 
     // 获取百度数据
