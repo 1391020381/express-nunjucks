@@ -23,15 +23,19 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
+        // apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
+        // apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
+        // newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
+        // loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
+        apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
+        newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
         port: 3004,
         static3: '',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         payUrl: 'http://dev-open-ishare.iask.com.cn',
         upload: '//dev-upload-ishare.iask.com',
         bilogUrl: 'https://dev-dw.iask.com.cn/ishare/jsonp',
@@ -62,12 +66,12 @@ const config = {
         apiBasePath: 'http://test-gateway.pc.ishare.iasktest.com/gateway/pc',
         apiNewBaselPath: 'http://test-gateway.pc.ishare.iasktest.com/gateway',
         newBasePath: 'http://test-gateway.pc.ishare.iasktest.com',
+        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义
         port: 3004,
         static3: '//test-static3.iask.cn/',
-        loginUrl: 'http://test-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         payUrl: 'http://test-open-ishare.iask.com.cn',
         upload: '//test-upload-ishare.iask.com',
         bilogUrl: 'https://test-dw.iask.com.cn/ishare/jsonp',
