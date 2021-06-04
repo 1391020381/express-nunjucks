@@ -70,7 +70,7 @@ define(function (require) {
                     $('.personal-center-mydownloads').html(mycollectionAndDownLoadTemplate);
                     handlePagination(res.data.totalPages, res.data.currentPage, 'mydownloads');
                     getDictionaryData();
-                    // getBannerbyPosition();
+                    getBannerbyPosition();
                 } else {
                     $.toast({
                         text: res.message,
