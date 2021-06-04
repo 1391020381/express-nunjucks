@@ -42,7 +42,7 @@ define(function (require, exports, module) {
         $ajax(url, 'GET', '', false).done(function (res) {
             if (res.code == 0 && res.data && res.data.length) {
                 var item = res.data[0];
-                if (item.pcode == 1) {
+                if (item.pcode == 2) {
                     singleLogin();
                 }
             }
