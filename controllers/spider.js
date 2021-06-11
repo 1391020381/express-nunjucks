@@ -128,11 +128,9 @@ function dealContent(content, fileContentList, hotSearch, dictionaryList) { // �
     const selectHotSearch = []; // 保存匹配过的专题
     const env = process.env.NODE_ENV || 'prod';
     // console.log('hotSearch---------', hotSearch);
-    console.log('dictionaryList---------', dictionaryList);
     fileContentList && fileContentList.map((dto, i) => {
         let text = content.substring(i * textLength, textLength * (i + 1));
         hotSearch && hotSearch.map(item => {
-            console.log('hotSearch---------', item);
             const reg = new RegExp(item.title, 'i');
             let replaceStr = '';
             // 拼接路径
@@ -304,7 +302,10 @@ function handleSpiderData({
 
     results.type = type;
     results.fileDetailArr = newTextArr;
-    results.fileSummary = results.list.data.fileInfo.title + fileDetailTxt.data && fileDetailTxt.data.slice(0, 266);
+    const subTitle = fileDetailTxt.data && fileDetailTxt.data.slice(0, 266) || '';
+    results.fileSummary = results.list.data.fileInfo.title + subTitle;
+    // console.log('xxxxxxx:', subTitle);
+    // console.log('---------', results.fileSummary);
     render('spider/index', results, req, res);
 }
 
