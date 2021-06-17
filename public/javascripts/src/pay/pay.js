@@ -67,8 +67,7 @@ define(function (require, exports, moudle) {
 
     //
     // 优惠券相关需要在登录后执行
-    var couponObj = require('../common/coupon/couponOperate');
-    require('../common/coupon/couponIssue');
+    var couponObj = '';
 
 
     // 生成二维码
@@ -148,6 +147,8 @@ define(function (require, exports, moudle) {
                 console.log('错误');
             }
         });
+        couponObj = require('../common/coupon/couponOperate');
+        require('../common/coupon/couponIssue');
     }
 
 
@@ -443,7 +444,7 @@ define(function (require, exports, moudle) {
         })(window, document, 'script', '_MEIQIA');
         _MEIQIA('entId', 'da3025cba774985d7ac6fa734b92e729');
         _MEIQIA('subSource', 'sub_source_10');
-       _MEIQIA('manualInit');
+        _MEIQIA('manualInit');
     //   _MEIQIA('init');
     } catch (e) {
         console.log('美洽加载错误', JSON.stringify(e));

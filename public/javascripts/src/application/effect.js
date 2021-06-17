@@ -142,15 +142,14 @@ define(function (require, exports, module) {
     function isLogin(callback, isAutoLogin, callback2) {
         if (!method.getCookie('cuk') && isAutoLogin) {
             checkLogin.notifyLoginInterface(function (data) {
+                refreshTopBar(data);
                 callback && callback(data);
                 callback2 && callback2(data);
-                refreshTopBar(data);
-
             });
         } else if (method.getCookie('cuk')) {
             checkLogin.getLoginData(function (data) {
-                callback && callback(data);
                 refreshTopBar(data);
+                callback && callback(data);
             });
         } else if (!isAutoLogin) {
             callback && callback();
