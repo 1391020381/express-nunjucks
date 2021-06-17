@@ -25,7 +25,8 @@ define(function (require, exports, module) {
 
                 $.ajaxSetup({
                     headers: {
-                        'Authrization': method.getCookie('cuk')
+                        'Authrization': method.getCookie('cuk'),
+                        'site': urlConfig.site
                     }
                 });
                 $ajax('/node/api/getUserInfo', 'GET').then(function (res) {

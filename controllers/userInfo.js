@@ -16,18 +16,21 @@ module.exports = {
         return async.series({
             userInfo: function (callback) {
                 //    console.log('req.cookies:',req.cookies)
+                // console.log('appConfig.site', appConfig.site);
                 const opt = {
                     method: 'GET',
                     url: appConfig.apiNewBaselPath + api.user.getUserInfo,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authrization': req.cookies.cuk
+                        'Authrization': req.cookies.cuk,
+                        'site': appConfig.site
                     }
                 };
                 request(opt, (err, res1, body) => {
                     if (body) {
                         const data = JSON.parse(body);
                         console.log('请求地址get-------------------:', opt.url);
+                        // console.log('请求地址headers-------------------:', opt.headers);
                         console.log('返回code------:' + data.code, '返回message-------:' + data.message);
                         if (data.code == 0 && data.data) {
                             callback(null, data);
