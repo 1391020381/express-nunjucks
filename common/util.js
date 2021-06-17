@@ -82,7 +82,7 @@ module.exports = {
                     // 专题--且存在模板标识
                     const templateCode = res.expand.templateCode;
                     const targetItem = dictionaryList.find(sItem => sItem.pcode === templateCode);
-                    console.log('res', res, 'targetItem', targetItem);
+                    //  console.log('res', res, 'targetItem', targetItem);
                     if (targetItem) {
                         if (targetItem.order === 4) {
                             // 追加字段-如果为办公站点
