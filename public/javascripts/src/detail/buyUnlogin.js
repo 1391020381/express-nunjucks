@@ -39,7 +39,9 @@ define(function (require) {
         init: function () {
             this.bindClick();
         },
+
         bindClick: function () {
+
             // 切换购买方式（游客购买或登陆购买）
             $('body').on('click', '.buyUnloginWrap .navItem', function () {
                 $(this).addClass('active').siblings().removeClass('active');
@@ -47,16 +49,19 @@ define(function (require) {
                 $('.optionsContent').hide();
                 $('.optionsContent').eq(index).show();
             });
+
             // 勾选条款
             $('body').on('click', '.buyUnloginWrap .selectIcon', function () {
                 $(this).toggleClass('selected');
                 $('.qrShadow').toggle();
                 $('.riskTip').toggle();
             });
+
             // 关闭
             $('body').on('click', '.buyUnloginWrap .closeIcon', function () {
                 unloginObj.closeLoginWindon();
             });
+
             // 失败重新生产订单
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-refresh', function () {
                 //  unloginObj.createOrder();
@@ -69,18 +74,21 @@ define(function (require) {
                 $('.tourist-purchase-content .tourist-purchase-qrContent .tourist-purchase-refresh').hide();
                 unloginObj.payStatus(orderNo, visitorId);
             });
+
             // 查询已支付按钮回调
             $('body').on('click', '.tourist-purchase-qrContent .tourist-purchase-btn', function () {
                 var visitorId = unloginObj.getVisitorId();
                 var orderNo = unloginObj.orderNo;
                 unloginObj.freshOrder(orderNo, visitorId);
             });
+
             // 查询订单是否支付
             $('body').on('click', '.tourist-purchase-content .tourist-purchase-download', function () {
                 var visitorId = unloginObj.getVisitorId();
                 var orderNo = unloginObj.orderNo;
-                unloginObj.freshOrder(orderNo, visitorId);
+                unloginObj.fetchOrderStatus(orderNo, visitorId);
             });
+
             // 弹出未登录购买弹窗
             // var unloginBuyHtml = require('./template/buyUnlogin.html');
             // unloginBuyHtml += '<div  class="aiwen_login_model_div" style="width:100%; height:100%; position:fixed; top:0; left:0; z-index:1999;background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity:0.8;display: block"></div>';
@@ -130,6 +138,47 @@ define(function (require) {
             });
         },
 
+        // 查询订单状态接口
+        fetchOrderStatus: function (orderNo, visitorId) {
+            var url = api.order.orderStatus.replace('$orderNo', orderNo);
+            $.ajax({
+                type: 'get',
+                url: url,
+                headers: {
+                    'Authrization': method.getCookie('cuk')
+                },
+                contentType: 'application/json;charset=utf-8',
+                success: function (response) {
+                    console.log(response);
+                    if (response && response.code == 0) {
+                        var fid = pageConfig.params.g_fileId;
+                        if (response.data == 2) { // 支付成功
+                            try {
+                                unloginObj.closeLoginWindon();
+                                var href = '/node/f/downsucc.html?fid=' + fid + '&unloginFlag=1&name=' + fileName.slice(0, 20) +
+                                    '&format=' + format + '&visitorId=' + visitorId;
+                                method.compatibleIESkip(href, false);
+                            } catch (e) {
+                                console.log(JSON.stringify(e));
+                            }
+                        } else {
+                            $.toast({
+                                text: '订单尚未支付，请刷新二维码支付'
+                            });
+                        }
+                    } else {
+                        $.toast({
+                            text: response.message
+                        });
+                        unloginObj.closeLoginWindon();
+                    }
+                },
+                complete: function () {
+                    console.log('请求完成');
+                }
+            });
+        },
+
         // 刷新订单
         freshOrder: function (orderNo, visitorId) {
             var params = JSON.stringify({ orderNo: orderNo });
@@ -173,6 +222,7 @@ define(function (require) {
                 }
             });
         },
+
         createOrder: function () {
             var visitorId = unloginObj.getVisitorId();
             var params = {

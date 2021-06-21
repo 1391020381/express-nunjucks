@@ -116,7 +116,8 @@ define(function (require) {
                 userOpt: '0',
                 currentPage: currentPage || 1,
                 pageSize: 20,
-                sortStr: 'orderTime'
+                sortStr: 'orderTime',
+                goodsTypes: [1, 2, 4, 8, 12, 13, 14, 17, 18]
             }),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -128,7 +129,9 @@ define(function (require) {
                     Date.prototype.format = formatDate;
                     if (res.data && res.data.rows) {
                         $(res.data.rows).each(function (index, item) {
-                            item.payPrice = (item.payPrice / 100).toFixed(2);
+                            if (item.goodsType != 17) {
+                                item.payPrice = (item.payPrice / 100).toFixed(2);
+                            }
                             item.orderTime = new Date(item.orderTime).format('yyyy-MM-dd');
                             //   if(item.refundStatus== 0 ||!item.refundStatus){
                             //     item.orderStatusDesc = orderStatusList[item.orderStatus]

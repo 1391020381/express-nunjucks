@@ -124,6 +124,11 @@
   color: #4262D7;
   cursor: pointer;
 }
+.mycollection-anddownLoad .table-list .table-item .operation-btn .evaluate-convert-btn:hover {
+  background-color: #4262D7;
+  border-color: #4262D7;
+  color: #fff;
+}
 .mycollection-anddownLoad .table-list .table-item:first-child .file-content {
   margin-top: 13px;
 }

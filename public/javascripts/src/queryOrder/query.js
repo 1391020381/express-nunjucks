@@ -146,6 +146,91 @@ define(function (require, exports, module) {
         downLoad();
     });
 
+    // 【A27-a新增发送邮箱功能】
+    // 点击发送邮箱按钮
+    $('.send-email-btn').on('click', function () {
+        $('#dialog-box').dialog({
+            html: $('#send-email-content').html()
+        }).open(function() {
+            // 关闭邮箱发送弹窗
+            $('.close-emial-btn').on('click', function() {
+                $('#dialog-box').close();
+            });
+        });
+    });
+
+    $('#dialog-box').on('click', '.submit-email-btn', function () {
+        if (!method.testEmail($('.js-form-ipt').val())) {
+            $.toast({
+                text: '请输入正确的邮箱',
+                delay: 3000
+            });
+            return;
+        }
+        var fid = fileInfo.fid || '';
+        var fileName = fileInfo.goodsName || '';
+        if (method.getCookie('cuk')) {
+            var email = $('#dialog-box .js-form-ipt').val();
+            $.ajax({
+                headers: {
+                    'Authrization': method.getCookie('cuk')
+                },
+                url: api.sms.sendCorpusDownloadMail,
+                type: 'POST',
+                data: JSON.stringify({
+                    'email': email,
+                    'fid': fid,
+                    'title': fileName,
+                    'uid': JSON.parse(method.getCookie('ui')).uid
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == '0') {
+                        $.toast({
+                            text: '发送邮箱成功!'
+                        });
+                        var $dialogBox = $('#dialog-box');
+                        $dialogBox.dialog({}).close();
+                    } else {
+                        $.toast({
+                            text: '发送邮箱失败!'
+                        });
+                    }
+                }
+            });
+        } else {
+            var semail = $('#dialog-box .js-form-ipt').val();
+            $.ajax({
+                headers: {
+                    'Authrization': method.getCookie('cuk')
+                },
+                url: api.sms.fileSendEmailVisitor,
+                type: 'POST',
+                data: JSON.stringify({
+                    'email': semail,
+                    'fid': fid,
+                    'visitorId': getVisitIdByCookie()
+                }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == '0') {
+                        $.toast({
+                            text: '发送邮箱成功!'
+                        });
+                        var $dialogBox = $('#dialog-box');
+                        $dialogBox.dialog({}).close();
+                    } else {
+                        $.toast({
+                            text: '发送邮箱失败!'
+                        });
+                    }
+                }
+            });
+        }
+    });
+
     /* 下载接口 */
     function downLoad() {
         var order = document.getElementById('scondition').value;
@@ -183,7 +268,8 @@ define(function (require, exports, module) {
                 window.pageConfig.userId = data && data.userId ? data.userId : '';
             });
         } else {
-            loginPopShow();
+            // 【A27-a需求】
+            console.log('还是没有登录');
         }
         // 意见反馈的url
         var url = '/node/feedback/feedback.html?url=' + encodeURIComponent(location.href);

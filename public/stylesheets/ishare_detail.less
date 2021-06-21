@@ -1254,6 +1254,34 @@ body {
     overflow: visible;
 }
 
+// 【A27-a详情页新增版权说明样式】
+.copyright-container {
+    position: absolute;
+    height: 102px;
+    bottom: 23px;
+    
+    .copyright-divider {
+        height: 1px;
+        margin-left: 33px;
+        margin-right: 28px;
+        margin-bottom: 24px;
+        background-color: #E0E0DE;
+    }
+
+    .detail-copyright {
+        margin-left: 35px;
+        z-index: 9999;
+    
+        p {
+            font-size: 13px;
+            font-weight: 400;
+            color: #999999;
+            line-height: 18px;
+        }
+    }
+}
+
+
 .detail-main-full {
     width: 100% !important;
     position: absolute;
@@ -1740,7 +1768,7 @@ body {
 .data-page {
     position: absolute;
     left: 50%;
-    bottom: 60px;
+    bottom: 80px;
     width: 500px;
     height: 45px;
     line-height: 45px;

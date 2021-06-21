@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "22330498",
+      "name": "个人中心-积分订单",
+      "font_class": "gerenzhongxin-jifendingdan",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
       "icon_id": "21748857",
       "name": "右侧-工具箱",
       "font_class": "youce-gongjuxiang",

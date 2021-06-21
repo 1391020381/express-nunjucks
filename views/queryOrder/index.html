@@ -8,7 +8,7 @@
     <!-- 添加360统计代码1、PC端统计代码： -->
     <script>
         (function (b, a, e, h, f, c, g, s) {
-            b[h] = b[h] || function () {(b[h].c = b[h].c || []).push(arguments)};
+            b[h] = b[h] || function () { (b[h].c = b[h].c || []).push(arguments) };
             b[h].s = !!c;
             g = a.getElementsByTagName(e)[0];
             s = a.createElement(e);
@@ -35,56 +35,87 @@
     }
 
     .search-order-content {
-
         width: 1200px;
-        margin: 0 auto;
+        margin: 30px auto;
+    }
+
+    .box-container {
         background-color: white;
-        height: 660px;
+    }
+
+    .box-title {
+        display: block;
+        position: relative;
+        font-size: 16px;
+        font-weight: 400;
+        color: #222222;
+        line-height: 24px;
+        padding: 20px 40px 16px;
+    }
+
+    .box-title::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: calc(100% - 80px);
+        height: 1px;
+        background-color: #F2F2F2;
+        bottom: 0;
     }
 
     /* 内容信息提示及搜索框样式 - start*/
     .content-box {
-        padding: 78px 96px 38px;
-        border-bottom: 1px solid #F3F2EF;
+        display: block;
+        position: relative;
+        padding: 15px 60px 40px;
+    }
+
+    .content-box::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: calc(100% - 70px);
+        height: 1px;
+        background-color: #F2F2F2;
+        left: 30px;
+        bottom: 0;
     }
 
     .reamarks-title {
-        font-size: 18px;
-        color: #333;
+        font-size: 14px;
+        color: #222;
+        line-height: 22px;
     }
 
     .remarks-infos {
+        list-style: none;
         color: #666666;
         font-size: 14px;
-        list-style-type: disc;
-        padding: 3px 0 0 18px;
+        padding: 0;
+        margin-top: 10px;
     }
 
-    .remarks-item {
-        display: list-item;
-        line-height: 26px;
+    .remarks-infos .remarks-item {
+        list-style: none;
+        line-height: 14px;
+        height: 14px;
     }
 
     .link-tag {
         color: #3C69A7;
-        border-bottom: 1px solid #3C69A7;
-    }
-
-    .link-tag:hover {
-        border-bottom: 1px solid #f25125;
     }
 
     .search-order-content .search-input-con {
-        height: 41px;
-        line-height: 41px;
+        height: 40px;
+        line-height: 40px;
         overflow: hidden;
-        padding-top: 18px;
+        padding-top: 21px;
     }
 
     .search-order-content .search-input {
         width: 418px;
-        height: 23px;
-        line-height: 23px;
+        height: 22px;
+        line-height: 22px;
         padding: 8px 20px;
         border-radius: 0;
         border: 1px solid #F25126;
@@ -123,31 +154,39 @@
     /* 内容信息提示及搜索框样式 - end*/
 
     .result-box {
-        padding: 78px 96px 0;
+        padding: 33px 60px 40px;
         font-size: 14px;
         color: #666666;
     }
 
     .order-result-title {
-        margin-bottom: 34px;
+        font-size: 14px;
+        color: #222;
+        line-height: 28px;
     }
 
     .before-search-words {
         color: #999999;
         text-align: center;
-        padding-top: 52px;
+        padding-top: 48px;
+        padding-bottom: 59px;
+        line-height: 22px;
     }
 
     .wrong-search-words {
         color: #F25126;
         text-align: center;
-        padding-top: 52px;
+        padding-top: 48px;
+        padding-bottom: 59px;
+        line-height: 22px;
         display: none;
     }
 
     .table-box-outside {
         display: none;
-        width: 1000px;
+        width: 1080px;
+        margin-top: 19px;
+        box-sizing: border-box;
         border: 1px solid #EEEEEE;
     }
 
@@ -164,12 +203,12 @@
     }
 
     .table-row-item {
-        padding-left: 20px;
+        padding-left: 25px;
     }
 
     .table-row-content {
-        height: 58px;
-        line-height: 58px;
+        height: 64px;
+        line-height: 64px;
     }
 
     .table-row-item .file-words {
@@ -181,7 +220,7 @@
     }
 
     .item1 {
-        width: 480px;
+        width: 440px;
     }
 
     .item2 {
@@ -189,33 +228,55 @@
     }
 
     .item3 {
-        width: 180px;
+        width: 175px;
     }
 
     .item4 {
-        width: 120px;
+        width: 260px;
+        font-size: 0;
     }
 
     .file-icon {
         width: 14px;
-        margin-top: 22px;
+        margin-top: 25px;
         margin-right: 4px;
     }
 
     .down-btn {
         cursor: pointer;
         display: inline-block;
-        width: 110px;
-        height: 36px;
+        width: 100px;
         text-align: center;
-        line-height: 36px;
-        color: #F25126;
+        line-height: 34px;
+        color: #F25125;
         font-size: 14px;
-        border: 1px solid #F25126;
-        border-radius: 3px;
+        border: 1px solid #F25125;
+        border-radius: 4px;
+        margin-top: 14px;
+        vertical-align: top;
     }
 
-    .file-doc-icon, .file-excel-icon, .file-pdf-icon, .file-ppt-icon, .file-text-icon {
+    .send-email-btn {
+        cursor: pointer;
+        display: inline-block;
+        width: 100px;
+        text-align: center;
+        line-height: 34px;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid #F25125;
+        background-color: #F25125;
+        margin-left: 20px;
+        margin-top: 14px;
+        vertical-align: top;
+    }
+
+    .file-doc-icon,
+    .file-excel-icon,
+    .file-pdf-icon,
+    .file-ppt-icon,
+    .file-text-icon {
         display: none;
     }
 
@@ -227,142 +288,340 @@
     .m-message-center .icon {
         margin-top: 18px;
     }
+
+    .lead-container {
+        display: block;
+        position: relative;
+        margin-top: 10px;
+        background-color: white;
+        padding: 40px 38px 40px 40px;
+    }
+
+    .lead-title {
+        font-size: 16px;
+        font-weight: 400;
+        color: #222222;
+        height: 16px;
+        line-height: 16px;
+        position: relative;
+        padding-bottom: 18px;
+    }
+
+    .lead-title::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: calc(100% + 2px);
+        height: 1px;
+        background-color: #F2F2F2;
+        bottom: 0;
+    }
+
+    .lead-content {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .lead-content .content-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: #222222;
+        line-height: 26px;
+        padding-top: 14px;
+        padding-bottom: 32px;
+    }
+
+
+    .m-email-pop {
+        width: 468px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        background-color: #fff;
+        z-index: 99999;
+        margin: -136px -234px;
+        border-radius: 4px;
+        padding-top: 40px;
+        box-sizing: border-box;
+        padding-bottom: 30px;
+    }
+
+    .m-email-pop .close-emial-btn {
+        display: block;
+        overflow: hidden;
+        background: url(../images/icon_iShare.png) no-repeat;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 15px;
+        right: -32px;
+        background-position: -220px -20px;
+        cursor: pointer;
+    }
+
+    .m-email-pop .container {
+        margin-bottom: 20px;
+    }
+
+    .container .title {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 25px;
+        color: #333;
+
+    }
+
+    .container .sub-title {
+
+        font-size: 14px;
+        font-weight: 400;
+        color: #666666;
+        text-align: center;
+        line-height: 24px;
+        margin-bottom: 29px;
+    }
+
+    .container .form-list {
+        width: 340px;
+        margin: 0 auto;
+    }
+
+    .container .form-verify-tips {
+        margin-bottom: 8px;
+        color: #F25125;
+        display: none;
+        font-size: 14px;
+    }
+
+
+    .container .js-form-ipt {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .container .tips-text {
+        color: #999;
+        line-height: 24px;
+    }
+
+    .m-email-pop .understand-btn {
+        width: 150px;
+        height: 40px;
+        background-color: #ee4b28;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .m-email-pop .submit-email-btn {
+        width: 150px;
+        height: 40px;
+        background-color: #ee4b28;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        color: #fff;
+        cursor: pointer;
+    }
 </style>
+
 <body>
-{% include "common/js.html" %}
-<!-- 头部 -->
-{# {% include "queryOrder/header.html" %} #}
-{% include "common/websiteHeaderbar.html" %}
-<div class="search-order-content">
-    <div class="content-box">
-        <div class="reamarks-title">请输入订单号查找资料</div>
-        <ul class="remarks-infos">
-            <li class="remarks-item">如游客身份支付订单首次查询会默认绑定到当前账户内</li>
-            <li class="remarks-item">订单号请在支付凭证内查找（微信支付-商户单号/支付宝-商家订单号）</li>
-            <li class="remarks-item">如有疑问请<a class="link-tag" target="block"
-                                             href="https://chat.meiqia.cn/widget/standalone.html?eid=da3025cba774985d7ac6fa734b92e729">联系我们</a>
-            </li>
-        </ul>
+    {% include "common/js.html" %}
+    <!-- 头部 -->
+    {# {% include "queryOrder/header.html" %} #}
+    {% include "common/websiteHeaderbar.html" %}
+    <div class="search-order-content">
+        <div class="box-container">
+            <div class="box-title">游客订单查询</div>
+            <div class="content-box">
+                <div class="reamarks-title">查询须知</div>
+                <ul class="remarks-infos">
+                    <li class="remarks-item" style="margin-bottom:8px;">1. 仅支持查询游客身份购买付费资料订单，不支持查询会员订单</li>
+                    <li class="remarks-item" style="margin-bottom:9px;">2. 请登录进行查询下载，查询后会默认绑定到登录账号内</li>
+                    <li class="remarks-item" style="margin-bottom:9px;">3. 订单号在支付凭证内，P开头单号(微信支付-商户单号/支付宝-商家订单号)</li>
+                    <li class="remarks-item">4. 如有疑问请
+                        <a class="link-tag" target="block"
+                            href="https://chat.meiqia.cn/widget/standalone.html?eid=da3025cba774985d7ac6fa734b92e729">联系客服</a>
+                    </li>
+                </ul>
 
-        <div class="search-input-con">
-            <input id="scondition" autocomplete="off" type="text" class="search-input" placeholder="请输入订单号"/>
-            <span href="javascript:;" class="btn-search" id="searchBtn">查询</span>
-            <span><a class="to-how-query" target="_blank"
-                     href="https://iask.sina.com.cn/helpCenter/5df206b6474e31271e43c4c6.html">如何查找订单号</a></span>
+                <div class="search-input-con">
+                    <input id="scondition" autocomplete="off" type="text" class="search-input"
+                        placeholder="请输入支付凭证内P开头的商户单号" />
+                    <span href="javascript:;" class="btn-search" id="searchBtn">登录查询下载</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <div class="order-result-title">订单查询结果：</div>
+                <!-- 查询前 - 提示 -->
+                <div class="before-search-words">本站仅支持查询本人已支付订单</div>
+                <!-- 查询结果有误 -->
+                <div class="wrong-search-words">订单号有误，请重新输入</div>
+
+                <!-- 查询结果存在时 显示表格 -->
+                <div class="table-box-outside">
+                    <ul class="table-row table-row-header cle-flo">
+                        <li class="table-row-item item1 fl">资料标题</li>
+                        <li class="table-row-item item2 fl">价格</li>
+                        <li class="table-row-item item3 fl">购买时间</li>
+                        <li class="table-row-item item4 fl"></li>
+                    </ul>
+                    <ul class="table-row table-row-content cle-flo">
+                        <li class="table-row-item item1 fl">
+                            <div class="cle-flo">
+                                <img class="file-icon file-doc-icon fl" src="{{cdnUrl}}/images/file_icon/doc-icon.png"
+                                    alt="">
+                                <img class="file-icon file-excel-icon fl"
+                                    src="{{cdnUrl}}/images/file_icon/excel-icon.png" alt="">
+                                <img class="file-icon file-pdf-icon fl" src="{{cdnUrl}}/images/file_icon/pdf-icon.png"
+                                    alt="">
+                                <img class="file-icon file-ppt-icon fl" src="{{cdnUrl}}/images/file_icon/ppt-icon.png"
+                                    alt="">
+                                <img class="file-icon file-text-icon fl" src="{{cdnUrl}}/images/file_icon/text-icon.png"
+                                    alt="">
+                                <span class="file-words fl file-name-value"></span>
+                            </div>
+                        </li>
+                        <li class="table-row-item item2 fl price-value"></li>
+                        <li class="table-row-item item3 fl time-value"></li>
+                        <li class="table-row-item item4 fl">
+                            <span class="down-btn">立即下载</span>
+                            <span class="send-email-btn">发送到邮箱</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lead-container">
+            <div class="lead-title">如何查找订单号</div>
+            <div class="lead-content">
+                <p class="content-title">微信查询方法：打开微信点击“我”-“支付”-“钱包”-“账单”找到在爱问共享资料购买支付的这笔订单点开查看详情，
+                    找到“商户单号”长按复制即可获得订单号</p>
+                <div class="content-image" style="margin-bottom:52px;">
+                    <img src="{{cdnUrl}}/images/file_icon/wechat_lead.png" alt="微信订单查找" />
+                </div>
+                <p class="content-title">支付宝查询方法：打开支付宝，点击”我”-“账单”找到在爱问共享资料购买支付的这笔订单点开查看详情，
+                    找到“商家订单号”长按复制即可即可获得订单号</p>
+                <div class="content-image">
+                    <img src="{{cdnUrl}}/images/file_icon/alipay_lead.png" alt="支付宝订单查找" />
+                </div>
+            </div>
         </div>
     </div>
-    <div class="result-box">
-        <div class="order-result-title">订单查询结果：</div>
-        <!-- 查询前 - 提示 -->
-        <div class="before-search-words">本站仅支持查询本人已支付订单</div>
-        <!-- 查询结果有误 -->
-        <div class="wrong-search-words">订单号有误，请重新输入</div>
 
-        <!-- 查询结果存在时 显示表格 -->
-        <div class="table-box-outside">
-            <ul class="table-row table-row-header cle-flo">
-                <li class="table-row-item item1 fl">资料标题</li>
-                <li class="table-row-item item2 fl">价格</li>
-                <li class="table-row-item item3 fl">购买时间</li>
-                <li class="table-row-item item4 fl"></li>
-            </ul>
-            <ul class="table-row table-row-content cle-flo">
-                <li class="table-row-item item1 fl">
-                    <div class="cle-flo">
-                        <img class="file-icon file-doc-icon fl" src="{{cdnUrl}}/images/file_icon/doc-icon.png" alt="">
-                        <img class="file-icon file-excel-icon fl" src="{{cdnUrl}}/images/file_icon/excel-icon.png"
-                             alt="">
-                        <img class="file-icon file-pdf-icon fl" src="{{cdnUrl}}/images/file_icon/pdf-icon.png" alt="">
-                        <img class="file-icon file-ppt-icon fl" src="{{cdnUrl}}/images/file_icon/ppt-icon.png" alt="">
-                        <img class="file-icon file-text-icon fl" src="{{cdnUrl}}/images/file_icon/text-icon.png" alt="">
-                        <span class="file-words fl file-name-value"></span>
-                    </div>
-                </li>
-                <li class="table-row-item item2 fl price-value"></li>
-                <li class="table-row-item item3 fl time-value"></li>
-                <li class="table-row-item item4 fl">
-                    <span class="down-btn">立即下载</span>
-                </li>
-            </ul>
-        </div>
+    <!-- 底部声明 -->
+    {% include "common/footer.html" %}
+    <!--右侧悬浮工具栏 -->
+    {% include "common/suspension.html" %}
 
-    </div>
-</div>
+    <script type="text/javascript">
+        window.pageConfig = {
+            page: {
+                attr: 'other',
+                type: 'detail',
+                isDownload: '{{results.list.data.isDownload}}',
+                owner: "{{results.list.data.owner.id}}",
+                preRead: "{{results.filePreview.data.preRead}}",
+                is360page: "{{results.filePreview.data.is360page}}",
+                initReadPage: "{{results.filePreview.data.initReadPage}}",
+                status: '{{results.filePreview.data.status}}',
+                fileSourceChannel: '{{results.list.data.fileSourceChannel}}',
+                old: '{{results.list.data.old}}',
+                userTypeId: '{{results.list.data.owner.userTypeId}}',
+                fileName: "{{results.list.data.title}}",
+                uid: "{{results.userInfo.data.userId}}",//每个页面必须存在
+                ptype: 'pindex',
+            },
+            params: {
+                g_fileExtension: '{{results.list.data.format}}',
+                g_fileId: '{{results.list.data.fileId}}',
+                g_permin: '{{results.list.data.perMin}}',
+                file_title: "{{results.list.data.title}}",//需要双引号
+                file_size: '{{results.list.data.fileSize}}',
+                file_volume: '{{results.list.data.volume}}',
+                file_format: '{{results.list.data.format}}',
+                file_state: '{{results.list.data.state}}',
+                moneyPrice: '{{results.list.data.moneyPrice}}',
+                discountPrice: "{{results.list.data.discountPrice}}",
+                totalPage: '{{results.list.data.totalPage}}',
+                vipFreeFlag: "{{results.list.data.vipFreeFlag}}",
+                vipDiscountFlag: "{{results.list.data.vipDiscountFlag}}",
+                ownVipDiscountFlag: "{{results.list.data.ownVipDiscountFlag}}",
+                payTypeName: '{{results.list.data.payTypeName}}',
+                file_uid: '{{results.list.data.owner.id}}',
+                fsource: "{{results.list.data.fileSourceChannel}}",
+                classid1: '{{results.list.data.classid1}}',//一级分类id
+                classid2: '{{results.list.data.classid2}}',//二级分类id
+                classid3: '{{results.list.data.classid3}}',//三级分类id
+                classidName1: '{{results.list.data.classidName1}}',
+                classidName2: '{{results.list.data.classidName2}}',
+                classidName3: '{{results.list.data.classidName3}}',
+                is360: '{{results.list.data.is360}}',
+                site: '{{results.list.data.site}}',
+                isVip: 0,
+            },
+            report: {
+                uid: "{{results.userInfo.data.userId}}",
+                ptype: "pindex",
+                fsource: "{{results.list.data.fileSourceChannel}}",
+                ftype: '{{results.list.data.payType}}',
+                format: "{{results.list.data.format}}",
+                cate: "{{results.list.data.classid1}}",
+                cateName: "{{results.list.data.className}}",
+                cate1: "{{results.list.data.classid2}}",
+                cate2: "{{results.list.data.classid3}}",
+                clickName: '',
+                time: "",
+                timestamp: +new Date()
+            },
+            access: {
+                format: '{{results.list.data.format}}',
+                title: "{{results.list.data.title}}",//需要双引号
+                fileId: '{{results.list.data.fileId}}',
+                time: new Date().getTime()
+            },
+            svgFlag: '{{results.list.data.svgFlag}}',
+            supportSvg: '{{ results.list.data.supportSvg}}',
+            imgUrl: '{{results.list.data.fileContentList | dump | safe}}',
+            svgUrl: '{{ results.list.data.svgPathList | dump | safe}}'
+        };
+    </script>
+    <script>
+        seajs.use(["dist/application/app.js", "dist/queryOrder/init.js"])
+    </script>
 
-<script type="text/javascript">
-    window.pageConfig = {
-        page: {
-            attr: 'other',
-            type: 'detail',
-            isDownload: '{{results.list.data.isDownload}}',
-            owner: "{{results.list.data.owner.id}}",
-            preRead: "{{results.filePreview.data.preRead}}",
-            is360page: "{{results.filePreview.data.is360page}}",
-            initReadPage: "{{results.filePreview.data.initReadPage}}",
-            status: '{{results.filePreview.data.status}}',
-            fileSourceChannel: '{{results.list.data.fileSourceChannel}}',
-            old: '{{results.list.data.old}}',
-            userTypeId: '{{results.list.data.owner.userTypeId}}',
-            fileName: "{{results.list.data.title}}",
-            uid: "{{results.userInfo.data.userId}}",//每个页面必须存在
-            ptype: 'pindex',
-        },
-        params: {
-            g_fileExtension: '{{results.list.data.format}}',
-            g_fileId: '{{results.list.data.fileId}}',
-            g_permin: '{{results.list.data.perMin}}',
-            file_title: "{{results.list.data.title}}",//需要双引号
-            file_size: '{{results.list.data.fileSize}}',
-            file_volume: '{{results.list.data.volume}}',
-            file_format: '{{results.list.data.format}}',
-            file_state: '{{results.list.data.state}}',
-            moneyPrice: '{{results.list.data.moneyPrice}}',
-            discountPrice: "{{results.list.data.discountPrice}}",
-            totalPage: '{{results.list.data.totalPage}}',
-            vipFreeFlag: "{{results.list.data.vipFreeFlag}}",
-            vipDiscountFlag: "{{results.list.data.vipDiscountFlag}}",
-            ownVipDiscountFlag: "{{results.list.data.ownVipDiscountFlag}}",
-            payTypeName: '{{results.list.data.payTypeName}}',
-            file_uid: '{{results.list.data.owner.id}}',
-            fsource: "{{results.list.data.fileSourceChannel}}",
-            classid1: '{{results.list.data.classid1}}',//一级分类id
-            classid2: '{{results.list.data.classid2}}',//二级分类id
-            classid3: '{{results.list.data.classid3}}',//三级分类id
-            classidName1: '{{results.list.data.classidName1}}',
-            classidName2: '{{results.list.data.classidName2}}',
-            classidName3: '{{results.list.data.classidName3}}',
-            is360: '{{results.list.data.is360}}',
-            site: '{{results.list.data.site}}',
-            isVip: 0,
-        },
-        report: {
-            uid: "{{results.userInfo.data.userId}}",
-            ptype: "pindex",
-            fsource: "{{results.list.data.fileSourceChannel}}",
-            ftype: '{{results.list.data.payType}}',
-            format: "{{results.list.data.format}}",
-            cate: "{{results.list.data.classid1}}",
-            cateName: "{{results.list.data.className}}",
-            cate1: "{{results.list.data.classid2}}",
-            cate2: "{{results.list.data.classid3}}",
-            clickName: '',
-            time: "",
-            timestamp: +new Date()
-        },
-        access: {
-            format: '{{results.list.data.format}}',
-            title: "{{results.list.data.title}}",//需要双引号
-            fileId: '{{results.list.data.fileId}}',
-            time: new Date().getTime()
-        },
-        svgFlag: '{{results.list.data.svgFlag}}',
-        supportSvg: '{{ results.list.data.supportSvg}}',
-        imgUrl: '{{results.list.data.fileContentList | dump | safe}}',
-        svgUrl: '{{ results.list.data.svgPathList | dump | safe}}'
-    };
-</script>
-<script>
-    seajs.use(["dist/application/app.js", "dist/queryOrder/init.js"])
+    <!-- 下载页面发送邮箱 -->
+    <script type="text/template" id="send-email-content">
+    <div class="m-email-pop">
+       <i class="close-emial-btn"></i>
+
+       <div class="container">
+           <div class="title">
+               将资料发送到邮箱
+           </div>
+
+           <div class="form-list">
+               <div class="form-verify-tips">
+                   <span class="text">
+                       *请检查邮箱地址
+                   </span>
+               </div>
+               <input type="text" class="js-form-ipt" placeholder="请填写邮箱地址...">
+           </div>
+       </div>
+       <div class="submit-email-btn">
+           确认发送
+       </div>
+   </div>
 </script>
 </body>
+
 </html>

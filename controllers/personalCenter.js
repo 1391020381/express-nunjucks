@@ -120,7 +120,7 @@ const renderUserPage = async (req, res) => {
         console.log('当前的搜索数据：', JSON.stringify(searchData));
         // 处理个人信息
         if (otherUserInfo && otherUserInfo.code == 0) {
-            userData = {...otherUserInfo.data};
+            userData = { ...otherUserInfo.data };
             nickName = userData ? userData.nickName : '';
         }
         // 处理列表信息
@@ -179,7 +179,7 @@ module.exports = {
     redirectionURL: function (req, res) {
         render('personalCenter/redirectionURL', {}, req, res);
     },
-    oldUserPage: function(req, res) {
+    oldUserPage: function (req, res) {
         if (req.query.uid) {
             res.redirect(`/u/${req.query.uid}/`);
         } else {
@@ -187,7 +187,7 @@ module.exports = {
         }
     },
     userPage: cc(renderUserPage),
-    pointsMall:function(req,res){
+    pointsMall: function (req, res) {
         render('personalCenter/pointsMall', {}, req, res);
     }
 };

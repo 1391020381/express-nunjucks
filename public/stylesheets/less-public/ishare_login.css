@@ -916,10 +916,10 @@ input::-webkit-credentials-auto-fill-button {
   display: block;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .tourist-purchase {
-  left: 280px;
+  left: 93px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .tabs .login-purchase {
-  left: 93px;
+  left: 280px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .errortip {
   display: none;
@@ -945,8 +945,11 @@ input::-webkit-credentials-auto-fill-button {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
+.tourist-purchase-dialog .tourist-purchase-container .login-content {
   display: none;
+}
+.tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-content {
+  display: block;
   margin-top: 40px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .file-summary {
@@ -1040,14 +1043,17 @@ input::-webkit-credentials-auto-fill-button {
 .tourist-purchase-dialog .tourist-purchase-container .tourist-purchase-qrContent .tourist-purchase-refresh {
   display: none;
   position: absolute;
-  left: 64px;
-  bottom: 27px;
-  width: 72px;
+  left: 46px;
+  bottom: 60px;
+  width: 110px;
+  height: 38px;
+  line-height: 38px;
   font-size: 14px;
   color: #FFFFFF;
-  line-height: 24px;
   text-align: center;
   cursor: pointer;
+  background: #F25126;
+  border-radius: 4px;
 }
 .tourist-purchase-dialog .tourist-purchase-container .qrcode-tip {
   margin-top: 20px;

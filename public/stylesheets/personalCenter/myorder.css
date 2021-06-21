@@ -77,6 +77,13 @@
   vertical-align: middle;
   position: static;
 }
+.personal-center-myorder .myorder-table-list .table-list-item .item-desc .icon.iconfont {
+  color: #F78F1F;
+  vertical-align: -1px;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-desc .icon.icon-mt {
+  margin-top: -2px;
+}
 .personal-center-myorder .myorder-table-list .table-list-item .item-desc .goods-name {
   display: inline-block;
 }
@@ -96,6 +103,17 @@
 }
 .personal-center-myorder .myorder-table-list .table-list-item .item-price {
   color: #333333;
+}
+.personal-center-myorder .myorder-table-list .table-list-item .item-price .coin-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url(../../images/common/iask-coin.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-right: 4px;
+  vertical-align: top;
+  margin-top: 19px;
 }
 .personal-center-myorder .myorder-table-list .table-list-item .item-time {
   color: #878787;

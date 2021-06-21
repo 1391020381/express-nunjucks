@@ -47,8 +47,8 @@ define(function (require, exports, module) {
             getCoinIaskBalance: gateway + '/account/user/getCoinIaskBalance',
             // 查询用户爱问币流水
             getCoinIaskList: gateway + '/account/user/getCoinIaskList',
-            taskUserActionRecordReport:gateway + '/task/userActionRecord/report',
-            updateAgreementTime:gateway + '/user/certification/updateAgreementTime'
+            taskUserActionRecordReport: gateway + '/task/userActionRecord/report',
+            updateAgreementTime: gateway + '/user/certification/updateAgreementTime'
         },
         normalFileDetail: {
             // 文件预下载
@@ -101,7 +101,9 @@ define(function (require, exports, module) {
             queryOrderlistByCondition: gateway + '/order/query/listByCondition',
             getOrderInfo: gateway + '/order/get/orderInfo',
             // 站内下单接口-积分相关
-            downloadOrder: gateway + '/order/create/downloadOrder'
+            downloadOrder: gateway + '/order/create/downloadOrder',
+            // 查询订单的状态
+            orderStatus: gateway + '/order/get/statusFromOut/$orderNo'
         },
         getHotSearch: gateway + '/cms/search/content/hotWords',
         special: {
@@ -159,10 +161,10 @@ define(function (require, exports, module) {
             getFileComment: gateway + '/comment/eval/dataList', // 详情评论
             getPersoDataInfo: gateway + '/comment/eval/persoDataInfo', // 个人中心我的下载 查询评论
             // todo A24 查询资料是否被用户评价过
-            getQualifications: gateway + '/comment/eval/getQualifications',
+            getQualifications: gateway + '/comment/eval/getQualifications'
         },
-        iaskCoin:{
-            getCoinIaskBalance:gateway + '/account/user/getCoinIaskBalance'
+        iaskCoin: {
+            getCoinIaskBalance: gateway + '/account/user/getCoinIaskBalance'
         },
         exchange: {
             // 兑换商品列表
@@ -170,9 +172,9 @@ define(function (require, exports, module) {
             // 兑换商品详情
             exchangeGoodsDetail: gateway + '/exchange/integralGoods/exchangeGoodsDetail/$id'
         },
-        task:{
-            dailyTaskList:gateway + '/task/taskList/daily',
-            noviceTaskList:gateway + '/task/taskList/novice',
+        task: {
+            dailyTaskList: gateway + '/task/taskList/daily',
+            noviceTaskList: gateway + '/task/taskList/novice',
             // 任务完成消息
             taskNotifyList: gateway + '/task/taskList/done'
         }
