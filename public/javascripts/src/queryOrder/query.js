@@ -72,9 +72,9 @@ define(function (require, exports, module) {
                 } else {
                     $('.wrong-search-words').css('display', 'block');
                     $('.table-box-outside').css('display', 'none');
-                    $.toast({
-                        text: res.message
-                    });
+                    // $.toast({
+                    //     text: res.message
+                    // });
                 }
             }
         });

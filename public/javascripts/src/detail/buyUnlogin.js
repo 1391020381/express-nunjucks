@@ -149,7 +149,6 @@ define(function (require) {
                 },
                 contentType: 'application/json;charset=utf-8',
                 success: function (response) {
-                    console.log(response);
                     if (response && response.code == 0) {
                         var fid = pageConfig.params.g_fileId;
                         if (response.data == 2) { // 支付成功
