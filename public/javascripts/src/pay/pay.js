@@ -77,6 +77,8 @@ define(function (require, exports, moudle) {
         if (userInfo.isVip == 1) {
             $('.isVip-show').find('span').html(userInfo.expireTime);
             $('.isVip-show').removeClass('hide');
+            // /pay/payConfirm.html vip-share-text 隐藏问题
+            window.pageConfig.params.isVip = userInfo.isVip;
         } else {
 
             // 加油包判断是否是vip

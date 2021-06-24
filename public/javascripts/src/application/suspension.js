@@ -56,9 +56,9 @@ define(function (require, exports, module) {
                 var convertType = $this.attr('data-convert-type');
                 var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
                 method.compatibleIESkip(href, true);
-            } else if (index === 4 || index === 6) {
+            } else if (index === 4 || index === 7) {
                 $anWrap.animate({ 'right': '-307px' }, 200);
-                if (index == 6) {
+                if (index == 7) {
                     method.compatibleIESkip('https://mp.weixin.qq.com/s/8T4jhpKm-OKmTy-g02yO-Q', true);
                 }
             }
