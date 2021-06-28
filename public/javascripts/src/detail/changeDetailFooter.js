@@ -8,15 +8,12 @@ define(function (require, exports, module) {
     var temp = guessYouLikeHeight + userEvaluation + 30;
     var bottomHeight = currentPage == 1 || currentPage == 2 ? temp + 123 : temp;
 
-    function commStyle(bool) {
+    function commStyle() {
         guessYouLikeHeight = $('.guess-you-like-warpper').outerHeight(true) || 0;
         userEvaluation = $('.user-comments-container').outerHeight(true) || 0;
         currentPage = $('.detail-con').length;
         temp = guessYouLikeHeight + userEvaluation + 30;
         bottomHeight = currentPage == 1 || currentPage == 2 || currentPage == 3 ? temp + 123 : temp;
-        if (bool) {
-            bottomHeight = bottomHeight - 98;
-        }
         $('.deatil-mr10').css('position', 'relative');
         $('.detail-footer').css({
             'position': 'absolute',
@@ -31,7 +28,7 @@ define(function (require, exports, module) {
         });
     }
 
-    function initStyle(bool) {
+    function initStyle() {
         if (isConvert == 1) { // 转码成功
             // if(detailCon<=3){ // 只有3页
             //   $('.deatil-mr10').css('position','relative')
@@ -45,12 +42,12 @@ define(function (require, exports, module) {
             // }else{
             //   commStyle()
             // }
-            commStyle(bool);
+            commStyle();
         }
     }
-    function loadMoreStyle(bool) {
+    function loadMoreStyle() {
     // commStyle()
-        initStyle(bool);
+        initStyle();
     }
 
     module.exports = {

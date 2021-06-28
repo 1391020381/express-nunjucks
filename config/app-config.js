@@ -23,10 +23,10 @@ const config = {
     },
     local: {
         env: env,
-        apiBasePath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway/pc',
-        apiNewBaselPath: 'http://dev-gateway.pc.ishare.iasktest.com/gateway',
-        newBasePath: 'http://dev-gateway.pc.ishare.iasktest.com',
-        loginUrl: 'http://dev-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
+        apiBasePath: 'http://pre-ishare.iask.com.cn/gateway/pc',
+        apiNewBaselPath: 'http://pre-ishare.iask.com.cn/gateway',
+        newBasePath: 'http://pre-ishare.iask.com.cn',
+        loginUrl: 'http://pre-login-ishare.iask.com.cn/gateway/cas/login/jump?redirectUrl=',
         // 日志输入路径
         logPath: '/data/logs/node-pc/',
         // 服务端口-自定义

@@ -579,9 +579,6 @@ define(function (require, exports, module) {
                         $('.adv-container').each(function ($index, $element) {
                             $($element).remove();
                         });
-                        setTimeout(function() {
-                            initStyle(true);
-                        }, 1000);
                     }
                     if (copy) { // 如果可以复制
                         $('.detail-holder').each(function ($index, $element) {
