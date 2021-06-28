@@ -1,13 +1,15 @@
-.icon-op-fixed{
+.icon-op-fixed {
   .icon-op-fixed();
 }
-.fixed-right-full{
+
+.fixed-right-full {
   position: fixed;
   height: 100%;
   right: 0;
   top: 0;
   z-index: 100;
-  .fixed-op{
+
+  .fixed-op {
     width: 60px;
     height: 100%;
     position: relative;
@@ -15,7 +17,8 @@
     border-left: 1px solid #f2f2f2;
     z-index: 20;
   }
-  .op-menu-wrap{
+
+  .op-menu-wrap {
     position: absolute;
     width: 62px;
     left: -1px;
@@ -23,7 +26,8 @@
     margin-top: -322px;
 
   }
-  .op-menu-ele{
+
+  .op-menu-ele {
     padding: 20px 0 18px;
     display: block;
     position: relative;
@@ -31,18 +35,22 @@
     line-height: 14px;
     text-align: center;
     cursor: pointer;
-    .icon-op-fixed{
+
+    .icon-op-fixed {
       margin: 0 auto 6px;
       width: 20px;
       height: 20px;
     }
-    &.active,&:hover{
+
+    &.active,
+    &:hover {
       background-color: #f34e2e;
       color: #fff;
     }
 
   }
-  .op-line{
+
+  .op-line {
     height: 1px;
     width: 100%;
     background-color: #f2f2f2;
@@ -51,83 +59,114 @@
     top: 0;
     display: block;
   }
-  .op-vip{
-    .icon-op-fixed{
+
+  .op-vip {
+    .icon-op-fixed {
       width: 24px;
       background-position: -150px 0;
     }
   }
-  .op-look{
-    .icon-op-fixed{
+
+  .op-look {
+    .icon-op-fixed {
       background-position: 0 0;
     }
-    &.active,&:hover{
-      .icon-op-fixed{
+
+    &.active,
+    &:hover {
+      .icon-op-fixed {
         background-position: 0 -20px;
       }
     }
   }
-  .op-collect{
-    .icon-op-fixed{
+
+  .op-collect {
+    .icon-op-fixed {
       background-position: -20px 0;
     }
-    &.active,&:hover{
-      .icon-op-fixed{
+
+    &.active,
+    &:hover {
+      .icon-op-fixed {
         background-position: -20px -20px;
       }
     }
   }
-  .op-task{
-    .icon-op-fixed{
-      background-position: -40px 0;
+
+  .op-task {
+
+    .iconyouce-gongjuxiang {
+      color: #8f7f7f;
     }
-    &:hover{
-      .icon-op-fixed{
-        background-position: -40px -20px;
+    
+    &.active,
+    &:hover {
+
+      .iconyouce-gongjuxiang {
+        color: #fff;
       }
     }
+    // .icon-op-fixed{
+    //   background-position: -40px 0;
+    // }
+    // &:hover{
+    //   .icon-op-fixed{
+    //     background-position: -40px -20px;
+    //   }
+    // }
   }
-  .op-contact{
-    .icon-op-fixed{
+
+  .op-contact {
+    .icon-op-fixed {
       background-position: -60px 0;
     }
-    &.active,&:hover{
-      .icon-op-fixed{
+
+    &.active,
+    &:hover {
+      .icon-op-fixed {
         background-position: -60px -20px;
       }
     }
-    &.active{
-      .mui-more-wrap{
+
+    &.active {
+      .mui-more-wrap {
         display: block;
       }
     }
   }
-  .op-feedback{
-    .icon-op-fixed{
+
+  .op-feedback {
+    .icon-op-fixed {
       background-position: -80px 0;
     }
-    &:hover{
-      .icon-op-fixed{
+
+    &:hover {
+      .icon-op-fixed {
         background-position: -80px -20px;
       }
     }
   }
-  .op-follow{
-    .icon-op-fixed{
+
+  .op-follow {
+    .icon-op-fixed {
       background-position: -100px 0;
     }
-    &.active,&:hover{
-      .icon-op-fixed{
+
+    &.active,
+    &:hover {
+      .icon-op-fixed {
         background-position: -100px -20px;
       }
     }
-    &.active{
-      .mui-more-wrap{
+
+    &.active {
+      .mui-more-wrap {
         display: block;
       }
     }
   }
-  .mui-more-wrap{
+
+  .mui-more-wrap {
     display: none;
     width: 222px;
     position: absolute;
@@ -137,13 +176,16 @@
     cursor: default;
     top: 50%;
     margin-top: -135px;
-    .more-inter{
+
+    .more-inter {
       background-color: #fff;
       border: 1px solid #e5dede;
       position: relative;
-      box-shadow: 0.14px 1.995px 5px 0px rgba( 0, 0, 0,.05);
-      .before,.after{
-        .arrow-left(5px,#fff);
+      box-shadow: 0.14px 1.995px 5px 0px rgba(0, 0, 0, .05);
+
+      .before,
+      .after {
+        .arrow-left(5px, #fff);
         position: absolute;
         right: -10px;
         top: 50%;
@@ -152,68 +194,81 @@
       }
     }
   }
-  .mui-more-contact{
+
+  .mui-more-contact {
     margin-top: -88px;
-    .more-inter{
+
+    .more-inter {
       padding: 0 0 24px 58px;
     }
-    .contact-item{
+
+    .contact-item {
       line-height: 21px;
       font-size: 13px;
       color: #666;
       margin-top: 26px;
       text-align: left;
     }
-    .title-group{
+
+    .title-group {
       height: 24px;
       line-height: 24px;
       position: relative;
       font-size: 14px;
       color: #777;
     }
-    .icon-mui-contact{
+
+    .icon-mui-contact {
       .icon-op-fixed();
       width: 18px;
-      .center(known-y,18px);
+      .center(known-y, 18px);
       left: -28px;
     }
-    .contact-server{
-      .icon-mui-contact{
+
+    .contact-server {
+      .icon-mui-contact {
         background-position: -150px -20px;
       }
     }
-    .contact-qa{
+
+    .contact-qa {
       margin-top: 22px;
-      .icon-mui-contact{
+
+      .icon-mui-contact {
         background-position: -190px -20px;
       }
     }
-    .btn-mui-contact{
-      .btn(88px,32px,#f34e2e,#fff,13px);
+
+    .btn-mui-contact {
+      .btn(88px, 32px, #f34e2e, #fff, 13px);
       margin-top: 7px;
       border-radius: 3px;
     }
   }
-  .mui-more-er-code{
-    .more-inter{
+
+  .mui-more-er-code {
+    .more-inter {
       padding: 30px 36px 31px;
       line-height: 23px;
       text-align: center;
       color: @primary-color;
     }
-    .er-code-pic{
+
+    .er-code-pic {
       width: 150px;
       height: 150px;
       margin-bottom: 10px;
     }
-    .er-code-title{
+
+    .er-code-title {
       height: 24px;
       line-height: 24px;
       font-size: 16px;
       color: #272420;
     }
   }
-  .fixed-detail-wrap{
+
+  .fixed-detail-wrap {
     width: 306px;
     background-color: #fff;
     position: absolute;
@@ -222,46 +277,54 @@
     top: 0;
     z-index: 10;
     border-left: 1px solid #dedede;
-    box-shadow: -2px 0px 9px 0px rgba( 0, 0, 0,.11);
-    .head-group{
+    box-shadow: -2px 0px 9px 0px rgba(0, 0, 0, .11);
+
+    .head-group {
       height: 66px;
       position: relative;
     }
-    .btn-detail-back{
+
+    .btn-detail-back {
       width: 34px;
-      .center(known-y,34px);
+      .center(known-y, 34px);
       left: 26px;
       cursor: pointer;
-      .icon-op-fixed{
+
+      .icon-op-fixed {
         background-position: -180px 0;
         width: 12px;
-        .center(known-y,10px);
+        .center(known-y, 10px);
         left: 0;
       }
     }
-    .head-title{
+
+    .head-title {
       line-height: 66px;
       font-size: 14px;
       text-align: center;
       color: #666;
     }
-    .mui-data-null{
+
+    .mui-data-null {
       line-height: 20px;
       text-align: center;
       color: #666;
       padding-top: 100px;
     }
-    .data-null-pic{
+
+    .data-null-pic {
       width: 111px;
       height: 92px;
       display: block;
       margin: 0 auto 16px;
-      img{
+
+      img {
         width: 100%;
       }
     }
   }
-  .mui-user-wrap{
+
+  .mui-user-wrap {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -271,46 +334,55 @@
     background-color: #fff;
     visibility: hidden;
   }
-  .detail-container{
+
+  .detail-container {
     padding-top: 13px;
   }
-  .mui-vip-warp{
+
+  .mui-vip-warp {
     background-color: #f9f6f0;
     padding: 24px 30px;
     overflow: hidden;
   }
-  .user-avatar{
+
+  .user-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50px;
     overflow: hidden;
     float: left;
     margin-right: 16px;
-    img{
+
+    img {
       width: 100%;
     }
   }
-  .user-meta{
+
+  .user-meta {
     overflow: hidden;
     padding-top: 6px;
     line-height: 16px;
     font-size: 13px;
     color: #776c5b;
   }
-  .mui-privilege-wrap{
+
+  .mui-privilege-wrap {
     padding-top: 28px;
   }
-  .privilege-head{
+
+  .privilege-head {
     height: 28px;
     line-height: 28px;
     padding: 0 36px;
   }
-  .privilege-title{
+
+  .privilege-title {
     font-size: 14px;
     color: #776c5b;
     text-align: center;
     position: relative;
-    span{
+
+    span {
       .inline-block();
       vertical-align: top;
       padding: 0 8px;
@@ -319,7 +391,8 @@
       z-index: 2;
     }
   }
-  .line-privilege{
+
+  .line-privilege {
     height: 1px;
     background-color: #e9dfd0;
     width: 100%;
@@ -330,47 +403,93 @@
     display: block;
     z-index: 1;
   }
-  .mui-privilege-list{
+
+  .mui-privilege-list {
     font-size: 12px;
     line-height: 18px;
     color: @gray-lighter;
     text-align: center;
     overflow: hidden;
     padding: 0 12px;
-    li{
+
+    li {
       width: 94px;
       .fl();
       margin-top: 30px;
-      .icon-op-fixed{
+
+      .icon-op-fixed {
         width: 40px;
         height: 40px;
         margin: 0 auto 8px;
       }
-      .text{
+
+      .text {
         height: 36px;
         overflow: hidden;
       }
-      &.li-01 .icon-op-fixed{ background-position: 0 -50px;}
-      &.li-02 .icon-op-fixed{ background-position: -40px -50px;}
-      &.li-03 .icon-op-fixed{ background-position: -80px -50px;}
-      &.li-04 .icon-op-fixed{ background-position: -120px -50px;}
-      &.li-05 .icon-op-fixed{ background-position: -160px -50px;}
-      &.li-06 .icon-op-fixed{ background-position: -200px -50px;}
-      &.li-07 .icon-op-fixed{ background-position: 0 -100px;}
-      &.li-08 .icon-op-fixed{ background-position: -40px -100px;}
-      &.li-09 .icon-op-fixed{ background-position: -80px -100px;}
-      &.li-10 .icon-op-fixed{ background-position: -120px -100px;}
-      &.li-11 .icon-op-fixed{ background-position: -160px -100px;}
-      &.li-12 .icon-op-fixed{ background-position: 0 -150px;}
-      &.li-13 .icon-op-fixed{ background-position: -40px -150px;}
+
+      &.li-01 .icon-op-fixed {
+        background-position: 0 -50px;
+      }
+
+      &.li-02 .icon-op-fixed {
+        background-position: -40px -50px;
+      }
+
+      &.li-03 .icon-op-fixed {
+        background-position: -80px -50px;
+      }
+
+      &.li-04 .icon-op-fixed {
+        background-position: -120px -50px;
+      }
+
+      &.li-05 .icon-op-fixed {
+        background-position: -160px -50px;
+      }
+
+      &.li-06 .icon-op-fixed {
+        background-position: -200px -50px;
+      }
+
+      &.li-07 .icon-op-fixed {
+        background-position: 0 -100px;
+      }
+
+      &.li-08 .icon-op-fixed {
+        background-position: -40px -100px;
+      }
+
+      &.li-09 .icon-op-fixed {
+        background-position: -80px -100px;
+      }
+
+      &.li-10 .icon-op-fixed {
+        background-position: -120px -100px;
+      }
+
+      &.li-11 .icon-op-fixed {
+        background-position: -160px -100px;
+      }
+
+      &.li-12 .icon-op-fixed {
+        background-position: 0 -150px;
+      }
+
+      &.li-13 .icon-op-fixed {
+        background-position: -40px -150px;
+      }
     }
   }
-  .btn-mui{
-    .btn(140px,40px,#d99b3f,#fff,14px);
+
+  .btn-mui {
+    .btn(140px, 40px, #d99b3f, #fff, 14px);
     border-radius: 3px;
     margin: 30px auto;
   }
-  .mui-collect-wrap,.mui-sel-wrap{
+
+  .mui-collect-wrap,
+  .mui-sel-wrap {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -380,9 +499,11 @@
     background-color: #fff;
     visibility: hidden;
   }
-  .mui-data-wrap{
-    line-height:36px;
-    .mui-data-title{
+
+  .mui-data-wrap {
+    line-height: 36px;
+
+    .mui-data-title {
       height: 30px;
       line-height: 30px;
       font-size: 14px;
@@ -390,25 +511,30 @@
       padding: 0 26px;
       color: #999;
     }
-    .mui-data-list{
+
+    .mui-data-list {
       line-height: 36px;
       padding: 10px 26px 76px;
-      li{
+
+      li {
         position: relative;
         vertical-align: top;
         font-size: 13px;
         padding-left: 23px;
         .text-ellipsis();
-        a{
+
+        a {
           color: @gray;
-          &:hover{
+
+          &:hover {
             color: @primary-color;
           }
         }
       }
     }
   }
-  .btn-mui-fix{
+
+  .btn-mui-fix {
     position: fixed;
     width: 306px;
     height: 40px;
@@ -418,7 +544,8 @@
     z-index: 10;
     background-color: #fff;
   }
-  .btn-mui-more{
+
+  .btn-mui-more {
     width: 224px;
     height: 38px;
     line-height: 38px;
@@ -430,11 +557,13 @@
     color: #666;
     cursor: pointer;
     margin: 0 auto;
-    &:hover{
+
+    &:hover {
       background-color: #f2f2f2;
     }
   }
-  .btn-back-top{
+
+  .btn-back-top {
     width: 60px;
     height: 56px;
     display: block !important;
@@ -445,44 +574,58 @@
     background-color: #fff;
     border-left: 1px solid #f2f2f2;
     border-right: 1px solid #e9e9e9;
-    .icon-op-fixed{
-      .center(know,20px,20px);
+
+    .icon-op-fixed {
+      .center(know, 20px, 20px);
       background-position: -120px 0;
     }
   }
 }
+
 //屏幕高度响应式
-.fixed-min-height{
-  .mui-privilege-list li{ width: 88px;}
-  .op-menu-wrap{ margin-top: -209px;}
-  .op-menu-ele{ padding: 10px 0;}
+.fixed-min-height {
+  .mui-privilege-list li {
+    width: 88px;
+  }
+
+  .op-menu-wrap {
+    margin-top: -209px;
+  }
+
+  .op-menu-ele {
+    padding: 10px 0;
+  }
 }
 
-.downApp{
-  .icon{
+.downApp {
+  .icon {
     display: block;
-    margin:0 auto;
+    margin: 0 auto;
     margin-bottom: 6px;
-    width:20px;
+    width: 20px;
     height: 20px;
     background: url("../images/tel_phone.png") no-repeat center;
     background-size: contain;
   }
-  .downApp-desc{
+
+  .downApp-desc {
     color: #272420;
   }
-  img{
+
+  img {
     width: 100%;
   }
-  &:hover{
-    .icon{
+
+  &:hover {
+    .icon {
       background: url("../images/tel_phone_hover.png") no-repeat center;
       background-size: contain;
     }
   }
 }
+
 .fixed-right-full .downApp.active {
-  .icon{
+  .icon {
     background: url("../images/tel_phone_hover.png") no-repeat center;
     background-size: contain;
   }
@@ -490,23 +633,25 @@
 
 
 
-.myUpload{
-  .icon{
+.myUpload {
+  .icon {
     display: block;
-    margin:0 auto;
+    margin: 0 auto;
     margin-bottom: 6px;
-    width:20px;
+    width: 20px;
     height: 20px;
     background: url("../images/upload.png") no-repeat center;
     background-size: contain;
   }
-  &:hover{
-    .icon{
+
+  &:hover {
+    .icon {
       background: url("../images/upload-hover.png") no-repeat center;
       background-size: contain;
     }
   }
 }
+
 // .fixed-right-full .myUpload.active {
 //   .icon{
 //     background: url("../images/uppload-hover.png") no-repeat center;

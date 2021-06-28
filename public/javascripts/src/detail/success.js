@@ -50,7 +50,7 @@ define(function (require, exports, module) {
             $('.carding-info-bottom.unloginStatus').remove();
             login.getLoginData(function (data) {
                 userData = data;
-                userId = data.userId;
+                userId = data.id || data.userId;
                 initData.isVip = parseInt(data.isVip, 10);
                 //  refreshDomTree(data);
                 refreshTopBar(data);
@@ -160,11 +160,15 @@ define(function (require, exports, module) {
             }, 1000);
         } else {
             if (unloginFlag) { // 游客
-                getDownUrl();
+                setTimeout(function() {
+                    getDownUrl();
+                }, 1500);
+
             }
         }
     }
     function getDownUrl() {
+        console.log(userId);
         var vuk = getVisitIdByCookie();
         if (userId) {
             vuk = userId;

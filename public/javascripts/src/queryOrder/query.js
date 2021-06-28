@@ -30,6 +30,10 @@ define(function (require, exports, module) {
         login.notifyLoginInterface(function (data) {
             refreshTopBar(data);
             userInfo = data;
+            var order = document.getElementById('scondition').value;
+            if (order) {
+                queryOrder(order);
+            }
         });
     }
 

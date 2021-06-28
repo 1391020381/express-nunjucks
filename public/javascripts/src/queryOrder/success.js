@@ -14,6 +14,7 @@ define(function (require, exports, module) {
 
     // url上带有这个参数unloginFlag，说明是游客模式过来的
     var unloginFlag = method.getQueryString('unloginFlag');
+
     if (unloginFlag) {
         $('#filename').text(fileName || '');
         if (format) {
@@ -115,8 +116,8 @@ define(function (require, exports, module) {
         if (userId) {
             vuk = userId;
         }
-        var fid = method.getQueryString('fid');
-        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fid }, function (data) {
+        var fileId = method.getQueryString('fid');
+        $.post('/pay/paperDown', { 'vuk': vuk, 'fid': fileId }, function (data) {
             if (data.code == 0) {
                 location.href = data.data.dowUrl;
             } else if (data.code == 41003) {
@@ -138,7 +139,7 @@ define(function (require, exports, module) {
         var classid2 = qrCodeparams && qrCodeparams.classid2 ? String('-' + qrCodeparams.classid2) : '';
         var classid3 = qrCodeparams && qrCodeparams.classid3 ? String('-' + qrCodeparams.classid3) : '';
         var clsId = classid1 + classid2 + classid3;
-        var fid = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
+        var fileId = qrCodeparams ? qrCodeparams.g_fileId || '' : '';
         var loginUrl = $.loginPop('login_wx_code', {
             'terminal': 'PC',
             'businessSys': 'ishare',
@@ -146,7 +147,7 @@ define(function (require, exports, module) {
             'ptype': 'ishare',
             'popup': 'hidden',
             'clsId': clsId,
-            'fid': fid
+            'fid': fileId
         });
         var loginDom = '<iframe src="' + loginUrl + '" style="width:100%;height:480px" name="iframe_a"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>';
         $('.carding-info-bottom.unloginStatus .qrWrap').html(loginDom);
