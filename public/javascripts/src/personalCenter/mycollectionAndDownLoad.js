@@ -126,7 +126,7 @@ define(function (require) {
         });
     }
     // A25：获取字典列表
-    function getDictionaryData(){
+    function getDictionaryData() {
         $.ajax({
             url: api.user.dictionaryData.replace('$code', 'themeModel'),
             type: 'GET',
@@ -163,6 +163,7 @@ define(function (require) {
                     });
                     console.log(recommendConfigInfo);
                     $(recommendConfigInfo.mydownloadBanner.descs).each(function (index, k) {
+                        console.log('当前的k值：', k);
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_MYDOWN') { // search-all-main-bottombanner
                                 var ubannerTemplate = template.compile(bannerTemplate)({
@@ -176,15 +177,18 @@ define(function (require) {
                                     loop: k.list.length > 1 ? true : false,
                                     autoplay: 3000
                                 });
-                            }else{
+                            } else {
                                 $('.mydownloads-bannerlist').hide();
                             }
+                        } else {
+                            $('.mydownloads-bannerlist').hide();
                         }
                     });
                 }
             }
         });
     }
+
     // 获取评价标签
     function getLabelList(fid, format, title, isAppraise) {
         $.ajax({
@@ -340,8 +344,8 @@ define(function (require) {
                 getDownloadRecordList();
             });
         }
-
     });
+
     $(document).on('click', '.personal-center-mydownloads .js-go2FileConvert', function () {
         trackEvent('NE002', 'normalClick', 'click', {
             domID: 'downTransClick',
@@ -351,8 +355,8 @@ define(function (require) {
         var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
         method.compatibleIESkip(href, true);
     });
-    $(document).on('click', '.personal-center-dialog .evaluation-confirm', function () {
 
+    $(document).on('click', '.personal-center-dialog .evaluation-confirm', function () {
         if (isAppraise == 1) {
             closeRewardPop();
             isAppraise = 0;

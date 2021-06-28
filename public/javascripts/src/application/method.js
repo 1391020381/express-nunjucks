@@ -302,7 +302,7 @@ define(function (require, exports, module) {
             }, 350);
         },
         testEmail: function (val) {
-            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
             if (reg.test(val)) {
                 return true; // 正确
             } else {

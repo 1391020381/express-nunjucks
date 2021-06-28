@@ -574,7 +574,7 @@ define(function (require, exports, module) {
                     }
                     window.pageConfig.freeAdv = freeAdv;
                     window.pageConfig.copy = copy;
-                    if (freeAdv) { // 如果去广告
+                    if (!freeAdv) { // 如果去广告
                         $('.adv-container').each(function ($index, $element) {
                             $($element).remove();
                         });

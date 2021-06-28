@@ -285,7 +285,7 @@ define(function (require) {
             try {
                 setTimeout(function () { // ie8下 不延迟第一次二维码加载不了
                     qr.createQrCode(url, 'touristPayQrCode', 178, 178);
-                }, 1500);
+                }, 100);
             } catch (e) {
                 console.log('createdQrCode:', e);
             }

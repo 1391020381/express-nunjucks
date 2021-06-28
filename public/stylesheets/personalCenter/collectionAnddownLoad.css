@@ -99,6 +99,9 @@
   text-align: left;
   color: #888888;
 }
+.mycollection-anddownLoad .table-list .table-item .operation-btn {
+  font-size: 0;
+}
 .mycollection-anddownLoad .table-list .table-item .operation-btn .evaluate-btn {
   display: inline-block;
   width: 72px;
@@ -113,7 +116,7 @@
 }
 .mycollection-anddownLoad .table-list .table-item .operation-btn .evaluate-convert-btn {
   display: inline-block;
-  margin-left: 30px;
+  margin-left: 20px;
   width: 72px;
   height: 24px;
   line-height: 24px;

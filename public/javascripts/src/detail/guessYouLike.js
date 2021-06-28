@@ -96,7 +96,8 @@ define(function (require) {
                             'width': '890px'
                         });
                         $('.copyright-container').css({
-                            'bottom': bottomHeight - 40 + 'px'
+                            'bottom': bottomHeight + 'px',
+                            'marginBottom': '-40px'
                         });
                     }
                     action(paradigm4GuessData, paradigm4GuessRecommendConfig);

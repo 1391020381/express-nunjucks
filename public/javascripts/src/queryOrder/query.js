@@ -15,6 +15,8 @@ define(function (require, exports, module) {
     var userInfo = null;
     /** 文件信息 */
     var fileInfo = {};
+    /** 缓存下载链接 */
+    var curDownUrl = '';
     // 初始化显示
     initShow();
     // 初始化绑定
@@ -74,6 +76,13 @@ define(function (require, exports, module) {
                     handleShowInfos();
                     handleFileTypeIcon(fileInfo);
                 } else {
+                    if (res.code == 'I-ORDER-13') {
+                        $('.wrong-search-words').html('您输入的单号不是游客订单，请确认！').css('display', 'block');
+                    } else if (res.code == 'I-ORDER-4') {
+                        $('.wrong-search-words').html('订单号有误，请重新输入P开头单号').css('display', 'block');
+                    } else {
+                        $('.wrong-search-words').html('订单号有误，请重新输入P开头单号').css('display', 'block');
+                    }
                     $('.wrong-search-words').css('display', 'block');
                     $('.table-box-outside').css('display', 'none');
                     // $.toast({
@@ -123,18 +132,22 @@ define(function (require, exports, module) {
     }
 
     function handleFileTypeIcon(fileInfo) {
+        console.log(fileInfo);
         resetFileIcon();
-        if (fileInfo.format.indexOf('doc') > -1) {
-            $('.file-doc-icon').css('display', 'block');
-        } else if (fileInfo.format.indexOf('xls') > -1) {
-            $('.file-excel-icon').css('display', 'block');
-        } else if (fileInfo.format.indexOf('ppt') > -1) {
-            $('.file-ppt-icon').css('display', 'block');
-        } else if (fileInfo.format.indexOf('txt') > -1) {
-            $('.file-text-icon').css('display', 'block');
-        } else if (fileInfo.format.indexOf('pdf') > -1) {
-            $('.file-pdf-icon').css('display', 'block');
+        if (fileInfo.format) {
+            if (fileInfo.format.indexOf('doc') > -1) {
+                $('.file-doc-icon').css('display', 'block');
+            } else if (fileInfo.format.indexOf('xls') > -1) {
+                $('.file-excel-icon').css('display', 'block');
+            } else if (fileInfo.format.indexOf('ppt') > -1) {
+                $('.file-ppt-icon').css('display', 'block');
+            } else if (fileInfo.format.indexOf('txt') > -1) {
+                $('.file-text-icon').css('display', 'block');
+            } else if (fileInfo.format.indexOf('pdf') > -1) {
+                $('.file-pdf-icon').css('display', 'block');
+            }
         }
+
     }
 
     function resetFileIcon() {
@@ -252,7 +265,13 @@ define(function (require, exports, module) {
             success: function (res) {
                 if (res.code == '0') {
                     var url = res.data.downUrl;
-                    window.location = url;
+                    if (url) {
+                        // 缓存下载链接
+                        curDownUrl = url;
+                        window.location = url;
+                    } else {
+                        window.location = curDownUrl;
+                    }
                 } else {
                     $.toast({
                         text: res.message
