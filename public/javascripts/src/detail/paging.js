@@ -529,7 +529,7 @@ define(function (require) {
         //     }
         //     changeText()
         // }
-        loadMoreStyle();
+        loadMoreStyle(window.pageConfig.freeAdv);
     }
 
     function mouseScroll() {

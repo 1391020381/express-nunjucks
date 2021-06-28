@@ -17,6 +17,7 @@ define(function (require, exports, module) {
     var Browse10s = require('../common/userActionRecordReport').Browse10s;
     // 评价弹窗
     var evaluateLayerService = require('../common/evaluate-layer/index');
+    var initStyle = require('./changeDetailFooter').initStyle;
 
     var fileName = window.pageConfig && window.pageConfig.page && window.pageConfig.page.fileName;
     var page = window.pageConfig.page;
@@ -574,10 +575,13 @@ define(function (require, exports, module) {
                     }
                     window.pageConfig.freeAdv = freeAdv;
                     window.pageConfig.copy = copy;
-                    if (!freeAdv) { // 如果去广告
+                    if (freeAdv) { // 如果去广告
                         $('.adv-container').each(function ($index, $element) {
                             $($element).remove();
                         });
+                        setTimeout(function() {
+                            initStyle(true);
+                        }, 1000);
                     }
                     if (copy) { // 如果可以复制
                         $('.detail-holder').each(function ($index, $element) {
