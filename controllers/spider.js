@@ -20,7 +20,8 @@ function getList(req, res, id) {
 }
 
 function getCrumbList(req, res, list) {
-    const classId = list.data.fileInfo.classid;
+    const fileInfo = list.data.fileInfo || {};
+    const classId = fileInfo.classid;
     req.body = {
         classId: classId,
         site: 4,
@@ -31,14 +32,15 @@ function getCrumbList(req, res, list) {
 }
 
 function getEditorInfo(req, res, list) {
-    const uid = list.data.fileInfo.uid;
+    const fileInfo = list.data.fileInfo || {};
+    const uid = fileInfo.uid;
     const url = appConfig.apiNewBaselPath + Api.spider.editorInfo.replace(/\$uid/, uid);
     return server.$http(url, 'get', req, res, true);
 }
 
 function getFileDetailTxt(req, res) {
     req.body = {
-        fid: req.params.id.replace('-nbhh', ''),
+        fid: req.params.id,
         subBody: 20000
     };
     return server.$http(appConfig.apiNewBaselPath + Api.spider.fileDetailTxt, 'post', req, res, true);
@@ -51,6 +53,7 @@ function getRecommendInfo(req, res) {
 }
 
 function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
+    const fileInfo = list.data.fileInfo || {};
     const recommendInfoDataRele = recommendInfo.data[0] || {}; // 相关资料
     if (recommendInfoDataRele.useId) {
         const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
@@ -58,8 +61,8 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
             request: {
                 'userId': userID,
                 'requestId': requestId,
-                'itemId': list.data.fileInfo.id,
-                'itemTitle': list.data.fileInfo.title
+                'itemId': fileInfo.id,
+                'itemTitle': fileInfo.title
             }
         };
         const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
@@ -70,7 +73,7 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
 }
 
 function getHotpotSearch(req, res, list, recommendInfo, userID) {
-
+    const fileInfo = list.data.fileInfo || {};
     const recommendInfoDataRele = recommendInfo.data[1] || {}; // 相关资料
     if (recommendInfoDataRele.useId) {
         const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
@@ -78,8 +81,8 @@ function getHotpotSearch(req, res, list, recommendInfo, userID) {
             request: {
                 'userId': userID,
                 'requestId': requestId,
-                'itemId': list.data.fileInfo.id,
-                'itemTitle': list.data.fileInfo.title
+                'itemId': fileInfo.id,
+                'itemTitle': fileInfo.title
             }
         };
         const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
@@ -244,7 +247,8 @@ function handleSpiderData({
         results.list.data.fileInfo.moduleType = moduleType;
     }
     // 对正文进行处理
-    const topicList = results.hotpotSearch.data.slice(0, 20); // 用于匹配超链接
+    const hotpotSearchData = Array.isArray(results.hotpotSearch.data) ? results.hotpotSearch.data : [];
+    const topicList = hotpotSearchData.slice(0, 20); // 用于匹配超链接
 
     const textString = results.fileDetailTxt && results.fileDetailTxt.data || '';
 
@@ -276,8 +280,9 @@ function handleSpiderData({
     results.seo.fileurl = fileurl;
     // 对相关资料数据处理
 
-    results.relevantList = results.paradigm4Relevant.data.slice(0, 10);
-    results.guessLikeList = results.paradigm4Relevant.data.slice(-21);
+    const paradigm4RelevantData = Array.isArray(results.paradigm4Relevant.data) ? results.paradigm4Relevant.data : [];
+    results.relevantList = paradigm4RelevantData.slice(0, 10);
+    results.guessLikeList = paradigm4RelevantData.slice(-21);
 
     // A25需求：获取字典数据
     results.dictionaryData = results.dictionaryData.data;
@@ -288,8 +293,9 @@ function handleSpiderData({
     // results.guessLikeList = results.paradigm4Relevant.data.slice(-21);
 
     // 对最新资料  推荐专题数据处理
-    results.hotTopicSearch = results.hotpotSearch.data.slice(0, 20);
-    results.hotTopicSeo = results.hotpotSearch.data.slice(-21);
+
+    results.hotTopicSearch = hotpotSearchData.slice(0, 20);
+    results.hotTopicSeo = hotpotSearchData.slice(-21);
 
     // console.log('hotTopicSearch', results.hotTopicSearch, 'dictionaryData', results.dictionaryData);
 
@@ -346,10 +352,12 @@ const renderPage = cc(async (req, res, next) => {
     let hotpotSearch = {
         data: []
     }; // 热门搜索  推荐专题
-    if (recommendInfo && recommendInfo.data[0]) {
+    const paradigm4RelevantUseId = recommendInfo.data[0]&&recommendInfo.data[0].useId;
+    const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
+    if (paradigm4RelevantUseId) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
     }
-    if (recommendInfo && recommendInfo.data[1]) {
+    if (hotpotSearchUseId) {
         hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID);
 
     }
