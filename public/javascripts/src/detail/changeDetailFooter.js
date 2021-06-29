@@ -22,10 +22,6 @@ define(function (require, exports, module) {
             'bottom': bottomHeight + 'px',
             'width': '890px'
         });
-        $('.copyright-container').css({
-            'bottom': bottomHeight + 'px',
-            'marginBottom': '-40px'
-        });
     }
 
     function initStyle() {

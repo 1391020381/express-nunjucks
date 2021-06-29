@@ -65,7 +65,7 @@ const renderPage = cc(async (req, res) => {
         }
         // 【A20如果该文件是txt格式】
         if (fileInfo.format.toLowerCase() === 'txt') {
-            let contentPathList = data.transcodeInfo.contentPathList
+            const contentPathList = data.transcodeInfo.contentPathList;
             if(contentPathList&&contentPathList.length){
                 const txtContentList = await fetchTxtContentList(contentPathList);
                 list.data.transcodeInfo.contentPathList = [...txtContentList];
@@ -75,8 +75,8 @@ const renderPage = cc(async (req, res) => {
 
         }
     }
-    const { data:paidTestData} = await getPaidTestData(req,res)
-    const {data:categoryIdList} = await getNodeByClassId(req,res,list)
+    const { data:paidTestData} = await getPaidTestData(req, res);
+    const {data:categoryIdList} = await getNodeByClassId(req, res, list);
     const topBannerList = await getTopBannerList(req, res);
     const searchBannerList = await getSearchBannerList(req, res);
     const bannerList = await getBannerList(req, res, list);
@@ -88,7 +88,7 @@ const renderPage = cc(async (req, res) => {
 
     const filePreview = {};
 
-    handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner ,categoryIdList,paidTestData});
+    handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, filePreview, crumbList, userID, rightTopBanner, categoryIdList, paidTestData});
 });
 
 
@@ -196,12 +196,12 @@ function fetchTxtContentList(contentPathList) {
 function fetchContentForTxt(txtPath) {
     return server.$httpTxt(txtPath);
 }
-function getPaidTestData(req,res){ // 获取专题相关配置
+function getPaidTestData(req, res){ // 获取专题相关配置
     const url = appConfig.apiNewBaselPath + api.dictionaryData.replace(/\$code/, 'PaidTest');
     return server.$http(url, 'get', req, res, true);
 }
 
-function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner,categoryIdList,paidTestData}) {
+function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBannerList, searchBannerList, bannerList, cateList, recommendInfo, filePreview, crumbList, userID, rightTopBanner, categoryIdList, paidTestData}) {
     let isVipPaidTest = {
         flag:false,
         price:'',
@@ -209,7 +209,7 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
     };
     const dictionaryDataList = dictionaryData.data;
     if(paidTestData){
-        paidTestData.forEach(item=>{
+        paidTestData.forEach(item => {
             if(item.pcode == 4){
                 isVipPaidTest = {
                     flag:true,
@@ -217,10 +217,10 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
                     // desc:item.pvalue,
                     price:item.pvalue/100,
                     desc:item.desc
-                }
+                };
             }
 
-        })
+        });
     }
     if (topBannerList.data) {
         if (req.cookies.isHideDetailTopbanner) {
@@ -234,8 +234,8 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
     }
     if(rightTopBanner&&rightTopBanner.data){
         const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[], dictionaryDataList);
-        const classId = categoryIdList&&categoryIdList.length?categoryIdList[categoryIdList.length-1].nodeCode:''
-        console.log('classId:',classId,JSON.stringify(rightTopBanner))
+        const classId = categoryIdList&&categoryIdList.length?categoryIdList[categoryIdList.length-1].nodeCode:'';
+        console.log('classId:', classId, JSON.stringify(rightTopBanner));
         rightTopBanner = {list:[]};
         tempList.list.forEach(item => {
             if(item.copywriting1.indexOf(classId)>-1){
@@ -315,7 +315,7 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
     results.showFlag = true;
     results.isDetailRender = true;
 
-   // console.log('返回的最新的预读页数：', JSON.stringify(results));
+    console.log('返回的最新的预读页数：', JSON.stringify(results));
 
     render('detail/index', results, req, res);
     // if (results.list.data && results.list.data.abTest) {

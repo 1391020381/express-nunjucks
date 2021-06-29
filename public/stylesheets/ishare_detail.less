@@ -1258,7 +1258,12 @@ body {
 .copyright-container {
     position: absolute;
     height: 102px;
-    bottom: 23px;
+    bottom: 122px;
+    z-index: 99;
+
+    &.lastnoadv {
+        bottom: 0;
+    }
     
     .copyright-divider {
         height: 1px;

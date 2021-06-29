@@ -76,12 +76,6 @@ define(function (require) {
                             'bottom': bottomHeight + 'px',
                             'width': '890px'
                         });
-                        $('.copyright-container').css({
-                            'bottom': bottomHeight + 'px',
-                            'marginBottom': '-40px'
-                        });
-
-
                         handlePagination(res.data.totalPages, res.data.currentPage);
                     }
                 }
