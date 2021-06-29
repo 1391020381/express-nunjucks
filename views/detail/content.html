@@ -1,5 +1,5 @@
 <div class="doc-main-br w890 deatil-mr10 fl">
-    <div class="doc-main" >
+    <div class="doc-main" style="position:relative;">
         <div class="detail-box">
             <div class="detail-top-box">
                 {% if results.list.data.owner.perMin !== '3' %}
@@ -307,6 +307,17 @@
             </div>
             <!--文章内容模块 end-->
         </div>
+
+        <!-- 版权声明 start -->
+        <div class="copyright-container {%if results.filePreview.data.initReadPage > 3%}lastnoadv{%endif%}">
+            <div class="copyright-divider"></div>
+            <div class="detail-copyright">
+                <p>[版权声明] 本站所有资料为用户分享产生，若发现您的权利被侵害，请联系客服邮箱isharekefu@iask.cn，我们尽快处理。</p> 
+                <p>本作品所展示的图片、画像、字体、音乐的版权可能需版权方额外授权，请谨慎使用。</p> 
+                <p>网站提供的党政主题相关内容(国旗、国徽、党徽..)目的在于配合国家政策宣传，仅限个人学习分享使用，禁止用于任何广告和商用目的。</p>
+            </div>
+        </div>
+        <!-- 版权声明 end -->
     </div>
 
     <!--底部购买信息 start -->
@@ -334,17 +345,6 @@
         </div>
         {%endif%}
     </div>
-   
-    <!-- 版权声明 start -->
-    <!-- <div class="copyright-container">
-        <div class="copyright-divider"></div>
-        <div class="detail-copyright">
-            <p>[版权声明] 本站所有资料为用户分享产生，若发现您的权利被侵害，请联系客服邮箱isharekefu@iask.cn，我们尽快处理。</p> 
-            <p>本作品所展示的图片、画像、字体、音乐的版权可能需版权方额外授权，请谨慎使用。</p> 
-            <p>网站提供的党政主题相关内容(国旗、国徽、党徽..)目的在于配合国家政策宣传，仅限个人学习分享使用，禁止用于任何广告和商用目的。</p>
-        </div>
-    </div> -->
-    <!-- 版权声明 end -->
 
     <!-- 第四范式 猜你喜欢 -->
     {# {%if results.paradigm4GuessData.length>0 %}
