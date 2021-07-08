@@ -250,31 +250,44 @@ define(function (require, exports, module) {
 
     /* 下载接口 */
     function downLoad() {
-        var order = document.getElementById('scondition').value;
-        var params = {
-            orderNo: order,
-            userId: userInfo ? userInfo.userId || '' : '',
-            fid: fileInfo.fid
-        };
+        // var order = document.getElementById('scondition').value;
+        // var params = {
+        //     orderNo: order,
+        //     userId: userInfo ? userInfo.userId || '' : '',
+        //     fid: fileInfo.fid
+        // };
+        var params = { 'vuk': userInfo.userId, 'fid': fid };
         $.ajax({
-            url: api.order.unloginOrderDown,
+            // url: api.order.unloginOrderDown,
+            url:'/pay/paperDown',
             type: 'POST',
             data: JSON.stringify(params),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function (res) {
-                if (res.code == '0') {
-                    var url = res.data.downUrl;
-                    if (url) {
-                        // 缓存下载链接
-                        curDownUrl = url;
-                        window.location = url;
-                    } else {
-                        window.location = curDownUrl;
-                    }
+            success: function (data) {
+                // if (res.code == '0') {
+                //     var url = res.data.downUrl;
+                //     if (url) {
+                //         // 缓存下载链接
+                //         curDownUrl = url;
+                //         window.location = url;
+                //     } else {
+                //         window.location = curDownUrl;
+                //     }
+                // } else {
+                //     $.toast({
+                //         text: res.message
+                //     });
+                // }
+                if (data.code == 0) {
+                    location.href = data.data.dowUrl;
+                } else if (data.code == 41003) {
+                    $.toast({
+                        text: data.message
+                    });
                 } else {
                     $.toast({
-                        text: res.message
+                        text: data.message
                     });
                 }
             }
