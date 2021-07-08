@@ -256,7 +256,7 @@ define(function (require, exports, module) {
         //     userId: userInfo ? userInfo.userId || '' : '',
         //     fid: fileInfo.fid
         // };
-        var params = { 'vuk': userInfo.userId, 'fid': fid };
+        var params = { 'vuk': userInfo.userId, 'fid': fileInfo.fid };
         $.ajax({
             // url: api.order.unloginOrderDown,
             url:'/pay/paperDown',
