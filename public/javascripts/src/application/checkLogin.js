@@ -125,7 +125,9 @@ define(function (require, exports, module) {
                             var userInfo = {
                                 uid: res.data.userId,
                                 isVip: res.data.isVip,
-                                tel: res.data.mobile
+                                tel: res.data.mobile,
+                                nickName:res.data.nickName, // 游客查询页面 右上登录后，查询接口要使用
+                                userId:res.data.userId
                             };
                             method.setCookieWithExpPath('ui', JSON.stringify(userInfo), 30 * 60 * 1000, '/');
                             method.setCookieWithExpPath('userId', res.data.userId, 30 * 60 * 1000, '/');

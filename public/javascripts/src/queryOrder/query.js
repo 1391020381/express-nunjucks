@@ -58,10 +58,16 @@ define(function (require, exports, module) {
 
     /* 查询订单接口 */
     function queryOrder(orderNo) {
+        var cookieUserInfo = {};
+        try{
+            cookieUserInfo = JSON.parse(method.getCookie('ui'));
+        }catch(e){
+            console.log(e);
+        }
         var params = {
             orderNo: orderNo,
-            userId: userInfo && userInfo.userId,
-            nickName: userInfo && userInfo.nickName
+            userId: userInfo && userInfo.userId || cookieUserInfo.userId,
+            nickName: userInfo && userInfo.nickName|| cookieUserInfo.nickName
         };
         $.ajax({
             url: api.order.bindOrderByOrderNo,
@@ -256,7 +262,13 @@ define(function (require, exports, module) {
         //     userId: userInfo ? userInfo.userId || '' : '',
         //     fid: fileInfo.fid
         // };
-        var params = { 'vuk': userInfo.userId, 'fid': fileInfo.fid };
+        var cookieUserInfo = {};
+        try{
+            cookieUserInfo = JSON.parse(method.getCookie('ui'));
+        }catch(e){
+            console.log(e);
+        }
+        var params = { 'vuk': userInfo&&userInfo.userId||cookieUserInfo.userId, 'fid': fileInfo.fid };
         $.ajax({
             // url: api.order.unloginOrderDown,
             url:'/pay/paperDown',
