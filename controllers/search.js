@@ -54,8 +54,8 @@ module.exports = {
             // console.log(req.query, 'req.query');
             console.warn(JSON.stringify(results), 'results');
             // 是否是vip
-            const userinfo = req.cookies && req.cookies.ui ? JSON.parse(req.cookies.ui) : {};
-
+            // const userinfo = req.cookies && req.cookies.ui ? JSON.parse(req.cookies.ui) : {};
+            const isVip = req.cookies.isVip;
             const fileTypeList = [
                 { code: '', des: '全部', active: req.query.fileType === '' || req.query.fileType == undefined ? true : false },
                 // { code: 'highQuality', des: '精选', active: req.query.fileType === 'highQuality' ? true : false },
@@ -80,7 +80,7 @@ module.exports = {
                 {
                     title: '范围',
                     code: 'fileType',
-                    content: userinfo.isVip == 1 ? fileTypeList : fileTypeList.slice(0, 3)
+                    content: isVip == 1 ? fileTypeList : fileTypeList.slice(0, 3)
                 },
                 {
                     title: '页数',

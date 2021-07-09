@@ -131,6 +131,7 @@ define(function (require, exports, module) {
                             };
                             method.setCookieWithExpPath('ui', JSON.stringify(userInfo), 30 * 60 * 1000, '/');
                             method.setCookieWithExpPath('userId', res.data.userId, 30 * 60 * 1000, '/');
+                            method.setCookieWithExpPath('isVip', res.data.isVip, 30 * 60 * 1000, '/'); // 搜索服务端获取ui JSON.parse有问题。所以单独存储
                         } catch (e) {
                         }
                     } else {

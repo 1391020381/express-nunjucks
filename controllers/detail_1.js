@@ -35,7 +35,8 @@ const renderPage = cc(async (req, res) => {
     }
 
     if (list.data) {
-        const uid = req.cookies.ui ? JSON.parse(req.cookies.ui).uid : '';
+        // const uid = req.cookies.ui ? JSON.parse(req.cookies.ui).uid : '';
+        const uid = req.cookies.userId;
         const cuk = req.cookies.cuk;
         const data = list.data;
         const fileInfo = data.fileInfo;
