@@ -24,7 +24,7 @@ function getListTopicContents(req, res, paramsObj, specialList) {
     if (paramsObj.topicPropertyQueryDTOList.length > 0) {
         arr = util.getPropertyParams(paramsObj.topicPropertyQueryDTOList, specialList);
     }
-    req.cookies.ui ? uid = JSON.parse(req.cookies.ui).uid : '';
+    uid = req.cookies.userId;
     req.body = {
         uid: uid,
         specialTopicId: paramsObj.specialTopicId, // 专题id
@@ -147,24 +147,24 @@ function handleThemeModel({
     req,
     specialTopicId
 }) {
-    let themeModelMap = {}
+    const themeModelMap = {};
     // '/node/s/test001.html'.replace(new RegExp('\/' + 'specialTopicId' +  '.html', 'ig'),'')
-    var reg = new RegExp('\/' + specialTopicId + '.html', 'ig')
-    let currentPath = req.mulu;
-    let templateCodeType = req.templateCodeType;
-    console.log('currentPath:', currentPath)
+    const reg = new RegExp('\/' + specialTopicId + '.html', 'ig');
+    const currentPath = req.mulu;
+    const templateCodeType = req.templateCodeType;
+    console.log('currentPath:', currentPath);
     if (themeModelData && themeModelData.length) {
         themeModelData.forEach(item => {
-            let pcode = item.pcode.trim();
+            const pcode = item.pcode.trim();
             if (!themeModelMap[pcode]) {
                 themeModelMap[pcode] = item;
             }
-        })
+        });
         console.log('themeModelMap', themeModelMap, 'templateCode', templateCode, 'themeModelMap[templateCode]', themeModelMap[templateCode]);
         if (themeModelMap[templateCode]) {
-            let desc = themeModelMap[templateCode].order; //站点
-            let pvalue = themeModelMap[templateCode].pvalue; // 目录
-            let pcode = themeModelMap[templateCode].pcode; // 模板标识
+            const desc = themeModelMap[templateCode].order; // 站点
+            const pvalue = themeModelMap[templateCode].pvalue; // 目录
+            const pcode = themeModelMap[templateCode].pcode; // 模板标识
             console.log(desc, appConfig.site, pvalue, currentPath, desc == appConfig.site && pvalue == currentPath);
             console.log('pcode', pcode, 'templateCodeType', templateCodeType);
             if (pcode == templateCodeType && pvalue == currentPath) {
@@ -173,38 +173,34 @@ function handleThemeModel({
                 return false;
             }
         } else {
-            return false
+            return false;
         }
     } else {
-        return false // 404
+        return false; // 404
     }
 }
 const renderPage = cc(async (req, res) => {
-    console.log('req.mulu:', req.mulu)
+    console.log('req.mulu:', req.mulu);
     const {
         data: themeModelData
-    } = await getThemeModel(req, res)
+    } = await getThemeModel(req, res);
     const paramsObj = util.getSpecialParams(req.url);
 
     const detail = await getFindSpecialTopic(req, res, paramsObj);
     // 获取字典数组
     const dictionaryData = await getDictionaryData(req, res);
     let specialList = [];
-    let uid = '';
-    if (req.cookies.ui) {
-        uid = JSON.parse(req.cookies.ui).uid;
-    }
-
     // if (detail.data.templateCode !== 'ishare_zt_model1' || !detail.data) {
     //     res.redirect('/node/404.html');
     //     return;
     // }
-    let isRender = handleThemeModel({
+    const uid = req.cookies.userId;
+    const isRender = handleThemeModel({
         themeModelData,
         templateCode: detail.data.templateCode,
         req,
         specialTopicId: paramsObj.specialTopicId
-    })
+    });
     console.log('isRender', isRender);
     if (!isRender) {
         res.redirect('/node/404.html');
