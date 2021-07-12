@@ -1,0 +1,17 @@
+<div class="search-other-container">
+    <div class="search-other-item">
+        <p class="search-other-item-title fl">你要找的是不是 :</p>
+        <p class="search-other-item-content fr">
+            {% for item in results
+                .specialTopic and results
+                .specialTopic
+                .slice(0, 10) %}
+                <span>
+                    <a href="{{ item.newRouterUrl }}" target="_blank">
+                        {{ item.topicName }}
+                    </a>
+                </span>
+            {% endfor %}
+        </p>
+    </div>
+</div>

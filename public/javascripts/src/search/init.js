@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-    var urlConfig = require('../application/urlConfig')
+    var urlConfig = require('../application/urlConfig');
     var method = require('../application/method');
     var isLogin = require('../application/effect.js').isLogin;
     var isAutoLogin = false;
@@ -22,7 +22,7 @@ define(function (require, exports, module) {
     $('.landing-txt-list .li-file').on('click', function () {
         var fileID = $(this).attr('data-fileId');
         var fileName = $(this).attr('data-fileName');
-        console.log($(this))
+        console.log($(this));
         trackEvent('SE016', 'searchResultClick', 'click', {
             filePostion: $(this).index() + 1,
             keyWords: cond,
@@ -31,14 +31,14 @@ define(function (require, exports, module) {
         });
     });
     $('.js-go2FileConvert').on('click', function (e) {
-        e.stopPropagation()
+        e.stopPropagation();
         e.preventDefault();
         trackEvent('NE002', 'normalClick', 'click', {
             domID: 'transClick',
             domName: '格式转换入口点击'
         });
-        var convertType = $(this).attr('data-convert-type')
-        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType]
-        method.compatibleIESkip(href, true)
-    })
+        var convertType = $(this).attr('data-convert-type');
+        var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
+        method.compatibleIESkip(href, true);
+    });
 });

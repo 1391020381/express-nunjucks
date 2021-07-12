@@ -1,94 +1,72 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-
         {% include "common/head.html" %}
         {% if results.tdk.canonicalUrl %}
-            <link rel="canonical" href="https://ishare.iask.sina.com.cn{{results.tdk.canonicalUrl}}"/>
-            {% endif%}
-            <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/special/special_search.css"/>
-
-            <link rel="stylesheet" href="{{cdnUrl}}/stylesheets/swiper-3.2.7-css-swiper.min.css">
-        </head>
-
-        <body>
-            {% include "common/js.html" %}
-
-            {% include "common/websiteHeaderbar.html" %}
-
-            <!-- 专题内容主体 -->
-            {% include "special/content.html" %}
-
-            <!-- 底部声明 -->
-
-            <!-- 底部 start-->
-            {% include "common/footer.html" %}
-
-            <!-- 右边固定提示导航 -->
-
-            {% include "common/suspension.html" %}
-            <script type="text/javascript">
-                window.pageConfig = {
-                    params: {
-                        isVip: 0,
-                        uid: '{{results.uid}}'
-                    },
-                    urlParams: {
-                        specialTopicId: "{{results.urlParams.specialTopicId}}", //专题id
-                        dimensionId: "{{results.urlParams.dimensionId}}", //维度id
-                        sortFlag: "{{results.urlParams.sortFlag}}",
-                        currentPage: "{{results.urlParams.currentPage}}",
-                        topicPropertyQueryDTOList: '{{results.urlParams.topicPropertyQueryDTOList}}'
-                    },
-                    topicName: "{{results.data.topicName}}",
-                    mulu: "{{results.mulu}}",
-                    dictionaryDataList: '{{results.dictionaryDataList}}'
-                }
-                seajs.use(["dist/application/app.js", "dist/special/init.js"]);
-            </script>
-            <!-- 百度统计代码 -->
-
-            <script>
-                // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在  window.pageConfig上的含义,暂时单独添加
-                var _hmt = _hmt || []; //此变量百度统计需要
-
-                (function () {
-                    var hm = document.createElement("script");
-
-                    hm.src = "https://hm.baidu.com/hm.js?a0eac0413179b25b0ac75a7b6d2bd134";
-
-                    var s = document.getElementsByTagName("script")[0];
-
-                    s
-                        .parentNode
-                        .insertBefore(hm, s);
-
-                })();
-            </script>
-
-            <script>
-                var _hmt = _hmt || [];
-                (function () {
-                    var hm = document.createElement("script");
-                    hm.src = "https://hm.baidu.com/hm.js?17cdd3f409f282dc0eeb3785fcf78a66";
-                    var s = document.getElementsByTagName("script")[0];
-                    s
-                        .parentNode
-                        .insertBefore(hm, s);
-                })();
-
-                (function () {
-                    var hm = document.createElement("script");
-
-                    hm.src = "https://hm.baidu.com/hm.js?c86ddf23466c4042b5bc09c72141b42b";
-
-                    var s = document.getElementsByTagName("script")[0];
-
-                    s
-                        .parentNode
-                        .insertBefore(hm, s);
-
-                })();
-            </script>
-        </body>
-    </html>
+            <link rel="canonical" href="https://ishare.iask.sina.com.cn{{ results.tdk.canonicalUrl }}"/>
+        {% endif %}
+        <link rel="stylesheet" href="{{ cdnUrl }}/stylesheets/special/special_search.css"/>
+        <link rel="stylesheet" href="{{ cdnUrl }}/stylesheets/swiper-3.2.7-css-swiper.min.css">
+    </head>
+    <body>
+        {% include "common/js.html" %}
+        {% include "common/websiteHeaderbar.html" %}
+        <!-- 专题内容主体 -->
+        {% include "special/content.html" %}
+        <!-- 自有广告位 -->
+        {% include "special/advertising.html" %}
+        <!-- 热门搜索 -->
+        {% include "special/hotSearch.html" %}
+        <!-- 百度广告位 -->
+        {% include "special/baiduAdvertising.html" %}
+        <!-- 底部声明 -->
+        <!-- 底部 start-->
+        {% include "common/footer.html" %}
+        <!-- 右边固定提示导航 -->
+        {% include "common/suspension.html" %}
+            <script type="text/javascript"> window.pageConfig = {
+                params: {
+                    isVip: 0,
+                    uid: '{{ results.uid }}'
+                },
+                urlParams: {
+                    specialTopicId: "{{ results.urlParams.specialTopicId }}", // 专题id
+                    dimensionId: "{{ results.urlParams.dimensionId }}", // 维度id
+                    sortFlag: "{{ results.urlParams.sortFlag }}",
+                    currentPage: "{{ results.urlParams.currentPage }}",
+                    topicPropertyQueryDTOList: '{{ results.urlParams.topicPropertyQueryDTOList }}'
+                },
+                topicName: "{{ results.data.topicName }}",
+                mulu: "{{ results.mulu }}",
+                dictionaryDataList: '{{ results.dictionaryDataList }}'
+            }
+            seajs.use(["dist/application/app.js", "dist/special/init.js"]);
+        </script>
+        <!-- 百度统计代码 -->
+        <script>
+            // 暂时不明白 根目录下的 ,static/baidu-statistics.js 挂载在 window.pageConfig上的含义,暂时单独添加
+            var _hmt = _hmt || []; // 此变量百度统计需要
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?a0eac0413179b25b0ac75a7b6d2bd134";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?17cdd3f409f282dc0eeb3785fcf78a66";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?c86ddf23466c4042b5bc09c72141b42b";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </body>
+</html>

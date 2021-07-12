@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var api = require('../application/api');
     var method = require('../application/method');
     var login = require('../application/checkLogin');
-    var urlConfig = require('../application/urlConfig')
+    var urlConfig = require('../application/urlConfig');
 
     $('.search-img-box').click(function () {
         var contentId = $(this).attr('contentId');
@@ -32,8 +32,9 @@ define(function (require, exports, module) {
 
     // 收藏与取消收藏功能
     var userId = ''; // 注意 在 loginStatusQuery 也可以取到 userID
-    $('.search-img-box .ic-collect').click(function (event) {
-        event.stopPropagation();
+    $('.search-img-box .ic-collect').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
         var _this = $(this);
         var contentId = $(this).attr('data-contentid');
         var hasActiveClass = $(this).hasClass('active');
@@ -58,7 +59,7 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.special.setCollect,
             type: 'post',
-            data: JSON.stringify({ fid: fid, source: 0 ,site:urlConfig.site}),
+            data: JSON.stringify({ fid: fid, source: 0, site:urlConfig.site}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

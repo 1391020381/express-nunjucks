@@ -1,45 +1,40 @@
 <div class="search-all-main">
-    <!-- 广告位 -->
-    <div class="search-adv-warper">
-        <span class="special-topicName">{{results.data.topicName}}</span>
-        <p class="special-collect">
-            <span class="special-collect-icon"></span>
-            <span class="special-collect-desc">收藏</span>
-        </p>
-    </div>
-
-    <div class="right-content-container">
+    <div class="special-topicname">{{ results.data.topicName }}</div>
+    <div
+        class="content-container">
         <!-- 筛选条件 -->
-        {% if results.data.dimensionStatus===0 or results.data.dimensionStatus==1 and results.specialTopic.length>0%}
-            <div class="search-all-container">
+        {% if results.data.dimensionStatus===0 or results.data.dimensionStatus==1 and results.specialTopic.length>0 %}
+            <div
+                class="search-all-container">
                 <!--dimensionStatus=0 开启维度 -->
                 {% if results.data.dimensionStatus === 0 %}
                     <div class="search-all-nav">
                         <div class="search-nav-box">
-                            <a href="{{results.mulu}}/{{results.data.id}}_1_{{results.urlParams.sortFlag}}.html" class="{{'active' if results.urlParams.dimensionId=='' or results.urlParams.dimensionId==null}}">全部</a>
+                            <a href="{{ results.mulu }}/{{ results.data.id }}_1_{{ results.urlParams.sortFlag }}.html" class="{{ 'active' if results.urlParams.dimensionId=='' or results.urlParams.dimensionId==null }}">全部</a>
                             {% for navItem in results.data.specialTopicDimensionDOList %}
-                                <a href="{{results.mulu}}/{{results.data.id}}_1_{{results.urlParams.sortFlag}}-{{navItem.dimensionId}}.html" class="tapNav {{'active' if results.urlParams.dimensionId==navItem.dimensionId}}">{{navItem.dimensionName}}</a>
+                                <a href="{{ results.mulu }}/{{ results.data.id }}_1_{{ results.urlParams.sortFlag }}-{{ navItem.dimensionId }}.html" class="tapNav {{ 'active' if results.urlParams.dimensionId==navItem.dimensionId }}">{{ navItem.dimensionName }}</a>
                             {% endfor %}
                         </div>
                     </div>
                 {% endif %}
                 {% if (results.urlParams.dimensionId and results.data.specialTopicPropertyGroupDOList.length > 0)
                     or(results.data.dimensionStatus == 1 and results.data.specialTopicPropertyGroupDOList.length > 0) %}
-                    <div class="search-condition">
+                    <div
+                        class="search-condition">
                         <!-- 有维度的全部不展示分类 -->
                         {% for secondItem in results.data.specialTopicPropertyGroupDOList %}
-                            <div class="search-item {{'hide' if loop.index>2 and results.isOpen!=1  }}">
-                                <span class="search-title">{{secondItem.propertyGroupName}}: </span>
+                            <div class="search-item {{ 'hide' if loop.index>2 and results.isOpen!=1 }}">
+                                <span class="search-title">{{ secondItem.propertyGroupName }} :
+                                </span>
                                 {% for thirdItem in secondItem.specialTopicPropertyDOList %}
-                                    <a href="{{results.data.id}}_{{results.urlParams.currentPage}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{secondItem.propertyGroupId}}_{{thirdItem.propertyId}}.html" class="search-ele {{'active' if thirdItem.active  }}" >
-                                        {{thirdItem.propertyName}}
+                                    <a data-index="{{ loop.index }}" href="{{ results.data.id }}_{{ results.urlParams.currentPage }}_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ secondItem.propertyGroupId }}_{{ thirdItem.propertyId }}.html" class="search-ele {{ 'active' if thirdItem.active }}">
+                                        {{ thirdItem.propertyName }}
                                     </a>
                                 {% endfor %}
                             </div>
                         {% endfor %}
-
                         <!-- 筛选内容切换 -->
-                        {% if results.data.specialLength>2 and results.urlParams.dimensionId%}
+                        {% if results.data.specialLength>2 and results.urlParams.dimensionId %}
                             <div class="search-screen">
                                 {% if results.isOpen == 1 %}
                                     <span>收起筛选</span>
@@ -50,117 +45,94 @@
                                 {% endif %}
                             </div>
                         {% endif %}
-
                     </div>
                 {% endif %}
                 {# <!-- 无维度显示 其他搜索 -->
-                {% if results.data.dimensionStatus == 1 and results.specialTopic.length > 0 %}
-                    <div class="search-other-container">
-                        <div class="search-other-item">
-                            <em>你要找的是不是：</em>
-                            {% for item in results
-                                .specialTopic and results
-                                .specialTopic
-                                .slice(0, 10) %}
-                                <span>
-                                    <a href="{{results.mulu}}/{{item.id}}.html" target="_blank">
-                                        {{item.topicName}}
-                                    </a>
-                                </span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %} #}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {% if results.data.dimensionStatus == 1 and results.specialTopic.length > 0 %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="search-other-container">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="search-other-item">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <em>你要找的是不是：</em>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% for item in results
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .specialTopic and results
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .specialTopic
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .slice(0, 10) %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a href="{{results.mulu}}/{{item.id}}.html" target="_blank">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{item.topicName}}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {% endfor %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {% endif %} #}
             </div>
-            {%endif%}
-            <!--筛选列表  -->
-            <div class="search-list-section">
-                <div class="search-list-tab">
-
-                    <a  href="{{results.mulu}}/{{results.data.id}}_1_0-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" class="search-tab {{'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
-                    <a  href="{{results.mulu}}/{{results.data.id}}_1_1-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" class="search-tab {{'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
-                </div>
-                <div class="search-list-container">
-                    <ul class="search-list">
-                        {% for item in results.list.data.rows %}
-                            <li class="list-item">
-                                <a  class="search-img-box"  href="/f/{{item.contentId}}.html" target="_blank" contentId="{{item.contentId}}" fileName="{{item.contentName}}">
-                                    <img src="{{item.fileSmallPic}}" alt="">
+        {% endif %}
+        <!--筛选列表  -->
+        <div class="search-list-section">
+            <div class="search-list-tab">
+                <a href="{{ results.mulu }}/{{ results.data.id }}_1_0-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" class="search-tab {{ 'active' if results.urlParams.sortFlag!=1 }}">综合排序</a>
+                <a href="{{ results.mulu }}/{{ results.data.id }}_1_1-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" class="search-tab {{ 'active' if results.urlParams.sortFlag==1 }}">最新上传</a>
+            </div>
+            <div class="search-list-container">
+                <ul class="search-list">
+                    {% for item in results.list.data.rows %}
+                        <li class="list-item">
+                            <a class="search-img-box" href="/f/{{ item.contentId }}.html" target="_blank" contentId="{{ item.contentId }}" fileName="{{ item.contentName }}">
+                                <img class="img" src="{{ item.fileSmallPic }}" alt="">
                                     <div class="mask-container">
                                         <div class="bg-mask"></div>
-                                        <!-- <i class="ic-collect {{'active' if item.hasCollect}}" data-contentid={{item.contentId}}></i> -->
+                                        <i class="ic-collect {{ 'active' if item.hasCollect }}" data-contentid={{ item.contentId }}></i>
                                         <div class="to-download">
                                             <span style="width:100%;height:100%;">立即下载</span>
                                         </div>
                                     </div>
                                 </a>
                                 <div class="title-hover">
-                                    {{item.contentName}}
+                                    {{ item.contentName }}
                                 </div>
                                 {# <span class="title-content">
-                                    {{item.contentName}}</span> #}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {{item.contentName}}</span> #}
                             </li>
                         {% endfor %}
                     </ul>
                     <!-- 搜索空的页面 -->
-                    {% if results.list.data.rows.length===0 or results.list.data.rows==null%}
+                    {% if results.list.data.rows.length===0 or results.list.data.rows==null %}
                         <div class="search-empty-container">
                             <div class="search-empty-item">
-                                <img src="{{cdnUrl}}/images/special/search_empty.png" alt="" width="89" height="89">
-                                <p>暂时没有您想要的内容，试试刷新页面</p>
-                                <div class="btn-fresh">立即刷新</div>
+                                <img src="{{ cdnUrl }}/images/special/search_empty.png" alt="" width="89" height="89">
+                                    <p>暂时没有您想要的内容，试试刷新页面</p>
+                                    <div class="btn-fresh">立即刷新</div>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                    <!-- 分页 -->
-                    {% if results.list.data.totalPages > 1 %}
-                        <div class="office-page-paging">
-                            <a class="btn-page-long js-tab-page" href="{{results.mulu}}/{{results.urlParams.specialTopicId }}_1_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='1'>首页</a>
-                            {% if results.urlParams.currentPage > 1 %}
-                                <a class="btn-page js-tab-page" href="{{results.mulu}}/{{results.urlParams.specialTopicId }}_{{results.urlParams.currentPage-1}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{results.urlParams.currentPage-1}}'>上一页</a>
-                            {% endif %}
-
-                            {%if results.pageIndexArr.length>1 %}
-                                {%for item in results.pageIndexArr%}
-                                    {% if (loop.index <+ results.urlParams.currentPage + 3 and loop.index >= results.urlParams.currentPage - 3) %}
-                                        <a class="page-ele js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" value="{{loop.index}}"
-                   style="display: inline-block" href="{{results.mulu}}/{{results.urlParams.specialTopicId }}_{{loop.index}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html">
-                                            {{loop.index}}
-                                        </a>
-                                    {% endif %}
-                                    {%endfor%}
+                        {% endif %}
+                        <!-- 分页 -->
+                        {% if results.list.data.totalPages > 1 %}
+                            <div class="office-page-paging">
+                                <a class="btn-page-long js-tab-page" href="{{ results.mulu }}/{{ results.urlParams.specialTopicId }}_1_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" value='1'>首页</a>
+                                {% if results.urlParams.currentPage > 1 %}
+                                    <a class="btn-page js-tab-page" href="{{ results.mulu }}/{{ results.urlParams.specialTopicId }}_{{ results.urlParams.currentPage-1 }}_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" value='{{ results.urlParams.currentPage-1 }}'>上一页</a>
+                                {% endif %}
+                                {% if results.pageIndexArr.length>1 %}
+                                    {% for item in results.pageIndexArr %}
+                                        {% if (loop.index <+ results.urlParams.currentPage + 3 and loop.index >= results.urlParams.currentPage - 3) %}
+                                            <a class="page-ele js-tab-page {{ 'active' if results.urlParams.currentPage == loop.index }}" value="{{ loop.index }}" style="display: inline-block" href="{{ results.mulu }}/{{ results.urlParams.specialTopicId }}_{{ loop.index }}_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html">
+                                                {{ loop.index }}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
                                     {% if results.urlParams.currentPage <= results.pageIndexArr.length - 3 %}
                                         <a class="page-more">...</a>
                                     {% endif %}
                                     {% if results.urlParams.currentPage < results.pageIndexArr.length %}
-                                        <a class="btn-page-long js-tab-page" href="{{results.mulu}}/{{results.urlParams.specialTopicId }}_{{+results.urlParams.currentPage+1}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{+results.urlParams.currentPage+1}}'>下一页</a>
-                                        {%endif%}
-                                        <a class="btn-page js-tab-page {{'active' if results.urlParams.currentPage == loop.index}}" href="{{results.mulu}}/{{results.urlParams.specialTopicId }}_{{results.pageIndexArr.length}}_{{results.urlParams.sortFlag}}-{{results.urlParams.dimensionId}}-{{results.urlParams.topicPropertyQuery}}.html" value='{{results.pageIndexArr.length}}'>尾页</a>
-                                        {%endif%}
-                                    </div>
-                                    {%endif%}
-                                </div>
-
-                                <!-- 热门搜索 -->
-                                {% if results.specialTopic.length > 10 %}
-                                    <div class="hot-spot-search">
-                                        <div class="title">
-                                            <span class="title-desc">热点搜索</span>
-                                        </div>
-                                        <ul class="hot-list">
-                                            {% for item in results.specialTopic.slice(10) %}
-                                                <li  class="hot-items {%if loop.index0 > 9 %} hide {%endif%}">
-                                                    <a href="{{item.newRouterUrl}}" target="_blank">{{item.topicName}}</a>
-                                                </li>
-                                            {% endfor %}
-
-                                        </ul>
-                                    </div>
+                                        <a class="btn-page-long js-tab-page" href="{{ results.mulu }}/{{ results.urlParams.specialTopicId }}_{{ +results.urlParams.currentPage+1 }}_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" value='{{ +results.urlParams.currentPage+1 }}'>下一页</a>
+                                    {% endif %}
+                                    <a class="btn-page js-tab-page {{ 'active' if results.urlParams.currentPage == loop.index }}" href="{{ results.mulu }}/{{ results.urlParams.specialTopicId }}_{{ results.pageIndexArr.length }}_{{ results.urlParams.sortFlag }}-{{ results.urlParams.dimensionId }}-{{ results.urlParams.topicPropertyQuery }}.html" value='{{ results.pageIndexArr.length }}'>尾页</a>
                                 {% endif %}
-
                             </div>
-
-                        </div>
-                        <!-- 专题右侧栏 -->
-                        {% include "special/rightContent.html" %}
+                        {% endif %}
                     </div>
+                    <!-- 你要找的是不是 -->
+                    {% include "special/areYouLookingFor.html" %}
+                </div>
+            </div>
+        </div>

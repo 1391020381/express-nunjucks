@@ -103,7 +103,7 @@ function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDa
             dimlist.specialTopicPropertyGroupDOList[item.firstIndex].specialTopicPropertyDOList[item.secondIndex].active = true;
         });
 
-        data.specialLength = dimlist.specialTopicPropertyGroupDOList && dimlist.specialTopicPropertyGroupDOList.length; // 分类的长度
+        // data.specialLength = dimlist.specialTopicPropertyGroupDOList && dimlist.specialTopicPropertyGroupDOList.length; // 分类的长度
         data.specialTopicPropertyGroupDOList = dimlist.specialTopicPropertyGroupDOList;
 
         paramsObj.topicPropertyQueryDTOList = JSON.stringify(paramsObj.topicPropertyQueryDTOList);

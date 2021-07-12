@@ -136,7 +136,7 @@ define(function (require, exports, module) {
             cache: false,
             success: function (res) { // loginRedPacket-dialog
                 if (res.data && res.data.length) {
-                    console.log('success', res.data)
+                    console.log('success', res.data);
                     dictionaryData = res.data;
                     gebyPosition();
                 } else {
