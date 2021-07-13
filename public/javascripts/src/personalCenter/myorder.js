@@ -78,7 +78,13 @@ define(function (require) {
             }
         }
     });
-
+    // 评价有礼 点击上报
+    $(document).on('click', '.reviewGift-dialog-wrap .review-dialog', function(e){
+        trackEvent('NE002', 'normalClick', 'click', {
+            domID:'downTransClick',
+            domName:'下载列表页导流按钮点击'
+        });
+    });
     taskHasEnable();
     function taskHasEnable() {
         $.ajax({

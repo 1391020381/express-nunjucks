@@ -5,7 +5,7 @@ define(function (require) {
     var vipTableType = window.pageConfig.page && window.pageConfig.page.vipTableType || 0;
     var closeRewardPop = require('./dialog.js').closeRewardPop;
     var method = require('../application/method');
-    var bannerTemplate = require('../common/template/swiper_tmp.html');
+    var bannerTemplate = require('./template/swiper_tmp.html');
     var vipPrivilegeList = require('./template/vipPrivilegeList.html');
     var simplePagination = require('./template/simplePagination.html');
     var recommendConfigInfo = require('../common/recommendConfigInfo');
@@ -233,7 +233,7 @@ define(function (require) {
     }
 
     function getBannerbyPosition() { // PC_M_USER_banner
-        console.log('进入getBannerbyPosition')
+        console.log('进入getBannerbyPosition');
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
@@ -257,13 +257,19 @@ define(function (require) {
                                 var ubannerTemplate = template.compile(bannerTemplate)({
                                     topBanner: k.list,
                                     className: 'personalCenter-myvip-swiper-container',
-                                    hasDeleteIcon: true
+                                    hasDeleteIcon: true,
+                                    recommendID:'PC_M_USER_VIP_banner_UC',
+                                    recommendName:'个人中心我的vipbannber_个人中心'
                                 });
                                 $('.myvip .advertisement').html(ubannerTemplate);
                                 new Swiper('.personalCenter-myvip-swiper-container', {
                                     direction: 'horizontal',
                                     loop: k.list.length > 1 ? true : false,
                                     autoplay: 3000
+                                });
+                                trackEvent('NE037', 'recommenderModelView', 'view', {
+                                    recommendID:'PC_M_USER_VIP_banner_UC',
+                                    recommendName:'个人中心我的vipbannber_个人中心'
                                 });
                             }
                         }
@@ -354,6 +360,28 @@ define(function (require) {
     $(document).on('click', '.cancelAutomaticRenewal-cancel', function () {
         var id = $('#dialog-box .cancelAutomaticRenewal-dialog .title').attr('data-id');
         cancelAutoRenew(id);
+    });
+
+    // 我的VIP轮播图点击事件 用于埋点上报
+    $(document).on('click', '.my-vip-middle .swiper-container .swiper-slide', function(e){
+        var recommendID = $(this).data('recommendid');
+        var recommendName = $(this).data('recommendname');
+        var recommendRecordID = $(this).data('recommendrecordid');
+        var position = $(this).index() + 1;
+        var recommendContentTitle = $(this).data('recommendcontenttitle');
+        var recommendContentType = $(this).data('recommendcontenttype');
+        var recommendContentID = $(this).data('recommendcontentid');
+        var linkUrl = $(this).data('linkurl');
+        trackEvent('NE037', 'recommenderModelView', 'view', {
+            recommendID:recommendID,
+            recommendName:recommendName,
+            recommendRecordID:recommendRecordID,
+            position:position,
+            recommendContentTitle:recommendContentTitle||'',
+            recommendContentType:recommendContentType,
+            recommendContentID:recommendContentID,
+            linkUrl:linkUrl
+        });
     });
 });
 // w(id);

@@ -89,4 +89,12 @@ define(function (require, exports, module) {
             window.open('/search/home.html' + '?' + 'ft=' + ft + '&cond=' + encodeURIComponent(encodeURIComponent(topicName)));
         });
     }
+    // 判断是否是VIP用户
+    isVipUser();
+    function isVipUser(){
+        var isVip = method.getCookie('isVip');
+        if(isVip==1){
+            $('.js-advertising-space').hide();
+        }
+    }
 });

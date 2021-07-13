@@ -156,7 +156,6 @@ define(function (require, exports, module) {
         }
     }
 
-    isHasPcMLogin();
 
     // 首页 详情 登录领取红包
     $(document).on('click', '.loginRedPacket-dialog .close-btn', function (e) {
@@ -188,45 +187,8 @@ define(function (require, exports, module) {
         }
         //  $('.loginRedPacket-dialog').hide()
     });
-
-    function isHasPcMLogin() {
-        $.ajax({
-            url: api.user.dictionaryData.replace('$code', 'sceneSwitch'),
-            type: 'GET',
-            async: false,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            cache: false,
-            success: function (res) { // loginRedPacket-dialog
-                console.log(res);
-                if (res.code == 0 && res.data && res.data.length) {
-                    $.each(res.data, function (inidex, item) {
-                        if (item.pcode == 'PC-M-Login') {
-                            if (!method.getCookie('isShowDetailALoginRedPacket')) {
-                                $('.loginRedPacket-dialog').removeClass('hide');
-                                trackEvent('NE006', 'modelView', 'view', {
-                                    moduleID: 'activityFloat',
-                                    moduleName: '活动浮层'
-                                });
-                            } else if (!method.getCookie('isShowIndexLoginRedPacket')) {
-                                $('.loginRedPacket-dialog').removeClass('hide');
-                                trackEvent('NE006', 'modelView', 'view', {
-                                    moduleID: 'activityFloat',
-                                    moduleName: '活动浮层'
-                                });
-                            }
-
-                        }
-                    });
-
-                }
-            }
-        });
-    }
-
     return {
         refreshTopBar: refreshTopBar,
-        isLogin: isLogin,
-        isHasPcMLogin: isHasPcMLogin
+        isLogin: isLogin
     };
 });

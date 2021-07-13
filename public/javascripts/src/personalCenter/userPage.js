@@ -11,6 +11,10 @@ define(function(require, exports, module) {
     var recommendInfoItem = {}, paradigm4GuessData = [];
     isLogin(init, false);
 
+    trackEvent('NE030', 'pageTypeView', 'page', {
+        pageID:'UM',
+        pageName:'个人主页'
+    });
     function init(data) {
         userInfo = data;
         // 第四范式热门资料
@@ -39,7 +43,21 @@ define(function(require, exports, module) {
 
         $(document).on('click', '.hot-file ul li', function () {
             var itemId = $(this).data('id');
+            var fileName = $(this).data('filename');
+            var saleType = $(this).data('saleType');
+            var fileCategoryID = $(this).data('filecategoryid');
+            var fileCategoryName = $(this).data('filecategoryname');
             paradigm4Report.eventReport(itemId, paradigm4GuessData, recommendInfoItem);
+            trackEvent('NE017', 'fileListNormalClick', 'click', {
+                moduleID:'personality_UM',
+                moduleName:'热门资料',
+                filePostion: $(this).index() + 1,
+                fileID: itemId,
+                fileName: fileName,
+                saleType: saleType,
+                fileCategoryID:fileCategoryID?fileCategoryID.split(',').join('||'):'',
+                fileCategoryName: fileCategoryName
+            });
         });
     }
 
@@ -70,6 +88,10 @@ define(function(require, exports, module) {
             recommendInfoItem = data[0];
             recommendInfoItem.requestId = requestId;
             paradigm4Report.pageView(paradigm4GuessData, recommendInfoItem);// 上报第四范式
+            trackEvent('NE006', 'modelView', 'view', {
+                moduleID:'personality_UM',
+                moduleName:'热门资料'
+            });
         });
     }
 
