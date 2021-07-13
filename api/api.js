@@ -93,7 +93,9 @@ module.exports = {
         hotTopicSearch: '/search/specialTopic/lisPage',
         newRecData: '/search/content/randomRecommend',
         hotRecData: '/seo/exposeContent/contentInfo/listContentInfos',
-        latestData: '/seo/exposeContent/contentInfo/recommendContentInfos'
+        latestData: '/seo/exposeContent/contentInfo/recommendContentInfos',
+        newRandomRecommend: '/seo/showContentCache/getRule', // A28: 获取晒内容&内链应用场景
+        getAnchorText: '/seo/showContentCache/getAnchorText' // A28: 获取锚文本
 
     },
     index: {
@@ -101,7 +103,8 @@ module.exports = {
         navList: '/market/nodeManage/getChildNodeBySiteAndTemrinal',
         randomRecommend: '/search/content/randomRecommend',
         // listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
-        listContentInfos: '/seo/exposeContent/contentInfo/listContents'
+        listContentInfos: '/seo/exposeContent/contentInfo/listContents',
+        newRandomRecommend: '/seo/showContentCache/getRule' // A28: 获取晒内容&内链应用场景
     },
     order: {
         getOrderInfo: '/gateway/order/get/orderInfo'
@@ -113,7 +116,7 @@ module.exports = {
     comment: {
         getFileComment: '/comment/eval/dataList' // 详情评论
     },
-    dictionaryData: '/market/dictionaryData/$code',
+    dictionaryData: '/market/dictionaryData/$code'
 };
 
 

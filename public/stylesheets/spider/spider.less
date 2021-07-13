@@ -40,7 +40,6 @@
                     padding-left: 40px;
                 }
             }
-
         }
 
         .file-brief {
@@ -62,7 +61,59 @@
             }
 
             p {
-                word-wrap: break-word
+                word-wrap: break-word;
+
+                .keyWordBox {
+                    display: inline-block;
+                    position: relative;
+
+                    .keyWordHref {
+                        color: red;
+                    }
+
+                    &:hover {
+                        .keyWordListBox {
+                            display: block;
+                        }
+                    }
+
+                    .keyWordListBox {
+                        display: none;
+                        box-sizing: border-box;
+                        position: absolute;
+                        top: 24px;
+                        left: 50%;
+                        z-index: 100;
+                        width: 150px;
+                        border-radius: 4px;
+                        background: #fff;
+                        box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.1);
+                        margin-left: -75px;
+                        padding: 5px 10px;
+
+                        .keyWordItem {
+                            display: block;
+                            width: 100%;
+                            margin-bottom: 6px;
+                            line-height: 20px;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            .keyWordText {
+                                display: inline-block;
+                                color: #000;
+                                line-height: 20px;
+
+                                &:hover {
+                                    color: red;
+                                }
+                            }
+                        }
+
+                    }
+                }
             }
         }
 
@@ -164,9 +215,7 @@
                     &.current {
                         display: block;
                     }
-
                 }
-
             }
         }
     }
@@ -278,6 +327,5 @@
                 }
             }
         }
-
     }
 }
