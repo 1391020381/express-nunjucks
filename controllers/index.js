@@ -80,37 +80,88 @@ module.exports = {
                 // }
             },
             categoryList: function (callback) {
-                req.body = { 'site': 4, 'terminal': 0, level: 2 };
+                req.body = {
+                    'site': 4,
+                    'terminal': 0,
+                    level: 2
+                };
                 server.post(appConfig.apiNewBaselPath + api.index.navList, callback, req);
             },
             // 热门专题（晒内容）
             hotTopicSeo: function (callback) {
-                // console.log(appConfig.apiNewBaselPath+api.index.randomRecommend)
+                /**
+                 * @description: A28需求：替换接口：随机取1份20条规则4热门专题缓存数据
+                 * @param {
+                 *  group: 组，取缓存多个组,
+                 *  rule: 规则1-6
+                 * }
+                 * @return {
+                 *  name: 关键字,
+                 *  url: url
+                 * }
+                 */
                 req.body = {
-                    type: 'topic',
-                    currentPage: 1,
-                    pageSize: 200,
-                    siteCode: 4
+                    group: 1,
+                    rule: 4
                 };
-                server.post(appConfig.apiNewBaselPath + api.index.randomRecommend, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.index.newRandomRecommend, callback, req);
+                // req.body = {
+                //     type: 'topic',
+                //     currentPage: 1,
+                //     pageSize: 200,
+                //     siteCode: 4
+                // };
+                // server.post(appConfig.apiNewBaselPath + api.index.randomRecommend, callback, req);
             },
-            // 最新推荐（晒内容）
+            // 最新资料（晒内容）
             newsRec: function (callback) {
+                /**
+                 * @description: A28需求：替换接口：随机取不重复的10份200条规则2最新资料缓存数据
+                 * @param {
+                 *  group: 组，取缓存多个组,
+                 *  rule: 规则1-6
+                 * }
+                 * @return {
+                 *  name: 关键字,
+                 *  url: url
+                 * }
+                 */
                 req.body = {
-                    type: 'new',
-                    currentPage: 1,
-                    pageSize: 200,
-                    siteCode: 4
+                    group: 10,
+                    rule: 2
                 };
-                server.post(appConfig.apiNewBaselPath + api.index.randomRecommend, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.index.newRandomRecommend, callback, req);
+                // req.body = {
+                //     type: 'new',
+                //     currentPage: 1,
+                //     pageSize: 200,
+                //     siteCode: 4
+                // };
+                // server.post(appConfig.apiNewBaselPath + api.index.randomRecommend, callback, req);
             },
             // 推荐信息（晒内容）
             hotRecData: function (callback) {
+                /**
+                 * @description: A28需求：替换接口：随机取1份20条规则3推荐信息缓存数据
+                 * @param {
+                 *  group: 组，取缓存多个组,
+                 *  rule: 规则1-6
+                 * }
+                 * @return {
+                 *  name: 关键字,
+                 *  url: url
+                 * }
+                 */
                 req.body = {
-                    clientType: 0,
-                    pageSize: 200
+                    group: 1,
+                    rule: 3
                 };
-                server.post(appConfig.apiNewBaselPath + api.index.listContentInfos, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.index.newRandomRecommend, callback, req);
+                // req.body = {
+                //     clientType: 0,
+                //     pageSize: 200
+                // };
+                // server.post(appConfig.apiNewBaselPath + api.index.listContentInfos, callback, req);
             },
             // A25需求：请求字典列表
             dictionaryData: function (callback) {
@@ -119,7 +170,7 @@ module.exports = {
             }
 
         }, (err, results) => {
-            // console.log('results.hotTopicSeo', results.hotTopicSeo);
+            // console.log('results.hotTopicSeo', results.hotTopicSeo, results.hotTopicSeo.data.length);
             // console.log('results.dictionaryData', results.dictionaryData);
             if (err) {
                 next(err);
@@ -128,7 +179,12 @@ module.exports = {
                 if (results.categoryList && results.categoryList.data) {
                     const preContent = results.categoryList.data.slice(0, 7);
                     const temp = results.categoryList.data.slice(7);
-                    const nextContent = { id: '', 'name': '更多', class: 'loadMore', frontAllCategoryVOList: [] };
+                    const nextContent = {
+                        id: '',
+                        'name': '更多',
+                        class: 'loadMore',
+                        frontAllCategoryVOList: []
+                    };
                     temp.forEach(item => {
                         nextContent.frontAllCategoryVOList.push({
                             nodeCode: item.nodeCode,
@@ -147,29 +203,31 @@ module.exports = {
                     results.topicPagtotal = results.hotTopicSeo.data.length;
                 }
                 // A25需求：pc主站-首页热门专题-专题入口逻辑处理
-                if (results.hotTopicSeo.data && results.dictionaryData.data) {
-                    const hotDataList = results.hotTopicSeo.data;
-                    const dictionaryDataList = results.dictionaryData.data;
-                    // console.log(dictionaryDataList);
-                    hotDataList.forEach((hotItem, index) => {
-                        const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === hotItem.templateCode);
-                        if (hotItem.title == '主站没有维度') {
-                            console.log('hotItem', hotItem);
-                            console.log('targetItem', targetItem);
-                        }
-                        if (targetItem) {
-                            if (targetItem.order === 4) {
-                                results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.pvalue}/${hotItem.id}.html`;
-                            } else {
-                                results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${hotItem.id}.html`;
-                            }
-                        } else {
-                            results.hotTopicSeo.data[index].newRouterUrl = '';
-                        }
-                    });
-                    // console.log('results.hotTopicSeo.data', results.hotTopicSeo.data);
-                }
+                // if (results.hotTopicSeo.data && results.dictionaryData.data) {
+                //     const hotDataList = results.hotTopicSeo.data;
+                //     const dictionaryDataList = results.dictionaryData.data;
+                //     // console.log(dictionaryDataList);
+                //     hotDataList.forEach((hotItem, index) => {
+                //         const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === hotItem.templateCode);
+                //         // if (hotItem.title == '主站没有维度') {
+                //         //     console.log('hotItem', hotItem);
+                //         //     console.log('targetItem', targetItem);
+                //         // }
+                //         if (targetItem) {
+                //             if (targetItem.order === 4) {
+                //                 results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.pvalue}/${hotItem.id}.html`;
+                //             } else {
+                //                 results.hotTopicSeo.data[index].newRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${hotItem.id}.html`;
+                //             }
+                //         } else {
+                //             results.hotTopicSeo.data[index].newRouterUrl = '';
+                //         }
+                //     });
+                //     // console.log('results.hotTopicSeo.data', results.hotTopicSeo.data);
+                // }
+                // console.log('hotRecData', results.hotRecData.data, results.hotRecData.data.length);
                 if (results.newsRec && results.newsRec.data) {
+                    console.log('results.newsRec', results.newsRec, results.newsRec.data.length);
                     results.newPagetotal = results.newsRec.data.length;
                 } else {
                     results.newsRec = {};
@@ -188,7 +246,7 @@ module.exports = {
                 results.contentList = [];
                 //  console.log(JSON.stringify(results),'results------------------contentList')
                 if (results.recommendList) {
-                    const recfileArr = [];// 精选资料
+                    const recfileArr = []; // 精选资料
                     const dictionaryDataList = results.dictionaryData.data;
                     results.recommendList.data && results.recommendList.data.map(item => {
                         if (item.pageId == util.pageIds.index.ub) {

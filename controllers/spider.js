@@ -72,31 +72,153 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
     }
 }
 
-function getHotpotSearch(req, res, list, recommendInfo, userID) {
-    const fileInfo = list.data.fileInfo || {};
-    const recommendInfoDataRele = recommendInfo.data[1] || {}; // 相关资料
-    if (recommendInfoDataRele.useId) {
-        const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-        req.body = {
-            request: {
-                'userId': userID,
-                'requestId': requestId,
-                'itemId': fileInfo.id,
-                'itemTitle': fileInfo.title
-            }
-        };
-        const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
-        return server.$http(url, 'post', req, res, true);
-    } else {
-        return {
-            data: []
-        };
-    }
+// function getHotpotSearch(req, res, list, recommendInfo, userID) {
+//     const fileInfo = list.data.fileInfo || {};
+//     const recommendInfoDataRele = recommendInfo.data[1] || {}; // 相关资料
+//     if (recommendInfoDataRele.useId) {
+//         const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+//         req.body = {
+//             request: {
+//                 'userId': userID,
+//                 'requestId': requestId,
+//                 'itemId': fileInfo.id,
+//                 'itemTitle': fileInfo.title
+//             }
+//         };
+//         const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
+//         return server.$http(url, 'post', req, res, true);
+//     } else {
+//         return {
+//             data: []
+//         };
+//     }
+// }
+
+function getHotpotSearch(req, res) {
+    /**
+     * @description: A28需求：替换接口：随机取1份20条规则4热门专题缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 4
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
 }
 
 
 function getNewsRec(req, res) {
-    return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
+    /**
+     * @description: A28需求：替换接口：随机取不重复的1份20条规则2最新资料缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 2
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
+}
+
+// A28需求: 随机取1份22条规则5你可能还喜欢缓存数据
+function getGuessLikeList(req, res) {
+    /**
+     * @description: A28需求：随机取1份22条规则5你可能还喜欢缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 5
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
+}
+
+// A28需求: 随机取1份35条规则1关键词内链库随机缓存数据
+function getHotTopicSearch(req, res) {
+    /**
+     * @description: A28需求：随机取1份35条规则1关键词内链库随机缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 1
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
+}
+
+// A28需求: 随机取1份10条规则6相关资料缓存数据
+function getRelevantList(req, res) {
+    /**
+     * @description: A28需求：随机取1份10条规则6相关资料缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 6
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
+}
+
+// A28需求: 获取锚文本
+function getAnchorText(req, res) {
+    /**
+     * @description: A28需求：获取锚文本
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  word: 词根,
+     *  objList: {
+     *      name: 关键字,
+     *      url: url
+     *  }
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 7
+    };
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.getAnchorText, 'post', req, res, true);
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.latestData, 'post', req, res, true);
 }
 
 // A25需求：请求字典列表
@@ -106,56 +228,111 @@ function getDictionaryData(req, res) {
 }
 
 function getHotRecData(req, res) {
+    /**
+     * @description: A28需求：替换接口：随机取1份20条规则3推荐信息缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
     req.body = {
-        contentType: 100,
-        clientType: 0,
-        pageSize: 20,
-        siteCode: 0
+        group: 1,
+        rule: 3
     };
-    return server.$http(appConfig.apiNewBaselPath + Api.spider.hotRecData, 'post', req, res, false);
+    return server.$http(appConfig.apiNewBaselPath + Api.spider.newRandomRecommend, 'post', req, res, true);
+    // req.body = {
+    //     contentType: 100,
+    //     clientType: 0,
+    //     pageSize: 20,
+    //     siteCode: 0
+    // };
+    // return server.$http(appConfig.apiNewBaselPath + Api.spider.hotRecData, 'post', req, res, false);
 }
 
-function dealContent(content, fileContentList, hotSearch, dictionaryList) { // 分割字符串 替换字符串
-    const urlList = {
-        'debug': 'http://ishare.iask.sina.com.cn',
-        'local': 'http://localhost:3004',
-        'dev': 'http://dev-ishare.iask.com.cn',
-        'test': 'http://test-ishare.iask.com.cn',
-        'pre': 'http://pre-ishare.iask.com.cn',
-        'prod': 'http://ishare.iask.sina.com.cn'
-    };
+// function dealContent(content, fileContentList, hotSearch, dictionaryList) { // 分割字符串 替换字符串
+//     const urlList = {
+//         'debug': 'http://ishare.iask.sina.com.cn',
+//         'local': 'http://localhost:3004',
+//         'dev': 'http://dev-ishare.iask.com.cn',
+//         'test': 'http://test-ishare.iask.com.cn',
+//         'pre': 'http://pre-ishare.iask.com.cn',
+//         'prod': 'http://ishare.iask.sina.com.cn'
+//     };
+//     const arr = [];
+//     // hotSearch = [{itemId:'aaaaa',title:'面试真题'}]  // 测试
+//     const textLength = Math.ceil(content.length / fileContentList.length);
+//     let matchNum = 1;
+//     const selectHotSearch = []; // 保存匹配过的专题
+//     const env = process.env.NODE_ENV || 'prod';
+//     // console.log('hotSearch---------', hotSearch);
+//     fileContentList && fileContentList.map((dto, i) => {
+//         let text = content.substring(i * textLength, textLength * (i + 1));
+//         hotSearch && hotSearch.map(item => {
+//             const reg = new RegExp(item.title, 'i');
+//             let replaceStr = '';
+//             // 拼接路径
+//             const targetItem = dictionaryList.data.find(sItem => sItem.pcode === item.categoryLevel2);
+//             if (targetItem) {
+//                 // 如果为主站站点
+//                 if (targetItem.sort === '4') {
+//                     // 追加字段
+//                     // pItem.nodeRouterUrl = `${targetItem.pvalue}/${pItem.itemId}.html`;
+//                     replaceStr = `<a style="color:red;" href="${urlList[env]}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
+//                 } else {
+//                     // 追加字段
+//                     // pItem.nodeRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${pItem.itemId}.html`;
+//                     replaceStr = `<a style="color:red;" href="${targetItem.desc}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
+//                 }
+//             }
+//             // const replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
+//             const ret = reg.test(text);
+//             if (ret && selectHotSearch.indexOf(item.title) == -1 && matchNum <= 5) { // 匹配成功
+//                 selectHotSearch.push(item.title); // 已匹配过
+//                 text = text.replace(reg, replaceStr);
+//                 matchNum++;
+//             }
+//         });
+//         arr.push({
+//             img: dto,
+//             txt: text
+//         });
+//     });
+//     return arr;
+// }
+
+// A28: SEO-锚文本增加流程
+function dealContent(content, fileContentList, anchorText) { // 分割字符串 替换字符串
     const arr = [];
-    // hotSearch = [{itemId:'aaaaa',title:'面试真题'}]  // 测试
     const textLength = Math.ceil(content.length / fileContentList.length);
-    let matchNum = 1;
     const selectHotSearch = []; // 保存匹配过的专题
-    const env = process.env.NODE_ENV || 'prod';
-    // console.log('hotSearch---------', hotSearch);
     fileContentList && fileContentList.map((dto, i) => {
         let text = content.substring(i * textLength, textLength * (i + 1));
-        hotSearch && hotSearch.map(item => {
-            const reg = new RegExp(item.title, 'i');
+        anchorText.data && anchorText.data.map((item, index) => {
+            const reg = new RegExp(item.word, 'i');
             let replaceStr = '';
-            // 拼接路径
-            const targetItem = dictionaryList.data.find(sItem => sItem.pcode === item.categoryLevel2);
-            if (targetItem) {
-                // 如果为主站站点
-                if (targetItem.sort === '4') {
-                    // 追加字段
-                    // pItem.nodeRouterUrl = `${targetItem.pvalue}/${pItem.itemId}.html`;
-                    replaceStr = `<a style="color:red;" href="${urlList[env]}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
-                } else {
-                    // 追加字段
-                    // pItem.nodeRouterUrl = `${targetItem.desc}${targetItem.pvalue}/${pItem.itemId}.html`;
-                    replaceStr = `<a style="color:red;" href="${targetItem.desc}${targetItem.pvalue}/${item.itemId}.html" target="_blank">${item.title}</a>`;
-                }
-            }
-            // const replaceStr = `<a style="color:red;" href="${urlList[env]}/node/s/${item.itemId}.html" target="_blank">${item.title}</a>`;
             const ret = reg.test(text);
-            if (ret && selectHotSearch.indexOf(item.title) == -1 && matchNum <= 5) { // 匹配成功
-                selectHotSearch.push(item.title); // 已匹配过
-                text = text.replace(reg, replaceStr);
-                matchNum++;
+            if (index < 50) {
+                // 匹配成功
+                if (ret && selectHotSearch.indexOf(item.word) == -1) {
+                    let keywordListHtml = '';
+                    let newKeywordList = '';
+                    if (item.objList && item.objList.length > 0) {
+                        // 关键词拼接
+                        item.objList.map((keywordItem, keywordIndex) => {
+                            if (keywordIndex < 5) {
+                                keywordListHtml += `<span class="keyWordItem"><a class="keyWordText" href="${keywordItem.url}" target="_blank">${keywordItem.name}</a></span>`;
+                            }
+                        });
+                        newKeywordList = `<span class="keyWordListBox">${keywordListHtml}</span>`;
+                        replaceStr = `<span class="keyWordBox"><a class="keyWordHref" href="${item.objList[0].url}" target="_blank">${item.word}</a>${newKeywordList}</span>`;
+                    }
+                    selectHotSearch.push(item.word); // 已匹配过
+                    text = text.replace(item.word, replaceStr);
+                }
             }
         });
         arr.push({
@@ -209,7 +386,10 @@ function handleSpiderData({
     newsRec,
     hotRecData,
     type,
-    fileurl
+    fileurl,
+    guessLikeList,
+    relevantList,
+    anchorText
 }) {
 
     const results = Object.assign({}, {
@@ -224,7 +404,9 @@ function handleSpiderData({
         hotTopicSearch,
         hotTopicSeo,
         newsRec,
-        hotRecData
+        hotRecData,
+        guessLikeList,
+        relevantList
     });
 
     // doc对应Word、ppt对应PowerPoint、xls对应Excel、txt对应记事本、pdf对应PDF阅读器
@@ -256,7 +438,7 @@ function handleSpiderData({
     if (picArr && picArr.length > 6) {
         picArr = picArr.slice(0, 6);
     }
-    const newTextArr = dealContent(textString, picArr, topicList, results.dictionaryData);
+    const newTextArr = dealContent(textString, picArr, anchorText);
     if (results.crumbList && results.crumbList.data) {
         results.crumbList.data.isGetClassType = list.data.fileInfo.isGetClassType || 0;
     }
@@ -280,9 +462,8 @@ function handleSpiderData({
     results.seo.fileurl = fileurl;
     // 对相关资料数据处理
 
-    const paradigm4RelevantData = Array.isArray(results.paradigm4Relevant.data) ? results.paradigm4Relevant.data : [];
-    results.relevantList = paradigm4RelevantData.slice(0, 10);
-    results.guessLikeList = paradigm4RelevantData.slice(-21);
+    // const paradigm4RelevantData = Array.isArray(results.paradigm4Relevant.data) ? results.paradigm4Relevant.data : [];
+    // results.relevantList = paradigm4RelevantData.slice(0, 10);
 
     // A25需求：获取字典数据
     results.dictionaryData = results.dictionaryData.data;
@@ -294,13 +475,13 @@ function handleSpiderData({
 
     // 对最新资料  推荐专题数据处理
 
-    results.hotTopicSearch = hotpotSearchData.slice(0, 20);
+    // results.hotTopicSearch = hotpotSearchData.slice(0, 20);
     results.hotTopicSeo = hotpotSearchData.slice(-21);
 
     // console.log('hotTopicSearch', results.hotTopicSearch, 'dictionaryData', results.dictionaryData);
 
     // A25需求：pc主站蜘蛛页-热点搜索-专题入口逻辑处理
-    results.hotTopicSearch = formatSpacialLink(results.hotTopicSearch, results.dictionaryData);
+    // results.hotTopicSearch = formatSpacialLink(results.hotTopicSearch, results.dictionaryData);
     // A25需求：pc主站蜘蛛页-推荐专题-专题入口逻辑处理
     results.hotTopicSeo = formatSpacialLink(results.hotTopicSeo, results.dictionaryData);
 
@@ -343,7 +524,8 @@ const renderPage = cc(async (req, res, next) => {
     }
     const crumbList = await getCrumbList(req, res, list);
 
-    const editorInfo = await getEditorInfo(req, res, list);
+    // const editorInfo = await getEditorInfo(req, res, list);
+    const editorInfo = {};
     const fileDetailTxt = await getFileDetailTxt(req, res);
     const recommendInfo = await getRecommendInfo(req, res, list);
     let paradigm4Relevant = {
@@ -352,21 +534,34 @@ const renderPage = cc(async (req, res, next) => {
     let hotpotSearch = {
         data: []
     }; // 热门搜索  推荐专题
-    const paradigm4RelevantUseId = recommendInfo.data[0]&&recommendInfo.data[0].useId;
-    const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
+    const paradigm4RelevantUseId = recommendInfo.data[0] && recommendInfo.data[0].useId;
+    // const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
     if (paradigm4RelevantUseId) {
         paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
     }
-    if (hotpotSearchUseId) {
-        hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID);
+    // if (hotpotSearchUseId) {
+    //     hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID);
 
-    }
-    const hotTopicSearch = {};
+    // }
+    hotpotSearch = await getHotpotSearch(req, res);
+    // A28: 获取'热点搜索'数据列表
+    const hotTopicSearch = await getHotTopicSearch(req, res);
     const hotTopicSeo = {};
     const hotRecData = await getHotRecData(req, res);
     const newsRec = await getNewsRec(req, res);
     // 获取字典数组
     const dictionaryData = await getDictionaryData(req, res);
+    // A28: 获取'你可能还喜欢'数据列表
+    const guessLikeList = await getGuessLikeList(req, res);
+    // A28: 获取'相关资料'数据列表
+    const relevantList = await getRelevantList(req, res);
+    // A28: 获取蜘蛛详情页－锚文本数据列表
+    const anchorText = await getAnchorText(req, res);
+
+    // console.log('newsRec', newsRec);
+    // console.log('hotRecData', hotRecData);
+    // console.log('hotpotSearch', hotpotSearch);
+    // console.log('anchorText', anchorText);
 
     handleSpiderData({
         req,
@@ -384,7 +579,10 @@ const renderPage = cc(async (req, res, next) => {
         hotRecData,
         newsRec,
         type,
-        fileurl
+        fileurl,
+        guessLikeList,
+        relevantList,
+        anchorText
     });
 });
 module.exports = {

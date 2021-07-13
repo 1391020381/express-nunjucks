@@ -2,7 +2,7 @@ define(function (require) {
     require('swiper');
     var recommendConfigInfo = require('../common/recommendConfigInfo');
     var method = require('../application/method');
-    var bannerTemplate = require('../common/template/swiper_tmp.html');
+    var bannerTemplate = require('./template/swiper_tmp.html');
     var api = require('../application/api');
     var homeRecentlySee = require('./template/homeRecentlySee.html');
     var vipPrivilegeList = require('./template/vipPrivilegeList.html');
@@ -253,12 +253,17 @@ define(function (require) {
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_USER_banner') { // search-all-main-bottombanner
                                 console.log('PC_M_USER_banner:', k.list);
-                                var rbannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list, className: 'personalCenter-home-swiper-container', hasDeleteIcon: true });
+                                var rbannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list, className: 'personalCenter-home-swiper-container', hasDeleteIcon: true, recommendID:'PC_M_USER_banner_UC',
+                                    recommendName:'个人中心首页bannber_个人中心' });
                                 $('.personal-center-home .advertisement').html(rbannerTemplate);
                                 new Swiper('.personalCenter-home-swiper-container', {
                                     direction: 'horizontal',
                                     loop: k.list.length > 1 ? true : false,
                                     autoplay: 3000
+                                });
+                                trackEvent('NE037', 'recommenderModelView', 'view', {
+                                    recommendID:'PC_M_USER_banner_UC',
+                                    recommendName:'个人中心首页bannber_个人中心'
                                 });
                             }
                         }
@@ -340,6 +345,40 @@ define(function (require) {
         $('.active-menus').removeClass('active-menus');
         $(this).addClass('active-menus');
         method.compatibleIESkip(href, true);
+    });
+    // 个人中心首页轮播图点击事件 用于埋点上报
+    $(document).on('click', '.personal-center-home .swiper-container .swiper-slide', function(e){
+        var recommendID = $(this).data('recommendid');
+        var recommendName = $(this).data('recommendname');
+        var recommendRecordID = $(this).data('recommendrecordid');
+        var position = $(this).index() + 1;
+        var recommendContentTitle = $(this).data('recommendcontenttitle');
+        var recommendContentType = $(this).data('recommendcontenttype');
+        var recommendContentID = $(this).data('recommendcontentid');
+        var linkUrl = $(this).data('linkurl');
+        trackEvent('NE037', 'recommenderModelView', 'view', {
+            recommendID:recommendID,
+            recommendName:recommendName,
+            recommendRecordID:recommendRecordID,
+            position:position,
+            recommendContentTitle:recommendContentTitle||'',
+            recommendContentType:recommendContentType,
+            recommendContentID:recommendContentID,
+            linkUrl:linkUrl
+        });
+    });
+    // 个人中心首页 最近看过 最近下载 用户数据上报
+    $(document).on('click', '.personal-center-home .recently-see-items  .item', function(e){
+        var flag = $(this).data('flag');
+        var fileID = $(this).data('fileid');
+        var fileName = $(this).data('filename');
+        trackEvent('NE017', 'fileListNormalClick', 'click', {
+            moduleID:flag == 'recentlySee'?'recentView':'recentDownload',
+            moduleName:flag == 'recentlySee'?'最近看过':'最近下载',
+            filePostion:$(this).index() + 1,
+            fileID:fileID,
+            fileName:fileName
+        });
     });
     return {
         getUserCentreInfo: getUserCentreInfo
