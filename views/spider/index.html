@@ -97,7 +97,10 @@
                 <!-- 正文底部文案 -->
                 <div class="file-content-bottom mt20">
                     本文档为【{{ results.list.data.fileInfo.title }}】，请使用软件OFFICE或WPS软件打开。作品中的文字与图均可以修改和编辑，
-                    图片更改请在作品中右键图片并更换，文字修改请直接点击文字进行修改，也可以新增和删除文档中的内容。 <br> 该文档来自用户分享，如有侵权行为请发邮件ishare@vip.sina.com联系网站客服，我们会及时删除。
+                    图片更改请在作品中右键图片并更换，文字修改请直接点击文字进行修改，也可以新增和删除文档中的内容。 <br> 该文档来自用户分享，如有侵权行为请发邮件ishare@vip.sina.com联系网站客服，我们会及时删除。<br>
+                    [版权声明] 本站所有资料为用户分享产生，若发现您的权利被侵害，请联系客服邮件isharekefu@iask.cn，我们尽快处理。<br>
+                    本作品所展示的图片、画像、字体、音乐的版权可能需版权方额外授权，请谨慎使用。<br>
+                    网站提供的党政主题相关内容(国旗、国徽、党徽..)目的在于配合国家政策宣传，仅限个人学习分享使用，禁止用于任何广告和商用目的。
                 </div>
                 <!-- 下载 -->
                 <div class="download-area mt20">
@@ -122,18 +125,25 @@
                 </div>
                 <!-- 你可能还喜欢 -->
                 <div class="youlike-area mt20">
+                    {% if results.relevantList.data.length %}
                     <h3>你可能还喜欢</h3>
                     <ul class="youlike-item">
-                        {% for item in results.guessLikeList %}
+                        {% for item in results.guessLikeList.data %}
+                            {% if loop.index0 < 22 %}
                             <li>
+                                <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                                {#
                                 {% if item.id %}
                                     <a href="https://ishare.iask.sina.com.cn/f/{{ item.id }}.html">{{ item.title|delType }}</a>
                                 {% else %}
                                     <a href="https://ishare.iask.sina.com.cn/f/{{ item.itemId }}.html">{{ item.title|delType }}</a>
                                 {% endif %}
+                                #}
                             </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
+                    {% endif %}
                 </div>
                 <!-- 推荐 -->
                 <div class="recmond-area mt20">
@@ -145,28 +155,37 @@
                     <div class="recmend-item">
                         <div class="switch_content_wrap">
                             <ul>
-                                {% for item in  results.newsRec.data %}
+                                {% for item in results.newsRec.data %}
+                                    {% if loop.index0 < 20 %}
                                     <li>
-                                        <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{ item.contentId }}.html">{{ item.contentName|delType }}</a>
+                                        <!-- <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{ item.contentId }}.html">{{ item.contentName|delType }}</a> -->
+                                        <a target="_blank" href="{{ item.url }}">{{ item.name|delType }}</a>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="switch_content_wrap current">
                             <ul>
-                                {% for item in  results.hotRecData.data %}
+                                {% for item in results.hotRecData.data %}
+                                    {% if loop.index0 < 20 %}
                                     <li>
-                                        <a target="_blank" href="{{ item.contentUrl }}">{{ item.contentName|delType }}</a>
+                                        <!-- <a target="_blank" href="{{ item.contentUrl }}">{{ item.contentName|delType }}</a> -->
+                                        <a href="{{ item.url }}">{{ item.name|delType }}</a>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="switch_content_wrap">
                             <ul>
-                                {% for item in  results.hotTopicSeo %}
+                                {% for item in results.hotTopicSeo %}
+                                    {% if loop.index0 < 20 %}
                                     <li>
-                                        <a target="_blank" href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a>
+                                        <!-- <a target="_blank" href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a> -->
+                                        <a href="{{ item.url }}">{{ item.name|delType }}</a>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
@@ -209,34 +228,42 @@
                 </div>
                 <!-- 相关资料 -->
                 <div class="related-file">
-                    {% if results.relevantList.length %}
-                        <div class="column-name">相关资料</div>
-                    {% endif %}
+                    {% if results.relevantList.data.length %}
+                    <div class="column-name">相关资料</div>
                     <ul>
-                        {% for item in results.relevantList %}
+                        {% for item in results.relevantList.data %}
+                            {% if loop.index0 < 10 %}
                             <li class="file-item">
+                                <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                                {#
                                 {% if item.id %}
                                     <a href="https://ishare.iask.sina.com.cn/f/{{ item.id }}.html">{{ item.title|delType }}</a>
                                 {% else %}
                                     <a href="https://ishare.iask.sina.com.cn/f/{{ item.itemId }}.html">{{ item.title|delType }}</a>
                                 {% endif %}
+                                #}
                             </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
+                    {% endif %}
                 </div>
                 <!-- 热门搜索 -->
                 <div class="hot-search">
-                    {% if results.hotTopicSearch.length %}
-                        <div class="search-top">
-                            <span class="column-name">热点搜索</span>
-                            <!-- <span class="swtich-bar">换一换</span> -->
-                        </div>
-                    {% endif %}
+                    {% if results.hotTopicSearch.data.length %}
+                    <div class="search-top">
+                        <span class="column-name">热点搜索</span>
+                        <!-- <span class="swtich-bar">换一换</span> -->
+                    </div>
                     <div class="search-list">
-                        {% for item in results.hotTopicSearch %}
-                            <a href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a>
+                        {% for item in results.hotTopicSearch.data %}
+                            {% if loop.index0 < 35 %}
+                            <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                            {% endif %}
+                            <!-- <a href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a> -->
                         {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
