@@ -2,7 +2,7 @@
 
 define(function (require, exports, moudle) {
     require('swiper');
-    var isHasPcMLogin = require('../application/wxActivity').isHasPcMLogin
+    var isHasPcMLogin = require('../application/wxActivity').isHasPcMLogin;
     var bannerTemplate = require('../common/template/swiper_tmp.html');
     require('../application/suspension');
     var Slider = require('../common/slider');// 轮播插件
@@ -47,11 +47,353 @@ define(function (require, exports, moudle) {
             $('.swiper-wrapper').animate({ 'margin-left': num });
         }
     };
+
     var indexObject = {
+        /* ***************** 【A28首页推荐位埋点】start ***************** */
+        // 编辑推荐展示模块
+        bjtjIndex: 1,
+        // 引导浮窗数据
+        xfbannerList: [],
+        recommendInfo: {
+            // 顶部banner
+            tb: {
+                recommendID: 'PC_M_H_banner',
+                recommendName: '顶部banner',
+                recommendBool: false
+            },
+            // 精选专题
+            jxzt: {
+                recommendID: 'PC_M_H_zhuanti',
+                recommendName: '精选专题',
+                recommendBool: false
+            },
+            // 搜索热词
+            ssrc: {
+                recommendID: 'PC_M_H_rmss',
+                recommendName: '搜索热词',
+                recommendBool: false
+            },
+            // VIP专区
+            vip: {
+                recommendID: 'PC_M_H_vipzhuanqu',
+                recommendName: 'VIP专区',
+                recommendBool: false
+            },
+            // 编辑推荐
+            bjtj: {
+                recommendID: 'PC_M_H_bjtj',
+                recommendName: '编辑推荐',
+                recommendBool: false
+            },
+            // 权威机构
+            qwjg: {
+                recommendID: 'PC_M_H_qwjg',
+                recommendName: '权威机构',
+                recommendBool: false
+            },
+            // 引导浮窗
+            ydfc: {
+                recommendID: 'PC_M_H_xfbanner',
+                recommendName: '引导浮窗',
+                recommendBool: false
+            }
+        },
+
+        /**
+         * 监听埋点上报
+         * */
+        scrollListener: function () {
+            var $tbanner = $('.index-header');
+            var $jxzt = $('.recommend-section');
+            var $ssrc = $('.search-label');
+            var $vipzq = $('.specail-area');
+            var $bjtj = $('.recmond-area');
+            var $qvjg = $('.institude-area');
+            var $ydfc = $('.authentication-banner');
+
+            // 执行曝光函数
+            function handleExposure() {
+                var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+                var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                var curHeight = scrollTop + clientHeight;
+                // 顶部banner
+                if (curHeight > $tbanner.offset().top && !indexObject.recommendInfo.tb.recommendBool) {
+                    indexObject.moduleExposure(
+                        indexObject.recommendInfo.tb.recommendID,
+                        indexObject.recommendInfo.tb.recommendName
+                    );
+                    indexObject.recommendInfo.tb.recommendBool = true;
+                }
+                // 精选专题
+                if (curHeight > $jxzt.offset().top && !indexObject.recommendInfo.jxzt.recommendBool) {
+                    indexObject.moduleExposure(
+                        indexObject.recommendInfo.jxzt.recommendID,
+                        indexObject.recommendInfo.jxzt.recommendName
+                    );
+                    indexObject.recommendInfo.jxzt.recommendBool = true;
+                }
+                // 搜索热词
+                if (curHeight > $ssrc.offset().top && !indexObject.recommendInfo.ssrc.recommendBool) {
+                    // 如果搜索热词有数据
+                    var $searchWords = $ssrc.find('.label-ele');
+                    if ($searchWords.length > 0) {
+                        indexObject.moduleExposure(
+                            indexObject.recommendInfo.ssrc.recommendID,
+                            indexObject.recommendInfo.ssrc.recommendName
+                        );
+                        indexObject.recommendInfo.ssrc.recommendBool = true;
+                    }
+                }
+                // vip专区
+                if (curHeight > $vipzq.offset().top && !indexObject.recommendInfo.vip.recommendBool) {
+                    indexObject.moduleExposure(
+                        indexObject.recommendInfo.vip.recommendID,
+                        indexObject.recommendInfo.vip.recommendName
+                    );
+                    indexObject.recommendInfo.vip.recommendBool = true;
+                }
+                // 编辑推荐
+                if ($bjtj && $bjtj.offset() && curHeight > $bjtj.offset().top &&
+                    !indexObject.recommendInfo.bjtj.recommendBool) {
+                    // 当前曝光的编辑推荐
+                    var $curList = $('.recmond-con .content-list').first();
+                    var curIdx = $($curList).attr('data-index');
+                    indexObject.moduleExposure(
+                        indexObject.recommendInfo.bjtj.recommendID + curIdx,
+                        indexObject.recommendInfo.bjtj.recommendName
+                    );
+                    indexObject.recommendInfo.bjtj.recommendBool = true;
+                }
+                // 权威机构
+                if (curHeight > $qvjg.offset().top && !indexObject.recommendInfo.qwjg.recommendBool) {
+                    indexObject.moduleExposure(
+                        indexObject.recommendInfo.qwjg.recommendID,
+                        indexObject.recommendInfo.qwjg.recommendName
+                    );
+                    indexObject.recommendInfo.qwjg.recommendBool = true;
+                }
+                // 引导浮窗
+                if (curHeight > $ydfc.offset().top && !indexObject.recommendInfo.ydfc.recommendBool) {
+                    // 如果有引导弹窗
+                    var $slides = $ydfc.find('.swiper-slide');
+                    if ($slides.length > 0) {
+                        indexObject.moduleExposure(
+                            indexObject.recommendInfo.ydfc.recommendID,
+                            indexObject.recommendInfo.ydfc.recommendName
+                        );
+                        indexObject.recommendInfo.ydfc.recommendBool = true;
+                    }
+                }
+            }
+
+            // 当前曝光
+            handleExposure();
+            window.onscroll = indexObject.debounce(function () {
+                handleExposure();
+            }, 100);
+        },
+
+        /**
+         * 曝光上报
+         * @param recommendID {string} 推荐位ID
+         * @param recommendName {string} 推荐位名称
+         * */
+        moduleExposure: function (recommendID, recommendName) {
+            trackEvent('NE037', 'recommenderModelView', 'view', {
+                recommendID: recommendID + '_HO',
+                recommendName: recommendName + '_首页'
+            });
+        },
+
+        /**
+         * 推荐位点击上报
+         * @param recommendData {object} 推荐位数据
+         * */
+        recommendClick: function (recommendData) {
+            trackEvent('NE038', 'recommenderEntryClick', 'click', recommendData);
+        },
+
+        /**
+         * 防抖函数
+         * @param fn {func} 执行函数
+         * @param delay {number} 防抖间隔ms
+         * */
+        debounce: function (fn, delay) {
+            var timer = null; // 借助闭包
+            return function () {
+                if (timer) {
+                    // 进入该分支语句，说明当前正在一个计时过程中，并且又触发了相同事件。所以要取消当前的计时，重新开始计时
+                    clearTimeout(timer);
+                    timer = setTimeout(fn, delay);
+                } else {
+                    // 进入该分支说明当前并没有在计时，那么就开始一个计时
+                    timer = setTimeout(fn, delay);
+                }
+            };
+        },
+
+        // 绑定推荐位点击上报事件
+        recommendEventInit: function () {
+
+            // 点击topBanner推荐位上报
+            $(document).on('click', '.JsBannerItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.tb.recommendID + '_HO',
+                    recommendName: indexObject.recommendInfo.tb.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击精选专题推荐位上报
+            $(document).on('click', '.JsRecommendItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.jxzt.recommendID + '_HO',
+                    recommendName: indexObject.recommendInfo.jxzt.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击搜索热词推荐位上报
+            $(document).on('click', '.JsKeyWordItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.ssrc.recommendID + '_HO',
+                    recommendName: indexObject.recommendInfo.ssrc.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击VIP专区推荐位上报
+            $(document).on('click', '.JsVipFileItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.vip.recommendID + '_HO',
+                    recommendName: indexObject.recommendInfo.vip.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击编辑推荐推荐位上报
+            $(document).on('click', '.JsRecmondItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                // 当前展示的模块
+                var curIdx = indexObject.bjtjIndex;
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.bjtj.recommendID + curIdx + '_HO',
+                    recommendName: indexObject.recommendInfo.bjtj.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击权威机构推荐位上报
+            $(document).on('click', '.JsOrganizeItem', function () {
+                var id = $(this).attr('data-id');
+                var position = $(this).attr('data-position');
+                var title = $(this).attr('data-title');
+                var type = $(this).attr('data-type');
+                var contentid = $(this).attr('data-contentid');
+                var url = $(this).attr('data-url');
+                indexObject.recommendClick({
+                    recommendID: indexObject.recommendInfo.qwjg.recommendID + '_HO',
+                    recommendName: indexObject.recommendInfo.qwjg.recommendName + '_首页',
+                    recommendRecordID: id,
+                    postion: Number(position),
+                    recommendContentTitle: title || '',
+                    recommendContentType: Number(type),
+                    recommendContentID: contentid,
+                    linkUrl: url
+                });
+            });
+
+            // 点击权威机构推荐位上报
+            $(document).on('click', '.JsBfbannerItem', function () {
+                var id = $(this).attr('id');
+                var xfbannerList = indexObject.xfbannerList;
+                var clickItem = null, clickIdx = 1;
+                for (var i = 0, len = xfbannerList.length; i < len; i++) {
+                    if (xfbannerList[i].id == id) {
+                        clickItem = xfbannerList[i];
+                        clickIdx = i + 1;
+                        break;
+                    }
+                }
+                if (clickItem) {
+                    indexObject.recommendClick({
+                        recommendID: indexObject.recommendInfo.ydfc.recommendID + '_HO',
+                        recommendName: indexObject.recommendInfo.ydfc.recommendName + '_首页',
+                        recommendRecordID: clickItem.id,
+                        postion: clickIdx,
+                        recommendContentTitle: clickItem.title || clickItem.copywriting1 || '',
+                        recommendContentType: clickItem.type,
+                        recommendContentID: clickItem.tprId || clickItem.linkUrl,
+                        linkUrl: clickItem.linkUrl
+                    });
+                }
+
+            });
+
+        },
+
+        /* ***************** 【A28首页推荐位埋点】end ***************** */
+
         initial: function () {
             // 精选专题多图轮播
             setTimeout(function () {
                 recomandSlide.init();
+                indexObject.scrollListener();
+                indexObject.recommendEventInit();
             }, 1000);
             // banner轮播图
             new Slider('J_office_banner', 'J_office_focus', 'J_office_prev', 'J_office_next');
@@ -149,6 +491,14 @@ define(function (require, exports, moudle) {
                 $(this).addClass('current').siblings().removeClass('current');
                 var _index = $(this).index();
                 $(this).parents('.recmond-con').find('.content-list').eq(_index).addClass('current').siblings().removeClass('current');
+
+                /* ***************** 【A28首页推荐位埋点 ***************** */
+                var curIdx = _index + 1;
+                indexObject.bjtjIndex = curIdx;
+                indexObject.moduleExposure(
+                    indexObject.recommendInfo.bjtj.recommendID + curIdx,
+                    indexObject.recommendInfo.bjtj.recommendName
+                );
             });
         },
 
@@ -186,7 +536,6 @@ define(function (require, exports, moudle) {
                 changeItem(_index);
                 function changeItem(index) {
                     $('.seo-upload-new .current li').hide();
-
                     $('.seo-upload-new .current li').slice(range[index].start, range[index].end).show();
                 }
             });
@@ -302,7 +651,6 @@ define(function (require, exports, moudle) {
                     html: $('#Sign-dialog').html()
                 }).open();
             });
-
         },
 
         // A25：获取字典列表
@@ -337,6 +685,8 @@ define(function (require, exports, moudle) {
                     if (res.code == '0') {
                         console.log('getBannerbyPosition:', res);
                         var list = method.handleRecommendData(res.data[0].list, dictionaryData);
+                        /* ***************************** 【A28首页埋点功能】 ************************* */
+                        indexObject.xfbannerList = list;
                         var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list, className: 'authentication-container', hasDeleteIcon: false });
                         $('.authentication-banner').html(_bannerTemplate);
                         var mySwiper = new Swiper('.authentication-container', {
@@ -377,7 +727,7 @@ define(function (require, exports, moudle) {
         }
     };
     indexObject.initial();
-    isHasPcMLogin()
+    isHasPcMLogin();
     require('../common/baidu-statistics.js').initBaiduStatistics('adb0f091db00ed439bf000f2c5cbaee7');
     require('../common/baidu-statistics.js').initBaiduStatistics('17cdd3f409f282dc0eeb3785fcf78a66');
     trackEvent('NE030', 'pageTypeView', 'page', {

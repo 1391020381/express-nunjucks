@@ -30,8 +30,8 @@ define(function (require) {
                     if (paradigm4GuessDatas.length) {
                         paradigm4Report.pageView(paradigm4GuessDatas, paradigm4GuessRecommendConfigs);
                         trackEvent('NE006', 'modelView', 'view', {
-                            moduleID: 'personality',
-                            moduleName: '猜你喜欢模块曝光'
+                            moduleID: 'personalityDSC',
+                            moduleName: '猜你喜欢'
                         });
                     }
                 }
@@ -44,7 +44,7 @@ define(function (require) {
             var fileName = $(this).data('name') || '';
             var params = window.pageConfig.params;
             trackEvent('NE017', 'fileListNormalClick', 'click', {
-                moduleID: 'personality',
+                moduleID: 'personalityDSC',
                 moduleName: '猜你喜欢',
                 filePostion: $(this).index() + 1,
                 fileID: itemId,

@@ -3,7 +3,7 @@
     <div class="swiper-wrapper">
         {{each topBanner}}
         <div class="swiper-slide">
-            <a href={{ topBanner[$index].linkUrl}} target="_blank">
+            <a href={{ topBanner[$index].linkUrl}} id={{ topBanner[$index].id }} class="JsBfbannerItem" target="_blank">
                 <img class="swiper-slide-img" src={{ topBanner[$index].imagUrl}}>
             </a>
         </div>

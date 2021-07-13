@@ -347,6 +347,16 @@ define(function (require, exports, module) {
             var href = urlConfig.fileConvertSite + urlConfig.fileConvertSitePath[convertType];
             method.compatibleIESkip(href, true);
         });
+
+        /* ******************* A28新增评价按钮点击上报start *********************** */
+        // 评价引导浮窗点击上报
+        $(document).on('click', '.reviewLink', function () {
+            trackEvent('NE002', 'normalClick', 'click', {
+                domID: 'downTransClickDSC',
+                domName: '下载列表页导流按钮点击'
+            });
+        });
+        /* ******************* A28新增评价按钮点击上报end *********************** */
     }
 
     // 获取百度数据
