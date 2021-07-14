@@ -102,7 +102,7 @@ define(function (require, exports, moudle) {
                 var curHeight = scrollTop + clientHeight;
                 // 顶部banner
                 if (curHeight > $tbanner.offset().top && !indexObject.recommendInfo.tb.recommendBool) {
-                    if ($tbanner.find('li').length > 0) {
+                    if ($tbanner.find('.rec-banner-item').length > 0) {
                         var $bitem = $('.JsBannerItem').first();
                         var bpageId = $bitem.attr('data-pageid');
                         var bpageName = $bitem.attr('data-pagename');
