@@ -227,134 +227,32 @@ define(function (require, exports, moudle) {
         recommendEventInit: function () {
             // 点击topBanner推荐位上报
             $(document).on('click', '.JsBannerItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击精选专题推荐位上报
             $(document).on('click', '.JsRecommendItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击搜索热词推荐位上报
             $(document).on('click', '.JsKeyWordItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击VIP专区推荐位上报
             $(document).on('click', '.JsVipFileItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击编辑推荐推荐位上报
             $(document).on('click', '.JsRecmondItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击权威机构推荐位上报
             $(document).on('click', '.JsOrganizeItem', function () {
-                var pageId = $(this).attr('data-pageid');
-                var pageName = $(this).attr('data-pagename');
-                var id = $(this).attr('data-id');
-                var position = $(this).attr('data-position');
-                var title = $(this).attr('data-title');
-                var type = $(this).attr('data-type');
-                var contentid = $(this).attr('data-contentid');
-                var url = $(this).attr('data-url');
-                indexObject.recommendClick({
-                    recommendID: pageId + '_HO',
-                    recommendName: pageName + '_首页',
-                    recommendRecordID: id,
-                    postion: Number(position),
-                    recommendContentTitle: title || '',
-                    recommendContentType: Number(type),
-                    recommendContentID: contentid,
-                    linkUrl: url
-                });
+                indexObject.recommendReport($(this));
             });
 
             // 点击引导浮窗推荐位上报
@@ -383,8 +281,30 @@ define(function (require, exports, moudle) {
                 }
 
             });
-
         },
+
+        // 推荐位点击上报
+        recommendReport: function ($this) {
+            var pageId = $this.attr('data-pageid');
+            var pageName = $this.attr('data-pagename');
+            var id = $this.attr('data-id');
+            var position = $this.attr('data-position');
+            var title = $this.attr('data-title');
+            var type = $this.attr('data-type');
+            var contentid = $this.attr('data-contentid');
+            var url = $this.attr('data-url');
+            indexObject.recommendClick({
+                recommendID: pageId + '_HO',
+                recommendName: pageName + '_首页',
+                recommendRecordID: id,
+                postion: Number(position),
+                recommendContentTitle: title || '',
+                recommendContentType: Number(type),
+                recommendContentID: contentid,
+                linkUrl: url
+            });
+        },
+
         /* ***************** 【A28首页推荐位埋点】end ***************** */
 
         initial: function () {
