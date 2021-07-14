@@ -315,7 +315,10 @@ module.exports = {
                 }
 
             }
-            arr.push(temp);
+            // 当type == 3时 item.expand.templateCode 可能没有导致 temp 是 {} 渲染有问题
+            if(temp.type){
+                arr.push(temp);
+            }
         });
         return {
             list: arr

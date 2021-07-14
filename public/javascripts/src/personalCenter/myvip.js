@@ -242,9 +242,13 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
+                    var recommendID = '';
+                    var recommendName = '';
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.myVipRightsBanner.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
+                                recommendID = item.pageId;
+                                recommendName = item.name;
                                 desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
@@ -258,8 +262,8 @@ define(function (require) {
                                     topBanner: k.list,
                                     className: 'personalCenter-myvip-swiper-container',
                                     hasDeleteIcon: true,
-                                    recommendID:'PC_M_USER_VIP_banner_UC',
-                                    recommendName:'个人中心我的vipbannber_个人中心'
+                                    recommendID:recommendID,
+                                    recommendName:recommendName
                                 });
                                 $('.myvip .advertisement').html(ubannerTemplate);
                                 new Swiper('.personalCenter-myvip-swiper-container', {
@@ -268,8 +272,8 @@ define(function (require) {
                                     autoplay: 3000
                                 });
                                 trackEvent('NE037', 'recommenderModelView', 'view', {
-                                    recommendID:'PC_M_USER_VIP_banner_UC',
-                                    recommendName:'个人中心我的vipbannber_个人中心'
+                                    recommendID:recommendID + '_UC',
+                                    recommendName:recommendName + '_个人中心'
                                 });
                             }
                         }
@@ -372,9 +376,9 @@ define(function (require) {
         var recommendContentType = $(this).data('recommendcontenttype');
         var recommendContentID = $(this).data('recommendcontentid');
         var linkUrl = $(this).data('linkurl');
-        trackEvent('NE037', 'recommenderModelView', 'view', {
-            recommendID:recommendID,
-            recommendName:recommendName,
+        trackEvent('NE038', 'recommenderModelView', 'view', {
+            recommendID:recommendID + '_UC',
+            recommendName:recommendName + '_个人中心',
             recommendRecordID:recommendRecordID,
             position:position,
             recommendContentTitle:recommendContentTitle||'',

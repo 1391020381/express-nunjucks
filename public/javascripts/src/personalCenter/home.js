@@ -241,9 +241,13 @@ define(function (require) {
             success: function (res) {
                 if (res.code == '0') {
                     console.log('getBannerbyPosition', res);
+                    var recommendID = '';
+                    var recommendName = '';
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.personalCenterHome.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
+                                recommendID = item.pageId;
+                                recommendName = item.name;
                                 desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
@@ -253,8 +257,8 @@ define(function (require) {
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_USER_banner') { // search-all-main-bottombanner
                                 console.log('PC_M_USER_banner:', k.list);
-                                var rbannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list, className: 'personalCenter-home-swiper-container', hasDeleteIcon: true, recommendID:'PC_M_USER_banner_UC',
-                                    recommendName:'个人中心首页bannber_个人中心' });
+                                var rbannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list, className: 'personalCenter-home-swiper-container', hasDeleteIcon: true, recommendID:recommendID,
+                                    recommendName:recommendName });
                                 $('.personal-center-home .advertisement').html(rbannerTemplate);
                                 new Swiper('.personalCenter-home-swiper-container', {
                                     direction: 'horizontal',
@@ -262,8 +266,8 @@ define(function (require) {
                                     autoplay: 3000
                                 });
                                 trackEvent('NE037', 'recommenderModelView', 'view', {
-                                    recommendID:'PC_M_USER_banner_UC',
-                                    recommendName:'个人中心首页bannber_个人中心'
+                                    recommendID:recommendID + '_UC',
+                                    recommendName:recommendName + '_个人中心'
                                 });
                             }
                         }
@@ -356,9 +360,9 @@ define(function (require) {
         var recommendContentType = $(this).data('recommendcontenttype');
         var recommendContentID = $(this).data('recommendcontentid');
         var linkUrl = $(this).data('linkurl');
-        trackEvent('NE037', 'recommenderModelView', 'view', {
-            recommendID:recommendID,
-            recommendName:recommendName,
+        trackEvent('NE038', 'recommenderModelView', 'view', {
+            recommendID:recommendID + '_UC',
+            recommendName:recommendName + '_个人中心',
             recommendRecordID:recommendRecordID,
             position:position,
             recommendContentTitle:recommendContentTitle||'',
