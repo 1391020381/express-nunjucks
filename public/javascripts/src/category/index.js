@@ -48,10 +48,6 @@ define(function (require, exports, module) {
                 tabID:window.pageConfig.params.idArr,
                 tabName:window.pageConfig.params.nameArr
             });
-            trackEvent('NE034', 'ctListModelView', 'click', {
-                tabID:window.pageConfig.params.idArr,
-                tabName:window.pageConfig.params.nameArr
-            });
             $('.landing-txt-list .li-file').on('click', function (event) {
                 trackEvent('NE008', 'goodsEntryClick', 'click', {
                     clID: window.pageConfig.params.idArr,
@@ -70,13 +66,13 @@ define(function (require, exports, module) {
                 that.recommendReport($(this));
             });
             // 右侧专题推荐数据上报
-            $('.topicBanner-con ul li', function(e){
+            $('.topicBanner-con ul li').on('click', function(e){
                 that.recommendReport($(this));
             });
             // 热点搜索数据上报
             $('.hot-key-word .landing-hot-list a').on('click', function(e){
                 var topicName = $(this).data('topicname');
-                trackEvent('NE037', 'recommenderModelView', 'view', {
+                trackEvent('NE002', 'normalClick', 'click', {
                     domID:'hotSearch_CL',
                     domName:'热门搜索_' + topicName
                 });
@@ -103,6 +99,14 @@ define(function (require, exports, module) {
                     recommendName:$recommendedTopics.data('recommendname') + '_分类页'
                 });
             }
+            // 点击分类
+            $('.jsCategoryBilog').on('click', function (e) {
+                e.stopPropagation();
+                var level = $(this).data('level');
+                var cid = $(this).data('cid');
+                var cname = $(this).data('cname');
+                that.ctListModelClick(cid, cname, level);
+            });
         },
         // 分类点击埋点
         ctListModelClick:function(cid, cname, level) {
@@ -141,7 +145,7 @@ define(function (require, exports, module) {
                 tabIds = cidList.join('||');
                 tabNames = cnameList.join('||');
             }
-            trackEvent('NE034', 'ctListModelClick', 'view', {
+            trackEvent('NE034', 'ctListModelClick', 'click', {
             // 选中的tabID {tabID1}||{tabID2}||{tabID3}
                 tabID: tabIds,
                 // 选中的tabName  {tabName1}||{tabName2}||{tabName3}

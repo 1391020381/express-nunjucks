@@ -381,7 +381,10 @@ define(function (require) {
             moduleName:flag == 'recentlySee'?'最近看过':'最近下载',
             filePostion:$(this).index() + 1,
             fileID:fileID,
-            fileName:fileName
+            fileName:fileName,
+            saleType:'',
+            fileCategoryID:'',
+            fileCategoryName:''
         });
     });
     return {
