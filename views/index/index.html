@@ -23,8 +23,8 @@
                     <ul class="banner-list" id="J_office_banner">
                         {% for item in results.bannerList %}
                             <li class="rec-banner-item">
-                                <a 
-                                   href="{{ item.linkUrl }}" 
+                                <a
+                                   href="{{ item.linkUrl }}"
                                    target="_blank"
                                    data-pageid="{{ item.webNodeCustomPageId }}"
                                    data-pagename="{{ item.webNodeCustomPageName }}"
@@ -634,7 +634,7 @@
             {% for item in  results.hotRecData.data %}
                 <li class="{% if loop.index0 > 19 %}hide{% endif %}">
                     <!-- <a href="{{ item.contentUrl }}" target="_blank">{{ item.contentName|delType }}</a> -->
-                    <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                    <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                 </li>
             {% endfor %}
             {% endif %}
@@ -644,7 +644,7 @@
             {% for item in  results.hotTopicSeo.data %}
                 <li class="{% if loop.index0 >19 %}hide{% endif %}">
                     <!-- <a href="{{ item.newRouterUrl }}" target="_blank">{{ item.title|delType }}</a> -->
-                    <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                    <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                 </li>
             {% endfor %}
             {% endif %}

@@ -157,7 +157,7 @@
                                 {% for item in results.newsRec.data %}
                                     <li>
                                         <!-- <a target="_blank" href="https://ishare.iask.sina.com.cn/f/{{ item.contentId }}.html">{{ item.contentName|delType }}</a> -->
-                                        <a target="_blank" href="{{ item.url }}">{{ item.name|delType }}</a>
+                                        <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                                     </li>
                                 {% endfor %}
                                 {% endif %}
@@ -169,7 +169,7 @@
                                 {% for item in results.hotRecData.data %}
                                     <li>
                                         <!-- <a target="_blank" href="{{ item.contentUrl }}">{{ item.contentName|delType }}</a> -->
-                                        <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                                        <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                                     </li>
                                 {% endfor %}
                                 {% endif %}
@@ -181,7 +181,7 @@
                                 {% for item in results.hotTopicSeo.data %}
                                     <li>
                                         <!-- <a target="_blank" href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a> -->
-                                        <a href="{{ item.url }}">{{ item.name|delType }}</a>
+                                        <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                                     </li>
                                 {% endfor %}
                                 {% endif %}
