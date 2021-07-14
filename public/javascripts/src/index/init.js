@@ -50,51 +50,35 @@ define(function (require, exports, moudle) {
 
     var indexObject = {
         /* ***************** 【A28首页推荐位埋点】start ***************** */
-        // 编辑推荐展示模块
-        bjtjIndex: 1,
         // 引导浮窗数据
         xfbannerList: [],
         recommendInfo: {
             // 顶部banner
             tb: {
-                recommendID: 'PC_M_H_banner',
-                recommendName: '顶部banner',
                 recommendBool: false
             },
             // 精选专题
             jxzt: {
-                recommendID: 'PC_M_H_zhuanti',
-                recommendName: '精选专题',
                 recommendBool: false
             },
             // 搜索热词
             ssrc: {
-                recommendID: 'PC_M_H_rmss',
-                recommendName: '搜索热词',
                 recommendBool: false
             },
             // VIP专区
             vip: {
-                recommendID: 'PC_M_H_vipzhuanqu',
-                recommendName: 'VIP专区',
                 recommendBool: false
             },
             // 编辑推荐
             bjtj: {
-                recommendID: 'PC_M_H_bjtj',
-                recommendName: '编辑推荐',
                 recommendBool: false
             },
             // 权威机构
             qwjg: {
-                recommendID: 'PC_M_H_qwjg',
-                recommendName: '权威机构',
                 recommendBool: false
             },
             // 引导浮窗
             ydfc: {
-                recommendID: 'PC_M_H_xfbanner',
-                recommendName: '引导浮窗',
                 recommendBool: false
             }
         },
@@ -118,69 +102,76 @@ define(function (require, exports, moudle) {
                 var curHeight = scrollTop + clientHeight;
                 // 顶部banner
                 if (curHeight > $tbanner.offset().top && !indexObject.recommendInfo.tb.recommendBool) {
-                    indexObject.moduleExposure(
-                        indexObject.recommendInfo.tb.recommendID,
-                        indexObject.recommendInfo.tb.recommendName
-                    );
-                    indexObject.recommendInfo.tb.recommendBool = true;
+                    if ($tbanner.find('li').length > 0) {
+                        var $bitem = $('.JsBannerItem').first();
+                        var bpageId = $bitem.attr('data-pageid');
+                        var bpageName = $bitem.attr('data-pagename');
+                        indexObject.moduleExposure(bpageId, bpageName);
+                        indexObject.recommendInfo.tb.recommendBool = true;
+                    }
                 }
                 // 精选专题
                 if (curHeight > $jxzt.offset().top && !indexObject.recommendInfo.jxzt.recommendBool) {
-                    indexObject.moduleExposure(
-                        indexObject.recommendInfo.jxzt.recommendID,
-                        indexObject.recommendInfo.jxzt.recommendName
-                    );
-                    indexObject.recommendInfo.jxzt.recommendBool = true;
+                    if ($jxzt.find('.recommend-item ').length > 0) {
+                        var $jitem = $('.JsRecommendItem').first();
+                        var jpageId = $jitem.attr('data-pageid');
+                        var jpageName = $jitem.attr('data-pagename');
+                        indexObject.moduleExposure(jpageId, jpageName);
+                        indexObject.recommendInfo.jxzt.recommendBool = true;
+                    }
                 }
                 // 搜索热词
                 if (curHeight > $ssrc.offset().top && !indexObject.recommendInfo.ssrc.recommendBool) {
                     // 如果搜索热词有数据
                     var $searchWords = $ssrc.find('.label-ele');
                     if ($searchWords.length > 0) {
-                        indexObject.moduleExposure(
-                            indexObject.recommendInfo.ssrc.recommendID,
-                            indexObject.recommendInfo.ssrc.recommendName
-                        );
+                        var $ritem = $('.JsKeyWordItem').first();
+                        var rpageId = $ritem.attr('data-pageid');
+                        var rpageName = $ritem.attr('data-pagename');
+                        indexObject.moduleExposure(rpageId, rpageName);
                         indexObject.recommendInfo.ssrc.recommendBool = true;
                     }
                 }
                 // vip专区
                 if (curHeight > $vipzq.offset().top && !indexObject.recommendInfo.vip.recommendBool) {
-                    indexObject.moduleExposure(
-                        indexObject.recommendInfo.vip.recommendID,
-                        indexObject.recommendInfo.vip.recommendName
-                    );
-                    indexObject.recommendInfo.vip.recommendBool = true;
+                    if ($vipzq.find('.list-item').length > 0) {
+                        var $vitem = $('.JsVipFileItem').first();
+                        var vpageId = $vitem.attr('data-pageid');
+                        var vpageName = $vitem.attr('data-pagename');
+                        indexObject.moduleExposure(vpageId, vpageName);
+                        indexObject.recommendInfo.vip.recommendBool = true;
+                    }
                 }
                 // 编辑推荐
                 if ($bjtj && $bjtj.offset() && curHeight > $bjtj.offset().top &&
                     !indexObject.recommendInfo.bjtj.recommendBool) {
                     // 当前曝光的编辑推荐
                     var $curList = $('.recmond-con .content-list').first();
-                    var curIdx = $($curList).attr('data-index');
-                    indexObject.moduleExposure(
-                        indexObject.recommendInfo.bjtj.recommendID + curIdx,
-                        indexObject.recommendInfo.bjtj.recommendName
-                    );
-                    indexObject.recommendInfo.bjtj.recommendBool = true;
+                    if ($curList.find('.list-item').length > 0) {
+                        var $citem = $('.JsRecmondItem').first();
+                        var cpageId = $citem.attr('data-pageid');
+                        var cpageName = $citem.attr('data-pagename');
+                        indexObject.moduleExposure(cpageId, cpageName);
+                        indexObject.recommendInfo.bjtj.recommendBool = true;
+                    }
                 }
                 // 权威机构
                 if (curHeight > $qvjg.offset().top && !indexObject.recommendInfo.qwjg.recommendBool) {
-                    indexObject.moduleExposure(
-                        indexObject.recommendInfo.qwjg.recommendID,
-                        indexObject.recommendInfo.qwjg.recommendName
-                    );
-                    indexObject.recommendInfo.qwjg.recommendBool = true;
+                    if ($qvjg.find('.list-item').length > 0) {
+                        var $qitem = $('.JsOrganizeItem').first();
+                        var qpageId = $qitem.attr('data-pageid');
+                        var qpageName = $qitem.attr('data-pagename');
+                        indexObject.moduleExposure(qpageId, qpageName);
+                        indexObject.recommendInfo.qwjg.recommendBool = true;
+                    }
                 }
                 // 引导浮窗
                 if (curHeight > $ydfc.offset().top && !indexObject.recommendInfo.ydfc.recommendBool) {
                     // 如果有引导弹窗
                     var $slides = $ydfc.find('.swiper-slide');
                     if ($slides.length > 0) {
-                        indexObject.moduleExposure(
-                            indexObject.recommendInfo.ydfc.recommendID,
-                            indexObject.recommendInfo.ydfc.recommendName
-                        );
+                        var sitem = indexObject.xfbannerList[0];
+                        indexObject.moduleExposure(sitem.pageId, sitem.pageName);
                         indexObject.recommendInfo.ydfc.recommendBool = true;
                     }
                 }
@@ -234,9 +225,10 @@ define(function (require, exports, moudle) {
 
         // 绑定推荐位点击上报事件
         recommendEventInit: function () {
-
             // 点击topBanner推荐位上报
             $(document).on('click', '.JsBannerItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
@@ -244,8 +236,8 @@ define(function (require, exports, moudle) {
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.tb.recommendID + '_HO',
-                    recommendName: indexObject.recommendInfo.tb.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -257,6 +249,8 @@ define(function (require, exports, moudle) {
 
             // 点击精选专题推荐位上报
             $(document).on('click', '.JsRecommendItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
@@ -264,8 +258,8 @@ define(function (require, exports, moudle) {
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.jxzt.recommendID + '_HO',
-                    recommendName: indexObject.recommendInfo.jxzt.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -277,6 +271,8 @@ define(function (require, exports, moudle) {
 
             // 点击搜索热词推荐位上报
             $(document).on('click', '.JsKeyWordItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
@@ -284,8 +280,8 @@ define(function (require, exports, moudle) {
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.ssrc.recommendID + '_HO',
-                    recommendName: indexObject.recommendInfo.ssrc.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -297,6 +293,8 @@ define(function (require, exports, moudle) {
 
             // 点击VIP专区推荐位上报
             $(document).on('click', '.JsVipFileItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
@@ -304,8 +302,8 @@ define(function (require, exports, moudle) {
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.vip.recommendID + '_HO',
-                    recommendName: indexObject.recommendInfo.vip.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -317,17 +315,17 @@ define(function (require, exports, moudle) {
 
             // 点击编辑推荐推荐位上报
             $(document).on('click', '.JsRecmondItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
                 var type = $(this).attr('data-type');
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
-                // 当前展示的模块
-                var curIdx = indexObject.bjtjIndex;
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.bjtj.recommendID + curIdx + '_HO',
-                    recommendName: indexObject.recommendInfo.bjtj.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -339,6 +337,8 @@ define(function (require, exports, moudle) {
 
             // 点击权威机构推荐位上报
             $(document).on('click', '.JsOrganizeItem', function () {
+                var pageId = $(this).attr('data-pageid');
+                var pageName = $(this).attr('data-pagename');
                 var id = $(this).attr('data-id');
                 var position = $(this).attr('data-position');
                 var title = $(this).attr('data-title');
@@ -346,8 +346,8 @@ define(function (require, exports, moudle) {
                 var contentid = $(this).attr('data-contentid');
                 var url = $(this).attr('data-url');
                 indexObject.recommendClick({
-                    recommendID: indexObject.recommendInfo.qwjg.recommendID + '_HO',
-                    recommendName: indexObject.recommendInfo.qwjg.recommendName + '_首页',
+                    recommendID: pageId + '_HO',
+                    recommendName: pageName + '_首页',
                     recommendRecordID: id,
                     postion: Number(position),
                     recommendContentTitle: title || '',
@@ -357,7 +357,7 @@ define(function (require, exports, moudle) {
                 });
             });
 
-            // 点击权威机构推荐位上报
+            // 点击引导浮窗推荐位上报
             $(document).on('click', '.JsBfbannerItem', function () {
                 var id = $(this).attr('id');
                 var xfbannerList = indexObject.xfbannerList;
@@ -371,8 +371,8 @@ define(function (require, exports, moudle) {
                 }
                 if (clickItem) {
                     indexObject.recommendClick({
-                        recommendID: indexObject.recommendInfo.ydfc.recommendID + '_HO',
-                        recommendName: indexObject.recommendInfo.ydfc.recommendName + '_首页',
+                        recommendID: clickItem.pageId + '_HO',
+                        recommendName: clickItem.pageName + '_首页',
                         recommendRecordID: clickItem.id,
                         postion: clickIdx,
                         recommendContentTitle: clickItem.title || clickItem.copywriting1 || '',
@@ -385,7 +385,6 @@ define(function (require, exports, moudle) {
             });
 
         },
-
         /* ***************** 【A28首页推荐位埋点】end ***************** */
 
         initial: function () {
@@ -492,13 +491,12 @@ define(function (require, exports, moudle) {
                 var _index = $(this).index();
                 $(this).parents('.recmond-con').find('.content-list').eq(_index).addClass('current').siblings().removeClass('current');
 
-                /* ***************** 【A28首页推荐位埋点 ***************** */
-                var curIdx = _index + 1;
-                indexObject.bjtjIndex = curIdx;
-                indexObject.moduleExposure(
-                    indexObject.recommendInfo.bjtj.recommendID + curIdx,
-                    indexObject.recommendInfo.bjtj.recommendName
-                );
+                /* ***************** 【A28首页编辑推荐曝光埋点】 ***************** */
+                var $contentList = $('.recmond-con').find('.content-list');
+                var $ritem = $contentList.eq(_index).find('.list-item').first();
+                var rpageId = $($ritem).children('a').attr('data-pageid');
+                var rpageName = $($ritem).children('a').attr('data-pagename');
+                indexObject.moduleExposure(rpageId, rpageName);
             });
         },
 
@@ -686,7 +684,18 @@ define(function (require, exports, moudle) {
                         console.log('getBannerbyPosition:', res);
                         var list = method.handleRecommendData(res.data[0].list, dictionaryData);
                         /* ***************************** 【A28首页埋点功能】 ************************* */
-                        indexObject.xfbannerList = list;
+                        if (list && list.length) {
+                            var recomList = [];
+                            for (var i = 0, len = list.length; i < len; i++) {
+                                var recomItem = list[i];
+                                // 追加推荐位标识-自定义字段
+                                recomItem.pageId = res.data[0].pageId || '';
+                                recomItem.pageName = res.data[0].name || '';
+                            }
+                            recomList.push(recomItem);
+                            indexObject.xfbannerList = recomList;
+                        }
+                        /* ***************************** 【A28首页埋点功能】 ************************* */
                         var _bannerTemplate = template.compile(bannerTemplate)({ topBanner: list, className: 'authentication-container', hasDeleteIcon: false });
                         $('.authentication-banner').html(_bannerTemplate);
                         var mySwiper = new Swiper('.authentication-container', {

@@ -93,6 +93,9 @@ module.exports = {
                         }
                     }
                 }
+                /* ********************** A28追加推荐位标识-自定义字段 ******************** */
+                res.webNodeCustomPageId = item.pageId || '';
+                res.webNodeCustomPageName = item.name || '';
             });
             return item;
         } else {
