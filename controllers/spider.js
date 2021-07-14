@@ -522,8 +522,8 @@ const renderPage = cc(async (req, res, next) => {
     }
     const crumbList = await getCrumbList(req, res, list);
 
-    // const editorInfo = await getEditorInfo(req, res, list);
-    const editorInfo = {};
+    const editorInfo = await getEditorInfo(req, res, list);
+    // const editorInfo = {};
     const fileDetailTxt = await getFileDetailTxt(req, res);
     const recommendInfo = await getRecommendInfo(req, res, list);
     const paradigm4Relevant = {
