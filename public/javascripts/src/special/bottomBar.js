@@ -95,7 +95,7 @@ define(function (require, exports, module) {
     function isVipUser(){
         var isVip = method.getCookie('isVip');
         if(isVip==1){
-            $('.js-advertising-space').hide();
+            $('.js-adv-position').hide();
         }
     }
 });
