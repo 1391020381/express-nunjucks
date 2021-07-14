@@ -376,7 +376,7 @@ define(function (require) {
         var recommendContentType = $(this).data('recommendcontenttype');
         var recommendContentID = $(this).data('recommendcontentid');
         var linkUrl = $(this).data('linkurl');
-        trackEvent('NE038', 'recommenderModelView', 'view', {
+        trackEvent('NE038', 'recommenderEntryClick', 'click', {
             recommendID:recommendID + '_UC',
             recommendName:recommendName + '_个人中心',
             recommendRecordID:recommendRecordID,

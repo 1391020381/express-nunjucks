@@ -49,7 +49,7 @@ define(function (require) {
                     getBannerbyPosition();
                     getMyVipRightsList();
                 }
-                // console.log('getDictionaryData', dictionaryData);
+
             }
         });
     }
@@ -71,7 +71,6 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
-                    console.log('getUserCentreInfo:', res);
                     var isMasterVip = userInfo.isMasterVip;
                     var isOfficeVip = userInfo.isOfficeVip;
                     var privilegeNum = res.data.privilege; // 下载券数量
@@ -198,7 +197,6 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
-                    console.log('getFileBrowsePage:', res);
                     // 复用模板,需要转换接口返回的key
                     var data = [];
                     if (res.data && res.data.rows.length) {
@@ -240,7 +238,6 @@ define(function (require) {
             dataType: 'json',
             success: function (res) {
                 if (res.code == '0') {
-                    console.log('getBannerbyPosition', res);
                     var recommendID = '';
                     var recommendName = '';
                     $(res.data).each(function (index, item) { // 匹配 组装数据
@@ -252,11 +249,10 @@ define(function (require) {
                             }
                         });
                     });
-                    console.log(recommendConfigInfo);
                     $(recommendConfigInfo.personalCenterHome.descs).each(function (index, k) {
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_USER_banner') { // search-all-main-bottombanner
-                                console.log('PC_M_USER_banner:', k.list);
+
                                 var rbannerTemplate = template.compile(bannerTemplate)({ topBanner: k.list, className: 'personalCenter-home-swiper-container', hasDeleteIcon: true, recommendID:recommendID,
                                     recommendName:recommendName });
                                 $('.personal-center-home .advertisement').html(rbannerTemplate);
@@ -285,7 +281,6 @@ define(function (require) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
-                console.log('getMyVipRightsList', res);
                 if (res.code == '0') {
                     $(res.data).each(function (index, item) { // 匹配 组装数据
                         $(recommendConfigInfo.myVipRightsList.descs).each(function (index, desc) {
@@ -294,7 +289,6 @@ define(function (require) {
                             }
                         });
                     });
-                    console.log(recommendConfigInfo);
                     $(recommendConfigInfo.myVipRightsList.descs).each(function (index, k) {
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_USER_vip') { // search-all-main-bottombanner
@@ -360,7 +354,7 @@ define(function (require) {
         var recommendContentType = $(this).data('recommendcontenttype');
         var recommendContentID = $(this).data('recommendcontentid');
         var linkUrl = $(this).data('linkurl');
-        trackEvent('NE038', 'recommenderModelView', 'view', {
+        trackEvent('NE038', 'recommenderEntryClick', 'click', {
             recommendID:recommendID + '_UC',
             recommendName:recommendName + '_个人中心',
             recommendRecordID:recommendRecordID,

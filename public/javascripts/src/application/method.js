@@ -318,7 +318,6 @@ define(function (require, exports, module) {
         },
         handleRecommendData: function (list, dictionaryList) {
             var arr = [];
-            console.log('list', list, 'dictionaryList', dictionaryList);
             $(list).each(function (index, item) {
                 var temp = {};
                 if (item.type == 1) { // 资料
@@ -354,7 +353,6 @@ define(function (require, exports, module) {
                     arr.push(temp);
                 }
             });
-            console.log(arr);
             return arr;
         },
         formatDate: function (fmt) {
