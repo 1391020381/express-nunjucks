@@ -36,7 +36,7 @@
                                    data-url="{{ item.linkUrl }}"
                                    class="JsBannerItem"
                                 >
-                                   <img src="{{ item.imagUrl }}"> 
+                                   <img src="{{ item.imagUrl }}">
                                 </a>
                             </li>
                         {% endfor %}
@@ -174,9 +174,9 @@
                         <div class="search-label cf">
                             {% for keywordItem in results.hotSearchWord %}
                                 <div class="label-ele">
-                                    <a 
-                                        href="{{ keywordItem.linkUrl }}" 
-                                        target="_blank" 
+                                    <a
+                                        href="{{ keywordItem.linkUrl }}"
+                                        target="_blank"
                                         class="ele-text JsKeyWordItem"
                                         data-pageid="{{ keywordItem.webNodeCustomPageId }}"
                                         data-pagename="{{ keywordItem.webNodeCustomPageName }}"
@@ -204,8 +204,8 @@
                 <div class="swiper-wrapper" style="width:{{ results.specialList.length*312 }}px">
                     {% for item in results.specialList %}
                         <div class="recommend-item swiper-slide">
-                            <a 
-                                href="{{ item.linkUrl }}" 
+                            <a
+                                href="{{ item.linkUrl }}"
                                 target="_blank"
                                 data-pageid="{{ item.webNodeCustomPageId }}"
                                 data-pagename="{{ item.webNodeCustomPageName }}"
@@ -240,9 +240,9 @@
                         <div class="content-list current">
                             {% for item in results.vipList %}
                                 <div class="list-item">
-                                    <a 
-                                        href="{{ item.linkUrl }}" 
-                                        style="display: block;" 
+                                    <a
+                                        href="{{ item.linkUrl }}"
+                                        style="display: block;"
                                         target="_blank"
                                         data-pageid="{{ item.webNodeCustomPageId }}"
                                         data-pagename="{{ item.webNodeCustomPageName }}"
@@ -325,8 +325,8 @@
                             <div class="content-list {% if loop.index0==0 %}current{% endif %}" data-index="{{loop.index0 + 1}}">
                                 {% for subitem in item %}
                                     <div class="list-item">
-                                        <a 
-                                            target="_blank" 
+                                        <a
+                                            target="_blank"
                                             href="{{ subitem.linkUrl }}"
                                             data-pageid="{{ subitem.webNodeCustomPageId }}"
                                             data-pagename="{{ subitem.webNodeCustomPageName }}"
@@ -378,8 +378,8 @@
                         <div class="list-item {{ 'last-child' if loop.index ==4 }}">
                             <div class="list-content">
                                 <div class="avatar-frame">
-                                    <a 
-                                        href="{{ item.linkUrl }}" 
+                                    <a
+                                        href="{{ item.linkUrl }}"
                                         target="_blank"
                                         data-pageid="{{ item.webNodeCustomPageId }}"
                                         data-pagename="{{ item.webNodeCustomPageName }}"
@@ -620,34 +620,34 @@
             </ul>
         </div>
         <ul class="upload-list current cf">
-            {% for item in  results.newsRec.data %}
-                {% if loop.index0 < 200 %}
+            {% if results.newsRec.data and results.newsRec.data.length %}
+            {% for item in results.newsRec.data %}
                 <li class="{% if loop.index0 > 19 %}hide{% endif %}">
                     <!-- <a href="/f/{{ item.id }}.html" target="_blank">{{ item.title|delType }}</a> -->
                     <a href="{{ item.url }}" target="_blank">{{ item.name|delType }}</a>
                 </li>
-                {% endif %}
             {% endfor %}
+            {% endif %}
         </ul>
         <ul class="upload-list cf">
+            {% if results.hotRecData.data and results.hotRecData.data.length %}
             {% for item in  results.hotRecData.data %}
-                {% if loop.index0 < 20 %}
                 <li class="{% if loop.index0 > 19 %}hide{% endif %}">
                     <!-- <a href="{{ item.contentUrl }}" target="_blank">{{ item.contentName|delType }}</a> -->
                     <a href="{{ item.url }}">{{ item.name|delType }}</a>
                 </li>
-                {% endif %}
             {% endfor %}
+            {% endif %}
         </ul>
         <ul class="upload-list cf">
+            {% if results.hotTopicSeo.data and results.hotTopicSeo.data.length %}
             {% for item in  results.hotTopicSeo.data %}
-                {% if loop.index0 < 20 %}
                 <li class="{% if loop.index0 >19 %}hide{% endif %}">
                     <!-- <a href="{{ item.newRouterUrl }}" target="_blank">{{ item.title|delType }}</a> -->
                     <a href="{{ item.url }}">{{ item.name|delType }}</a>
                 </li>
-                {% endif %}
             {% endfor %}
+            {% endif %}
         </ul>
     </body>
 </html></div><!--热门搜索 end --></div><!-- 签到弹窗 -->{% include "common/wechatSign-dialog.html" %}<!-- 红包弹窗 -->{% include "common/loginRedPacket-dialog.html" %}<!-- 底部 start-->{% include "common/footer.html" %}<!-- 底部 end--><!--悬浮工具栏 start-->{% include "common/suspension.html" %}<div class="authentication authentication-banner"> </div><!--悬浮工具栏 end--><script>window.pageConfig = {

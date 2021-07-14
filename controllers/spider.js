@@ -315,24 +315,22 @@ function dealContent(content, fileContentList, anchorText) { // 分割字符串 
             const reg = new RegExp(item.word, 'i');
             let replaceStr = '';
             const ret = reg.test(text);
-            if (index < 50) {
-                // 匹配成功
-                if (ret && selectHotSearch.indexOf(item.word) == -1) {
-                    let keywordListHtml = '';
-                    let newKeywordList = '';
-                    if (item.objList && item.objList.length > 0) {
-                        // 关键词拼接
-                        item.objList.map((keywordItem, keywordIndex) => {
-                            if (keywordIndex < 5) {
-                                keywordListHtml += `<span class="keyWordItem"><a class="keyWordText" href="${keywordItem.url}" target="_blank">${keywordItem.name}</a></span>`;
-                            }
-                        });
-                        newKeywordList = `<span class="keyWordListBox">${keywordListHtml}</span>`;
-                        replaceStr = `<span class="keyWordBox"><a class="keyWordHref" href="${item.objList[0].url}" target="_blank">${item.word}</a>${newKeywordList}</span>`;
-                    }
-                    selectHotSearch.push(item.word); // 已匹配过
-                    text = text.replace(item.word, replaceStr);
+            // 匹配成功
+            if (ret && selectHotSearch.indexOf(item.word) == -1) {
+                let keywordListHtml = '';
+                let newKeywordList = '';
+                if (item.objList && item.objList.length > 0) {
+                    // 关键词拼接
+                    item.objList.map((keywordItem, keywordIndex) => {
+                        if (keywordIndex < 5) {
+                            keywordListHtml += `<span class="keyWordItem"><a class="keyWordText" href="${keywordItem.url}" target="_blank">${keywordItem.name}</a></span>`;
+                        }
+                    });
+                    newKeywordList = `<span class="keyWordListBox">${keywordListHtml}</span>`;
+                    replaceStr = `<span class="keyWordBox"><a class="keyWordHref" href="${item.objList[0].url}" target="_blank">${item.word}</a>${newKeywordList}</span>`;
                 }
+                selectHotSearch.push(item.word); // 已匹配过
+                text = text.replace(item.word, replaceStr);
             }
         });
         arr.push({
