@@ -26,6 +26,8 @@
                                 <a 
                                    href="{{ item.linkUrl }}" 
                                    target="_blank"
+                                   data-pageid="{{ item.webNodeCustomPageId }}"
+                                   data-pagename="{{ item.webNodeCustomPageName }}"
                                    data-id="{{ item.id }}"
                                    data-position="{{ loop.index0 + 1 }}"
                                    data-title="{{ item.title }}"
@@ -176,6 +178,8 @@
                                         href="{{ keywordItem.linkUrl }}" 
                                         target="_blank" 
                                         class="ele-text JsKeyWordItem"
+                                        data-pageid="{{ keywordItem.webNodeCustomPageId }}"
+                                        data-pagename="{{ keywordItem.webNodeCustomPageName }}"
                                         data-id="{{ keywordItem.id }}"
                                         data-position="{{ loop.index0 + 1 }}"
                                         data-title="{{ keywordItem.title or keywordItem.copywriting1 }}"
@@ -203,6 +207,8 @@
                             <a 
                                 href="{{ item.linkUrl }}" 
                                 target="_blank"
+                                data-pageid="{{ item.webNodeCustomPageId }}"
+                                data-pagename="{{ item.webNodeCustomPageName }}"
                                 data-id="{{ item.id }}"
                                 data-position="{{ loop.index0 + 1 }}"
                                 data-title="{{ item.title }}"
@@ -238,6 +244,8 @@
                                         href="{{ item.linkUrl }}" 
                                         style="display: block;" 
                                         target="_blank"
+                                        data-pageid="{{ item.webNodeCustomPageId }}"
+                                        data-pagename="{{ item.webNodeCustomPageName }}"
                                         data-id="{{ item.id }}"
                                         data-position="{{ loop.index0 + 1 }}"
                                         data-title="{{ item.title }}"
@@ -320,6 +328,8 @@
                                         <a 
                                             target="_blank" 
                                             href="{{ subitem.linkUrl }}"
+                                            data-pageid="{{ subitem.webNodeCustomPageId }}"
+                                            data-pagename="{{ subitem.webNodeCustomPageName }}"
                                             data-id="{{ subitem.id }}"
                                             data-position="{{ loop.index0 + 1 }}"
                                             data-title="{{ subitem.title }}"
@@ -371,6 +381,8 @@
                                     <a 
                                         href="{{ item.linkUrl }}" 
                                         target="_blank"
+                                        data-pageid="{{ item.webNodeCustomPageId }}"
+                                        data-pagename="{{ item.webNodeCustomPageName }}"
                                         data-id="{{ item.id }}"
                                         data-position="{{ loop.index0 + 1 }}"
                                         data-title="{{ item.title or item.copywriting1 }}"
