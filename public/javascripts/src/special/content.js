@@ -170,9 +170,9 @@ define(function (require, exports, module) {
                     recommendConfigInfo.specialRightBanner.descs.forEach(function (item) {
                         if (item.list.length) {
                             if (item.pageId == 'ishare_ztbanner') {
-                                var _topBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list, className: 'swiper-right-container' });
-                                $('.right-banner').html(_topBannerHtml);
-                                new Swiper('.swiper-right-container', {
+                                var bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list, className: 'swiper-bottom-container' });
+                                $('.js-advertising-space').html(bottomBannerHtml);
+                                new Swiper('.swiper-bottom-container', {
                                     direction: 'horizontal',
                                     loop: item.list.length > 1 ? true : false,
                                     autoplay: 3000

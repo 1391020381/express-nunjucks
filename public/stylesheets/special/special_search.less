@@ -212,12 +212,14 @@ body {
             .search-item {
                 margin-top: 10px;
                 position: relative;
-                padding-left: 32px;
+                // padding-left: 32px;
 
                 .search-title {
                     display: inline-block;
                     padding-top: 5px;
                     color:#999;
+                    width: 105px;
+                    text-align: right;
                 }
 
                 .search-ele {
@@ -829,7 +831,8 @@ body {
     }
 
     .search-empty-container {
-        width: 100%;
+        width: 1200px;
+        margin-left: 25px;
         background-color: #fff;
         height: 410px;
         margin-top: 26px;
@@ -922,9 +925,20 @@ body {
 }
 .advertising-space{
     width: 100%;
-    height: 315px;
-    background: url(../../images/special/advertisingSpace.png) no-repeat center;
-    background-size: 100%;
+    .swiper-container{
+        .swiper-slide{
+            width: 100%;
+            height: 315px;
+            a{
+                display: block;
+                height: 315px;
+                img{
+                    display: block;
+                    height: 315px;
+                }
+            }
+        }
+    }
 }
 .special-spot-search {
     width: 1200px;
@@ -971,17 +985,3 @@ body {
     margin: 0 auto;
 }
 
-
-/*办公频道分类列表响应式*/
-@media screen and (max-width: 1300px) {
-    // .search-all-main{
-    //     width: 1000px;
-    // }
-    // .search-list{
-    //     width:1025px;
-    // }
-    // .list-item{
-    //     width: 250px!important;
-    //     margin-left:6px!important;
-    // }
-}

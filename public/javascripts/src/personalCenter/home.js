@@ -364,7 +364,7 @@ define(function (require) {
             recommendID:recommendID + '_UC',
             recommendName:recommendName + '_个人中心',
             recommendRecordID:recommendRecordID,
-            position:position,
+            postion:position,
             recommendContentTitle:recommendContentTitle||'',
             recommendContentType:recommendContentType,
             recommendContentID:recommendContentID,

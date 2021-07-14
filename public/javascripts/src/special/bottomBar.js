@@ -82,11 +82,12 @@ define(function (require, exports, module) {
     search();
     function search() {
         var topicName = window.pageConfig.topicName; // topicName
-        $('#scondition').val(topicName);
+        // $('#scondition').val(topicName);
         $('#searchBtn').click(function () {
-            topicName = $('#scondition').val();
-            var ft = $('.search-choose input[name="radio"]:checked ').val();
-            window.open('/search/home.html' + '?' + 'ft=' + ft + '&cond=' + encodeURIComponent(encodeURIComponent(topicName)));
+            // topicName = $('#scondition').val();
+            // var ft = $('.search-choose input[name="radio"]:checked ').val();
+            // window.open('/search/home.html' + '?' + 'ft=' + ft + '&cond=' + encodeURIComponent(encodeURIComponent(topicName)));
+            window.open('/search/home.html' + '?&cond=' + encodeURIComponent(encodeURIComponent(topicName)));
         });
     }
     // 判断是否是VIP用户

@@ -84,7 +84,7 @@ define(function (require, exports, module) {
             if($topBannerItem[0]){
                 trackEvent('NE037', 'recommenderModelView', 'view', {
                     recommendID:$topBannerItem.data('recommendid')+'_CL',
-                    recommendName:$topBannerItem.data('recommendname') + '_分类页'
+                    recommendName:$.data('recommendname') + '_分类页'
                 });
             }
             if($rightBannerItem[0]){
@@ -157,7 +157,7 @@ define(function (require, exports, module) {
             var recommendID = $this.data('recommendid');
             var recommendName = $this.data('recommendname');
             var recommendRecordID = $this.data('recommendrecordid');
-            var position = $this.index() + 1;
+            var postion = $this.index() + 1;
             var recommendContentTitle = $this.data('recommendcontenttitle');
             var recommendContentType = $this.data('recommendcontenttype');
             var recommendContentID = $this.data('recommendcontentid');
@@ -166,7 +166,7 @@ define(function (require, exports, module) {
                 recommendID:recommendID + '_CL',
                 recommendName:recommendName + '_分类页',
                 recommendRecordID:recommendRecordID,
-                position:position,
+                postion:postion,
                 recommendContentTitle:recommendContentTitle||'',
                 recommendContentType:recommendContentType,
                 recommendContentID:recommendContentID,
