@@ -23,7 +23,19 @@
                     <ul class="banner-list" id="J_office_banner">
                         {% for item in results.bannerList %}
                             <li>
-                                <a href="{{ item.linkUrl }}" target="_blank"><img src="{{ item.imagUrl }}"> </a>
+                                <a 
+                                   href="{{ item.linkUrl }}" 
+                                   target="_blank"
+                                   data-id="{{ item.id }}"
+                                   data-position="{{ loop.index0 + 1 }}"
+                                   data-title="{{ item.title }}"
+                                   data-type="{{ item.type }}"
+                                   data-contentid="{{ item.tprId }}"
+                                   data-url="{{ item.linkUrl }}"
+                                   class="JsBannerItem"
+                                >
+                                   <img src="{{ item.imagUrl }}"> 
+                                </a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -160,7 +172,19 @@
                         <div class="search-label cf">
                             {% for keywordItem in results.hotSearchWord %}
                                 <div class="label-ele">
-                                    <a href="{{ keywordItem.linkUrl }}" target="_blank" class="ele-text">{{ keywordItem.copywriting1 }}</a>
+                                    <a 
+                                        href="{{ keywordItem.linkUrl }}" 
+                                        target="_blank" 
+                                        class="ele-text JsKeyWordItem"
+                                        data-id="{{ keywordItem.id }}"
+                                        data-position="{{ loop.index0 + 1 }}"
+                                        data-title="{{ keywordItem.title or keywordItem.copywriting1 }}"
+                                        data-type="{{ keywordItem.type }}"
+                                        data-contentid="{{ keywordItem.tprId or keywordItem.linkUrl }}"
+                                        data-url="{{ keywordItem.linkUrl }}"
+                                    >
+                                        {{ keywordItem.copywriting1 }}
+                                    </a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -176,7 +200,17 @@
                 <div class="swiper-wrapper" style="width:{{ results.specialList.length*312 }}px">
                     {% for item in results.specialList %}
                         <div class="recommend-item swiper-slide">
-                            <a href="{{ item.linkUrl }}" target="_blank">
+                            <a 
+                                href="{{ item.linkUrl }}" 
+                                target="_blank"
+                                data-id="{{ item.id }}"
+                                data-position="{{ loop.index0 + 1 }}"
+                                data-title="{{ item.title }}"
+                                data-type="{{ item.type }}"
+                                data-contentid="{{ item.tprId }}"
+                                data-url="{{ item.linkUrl }}"
+                                class="JsRecommendItem"
+                            >
                                 <img src="{{ item.imagUrl }}">
                             </a>
                         </div>
@@ -200,7 +234,18 @@
                         <div class="content-list current">
                             {% for item in results.vipList %}
                                 <div class="list-item">
-                                    <a href="{{ item.linkUrl }}" style="display: block;" target="_blank">
+                                    <a 
+                                        href="{{ item.linkUrl }}" 
+                                        style="display: block;" 
+                                        target="_blank"
+                                        data-id="{{ item.id }}"
+                                        data-position="{{ loop.index0 + 1 }}"
+                                        data-title="{{ item.title }}"
+                                        data-type="{{ item.type }}"
+                                        data-contentid="{{ item.tprId }}"
+                                        data-url="{{ item.linkUrl }}"
+                                        class="JsVipFileItem"
+                                    >
                                         <div class="banner-frame fl">
                                             <img src="{% if item.imagUrl %}{{ item.imagUrl }} {% else %}{{ cdnUrl }}/images/default-picture.png{% endif %} " alt="">
                                             <i class="ico-type ico-{{ item.expand.format }}"></i>
@@ -269,10 +314,20 @@
                             </ul>
                         </div>
                         {% for item in results.recfileArr %}
-                            <div class="content-list {% if loop.index0==0 %}current{% endif %}">
+                            <div class="content-list {% if loop.index0==0 %}current{% endif %}" data-index="{{loop.index0 + 1}}">
                                 {% for subitem in item %}
                                     <div class="list-item">
-                                        <a target="_blank" href="{{ subitem.linkUrl }}">
+                                        <a 
+                                            target="_blank" 
+                                            href="{{ subitem.linkUrl }}"
+                                            data-id="{{ subitem.id }}"
+                                            data-position="{{ loop.index0 + 1 }}"
+                                            data-title="{{ subitem.title }}"
+                                            data-type="{{ subitem.type }}"
+                                            data-contentid="{{ subitem.tprId }}"
+                                            data-url="{{ subitem.linkUrl }}"
+                                            class="JsRecmondItem"
+                                        >
                                             <div class="banner-frame fl">
                                                 <img src="{% if subitem.imagUrl %}{{ subitem.imagUrl }}{% else %}{{ cdnUrl }}/images/default-picture.png{% endif %}" alt="">
                                                 <i class="ico-type ico-{{ subitem.expand.format }}"></i>
@@ -313,7 +368,17 @@
                         <div class="list-item {{ 'last-child' if loop.index ==4 }}">
                             <div class="list-content">
                                 <div class="avatar-frame">
-                                    <a href="{{ item.linkUrl }}" target="_blank">
+                                    <a 
+                                        href="{{ item.linkUrl }}" 
+                                        target="_blank"
+                                        data-id="{{ item.id }}"
+                                        data-position="{{ loop.index0 + 1 }}"
+                                        data-title="{{ item.title or item.copywriting1 }}"
+                                        data-type="{{ item.type }}"
+                                        data-contentid="{{ item.tprId or item.linkUrl }}"
+                                        data-url="{{ item.linkUrl }}"
+                                        class="JsOrganizeItem"
+                                    >
                                         <img src="{{ item.imagUrl }}" alt="">
                                     </a>
                                 </div>

@@ -329,7 +329,7 @@ module.exports = {
 
                     results.recfileArr = recfileArr;
                 }
-                // console.log(JSON.stringify(results.recfileArr), 'results------------------');
+                console.log(JSON.stringify(results), 'results------------------');
                 results.officeUrl = appConfig.officeUrl;
                 render('index/index', results, req, res, next);
             } catch (e) {
