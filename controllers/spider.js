@@ -72,29 +72,29 @@ function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
     }
 }
 
-// function getHotpotSearch(req, res, list, recommendInfo, userID) {
-//     const fileInfo = list.data.fileInfo || {};
-//     const recommendInfoDataRele = recommendInfo.data[1] || {}; // 相关资料
-//     if (recommendInfoDataRele.useId) {
-//         const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
-//         req.body = {
-//             request: {
-//                 'userId': userID,
-//                 'requestId': requestId,
-//                 'itemId': fileInfo.id,
-//                 'itemTitle': fileInfo.title
-//             }
-//         };
-//         const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
-//         return server.$http(url, 'post', req, res, true);
-//     } else {
-//         return {
-//             data: []
-//         };
-//     }
-// }
+function getHotpotSearch(req, res, list, recommendInfo, userID) {
+    const fileInfo = list.data.fileInfo || {};
+    const recommendInfoDataRele = recommendInfo.data[1] || {}; // 相关资料
+    if (recommendInfoDataRele.useId) {
+        const requestId = Math.random().toString().slice(-10); // requestID是用来标注推荐服务请求的ID，是长度范围在8~18位的随机字符串
+        req.body = {
+            request: {
+                'userId': userID,
+                'requestId': requestId,
+                'itemId': fileInfo.id,
+                'itemTitle': fileInfo.title
+            }
+        };
+        const url = `https://tianshu.4paradigm.com/api/v0/recom/recall?sceneID=${recommendInfoDataRele.useId}`;
+        return server.$http(url, 'post', req, res, true);
+    } else {
+        return {
+            data: []
+        };
+    }
+}
 
-function getHotpotSearch(req, res) {
+function getHotTopicSeo(req, res) {
     /**
      * @description: A28需求：替换接口：随机取1份20条规则4热门专题缓存数据
      * @param {
@@ -474,14 +474,14 @@ function handleSpiderData({
     // 对最新资料  推荐专题数据处理
 
     // results.hotTopicSearch = hotpotSearchData.slice(0, 20);
-    results.hotTopicSeo = hotpotSearchData.slice(-21);
+    // results.hotTopicSeo = hotpotSearchData.slice(-21);
 
     // console.log('hotTopicSearch', results.hotTopicSearch, 'dictionaryData', results.dictionaryData);
 
     // A25需求：pc主站蜘蛛页-热点搜索-专题入口逻辑处理
     // results.hotTopicSearch = formatSpacialLink(results.hotTopicSearch, results.dictionaryData);
     // A25需求：pc主站蜘蛛页-推荐专题-专题入口逻辑处理
-    results.hotTopicSeo = formatSpacialLink(results.hotTopicSeo, results.dictionaryData);
+    // results.hotTopicSeo = formatSpacialLink(results.hotTopicSeo, results.dictionaryData);
 
     // console.log('hotTopicSeo', results.hotTopicSeo);
 
@@ -526,40 +526,61 @@ const renderPage = cc(async (req, res, next) => {
     const editorInfo = {};
     const fileDetailTxt = await getFileDetailTxt(req, res);
     const recommendInfo = await getRecommendInfo(req, res, list);
-    let paradigm4Relevant = {
+    const paradigm4Relevant = {
         data: []
     }; // 防止没有数据
     let hotpotSearch = {
         data: []
     }; // 热门搜索  推荐专题
+    let hotRecData = {
+        data: []
+    };
+    let newsRec = {
+        data: []
+    };
+    let guessLikeList = {
+        data: []
+    };
+    let relevantList = {
+        data: []
+    };
+    let anchorText = {
+        data: []
+    };
+    let hotTopicSearch = {
+        data: []
+    };
+    let hotTopicSeo = {
+        data: []
+    };
     const paradigm4RelevantUseId = recommendInfo.data[0] && recommendInfo.data[0].useId;
-    // const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
-    if (paradigm4RelevantUseId) {
-        paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
-    }
-    // if (hotpotSearchUseId) {
-    //     hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID);
-
+    const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
+    // if (paradigm4RelevantUseId) {
+    //     paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
     // }
-    hotpotSearch = await getHotpotSearch(req, res);
+    if (hotpotSearchUseId) {
+        hotpotSearch = await getHotpotSearch(req, res, list, recommendInfo, userID);
+    }
+    hotTopicSeo = await getHotTopicSeo(req, res);
     // A28: 获取'热点搜索'数据列表
-    const hotTopicSearch = await getHotTopicSearch(req, res);
-    const hotTopicSeo = {};
-    const hotRecData = await getHotRecData(req, res);
-    const newsRec = await getNewsRec(req, res);
+    hotTopicSearch = await getHotTopicSearch(req, res);
+    // const hotTopicSeo = {};
+    hotRecData = await getHotRecData(req, res);
+    newsRec = await getNewsRec(req, res);
     // 获取字典数组
     const dictionaryData = await getDictionaryData(req, res);
     // A28: 获取'你可能还喜欢'数据列表
-    const guessLikeList = await getGuessLikeList(req, res);
+    guessLikeList = await getGuessLikeList(req, res);
     // A28: 获取'相关资料'数据列表
-    const relevantList = await getRelevantList(req, res);
+    relevantList = await getRelevantList(req, res);
     // A28: 获取蜘蛛详情页－锚文本数据列表
-    const anchorText = await getAnchorText(req, res);
+    anchorText = await getAnchorText(req, res);
 
     // console.log('newsRec', newsRec);
     // console.log('hotRecData', hotRecData);
-    // console.log('hotpotSearch', hotpotSearch);
+    // console.log('hotTopicSeo', hotTopicSeo);
     // console.log('anchorText', anchorText);
+    // console.log('hotpotSearch', hotpotSearch);
 
     handleSpiderData({
         req,

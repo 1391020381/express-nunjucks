@@ -125,7 +125,7 @@
                 </div>
                 <!-- 你可能还喜欢 -->
                 <div class="youlike-area mt20">
-                    {% if results.relevantList.data and results.relevantList.data.length %}
+                    {% if results.guessLikeList.data and results.guessLikeList.data.length %}
                     <h3>你可能还喜欢</h3>
                     <ul class="youlike-item">
                         {% for item in results.guessLikeList.data %}
@@ -177,8 +177,8 @@
                         </div>
                         <div class="switch_content_wrap">
                             <ul>
-                                {% if results.hotTopicSeo and results.hotTopicSeo.length %}
-                                {% for item in results.hotTopicSeo %}
+                                {% if results.hotTopicSeo.data and results.hotTopicSeo.data.length %}
+                                {% for item in results.hotTopicSeo.data %}
                                     <li>
                                         <!-- <a target="_blank" href="{{ item.nodeRouterUrl }}">{{ item.title|delType }}</a> -->
                                         <a href="{{ item.url }}">{{ item.name|delType }}</a>
