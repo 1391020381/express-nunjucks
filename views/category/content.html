@@ -1,292 +1,337 @@
 <div class="search-all-main">
-<div class="search-all-main-topbanner-container">
-    {% if results.topbannerList.length>0 %}
-    <div class="search-all-main-topbanner">
-        <ul class="swiper-container" id="J_categoty_banner">
-            {% for item in results.topbannerList %}
-            <li>
-                <a href="{{item.linkUrl}}" target="_blank">
-                    <img class="swiper-slide-img" src="{{item.imagUrl}}" alt="">
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        {#% if results.topbannerList.length>1 %}
-        <div class="office-focus" id="J_categoty_focus">
-            {%for item in results.topbannerList  %}
-            <a href="javascript:;" data-index="{{loop.index0}}"></a>
-            {%endfor%}
+    <div class="search-all-main-topbanner-container">
+        {% if results.topBanner.list.length>0 %}
+            <div class="search-all-main-topbanner">
+                <ul class="swiper-container" id="J_categoty_banner">
+                    {% for item in results.topBanner.list %}
+                        <li data-recommendid="{{ results.topBanner.recommendID }}" data-recommendname="{{ results.topBanner.recommendName }}" data-recommendrecordid="{{ item.recommendId }}" data-recommendcontenttitle="{{ item.title }}" data-recommendcontenttype="{{ item.type }}" data-recommendcontentid="{{ item.tprId }}" data-linkurl="{{ item.linkUrl }}">
+                            <a href="{{ item.linkUrl }}" target="_blank">
+                                <img class="swiper-slide-img" src="{{ item.imagUrl }}" alt=""></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
-        <!-- 左右切换banner -->
-        <a class="btn-banner btn-banner-prev" id="J_categoty_prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-        <a class="btn-banner btn-banner-next" id="J_categoty_next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-        {% endif %#}
-    </div>
-    {% endif %}
-</div>
-    <!--左边主体11-->
-    <div class="search-all-left fl">
-        <!-- 搜索条件 -->
-        <div class="search-condition">
-            <!--一级分类-->
-            <div class="category-select-con">
-               <div class="select-val-con js-nav-menu">
-                    {%for item in results.categoryTitle.data.level1%}
-                        {%if item.select == 1 %}
-                            {{item.name}}
-                        {%endif%}
-                    {% endfor %}
-                    <i></i>
-               </div>
-               <ul class="category-list-con">
-                {%for item in results.categoryTitle.data.level1%}
-                   <li><a href="/c/{{item.nodeCode}}/">{{item.name}}</a></li>
-                {% endfor %}
-               </ul>
-            </div>
-            <!--二级分类-->
-            <div class="search-item ">
-                {% if results.categoryTitle.data.level2.length%}
-                    <span class="search-title">分类：</span>
-                    {%for item in results.categoryTitle.data.level2%}
-                    {%if loop.index == 1 %}
-                    <a href="/c/{{item.fatherCode}}/"
-                        class="search-ele {%if item.fatherCode == results.reqParams.cid%} active {%endif%} ">全部</a>
-                    {%endif%}
-                    <a href="/c/{{item.nodeCode}}/" class="search-ele  {{ 'active' if item.select==1 }}">{{item.name}}</a>
+        <!--左边主体11-->
+        <div
+            class="search-all-left fl">
+            <!-- 搜索条件 -->
+            <div
+                class="search-condition">
+                <!--一级分类-->
+                <div class="category-select-con">
+                    <div class="select-val-con js-nav-menu">
+                        {% for item in results.categoryTitle.data.level1 %}
+                            {% if item.select == 1 %}
+                                {{ item.name }}
+                            {% endif %}
+                        {% endfor %}
+                        <i></i>
+                    </div>
+                    <ul class="category-list-con">
+                        {% for item in results.categoryTitle.data.level1 %}
+                            <li>
+                                <a href="/c/{{ item.nodeCode }}/" data-cid="{{ item.nodeCode }}" data-name="{{ item.name }}" data-level="0">{{ item.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!--二级分类-->
+                <div class="search-item ">
+                    {% if results.categoryTitle.data.level2.length %}
+                        <span class="search-title">分类：</span>
+                        {% for item in results.categoryTitle.data.level2 %}
+                            {% if loop.index == 1 %}
+                                <a
+                                    href="/c/{{ item.fatherCode }}/"
+                                    class="search-ele {% if item.fatherCode == results.reqParams.cid %} active {% endif %} ">全部</a>
+                            {% endif %}
+                            <a href="/c/{{ item.nodeCode }}/" class="search-ele  {{ 'active' if item.select==1 }}">{{ item.name }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <!--三级分类-->
+                {% if results.categoryTitle.data.level3.length %}
+                    <div class="search-item ">
+                        {% for item in results.categoryTitle.data.level2 %}
+                            {% if item.select == 1 %}
+                                <span class="search-title">{{ item.name }}：</span>
+                            {% endif %}
+                        {% endfor %}
+                        {% for item in results.categoryTitle.data.level3 %}
+                            {% if loop.index == 1 %}
+                                <a
+                                    href="/c/{{ item.fatherCode }}/"
+                                    class="search-ele {% if item.fatherCode== results.reqParams.cid %} active {% endif %} ">全部</a>
+                            {% endif %}
+                            <a href="/c/{{ item.nodeCode }}/" class="search-ele {{ 'active' if item.select == 1 }}">{{ item.name }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <!--四级分类-->
+                {% if results.categoryTitle.data.level4.length %}
+                    <div class="search-item ">
+                        {% for item in results.categoryTitle.data.level3 %}
+                            {% if item.select ==1 %}
+                                <span class="search-title">{{ item.name }}：</span>
+                            {% endif %}
+                        {% endfor %}
+                        {% for item in results.categoryTitle.data.level4 %}
+                            {% if loop.index ==1 %}
+                                <a
+                                    href="/c/{{ item.fatherCode }}/"
+                                    class="search-ele {% if item.fatherCode== results.reqParams.cid %} active {% endif %} ">全部</a>
+                            {% endif %}
+                            <a href="/c/{{ item.nodeCode }}/" class="search-ele {{ 'active' if item.select==1 }}">{{ item.name }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <!--五级分类-->
+                {% if results.categoryTitle.data.level5.length %}
+                    <div class="search-item ">
+                        {% for item in results.categoryTitle.data.level4 %}
+                            {% if item.select ==1 %}
+                                <span class="search-title">{{ item.name }}：</span>
+                            {% endif %}
+                        {% endfor %}
+                        {% for item in results.categoryTitle.data.level5 %}
+                            {% if loop.index ==1 %}
+                                <a
+                                    href="/c/{{ item.fatherCode }}/"
+                                    class="search-ele {% if item.fatherCode== results.reqParams.cid %} active {% endif %} ">全部</a>
+                            {% endif %}
+                            <a href="/c/{{ item.nodeCode }}/" class="search-ele {{ 'active' if item.select==1 }}">{{ item.name }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if results.categoryTitle.data.specificsInfos.length %}
+                    {% for item in results.categoryTitle.data.specificsInfos %}
+                        <div class="search-item">
+                            <span class="search-title">{{ item.name }}：</span>
+                            <a
+                                class="search-ele {% if item.select != 1 %} active {% endif %}"
+                                rel="nofollow"
+                                href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                all" }}_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}/{{ item.surl }}"
+                                style="margin-left:15px;">全部</a>
+                            {% for subitem in item.subSpecificsList %}
+                                <a
+                                    class="search-ele {% if subitem.select == 1 %} active {% endif %}"
+                                    rel="nofollow"
+                                    href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                    all" }}_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}/{{ subitem.surl }}">{{ subitem.name }}</a>
+                            {% endfor %}
+                        </div>
                     {% endfor %}
                 {% endif %}
+                <div class="search-item ">
+                    <span class="search-title">格式：</span>
+                    <a
+                        class="search-ele {% if 'all'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="all"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_all_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        全部</a>
+                    <a
+                        class="search-ele {% if 'doc'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="doc"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_doc_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        Word</a>
+                    <a
+                        class="search-ele {% if 'ppt'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="ppt"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_ppt_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        PPT</a>
+                    <a
+                        class="search-ele {% if 'pdf'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="pdf"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_pdf_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        PDF</a>
+                    <a
+                        class="search-ele {% if 'xls'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="xls"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_xls_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        Excel</a>
+                    <a
+                        class="search-ele {% if 'txt'== results.reqParams.fileType %} active {% endif %}"
+                        data-type="txt"
+                        rel="nofollow"
+                        href="/c/{{ results.reqParams.cid }}_txt_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                            results.reqParams.selectUrl }}">
+                        TXT</a>
+                </div>
+                <!-- 筛选内容切换 -->
+                <!-- <div class="search-screen">
+                    <span>更多筛选</span>
+                    <span class="screen-more"></span>
+                </div> -->
             </div>
-            <!--三级分类-->
-            {%if results.categoryTitle.data.level3.length%}
-            <div class="search-item ">
-                {%for item in results.categoryTitle.data.level2%}
-                {%if item.select == 1 %}
-                <span class="search-title">{{item.name}}：</span>
-                {%endif%}
-                {% endfor %}
-                {% for item in results.categoryTitle.data.level3 %}
-                    {%if loop.index == 1 %}
-                    <a href="/c/{{item.fatherCode}}/"
-                        class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
-                    {%endif%}
-                <a href="/c/{{item.nodeCode}}/" class="search-ele {{ 'active' if item.select == 1}}">{{item.name}}</a>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <!--四级分类-->
-            {%if results.categoryTitle.data.level4.length%}
-            <div class="search-item ">
-                {%for item in results.categoryTitle.data.level3%}
-                {%if item.select ==1 %}
-                <span class="search-title">{{item.name}}：</span>
-                {%endif%}
-                {% endfor %}
-                {% for item in results.categoryTitle.data.level4 %}
-                    {%if loop.index ==1 %}
-                    <a href="/c/{{item.fatherCode}}/"
-                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
-                    {%endif%}
-                <a href="/c/{{item.nodeCode}}/" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
-                {% endfor %}
-            </div>
-            {% endif %}
-             <!--五级分类-->
-            {%if results.categoryTitle.data.level5.length%}
-            <div class="search-item ">
-                {%for item in results.categoryTitle.data.level4%}
-                {%if item.select ==1 %}
-                <span class="search-title">{{item.name}}：</span>
-                {%endif%}
-                {% endfor %}
-                {% for item in results.categoryTitle.data.level5 %}
-                    {%if loop.index ==1 %}
-                    <a href="/c/{{item.fatherCode}}/"
-                            class="search-ele {%if item.fatherCode== results.reqParams.cid%} active {%endif%} ">全部</a>
-                    {%endif%}
-                <a href="/c/{{item.nodeCode}}/" class="search-ele {{ 'active' if item.select==1}}">{{item.name}}</a>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            {% if results.categoryTitle.data.specificsInfos.length  %}
-            {% for item in results.categoryTitle.data.specificsInfos %}
-            <div class="search-item">
-                <span class="search-title">{{item.name}}：</span>
-                <a class="search-ele {%if item.select != 1 %} active {%endif%}" rel="nofollow"
-                    href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}/{{item.surl}}" style="margin-left:15px;">全部</a>
-                {% for subitem in item.subSpecificsList%}
-                <a class="search-ele {%if subitem.select == 1 %} active {%endif%}" rel="nofollow"
-                    href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}/{{subitem.surl}}">{{subitem.name}}</a>
-                {%endfor%}
-            </div>
-            {%endfor%}
-            {%endif%}
-
-            <div class="search-item ">
-                <span class="search-title">格式：</span>
-                <a class="search-ele {%if 'all'== results.reqParams.fileType%} active {%endif%}" data-type="all"rel="nofollow" href="/c/{{results.reqParams.cid}}_all_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">全部</a>
-                <a class="search-ele {%if 'doc'== results.reqParams.fileType%} active {%endif%}" data-type="doc" rel="nofollow" href="/c/{{results.reqParams.cid}}_doc_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">Word</a>
-                <a class="search-ele {%if 'ppt'== results.reqParams.fileType%} active {%endif%}" data-type="ppt" rel="nofollow"   href="/c/{{results.reqParams.cid}}_ppt_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">PPT</a>
-                <a class="search-ele {%if 'pdf'== results.reqParams.fileType%} active {%endif%}" data-type="pdf" rel="nofollow"   href="/c/{{results.reqParams.cid}}_pdf_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">PDF</a>
-                <a class="search-ele {%if 'xls'== results.reqParams.fileType%} active {%endif%}" data-type="xls" rel="nofollow"   href="/c/{{results.reqParams.cid}}_xls_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">Excel</a>
-                <a class="search-ele {%if 'txt'== results.reqParams.fileType%} active {%endif%}" data-type="txt" rel="nofollow"  href="/c/{{results.reqParams.cid}}_txt_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectUrl}}">TXT</a>
-            </div>
-            <!-- 筛选内容切换 -->
-            <!-- <div class="search-screen">
-                <span>更多筛选</span>
-                <span class="screen-more"></span>
-            </div> -->
-        </div>
-
-        <!-- 搜索列表内容-->
-        <div class="search-list-con">
-            <div class="search-result js-sort">
-                <a href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.selectUrl}}" class="screen-ele {{'current' if  results.reqParams.sortField == '' or results.reqParams.sortField == undefined }} "
-                    value="">综合</a>
-                <a href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_downNum{{results.reqParams.selectUrl}}" class="screen-ele {{'current' if results.reqParams.sortField == 'downNum' }}" value="downNum">热门</a>
-                <a href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_createtime{{results.reqParams.selectUrl}}"  class="screen-ele {{'current' if results.reqParams.sortField == 'createtime' }}" value="createtime">最新</a>
-            </div>
-            <ul class="landing-txt-list">
-                {% for item in results.list.data.rows or []  %}
-                <li class="li-file pc_click permin-1" data-fileId="{{item.id}}" data-fileName="{{item.title}}" bilogContent='searchResult' data-index="{{loop.index}}">
-                    <div class="filepic fl">
-                        <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
-                        <img src="{% if item.fileSmallPic %}{{'http://pic.iask.com.cn/'+item.fileSmallPic if item.fileSmallPic}} {%else%} {{cdnUrl}}/images/default-picture.png {%endif%}" alt="">
-                        <i class="ico-data ico-{{item.format}}"></i>
-                         </a>
-                    </div>
-                    <div class="fl file-txt">
-                        <h4 class="data-name cf">
-                            <a class="sts_8" href="/f/{{item.id}}.html" target="_blank">
-                                <span class="desc fl">
-                                    {{ item.title|delType }}
-                                </span>
-
-                                {% if item.highQuality %}
-                                <span class="icon-selected"></span>
-                                {%endif%}
-
-                                {% if item.vipExclusive %}
-                                <span class="icon-vip"></span>
-                                {%endif%}
-                            </a>
-                        </h4>
-                        <div class="info-bar cf" style="height: auto;">
-                           {%if item.readNum%} <span class="bar-txt"><em>{{item.readNum}}</em>阅读</span> {%endif%}
-                            {%if item.totalPage%}<span class="bar-txt">共<em>{{item.totalPage}}</em>页</span>{%endif%}
+            <!-- 搜索列表内容-->
+            <div class="search-list-con">
+                <div class="search-result js-sort">
+                    <a
+                        href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                        all" }}_1_{{ results.reqParams.selectUrl }}"
+                        class="screen-ele {{ 'current' if  results.reqParams.sortField == '' or results.reqParams.sortField == undefined }} "
+                        value="">综合</a>
+                    <a
+                        href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                        all" }}_1_downNum{{ results.reqParams.selectUrl }}"
+                        class="screen-ele {{ 'current' if results.reqParams.sortField == 'downNum' }}"
+                        value="downNum">热门</a>
+                    <a
+                        href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                        all" }}_1_createtime{{ results.reqParams.selectUrl }}"
+                        class="screen-ele {{ 'current' if results.reqParams.sortField == 'createtime' }}"
+                        value="createtime">最新</a>
+                </div>
+                <ul class="landing-txt-list">
+                    {% for item in results.list.data.rows or [] %}
+                        <li class="li-file pc_click permin-1" data-fileId="{{ item.id }}" data-fileName="{{ item.title }}" bilogContent='searchResult' data-index="{{ loop.index }}">
+                            <div class="filepic fl">
+                                <a class="sts_8" href="/f/{{ item.id }}.html" target="_blank">
+                                    <img src="{% if item.fileSmallPic %}{{ 'http://pic.iask.com.cn/'+item.fileSmallPic if item.fileSmallPic }} {% else %} {{ cdnUrl }}/images/default-picture.png {% endif %}" alt="">
+                                        <i class="ico-data ico-{{ item.format }}"></i>
+                                    </a>
+                                </div>
+                                <div class="fl file-txt">
+                                    <h4 class="data-name cf">
+                                        <a class="sts_8" href="/f/{{ item.id }}.html" target="_blank">
+                                            <span class="desc fl">
+                                                {{ item.title|delType }}
+                                            </span>
+                                            {% if item.highQuality %}
+                                                <span class="icon-selected"></span>
+                                            {% endif %}
+                                            {% if item.vipExclusive %}
+                                                <span class="icon-vip"></span>
+                                            {% endif %}
+                                        </a>
+                                    </h4>
+                                    <div class="info-bar cf" style="height: auto;">
+                                        {% if item.readNum %}
+                                            <span class="bar-txt">
+                                                <em>{{ item.readNum }}</em>阅读</span>
+                                        {% endif %}
+                                        {% if item.totalPage %}
+                                            <span class="bar-txt">共<em>{{ item.totalPage }}</em>页</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if results.list == 'undefined' or results.list.data.rows.length === 0 %}
+                    <div class="search-nocontent">
+                        <img style="margin-left: 180px;" class="fl" src="{{ cdnUrl }}/images/personalCenter/mycollection-empty-data.png" alt="">
+                            <span class="fl" style="margin-top: 40px;font-size: 20px;margin-left: 10px;">抱歉,没有相关的文档。</span>
+                        </div>
+                    {% endif %}
+                    <!--分页-->
+                    {% if results.reqParams.pageIndexArr.length>1 %}
+                        <div class="office-page mt40">
+                            <a
+                                href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                all" }}_1_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{ results.reqParams.selectId }}"
+                                class="btn-page-long  {{ 'hide' if results.reqParams.currentPage==1 }}">首页</a>
+                            <a
+                                href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                all" }}_{{ results.reqParams.currentPage-1 }}_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                                    results.reqParams.selectId }}"
+                                class="btn-page  {{ 'hide' if results.reqParams.currentPage==1 }}">上一页</a>
+                            <span>
+                                {% for item in results.reqParams.pageIndexArr %}
+                                    {% if item == '···' %}
+                                        <span class="page-ele {{ 'active' if item == results.reqParams.currentPage }}" value="{{ item }}">{{ item }}</span>
+                                    {% else %}
+                                        <a href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else " all" }}_{{ item }}_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{ results.reqParams.selectId }}" class="page-ele   {{ 'active' if  item==results.reqParams.currentPage }}" value="{{ item }}">{{ item }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            {% if  results.reqParams.pageIndexArr.length>1 %}
+                                <a
+                                    href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                    all" }}_{{ results.reqParams.currentPage + 1 }}_{{ results.reqParams.sortField if results.reqParams.sortField else ''
+                                        }}{{ results.reqParams.selectId }}"
+                                    class="btn-page-long js-next-btn {{ 'hide' if results.reqParams.currentPage == results.reqParams.totalPages }}">
+                                    下一页
+                                </a>
+                                <a
+                                    href="/c/{{ results.reqParams.cid }}_{{ results.reqParams.fileType if results.reqParams.fileType else "
+                                    all" }}_{{ results.reqParams.totalPages }}_{{ results.reqParams.sortField if results.reqParams.sortField else '' }}{{
+                                        results.reqParams.selectId }}"
+                                    class="btn-page  {{ 'hide' if results.reqParams.currentPage == results.reqParams.totalPages }}">
+                                    尾页
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!--右边内容-->
+                <div class="fl" style="margin-left: 30px">
+                    <div class="landing-right fr">
+                        <div class="landing-search-hot">
+                            {% if results.righBanner.list.length>0 %}
+                                <div class="banner">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper" id="j-rightBanner">
+                                            {% for item in results.righBanner.list %}
+                                                <div class="swiper-slide" data-recommendid="{{ results.righBanner.recommendID }}" data-recommendname="{{ results.righBanner.recommendName }}" data-recommendrecordid="{{ item.recommendId }}" data-recommendcontenttitle="{{ item.title }}" data-recommendcontenttype="{{ item.type }}" data-recommendcontentid="{{ item.tprId }}" data-linkurl="{{ item.linkUrl }}">
+                                                    <a href="{{ item.linkUrl }}" target="_blank">
+                                                        <img src="{{ item.imagUrl }}" alt=""></a>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if results.zhuanti.list.length %}
+                                    <div class="topicBanner-con">
+                                        <h2>推荐专题</h2>
+                                        <ul>
+                                            {% for item in results.zhuanti.list %}
+                                                <li data-recommendid="{{ results.zhuanti.recommendID }}" data-recommendname="{{ results.zhuanti.recommendName }}" data-recommendrecordid="{{ item.recommendId }}" data-recommendcontenttitle="{{ item.title }}" data-recommendcontenttype="{{ item.type }}" data-recommendcontentid="{{ item.tprId }}" data-linkurl="{{ item.linkUrl }}">
+                                                    <a href="{{ item.linkUrl }}" target="_blank">
+                                                        <img src="{{ item.imagUrl }}" alt=""></a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                    {% if results.words.data.rows.length>2 %}
+                                        <div class="hot-key-word">
+                                            <h2 class="hot-title">热门搜索</h2>
+                                            <div class="landing-hot-list sts_5">
+                                                {% for item in results.words.data.rows %}
+                                                    <a href="{{ item.linkurl }}" target="_blank" data-topicname="{{ item.topicName }}">{{ item.topicName }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <div style="margin-top:11px;border-radius: 4px;overflow: hidden;">
+                                        <script>
+                                            (function () {
+                                                var s = "_" + Math
+                                                    .random()
+                                                    .toString(36)
+                                                    .slice(2);
+                                                document.write('<div id="' + s + '"></div>');
+                                                (window.slotbydup = window.slotbydup || []).push({id: 'u2985078', container: s, size: '310,350', display: 'inlay-fix'});
+                                            })();
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                </li>
-                {%endfor%}
-            </ul>
-        </div>
-        {% if results.list == 'undefined' or results.list.data.rows.length === 0 %}
-        <div class="search-nocontent" >
-            <img style="margin-left: 180px;" class="fl"
-                src="{{cdnUrl}}/images/personalCenter/mycollection-empty-data.png" alt="">
-            <span class="fl" style="margin-top: 40px;font-size: 20px;margin-left: 10px;">抱歉,没有相关的文档。</span>
-        </div>
-        {% endif %}
-
-        <!--分页-->
-        {%if results.reqParams.pageIndexArr.length>1%}
-        <div class="office-page mt40">
-            <a  href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_1_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectId }}" class="btn-page-long  {{'hide' if results.reqParams.currentPage==1}}">首页</a>
-            <a  href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_{{results.reqParams.currentPage-1}}_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectId}}"  class="btn-page  {{'hide' if results.reqParams.currentPage==1}}">上一页</a>
-            <span>
-                {%for item in results.reqParams.pageIndexArr  %}
-                    {% if item == '···'%}
-                    <span  class="page-ele {{'active' if item == results.reqParams.currentPage}}" value="{{item}}" >{{item}}</span>
-                    {%else%}
-                    <a  href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_{{item}}_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectId}}" class="page-ele   {{'active' if  item==results.reqParams.currentPage}}" value="{{item}}" >{{item}}</a>
-                    {%endif%}
-                {%endfor%}
-            </span>
-            {%if  results.reqParams.pageIndexArr.length>1 %}
-            <a  href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_{{results.reqParams.currentPage + 1}}_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectId}}"  class="btn-page-long js-next-btn {{'hide' if results.reqParams.currentPage == results.reqParams.totalPages}}">
-                下一页
-            </a>
-            <a  href="/c/{{results.reqParams.cid}}_{{results.reqParams.fileType if results.reqParams.fileType else "all"}}_{{results.reqParams.totalPages}}_{{results.reqParams.sortField if results.reqParams.sortField else ''}}{{results.reqParams.selectId}}" class="btn-page  {{'hide' if results.reqParams.currentPage == results.reqParams.totalPages}}">
-                尾页
-            </a>
-            {%endif%}
-        </div>
-        {%endif%}
-    </div>
-
-    <!--右边内容-->
-   <div class="fl" style="margin-left: 30px">
-        <div class="landing-right fr">
-        <div class="landing-search-hot">
-            {%if results.rightBannerList.length>0%}
-            <div class="banner">
-               <div class="swiper-container">
-                    <div class="swiper-wrapper" id="j-rightBanner">
-                        {% for item in results.rightBannerList %}
-                        <div class="swiper-slide">
-                            <a href="{{item.linkUrl}}" target="_blank">
-                                <img src="{{item.imagUrl}}" alt="">
-                            </a>
-                        </div>
-                        {%endfor%}
-                    </div>
-                    {#% if results.topbannerList.length>1 %}
-                    <div class="office-focus" id="J_right_focus">
-                        {%for item in results.topbannerList  %}
-                        <a href="javascript:;" data-index="{{loop.index0}}"></a>
-                        {%endfor%}
-                    </div>
-                    <!-- 左右切换banner -->
-                    <a class="btn-banner btn-banner-prev" id="J_right__prev"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-                    <a class="btn-banner btn-banner-next" id="J_right__next"><div class="btn-mask"></div><i class="arrow-btn"></i></a>
-                    {% endif %#}
-                </div>
-            </div>
-            {%endif%}
-            {% if results.zhuantiList.length%}
-            <div class="topicBanner-con">
-                <h2>推荐专题</h2>
-                <ul>
-                    {% for item in results.zhuantiList %}
-                    <li>
-                        <a href="{{item.linkUrl}}" target="_blank">
-                            <img src="{{item.imagUrl}}" alt="">
-                        </a>
-                    </li>
-                    {%endfor%}
-                </ul>
-            </div>
-            {%endif%}
-            {% if results.words.data.rows.length>2 %}
-            <div class="hot-key-word">
-                <h2 class="hot-title">热门搜索</h2>
-                <div class="landing-hot-list sts_5">
-                    {% for item in results.words.data.rows %}
-                    <a href="{{item.linkurl}}" target="_blank">{{item.topicName}}</a>
-                    {%endfor%}
-                </div>
-            </div>
-            {%endif %}
-            <div style="margin-top:11px;border-radius: 4px;overflow: hidden;">
-                <script>
-                    (function () {
-                        var s = "_" + Math.random().toString(36).slice(2);
-                        document.write('<div id="' + s + '"></div>');
-                        (window.slotbydup = window.slotbydup || []).push({
-                            id: 'u2985078',
-                            container: s,
-                            size: '310,350',
-                            display: 'inlay-fix'
-                        });
-                    })();
-                </script>
-            </div>
-        </div>
-    </div>
-
-
-   </div>
-
-</div>

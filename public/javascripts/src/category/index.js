@@ -24,6 +24,7 @@ define(function (require, exports, module) {
         },
         categoryBilog:function() {
             // 进入分类页时间戳
+            var that = this;
             var startTime = new Date().getTime();
             // 监听页面解绑事件
             $(window).on('unload', function () {
@@ -47,6 +48,10 @@ define(function (require, exports, module) {
                 tabID:window.pageConfig.params.idArr,
                 tabName:window.pageConfig.params.nameArr
             });
+            trackEvent('NE034', 'ctListModelView', 'click', {
+                tabID:window.pageConfig.params.idArr,
+                tabName:window.pageConfig.params.nameArr
+            });
             $('.landing-txt-list .li-file').on('click', function (event) {
                 trackEvent('NE008', 'goodsEntryClick', 'click', {
                     clID: window.pageConfig.params.idArr,
@@ -56,8 +61,114 @@ define(function (require, exports, module) {
                     goodsName: $(this).data('filename')
                 });
             });
+            // 顶部banner数据上报
+            $('.search-all-main-topbanner li').on('click', function(e){
+                that.recommendReport($(this));
+            });
+            // 右侧banner数据上报
+            $('.landing-search-hot .swiper-container .swiper-slide').on('click', function(){
+                that.recommendReport($(this));
+            });
+            // 右侧专题推荐数据上报
+            $('.topicBanner-con ul li', function(e){
+                that.recommendReport($(this));
+            });
+            // 热点搜索数据上报
+            $('.hot-key-word .landing-hot-list a').on('click', function(e){
+                var topicName = $(this).data('topicname');
+                trackEvent('NE037', 'recommenderModelView', 'view', {
+                    domID:'hotSearch_CL',
+                    domName:'热门搜索_' + topicName
+                });
+            });
+            // 推荐位曝光事件
+            var $topBannerItem = $('.search-all-main-topbanner-container .swiper-container li');
+            var $rightBannerItem = $('.landing-search-hot .swiper-slide');
+            var $recommendedTopics = $('.topicBanner-con ul li');
+            if($topBannerItem[0]){
+                trackEvent('NE037', 'recommenderModelView', 'view', {
+                    recommendID:$topBannerItem.data('recommendid')+'_CL',
+                    recommendName:$topBannerItem.data('recommendname') + '_分类页'
+                });
+            }
+            if($rightBannerItem[0]){
+                trackEvent('NE037', 'recommenderModelView', 'view', {
+                    recommendID:$rightBannerItem.data('recommendid')+'_CL',
+                    recommendName:$rightBannerItem.data('recommendname') + '_分类页'
+                });
+            }
+            if($recommendedTopics[0]){
+                trackEvent('NE037', 'recommenderModelView', 'view', {
+                    recommendID:$recommendedTopics.data('recommendid')+'_CL',
+                    recommendName:$recommendedTopics.data('recommendname') + '_分类页'
+                });
+            }
         },
-
+        // 分类点击埋点
+        ctListModelClick:function(cid, cname, level) {
+            var cidStr = pageConfig && pageConfig.idArr ? pageConfig.idArr : '';
+            var cnameStr = pageConfig && pageConfig.nameArr ? pageConfig.nameArr : '';
+            var cidList = cidStr.split('||');
+            var cnameList = cnameStr.split('||');
+            var tabIds = '';
+            var tabNames = '';
+            if (!level && level !== 0) {
+            // 点击分类下属性
+                tabIds = cidStr;
+                tabNames = cnameStr;
+            } else if (level === 0) {
+            // 点击分类根节点
+                tabIds = cid;
+                tabNames = '';
+            } else {
+            // 点击分类节点
+            // 点击已勾选节点的同级节点或父级节点
+            // 先获取父级勾选节点数据
+            // 再截取到他的前一层级
+                var parentCid = cidList[level - 1];
+                var parentCname = cnameList[level - 1];
+                if (level <= cidList.length) {
+                    cidList = cidList.splice(0, level - 1);
+                    cnameList = cnameList.splice(0, level - 1);
+                }
+                if (cid !== parentCid) {
+                    cidList.push(cid);
+                    cnameList.push(cname);
+                } else {
+                    cidList.push(parentCid);
+                    cnameList.push(parentCname);
+                }
+                tabIds = cidList.join('||');
+                tabNames = cnameList.join('||');
+            }
+            trackEvent('NE034', 'ctListModelClick', 'view', {
+            // 选中的tabID {tabID1}||{tabID2}||{tabID3}
+                tabID: tabIds,
+                // 选中的tabName  {tabName1}||{tabName2}||{tabName3}
+                tabName: tabNames
+            });
+        },
+        // 推荐位数据上报
+        recommendReport:function($this){
+            var recommendID = $this.data('recommendid');
+            var recommendName = $this.data('recommendname');
+            var recommendRecordID = $this.data('recommendrecordid');
+            var position = $this.index() + 1;
+            var recommendContentTitle = $this.data('recommendcontenttitle');
+            var recommendContentType = $this.data('recommendcontenttype');
+            var recommendContentID = $this.data('recommendcontentid');
+            var linkUrl = $this.data('linkurl');
+            trackEvent('NE038', 'recommenderModelView', 'view', {
+                recommendID:recommendID + '_CL',
+                recommendName:recommendName + '_分类页',
+                recommendRecordID:recommendRecordID,
+                position:position,
+                recommendContentTitle:recommendContentTitle||'',
+                recommendContentType:recommendContentType,
+                recommendContentID:recommendContentID,
+                linkUrl:linkUrl
+            });
+        },
         selectMenu: function () {
             $('.js-nav-menu').click(function (event) {
                 event.stopPropagation();

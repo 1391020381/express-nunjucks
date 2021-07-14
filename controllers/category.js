@@ -120,6 +120,7 @@ const getData = cc(async (req, res) => {
             friendLink: 'PC_M_FC_yqlj' // 友情链接
         };
         recommendList = await getRecommendList(req, res, categoryPage);
+        console.log('recommendList:', JSON.stringify(recommendList));
     }
     const list = await getList(req, res, categoryId, sortField, format, currentPage, specificsIdList);
     const tdk = await getTdk(req, res, categoryId, sIds);
@@ -337,13 +338,29 @@ function handleResultData(
     results.recommendList.data && results.recommendList.data.map(item => {
         if (item.pageId == categoryPage[topbannerId]) {
             // 顶部banner
-            results.topbannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || []; //
+            const topbannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || []; //
+            results.topBanner = {
+                recommendID:item.pageId,
+                recommendName:item.name,
+                list:topbannerList
+            };
+
         } else if (item.pageId == categoryPage[rightbannerId]) {
             // 右上banner
-            results.rightBannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+            const rightBannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+            results.righBanner = {
+                recommendID:item.pageId,
+                recommendName:item.name,
+                list:rightBannerList
+            };
         } else if (item.pageId == categoryPage[zhuantiId]) {
             // 专题
-            results.zhuantiList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+            const zhuantiList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+            results.zhuanti = {
+                recommendID:item.pageId,
+                recommendName:item.name,
+                list:zhuantiList
+            };
         } else if (item.pageId == categoryPage.friendLink) {
             // 友情链接
             results.friendLink = util.dealHref(item, dictionaryDataList).list || [];
@@ -355,14 +372,14 @@ function handleResultData(
     //     item.linkurl = '/node/s/' + item.specialTopicId + '.html';
     // });
 
-    const categoryTopic = results.words.data.rows
+    const categoryTopic = results.words.data.rows;
 
     // A25需求：pc主站-专题页热门搜索-专题入口逻辑处理
     if (categoryTopic && dictionaryDataList) {
         categoryTopic.forEach((categoryTopicItem, index) => {
-            console.log('categoryTopicItem', categoryTopicItem);
+            // console.log('categoryTopicItem', categoryTopicItem);
             const targetItem = dictionaryDataList.find(dictionaryItem => dictionaryItem.pcode === categoryTopicItem.templateCode);
-            console.log('targetItem', targetItem);
+            // console.log('targetItem', targetItem);
             if (targetItem) {
                 if (targetItem.order === 4) {
                     categoryTopic[index].linkurl = `${targetItem.pvalue}/${categoryTopicItem.id}.html`;
