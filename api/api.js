@@ -66,7 +66,8 @@ module.exports = {
     special: {
         findSpecialTopic: '/special/specialTopic/findSpecialTopic/$id', // 查询专题信息接口
         listTopicContents: '/special/specialTopicContent/listTopicContents', // 分页查询接口
-        specialTopic: '/search/specialTopic/lisPage' // 专题热点查询
+        specialTopic: '/search/specialTopic/lisPage', // 专题热点查询,
+        newRandomRecommend: '/seo/showContentCache/getRule' // A28: 获取晒内容&内链应用场景
     },
     tdk: {
         // 【A20接入新的tdk规则】

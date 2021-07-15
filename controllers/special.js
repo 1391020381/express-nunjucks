@@ -47,13 +47,30 @@ function getSpecialTopic(req, res, topicName) {
     };
     return server.$http(appConfig.apiNewBaselPath + api.special.specialTopic, 'post', req, res);
 }
-
+function getHotTopicSeo(req, res) {
+    /**
+     * @description: A28需求：替换接口：随机取1份20条规则4热门专题缓存数据
+     * @param {
+     *  group: 组，取缓存多个组,
+     *  rule: 规则1-6
+     * }
+     * @return {
+     *  name: 关键字,
+     *  url: url
+     * }
+     */
+    req.body = {
+        group: 1,
+        rule: 4
+    };
+    return server.$http(appConfig.apiNewBaselPath + api.special.newRandomRecommend, 'post', req, res, true);
+}
 function getRecommendList(req, res) {
     req.body = [util.pageIds.special.friendLink];
     return server.$http(appConfig.apiNewBaselPath + api.index.recommendList, 'post', req, res);
 }
 
-function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid) {
+function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid, hotTopicSeo) {
     const data = detail.data || {};
     // 处理tag标签选中
     let dimlist = {};
@@ -117,9 +134,11 @@ function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDa
     }
     const canonicalUrl = paramsObj.currentPage > 1 ? `${req.templateCodeType}/${paramsObj.specialTopicId}.html` : '';
     _.set(listData, 'data.tdk', tdkData);
+    // console.log('hotTopicSeo:', JSON.stringify(hotTopicSeo));
     const results = {
         data: data,
         list: listData,
+        hotTopicSeo:hotTopicSeo&&hotTopicSeo.data||[],
         specialTopic: specialTopic,
         pageIndexArr: pageIndexArr,
         urlParams: paramsObj,
@@ -180,7 +199,6 @@ function handleThemeModel({
     }
 }
 const renderPage = cc(async (req, res) => {
-    console.log('req.mulu:', req.mulu);
     const {
         data: themeModelData
     } = await getThemeModel(req, res);
@@ -225,7 +243,7 @@ const renderPage = cc(async (req, res) => {
         keywords: topicName + ',' + topicName + '下载'
     };
 
-
+    const hotTopicSeo = await getHotTopicSeo(req, res);
     const specialData = await getSpecialTopic(req, res, detail.data.topicName);
     const specialTopic = specialData.data && specialData.data.rows || [];
     const dictionaryDataList = dictionaryData.data;
@@ -256,7 +274,7 @@ const renderPage = cc(async (req, res) => {
         // 友情链接
         recommendList = util.dealHref(item, dictionaryDataList).list || [];
     });
-    handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid);
+    handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid, hotTopicSeo);
 });
 
 
