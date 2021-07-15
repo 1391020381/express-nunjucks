@@ -307,21 +307,23 @@ function getHotRecData(req, res) {
 // A28: SEO-锚文本增加流程
 function dealContent(content, fileContentList, anchorText) { // 分割字符串 替换字符串
     const arr = [];
-    const textLength = Math.ceil(content.length / fileContentList.length);
+    let matchNum = 1;
+    // A28: 非空处理
+    const textLength = content && fileContentList ? Math.ceil(content.length / fileContentList.length) : 0;
     const selectHotSearch = []; // 保存匹配过的专题
-    fileContentList && fileContentList.map((dto, i) => {
+    fileContentList && fileContentList.forEach((dto, i) => {
         let text = content.substring(i * textLength, textLength * (i + 1));
-        anchorText.data && anchorText.data.map((item, index) => {
+        anchorText.data && anchorText.data.forEach(item => {
             const reg = new RegExp(item.word, 'i');
             let replaceStr = '';
             const ret = reg.test(text);
             // 匹配成功
-            if (ret && selectHotSearch.indexOf(item.word) == -1) {
+            if (ret && selectHotSearch.indexOf(item.word) == -1 && matchNum <= 5) {
                 let keywordListHtml = '';
                 let newKeywordList = '';
                 if (item.objList && item.objList.length > 0) {
                     // 关键词拼接
-                    item.objList.map((keywordItem, keywordIndex) => {
+                    item.objList.forEach((keywordItem, keywordIndex) => {
                         if (keywordIndex < 5) {
                             keywordListHtml += `<span class="keyWordItem"><a class="keyWordText" href="${keywordItem.url}" target="_blank">${keywordItem.name}</a></span>`;
                         }
@@ -331,6 +333,7 @@ function dealContent(content, fileContentList, anchorText) { // 分割字符串 
                 }
                 selectHotSearch.push(item.word); // 已匹配过
                 text = text.replace(item.word, replaceStr);
+                matchNum++;
             }
         });
         arr.push({
@@ -581,6 +584,7 @@ const renderPage = cc(async (req, res, next) => {
     // console.log('hotTopicSeo', hotTopicSeo);
     // console.log('anchorText', anchorText);
     // console.log('hotpotSearch', hotpotSearch);
+    // console.log('relevantList', relevantList);
 
     handleSpiderData({
         req,

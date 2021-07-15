@@ -199,8 +199,12 @@ module.exports = {
                         results.categoryList.data = preContent;
                     }
                 }
+                // A28: 非空处理
                 if (results.hotTopicSeo && results.hotTopicSeo.data) {
                     results.topicPagtotal = results.hotTopicSeo.data.length;
+                } else {
+                    results.hotTopicSeo = {};
+                    results.hotTopicSeo.data = [];
                 }
                 // A25需求：pc主站-首页热门专题-专题入口逻辑处理
                 // if (results.hotTopicSeo.data && results.dictionaryData.data) {
@@ -225,13 +229,20 @@ module.exports = {
                 //     });
                 //     // console.log('results.hotTopicSeo.data', results.hotTopicSeo.data);
                 // }
-                // console.log('hotRecData', results.hotRecData.data, results.hotRecData.data.length);
+                // A28: 非空处理
                 if (results.newsRec && results.newsRec.data) {
-                    console.log('results.newsRec', results.newsRec, results.newsRec.data.length);
+                    // console.log('results.newsRec', results.newsRec, results.newsRec.data.length);
                     results.newPagetotal = results.newsRec.data.length;
                 } else {
                     results.newsRec = {};
                     results.newsRec.data = [];
+                }
+                // A28: 非空处理
+                if (results.hotRecData && results.hotRecData.data) {
+                    results.hotRecPagetotal = results.hotRecData.data.length;
+                } else {
+                    results.hotRecData = {};
+                    results.hotRecData.data = [];
                 }
                 if (results.tdk && results.tdk.data) {
                     results.list = {};
