@@ -565,6 +565,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  padding-left: 21px;
   height: 51px;
   line-height: 51px;
   text-align: left;
