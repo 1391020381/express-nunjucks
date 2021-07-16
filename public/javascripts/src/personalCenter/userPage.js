@@ -44,7 +44,7 @@ define(function(require, exports, module) {
         $(document).on('click', '.hot-file ul li', function () {
             var itemId = $(this).data('id');
             var fileName = $(this).data('filename');
-            var saleType = $(this).data('saleType');
+            var saleType = $(this).data('saletype');
             var fileCategoryID = $(this).data('filecategoryid');
             var fileCategoryName = $(this).data('filecategoryname');
             paradigm4Report.eventReport(itemId, paradigm4GuessData, recommendInfoItem);
