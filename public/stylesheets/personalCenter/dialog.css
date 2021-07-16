@@ -231,30 +231,16 @@
 }
 .personal-center-dialog .bind-phonenumber-dialog .dialog-btn {
   padding-top: 47px;
-  padding-left: 54px;
 }
 .personal-center-dialog .bind-phonenumber-dialog .dialog-btn .confirm-btn {
   display: inline-block;
-  width: 140px;
+  width: 350px;
   height: 40px;
   line-height: 40px;
   font-size: 15px;
   color: #FFFFFF;
   text-align: center;
   background: #f25226;
-  border-radius: 2px;
-  cursor: pointer;
-}
-.personal-center-dialog .bind-phonenumber-dialog .dialog-btn .cancel-btn {
-  margin-right: 10px;
-  display: inline-block;
-  width: 140px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 15px;
-  color: #F25226;
-  text-align: center;
-  border: 1px solid #f25226;
   border-radius: 2px;
   cursor: pointer;
 }

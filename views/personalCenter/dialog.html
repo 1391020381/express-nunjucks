@@ -1,10 +1,11 @@
 <!--弹框-->
 <div class="dialog" id="dialog-box">
-<!--遮罩层 start-->
-<div id="bgMask" class="common-bgMask"></div></div>
+    <!--遮罩层 start-->
+    <div id="bgMask" class="common-bgMask"></div>
+</div>
 <!-- 个人中心 上传确认删除dialog -->
 <script type="text/template" id="myuploads-delete-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
 
         <div class="delete-tip-dialog">
@@ -13,15 +14,14 @@
             <div class="dialog-btn">
                 <span class="confirm-btn">确定</span>
                 <span class="cancel-btn">取消</span>
-        </div>
+            </div>
         </div>
     </div>
 </script>
 
-
 <!-- 个人中心 账号与安全 身份认证dialog -->
 <script type="text/template" id="identity-authentication-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
 
         <div class="identity-authentication-dialog">
@@ -33,7 +33,7 @@
             </div>
             <div class="dialog-btn">
                 <span class="authentication-btn">确定</span>
-        </div>
+            </div>
         </div>
     </div>
 </script>
@@ -41,7 +41,7 @@
 <!-- 个人中心 账号与安全 绑定手机号dialog -->
 
 <script type="text/template" id="bind-phonenumber-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="bind-phonenumber-dialog">
             <div class="title" data-isTHirdAuthorization="$isTHirdAuthorization">绑定手机号</div>
@@ -57,16 +57,15 @@
                 </li>
             </ul>
             <div class="dialog-btn">
-                 <span class="cancel-btn">取消</span><span class="confirm-btn confirm-binding">确认绑定</span>
-        </div>
+                <span class="confirm-btn confirm-binding">确认绑定</span>
+            </div>
         </div>
     </div>
 </script>
 
-
 <!-- 个人中心 账号与安全 设置/修改密码dialog -->
 <script type="text/template" id="set-change-password-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
 
         <div class="set-change-password-dialog">
@@ -88,22 +87,21 @@
             </ul>
             <div class="dialog-btn">
                 <span class="submit-btn set-change-password">确定</span>
-        </div>
+            </div>
         </div>
     </div>
 </script>
 
-
 <!-- 个人中心 账号与安全 解除绑定账号dialog -->
 <script type="text/template" id="unbind-account-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
 
         <div class="unbind-account-dialog">
             <div class="title" data-isTHirdAuthorization="$isTHirdAuthorization">确定要解除绑定吗？</div>
-            <div class="subtitle">解除绑定后，再次使用被解绑的账号登录时会生成新的账号</div> 
+            <div class="subtitle">解除绑定后，再次使用被解绑的账号登录时会生成新的账号</div>
             <div class="dialog-btn">
-                 <span class="confirm-btn unbind-btn">确定</span>
+                <span class="confirm-btn unbind-btn">确定</span>
                 <span class="cancel-btn">取消</span>
             </div>
             <div class="dialog-tip unbind-account-btn">为保证账号安全，请先绑定手机号 <span>立即绑定</span></div>
@@ -111,10 +109,9 @@
     </div>
 </script>
 
-
 <!-- 个人中心 我的钱包提示dialog -->
 <script type="text/template" id="mywallet-tip-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="mywallet-tip-dialog">
             <div class="title">系统升级公告</div>
@@ -126,59 +123,65 @@
 
 <!-- 个人中心 第三方授权dialog -->
 
-
-
 <script type="text/template" id="thirdparty-authorization-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="thirdparty-authorization-dialog">
-             <iframe src="$thirdpartyAuthorizationSrc"  sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
-               <p>您的浏览器不支持iframe 标签。</p>
-           </iframe>
+            <iframe src="$thirdpartyAuthorizationSrc"  sandbox="allow-forms allow-scripts allow-same-origin allow-popups">
+                <p>您的浏览器不支持iframe 标签。</p>
+            </iframe>
         </div>
     </div>
 </script>
 
-
-
 <!-- 个人中心 我的钱包提现申请dialog -->
 
 <script type="text/template" id="withdrawal-application-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="withdrawal-application-dialog">
-             <div class="withdrawal-application-title">
-                 <span class="title-icon"></span>
-                 <span class="title-desc">提现申请</span>
-                 <span class="title-subdesc">提现审核通过后次月初打款</span>
-             </div>
-             <div class="withdrawal-application-from">
+            <div class="withdrawal-application-title">
+                <span class="title-icon"></span>
+                <span class="title-desc">提现申请</span>
+                <span class="title-subdesc">提现审核通过后次月初打款</span>
+            </div>
+            <div class="withdrawal-application-from">
                 <div class="withdrawal-amount">
-                    <span class="withdrawal-amount-title"><em>*</em>提现金额 :</span>
-                     <input class="amount" type="text" /> 
-                     {#  <span class="amount"></span>#}
+                    <span class="withdrawal-amount-title">
+                        <em>*</em>提现金额 :</span>
+                    <input class="amount" type="text"/>
+                    {#  <span class="amount"></span>#}
                     {# <span class="full-withdrawal">全部提现</span> #}
                     <span class="full-withdrawal-tip">（不含退款保证金）</span>
-                    <p class="withholding-tax tax" ><span>代扣税  :</span> <span class="holdingTaxPrice">0</span>元</p>
-                    <p class="turnover-tax tax"><span>流转税  :</span> <span class="transferTax">0</span>元</p>
-                    <p class="actual-receipt tax"><span>预计实际到账  :</span> <span class="receivedAmount">0</span>元 <span class="tax-explanation-icon"></span><a class="tax-explanation-desc" href="https://iask.sina.com.cn/helpCenter/5f45c81a474e31015362e2b6.html" target="_blank">税费说明</a></p>
+                    <p class="withholding-tax tax" >
+                        <span>代扣税  :</span>
+                        <span class="holdingTaxPrice">0</span>元</p>
+                    <p class="turnover-tax tax">
+                        <span>流转税  :</span>
+                        <span class="transferTax">0</span>元</p>
+                    <p class="actual-receipt tax">
+                        <span>预计实际到账  :</span>
+                        <span class="receivedAmount">0</span>元 <span class="tax-explanation-icon"></span>
+                        <a class="tax-explanation-desc" href="https://iask.sina.com.cn/helpCenter/5f45c81a474e31015362e2b6.html" target="_blank">税费说明</a>
+                    </p>
                 </div>
                 <div class="invoice">
-                   <div class="invoice-title"><em>*</em>发票 :</div>
+                    <div class="invoice-title">
+                        <em>*</em>发票 :</div>
                     <p class="invoic-tip">
-                    <span class="invoic-tip-icon"></span>
-                    <a class="invoic-tip-desc" href="https://iask.sina.com.cn/helpCenter/5f448231474e31015362e189.html" target="_blank">开票须知</a>
+                        <span class="invoic-tip-icon"></span>
+                        <a class="invoic-tip-desc" href="https://iask.sina.com.cn/helpCenter/5f448231474e31015362e189.html" target="_blank">开票须知</a>
                     </p>
                     <div class="invoice-label">
-                         <label class="electronic-invoice" for="electronic-invoice-radio">
-                        <input id="electronic-invoice-radio" class="invoice-radio" checked name="invoice" type="radio" value="0"/>
-                        <span class="invoice-icon"></span>电子发票 
+                        <label class="electronic-invoice" for="electronic-invoice-radio">
+                            <input id="electronic-invoice-radio" class="invoice-radio" checked name="invoice" type="radio" value="0"/>
+                            <span class="invoice-icon"></span>电子发票 
                     </label>
-                    <label class="paper-invoice" for="paper-invoice-radio">
-                        <input id="paper-invoice-radio" class="invoice-radio" name="invoice" type="radio" value="1"/>
-                        <span class="invoice-icon"></span>邮寄纸质发票（先拍照后上传后邮寄）
+                        <label class="paper-invoice" for="paper-invoice-radio">
+                            <input id="paper-invoice-radio" class="invoice-radio" name="invoice" type="radio" value="1"/>
+                            <span class="invoice-icon"></span>邮寄纸质发票（先拍照后上传后邮寄）
                     </label>
-                    
+
                     </div>
                 </div>
                 <div class="img-preview">
@@ -190,25 +193,22 @@
                     <span class="cancel-btn">取消</span>
                 </div>
                 <p class="withdrawal-application-dialog-tip">请务必提供提现金额所对应的发票信息，否则将无法进行提现</p>
-             </div>
+            </div>
         </div>
     </div>
 
 </script>
 
-
-
-
 <!-- 我的钱包导出明细 -->
 <script type="text/template" id="send-email-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
 
         <div class="container send-email-dialog">
             <div class="title">
                填写接收邮箱
             </div>
- <div class="sub-title">
+            <div class="sub-title">
                 明细将在几分钟内发送到你的邮箱
             </div>
             <div class="form-list">
@@ -227,7 +227,7 @@
 </script>
 <!--个人中心 请先完善财务信息dialog -->
 <script type="text/template" id="go2FinanceAccount-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="go2FinanceAccount-dialog">
             <div class="title">请先完善财务信息</div>
@@ -236,11 +236,9 @@
     </div>
 </script>
 
-
-
 <!--个人中心 编辑财务信息dialog -->
 <script type="text/template" id="editFinanceAccount-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="go2FinanceAccount-dialog">
             <div class="title">30天内只能修改一次，确定要保存吗</div>
@@ -252,10 +250,12 @@
 
 <!-- 我的VIP取消自动续费 -->
 <script type="text/template" id="cancelAutomaticRenewal-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="cancelAutomaticRenewal-dialog">
-            <div class="title" data-id="$id"><span class="title-desc desc">会员到期后您将失去专属特权，</span><span class="title-subdesc desc">确定取消自动续费吗 ？</span></div>
+            <div class="title" data-id="$id">
+                <span class="title-desc desc">会员到期后您将失去专属特权，</span>
+                <span class="title-subdesc desc">确定取消自动续费吗 ？</span></div>
             <span class="cancelAutomaticRenewal-btn cancelAutomaticRenewal-cancel">残忍取消</span>
             <span class="cancelAutomaticRenewal-btn cancelAutomaticRenewal-confirm">保留续费</span>
         </div>
@@ -264,7 +264,7 @@
 
 <!-- 我的下载评价 -->
 <script type="text/template" id="evaluation-dialog">
-     <div class="personal-center-dialog">
+    <div class="personal-center-dialog">
         <i class="close-btn"></i>
         <div class="evaluation-dialog">
                 $content
@@ -275,9 +275,8 @@
 <!-- 领取优惠券 -->
 
 <script type="text/template" id="getcoupon-dialog">
-     <div class="personal-center-dialog" style="background-color: transparent;">
+    <div class="personal-center-dialog" style="background-color: transparent;">
         <i class="close-btn" ></i>
         <div class="getcoupon-dialog">$content</div>
     </div>
 </script>
-
