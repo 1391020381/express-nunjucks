@@ -304,41 +304,114 @@ function getHotRecData(req, res) {
 //     return arr;
 // }
 
-// A28: SEO-锚文本增加流程
+/**
+ * @description: A28: SEO-锚文本增加流程
+ * @param {*} content  文本内容 --> Array
+ * @param {*} fileContentList  图片内容 --> Array
+ * @param {*} anchorText  词根内容 --> Array
+ * @return {*}
+ */
 function dealContent(content, fileContentList, anchorText) { // 分割字符串 替换字符串
-    const arr = [];
+    let arr = [];
     let matchNum = 1;
+    let textLength = 0;
     // A28: 非空处理
-    const textLength = content && fileContentList ? Math.ceil(content.length / fileContentList.length) : 0;
+    if (content && fileContentList) {
+        textLength = Math.ceil(content.length / fileContentList.length);
+    }
     const selectHotSearch = []; // 保存匹配过的专题
-    fileContentList && fileContentList.forEach((dto, i) => {
-        let text = content.substring(i * textLength, textLength * (i + 1));
+    const keywordArr = []; // 已匹配词根数组
+    const matchArr = []; // 已匹配的特殊字段数组
+    if (content && fileContentList) {
+        fileContentList.forEach((dto, i) => {
+            let text = content.substring(i * textLength, textLength * (i + 1));
+            anchorText.data && anchorText.data.forEach(item => {
+                const reg = new RegExp(item.word, 'i');
+                let replaceStr = '';
+                const ret = reg.test(text);
+                // 匹配成功
+                if (ret && selectHotSearch.indexOf(item.word) == -1 && matchNum <= 5) {
+                    console.log('selectHotSearch', selectHotSearch, 'item.word', item.word, selectHotSearch.indexOf(item.word));
+                    const time = Date.parse(new Date());
+                    replaceStr = `${time}_matchNum${matchNum}`;
+                    selectHotSearch.push(item.word); // 已匹配过
+                    keywordArr.push(item);
+                    matchArr.push(replaceStr);
+                    text = text.replace(item.word, replaceStr);
+                    matchNum++;
+                }
+            });
+            arr.push({
+                img: dto,
+                txt: text
+            });
+        });
+    } else if (!fileContentList) {
         anchorText.data && anchorText.data.forEach(item => {
             const reg = new RegExp(item.word, 'i');
             let replaceStr = '';
-            const ret = reg.test(text);
+            const ret = reg.test(content);
             // 匹配成功
             if (ret && selectHotSearch.indexOf(item.word) == -1 && matchNum <= 5) {
+                const time = Date.parse(new Date());
+                replaceStr = `${time}_matchNum${matchNum}`;
+                selectHotSearch.push(item.word); // 已匹配过
+                keywordArr.push(item);
+                matchArr.push(replaceStr);
+                content = content.replace(item.word, replaceStr);
+                matchNum++;
+            }
+        });
+        arr.push({
+            img: '',
+            txt: content
+        });
+    }
+    // console.log('selectHotSearch', selectHotSearch);
+    // console.log('keywordArr', keywordArr);
+    // console.log('matchArr', matchArr);
+    // console.log('arr', arr);
+    arr = keywordFormat(arr, keywordArr, matchArr);
+    return arr;
+}
+
+/**
+ * @description: A28: 处理文字词根拼接
+ * @param {*} contentArr 内容数组
+ * @param {*} keywordArr 词根数组
+ * @param {*} matchArr 特殊字段数组
+ * @return {*}
+ */
+function keywordFormat(contentArr, keywordArr, matchArr) {
+    const selectHotSearch = []; // 保存匹配过的专题
+    const arr = [];
+    contentArr && contentArr.forEach(item => {
+        matchArr && matchArr.forEach((sItem, index) => {
+            const reg = new RegExp(sItem, 'i');
+            let replaceStr = '';
+            const ret = reg.test(item.txt);
+            // 匹配成功
+            if (ret && selectHotSearch.indexOf(keywordArr[index].word) == -1) {
+                console.log('keywordArr[index]', keywordArr[index]);
                 let keywordListHtml = '';
                 let newKeywordList = '';
-                if (item.objList && item.objList.length > 0) {
+                if (keywordArr[index].objList && keywordArr[index].objList.length > 0) {
                     // 关键词拼接
-                    item.objList.forEach((keywordItem, keywordIndex) => {
+                    keywordArr[index].objList.forEach((keywordItem, keywordIndex) => {
                         if (keywordIndex < 5) {
                             keywordListHtml += `<span class="keyWordItem"><a class="keyWordText" href="${keywordItem.url}" target="_blank">${keywordItem.name}</a></span>`;
                         }
                     });
                     newKeywordList = `<span class="keyWordListBox">${keywordListHtml}</span>`;
-                    replaceStr = `<span class="keyWordBox"><a class="keyWordHref" href="${item.objList[0].url}" target="_blank">${item.word}</a>${newKeywordList}</span>`;
+                    replaceStr = `<span class="keyWordBox"><a class="keyWordHref" href="${keywordArr[index].objList[0].url}" target="_blank">${keywordArr[index].word}</a>${newKeywordList}</span>`;
                 }
-                selectHotSearch.push(item.word); // 已匹配过
-                text = text.replace(item.word, replaceStr);
-                matchNum++;
+                selectHotSearch.push(keywordArr[index].word); // 已匹配过
+                item.txt = item.txt.replace(sItem, replaceStr);
             }
         });
         arr.push({
-            img: dto,
-            txt: text
+            img: item.img,
+            txt: item.txt
         });
     });
     return arr;
@@ -525,8 +598,8 @@ const renderPage = cc(async (req, res, next) => {
     }
     const crumbList = await getCrumbList(req, res, list);
 
-    const editorInfo = await getEditorInfo(req, res, list);
-    // const editorInfo = {};
+    // const editorInfo = await getEditorInfo(req, res, list);
+    const editorInfo = {};
     const fileDetailTxt = await getFileDetailTxt(req, res);
     const recommendInfo = await getRecommendInfo(req, res, list);
     const paradigm4Relevant = {
@@ -557,7 +630,7 @@ const renderPage = cc(async (req, res, next) => {
         data: []
     };
     const paradigm4RelevantUseId = recommendInfo.data[0] && recommendInfo.data[0].useId;
-    const hotpotSearchUseId = recommendInfo.data[1]&&recommendInfo.data[1].useId;
+    const hotpotSearchUseId = recommendInfo.data[1] && recommendInfo.data[1].useId;
     // if (paradigm4RelevantUseId) {
     //     paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
     // }

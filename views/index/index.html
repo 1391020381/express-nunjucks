@@ -492,7 +492,8 @@
                     </ul>
                     <ul class="tab">
                         {% for item in results.hotRecData.data %}
-                            {% if loop.index0 + 1 == 20 %}
+                            {# A28：推荐信息不展示tab #}
+                            {% if loop.index0 + 1 == 21 %}
                                 <li class="tab-item item-active">
                                     <span>1-20</span>
                                 </li>
@@ -556,7 +557,8 @@
                 </ul>
                 <ul class="tab">
                     {% for item in results.hotTopicSeo.data %}
-                        {% if loop.index0 + 1 == 20 %}
+                        {# A28：热门专题不展示tab #}
+                        {% if loop.index0 + 1 == 21 %}
                             <li class="tab-item item-active">
                                 <span>1-20</span>
                             </li>
