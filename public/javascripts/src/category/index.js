@@ -110,8 +110,10 @@ define(function (require, exports, module) {
         },
         // 分类点击埋点
         ctListModelClick:function(cid, cname, level) {
-            var cidStr = pageConfig && pageConfig.idArr ? pageConfig.idArr : '';
-            var cnameStr = pageConfig && pageConfig.nameArr ? pageConfig.nameArr : '';
+            var pageConfig = window.pageConfig || {};
+            var params = pageConfig.params || {};
+            var cidStr = params.idArr ? params.idArr : '';
+            var cnameStr =params.nameArr ? params.nameArr : '';
             var cidList = cidStr.split('||');
             var cnameList = cnameStr.split('||');
             var tabIds = '';

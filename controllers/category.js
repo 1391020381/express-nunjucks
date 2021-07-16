@@ -165,8 +165,8 @@ function dealCategoryTitle(cateData){
         }
     });
     return {
-        idArr:idArr.join('|'),
-        nameArr:nameArr.join('|')
+        idArr:idArr.join('||'),
+        nameArr:nameArr.join('||')
     };
 }
 
