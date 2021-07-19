@@ -57,7 +57,7 @@ define(function (require) {
         });
     }
 
-    $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_personality']).then(function (recommendConfig) {
+    $ajax(api.recommend.recommendConfigInfo, 'post', {pageIds:['ishare_personality']}).then(function (recommendConfig) {
         if (recommendConfig.code == '0'&&recommendConfig.data&&recommendConfig.data.length) {
             var sceneID = recommendConfig.data[0].useId;
             var paradigm4GuessRecommendConfig = $.extend({}, recommendConfig.data[0], { requestId: requestId });

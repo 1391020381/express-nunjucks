@@ -149,7 +149,7 @@ define(function (require) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.mydownloadBanner.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.mydownloadBanner.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

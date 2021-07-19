@@ -114,17 +114,23 @@ function getList(req, res) {
 }
 
 function getTopBannerList(req, res) {
-    req.body = recommendConfigInfo.details.topBanner.pageId;
+    req.body = {
+        pageIds:recommendConfigInfo.details.topBanner.pageId
+    };
     return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getRightBannerList(req, res) {
-    req.body = recommendConfigInfo.details.rightToBanner.pageId;
+    req.body = {
+        pageIds:recommendConfigInfo.details.rightToBanner.pageId
+    };
     return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getSearchBannerList(req, res) {
-    req.body = recommendConfigInfo.details.searchBanner.pageId;
+    req.body = {
+        pageIds:recommendConfigInfo.details.searchBanner.pageId
+    };
     return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
@@ -132,7 +138,9 @@ function getBannerList(req, res, list) {
     const format = list.data.fileInfo.format;
     const classid1 = list.data.fileInfo.classid1;
     const classid2 = list.data.fileInfo.classid2;
-    req.body = dealParam(format, classid1, classid2);
+    req.body = {
+        pageIds:dealParam(format, classid1, classid2)
+    };
     return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 

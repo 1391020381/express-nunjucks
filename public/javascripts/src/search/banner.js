@@ -36,7 +36,7 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.search.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.search.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

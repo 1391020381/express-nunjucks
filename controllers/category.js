@@ -184,7 +184,9 @@ function getRecommendList(req, res, categoryPage) {
     for (const k in categoryPage) {
         params.push(categoryPage[k]);
     }
-    req.body = params;
+    req.body = {
+        pageIds:params
+    };
     return server.$http(appConfig.apiNewBaselPath + api.recommend.configInfo2, 'post', req, res, true);
 }
 

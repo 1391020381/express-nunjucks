@@ -8,7 +8,7 @@ const render = require('../common/render');
 const api = require('../api/api');
 const util = require('../common/util');
 const appConfig = require('../config/app-config');
-const request = require('request');
+
 
 module.exports = {
     render: function (res, req, next) {
@@ -18,7 +18,9 @@ module.exports = {
                 for (const k in util.pageIds.index) {
                     params.push(util.pageIds.index[k]);
                 }
-                req.body = params;
+                req.body = {
+                    pageIds:params
+                };
                 server.post(appConfig.apiNewBaselPath + api.recommend.configInfo2, callback, req);
             },
             tdk: function (callback) {
@@ -255,7 +257,7 @@ module.exports = {
                 }
                 // 推荐位处理数
                 results.contentList = [];
-                //  console.log(JSON.stringify(results),'results------------------contentList')
+                console.log(JSON.stringify(results.recommendList), 'results------------------contentList');
                 if (results.recommendList&&results.recommendList.data.length) {
                     const recfileArr = []; // 精选资料
                     const dictionaryDataList = results.dictionaryData.data;

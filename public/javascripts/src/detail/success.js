@@ -419,7 +419,7 @@ define(function (require, exports, module) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.downSuccess.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.downSuccess.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

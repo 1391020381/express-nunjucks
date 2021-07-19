@@ -596,7 +596,7 @@ define(function (require, exports, moudle) {
             $.ajax({
                 url: api.recommend.recommendConfigInfo,
                 type: 'POST',
-                data: JSON.stringify(['PC_M_H_xfbanner']),
+                data: JSON.stringify({pageIds:['PC_M_H_xfbanner']}),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (res) {

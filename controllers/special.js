@@ -66,7 +66,9 @@ function getHotTopicSeo(req, res) {
     return server.$http(appConfig.apiNewBaselPath + api.special.newRandomRecommend, 'post', req, res, true);
 }
 function getRecommendList(req, res) {
-    req.body = [util.pageIds.special.friendLink];
+    req.body = {
+        pageIds: [util.pageIds.special.friendLink]
+    };
     return server.$http(appConfig.apiNewBaselPath + api.recommend.configInfo2, 'post', req, res);
 }
 

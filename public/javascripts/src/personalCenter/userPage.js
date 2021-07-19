@@ -62,7 +62,7 @@ define(function(require, exports, module) {
     }
 
     function recommend() { // 推荐位 第四范式
-        $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_personality']).then(function (res) {
+        $ajax(api.recommend.recommendConfigInfo, 'post', {pageIds:['ishare_personality']}).then(function (res) {
             if (res.code == '0'&&res.data&&res.data.length) {
                 paradigm4Relevant(res.data);
             } else {

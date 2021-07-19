@@ -233,7 +233,7 @@ define(function (require) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.personalCenterHome.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.personalCenterHome.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
@@ -277,7 +277,7 @@ define(function (require) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.myVipRightsList.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.myVipRightsList.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

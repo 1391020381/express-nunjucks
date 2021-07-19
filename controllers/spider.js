@@ -47,7 +47,9 @@ function getFileDetailTxt(req, res) {
 
 
 function getRecommendInfo(req, res) {
-    req.body = ['ishare_zhizhu_relevant', 'ishare_zhizhu_zhuanti'];
+    req.body = {
+        pageIds:['ishare_zhizhu_relevant', 'ishare_zhizhu_zhuanti']
+    };
     return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 

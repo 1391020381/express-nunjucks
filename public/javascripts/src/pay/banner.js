@@ -35,7 +35,7 @@ define(function (require) {
         $.ajax({
             url: api.recommend.recommendConfigInfo,
             type: 'POST',
-            data: JSON.stringify(recommendConfigInfo.paySuccess.pageIds),
+            data: JSON.stringify({pageIds:recommendConfigInfo.paySuccess.pageIds}),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {

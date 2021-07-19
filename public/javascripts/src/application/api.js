@@ -62,7 +62,6 @@ define(function (require, exports, module) {
             sendmail: gateway + '/content/sendmail/findFile'
 
         },
-        officeFileDetail: {},
         search: {
             specialTopic: gateway + '/search/specialTopic/lisPage' // 专题热点查询
         },

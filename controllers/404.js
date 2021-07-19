@@ -16,7 +16,9 @@ module.exports = {
                 const opt = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + Api.recommend.configInfo2,
-                    body: JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
+                    body: JSON.stringify({
+                        pageIds:recommendConfigInfo.details.searchBanner.pageId
+                    }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
