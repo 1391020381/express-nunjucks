@@ -67,7 +67,7 @@ function getHotTopicSeo(req, res) {
 }
 function getRecommendList(req, res) {
     req.body = [util.pageIds.special.friendLink];
-    return server.$http(appConfig.apiNewBaselPath + api.index.recommendList, 'post', req, res);
+    return server.$http(appConfig.apiNewBaselPath + api.recommend.configInfo2, 'post', req, res);
 }
 
 function handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid, hotTopicSeo) {
@@ -270,10 +270,12 @@ const renderPage = cc(async (req, res) => {
 
     let recommendList = [];
     const recommendListData = await getRecommendList(req, res);
-    recommendListData.data && recommendListData.data.map(item => {
-        // 友情链接
-        recommendList = util.dealHref(item, dictionaryDataList).list || [];
-    });
+    if(recommendListData.data&&recommendListData.data.length){
+        recommendListData.data.forEach(item => {
+            // 友情链接
+            recommendList = util.dealHref(item, dictionaryDataList).list || [];
+        });
+    }
     handleDataResult(req, res, detail, listData, specialTopic, dictionaryDataList, paramsObj, tdkData, recommendList, uid, hotTopicSeo);
 });
 

@@ -15,7 +15,8 @@ function getUserCentreInfo(req, res) {
 
 function getRightsVipMemberDetail(req, res) {
     req.body = {
-        memberCodeList: ['PREVILEGE_NUM', 'PAY_DISCOUNT']
+        memberCodeList: ['PREVILEGE_NUM', 'PAY_DISCOUNT'],
+        siteList:[appConfig.site]
     };
     return server.$http(appConfig.apiNewBaselPath + api.coupon.getVipAllMemberDetail, 'post', req, res, true);
 }

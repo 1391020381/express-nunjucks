@@ -600,7 +600,7 @@ define(function (require, exports, moudle) {
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (res) {
-                    if (res.code == '0') {
+                    if (res.code == '0'&&res.data&&res.data.length) {
                         console.log('getBannerbyPosition:', res);
                         var list = method.handleRecommendData(res.data[0].list, dictionaryData);
                         /* ***************************** 【A28首页埋点功能】 ************************* */

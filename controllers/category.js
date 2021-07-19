@@ -120,7 +120,7 @@ const getData = cc(async (req, res) => {
             friendLink: 'PC_M_FC_yqlj' // 友情链接
         };
         recommendList = await getRecommendList(req, res, categoryPage);
-        console.log('recommendList:', JSON.stringify(recommendList));
+        // console.log('recommendList:', JSON.stringify(recommendList));
     }
     const list = await getList(req, res, categoryId, sortField, format, currentPage, specificsIdList);
     const tdk = await getTdk(req, res, categoryId, sIds);
@@ -185,7 +185,7 @@ function getRecommendList(req, res, categoryPage) {
         params.push(categoryPage[k]);
     }
     req.body = params;
-    return server.$http(appConfig.apiNewBaselPath + api.category.recommendList, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getList(req, res, categoryId, sortField, format, currentPage, specificsIdList) {
@@ -335,38 +335,39 @@ function handleResultData(
     const rightbannerId = 'rightbanner';
     const zhuantiId = 'zhuanti';
     const dictionaryDataList = dictionaryData.data;
-    results.recommendList.data && results.recommendList.data.map(item => {
-        if (item.pageId == categoryPage[topbannerId]) {
-            // 顶部banner
-            const topbannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || []; //
-            results.topBanner = {
-                recommendID:item.pageId,
-                recommendName:item.name,
-                list:topbannerList
-            };
+    if(results.recommendList.data&&results.recommendList.data.length){
+        results.recommendList.data.forEach(item => {
+            if (item.pageId == categoryPage[topbannerId]) {
+                // 顶部banner
+                const topbannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || []; //
+                results.topBanner = {
+                    recommendID:item.pageId,
+                    recommendName:item.name,
+                    list:topbannerList
+                };
 
-        } else if (item.pageId == categoryPage[rightbannerId]) {
-            // 右上banner
-            const rightBannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
-            results.righBanner = {
-                recommendID:item.pageId,
-                recommendName:item.name,
-                list:rightBannerList
-            };
-        } else if (item.pageId == categoryPage[zhuantiId]) {
-            // 专题
-            const zhuantiList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
-            results.zhuanti = {
-                recommendID:item.pageId,
-                recommendName:item.name,
-                list:zhuantiList
-            };
-        } else if (item.pageId == categoryPage.friendLink) {
-            // 友情链接
-            results.friendLink = util.dealHref(item, dictionaryDataList).list || [];
-        }
-    });
-
+            } else if (item.pageId == categoryPage[rightbannerId]) {
+                // 右上banner
+                const rightBannerList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+                results.righBanner = {
+                    recommendID:item.pageId,
+                    recommendName:item.name,
+                    list:rightBannerList
+                };
+            } else if (item.pageId == categoryPage[zhuantiId]) {
+                // 专题
+                const zhuantiList = util.handleRecommendData(item.list || [], dictionaryDataList).list || [];
+                results.zhuanti = {
+                    recommendID:item.pageId,
+                    recommendName:item.name,
+                    list:zhuantiList
+                };
+            } else if (item.pageId == categoryPage.friendLink) {
+                // 友情链接
+                results.friendLink = util.dealHref(item, dictionaryDataList).list || [];
+            }
+        });
+    }
     // 热点搜索
     // results.words.data && results.words.data.rows.map(item => {
     //     item.linkurl = '/node/s/' + item.specialTopicId + '.html';

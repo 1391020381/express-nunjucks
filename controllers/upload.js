@@ -15,7 +15,7 @@ module.exports = {
             geSearchBannerList:function(callback){
                 const opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    url: appConfig.apiNewBaselPath + Api.recommend.configInfo2,
                     body:JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
                     headers: {
                         'Content-Type': 'application/json'
@@ -24,12 +24,12 @@ module.exports = {
                 request(opt, (err, res1, body) => {
                     if(body){
                         const data = JSON.parse(body);
-                        console.log('请求地址post-------------------:', opt.url);
-                        console.log('请求参数-------------------:', opt.body);
-                        console.log('返回code------:'+data.code, '返回message-------:'+data.message);
                         if (data.code == 0 ){
-                            // console.log('getTopBannerList:',data)
-                            callback(null, util.handleRecommendData(data.data[0]&&data.data[0].list||[]));
+                            let recommendList = [];
+                            if(data.data&&data.data.length){
+                                recommendList = util.handleRecommendData(data.data[0] && data.data[0].list || []);
+                            }
+                            callback(null, recommendList);
                         }else{
                             callback(null, null);
                         }

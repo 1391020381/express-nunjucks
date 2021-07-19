@@ -115,17 +115,17 @@ function getList(req, res) {
 
 function getTopBannerList(req, res) {
     req.body = recommendConfigInfo.details.topBanner.pageId;
-    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getRightBannerList(req, res) {
     req.body = recommendConfigInfo.details.rightToBanner.pageId;
-    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getSearchBannerList(req, res) {
     req.body = recommendConfigInfo.details.searchBanner.pageId;
-    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getBannerList(req, res, list) {
@@ -133,7 +133,7 @@ function getBannerList(req, res, list) {
     const classid1 = list.data.fileInfo.classid1;
     const classid2 = list.data.fileInfo.classid2;
     req.body = dealParam(format, classid1, classid2);
-    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigRuleInfo, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getCrumbList(req, res, list) {
@@ -222,17 +222,17 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
 
         });
     }
-    if (topBannerList.data) {
+    if (topBannerList.data&&topBannerList.data.length) {
         if (req.cookies.isHideDetailTopbanner) {
             topBannerList = [];
         } else {
             topBannerList = util.handleRecommendData(topBannerList.data[0] && topBannerList.data[0].list || [], dictionaryDataList);
         }
     }
-    if (searchBannerList.data) {
+    if (searchBannerList.data&&searchBannerList.data.length) {
         searchBannerList = util.handleRecommendData(searchBannerList.data[0] && searchBannerList.data[0].list || [], dictionaryDataList);
     }
-    if(rightTopBanner&&rightTopBanner.data){
+    if(rightTopBanner.data&&rightTopBanner.data.length){
         const tempList = util.handleRecommendData(rightTopBanner.data[0]&&rightTopBanner.data[0].list||[], dictionaryDataList);
         const classId = categoryIdList&&categoryIdList.length?categoryIdList[categoryIdList.length-1].nodeCode:'';
         console.log('classId:', classId, JSON.stringify(rightTopBanner));
@@ -243,14 +243,13 @@ function handleDetalData({ req, res, redirectUrl, list, dictionaryData, topBanne
             }
         });
     }
-    if (bannerList.data) {
+    if (bannerList.data&&bannerList.data.length) {
         const detailBannerList = {
             'rightBottomBanner': [],
             'titleBottomBanner': [],
             'turnPageOneBanner': [],
             'turnPageTwoBanner': []
         };
-        console.log('bannerList.data', bannerList.data);
         bannerList.data.forEach(item => {
             detailBannerList[item.id] = util.handleRecommendData(item.fileRecommend && item.fileRecommend.list || [], dictionaryDataList);
         });

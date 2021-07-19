@@ -47,7 +47,8 @@ module.exports = {
                     method: 'POST',
                     url: appConfig.apiNewBaselPath + api.coupon.getVipAllMemberDetail,
                     body: JSON.stringify({
-                        memberCodeList: ['PREVILEGE_NUM', 'PAY_DISCOUNT']
+                        memberCodeList: ['PREVILEGE_NUM', 'PAY_DISCOUNT'],
+                        siteList:[appConfig.site]
                     }),
                     headers: {
                         'Content-Type': 'application/json',

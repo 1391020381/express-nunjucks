@@ -19,7 +19,7 @@ module.exports = {
                     params.push(util.pageIds.index[k]);
                 }
                 req.body = params;
-                server.post(appConfig.apiNewBaselPath + api.index.recommendList, callback, req);
+                server.post(appConfig.apiNewBaselPath + api.recommend.configInfo2, callback, req);
             },
             tdk: function (callback) {
                 req.body = {
@@ -256,7 +256,7 @@ module.exports = {
                 // 推荐位处理数
                 results.contentList = [];
                 //  console.log(JSON.stringify(results),'results------------------contentList')
-                if (results.recommendList) {
+                if (results.recommendList&&results.recommendList.data.length) {
                     const recfileArr = []; // 精选资料
                     const dictionaryDataList = results.dictionaryData.data;
                     results.recommendList.data && results.recommendList.data.map(item => {

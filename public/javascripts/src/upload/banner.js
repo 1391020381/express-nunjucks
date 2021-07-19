@@ -38,7 +38,7 @@ define(function (require, exports, module){
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
-                if(res.code == '0'){
+                if(res.code == '0'&&res.data&&res.data.length){
                     $(res.data).each(function(index, item){ // 匹配 组装数据
                         $(recommendConfigInfo.myUploadBanner.descs).each(function(index, desc){
                             if(item.pageId == desc.pageId){

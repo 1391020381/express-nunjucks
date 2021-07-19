@@ -423,42 +423,14 @@ define(function (require, exports, module) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
-                if (res.code == '0') {
-                    console.log('gebyPosition:', JSON.stringify(res));
-                    // res.data.forEach(function(item){  // 匹配 组装数据
-                    //     recommendConfigInfo.downSuccess.descs.forEach(function(desc){
-                    //         if(item.pageId == desc.pageId){
-                    //             desc.list = method.handleRecommendData(item.list)
-                    //         }
-                    //     })
-                    // })
+                if (res.code == '0'&&res.data&&res.data.length) {
                     $(res.data).each(function (index, item) {
-                        // recommendConfigInfo.downSuccess.descs.forEach(function(desc){
-                        //     if(item.pageId == desc.pageId){
-                        //         desc.list = method.handleRecommendData(item.list)
-                        //     }
-                        // })
                         $(recommendConfigInfo.downSuccess.descs).each(function (index, desc) {
                             if (item.pageId == desc.pageId) {
                                 desc.list = method.handleRecommendData(item.list, dictionaryData);
                             }
                         });
                     });
-                    console.log(recommendConfigInfo);
-                    // recommendConfigInfo.downSuccess.descs.forEach(function(item){
-                    //     if(item.list.length){
-                    //         if(item.pageId == 'PC_M_DOWN_SUC_banner'){ // search-all-main-bottombanner
-                    //             console.log(item.list,'item.list-------------------')
-                    //             var _bottomBannerHtml = template.compile(topBnnerTemplate)({ topBanner: item.list ,className:'swiper-top-container' });
-                    //             $(".down-success-banner").html(_bottomBannerHtml);
-                    //             var mySwiper = new Swiper('.swiper-top-container', {
-                    //                 direction: 'horizontal',
-                    //                 loop: item.list.length>1 ? true : false,
-                    //                 autoplay: 3000,
-                    //             })
-                    //         }
-                    //     }
-                    // })
                     $(recommendConfigInfo.downSuccess.descs).each(function (index, item) {
                         if (item.list.length) {
                             if (item.pageId == 'PC_M_DOWN_SUC_banner') { // search-all-main-bottombanner

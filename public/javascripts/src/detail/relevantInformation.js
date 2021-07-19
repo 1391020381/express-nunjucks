@@ -49,7 +49,7 @@ define(function (require) {
     }
 
     $ajax(api.recommend.recommendConfigInfo, 'post', ['ishare_pc_relevant']).then(function (recommendConfig) {
-        if (recommendConfig.code == '0') {
+        if (recommendConfig.code == '0'&&recommendConfig.data&&recommendConfig.data.length) {
             var sceneID = recommendConfig.data[0].useId;
             var relevantInformationRecommendConfig = $.extend({}, recommendConfig.data[0], { requestId: requestId });
             if (sceneID) {

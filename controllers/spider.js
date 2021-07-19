@@ -48,7 +48,7 @@ function getFileDetailTxt(req, res) {
 
 function getRecommendInfo(req, res) {
     req.body = ['ishare_zhizhu_relevant', 'ishare_zhizhu_zhuanti'];
-    return server.$http(appConfig.apiNewBaselPath + Api.recommendConfigInfo, 'post', req, res, true);
+    return server.$http(appConfig.apiNewBaselPath + Api.recommend.configInfo2, 'post', req, res, true);
 }
 
 function getParadigm4Relevant(req, res, list, recommendInfo, userID) {
@@ -628,8 +628,14 @@ const renderPage = cc(async (req, res, next) => {
     let hotTopicSeo = {
         data: []
     };
-    const paradigm4RelevantUseId = recommendInfo.data[0] && recommendInfo.data[0].useId;
-    const hotpotSearchUseId = recommendInfo.data[1] && recommendInfo.data[1].useId;
+    let paradigm4RelevantUseId = '';
+    let hotpotSearchUseId = '';
+    if(recommendInfo.data&&recommendInfo.data.length){
+        paradigm4RelevantUseId = recommendInfo.data[0] && recommendInfo.data[0].useId;
+    }
+    if(recommendInfo.data&&recommendInfo.data.length>=2){
+        hotpotSearchUseId = recommendInfo.data[1] && recommendInfo.data[1].useId;
+    }
     // if (paradigm4RelevantUseId) {
     //     paradigm4Relevant = await getParadigm4Relevant(req, res, list, recommendInfo, userID);
     // }

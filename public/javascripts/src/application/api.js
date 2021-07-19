@@ -59,8 +59,7 @@ define(function (require, exports, module) {
             // 文件预览判断接口
             // 【A20新文件预览判断接口】
             getPrePageInfo: gateway + '/content/getPreRead',
-            sendmail: gateway + '/content/sendmail/findFile',
-            getFileDetailNoTdk: gateway + '/content/getFileDetailNoTdk'
+            sendmail: gateway + '/content/sendmail/findFile'
 
         },
         officeFileDetail: {},
@@ -122,8 +121,7 @@ define(function (require, exports, module) {
             batchDeleteUserFile: gateway + '/content/batchDeleteUserFile' // 用户批量删除自己文件接口
         },
         recommend: {
-            recommendConfigInfo: gateway + '/recommend/config/info',
-            recommendConfigRuleInfo: gateway + '/recommend/config/ruleInfo'
+            recommendConfigInfo: gateway + '/recommend/config/info2'
         },
         reportBrowse: {
             fileBrowseReportBrowse: gateway + '/content/fileBrowse/reportBrowse'

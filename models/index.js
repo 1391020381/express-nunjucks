@@ -107,10 +107,8 @@ module.exports = {
             let opt = '';
             method === 'get' ? opt = this.getPaymentType(req, url, '', append) : opt = this.postPaymentType(req, url, '');
             request(opt, (error, response, body) => {
-                // console.log('$http---------:',opt.url,error,body)
                 const is4paradigm = opt.url.includes('4paradigm.com');
-                // const isGetFileDetailNoTdk = opt.url.includes('/content/getFileDetailNoTdk');
-                const isGetFileDetailNoTdk = opt.url.includes(Api.file.getFileDetailNoTdk);
+                const isGetFileDetailNoTxt = opt.url.includes(Api.file.getFileDetailNoTxt);
                 if (body) {
                     try {
                         let data = body;
@@ -118,7 +116,7 @@ module.exports = {
                             data = JSON.parse(body);
 
                         }
-                        if (isGetFileDetailNoTdk && data.code == 'G-404' || is4paradigm) { // 非标准判断
+                        if (isGetFileDetailNoTxt && data.code == 'G-404' || is4paradigm) { // 非标准判断
                             resolve(data);
                         } else {
                             if (data.code == 0) {

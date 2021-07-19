@@ -41,7 +41,7 @@ define(function (require, exports, module) {
             dataType: 'json',
             success: function (res) {
                 // console.log('res', res);
-                if (res.code == '0') {
+                if (res.code == '0'&&res.data&&res.data.length) {
                     res.data.forEach(function (item) { // 匹配 组装数据
                         recommendConfigInfo.search.descs.forEach(function (desc) {
                             if (item.pageId == desc.pageId) {

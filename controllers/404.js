@@ -15,7 +15,7 @@ module.exports = {
             geSearchBannerList: function (callback) {
                 const opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.recommendConfigInfo,
+                    url: appConfig.apiNewBaselPath + Api.recommend.configInfo2,
                     body: JSON.stringify(recommendConfigInfo.details.searchBanner.pageId),
                     headers: {
                         'Content-Type': 'application/json'
@@ -25,7 +25,11 @@ module.exports = {
                     if (body) {
                         const data = JSON.parse(body);
                         if (data.code == 0) {
-                            callback(null, util.handleRecommendData(data.data[0] && data.data[0].list || []));
+                            let recommendList = [];
+                            if(data.data&&data.data.length){
+                                recommendList = util.handleRecommendData(data.data[0] && data.data[0].list || []);
+                            }
+                            callback(null, recommendList);
                         } else {
                             callback(null, null);
                         }

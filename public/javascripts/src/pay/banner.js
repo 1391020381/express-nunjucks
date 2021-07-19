@@ -39,7 +39,7 @@ define(function (require) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (res) {
-                if (res.code == '0') {
+                if (res.code == '0'&&res.data&&res.data.length) {
                     res.data.forEach(function (item) { // 匹配 组装数据
                         recommendConfigInfo.paySuccess.descs.forEach(function (desc) {
                             if (item.pageId == desc.pageId) {
@@ -47,7 +47,6 @@ define(function (require) {
                             }
                         });
                     });
-                    console.log(recommendConfigInfo);
                     recommendConfigInfo.paySuccess.descs.forEach(function (k) {
                         if (k.list.length) {
                             if (k.pageId == 'PC_M_PAY_SUC_banner') { // search-all-main-bottombanner

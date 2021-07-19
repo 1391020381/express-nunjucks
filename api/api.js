@@ -63,9 +63,6 @@ module.exports = {
     recommend:{ // 推荐服务相关接口
         configInfo2:'/recommend/config/info2'
     },
-    recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
-    recommendConfigRuleInfo: '/recommend/config/ruleInfo',
-    recommendConfigInfo: '/recommend/config/info',
     special: {
         findSpecialTopic: '/special/specialTopic/findSpecialTopic/$id', // 查询专题信息接口
         listTopicContents: '/special/specialTopicContent/listTopicContents', // 分页查询接口
@@ -80,7 +77,6 @@ module.exports = {
     category: {// 分类页
         list: '/search/content/byCondition', // 查询列表
         words: '/search/specialTopic/lisPage', // 热点搜索
-        recommendList: '/recommend/config/info', // 推荐位
         navForCpage: '/market/nodeManage/getLevelNodeByNodeCode' // 分类导航
     },
     map: {// 地图
@@ -103,7 +99,6 @@ module.exports = {
 
     },
     index: {
-        recommendList: '/recommend/config/info', // 推荐位
         navList: '/market/nodeManage/getChildNodeBySiteAndTemrinal',
         randomRecommend: '/search/content/randomRecommend',
         // listContentInfos:'/seo/exposeContent/contentInfo/listContentInfos'
