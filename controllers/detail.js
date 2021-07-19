@@ -32,7 +32,7 @@ module.exports = {
                 const opt = {
 
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTdk,
+                    url: appConfig.apiNewBaselPath + Api.file.getFileDetailNoTxt,
                     body: JSON.stringify({
                         clientType: 0,
                         fid: req.query.fid,

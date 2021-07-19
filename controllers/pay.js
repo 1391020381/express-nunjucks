@@ -153,7 +153,7 @@ module.exports = {
             fileDetails: function (callback) {
                 const opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTxt,
                     body: JSON.stringify({
                         clientType: 0,
                         fid: req.query.orderNo,
@@ -254,7 +254,7 @@ module.exports = {
                 if (req.query.goodsType == '1') {
                     const opt = {
                         method: 'POST',
-                        url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                        url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTxt,
                         body: JSON.stringify({
                             clientType: 0,
                             fid: req.query.fid,
@@ -567,7 +567,7 @@ module.exports = {
                 // };
                 const opt = {
                     method: 'POST',
-                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTdk,
+                    url: appConfig.apiNewBaselPath + api.file.getFileDetailNoTxt,
                     body: JSON.stringify({
                         clientType: 0,
                         fid: req.query.id,

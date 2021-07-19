@@ -9,7 +9,7 @@ module.exports = {
 
         fileDetail: '/content/getFileDetail',
         // 【A20获取详情接口getFileDetailNoTxt】
-        getFileDetailNoTdk: '/content/getFileDetailNoTxt',
+        getFileDetailNoTxt: '/content/getFileDetailNoTxt',
         // 面包屑 -导航
         fileCrumb: '/file/getCategory?isGetClassType=$isGetClassType&spcClassId=$spcClassId&classId=$classId',
         navCategory: '/content/category/navCategory',
@@ -60,6 +60,9 @@ module.exports = {
         getSearchList: '/search/content/byCondition' // 他人信息主页 热门与最新
     },
     userInfo: '/gateway/webapi/usermanage/checkLogin', // 获取用户信息
+    recommend:{ // 推荐服务相关接口
+        configInfo2:'/recommend/config/info2'
+    },
     recommendInfo: '/recommend/info', // 动态获取第四范式场景id 物料库id
     recommendConfigRuleInfo: '/recommend/config/ruleInfo',
     recommendConfigInfo: '/recommend/config/info',
@@ -85,7 +88,7 @@ module.exports = {
         topic: '/search/specialTopic/lisPage'
     },
     spider: {
-        details: '/content/getFileDetailNoTdk',
+        details: '/content/getFileDetailNoTxt',
         crumbList: '/content/category/navCategory',
         editorInfo: '/user/getOthersCentreInfo?uid=$uid',
         getNodeByClassId: '/market/nodeManage/getNodeByClassId', // 蜘蛛模板面包屑
