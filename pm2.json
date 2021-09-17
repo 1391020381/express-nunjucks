@@ -1,26 +1,26 @@
 {
-  "apps":[
-    {
-      "name":"ishare_pc",
-      "script":"./bin/www",
-      "cwd": "./",
-      "watch": true,
-      "ignore_watch":[
-        "node_modules",
-        "logs",
-        "static",
-        "public"
-      ],
-      "exec_mode": "cluster_mode",
-      "min_uptime": "60s",
-      "instances":3,
-      "error_file":"/data/logs/node-pc/app-err.log",
-      "out_file": "/data/logs/node-pc/app-out.log",
-      "merge_logs": true,                         
-      "log_date_format": "YYYY-MM-DD HH:mm:ss",   
-      "max_restarts": 30,
-      "autorestart": true,
-      "max_memory_restart": "1024M"
-    }
-  ]
+    "apps": [
+        {
+            "name": "express",
+            "script": "./bin/www",
+            "cwd": "./",
+            "watch": true,
+            "ignore_watch": [
+                "node_modules",
+                "logs",
+                "static",
+                "public"
+            ],
+            "exec_mode": "cluster_mode",
+            "min_uptime": "60s",
+            "instances": 3,
+            "error_file": "/data/logs/node-pc/app-err.log",
+            "out_file": "/data/logs/node-pc/app-out.log",
+            "merge_logs": true,
+            "log_date_format": "YYYY-MM-DD HH:mm:ss",
+            "max_restarts": 30,
+            "autorestart": true,
+            "max_memory_restart": "1024M"
+        }
+    ]
 }
