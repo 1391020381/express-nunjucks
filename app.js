@@ -10,10 +10,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const useragent = require('express-useragent');
-const proxy = require('http-proxy-middleware');
 
 
-const log4js = require('./lib/log4js').getLogger('APP');
 const router = require('./routes/index');
 const appConfig = require('./config/app-config');
 const app = express();
@@ -38,7 +36,6 @@ const env = nunjucks.configure(app.get('views'), {
 });
 
 
-const helper = require('./helper/helper')(env);
 // set favicon.ico
 app.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
 app.use(logger('dev'));
@@ -53,7 +50,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // 中间件，为所有请求记录日志
 app.use((req, res, next) => {
-    log4js.info(req.url);
+
     next();
 });
 // 首页

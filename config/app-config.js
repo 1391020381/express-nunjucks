@@ -3,9 +3,7 @@
 */
 const env = process.env.NODE_ENV || 'prod';
 const config = {
-    pre: {
 
-    }
 };
 
 

@@ -1,6 +1,5 @@
 const routes = [
-    'index',
-    'detail'
+    'home'
 ];
 
 module.exports = routes;
